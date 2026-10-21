@@ -25,21 +25,30 @@ MAIN:
        35 CALL                             R3 1 0
        36 RETURN                           R0 0
        37 GETIMPORT                        R3 K5 [require]
-       39 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       41 GETTABLEKS                       R4 R4 K7 ["Common"]
-       43 GETTABLEKS                       R4 R4 K16 ["pluginType"]
+       39 GETTABLEKS                       R4 R0 K16 ["Src"]
+       41 GETTABLEKS                       R4 R4 K17 ["Util"]
+       43 GETTABLEKS                       R4 R4 K18 ["DMCoordinator"]
        45 CALL                             R3 1 1
-       46 GETTABLEKS                       R4 R3 K17 ["get"]
-       48 CALL                             R4 0 1
-       49 GETTABLEKS                       R5 R3 K18 ["Standalone"]
-       51 JUMPIFEQ                         R4 R5 ; [+2]
-       53 RETURN                           R0 0
-       54 GETIMPORT                        R4 K5 [require]
-       56 GETTABLEKS                       R5 R0 K6 ["Bin"]
-       58 GETTABLEKS                       R5 R5 K7 ["Common"]
-       60 GETTABLEKS                       R5 R5 K19 ["setup"]
-       62 CALL                             R4 1 1
-       63 MOVE                             R5 R4
-       64 GETIMPORT                        R6 K21 [plugin]
-       66 CALL                             R5 1 0
-       67 RETURN                           R0 0
+       46 GETTABLEKS                       R4 R3 K19 ["Standalone"]
+       48 GETTABLEKS                       R4 R4 K20 ["init"]
+       50 GETIMPORT                        R5 K22 [plugin]
+       52 CALL                             R4 1 0
+       53 GETIMPORT                        R4 K5 [require]
+       55 GETTABLEKS                       R5 R0 K6 ["Bin"]
+       57 GETTABLEKS                       R5 R5 K7 ["Common"]
+       59 GETTABLEKS                       R5 R5 K23 ["pluginType"]
+       61 CALL                             R4 1 1
+       62 GETTABLEKS                       R5 R4 K24 ["get"]
+       64 CALL                             R5 0 1
+       65 GETTABLEKS                       R6 R4 K19 ["Standalone"]
+       67 JUMPIFEQ                         R5 R6 ; [+2]
+       69 RETURN                           R0 0
+       70 GETIMPORT                        R5 K5 [require]
+       72 GETTABLEKS                       R6 R0 K6 ["Bin"]
+       74 GETTABLEKS                       R6 R6 K7 ["Common"]
+       76 GETTABLEKS                       R6 R6 K25 ["setup"]
+       78 CALL                             R5 1 1
+       79 MOVE                             R6 R5
+       80 GETIMPORT                        R7 K22 [plugin]
+       82 CALL                             R6 1 0
+       83 RETURN                           R0 0

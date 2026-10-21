@@ -54,69 +54,57 @@ PROTO_1:
        45 MOVE                             R14 R3
        46 CALL                             R14 0 1
        47 SETTABLEKS                       R14 R13 K6 ["LayoutOrder"]
-       49 GETUPVAL                         R15 11
-       50 JUMPIFNOT                        R15 ; [+30]
-       51 GETUPVAL                         R14 5
-       52 GETTABLEKS                       R14 R14 K5 ["createElement"]
-       54 GETUPVAL                         R15 12
-       55 DUPTABLE                         R16 K21 [{"name", "size", "variant", "style"}]
-       56 GETUPVAL                         R17 13
-       57 GETTABLEKS                       R17 R17 K22 ["PlusSmall"]
-       59 SETTABLEKS                       R17 R16 K17 ["name"]
-       61 GETUPVAL                         R17 14
-       62 GETTABLEKS                       R17 R17 K23 ["Small"]
-       64 SETTABLEKS                       R17 R16 K18 ["size"]
-       66 GETUPVAL                         R17 15
-       67 GETTABLEKS                       R17 R17 K24 ["Filled"]
-       69 SETTABLEKS                       R17 R16 K19 ["variant"]
-       71 GETTABLEKS                       R17 R4 K25 ["Color"]
-       73 GETTABLEKS                       R17 R17 K26 ["ActionEmphasis"]
-       75 GETTABLEKS                       R17 R17 K27 ["Foreground"]
-       77 SETTABLEKS                       R17 R16 K20 ["style"]
-       79 CALL                             R14 2 1
-       80 JUMP                             ; [+14]
-       81 GETUPVAL                         R14 5
-       82 GETTABLEKS                       R14 R14 K5 ["createElement"]
-       84 GETUPVAL                         R15 16
-       85 DUPTABLE                         R16 K32 [{["Image"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Standard/Plus.png", ["tag"] = "size-300", ["imageStyle"]}]
-       86 GETTABLEKS                       R17 R4 K25 ["Color"]
-       88 GETTABLEKS                       R17 R17 K26 ["ActionEmphasis"]
-       90 GETTABLEKS                       R17 R17 K27 ["Foreground"]
-       92 SETTABLEKS                       R17 R16 K31 ["imageStyle"]
-       94 CALL                             R14 2 1
-       95 CALL                             R11 3 1
-       96 SETTABLEKS                       R11 R10 K12 ["PlusIcon"]
-       98 GETTABLEKS                       R12 R0 K33 ["isCollapsed"]
-      100 JUMPIFNOT                        R12 ; [+2]
-      101 LOADNIL                          R11
-      102 JUMP                             ; [+12]
-      103 GETUPVAL                         R11 5
-      104 GETTABLEKS                       R11 R11 K5 ["createElement"]
-      106 GETUPVAL                         R12 17
-      107 DUPTABLE                         R13 K35 [{["Text"], ["LayoutOrder"], ["tag"] = "auto-xy text-title-medium text-align-x-left content-emphasis"}]
-      108 SETTABLEKS                       R6 R13 K13 ["Text"]
-      110 MOVE                             R14 R3
-      111 CALL                             R14 0 1
-      112 SETTABLEKS                       R14 R13 K6 ["LayoutOrder"]
-      114 CALL                             R11 2 1
-      115 SETTABLEKS                       R11 R10 K13 ["Text"]
-      117 CALL                             R7 3 1
-      118 GETTABLEKS                       R8 R0 K33 ["isCollapsed"]
-      120 JUMPIFNOT                        R8 ; [+19]
-      121 GETUPVAL                         R8 5
-      122 GETTABLEKS                       R8 R8 K5 ["createElement"]
-      124 GETUPVAL                         R9 18
-      125 DUPTABLE                         R10 K38 [{"title", "align", "LayoutOrder"}]
-      126 SETTABLEKS                       R6 R10 K36 ["title"]
-      128 GETUPVAL                         R11 19
-      129 GETTABLEKS                       R11 R11 K39 ["Center"]
-      131 SETTABLEKS                       R11 R10 K37 ["align"]
-      133 GETTABLEKS                       R11 R0 K6 ["LayoutOrder"]
-      135 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-      137 MOVE                             R11 R7
-      138 CALL                             R8 3 -1
-      139 RETURN                           R8 -1
-      140 RETURN                           R7 1
+       49 GETUPVAL                         R14 5
+       50 GETTABLEKS                       R14 R14 K5 ["createElement"]
+       52 GETUPVAL                         R15 11
+       53 DUPTABLE                         R16 K21 [{"name", "size", "variant", "style"}]
+       54 GETUPVAL                         R17 12
+       55 GETTABLEKS                       R17 R17 K22 ["PlusSmall"]
+       57 SETTABLEKS                       R17 R16 K17 ["name"]
+       59 GETUPVAL                         R17 13
+       60 GETTABLEKS                       R17 R17 K23 ["Small"]
+       62 SETTABLEKS                       R17 R16 K18 ["size"]
+       64 GETUPVAL                         R17 14
+       65 GETTABLEKS                       R17 R17 K24 ["Filled"]
+       67 SETTABLEKS                       R17 R16 K19 ["variant"]
+       69 GETTABLEKS                       R17 R4 K25 ["Color"]
+       71 GETTABLEKS                       R17 R17 K26 ["ActionEmphasis"]
+       73 GETTABLEKS                       R17 R17 K27 ["Foreground"]
+       75 SETTABLEKS                       R17 R16 K20 ["style"]
+       77 CALL                             R14 2 -1
+       78 CALL                             R11 -1 1
+       79 SETTABLEKS                       R11 R10 K12 ["PlusIcon"]
+       81 GETTABLEKS                       R12 R0 K28 ["isCollapsed"]
+       83 JUMPIFNOT                        R12 ; [+2]
+       84 LOADNIL                          R11
+       85 JUMP                             ; [+12]
+       86 GETUPVAL                         R11 5
+       87 GETTABLEKS                       R11 R11 K5 ["createElement"]
+       89 GETUPVAL                         R12 15
+       90 DUPTABLE                         R13 K30 [{["Text"], ["LayoutOrder"], ["tag"] = "auto-xy text-title-medium text-align-x-left content-emphasis"}]
+       91 SETTABLEKS                       R6 R13 K13 ["Text"]
+       93 MOVE                             R14 R3
+       94 CALL                             R14 0 1
+       95 SETTABLEKS                       R14 R13 K6 ["LayoutOrder"]
+       97 CALL                             R11 2 1
+       98 SETTABLEKS                       R11 R10 K13 ["Text"]
+      100 CALL                             R7 3 1
+      101 GETTABLEKS                       R8 R0 K28 ["isCollapsed"]
+      103 JUMPIFNOT                        R8 ; [+19]
+      104 GETUPVAL                         R8 5
+      105 GETTABLEKS                       R8 R8 K5 ["createElement"]
+      107 GETUPVAL                         R9 16
+      108 DUPTABLE                         R10 K33 [{"title", "align", "LayoutOrder"}]
+      109 SETTABLEKS                       R6 R10 K31 ["title"]
+      111 GETUPVAL                         R11 17
+      112 GETTABLEKS                       R11 R11 K34 ["Center"]
+      114 SETTABLEKS                       R11 R10 K32 ["align"]
+      116 GETTABLEKS                       R11 R0 K6 ["LayoutOrder"]
+      118 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
+      120 MOVE                             R11 R7
+      121 CALL                             R8 3 -1
+      122 RETURN                           R8 -1
+      123 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -142,80 +130,71 @@ MAIN:
        35 GETTABLEKS                       R6 R6 K14 ["Foundation"]
        37 CALL                             R5 1 1
        38 GETTABLEKS                       R6 R5 K15 ["View"]
-       40 GETTABLEKS                       R7 R5 K16 ["Image"]
-       42 GETTABLEKS                       R8 R5 K17 ["Text"]
-       44 GETTABLEKS                       R9 R5 K18 ["Icon"]
-       46 GETTABLEKS                       R10 R5 K19 ["Tooltip"]
-       48 GETTABLEKS                       R11 R5 K20 ["Enums"]
-       50 GETTABLEKS                       R11 R11 K21 ["PopoverAlign"]
-       52 GETTABLEKS                       R12 R5 K20 ["Enums"]
-       54 GETTABLEKS                       R12 R12 K22 ["IconName"]
-       56 GETTABLEKS                       R13 R5 K20 ["Enums"]
-       58 GETTABLEKS                       R13 R13 K23 ["IconVariant"]
-       60 GETTABLEKS                       R14 R5 K20 ["Enums"]
-       62 GETTABLEKS                       R14 R14 K24 ["IconSize"]
-       64 GETTABLEKS                       R15 R5 K25 ["Hooks"]
-       66 GETTABLEKS                       R15 R15 K26 ["useTokens"]
-       68 GETIMPORT                        R16 K5 [require]
-       70 GETTABLEKS                       R17 R0 K13 ["Src"]
-       72 GETTABLEKS                       R17 R17 K25 ["Hooks"]
-       74 GETTABLEKS                       R17 R17 K27 ["useOnStateChangedCursor"]
-       76 CALL                             R16 1 1
-       77 GETIMPORT                        R17 K5 [require]
-       79 GETTABLEKS                       R18 R0 K13 ["Src"]
-       81 GETTABLEKS                       R18 R18 K11 ["Util"]
-       83 GETTABLEKS                       R18 R18 K28 ["Services"]
-       85 CALL                             R17 1 1
-       86 GETTABLEKS                       R18 R17 K29 ["StartPageManager"]
-       88 GETIMPORT                        R19 K5 [require]
-       90 GETTABLEKS                       R20 R0 K13 ["Src"]
-       92 GETTABLEKS                       R20 R20 K30 ["SharedFlags"]
-       94 GETTABLEKS                       R20 R20 K31 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
-       96 CALL                             R19 1 1
-       97 CALL                             R19 0 1
-       98 GETIMPORT                        R20 K5 [require]
-      100 GETTABLEKS                       R21 R0 K13 ["Src"]
-      102 GETTABLEKS                       R21 R21 K30 ["SharedFlags"]
-      104 GETTABLEKS                       R21 R21 K32 ["getFFlagLuaStartPageBuilderIcons"]
-      106 CALL                             R20 1 1
-      107 CALL                             R20 0 1
-      108 GETIMPORT                        R21 K5 [require]
-      110 GETTABLEKS                       R22 R0 K13 ["Src"]
-      112 GETTABLEKS                       R22 R22 K11 ["Util"]
-      114 GETTABLEKS                       R22 R22 K33 ["Telemetry"]
-      116 GETTABLEKS                       R22 R22 K34 ["TelemetryContext"]
-      118 CALL                             R21 1 1
-      119 GETIMPORT                        R22 K5 [require]
-      121 GETTABLEKS                       R23 R0 K13 ["Src"]
-      123 GETTABLEKS                       R23 R23 K11 ["Util"]
-      125 GETTABLEKS                       R23 R23 K33 ["Telemetry"]
-      127 GETTABLEKS                       R23 R23 K35 ["StartPageTelemetryEvent"]
-      129 CALL                             R22 1 1
-      130 GETIMPORT                        R23 K5 [require]
-      132 GETTABLEKS                       R24 R0 K13 ["Src"]
-      134 GETTABLEKS                       R24 R24 K30 ["SharedFlags"]
-      136 GETTABLEKS                       R24 R24 K36 ["getFStringStudioDefaultNewTemplatePlaceId"]
-      138 CALL                             R23 1 1
-      139 CALL                             R23 0 1
-      140 DUPCLOSURE                       R24 K37 [PROTO_1]
-      141 CAPTURE                          VAL R21
-      142 CAPTURE                          VAL R3
-      143 CAPTURE                          VAL R4
-      144 CAPTURE                          VAL R15
-      145 CAPTURE                          VAL R16
-      146 CAPTURE                          VAL R1
-      147 CAPTURE                          VAL R6
-      148 CAPTURE                          VAL R18
-      149 CAPTURE                          VAL R23
-      150 CAPTURE                          VAL R19
-      151 CAPTURE                          VAL R22
-      152 CAPTURE                          VAL R20
-      153 CAPTURE                          VAL R9
-      154 CAPTURE                          VAL R12
-      155 CAPTURE                          VAL R14
-      156 CAPTURE                          VAL R13
-      157 CAPTURE                          VAL R7
-      158 CAPTURE                          VAL R8
-      159 CAPTURE                          VAL R10
-      160 CAPTURE                          VAL R11
-      161 RETURN                           R24 1
+       40 GETTABLEKS                       R7 R5 K16 ["Text"]
+       42 GETTABLEKS                       R8 R5 K17 ["Icon"]
+       44 GETTABLEKS                       R9 R5 K18 ["Tooltip"]
+       46 GETTABLEKS                       R10 R5 K19 ["Enums"]
+       48 GETTABLEKS                       R10 R10 K20 ["PopoverAlign"]
+       50 GETTABLEKS                       R11 R5 K19 ["Enums"]
+       52 GETTABLEKS                       R11 R11 K21 ["IconName"]
+       54 GETTABLEKS                       R12 R5 K19 ["Enums"]
+       56 GETTABLEKS                       R12 R12 K22 ["IconVariant"]
+       58 GETTABLEKS                       R13 R5 K19 ["Enums"]
+       60 GETTABLEKS                       R13 R13 K23 ["IconSize"]
+       62 GETTABLEKS                       R14 R5 K24 ["Hooks"]
+       64 GETTABLEKS                       R14 R14 K25 ["useTokens"]
+       66 GETIMPORT                        R15 K5 [require]
+       68 GETTABLEKS                       R16 R0 K13 ["Src"]
+       70 GETTABLEKS                       R16 R16 K24 ["Hooks"]
+       72 GETTABLEKS                       R16 R16 K26 ["useOnStateChangedCursor"]
+       74 CALL                             R15 1 1
+       75 GETIMPORT                        R16 K5 [require]
+       77 GETTABLEKS                       R17 R0 K13 ["Src"]
+       79 GETTABLEKS                       R17 R17 K11 ["Util"]
+       81 GETTABLEKS                       R17 R17 K27 ["Services"]
+       83 CALL                             R16 1 1
+       84 GETTABLEKS                       R17 R16 K28 ["StartPageManager"]
+       86 GETIMPORT                        R18 K5 [require]
+       88 GETTABLEKS                       R19 R0 K13 ["Src"]
+       90 GETTABLEKS                       R19 R19 K29 ["SharedFlags"]
+       92 GETTABLEKS                       R19 R19 K30 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
+       94 CALL                             R18 1 1
+       95 CALL                             R18 0 1
+       96 GETIMPORT                        R19 K5 [require]
+       98 GETTABLEKS                       R20 R0 K13 ["Src"]
+      100 GETTABLEKS                       R20 R20 K11 ["Util"]
+      102 GETTABLEKS                       R20 R20 K31 ["Telemetry"]
+      104 GETTABLEKS                       R20 R20 K32 ["TelemetryContext"]
+      106 CALL                             R19 1 1
+      107 GETIMPORT                        R20 K5 [require]
+      109 GETTABLEKS                       R21 R0 K13 ["Src"]
+      111 GETTABLEKS                       R21 R21 K11 ["Util"]
+      113 GETTABLEKS                       R21 R21 K31 ["Telemetry"]
+      115 GETTABLEKS                       R21 R21 K33 ["StartPageTelemetryEvent"]
+      117 CALL                             R20 1 1
+      118 GETIMPORT                        R21 K5 [require]
+      120 GETTABLEKS                       R22 R0 K13 ["Src"]
+      122 GETTABLEKS                       R22 R22 K29 ["SharedFlags"]
+      124 GETTABLEKS                       R22 R22 K34 ["getFStringStudioDefaultNewTemplatePlaceId"]
+      126 CALL                             R21 1 1
+      127 CALL                             R21 0 1
+      128 DUPCLOSURE                       R22 K35 [PROTO_1]
+      129 CAPTURE                          VAL R19
+      130 CAPTURE                          VAL R3
+      131 CAPTURE                          VAL R4
+      132 CAPTURE                          VAL R14
+      133 CAPTURE                          VAL R15
+      134 CAPTURE                          VAL R1
+      135 CAPTURE                          VAL R6
+      136 CAPTURE                          VAL R17
+      137 CAPTURE                          VAL R21
+      138 CAPTURE                          VAL R18
+      139 CAPTURE                          VAL R20
+      140 CAPTURE                          VAL R8
+      141 CAPTURE                          VAL R11
+      142 CAPTURE                          VAL R13
+      143 CAPTURE                          VAL R12
+      144 CAPTURE                          VAL R7
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R10
+      147 RETURN                           R22 1

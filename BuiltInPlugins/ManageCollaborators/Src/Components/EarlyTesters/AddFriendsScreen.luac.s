@@ -98,7 +98,7 @@ PROTO_0:
       135 GETUPVAL                         R8 1
       136 GETTABLEKS                       R8 R8 K4 ["createElement"]
       138 GETUPVAL                         R9 9
-      139 DUPTABLE                         R10 K71 [{["LayoutOrder"] = 4, [2], ["GroupId"], ["GroupMembers"], ["GroupMembersExhausted"], ["GroupMembersLoading"], ["SearchResults"], ["SearchResultsExhausted"], ["SearchResultsLoading"], ["SearchSelection"], ["ExcludeUserIds"], ["IsAtCapacity"], ["OnLoadMore"], ["OnSearch"], ["OnLoadMoreSearchResults"], ["OnToggleSelection"]}]
+      139 DUPTABLE                         R10 K72 [{["LayoutOrder"] = 4, [2], ["GroupId"], ["GroupMembers"], ["GroupMembersExhausted"], ["GroupMembersLoading"], ["SearchResults"], ["SearchResultsExhausted"], ["SearchResultsLoading"], ["SearchSelection"], ["MemberEligibility"], ["ExcludeUserIds"], ["IsAtCapacity"], ["OnLoadMore"], ["OnSearch"], ["OnLoadMoreSearchResults"], ["OnToggleSelection"]}]
       140 SETTABLEKS                       R1 R10 K0 ["Localization"]
       142 GETTABLEKS                       R11 R0 K57 ["GroupId"]
       144 SETTABLEKS                       R11 R10 K57 ["GroupId"]
@@ -116,21 +116,23 @@ PROTO_0:
       168 SETTABLEKS                       R11 R10 K63 ["SearchResultsLoading"]
       170 GETTABLEKS                       R11 R0 K64 ["SearchSelection"]
       172 SETTABLEKS                       R11 R10 K64 ["SearchSelection"]
-      174 GETTABLEKS                       R11 R0 K72 ["PendingMemberIds"]
-      176 SETTABLEKS                       R11 R10 K65 ["ExcludeUserIds"]
-      178 SETTABLEKS                       R3 R10 K66 ["IsAtCapacity"]
-      180 GETTABLEKS                       R11 R0 K67 ["OnLoadMore"]
-      182 SETTABLEKS                       R11 R10 K67 ["OnLoadMore"]
-      184 GETTABLEKS                       R11 R0 K68 ["OnSearch"]
-      186 SETTABLEKS                       R11 R10 K68 ["OnSearch"]
-      188 GETTABLEKS                       R11 R0 K69 ["OnLoadMoreSearchResults"]
-      190 SETTABLEKS                       R11 R10 K69 ["OnLoadMoreSearchResults"]
-      192 GETTABLEKS                       R11 R0 K70 ["OnToggleSelection"]
-      194 SETTABLEKS                       R11 R10 K70 ["OnToggleSelection"]
-      196 CALL                             R8 2 1
-      197 SETTABLEKS                       R8 R7 K12 ["SearchList"]
-      199 CALL                             R4 3 -1
-      200 RETURN                           R4 -1
+      174 GETTABLEKS                       R11 R0 K65 ["MemberEligibility"]
+      176 SETTABLEKS                       R11 R10 K65 ["MemberEligibility"]
+      178 GETTABLEKS                       R11 R0 K73 ["PendingMemberIds"]
+      180 SETTABLEKS                       R11 R10 K66 ["ExcludeUserIds"]
+      182 SETTABLEKS                       R3 R10 K67 ["IsAtCapacity"]
+      184 GETTABLEKS                       R11 R0 K68 ["OnLoadMore"]
+      186 SETTABLEKS                       R11 R10 K68 ["OnLoadMore"]
+      188 GETTABLEKS                       R11 R0 K69 ["OnSearch"]
+      190 SETTABLEKS                       R11 R10 K69 ["OnSearch"]
+      192 GETTABLEKS                       R11 R0 K70 ["OnLoadMoreSearchResults"]
+      194 SETTABLEKS                       R11 R10 K70 ["OnLoadMoreSearchResults"]
+      196 GETTABLEKS                       R11 R0 K71 ["OnToggleSelection"]
+      198 SETTABLEKS                       R11 R10 K71 ["OnToggleSelection"]
+      200 CALL                             R8 2 1
+      201 SETTABLEKS                       R8 R7 K12 ["SearchList"]
+      203 CALL                             R4 3 -1
+      204 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

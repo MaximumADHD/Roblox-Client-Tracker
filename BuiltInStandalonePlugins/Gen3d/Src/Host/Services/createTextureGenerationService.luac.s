@@ -33,19 +33,36 @@ PROTO_1:
        29 RETURN                           R1 1
 
 PROTO_2:
+        0 GETIMPORT                        R1 K1 [error]
+        2 GETUPVAL                         R2 0
+        3 GETIMPORT                        R3 K3 [select]
+        5 LOADN                            R4 2
+        6 GETIMPORT                        R5 K5 [pcall]
+        8 GETUPVAL                         R6 1
+        9 GETTABLEKS                       R6 R6 K6 ["throwError"]
+       11 MOVE                             R7 R0
+       12 CALL                             R5 2 -1
+       13 CALL                             R3 -1 1
+       14 LOADK                            R4 K7 ["Texture publish"]
+       15 CALL                             R2 2 1
+       16 LOADN                            R3 0
+       17 CALL                             R1 2 0
+       18 RETURN                           R0 0
+
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["postGenerateTextureAsync"]
-        3 DUPTABLE                         R1 K12 [{["robloxctxRcc"] = False, ["robloxctxAuthenticatedUserid"], ["robloxApiKey"], ["glb"], ["assetId"], ["image"], ["textPrompt"], ["model"], ["cameraExtrinsic"], ["cameraIntrinsic"]}]
+        3 DUPTABLE                         R1 K15 [{["robloxctxRcc"] = False, ["robloxctxAuthenticatedUserid"], ["robloxApiKey"], ["glb"], ["assetId"], ["image"], ["textPrompt"], ["model"], ["cameraExtrinsic"], ["cameraIntrinsic"], ["texturePreviewId"], ["imageIndex"], ["keepExistingUv"]}]
         4 GETUPVAL                         R2 1
         5 SETTABLEKS                       R2 R1 K3 ["robloxctxAuthenticatedUserid"]
         7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R3 R3 K13 ["getFStringCubeGenerationGatewayApiKey"]
+        8 GETTABLEKS                       R3 R3 K16 ["getFStringCubeGenerationGatewayApiKey"]
        10 CALL                             R3 0 1
-       11 LOADK                            R6 K15 ["^%s*(.-)%s*$"]
-       12 NAMECALL                         R4 R3 K16 ["match"]
+       11 LOADK                            R6 K18 ["^%s*(.-)%s*$"]
+       12 NAMECALL                         R4 R3 K19 ["match"]
        14 CALL                             R4 2 1
-       15 ORK                              R3 R4 K14 [""]
-       16 JUMPIFEQKS                       R3 K14 [""] ; [+3]
+       15 ORK                              R3 R4 K17 [""]
+       16 JUMPIFEQKS                       R3 K17 [""] ; [+3]
        18 MOVE                             R2 R3
        19 JUMP                             ; [+1]
        20 LOADNIL                          R2
@@ -69,10 +86,19 @@ PROTO_2:
        49 GETUPVAL                         R2 4
        50 GETTABLEKS                       R2 R2 K11 ["cameraIntrinsic"]
        52 SETTABLEKS                       R2 R1 K11 ["cameraIntrinsic"]
-       54 CALL                             R0 1 -1
-       55 RETURN                           R0 -1
+       54 GETUPVAL                         R2 4
+       55 GETTABLEKS                       R2 R2 K12 ["texturePreviewId"]
+       57 SETTABLEKS                       R2 R1 K12 ["texturePreviewId"]
+       59 GETUPVAL                         R2 4
+       60 GETTABLEKS                       R2 R2 K13 ["imageIndex"]
+       62 SETTABLEKS                       R2 R1 K13 ["imageIndex"]
+       64 GETUPVAL                         R2 4
+       65 GETTABLEKS                       R2 R2 K14 ["keepExistingUv"]
+       67 SETTABLEKS                       R2 R1 K14 ["keepExistingUv"]
+       69 CALL                             R0 1 -1
+       70 RETURN                           R0 -1
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["GetUserId"]
         3 CALL                             R2 1 -1
@@ -147,7 +173,7 @@ PROTO_3:
       100 CLOSEUPVALS                      R2
       101 RETURN                           R5 1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["getTextureGenerationStatusAsync"]
         3 DUPTABLE                         R1 K6 [{["robloxctxRcc"] = False, ["robloxctxAuthenticatedUserid"], ["textureGenerationId"], ["robloxApiKey"]}]
@@ -170,7 +196,7 @@ PROTO_4:
        26 CALL                             R0 1 -1
        27 RETURN                           R0 -1
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["GetUserId"]
         3 CALL                             R2 1 -1
@@ -241,7 +267,7 @@ PROTO_5:
       102 SETTABLEKS                       R5 R4 K23 ["modelRbxmUrl"]
       104 RETURN                           R4 1
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["postUploadTextureAssetAsync"]
         3 DUPTABLE                         R1 K7 [{["robloxctxRcc"] = False, ["robloxctxAuthenticatedUserid"], ["textureGenerationId"], ["robloxApiKey"], ["body"]}]
@@ -266,7 +292,7 @@ PROTO_6:
        29 CALL                             R0 1 -1
        30 RETURN                           R0 -1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["GetUserId"]
         3 CALL                             R2 1 -1
@@ -275,49 +301,87 @@ PROTO_7:
         7 CALL                             R1 -1 1
         8 GETIMPORT                        R2 K4 [game]
        10 GETTABLEKS                       R2 R2 K5 ["GameId"]
-       12 LOADN                            R4 0
-       13 JUMPIFNOTLT                      R4 R2 ; [+5]
-       15 DUPTABLE                         R3 K7 [{"universeId"}]
-       16 SETTABLEKS                       R2 R3 K6 ["universeId"]
-       18 JUMP                             ; [+1]
-       19 LOADNIL                          R3
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R4 R4 K8 ["callWithOptions"]
-       23 NEWCLOSURE                       R5 P0
-       24 CAPTURE                          UPVAL U2
-       25 CAPTURE                          VAL R1
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U3
-       28 CAPTURE                          VAL R3
-       29 NEWTABLE                         R6 0 0
-       31 CALL                             R4 2 1
-       32 GETTABLEKS                       R5 R4 K9 ["success"]
-       34 JUMPIF                           R5 ; [+6]
-       35 GETUPVAL                         R5 1
-       36 GETTABLEKS                       R5 R5 K10 ["throwError"]
-       38 MOVE                             R6 R4
-       39 CALL                             R5 1 -1
-       40 RETURN                           R5 -1
-       41 GETTABLEKS                       R5 R4 K11 ["data"]
-       43 GETTABLEKS                       R5 R5 K12 ["assetId"]
-       45 FASTCALL2K                       ASSERT R5 K13 ; [+5]
-       47 MOVE                             R7 R5
-       48 LOADK                            R8 K13 ["Expected assetId in response from postUploadTextureAssetAsync"]
-       49 GETIMPORT                        R6 K15 [assert]
-       51 CALL                             R6 2 0
-       52 GETTABLEKS                       R6 R4 K11 ["data"]
-       54 GETTABLEKS                       R6 R6 K16 ["generationId"]
-       56 FASTCALL2K                       ASSERT R6 K17 ; [+5]
-       58 MOVE                             R8 R6
-       59 LOADK                            R9 K17 ["Expected generationId in response from postUploadTextureAssetAsync"]
-       60 GETIMPORT                        R7 K15 [assert]
-       62 CALL                             R7 2 0
-       63 DUPTABLE                         R7 K18 [{"assetId", "generationId"}]
-       64 SETTABLEKS                       R5 R7 K12 ["assetId"]
-       66 SETTABLEKS                       R6 R7 K16 ["generationId"]
-       68 RETURN                           R7 1
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K6 ["getFFlagTextureGenAsyncAssetUpload"]
+       15 CALL                             R3 0 1
+       16 JUMPIFNOT                        R3 ; [+47]
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R3 R3 K7 ["AssetUploadOps"]
+       20 GETTABLEKS                       R3 R3 K8 ["publishAsync"]
+       22 GETUPVAL                         R4 3
+       23 DUPTABLE                         R5 K13 [{"generationId", "userId", "universeId", "robloxApiKey"}]
+       24 SETTABLEKS                       R0 R5 K9 ["generationId"]
+       26 SETTABLEKS                       R1 R5 K10 ["userId"]
+       28 LOADN                            R7 0
+       29 JUMPIFNOTLT                      R7 R2 ; [+3]
+       31 MOVE                             R6 R2
+       32 JUMP                             ; [+1]
+       33 LOADNIL                          R6
+       34 SETTABLEKS                       R6 R5 K11 ["universeId"]
+       36 GETUPVAL                         R7 1
+       37 GETTABLEKS                       R7 R7 K14 ["getFStringCubeGenerationGatewayApiKey"]
+       39 CALL                             R7 0 1
+       40 LOADK                            R10 K16 ["^%s*(.-)%s*$"]
+       41 NAMECALL                         R8 R7 K17 ["match"]
+       43 CALL                             R8 2 1
+       44 ORK                              R7 R8 K15 [""]
+       45 JUMPIFEQKS                       R7 K15 [""] ; [+3]
+       47 MOVE                             R6 R7
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R6
+       50 SETTABLEKS                       R6 R5 K12 ["robloxApiKey"]
+       52 DUPTABLE                         R6 K20 [{"throwError", "debugLog"}]
+       53 GETUPVAL                         R7 4
+       54 SETTABLEKS                       R7 R6 K18 ["throwError"]
+       56 GETUPVAL                         R7 1
+       57 GETTABLEKS                       R7 R7 K21 ["getFFlagTextureGenDebugLog"]
+       59 CALL                             R7 0 1
+       60 SETTABLEKS                       R7 R6 K19 ["debugLog"]
+       62 CALL                             R3 3 -1
+       63 RETURN                           R3 -1
+       64 LOADN                            R4 0
+       65 JUMPIFNOTLT                      R4 R2 ; [+5]
+       67 DUPTABLE                         R3 K22 [{"universeId"}]
+       68 SETTABLEKS                       R2 R3 K11 ["universeId"]
+       70 JUMP                             ; [+1]
+       71 LOADNIL                          R3
+       72 GETUPVAL                         R4 5
+       73 GETTABLEKS                       R4 R4 K23 ["callWithOptions"]
+       75 NEWCLOSURE                       R5 P0
+       76 CAPTURE                          UPVAL U6
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          UPVAL U1
+       80 CAPTURE                          VAL R3
+       81 NEWTABLE                         R6 0 0
+       83 CALL                             R4 2 1
+       84 GETTABLEKS                       R5 R4 K24 ["success"]
+       86 JUMPIF                           R5 ; [+6]
+       87 GETUPVAL                         R5 5
+       88 GETTABLEKS                       R5 R5 K18 ["throwError"]
+       90 MOVE                             R6 R4
+       91 CALL                             R5 1 -1
+       92 RETURN                           R5 -1
+       93 GETTABLEKS                       R5 R4 K25 ["data"]
+       95 GETTABLEKS                       R5 R5 K26 ["assetId"]
+       97 FASTCALL2K                       ASSERT R5 K27 ; [+5]
+       99 MOVE                             R7 R5
+      100 LOADK                            R8 K27 ["Expected assetId in response from postUploadTextureAssetAsync"]
+      101 GETIMPORT                        R6 K29 [assert]
+      103 CALL                             R6 2 0
+      104 GETTABLEKS                       R6 R4 K25 ["data"]
+      106 GETTABLEKS                       R6 R6 K9 ["generationId"]
+      108 FASTCALL2K                       ASSERT R6 K30 ; [+5]
+      110 MOVE                             R8 R6
+      111 LOADK                            R9 K30 ["Expected generationId in response from postUploadTextureAssetAsync"]
+      112 GETIMPORT                        R7 K29 [assert]
+      114 CALL                             R7 2 0
+      115 DUPTABLE                         R7 K31 [{"assetId", "generationId"}]
+      116 SETTABLEKS                       R5 R7 K26 ["assetId"]
+      118 SETTABLEKS                       R6 R7 K9 ["generationId"]
+      120 RETURN                           R7 1
 
-PROTO_8:
+PROTO_9:
         0 GETIMPORT                        R1 K1 [game]
         2 LOADK                            R3 K2 ["rbxassetid://%*"]
         3 MOVE                             R5 R0
@@ -327,7 +391,7 @@ PROTO_8:
         9 CALL                             R1 2 -1
        10 RETURN                           R1 -1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R1 K4 [{"startAsync", "getStatusAsync", "publishAssetAsync", "loadAssetAsync"}]
         2 NEWCLOSURE                       R2 P0
@@ -347,13 +411,16 @@ PROTO_9:
        17 SETTABLEKS                       R2 R1 K1 ["getStatusAsync"]
        19 NEWCLOSURE                       R2 P2
        20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          UPVAL U3
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U4
-       24 SETTABLEKS                       R2 R1 K2 ["publishAssetAsync"]
-       26 DUPCLOSURE                       R2 K5 [PROTO_8]
-       27 SETTABLEKS                       R2 R1 K3 ["loadAssetAsync"]
-       29 RETURN                           R1 1
+       21 CAPTURE                          UPVAL U4
+       22 CAPTURE                          UPVAL U6
+       23 CAPTURE                          UPVAL U7
+       24 CAPTURE                          UPVAL U8
+       25 CAPTURE                          UPVAL U3
+       26 CAPTURE                          VAL R0
+       27 SETTABLEKS                       R2 R1 K2 ["publishAssetAsync"]
+       29 DUPCLOSURE                       R2 K5 [PROTO_9]
+       30 SETTABLEKS                       R2 R1 K3 ["loadAssetAsync"]
+       32 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -367,36 +434,47 @@ MAIN:
        12 CALL                             R1 2 1
        13 GETIMPORT                        R2 K9 [require]
        15 GETTABLEKS                       R3 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K11 ["HttpWrapper"]
+       17 GETTABLEKS                       R3 R3 K11 ["Gen3dCore"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
        22 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K12 ["OpenApiCubeGenerationGateway"]
+       24 GETTABLEKS                       R4 R4 K12 ["HttpWrapper"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R5 R1 K13 ["Src"]
-       31 GETTABLEKS                       R5 R5 K14 ["Util"]
-       33 GETTABLEKS                       R5 R5 K15 ["StudioEndpointUtil"]
-       35 CALL                             R4 1 1
-       36 GETIMPORT                        R5 K9 [require]
-       38 GETTABLEKS                       R6 R1 K16 ["Bin"]
-       40 GETTABLEKS                       R6 R6 K17 ["Common"]
-       42 GETTABLEKS                       R6 R6 K18 ["defineLuaFlags"]
-       44 CALL                             R5 1 1
-       45 GETIMPORT                        R6 K9 [require]
-       47 GETTABLEKS                       R7 R1 K13 ["Src"]
-       49 GETTABLEKS                       R7 R7 K14 ["Util"]
-       51 GETTABLEKS                       R7 R7 K19 ["formatBackendError"]
-       53 CALL                             R6 1 1
-       54 GETTABLEKS                       R7 R3 K20 ["TextureGeneration"]
-       56 DUPCLOSURE                       R8 K21 [PROTO_0]
-       57 CAPTURE                          VAL R5
-       58 DUPCLOSURE                       R9 K22 [PROTO_1]
-       59 DUPCLOSURE                       R10 K23 [PROTO_9]
-       60 CAPTURE                          VAL R7
-       61 CAPTURE                          VAL R0
-       62 CAPTURE                          VAL R2
-       63 CAPTURE                          VAL R4
-       64 CAPTURE                          VAL R5
-       65 CAPTURE                          VAL R6
-       66 RETURN                           R10 1
+       29 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["OpenApiCubeGenerationGateway"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K9 [require]
+       36 GETTABLEKS                       R6 R1 K14 ["Src"]
+       38 GETTABLEKS                       R6 R6 K15 ["Util"]
+       40 GETTABLEKS                       R6 R6 K16 ["StudioEndpointUtil"]
+       42 CALL                             R5 1 1
+       43 GETIMPORT                        R6 K9 [require]
+       45 GETTABLEKS                       R7 R1 K17 ["Bin"]
+       47 GETTABLEKS                       R7 R7 K18 ["Common"]
+       49 GETTABLEKS                       R7 R7 K19 ["defineLuaFlags"]
+       51 CALL                             R6 1 1
+       52 GETIMPORT                        R7 K9 [require]
+       54 GETTABLEKS                       R8 R1 K14 ["Src"]
+       56 GETTABLEKS                       R8 R8 K15 ["Util"]
+       58 GETTABLEKS                       R8 R8 K20 ["formatBackendError"]
+       60 CALL                             R7 1 1
+       61 GETTABLEKS                       R8 R4 K21 ["TextureGeneration"]
+       63 GETTABLEKS                       R9 R4 K22 ["UploadAsset"]
+       65 DUPCLOSURE                       R10 K23 [PROTO_0]
+       66 CAPTURE                          VAL R6
+       67 DUPCLOSURE                       R11 K24 [PROTO_1]
+       68 DUPCLOSURE                       R12 K25 [PROTO_2]
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          VAL R5
+       71 DUPCLOSURE                       R13 K26 [PROTO_10]
+       72 CAPTURE                          VAL R8
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          VAL R9
+       80 CAPTURE                          VAL R12
+       81 RETURN                           R13 1

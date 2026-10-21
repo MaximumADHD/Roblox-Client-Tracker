@@ -70,74 +70,63 @@ MAIN:
       122 GETIMPORT                        R14 K4 [require]
       124 GETIMPORT                        R15 K1 [script]
       126 GETTABLEKS                       R15 R15 K2 ["Parent"]
-      128 GETTABLEKS                       R15 R15 K22 ["GroupMigrationStatus"]
+      128 GETTABLEKS                       R15 R15 K22 ["EarlyTesters"]
       130 CALL                             R14 1 1
       131 GETIMPORT                        R15 K4 [require]
       133 GETIMPORT                        R16 K1 [script]
       135 GETTABLEKS                       R16 R16 K2 ["Parent"]
-      137 GETTABLEKS                       R16 R16 K23 ["EarlyTesters"]
+      137 GETTABLEKS                       R16 R16 K23 ["PendingPlayTesters"]
       139 CALL                             R15 1 1
       140 GETIMPORT                        R16 K4 [require]
       142 GETIMPORT                        R17 K1 [script]
       144 GETTABLEKS                       R17 R17 K2 ["Parent"]
-      146 GETTABLEKS                       R17 R17 K24 ["PendingPlayTesters"]
+      146 GETTABLEKS                       R17 R17 K24 ["SearchItemLogs"]
       148 CALL                             R16 1 1
-      149 GETIMPORT                        R17 K4 [require]
-      151 GETIMPORT                        R18 K1 [script]
-      153 GETTABLEKS                       R18 R18 K2 ["Parent"]
-      155 GETTABLEKS                       R18 R18 K25 ["SearchItemLogs"]
-      157 CALL                             R17 1 1
-      158 GETTABLEKS                       R18 R1 K26 ["combineReducers"]
-      160 DUPTABLE                         R19 K27 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs", "CanCollaborateResponses", "RequiresTrustedConnectionData", "GroupMigrationStatus", "EarlyTesters", "PendingPlayTesters"}]
-      161 SETTABLEKS                       R7 R19 K13 ["GameOwnerMetadata"]
-      163 SETTABLEKS                       R3 R19 K9 ["Permissions"]
-      165 SETTABLEKS                       R4 R19 K10 ["GranularPermissions"]
-      167 SETTABLEKS                       R5 R19 K11 ["GroupMetadata"]
-      169 SETTABLEKS                       R6 R19 K12 ["GroupRolePermissions"]
-      171 SETTABLEKS                       R8 R19 K14 ["CollaboratorSearch"]
-      173 SETTABLEKS                       R9 R19 K15 ["LoadState"]
-      175 SETTABLEKS                       R10 R19 K16 ["SaveState"]
-      177 SETTABLEKS                       R11 R19 K17 ["FilterPills"]
-      179 SETTABLEKS                       R17 R19 K25 ["SearchItemLogs"]
-      181 GETTABLEKS                       R21 R2 K28 ["fflagManageCollaboratorsActionNeededLabel"]
-      183 JUMPIF                           R21 ; [+15]
-      184 GETTABLEKS                       R21 R2 K29 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-      186 JUMPIF                           R21 ; [+12]
-      187 GETTABLEKS                       R21 R2 K30 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      189 JUMPIF                           R21 ; [+9]
-      190 GETTABLEKS                       R21 R2 K31 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      192 JUMPIF                           R21 ; [+6]
-      193 GETTABLEKS                       R21 R2 K32 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      195 JUMPIF                           R21 ; [+3]
-      196 GETTABLEKS                       R21 R2 K33 ["fflagGroupGameEarlyTesters"]
-      198 JUMPIFNOT                        R21 ; [+2]
-      199 MOVE                             R20 R12
-      200 JUMP                             ; [+1]
-      201 LOADNIL                          R20
-      202 SETTABLEKS                       R20 R19 K20 ["CanCollaborateResponses"]
-      204 GETTABLEKS                       R21 R2 K30 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      206 JUMPIFNOT                        R21 ; [+2]
-      207 MOVE                             R20 R13
-      208 JUMP                             ; [+1]
-      209 LOADNIL                          R20
-      210 SETTABLEKS                       R20 R19 K21 ["RequiresTrustedConnectionData"]
-      212 GETTABLEKS                       R21 R2 K34 ["fflagCollabPV2GroupMigration"]
-      214 JUMPIFNOT                        R21 ; [+2]
-      215 MOVE                             R20 R14
-      216 JUMP                             ; [+1]
-      217 LOADNIL                          R20
-      218 SETTABLEKS                       R20 R19 K22 ["GroupMigrationStatus"]
-      220 GETTABLEKS                       R21 R2 K33 ["fflagGroupGameEarlyTesters"]
-      222 JUMPIFNOT                        R21 ; [+2]
-      223 MOVE                             R20 R15
-      224 JUMP                             ; [+1]
-      225 LOADNIL                          R20
-      226 SETTABLEKS                       R20 R19 K23 ["EarlyTesters"]
-      228 GETTABLEKS                       R21 R2 K35 ["fflagAddPlayTesterPermission"]
-      230 JUMPIFNOT                        R21 ; [+2]
-      231 MOVE                             R20 R16
-      232 JUMP                             ; [+1]
-      233 LOADNIL                          R20
-      234 SETTABLEKS                       R20 R19 K24 ["PendingPlayTesters"]
-      236 CALL                             R18 1 1
-      237 RETURN                           R18 1
+      149 GETTABLEKS                       R17 R1 K25 ["combineReducers"]
+      151 DUPTABLE                         R18 K26 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs", "CanCollaborateResponses", "RequiresTrustedConnectionData", "EarlyTesters", "PendingPlayTesters"}]
+      152 SETTABLEKS                       R7 R18 K13 ["GameOwnerMetadata"]
+      154 SETTABLEKS                       R3 R18 K9 ["Permissions"]
+      156 SETTABLEKS                       R4 R18 K10 ["GranularPermissions"]
+      158 SETTABLEKS                       R5 R18 K11 ["GroupMetadata"]
+      160 SETTABLEKS                       R6 R18 K12 ["GroupRolePermissions"]
+      162 SETTABLEKS                       R8 R18 K14 ["CollaboratorSearch"]
+      164 SETTABLEKS                       R9 R18 K15 ["LoadState"]
+      166 SETTABLEKS                       R10 R18 K16 ["SaveState"]
+      168 SETTABLEKS                       R11 R18 K17 ["FilterPills"]
+      170 SETTABLEKS                       R16 R18 K24 ["SearchItemLogs"]
+      172 GETTABLEKS                       R20 R2 K27 ["fflagManageCollaboratorsActionNeededLabel"]
+      174 JUMPIF                           R20 ; [+15]
+      175 GETTABLEKS                       R20 R2 K28 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
+      177 JUMPIF                           R20 ; [+12]
+      178 GETTABLEKS                       R20 R2 K29 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      180 JUMPIF                           R20 ; [+9]
+      181 GETTABLEKS                       R20 R2 K30 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      183 JUMPIF                           R20 ; [+6]
+      184 GETTABLEKS                       R20 R2 K31 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      186 JUMPIF                           R20 ; [+3]
+      187 GETTABLEKS                       R20 R2 K32 ["fflagGroupGameEarlyTesters"]
+      189 JUMPIFNOT                        R20 ; [+2]
+      190 MOVE                             R19 R12
+      191 JUMP                             ; [+1]
+      192 LOADNIL                          R19
+      193 SETTABLEKS                       R19 R18 K20 ["CanCollaborateResponses"]
+      195 GETTABLEKS                       R20 R2 K29 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      197 JUMPIFNOT                        R20 ; [+2]
+      198 MOVE                             R19 R13
+      199 JUMP                             ; [+1]
+      200 LOADNIL                          R19
+      201 SETTABLEKS                       R19 R18 K21 ["RequiresTrustedConnectionData"]
+      203 GETTABLEKS                       R20 R2 K32 ["fflagGroupGameEarlyTesters"]
+      205 JUMPIFNOT                        R20 ; [+2]
+      206 MOVE                             R19 R14
+      207 JUMP                             ; [+1]
+      208 LOADNIL                          R19
+      209 SETTABLEKS                       R19 R18 K22 ["EarlyTesters"]
+      211 GETTABLEKS                       R20 R2 K33 ["fflagAddPlayTesterPermission"]
+      213 JUMPIFNOT                        R20 ; [+2]
+      214 MOVE                             R19 R15
+      215 JUMP                             ; [+1]
+      216 LOADNIL                          R19
+      217 SETTABLEKS                       R19 R18 K23 ["PendingPlayTesters"]
+      219 CALL                             R17 1 1
+      220 RETURN                           R17 1

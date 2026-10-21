@@ -336,16 +336,17 @@ PROTO_21:
        25 RETURN                           R0 0
 
 PROTO_22:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["startGeneration"]
-        3 MOVE                             R4 R0
-        4 MOVE                             R5 R1
-        5 GETUPVAL                         R6 1
-        6 GETTABLEKS                       R6 R6 K1 ["getContent"]
-        8 CALL                             R6 0 1
-        9 MOVE                             R7 R2
-       10 CALL                             R3 4 0
-       11 RETURN                           R0 0
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["startGeneration"]
+        3 MOVE                             R5 R0
+        4 MOVE                             R6 R1
+        5 GETUPVAL                         R7 1
+        6 GETTABLEKS                       R7 R7 K1 ["getContent"]
+        8 CALL                             R7 0 1
+        9 MOVE                             R8 R2
+       10 MOVE                             R9 R3
+       11 CALL                             R4 5 0
+       12 RETURN                           R0 0
 
 PROTO_23:
         0 GETUPVAL                         R1 0
@@ -411,19 +412,47 @@ PROTO_27:
        20 RETURN                           R0 0
 
 PROTO_28:
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R2 0
+        5 SETTABLEKS                       R2 R1 K3 ["keepExistingUv"]
+        7 RETURN                           R1 1
+
+PROTO_29:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setKeepExistingUv"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["getFFlagGen3dTextureGenPersistPreferences"]
+        8 CALL                             R1 0 1
+        9 JUMPIFNOT                        R1 ; [+10]
+       10 GETUPVAL                         R1 2
+       11 GETTABLEKS                       R1 R1 K2 ["writeKeepExistingUv"]
+       13 GETUPVAL                         R2 3
+       14 MOVE                             R3 R0
+       15 CALL                             R1 2 0
+       16 GETUPVAL                         R1 4
+       17 NEWCLOSURE                       R2 P0
+       18 CAPTURE                          VAL R0
+       19 CALL                             R1 1 0
+       20 RETURN                           R0 0
+
+PROTO_30:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["pickSlot"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
 
-PROTO_29:
+PROTO_31:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["cancel"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
-PROTO_30:
+PROTO_32:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["startBatch"]
         3 MOVE                             R3 R0
@@ -441,14 +470,14 @@ PROTO_30:
        18 CALL                             R2 0 0
        19 RETURN                           R0 0
 
-PROTO_31:
+PROTO_33:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["ActivateAsync"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_32:
+PROTO_34:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K3 [{[1], ["Checked"] = True}]
         2 GETUPVAL                         R3 1
@@ -457,7 +486,7 @@ PROTO_32:
         7 CALL                             R0 2 0
         8 RETURN                           R0 0
 
-PROTO_33:
+PROTO_35:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIF                           R0 ; [+12]
@@ -487,14 +516,14 @@ PROTO_33:
        32 CALL                             R0 1 0
        33 RETURN                           R0 0
 
-PROTO_34:
+PROTO_36:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["ActivateAsync"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_35:
+PROTO_37:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K3 [{[1], ["Checked"] = False}]
         2 GETUPVAL                         R3 1
@@ -503,7 +532,7 @@ PROTO_35:
         7 CALL                             R0 2 0
         8 RETURN                           R0 0
 
-PROTO_36:
+PROTO_38:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFNOT                        R0 ; [+12]
@@ -533,19 +562,19 @@ PROTO_36:
        32 CALL                             R0 1 0
        33 RETURN                           R0 0
 
-PROTO_37:
+PROTO_39:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["pick"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
-PROTO_38:
+PROTO_40:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clear"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
-PROTO_39:
+PROTO_41:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -555,8 +584,8 @@ PROTO_39:
         6 FORGLOOP                         R0 2 ; [-3]
         8 RETURN                           R0 0
 
-PROTO_40:
-        0 NEWTABLE                         R0 0 9
+PROTO_42:
+        0 NEWTABLE                         R0 0 10
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K0 ["Model"]
         5 GETTABLEKS                       R1 R1 K1 ["onIntent"]
@@ -607,94 +636,107 @@ PROTO_40:
        62 GETTABLEKS                       R5 R5 K1 ["onIntent"]
        64 GETUPVAL                         R6 1
        65 GETUPVAL                         R7 2
-       66 GETTABLEKS                       R7 R7 K6 ["PickSlot"]
+       66 GETTABLEKS                       R7 R7 K6 ["SetKeepExistingUv"]
        68 NEWCLOSURE                       R8 P4
        69 CAPTURE                          UPVAL U3
-       70 CALL                             R5 3 1
-       71 GETUPVAL                         R6 0
-       72 GETTABLEKS                       R6 R6 K0 ["Model"]
-       74 GETTABLEKS                       R6 R6 K1 ["onIntent"]
-       76 GETUPVAL                         R7 1
-       77 GETUPVAL                         R8 2
-       78 GETTABLEKS                       R8 R8 K7 ["Cancel"]
-       80 NEWCLOSURE                       R9 P5
-       81 CAPTURE                          UPVAL U3
-       82 CALL                             R6 3 1
-       83 GETUPVAL                         R7 0
-       84 GETTABLEKS                       R7 R7 K0 ["Model"]
-       86 GETTABLEKS                       R7 R7 K1 ["onIntent"]
-       88 GETUPVAL                         R8 1
-       89 GETUPVAL                         R9 2
-       90 GETTABLEKS                       R9 R9 K8 ["StartBatch"]
-       92 NEWCLOSURE                       R10 P6
-       93 CAPTURE                          UPVAL U8
-       94 CAPTURE                          UPVAL U4
-       95 CAPTURE                          UPVAL U3
-       96 CALL                             R7 3 1
-       97 GETUPVAL                         R8 0
-       98 GETTABLEKS                       R8 R8 K0 ["Model"]
-      100 GETTABLEKS                       R8 R8 K1 ["onIntent"]
-      102 GETUPVAL                         R9 1
-      103 GETUPVAL                         R10 2
-      104 GETTABLEKS                       R10 R10 K9 ["Open"]
-      106 NEWCLOSURE                       R11 P7
-      107 CAPTURE                          UPVAL U9
-      108 CAPTURE                          UPVAL U10
-      109 CAPTURE                          UPVAL U11
-      110 CAPTURE                          UPVAL U12
-      111 CAPTURE                          UPVAL U13
-      112 CAPTURE                          UPVAL U14
-      113 CALL                             R8 3 1
-      114 GETUPVAL                         R9 0
-      115 GETTABLEKS                       R9 R9 K0 ["Model"]
-      117 GETTABLEKS                       R9 R9 K1 ["onIntent"]
-      119 GETUPVAL                         R10 1
-      120 GETUPVAL                         R11 2
-      121 GETTABLEKS                       R11 R11 K10 ["Close"]
-      123 NEWCLOSURE                       R12 P8
-      124 CAPTURE                          UPVAL U9
-      125 CAPTURE                          UPVAL U10
-      126 CAPTURE                          UPVAL U11
-      127 CAPTURE                          UPVAL U12
-      128 CAPTURE                          UPVAL U13
-      129 CAPTURE                          UPVAL U14
-      130 CALL                             R9 3 -1
-      131 SETLIST                          R0 R1 -1 [1]
-      133 GETUPVAL                         R1 10
-      134 GETTABLEKS                       R1 R1 K11 ["getFFlagTextureGenReferenceImage"]
-      136 CALL                             R1 0 1
-      137 JUMPIFNOT                        R1 ; [+34]
-      138 MOVE                             R2 R0
-      139 GETUPVAL                         R3 0
-      140 GETTABLEKS                       R3 R3 K0 ["Model"]
-      142 GETTABLEKS                       R3 R3 K1 ["onIntent"]
-      144 GETUPVAL                         R4 1
-      145 GETUPVAL                         R5 2
-      146 GETTABLEKS                       R5 R5 K12 ["PickReferenceImage"]
-      148 NEWCLOSURE                       R6 P9
-      149 CAPTURE                          UPVAL U4
-      150 CALL                             R3 3 -1
-      151 FASTCALL                         TABLE_INSERT ; [+2]
-      152 GETIMPORT                        R1 K15 [table.insert]
-      154 CALL                             R1 -1 0
-      155 MOVE                             R2 R0
-      156 GETUPVAL                         R3 0
-      157 GETTABLEKS                       R3 R3 K0 ["Model"]
-      159 GETTABLEKS                       R3 R3 K1 ["onIntent"]
-      161 GETUPVAL                         R4 1
-      162 GETUPVAL                         R5 2
-      163 GETTABLEKS                       R5 R5 K16 ["ClearReferenceImage"]
-      165 NEWCLOSURE                       R6 P10
-      166 CAPTURE                          UPVAL U4
-      167 CALL                             R3 3 -1
-      168 FASTCALL                         TABLE_INSERT ; [+2]
-      169 GETIMPORT                        R1 K15 [table.insert]
-      171 CALL                             R1 -1 0
-      172 NEWCLOSURE                       R1 P11
-      173 CAPTURE                          VAL R0
-      174 RETURN                           R1 1
+       70 CAPTURE                          UPVAL U5
+       71 CAPTURE                          UPVAL U6
+       72 CAPTURE                          UPVAL U1
+       73 CAPTURE                          UPVAL U7
+       74 CALL                             R5 3 1
+       75 GETUPVAL                         R6 0
+       76 GETTABLEKS                       R6 R6 K0 ["Model"]
+       78 GETTABLEKS                       R6 R6 K1 ["onIntent"]
+       80 GETUPVAL                         R7 1
+       81 GETUPVAL                         R8 2
+       82 GETTABLEKS                       R8 R8 K7 ["PickSlot"]
+       84 NEWCLOSURE                       R9 P5
+       85 CAPTURE                          UPVAL U3
+       86 CALL                             R6 3 1
+       87 GETUPVAL                         R7 0
+       88 GETTABLEKS                       R7 R7 K0 ["Model"]
+       90 GETTABLEKS                       R7 R7 K1 ["onIntent"]
+       92 GETUPVAL                         R8 1
+       93 GETUPVAL                         R9 2
+       94 GETTABLEKS                       R9 R9 K8 ["Cancel"]
+       96 NEWCLOSURE                       R10 P6
+       97 CAPTURE                          UPVAL U3
+       98 CALL                             R7 3 1
+       99 GETUPVAL                         R8 0
+      100 GETTABLEKS                       R8 R8 K0 ["Model"]
+      102 GETTABLEKS                       R8 R8 K1 ["onIntent"]
+      104 GETUPVAL                         R9 1
+      105 GETUPVAL                         R10 2
+      106 GETTABLEKS                       R10 R10 K9 ["StartBatch"]
+      108 NEWCLOSURE                       R11 P7
+      109 CAPTURE                          UPVAL U8
+      110 CAPTURE                          UPVAL U4
+      111 CAPTURE                          UPVAL U3
+      112 CALL                             R8 3 1
+      113 GETUPVAL                         R9 0
+      114 GETTABLEKS                       R9 R9 K0 ["Model"]
+      116 GETTABLEKS                       R9 R9 K1 ["onIntent"]
+      118 GETUPVAL                         R10 1
+      119 GETUPVAL                         R11 2
+      120 GETTABLEKS                       R11 R11 K10 ["Open"]
+      122 NEWCLOSURE                       R12 P8
+      123 CAPTURE                          UPVAL U9
+      124 CAPTURE                          UPVAL U10
+      125 CAPTURE                          UPVAL U11
+      126 CAPTURE                          UPVAL U12
+      127 CAPTURE                          UPVAL U13
+      128 CAPTURE                          UPVAL U14
+      129 CALL                             R9 3 1
+      130 GETUPVAL                         R10 0
+      131 GETTABLEKS                       R10 R10 K0 ["Model"]
+      133 GETTABLEKS                       R10 R10 K1 ["onIntent"]
+      135 GETUPVAL                         R11 1
+      136 GETUPVAL                         R12 2
+      137 GETTABLEKS                       R12 R12 K11 ["Close"]
+      139 NEWCLOSURE                       R13 P9
+      140 CAPTURE                          UPVAL U9
+      141 CAPTURE                          UPVAL U10
+      142 CAPTURE                          UPVAL U11
+      143 CAPTURE                          UPVAL U12
+      144 CAPTURE                          UPVAL U13
+      145 CAPTURE                          UPVAL U14
+      146 CALL                             R10 3 -1
+      147 SETLIST                          R0 R1 -1 [1]
+      149 GETUPVAL                         R1 10
+      150 GETTABLEKS                       R1 R1 K12 ["getFFlagTextureGenReferenceImage"]
+      152 CALL                             R1 0 1
+      153 JUMPIFNOT                        R1 ; [+34]
+      154 MOVE                             R2 R0
+      155 GETUPVAL                         R3 0
+      156 GETTABLEKS                       R3 R3 K0 ["Model"]
+      158 GETTABLEKS                       R3 R3 K1 ["onIntent"]
+      160 GETUPVAL                         R4 1
+      161 GETUPVAL                         R5 2
+      162 GETTABLEKS                       R5 R5 K13 ["PickReferenceImage"]
+      164 NEWCLOSURE                       R6 P10
+      165 CAPTURE                          UPVAL U4
+      166 CALL                             R3 3 -1
+      167 FASTCALL                         TABLE_INSERT ; [+2]
+      168 GETIMPORT                        R1 K16 [table.insert]
+      170 CALL                             R1 -1 0
+      171 MOVE                             R2 R0
+      172 GETUPVAL                         R3 0
+      173 GETTABLEKS                       R3 R3 K0 ["Model"]
+      175 GETTABLEKS                       R3 R3 K1 ["onIntent"]
+      177 GETUPVAL                         R4 1
+      178 GETUPVAL                         R5 2
+      179 GETTABLEKS                       R5 R5 K17 ["ClearReferenceImage"]
+      181 NEWCLOSURE                       R6 P11
+      182 CAPTURE                          UPVAL U4
+      183 CALL                             R3 3 -1
+      184 FASTCALL                         TABLE_INSERT ; [+2]
+      185 GETIMPORT                        R1 K16 [table.insert]
+      187 CALL                             R1 -1 0
+      188 NEWCLOSURE                       R1 P12
+      189 CAPTURE                          VAL R0
+      190 RETURN                           R1 1
 
-PROTO_41:
+PROTO_43:
         0 GETTABLEKS                       R1 R0 K0 ["Plugin"]
         2 GETTABLEKS                       R2 R0 K1 ["PluginLoaderContext"]
         4 GETUPVAL                         R3 0
@@ -900,25 +942,26 @@ PROTO_41:
       257 CAPTURE                          UPVAL U11
       258 CAPTURE                          VAL R4
       259 CAPTURE                          VAL R20
-      260 NEWTABLE                         R24 0 12
+      260 NEWTABLE                         R24 0 13
       262 MOVE                             R25 R1
       263 MOVE                             R26 R16
       264 GETTABLEKS                       R27 R9 K18 ["startGeneration"]
       266 GETTABLEKS                       R28 R9 K19 ["setPrompt"]
       268 GETTABLEKS                       R29 R9 K20 ["setModel"]
       270 GETTABLEKS                       R30 R9 K21 ["setAutoSelectView"]
-      272 GETTABLEKS                       R31 R9 K22 ["pickSlot"]
-      274 GETTABLEKS                       R32 R9 K23 ["cancel"]
-      276 GETTABLEKS                       R33 R10 K24 ["startBatch"]
-      278 GETTABLEKS                       R34 R12 K25 ["getContent"]
-      280 GETTABLEKS                       R35 R12 K26 ["pick"]
-      282 GETTABLEKS                       R36 R12 K27 ["clear"]
-      284 SETLIST                          R24 R25 12 [1]
-      286 CALL                             R22 2 0
-      287 LOADNIL                          R22
-      288 RETURN                           R22 1
+      272 GETTABLEKS                       R31 R9 K22 ["setKeepExistingUv"]
+      274 GETTABLEKS                       R32 R9 K23 ["pickSlot"]
+      276 GETTABLEKS                       R33 R9 K24 ["cancel"]
+      278 GETTABLEKS                       R34 R10 K25 ["startBatch"]
+      280 GETTABLEKS                       R35 R12 K26 ["getContent"]
+      282 GETTABLEKS                       R36 R12 K27 ["pick"]
+      284 GETTABLEKS                       R37 R12 K28 ["clear"]
+      286 SETLIST                          R24 R25 13 [1]
+      288 CALL                             R22 2 0
+      289 LOADNIL                          R22
+      290 RETURN                           R22 1
 
-PROTO_42:
+PROTO_44:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -1027,7 +1070,7 @@ MAIN:
       144 LOADK                            R19 K2 ["Gen3d"]
       145 LOADK                            R20 K33 ["Toggle"]
       146 CALL                             R18 2 1
-      147 DUPCLOSURE                       R19 K34 [PROTO_41]
+      147 DUPCLOSURE                       R19 K34 [PROTO_43]
       148 CAPTURE                          VAL R2
       149 CAPTURE                          VAL R8
       150 CAPTURE                          VAL R9
@@ -1043,7 +1086,7 @@ MAIN:
       160 CAPTURE                          VAL R6
       161 CAPTURE                          VAL R7
       162 CAPTURE                          VAL R17
-      163 DUPCLOSURE                       R20 K35 [PROTO_42]
+      163 DUPCLOSURE                       R20 K35 [PROTO_44]
       164 CAPTURE                          VAL R2
       165 CAPTURE                          VAL R5
       166 CAPTURE                          VAL R19

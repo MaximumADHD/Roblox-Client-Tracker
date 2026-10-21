@@ -22,25 +22,29 @@ PROTO_0:
        35 SETTABLEKS                       R2 R1 K4 ["base64EncodeAsync"]
        37 GETTABLEKS                       R2 R0 K5 ["convertImageDataToTempIdAsync"]
        39 SETTABLEKS                       R2 R1 K5 ["convertImageDataToTempIdAsync"]
-       41 DUPTABLE                         R2 K17 [{"allocateSeed", "debugLog", "abortPollOn4xx", "batchedPreview"}]
+       41 DUPTABLE                         R2 K18 [{"allocateSeed", "debugLog", "abortPollOn4xx", "batchedPreview", "texturePreviewReferences"}]
        42 GETUPVAL                         R3 1
-       43 GETTABLEKS                       R3 R3 K18 ["getFFlagAssistantImageGenSeed"]
+       43 GETTABLEKS                       R3 R3 K19 ["getFFlagAssistantImageGenSeed"]
        45 CALL                             R3 0 1
        46 SETTABLEKS                       R3 R2 K13 ["allocateSeed"]
        48 GETUPVAL                         R3 1
-       49 GETTABLEKS                       R3 R3 K19 ["getFFlagDebugLogAssistantUI"]
+       49 GETTABLEKS                       R3 R3 K20 ["getFFlagDebugLogAssistantUI"]
        51 CALL                             R3 0 1
        52 SETTABLEKS                       R3 R2 K14 ["debugLog"]
        54 GETUPVAL                         R3 1
-       55 GETTABLEKS                       R3 R3 K20 ["getFFlagAssistantImageGenAbortPollOn4xx"]
+       55 GETTABLEKS                       R3 R3 K21 ["getFFlagAssistantImageGenAbortPollOn4xx"]
        57 CALL                             R3 0 1
        58 SETTABLEKS                       R3 R2 K15 ["abortPollOn4xx"]
        60 GETUPVAL                         R3 2
-       61 GETTABLEKS                       R3 R3 K21 ["getFFlagGen3dTextureGenBatchedPreview"]
+       61 GETTABLEKS                       R3 R3 K22 ["getFFlagGen3dTextureGenBatchedPreview"]
        63 CALL                             R3 0 1
        64 SETTABLEKS                       R3 R2 K16 ["batchedPreview"]
-       66 SETTABLEKS                       R2 R1 K6 ["capabilities"]
-       68 RETURN                           R1 1
+       66 GETUPVAL                         R3 2
+       67 GETTABLEKS                       R3 R3 K23 ["getFFlagGen3dTexturePreviewReferences"]
+       69 CALL                             R3 0 1
+       70 SETTABLEKS                       R3 R2 K17 ["texturePreviewReferences"]
+       72 SETTABLEKS                       R2 R1 K6 ["capabilities"]
+       74 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

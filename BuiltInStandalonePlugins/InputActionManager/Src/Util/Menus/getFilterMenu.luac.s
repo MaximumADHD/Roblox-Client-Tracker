@@ -1,102 +1,110 @@
 PROTO_0:
-        0 NEWTABLE                         R7 0 0
-        2 GETUPVAL                         R8 0
-        3 CALL                             R8 0 3
-        4 FORGPREP                         R8
-        5 DUPTABLE                         R15 K3 [{"id", "isChecked", "text"}]
-        6 LOADK                            R16 K4 ["filter.schema.%*"]
-        7 MOVE                             R18 R12
-        8 NAMECALL                         R16 R16 K5 ["format"]
-       10 CALL                             R16 2 1
-       11 SETTABLEKS                       R16 R15 K0 ["id"]
-       13 GETTABLE                         R17 R4 R12
-       14 JUMPIFNOTEQKB                    R17 FALSE ; [+2]
-       16 LOADB                            R16 0 +1
-       17 LOADB                            R16 1
-       18 SETTABLEKS                       R16 R15 K1 ["isChecked"]
-       20 LOADK                            R18 K6 ["Schema"]
-       21 MOVE                             R19 R12
-       22 NAMECALL                         R16 R0 K7 ["getText"]
-       24 CALL                             R16 3 1
-       25 SETTABLEKS                       R16 R15 K2 ["text"]
-       27 FASTCALL2                        TABLE_INSERT R7 R15 ; [+4]
-       29 MOVE                             R14 R7
-       30 GETIMPORT                        R13 K10 [table.insert]
-       32 CALL                             R13 2 0
-       33 FORGLOOP                         R8 2 ; [-29]
-       35 NEWTABLE                         R8 0 0
-       37 MOVE                             R9 R1
-       38 LOADNIL                          R10
-       39 LOADNIL                          R11
-       40 FORGPREP                         R9
-       41 MOVE                             R14 R2
-       42 MOVE                             R15 R13
-       43 CALL                             R14 1 1
-       44 JUMPIFNOT                        R14 ; [+26]
-       45 GETUPVAL                         R15 1
-       46 CALL                             R15 0 1
-       47 JUMPIFNOT                        R15 ; [+3]
-       48 GETTABLEKS                       R15 R14 K11 ["defaultPlayerScript"]
-       50 JUMPIF                           R15 ; [+20]
-       51 DUPTABLE                         R17 K3 [{"id", "isChecked", "text"}]
-       52 SETTABLEKS                       R13 R17 K0 ["id"]
-       54 GETTABLE                         R19 R3 R13
-       55 JUMPIFNOTEQKB                    R19 FALSE ; [+2]
-       57 LOADB                            R18 0 +1
-       58 LOADB                            R18 1
-       59 SETTABLEKS                       R18 R17 K1 ["isChecked"]
-       61 GETTABLEKS                       R18 R14 K12 ["name"]
-       63 SETTABLEKS                       R18 R17 K2 ["text"]
-       65 FASTCALL2                        TABLE_INSERT R8 R17 ; [+4]
-       67 MOVE                             R16 R8
-       68 GETIMPORT                        R15 K10 [table.insert]
-       70 CALL                             R15 2 0
-       71 FORGLOOP                         R9 2 ; [-31]
-       73 GETUPVAL                         R9 1
-       74 CALL                             R9 0 1
-       75 JUMPIFNOT                        R9 ; [+6]
-       76 GETIMPORT                        R9 K16 [Enum.StudioDataModelType.Edit]
-       78 JUMPIFNOTEQ                      R5 R9 ; [+3]
-       80 JUMPIFNOTEQKB                    R6 FALSE ; [+12]
-       82 NEWTABLE                         R9 0 2
-       84 DUPTABLE                         R10 K18 [{"items"}]
-       85 SETTABLEKS                       R7 R10 K17 ["items"]
-       87 DUPTABLE                         R11 K18 [{"items"}]
-       88 SETTABLEKS                       R8 R11 K17 ["items"]
-       90 SETLIST                          R9 R10 2 [1]
-       92 RETURN                           R9 1
-       93 NEWTABLE                         R9 0 1
-       95 DUPTABLE                         R10 K20 [{[1] = "PlayerScripts", ["isChecked"], ["text"]}]
-       96 GETTABLEKS                       R12 R3 K19 ["PlayerScripts"]
-       98 JUMPIFNOTEQKB                    R12 FALSE ; [+2]
-      100 LOADB                            R11 0 +1
-      101 LOADB                            R11 1
-      102 SETTABLEKS                       R11 R10 K1 ["isChecked"]
-      104 LOADK                            R13 K21 ["Filter"]
-      105 LOADK                            R14 K19 ["PlayerScripts"]
-      106 NAMECALL                         R11 R0 K7 ["getText"]
-      108 CALL                             R11 3 1
-      109 SETTABLEKS                       R11 R10 K2 ["text"]
-      111 SETLIST                          R9 R10 1 [1]
-      113 LENGTH                           R10 R8
-      114 LOADN                            R11 0
-      115 JUMPIFNOTLT                      R11 R10 ; [+15]
-      117 NEWTABLE                         R10 0 3
-      119 DUPTABLE                         R11 K18 [{"items"}]
-      120 SETTABLEKS                       R7 R11 K17 ["items"]
-      122 DUPTABLE                         R12 K18 [{"items"}]
-      123 SETTABLEKS                       R8 R12 K17 ["items"]
-      125 DUPTABLE                         R13 K18 [{"items"}]
-      126 SETTABLEKS                       R9 R13 K17 ["items"]
-      128 SETLIST                          R10 R11 3 [1]
-      130 RETURN                           R10 1
-      131 NEWTABLE                         R10 0 2
-      133 DUPTABLE                         R11 K18 [{"items"}]
-      134 SETTABLEKS                       R7 R11 K17 ["items"]
-      136 DUPTABLE                         R12 K18 [{"items"}]
-      137 SETTABLEKS                       R9 R12 K17 ["items"]
-      139 SETLIST                          R10 R11 2 [1]
-      141 RETURN                           R10 1
+        0 NEWTABLE                         R8 0 0
+        2 GETUPVAL                         R9 0
+        3 CALL                             R9 0 3
+        4 FORGPREP                         R9
+        5 DUPTABLE                         R16 K3 [{"id", "isChecked", "text"}]
+        6 LOADK                            R17 K4 ["filter.schema.%*"]
+        7 MOVE                             R19 R13
+        8 NAMECALL                         R17 R17 K5 ["format"]
+       10 CALL                             R17 2 1
+       11 SETTABLEKS                       R17 R16 K0 ["id"]
+       13 GETTABLE                         R18 R4 R13
+       14 JUMPIFNOTEQKB                    R18 FALSE ; [+2]
+       16 LOADB                            R17 0 +1
+       17 LOADB                            R17 1
+       18 SETTABLEKS                       R17 R16 K1 ["isChecked"]
+       20 LOADK                            R19 K6 ["Schema"]
+       21 MOVE                             R20 R13
+       22 NAMECALL                         R17 R0 K7 ["getText"]
+       24 CALL                             R17 3 1
+       25 SETTABLEKS                       R17 R16 K2 ["text"]
+       27 FASTCALL2                        TABLE_INSERT R8 R16 ; [+4]
+       29 MOVE                             R15 R8
+       30 GETIMPORT                        R14 K10 [table.insert]
+       32 CALL                             R14 2 0
+       33 FORGLOOP                         R9 2 ; [-29]
+       35 NEWTABLE                         R9 0 0
+       37 MOVE                             R10 R1
+       38 LOADNIL                          R11
+       39 LOADNIL                          R12
+       40 FORGPREP                         R10
+       41 MOVE                             R15 R2
+       42 MOVE                             R16 R14
+       43 CALL                             R15 1 1
+       44 JUMPIFNOT                        R15 ; [+26]
+       45 GETUPVAL                         R16 1
+       46 CALL                             R16 0 1
+       47 JUMPIFNOT                        R16 ; [+3]
+       48 GETTABLEKS                       R16 R15 K11 ["defaultPlayerScript"]
+       50 JUMPIF                           R16 ; [+20]
+       51 DUPTABLE                         R18 K3 [{"id", "isChecked", "text"}]
+       52 SETTABLEKS                       R14 R18 K0 ["id"]
+       54 GETTABLE                         R20 R3 R14
+       55 JUMPIFNOTEQKB                    R20 FALSE ; [+2]
+       57 LOADB                            R19 0 +1
+       58 LOADB                            R19 1
+       59 SETTABLEKS                       R19 R18 K1 ["isChecked"]
+       61 GETTABLEKS                       R19 R15 K12 ["name"]
+       63 SETTABLEKS                       R19 R18 K2 ["text"]
+       65 FASTCALL2                        TABLE_INSERT R9 R18 ; [+4]
+       67 MOVE                             R17 R9
+       68 GETIMPORT                        R16 K10 [table.insert]
+       70 CALL                             R16 2 0
+       71 FORGLOOP                         R10 2 ; [-31]
+       73 GETUPVAL                         R10 1
+       74 CALL                             R10 0 1
+       75 JUMPIFNOT                        R10 ; [+6]
+       76 GETIMPORT                        R10 K16 [Enum.StudioDataModelType.Edit]
+       78 JUMPIFNOTEQ                      R6 R10 ; [+3]
+       80 JUMPIFNOTEQKB                    R7 FALSE ; [+12]
+       82 NEWTABLE                         R10 0 2
+       84 DUPTABLE                         R11 K18 [{"items"}]
+       85 SETTABLEKS                       R8 R11 K17 ["items"]
+       87 DUPTABLE                         R12 K18 [{"items"}]
+       88 SETTABLEKS                       R9 R12 K17 ["items"]
+       90 SETLIST                          R10 R11 2 [1]
+       92 RETURN                           R10 1
+       93 NEWTABLE                         R10 0 1
+       95 DUPTABLE                         R11 K20 [{[1] = "PlayerScripts", ["isChecked"], ["text"]}]
+       96 GETUPVAL                         R13 2
+       97 CALL                             R13 0 1
+       98 JUMPIFNOT                        R13 ; [+7]
+       99 GETTABLEKS                       R13 R5 K19 ["PlayerScripts"]
+      101 JUMPIFNOTEQKB                    R13 FALSE ; [+2]
+      103 LOADB                            R12 0 +1
+      104 LOADB                            R12 1
+      105 JUMP                             ; [+6]
+      106 GETTABLEKS                       R13 R3 K19 ["PlayerScripts"]
+      108 JUMPIFNOTEQKB                    R13 FALSE ; [+2]
+      110 LOADB                            R12 0 +1
+      111 LOADB                            R12 1
+      112 SETTABLEKS                       R12 R11 K1 ["isChecked"]
+      114 LOADK                            R14 K21 ["Filter"]
+      115 LOADK                            R15 K19 ["PlayerScripts"]
+      116 NAMECALL                         R12 R0 K7 ["getText"]
+      118 CALL                             R12 3 1
+      119 SETTABLEKS                       R12 R11 K2 ["text"]
+      121 SETLIST                          R10 R11 1 [1]
+      123 LENGTH                           R11 R9
+      124 LOADN                            R12 0
+      125 JUMPIFNOTLT                      R12 R11 ; [+15]
+      127 NEWTABLE                         R11 0 3
+      129 DUPTABLE                         R12 K18 [{"items"}]
+      130 SETTABLEKS                       R8 R12 K17 ["items"]
+      132 DUPTABLE                         R13 K18 [{"items"}]
+      133 SETTABLEKS                       R9 R13 K17 ["items"]
+      135 DUPTABLE                         R14 K18 [{"items"}]
+      136 SETTABLEKS                       R10 R14 K17 ["items"]
+      138 SETLIST                          R11 R12 3 [1]
+      140 RETURN                           R11 1
+      141 NEWTABLE                         R11 0 2
+      143 DUPTABLE                         R12 K18 [{"items"}]
+      144 SETTABLEKS                       R8 R12 K17 ["items"]
+      146 DUPTABLE                         R13 K18 [{"items"}]
+      147 SETTABLEKS                       R10 R13 K17 ["items"]
+      149 SETLIST                          R11 R12 2 [1]
+      151 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -122,7 +130,11 @@ MAIN:
        34 GETIMPORT                        R5 K5 [require]
        36 GETTABLEKS                       R6 R4 K13 ["getFFlagIAMPlayerScripts"]
        38 CALL                             R5 1 1
-       39 DUPCLOSURE                       R6 K14 [PROTO_0]
-       40 CAPTURE                          VAL R3
-       41 CAPTURE                          VAL R5
-       42 RETURN                           R6 1
+       39 GETIMPORT                        R6 K5 [require]
+       41 GETTABLEKS                       R7 R4 K14 ["getFFlagIAMSavedFilters"]
+       43 CALL                             R6 1 1
+       44 DUPCLOSURE                       R7 K15 [PROTO_0]
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R5
+       47 CAPTURE                          VAL R6
+       48 RETURN                           R7 1

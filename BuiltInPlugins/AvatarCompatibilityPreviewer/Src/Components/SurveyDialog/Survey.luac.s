@@ -174,224 +174,240 @@ PROTO_9:
        72 NEWCLOSURE                       R12 P4
        73 CAPTURE                          VAL R0
        74 SETTABLE                         R12 R10 R11
-       75 DUPTABLE                         R11 K30 [{"PleaseRateYourExperience", "Stars", "Gap", "UserIntent", "WhatAreasShouldWeImproveOn", "CharacterDoesntBend", "CharacterWeirdBend", "BadLayeredClothing", "Heads", "Gap2", "Message"}]
+       75 DUPTABLE                         R11 K24 [{"PleaseRateYourExperience", "Stars", "Gap", "AutoSetupQuestions", "Message"}]
        76 GETUPVAL                         R12 3
        77 GETTABLEKS                       R12 R12 K4 ["createElement"]
        79 GETUPVAL                         R13 7
-       80 DUPTABLE                         R14 K35 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
-       81 GETIMPORT                        R15 K37 [Enum.AutomaticSize.XY]
+       80 DUPTABLE                         R14 K29 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
+       81 GETIMPORT                        R15 K31 [Enum.AutomaticSize.XY]
        83 SETTABLEKS                       R15 R14 K6 ["AutomaticSize"]
-       85 NAMECALL                         R15 R3 K38 ["getNextOrder"]
+       85 NAMECALL                         R15 R3 K32 ["getNextOrder"]
        87 CALL                             R15 1 1
-       88 SETTABLEKS                       R15 R14 K31 ["LayoutOrder"]
-       90 LOADK                            R17 K1 ["Survey"]
-       91 LOADK                            R18 K19 ["PleaseRateYourExperience"]
-       92 NAMECALL                         R15 R1 K39 ["getText"]
-       94 CALL                             R15 3 1
-       95 SETTABLEKS                       R15 R14 K34 ["Text"]
-       97 CALL                             R12 2 1
-       98 SETTABLEKS                       R12 R11 K19 ["PleaseRateYourExperience"]
-      100 GETUPVAL                         R12 3
-      101 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      103 GETUPVAL                         R13 8
-      104 DUPTABLE                         R14 K43 [{"layoutOrder", "rating", "setRating"}]
-      105 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      107 CALL                             R15 1 1
-      108 SETTABLEKS                       R15 R14 K40 ["layoutOrder"]
-      110 GETTABLEKS                       R15 R0 K44 ["results"]
-      112 GETTABLEKS                       R15 R15 K41 ["rating"]
-      114 SETTABLEKS                       R15 R14 K41 ["rating"]
-      116 SETTABLEKS                       R7 R14 K42 ["setRating"]
-      118 CALL                             R12 2 1
-      119 SETTABLEKS                       R12 R11 K20 ["Stars"]
-      121 GETUPVAL                         R12 3
-      122 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      124 LOADK                            R13 K45 ["Frame"]
-      125 DUPTABLE                         R14 K46 [{"LayoutOrder"}]
-      126 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      128 CALL                             R15 1 1
-      129 SETTABLEKS                       R15 R14 K31 ["LayoutOrder"]
-      131 CALL                             R12 2 1
-      132 SETTABLEKS                       R12 R11 K21 ["Gap"]
-      134 GETUPVAL                         R12 3
-      135 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      137 GETUPVAL                         R13 3
-      138 GETTABLEKS                       R13 R13 K47 ["Fragment"]
-      140 NEWTABLE                         R14 0 0
-      142 DUPTABLE                         R15 K52 [{"IntentForResults", "UseAsNPC", "UseForMarketplace", "Gap1"}]
-      143 GETUPVAL                         R16 3
-      144 GETTABLEKS                       R16 R16 K4 ["createElement"]
-      146 GETUPVAL                         R17 7
-      147 DUPTABLE                         R18 K35 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
-      148 GETIMPORT                        R19 K37 [Enum.AutomaticSize.XY]
-      150 SETTABLEKS                       R19 R18 K6 ["AutomaticSize"]
-      152 NAMECALL                         R19 R3 K38 ["getNextOrder"]
-      154 CALL                             R19 1 1
-      155 SETTABLEKS                       R19 R18 K31 ["LayoutOrder"]
-      157 LOADK                            R21 K1 ["Survey"]
-      158 LOADK                            R22 K48 ["IntentForResults"]
-      159 NAMECALL                         R19 R1 K39 ["getText"]
-      161 CALL                             R19 3 1
-      162 SETTABLEKS                       R19 R18 K34 ["Text"]
-      164 CALL                             R16 2 1
-      165 SETTABLEKS                       R16 R15 K48 ["IntentForResults"]
-      167 MOVE                             R16 R5
-      168 LOADK                            R17 K49 ["UseAsNPC"]
-      169 CALL                             R16 1 1
-      170 SETTABLEKS                       R16 R15 K49 ["UseAsNPC"]
-      172 MOVE                             R16 R5
-      173 LOADK                            R17 K50 ["UseForMarketplace"]
-      174 CALL                             R16 1 1
-      175 SETTABLEKS                       R16 R15 K50 ["UseForMarketplace"]
-      177 GETUPVAL                         R16 3
-      178 GETTABLEKS                       R16 R16 K4 ["createElement"]
-      180 LOADK                            R17 K45 ["Frame"]
-      181 DUPTABLE                         R18 K46 [{"LayoutOrder"}]
-      182 NAMECALL                         R19 R3 K38 ["getNextOrder"]
-      184 CALL                             R19 1 1
-      185 SETTABLEKS                       R19 R18 K31 ["LayoutOrder"]
-      187 CALL                             R16 2 1
-      188 SETTABLEKS                       R16 R15 K51 ["Gap1"]
-      190 CALL                             R12 3 1
-      191 SETTABLEKS                       R12 R11 K22 ["UserIntent"]
-      193 GETUPVAL                         R12 3
-      194 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      196 GETUPVAL                         R13 7
-      197 DUPTABLE                         R14 K35 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
-      198 GETIMPORT                        R15 K37 [Enum.AutomaticSize.XY]
-      200 SETTABLEKS                       R15 R14 K6 ["AutomaticSize"]
-      202 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      204 CALL                             R15 1 1
-      205 SETTABLEKS                       R15 R14 K31 ["LayoutOrder"]
-      207 LOADK                            R17 K1 ["Survey"]
-      208 LOADK                            R18 K23 ["WhatAreasShouldWeImproveOn"]
-      209 NAMECALL                         R15 R1 K39 ["getText"]
-      211 CALL                             R15 3 1
-      212 SETTABLEKS                       R15 R14 K34 ["Text"]
-      214 CALL                             R12 2 1
-      215 SETTABLEKS                       R12 R11 K23 ["WhatAreasShouldWeImproveOn"]
-      217 MOVE                             R12 R5
-      218 LOADK                            R13 K24 ["CharacterDoesntBend"]
-      219 CALL                             R12 1 1
-      220 SETTABLEKS                       R12 R11 K24 ["CharacterDoesntBend"]
-      222 MOVE                             R12 R5
-      223 LOADK                            R13 K25 ["CharacterWeirdBend"]
-      224 CALL                             R12 1 1
-      225 SETTABLEKS                       R12 R11 K25 ["CharacterWeirdBend"]
-      227 MOVE                             R12 R5
-      228 LOADK                            R13 K26 ["BadLayeredClothing"]
-      229 CALL                             R12 1 1
-      230 SETTABLEKS                       R12 R11 K26 ["BadLayeredClothing"]
-      232 GETUPVAL                         R12 3
-      233 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      235 GETUPVAL                         R13 3
-      236 GETTABLEKS                       R13 R13 K47 ["Fragment"]
-      238 NEWTABLE                         R14 0 0
-      240 DUPTABLE                         R15 K55 [{"HeadLooksBad", "SpecificProblems"}]
+       88 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
+       90 GETTABLEKS                       R18 R0 K33 ["survey"]
+       92 JUMPIFNOTEQKS                    R18 K34 ["AvatarCreation"] ; [+3]
+       94 LOADK                            R17 K35 ["PromptToAvatarSurvey"]
+       95 JUMP                             ; [+1]
+       96 LOADK                            R17 K1 ["Survey"]
+       97 LOADK                            R18 K19 ["PleaseRateYourExperience"]
+       98 NAMECALL                         R15 R1 K36 ["getText"]
+      100 CALL                             R15 3 1
+      101 SETTABLEKS                       R15 R14 K28 ["Text"]
+      103 CALL                             R12 2 1
+      104 SETTABLEKS                       R12 R11 K19 ["PleaseRateYourExperience"]
+      106 GETUPVAL                         R12 3
+      107 GETTABLEKS                       R12 R12 K4 ["createElement"]
+      109 GETUPVAL                         R13 8
+      110 DUPTABLE                         R14 K40 [{"layoutOrder", "rating", "setRating"}]
+      111 NAMECALL                         R15 R3 K32 ["getNextOrder"]
+      113 CALL                             R15 1 1
+      114 SETTABLEKS                       R15 R14 K37 ["layoutOrder"]
+      116 GETTABLEKS                       R15 R0 K41 ["results"]
+      118 GETTABLEKS                       R15 R15 K38 ["rating"]
+      120 SETTABLEKS                       R15 R14 K38 ["rating"]
+      122 SETTABLEKS                       R7 R14 K39 ["setRating"]
+      124 CALL                             R12 2 1
+      125 SETTABLEKS                       R12 R11 K20 ["Stars"]
+      127 GETUPVAL                         R12 3
+      128 GETTABLEKS                       R12 R12 K4 ["createElement"]
+      130 LOADK                            R13 K42 ["Frame"]
+      131 DUPTABLE                         R14 K43 [{"LayoutOrder"}]
+      132 NAMECALL                         R15 R3 K32 ["getNextOrder"]
+      134 CALL                             R15 1 1
+      135 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
+      137 CALL                             R12 2 1
+      138 SETTABLEKS                       R12 R11 K21 ["Gap"]
+      140 GETTABLEKS                       R13 R0 K33 ["survey"]
+      142 JUMPIFNOTEQKS                    R13 K44 ["AutoSetup"] ; [+235]
+      144 GETUPVAL                         R12 3
+      145 GETTABLEKS                       R12 R12 K4 ["createElement"]
+      147 GETUPVAL                         R13 3
+      148 GETTABLEKS                       R13 R13 K45 ["Fragment"]
+      150 NEWTABLE                         R14 0 0
+      152 DUPTABLE                         R15 K53 [{"UserIntent", "WhatAreasShouldWeImproveOn", "CharacterDoesntBend", "CharacterWeirdBend", "BadLayeredClothing", "Heads", "Gap2"}]
+      153 GETUPVAL                         R16 3
+      154 GETTABLEKS                       R16 R16 K4 ["createElement"]
+      156 GETUPVAL                         R17 3
+      157 GETTABLEKS                       R17 R17 K45 ["Fragment"]
+      159 NEWTABLE                         R18 0 0
+      161 DUPTABLE                         R19 K58 [{"IntentForResults", "UseAsNPC", "UseForMarketplace", "Gap1"}]
+      162 GETUPVAL                         R20 3
+      163 GETTABLEKS                       R20 R20 K4 ["createElement"]
+      165 GETUPVAL                         R21 7
+      166 DUPTABLE                         R22 K29 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
+      167 GETIMPORT                        R23 K31 [Enum.AutomaticSize.XY]
+      169 SETTABLEKS                       R23 R22 K6 ["AutomaticSize"]
+      171 NAMECALL                         R23 R3 K32 ["getNextOrder"]
+      173 CALL                             R23 1 1
+      174 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
+      176 LOADK                            R25 K1 ["Survey"]
+      177 LOADK                            R26 K54 ["IntentForResults"]
+      178 NAMECALL                         R23 R1 K36 ["getText"]
+      180 CALL                             R23 3 1
+      181 SETTABLEKS                       R23 R22 K28 ["Text"]
+      183 CALL                             R20 2 1
+      184 SETTABLEKS                       R20 R19 K54 ["IntentForResults"]
+      186 MOVE                             R20 R5
+      187 LOADK                            R21 K55 ["UseAsNPC"]
+      188 CALL                             R20 1 1
+      189 SETTABLEKS                       R20 R19 K55 ["UseAsNPC"]
+      191 MOVE                             R20 R5
+      192 LOADK                            R21 K56 ["UseForMarketplace"]
+      193 CALL                             R20 1 1
+      194 SETTABLEKS                       R20 R19 K56 ["UseForMarketplace"]
+      196 GETUPVAL                         R20 3
+      197 GETTABLEKS                       R20 R20 K4 ["createElement"]
+      199 LOADK                            R21 K42 ["Frame"]
+      200 DUPTABLE                         R22 K43 [{"LayoutOrder"}]
+      201 NAMECALL                         R23 R3 K32 ["getNextOrder"]
+      203 CALL                             R23 1 1
+      204 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
+      206 CALL                             R20 2 1
+      207 SETTABLEKS                       R20 R19 K57 ["Gap1"]
+      209 CALL                             R16 3 1
+      210 SETTABLEKS                       R16 R15 K46 ["UserIntent"]
+      212 GETUPVAL                         R16 3
+      213 GETTABLEKS                       R16 R16 K4 ["createElement"]
+      215 GETUPVAL                         R17 7
+      216 DUPTABLE                         R18 K29 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
+      217 GETIMPORT                        R19 K31 [Enum.AutomaticSize.XY]
+      219 SETTABLEKS                       R19 R18 K6 ["AutomaticSize"]
+      221 NAMECALL                         R19 R3 K32 ["getNextOrder"]
+      223 CALL                             R19 1 1
+      224 SETTABLEKS                       R19 R18 K25 ["LayoutOrder"]
+      226 LOADK                            R21 K1 ["Survey"]
+      227 LOADK                            R22 K47 ["WhatAreasShouldWeImproveOn"]
+      228 NAMECALL                         R19 R1 K36 ["getText"]
+      230 CALL                             R19 3 1
+      231 SETTABLEKS                       R19 R18 K28 ["Text"]
+      233 CALL                             R16 2 1
+      234 SETTABLEKS                       R16 R15 K47 ["WhatAreasShouldWeImproveOn"]
+      236 MOVE                             R16 R5
+      237 LOADK                            R17 K48 ["CharacterDoesntBend"]
+      238 CALL                             R16 1 1
+      239 SETTABLEKS                       R16 R15 K48 ["CharacterDoesntBend"]
       241 MOVE                             R16 R5
-      242 LOADK                            R17 K53 ["HeadLooksBad"]
+      242 LOADK                            R17 K49 ["CharacterWeirdBend"]
       243 CALL                             R16 1 1
-      244 SETTABLEKS                       R16 R15 K53 ["HeadLooksBad"]
-      246 GETTABLEKS                       R17 R0 K44 ["results"]
-      248 GETTABLEKS                       R17 R17 K56 ["problems"]
-      250 GETTABLEKS                       R16 R17 K53 ["HeadLooksBad"]
-      252 JUMPIFNOT                        R16 ; [+86]
-      253 GETUPVAL                         R16 3
-      254 GETTABLEKS                       R16 R16 K4 ["createElement"]
-      256 GETUPVAL                         R17 6
-      257 DUPTABLE                         R18 K57 [{"AutomaticSize", "LayoutOrder", "Spacing", "Layout", "HorizontalAlignment"}]
-      258 GETIMPORT                        R19 K8 [Enum.AutomaticSize.Y]
-      260 SETTABLEKS                       R19 R18 K6 ["AutomaticSize"]
-      262 NAMECALL                         R19 R3 K38 ["getNextOrder"]
-      264 CALL                             R19 1 1
-      265 SETTABLEKS                       R19 R18 K31 ["LayoutOrder"]
-      267 GETTABLEKS                       R19 R2 K13 ["Spacing"]
-      269 SETTABLEKS                       R19 R18 K13 ["Spacing"]
-      271 GETIMPORT                        R19 K11 [Enum.FillDirection.Vertical]
-      273 SETTABLEKS                       R19 R18 K12 ["Layout"]
-      275 GETIMPORT                        R19 K16 [Enum.HorizontalAlignment.Left]
-      277 SETTABLEKS                       R19 R18 K14 ["HorizontalAlignment"]
-      279 DUPTABLE                         R19 K60 [{"UIPadding", "Specifically", "SpecificProblems"}]
-      280 GETUPVAL                         R20 3
-      281 GETTABLEKS                       R20 R20 K4 ["createElement"]
-      283 LOADK                            R21 K58 ["UIPadding"]
-      284 DUPTABLE                         R22 K62 [{"PaddingLeft"}]
-      285 GETIMPORT                        R23 K64 [UDim.new]
-      287 LOADN                            R24 0
-      288 GETTABLEKS                       R25 R2 K65 ["HeadIndent"]
-      290 CALL                             R23 2 1
-      291 SETTABLEKS                       R23 R22 K61 ["PaddingLeft"]
-      293 CALL                             R20 2 1
-      294 SETTABLEKS                       R20 R19 K58 ["UIPadding"]
-      296 GETUPVAL                         R20 3
-      297 GETTABLEKS                       R20 R20 K4 ["createElement"]
-      299 GETUPVAL                         R21 7
-      300 DUPTABLE                         R22 K66 [{"AutomaticSize", "LayoutOrder", "Text"}]
-      301 GETIMPORT                        R23 K37 [Enum.AutomaticSize.XY]
-      303 SETTABLEKS                       R23 R22 K6 ["AutomaticSize"]
-      305 NAMECALL                         R23 R3 K38 ["getNextOrder"]
-      307 CALL                             R23 1 1
-      308 SETTABLEKS                       R23 R22 K31 ["LayoutOrder"]
-      310 LOADK                            R25 K1 ["Survey"]
-      311 LOADK                            R26 K59 ["Specifically"]
-      312 NAMECALL                         R23 R1 K39 ["getText"]
-      314 CALL                             R23 3 1
-      315 SETTABLEKS                       R23 R22 K34 ["Text"]
-      317 CALL                             R20 2 1
-      318 SETTABLEKS                       R20 R19 K59 ["Specifically"]
-      320 GETUPVAL                         R20 3
-      321 GETTABLEKS                       R20 R20 K4 ["createElement"]
-      323 GETUPVAL                         R21 3
-      324 GETTABLEKS                       R21 R21 K47 ["Fragment"]
-      326 NEWTABLE                         R22 0 0
-      328 GETUPVAL                         R23 9
-      329 GETTABLEKS                       R23 R23 K67 ["map"]
-      331 GETUPVAL                         R24 4
-      332 NEWCLOSURE                       R25 P5
-      333 CAPTURE                          VAL R5
-      334 CALL                             R23 2 -1
-      335 CALL                             R20 -1 1
-      336 SETTABLEKS                       R20 R19 K54 ["SpecificProblems"]
-      338 CALL                             R16 3 1
-      339 SETTABLEKS                       R16 R15 K54 ["SpecificProblems"]
-      341 CALL                             R12 3 1
-      342 SETTABLEKS                       R12 R11 K27 ["Heads"]
-      344 GETUPVAL                         R12 3
-      345 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      347 LOADK                            R13 K45 ["Frame"]
-      348 DUPTABLE                         R14 K46 [{"LayoutOrder"}]
-      349 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      351 CALL                             R15 1 1
-      352 SETTABLEKS                       R15 R14 K31 ["LayoutOrder"]
-      354 CALL                             R12 2 1
-      355 SETTABLEKS                       R12 R11 K28 ["Gap2"]
-      357 GETUPVAL                         R12 3
-      358 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      360 GETUPVAL                         R13 10
-      361 DUPTABLE                         R14 K73 [{["MultiLine"] = True, ["LayoutOrder"], ["Size"], ["PlaceholderText"], ["Text"], ["OnTextChanged"]}]
-      362 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      364 CALL                             R15 1 1
-      365 SETTABLEKS                       R15 R14 K31 ["LayoutOrder"]
-      367 GETIMPORT                        R15 K75 [UDim2.new]
-      369 LOADN                            R16 1
-      370 LOADN                            R17 0
-      371 LOADN                            R18 0
-      372 GETTABLEKS                       R19 R2 K76 ["MessageHeight"]
-      374 CALL                             R15 4 1
-      375 SETTABLEKS                       R15 R14 K70 ["Size"]
-      377 LOADK                            R17 K1 ["Survey"]
-      378 LOADK                            R18 K77 ["MessagePlaceholder"]
-      379 NAMECALL                         R15 R1 K39 ["getText"]
-      381 CALL                             R15 3 1
-      382 SETTABLEKS                       R15 R14 K71 ["PlaceholderText"]
-      384 GETTABLEKS                       R15 R0 K44 ["results"]
-      386 GETTABLEKS                       R15 R15 K78 ["message"]
-      388 SETTABLEKS                       R15 R14 K34 ["Text"]
-      390 SETTABLEKS                       R6 R14 K72 ["OnTextChanged"]
-      392 CALL                             R12 2 1
-      393 SETTABLEKS                       R12 R11 K29 ["Message"]
-      395 CALL                             R8 3 -1
-      396 RETURN                           R8 -1
+      244 SETTABLEKS                       R16 R15 K49 ["CharacterWeirdBend"]
+      246 MOVE                             R16 R5
+      247 LOADK                            R17 K50 ["BadLayeredClothing"]
+      248 CALL                             R16 1 1
+      249 SETTABLEKS                       R16 R15 K50 ["BadLayeredClothing"]
+      251 GETUPVAL                         R16 3
+      252 GETTABLEKS                       R16 R16 K4 ["createElement"]
+      254 GETUPVAL                         R17 3
+      255 GETTABLEKS                       R17 R17 K45 ["Fragment"]
+      257 NEWTABLE                         R18 0 0
+      259 DUPTABLE                         R19 K61 [{"HeadLooksBad", "SpecificProblems"}]
+      260 MOVE                             R20 R5
+      261 LOADK                            R21 K59 ["HeadLooksBad"]
+      262 CALL                             R20 1 1
+      263 SETTABLEKS                       R20 R19 K59 ["HeadLooksBad"]
+      265 GETTABLEKS                       R21 R0 K41 ["results"]
+      267 GETTABLEKS                       R21 R21 K62 ["problems"]
+      269 GETTABLEKS                       R20 R21 K59 ["HeadLooksBad"]
+      271 JUMPIFNOT                        R20 ; [+86]
+      272 GETUPVAL                         R20 3
+      273 GETTABLEKS                       R20 R20 K4 ["createElement"]
+      275 GETUPVAL                         R21 6
+      276 DUPTABLE                         R22 K63 [{"AutomaticSize", "LayoutOrder", "Spacing", "Layout", "HorizontalAlignment"}]
+      277 GETIMPORT                        R23 K8 [Enum.AutomaticSize.Y]
+      279 SETTABLEKS                       R23 R22 K6 ["AutomaticSize"]
+      281 NAMECALL                         R23 R3 K32 ["getNextOrder"]
+      283 CALL                             R23 1 1
+      284 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
+      286 GETTABLEKS                       R23 R2 K13 ["Spacing"]
+      288 SETTABLEKS                       R23 R22 K13 ["Spacing"]
+      290 GETIMPORT                        R23 K11 [Enum.FillDirection.Vertical]
+      292 SETTABLEKS                       R23 R22 K12 ["Layout"]
+      294 GETIMPORT                        R23 K16 [Enum.HorizontalAlignment.Left]
+      296 SETTABLEKS                       R23 R22 K14 ["HorizontalAlignment"]
+      298 DUPTABLE                         R23 K66 [{"UIPadding", "Specifically", "SpecificProblems"}]
+      299 GETUPVAL                         R24 3
+      300 GETTABLEKS                       R24 R24 K4 ["createElement"]
+      302 LOADK                            R25 K64 ["UIPadding"]
+      303 DUPTABLE                         R26 K68 [{"PaddingLeft"}]
+      304 GETIMPORT                        R27 K70 [UDim.new]
+      306 LOADN                            R28 0
+      307 GETTABLEKS                       R29 R2 K71 ["HeadIndent"]
+      309 CALL                             R27 2 1
+      310 SETTABLEKS                       R27 R26 K67 ["PaddingLeft"]
+      312 CALL                             R24 2 1
+      313 SETTABLEKS                       R24 R23 K64 ["UIPadding"]
+      315 GETUPVAL                         R24 3
+      316 GETTABLEKS                       R24 R24 K4 ["createElement"]
+      318 GETUPVAL                         R25 7
+      319 DUPTABLE                         R26 K72 [{"AutomaticSize", "LayoutOrder", "Text"}]
+      320 GETIMPORT                        R27 K31 [Enum.AutomaticSize.XY]
+      322 SETTABLEKS                       R27 R26 K6 ["AutomaticSize"]
+      324 NAMECALL                         R27 R3 K32 ["getNextOrder"]
+      326 CALL                             R27 1 1
+      327 SETTABLEKS                       R27 R26 K25 ["LayoutOrder"]
+      329 LOADK                            R29 K1 ["Survey"]
+      330 LOADK                            R30 K65 ["Specifically"]
+      331 NAMECALL                         R27 R1 K36 ["getText"]
+      333 CALL                             R27 3 1
+      334 SETTABLEKS                       R27 R26 K28 ["Text"]
+      336 CALL                             R24 2 1
+      337 SETTABLEKS                       R24 R23 K65 ["Specifically"]
+      339 GETUPVAL                         R24 3
+      340 GETTABLEKS                       R24 R24 K4 ["createElement"]
+      342 GETUPVAL                         R25 3
+      343 GETTABLEKS                       R25 R25 K45 ["Fragment"]
+      345 NEWTABLE                         R26 0 0
+      347 GETUPVAL                         R27 9
+      348 GETTABLEKS                       R27 R27 K73 ["map"]
+      350 GETUPVAL                         R28 4
+      351 NEWCLOSURE                       R29 P5
+      352 CAPTURE                          VAL R5
+      353 CALL                             R27 2 -1
+      354 CALL                             R24 -1 1
+      355 SETTABLEKS                       R24 R23 K60 ["SpecificProblems"]
+      357 CALL                             R20 3 1
+      358 SETTABLEKS                       R20 R19 K60 ["SpecificProblems"]
+      360 CALL                             R16 3 1
+      361 SETTABLEKS                       R16 R15 K51 ["Heads"]
+      363 GETUPVAL                         R16 3
+      364 GETTABLEKS                       R16 R16 K4 ["createElement"]
+      366 LOADK                            R17 K42 ["Frame"]
+      367 DUPTABLE                         R18 K43 [{"LayoutOrder"}]
+      368 NAMECALL                         R19 R3 K32 ["getNextOrder"]
+      370 CALL                             R19 1 1
+      371 SETTABLEKS                       R19 R18 K25 ["LayoutOrder"]
+      373 CALL                             R16 2 1
+      374 SETTABLEKS                       R16 R15 K52 ["Gap2"]
+      376 CALL                             R12 3 1
+      377 JUMP                             ; [+1]
+      378 LOADNIL                          R12
+      379 SETTABLEKS                       R12 R11 K22 ["AutoSetupQuestions"]
+      381 GETUPVAL                         R12 3
+      382 GETTABLEKS                       R12 R12 K4 ["createElement"]
+      384 GETUPVAL                         R13 10
+      385 DUPTABLE                         R14 K79 [{["MultiLine"] = True, ["LayoutOrder"], ["Size"], ["PlaceholderText"], ["Text"], ["OnTextChanged"]}]
+      386 NAMECALL                         R15 R3 K32 ["getNextOrder"]
+      388 CALL                             R15 1 1
+      389 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
+      391 GETIMPORT                        R15 K81 [UDim2.new]
+      393 LOADN                            R16 1
+      394 LOADN                            R17 0
+      395 LOADN                            R18 0
+      396 GETTABLEKS                       R19 R2 K82 ["MessageHeight"]
+      398 CALL                             R15 4 1
+      399 SETTABLEKS                       R15 R14 K76 ["Size"]
+      401 LOADK                            R17 K1 ["Survey"]
+      402 LOADK                            R18 K83 ["MessagePlaceholder"]
+      403 NAMECALL                         R15 R1 K36 ["getText"]
+      405 CALL                             R15 3 1
+      406 SETTABLEKS                       R15 R14 K77 ["PlaceholderText"]
+      408 GETTABLEKS                       R15 R0 K41 ["results"]
+      410 GETTABLEKS                       R15 R15 K84 ["message"]
+      412 SETTABLEKS                       R15 R14 K28 ["Text"]
+      414 SETTABLEKS                       R6 R14 K78 ["OnTextChanged"]
+      416 CALL                             R12 2 1
+      417 SETTABLEKS                       R12 R11 K23 ["Message"]
+      419 CALL                             R8 3 -1
+      420 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

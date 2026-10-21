@@ -70,8 +70,8 @@ MAIN:
       114 SETTABLEKS                       R17 R3 K105 ["TutorialEvent"]
       116 DUPTABLE                         R18 K114 [{["TriangleCount"] = "TriangleCount", ["VertexCount"] = "VertexCount", ["ScriptCount"] = "ScriptCount", ["MeshPartCount"] = "MeshPartCount", ["AnimationCount"] = "AnimationCount", ["AudioCount"] = "AudioCount", ["DecalCount"] = "DecalCount", ["ToolCount"] = "ToolCount"}]
       117 SETTABLEKS                       R18 R3 K115 ["AssetTechnicalDetailCount"]
-      119 DUPTABLE                         R19 K121 [{["AccessControl"] = "AccessControl", ["AssetTypes"] = "AssetTypes", ["Duration"] = "Duration", ["Owner"] = "Owner", ["Scripted"] = "Scripted"}]
-      120 SETTABLEKS                       R19 R3 K122 ["DetailsDrawerRow"]
-      122 DUPTABLE                         R20 K126 [{["Private"] = "Private", ["Shared"] = "Shared", ["OpenUse"] = "OpenUse"}]
-      123 SETTABLEKS                       R20 R3 K127 ["AssetPrivacy"]
+      119 DUPTABLE                         R19 K122 [{["AccessControl"] = "AccessControl", ["AssetTypes"] = "AssetTypes", ["Duration"] = "Duration", ["Owner"] = "Owner", ["Scripted"] = "Scripted", ["SharedWith"] = "SharedWith"}]
+      120 SETTABLEKS                       R19 R3 K123 ["DetailsDrawerRow"]
+      122 DUPTABLE                         R20 K127 [{["Private"] = "Private", ["Shared"] = "Shared", ["OpenUse"] = "OpenUse"}]
+      123 SETTABLEKS                       R20 R3 K128 ["AssetPrivacy"]
       125 RETURN                           R3 1

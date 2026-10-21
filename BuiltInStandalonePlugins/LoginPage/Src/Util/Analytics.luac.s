@@ -247,6 +247,17 @@ PROTO_17:
         9 RETURN                           R0 0
 
 PROTO_18:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R2 K0 ["LoginPage"]
+        2 LOADK                            R3 K1 ["login_page_asset_missing"]
+        3 LOADK                            R4 K2 ["LoginPage_AssetMissing"]
+        4 LOADK                            R5 K3 [""]
+        5 DUPTABLE                         R6 K5 [{"assetId"}]
+        6 SETTABLEKS                       R0 R6 K4 ["assetId"]
+        8 CALL                             R1 5 0
+        9 RETURN                           R0 0
+
+PROTO_19:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["AutoLogin"]
         2 LOADK                            R2 K1 ["show_login_page_timeout"]
@@ -255,11 +266,11 @@ PROTO_18:
         5 CALL                             R0 4 0
         6 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R0 1
         1 SETUPVAL                         R0 0
         2 RETURN                           R0 0
@@ -340,13 +351,16 @@ MAIN:
        96 SETTABLEKS                       R11 R5 K39 ["reportSignUpBrowserOpenedFailed"]
        98 DUPCLOSURE                       R11 K40 [PROTO_18]
        99 CAPTURE                          VAL R10
-      100 SETTABLEKS                       R11 R5 K41 ["reportLoginPageRequestTimeout"]
-      102 NEWCLOSURE                       R11 P17
-      103 CAPTURE                          REF R2
-      104 SETTABLEKS                       R11 R5 K42 ["mockTelemetryService"]
+      100 SETTABLEKS                       R11 R5 K41 ["reportLoginPageAssetMissing"]
+      102 DUPCLOSURE                       R11 K42 [PROTO_19]
+      103 CAPTURE                          VAL R10
+      104 SETTABLEKS                       R11 R5 K43 ["reportLoginPageRequestTimeout"]
       106 NEWCLOSURE                       R11 P18
       107 CAPTURE                          REF R2
-      108 CAPTURE                          VAL R6
-      109 SETTABLEKS                       R11 R5 K43 ["resetTelemetryService"]
-      111 CLOSEUPVALS                      R2
-      112 RETURN                           R5 1
+      108 SETTABLEKS                       R11 R5 K44 ["mockTelemetryService"]
+      110 NEWCLOSURE                       R11 P19
+      111 CAPTURE                          REF R2
+      112 CAPTURE                          VAL R6
+      113 SETTABLEKS                       R11 R5 K45 ["resetTelemetryService"]
+      115 CLOSEUPVALS                      R2
+      116 RETURN                           R5 1

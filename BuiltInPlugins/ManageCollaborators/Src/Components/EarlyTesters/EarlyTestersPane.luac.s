@@ -189,15 +189,15 @@ PROTO_2:
       227 SETTABLEKS                       R9 R8 K63 ["OnBack"]
       229 CALL                             R6 2 1
       230 MOVE                             R5 R6
-      231 JUMP                             ; [+193]
+      231 JUMP                             ; [+210]
       232 GETTABLEKS                       R6 R0 K57 ["Screen"]
       234 GETUPVAL                         R7 9
       235 GETTABLEKS                       R7 R7 K67 ["AddFriends"]
-      237 JUMPIFNOTEQ                      R6 R7 ; [+71]
+      237 JUMPIFNOTEQ                      R6 R7 ; [+75]
       239 GETUPVAL                         R6 0
       240 GETTABLEKS                       R6 R6 K2 ["createElement"]
       242 GETUPVAL                         R7 11
-      243 DUPTABLE                         R8 K82 [{"Localization", "GroupId", "PendingRoleName", "PendingMemberCount", "PendingMemberIds", "GroupMembers", "GroupMembersExhausted", "GroupMembersLoading", "SearchResults", "SearchResultsExhausted", "SearchResultsLoading", "SearchSelection", "OnLoadMore", "OnSearch", "OnLoadMoreSearchResults", "OnToggleSelection", "OnBack"}]
+      243 DUPTABLE                         R8 K83 [{"Localization", "GroupId", "PendingRoleName", "PendingMemberCount", "PendingMemberIds", "GroupMembers", "GroupMembersExhausted", "GroupMembersLoading", "SearchResults", "SearchResultsExhausted", "SearchResultsLoading", "SearchSelection", "MemberEligibility", "OnLoadMore", "OnSearch", "OnLoadMoreSearchResults", "OnToggleSelection", "OnBack"}]
       244 SETTABLEKS                       R1 R8 K0 ["Localization"]
       246 GETTABLEKS                       R9 R0 K68 ["GroupId"]
       248 SETTABLEKS                       R9 R8 K68 ["GroupId"]
@@ -219,107 +219,117 @@ PROTO_2:
       280 SETTABLEKS                       R9 R8 K77 ["SearchResultsLoading"]
       282 GETTABLEKS                       R9 R0 K56 ["SearchSelection"]
       284 SETTABLEKS                       R9 R8 K56 ["SearchSelection"]
-      286 GETTABLEKS                       R9 R0 K83 ["LoadMoreMembers"]
-      288 SETTABLEKS                       R9 R8 K78 ["OnLoadMore"]
-      290 GETTABLEKS                       R9 R0 K84 ["SearchMembers"]
-      292 SETTABLEKS                       R9 R8 K79 ["OnSearch"]
-      294 GETTABLEKS                       R9 R0 K85 ["LoadMoreSearchResults"]
-      296 SETTABLEKS                       R9 R8 K80 ["OnLoadMoreSearchResults"]
-      298 GETTABLEKS                       R9 R0 K86 ["ToggleSelection"]
-      300 SETTABLEKS                       R9 R8 K81 ["OnToggleSelection"]
-      302 GETTABLEKS                       R9 R0 K66 ["CloseScreen"]
-      304 SETTABLEKS                       R9 R8 K63 ["OnBack"]
-      306 CALL                             R6 2 1
-      307 MOVE                             R5 R6
-      308 JUMP                             ; [+116]
-      309 GETTABLEKS                       R6 R0 K87 ["Mode"]
-      311 GETUPVAL                         R7 12
-      312 GETTABLEKS                       R7 R7 K88 ["Unset"]
-      314 JUMPIFNOTEQ                      R6 R7 ; [+65]
-      316 GETUPVAL                         R6 0
-      317 GETTABLEKS                       R6 R6 K2 ["createElement"]
-      319 GETUPVAL                         R7 13
-      320 DUPTABLE                         R8 K90 [{"Localization", "GroupId", "PendingMemberCount", "GroupMembers", "GroupMembersExhausted", "GroupMembersLoading", "SearchResults", "SearchResultsExhausted", "SearchResultsLoading", "SearchSelection", "OnLoadMore", "OnSearch", "OnLoadMoreSearchResults", "OnToggleSelection", "OnOpenRolePicker"}]
-      321 SETTABLEKS                       R1 R8 K0 ["Localization"]
-      323 GETTABLEKS                       R9 R0 K68 ["GroupId"]
-      325 SETTABLEKS                       R9 R8 K68 ["GroupId"]
-      327 SETTABLEKS                       R4 R8 K70 ["PendingMemberCount"]
-      329 GETTABLEKS                       R9 R0 K72 ["GroupMembers"]
-      331 SETTABLEKS                       R9 R8 K72 ["GroupMembers"]
-      333 GETTABLEKS                       R9 R0 K73 ["GroupMembersExhausted"]
-      335 SETTABLEKS                       R9 R8 K73 ["GroupMembersExhausted"]
-      337 GETTABLEKS                       R9 R0 K74 ["GroupMembersLoading"]
-      339 SETTABLEKS                       R9 R8 K74 ["GroupMembersLoading"]
-      341 GETTABLEKS                       R9 R0 K75 ["SearchResults"]
-      343 SETTABLEKS                       R9 R8 K75 ["SearchResults"]
-      345 GETTABLEKS                       R9 R0 K76 ["SearchResultsExhausted"]
-      347 SETTABLEKS                       R9 R8 K76 ["SearchResultsExhausted"]
-      349 GETTABLEKS                       R9 R0 K77 ["SearchResultsLoading"]
-      351 SETTABLEKS                       R9 R8 K77 ["SearchResultsLoading"]
-      353 GETTABLEKS                       R9 R0 K56 ["SearchSelection"]
-      355 SETTABLEKS                       R9 R8 K56 ["SearchSelection"]
-      357 GETTABLEKS                       R9 R0 K83 ["LoadMoreMembers"]
-      359 SETTABLEKS                       R9 R8 K78 ["OnLoadMore"]
-      361 GETTABLEKS                       R9 R0 K84 ["SearchMembers"]
-      363 SETTABLEKS                       R9 R8 K79 ["OnSearch"]
-      365 GETTABLEKS                       R9 R0 K85 ["LoadMoreSearchResults"]
-      367 SETTABLEKS                       R9 R8 K80 ["OnLoadMoreSearchResults"]
-      369 GETTABLEKS                       R9 R0 K86 ["ToggleSelection"]
-      371 SETTABLEKS                       R9 R8 K81 ["OnToggleSelection"]
-      373 GETTABLEKS                       R9 R0 K91 ["OpenRolePicker"]
-      375 SETTABLEKS                       R9 R8 K89 ["OnOpenRolePicker"]
-      377 CALL                             R6 2 1
-      378 MOVE                             R5 R6
-      379 JUMP                             ; [+45]
-      380 GETUPVAL                         R6 0
-      381 GETTABLEKS                       R6 R6 K2 ["createElement"]
-      383 GETUPVAL                         R7 14
-      384 DUPTABLE                         R8 K97 [{"Localization", "GroupId", "PendingRoleName", "PendingRoleIsPrivate", "PendingRoleColor", "PendingMembers", "SaveError", "OnRemoveMember", "OnOpenRolePicker", "OnOpenAddFriends"}]
-      385 SETTABLEKS                       R1 R8 K0 ["Localization"]
-      387 GETTABLEKS                       R9 R0 K68 ["GroupId"]
-      389 SETTABLEKS                       R9 R8 K68 ["GroupId"]
-      391 GETTABLEKS                       R9 R0 K69 ["PendingRoleName"]
-      393 SETTABLEKS                       R9 R8 K69 ["PendingRoleName"]
-      395 GETTABLEKS                       R9 R0 K92 ["PendingRoleIsPrivate"]
-      397 SETTABLEKS                       R9 R8 K92 ["PendingRoleIsPrivate"]
-      399 GETTABLEKS                       R9 R0 K93 ["PendingRoleColor"]
-      401 SETTABLEKS                       R9 R8 K93 ["PendingRoleColor"]
-      403 GETTABLEKS                       R9 R0 K55 ["PendingMembers"]
-      405 SETTABLEKS                       R9 R8 K55 ["PendingMembers"]
-      407 GETTABLEKS                       R9 R0 K94 ["SaveError"]
-      409 SETTABLEKS                       R9 R8 K94 ["SaveError"]
-      411 GETTABLEKS                       R9 R0 K98 ["RemoveMember"]
-      413 SETTABLEKS                       R9 R8 K95 ["OnRemoveMember"]
-      415 GETTABLEKS                       R9 R0 K91 ["OpenRolePicker"]
-      417 SETTABLEKS                       R9 R8 K89 ["OnOpenRolePicker"]
-      419 GETTABLEKS                       R9 R0 K99 ["OpenAddFriends"]
-      421 SETTABLEKS                       R9 R8 K96 ["OnOpenAddFriends"]
-      423 CALL                             R6 2 1
-      424 MOVE                             R5 R6
-      425 GETUPVAL                         R6 0
-      426 GETTABLEKS                       R6 R6 K2 ["createElement"]
-      428 GETUPVAL                         R7 1
-      429 DUPTABLE                         R8 K6 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y padding-x-xlarge padding-top-small"}]
-      430 GETTABLEKS                       R9 R0 K3 ["LayoutOrder"]
-      432 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
-      434 DUPTABLE                         R9 K100 [{"Screen"}]
-      435 GETUPVAL                         R10 0
-      436 GETTABLEKS                       R10 R10 K2 ["createElement"]
-      438 GETUPVAL                         R11 1
-      439 DUPTABLE                         R12 K102 [{["LayoutOrder"] = 1, ["tag"] = "size-full-0 auto-y"}]
-      440 NEWTABLE                         R13 0 1
-      442 MOVE                             R14 R5
-      443 SETLIST                          R13 R14 1 [1]
-      445 CALL                             R10 3 1
-      446 SETTABLEKS                       R10 R9 K57 ["Screen"]
-      448 CALL                             R6 3 -1
-      449 RETURN                           R6 -1
+      286 GETTABLEKS                       R9 R0 K78 ["MemberEligibility"]
+      288 SETTABLEKS                       R9 R8 K78 ["MemberEligibility"]
+      290 GETTABLEKS                       R9 R0 K84 ["LoadMoreMembers"]
+      292 SETTABLEKS                       R9 R8 K79 ["OnLoadMore"]
+      294 GETTABLEKS                       R9 R0 K85 ["SearchMembers"]
+      296 SETTABLEKS                       R9 R8 K80 ["OnSearch"]
+      298 GETTABLEKS                       R9 R0 K86 ["LoadMoreSearchResults"]
+      300 SETTABLEKS                       R9 R8 K81 ["OnLoadMoreSearchResults"]
+      302 GETTABLEKS                       R9 R0 K87 ["ToggleSelection"]
+      304 SETTABLEKS                       R9 R8 K82 ["OnToggleSelection"]
+      306 GETTABLEKS                       R9 R0 K66 ["CloseScreen"]
+      308 SETTABLEKS                       R9 R8 K63 ["OnBack"]
+      310 CALL                             R6 2 1
+      311 MOVE                             R5 R6
+      312 JUMP                             ; [+129]
+      313 GETTABLEKS                       R6 R0 K88 ["Mode"]
+      315 GETUPVAL                         R7 12
+      316 GETTABLEKS                       R7 R7 K89 ["Unset"]
+      318 JUMPIFNOTEQ                      R6 R7 ; [+69]
+      320 GETUPVAL                         R6 0
+      321 GETTABLEKS                       R6 R6 K2 ["createElement"]
+      323 GETUPVAL                         R7 13
+      324 DUPTABLE                         R8 K91 [{"Localization", "GroupId", "PendingMemberCount", "GroupMembers", "GroupMembersExhausted", "GroupMembersLoading", "SearchResults", "SearchResultsExhausted", "SearchResultsLoading", "SearchSelection", "MemberEligibility", "OnLoadMore", "OnSearch", "OnLoadMoreSearchResults", "OnToggleSelection", "OnOpenRolePicker"}]
+      325 SETTABLEKS                       R1 R8 K0 ["Localization"]
+      327 GETTABLEKS                       R9 R0 K68 ["GroupId"]
+      329 SETTABLEKS                       R9 R8 K68 ["GroupId"]
+      331 SETTABLEKS                       R4 R8 K70 ["PendingMemberCount"]
+      333 GETTABLEKS                       R9 R0 K72 ["GroupMembers"]
+      335 SETTABLEKS                       R9 R8 K72 ["GroupMembers"]
+      337 GETTABLEKS                       R9 R0 K73 ["GroupMembersExhausted"]
+      339 SETTABLEKS                       R9 R8 K73 ["GroupMembersExhausted"]
+      341 GETTABLEKS                       R9 R0 K74 ["GroupMembersLoading"]
+      343 SETTABLEKS                       R9 R8 K74 ["GroupMembersLoading"]
+      345 GETTABLEKS                       R9 R0 K75 ["SearchResults"]
+      347 SETTABLEKS                       R9 R8 K75 ["SearchResults"]
+      349 GETTABLEKS                       R9 R0 K76 ["SearchResultsExhausted"]
+      351 SETTABLEKS                       R9 R8 K76 ["SearchResultsExhausted"]
+      353 GETTABLEKS                       R9 R0 K77 ["SearchResultsLoading"]
+      355 SETTABLEKS                       R9 R8 K77 ["SearchResultsLoading"]
+      357 GETTABLEKS                       R9 R0 K56 ["SearchSelection"]
+      359 SETTABLEKS                       R9 R8 K56 ["SearchSelection"]
+      361 GETTABLEKS                       R9 R0 K78 ["MemberEligibility"]
+      363 SETTABLEKS                       R9 R8 K78 ["MemberEligibility"]
+      365 GETTABLEKS                       R9 R0 K84 ["LoadMoreMembers"]
+      367 SETTABLEKS                       R9 R8 K79 ["OnLoadMore"]
+      369 GETTABLEKS                       R9 R0 K85 ["SearchMembers"]
+      371 SETTABLEKS                       R9 R8 K80 ["OnSearch"]
+      373 GETTABLEKS                       R9 R0 K86 ["LoadMoreSearchResults"]
+      375 SETTABLEKS                       R9 R8 K81 ["OnLoadMoreSearchResults"]
+      377 GETTABLEKS                       R9 R0 K87 ["ToggleSelection"]
+      379 SETTABLEKS                       R9 R8 K82 ["OnToggleSelection"]
+      381 GETTABLEKS                       R9 R0 K92 ["OpenRolePicker"]
+      383 SETTABLEKS                       R9 R8 K90 ["OnOpenRolePicker"]
+      385 CALL                             R6 2 1
+      386 MOVE                             R5 R6
+      387 JUMP                             ; [+54]
+      388 GETUPVAL                         R6 0
+      389 GETTABLEKS                       R6 R6 K2 ["createElement"]
+      391 GETUPVAL                         R7 14
+      392 DUPTABLE                         R8 K98 [{"Localization", "GroupId", "PendingRoleName", "PendingRoleIsPrivate", "PendingRoleColor", "PendingMembers", "MemberEligibility", "SaveError", "OnRemoveMember", "OnOpenRolePicker", "OnOpenAddFriends"}]
+      393 SETTABLEKS                       R1 R8 K0 ["Localization"]
+      395 GETTABLEKS                       R9 R0 K68 ["GroupId"]
+      397 SETTABLEKS                       R9 R8 K68 ["GroupId"]
+      399 GETTABLEKS                       R9 R0 K69 ["PendingRoleName"]
+      401 SETTABLEKS                       R9 R8 K69 ["PendingRoleName"]
+      403 GETTABLEKS                       R9 R0 K93 ["PendingRoleIsPrivate"]
+      405 SETTABLEKS                       R9 R8 K93 ["PendingRoleIsPrivate"]
+      407 GETTABLEKS                       R9 R0 K94 ["PendingRoleColor"]
+      409 SETTABLEKS                       R9 R8 K94 ["PendingRoleColor"]
+      411 GETTABLEKS                       R9 R0 K55 ["PendingMembers"]
+      413 SETTABLEKS                       R9 R8 K55 ["PendingMembers"]
+      415 GETTABLEKS                       R9 R0 K78 ["MemberEligibility"]
+      417 SETTABLEKS                       R9 R8 K78 ["MemberEligibility"]
+      419 GETTABLEKS                       R9 R0 K95 ["SaveError"]
+      421 SETTABLEKS                       R9 R8 K95 ["SaveError"]
+      423 GETTABLEKS                       R9 R0 K99 ["RemoveMember"]
+      425 SETTABLEKS                       R9 R8 K96 ["OnRemoveMember"]
+      427 GETTABLEKS                       R10 R0 K100 ["IsGroupOwner"]
+      429 JUMPIFNOT                        R10 ; [+3]
+      430 GETTABLEKS                       R9 R0 K92 ["OpenRolePicker"]
+      432 JUMP                             ; [+1]
+      433 LOADNIL                          R9
+      434 SETTABLEKS                       R9 R8 K90 ["OnOpenRolePicker"]
+      436 GETTABLEKS                       R9 R0 K101 ["OpenAddFriends"]
+      438 SETTABLEKS                       R9 R8 K97 ["OnOpenAddFriends"]
+      440 CALL                             R6 2 1
+      441 MOVE                             R5 R6
+      442 GETUPVAL                         R6 0
+      443 GETTABLEKS                       R6 R6 K2 ["createElement"]
+      445 GETUPVAL                         R7 1
+      446 DUPTABLE                         R8 K6 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y padding-x-xlarge padding-top-small"}]
+      447 GETTABLEKS                       R9 R0 K3 ["LayoutOrder"]
+      449 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
+      451 DUPTABLE                         R9 K102 [{"Screen"}]
+      452 GETUPVAL                         R10 0
+      453 GETTABLEKS                       R10 R10 K2 ["createElement"]
+      455 GETUPVAL                         R11 1
+      456 DUPTABLE                         R12 K104 [{["LayoutOrder"] = 1, ["tag"] = "size-full-0 auto-y"}]
+      457 NEWTABLE                         R13 0 1
+      459 MOVE                             R14 R5
+      460 SETLIST                          R13 R14 1 [1]
+      462 CALL                             R10 3 1
+      463 SETTABLEKS                       R10 R9 K57 ["Screen"]
+      465 CALL                             R6 3 -1
+      466 RETURN                           R6 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["EarlyTesters"]
-        2 DUPTABLE                         R3 K21 [{"GroupId", "Mode", "Screen", "PendingRoleId", "PendingRoleName", "PendingRoleIsPrivate", "PendingRoleColor", "PendingMembers", "AllRoles", "GroupMembers", "GroupMembersExhausted", "GroupMembersLoading", "SearchResults", "SearchResultsExhausted", "SearchResultsLoading", "SearchSelection", "PickedRoleId", "SaveError", "LoadError", "OwnerIsNotAgeVerified"}]
-        3 GETTABLEKS                       R4 R0 K22 ["GameOwnerMetadata"]
-        5 GETTABLEKS                       R4 R4 K23 ["creatorId"]
+        2 DUPTABLE                         R3 K23 [{"GroupId", "Mode", "Screen", "PendingRoleId", "PendingRoleName", "PendingRoleIsPrivate", "PendingRoleColor", "PendingMembers", "AllRoles", "GroupMembers", "GroupMembersExhausted", "GroupMembersLoading", "SearchResults", "SearchResultsExhausted", "SearchResultsLoading", "SearchSelection", "MemberEligibility", "PickedRoleId", "SaveError", "LoadError", "OwnerIsNotAgeVerified", "IsGroupOwner"}]
+        3 GETTABLEKS                       R4 R0 K24 ["GameOwnerMetadata"]
+        5 GETTABLEKS                       R4 R4 K25 ["creatorId"]
         7 SETTABLEKS                       R4 R3 K1 ["GroupId"]
         9 GETTABLEKS                       R4 R2 K2 ["Mode"]
        11 SETTABLEKS                       R4 R3 K2 ["Mode"]
@@ -353,17 +363,23 @@ PROTO_3:
        64 SETTABLEKS                       R4 R3 K15 ["SearchResultsLoading"]
        66 GETTABLEKS                       R4 R2 K16 ["SearchSelection"]
        68 SETTABLEKS                       R4 R3 K16 ["SearchSelection"]
-       70 GETTABLEKS                       R4 R2 K17 ["PickedRoleId"]
-       72 SETTABLEKS                       R4 R3 K17 ["PickedRoleId"]
-       74 GETTABLEKS                       R4 R2 K18 ["SaveError"]
-       76 SETTABLEKS                       R4 R3 K18 ["SaveError"]
-       78 GETTABLEKS                       R4 R2 K19 ["LoadError"]
-       80 SETTABLEKS                       R4 R3 K19 ["LoadError"]
-       82 GETUPVAL                         R4 1
-       83 MOVE                             R5 R0
-       84 CALL                             R4 1 1
-       85 SETTABLEKS                       R4 R3 K20 ["OwnerIsNotAgeVerified"]
-       87 RETURN                           R3 1
+       70 GETTABLEKS                       R4 R2 K17 ["MemberEligibility"]
+       72 SETTABLEKS                       R4 R3 K17 ["MemberEligibility"]
+       74 GETTABLEKS                       R4 R2 K18 ["PickedRoleId"]
+       76 SETTABLEKS                       R4 R3 K18 ["PickedRoleId"]
+       78 GETTABLEKS                       R4 R2 K19 ["SaveError"]
+       80 SETTABLEKS                       R4 R3 K19 ["SaveError"]
+       82 GETTABLEKS                       R4 R2 K20 ["LoadError"]
+       84 SETTABLEKS                       R4 R3 K20 ["LoadError"]
+       86 GETUPVAL                         R4 1
+       87 MOVE                             R5 R0
+       88 CALL                             R4 1 1
+       89 SETTABLEKS                       R4 R3 K21 ["OwnerIsNotAgeVerified"]
+       91 GETUPVAL                         R4 2
+       92 MOVE                             R5 R0
+       93 CALL                             R4 1 1
+       94 SETTABLEKS                       R4 R3 K22 ["IsGroupOwner"]
+       96 RETURN                           R3 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -605,38 +621,44 @@ MAIN:
       223 GETTABLEKS                       R31 R31 K44 ["Selectors"]
       225 GETTABLEKS                       R31 R31 K46 ["GetOwnerIsNotAgeVerified"]
       227 CALL                             R30 1 1
-      228 DUPCLOSURE                       R31 K47 [PROTO_2]
-      229 CAPTURE                          VAL R1
-      230 CAPTURE                          VAL R4
-      231 CAPTURE                          VAL R5
-      232 CAPTURE                          VAL R9
-      233 CAPTURE                          VAL R10
-      234 CAPTURE                          VAL R6
-      235 CAPTURE                          VAL R7
-      236 CAPTURE                          VAL R8
-      237 CAPTURE                          VAL R13
-      238 CAPTURE                          VAL R15
-      239 CAPTURE                          VAL R18
-      240 CAPTURE                          VAL R19
-      241 CAPTURE                          VAL R14
-      242 CAPTURE                          VAL R16
-      243 CAPTURE                          VAL R17
-      244 GETTABLEKS                       R32 R2 K48 ["connect"]
-      246 DUPCLOSURE                       R33 K49 [PROTO_3]
-      247 CAPTURE                          VAL R29
-      248 CAPTURE                          VAL R30
-      249 DUPCLOSURE                       R34 K50 [PROTO_13]
-      250 CAPTURE                          VAL R20
-      251 CAPTURE                          VAL R27
-      252 CAPTURE                          VAL R21
-      253 CAPTURE                          VAL R22
-      254 CAPTURE                          VAL R23
-      255 CAPTURE                          VAL R24
-      256 CAPTURE                          VAL R25
-      257 CAPTURE                          VAL R26
-      258 CAPTURE                          VAL R28
-      259 CALL                             R32 2 1
-      260 MOVE                             R33 R31
-      261 CALL                             R32 1 1
-      262 MOVE                             R31 R32
-      263 RETURN                           R31 1
+      228 GETIMPORT                        R31 K4 [require]
+      230 GETTABLEKS                       R32 R0 K23 ["Src"]
+      232 GETTABLEKS                       R32 R32 K44 ["Selectors"]
+      234 GETTABLEKS                       R32 R32 K47 ["IsViewerGroupOwner"]
+      236 CALL                             R31 1 1
+      237 DUPCLOSURE                       R32 K48 [PROTO_2]
+      238 CAPTURE                          VAL R1
+      239 CAPTURE                          VAL R4
+      240 CAPTURE                          VAL R5
+      241 CAPTURE                          VAL R9
+      242 CAPTURE                          VAL R10
+      243 CAPTURE                          VAL R6
+      244 CAPTURE                          VAL R7
+      245 CAPTURE                          VAL R8
+      246 CAPTURE                          VAL R13
+      247 CAPTURE                          VAL R15
+      248 CAPTURE                          VAL R18
+      249 CAPTURE                          VAL R19
+      250 CAPTURE                          VAL R14
+      251 CAPTURE                          VAL R16
+      252 CAPTURE                          VAL R17
+      253 GETTABLEKS                       R33 R2 K49 ["connect"]
+      255 DUPCLOSURE                       R34 K50 [PROTO_3]
+      256 CAPTURE                          VAL R29
+      257 CAPTURE                          VAL R30
+      258 CAPTURE                          VAL R31
+      259 DUPCLOSURE                       R35 K51 [PROTO_13]
+      260 CAPTURE                          VAL R20
+      261 CAPTURE                          VAL R27
+      262 CAPTURE                          VAL R21
+      263 CAPTURE                          VAL R22
+      264 CAPTURE                          VAL R23
+      265 CAPTURE                          VAL R24
+      266 CAPTURE                          VAL R25
+      267 CAPTURE                          VAL R26
+      268 CAPTURE                          VAL R28
+      269 CALL                             R33 2 1
+      270 MOVE                             R34 R32
+      271 CALL                             R33 1 1
+      272 MOVE                             R32 R33
+      273 RETURN                           R32 1

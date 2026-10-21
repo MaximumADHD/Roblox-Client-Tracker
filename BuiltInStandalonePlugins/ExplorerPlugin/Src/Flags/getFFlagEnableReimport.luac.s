@@ -7,7 +7,7 @@ MAIN:
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["createGetSafeFFlag"]
+       13 GETTABLEKS                       R2 R2 K8 ["DEPRECATED_createGetSafeFFlag"]
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 LOADK                            R3 K9 ["EnableReimport"]

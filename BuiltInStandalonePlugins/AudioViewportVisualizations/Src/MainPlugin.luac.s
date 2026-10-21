@@ -247,25 +247,83 @@ PROTO_9:
       103 RETURN                           R0 0
 
 PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 NEWTABLE                         R2 0 2
+        3 GETUPVAL                         R3 1
+        4 GETUPVAL                         R4 2
+        5 SETLIST                          R2 R3 2 [1]
+        7 NAMECALL                         R0 R0 K0 ["GetAsync"]
+        9 CALL                             R0 2 1
+       10 GETUPVAL                         R1 3
+       11 GETTABLEKS                       R1 R1 K1 ["unmounted"]
+       13 JUMPIFNOT                        R1 ; [+1]
+       14 RETURN                           R0 0
+       15 GETTABLEN                        R1 R0 1
+       16 JUMPIFNOT                        R1 ; [+8]
+       17 GETUPVAL                         R2 4
+       18 GETTABLEKS                       R2 R2 K2 ["Standalone"]
+       20 GETTABLEKS                       R2 R2 K3 ["setShowSourcesEnabled"]
+       22 GETTABLEKS                       R3 R1 K4 ["Checked"]
+       24 CALL                             R2 1 0
+       25 GETTABLEN                        R2 R0 2
+       26 JUMPIFNOT                        R2 ; [+8]
+       27 GETUPVAL                         R3 4
+       28 GETTABLEKS                       R3 R3 K2 ["Standalone"]
+       30 GETTABLEKS                       R3 R3 K5 ["setShowInactiveEnabled"]
+       32 GETTABLEKS                       R4 R2 K4 ["Checked"]
+       34 CALL                             R3 1 0
+       35 RETURN                           R0 0
+
+PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 LOADK                            R3 K2 ["Opened"]
         5 NAMECALL                         R1 R1 K3 ["Invoke"]
         7 CALL                             R1 2 0
-        8 RETURN                           R0 0
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K4 ["Standalone"]
+       11 GETTABLEKS                       R1 R1 K5 ["setUpMainView"]
+       13 CALL                             R1 0 1
+       14 SETTABLEKS                       R1 R0 K6 ["mainViewCleanup"]
+       16 GETTABLEKS                       R1 R0 K0 ["props"]
+       18 GETTABLEKS                       R1 R1 K1 ["Plugin"]
+       20 LOADK                            R3 K7 ["Actions"]
+       21 NAMECALL                         R1 R1 K8 ["GetPluginComponent"]
+       23 CALL                             R1 2 1
+       24 GETIMPORT                        R2 K11 [task.spawn]
+       26 NEWCLOSURE                       R3 P0
+       27 CAPTURE                          VAL R1
+       28 CAPTURE                          UPVAL U1
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          UPVAL U0
+       32 CALL                             R2 1 0
+       33 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R3 R2 K0 ["enabled"]
         2 GETTABLEKS                       R4 R0 K1 ["state"]
         4 GETTABLEKS                       R4 R4 K0 ["enabled"]
-        6 JUMPIFEQ                         R3 R4 ; [+1]
-        8 GETTABLEKS                       R3 R2 K2 ["showInactive"]
-       10 GETTABLEKS                       R4 R0 K1 ["state"]
-       12 GETTABLEKS                       R4 R4 K2 ["showInactive"]
-       14 JUMPIFEQ                         R3 R4 ; [+1]
-       16 RETURN                           R0 0
+        6 JUMPIFEQ                         R3 R4 ; [+11]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["Standalone"]
+       11 GETTABLEKS                       R3 R3 K3 ["setShowSourcesEnabled"]
+       13 GETTABLEKS                       R4 R0 K1 ["state"]
+       15 GETTABLEKS                       R4 R4 K0 ["enabled"]
+       17 CALL                             R3 1 0
+       18 GETTABLEKS                       R3 R2 K4 ["showInactive"]
+       20 GETTABLEKS                       R4 R0 K1 ["state"]
+       22 GETTABLEKS                       R4 R4 K4 ["showInactive"]
+       24 JUMPIFEQ                         R3 R4 ; [+11]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K2 ["Standalone"]
+       29 GETTABLEKS                       R3 R3 K5 ["setShowInactiveEnabled"]
+       31 GETTABLEKS                       R4 R0 K1 ["state"]
+       33 GETTABLEKS                       R4 R4 K4 ["showInactive"]
+       35 CALL                             R3 1 0
+       36 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 0
@@ -273,7 +331,7 @@ PROTO_12:
         6 CALL                             R1 1 -1
         7 RETURN                           R1 -1
 
-PROTO_13:
+PROTO_14:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["unmounted"]
         3 GETTABLEKS                       R1 R0 K1 ["mainViewCleanup"]
@@ -335,36 +393,45 @@ MAIN:
        58 GETTABLEKS                       R10 R10 K21 ["Resources"]
        60 GETTABLEKS                       R10 R10 K11 ["Localization"]
        62 GETTABLEKS                       R10 R10 K23 ["LocalizedStrings"]
-       64 GETTABLEKS                       R11 R1 K24 ["PureComponent"]
-       66 LOADK                            R13 K25 ["MainPlugin"]
-       67 NAMECALL                         R11 R11 K26 ["extend"]
-       69 CALL                             R11 2 1
-       70 GETTABLEKS                       R12 R7 K27 ["fromAction"]
-       72 LOADK                            R13 K2 ["AudioViewportVisualizations"]
-       73 LOADK                            R14 K28 ["Toggle"]
-       74 CALL                             R12 2 1
-       75 GETTABLEKS                       R13 R7 K27 ["fromAction"]
-       77 LOADK                            R14 K2 ["AudioViewportVisualizations"]
-       78 LOADK                            R15 K29 ["ToggleShowInactiveSources"]
-       79 CALL                             R13 2 1
-       80 DUPCLOSURE                       R14 K30 [PROTO_9]
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R13
-       83 CAPTURE                          VAL R5
-       84 CAPTURE                          VAL R9
-       85 CAPTURE                          VAL R10
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R6
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R8
-       90 SETTABLEKS                       R14 R11 K31 ["init"]
-       92 DUPCLOSURE                       R14 K32 [PROTO_10]
-       93 SETTABLEKS                       R14 R11 K33 ["didMount"]
-       95 DUPCLOSURE                       R14 K34 [PROTO_11]
-       96 SETTABLEKS                       R14 R11 K35 ["didUpdate"]
-       98 DUPCLOSURE                       R14 K36 [PROTO_12]
-       99 CAPTURE                          VAL R1
-      100 SETTABLEKS                       R14 R11 K37 ["render"]
-      102 DUPCLOSURE                       R14 K38 [PROTO_13]
-      103 SETTABLEKS                       R14 R11 K39 ["willUnmount"]
-      105 RETURN                           R11 1
+       64 GETIMPORT                        R11 K5 [require]
+       66 GETTABLEKS                       R12 R0 K20 ["Src"]
+       68 GETTABLEKS                       R12 R12 K16 ["Util"]
+       70 GETTABLEKS                       R12 R12 K24 ["DMCoordinator"]
+       72 CALL                             R11 1 1
+       73 GETTABLEKS                       R12 R1 K25 ["PureComponent"]
+       75 LOADK                            R14 K26 ["MainPlugin"]
+       76 NAMECALL                         R12 R12 K27 ["extend"]
+       78 CALL                             R12 2 1
+       79 GETTABLEKS                       R13 R7 K28 ["fromAction"]
+       81 LOADK                            R14 K2 ["AudioViewportVisualizations"]
+       82 LOADK                            R15 K29 ["Toggle"]
+       83 CALL                             R13 2 1
+       84 GETTABLEKS                       R14 R7 K28 ["fromAction"]
+       86 LOADK                            R15 K2 ["AudioViewportVisualizations"]
+       87 LOADK                            R16 K30 ["ToggleShowInactiveSources"]
+       88 CALL                             R14 2 1
+       89 DUPCLOSURE                       R15 K31 [PROTO_9]
+       90 CAPTURE                          VAL R13
+       91 CAPTURE                          VAL R14
+       92 CAPTURE                          VAL R5
+       93 CAPTURE                          VAL R9
+       94 CAPTURE                          VAL R10
+       95 CAPTURE                          VAL R4
+       96 CAPTURE                          VAL R6
+       97 CAPTURE                          VAL R3
+       98 CAPTURE                          VAL R8
+       99 SETTABLEKS                       R15 R12 K32 ["init"]
+      101 DUPCLOSURE                       R15 K33 [PROTO_11]
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          VAL R13
+      104 CAPTURE                          VAL R14
+      105 SETTABLEKS                       R15 R12 K34 ["didMount"]
+      107 DUPCLOSURE                       R15 K35 [PROTO_12]
+      108 CAPTURE                          VAL R11
+      109 SETTABLEKS                       R15 R12 K36 ["didUpdate"]
+      111 DUPCLOSURE                       R15 K37 [PROTO_13]
+      112 CAPTURE                          VAL R1
+      113 SETTABLEKS                       R15 R12 K38 ["render"]
+      115 DUPCLOSURE                       R15 K39 [PROTO_14]
+      116 SETTABLEKS                       R15 R12 K40 ["willUnmount"]
+      118 RETURN                           R12 1

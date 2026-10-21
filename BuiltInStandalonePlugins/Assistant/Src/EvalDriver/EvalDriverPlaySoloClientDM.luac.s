@@ -209,66 +209,65 @@ PROTO_10:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [require]
-        3 GETIMPORT                        R1 K3 [script]
-        5 GETTABLEKS                       R1 R1 K4 ["Parent"]
-        7 GETTABLEKS                       R1 R1 K5 ["EvalUtils"]
-        9 CALL                             R0 1 1
-       10 GETIMPORT                        R1 K1 [require]
-       12 GETIMPORT                        R2 K3 [script]
-       14 GETTABLEKS                       R2 R2 K4 ["Parent"]
-       16 GETTABLEKS                       R2 R2 K6 ["Types"]
-       18 CALL                             R1 1 1
-       19 GETIMPORT                        R2 K3 [script]
-       21 LOADK                            R4 K7 ["Assistant"]
-       22 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
-       24 CALL                             R2 2 1
-       25 GETIMPORT                        R3 K1 [require]
-       27 GETTABLEKS                       R4 R2 K9 ["Packages"]
-       29 GETTABLEKS                       R4 R4 K10 ["AssistantUI"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R3 K11 ["Utils"]
-       34 GETTABLEKS                       R4 R4 K12 ["TestAutomationUtils"]
-       36 GETTABLEKS                       R5 R3 K11 ["Utils"]
-       38 GETTABLEKS                       R5 R5 K13 ["DataModelType"]
-       40 GETIMPORT                        R6 K1 [require]
-       42 GETTABLEKS                       R7 R2 K9 ["Packages"]
-       44 GETTABLEKS                       R7 R7 K14 ["DMNetworking"]
-       46 CALL                             R6 1 1
-       47 GETIMPORT                        R7 K1 [require]
-       49 GETTABLEKS                       R8 R2 K9 ["Packages"]
-       51 GETTABLEKS                       R8 R8 K15 ["DMNetworkingOLD"]
-       53 CALL                             R7 1 1
-       54 GETIMPORT                        R8 K1 [require]
-       56 GETTABLEKS                       R9 R2 K16 ["Src"]
-       58 GETTABLEKS                       R9 R9 K17 ["Flags"]
-       60 CALL                             R8 1 1
-       61 GETTABLEKS                       R9 R3 K11 ["Utils"]
-       63 GETTABLEKS                       R9 R9 K18 ["Bin"]
-       65 GETTABLEKS                       R10 R6 K19 ["Remote"]
-       67 DUPCLOSURE                       R11 K20 [PROTO_0]
-       68 CAPTURE                          VAL R0
-       69 NEWTABLE                         R12 0 0
-       71 LOADNIL                          R13
-       72 NEWCLOSURE                       R14 P1
-       73 CAPTURE                          VAL R8
-       74 CAPTURE                          REF R13
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Assistant"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["AssistantUI"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["Bin"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETTABLEKS                       R5 R1 K9 ["DMNetworking"]
+       23 CALL                             R4 1 1
+       24 GETIMPORT                        R5 K6 [require]
+       26 GETTABLEKS                       R6 R1 K10 ["DMNetworkingOLD"]
+       28 CALL                             R5 1 1
+       29 GETIMPORT                        R6 K6 [require]
+       31 GETTABLEKS                       R7 R0 K11 ["Src"]
+       33 GETTABLEKS                       R7 R7 K12 ["EvalDriver"]
+       35 GETTABLEKS                       R7 R7 K13 ["EvalUtils"]
+       37 CALL                             R6 1 1
+       38 GETIMPORT                        R7 K6 [require]
+       40 GETTABLEKS                       R8 R0 K11 ["Src"]
+       42 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       44 CALL                             R7 1 1
+       45 GETIMPORT                        R8 K6 [require]
+       47 GETTABLEKS                       R9 R0 K11 ["Src"]
+       49 GETTABLEKS                       R9 R9 K12 ["EvalDriver"]
+       51 GETTABLEKS                       R9 R9 K15 ["Types"]
+       53 CALL                             R8 1 1
+       54 GETTABLEKS                       R9 R2 K16 ["Utils"]
+       56 GETTABLEKS                       R9 R9 K17 ["TestAutomationUtils"]
+       58 GETTABLEKS                       R10 R2 K16 ["Utils"]
+       60 GETTABLEKS                       R10 R10 K18 ["DataModelType"]
+       62 GETTABLEKS                       R11 R4 K19 ["Remote"]
+       64 DUPCLOSURE                       R12 K20 [PROTO_0]
+       65 CAPTURE                          VAL R6
+       66 NEWTABLE                         R13 0 0
+       68 LOADNIL                          R14
+       69 NEWCLOSURE                       R15 P1
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          REF R14
+       72 CAPTURE                          VAL R3
+       73 CAPTURE                          VAL R11
+       74 CAPTURE                          VAL R12
        75 CAPTURE                          VAL R9
-       76 CAPTURE                          VAL R10
-       77 CAPTURE                          VAL R11
-       78 CAPTURE                          VAL R4
-       79 NEWCLOSURE                       R15 P2
-       80 CAPTURE                          VAL R0
-       81 CAPTURE                          VAL R14
-       82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          REF R13
-       87 NEWCLOSURE                       R16 P3
-       88 CAPTURE                          REF R12
-       89 DUPTABLE                         R17 K23 [{"init", "close"}]
-       90 SETTABLEKS                       R15 R17 K21 ["init"]
-       92 SETTABLEKS                       R16 R17 K22 ["close"]
-       94 CLOSEUPVALS                      R12
-       95 RETURN                           R17 1
+       76 NEWCLOSURE                       R16 P2
+       77 CAPTURE                          VAL R6
+       78 CAPTURE                          VAL R15
+       79 CAPTURE                          VAL R7
+       80 CAPTURE                          VAL R11
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R10
+       83 CAPTURE                          REF R14
+       84 NEWCLOSURE                       R17 P3
+       85 CAPTURE                          REF R13
+       86 DUPTABLE                         R18 K23 [{"init", "close"}]
+       87 SETTABLEKS                       R16 R18 K21 ["init"]
+       89 SETTABLEKS                       R17 R18 K22 ["close"]
+       91 CLOSEUPVALS                      R13
+       92 RETURN                           R18 1

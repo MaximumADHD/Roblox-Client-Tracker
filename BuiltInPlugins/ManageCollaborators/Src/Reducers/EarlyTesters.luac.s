@@ -26,26 +26,28 @@ PROTO_1:
        15 RETURN                           R1 1
 
 PROTO_2:
-        0 DUPTABLE                         R0 K26 [{[1] = , ["ExistingMemberIds"], ["Mode"], ["PendingRoleId"] = , ["PendingRoleName"] = , ["PendingRoleIsPrivate"] = , ["PendingRoleColor"] = , ["PendingMembers"], ["AllRoles"], ["SaveError"] = , ["LoadError"] = False, ["Screen"], ["GroupMembers"], ["GroupMembersCursor"] = , ["GroupMembersExhausted"] = False, ["GroupMembersLoading"] = False, ["SearchQuery"] = "", ["SearchResults"], ["SearchResultsCursor"] = , ["SearchResultsExhausted"] = False, ["SearchResultsLoading"] = False, ["SearchSelection"], ["PickedRoleId"] = }]
+        0 DUPTABLE                         R0 K28 [{[1] = , ["ExistingMemberIds"], ["Mode"], ["PendingRoleId"] = , ["PendingRoleName"] = , ["PendingRoleIsPrivate"] = , ["PendingRoleColor"] = , ["PendingMembers"], ["AllRoles"], ["SaveError"] = , ["LoadError"] = False, ["CanAssignRole"] = False, ["Screen"], ["GroupMembers"], ["GroupMembersCursor"] = , ["GroupMembersExhausted"] = False, ["GroupMembersLoading"] = False, ["SearchQuery"] = "", ["SearchResults"], ["SearchResultsCursor"] = , ["SearchResultsExhausted"] = False, ["SearchResultsLoading"] = False, ["SearchSelection"], ["PickedRoleId"] = , ["MemberEligibility"]}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K2 ["ExistingMemberIds"]
         5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R1 R1 K27 ["Unset"]
+        6 GETTABLEKS                       R1 R1 K29 ["Unset"]
         8 SETTABLEKS                       R1 R0 K3 ["Mode"]
        10 NEWTABLE                         R1 0 0
        12 SETTABLEKS                       R1 R0 K8 ["PendingMembers"]
        14 NEWTABLE                         R1 0 0
        16 SETTABLEKS                       R1 R0 K9 ["AllRoles"]
        18 GETUPVAL                         R1 1
-       19 GETTABLEKS                       R1 R1 K28 ["Main"]
-       21 SETTABLEKS                       R1 R0 K13 ["Screen"]
+       19 GETTABLEKS                       R1 R1 K30 ["Main"]
+       21 SETTABLEKS                       R1 R0 K14 ["Screen"]
        23 NEWTABLE                         R1 0 0
-       25 SETTABLEKS                       R1 R0 K14 ["GroupMembers"]
+       25 SETTABLEKS                       R1 R0 K15 ["GroupMembers"]
        27 NEWTABLE                         R1 0 0
-       29 SETTABLEKS                       R1 R0 K20 ["SearchResults"]
+       29 SETTABLEKS                       R1 R0 K21 ["SearchResults"]
        31 NEWTABLE                         R1 0 0
-       33 SETTABLEKS                       R1 R0 K24 ["SearchSelection"]
-       35 RETURN                           R0 1
+       33 SETTABLEKS                       R1 R0 K25 ["SearchSelection"]
+       35 NEWTABLE                         R1 0 0
+       37 SETTABLEKS                       R1 R0 K27 ["MemberEligibility"]
+       39 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -117,6 +119,17 @@ PROTO_6:
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"CanAssignRole"}]
+        7 GETTABLEKS                       R5 R1 K4 ["canAssignRole"]
+        9 SETTABLEKS                       R5 R4 K2 ["CanAssignRole"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
+
+PROTO_7:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
+        5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K10 [{"Mode", "PendingRoleId", "PendingRoleName", "PendingRoleIsPrivate", "PendingRoleColor", "PendingMembers", "ExistingMemberIds", "SaveError"}]
         7 GETTABLEKS                       R5 R1 K11 ["mode"]
         9 SETTABLEKS                       R5 R4 K2 ["Mode"]
@@ -148,7 +161,7 @@ PROTO_6:
        54 CALL                             R2 2 -1
        55 RETURN                           R2 -1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -163,7 +176,7 @@ PROTO_7:
        19 CALL                             R2 2 -1
        20 RETURN                           R2 -1
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["member"]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
@@ -182,7 +195,7 @@ PROTO_8:
        24 CALL                             R3 2 -1
        25 RETURN                           R3 -1
 
-PROTO_9:
+PROTO_10:
         0 NEWTABLE                         R2 0 0
         2 GETTABLEKS                       R3 R1 K0 ["members"]
         4 LOADNIL                          R4
@@ -206,7 +219,7 @@ PROTO_9:
        30 CALL                             R3 2 -1
        31 RETURN                           R3 -1
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -226,7 +239,7 @@ PROTO_10:
        25 CALL                             R2 2 -1
        26 RETURN                           R2 -1
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -237,7 +250,7 @@ PROTO_11:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -248,7 +261,7 @@ PROTO_12:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -266,7 +279,7 @@ PROTO_13:
        24 CALL                             R2 2 -1
        25 RETURN                           R2 -1
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R2 R1 K0 ["member"]
         2 LOADNIL                          R3
         3 GETTABLEKS                       R5 R0 K1 ["SearchSelection"]
@@ -303,7 +316,7 @@ PROTO_14:
        50 CALL                             R4 2 -1
        51 RETURN                           R4 -1
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -314,7 +327,7 @@ PROTO_15:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_16:
+PROTO_17:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 GETTABLEKS                       R3 R0 K3 ["GroupMembers"]
         4 CALL                             R2 1 1
@@ -344,7 +357,7 @@ PROTO_16:
        40 CALL                             R3 2 -1
        41 RETURN                           R3 -1
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -355,7 +368,7 @@ PROTO_17:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_18:
+PROTO_19:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -366,7 +379,7 @@ PROTO_18:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -384,7 +397,7 @@ PROTO_19:
        23 CALL                             R2 2 -1
        24 RETURN                           R2 -1
 
-PROTO_20:
+PROTO_21:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 GETTABLEKS                       R3 R0 K3 ["SearchResults"]
         4 CALL                             R2 1 1
@@ -414,7 +427,7 @@ PROTO_20:
        40 CALL                             R3 2 -1
        41 RETURN                           R3 -1
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
@@ -424,6 +437,57 @@ PROTO_21:
         9 SETTABLEKS                       R5 R4 K2 ["SearchResultsLoading"]
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
+
+PROTO_23:
+        0 NEWTABLE                         R2 0 0
+        2 NEWTABLE                         R3 0 0
+        4 GETTABLEKS                       R4 R1 K0 ["eligibility"]
+        6 LOADNIL                          R5
+        7 LOADNIL                          R6
+        8 FORGPREP                         R4
+        9 JUMPIF                           R8 ; [+19]
+       10 GETUPVAL                         R9 0
+       11 GETTABLEKS                       R9 R9 K1 ["None"]
+       13 SETTABLE                         R9 R2 R7
+       14 GETTABLEKS                       R9 R0 K2 ["Mode"]
+       16 GETUPVAL                         R10 1
+       17 GETTABLEKS                       R10 R10 K3 ["CreatingNew"]
+       19 JUMPIFEQ                         R9 R10 ; [+5]
+       21 GETTABLEKS                       R10 R0 K4 ["ExistingMemberIds"]
+       23 GETTABLE                         R9 R10 R7
+       24 JUMPIF                           R9 ; [+4]
+       25 GETUPVAL                         R9 0
+       26 GETTABLEKS                       R9 R9 K1 ["None"]
+       28 SETTABLE                         R9 R3 R7
+       29 FORGLOOP                         R4 2 ; [-21]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K5 ["Dictionary"]
+       34 GETTABLEKS                       R4 R4 K6 ["join"]
+       36 MOVE                             R5 R0
+       37 DUPTABLE                         R6 K10 [{"MemberEligibility", "SearchSelection", "PendingMembers"}]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R7 R7 K5 ["Dictionary"]
+       41 GETTABLEKS                       R7 R7 K6 ["join"]
+       43 GETTABLEKS                       R8 R0 K7 ["MemberEligibility"]
+       45 GETTABLEKS                       R9 R1 K0 ["eligibility"]
+       47 CALL                             R7 2 1
+       48 SETTABLEKS                       R7 R6 K7 ["MemberEligibility"]
+       50 GETUPVAL                         R7 0
+       51 GETTABLEKS                       R7 R7 K5 ["Dictionary"]
+       53 GETTABLEKS                       R7 R7 K6 ["join"]
+       55 GETTABLEKS                       R8 R0 K8 ["SearchSelection"]
+       57 MOVE                             R9 R2
+       58 CALL                             R7 2 1
+       59 SETTABLEKS                       R7 R6 K8 ["SearchSelection"]
+       61 GETUPVAL                         R7 0
+       62 GETTABLEKS                       R7 R7 K5 ["Dictionary"]
+       64 GETTABLEKS                       R7 R7 K6 ["join"]
+       66 GETTABLEKS                       R8 R0 K9 ["PendingMembers"]
+       68 MOVE                             R9 R3
+       69 CALL                             R7 2 1
+       70 SETTABLEKS                       R7 R6 K9 ["PendingMembers"]
+       72 CALL                             R4 2 -1
+       73 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -469,131 +533,146 @@ MAIN:
        69 GETTABLEKS                       R13 R3 K18 ["SetEarlyTesterLoadError"]
        71 CALL                             R12 1 1
        72 GETIMPORT                        R13 K4 [require]
-       74 GETTABLEKS                       R14 R3 K19 ["SetEarlyTesterScreen"]
+       74 GETTABLEKS                       R14 R3 K19 ["SetEarlyTesterCanAssignRole"]
        76 CALL                             R13 1 1
        77 GETIMPORT                        R14 K4 [require]
-       79 GETTABLEKS                       R15 R3 K20 ["AddGroupMembersPage"]
+       79 GETTABLEKS                       R15 R3 K20 ["SetEarlyTesterScreen"]
        81 CALL                             R14 1 1
        82 GETIMPORT                        R15 K4 [require]
-       84 GETTABLEKS                       R16 R3 K21 ["SetGroupMembersLoading"]
+       84 GETTABLEKS                       R16 R3 K21 ["AddGroupMembersPage"]
        86 CALL                             R15 1 1
        87 GETIMPORT                        R16 K4 [require]
-       89 GETTABLEKS                       R17 R3 K22 ["ToggleEarlyTesterSelection"]
+       89 GETTABLEKS                       R17 R3 K22 ["SetGroupMembersLoading"]
        91 CALL                             R16 1 1
        92 GETIMPORT                        R17 K4 [require]
-       94 GETTABLEKS                       R18 R3 K23 ["SetEarlyTesterPickedRoleId"]
+       94 GETTABLEKS                       R18 R3 K23 ["ToggleEarlyTesterSelection"]
        96 CALL                             R17 1 1
        97 GETIMPORT                        R18 K4 [require]
-       99 GETTABLEKS                       R19 R3 K24 ["SetGroupMemberSearchQuery"]
+       99 GETTABLEKS                       R19 R3 K24 ["SetEarlyTesterPickedRoleId"]
       101 CALL                             R18 1 1
       102 GETIMPORT                        R19 K4 [require]
-      104 GETTABLEKS                       R20 R3 K25 ["SetGroupMemberSearchResults"]
+      104 GETTABLEKS                       R20 R3 K25 ["SetGroupMemberSearchQuery"]
       106 CALL                             R19 1 1
       107 GETIMPORT                        R20 K4 [require]
-      109 GETTABLEKS                       R21 R3 K26 ["AddGroupMemberSearchResultsPage"]
+      109 GETTABLEKS                       R21 R3 K26 ["SetGroupMemberSearchResults"]
       111 CALL                             R20 1 1
       112 GETIMPORT                        R21 K4 [require]
-      114 GETTABLEKS                       R22 R3 K27 ["SetGroupMemberSearchResultsLoading"]
+      114 GETTABLEKS                       R22 R3 K27 ["AddGroupMemberSearchResultsPage"]
       116 CALL                             R21 1 1
       117 GETIMPORT                        R22 K4 [require]
-      119 GETTABLEKS                       R23 R0 K8 ["Src"]
-      121 GETTABLEKS                       R23 R23 K28 ["Util"]
-      123 GETTABLEKS                       R23 R23 K29 ["EarlyTesterMode"]
-      125 CALL                             R22 1 1
-      126 GETIMPORT                        R23 K4 [require]
-      128 GETTABLEKS                       R24 R0 K8 ["Src"]
-      130 GETTABLEKS                       R24 R24 K28 ["Util"]
-      132 GETTABLEKS                       R24 R24 K30 ["EarlyTesterScreen"]
-      134 CALL                             R23 1 1
-      135 DUPCLOSURE                       R24 K31 [PROTO_0]
-      136 DUPCLOSURE                       R25 K32 [PROTO_1]
-      137 DUPCLOSURE                       R26 K33 [PROTO_2]
-      138 CAPTURE                          VAL R22
-      139 CAPTURE                          VAL R23
-      140 GETTABLEKS                       R27 R1 K34 ["createReducer"]
-      142 MOVE                             R28 R26
-      143 CALL                             R28 0 1
-      144 NEWTABLE                         R29 32 0
-      146 DUPCLOSURE                       R30 K35 [PROTO_3]
-      147 CAPTURE                          VAL R26
-      148 SETTABLEKS                       R30 R29 K36 ["ResetStore"]
-      150 GETTABLEKS                       R30 R4 K37 ["name"]
-      152 DUPCLOSURE                       R31 K38 [PROTO_4]
-      153 CAPTURE                          VAL R2
-      154 CAPTURE                          VAL R25
-      155 CAPTURE                          VAL R22
-      156 CAPTURE                          VAL R24
-      157 SETTABLE                         R31 R29 R30
-      158 GETTABLEKS                       R30 R12 K37 ["name"]
-      160 DUPCLOSURE                       R31 K39 [PROTO_5]
-      161 CAPTURE                          VAL R2
-      162 SETTABLE                         R31 R29 R30
-      163 GETTABLEKS                       R30 R5 K37 ["name"]
-      165 DUPCLOSURE                       R31 K40 [PROTO_6]
-      166 CAPTURE                          VAL R2
-      167 CAPTURE                          VAL R24
-      168 CAPTURE                          VAL R22
-      169 CAPTURE                          VAL R25
-      170 SETTABLE                         R31 R29 R30
-      171 GETTABLEKS                       R30 R6 K37 ["name"]
-      173 DUPCLOSURE                       R31 K41 [PROTO_7]
-      174 CAPTURE                          VAL R2
-      175 SETTABLE                         R31 R29 R30
-      176 GETTABLEKS                       R30 R7 K37 ["name"]
-      178 DUPCLOSURE                       R31 K42 [PROTO_8]
-      179 CAPTURE                          VAL R2
-      180 SETTABLE                         R31 R29 R30
-      181 GETTABLEKS                       R30 R8 K37 ["name"]
-      183 DUPCLOSURE                       R31 K43 [PROTO_9]
-      184 CAPTURE                          VAL R2
-      185 SETTABLE                         R31 R29 R30
-      186 GETTABLEKS                       R30 R9 K37 ["name"]
-      188 DUPCLOSURE                       R31 K44 [PROTO_10]
+      119 GETTABLEKS                       R23 R3 K28 ["SetGroupMemberSearchResultsLoading"]
+      121 CALL                             R22 1 1
+      122 GETIMPORT                        R23 K4 [require]
+      124 GETTABLEKS                       R24 R3 K29 ["AddEarlyTesterMemberEligibility"]
+      126 CALL                             R23 1 1
+      127 GETIMPORT                        R24 K4 [require]
+      129 GETTABLEKS                       R25 R0 K8 ["Src"]
+      131 GETTABLEKS                       R25 R25 K30 ["Util"]
+      133 GETTABLEKS                       R25 R25 K31 ["EarlyTesterMode"]
+      135 CALL                             R24 1 1
+      136 GETIMPORT                        R25 K4 [require]
+      138 GETTABLEKS                       R26 R0 K8 ["Src"]
+      140 GETTABLEKS                       R26 R26 K30 ["Util"]
+      142 GETTABLEKS                       R26 R26 K32 ["EarlyTesterScreen"]
+      144 CALL                             R25 1 1
+      145 DUPCLOSURE                       R26 K33 [PROTO_0]
+      146 DUPCLOSURE                       R27 K34 [PROTO_1]
+      147 DUPCLOSURE                       R28 K35 [PROTO_2]
+      148 CAPTURE                          VAL R24
+      149 CAPTURE                          VAL R25
+      150 GETTABLEKS                       R29 R1 K36 ["createReducer"]
+      152 MOVE                             R30 R28
+      153 CALL                             R30 0 1
+      154 NEWTABLE                         R31 32 0
+      156 DUPCLOSURE                       R32 K37 [PROTO_3]
+      157 CAPTURE                          VAL R28
+      158 SETTABLEKS                       R32 R31 K38 ["ResetStore"]
+      160 GETTABLEKS                       R32 R4 K39 ["name"]
+      162 DUPCLOSURE                       R33 K40 [PROTO_4]
+      163 CAPTURE                          VAL R2
+      164 CAPTURE                          VAL R27
+      165 CAPTURE                          VAL R24
+      166 CAPTURE                          VAL R26
+      167 SETTABLE                         R33 R31 R32
+      168 GETTABLEKS                       R32 R12 K39 ["name"]
+      170 DUPCLOSURE                       R33 K41 [PROTO_5]
+      171 CAPTURE                          VAL R2
+      172 SETTABLE                         R33 R31 R32
+      173 GETTABLEKS                       R32 R13 K39 ["name"]
+      175 DUPCLOSURE                       R33 K42 [PROTO_6]
+      176 CAPTURE                          VAL R2
+      177 SETTABLE                         R33 R31 R32
+      178 GETTABLEKS                       R32 R5 K39 ["name"]
+      180 DUPCLOSURE                       R33 K43 [PROTO_7]
+      181 CAPTURE                          VAL R2
+      182 CAPTURE                          VAL R26
+      183 CAPTURE                          VAL R24
+      184 CAPTURE                          VAL R27
+      185 SETTABLE                         R33 R31 R32
+      186 GETTABLEKS                       R32 R6 K39 ["name"]
+      188 DUPCLOSURE                       R33 K44 [PROTO_8]
       189 CAPTURE                          VAL R2
-      190 SETTABLE                         R31 R29 R30
-      191 GETTABLEKS                       R30 R10 K37 ["name"]
-      193 DUPCLOSURE                       R31 K45 [PROTO_11]
+      190 SETTABLE                         R33 R31 R32
+      191 GETTABLEKS                       R32 R7 K39 ["name"]
+      193 DUPCLOSURE                       R33 K45 [PROTO_9]
       194 CAPTURE                          VAL R2
-      195 SETTABLE                         R31 R29 R30
-      196 GETTABLEKS                       R30 R11 K37 ["name"]
-      198 DUPCLOSURE                       R31 K46 [PROTO_12]
+      195 SETTABLE                         R33 R31 R32
+      196 GETTABLEKS                       R32 R8 K39 ["name"]
+      198 DUPCLOSURE                       R33 K46 [PROTO_10]
       199 CAPTURE                          VAL R2
-      200 SETTABLE                         R31 R29 R30
-      201 GETTABLEKS                       R30 R13 K37 ["name"]
-      203 DUPCLOSURE                       R31 K47 [PROTO_13]
+      200 SETTABLE                         R33 R31 R32
+      201 GETTABLEKS                       R32 R9 K39 ["name"]
+      203 DUPCLOSURE                       R33 K47 [PROTO_11]
       204 CAPTURE                          VAL R2
-      205 SETTABLE                         R31 R29 R30
-      206 GETTABLEKS                       R30 R16 K37 ["name"]
-      208 DUPCLOSURE                       R31 K48 [PROTO_14]
+      205 SETTABLE                         R33 R31 R32
+      206 GETTABLEKS                       R32 R10 K39 ["name"]
+      208 DUPCLOSURE                       R33 K48 [PROTO_12]
       209 CAPTURE                          VAL R2
-      210 SETTABLE                         R31 R29 R30
-      211 GETTABLEKS                       R30 R17 K37 ["name"]
-      213 DUPCLOSURE                       R31 K49 [PROTO_15]
+      210 SETTABLE                         R33 R31 R32
+      211 GETTABLEKS                       R32 R11 K39 ["name"]
+      213 DUPCLOSURE                       R33 K49 [PROTO_13]
       214 CAPTURE                          VAL R2
-      215 SETTABLE                         R31 R29 R30
-      216 GETTABLEKS                       R30 R14 K37 ["name"]
-      218 DUPCLOSURE                       R31 K50 [PROTO_16]
+      215 SETTABLE                         R33 R31 R32
+      216 GETTABLEKS                       R32 R14 K39 ["name"]
+      218 DUPCLOSURE                       R33 K50 [PROTO_14]
       219 CAPTURE                          VAL R2
-      220 SETTABLE                         R31 R29 R30
-      221 GETTABLEKS                       R30 R15 K37 ["name"]
-      223 DUPCLOSURE                       R31 K51 [PROTO_17]
+      220 SETTABLE                         R33 R31 R32
+      221 GETTABLEKS                       R32 R17 K39 ["name"]
+      223 DUPCLOSURE                       R33 K51 [PROTO_15]
       224 CAPTURE                          VAL R2
-      225 SETTABLE                         R31 R29 R30
-      226 GETTABLEKS                       R30 R18 K37 ["name"]
-      228 DUPCLOSURE                       R31 K52 [PROTO_18]
+      225 SETTABLE                         R33 R31 R32
+      226 GETTABLEKS                       R32 R18 K39 ["name"]
+      228 DUPCLOSURE                       R33 K52 [PROTO_16]
       229 CAPTURE                          VAL R2
-      230 SETTABLE                         R31 R29 R30
-      231 GETTABLEKS                       R30 R19 K37 ["name"]
-      233 DUPCLOSURE                       R31 K53 [PROTO_19]
+      230 SETTABLE                         R33 R31 R32
+      231 GETTABLEKS                       R32 R15 K39 ["name"]
+      233 DUPCLOSURE                       R33 K53 [PROTO_17]
       234 CAPTURE                          VAL R2
-      235 SETTABLE                         R31 R29 R30
-      236 GETTABLEKS                       R30 R20 K37 ["name"]
-      238 DUPCLOSURE                       R31 K54 [PROTO_20]
+      235 SETTABLE                         R33 R31 R32
+      236 GETTABLEKS                       R32 R16 K39 ["name"]
+      238 DUPCLOSURE                       R33 K54 [PROTO_18]
       239 CAPTURE                          VAL R2
-      240 SETTABLE                         R31 R29 R30
-      241 GETTABLEKS                       R30 R21 K37 ["name"]
-      243 DUPCLOSURE                       R31 K55 [PROTO_21]
+      240 SETTABLE                         R33 R31 R32
+      241 GETTABLEKS                       R32 R19 K39 ["name"]
+      243 DUPCLOSURE                       R33 K55 [PROTO_19]
       244 CAPTURE                          VAL R2
-      245 SETTABLE                         R31 R29 R30
-      246 CALL                             R27 2 -1
-      247 RETURN                           R27 -1
+      245 SETTABLE                         R33 R31 R32
+      246 GETTABLEKS                       R32 R20 K39 ["name"]
+      248 DUPCLOSURE                       R33 K56 [PROTO_20]
+      249 CAPTURE                          VAL R2
+      250 SETTABLE                         R33 R31 R32
+      251 GETTABLEKS                       R32 R21 K39 ["name"]
+      253 DUPCLOSURE                       R33 K57 [PROTO_21]
+      254 CAPTURE                          VAL R2
+      255 SETTABLE                         R33 R31 R32
+      256 GETTABLEKS                       R32 R22 K39 ["name"]
+      258 DUPCLOSURE                       R33 K58 [PROTO_22]
+      259 CAPTURE                          VAL R2
+      260 SETTABLE                         R33 R31 R32
+      261 GETTABLEKS                       R32 R23 K39 ["name"]
+      263 DUPCLOSURE                       R33 K59 [PROTO_23]
+      264 CAPTURE                          VAL R2
+      265 CAPTURE                          VAL R24
+      266 SETTABLE                         R33 R31 R32
+      267 CALL                             R29 2 -1
+      268 RETURN                           R29 -1

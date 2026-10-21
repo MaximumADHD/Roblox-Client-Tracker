@@ -28,31 +28,15 @@ MAIN:
        39 DUPTABLE                         R9 K39 [{["PluginId"] = "Help", ["DataModel"] = "Standalone", ["ItemId"] = "StudioTour", ["Category"] = "Actions"}]
        40 SETTABLEKS                       R9 R8 K13 ["Action"]
        42 DUPTABLE                         R9 K35 [{["Type"] = "Separator"}]
-       43 DUPTABLE                         R10 K42 [{["Id"] = "ReportIllegalContent", ["Type"] = "Action", ["Action"], ["Visibility"], ["ShowIcon"] = False}]
-       44 DUPTABLE                         R11 K44 [{["PluginId"] = "Help", ["DataModel"] = "Standalone", ["ItemId"] = "Open/ReportIllegalContent", ["Category"] = "Actions"}]
+       43 DUPTABLE                         R10 K41 [{["Id"] = "ReportIllegalContent", ["Type"] = "Action", ["Action"], ["ShowIcon"] = False}]
+       44 DUPTABLE                         R11 K43 [{["PluginId"] = "Help", ["DataModel"] = "Standalone", ["ItemId"] = "Open/ReportIllegalContent", ["Category"] = "Actions"}]
        45 SETTABLEKS                       R11 R10 K13 ["Action"]
-       47 DUPTABLE                         R11 K46 [{"FastFlag"}]
-       48 DUPTABLE                         R12 K48 [{"EnableIfAll"}]
-       49 NEWTABLE                         R13 0 1
-       51 LOADK                            R14 K49 ["ReportIllegalContentAction"]
-       52 SETLIST                          R13 R14 1 [1]
-       54 SETTABLEKS                       R13 R12 K47 ["EnableIfAll"]
-       56 SETTABLEKS                       R12 R11 K45 ["FastFlag"]
-       58 SETTABLEKS                       R11 R10 K41 ["Visibility"]
-       60 DUPTABLE                         R11 K35 [{["Type"] = "Separator"}]
-       61 DUPTABLE                         R12 K51 [{["Id"] = "OpenLogsFolder", ["Type"] = "Action", ["Action"], ["Visibility"], ["ShowIcon"] = False}]
-       62 DUPTABLE                         R13 K52 [{["PluginId"] = "Help", ["DataModel"] = "Standalone", ["ItemId"] = "OpenLogsFolder", ["Category"] = "Actions"}]
-       63 SETTABLEKS                       R13 R12 K13 ["Action"]
-       65 DUPTABLE                         R13 K46 [{"FastFlag"}]
-       66 DUPTABLE                         R14 K48 [{"EnableIfAll"}]
-       67 NEWTABLE                         R15 0 1
-       69 LOADK                            R16 K53 ["StudioOpenLogsAction"]
-       70 SETLIST                          R15 R16 1 [1]
-       72 SETTABLEKS                       R15 R14 K47 ["EnableIfAll"]
-       74 SETTABLEKS                       R14 R13 K45 ["FastFlag"]
-       76 SETTABLEKS                       R13 R12 K41 ["Visibility"]
-       78 SETLIST                          R3 R4 9 [1]
-       80 MOVE                             R4 R1
-       81 MOVE                             R5 R3
-       82 CALL                             R4 1 -1
-       83 RETURN                           R4 -1
+       47 DUPTABLE                         R11 K35 [{["Type"] = "Separator"}]
+       48 DUPTABLE                         R12 K45 [{["Id"] = "OpenLogsFolder", ["Type"] = "Action", ["Action"], ["ShowIcon"] = False}]
+       49 DUPTABLE                         R13 K46 [{["PluginId"] = "Help", ["DataModel"] = "Standalone", ["ItemId"] = "OpenLogsFolder", ["Category"] = "Actions"}]
+       50 SETTABLEKS                       R13 R12 K13 ["Action"]
+       52 SETLIST                          R3 R4 9 [1]
+       54 MOVE                             R4 R1
+       55 MOVE                             R5 R3
+       56 CALL                             R4 1 -1
+       57 RETURN                           R4 -1

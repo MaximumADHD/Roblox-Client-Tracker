@@ -1,39 +1,18 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["EnableKnowledgeTutorials2"]
+        2 LOADK                            R2 K2 ["KnowledgeTutorialsFixSpotlightCleanup"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["DebugKnowledgeTutorials"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 1
-        6 JUMPIFNOT                        R0 ; [+9]
-        7 GETIMPORT                        R0 K1 [game]
-        9 LOADK                            R2 K4 ["StudioService"]
-       10 NAMECALL                         R0 R0 K5 ["GetService"]
-       12 CALL                             R0 2 1
-       13 NAMECALL                         R0 R0 K6 ["HasInternalPermission"]
-       15 CALL                             R0 1 1
-       16 RETURN                           R0 1
-
-PROTO_2:
-        0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["KnowledgeTutorialsFixSpotlightCleanup"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 -1
-        6 RETURN                           R0 -1
-
-PROTO_3:
-        0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["KnowledgeTutorialsAvoidHanging"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_4:
+PROTO_2:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["KnowledgeTutorialsAssetScanMaxMs"]
         3 NAMECALL                         R0 R0 K3 ["GetFastInt"]
@@ -43,39 +22,25 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["EnableKnowledgeTutorials2"]
+        3 LOADK                            R2 K2 ["KnowledgeTutorialsFixSpotlightCleanup"]
         4 LOADB                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
         7 CALL                             R0 3 0
         8 GETIMPORT                        R0 K1 [game]
-       10 LOADK                            R2 K4 ["DebugKnowledgeTutorials"]
+       10 LOADK                            R2 K4 ["KnowledgeTutorialsAvoidHanging"]
        11 LOADB                            R3 0
        12 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        14 CALL                             R0 3 0
        15 GETIMPORT                        R0 K1 [game]
-       17 LOADK                            R2 K5 ["KnowledgeTutorialsFixSpotlightCleanup"]
-       18 LOADB                            R3 0
-       19 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       17 LOADK                            R2 K5 ["KnowledgeTutorialsAssetScanMaxMs"]
+       18 LOADN                            R3 5
+       19 NAMECALL                         R0 R0 K6 ["DefineFastInt"]
        21 CALL                             R0 3 0
-       22 GETIMPORT                        R0 K1 [game]
-       24 LOADK                            R2 K6 ["KnowledgeTutorialsAvoidHanging"]
-       25 LOADB                            R3 0
-       26 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
-       28 CALL                             R0 3 0
-       29 GETIMPORT                        R0 K1 [game]
-       31 LOADK                            R2 K7 ["KnowledgeTutorialsAssetScanMaxMs"]
-       32 LOADN                            R3 5
-       33 NAMECALL                         R0 R0 K8 ["DefineFastInt"]
-       35 CALL                             R0 3 0
-       36 DUPTABLE                         R0 K14 [{"getFFlagEnableKnowledgeTutorials", "getFFlagDebugKnowledgeTutorials", "getFFlagKnowledgeTutorialsFixSpotlightCleanup", "getFFlagKnowledgeTutorialsAvoidHanging", "getFIntKnowledgeTutorialsAssetScanMaxMs"}]
-       37 DUPCLOSURE                       R1 K15 [PROTO_0]
-       38 SETTABLEKS                       R1 R0 K9 ["getFFlagEnableKnowledgeTutorials"]
-       40 DUPCLOSURE                       R1 K16 [PROTO_1]
-       41 SETTABLEKS                       R1 R0 K10 ["getFFlagDebugKnowledgeTutorials"]
-       43 DUPCLOSURE                       R1 K17 [PROTO_2]
-       44 SETTABLEKS                       R1 R0 K11 ["getFFlagKnowledgeTutorialsFixSpotlightCleanup"]
-       46 DUPCLOSURE                       R1 K18 [PROTO_3]
-       47 SETTABLEKS                       R1 R0 K12 ["getFFlagKnowledgeTutorialsAvoidHanging"]
-       49 DUPCLOSURE                       R1 K19 [PROTO_4]
-       50 SETTABLEKS                       R1 R0 K13 ["getFIntKnowledgeTutorialsAssetScanMaxMs"]
-       52 RETURN                           R0 1
+       22 DUPTABLE                         R0 K10 [{"getFFlagKnowledgeTutorialsFixSpotlightCleanup", "getFFlagKnowledgeTutorialsAvoidHanging", "getFIntKnowledgeTutorialsAssetScanMaxMs"}]
+       23 DUPCLOSURE                       R1 K11 [PROTO_0]
+       24 SETTABLEKS                       R1 R0 K7 ["getFFlagKnowledgeTutorialsFixSpotlightCleanup"]
+       26 DUPCLOSURE                       R1 K12 [PROTO_1]
+       27 SETTABLEKS                       R1 R0 K8 ["getFFlagKnowledgeTutorialsAvoidHanging"]
+       29 DUPCLOSURE                       R1 K13 [PROTO_2]
+       30 SETTABLEKS                       R1 R0 K9 ["getFIntKnowledgeTutorialsAssetScanMaxMs"]
+       32 RETURN                           R0 1

@@ -107,17 +107,37 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+6]
+        2 LOADB                            R0 1
+        3 SETUPVAL                         R0 1
+        4 GETUPVAL                         R0 2
+        5 NAMECALL                         R0 R0 K0 ["Fire"]
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
+
+PROTO_8:
+        0 GETIMPORT                        R0 K1 [game]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 NAMECALL                         R0 R0 K2 ["BindToClose"]
+        8 CALL                             R0 2 0
+        9 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetFocusedSessionIdAsync"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_8:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetCurrentDataModelTypeAsync"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_9:
+PROTO_11:
         0 LOADNIL                          R2
         1 LOADB                            R3 0
         2 LOADB                            R4 0
@@ -146,69 +166,86 @@ PROTO_9:
        31 CAPTURE                          VAL R7
        32 NAMECALL                         R10 R10 K5 ["Connect"]
        34 CALL                             R10 2 1
-       35 GETIMPORT                        R11 K9 [pcall]
-       37 NEWCLOSURE                       R12 P3
-       38 CAPTURE                          VAL R1
-       39 CALL                             R11 1 2
-       40 JUMPIFNOT                        R11 ; [+2]
-       41 JUMPIF                           R3 ; [+1]
-       42 MOVE                             R2 R12
-       43 JUMPIFNOT                        R11 ; [+15]
-       44 JUMPIF                           R5 ; [+14]
-       45 GETIMPORT                        R13 K9 [pcall]
-       47 NEWCLOSURE                       R14 P4
-       48 CAPTURE                          VAL R1
-       49 CALL                             R13 1 2
-       50 MOVE                             R11 R13
-       51 JUMPIFNOT                        R13 ; [+7]
-       52 JUMPIF                           R5 ; [+6]
-       53 GETIMPORT                        R15 K13 [Enum.StudioDataModelType.None]
-       55 JUMPIFNOTEQ                      R14 R15 ; [+2]
-       57 LOADB                            R4 0 +1
-       58 LOADB                            R4 1
-       59 JUMPIFNOT                        R11 ; [+9]
-       60 JUMPIFNOT                        R2 ; [+1]
-       61 JUMPIF                           R4 ; [+7]
-       62 JUMPIF                           R6 ; [+6]
-       63 GETTABLEKS                       R13 R7 K14 ["Event"]
-       65 NAMECALL                         R13 R13 K15 ["Wait"]
-       67 CALL                             R13 1 0
-       68 JUMPBACK                         ; [-10]
-       69 NAMECALL                         R13 R8 K16 ["Disconnect"]
-       71 CALL                             R13 1 0
-       72 NAMECALL                         R13 R9 K16 ["Disconnect"]
-       74 CALL                             R13 1 0
-       75 NAMECALL                         R13 R10 K16 ["Disconnect"]
-       77 CALL                             R13 1 0
-       78 NAMECALL                         R13 R7 K17 ["Destroy"]
-       80 CALL                             R13 1 0
-       81 MOVE                             R13 R11
-       82 JUMPIFNOT                        R13 ; [+1]
-       83 NOT                              R13 R6
-       84 CLOSEUPVALS                      R2
-       85 RETURN                           R13 1
+       35 LOADB                            R11 0
+       36 GETUPVAL                         R12 0
+       37 GETTABLEKS                       R12 R12 K8 ["getFFlagDeviceSimulatorStopWorkOnClose"]
+       39 CALL                             R12 0 1
+       40 JUMPIFNOT                        R12 ; [+8]
+       41 GETIMPORT                        R12 K10 [pcall]
+       43 NEWCLOSURE                       R13 P3
+       44 CAPTURE                          REF R11
+       45 CAPTURE                          REF R6
+       46 CAPTURE                          VAL R7
+       47 CALL                             R12 1 1
+       48 MOVE                             R11 R12
+       49 GETIMPORT                        R12 K10 [pcall]
+       51 NEWCLOSURE                       R13 P4
+       52 CAPTURE                          VAL R1
+       53 CALL                             R12 1 2
+       54 JUMPIFNOT                        R12 ; [+2]
+       55 JUMPIF                           R3 ; [+1]
+       56 MOVE                             R2 R13
+       57 JUMPIFNOT                        R12 ; [+15]
+       58 JUMPIF                           R5 ; [+14]
+       59 GETIMPORT                        R14 K10 [pcall]
+       61 NEWCLOSURE                       R15 P5
+       62 CAPTURE                          VAL R1
+       63 CALL                             R14 1 2
+       64 MOVE                             R12 R14
+       65 JUMPIFNOT                        R14 ; [+7]
+       66 JUMPIF                           R5 ; [+6]
+       67 GETIMPORT                        R16 K14 [Enum.StudioDataModelType.None]
+       69 JUMPIFNOTEQ                      R15 R16 ; [+2]
+       71 LOADB                            R4 0 +1
+       72 LOADB                            R4 1
+       73 JUMPIFNOT                        R12 ; [+9]
+       74 JUMPIFNOT                        R2 ; [+1]
+       75 JUMPIF                           R4 ; [+7]
+       76 JUMPIF                           R6 ; [+6]
+       77 GETTABLEKS                       R14 R7 K15 ["Event"]
+       79 NAMECALL                         R14 R14 K16 ["Wait"]
+       81 CALL                             R14 1 0
+       82 JUMPBACK                         ; [-10]
+       83 GETUPVAL                         R14 0
+       84 GETTABLEKS                       R14 R14 K8 ["getFFlagDeviceSimulatorStopWorkOnClose"]
+       86 CALL                             R14 0 1
+       87 JUMPIFNOT                        R14 ; [+1]
+       88 LOADB                            R11 0
+       89 NAMECALL                         R14 R8 K17 ["Disconnect"]
+       91 CALL                             R14 1 0
+       92 NAMECALL                         R14 R9 K17 ["Disconnect"]
+       94 CALL                             R14 1 0
+       95 NAMECALL                         R14 R10 K17 ["Disconnect"]
+       97 CALL                             R14 1 0
+       98 NAMECALL                         R14 R7 K18 ["Destroy"]
+      100 CALL                             R14 1 0
+      101 MOVE                             R14 R12
+      102 JUMPIFNOT                        R14 ; [+1]
+      103 NOT                              R14 R6
+      104 CLOSEUPVALS                      R2
+      105 RETURN                           R14 1
 
-PROTO_10:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["PlaceSessionBridge"]
         2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["StudioDeviceSimulatorRegistry"]
         2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_12:
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Enabled"]
         4 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 LOADB                            R1 0
         2 SETTABLEKS                       R1 R0 K0 ["Enabled"]
@@ -218,7 +255,7 @@ PROTO_13:
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -236,7 +273,7 @@ PROTO_14:
        19 CALL                             R0 1 0
        20 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETIMPORT                        R1 K1 [pcall]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          VAL R0
@@ -369,11 +406,12 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K10 ["defineLuaFlags"]
        22 CALL                             R2 1 1
        23 DUPCLOSURE                       R3 K11 [PROTO_3]
-       24 DUPCLOSURE                       R4 K12 [PROTO_9]
-       25 DUPCLOSURE                       R5 K13 [PROTO_15]
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R4
-       28 CAPTURE                          VAL R3
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R1
-       31 RETURN                           R5 1
+       24 DUPCLOSURE                       R4 K12 [PROTO_11]
+       25 CAPTURE                          VAL R2
+       26 DUPCLOSURE                       R5 K13 [PROTO_17]
+       27 CAPTURE                          VAL R2
+       28 CAPTURE                          VAL R4
+       29 CAPTURE                          VAL R3
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          VAL R1
+       32 RETURN                           R5 1

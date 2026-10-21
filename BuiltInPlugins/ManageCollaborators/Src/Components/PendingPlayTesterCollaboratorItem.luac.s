@@ -27,20 +27,20 @@ PROTO_1:
        30 GETUPVAL                         R8 2
        31 GETTABLEKS                       R8 R8 K9 ["createElement"]
        33 GETUPVAL                         R9 3
-       34 DUPTABLE                         R10 K21 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["HideSeparator"], ["Removable"], ["HidePermissionEditor"] = True, ["OnRemoved"], ["TooltipText"], ["CurrentPermission"], ["AvailablePermissions"]}]
+       34 DUPTABLE                         R10 K22 [{["LayoutOrder"], ["Name"], ["Icon"], ["Writable"], ["Loading"] = False, ["HideSeparator"], ["Removable"], ["HidePermissionEditor"] = True, ["OnRemoved"], ["TooltipText"], ["CurrentPermission"], ["AvailablePermissions"], ["ShowCantInviteLabel"]}]
        35 GETTABLEKS                       R11 R1 K10 ["LayoutOrder"]
        37 SETTABLEKS                       R11 R10 K10 ["LayoutOrder"]
        39 SETTABLEKS                       R4 R10 K11 ["Name"]
        41 GETUPVAL                         R11 2
        42 GETTABLEKS                       R11 R11 K9 ["createElement"]
        44 GETUPVAL                         R12 4
-       45 DUPTABLE                         R13 K23 [{"Id", "Size"}]
+       45 DUPTABLE                         R13 K24 [{"Id", "Size"}]
        46 SETTABLEKS                       R2 R13 K2 ["Id"]
-       48 GETIMPORT                        R14 K26 [UDim2.fromScale]
+       48 GETIMPORT                        R14 K27 [UDim2.fromScale]
        50 LOADN                            R15 1
        51 LOADN                            R16 1
        52 CALL                             R14 2 1
-       53 SETTABLEKS                       R14 R13 K22 ["Size"]
+       53 SETTABLEKS                       R14 R13 K23 ["Size"]
        55 CALL                             R11 2 1
        56 SETTABLEKS                       R11 R10 K12 ["Icon"]
        58 SETTABLEKS                       R3 R10 K3 ["Writable"]
@@ -56,10 +56,10 @@ PROTO_1:
        72 GETUPVAL                         R12 5
        73 JUMPIFNOT                        R12 ; [+9]
        74 JUMPIF                           R3 ; [+8]
-       75 GETTABLEKS                       R11 R1 K27 ["Localization"]
-       77 LOADK                            R13 K28 ["PermissionDescriptions"]
-       78 LOADK                            R14 K29 ["GameOwnerToEdit"]
-       79 NAMECALL                         R11 R11 K30 ["getText"]
+       75 GETTABLEKS                       R11 R1 K28 ["Localization"]
+       77 LOADK                            R13 K29 ["PermissionDescriptions"]
+       78 LOADK                            R14 K30 ["GameOwnerToEdit"]
+       79 NAMECALL                         R11 R11 K31 ["getText"]
        81 CALL                             R11 3 1
        82 JUMP                             ; [+1]
        83 LOADNIL                          R11
@@ -68,25 +68,44 @@ PROTO_1:
        88 SETTABLEKS                       R11 R10 K1 ["CurrentPermission"]
        90 NEWTABLE                         R11 0 0
        92 SETTABLEKS                       R11 R10 K20 ["AvailablePermissions"]
-       94 CALL                             R8 2 -1
-       95 RETURN                           R8 -1
+       94 GETTABLEKS                       R11 R1 K32 ["IsIneligible"]
+       96 SETTABLEKS                       R11 R10 K21 ["ShowCantInviteLabel"]
+       98 CALL                             R8 2 -1
+       99 RETURN                           R8 -1
 
 PROTO_2:
-        0 DUPTABLE                         R2 K2 [{"UserName", "CurrentPermission"}]
-        1 GETUPVAL                         R3 0
-        2 MOVE                             R4 R0
-        3 GETTABLEKS                       R5 R1 K3 ["Id"]
-        5 CALL                             R3 2 1
-        6 SETTABLEKS                       R3 R2 K0 ["UserName"]
-        8 GETIMPORT                        R3 K5 [select]
-       10 LOADN                            R4 2
-       11 GETUPVAL                         R5 1
-       12 MOVE                             R6 R0
-       13 GETTABLEKS                       R7 R1 K3 ["Id"]
-       15 CALL                             R5 2 -1
-       16 CALL                             R3 -1 1
-       17 SETTABLEKS                       R3 R2 K1 ["CurrentPermission"]
-       19 RETURN                           R2 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["fflagEarlyTesterEligibilityFilter"]
+        3 JUMPIFNOT                        R3 ; [+9]
+        4 GETTABLEKS                       R3 R0 K1 ["PendingPlayTesters"]
+        6 JUMPIFEQKNIL                     R3 ; [+6]
+        8 GETTABLEKS                       R2 R0 K1 ["PendingPlayTesters"]
+       10 GETTABLEKS                       R2 R2 K2 ["Eligibility"]
+       12 JUMP                             ; [+1]
+       13 LOADNIL                          R2
+       14 DUPTABLE                         R3 K6 [{"UserName", "CurrentPermission", "IsIneligible"}]
+       15 GETUPVAL                         R4 1
+       16 MOVE                             R5 R0
+       17 GETTABLEKS                       R6 R1 K7 ["Id"]
+       19 CALL                             R4 2 1
+       20 SETTABLEKS                       R4 R3 K3 ["UserName"]
+       22 GETIMPORT                        R4 K9 [select]
+       24 LOADN                            R5 2
+       25 GETUPVAL                         R6 2
+       26 MOVE                             R7 R0
+       27 GETTABLEKS                       R8 R1 K7 ["Id"]
+       29 CALL                             R6 2 -1
+       30 CALL                             R4 -1 1
+       31 SETTABLEKS                       R4 R3 K4 ["CurrentPermission"]
+       33 LOADB                            R4 0
+       34 JUMPIFEQKNIL                     R2 ; [+8]
+       36 GETTABLEKS                       R6 R1 K7 ["Id"]
+       38 GETTABLE                         R5 R2 R6
+       39 JUMPIFEQKB                       R5 FALSE ; [+2]
+       41 LOADB                            R4 0 +1
+       42 LOADB                            R4 1
+       43 SETTABLEKS                       R4 R3 K5 ["IsIneligible"]
+       45 RETURN                           R3 1
 
 PROTO_3:
         0 PREPVARARGS                      0
@@ -185,12 +204,13 @@ MAIN:
       124 MOVE                             R13 R14
       125 GETTABLEKS                       R14 R3 K36 ["connect"]
       127 DUPCLOSURE                       R15 K37 [PROTO_2]
-      128 CAPTURE                          VAL R9
-      129 CAPTURE                          VAL R11
-      130 DUPCLOSURE                       R16 K38 [PROTO_4]
-      131 CAPTURE                          VAL R10
-      132 CALL                             R14 2 1
-      133 MOVE                             R15 R13
-      134 CALL                             R14 1 1
-      135 MOVE                             R13 R14
-      136 RETURN                           R13 1
+      128 CAPTURE                          VAL R4
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R11
+      131 DUPCLOSURE                       R16 K38 [PROTO_4]
+      132 CAPTURE                          VAL R10
+      133 CALL                             R14 2 1
+      134 MOVE                             R15 R13
+      135 CALL                             R14 1 1
+      136 MOVE                             R13 R14
+      137 RETURN                           R13 1

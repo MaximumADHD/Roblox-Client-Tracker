@@ -19,14 +19,21 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["previewSignal"]
-        3 JUMPIFEQKNIL                     R2 ; [+7]
+        1 GETTABLEKS                       R2 R2 K0 ["onGenerate2D"]
+        3 JUMPIFEQKNIL                     R2 ; [+6]
         5 GETUPVAL                         R2 0
-        6 GETTABLEKS                       R2 R2 K0 ["previewSignal"]
-        8 NAMECALL                         R2 R2 K1 ["Wait"]
-       10 CALL                             R2 1 0
-       11 LOADK                            R2 K2 ["preview-1"]
-       12 RETURN                           R2 1
+        6 GETTABLEKS                       R2 R2 K0 ["onGenerate2D"]
+        8 MOVE                             R3 R0
+        9 CALL                             R2 1 0
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K1 ["previewSignal"]
+       13 JUMPIFEQKNIL                     R2 ; [+7]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K1 ["previewSignal"]
+       18 NAMECALL                         R2 R2 K2 ["Wait"]
+       20 CALL                             R2 1 0
+       21 LOADK                            R2 K3 ["preview-1"]
+       22 RETURN                           R2 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -135,7 +142,7 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K5 [{"signal", "previewSignal", "progressSignal", "result", "jobId"}]
+        1 DUPTABLE                         R1 K6 [{"signal", "previewSignal", "progressSignal", "result", "jobId", "onGenerate2D"}]
         2 GETUPVAL                         R2 1
         3 GETTABLEKS                       R2 R2 K0 ["signal"]
         5 SETTABLEKS                       R2 R1 K0 ["signal"]
@@ -151,8 +158,11 @@ PROTO_9:
        22 GETUPVAL                         R2 1
        23 GETTABLEKS                       R2 R2 K4 ["jobId"]
        25 SETTABLEKS                       R2 R1 K4 ["jobId"]
-       27 CALL                             R0 1 1
-       28 RETURN                           R0 1
+       27 GETUPVAL                         R2 1
+       28 GETTABLEKS                       R2 R2 K5 ["onGenerate2D"]
+       30 SETTABLEKS                       R2 R1 K5 ["onGenerate2D"]
+       32 CALL                             R0 1 1
+       33 RETURN                           R0 1
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -160,23 +170,24 @@ PROTO_10:
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          VAL R0
-        6 NEWTABLE                         R3 0 5
+        6 NEWTABLE                         R3 0 6
         8 GETTABLEKS                       R4 R0 K1 ["signal"]
        10 GETTABLEKS                       R5 R0 K2 ["previewSignal"]
        12 GETTABLEKS                       R6 R0 K3 ["progressSignal"]
        14 GETTABLEKS                       R7 R0 K4 ["result"]
        16 GETTABLEKS                       R8 R0 K5 ["jobId"]
-       18 SETLIST                          R3 R4 5 [1]
-       20 CALL                             R1 2 1
-       21 GETUPVAL                         R2 0
-       22 GETTABLEKS                       R2 R2 K6 ["createElement"]
-       24 GETUPVAL                         R3 2
-       25 GETTABLEKS                       R3 R3 K7 ["Provider"]
-       27 DUPTABLE                         R4 K9 [{"value"}]
-       28 SETTABLEKS                       R1 R4 K8 ["value"]
-       30 GETTABLEKS                       R5 R0 K10 ["children"]
-       32 CALL                             R2 3 -1
-       33 RETURN                           R2 -1
+       18 GETTABLEKS                       R9 R0 K6 ["onGenerate2D"]
+       20 SETLIST                          R3 R4 6 [1]
+       22 CALL                             R1 2 1
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K7 ["createElement"]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K8 ["Provider"]
+       29 DUPTABLE                         R4 K10 [{"value"}]
+       30 SETTABLEKS                       R1 R4 K9 ["value"]
+       32 GETTABLEKS                       R5 R0 K11 ["children"]
+       34 CALL                             R2 3 -1
+       35 RETURN                           R2 -1
 
 PROTO_11:
         0 GETUPVAL                         R2 0

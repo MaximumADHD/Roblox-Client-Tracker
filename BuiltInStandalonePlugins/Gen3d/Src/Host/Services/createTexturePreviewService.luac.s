@@ -29,17 +29,17 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["postGenerateTexturePreviewAsync"]
-        3 DUPTABLE                         R1 K15 [{["robloxctxRcc"] = False, ["robloxctxAuthenticatedUserid"], ["robloxApiKey"], ["glb"], ["assetId"], ["image"], ["textPrompt"], ["n"], ["temperature"], ["controlStrength"], ["resolution"], ["cameraExtrinsic"], ["cameraIntrinsic"]}]
+        3 DUPTABLE                         R1 K17 [{["robloxctxRcc"] = False, ["robloxctxAuthenticatedUserid"], ["robloxApiKey"], ["glb"], ["assetId"], ["image"], ["textPrompt"], ["n"], ["temperature"], ["controlStrength"], ["resolution"], ["cameraExtrinsic"], ["cameraIntrinsic"], ["partialResults"], ["previewResolution"]}]
         4 GETUPVAL                         R2 1
         5 SETTABLEKS                       R2 R1 K3 ["robloxctxAuthenticatedUserid"]
         7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R3 R3 K16 ["getFStringCubeGenerationGatewayApiKey"]
+        8 GETTABLEKS                       R3 R3 K18 ["getFStringCubeGenerationGatewayApiKey"]
        10 CALL                             R3 0 1
-       11 LOADK                            R6 K18 ["^%s*(.-)%s*$"]
-       12 NAMECALL                         R4 R3 K19 ["match"]
+       11 LOADK                            R6 K20 ["^%s*(.-)%s*$"]
+       12 NAMECALL                         R4 R3 K21 ["match"]
        14 CALL                             R4 2 1
-       15 ORK                              R3 R4 K17 [""]
-       16 JUMPIFEQKS                       R3 K17 [""] ; [+3]
+       15 ORK                              R3 R4 K19 [""]
+       16 JUMPIFEQKS                       R3 K19 [""] ; [+3]
        18 MOVE                             R2 R3
        19 JUMP                             ; [+1]
        20 LOADNIL                          R2
@@ -72,8 +72,14 @@ PROTO_2:
        64 GETUPVAL                         R2 4
        65 GETTABLEKS                       R2 R2 K14 ["cameraIntrinsic"]
        67 SETTABLEKS                       R2 R1 K14 ["cameraIntrinsic"]
-       69 CALL                             R0 1 -1
-       70 RETURN                           R0 -1
+       69 GETUPVAL                         R2 4
+       70 GETTABLEKS                       R2 R2 K15 ["partialResults"]
+       72 SETTABLEKS                       R2 R1 K15 ["partialResults"]
+       74 GETUPVAL                         R2 4
+       75 GETTABLEKS                       R2 R2 K16 ["previewResolution"]
+       77 SETTABLEKS                       R2 R1 K16 ["previewResolution"]
+       79 CALL                             R0 1 -1
+       80 RETURN                           R0 -1
 
 PROTO_3:
         0 GETUPVAL                         R2 0

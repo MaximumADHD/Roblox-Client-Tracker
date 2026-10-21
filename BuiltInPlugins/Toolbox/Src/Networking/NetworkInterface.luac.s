@@ -423,50 +423,54 @@ PROTO_15:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["search"]
         3 GETTABLEKS                       R4 R0 K1 ["query"]
-        5 LOADK                            R5 K2 ["Animation"]
-        6 GETTABLEKS                       R6 R0 K3 ["scopeParams"]
-        8 GETTABLEKS                       R7 R0 K4 ["maxPageSize"]
-       10 MOVE                             R8 R2
-       11 GETTABLEKS                       R9 R0 K5 ["includeFolders"]
-       13 GETTABLEKS                       R10 R0 K6 ["sources"]
-       15 CALL                             R3 7 1
-       16 NAMECALL                         R3 R3 K7 ["makeRequest"]
-       18 CALL                             R3 1 1
-       19 NEWCLOSURE                       R5 P0
-       20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          VAL R0
-       22 CAPTURE                          VAL R1
-       23 CAPTURE                          UPVAL U2
-       24 CAPTURE                          UPVAL U3
-       25 CAPTURE                          UPVAL U4
-       26 NAMECALL                         R3 R3 K8 ["andThen"]
-       28 CALL                             R3 2 -1
-       29 RETURN                           R3 -1
+        5 NEWTABLE                         R5 0 1
+        7 LOADK                            R6 K2 ["Animation"]
+        8 SETLIST                          R5 R6 1 [1]
+       10 GETTABLEKS                       R6 R0 K3 ["scopeParams"]
+       12 GETTABLEKS                       R7 R0 K4 ["maxPageSize"]
+       14 MOVE                             R8 R2
+       15 GETTABLEKS                       R9 R0 K5 ["includeFolders"]
+       17 GETTABLEKS                       R10 R0 K6 ["sources"]
+       19 CALL                             R3 7 1
+       20 NAMECALL                         R3 R3 K7 ["makeRequest"]
+       22 CALL                             R3 1 1
+       23 NEWCLOSURE                       R5 P0
+       24 CAPTURE                          UPVAL U1
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          VAL R1
+       27 CAPTURE                          UPVAL U2
+       28 CAPTURE                          UPVAL U3
+       29 CAPTURE                          UPVAL U4
+       30 NAMECALL                         R3 R3 K8 ["andThen"]
+       32 CALL                             R3 2 -1
+       33 RETURN                           R3 -1
 
 PROTO_16:
         0 GETTABLEKS                       R2 R1 K0 ["assetType"]
-        2 JUMPIFEQKS                       R2 K1 ["Animation"] ; [+27]
+        2 JUMPIFEQKS                       R2 K1 ["Animation"] ; [+31]
         4 GETTABLEKS                       R2 R1 K0 ["assetType"]
-        6 JUMPIFEQKS                       R2 K2 ["AnimationGraph"] ; [+23]
+        6 JUMPIFEQKS                       R2 K2 ["AnimationGraph"] ; [+27]
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R2 R2 K3 ["search"]
        11 GETTABLEKS                       R3 R1 K4 ["query"]
-       13 GETTABLEKS                       R4 R1 K0 ["assetType"]
-       15 GETTABLEKS                       R5 R1 K5 ["scopeParams"]
-       17 GETTABLEKS                       R6 R1 K6 ["maxPageSize"]
-       19 GETTABLEKS                       R7 R1 K7 ["pageToken"]
-       21 GETTABLEKS                       R8 R1 K8 ["includeFolders"]
-       23 GETTABLEKS                       R9 R1 K9 ["sources"]
-       25 CALL                             R2 7 1
-       26 NAMECALL                         R2 R2 K10 ["makeRequest"]
-       28 CALL                             R2 1 -1
-       29 RETURN                           R2 -1
-       30 GETUPVAL                         R2 1
-       31 MOVE                             R3 R1
-       32 NEWTABLE                         R4 0 0
-       34 GETTABLEKS                       R5 R1 K7 ["pageToken"]
-       36 CALL                             R2 3 -1
-       37 RETURN                           R2 -1
+       13 NEWTABLE                         R4 0 1
+       15 GETTABLEKS                       R5 R1 K0 ["assetType"]
+       17 SETLIST                          R4 R5 1 [1]
+       19 GETTABLEKS                       R5 R1 K5 ["scopeParams"]
+       21 GETTABLEKS                       R6 R1 K6 ["maxPageSize"]
+       23 GETTABLEKS                       R7 R1 K7 ["pageToken"]
+       25 GETTABLEKS                       R8 R1 K8 ["includeFolders"]
+       27 GETTABLEKS                       R9 R1 K9 ["sources"]
+       29 CALL                             R2 7 1
+       30 NAMECALL                         R2 R2 K10 ["makeRequest"]
+       32 CALL                             R2 1 -1
+       33 RETURN                           R2 -1
+       34 GETUPVAL                         R2 1
+       35 MOVE                             R3 R1
+       36 NEWTABLE                         R4 0 0
+       38 GETTABLEKS                       R5 R1 K7 ["pageToken"]
+       40 CALL                             R2 3 -1
+       41 RETURN                           R2 -1
 
 PROTO_17:
         0 GETUPVAL                         R0 0

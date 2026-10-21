@@ -247,7 +247,7 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["sourceItem"]
-        3 JUMPIFEQ                         R0 R1 ; [+88]
+        3 JUMPIFEQ                         R0 R1 ; [+101]
         5 GETUPVAL                         R1 0
         6 GETTABLEKS                       R1 R1 K1 ["mannequin"]
         8 JUMPIFNOT                        R1 ; [+10]
@@ -264,57 +264,68 @@ PROTO_7:
        24 LOADNIL                          R3
        25 NAMECALL                         R1 R1 K5 ["setSourceItemWithUniqueDeformerNames"]
        27 CALL                             R1 2 0
-       28 JUMPIFNOT                        R0 ; [+63]
+       28 JUMPIFNOT                        R0 ; [+76]
        29 LOADNIL                          R1
        30 GETUPVAL                         R2 1
        31 CALL                             R2 0 1
-       32 JUMPIFNOT                        R2 ; [+11]
-       33 GETUPVAL                         R2 0
-       34 GETTABLEKS                       R2 R2 K3 ["props"]
-       36 GETTABLEKS                       R2 R2 K6 ["MannequinContext"]
-       38 MOVE                             R4 R0
-       39 NAMECALL                         R2 R2 K7 ["createMannequinForClothing"]
-       41 CALL                             R2 2 1
-       42 MOVE                             R1 R2
-       43 JUMP                             ; [+9]
-       44 GETUPVAL                         R2 0
-       45 GETTABLEKS                       R2 R2 K3 ["props"]
-       47 GETTABLEKS                       R2 R2 K6 ["MannequinContext"]
-       49 NAMECALL                         R2 R2 K8 ["createMannequinModel"]
-       51 CALL                             R2 1 1
-       52 MOVE                             R1 R2
-       53 GETUPVAL                         R2 0
-       54 GETUPVAL                         R3 2
-       55 GETTABLEKS                       R3 R3 K9 ["new"]
-       57 MOVE                             R4 R0
-       58 MOVE                             R5 R1
-       59 GETUPVAL                         R6 3
-       60 NEWCLOSURE                       R7 P0
-       61 CAPTURE                          UPVAL U4
-       62 CAPTURE                          UPVAL U0
-       63 CALL                             R3 4 1
-       64 SETTABLEKS                       R3 R2 K1 ["mannequin"]
+       32 JUMPIFNOT                        R2 ; [+24]
+       33 GETUPVAL                         R2 2
+       34 CALL                             R2 0 1
+       35 JUMPIFNOT                        R2 ; [+10]
+       36 GETUPVAL                         R2 3
+       37 GETUPVAL                         R3 0
+       38 GETTABLEKS                       R3 R3 K3 ["props"]
+       40 GETTABLEKS                       R3 R3 K6 ["MannequinContext"]
+       42 MOVE                             R4 R0
+       43 CALL                             R2 2 1
+       44 MOVE                             R1 R2
+       45 JUMP                             ; [+20]
+       46 GETUPVAL                         R2 0
+       47 GETTABLEKS                       R2 R2 K3 ["props"]
+       49 GETTABLEKS                       R2 R2 K6 ["MannequinContext"]
+       51 MOVE                             R4 R0
+       52 NAMECALL                         R2 R2 K7 ["createMannequinForClothing"]
+       54 CALL                             R2 2 1
+       55 MOVE                             R1 R2
+       56 JUMP                             ; [+9]
+       57 GETUPVAL                         R2 0
+       58 GETTABLEKS                       R2 R2 K3 ["props"]
+       60 GETTABLEKS                       R2 R2 K6 ["MannequinContext"]
+       62 NAMECALL                         R2 R2 K8 ["createMannequinModel"]
+       64 CALL                             R2 1 1
+       65 MOVE                             R1 R2
        66 GETUPVAL                         R2 0
-       67 GETTABLEKS                       R2 R2 K3 ["props"]
-       69 GETTABLEKS                       R2 R2 K4 ["EditingItemContext"]
-       71 GETUPVAL                         R4 0
-       72 GETTABLEKS                       R4 R4 K1 ["mannequin"]
-       74 GETTABLEKS                       R4 R4 K10 ["sourceDisplayItem"]
-       76 NAMECALL                         R2 R2 K5 ["setSourceItemWithUniqueDeformerNames"]
-       78 CALL                             R2 2 0
+       67 GETUPVAL                         R3 4
+       68 GETTABLEKS                       R3 R3 K9 ["new"]
+       70 MOVE                             R4 R0
+       71 MOVE                             R5 R1
+       72 GETUPVAL                         R6 5
+       73 NEWCLOSURE                       R7 P0
+       74 CAPTURE                          UPVAL U6
+       75 CAPTURE                          UPVAL U0
+       76 CALL                             R3 4 1
+       77 SETTABLEKS                       R3 R2 K1 ["mannequin"]
        79 GETUPVAL                         R2 0
        80 GETTABLEKS                       R2 R2 K3 ["props"]
-       82 GETTABLEKS                       R2 R2 K11 ["SetAccessoryTypeInfo"]
-       84 GETUPVAL                         R3 5
-       85 GETTABLEKS                       R3 R3 K12 ["None"]
-       87 CALL                             R2 1 0
-       88 GETUPVAL                         R2 4
-       89 GETUPVAL                         R3 0
-       90 LOADB                            R4 0
+       82 GETTABLEKS                       R2 R2 K4 ["EditingItemContext"]
+       84 GETUPVAL                         R4 0
+       85 GETTABLEKS                       R4 R4 K1 ["mannequin"]
+       87 GETTABLEKS                       R4 R4 K10 ["sourceDisplayItem"]
+       89 NAMECALL                         R2 R2 K5 ["setSourceItemWithUniqueDeformerNames"]
        91 CALL                             R2 2 0
-       92 GETUPVAL                         R1 0
-       93 SETTABLEKS                       R0 R1 K0 ["sourceItem"]
-       95 RETURN                           R0 0
+       92 GETUPVAL                         R2 0
+       93 GETTABLEKS                       R2 R2 K3 ["props"]
+       95 GETTABLEKS                       R2 R2 K11 ["SetAccessoryTypeInfo"]
+       97 GETUPVAL                         R3 7
+       98 GETTABLEKS                       R3 R3 K12 ["None"]
+      100 CALL                             R2 1 0
+      101 GETUPVAL                         R2 6
+      102 GETUPVAL                         R3 0
+      103 LOADB                            R4 0
+      104 CALL                             R2 2 0
+      105 GETUPVAL                         R1 0
+      106 SETTABLEKS                       R0 R1 K0 ["sourceItem"]
+      108 RETURN                           R0 0
 
 PROTO_8:
         0 LOADNIL                          R1
@@ -330,8 +341,10 @@ PROTO_8:
        13 CAPTURE                          UPVAL U2
        14 CAPTURE                          UPVAL U3
        15 CAPTURE                          UPVAL U4
-       16 SETTABLEKS                       R1 R0 K3 ["onSourceItemChanged"]
-       18 RETURN                           R0 0
+       16 CAPTURE                          UPVAL U5
+       17 CAPTURE                          UPVAL U6
+       18 SETTABLEKS                       R1 R0 K3 ["onSourceItemChanged"]
+       20 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -571,72 +584,84 @@ MAIN:
       129 GETTABLEKS                       R23 R23 K35 ["AnalyticsGlobals"]
       131 CALL                             R22 1 1
       132 GETIMPORT                        R23 K11 [require]
-      134 GETTABLEKS                       R24 R4 K12 ["Packages"]
-      136 GETTABLEKS                       R24 R24 K36 ["Framework"]
-      138 CALL                             R23 1 1
-      139 GETTABLEKS                       R24 R23 K37 ["ContextServices"]
-      141 GETTABLEKS                       R25 R24 K38 ["withContext"]
-      143 GETTABLEKS                       R26 R23 K17 ["Util"]
-      145 GETTABLEKS                       R27 R26 K39 ["Typecheck"]
-      147 GETTABLEKS                       R28 R8 K40 ["Flags"]
-      149 GETTABLEKS                       R28 R28 K41 ["GetFFlagUseModelCageForAccessoryFittingTool"]
-      151 GETTABLEKS                       R29 R6 K42 ["PureComponent"]
-      153 LOADK                            R31 K43 ["SelectedEditingItem"]
-      154 NAMECALL                         R29 R29 K44 ["extend"]
-      156 CALL                             R29 2 1
-      157 GETTABLEKS                       R30 R27 K45 ["wrap"]
-      159 MOVE                             R31 R29
-      160 GETIMPORT                        R32 K8 [script]
-      162 CALL                             R30 2 0
-      163 DUPCLOSURE                       R30 K46 [PROTO_0]
-      164 CAPTURE                          VAL R22
-      165 CAPTURE                          VAL R21
-      166 DUPCLOSURE                       R31 K47 [PROTO_3]
-      167 CAPTURE                          VAL R30
-      168 DUPCLOSURE                       R32 K48 [PROTO_5]
-      169 CAPTURE                          VAL R13
-      170 CAPTURE                          VAL R12
-      171 CAPTURE                          VAL R14
-      172 CAPTURE                          VAL R31
-      173 CAPTURE                          VAL R2
-      174 DUPCLOSURE                       R33 K49 [PROTO_8]
-      175 CAPTURE                          VAL R28
-      176 CAPTURE                          VAL R10
-      177 CAPTURE                          VAL R3
-      178 CAPTURE                          VAL R32
-      179 CAPTURE                          VAL R5
-      180 SETTABLEKS                       R33 R29 K50 ["init"]
-      182 DUPCLOSURE                       R33 K51 [PROTO_9]
+      134 GETTABLEKS                       R24 R4 K28 ["Src"]
+      136 GETTABLEKS                       R24 R24 K17 ["Util"]
+      138 GETTABLEKS                       R24 R24 K36 ["createMannequinForSourceItem"]
+      140 CALL                             R23 1 1
+      141 GETIMPORT                        R24 K11 [require]
+      143 GETTABLEKS                       R25 R4 K12 ["Packages"]
+      145 GETTABLEKS                       R25 R25 K37 ["Framework"]
+      147 CALL                             R24 1 1
+      148 GETTABLEKS                       R25 R24 K38 ["ContextServices"]
+      150 GETTABLEKS                       R26 R25 K39 ["withContext"]
+      152 GETTABLEKS                       R27 R24 K17 ["Util"]
+      154 GETTABLEKS                       R28 R27 K40 ["Typecheck"]
+      156 GETTABLEKS                       R29 R8 K41 ["Flags"]
+      158 GETTABLEKS                       R29 R29 K42 ["GetFFlagUseModelCageForAccessoryFittingTool"]
+      160 GETIMPORT                        R30 K11 [require]
+      162 GETTABLEKS                       R31 R4 K28 ["Src"]
+      164 GETTABLEKS                       R31 R31 K41 ["Flags"]
+      166 GETTABLEKS                       R31 R31 K43 ["getFFlagLayeredClothingEditorMannequinCageFallback"]
+      168 CALL                             R30 1 1
+      169 GETTABLEKS                       R31 R6 K44 ["PureComponent"]
+      171 LOADK                            R33 K45 ["SelectedEditingItem"]
+      172 NAMECALL                         R31 R31 K46 ["extend"]
+      174 CALL                             R31 2 1
+      175 GETTABLEKS                       R32 R28 K47 ["wrap"]
+      177 MOVE                             R33 R31
+      178 GETIMPORT                        R34 K8 [script]
+      180 CALL                             R32 2 0
+      181 DUPCLOSURE                       R32 K48 [PROTO_0]
+      182 CAPTURE                          VAL R22
       183 CAPTURE                          VAL R21
-      184 SETTABLEKS                       R33 R29 K52 ["render"]
-      186 DUPCLOSURE                       R33 K53 [PROTO_10]
-      187 SETTABLEKS                       R33 R29 K54 ["didMount"]
-      189 DUPCLOSURE                       R33 K55 [PROTO_11]
-      190 CAPTURE                          VAL R13
-      191 CAPTURE                          VAL R14
-      192 SETTABLEKS                       R33 R29 K56 ["didUpdate"]
-      194 DUPCLOSURE                       R33 K57 [PROTO_12]
-      195 SETTABLEKS                       R33 R29 K58 ["willUnmount"]
-      197 DUPCLOSURE                       R33 K59 [PROTO_13]
-      198 DUPCLOSURE                       R34 K60 [PROTO_17]
-      199 CAPTURE                          VAL R18
-      200 CAPTURE                          VAL R20
-      201 CAPTURE                          VAL R19
-      202 MOVE                             R35 R25
-      203 DUPTABLE                         R36 K62 [{"Analytics", "EditingItemContext", "LuaMeshEditingModuleContext", "MannequinContext"}]
-      204 GETTABLEKS                       R37 R24 K61 ["Analytics"]
-      206 SETTABLEKS                       R37 R36 K61 ["Analytics"]
-      208 SETTABLEKS                       R15 R36 K25 ["EditingItemContext"]
-      210 SETTABLEKS                       R16 R36 K26 ["LuaMeshEditingModuleContext"]
-      212 SETTABLEKS                       R17 R36 K27 ["MannequinContext"]
-      214 CALL                             R35 1 1
-      215 MOVE                             R36 R29
-      216 CALL                             R35 1 1
-      217 MOVE                             R29 R35
-      218 GETTABLEKS                       R35 R7 K63 ["connect"]
-      220 MOVE                             R36 R33
-      221 MOVE                             R37 R34
-      222 CALL                             R35 2 1
-      223 MOVE                             R36 R29
-      224 CALL                             R35 1 -1
-      225 RETURN                           R35 -1
+      184 DUPCLOSURE                       R33 K49 [PROTO_3]
+      185 CAPTURE                          VAL R32
+      186 DUPCLOSURE                       R34 K50 [PROTO_5]
+      187 CAPTURE                          VAL R13
+      188 CAPTURE                          VAL R12
+      189 CAPTURE                          VAL R14
+      190 CAPTURE                          VAL R33
+      191 CAPTURE                          VAL R2
+      192 DUPCLOSURE                       R35 K51 [PROTO_8]
+      193 CAPTURE                          VAL R29
+      194 CAPTURE                          VAL R30
+      195 CAPTURE                          VAL R23
+      196 CAPTURE                          VAL R10
+      197 CAPTURE                          VAL R3
+      198 CAPTURE                          VAL R34
+      199 CAPTURE                          VAL R5
+      200 SETTABLEKS                       R35 R31 K52 ["init"]
+      202 DUPCLOSURE                       R35 K53 [PROTO_9]
+      203 CAPTURE                          VAL R21
+      204 SETTABLEKS                       R35 R31 K54 ["render"]
+      206 DUPCLOSURE                       R35 K55 [PROTO_10]
+      207 SETTABLEKS                       R35 R31 K56 ["didMount"]
+      209 DUPCLOSURE                       R35 K57 [PROTO_11]
+      210 CAPTURE                          VAL R13
+      211 CAPTURE                          VAL R14
+      212 SETTABLEKS                       R35 R31 K58 ["didUpdate"]
+      214 DUPCLOSURE                       R35 K59 [PROTO_12]
+      215 SETTABLEKS                       R35 R31 K60 ["willUnmount"]
+      217 DUPCLOSURE                       R35 K61 [PROTO_13]
+      218 DUPCLOSURE                       R36 K62 [PROTO_17]
+      219 CAPTURE                          VAL R18
+      220 CAPTURE                          VAL R20
+      221 CAPTURE                          VAL R19
+      222 MOVE                             R37 R26
+      223 DUPTABLE                         R38 K64 [{"Analytics", "EditingItemContext", "LuaMeshEditingModuleContext", "MannequinContext"}]
+      224 GETTABLEKS                       R39 R25 K63 ["Analytics"]
+      226 SETTABLEKS                       R39 R38 K63 ["Analytics"]
+      228 SETTABLEKS                       R15 R38 K25 ["EditingItemContext"]
+      230 SETTABLEKS                       R16 R38 K26 ["LuaMeshEditingModuleContext"]
+      232 SETTABLEKS                       R17 R38 K27 ["MannequinContext"]
+      234 CALL                             R37 1 1
+      235 MOVE                             R38 R31
+      236 CALL                             R37 1 1
+      237 MOVE                             R31 R37
+      238 GETTABLEKS                       R37 R7 K65 ["connect"]
+      240 MOVE                             R38 R35
+      241 MOVE                             R39 R36
+      242 CALL                             R37 2 1
+      243 MOVE                             R38 R31
+      244 CALL                             R37 1 -1
+      245 RETURN                           R37 -1

@@ -52,13 +52,14 @@ MAIN:
        38 GETTABLEKS                       R6 R6 K12 ["TestUtil"]
        40 GETTABLEKS                       R6 R6 K14 ["MockWrapper"]
        42 CALL                             R5 1 1
-       43 GETIMPORT                        R6 K16 [game]
-       45 LOADK                            R8 K17 ["CoreGui"]
-       46 NAMECALL                         R6 R6 K18 ["GetService"]
-       48 CALL                             R6 2 1
-       49 DUPCLOSURE                       R7 K19 [PROTO_1]
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R6
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R5
-       54 RETURN                           R7 1
+       43 GETIMPORT                        R6 K5 [require]
+       45 GETTABLEKS                       R7 R0 K11 ["Src"]
+       47 GETTABLEKS                       R7 R7 K12 ["TestUtil"]
+       49 GETTABLEKS                       R7 R7 K15 ["testContainer"]
+       51 CALL                             R6 1 1
+       52 DUPCLOSURE                       R7 K16 [PROTO_1]
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R5
+       57 RETURN                           R7 1

@@ -465,15 +465,15 @@ PROTO_1:
        45 MOVE                             R8 R13
        46 MOVE                             R9 R14
        47 LOADB                            R12 1
-       48 JUMP                             ; [+92]
+       48 JUMP                             ; [+68]
        49 GETUPVAL                         R13 2
        50 GETTABLEKS                       R13 R13 K8 ["AUDIENCE_TAB_EARLY_TESTERS"]
-       52 JUMPIFNOTEQ                      R5 R13 ; [+88]
+       52 JUMPIFNOTEQ                      R5 R13 ; [+64]
        54 GETUPVAL                         R13 5
        55 MOVE                             R14 R0
        56 CALL                             R13 1 1
        57 MOVE                             R11 R13
-       58 JUMP                             ; [+82]
+       58 JUMP                             ; [+58]
        59 JUMPIFNOT                        R2 ; [+3]
        60 GETTABLEKS                       R13 R2 K9 ["filters"]
        62 JUMPIF                           R13 ; [+2]
@@ -482,7 +482,7 @@ PROTO_1:
        66 GETTABLEKS                       R15 R15 K10 ["UserSubjectKey"]
        68 GETTABLE                         R14 R13 R15
        69 JUMPIFNOT                        R14 ; [+5]
-       70 GETUPVAL                         R14 3
+       70 GETUPVAL                         R14 7
        71 MOVE                             R15 R0
        72 CALL                             R14 1 2
        73 MOVE                             R6 R14
@@ -496,83 +496,66 @@ PROTO_1:
        82 CALL                             R14 1 2
        83 MOVE                             R8 R14
        84 MOVE                             R9 R15
-       85 GETUPVAL                         R14 7
+       85 GETUPVAL                         R14 8
        86 MOVE                             R15 R0
        87 CALL                             R14 1 1
        88 MOVE                             R10 R14
-       89 GETUPVAL                         R14 8
-       90 GETTABLEKS                       R14 R14 K12 ["fflagCollabPV2GroupMigration"]
-       92 JUMPIFNOT                        R14 ; [+14]
-       93 GETTABLEKS                       R14 R0 K13 ["GroupMigrationStatus"]
-       95 JUMPIFNOT                        R14 ; [+11]
-       96 GETTABLEKS                       R15 R0 K13 ["GroupMigrationStatus"]
-       98 GETTABLEKS                       R15 R15 K14 ["Status"]
-      100 GETUPVAL                         R16 9
-      101 GETTABLEKS                       R16 R16 K15 ["MIGRATED"]
-      103 JUMPIFEQ                         R15 R16 ; [+2]
-      105 LOADB                            R14 0 +1
-      106 LOADB                            R14 1
-      107 GETTABLEKS                       R15 R0 K0 ["GameOwnerMetadata"]
-      109 GETTABLEKS                       R15 R15 K1 ["creatorType"]
-      111 GETIMPORT                        R16 K17 [Enum.CreatorType.User]
-      113 JUMPIFNOTEQ                      R15 R16 ; [+10]
-      115 GETUPVAL                         R16 6
-      116 GETTABLEKS                       R16 R16 K10 ["UserSubjectKey"]
-      118 GETTABLE                         R15 R13 R16
-      119 JUMPIFEQKB                       R15 TRUE ; [+2]
-      121 LOADB                            R12 0 +1
-      122 LOADB                            R12 1
-      123 JUMP                             ; [+17]
-      124 GETTABLEKS                       R15 R0 K0 ["GameOwnerMetadata"]
-      126 GETTABLEKS                       R15 R15 K1 ["creatorType"]
-      128 GETIMPORT                        R16 K5 [Enum.CreatorType.Group]
-      130 JUMPIFNOTEQ                      R15 R16 ; [+9]
-      132 GETUPVAL                         R16 6
-      133 GETTABLEKS                       R16 R16 K11 ["RoleSubjectKey"]
-      135 GETTABLE                         R15 R13 R16
-      136 JUMPIFNOT                        R15 ; [+1]
-      137 NOT                              R15 R14
-      138 MOVE                             R12 R15
-      139 JUMP                             ; [+1]
-      140 LOADB                            R12 1
-      141 DUPTABLE                         R13 K32 [{"NewUserCollaborators", "CurrentUserCollaborators", "NewGroupCollaborators", "CurrentGroupCollaborators", "GranularCollaborators", "PendingPlayTesters", "PendingPlayTesterCount", "OwnerId", "OwnerType", "GroupName", "ShowOwner", "SelectedPillKey", "IsGroupGame", "CanCollaborateResponses"}]
-      142 SETTABLEKS                       R6 R13 K18 ["NewUserCollaborators"]
-      144 SETTABLEKS                       R7 R13 K19 ["CurrentUserCollaborators"]
-      146 SETTABLEKS                       R8 R13 K20 ["NewGroupCollaborators"]
-      148 SETTABLEKS                       R9 R13 K21 ["CurrentGroupCollaborators"]
-      150 SETTABLEKS                       R10 R13 K22 ["GranularCollaborators"]
-      152 SETTABLEKS                       R11 R13 K23 ["PendingPlayTesters"]
-      154 JUMPIFNOT                        R4 ; [+4]
-      155 GETUPVAL                         R14 10
-      156 MOVE                             R15 R0
-      157 CALL                             R14 1 1
-      158 JUMP                             ; [+1]
-      159 LOADNIL                          R14
-      160 SETTABLEKS                       R14 R13 K24 ["PendingPlayTesterCount"]
-      162 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
-      164 GETTABLEKS                       R14 R14 K33 ["creatorId"]
-      166 SETTABLEKS                       R14 R13 K25 ["OwnerId"]
-      168 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
-      170 GETTABLEKS                       R14 R14 K1 ["creatorType"]
-      172 SETTABLEKS                       R14 R13 K26 ["OwnerType"]
-      174 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
-      176 GETTABLEKS                       R14 R14 K34 ["creatorName"]
-      178 SETTABLEKS                       R14 R13 K27 ["GroupName"]
-      180 SETTABLEKS                       R12 R13 K28 ["ShowOwner"]
-      182 JUMPIFNOT                        R2 ; [+3]
-      183 GETTABLEKS                       R14 R2 K35 ["key"]
-      185 JUMPIF                           R14 ; [+1]
-      186 LOADNIL                          R14
-      187 SETTABLEKS                       R14 R13 K29 ["SelectedPillKey"]
-      189 SETTABLEKS                       R3 R13 K30 ["IsGroupGame"]
-      191 GETUPVAL                         R15 8
-      192 GETTABLEKS                       R15 R15 K36 ["fflagManageCollaboratorsActionNeededLabel"]
-      194 JUMPIFNOT                        R15 ; [+3]
-      195 GETTABLEKS                       R14 R0 K31 ["CanCollaborateResponses"]
-      197 JUMP                             ; [+1]
-      198 LOADNIL                          R14
-      199 SETTABLEKS                       R14 R13 K31 ["CanCollaborateResponses"]
-      201 RETURN                           R13 1
+       89 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
+       91 GETTABLEKS                       R14 R14 K1 ["creatorType"]
+       93 GETIMPORT                        R15 K13 [Enum.CreatorType.User]
+       95 JUMPIFNOTEQ                      R14 R15 ; [+10]
+       97 GETUPVAL                         R15 6
+       98 GETTABLEKS                       R15 R15 K10 ["UserSubjectKey"]
+      100 GETTABLE                         R14 R13 R15
+      101 JUMPIFEQKB                       R14 TRUE ; [+2]
+      103 LOADB                            R12 0 +1
+      104 LOADB                            R12 1
+      105 JUMP                             ; [+11]
+      106 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
+      108 GETTABLEKS                       R14 R14 K1 ["creatorType"]
+      110 GETIMPORT                        R15 K5 [Enum.CreatorType.Group]
+      112 JUMPIFNOTEQ                      R14 R15 ; [+3]
+      114 LOADB                            R12 0
+      115 JUMP                             ; [+1]
+      116 LOADB                            R12 1
+      117 DUPTABLE                         R13 K28 [{"NewUserCollaborators", "CurrentUserCollaborators", "NewGroupCollaborators", "CurrentGroupCollaborators", "GranularCollaborators", "PendingPlayTesters", "PendingPlayTesterCount", "OwnerId", "OwnerType", "GroupName", "ShowOwner", "SelectedPillKey", "IsGroupGame", "CanCollaborateResponses"}]
+      118 SETTABLEKS                       R6 R13 K14 ["NewUserCollaborators"]
+      120 SETTABLEKS                       R7 R13 K15 ["CurrentUserCollaborators"]
+      122 SETTABLEKS                       R8 R13 K16 ["NewGroupCollaborators"]
+      124 SETTABLEKS                       R9 R13 K17 ["CurrentGroupCollaborators"]
+      126 SETTABLEKS                       R10 R13 K18 ["GranularCollaborators"]
+      128 SETTABLEKS                       R11 R13 K19 ["PendingPlayTesters"]
+      130 JUMPIFNOT                        R4 ; [+4]
+      131 GETUPVAL                         R14 9
+      132 MOVE                             R15 R0
+      133 CALL                             R14 1 1
+      134 JUMP                             ; [+1]
+      135 LOADNIL                          R14
+      136 SETTABLEKS                       R14 R13 K20 ["PendingPlayTesterCount"]
+      138 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
+      140 GETTABLEKS                       R14 R14 K29 ["creatorId"]
+      142 SETTABLEKS                       R14 R13 K21 ["OwnerId"]
+      144 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
+      146 GETTABLEKS                       R14 R14 K1 ["creatorType"]
+      148 SETTABLEKS                       R14 R13 K22 ["OwnerType"]
+      150 GETTABLEKS                       R14 R0 K0 ["GameOwnerMetadata"]
+      152 GETTABLEKS                       R14 R14 K30 ["creatorName"]
+      154 SETTABLEKS                       R14 R13 K23 ["GroupName"]
+      156 SETTABLEKS                       R12 R13 K24 ["ShowOwner"]
+      158 JUMPIFNOT                        R2 ; [+3]
+      159 GETTABLEKS                       R14 R2 K31 ["key"]
+      161 JUMPIF                           R14 ; [+1]
+      162 LOADNIL                          R14
+      163 SETTABLEKS                       R14 R13 K25 ["SelectedPillKey"]
+      165 SETTABLEKS                       R3 R13 K26 ["IsGroupGame"]
+      167 GETUPVAL                         R15 10
+      168 GETTABLEKS                       R15 R15 K32 ["fflagManageCollaboratorsActionNeededLabel"]
+      170 JUMPIFNOT                        R15 ; [+3]
+      171 GETTABLEKS                       R14 R0 K27 ["CanCollaborateResponses"]
+      173 JUMP                             ; [+1]
+      174 LOADNIL                          R14
+      175 SETTABLEKS                       R14 R13 K27 ["CanCollaborateResponses"]
+      177 RETURN                           R13 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -642,37 +625,37 @@ MAIN:
       114 GETIMPORT                        R15 K8 [require]
       116 GETTABLEKS                       R16 R1 K19 ["Src"]
       118 GETTABLEKS                       R16 R16 K28 ["Selectors"]
-      120 GETTABLEKS                       R16 R16 K30 ["GetGroupCollaborators"]
+      120 GETTABLEKS                       R16 R16 K30 ["GetFilterPillUserCollaborators"]
       122 CALL                             R15 1 1
       123 GETIMPORT                        R16 K8 [require]
       125 GETTABLEKS                       R17 R1 K19 ["Src"]
       127 GETTABLEKS                       R17 R17 K28 ["Selectors"]
-      129 GETTABLEKS                       R17 R17 K31 ["GetGranularCollaborators"]
+      129 GETTABLEKS                       R17 R17 K31 ["GetGroupCollaborators"]
       131 CALL                             R16 1 1
       132 GETIMPORT                        R17 K8 [require]
       134 GETTABLEKS                       R18 R1 K19 ["Src"]
       136 GETTABLEKS                       R18 R18 K28 ["Selectors"]
-      138 GETTABLEKS                       R18 R18 K32 ["GetSelectedFilterPill"]
+      138 GETTABLEKS                       R18 R18 K32 ["GetGranularCollaborators"]
       140 CALL                             R17 1 1
       141 GETIMPORT                        R18 K8 [require]
       143 GETTABLEKS                       R19 R1 K19 ["Src"]
       145 GETTABLEKS                       R19 R19 K28 ["Selectors"]
-      147 GETTABLEKS                       R19 R19 K33 ["GetPendingPlayTesters"]
+      147 GETTABLEKS                       R19 R19 K33 ["GetSelectedFilterPill"]
       149 CALL                             R18 1 1
       150 GETIMPORT                        R19 K8 [require]
       152 GETTABLEKS                       R20 R1 K19 ["Src"]
       154 GETTABLEKS                       R20 R20 K28 ["Selectors"]
-      156 GETTABLEKS                       R20 R20 K34 ["GetPendingPlayTesterCount"]
+      156 GETTABLEKS                       R20 R20 K34 ["GetPendingPlayTesters"]
       158 CALL                             R19 1 1
       159 GETIMPORT                        R20 K8 [require]
       161 GETTABLEKS                       R21 R1 K19 ["Src"]
-      163 GETTABLEKS                       R21 R21 K20 ["Util"]
-      165 GETTABLEKS                       R21 R21 K35 ["GetPlayTesterPermissionMaxCount"]
+      163 GETTABLEKS                       R21 R21 K28 ["Selectors"]
+      165 GETTABLEKS                       R21 R21 K35 ["GetPendingPlayTesterCount"]
       167 CALL                             R20 1 1
       168 GETIMPORT                        R21 K8 [require]
       170 GETTABLEKS                       R22 R1 K19 ["Src"]
       172 GETTABLEKS                       R22 R22 K20 ["Util"]
-      174 GETTABLEKS                       R22 R22 K36 ["MigrationStatus"]
+      174 GETTABLEKS                       R22 R22 K36 ["GetPlayTesterPermissionMaxCount"]
       176 CALL                             R21 1 1
       177 GETIMPORT                        R22 K8 [require]
       179 GETTABLEKS                       R23 R1 K19 ["Src"]
@@ -745,7 +728,7 @@ MAIN:
       287 CAPTURE                          VAL R12
       288 CAPTURE                          VAL R37
       289 CAPTURE                          VAL R24
-      290 CAPTURE                          VAL R20
+      290 CAPTURE                          VAL R21
       291 CAPTURE                          VAL R35
       292 CAPTURE                          VAL R25
       293 CAPTURE                          VAL R28
@@ -766,17 +749,17 @@ MAIN:
       312 MOVE                             R36 R38
       313 GETTABLEKS                       R38 R3 K75 ["connect"]
       315 DUPCLOSURE                       R39 K76 [PROTO_1]
-      316 CAPTURE                          VAL R17
+      316 CAPTURE                          VAL R18
       317 CAPTURE                          VAL R23
       318 CAPTURE                          VAL R22
       319 CAPTURE                          VAL R14
-      320 CAPTURE                          VAL R15
-      321 CAPTURE                          VAL R18
+      320 CAPTURE                          VAL R16
+      321 CAPTURE                          VAL R19
       322 CAPTURE                          VAL R37
-      323 CAPTURE                          VAL R16
-      324 CAPTURE                          VAL R4
-      325 CAPTURE                          VAL R21
-      326 CAPTURE                          VAL R19
+      323 CAPTURE                          VAL R15
+      324 CAPTURE                          VAL R17
+      325 CAPTURE                          VAL R20
+      326 CAPTURE                          VAL R4
       327 CALL                             R38 1 1
       328 MOVE                             R39 R36
       329 CALL                             R38 1 1

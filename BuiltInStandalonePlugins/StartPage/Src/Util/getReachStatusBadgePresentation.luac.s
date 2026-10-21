@@ -24,73 +24,67 @@ PROTO_0:
        28 RETURN                           R3 2
 
 PROTO_1:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["getReachStatusBadgePresentation should only be used when FFlagLuaStartPageReachStatus is enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 JUMPIFNOTEQKNIL                  R0 ; [+3]
-       10 LOADNIL                          R1
-       11 RETURN                           R1 1
-       12 GETTABLEKS                       R1 R0 K3 ["translatedStatus"]
-       14 JUMPIFEQKNIL                     R1 ; [+3]
-       16 JUMPIFNOTEQKS                    R1 K4 [""] ; [+3]
-       18 LOADNIL                          R2
-       19 RETURN                           R2 1
-       20 GETTABLEKS                       R4 R0 K5 ["iconName"]
-       22 JUMPIFNOTEQKNIL                  R4 ; [+4]
-       24 LOADNIL                          R2
-       25 LOADNIL                          R3
-       26 JUMP                             ; [+25]
-       27 GETIMPORT                        R5 K8 [string.match]
-       29 MOVE                             R6 R4
-       30 LOADK                            R7 K9 ["^icon%-(%a+)%-(.+)$"]
-       31 CALL                             R5 2 2
-       32 JUMPIFEQKNIL                     R5 ; [+3]
-       34 JUMPIFNOTEQKNIL                  R6 ; [+4]
-       36 LOADNIL                          R2
-       37 LOADNIL                          R3
-       38 JUMP                             ; [+13]
-       39 GETUPVAL                         R8 1
-       40 GETTABLE                         R7 R8 R6
-       41 GETUPVAL                         R9 2
-       42 GETTABLE                         R8 R9 R5
-       43 JUMPIFEQKNIL                     R7 ; [+3]
-       45 JUMPIFNOTEQKNIL                  R8 ; [+4]
-       47 LOADNIL                          R2
-       48 LOADNIL                          R3
-       49 JUMP                             ; [+2]
-       50 MOVE                             R2 R7
-       51 MOVE                             R3 R8
-       52 JUMPIFEQKNIL                     R2 ; [+3]
-       54 JUMPIFNOTEQKNIL                  R3 ; [+15]
-       56 GETTABLEKS                       R4 R0 K10 ["chipStatus"]
-       58 JUMPIFNOTEQKS                    R4 K11 ["Playtest"] ; [+5]
-       60 GETUPVAL                         R4 3
-       61 GETTABLEKS                       R2 R4 K12 ["LockClosed"]
-       63 JUMP                             ; [+3]
-       64 GETUPVAL                         R4 3
-       65 GETTABLEKS                       R2 R4 K13 ["GlobeDetailed"]
-       67 GETUPVAL                         R4 4
-       68 GETTABLEKS                       R3 R4 K14 ["Filled"]
-       70 GETTABLEKS                       R5 R0 K15 ["variant"]
-       72 JUMPIFNOT                        R5 ; [+5]
-       73 GETUPVAL                         R5 5
-       74 GETTABLEKS                       R6 R0 K15 ["variant"]
-       76 GETTABLE                         R4 R5 R6
-       77 JUMP                             ; [+1]
-       78 LOADNIL                          R4
-       79 DUPTABLE                         R5 K18 [{"label", "iconName", "iconVariant", "variant"}]
-       80 SETTABLEKS                       R1 R5 K16 ["label"]
-       82 SETTABLEKS                       R2 R5 K5 ["iconName"]
-       84 SETTABLEKS                       R3 R5 K17 ["iconVariant"]
-       86 MOVE                             R6 R4
-       87 JUMPIF                           R6 ; [+3]
-       88 GETUPVAL                         R6 5
-       89 GETTABLEKS                       R6 R6 K19 ["Standard"]
-       91 SETTABLEKS                       R6 R5 K15 ["variant"]
-       93 RETURN                           R5 1
+        0 JUMPIFNOTEQKNIL                  R0 ; [+3]
+        2 LOADNIL                          R1
+        3 RETURN                           R1 1
+        4 GETTABLEKS                       R1 R0 K0 ["translatedStatus"]
+        6 JUMPIFEQKNIL                     R1 ; [+3]
+        8 JUMPIFNOTEQKS                    R1 K1 [""] ; [+3]
+       10 LOADNIL                          R2
+       11 RETURN                           R2 1
+       12 GETTABLEKS                       R4 R0 K2 ["iconName"]
+       14 JUMPIFNOTEQKNIL                  R4 ; [+4]
+       16 LOADNIL                          R2
+       17 LOADNIL                          R3
+       18 JUMP                             ; [+25]
+       19 GETIMPORT                        R5 K5 [string.match]
+       21 MOVE                             R6 R4
+       22 LOADK                            R7 K6 ["^icon%-(%a+)%-(.+)$"]
+       23 CALL                             R5 2 2
+       24 JUMPIFEQKNIL                     R5 ; [+3]
+       26 JUMPIFNOTEQKNIL                  R6 ; [+4]
+       28 LOADNIL                          R2
+       29 LOADNIL                          R3
+       30 JUMP                             ; [+13]
+       31 GETUPVAL                         R8 0
+       32 GETTABLE                         R7 R8 R6
+       33 GETUPVAL                         R9 1
+       34 GETTABLE                         R8 R9 R5
+       35 JUMPIFEQKNIL                     R7 ; [+3]
+       37 JUMPIFNOTEQKNIL                  R8 ; [+4]
+       39 LOADNIL                          R2
+       40 LOADNIL                          R3
+       41 JUMP                             ; [+2]
+       42 MOVE                             R2 R7
+       43 MOVE                             R3 R8
+       44 JUMPIFEQKNIL                     R2 ; [+3]
+       46 JUMPIFNOTEQKNIL                  R3 ; [+15]
+       48 GETTABLEKS                       R4 R0 K7 ["chipStatus"]
+       50 JUMPIFNOTEQKS                    R4 K8 ["Playtest"] ; [+5]
+       52 GETUPVAL                         R4 2
+       53 GETTABLEKS                       R2 R4 K9 ["LockClosed"]
+       55 JUMP                             ; [+3]
+       56 GETUPVAL                         R4 2
+       57 GETTABLEKS                       R2 R4 K10 ["GlobeDetailed"]
+       59 GETUPVAL                         R4 3
+       60 GETTABLEKS                       R3 R4 K11 ["Filled"]
+       62 GETTABLEKS                       R5 R0 K12 ["variant"]
+       64 JUMPIFNOT                        R5 ; [+5]
+       65 GETUPVAL                         R5 4
+       66 GETTABLEKS                       R6 R0 K12 ["variant"]
+       68 GETTABLE                         R4 R5 R6
+       69 JUMP                             ; [+1]
+       70 LOADNIL                          R4
+       71 DUPTABLE                         R5 K15 [{"label", "iconName", "iconVariant", "variant"}]
+       72 SETTABLEKS                       R1 R5 K13 ["label"]
+       74 SETTABLEKS                       R2 R5 K2 ["iconName"]
+       76 SETTABLEKS                       R3 R5 K14 ["iconVariant"]
+       78 MOVE                             R6 R4
+       79 JUMPIF                           R6 ; [+3]
+       80 GETUPVAL                         R6 4
+       81 GETTABLEKS                       R6 R6 K16 ["Standard"]
+       83 SETTABLEKS                       R6 R5 K12 ["variant"]
+       85 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -100,45 +94,39 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagLuaStartPageReachStatus"]
+       11 GETTABLEKS                       R2 R2 K7 ["Models"]
+       13 GETTABLEKS                       R2 R2 K8 ["UniverseReachStatusResponse"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
        18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R3 K9 ["Models"]
-       22 GETTABLEKS                       R3 R3 K10 ["UniverseReachStatusResponse"]
+       20 GETTABLEKS                       R3 R3 K9 ["Util"]
+       22 GETTABLEKS                       R3 R3 K10 ["Foundation"]
        24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R4 R0 K6 ["Src"]
-       29 GETTABLEKS                       R4 R4 K11 ["Util"]
-       31 GETTABLEKS                       R4 R4 K12 ["Foundation"]
-       33 CALL                             R3 1 1
-       34 GETTABLEKS                       R4 R3 K13 ["Enums"]
-       36 GETTABLEKS                       R4 R4 K14 ["IconName"]
-       38 GETTABLEKS                       R5 R3 K13 ["Enums"]
-       40 GETTABLEKS                       R5 R5 K15 ["IconVariant"]
-       42 GETTABLEKS                       R6 R3 K13 ["Enums"]
-       44 GETTABLEKS                       R6 R6 K16 ["BadgeVariant"]
-       46 NEWTABLE                         R7 0 0
-       48 MOVE                             R8 R4
-       49 LOADNIL                          R9
-       50 LOADNIL                          R10
-       51 FORGPREP                         R8
-       52 SETTABLE                         R12 R7 R12
-       53 FORGLOOP                         R8 2 ; [-2]
-       55 DUPTABLE                         R8 K19 [{"filled", "regular"}]
-       56 GETTABLEKS                       R9 R5 K20 ["Filled"]
-       58 SETTABLEKS                       R9 R8 K17 ["filled"]
-       60 GETTABLEKS                       R9 R5 K21 ["Regular"]
-       62 SETTABLEKS                       R9 R8 K18 ["regular"]
-       64 DUPCLOSURE                       R9 K22 [PROTO_0]
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R8
-       67 DUPCLOSURE                       R10 K23 [PROTO_1]
-       68 CAPTURE                          VAL R1
-       69 CAPTURE                          VAL R7
-       70 CAPTURE                          VAL R8
-       71 CAPTURE                          VAL R4
-       72 CAPTURE                          VAL R5
-       73 CAPTURE                          VAL R6
-       74 RETURN                           R10 1
+       25 GETTABLEKS                       R3 R2 K11 ["Enums"]
+       27 GETTABLEKS                       R3 R3 K12 ["IconName"]
+       29 GETTABLEKS                       R4 R2 K11 ["Enums"]
+       31 GETTABLEKS                       R4 R4 K13 ["IconVariant"]
+       33 GETTABLEKS                       R5 R2 K11 ["Enums"]
+       35 GETTABLEKS                       R5 R5 K14 ["BadgeVariant"]
+       37 NEWTABLE                         R6 0 0
+       39 MOVE                             R7 R3
+       40 LOADNIL                          R8
+       41 LOADNIL                          R9
+       42 FORGPREP                         R7
+       43 SETTABLE                         R11 R6 R11
+       44 FORGLOOP                         R7 2 ; [-2]
+       46 DUPTABLE                         R7 K17 [{"filled", "regular"}]
+       47 GETTABLEKS                       R8 R4 K18 ["Filled"]
+       49 SETTABLEKS                       R8 R7 K15 ["filled"]
+       51 GETTABLEKS                       R8 R4 K19 ["Regular"]
+       53 SETTABLEKS                       R8 R7 K16 ["regular"]
+       55 DUPCLOSURE                       R8 K20 [PROTO_0]
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R7
+       58 DUPCLOSURE                       R9 K21 [PROTO_1]
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R7
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R4
+       63 CAPTURE                          VAL R5
+       64 RETURN                           R9 1

@@ -93,6 +93,29 @@ PROTO_4:
        21 RETURN                           R2 -1
 
 PROTO_5:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R2 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K4 [{"Eligibility", "EligibilityPendingLoad"}]
+        7 GETTABLEKS                       R6 R1 K5 ["eligibility"]
+        9 JUMPIFNOTEQKNIL                  R6 ; [+5]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R5 R5 K6 ["None"]
+       14 JUMP                             ; [+2]
+       15 GETTABLEKS                       R5 R1 K5 ["eligibility"]
+       17 SETTABLEKS                       R5 R4 K2 ["Eligibility"]
+       19 GETTABLEKS                       R6 R1 K7 ["pendingLoad"]
+       21 JUMPIFNOTEQKNIL                  R6 ; [+5]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K6 ["None"]
+       26 JUMP                             ; [+2]
+       27 GETTABLEKS                       R5 R1 K7 ["pendingLoad"]
+       29 SETTABLEKS                       R5 R4 K3 ["EligibilityPendingLoad"]
+       31 CALL                             R2 2 -1
+       32 RETURN                           R2 -1
+
+PROTO_6:
         0 GETTABLEKS                       R3 R0 K0 ["OriginRoles"]
         2 GETTABLEKS                       R4 R1 K1 ["userId"]
         4 GETTABLE                         R2 R3 R4
@@ -152,34 +175,43 @@ MAIN:
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K4 [require]
        61 GETTABLEKS                       R8 R0 K8 ["Src"]
-       63 GETTABLEKS                       R8 R8 K14 ["Util"]
-       65 GETTABLEKS                       R8 R8 K15 ["IsEqualCheck"]
+       63 GETTABLEKS                       R8 R8 K9 ["Actions"]
+       65 GETTABLEKS                       R8 R8 K14 ["SetPlayTesterEligibility"]
        67 CALL                             R7 1 1
-       68 DUPCLOSURE                       R8 K16 [PROTO_0]
-       69 GETTABLEKS                       R9 R1 K17 ["createReducer"]
-       71 MOVE                             R10 R8
-       72 CALL                             R10 0 1
-       73 NEWTABLE                         R11 8 0
-       75 DUPCLOSURE                       R12 K18 [PROTO_1]
-       76 CAPTURE                          VAL R8
-       77 SETTABLEKS                       R12 R11 K19 ["ResetStore"]
-       79 GETTABLEKS                       R12 R3 K20 ["name"]
-       81 DUPCLOSURE                       R13 K21 [PROTO_2]
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R7
-       84 SETTABLE                         R13 R11 R12
-       85 GETTABLEKS                       R12 R4 K20 ["name"]
-       87 DUPCLOSURE                       R13 K22 [PROTO_3]
-       88 CAPTURE                          VAL R2
-       89 CAPTURE                          VAL R7
-       90 SETTABLE                         R13 R11 R12
-       91 GETTABLEKS                       R12 R5 K20 ["name"]
-       93 DUPCLOSURE                       R13 K23 [PROTO_4]
-       94 CAPTURE                          VAL R2
-       95 SETTABLE                         R13 R11 R12
-       96 GETTABLEKS                       R12 R6 K20 ["name"]
-       98 DUPCLOSURE                       R13 K24 [PROTO_5]
-       99 CAPTURE                          VAL R2
-      100 SETTABLE                         R13 R11 R12
-      101 CALL                             R9 2 -1
-      102 RETURN                           R9 -1
+       68 GETIMPORT                        R8 K4 [require]
+       70 GETTABLEKS                       R9 R0 K8 ["Src"]
+       72 GETTABLEKS                       R9 R9 K15 ["Util"]
+       74 GETTABLEKS                       R9 R9 K16 ["IsEqualCheck"]
+       76 CALL                             R8 1 1
+       77 DUPCLOSURE                       R9 K17 [PROTO_0]
+       78 GETTABLEKS                       R10 R1 K18 ["createReducer"]
+       80 MOVE                             R11 R9
+       81 CALL                             R11 0 1
+       82 NEWTABLE                         R12 8 0
+       84 DUPCLOSURE                       R13 K19 [PROTO_1]
+       85 CAPTURE                          VAL R9
+       86 SETTABLEKS                       R13 R12 K20 ["ResetStore"]
+       88 GETTABLEKS                       R13 R3 K21 ["name"]
+       90 DUPCLOSURE                       R14 K22 [PROTO_2]
+       91 CAPTURE                          VAL R2
+       92 CAPTURE                          VAL R8
+       93 SETTABLE                         R14 R12 R13
+       94 GETTABLEKS                       R13 R4 K21 ["name"]
+       96 DUPCLOSURE                       R14 K23 [PROTO_3]
+       97 CAPTURE                          VAL R2
+       98 CAPTURE                          VAL R8
+       99 SETTABLE                         R14 R12 R13
+      100 GETTABLEKS                       R13 R5 K21 ["name"]
+      102 DUPCLOSURE                       R14 K24 [PROTO_4]
+      103 CAPTURE                          VAL R2
+      104 SETTABLE                         R14 R12 R13
+      105 GETTABLEKS                       R13 R7 K21 ["name"]
+      107 DUPCLOSURE                       R14 K25 [PROTO_5]
+      108 CAPTURE                          VAL R2
+      109 SETTABLE                         R14 R12 R13
+      110 GETTABLEKS                       R13 R6 K21 ["name"]
+      112 DUPCLOSURE                       R14 K26 [PROTO_6]
+      113 CAPTURE                          VAL R2
+      114 SETTABLE                         R14 R12 R13
+      115 CALL                             R10 2 -1
+      116 RETURN                           R10 -1

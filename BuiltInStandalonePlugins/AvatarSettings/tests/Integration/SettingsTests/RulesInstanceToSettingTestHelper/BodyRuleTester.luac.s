@@ -198,48 +198,62 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-        3 LOADK                            R1 K1 ["AppearanceSectionFace"]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K2 ["CustomFaceId"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-       11 LOADK                            R1 K3 ["AppearanceSectionHead"]
-       12 GETUPVAL                         R2 1
-       13 GETTABLEKS                       R2 R2 K4 ["CustomHeadId"]
-       15 CALL                             R0 2 0
-       16 GETUPVAL                         R0 0
-       17 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-       19 LOADK                            R1 K5 ["AppearanceSectionTorso"]
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R2 R2 K6 ["CustomTorsoId"]
-       23 CALL                             R0 2 0
-       24 GETUPVAL                         R0 0
-       25 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-       27 LOADK                            R1 K7 ["AppearanceSectionLeftArm"]
-       28 GETUPVAL                         R2 1
-       29 GETTABLEKS                       R2 R2 K8 ["CustomLeftArmId"]
-       31 CALL                             R0 2 0
-       32 GETUPVAL                         R0 0
-       33 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-       35 LOADK                            R1 K9 ["AppearanceSectionRightArm"]
-       36 GETUPVAL                         R2 1
-       37 GETTABLEKS                       R2 R2 K10 ["CustomRightArmId"]
-       39 CALL                             R0 2 0
-       40 GETUPVAL                         R0 0
-       41 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-       43 LOADK                            R1 K11 ["AppearanceSectionLeftLeg"]
-       44 GETUPVAL                         R2 1
-       45 GETTABLEKS                       R2 R2 K12 ["CustomLeftLegId"]
-       47 CALL                             R0 2 0
-       48 GETUPVAL                         R0 0
-       49 GETTABLEKS                       R0 R0 K0 ["findAssetIdComponentAndVerifyId"]
-       51 LOADK                            R1 K13 ["AppearanceSectionRightLeg"]
-       52 GETUPVAL                         R2 1
-       53 GETTABLEKS                       R2 R2 K14 ["CustomRightLegId"]
-       55 CALL                             R0 2 0
-       56 RETURN                           R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+14]
+        3 GETUPVAL                         R0 1
+        4 GETUPVAL                         R1 2
+        5 GETTABLEKS                       R1 R1 K0 ["queryByText"]
+        7 LOADK                            R2 K1 ["AppearanceSectionFace"]
+        8 DUPTABLE                         R3 K4 [{["exact"] = False}]
+        9 CALL                             R1 2 -1
+       10 CALL                             R0 -1 1
+       11 GETTABLEKS                       R0 R0 K5 ["never"]
+       13 GETTABLEKS                       R0 R0 K6 ["toBeDefined"]
+       15 CALL                             R0 0 0
+       16 JUMP                             ; [+8]
+       17 GETUPVAL                         R0 3
+       18 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       20 LOADK                            R1 K1 ["AppearanceSectionFace"]
+       21 GETUPVAL                         R2 4
+       22 GETTABLEKS                       R2 R2 K8 ["CustomFaceId"]
+       24 CALL                             R0 2 0
+       25 GETUPVAL                         R0 3
+       26 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       28 LOADK                            R1 K9 ["AppearanceSectionHead"]
+       29 GETUPVAL                         R2 4
+       30 GETTABLEKS                       R2 R2 K10 ["CustomHeadId"]
+       32 CALL                             R0 2 0
+       33 GETUPVAL                         R0 3
+       34 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       36 LOADK                            R1 K11 ["AppearanceSectionTorso"]
+       37 GETUPVAL                         R2 4
+       38 GETTABLEKS                       R2 R2 K12 ["CustomTorsoId"]
+       40 CALL                             R0 2 0
+       41 GETUPVAL                         R0 3
+       42 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       44 LOADK                            R1 K13 ["AppearanceSectionLeftArm"]
+       45 GETUPVAL                         R2 4
+       46 GETTABLEKS                       R2 R2 K14 ["CustomLeftArmId"]
+       48 CALL                             R0 2 0
+       49 GETUPVAL                         R0 3
+       50 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       52 LOADK                            R1 K15 ["AppearanceSectionRightArm"]
+       53 GETUPVAL                         R2 4
+       54 GETTABLEKS                       R2 R2 K16 ["CustomRightArmId"]
+       56 CALL                             R0 2 0
+       57 GETUPVAL                         R0 3
+       58 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       60 LOADK                            R1 K17 ["AppearanceSectionLeftLeg"]
+       61 GETUPVAL                         R2 4
+       62 GETTABLEKS                       R2 R2 K18 ["CustomLeftLegId"]
+       64 CALL                             R0 2 0
+       65 GETUPVAL                         R0 3
+       66 GETTABLEKS                       R0 R0 K7 ["findAssetIdComponentAndVerifyId"]
+       68 LOADK                            R1 K19 ["AppearanceSectionRightLeg"]
+       69 GETUPVAL                         R2 4
+       70 GETTABLEKS                       R2 R2 K20 ["CustomRightLegId"]
+       72 CALL                             R0 2 0
+       73 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -552,56 +566,64 @@ MAIN:
        46 GETTABLEKS                       R5 R5 K16 ["Util"]
        48 GETTABLEKS                       R5 R5 K17 ["setup"]
        50 CALL                             R4 1 1
-       51 GETTABLEKS                       R5 R2 K18 ["expect"]
-       53 LOADNIL                          R6
-       54 LOADNIL                          R7
-       55 LOADNIL                          R8
-       56 NEWTABLE                         R9 1 0
-       58 NEWCLOSURE                       R10 P0
-       59 CAPTURE                          VAL R5
-       60 CAPTURE                          REF R7
-       61 NEWCLOSURE                       R11 P1
-       62 CAPTURE                          REF R6
-       63 CAPTURE                          REF R8
-       64 CAPTURE                          VAL R1
-       65 NEWCLOSURE                       R12 P2
-       66 CAPTURE                          REF R8
-       67 CAPTURE                          VAL R10
-       68 CAPTURE                          REF R6
-       69 CAPTURE                          VAL R11
-       70 NEWCLOSURE                       R13 P3
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          REF R7
-       73 NEWCLOSURE                       R14 P4
-       74 CAPTURE                          REF R6
-       75 CAPTURE                          REF R8
-       76 NEWCLOSURE                       R15 P5
-       77 CAPTURE                          REF R8
-       78 CAPTURE                          VAL R13
-       79 CAPTURE                          REF R6
-       80 CAPTURE                          VAL R14
-       81 NEWCLOSURE                       R16 P6
-       82 CAPTURE                          VAL R5
-       83 CAPTURE                          REF R7
-       84 NEWCLOSURE                       R17 P7
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          REF R6
-       87 CAPTURE                          REF R8
-       88 NEWCLOSURE                       R18 P8
-       89 CAPTURE                          REF R8
-       90 CAPTURE                          VAL R16
-       91 CAPTURE                          REF R6
-       92 CAPTURE                          VAL R17
-       93 NEWCLOSURE                       R19 P9
-       94 CAPTURE                          REF R6
-       95 CAPTURE                          REF R7
-       96 CAPTURE                          VAL R3
-       97 CAPTURE                          REF R8
-       98 CAPTURE                          VAL R10
-       99 CAPTURE                          VAL R11
-      100 CAPTURE                          VAL R15
-      101 CAPTURE                          VAL R16
+       51 GETIMPORT                        R5 K5 [require]
+       53 GETTABLEKS                       R6 R0 K6 ["Src"]
+       55 GETTABLEKS                       R6 R6 K18 ["Flags"]
+       57 GETTABLEKS                       R6 R6 K19 ["getFFlagAvatarSettingsWriteOverrides"]
+       59 CALL                             R5 1 1
+       60 GETTABLEKS                       R6 R2 K20 ["expect"]
+       62 LOADNIL                          R7
+       63 LOADNIL                          R8
+       64 LOADNIL                          R9
+       65 NEWTABLE                         R10 1 0
+       67 NEWCLOSURE                       R11 P0
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          REF R8
+       70 NEWCLOSURE                       R12 P1
+       71 CAPTURE                          REF R7
+       72 CAPTURE                          REF R9
+       73 CAPTURE                          VAL R1
+       74 NEWCLOSURE                       R13 P2
+       75 CAPTURE                          REF R9
+       76 CAPTURE                          VAL R11
+       77 CAPTURE                          REF R7
+       78 CAPTURE                          VAL R12
+       79 NEWCLOSURE                       R14 P3
+       80 CAPTURE                          VAL R6
+       81 CAPTURE                          REF R8
+       82 NEWCLOSURE                       R15 P4
+       83 CAPTURE                          VAL R5
+       84 CAPTURE                          VAL R6
+       85 CAPTURE                          REF R8
+       86 CAPTURE                          REF R7
+       87 CAPTURE                          REF R9
+       88 NEWCLOSURE                       R16 P5
+       89 CAPTURE                          REF R9
+       90 CAPTURE                          VAL R14
+       91 CAPTURE                          REF R7
+       92 CAPTURE                          VAL R15
+       93 NEWCLOSURE                       R17 P6
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          REF R8
+       96 NEWCLOSURE                       R18 P7
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          REF R7
+       99 CAPTURE                          REF R9
+      100 NEWCLOSURE                       R19 P8
+      101 CAPTURE                          REF R9
       102 CAPTURE                          VAL R17
-      103 SETTABLEKS                       R19 R9 K19 ["testAvatarBodyRules"]
-      105 CLOSEUPVALS                      R6
-      106 RETURN                           R9 1
+      103 CAPTURE                          REF R7
+      104 CAPTURE                          VAL R18
+      105 NEWCLOSURE                       R20 P9
+      106 CAPTURE                          REF R7
+      107 CAPTURE                          REF R8
+      108 CAPTURE                          VAL R3
+      109 CAPTURE                          REF R9
+      110 CAPTURE                          VAL R11
+      111 CAPTURE                          VAL R12
+      112 CAPTURE                          VAL R16
+      113 CAPTURE                          VAL R17
+      114 CAPTURE                          VAL R18
+      115 SETTABLEKS                       R20 R10 K21 ["testAvatarBodyRules"]
+      117 CLOSEUPVALS                      R7
+      118 RETURN                           R10 1

@@ -29,22 +29,24 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+18]
+        1 JUMPIF                           R0 ; [+22]
         2 GETUPVAL                         R0 1
         3 GETTABLEKS                       R0 R0 K0 ["ItemType"]
         5 GETUPVAL                         R1 2
         6 GETTABLEKS                       R1 R1 K1 ["AssetType"]
         8 GETTABLEKS                       R1 R1 K2 ["Folder"]
-       10 JUMPIFNOTEQ                      R0 R1 ; [+9]
+       10 JUMPIFNOTEQ                      R0 R1 ; [+13]
        12 LOADK                            R0 K3 ["Folder names cannot contain <b>%*</b> or end with a period."]
        13 GETUPVAL                         R2 3
-       14 LOADK                            R3 K4 ["< > : \" / \\ | ? *"]
-       15 CALL                             R2 1 1
-       16 NAMECALL                         R0 R0 K5 ["format"]
-       18 CALL                             R0 2 1
-       19 RETURN                           R0 1
-       20 LOADNIL                          R0
-       21 RETURN                           R0 1
+       14 GETTABLEKS                       R2 R2 K4 ["Utils"]
+       16 GETTABLEKS                       R2 R2 K5 ["escapeRichText"]
+       18 LOADK                            R3 K6 ["< > : \" / \\ | ? *"]
+       19 CALL                             R2 1 1
+       20 NAMECALL                         R0 R0 K7 ["format"]
+       22 CALL                             R0 2 1
+       23 RETURN                           R0 1
+       24 LOADNIL                          R0
+       25 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -291,55 +293,54 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K9 ["React"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K10 ["Foundation"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K6 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Controllers"]
-       34 GETTABLEKS                       R5 R5 K12 ["ItemsController"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K6 ["Src"]
-       41 GETTABLEKS                       R6 R6 K13 ["Networking"]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K11 ["Foundation"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K8 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Controllers"]
+       41 GETTABLEKS                       R6 R6 K13 ["ItemsController"]
        43 CALL                             R5 1 1
        44 GETIMPORT                        R6 K5 [require]
-       46 GETTABLEKS                       R7 R0 K6 ["Src"]
-       48 GETTABLEKS                       R7 R7 K14 ["Util"]
-       50 GETTABLEKS                       R7 R7 K15 ["escapeRichText"]
-       52 CALL                             R6 1 1
-       53 GETIMPORT                        R7 K5 [require]
-       55 GETTABLEKS                       R8 R0 K6 ["Src"]
-       57 GETTABLEKS                       R8 R8 K14 ["Util"]
-       59 GETTABLEKS                       R8 R8 K16 ["PlaceManagement"]
-       61 GETTABLEKS                       R8 R8 K17 ["renamePlace"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K5 [require]
-       66 GETTABLEKS                       R9 R0 K6 ["Src"]
-       68 GETTABLEKS                       R9 R9 K14 ["Util"]
-       70 GETTABLEKS                       R9 R9 K18 ["validateFolderName"]
-       72 CALL                             R8 1 1
-       73 GETIMPORT                        R9 K5 [require]
-       75 GETTABLEKS                       R10 R0 K6 ["Src"]
-       77 GETTABLEKS                       R10 R10 K19 ["Flags"]
-       79 GETTABLEKS                       R10 R10 K20 ["getFFlagAmrRemoveAssetManagerServiceDependency"]
-       81 CALL                             R9 1 1
-       82 DUPCLOSURE                       R10 K21 [PROTO_4]
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R5
+       46 GETTABLEKS                       R7 R0 K8 ["Src"]
+       48 GETTABLEKS                       R7 R7 K14 ["Networking"]
+       50 CALL                             R6 1 1
+       51 GETIMPORT                        R7 K5 [require]
+       53 GETTABLEKS                       R8 R0 K8 ["Src"]
+       55 GETTABLEKS                       R8 R8 K15 ["Util"]
+       57 GETTABLEKS                       R8 R8 K16 ["PlaceManagement"]
+       59 GETTABLEKS                       R8 R8 K17 ["renamePlace"]
+       61 CALL                             R7 1 1
+       62 GETIMPORT                        R8 K5 [require]
+       64 GETTABLEKS                       R9 R0 K8 ["Src"]
+       66 GETTABLEKS                       R9 R9 K15 ["Util"]
+       68 GETTABLEKS                       R9 R9 K18 ["validateFolderName"]
+       70 CALL                             R8 1 1
+       71 GETIMPORT                        R9 K5 [require]
+       73 GETTABLEKS                       R10 R0 K8 ["Src"]
+       75 GETTABLEKS                       R10 R10 K19 ["Flags"]
+       77 GETTABLEKS                       R10 R10 K20 ["getFFlagAmrRemoveAssetManagerServiceDependency"]
+       79 CALL                             R9 1 1
+       80 DUPCLOSURE                       R10 K21 [PROTO_4]
+       81 CAPTURE                          VAL R5
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R4
        85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R8
        87 CAPTURE                          VAL R1
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R9
-       91 CAPTURE                          VAL R7
-       92 RETURN                           R10 1
+       88 CAPTURE                          VAL R9
+       89 CAPTURE                          VAL R7
+       90 RETURN                           R10 1

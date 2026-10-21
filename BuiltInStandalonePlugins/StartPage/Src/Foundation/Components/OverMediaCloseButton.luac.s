@@ -23,52 +23,34 @@ PROTO_0:
        30 GETUPVAL                         R5 3
        31 MOVE                             R6 R1
        32 DUPTABLE                         R7 K12 [{"Icon"}]
-       33 GETUPVAL                         R9 4
-       34 JUMPIFNOT                        R9 ; [+39]
-       35 GETUPVAL                         R8 2
-       36 GETTABLEKS                       R8 R8 K10 ["createElement"]
-       38 GETUPVAL                         R9 5
-       39 DUPTABLE                         R10 K18 [{"Position", "AnchorPoint", "name", "size", "style"}]
-       40 GETIMPORT                        R11 K21 [UDim2.fromScale]
-       42 LOADK                            R12 K22 [0.5]
-       43 LOADK                            R13 K22 [0.5]
-       44 CALL                             R11 2 1
-       45 SETTABLEKS                       R11 R10 K13 ["Position"]
-       47 GETIMPORT                        R11 K25 [Vector2.new]
-       49 LOADK                            R12 K22 [0.5]
-       50 LOADK                            R13 K22 [0.5]
-       51 CALL                             R11 2 1
-       52 SETTABLEKS                       R11 R10 K14 ["AnchorPoint"]
-       54 GETUPVAL                         R11 6
-       55 GETTABLEKS                       R11 R11 K26 ["XSmall"]
-       57 SETTABLEKS                       R11 R10 K15 ["name"]
-       59 GETUPVAL                         R11 7
-       60 GETTABLEKS                       R11 R11 K27 ["Medium"]
-       62 SETTABLEKS                       R11 R10 K16 ["size"]
-       64 GETTABLEKS                       R11 R2 K28 ["Color"]
-       66 GETTABLEKS                       R11 R11 K29 ["Content"]
-       68 GETTABLEKS                       R11 R11 K30 ["Emphasis"]
-       70 SETTABLEKS                       R11 R10 K17 ["style"]
-       72 CALL                             R8 2 1
-       73 JUMP                             ; [+20]
-       74 GETUPVAL                         R8 2
-       75 GETTABLEKS                       R8 R8 K10 ["createElement"]
-       77 GETUPVAL                         R9 8
-       78 DUPTABLE                         R10 K32 [{["Position"], ["AnchorPoint"], ["tag"] = "StartPage-CancelWhiteIcon content-emphasis"}]
-       79 GETIMPORT                        R11 K21 [UDim2.fromScale]
-       81 LOADK                            R12 K22 [0.5]
-       82 LOADK                            R13 K22 [0.5]
-       83 CALL                             R11 2 1
-       84 SETTABLEKS                       R11 R10 K13 ["Position"]
-       86 GETIMPORT                        R11 K25 [Vector2.new]
-       88 LOADK                            R12 K22 [0.5]
-       89 LOADK                            R13 K22 [0.5]
-       90 CALL                             R11 2 1
-       91 SETTABLEKS                       R11 R10 K14 ["AnchorPoint"]
-       93 CALL                             R8 2 1
-       94 SETTABLEKS                       R8 R7 K11 ["Icon"]
-       96 CALL                             R4 3 -1
-       97 RETURN                           R4 -1
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K10 ["createElement"]
+       36 GETUPVAL                         R9 4
+       37 DUPTABLE                         R10 K18 [{"Position", "AnchorPoint", "name", "size", "style"}]
+       38 GETIMPORT                        R11 K21 [UDim2.fromScale]
+       40 LOADK                            R12 K22 [0.5]
+       41 LOADK                            R13 K22 [0.5]
+       42 CALL                             R11 2 1
+       43 SETTABLEKS                       R11 R10 K13 ["Position"]
+       45 GETIMPORT                        R11 K25 [Vector2.new]
+       47 LOADK                            R12 K22 [0.5]
+       48 LOADK                            R13 K22 [0.5]
+       49 CALL                             R11 2 1
+       50 SETTABLEKS                       R11 R10 K14 ["AnchorPoint"]
+       52 GETUPVAL                         R11 5
+       53 GETTABLEKS                       R11 R11 K26 ["XSmall"]
+       55 SETTABLEKS                       R11 R10 K15 ["name"]
+       57 GETUPVAL                         R11 6
+       58 GETTABLEKS                       R11 R11 K27 ["Medium"]
+       60 SETTABLEKS                       R11 R10 K16 ["size"]
+       62 GETTABLEKS                       R11 R2 K28 ["Color"]
+       64 GETTABLEKS                       R11 R11 K29 ["Content"]
+       66 GETTABLEKS                       R11 R11 K30 ["Emphasis"]
+       68 SETTABLEKS                       R11 R10 K17 ["style"]
+       70 CALL                             R8 2 1
+       71 SETTABLEKS                       R8 R7 K11 ["Icon"]
+       73 CALL                             R4 3 -1
+       74 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -86,37 +68,28 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K10 ["Foundation"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K11 ["View"]
-       25 GETTABLEKS                       R4 R2 K12 ["Image"]
-       27 GETTABLEKS                       R5 R2 K13 ["Icon"]
-       29 GETTABLEKS                       R6 R2 K14 ["Enums"]
-       31 GETTABLEKS                       R6 R6 K15 ["IconName"]
-       33 GETTABLEKS                       R7 R2 K14 ["Enums"]
-       35 GETTABLEKS                       R7 R7 K16 ["IconSize"]
-       37 GETTABLEKS                       R8 R2 K17 ["Hooks"]
-       39 GETTABLEKS                       R8 R8 K18 ["useTokens"]
-       41 GETIMPORT                        R9 K5 [require]
-       43 GETTABLEKS                       R10 R0 K8 ["Src"]
-       45 GETTABLEKS                       R10 R10 K19 ["SharedFlags"]
-       47 GETTABLEKS                       R10 R10 K20 ["getFFlagLuaStartPageBuilderIcons"]
-       49 CALL                             R9 1 1
-       50 CALL                             R9 0 1
-       51 GETIMPORT                        R10 K5 [require]
-       53 GETTABLEKS                       R11 R0 K8 ["Src"]
-       55 GETTABLEKS                       R11 R11 K21 ["Types"]
-       57 CALL                             R10 1 1
-       58 GETIMPORT                        R11 K5 [require]
-       60 GETTABLEKS                       R12 R0 K8 ["Src"]
-       62 GETTABLEKS                       R12 R12 K17 ["Hooks"]
-       64 GETTABLEKS                       R12 R12 K22 ["useOnStateChangedCursor"]
-       66 CALL                             R11 1 1
-       67 DUPCLOSURE                       R12 K23 [PROTO_0]
-       68 CAPTURE                          VAL R8
-       69 CAPTURE                          VAL R11
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          VAL R9
-       73 CAPTURE                          VAL R5
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R4
-       77 RETURN                           R12 1
+       25 GETTABLEKS                       R4 R2 K12 ["Icon"]
+       27 GETTABLEKS                       R5 R2 K13 ["Enums"]
+       29 GETTABLEKS                       R5 R5 K14 ["IconName"]
+       31 GETTABLEKS                       R6 R2 K13 ["Enums"]
+       33 GETTABLEKS                       R6 R6 K15 ["IconSize"]
+       35 GETTABLEKS                       R7 R2 K16 ["Hooks"]
+       37 GETTABLEKS                       R7 R7 K17 ["useTokens"]
+       39 GETIMPORT                        R8 K5 [require]
+       41 GETTABLEKS                       R9 R0 K8 ["Src"]
+       43 GETTABLEKS                       R9 R9 K18 ["Types"]
+       45 CALL                             R8 1 1
+       46 GETIMPORT                        R9 K5 [require]
+       48 GETTABLEKS                       R10 R0 K8 ["Src"]
+       50 GETTABLEKS                       R10 R10 K16 ["Hooks"]
+       52 GETTABLEKS                       R10 R10 K19 ["useOnStateChangedCursor"]
+       54 CALL                             R9 1 1
+       55 DUPCLOSURE                       R10 K20 [PROTO_0]
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R9
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          VAL R5
+       62 CAPTURE                          VAL R6
+       63 RETURN                           R10 1

@@ -140,33 +140,31 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["success"]
-        2 JUMPIFNOT                        R1 ; [+21]
+        2 JUMPIFNOT                        R1 ; [+19]
         3 GETUPVAL                         R1 0
         4 GETTABLEKS                       R1 R1 K1 ["sendFeatureShown"]
         6 LOADK                            R2 K2 ["requestSucceeded"]
         7 CALL                             R1 1 0
         8 GETUPVAL                         R1 1
-        9 JUMPIFNOT                        R1 ; [+5]
-       10 GETUPVAL                         R1 2
-       11 LOADK                            R3 K3 ["TrustedConnectionRequestSent"]
-       12 NAMECALL                         R1 R1 K4 ["Fire"]
-       14 CALL                             R1 2 0
-       15 GETUPVAL                         R1 3
-       16 GETUPVAL                         R2 4
-       17 GETTABLEKS                       R2 R2 K5 ["None"]
-       19 CALL                             R1 1 0
-       20 GETUPVAL                         R1 5
-       21 LOADNIL                          R2
-       22 CALL                             R1 1 0
-       23 RETURN                           R0 0
-       24 GETUPVAL                         R1 5
-       25 MOVE                             R2 R0
-       26 CALL                             R1 1 0
-       27 GETUPVAL                         R1 3
-       28 GETUPVAL                         R2 4
-       29 GETTABLEKS                       R2 R2 K6 ["VPCRequestSent"]
-       31 CALL                             R1 1 0
-       32 RETURN                           R0 0
+        9 LOADK                            R3 K3 ["TrustedConnectionRequestSent"]
+       10 NAMECALL                         R1 R1 K4 ["Fire"]
+       12 CALL                             R1 2 0
+       13 GETUPVAL                         R1 2
+       14 GETUPVAL                         R2 3
+       15 GETTABLEKS                       R2 R2 K5 ["None"]
+       17 CALL                             R1 1 0
+       18 GETUPVAL                         R1 4
+       19 LOADNIL                          R2
+       20 CALL                             R1 1 0
+       21 RETURN                           R0 0
+       22 GETUPVAL                         R1 4
+       23 MOVE                             R2 R0
+       24 CALL                             R1 1 0
+       25 GETUPVAL                         R1 2
+       26 GETUPVAL                         R2 3
+       27 GETTABLEKS                       R2 R2 K6 ["VPCRequestSent"]
+       29 CALL                             R1 1 0
+       30 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -280,27 +278,26 @@ PROTO_7:
       135 NEWCLOSURE                       R22 P6
       136 CAPTURE                          UPVAL U4
       137 CAPTURE                          UPVAL U5
-      138 CAPTURE                          UPVAL U6
-      139 CAPTURE                          VAL R2
-      140 CAPTURE                          UPVAL U1
-      141 CAPTURE                          VAL R4
-      142 NEWTABLE                         R23 0 0
-      144 CALL                             R21 2 1
-      145 DUPTABLE                         R22 K24 [{"activeDialog", "requestResult", "collaborators", "universeId", "placeId", "userCapabilities", "onCloseAll", "onOpenTrustedConnectionDialog", "onCloseTrustedConnectionDialog", "onMainDialogX", "onNewParentDialogX", "onRequestFailedDialogX", "onRequestComplete"}]
-      146 SETTABLEKS                       R1 R22 K11 ["activeDialog"]
-      148 SETTABLEKS                       R3 R22 K12 ["requestResult"]
-      150 SETTABLEKS                       R5 R22 K13 ["collaborators"]
-      152 SETTABLEKS                       R7 R22 K14 ["universeId"]
-      154 SETTABLEKS                       R9 R22 K15 ["placeId"]
-      156 SETTABLEKS                       R11 R22 K16 ["userCapabilities"]
-      158 SETTABLEKS                       R14 R22 K17 ["onCloseAll"]
-      160 SETTABLEKS                       R15 R22 K18 ["onOpenTrustedConnectionDialog"]
-      162 SETTABLEKS                       R16 R22 K19 ["onCloseTrustedConnectionDialog"]
-      164 SETTABLEKS                       R18 R22 K20 ["onMainDialogX"]
-      166 SETTABLEKS                       R19 R22 K21 ["onNewParentDialogX"]
-      168 SETTABLEKS                       R20 R22 K22 ["onRequestFailedDialogX"]
-      170 SETTABLEKS                       R21 R22 K23 ["onRequestComplete"]
-      172 RETURN                           R22 1
+      138 CAPTURE                          VAL R2
+      139 CAPTURE                          UPVAL U1
+      140 CAPTURE                          VAL R4
+      141 NEWTABLE                         R23 0 0
+      143 CALL                             R21 2 1
+      144 DUPTABLE                         R22 K24 [{"activeDialog", "requestResult", "collaborators", "universeId", "placeId", "userCapabilities", "onCloseAll", "onOpenTrustedConnectionDialog", "onCloseTrustedConnectionDialog", "onMainDialogX", "onNewParentDialogX", "onRequestFailedDialogX", "onRequestComplete"}]
+      145 SETTABLEKS                       R1 R22 K11 ["activeDialog"]
+      147 SETTABLEKS                       R3 R22 K12 ["requestResult"]
+      149 SETTABLEKS                       R5 R22 K13 ["collaborators"]
+      151 SETTABLEKS                       R7 R22 K14 ["universeId"]
+      153 SETTABLEKS                       R9 R22 K15 ["placeId"]
+      155 SETTABLEKS                       R11 R22 K16 ["userCapabilities"]
+      157 SETTABLEKS                       R14 R22 K17 ["onCloseAll"]
+      159 SETTABLEKS                       R15 R22 K18 ["onOpenTrustedConnectionDialog"]
+      161 SETTABLEKS                       R16 R22 K19 ["onCloseTrustedConnectionDialog"]
+      163 SETTABLEKS                       R18 R22 K20 ["onMainDialogX"]
+      165 SETTABLEKS                       R19 R22 K21 ["onNewParentDialogX"]
+      167 SETTABLEKS                       R20 R22 K22 ["onRequestFailedDialogX"]
+      169 SETTABLEKS                       R21 R22 K23 ["onRequestComplete"]
+      171 RETURN                           R22 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -332,30 +329,23 @@ MAIN:
        45 LOADK                            R9 K17 ["StartPageTeamCreateCollaborators"]
        46 CALL                             R8 1 1
        47 GETIMPORT                        R9 K5 [require]
-       49 GETTABLEKS                       R10 R0 K18 ["Bin"]
-       51 GETTABLEKS                       R10 R10 K19 ["Common"]
-       53 GETTABLEKS                       R10 R10 K20 ["flags"]
-       55 CALL                             R9 1 1
-       56 GETTABLEKS                       R10 R9 K21 ["FFlagStartPageTrustedConnectionSnackbar"]
-       58 GETIMPORT                        R11 K5 [require]
-       60 GETTABLEKS                       R12 R0 K11 ["Src"]
-       62 GETTABLEKS                       R12 R12 K14 ["Util"]
-       64 GETTABLEKS                       R12 R12 K22 ["Telemetry"]
-       66 GETTABLEKS                       R12 R12 K22 ["Telemetry"]
-       68 CALL                             R11 1 1
-       69 DUPTABLE                         R12 K30 [{["DataModel"] = "Standalone", ["PluginId"] = "TeamCreateCollaborators", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
-       70 DUPTABLE                         R13 K38 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Checked"] = False, ["Checkable"] = False}]
-       71 SETTABLEKS                       R12 R13 K31 ["Uri"]
-       73 DUPTABLE                         R14 K47 [{["None"] = "none", ["Main"] = "main", ["VPCTrustedConnection"] = "vpcTrustedConnection", ["VPCRequestSent"] = "vpcRequestSent"}]
-       74 DUPCLOSURE                       R15 K48 [PROTO_7]
-       75 CAPTURE                          VAL R1
-       76 CAPTURE                          VAL R14
-       77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R13
-       79 CAPTURE                          VAL R11
-       80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R8
-       82 DUPTABLE                         R16 K51 [{"ActiveDialog", "use"}]
-       83 SETTABLEKS                       R14 R16 K49 ["ActiveDialog"]
-       85 SETTABLEKS                       R15 R16 K50 ["use"]
-       87 RETURN                           R16 1
+       49 GETTABLEKS                       R10 R0 K11 ["Src"]
+       51 GETTABLEKS                       R10 R10 K14 ["Util"]
+       53 GETTABLEKS                       R10 R10 K18 ["Telemetry"]
+       55 GETTABLEKS                       R10 R10 K18 ["Telemetry"]
+       57 CALL                             R9 1 1
+       58 DUPTABLE                         R10 K26 [{["DataModel"] = "Standalone", ["PluginId"] = "TeamCreateCollaborators", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+       59 DUPTABLE                         R11 K34 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Checked"] = False, ["Checkable"] = False}]
+       60 SETTABLEKS                       R10 R11 K27 ["Uri"]
+       62 DUPTABLE                         R12 K43 [{["None"] = "none", ["Main"] = "main", ["VPCTrustedConnection"] = "vpcTrustedConnection", ["VPCRequestSent"] = "vpcRequestSent"}]
+       63 DUPCLOSURE                       R13 K44 [PROTO_7]
+       64 CAPTURE                          VAL R1
+       65 CAPTURE                          VAL R12
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R11
+       68 CAPTURE                          VAL R9
+       69 CAPTURE                          VAL R8
+       70 DUPTABLE                         R14 K47 [{"ActiveDialog", "use"}]
+       71 SETTABLEKS                       R12 R14 K45 ["ActiveDialog"]
+       73 SETTABLEKS                       R13 R14 K46 ["use"]
+       75 RETURN                           R14 1

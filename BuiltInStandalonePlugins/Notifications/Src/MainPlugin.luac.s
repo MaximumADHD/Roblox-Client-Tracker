@@ -307,33 +307,43 @@ PROTO_10:
       105 GETTABLEKS                       R11 R11 K14 ["Enabled"]
       107 GETTABLEKS                       R12 R0 K34 ["onWidgetEnabledChanged"]
       109 SETTABLE                         R12 R10 R11
-      110 DUPTABLE                         R11 K37 [{"AppWithProvider", "StyleLink"}]
-      111 GETUPVAL                         R12 6
-      112 GETTABLEKS                       R12 R12 K11 ["createElement"]
-      114 GETUPVAL                         R13 10
-      115 DUPTABLE                         R14 K39 [{"trayVisible"}]
-      116 SETTABLEKS                       R4 R14 K38 ["trayVisible"]
-      118 DUPTABLE                         R15 K41 [{"App"}]
-      119 GETUPVAL                         R16 6
-      120 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      122 GETUPVAL                         R17 11
-      123 CALL                             R16 1 1
-      124 SETTABLEKS                       R16 R15 K40 ["App"]
-      126 CALL                             R12 3 1
-      127 SETTABLEKS                       R12 R11 K35 ["AppWithProvider"]
-      129 GETUPVAL                         R12 6
-      130 GETTABLEKS                       R12 R12 K11 ["createElement"]
-      132 LOADK                            R13 K36 ["StyleLink"]
-      133 DUPTABLE                         R14 K43 [{"StyleSheet"}]
-      134 GETTABLEKS                       R15 R0 K44 ["design"]
-      136 SETTABLEKS                       R15 R14 K42 ["StyleSheet"]
-      138 CALL                             R12 2 1
-      139 SETTABLEKS                       R12 R11 K36 ["StyleLink"]
-      141 CALL                             R8 3 1
-      142 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
-      144 LOADB                            R8 1
-      145 CALL                             R5 3 -1
-      146 RETURN                           R5 -1
+      110 GETUPVAL                         R12 10
+      111 JUMPIFNOT                        R12 ; [+3]
+      112 GETTABLEKS                       R11 R0 K35 ["design"]
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R11
+      116 SETTABLEKS                       R11 R10 K36 ["PluginDesign"]
+      118 DUPTABLE                         R11 K39 [{"AppWithProvider", "StyleLink"}]
+      119 GETUPVAL                         R12 6
+      120 GETTABLEKS                       R12 R12 K11 ["createElement"]
+      122 GETUPVAL                         R13 11
+      123 DUPTABLE                         R14 K41 [{"trayVisible"}]
+      124 SETTABLEKS                       R4 R14 K40 ["trayVisible"]
+      126 DUPTABLE                         R15 K43 [{"App"}]
+      127 GETUPVAL                         R16 6
+      128 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      130 GETUPVAL                         R17 12
+      131 CALL                             R16 1 1
+      132 SETTABLEKS                       R16 R15 K42 ["App"]
+      134 CALL                             R12 3 1
+      135 SETTABLEKS                       R12 R11 K37 ["AppWithProvider"]
+      137 GETUPVAL                         R13 10
+      138 JUMPIF                           R13 ; [+11]
+      139 GETUPVAL                         R12 6
+      140 GETTABLEKS                       R12 R12 K11 ["createElement"]
+      142 LOADK                            R13 K38 ["StyleLink"]
+      143 DUPTABLE                         R14 K45 [{"StyleSheet"}]
+      144 GETTABLEKS                       R15 R0 K35 ["design"]
+      146 SETTABLEKS                       R15 R14 K44 ["StyleSheet"]
+      148 CALL                             R12 2 1
+      149 JUMP                             ; [+1]
+      150 LOADNIL                          R12
+      151 SETTABLEKS                       R12 R11 K38 ["StyleLink"]
+      153 CALL                             R8 3 1
+      154 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
+      156 LOADB                            R8 1
+      157 CALL                             R5 3 -1
+      158 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -348,93 +358,97 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K5 ["Packages"]
        18 GETTABLEKS                       R3 R3 K7 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K8 ["UI"]
-       23 GETTABLEKS                       R4 R2 K9 ["Styling"]
-       25 GETTABLEKS                       R5 R3 K10 ["DockWidget"]
-       27 GETIMPORT                        R6 K12 [pcall]
-       29 DUPCLOSURE                       R7 K13 [PROTO_0]
-       30 CALL                             R6 1 2
-       31 JUMPIFNOT                        R6 ; [+2]
-       32 MOVE                             R8 R7
-       33 JUMP                             ; [+1]
-       34 LOADNIL                          R8
-       35 GETTABLEKS                       R9 R2 K14 ["ContextServices"]
-       37 GETTABLEKS                       R10 R4 K15 ["registerPluginStyles"]
-       39 GETTABLEKS                       R11 R9 K16 ["Plugin"]
-       41 GETTABLEKS                       R12 R9 K17 ["Mouse"]
-       43 GETTABLEKS                       R13 R9 K18 ["Focus"]
-       45 GETIMPORT                        R14 K4 [require]
-       47 GETTABLEKS                       R15 R0 K19 ["Src"]
-       49 GETTABLEKS                       R15 R15 K20 ["Contexts"]
-       51 GETTABLEKS                       R15 R15 K21 ["AnalyticsContext"]
-       53 CALL                             R14 1 1
-       54 GETIMPORT                        R15 K4 [require]
-       56 GETTABLEKS                       R16 R0 K19 ["Src"]
-       58 GETTABLEKS                       R16 R16 K20 ["Contexts"]
-       60 GETTABLEKS                       R16 R16 K22 ["TrayVisibleProvider"]
-       62 CALL                             R15 1 1
-       63 GETIMPORT                        R16 K4 [require]
-       65 GETTABLEKS                       R17 R0 K19 ["Src"]
-       67 GETTABLEKS                       R17 R17 K23 ["Resources"]
-       69 GETTABLEKS                       R17 R17 K24 ["MakeTheme"]
-       71 CALL                             R16 1 1
-       72 GETIMPORT                        R17 K4 [require]
-       74 GETTABLEKS                       R18 R0 K19 ["Src"]
-       76 GETTABLEKS                       R18 R18 K25 ["Util"]
-       78 GETTABLEKS                       R18 R18 K26 ["AttachmentConstants"]
-       80 CALL                             R17 1 1
-       81 GETTABLEKS                       R18 R0 K19 ["Src"]
-       83 GETTABLEKS                       R18 R18 K23 ["Resources"]
-       85 GETTABLEKS                       R18 R18 K27 ["Localization"]
-       87 GETTABLEKS                       R18 R18 K28 ["SourceStrings"]
-       89 GETTABLEKS                       R19 R0 K19 ["Src"]
-       91 GETTABLEKS                       R19 R19 K23 ["Resources"]
-       93 GETTABLEKS                       R19 R19 K27 ["Localization"]
-       95 GETTABLEKS                       R19 R19 K29 ["LocalizedStrings"]
-       97 GETIMPORT                        R20 K4 [require]
-       99 GETTABLEKS                       R21 R0 K19 ["Src"]
-      101 GETTABLEKS                       R21 R21 K25 ["Util"]
-      103 GETTABLEKS                       R21 R21 K30 ["TraySize"]
-      105 CALL                             R20 1 1
-      106 GETTABLEKS                       R21 R20 K31 ["TRAY_WIDTH"]
-      108 GETTABLEKS                       R22 R20 K32 ["TRAY_HEIGHT"]
-      110 GETTABLEKS                       R23 R0 K19 ["Src"]
-      112 GETTABLEKS                       R23 R23 K33 ["Components"]
-      114 GETIMPORT                        R24 K4 [require]
-      116 GETTABLEKS                       R25 R23 K34 ["App"]
-      118 CALL                             R24 1 1
-      119 GETTABLEKS                       R25 R1 K35 ["PureComponent"]
-      121 LOADK                            R27 K36 ["MainPlugin"]
-      122 NAMECALL                         R25 R25 K37 ["extend"]
-      124 CALL                             R25 2 1
-      125 DUPCLOSURE                       R26 K38 [PROTO_7]
-      126 CAPTURE                          VAL R17
-      127 CAPTURE                          VAL R14
-      128 CAPTURE                          VAL R9
-      129 CAPTURE                          VAL R18
-      130 CAPTURE                          VAL R19
-      131 CAPTURE                          VAL R10
-      132 CAPTURE                          VAL R8
-      133 SETTABLEKS                       R26 R25 K39 ["init"]
-      135 DUPCLOSURE                       R26 K40 [PROTO_8]
-      136 CAPTURE                          VAL R0
-      137 CAPTURE                          VAL R21
-      138 CAPTURE                          VAL R22
-      139 SETTABLEKS                       R26 R25 K41 ["didMount"]
-      141 DUPCLOSURE                       R26 K42 [PROTO_9]
-      142 SETTABLEKS                       R26 R25 K43 ["willUnmount"]
-      144 DUPCLOSURE                       R26 K44 [PROTO_10]
-      145 CAPTURE                          VAL R9
-      146 CAPTURE                          VAL R11
-      147 CAPTURE                          VAL R12
-      148 CAPTURE                          VAL R13
-      149 CAPTURE                          VAL R16
-      150 CAPTURE                          VAL R14
-      151 CAPTURE                          VAL R1
-      152 CAPTURE                          VAL R5
-      153 CAPTURE                          VAL R21
-      154 CAPTURE                          VAL R22
+       21 GETTABLEKS                       R3 R2 K8 ["SharedFlags"]
+       23 GETTABLEKS                       R3 R3 K9 ["getFFlagDevFrameworkUsePluginDesign"]
+       25 CALL                             R3 0 1
+       26 GETTABLEKS                       R4 R2 K10 ["UI"]
+       28 GETTABLEKS                       R5 R2 K11 ["Styling"]
+       30 GETTABLEKS                       R6 R4 K12 ["DockWidget"]
+       32 GETIMPORT                        R7 K14 [pcall]
+       34 DUPCLOSURE                       R8 K15 [PROTO_0]
+       35 CALL                             R7 1 2
+       36 JUMPIFNOT                        R7 ; [+2]
+       37 MOVE                             R9 R8
+       38 JUMP                             ; [+1]
+       39 LOADNIL                          R9
+       40 GETTABLEKS                       R10 R2 K16 ["ContextServices"]
+       42 GETTABLEKS                       R11 R5 K17 ["registerPluginStyles"]
+       44 GETTABLEKS                       R12 R10 K18 ["Plugin"]
+       46 GETTABLEKS                       R13 R10 K19 ["Mouse"]
+       48 GETTABLEKS                       R14 R10 K20 ["Focus"]
+       50 GETIMPORT                        R15 K4 [require]
+       52 GETTABLEKS                       R16 R0 K21 ["Src"]
+       54 GETTABLEKS                       R16 R16 K22 ["Contexts"]
+       56 GETTABLEKS                       R16 R16 K23 ["AnalyticsContext"]
+       58 CALL                             R15 1 1
+       59 GETIMPORT                        R16 K4 [require]
+       61 GETTABLEKS                       R17 R0 K21 ["Src"]
+       63 GETTABLEKS                       R17 R17 K22 ["Contexts"]
+       65 GETTABLEKS                       R17 R17 K24 ["TrayVisibleProvider"]
+       67 CALL                             R16 1 1
+       68 GETIMPORT                        R17 K4 [require]
+       70 GETTABLEKS                       R18 R0 K21 ["Src"]
+       72 GETTABLEKS                       R18 R18 K25 ["Resources"]
+       74 GETTABLEKS                       R18 R18 K26 ["MakeTheme"]
+       76 CALL                             R17 1 1
+       77 GETIMPORT                        R18 K4 [require]
+       79 GETTABLEKS                       R19 R0 K21 ["Src"]
+       81 GETTABLEKS                       R19 R19 K27 ["Util"]
+       83 GETTABLEKS                       R19 R19 K28 ["AttachmentConstants"]
+       85 CALL                             R18 1 1
+       86 GETTABLEKS                       R19 R0 K21 ["Src"]
+       88 GETTABLEKS                       R19 R19 K25 ["Resources"]
+       90 GETTABLEKS                       R19 R19 K29 ["Localization"]
+       92 GETTABLEKS                       R19 R19 K30 ["SourceStrings"]
+       94 GETTABLEKS                       R20 R0 K21 ["Src"]
+       96 GETTABLEKS                       R20 R20 K25 ["Resources"]
+       98 GETTABLEKS                       R20 R20 K29 ["Localization"]
+      100 GETTABLEKS                       R20 R20 K31 ["LocalizedStrings"]
+      102 GETIMPORT                        R21 K4 [require]
+      104 GETTABLEKS                       R22 R0 K21 ["Src"]
+      106 GETTABLEKS                       R22 R22 K27 ["Util"]
+      108 GETTABLEKS                       R22 R22 K32 ["TraySize"]
+      110 CALL                             R21 1 1
+      111 GETTABLEKS                       R22 R21 K33 ["TRAY_WIDTH"]
+      113 GETTABLEKS                       R23 R21 K34 ["TRAY_HEIGHT"]
+      115 GETTABLEKS                       R24 R0 K21 ["Src"]
+      117 GETTABLEKS                       R24 R24 K35 ["Components"]
+      119 GETIMPORT                        R25 K4 [require]
+      121 GETTABLEKS                       R26 R24 K36 ["App"]
+      123 CALL                             R25 1 1
+      124 GETTABLEKS                       R26 R1 K37 ["PureComponent"]
+      126 LOADK                            R28 K38 ["MainPlugin"]
+      127 NAMECALL                         R26 R26 K39 ["extend"]
+      129 CALL                             R26 2 1
+      130 DUPCLOSURE                       R27 K40 [PROTO_7]
+      131 CAPTURE                          VAL R18
+      132 CAPTURE                          VAL R15
+      133 CAPTURE                          VAL R10
+      134 CAPTURE                          VAL R19
+      135 CAPTURE                          VAL R20
+      136 CAPTURE                          VAL R11
+      137 CAPTURE                          VAL R9
+      138 SETTABLEKS                       R27 R26 K41 ["init"]
+      140 DUPCLOSURE                       R27 K42 [PROTO_8]
+      141 CAPTURE                          VAL R0
+      142 CAPTURE                          VAL R22
+      143 CAPTURE                          VAL R23
+      144 SETTABLEKS                       R27 R26 K43 ["didMount"]
+      146 DUPCLOSURE                       R27 K44 [PROTO_9]
+      147 SETTABLEKS                       R27 R26 K45 ["willUnmount"]
+      149 DUPCLOSURE                       R27 K46 [PROTO_10]
+      150 CAPTURE                          VAL R10
+      151 CAPTURE                          VAL R12
+      152 CAPTURE                          VAL R13
+      153 CAPTURE                          VAL R14
+      154 CAPTURE                          VAL R17
       155 CAPTURE                          VAL R15
-      156 CAPTURE                          VAL R24
-      157 SETTABLEKS                       R26 R25 K45 ["render"]
-      159 RETURN                           R25 1
+      156 CAPTURE                          VAL R1
+      157 CAPTURE                          VAL R6
+      158 CAPTURE                          VAL R22
+      159 CAPTURE                          VAL R23
+      160 CAPTURE                          VAL R3
+      161 CAPTURE                          VAL R16
+      162 CAPTURE                          VAL R25
+      163 SETTABLEKS                       R27 R26 K47 ["render"]
+      165 RETURN                           R26 1

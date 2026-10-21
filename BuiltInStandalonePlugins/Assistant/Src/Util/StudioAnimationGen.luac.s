@@ -39,7 +39,7 @@ PROTO_2:
         9 GETTABLEKS                       R2 R1 K3 ["outputPath"]
        11 JUMPIF                           R2 ; [+1]
        12 LOADK                            R2 K4 ["/tmp"]
-       13 DUPTABLE                         R3 K10 [{"NumFrames", "OutputPath", "GuidanceParameter", "Loop", "PriorJobId"}]
+       13 DUPTABLE                         R3 K10 [{"NumFrames", "OutputPath", "OutputFileName", "GuidanceParameter", "PriorJobId"}]
        14 MOVE                             R4 R1
        15 JUMPIFNOT                        R4 ; [+2]
        16 GETTABLEKS                       R4 R1 K11 ["numFrames"]
@@ -47,12 +47,12 @@ PROTO_2:
        20 SETTABLEKS                       R2 R3 K6 ["OutputPath"]
        22 MOVE                             R4 R1
        23 JUMPIFNOT                        R4 ; [+2]
-       24 GETTABLEKS                       R4 R1 K12 ["guidanceParameter"]
-       26 SETTABLEKS                       R4 R3 K7 ["GuidanceParameter"]
+       24 GETTABLEKS                       R4 R1 K12 ["outputFileName"]
+       26 SETTABLEKS                       R4 R3 K7 ["OutputFileName"]
        28 MOVE                             R4 R1
        29 JUMPIFNOT                        R4 ; [+2]
-       30 GETTABLEKS                       R4 R1 K13 ["loop"]
-       32 SETTABLEKS                       R4 R3 K8 ["Loop"]
+       30 GETTABLEKS                       R4 R1 K13 ["guidanceParameter"]
+       32 SETTABLEKS                       R4 R3 K8 ["GuidanceParameter"]
        34 MOVE                             R4 R1
        35 JUMPIFNOT                        R4 ; [+2]
        36 GETTABLEKS                       R4 R1 K14 ["priorJobId"]

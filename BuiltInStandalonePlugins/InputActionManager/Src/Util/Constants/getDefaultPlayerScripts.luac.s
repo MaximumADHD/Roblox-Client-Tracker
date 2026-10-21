@@ -1,4 +1,16 @@
 PROTO_0:
+        0 GETIMPORT                        R3 K2 [string.lower]
+        2 GETTABLEKS                       R4 R0 K3 ["Name"]
+        4 CALL                             R3 1 1
+        5 GETIMPORT                        R4 K2 [string.lower]
+        7 GETTABLEKS                       R5 R1 K3 ["Name"]
+        9 CALL                             R4 1 1
+       10 JUMPIFLT                         R3 R4 ; [+2]
+       12 LOADB                            R2 0 +1
+       13 LOADB                            R2 1
+       14 RETURN                           R2 1
+
+PROTO_1:
         0 NEWTABLE                         R0 0 0
         2 NEWTABLE                         R1 0 0
         4 NEWTABLE                         R2 0 0
@@ -23,7 +35,7 @@ PROTO_0:
        31 LOADK                            R12 K8 ["InputContext"]
        32 NAMECALL                         R10 R9 K9 ["IsA"]
        34 CALL                             R10 2 1
-       35 JUMPIFNOT                        R10 ; [+100]
+       35 JUMPIFNOT                        R10 ; [+111]
        36 GETUPVAL                         R10 2
        37 GETTABLEKS                       R10 R10 K10 ["serializeContext"]
        39 MOVE                             R11 R9
@@ -42,60 +54,70 @@ PROTO_0:
        59 GETIMPORT                        R11 K17 [table.insert]
        61 CALL                             R11 2 0
        62 NAMECALL                         R11 R9 K7 ["GetChildren"]
-       64 CALL                             R11 1 3
-       65 FORGPREP                         R11
-       66 LOADK                            R18 K18 ["InputAction"]
-       67 NAMECALL                         R16 R15 K9 ["IsA"]
-       69 CALL                             R16 2 1
-       70 JUMPIFNOT                        R16 ; [+63]
-       71 GETUPVAL                         R16 2
-       72 GETTABLEKS                       R16 R16 K19 ["serializeAction"]
-       74 MOVE                             R17 R15
-       75 CALL                             R16 1 1
-       76 LOADB                            R17 1
-       77 SETTABLEKS                       R17 R16 K11 ["defaultPlayerScript"]
-       79 GETTABLEKS                       R17 R10 K14 ["uuid"]
-       81 SETTABLEKS                       R17 R16 K13 ["parentUuid"]
-       83 NEWTABLE                         R17 0 0
-       85 SETTABLEKS                       R17 R16 K4 ["bindings"]
-       87 GETTABLEKS                       R17 R16 K14 ["uuid"]
-       89 SETTABLE                         R16 R1 R17
-       90 GETTABLEKS                       R18 R10 K3 ["actions"]
-       92 GETTABLEKS                       R19 R16 K14 ["uuid"]
-       94 FASTCALL2                        TABLE_INSERT R18 R19 ; [+3]
-       96 GETIMPORT                        R17 K17 [table.insert]
-       98 CALL                             R17 2 0
-       99 NAMECALL                         R17 R15 K7 ["GetChildren"]
-      101 CALL                             R17 1 3
-      102 FORGPREP                         R17
-      103 LOADK                            R24 K20 ["InputBinding"]
-      104 NAMECALL                         R22 R21 K9 ["IsA"]
-      106 CALL                             R22 2 1
-      107 JUMPIFNOT                        R22 ; [+24]
-      108 GETUPVAL                         R22 2
-      109 GETTABLEKS                       R22 R22 K21 ["serializeBinding"]
-      111 MOVE                             R23 R21
-      112 CALL                             R22 1 1
-      113 LOADB                            R23 1
-      114 SETTABLEKS                       R23 R22 K11 ["defaultPlayerScript"]
-      116 GETTABLEKS                       R23 R16 K14 ["uuid"]
-      118 SETTABLEKS                       R23 R22 K13 ["parentUuid"]
-      120 GETTABLEKS                       R23 R22 K14 ["uuid"]
-      122 SETTABLE                         R22 R2 R23
-      123 GETTABLEKS                       R24 R16 K4 ["bindings"]
-      125 GETTABLEKS                       R25 R22 K14 ["uuid"]
-      127 FASTCALL2                        TABLE_INSERT R24 R25 ; [+3]
-      129 GETIMPORT                        R23 K17 [table.insert]
-      131 CALL                             R23 2 0
-      132 FORGLOOP                         R17 2 ; [-30]
-      134 FORGLOOP                         R11 2 ; [-69]
-      136 FORGLOOP                         R5 2 ; [-106]
-      138 DUPTABLE                         R5 K6 [{"contexts", "actions", "bindings", "contextOrder"}]
-      139 SETTABLEKS                       R0 R5 K2 ["contexts"]
-      141 SETTABLEKS                       R1 R5 K3 ["actions"]
-      143 SETTABLEKS                       R2 R5 K4 ["bindings"]
-      145 SETTABLEKS                       R3 R5 K5 ["contextOrder"]
-      147 RETURN                           R5 1
+       64 CALL                             R11 1 1
+       65 GETUPVAL                         R12 3
+       66 CALL                             R12 0 1
+       67 JUMPIFNOT                        R12 ; [+5]
+       68 GETIMPORT                        R12 K19 [table.sort]
+       70 MOVE                             R13 R11
+       71 DUPCLOSURE                       R14 K20 [PROTO_0]
+       72 CALL                             R12 2 0
+       73 MOVE                             R12 R11
+       74 LOADNIL                          R13
+       75 LOADNIL                          R14
+       76 FORGPREP                         R12
+       77 LOADK                            R19 K21 ["InputAction"]
+       78 NAMECALL                         R17 R16 K9 ["IsA"]
+       80 CALL                             R17 2 1
+       81 JUMPIFNOT                        R17 ; [+63]
+       82 GETUPVAL                         R17 2
+       83 GETTABLEKS                       R17 R17 K22 ["serializeAction"]
+       85 MOVE                             R18 R16
+       86 CALL                             R17 1 1
+       87 LOADB                            R18 1
+       88 SETTABLEKS                       R18 R17 K11 ["defaultPlayerScript"]
+       90 GETTABLEKS                       R18 R10 K14 ["uuid"]
+       92 SETTABLEKS                       R18 R17 K13 ["parentUuid"]
+       94 NEWTABLE                         R18 0 0
+       96 SETTABLEKS                       R18 R17 K4 ["bindings"]
+       98 GETTABLEKS                       R18 R17 K14 ["uuid"]
+      100 SETTABLE                         R17 R1 R18
+      101 GETTABLEKS                       R19 R10 K3 ["actions"]
+      103 GETTABLEKS                       R20 R17 K14 ["uuid"]
+      105 FASTCALL2                        TABLE_INSERT R19 R20 ; [+3]
+      107 GETIMPORT                        R18 K17 [table.insert]
+      109 CALL                             R18 2 0
+      110 NAMECALL                         R18 R16 K7 ["GetChildren"]
+      112 CALL                             R18 1 3
+      113 FORGPREP                         R18
+      114 LOADK                            R25 K23 ["InputBinding"]
+      115 NAMECALL                         R23 R22 K9 ["IsA"]
+      117 CALL                             R23 2 1
+      118 JUMPIFNOT                        R23 ; [+24]
+      119 GETUPVAL                         R23 2
+      120 GETTABLEKS                       R23 R23 K24 ["serializeBinding"]
+      122 MOVE                             R24 R22
+      123 CALL                             R23 1 1
+      124 LOADB                            R24 1
+      125 SETTABLEKS                       R24 R23 K11 ["defaultPlayerScript"]
+      127 GETTABLEKS                       R24 R17 K14 ["uuid"]
+      129 SETTABLEKS                       R24 R23 K13 ["parentUuid"]
+      131 GETTABLEKS                       R24 R23 K14 ["uuid"]
+      133 SETTABLE                         R23 R2 R24
+      134 GETTABLEKS                       R25 R17 K4 ["bindings"]
+      136 GETTABLEKS                       R26 R23 K14 ["uuid"]
+      138 FASTCALL2                        TABLE_INSERT R25 R26 ; [+3]
+      140 GETIMPORT                        R24 K17 [table.insert]
+      142 CALL                             R24 2 0
+      143 FORGLOOP                         R18 2 ; [-30]
+      145 FORGLOOP                         R12 2 ; [-69]
+      147 FORGLOOP                         R5 2 ; [-117]
+      149 DUPTABLE                         R5 K6 [{"contexts", "actions", "bindings", "contextOrder"}]
+      150 SETTABLEKS                       R0 R5 K2 ["contexts"]
+      152 SETTABLEKS                       R1 R5 K3 ["actions"]
+      154 SETTABLEKS                       R2 R5 K4 ["bindings"]
+      156 SETTABLEKS                       R3 R5 K5 ["contextOrder"]
+      158 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -117,8 +139,14 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K10 ["Flags"]
        29 GETTABLEKS                       R4 R4 K11 ["getFFlagIAMPlayerScripts"]
        31 CALL                             R3 1 1
-       32 DUPCLOSURE                       R4 K12 [PROTO_0]
-       33 CAPTURE                          VAL R0
-       34 CAPTURE                          VAL R3
-       35 CAPTURE                          VAL R2
-       36 RETURN                           R4 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Flags"]
+       38 GETTABLEKS                       R5 R5 K12 ["getFFlagIAMSortActions"]
+       40 CALL                             R4 1 1
+       41 DUPCLOSURE                       R5 K13 [PROTO_1]
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R3
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R4
+       46 RETURN                           R5 1

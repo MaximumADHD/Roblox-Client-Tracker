@@ -36,140 +36,124 @@ PROTO_1:
        32 RETURN                           R3 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 FASTCALL1                        ASSERT R2 ; [+2]
-        2 GETIMPORT                        R1 K1 [assert]
-        4 CALL                             R1 1 0
-        5 GETTABLEKS                       R2 R0 K2 ["LastViewed"]
-        7 JUMPIFNOT                        R2 ; [+5]
-        8 GETIMPORT                        R3 K5 [DateTime.fromIsoDate]
-       10 MOVE                             R4 R2
-       11 CALL                             R3 1 1
-       12 JUMP                             ; [+1]
-       13 LOADNIL                          R3
-       14 JUMPIF                           R3 ; [+2]
-       15 LOADNIL                          R1
-       16 JUMP                             ; [+23]
-       17 NAMECALL                         R4 R3 K6 ["ToUniversalTime"]
-       19 CALL                             R4 1 1
-       20 GETIMPORT                        R5 K8 [DateTime.fromLocalTime]
-       22 GETTABLEKS                       R6 R4 K9 ["Year"]
-       24 GETTABLEKS                       R7 R4 K10 ["Month"]
-       26 GETTABLEKS                       R8 R4 K11 ["Day"]
-       28 GETTABLEKS                       R9 R4 K12 ["Hour"]
-       30 GETTABLEKS                       R10 R4 K13 ["Minute"]
-       32 GETTABLEKS                       R11 R4 K14 ["Second"]
-       34 GETTABLEKS                       R12 R4 K15 ["Millisecond"]
-       36 CALL                             R5 7 1
-       37 MOVE                             R1 R5
-       38 GETTABLEKS                       R1 R1 K16 ["UnixTimestampMillis"]
-       40 JUMPIF                           R1 ; [+14]
-       41 GETTABLEKS                       R2 R0 K17 ["Updated"]
-       43 JUMPIFNOT                        R2 ; [+5]
-       44 GETIMPORT                        R3 K5 [DateTime.fromIsoDate]
-       46 MOVE                             R4 R2
-       47 CALL                             R3 1 1
-       48 JUMP                             ; [+1]
-       49 LOADNIL                          R3
-       50 JUMPIFNOT                        R3 ; [+3]
-       51 GETTABLEKS                       R1 R3 K16 ["UnixTimestampMillis"]
-       53 RETURN                           R1 1
-       54 LOADNIL                          R1
-       55 RETURN                           R1 1
+        0 GETTABLEKS                       R2 R0 K0 ["LastViewed"]
+        2 JUMPIFNOT                        R2 ; [+5]
+        3 GETIMPORT                        R3 K3 [DateTime.fromIsoDate]
+        5 MOVE                             R4 R2
+        6 CALL                             R3 1 1
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R3
+        9 JUMPIF                           R3 ; [+2]
+       10 LOADNIL                          R1
+       11 JUMP                             ; [+23]
+       12 NAMECALL                         R4 R3 K4 ["ToUniversalTime"]
+       14 CALL                             R4 1 1
+       15 GETIMPORT                        R5 K6 [DateTime.fromLocalTime]
+       17 GETTABLEKS                       R6 R4 K7 ["Year"]
+       19 GETTABLEKS                       R7 R4 K8 ["Month"]
+       21 GETTABLEKS                       R8 R4 K9 ["Day"]
+       23 GETTABLEKS                       R9 R4 K10 ["Hour"]
+       25 GETTABLEKS                       R10 R4 K11 ["Minute"]
+       27 GETTABLEKS                       R11 R4 K12 ["Second"]
+       29 GETTABLEKS                       R12 R4 K13 ["Millisecond"]
+       31 CALL                             R5 7 1
+       32 MOVE                             R1 R5
+       33 GETTABLEKS                       R1 R1 K14 ["UnixTimestampMillis"]
+       35 JUMPIF                           R1 ; [+14]
+       36 GETTABLEKS                       R2 R0 K15 ["Updated"]
+       38 JUMPIFNOT                        R2 ; [+5]
+       39 GETIMPORT                        R3 K3 [DateTime.fromIsoDate]
+       41 MOVE                             R4 R2
+       42 CALL                             R3 1 1
+       43 JUMP                             ; [+1]
+       44 LOADNIL                          R3
+       45 JUMPIFNOT                        R3 ; [+3]
+       46 GETTABLEKS                       R1 R3 K14 ["UnixTimestampMillis"]
+       48 RETURN                           R1 1
+       49 LOADNIL                          R1
+       50 RETURN                           R1 1
 
 PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 FASTCALL1                        ASSERT R3 ; [+2]
-        2 GETIMPORT                        R2 K1 [assert]
-        4 CALL                             R2 1 0
-        5 GETUPVAL                         R4 0
-        6 FASTCALL1                        ASSERT R4 ; [+2]
-        7 GETIMPORT                        R3 K1 [assert]
-        9 CALL                             R3 1 0
-       10 GETTABLEKS                       R3 R0 K2 ["LastViewed"]
-       12 JUMPIFNOT                        R3 ; [+5]
-       13 GETIMPORT                        R4 K5 [DateTime.fromIsoDate]
-       15 MOVE                             R5 R3
-       16 CALL                             R4 1 1
-       17 JUMP                             ; [+1]
-       18 LOADNIL                          R4
-       19 JUMPIF                           R4 ; [+2]
-       20 LOADNIL                          R2
-       21 JUMP                             ; [+23]
-       22 NAMECALL                         R5 R4 K6 ["ToUniversalTime"]
-       24 CALL                             R5 1 1
-       25 GETIMPORT                        R6 K8 [DateTime.fromLocalTime]
-       27 GETTABLEKS                       R7 R5 K9 ["Year"]
-       29 GETTABLEKS                       R8 R5 K10 ["Month"]
-       31 GETTABLEKS                       R9 R5 K11 ["Day"]
-       33 GETTABLEKS                       R10 R5 K12 ["Hour"]
-       35 GETTABLEKS                       R11 R5 K13 ["Minute"]
-       37 GETTABLEKS                       R12 R5 K14 ["Second"]
-       39 GETTABLEKS                       R13 R5 K15 ["Millisecond"]
-       41 CALL                             R6 7 1
-       42 MOVE                             R2 R6
-       43 GETTABLEKS                       R2 R2 K16 ["UnixTimestampMillis"]
-       45 JUMPIF                           R2 ; [+14]
-       46 GETTABLEKS                       R3 R0 K17 ["Updated"]
-       48 JUMPIFNOT                        R3 ; [+5]
-       49 GETIMPORT                        R4 K5 [DateTime.fromIsoDate]
-       51 MOVE                             R5 R3
-       52 CALL                             R4 1 1
-       53 JUMP                             ; [+1]
-       54 LOADNIL                          R4
-       55 JUMPIFNOT                        R4 ; [+3]
-       56 GETTABLEKS                       R2 R4 K16 ["UnixTimestampMillis"]
-       58 JUMP                             ; [+1]
-       59 LOADNIL                          R2
-       60 GETUPVAL                         R5 0
-       61 FASTCALL1                        ASSERT R5 ; [+2]
-       62 GETIMPORT                        R4 K1 [assert]
-       64 CALL                             R4 1 0
-       65 GETTABLEKS                       R4 R1 K2 ["LastViewed"]
-       67 JUMPIFNOT                        R4 ; [+5]
-       68 GETIMPORT                        R5 K5 [DateTime.fromIsoDate]
-       70 MOVE                             R6 R4
-       71 CALL                             R5 1 1
-       72 JUMP                             ; [+1]
-       73 LOADNIL                          R5
-       74 JUMPIF                           R5 ; [+2]
-       75 LOADNIL                          R3
-       76 JUMP                             ; [+23]
-       77 NAMECALL                         R6 R5 K6 ["ToUniversalTime"]
-       79 CALL                             R6 1 1
-       80 GETIMPORT                        R7 K8 [DateTime.fromLocalTime]
-       82 GETTABLEKS                       R8 R6 K9 ["Year"]
-       84 GETTABLEKS                       R9 R6 K10 ["Month"]
-       86 GETTABLEKS                       R10 R6 K11 ["Day"]
-       88 GETTABLEKS                       R11 R6 K12 ["Hour"]
-       90 GETTABLEKS                       R12 R6 K13 ["Minute"]
-       92 GETTABLEKS                       R13 R6 K14 ["Second"]
-       94 GETTABLEKS                       R14 R6 K15 ["Millisecond"]
-       96 CALL                             R7 7 1
-       97 MOVE                             R3 R7
-       98 GETTABLEKS                       R3 R3 K16 ["UnixTimestampMillis"]
-      100 JUMPIF                           R3 ; [+14]
-      101 GETTABLEKS                       R4 R1 K17 ["Updated"]
-      103 JUMPIFNOT                        R4 ; [+5]
-      104 GETIMPORT                        R5 K5 [DateTime.fromIsoDate]
-      106 MOVE                             R6 R4
-      107 CALL                             R5 1 1
-      108 JUMP                             ; [+1]
-      109 LOADNIL                          R5
-      110 JUMPIFNOT                        R5 ; [+3]
-      111 GETTABLEKS                       R3 R5 K16 ["UnixTimestampMillis"]
-      113 JUMP                             ; [+1]
-      114 LOADNIL                          R3
-      115 JUMPIF                           R2 ; [+2]
-      116 LOADB                            R4 0
-      117 RETURN                           R4 1
-      118 JUMPIF                           R3 ; [+2]
-      119 LOADB                            R4 1
-      120 RETURN                           R4 1
-      121 JUMPIFLT                         R3 R2 ; [+2]
-      123 LOADB                            R4 0 +1
-      124 LOADB                            R4 1
-      125 RETURN                           R4 1
+        0 GETTABLEKS                       R3 R0 K0 ["LastViewed"]
+        2 JUMPIFNOT                        R3 ; [+5]
+        3 GETIMPORT                        R4 K3 [DateTime.fromIsoDate]
+        5 MOVE                             R5 R3
+        6 CALL                             R4 1 1
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R4
+        9 JUMPIF                           R4 ; [+2]
+       10 LOADNIL                          R2
+       11 JUMP                             ; [+23]
+       12 NAMECALL                         R5 R4 K4 ["ToUniversalTime"]
+       14 CALL                             R5 1 1
+       15 GETIMPORT                        R6 K6 [DateTime.fromLocalTime]
+       17 GETTABLEKS                       R7 R5 K7 ["Year"]
+       19 GETTABLEKS                       R8 R5 K8 ["Month"]
+       21 GETTABLEKS                       R9 R5 K9 ["Day"]
+       23 GETTABLEKS                       R10 R5 K10 ["Hour"]
+       25 GETTABLEKS                       R11 R5 K11 ["Minute"]
+       27 GETTABLEKS                       R12 R5 K12 ["Second"]
+       29 GETTABLEKS                       R13 R5 K13 ["Millisecond"]
+       31 CALL                             R6 7 1
+       32 MOVE                             R2 R6
+       33 GETTABLEKS                       R2 R2 K14 ["UnixTimestampMillis"]
+       35 JUMPIF                           R2 ; [+14]
+       36 GETTABLEKS                       R3 R0 K15 ["Updated"]
+       38 JUMPIFNOT                        R3 ; [+5]
+       39 GETIMPORT                        R4 K3 [DateTime.fromIsoDate]
+       41 MOVE                             R5 R3
+       42 CALL                             R4 1 1
+       43 JUMP                             ; [+1]
+       44 LOADNIL                          R4
+       45 JUMPIFNOT                        R4 ; [+3]
+       46 GETTABLEKS                       R2 R4 K14 ["UnixTimestampMillis"]
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R2
+       50 GETTABLEKS                       R4 R1 K0 ["LastViewed"]
+       52 JUMPIFNOT                        R4 ; [+5]
+       53 GETIMPORT                        R5 K3 [DateTime.fromIsoDate]
+       55 MOVE                             R6 R4
+       56 CALL                             R5 1 1
+       57 JUMP                             ; [+1]
+       58 LOADNIL                          R5
+       59 JUMPIF                           R5 ; [+2]
+       60 LOADNIL                          R3
+       61 JUMP                             ; [+23]
+       62 NAMECALL                         R6 R5 K4 ["ToUniversalTime"]
+       64 CALL                             R6 1 1
+       65 GETIMPORT                        R7 K6 [DateTime.fromLocalTime]
+       67 GETTABLEKS                       R8 R6 K7 ["Year"]
+       69 GETTABLEKS                       R9 R6 K8 ["Month"]
+       71 GETTABLEKS                       R10 R6 K9 ["Day"]
+       73 GETTABLEKS                       R11 R6 K10 ["Hour"]
+       75 GETTABLEKS                       R12 R6 K11 ["Minute"]
+       77 GETTABLEKS                       R13 R6 K12 ["Second"]
+       79 GETTABLEKS                       R14 R6 K13 ["Millisecond"]
+       81 CALL                             R7 7 1
+       82 MOVE                             R3 R7
+       83 GETTABLEKS                       R3 R3 K14 ["UnixTimestampMillis"]
+       85 JUMPIF                           R3 ; [+14]
+       86 GETTABLEKS                       R4 R1 K15 ["Updated"]
+       88 JUMPIFNOT                        R4 ; [+5]
+       89 GETIMPORT                        R5 K3 [DateTime.fromIsoDate]
+       91 MOVE                             R6 R4
+       92 CALL                             R5 1 1
+       93 JUMP                             ; [+1]
+       94 LOADNIL                          R5
+       95 JUMPIFNOT                        R5 ; [+3]
+       96 GETTABLEKS                       R3 R5 K14 ["UnixTimestampMillis"]
+       98 JUMP                             ; [+1]
+       99 LOADNIL                          R3
+      100 JUMPIF                           R2 ; [+2]
+      101 LOADB                            R4 0
+      102 RETURN                           R4 1
+      103 JUMPIF                           R3 ; [+2]
+      104 LOADB                            R4 1
+      105 RETURN                           R4 1
+      106 JUMPIFLT                         R3 R2 ; [+2]
+      108 LOADB                            R4 0 +1
+      109 LOADB                            R4 1
+      110 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -179,21 +163,13 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["SharedFlags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagStartPageBackfillRecentsFromCloud"]
-       15 CALL                             R1 1 1
-       16 CALL                             R1 0 1
-       17 GETIMPORT                        R2 K5 [require]
-       19 GETTABLEKS                       R3 R0 K6 ["Src"]
-       21 GETTABLEKS                       R3 R3 K9 ["Types"]
-       23 CALL                             R2 1 1
-       24 DUPCLOSURE                       R3 K10 [PROTO_0]
-       25 DUPCLOSURE                       R4 K11 [PROTO_1]
-       26 DUPCLOSURE                       R5 K12 [PROTO_2]
-       27 CAPTURE                          VAL R1
-       28 DUPCLOSURE                       R6 K13 [PROTO_3]
-       29 CAPTURE                          VAL R1
-       30 DUPTABLE                         R7 K16 [{"recencyMillis", "recencySortFn"}]
-       31 SETTABLEKS                       R5 R7 K14 ["recencyMillis"]
-       33 SETTABLEKS                       R6 R7 K15 ["recencySortFn"]
-       35 RETURN                           R7 1
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+       13 CALL                             R1 1 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 DUPCLOSURE                       R3 K9 [PROTO_1]
+       16 DUPCLOSURE                       R4 K10 [PROTO_2]
+       17 DUPCLOSURE                       R5 K11 [PROTO_3]
+       18 DUPTABLE                         R6 K14 [{"recencyMillis", "recencySortFn"}]
+       19 SETTABLEKS                       R4 R6 K12 ["recencyMillis"]
+       21 SETTABLEKS                       R5 R6 K13 ["recencySortFn"]
+       23 RETURN                           R6 1

@@ -47,21 +47,32 @@ PROTO_0:
        70 GETTABLEKS                       R1 R0 K6 ["fileType"]
        72 GETUPVAL                         R2 0
        73 GETTABLEKS                       R2 R2 K7 ["FileType"]
-       75 GETTABLEKS                       R2 R2 K15 ["Scene"]
+       75 GETTABLEKS                       R2 R2 K15 ["AnimatedImage"]
        77 JUMPIFNOTEQ                      R1 R2 ; [+9]
        79 GETUPVAL                         R1 2
-       80 LOADK                            R3 K16 ["Model"]
+       80 LOADK                            R3 K16 ["ImageLabel"]
        81 NAMECALL                         R1 R1 K10 ["GetClassIcon"]
        83 CALL                             R1 2 1
        84 GETTABLEKS                       R1 R1 K8 ["Image"]
        86 RETURN                           R1 1
-       87 GETUPVAL                         R1 1
-       88 GETTABLEKS                       R1 R1 K3 ["get"]
-       90 GETUPVAL                         R2 1
-       91 GETTABLEKS                       R2 R2 K4 ["AvailableImages"]
-       93 GETTABLEKS                       R2 R2 K5 ["File"]
-       95 CALL                             R1 1 -1
-       96 RETURN                           R1 -1
+       87 GETTABLEKS                       R1 R0 K6 ["fileType"]
+       89 GETUPVAL                         R2 0
+       90 GETTABLEKS                       R2 R2 K7 ["FileType"]
+       92 GETTABLEKS                       R2 R2 K17 ["Scene"]
+       94 JUMPIFNOTEQ                      R1 R2 ; [+9]
+       96 GETUPVAL                         R1 2
+       97 LOADK                            R3 K18 ["Model"]
+       98 NAMECALL                         R1 R1 K10 ["GetClassIcon"]
+      100 CALL                             R1 2 1
+      101 GETTABLEKS                       R1 R1 K8 ["Image"]
+      103 RETURN                           R1 1
+      104 GETUPVAL                         R1 1
+      105 GETTABLEKS                       R1 R1 K3 ["get"]
+      107 GETUPVAL                         R2 1
+      108 GETTABLEKS                       R2 R2 K4 ["AvailableImages"]
+      110 GETTABLEKS                       R2 R2 K5 ["File"]
+      112 CALL                             R1 1 -1
+      113 RETURN                           R1 -1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["state"]

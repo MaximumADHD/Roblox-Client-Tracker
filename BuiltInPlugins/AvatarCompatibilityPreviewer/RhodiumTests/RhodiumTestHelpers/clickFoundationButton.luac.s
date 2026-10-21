@@ -104,24 +104,36 @@ PROTO_2:
        86 GETUPVAL                         R4 2
        87 MOVE                             R5 R0
        88 CALL                             R4 1 0
-       89 GETUPVAL                         R4 3
-       90 GETTABLEKS                       R4 R4 K16 ["act"]
-       92 NEWCLOSURE                       R5 P0
-       93 CAPTURE                          UPVAL U4
-       94 CAPTURE                          VAL R0
-       95 CALL                             R4 1 0
-       96 MOVE                             R4 R2
-       97 LOADNIL                          R5
-       98 LOADNIL                          R6
-       99 FORGPREP                         R4
-      100 GETTABLEKS                       R9 R8 K7 ["guiObject"]
-      102 GETTABLEKS                       R9 R9 K1 ["Parent"]
-      104 JUMPIFNOT                        R9 ; [+6]
-      105 GETTABLEKS                       R9 R8 K7 ["guiObject"]
-      107 GETTABLEKS                       R10 R8 K8 ["originalSize"]
-      109 SETTABLEKS                       R10 R9 K10 ["Size"]
-      111 FORGLOOP                         R4 2 ; [-12]
-      113 RETURN                           R0 0
+       89 GETTABLEKS                       R4 R0 K16 ["ZIndex"]
+       91 JUMPIFNOT                        R1 ; [+6]
+       92 GETTABLEKS                       R5 R1 K17 ["raiseZIndex"]
+       94 JUMPIFNOT                        R5 ; [+3]
+       95 ADDK                             R5 R4 K18 [100]
+       96 SETTABLEKS                       R5 R0 K16 ["ZIndex"]
+       98 GETUPVAL                         R5 3
+       99 GETTABLEKS                       R5 R5 K19 ["act"]
+      101 NEWCLOSURE                       R6 P0
+      102 CAPTURE                          UPVAL U4
+      103 CAPTURE                          VAL R0
+      104 CALL                             R5 1 0
+      105 JUMPIFNOT                        R1 ; [+8]
+      106 GETTABLEKS                       R5 R1 K17 ["raiseZIndex"]
+      108 JUMPIFNOT                        R5 ; [+5]
+      109 GETTABLEKS                       R5 R0 K1 ["Parent"]
+      111 JUMPIFNOT                        R5 ; [+2]
+      112 SETTABLEKS                       R4 R0 K16 ["ZIndex"]
+      114 MOVE                             R5 R2
+      115 LOADNIL                          R6
+      116 LOADNIL                          R7
+      117 FORGPREP                         R5
+      118 GETTABLEKS                       R10 R9 K7 ["guiObject"]
+      120 GETTABLEKS                       R10 R10 K1 ["Parent"]
+      122 JUMPIFNOT                        R10 ; [+6]
+      123 GETTABLEKS                       R10 R9 K7 ["guiObject"]
+      125 GETTABLEKS                       R11 R9 K8 ["originalSize"]
+      127 SETTABLEKS                       R11 R10 K10 ["Size"]
+      129 FORGLOOP                         R5 2 ; [-12]
+      131 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

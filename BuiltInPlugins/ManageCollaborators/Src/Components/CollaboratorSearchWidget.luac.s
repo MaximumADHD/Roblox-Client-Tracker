@@ -52,25 +52,39 @@ PROTO_2:
         2 GETTABLEKS                       R2 R1 K1 ["SearchData"]
         4 GETTABLEKS                       R3 R2 K2 ["CachedSearchResults"]
         6 GETTABLEKS                       R4 R2 K3 ["SearchText"]
-        8 LOADB                            R5 1
-        9 GETTABLEKS                       R6 R2 K4 ["LocalUserGroups"]
-       11 GETUPVAL                         R7 0
-       12 JUMPIFEQ                         R6 R7 ; [+20]
-       14 LOADB                            R5 1
-       15 GETTABLEKS                       R6 R2 K5 ["LocalUserFriends"]
-       17 GETUPVAL                         R7 0
-       18 JUMPIFEQ                         R6 R7 ; [+14]
-       20 LOADB                            R5 1
-       21 GETTABLE                         R6 R3 R4
-       22 GETUPVAL                         R7 0
-       23 JUMPIFEQ                         R6 R7 ; [+9]
-       25 LOADB                            R5 0
-       26 GETTABLE                         R6 R3 R4
-       27 JUMPIFNOTEQKNIL                  R6 ; [+5]
-       29 JUMPIFNOTEQKS                    R4 K6 [""] ; [+2]
-       31 LOADB                            R5 0 +1
-       32 LOADB                            R5 1
-       33 RETURN                           R5 1
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R6 R1 K4 ["IsGroupGame"]
+       11 CALL                             R5 1 1
+       12 JUMPIFNOT                        R5 ; [+9]
+       13 GETTABLEKS                       R6 R1 K5 ["ActiveTab"]
+       15 GETUPVAL                         R7 1
+       16 GETTABLEKS                       R7 R7 K6 ["AUDIENCE_TAB_EARLY_TESTERS"]
+       18 JUMPIFEQ                         R6 R7 ; [+2]
+       20 LOADB                            R5 0 +1
+       21 LOADB                            R5 1
+       22 LOADB                            R6 1
+       23 GETTABLEKS                       R7 R2 K7 ["LocalUserGroups"]
+       25 GETUPVAL                         R8 2
+       26 JUMPIFEQ                         R7 R8 ; [+26]
+       28 LOADB                            R6 1
+       29 GETTABLEKS                       R7 R2 K8 ["LocalUserFriends"]
+       31 GETUPVAL                         R8 2
+       32 JUMPIFEQ                         R7 R8 ; [+20]
+       34 LOADB                            R6 1
+       35 GETTABLE                         R7 R3 R4
+       36 GETUPVAL                         R8 2
+       37 JUMPIFEQ                         R7 R8 ; [+15]
+       39 GETTABLE                         R7 R3 R4
+       40 JUMPIFNOTEQKNIL                  R7 ; [+4]
+       42 LOADB                            R6 1
+       43 JUMPIFNOTEQKS                    R4 K9 [""] ; [+9]
+       45 MOVE                             R6 R5
+       46 JUMPIFNOT                        R6 ; [+6]
+       47 GETTABLEKS                       R7 R1 K10 ["IsPlayTesterEligibilityLoading"]
+       49 JUMPIFEQKB                       R7 TRUE ; [+2]
+       51 LOADB                            R6 0 +1
+       52 LOADB                            R6 1
+       53 RETURN                           R6 1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -450,27 +464,47 @@ PROTO_12:
       209 JUMPIFEQ                         R15 R16 ; [+2]
       211 LOADB                            R14 0 +1
       212 LOADB                            R14 1
-      213 JUMPIFNOT                        R14 ; [+27]
+      213 JUMPIFNOT                        R14 ; [+55]
       214 NEWTABLE                         R15 0 0
-      216 GETTABLEKS                       R16 R11 K8 ["Users"]
-      218 LOADNIL                          R17
-      219 LOADNIL                          R18
-      220 FORGPREP                         R16
-      221 GETUPVAL                         R22 3
-      222 GETTABLEKS                       R22 R22 K12 ["SubjectIdKey"]
-      224 GETTABLE                         R21 R20 R22
-      225 MOVE                             R24 R21
-      226 NAMECALL                         R22 R0 K26 ["isFriend"]
-      228 CALL                             R22 2 1
-      229 JUMPIFNOT                        R22 ; [+7]
-      230 FASTCALL2                        TABLE_INSERT R15 R20 ; [+5]
-      232 MOVE                             R23 R15
-      233 MOVE                             R24 R20
-      234 GETIMPORT                        R22 K15 [table.insert]
-      236 CALL                             R22 2 0
-      237 FORGLOOP                         R16 2 ; [-17]
-      239 SETTABLEKS                       R15 R11 K8 ["Users"]
-      241 RETURN                           R11 1
+      216 NEWTABLE                         R16 0 0
+      218 GETTABLEKS                       R17 R11 K8 ["Users"]
+      220 LOADNIL                          R18
+      221 LOADNIL                          R19
+      222 FORGPREP                         R17
+      223 GETUPVAL                         R23 3
+      224 GETTABLEKS                       R23 R23 K12 ["SubjectIdKey"]
+      226 GETTABLE                         R22 R21 R23
+      227 MOVE                             R25 R22
+      228 NAMECALL                         R23 R0 K26 ["isFriend"]
+      230 CALL                             R23 2 1
+      231 JUMPIFNOT                        R23 ; [+25]
+      232 GETTABLEKS                       R23 R1 K27 ["IsPlayTesterEligibilityLoading"]
+      234 JUMPIFEQKB                       R23 TRUE ; [+22]
+      236 GETUPVAL                         R23 8
+      237 GETTABLEKS                       R24 R1 K28 ["PlayTesterEligibility"]
+      239 MOVE                             R25 R22
+      240 CALL                             R23 2 1
+      241 JUMPIFNOT                        R23 ; [+8]
+      242 FASTCALL2                        TABLE_INSERT R15 R21 ; [+5]
+      244 MOVE                             R24 R15
+      245 MOVE                             R25 R21
+      246 GETIMPORT                        R23 K15 [table.insert]
+      248 CALL                             R23 2 0
+      249 JUMP                             ; [+7]
+      250 FASTCALL2                        TABLE_INSERT R16 R21 ; [+5]
+      252 MOVE                             R24 R16
+      253 MOVE                             R25 R21
+      254 GETIMPORT                        R23 K15 [table.insert]
+      256 CALL                             R23 2 0
+      257 FORGLOOP                         R17 2 ; [-35]
+      259 GETUPVAL                         R17 5
+      260 GETTABLEKS                       R17 R17 K21 ["List"]
+      262 GETTABLEKS                       R17 R17 K22 ["join"]
+      264 MOVE                             R18 R15
+      265 MOVE                             R19 R16
+      266 CALL                             R17 2 1
+      267 SETTABLEKS                       R17 R11 K8 ["Users"]
+      269 RETURN                           R11 1
 
 PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -486,205 +520,236 @@ PROTO_13:
        17 CALL                             R5 1 1
        18 NEWTABLE                         R6 0 0
        20 GETUPVAL                         R7 1
-       21 GETTABLEKS                       R7 R7 K6 ["MaxSearchResultsPerSubjectTypeUsers"]
-       23 GETUPVAL                         R8 1
-       24 GETTABLEKS                       R8 R8 K7 ["MaxSearchResultsPerSubjectTypeGroups"]
-       26 GETUPVAL                         R10 1
-       27 GETTABLEKS                       R10 R10 K6 ["MaxSearchResultsPerSubjectTypeUsers"]
-       29 GETTABLEKS                       R12 R5 K8 ["Users"]
-       31 LENGTH                           R11 R12
-       32 SUB                              R9 R10 R11
-       33 GETUPVAL                         R11 1
-       34 GETTABLEKS                       R11 R11 K7 ["MaxSearchResultsPerSubjectTypeGroups"]
-       36 GETTABLEKS                       R13 R5 K9 ["Groups"]
-       38 LENGTH                           R12 R13
-       39 SUB                              R10 R11 R12
-       40 LOADN                            R11 0
-       41 JUMPIFNOTLT                      R11 R10 ; [+10]
-       43 LOADB                            R11 0
-       44 LOADN                            R12 0
-       45 JUMPIFNOTLT                      R12 R10 ; [+5]
-       47 GETUPVAL                         R12 1
-       48 GETTABLEKS                       R12 R12 K6 ["MaxSearchResultsPerSubjectTypeUsers"]
-       50 ADD                              R11 R12 R10
-       51 MOVE                             R7 R11
-       52 LOADN                            R11 0
-       53 JUMPIFNOTLT                      R11 R9 ; [+10]
-       55 LOADB                            R11 0
-       56 LOADN                            R12 0
-       57 JUMPIFNOTLT                      R12 R9 ; [+5]
-       59 GETUPVAL                         R12 1
-       60 GETTABLEKS                       R12 R12 K7 ["MaxSearchResultsPerSubjectTypeGroups"]
-       62 ADD                              R11 R12 R9
-       63 MOVE                             R8 R11
-       64 GETTABLEKS                       R12 R5 K8 ["Users"]
-       66 LENGTH                           R11 R12
-       67 LOADN                            R12 0
-       68 JUMPIFNOTLT                      R12 R11 ; [+134]
-       70 NEWTABLE                         R11 1 0
-       72 NEWTABLE                         R12 0 0
-       74 GETIMPORT                        R13 K11 [pairs]
-       76 GETTABLEKS                       R14 R5 K8 ["Users"]
-       78 CALL                             R13 1 3
-       79 FORGPREP_NEXT                    R13
-       80 LENGTH                           R20 R11
-       81 LENGTH                           R21 R12
-       82 ADD                              R19 R20 R21
-       83 ADDK                             R18 R19 K12 [1]
-       84 JUMPIFLT                         R7 R18 ; [+100]
-       86 GETUPVAL                         R19 1
-       87 GETTABLEKS                       R19 R19 K13 ["SubjectIdKey"]
-       89 GETTABLE                         R18 R17 R19
-       90 DUPTABLE                         R19 K17 [{"Icon", "Name", "Key"}]
-       91 GETUPVAL                         R20 2
-       92 GETTABLEKS                       R20 R20 K18 ["createElement"]
-       94 GETUPVAL                         R21 3
-       95 DUPTABLE                         R22 K21 [{"Id", "Size"}]
-       96 SETTABLEKS                       R18 R22 K19 ["Id"]
-       98 GETIMPORT                        R23 K24 [UDim2.new]
-      100 LOADN                            R24 1
-      101 LOADN                            R25 0
-      102 LOADN                            R26 1
-      103 LOADN                            R27 0
-      104 CALL                             R23 4 1
-      105 SETTABLEKS                       R23 R22 K20 ["Size"]
-      107 CALL                             R20 2 1
-      108 SETTABLEKS                       R20 R19 K14 ["Icon"]
-      110 GETUPVAL                         R21 1
-      111 GETTABLEKS                       R21 R21 K25 ["SubjectNameKey"]
-      113 GETTABLE                         R20 R17 R21
-      114 SETTABLEKS                       R20 R19 K15 ["Name"]
-      116 DUPTABLE                         R20 K31 [{"Type", "Id", "Name", "DisplayName", "IsEligible", "EligibilityText", "IsPrefetched"}]
-      117 GETUPVAL                         R21 1
-      118 GETTABLEKS                       R21 R21 K32 ["UserSubjectKey"]
-      120 SETTABLEKS                       R21 R20 K26 ["Type"]
-      122 SETTABLEKS                       R18 R20 K19 ["Id"]
-      124 GETUPVAL                         R22 1
-      125 GETTABLEKS                       R22 R22 K25 ["SubjectNameKey"]
-      127 GETTABLE                         R21 R17 R22
-      128 SETTABLEKS                       R21 R20 K15 ["Name"]
-      130 GETUPVAL                         R22 1
-      131 GETTABLEKS                       R22 R22 K33 ["SubjectDisplayNameKey"]
-      133 GETTABLE                         R21 R17 R22
-      134 SETTABLEKS                       R21 R20 K27 ["DisplayName"]
-      136 GETUPVAL                         R22 1
-      137 GETTABLEKS                       R22 R22 K34 ["IsEligibleKey"]
-      139 GETTABLE                         R21 R17 R22
-      140 SETTABLEKS                       R21 R20 K28 ["IsEligible"]
-      142 GETUPVAL                         R22 1
-      143 GETTABLEKS                       R22 R22 K35 ["EligibilityTextKey"]
-      145 GETTABLE                         R21 R17 R22
-      146 SETTABLEKS                       R21 R20 K29 ["EligibilityText"]
-      148 GETUPVAL                         R22 0
-      149 JUMPIFNOT                        R22 ; [+5]
-      150 GETUPVAL                         R22 1
-      151 GETTABLEKS                       R22 R22 K36 ["IsPrefetchedKey"]
-      153 GETTABLE                         R21 R17 R22
-      154 JUMP                             ; [+1]
-      155 LOADNIL                          R21
-      156 SETTABLEKS                       R21 R20 K30 ["IsPrefetched"]
-      158 SETTABLEKS                       R20 R19 K16 ["Key"]
-      160 MOVE                             R22 R18
-      161 NAMECALL                         R20 R0 K37 ["isFriend"]
-      163 CALL                             R20 2 1
-      164 JUMPIFNOT                        R20 ; [+11]
-      165 LOADB                            R20 1
-      166 SETTABLEKS                       R20 R19 K38 ["IsFriend"]
-      168 FASTCALL2                        TABLE_INSERT R11 R19 ; [+5]
-      170 MOVE                             R21 R11
-      171 MOVE                             R22 R19
-      172 GETIMPORT                        R20 K41 [table.insert]
-      174 CALL                             R20 2 0
-      175 JUMP                             ; [+7]
-      176 FASTCALL2                        TABLE_INSERT R12 R19 ; [+5]
-      178 MOVE                             R21 R12
-      179 MOVE                             R22 R19
-      180 GETIMPORT                        R20 K41 [table.insert]
-      182 CALL                             R20 2 0
-      183 FORGLOOP                         R13 2 ; [-104]
-      185 MOVE                             R13 R12
-      186 LOADNIL                          R14
-      187 LOADNIL                          R15
-      188 FORGPREP                         R13
-      189 FASTCALL2                        TABLE_INSERT R11 R17 ; [+5]
-      191 MOVE                             R19 R11
-      192 MOVE                             R20 R17
-      193 GETIMPORT                        R18 K41 [table.insert]
-      195 CALL                             R18 2 0
-      196 FORGLOOP                         R13 2 ; [-8]
-      198 LOADN                            R13 0
-      199 SETTABLEKS                       R13 R11 K42 ["LayoutOrder"]
-      201 GETUPVAL                         R13 4
-      202 SETTABLE                         R11 R6 R13
-      203 GETUPVAL                         R11 5
-      204 MOVE                             R12 R3
-      205 CALL                             R11 1 1
-      206 JUMPIFNOT                        R11 ; [+9]
-      207 GETTABLEKS                       R12 R1 K43 ["ActiveTab"]
-      209 GETUPVAL                         R13 6
-      210 GETTABLEKS                       R13 R13 K44 ["AUDIENCE_TAB_EARLY_TESTERS"]
-      212 JUMPIFEQ                         R12 R13 ; [+2]
-      214 LOADB                            R11 0 +1
-      215 LOADB                            R11 1
-      216 GETTABLEKS                       R13 R5 K9 ["Groups"]
-      218 LENGTH                           R12 R13
-      219 LOADN                            R13 0
-      220 JUMPIFNOTLT                      R13 R12 ; [+78]
-      222 JUMPIF                           R3 ; [+76]
-      223 JUMPIF                           R11 ; [+75]
-      224 NEWTABLE                         R12 1 0
-      226 GETIMPORT                        R13 K11 [pairs]
-      228 GETTABLEKS                       R14 R5 K9 ["Groups"]
-      230 CALL                             R13 1 3
-      231 FORGPREP_NEXT                    R13
-      232 LENGTH                           R19 R12
-      233 ADDK                             R18 R19 K12 [1]
-      234 JUMPIFLT                         R8 R18 ; [+59]
-      236 DUPTABLE                         R20 K17 [{"Icon", "Name", "Key"}]
-      237 GETUPVAL                         R21 2
-      238 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      240 GETUPVAL                         R22 7
-      241 DUPTABLE                         R23 K21 [{"Id", "Size"}]
-      242 GETUPVAL                         R25 1
-      243 GETTABLEKS                       R25 R25 K45 ["GroupIdKey"]
-      245 GETTABLE                         R24 R17 R25
-      246 SETTABLEKS                       R24 R23 K19 ["Id"]
-      248 GETIMPORT                        R24 K24 [UDim2.new]
-      250 LOADN                            R25 1
-      251 LOADN                            R26 0
-      252 LOADN                            R27 1
-      253 LOADN                            R28 0
-      254 CALL                             R24 4 1
-      255 SETTABLEKS                       R24 R23 K20 ["Size"]
-      257 CALL                             R21 2 1
-      258 SETTABLEKS                       R21 R20 K14 ["Icon"]
-      260 GETUPVAL                         R22 1
-      261 GETTABLEKS                       R22 R22 K46 ["GroupNameKey"]
-      263 GETTABLE                         R21 R17 R22
-      264 SETTABLEKS                       R21 R20 K15 ["Name"]
-      266 DUPTABLE                         R21 K48 [{["Type"], ["Id"], ["Name"], ["IsEligible"] = True}]
-      267 GETUPVAL                         R22 1
-      268 GETTABLEKS                       R22 R22 K49 ["GroupSubjectKey"]
-      270 SETTABLEKS                       R22 R21 K26 ["Type"]
-      272 GETUPVAL                         R23 1
-      273 GETTABLEKS                       R23 R23 K45 ["GroupIdKey"]
-      275 GETTABLE                         R22 R17 R23
-      276 SETTABLEKS                       R22 R21 K19 ["Id"]
-      278 GETUPVAL                         R23 1
-      279 GETTABLEKS                       R23 R23 K46 ["GroupNameKey"]
-      281 GETTABLE                         R22 R17 R23
-      282 SETTABLEKS                       R22 R21 K15 ["Name"]
-      284 SETTABLEKS                       R21 R20 K16 ["Key"]
-      286 FASTCALL2                        TABLE_INSERT R12 R20 ; [+4]
-      288 MOVE                             R19 R12
-      289 GETIMPORT                        R18 K41 [table.insert]
-      291 CALL                             R18 2 0
-      292 FORGLOOP                         R13 2 ; [-61]
-      294 LOADN                            R13 0
-      295 SETTABLEKS                       R13 R12 K42 ["LayoutOrder"]
-      297 GETUPVAL                         R13 8
-      298 SETTABLE                         R12 R6 R13
-      299 RETURN                           R6 1
+       21 MOVE                             R8 R3
+       22 CALL                             R7 1 1
+       23 JUMPIFNOT                        R7 ; [+9]
+       24 GETTABLEKS                       R8 R1 K6 ["ActiveTab"]
+       26 GETUPVAL                         R9 2
+       27 GETTABLEKS                       R9 R9 K7 ["AUDIENCE_TAB_EARLY_TESTERS"]
+       29 JUMPIFEQ                         R8 R9 ; [+2]
+       31 LOADB                            R7 0 +1
+       32 LOADB                            R7 1
+       33 GETUPVAL                         R8 3
+       34 GETTABLEKS                       R8 R8 K8 ["MaxSearchResultsPerSubjectTypeUsers"]
+       36 GETUPVAL                         R9 3
+       37 GETTABLEKS                       R9 R9 K9 ["MaxSearchResultsPerSubjectTypeGroups"]
+       39 GETUPVAL                         R11 3
+       40 GETTABLEKS                       R11 R11 K8 ["MaxSearchResultsPerSubjectTypeUsers"]
+       42 GETTABLEKS                       R13 R5 K10 ["Users"]
+       44 LENGTH                           R12 R13
+       45 SUB                              R10 R11 R12
+       46 GETUPVAL                         R12 3
+       47 GETTABLEKS                       R12 R12 K9 ["MaxSearchResultsPerSubjectTypeGroups"]
+       49 GETTABLEKS                       R14 R5 K11 ["Groups"]
+       51 LENGTH                           R13 R14
+       52 SUB                              R11 R12 R13
+       53 LOADN                            R12 0
+       54 JUMPIFNOTLT                      R12 R11 ; [+10]
+       56 LOADB                            R12 0
+       57 LOADN                            R13 0
+       58 JUMPIFNOTLT                      R13 R11 ; [+5]
+       60 GETUPVAL                         R13 3
+       61 GETTABLEKS                       R13 R13 K8 ["MaxSearchResultsPerSubjectTypeUsers"]
+       63 ADD                              R12 R13 R11
+       64 MOVE                             R8 R12
+       65 LOADN                            R12 0
+       66 JUMPIFNOTLT                      R12 R10 ; [+10]
+       68 LOADB                            R12 0
+       69 LOADN                            R13 0
+       70 JUMPIFNOTLT                      R13 R10 ; [+5]
+       72 GETUPVAL                         R13 3
+       73 GETTABLEKS                       R13 R13 K9 ["MaxSearchResultsPerSubjectTypeGroups"]
+       75 ADD                              R12 R13 R10
+       76 MOVE                             R9 R12
+       77 GETTABLEKS                       R13 R5 K10 ["Users"]
+       79 LENGTH                           R12 R13
+       80 LOADN                            R13 0
+       81 JUMPIFNOTLT                      R13 R12 ; [+171]
+       83 NEWTABLE                         R12 1 0
+       85 NEWTABLE                         R13 0 0
+       87 GETIMPORT                        R14 K13 [pairs]
+       89 GETTABLEKS                       R15 R5 K10 ["Users"]
+       91 CALL                             R14 1 3
+       92 FORGPREP_NEXT                    R14
+       93 LENGTH                           R21 R12
+       94 LENGTH                           R22 R13
+       95 ADD                              R20 R21 R22
+       96 ADDK                             R19 R20 K14 [1]
+       97 JUMPIFLT                         R8 R19 ; [+137]
+       99 GETUPVAL                         R20 3
+      100 GETTABLEKS                       R20 R20 K15 ["SubjectIdKey"]
+      102 GETTABLE                         R19 R18 R20
+      103 MOVE                             R20 R7
+      104 JUMPIFNOT                        R20 ; [+6]
+      105 GETUPVAL                         R21 4
+      106 GETTABLEKS                       R22 R1 K16 ["PlayTesterEligibility"]
+      108 MOVE                             R23 R19
+      109 CALL                             R21 2 1
+      110 NOT                              R20 R21
+      111 MOVE                             R21 R20
+      112 JUMPIFNOT                        R21 ; [+4]
+      113 GETUPVAL                         R22 3
+      114 GETTABLEKS                       R22 R22 K17 ["IsEligibleKey"]
+      116 GETTABLE                         R21 R18 R22
+      117 DUPTABLE                         R22 K21 [{"Icon", "Name", "Key"}]
+      118 GETUPVAL                         R23 5
+      119 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      121 GETUPVAL                         R24 6
+      122 DUPTABLE                         R25 K25 [{"Id", "Size"}]
+      123 SETTABLEKS                       R19 R25 K23 ["Id"]
+      125 GETIMPORT                        R26 K28 [UDim2.new]
+      127 LOADN                            R27 1
+      128 LOADN                            R28 0
+      129 LOADN                            R29 1
+      130 LOADN                            R30 0
+      131 CALL                             R26 4 1
+      132 SETTABLEKS                       R26 R25 K24 ["Size"]
+      134 CALL                             R23 2 1
+      135 SETTABLEKS                       R23 R22 K18 ["Icon"]
+      137 GETUPVAL                         R24 3
+      138 GETTABLEKS                       R24 R24 K29 ["SubjectNameKey"]
+      140 GETTABLE                         R23 R18 R24
+      141 SETTABLEKS                       R23 R22 K19 ["Name"]
+      143 DUPTABLE                         R23 K37 [{"Type", "Id", "Name", "DisplayName", "IsEligible", "EligibilityText", "ShowRestriction", "ShowCantInvite", "IsPrefetched"}]
+      144 GETUPVAL                         R24 3
+      145 GETTABLEKS                       R24 R24 K38 ["UserSubjectKey"]
+      147 SETTABLEKS                       R24 R23 K30 ["Type"]
+      149 SETTABLEKS                       R19 R23 K23 ["Id"]
+      151 GETUPVAL                         R25 3
+      152 GETTABLEKS                       R25 R25 K29 ["SubjectNameKey"]
+      154 GETTABLE                         R24 R18 R25
+      155 SETTABLEKS                       R24 R23 K19 ["Name"]
+      157 GETUPVAL                         R25 3
+      158 GETTABLEKS                       R25 R25 K39 ["SubjectDisplayNameKey"]
+      160 GETTABLE                         R24 R18 R25
+      161 SETTABLEKS                       R24 R23 K31 ["DisplayName"]
+      163 GETUPVAL                         R25 3
+      164 GETTABLEKS                       R25 R25 K17 ["IsEligibleKey"]
+      166 GETTABLE                         R24 R18 R25
+      167 JUMPIFNOT                        R24 ; [+1]
+      168 NOT                              R24 R20
+      169 SETTABLEKS                       R24 R23 K32 ["IsEligible"]
+      171 JUMPIFNOT                        R21 ; [+8]
+      172 GETTABLEKS                       R24 R1 K40 ["Localization"]
+      174 LOADK                            R26 K41 ["SearchBar"]
+      175 LOADK                            R27 K42 ["CantInviteLabel"]
+      176 NAMECALL                         R24 R24 K43 ["getText"]
+      178 CALL                             R24 3 1
+      179 JUMP                             ; [+4]
+      180 GETUPVAL                         R25 3
+      181 GETTABLEKS                       R25 R25 K44 ["EligibilityTextKey"]
+      183 GETTABLE                         R24 R18 R25
+      184 SETTABLEKS                       R24 R23 K33 ["EligibilityText"]
+      186 JUMPIFNOT                        R20 ; [+2]
+      187 LOADB                            R24 1
+      188 JUMP                             ; [+1]
+      189 LOADNIL                          R24
+      190 SETTABLEKS                       R24 R23 K34 ["ShowRestriction"]
+      192 JUMPIFNOT                        R21 ; [+2]
+      193 LOADB                            R24 1
+      194 JUMP                             ; [+1]
+      195 LOADNIL                          R24
+      196 SETTABLEKS                       R24 R23 K35 ["ShowCantInvite"]
+      198 GETUPVAL                         R25 0
+      199 JUMPIFNOT                        R25 ; [+5]
+      200 GETUPVAL                         R25 3
+      201 GETTABLEKS                       R25 R25 K45 ["IsPrefetchedKey"]
+      203 GETTABLE                         R24 R18 R25
+      204 JUMP                             ; [+1]
+      205 LOADNIL                          R24
+      206 SETTABLEKS                       R24 R23 K36 ["IsPrefetched"]
+      208 SETTABLEKS                       R23 R22 K20 ["Key"]
+      210 MOVE                             R25 R19
+      211 NAMECALL                         R23 R0 K46 ["isFriend"]
+      213 CALL                             R23 2 1
+      214 JUMPIFNOT                        R23 ; [+11]
+      215 LOADB                            R23 1
+      216 SETTABLEKS                       R23 R22 K47 ["IsFriend"]
+      218 FASTCALL2                        TABLE_INSERT R12 R22 ; [+5]
+      220 MOVE                             R24 R12
+      221 MOVE                             R25 R22
+      222 GETIMPORT                        R23 K50 [table.insert]
+      224 CALL                             R23 2 0
+      225 JUMP                             ; [+7]
+      226 FASTCALL2                        TABLE_INSERT R13 R22 ; [+5]
+      228 MOVE                             R24 R13
+      229 MOVE                             R25 R22
+      230 GETIMPORT                        R23 K50 [table.insert]
+      232 CALL                             R23 2 0
+      233 FORGLOOP                         R14 2 ; [-141]
+      235 MOVE                             R14 R13
+      236 LOADNIL                          R15
+      237 LOADNIL                          R16
+      238 FORGPREP                         R14
+      239 FASTCALL2                        TABLE_INSERT R12 R18 ; [+5]
+      241 MOVE                             R20 R12
+      242 MOVE                             R21 R18
+      243 GETIMPORT                        R19 K50 [table.insert]
+      245 CALL                             R19 2 0
+      246 FORGLOOP                         R14 2 ; [-8]
+      248 LOADN                            R14 0
+      249 SETTABLEKS                       R14 R12 K51 ["LayoutOrder"]
+      251 GETUPVAL                         R14 7
+      252 SETTABLE                         R12 R6 R14
+      253 GETTABLEKS                       R13 R5 K11 ["Groups"]
+      255 LENGTH                           R12 R13
+      256 LOADN                            R13 0
+      257 JUMPIFNOTLT                      R13 R12 ; [+78]
+      259 JUMPIF                           R3 ; [+76]
+      260 JUMPIF                           R7 ; [+75]
+      261 NEWTABLE                         R12 1 0
+      263 GETIMPORT                        R13 K13 [pairs]
+      265 GETTABLEKS                       R14 R5 K11 ["Groups"]
+      267 CALL                             R13 1 3
+      268 FORGPREP_NEXT                    R13
+      269 LENGTH                           R19 R12
+      270 ADDK                             R18 R19 K14 [1]
+      271 JUMPIFLT                         R9 R18 ; [+59]
+      273 DUPTABLE                         R20 K21 [{"Icon", "Name", "Key"}]
+      274 GETUPVAL                         R21 5
+      275 GETTABLEKS                       R21 R21 K22 ["createElement"]
+      277 GETUPVAL                         R22 8
+      278 DUPTABLE                         R23 K25 [{"Id", "Size"}]
+      279 GETUPVAL                         R25 3
+      280 GETTABLEKS                       R25 R25 K52 ["GroupIdKey"]
+      282 GETTABLE                         R24 R17 R25
+      283 SETTABLEKS                       R24 R23 K23 ["Id"]
+      285 GETIMPORT                        R24 K28 [UDim2.new]
+      287 LOADN                            R25 1
+      288 LOADN                            R26 0
+      289 LOADN                            R27 1
+      290 LOADN                            R28 0
+      291 CALL                             R24 4 1
+      292 SETTABLEKS                       R24 R23 K24 ["Size"]
+      294 CALL                             R21 2 1
+      295 SETTABLEKS                       R21 R20 K18 ["Icon"]
+      297 GETUPVAL                         R22 3
+      298 GETTABLEKS                       R22 R22 K53 ["GroupNameKey"]
+      300 GETTABLE                         R21 R17 R22
+      301 SETTABLEKS                       R21 R20 K19 ["Name"]
+      303 DUPTABLE                         R21 K55 [{["Type"], ["Id"], ["Name"], ["IsEligible"] = True}]
+      304 GETUPVAL                         R22 3
+      305 GETTABLEKS                       R22 R22 K56 ["GroupSubjectKey"]
+      307 SETTABLEKS                       R22 R21 K30 ["Type"]
+      309 GETUPVAL                         R23 3
+      310 GETTABLEKS                       R23 R23 K52 ["GroupIdKey"]
+      312 GETTABLE                         R22 R17 R23
+      313 SETTABLEKS                       R22 R21 K23 ["Id"]
+      315 GETUPVAL                         R23 3
+      316 GETTABLEKS                       R23 R23 K53 ["GroupNameKey"]
+      318 GETTABLE                         R22 R17 R23
+      319 SETTABLEKS                       R22 R21 K19 ["Name"]
+      321 SETTABLEKS                       R21 R20 K20 ["Key"]
+      323 FASTCALL2                        TABLE_INSERT R12 R20 ; [+4]
+      325 MOVE                             R19 R12
+      326 GETIMPORT                        R18 K50 [table.insert]
+      328 CALL                             R18 2 0
+      329 FORGLOOP                         R13 2 ; [-61]
+      331 LOADN                            R13 0
+      332 SETTABLEKS                       R13 R12 K51 ["LayoutOrder"]
+      334 GETUPVAL                         R13 9
+      335 SETTABLE                         R12 R6 R13
+      336 RETURN                           R6 1
 
 PROTO_14:
         0 GETUPVAL                         R1 0
@@ -1186,7 +1251,7 @@ PROTO_19:
        65 MOVE                             R9 R0
        66 CALL                             R8 1 1
        67 MOVE                             R6 R8
-       68 DUPTABLE                         R8 K14 [{"IsGroupGame", "Is17PlusGame", "UserCollaborators", "GroupCollaborators", "SearchData", "ownerType", "ownerFriends", "PendingPlayTesterCount"}]
+       68 DUPTABLE                         R8 K16 [{"IsGroupGame", "Is17PlusGame", "UserCollaborators", "GroupCollaborators", "SearchData", "ownerType", "ownerFriends", "PendingPlayTesterCount", "PlayTesterEligibility", "IsPlayTesterEligibilityLoading"}]
        69 GETUPVAL                         R9 6
        70 MOVE                             R10 R0
        71 CALL                             R9 1 1
@@ -1197,13 +1262,13 @@ PROTO_19:
        77 SETTABLEKS                       R9 R8 K7 ["Is17PlusGame"]
        79 SETTABLEKS                       R6 R8 K8 ["UserCollaborators"]
        81 SETTABLEKS                       R7 R8 K9 ["GroupCollaborators"]
-       83 GETTABLEKS                       R9 R0 K15 ["CollaboratorSearch"]
+       83 GETTABLEKS                       R9 R0 K17 ["CollaboratorSearch"]
        85 SETTABLEKS                       R9 R8 K10 ["SearchData"]
-       87 GETTABLEKS                       R9 R0 K16 ["GameOwnerMetadata"]
-       89 GETTABLEKS                       R9 R9 K17 ["creatorType"]
+       87 GETTABLEKS                       R9 R0 K18 ["GameOwnerMetadata"]
+       89 GETTABLEKS                       R9 R9 K19 ["creatorType"]
        91 SETTABLEKS                       R9 R8 K11 ["ownerType"]
-       93 GETTABLEKS                       R9 R0 K16 ["GameOwnerMetadata"]
-       95 GETTABLEKS                       R9 R9 K18 ["creatorFriends"]
+       93 GETTABLEKS                       R9 R0 K18 ["GameOwnerMetadata"]
+       95 GETTABLEKS                       R9 R9 K20 ["creatorFriends"]
        97 SETTABLEKS                       R9 R8 K12 ["ownerFriends"]
        99 GETUPVAL                         R10 4
       100 GETTABLEKS                       R10 R10 K3 ["fflagAddPlayTesterPermission"]
@@ -1214,7 +1279,24 @@ PROTO_19:
       106 JUMP                             ; [+1]
       107 LOADNIL                          R9
       108 SETTABLEKS                       R9 R8 K13 ["PendingPlayTesterCount"]
-      110 RETURN                           R8 1
+      110 GETUPVAL                         R10 4
+      111 GETTABLEKS                       R10 R10 K3 ["fflagAddPlayTesterPermission"]
+      113 JUMPIFNOT                        R10 ; [+9]
+      114 GETTABLEKS                       R10 R0 K21 ["PendingPlayTesters"]
+      116 JUMPIFEQKNIL                     R10 ; [+6]
+      118 GETTABLEKS                       R9 R0 K21 ["PendingPlayTesters"]
+      120 GETTABLEKS                       R9 R9 K22 ["Eligibility"]
+      122 JUMP                             ; [+1]
+      123 LOADNIL                          R9
+      124 SETTABLEKS                       R9 R8 K14 ["PlayTesterEligibility"]
+      126 GETUPVAL                         R9 4
+      127 GETTABLEKS                       R9 R9 K3 ["fflagAddPlayTesterPermission"]
+      129 JUMPIFNOT                        R9 ; [+3]
+      130 GETUPVAL                         R9 11
+      131 MOVE                             R10 R0
+      132 CALL                             R9 1 1
+      133 SETTABLEKS                       R9 R8 K15 ["IsPlayTesterEligibilityLoading"]
+      135 RETURN                           R8 1
 
 PROTO_20:
         0 PREPVARARGS                      0
@@ -1558,144 +1640,159 @@ MAIN:
       273 GETTABLEKS                       R38 R38 K24 ["Util"]
       275 GETTABLEKS                       R38 R38 K53 ["GetPlayTesterPermissionMaxCount"]
       277 CALL                             R37 1 1
-      278 GETIMPORT                        R38 K55 [game]
-      280 LOADK                            R40 K56 ["StudioFriendToConnection"]
-      281 NAMECALL                         R38 R38 K57 ["GetFastFlag"]
-      283 CALL                             R38 2 1
-      284 DUPCLOSURE                       R39 K58 [PROTO_0]
-      285 CAPTURE                          VAL R23
-      286 MOVE                             R40 R39
-      287 LOADN                            R41 32
-      288 CALL                             R40 1 1
-      289 MOVE                             R41 R39
-      290 LOADN                            R42 8
-      291 CALL                             R41 1 1
-      292 GETIMPORT                        R42 K55 [game]
-      294 LOADK                            R44 K59 ["StudioService"]
-      295 NAMECALL                         R42 R42 K60 ["GetService"]
-      297 CALL                             R42 2 1
-      298 GETIMPORT                        R43 K4 [require]
-      300 GETTABLEKS                       R44 R0 K5 ["Packages"]
-      302 GETTABLEKS                       R44 R44 K61 ["TelemetryProtocol"]
-      304 CALL                             R43 1 1
-      305 GETIMPORT                        R44 K4 [require]
-      307 GETTABLEKS                       R45 R0 K17 ["Src"]
-      309 GETTABLEKS                       R45 R45 K24 ["Util"]
-      311 GETTABLEKS                       R45 R45 K62 ["Telemetry"]
-      313 GETTABLEKS                       R45 R45 K63 ["SafetyUpsellBannerShownEvent"]
-      315 CALL                             R44 1 1
-      316 GETTABLEKS                       R45 R43 K64 ["new"]
-      318 CALL                             R45 0 1
-      319 GETIMPORT                        R46 K4 [require]
-      321 GETTABLEKS                       R47 R0 K17 ["Src"]
-      323 GETTABLEKS                       R47 R47 K24 ["Util"]
-      325 GETTABLEKS                       R47 R47 K65 ["IsLikelyCollaboratorPrefetchEnabled"]
-      327 CALL                             R46 1 1
-      328 MOVE                             R47 R46
-      329 CALL                             R47 0 1
-      330 GETIMPORT                        R48 K4 [require]
-      332 GETTABLEKS                       R49 R0 K17 ["Src"]
-      334 GETTABLEKS                       R49 R49 K24 ["Util"]
-      336 GETTABLEKS                       R49 R49 K66 ["likelyCollaboratorMatchesSearch"]
-      338 CALL                             R48 1 1
-      339 GETTABLEKS                       R49 R1 K67 ["PureComponent"]
-      341 LOADK                            R51 K68 ["CollaboratorSearchWidget"]
-      342 NAMECALL                         R49 R49 K69 ["extend"]
-      344 CALL                             R49 2 1
-      345 DUPCLOSURE                       R50 K70 [PROTO_1]
-      346 CAPTURE                          VAL R1
-      347 CAPTURE                          VAL R9
-      348 SETTABLEKS                       R50 R49 K71 ["init"]
-      350 DUPCLOSURE                       R50 K72 [PROTO_2]
-      351 CAPTURE                          VAL R14
-      352 SETTABLEKS                       R50 R49 K73 ["isLoading"]
-      354 DUPCLOSURE                       R50 K74 [PROTO_3]
-      355 SETTABLEKS                       R50 R49 K75 ["isFriend"]
-      357 DUPCLOSURE                       R50 K76 [PROTO_7]
-      358 CAPTURE                          VAL R36
-      359 CAPTURE                          VAL R17
-      360 CAPTURE                          VAL R16
-      361 CAPTURE                          VAL R15
-      362 CAPTURE                          VAL R9
-      363 CAPTURE                          VAL R45
-      364 CAPTURE                          VAL R44
-      365 CAPTURE                          VAL R42
-      366 SETTABLEKS                       R50 R49 K77 ["addUserFromSearch"]
-      368 DUPCLOSURE                       R50 K78 [PROTO_12]
-      369 CAPTURE                          VAL R47
-      370 CAPTURE                          VAL R9
-      371 CAPTURE                          VAL R48
-      372 CAPTURE                          VAL R13
-      373 CAPTURE                          VAL R14
-      374 CAPTURE                          VAL R3
-      375 CAPTURE                          VAL R36
-      376 CAPTURE                          VAL R17
-      377 SETTABLEKS                       R50 R49 K79 ["getMatches"]
-      379 DUPCLOSURE                       R50 K80 [PROTO_13]
-      380 CAPTURE                          VAL R47
-      381 CAPTURE                          VAL R13
-      382 CAPTURE                          VAL R1
-      383 CAPTURE                          VAL R20
-      384 CAPTURE                          VAL R18
-      385 CAPTURE                          VAL R36
-      386 CAPTURE                          VAL R17
-      387 CAPTURE                          VAL R21
-      388 CAPTURE                          VAL R19
-      389 SETTABLEKS                       R50 R49 K81 ["getResults"]
-      391 DUPCLOSURE                       R50 K82 [PROTO_18]
-      392 CAPTURE                          VAL R37
-      393 CAPTURE                          VAL R36
-      394 CAPTURE                          VAL R17
-      395 CAPTURE                          VAL R12
-      396 CAPTURE                          VAL R9
+      278 GETIMPORT                        R38 K4 [require]
+      280 GETTABLEKS                       R39 R0 K17 ["Src"]
+      282 GETTABLEKS                       R39 R39 K24 ["Util"]
+      284 GETTABLEKS                       R39 R39 K54 ["IsPlayTesterEligible"]
+      286 CALL                             R38 1 1
+      287 GETIMPORT                        R39 K4 [require]
+      289 GETTABLEKS                       R40 R0 K17 ["Src"]
+      291 GETTABLEKS                       R40 R40 K39 ["Selectors"]
+      293 GETTABLEKS                       R40 R40 K55 ["IsPlayTesterEligibilityLoading"]
+      295 CALL                             R39 1 1
+      296 GETIMPORT                        R40 K57 [game]
+      298 LOADK                            R42 K58 ["StudioFriendToConnection"]
+      299 NAMECALL                         R40 R40 K59 ["GetFastFlag"]
+      301 CALL                             R40 2 1
+      302 DUPCLOSURE                       R41 K60 [PROTO_0]
+      303 CAPTURE                          VAL R23
+      304 MOVE                             R42 R41
+      305 LOADN                            R43 32
+      306 CALL                             R42 1 1
+      307 MOVE                             R43 R41
+      308 LOADN                            R44 8
+      309 CALL                             R43 1 1
+      310 GETIMPORT                        R44 K57 [game]
+      312 LOADK                            R46 K61 ["StudioService"]
+      313 NAMECALL                         R44 R44 K62 ["GetService"]
+      315 CALL                             R44 2 1
+      316 GETIMPORT                        R45 K4 [require]
+      318 GETTABLEKS                       R46 R0 K5 ["Packages"]
+      320 GETTABLEKS                       R46 R46 K63 ["TelemetryProtocol"]
+      322 CALL                             R45 1 1
+      323 GETIMPORT                        R46 K4 [require]
+      325 GETTABLEKS                       R47 R0 K17 ["Src"]
+      327 GETTABLEKS                       R47 R47 K24 ["Util"]
+      329 GETTABLEKS                       R47 R47 K64 ["Telemetry"]
+      331 GETTABLEKS                       R47 R47 K65 ["SafetyUpsellBannerShownEvent"]
+      333 CALL                             R46 1 1
+      334 GETTABLEKS                       R47 R45 K66 ["new"]
+      336 CALL                             R47 0 1
+      337 GETIMPORT                        R48 K4 [require]
+      339 GETTABLEKS                       R49 R0 K17 ["Src"]
+      341 GETTABLEKS                       R49 R49 K24 ["Util"]
+      343 GETTABLEKS                       R49 R49 K67 ["IsLikelyCollaboratorPrefetchEnabled"]
+      345 CALL                             R48 1 1
+      346 MOVE                             R49 R48
+      347 CALL                             R49 0 1
+      348 GETIMPORT                        R50 K4 [require]
+      350 GETTABLEKS                       R51 R0 K17 ["Src"]
+      352 GETTABLEKS                       R51 R51 K24 ["Util"]
+      354 GETTABLEKS                       R51 R51 K68 ["likelyCollaboratorMatchesSearch"]
+      356 CALL                             R50 1 1
+      357 GETTABLEKS                       R51 R1 K69 ["PureComponent"]
+      359 LOADK                            R53 K70 ["CollaboratorSearchWidget"]
+      360 NAMECALL                         R51 R51 K71 ["extend"]
+      362 CALL                             R51 2 1
+      363 DUPCLOSURE                       R52 K72 [PROTO_1]
+      364 CAPTURE                          VAL R1
+      365 CAPTURE                          VAL R9
+      366 SETTABLEKS                       R52 R51 K73 ["init"]
+      368 DUPCLOSURE                       R52 K74 [PROTO_2]
+      369 CAPTURE                          VAL R36
+      370 CAPTURE                          VAL R17
+      371 CAPTURE                          VAL R14
+      372 SETTABLEKS                       R52 R51 K75 ["isLoading"]
+      374 DUPCLOSURE                       R52 K76 [PROTO_3]
+      375 SETTABLEKS                       R52 R51 K77 ["isFriend"]
+      377 DUPCLOSURE                       R52 K78 [PROTO_7]
+      378 CAPTURE                          VAL R36
+      379 CAPTURE                          VAL R17
+      380 CAPTURE                          VAL R16
+      381 CAPTURE                          VAL R15
+      382 CAPTURE                          VAL R9
+      383 CAPTURE                          VAL R47
+      384 CAPTURE                          VAL R46
+      385 CAPTURE                          VAL R44
+      386 SETTABLEKS                       R52 R51 K79 ["addUserFromSearch"]
+      388 DUPCLOSURE                       R52 K80 [PROTO_12]
+      389 CAPTURE                          VAL R49
+      390 CAPTURE                          VAL R9
+      391 CAPTURE                          VAL R50
+      392 CAPTURE                          VAL R13
+      393 CAPTURE                          VAL R14
+      394 CAPTURE                          VAL R3
+      395 CAPTURE                          VAL R36
+      396 CAPTURE                          VAL R17
       397 CAPTURE                          VAL R38
-      398 CAPTURE                          VAL R1
-      399 CAPTURE                          VAL R22
-      400 CAPTURE                          VAL R13
-      401 CAPTURE                          VAL R47
-      402 CAPTURE                          VAL R42
-      403 CAPTURE                          VAL R18
-      404 CAPTURE                          VAL R15
-      405 CAPTURE                          VAL R19
-      406 CAPTURE                          VAL R41
-      407 CAPTURE                          VAL R40
-      408 CAPTURE                          VAL R3
-      409 SETTABLEKS                       R50 R49 K83 ["render"]
-      411 MOVE                             R50 R7
-      412 DUPTABLE                         R51 K85 [{"Stylizer", "Localization", "Mouse"}]
-      413 SETTABLEKS                       R5 R51 K11 ["Stylizer"]
-      415 SETTABLEKS                       R8 R51 K14 ["Localization"]
-      417 GETTABLEKS                       R52 R6 K84 ["Mouse"]
-      419 SETTABLEKS                       R52 R51 K84 ["Mouse"]
-      421 CALL                             R50 1 1
-      422 MOVE                             R51 R49
-      423 CALL                             R50 1 1
-      424 MOVE                             R49 R50
-      425 GETTABLEKS                       R50 R2 K86 ["connect"]
-      427 DUPCLOSURE                       R51 K87 [PROTO_19]
-      428 CAPTURE                          VAL R24
-      429 CAPTURE                          VAL R25
-      430 CAPTURE                          VAL R47
-      431 CAPTURE                          VAL R3
-      432 CAPTURE                          VAL R9
-      433 CAPTURE                          VAL R36
-      434 CAPTURE                          VAL R34
-      435 CAPTURE                          VAL R17
-      436 CAPTURE                          VAL R26
-      437 CAPTURE                          VAL R35
-      438 CAPTURE                          VAL R27
-      439 DUPCLOSURE                       R52 K88 [PROTO_30]
-      440 CAPTURE                          VAL R28
-      441 CAPTURE                          VAL R30
-      442 CAPTURE                          VAL R29
-      443 CAPTURE                          VAL R31
-      444 CAPTURE                          VAL R32
-      445 CAPTURE                          VAL R9
-      446 CAPTURE                          VAL R11
-      447 CAPTURE                          VAL R10
-      448 CAPTURE                          VAL R33
-      449 CALL                             R50 2 1
-      450 MOVE                             R51 R49
-      451 CALL                             R50 1 1
-      452 MOVE                             R49 R50
-      453 RETURN                           R49 1
+      398 SETTABLEKS                       R52 R51 K81 ["getMatches"]
+      400 DUPCLOSURE                       R52 K82 [PROTO_13]
+      401 CAPTURE                          VAL R49
+      402 CAPTURE                          VAL R36
+      403 CAPTURE                          VAL R17
+      404 CAPTURE                          VAL R13
+      405 CAPTURE                          VAL R38
+      406 CAPTURE                          VAL R1
+      407 CAPTURE                          VAL R20
+      408 CAPTURE                          VAL R18
+      409 CAPTURE                          VAL R21
+      410 CAPTURE                          VAL R19
+      411 SETTABLEKS                       R52 R51 K83 ["getResults"]
+      413 DUPCLOSURE                       R52 K84 [PROTO_18]
+      414 CAPTURE                          VAL R37
+      415 CAPTURE                          VAL R36
+      416 CAPTURE                          VAL R17
+      417 CAPTURE                          VAL R12
+      418 CAPTURE                          VAL R9
+      419 CAPTURE                          VAL R40
+      420 CAPTURE                          VAL R1
+      421 CAPTURE                          VAL R22
+      422 CAPTURE                          VAL R13
+      423 CAPTURE                          VAL R49
+      424 CAPTURE                          VAL R44
+      425 CAPTURE                          VAL R18
+      426 CAPTURE                          VAL R15
+      427 CAPTURE                          VAL R19
+      428 CAPTURE                          VAL R43
+      429 CAPTURE                          VAL R42
+      430 CAPTURE                          VAL R3
+      431 SETTABLEKS                       R52 R51 K85 ["render"]
+      433 MOVE                             R52 R7
+      434 DUPTABLE                         R53 K87 [{"Stylizer", "Localization", "Mouse"}]
+      435 SETTABLEKS                       R5 R53 K11 ["Stylizer"]
+      437 SETTABLEKS                       R8 R53 K14 ["Localization"]
+      439 GETTABLEKS                       R54 R6 K86 ["Mouse"]
+      441 SETTABLEKS                       R54 R53 K86 ["Mouse"]
+      443 CALL                             R52 1 1
+      444 MOVE                             R53 R51
+      445 CALL                             R52 1 1
+      446 MOVE                             R51 R52
+      447 GETTABLEKS                       R52 R2 K88 ["connect"]
+      449 DUPCLOSURE                       R53 K89 [PROTO_19]
+      450 CAPTURE                          VAL R24
+      451 CAPTURE                          VAL R25
+      452 CAPTURE                          VAL R49
+      453 CAPTURE                          VAL R3
+      454 CAPTURE                          VAL R9
+      455 CAPTURE                          VAL R36
+      456 CAPTURE                          VAL R34
+      457 CAPTURE                          VAL R17
+      458 CAPTURE                          VAL R26
+      459 CAPTURE                          VAL R35
+      460 CAPTURE                          VAL R27
+      461 CAPTURE                          VAL R39
+      462 DUPCLOSURE                       R54 K90 [PROTO_30]
+      463 CAPTURE                          VAL R28
+      464 CAPTURE                          VAL R30
+      465 CAPTURE                          VAL R29
+      466 CAPTURE                          VAL R31
+      467 CAPTURE                          VAL R32
+      468 CAPTURE                          VAL R9
+      469 CAPTURE                          VAL R11
+      470 CAPTURE                          VAL R10
+      471 CAPTURE                          VAL R33
+      472 CALL                             R52 2 1
+      473 MOVE                             R53 R51
+      474 CALL                             R52 1 1
+      475 MOVE                             R51 R52
+      476 RETURN                           R51 1

@@ -14,7 +14,7 @@ PROTO_1:
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CALL                             R0 1 3
-        7 JUMPIFNOT                        R0 ; [+9]
+        7 JUMPIFNOT                        R0 ; [+16]
         8 GETUPVAL                         R3 3
         9 GETUPVAL                         R5 4
        10 MOVE                             R6 R1
@@ -22,18 +22,24 @@ PROTO_1:
        12 CALL                             R5 2 -1
        13 NAMECALL                         R3 R3 K2 ["dispatch"]
        15 CALL                             R3 -1 0
-       16 RETURN                           R0 0
-       17 GETIMPORT                        R3 K4 [warn]
-       19 LOADK                            R4 K5 ["Failed to load group members"]
-       20 MOVE                             R5 R1
-       21 CALL                             R3 2 0
-       22 GETUPVAL                         R3 3
-       23 GETUPVAL                         R5 5
-       24 LOADB                            R6 0
-       25 CALL                             R5 1 -1
-       26 NAMECALL                         R3 R3 K2 ["dispatch"]
-       28 CALL                             R3 -1 0
-       29 RETURN                           R0 0
+       16 GETUPVAL                         R3 3
+       17 GETUPVAL                         R5 5
+       18 MOVE                             R6 R1
+       19 CALL                             R5 1 -1
+       20 NAMECALL                         R3 R3 K2 ["dispatch"]
+       22 CALL                             R3 -1 0
+       23 RETURN                           R0 0
+       24 GETIMPORT                        R3 K4 [warn]
+       26 LOADK                            R4 K5 ["Failed to load group members"]
+       27 MOVE                             R5 R1
+       28 CALL                             R3 2 0
+       29 GETUPVAL                         R3 3
+       30 GETUPVAL                         R5 6
+       31 LOADB                            R6 0
+       32 CALL                             R5 1 -1
+       33 NAMECALL                         R3 R3 K2 ["dispatch"]
+       35 CALL                             R3 -1 0
+       36 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["earlyTesterController"]
@@ -57,18 +63,20 @@ PROTO_2:
        25 CAPTURE                          VAL R3
        26 CAPTURE                          VAL R0
        27 CAPTURE                          UPVAL U2
-       28 CAPTURE                          UPVAL U0
-       29 CALL                             R4 1 1
-       30 MOVE                             R5 R4
-       31 CALL                             R5 0 0
-       32 RETURN                           R0 0
+       28 CAPTURE                          UPVAL U3
+       29 CAPTURE                          UPVAL U0
+       30 CALL                             R4 1 1
+       31 MOVE                             R5 R4
+       32 CALL                             R5 0 0
+       33 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U1
-        4 RETURN                           R1 1
+        4 CAPTURE                          UPVAL U2
+        5 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -83,10 +91,16 @@ MAIN:
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
        20 GETTABLEKS                       R3 R0 K5 ["Src"]
-       22 GETTABLEKS                       R3 R3 K6 ["Actions"]
-       24 GETTABLEKS                       R3 R3 K8 ["SetGroupMembersLoading"]
+       22 GETTABLEKS                       R3 R3 K8 ["Thunks"]
+       24 GETTABLEKS                       R3 R3 K9 ["LoadEarlyTesterMemberEligibility"]
        26 CALL                             R2 1 1
-       27 DUPCLOSURE                       R3 K9 [PROTO_3]
-       28 CAPTURE                          VAL R2
-       29 CAPTURE                          VAL R1
-       30 RETURN                           R3 1
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K6 ["Actions"]
+       33 GETTABLEKS                       R4 R4 K10 ["SetGroupMembersLoading"]
+       35 CALL                             R3 1 1
+       36 DUPCLOSURE                       R4 K11 [PROTO_3]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R2
+       40 RETURN                           R4 1

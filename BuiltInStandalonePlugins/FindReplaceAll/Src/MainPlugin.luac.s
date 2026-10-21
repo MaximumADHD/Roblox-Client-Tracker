@@ -434,35 +434,45 @@ PROTO_19:
       116 GETTABLEKS                       R11 R11 K20 ["Enabled"]
       118 GETTABLEKS                       R12 R0 K46 ["onWidgetEnabledChanged"]
       120 SETTABLE                         R12 R10 R11
-      121 DUPTABLE                         R11 K50 [{"App", "StyleLink", "WidgetRegister"}]
-      122 GETUPVAL                         R12 4
-      123 GETTABLEKS                       R12 R12 K17 ["createElement"]
-      125 GETUPVAL                         R13 6
-      126 DUPTABLE                         R14 K53 [{"findActivationData", "enabled", "textBoxRef"}]
-      127 GETTABLEKS                       R15 R2 K51 ["findActivationData"]
-      129 SETTABLEKS                       R15 R14 K51 ["findActivationData"]
-      131 SETTABLEKS                       R4 R14 K3 ["enabled"]
-      133 GETTABLEKS                       R15 R0 K52 ["textBoxRef"]
-      135 SETTABLEKS                       R15 R14 K52 ["textBoxRef"]
-      137 CALL                             R12 2 1
-      138 SETTABLEKS                       R12 R11 K47 ["App"]
-      140 GETUPVAL                         R12 4
-      141 GETTABLEKS                       R12 R12 K17 ["createElement"]
-      143 LOADK                            R13 K48 ["StyleLink"]
-      144 DUPTABLE                         R14 K55 [{"StyleSheet"}]
-      145 GETTABLEKS                       R15 R0 K14 ["design"]
-      147 SETTABLEKS                       R15 R14 K54 ["StyleSheet"]
-      149 CALL                             R12 2 1
-      150 SETTABLEKS                       R12 R11 K48 ["StyleLink"]
-      152 GETUPVAL                         R12 4
-      153 GETTABLEKS                       R12 R12 K17 ["createElement"]
-      155 GETUPVAL                         R13 7
-      156 CALL                             R12 1 1
-      157 SETTABLEKS                       R12 R11 K49 ["WidgetRegister"]
-      159 CALL                             R8 3 1
-      160 SETTABLEKS                       R8 R7 K15 ["MainWidget"]
-      162 CALL                             R5 2 -1
-      163 RETURN                           R5 -1
+      121 GETUPVAL                         R12 6
+      122 JUMPIFNOT                        R12 ; [+3]
+      123 GETTABLEKS                       R11 R0 K14 ["design"]
+      125 JUMP                             ; [+1]
+      126 LOADNIL                          R11
+      127 SETTABLEKS                       R11 R10 K47 ["PluginDesign"]
+      129 DUPTABLE                         R11 K51 [{"App", "StyleLink", "WidgetRegister"}]
+      130 GETUPVAL                         R12 4
+      131 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      133 GETUPVAL                         R13 7
+      134 DUPTABLE                         R14 K54 [{"findActivationData", "enabled", "textBoxRef"}]
+      135 GETTABLEKS                       R15 R2 K52 ["findActivationData"]
+      137 SETTABLEKS                       R15 R14 K52 ["findActivationData"]
+      139 SETTABLEKS                       R4 R14 K3 ["enabled"]
+      141 GETTABLEKS                       R15 R0 K53 ["textBoxRef"]
+      143 SETTABLEKS                       R15 R14 K53 ["textBoxRef"]
+      145 CALL                             R12 2 1
+      146 SETTABLEKS                       R12 R11 K48 ["App"]
+      148 GETUPVAL                         R13 6
+      149 JUMPIF                           R13 ; [+11]
+      150 GETUPVAL                         R12 4
+      151 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      153 LOADK                            R13 K49 ["StyleLink"]
+      154 DUPTABLE                         R14 K56 [{"StyleSheet"}]
+      155 GETTABLEKS                       R15 R0 K14 ["design"]
+      157 SETTABLEKS                       R15 R14 K55 ["StyleSheet"]
+      159 CALL                             R12 2 1
+      160 JUMP                             ; [+1]
+      161 LOADNIL                          R12
+      162 SETTABLEKS                       R12 R11 K49 ["StyleLink"]
+      164 GETUPVAL                         R12 4
+      165 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      167 GETUPVAL                         R13 8
+      168 CALL                             R12 1 1
+      169 SETTABLEKS                       R12 R11 K50 ["WidgetRegister"]
+      171 CALL                             R8 3 1
+      172 SETTABLEKS                       R8 R7 K15 ["MainWidget"]
+      174 CALL                             R5 2 -1
+      175 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -478,82 +488,86 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
        18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Resources"]
-       27 GETTABLEKS                       R4 R4 K11 ["MakeTheme"]
-       29 CALL                             R3 1 1
-       30 GETTABLEKS                       R4 R2 K12 ["UI"]
-       32 GETTABLEKS                       R4 R4 K13 ["DockWidget"]
-       34 GETTABLEKS                       R5 R2 K14 ["ContextServices"]
-       36 GETTABLEKS                       R6 R5 K15 ["Plugin"]
-       38 GETTABLEKS                       R7 R5 K16 ["Mouse"]
-       40 GETTABLEKS                       R8 R5 K17 ["Design"]
-       42 GETTABLEKS                       R9 R2 K18 ["Style"]
-       44 GETTABLEKS                       R9 R9 K19 ["Themes"]
-       46 GETTABLEKS                       R9 R9 K20 ["StudioTheme"]
-       48 GETTABLEKS                       R10 R2 K21 ["Styling"]
-       50 GETTABLEKS                       R10 R10 K22 ["registerPluginStyles"]
-       52 GETIMPORT                        R11 K5 [require]
-       54 GETTABLEKS                       R12 R0 K9 ["Src"]
-       56 GETTABLEKS                       R12 R12 K23 ["Util"]
-       58 GETTABLEKS                       R12 R12 K24 ["Constants"]
-       60 CALL                             R11 1 1
-       61 GETTABLEKS                       R12 R0 K9 ["Src"]
-       63 GETTABLEKS                       R12 R12 K10 ["Resources"]
-       65 GETTABLEKS                       R12 R12 K25 ["Localization"]
-       67 GETTABLEKS                       R12 R12 K26 ["SourceStrings"]
-       69 GETTABLEKS                       R13 R0 K9 ["Src"]
-       71 GETTABLEKS                       R13 R13 K10 ["Resources"]
-       73 GETTABLEKS                       R13 R13 K25 ["Localization"]
-       75 GETTABLEKS                       R13 R13 K27 ["LocalizedStrings"]
-       77 GETIMPORT                        R14 K5 [require]
-       79 GETTABLEKS                       R15 R0 K9 ["Src"]
-       81 GETTABLEKS                       R15 R15 K28 ["Components"]
-       83 GETTABLEKS                       R15 R15 K29 ["App"]
-       85 CALL                             R14 1 1
-       86 GETIMPORT                        R15 K5 [require]
-       88 GETTABLEKS                       R16 R0 K9 ["Src"]
-       90 GETTABLEKS                       R16 R16 K28 ["Components"]
-       92 GETTABLEKS                       R16 R16 K30 ["WidgetRegister"]
-       94 CALL                             R15 1 1
-       95 GETIMPORT                        R16 K5 [require]
-       97 GETTABLEKS                       R17 R0 K9 ["Src"]
-       99 GETTABLEKS                       R17 R17 K23 ["Util"]
-      101 GETTABLEKS                       R17 R17 K31 ["MockableProxyPluginComponents"]
-      103 CALL                             R16 1 1
-      104 GETTABLEKS                       R16 R16 K32 ["FindReplace"]
-      106 GETTABLEKS                       R17 R1 K33 ["PureComponent"]
-      108 LOADK                            R19 K34 ["MainPlugin"]
-      109 NAMECALL                         R17 R17 K35 ["extend"]
-      111 CALL                             R17 2 1
-      112 DUPCLOSURE                       R18 K36 [PROTO_1]
-      113 SETTABLEKS                       R18 R17 K37 ["focusWidget"]
-      115 DUPCLOSURE                       R18 K38 [PROTO_15]
-      116 CAPTURE                          VAL R16
-      117 CAPTURE                          VAL R11
-      118 CAPTURE                          VAL R7
-      119 CAPTURE                          VAL R5
-      120 CAPTURE                          VAL R12
-      121 CAPTURE                          VAL R13
-      122 CAPTURE                          VAL R9
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R1
-      125 SETTABLEKS                       R18 R17 K39 ["init"]
-      127 DUPCLOSURE                       R18 K40 [PROTO_16]
-      128 SETTABLEKS                       R18 R17 K41 ["didMount"]
-      130 DUPCLOSURE                       R18 K42 [PROTO_17]
-      131 SETTABLEKS                       R18 R17 K43 ["willUnmount"]
-      133 DUPCLOSURE                       R18 K44 [PROTO_18]
-      134 SETTABLEKS                       R18 R17 K45 ["didUpdate"]
-      136 DUPCLOSURE                       R18 K46 [PROTO_19]
-      137 CAPTURE                          VAL R5
-      138 CAPTURE                          VAL R6
-      139 CAPTURE                          VAL R3
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          VAL R1
-      142 CAPTURE                          VAL R4
-      143 CAPTURE                          VAL R14
-      144 CAPTURE                          VAL R15
-      145 SETTABLEKS                       R18 R17 K47 ["render"]
-      147 RETURN                           R17 1
+       21 GETTABLEKS                       R3 R2 K9 ["SharedFlags"]
+       23 GETTABLEKS                       R3 R3 K10 ["getFFlagDevFrameworkUsePluginDesign"]
+       25 CALL                             R3 0 1
+       26 GETIMPORT                        R4 K5 [require]
+       28 GETTABLEKS                       R5 R0 K11 ["Src"]
+       30 GETTABLEKS                       R5 R5 K12 ["Resources"]
+       32 GETTABLEKS                       R5 R5 K13 ["MakeTheme"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R2 K14 ["UI"]
+       37 GETTABLEKS                       R5 R5 K15 ["DockWidget"]
+       39 GETTABLEKS                       R6 R2 K16 ["ContextServices"]
+       41 GETTABLEKS                       R7 R6 K17 ["Plugin"]
+       43 GETTABLEKS                       R8 R6 K18 ["Mouse"]
+       45 GETTABLEKS                       R9 R6 K19 ["Design"]
+       47 GETTABLEKS                       R10 R2 K20 ["Style"]
+       49 GETTABLEKS                       R10 R10 K21 ["Themes"]
+       51 GETTABLEKS                       R10 R10 K22 ["StudioTheme"]
+       53 GETTABLEKS                       R11 R2 K23 ["Styling"]
+       55 GETTABLEKS                       R11 R11 K24 ["registerPluginStyles"]
+       57 GETIMPORT                        R12 K5 [require]
+       59 GETTABLEKS                       R13 R0 K11 ["Src"]
+       61 GETTABLEKS                       R13 R13 K25 ["Util"]
+       63 GETTABLEKS                       R13 R13 K26 ["Constants"]
+       65 CALL                             R12 1 1
+       66 GETTABLEKS                       R13 R0 K11 ["Src"]
+       68 GETTABLEKS                       R13 R13 K12 ["Resources"]
+       70 GETTABLEKS                       R13 R13 K27 ["Localization"]
+       72 GETTABLEKS                       R13 R13 K28 ["SourceStrings"]
+       74 GETTABLEKS                       R14 R0 K11 ["Src"]
+       76 GETTABLEKS                       R14 R14 K12 ["Resources"]
+       78 GETTABLEKS                       R14 R14 K27 ["Localization"]
+       80 GETTABLEKS                       R14 R14 K29 ["LocalizedStrings"]
+       82 GETIMPORT                        R15 K5 [require]
+       84 GETTABLEKS                       R16 R0 K11 ["Src"]
+       86 GETTABLEKS                       R16 R16 K30 ["Components"]
+       88 GETTABLEKS                       R16 R16 K31 ["App"]
+       90 CALL                             R15 1 1
+       91 GETIMPORT                        R16 K5 [require]
+       93 GETTABLEKS                       R17 R0 K11 ["Src"]
+       95 GETTABLEKS                       R17 R17 K30 ["Components"]
+       97 GETTABLEKS                       R17 R17 K32 ["WidgetRegister"]
+       99 CALL                             R16 1 1
+      100 GETIMPORT                        R17 K5 [require]
+      102 GETTABLEKS                       R18 R0 K11 ["Src"]
+      104 GETTABLEKS                       R18 R18 K25 ["Util"]
+      106 GETTABLEKS                       R18 R18 K33 ["MockableProxyPluginComponents"]
+      108 CALL                             R17 1 1
+      109 GETTABLEKS                       R17 R17 K34 ["FindReplace"]
+      111 GETTABLEKS                       R18 R1 K35 ["PureComponent"]
+      113 LOADK                            R20 K36 ["MainPlugin"]
+      114 NAMECALL                         R18 R18 K37 ["extend"]
+      116 CALL                             R18 2 1
+      117 DUPCLOSURE                       R19 K38 [PROTO_1]
+      118 SETTABLEKS                       R19 R18 K39 ["focusWidget"]
+      120 DUPCLOSURE                       R19 K40 [PROTO_15]
+      121 CAPTURE                          VAL R17
+      122 CAPTURE                          VAL R12
+      123 CAPTURE                          VAL R8
+      124 CAPTURE                          VAL R6
+      125 CAPTURE                          VAL R13
+      126 CAPTURE                          VAL R14
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R11
+      129 CAPTURE                          VAL R1
+      130 SETTABLEKS                       R19 R18 K41 ["init"]
+      132 DUPCLOSURE                       R19 K42 [PROTO_16]
+      133 SETTABLEKS                       R19 R18 K43 ["didMount"]
+      135 DUPCLOSURE                       R19 K44 [PROTO_17]
+      136 SETTABLEKS                       R19 R18 K45 ["willUnmount"]
+      138 DUPCLOSURE                       R19 K46 [PROTO_18]
+      139 SETTABLEKS                       R19 R18 K47 ["didUpdate"]
+      141 DUPCLOSURE                       R19 K48 [PROTO_19]
+      142 CAPTURE                          VAL R6
+      143 CAPTURE                          VAL R7
+      144 CAPTURE                          VAL R4
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R5
+      148 CAPTURE                          VAL R3
+      149 CAPTURE                          VAL R15
+      150 CAPTURE                          VAL R16
+      151 SETTABLEKS                       R19 R18 K49 ["render"]
+      153 RETURN                           R18 1

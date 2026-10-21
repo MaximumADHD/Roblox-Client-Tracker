@@ -566,330 +566,355 @@ PROTO_22:
        19 SETLIST                          R6 R7 1 [1]
        21 CALL                             R4 2 0
        22 NOT                              R4 R2
-       23 GETUPVAL                         R5 1
-       24 GETTABLEKS                       R5 R5 K0 ["useState"]
-       26 LOADNIL                          R6
-       27 CALL                             R5 1 2
-       28 GETUPVAL                         R7 1
-       29 GETTABLEKS                       R7 R7 K0 ["useState"]
-       31 LOADNIL                          R8
-       32 CALL                             R7 1 2
-       33 GETUPVAL                         R9 1
-       34 GETTABLEKS                       R9 R9 K0 ["useState"]
-       36 LOADN                            R10 720
-       37 CALL                             R9 1 2
-       38 GETUPVAL                         R11 1
-       39 GETTABLEKS                       R11 R11 K0 ["useState"]
-       41 LOADN                            R12 880
-       42 CALL                             R11 1 2
-       43 GETUPVAL                         R13 1
-       44 GETTABLEKS                       R13 R13 K0 ["useState"]
-       46 LOADN                            R14 0
-       47 CALL                             R13 1 2
-       48 GETUPVAL                         R15 1
-       49 GETTABLEKS                       R15 R15 K0 ["useState"]
-       51 LOADN                            R16 0
-       52 CALL                             R15 1 2
-       53 GETUPVAL                         R17 1
-       54 GETTABLEKS                       R17 R17 K0 ["useState"]
-       56 LOADK                            R18 K3 [""]
-       57 CALL                             R17 1 2
-       58 LOADN                            R20 850
-       59 JUMPIFLT                         R9 R20 ; [+2]
-       61 LOADB                            R19 0 +1
-       62 LOADB                            R19 1
-       63 GETTABLEKS                       R20 R1 K4 ["Padding"]
-       65 GETTABLEKS                       R20 R20 K5 ["XLarge"]
-       67 JUMPIFNOT                        R19 ; [+9]
-       68 LOADN                            R22 493
-       69 ADD                              R24 R13 R20
-       70 ADD                              R23 R24 R15
-       71 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
-       73 GETIMPORT                        R21 K8 [math.max]
-       75 CALL                             R21 2 1
-       76 JUMP                             ; [+7]
-       77 LOADN                            R22 493
-       78 FASTCALL2                        MATH_MAX R22 R15 ; [+4]
-       80 MOVE                             R23 R15
-       81 GETIMPORT                        R21 K8 [math.max]
-       83 CALL                             R21 2 1
-       84 GETUPVAL                         R22 1
-       85 GETTABLEKS                       R22 R22 K1 ["useEffect"]
-       87 NEWCLOSURE                       R23 P1
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R0
-       90 CAPTURE                          UPVAL U3
-       91 CAPTURE                          VAL R8
-       92 CAPTURE                          VAL R6
-       93 NEWTABLE                         R24 0 2
-       95 GETTABLEKS                       R25 R0 K2 ["LoginPluginBridge"]
-       97 MOVE                             R26 R4
-       98 SETLIST                          R24 R25 2 [1]
-      100 CALL                             R22 2 0
-      101 JUMPIFNOT                        R5 ; [+3]
-      102 GETTABLEKS                       R22 R5 K9 ["Code"]
-      104 JUMP                             ; [+1]
-      105 LOADK                            R22 K10 ["------"]
-      106 LOADK                            R23 K3 [""]
-      107 JUMPIFNOT                        R5 ; [+15]
-      108 GETTABLEKS                       R24 R5 K11 ["ImagePath"]
-      110 JUMPIFEQKS                       R24 K3 [""] ; [+12]
-      112 GETUPVAL                         R24 4
-      113 GETTABLEKS                       R24 R24 K12 ["new"]
-      115 CALL                             R24 0 1
-      116 GETTABLEKS                       R24 R24 K13 ["APIS_URL"]
-      118 MOVE                             R25 R24
-      119 LOADK                            R26 K14 ["auth-token-service"]
-      120 GETTABLEKS                       R27 R5 K11 ["ImagePath"]
-      122 CONCAT                           R23 R25 R27
-      123 GETUPVAL                         R24 1
-      124 GETTABLEKS                       R24 R24 K1 ["useEffect"]
-      126 NEWCLOSURE                       R25 P2
-      127 CAPTURE                          REF R23
-      128 CAPTURE                          UPVAL U5
-      129 CAPTURE                          VAL R18
-      130 NEWTABLE                         R26 0 1
-      132 MOVE                             R27 R23
-      133 SETLIST                          R26 R27 1 [1]
-      135 CALL                             R24 2 0
-      136 GETUPVAL                         R24 1
-      137 GETTABLEKS                       R24 R24 K15 ["createElement"]
-      139 GETUPVAL                         R25 6
-      140 DUPTABLE                         R26 K21 [{["Size"], ["AnchorPoint"], ["Position"], ["tag"] = "stroke-emphasis radius-large clip bg-surface-0"}]
-      141 GETIMPORT                        R27 K24 [UDim2.fromOffset]
-      143 MOVE                             R28 R11
-      144 MOVE                             R29 R21
-      145 CALL                             R27 2 1
-      146 SETTABLEKS                       R27 R26 K16 ["Size"]
-      148 JUMPIFNOT                        R19 ; [+6]
-      149 GETIMPORT                        R27 K26 [Vector2.new]
-      151 LOADK                            R28 K27 [0.5]
-      152 LOADN                            R29 0
-      153 CALL                             R27 2 1
-      154 JUMP                             ; [+5]
-      155 GETIMPORT                        R27 K26 [Vector2.new]
-      157 LOADK                            R28 K27 [0.5]
-      158 LOADK                            R29 K27 [0.5]
-      159 CALL                             R27 2 1
-      160 SETTABLEKS                       R27 R26 K17 ["AnchorPoint"]
-      162 JUMPIFNOT                        R19 ; [+8]
-      163 GETIMPORT                        R27 K28 [UDim2.new]
-      165 LOADK                            R28 K27 [0.5]
-      166 LOADN                            R29 0
-      167 LOADN                            R30 0
-      168 LOADN                            R31 60
-      169 CALL                             R27 4 1
-      170 JUMP                             ; [+5]
-      171 GETIMPORT                        R27 K30 [UDim2.fromScale]
-      173 LOADK                            R28 K27 [0.5]
-      174 LOADK                            R29 K27 [0.5]
-      175 CALL                             R27 2 1
-      176 SETTABLEKS                       R27 R26 K18 ["Position"]
-      178 DUPTABLE                         R27 K33 [{"ContentArea", "LoadingPanel"}]
-      179 JUMPIFNOT                        R19 ; [+93]
-      180 GETUPVAL                         R28 1
-      181 GETTABLEKS                       R28 R28 K15 ["createElement"]
-      183 GETUPVAL                         R29 6
-      184 DUPTABLE                         R30 K36 [{["tag"] = "col align-x-center gap-xlarge size-full-full", ["Visible"]}]
-      185 NOT                              R31 R4
-      186 SETTABLEKS                       R31 R30 K35 ["Visible"]
-      188 DUPTABLE                         R31 K39 [{"TopPanelWrapper", "BottomPanelWrapper"}]
-      189 GETUPVAL                         R32 1
-      190 GETTABLEKS                       R32 R32 K15 ["createElement"]
-      192 GETUPVAL                         R33 6
-      193 DUPTABLE                         R34 K42 [{["Size"], ["LayoutOrder"] = 1}]
-      194 GETIMPORT                        R35 K28 [UDim2.new]
-      196 LOADN                            R36 1
-      197 LOADN                            R37 0
-      198 LOADN                            R38 0
-      199 MOVE                             R39 R13
-      200 CALL                             R35 4 1
-      201 SETTABLEKS                       R35 R34 K16 ["Size"]
-      203 DUPTABLE                         R35 K44 [{"Panel"}]
-      204 GETUPVAL                         R36 1
-      205 GETTABLEKS                       R36 R36 K15 ["createElement"]
-      207 GETUPVAL                         R37 7
-      208 DUPTABLE                         R38 K48 [{["isNarrow"] = True, ["onMinHeightChanged"], ["Size"], ["LoginPluginBridge"]}]
-      209 SETTABLEKS                       R14 R38 K47 ["onMinHeightChanged"]
-      211 GETIMPORT                        R39 K28 [UDim2.new]
-      213 LOADN                            R40 1
-      214 LOADN                            R41 0
-      215 LOADN                            R42 1
-      216 LOADN                            R43 0
-      217 CALL                             R39 4 1
-      218 SETTABLEKS                       R39 R38 K16 ["Size"]
-      220 GETTABLEKS                       R39 R0 K2 ["LoginPluginBridge"]
-      222 SETTABLEKS                       R39 R38 K2 ["LoginPluginBridge"]
-      224 CALL                             R36 2 1
-      225 SETTABLEKS                       R36 R35 K43 ["Panel"]
-      227 CALL                             R32 3 1
-      228 SETTABLEKS                       R32 R31 K37 ["TopPanelWrapper"]
-      230 GETUPVAL                         R32 1
-      231 GETTABLEKS                       R32 R32 K15 ["createElement"]
-      233 GETUPVAL                         R33 6
-      234 DUPTABLE                         R34 K50 [{["Size"], ["LayoutOrder"] = 2}]
-      235 GETIMPORT                        R35 K28 [UDim2.new]
-      237 LOADN                            R36 1
-      238 LOADN                            R37 0
-      239 LOADN                            R38 0
-      240 MOVE                             R39 R15
-      241 CALL                             R35 4 1
-      242 SETTABLEKS                       R35 R34 K16 ["Size"]
-      244 DUPTABLE                         R35 K44 [{"Panel"}]
-      245 GETUPVAL                         R36 1
-      246 GETTABLEKS                       R36 R36 K15 ["createElement"]
-      248 GETUPVAL                         R37 8
-      249 DUPTABLE                         R38 K53 [{["code"], ["resolvedQrImage"], ["isNarrow"] = True, ["onMinHeightChanged"], ["Size"]}]
-      250 SETTABLEKS                       R22 R38 K51 ["code"]
-      252 SETTABLEKS                       R17 R38 K52 ["resolvedQrImage"]
-      254 SETTABLEKS                       R16 R38 K47 ["onMinHeightChanged"]
-      256 GETIMPORT                        R39 K28 [UDim2.new]
-      258 LOADN                            R40 1
-      259 LOADN                            R41 0
-      260 LOADN                            R42 1
-      261 LOADN                            R43 0
-      262 CALL                             R39 4 1
-      263 SETTABLEKS                       R39 R38 K16 ["Size"]
-      265 CALL                             R36 2 1
-      266 SETTABLEKS                       R36 R35 K43 ["Panel"]
-      268 CALL                             R32 3 1
-      269 SETTABLEKS                       R32 R31 K38 ["BottomPanelWrapper"]
-      271 CALL                             R28 3 1
-      272 JUMP                             ; [+86]
-      273 GETUPVAL                         R28 1
-      274 GETTABLEKS                       R28 R28 K15 ["createElement"]
-      276 GETUPVAL                         R29 6
-      277 DUPTABLE                         R30 K54 [{"Position", "Size", "Visible"}]
-      278 GETIMPORT                        R31 K24 [UDim2.fromOffset]
-      280 LOADN                            R32 0
-      281 LOADN                            R33 0
-      282 CALL                             R31 2 1
-      283 SETTABLEKS                       R31 R30 K18 ["Position"]
-      285 GETIMPORT                        R31 K28 [UDim2.new]
-      287 LOADN                            R32 1
-      288 LOADN                            R33 -48
-      289 LOADN                            R34 1
-      290 LOADN                            R35 0
-      291 CALL                             R31 4 1
-      292 SETTABLEKS                       R31 R30 K16 ["Size"]
-      294 NOT                              R31 R4
-      295 SETTABLEKS                       R31 R30 K35 ["Visible"]
-      297 DUPTABLE                         R31 K57 [{"LeftPanel", "RightPanel"}]
-      298 GETUPVAL                         R32 1
-      299 GETTABLEKS                       R32 R32 K15 ["createElement"]
-      301 GETUPVAL                         R33 7
-      302 DUPTABLE                         R34 K58 [{"Position", "Size", "LoginPluginBridge"}]
-      303 GETIMPORT                        R35 K30 [UDim2.fromScale]
-      305 LOADN                            R36 0
-      306 LOADN                            R37 0
-      307 CALL                             R35 2 1
-      308 SETTABLEKS                       R35 R34 K18 ["Position"]
-      310 GETIMPORT                        R35 K28 [UDim2.new]
-      312 LOADK                            R36 K27 [0.5]
-      313 LOADN                            R37 0
-      314 LOADN                            R38 1
-      315 LOADN                            R39 0
-      316 CALL                             R35 4 1
-      317 SETTABLEKS                       R35 R34 K16 ["Size"]
-      319 GETTABLEKS                       R35 R0 K2 ["LoginPluginBridge"]
-      321 SETTABLEKS                       R35 R34 K2 ["LoginPluginBridge"]
-      323 CALL                             R32 2 1
-      324 SETTABLEKS                       R32 R31 K55 ["LeftPanel"]
-      326 GETUPVAL                         R32 1
-      327 GETTABLEKS                       R32 R32 K15 ["createElement"]
-      329 GETUPVAL                         R33 8
-      330 DUPTABLE                         R34 K59 [{"code", "resolvedQrImage", "Position", "Size", "onMinHeightChanged"}]
-      331 SETTABLEKS                       R22 R34 K51 ["code"]
-      333 SETTABLEKS                       R17 R34 K52 ["resolvedQrImage"]
-      335 GETIMPORT                        R35 K28 [UDim2.new]
-      337 LOADK                            R36 K27 [0.5]
-      338 LOADN                            R37 0
-      339 LOADN                            R38 0
-      340 LOADN                            R39 0
-      341 CALL                             R35 4 1
-      342 SETTABLEKS                       R35 R34 K18 ["Position"]
-      344 GETIMPORT                        R35 K28 [UDim2.new]
-      346 LOADK                            R36 K27 [0.5]
-      347 LOADN                            R37 0
-      348 LOADN                            R38 1
-      349 LOADN                            R39 0
-      350 CALL                             R35 4 1
-      351 SETTABLEKS                       R35 R34 K16 ["Size"]
-      353 SETTABLEKS                       R16 R34 K47 ["onMinHeightChanged"]
-      355 CALL                             R32 2 1
-      356 SETTABLEKS                       R32 R31 K56 ["RightPanel"]
-      358 CALL                             R28 3 1
-      359 SETTABLEKS                       R28 R27 K31 ["ContentArea"]
-      361 JUMPIFNOT                        R4 ; [+6]
-      362 GETUPVAL                         R28 1
-      363 GETTABLEKS                       R28 R28 K15 ["createElement"]
-      365 GETUPVAL                         R29 9
-      366 CALL                             R28 1 1
-      367 JUMP                             ; [+1]
-      368 LOADNIL                          R28
-      369 SETTABLEKS                       R28 R27 K32 ["LoadingPanel"]
-      371 CALL                             R24 3 1
-      372 GETUPVAL                         R25 1
-      373 GETTABLEKS                       R25 R25 K15 ["createElement"]
-      375 GETUPVAL                         R26 6
-      376 DUPTABLE                         R27 K61 [{"Size", "onAbsoluteSizeChanged"}]
-      377 GETIMPORT                        R28 K30 [UDim2.fromScale]
-      379 LOADN                            R29 1
-      380 LOADN                            R30 1
-      381 CALL                             R28 2 1
-      382 SETTABLEKS                       R28 R27 K16 ["Size"]
-      384 NEWCLOSURE                       R28 P3
-      385 CAPTURE                          VAL R10
-      386 CAPTURE                          VAL R12
-      387 SETTABLEKS                       R28 R27 K60 ["onAbsoluteSizeChanged"]
-      389 DUPTABLE                         R28 K65 [{"Background", "ScrollContainer", "Card"}]
-      390 GETUPVAL                         R29 1
-      391 GETTABLEKS                       R29 R29 K15 ["createElement"]
-      393 GETUPVAL                         R30 10
-      394 DUPTABLE                         R31 K72 [{["tag"] = "size-full-full", ["Image"] = "rbxasset://textures/LoginPage/Background.png", ["ScaleType"], ["ZIndex"] = 0}]
-      395 GETIMPORT                        R32 K75 [Enum.ScaleType.Crop]
-      397 SETTABLEKS                       R32 R31 K69 ["ScaleType"]
-      399 CALL                             R29 2 1
-      400 SETTABLEKS                       R29 R28 K62 ["Background"]
-      402 JUMPIFNOT                        R19 ; [+41]
-      403 GETUPVAL                         R29 1
-      404 GETTABLEKS                       R29 R29 K15 ["createElement"]
-      406 GETUPVAL                         R30 11
-      407 DUPTABLE                         R31 K77 [{"Size", "scroll"}]
-      408 GETIMPORT                        R32 K30 [UDim2.fromScale]
-      410 LOADN                            R33 1
-      411 LOADN                            R34 1
-      412 CALL                             R32 2 1
-      413 SETTABLEKS                       R32 R31 K16 ["Size"]
-      415 DUPTABLE                         R32 K81 [{"CanvasSize", "ScrollingDirection", "scrollBarVisibility"}]
-      416 GETIMPORT                        R33 K24 [UDim2.fromOffset]
-      418 LOADN                            R34 0
-      419 ADDK                             R36 R21 K82 [60]
-      420 ADDK                             R35 R36 K82 [60]
-      421 CALL                             R33 2 1
-      422 SETTABLEKS                       R33 R32 K78 ["CanvasSize"]
-      424 GETIMPORT                        R33 K84 [Enum.ScrollingDirection.Y]
-      426 SETTABLEKS                       R33 R32 K79 ["ScrollingDirection"]
-      428 GETUPVAL                         R33 12
-      429 GETTABLEKS                       R33 R33 K85 ["Enums"]
-      431 GETTABLEKS                       R33 R33 K86 ["Visibility"]
-      433 GETTABLEKS                       R33 R33 K87 ["None"]
-      435 SETTABLEKS                       R33 R32 K80 ["scrollBarVisibility"]
-      437 SETTABLEKS                       R32 R31 K76 ["scroll"]
-      439 DUPTABLE                         R32 K88 [{"Card"}]
-      440 SETTABLEKS                       R24 R32 K64 ["Card"]
-      442 CALL                             R29 3 1
-      443 JUMP                             ; [+1]
-      444 LOADNIL                          R29
-      445 SETTABLEKS                       R29 R28 K63 ["ScrollContainer"]
-      447 JUMPIFNOT                        R19 ; [+2]
-      448 LOADNIL                          R29
-      449 JUMP                             ; [+1]
-      450 MOVE                             R29 R24
-      451 SETTABLEKS                       R29 R28 K64 ["Card"]
-      453 CALL                             R25 3 -1
-      454 CLOSEUPVALS                      R23
-      455 RETURN                           R25 -1
+       23 GETUPVAL                         R5 4
+       24 GETTABLEKS                       R5 R5 K3 ["useImage"]
+       26 GETUPVAL                         R6 4
+       27 GETTABLEKS                       R6 R6 K4 ["BACKGROUND_IMAGE"]
+       29 GETIMPORT                        R7 K8 [Enum.ScaleType.Crop]
+       31 CALL                             R5 2 1
+       32 GETUPVAL                         R6 1
+       33 GETTABLEKS                       R6 R6 K0 ["useState"]
+       35 LOADNIL                          R7
+       36 CALL                             R6 1 2
+       37 GETUPVAL                         R8 1
+       38 GETTABLEKS                       R8 R8 K0 ["useState"]
+       40 LOADNIL                          R9
+       41 CALL                             R8 1 2
+       42 GETUPVAL                         R10 1
+       43 GETTABLEKS                       R10 R10 K0 ["useState"]
+       45 LOADN                            R11 720
+       46 CALL                             R10 1 2
+       47 GETUPVAL                         R12 1
+       48 GETTABLEKS                       R12 R12 K0 ["useState"]
+       50 LOADN                            R13 880
+       51 CALL                             R12 1 2
+       52 GETUPVAL                         R14 1
+       53 GETTABLEKS                       R14 R14 K0 ["useState"]
+       55 LOADN                            R15 0
+       56 CALL                             R14 1 2
+       57 GETUPVAL                         R16 1
+       58 GETTABLEKS                       R16 R16 K0 ["useState"]
+       60 LOADN                            R17 0
+       61 CALL                             R16 1 2
+       62 GETUPVAL                         R18 1
+       63 GETTABLEKS                       R18 R18 K0 ["useState"]
+       65 LOADK                            R19 K9 [""]
+       66 CALL                             R18 1 2
+       67 LOADN                            R21 850
+       68 JUMPIFLT                         R10 R21 ; [+2]
+       70 LOADB                            R20 0 +1
+       71 LOADB                            R20 1
+       72 GETTABLEKS                       R21 R1 K10 ["Padding"]
+       74 GETTABLEKS                       R21 R21 K11 ["XLarge"]
+       76 JUMPIFNOT                        R20 ; [+9]
+       77 LOADN                            R23 493
+       78 ADD                              R25 R14 R21
+       79 ADD                              R24 R25 R16
+       80 FASTCALL2                        MATH_MAX R23 R24 ; [+3]
+       82 GETIMPORT                        R22 K14 [math.max]
+       84 CALL                             R22 2 1
+       85 JUMP                             ; [+7]
+       86 LOADN                            R23 493
+       87 FASTCALL2                        MATH_MAX R23 R16 ; [+4]
+       89 MOVE                             R24 R16
+       90 GETIMPORT                        R22 K14 [math.max]
+       92 CALL                             R22 2 1
+       93 GETUPVAL                         R23 1
+       94 GETTABLEKS                       R23 R23 K1 ["useEffect"]
+       96 NEWCLOSURE                       R24 P1
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R0
+       99 CAPTURE                          UPVAL U3
+      100 CAPTURE                          VAL R9
+      101 CAPTURE                          VAL R7
+      102 NEWTABLE                         R25 0 2
+      104 GETTABLEKS                       R26 R0 K2 ["LoginPluginBridge"]
+      106 MOVE                             R27 R4
+      107 SETLIST                          R25 R26 2 [1]
+      109 CALL                             R23 2 0
+      110 JUMPIFNOT                        R6 ; [+3]
+      111 GETTABLEKS                       R23 R6 K15 ["Code"]
+      113 JUMP                             ; [+1]
+      114 LOADK                            R23 K16 ["------"]
+      115 LOADK                            R24 K9 [""]
+      116 JUMPIFNOT                        R6 ; [+15]
+      117 GETTABLEKS                       R25 R6 K17 ["ImagePath"]
+      119 JUMPIFEQKS                       R25 K9 [""] ; [+12]
+      121 GETUPVAL                         R25 5
+      122 GETTABLEKS                       R25 R25 K18 ["new"]
+      124 CALL                             R25 0 1
+      125 GETTABLEKS                       R25 R25 K19 ["APIS_URL"]
+      127 MOVE                             R26 R25
+      128 LOADK                            R27 K20 ["auth-token-service"]
+      129 GETTABLEKS                       R28 R6 K17 ["ImagePath"]
+      131 CONCAT                           R24 R26 R28
+      132 GETUPVAL                         R25 1
+      133 GETTABLEKS                       R25 R25 K1 ["useEffect"]
+      135 NEWCLOSURE                       R26 P2
+      136 CAPTURE                          REF R24
+      137 CAPTURE                          UPVAL U6
+      138 CAPTURE                          VAL R19
+      139 NEWTABLE                         R27 0 1
+      141 MOVE                             R28 R24
+      142 SETLIST                          R27 R28 1 [1]
+      144 CALL                             R25 2 0
+      145 GETUPVAL                         R25 1
+      146 GETTABLEKS                       R25 R25 K21 ["createElement"]
+      148 GETUPVAL                         R26 7
+      149 DUPTABLE                         R27 K27 [{["Size"], ["AnchorPoint"], ["Position"], ["tag"] = "stroke-emphasis radius-large clip bg-surface-0"}]
+      150 GETIMPORT                        R28 K30 [UDim2.fromOffset]
+      152 MOVE                             R29 R12
+      153 MOVE                             R30 R22
+      154 CALL                             R28 2 1
+      155 SETTABLEKS                       R28 R27 K22 ["Size"]
+      157 JUMPIFNOT                        R20 ; [+6]
+      158 GETIMPORT                        R28 K32 [Vector2.new]
+      160 LOADK                            R29 K33 [0.5]
+      161 LOADN                            R30 0
+      162 CALL                             R28 2 1
+      163 JUMP                             ; [+5]
+      164 GETIMPORT                        R28 K32 [Vector2.new]
+      166 LOADK                            R29 K33 [0.5]
+      167 LOADK                            R30 K33 [0.5]
+      168 CALL                             R28 2 1
+      169 SETTABLEKS                       R28 R27 K23 ["AnchorPoint"]
+      171 JUMPIFNOT                        R20 ; [+8]
+      172 GETIMPORT                        R28 K34 [UDim2.new]
+      174 LOADK                            R29 K33 [0.5]
+      175 LOADN                            R30 0
+      176 LOADN                            R31 0
+      177 LOADN                            R32 60
+      178 CALL                             R28 4 1
+      179 JUMP                             ; [+5]
+      180 GETIMPORT                        R28 K36 [UDim2.fromScale]
+      182 LOADK                            R29 K33 [0.5]
+      183 LOADK                            R30 K33 [0.5]
+      184 CALL                             R28 2 1
+      185 SETTABLEKS                       R28 R27 K24 ["Position"]
+      187 DUPTABLE                         R28 K39 [{"ContentArea", "LoadingPanel"}]
+      188 JUMPIFNOT                        R20 ; [+93]
+      189 GETUPVAL                         R29 1
+      190 GETTABLEKS                       R29 R29 K21 ["createElement"]
+      192 GETUPVAL                         R30 7
+      193 DUPTABLE                         R31 K42 [{["tag"] = "col align-x-center gap-xlarge size-full-full", ["Visible"]}]
+      194 NOT                              R32 R4
+      195 SETTABLEKS                       R32 R31 K41 ["Visible"]
+      197 DUPTABLE                         R32 K45 [{"TopPanelWrapper", "BottomPanelWrapper"}]
+      198 GETUPVAL                         R33 1
+      199 GETTABLEKS                       R33 R33 K21 ["createElement"]
+      201 GETUPVAL                         R34 7
+      202 DUPTABLE                         R35 K48 [{["Size"], ["LayoutOrder"] = 1}]
+      203 GETIMPORT                        R36 K34 [UDim2.new]
+      205 LOADN                            R37 1
+      206 LOADN                            R38 0
+      207 LOADN                            R39 0
+      208 MOVE                             R40 R14
+      209 CALL                             R36 4 1
+      210 SETTABLEKS                       R36 R35 K22 ["Size"]
+      212 DUPTABLE                         R36 K50 [{"Panel"}]
+      213 GETUPVAL                         R37 1
+      214 GETTABLEKS                       R37 R37 K21 ["createElement"]
+      216 GETUPVAL                         R38 8
+      217 DUPTABLE                         R39 K54 [{["isNarrow"] = True, ["onMinHeightChanged"], ["Size"], ["LoginPluginBridge"]}]
+      218 SETTABLEKS                       R15 R39 K53 ["onMinHeightChanged"]
+      220 GETIMPORT                        R40 K34 [UDim2.new]
+      222 LOADN                            R41 1
+      223 LOADN                            R42 0
+      224 LOADN                            R43 1
+      225 LOADN                            R44 0
+      226 CALL                             R40 4 1
+      227 SETTABLEKS                       R40 R39 K22 ["Size"]
+      229 GETTABLEKS                       R40 R0 K2 ["LoginPluginBridge"]
+      231 SETTABLEKS                       R40 R39 K2 ["LoginPluginBridge"]
+      233 CALL                             R37 2 1
+      234 SETTABLEKS                       R37 R36 K49 ["Panel"]
+      236 CALL                             R33 3 1
+      237 SETTABLEKS                       R33 R32 K43 ["TopPanelWrapper"]
+      239 GETUPVAL                         R33 1
+      240 GETTABLEKS                       R33 R33 K21 ["createElement"]
+      242 GETUPVAL                         R34 7
+      243 DUPTABLE                         R35 K56 [{["Size"], ["LayoutOrder"] = 2}]
+      244 GETIMPORT                        R36 K34 [UDim2.new]
+      246 LOADN                            R37 1
+      247 LOADN                            R38 0
+      248 LOADN                            R39 0
+      249 MOVE                             R40 R16
+      250 CALL                             R36 4 1
+      251 SETTABLEKS                       R36 R35 K22 ["Size"]
+      253 DUPTABLE                         R36 K50 [{"Panel"}]
+      254 GETUPVAL                         R37 1
+      255 GETTABLEKS                       R37 R37 K21 ["createElement"]
+      257 GETUPVAL                         R38 9
+      258 DUPTABLE                         R39 K59 [{["code"], ["resolvedQrImage"], ["isNarrow"] = True, ["onMinHeightChanged"], ["Size"]}]
+      259 SETTABLEKS                       R23 R39 K57 ["code"]
+      261 SETTABLEKS                       R18 R39 K58 ["resolvedQrImage"]
+      263 SETTABLEKS                       R17 R39 K53 ["onMinHeightChanged"]
+      265 GETIMPORT                        R40 K34 [UDim2.new]
+      267 LOADN                            R41 1
+      268 LOADN                            R42 0
+      269 LOADN                            R43 1
+      270 LOADN                            R44 0
+      271 CALL                             R40 4 1
+      272 SETTABLEKS                       R40 R39 K22 ["Size"]
+      274 CALL                             R37 2 1
+      275 SETTABLEKS                       R37 R36 K49 ["Panel"]
+      277 CALL                             R33 3 1
+      278 SETTABLEKS                       R33 R32 K44 ["BottomPanelWrapper"]
+      280 CALL                             R29 3 1
+      281 JUMP                             ; [+86]
+      282 GETUPVAL                         R29 1
+      283 GETTABLEKS                       R29 R29 K21 ["createElement"]
+      285 GETUPVAL                         R30 7
+      286 DUPTABLE                         R31 K60 [{"Position", "Size", "Visible"}]
+      287 GETIMPORT                        R32 K30 [UDim2.fromOffset]
+      289 LOADN                            R33 0
+      290 LOADN                            R34 0
+      291 CALL                             R32 2 1
+      292 SETTABLEKS                       R32 R31 K24 ["Position"]
+      294 GETIMPORT                        R32 K34 [UDim2.new]
+      296 LOADN                            R33 1
+      297 LOADN                            R34 -48
+      298 LOADN                            R35 1
+      299 LOADN                            R36 0
+      300 CALL                             R32 4 1
+      301 SETTABLEKS                       R32 R31 K22 ["Size"]
+      303 NOT                              R32 R4
+      304 SETTABLEKS                       R32 R31 K41 ["Visible"]
+      306 DUPTABLE                         R32 K63 [{"LeftPanel", "RightPanel"}]
+      307 GETUPVAL                         R33 1
+      308 GETTABLEKS                       R33 R33 K21 ["createElement"]
+      310 GETUPVAL                         R34 8
+      311 DUPTABLE                         R35 K64 [{"Position", "Size", "LoginPluginBridge"}]
+      312 GETIMPORT                        R36 K36 [UDim2.fromScale]
+      314 LOADN                            R37 0
+      315 LOADN                            R38 0
+      316 CALL                             R36 2 1
+      317 SETTABLEKS                       R36 R35 K24 ["Position"]
+      319 GETIMPORT                        R36 K34 [UDim2.new]
+      321 LOADK                            R37 K33 [0.5]
+      322 LOADN                            R38 0
+      323 LOADN                            R39 1
+      324 LOADN                            R40 0
+      325 CALL                             R36 4 1
+      326 SETTABLEKS                       R36 R35 K22 ["Size"]
+      328 GETTABLEKS                       R36 R0 K2 ["LoginPluginBridge"]
+      330 SETTABLEKS                       R36 R35 K2 ["LoginPluginBridge"]
+      332 CALL                             R33 2 1
+      333 SETTABLEKS                       R33 R32 K61 ["LeftPanel"]
+      335 GETUPVAL                         R33 1
+      336 GETTABLEKS                       R33 R33 K21 ["createElement"]
+      338 GETUPVAL                         R34 9
+      339 DUPTABLE                         R35 K65 [{"code", "resolvedQrImage", "Position", "Size", "onMinHeightChanged"}]
+      340 SETTABLEKS                       R23 R35 K57 ["code"]
+      342 SETTABLEKS                       R18 R35 K58 ["resolvedQrImage"]
+      344 GETIMPORT                        R36 K34 [UDim2.new]
+      346 LOADK                            R37 K33 [0.5]
+      347 LOADN                            R38 0
+      348 LOADN                            R39 0
+      349 LOADN                            R40 0
+      350 CALL                             R36 4 1
+      351 SETTABLEKS                       R36 R35 K24 ["Position"]
+      353 GETIMPORT                        R36 K34 [UDim2.new]
+      355 LOADK                            R37 K33 [0.5]
+      356 LOADN                            R38 0
+      357 LOADN                            R39 1
+      358 LOADN                            R40 0
+      359 CALL                             R36 4 1
+      360 SETTABLEKS                       R36 R35 K22 ["Size"]
+      362 SETTABLEKS                       R17 R35 K53 ["onMinHeightChanged"]
+      364 CALL                             R33 2 1
+      365 SETTABLEKS                       R33 R32 K62 ["RightPanel"]
+      367 CALL                             R29 3 1
+      368 SETTABLEKS                       R29 R28 K37 ["ContentArea"]
+      370 JUMPIFNOT                        R4 ; [+6]
+      371 GETUPVAL                         R29 1
+      372 GETTABLEKS                       R29 R29 K21 ["createElement"]
+      374 GETUPVAL                         R30 10
+      375 CALL                             R29 1 1
+      376 JUMP                             ; [+1]
+      377 LOADNIL                          R29
+      378 SETTABLEKS                       R29 R28 K38 ["LoadingPanel"]
+      380 CALL                             R25 3 1
+      381 GETUPVAL                         R26 1
+      382 GETTABLEKS                       R26 R26 K21 ["createElement"]
+      384 GETUPVAL                         R27 7
+      385 DUPTABLE                         R28 K67 [{"Size", "onAbsoluteSizeChanged"}]
+      386 GETIMPORT                        R29 K36 [UDim2.fromScale]
+      388 LOADN                            R30 1
+      389 LOADN                            R31 1
+      390 CALL                             R29 2 1
+      391 SETTABLEKS                       R29 R28 K22 ["Size"]
+      393 NEWCLOSURE                       R29 P3
+      394 CAPTURE                          VAL R11
+      395 CAPTURE                          VAL R13
+      396 SETTABLEKS                       R29 R28 K66 ["onAbsoluteSizeChanged"]
+      398 DUPTABLE                         R29 K71 [{"Background", "ScrollContainer", "Card"}]
+      399 GETUPVAL                         R31 2
+      400 GETTABLEKS                       R31 R31 K72 ["getFFlagLoginPageEnableBlankImageFallback"]
+      402 CALL                             R31 0 1
+      403 JUMPIFNOT                        R31 ; [+19]
+      404 GETUPVAL                         R30 1
+      405 GETTABLEKS                       R30 R30 K21 ["createElement"]
+      407 GETUPVAL                         R31 11
+      408 DUPTABLE                         R32 K78 [{["tag"] = "size-full-full", ["Image"], ["ImageContent"], ["ScaleType"], ["ZIndex"] = 0}]
+      409 GETTABLEKS                       R33 R5 K74 ["Image"]
+      411 SETTABLEKS                       R33 R32 K74 ["Image"]
+      413 GETTABLEKS                       R33 R5 K75 ["ImageContent"]
+      415 SETTABLEKS                       R33 R32 K75 ["ImageContent"]
+      417 GETTABLEKS                       R33 R5 K6 ["ScaleType"]
+      419 SETTABLEKS                       R33 R32 K6 ["ScaleType"]
+      421 CALL                             R30 2 1
+      422 JUMP                             ; [+15]
+      423 GETUPVAL                         R30 1
+      424 GETTABLEKS                       R30 R30 K21 ["createElement"]
+      426 GETUPVAL                         R31 11
+      427 DUPTABLE                         R32 K79 [{["tag"] = "size-full-full", ["Image"], ["ScaleType"], ["ZIndex"] = 0}]
+      428 GETUPVAL                         R33 4
+      429 GETTABLEKS                       R33 R33 K4 ["BACKGROUND_IMAGE"]
+      431 SETTABLEKS                       R33 R32 K74 ["Image"]
+      433 GETIMPORT                        R33 K8 [Enum.ScaleType.Crop]
+      435 SETTABLEKS                       R33 R32 K6 ["ScaleType"]
+      437 CALL                             R30 2 1
+      438 SETTABLEKS                       R30 R29 K68 ["Background"]
+      440 JUMPIFNOT                        R20 ; [+41]
+      441 GETUPVAL                         R30 1
+      442 GETTABLEKS                       R30 R30 K21 ["createElement"]
+      444 GETUPVAL                         R31 12
+      445 DUPTABLE                         R32 K81 [{"Size", "scroll"}]
+      446 GETIMPORT                        R33 K36 [UDim2.fromScale]
+      448 LOADN                            R34 1
+      449 LOADN                            R35 1
+      450 CALL                             R33 2 1
+      451 SETTABLEKS                       R33 R32 K22 ["Size"]
+      453 DUPTABLE                         R33 K85 [{"CanvasSize", "ScrollingDirection", "scrollBarVisibility"}]
+      454 GETIMPORT                        R34 K30 [UDim2.fromOffset]
+      456 LOADN                            R35 0
+      457 ADDK                             R37 R22 K86 [60]
+      458 ADDK                             R36 R37 K86 [60]
+      459 CALL                             R34 2 1
+      460 SETTABLEKS                       R34 R33 K82 ["CanvasSize"]
+      462 GETIMPORT                        R34 K88 [Enum.ScrollingDirection.Y]
+      464 SETTABLEKS                       R34 R33 K83 ["ScrollingDirection"]
+      466 GETUPVAL                         R34 13
+      467 GETTABLEKS                       R34 R34 K89 ["Enums"]
+      469 GETTABLEKS                       R34 R34 K90 ["Visibility"]
+      471 GETTABLEKS                       R34 R34 K91 ["None"]
+      473 SETTABLEKS                       R34 R33 K84 ["scrollBarVisibility"]
+      475 SETTABLEKS                       R33 R32 K80 ["scroll"]
+      477 DUPTABLE                         R33 K92 [{"Card"}]
+      478 SETTABLEKS                       R25 R33 K70 ["Card"]
+      480 CALL                             R30 3 1
+      481 JUMP                             ; [+1]
+      482 LOADNIL                          R30
+      483 SETTABLEKS                       R30 R29 K69 ["ScrollContainer"]
+      485 JUMPIFNOT                        R20 ; [+2]
+      486 LOADNIL                          R30
+      487 JUMP                             ; [+1]
+      488 MOVE                             R30 R25
+      489 SETTABLEKS                       R30 R29 K70 ["Card"]
+      491 CALL                             R26 3 -1
+      492 CLOSEUPVALS                      R24
+      493 RETURN                           R26 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -939,54 +964,60 @@ MAIN:
        80 GETTABLEKS                       R17 R17 K28 ["Analytics"]
        82 CALL                             R16 1 1
        83 GETIMPORT                        R17 K5 [require]
-       85 GETTABLEKS                       R18 R0 K29 ["Bin"]
-       87 GETTABLEKS                       R18 R18 K30 ["Common"]
-       89 GETTABLEKS                       R18 R18 K31 ["defineLuaFlags"]
+       85 GETTABLEKS                       R18 R0 K25 ["Src"]
+       87 GETTABLEKS                       R18 R18 K26 ["Util"]
+       89 GETTABLEKS                       R18 R18 K29 ["LoginPageImages"]
        91 CALL                             R17 1 1
        92 GETIMPORT                        R18 K5 [require]
-       94 GETIMPORT                        R19 K1 [script]
-       96 GETTABLEKS                       R19 R19 K32 ["Parent"]
-       98 GETTABLEKS                       R19 R19 K33 ["WebSignInPanel"]
+       94 GETTABLEKS                       R19 R0 K30 ["Bin"]
+       96 GETTABLEKS                       R19 R19 K31 ["Common"]
+       98 GETTABLEKS                       R19 R19 K32 ["defineLuaFlags"]
       100 CALL                             R18 1 1
       101 GETIMPORT                        R19 K5 [require]
       103 GETIMPORT                        R20 K1 [script]
-      105 GETTABLEKS                       R20 R20 K32 ["Parent"]
-      107 GETTABLEKS                       R20 R20 K34 ["QuickSignInPanel"]
+      105 GETTABLEKS                       R20 R20 K33 ["Parent"]
+      107 GETTABLEKS                       R20 R20 K34 ["WebSignInPanel"]
       109 CALL                             R19 1 1
-      110 GETTABLEKS                       R20 R15 K35 ["StartPageManager"]
-      112 GETIMPORT                        R21 K38 [UDim2.fromOffset]
-      114 LOADN                            R22 179
-      115 LOADN                            R23 90
-      116 CALL                             R21 2 1
-      117 GETIMPORT                        R22 K38 [UDim2.fromOffset]
-      119 LOADN                            R23 179
-      120 LOADN                            R24 22
-      121 CALL                             R22 2 1
-      122 DUPCLOSURE                       R23 K39 [PROTO_0]
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R13
-      125 CAPTURE                          VAL R10
-      126 CAPTURE                          VAL R21
-      127 CAPTURE                          VAL R5
-      128 CAPTURE                          VAL R6
-      129 CAPTURE                          VAL R7
-      130 CAPTURE                          VAL R9
-      131 CAPTURE                          VAL R22
-      132 DUPCLOSURE                       R24 K40 [PROTO_1]
-      133 DUPCLOSURE                       R25 K41 [PROTO_2]
-      134 DUPCLOSURE                       R26 K42 [PROTO_3]
-      135 DUPCLOSURE                       R27 K43 [PROTO_22]
-      136 CAPTURE                          VAL R3
-      137 CAPTURE                          VAL R1
-      138 CAPTURE                          VAL R17
-      139 CAPTURE                          VAL R16
-      140 CAPTURE                          VAL R14
-      141 CAPTURE                          VAL R20
-      142 CAPTURE                          VAL R10
-      143 CAPTURE                          VAL R18
-      144 CAPTURE                          VAL R19
-      145 CAPTURE                          VAL R23
-      146 CAPTURE                          VAL R4
-      147 CAPTURE                          VAL R8
-      148 CAPTURE                          VAL R2
-      149 RETURN                           R27 1
+      110 GETIMPORT                        R20 K5 [require]
+      112 GETIMPORT                        R21 K1 [script]
+      114 GETTABLEKS                       R21 R21 K33 ["Parent"]
+      116 GETTABLEKS                       R21 R21 K35 ["QuickSignInPanel"]
+      118 CALL                             R20 1 1
+      119 GETTABLEKS                       R21 R15 K36 ["StartPageManager"]
+      121 GETIMPORT                        R22 K39 [UDim2.fromOffset]
+      123 LOADN                            R23 179
+      124 LOADN                            R24 90
+      125 CALL                             R22 2 1
+      126 GETIMPORT                        R23 K39 [UDim2.fromOffset]
+      128 LOADN                            R24 179
+      129 LOADN                            R25 22
+      130 CALL                             R23 2 1
+      131 DUPCLOSURE                       R24 K40 [PROTO_0]
+      132 CAPTURE                          VAL R1
+      133 CAPTURE                          VAL R13
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          VAL R22
+      136 CAPTURE                          VAL R5
+      137 CAPTURE                          VAL R6
+      138 CAPTURE                          VAL R7
+      139 CAPTURE                          VAL R9
+      140 CAPTURE                          VAL R23
+      141 DUPCLOSURE                       R25 K41 [PROTO_1]
+      142 DUPCLOSURE                       R26 K42 [PROTO_2]
+      143 DUPCLOSURE                       R27 K43 [PROTO_3]
+      144 DUPCLOSURE                       R28 K44 [PROTO_22]
+      145 CAPTURE                          VAL R3
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R18
+      148 CAPTURE                          VAL R16
+      149 CAPTURE                          VAL R17
+      150 CAPTURE                          VAL R14
+      151 CAPTURE                          VAL R21
+      152 CAPTURE                          VAL R10
+      153 CAPTURE                          VAL R19
+      154 CAPTURE                          VAL R20
+      155 CAPTURE                          VAL R24
+      156 CAPTURE                          VAL R4
+      157 CAPTURE                          VAL R8
+      158 CAPTURE                          VAL R2
+      159 RETURN                           R28 1

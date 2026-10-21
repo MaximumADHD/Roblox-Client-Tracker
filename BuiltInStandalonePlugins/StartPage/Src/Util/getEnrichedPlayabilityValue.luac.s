@@ -6,157 +6,145 @@ PROTO_0:
         5 GETIMPORT                        R2 K2 [assert]
         7 CALL                             R2 2 0
         8 GETUPVAL                         R2 1
-        9 CALL                             R2 0 1
-       10 JUMPIFNOT                        R2 ; [+8]
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R3 R0 K3 ["ReachStatus"]
-       14 CALL                             R2 1 1
-       15 JUMPIFNOT                        R2 ; [+3]
-       16 GETTABLEKS                       R3 R2 K4 ["label"]
-       18 RETURN                           R3 1
-       19 GETUPVAL                         R2 3
-       20 CALL                             R2 0 1
-       21 JUMPIF                           R2 ; [+4]
-       22 GETTABLEKS                       R3 R0 K6 ["PrivacyType"]
-       24 ORK                              R2 R3 K5 [""]
-       25 RETURN                           R2 1
-       26 LOADNIL                          R2
-       27 LOADNIL                          R3
-       28 GETUPVAL                         R4 4
-       29 CALL                             R4 0 1
-       30 JUMPIFNOT                        R4 ; [+21]
-       31 GETTABLEKS                       R4 R0 K7 ["Audiences"]
-       33 JUMPIFEQKNIL                     R4 ; [+18]
-       35 GETTABLEKS                       R4 R0 K7 ["Audiences"]
-       37 GETUPVAL                         R5 5
-       38 MOVE                             R6 R4
-       39 CALL                             R5 1 1
-       40 NOT                              R2 R5
-       41 MOVE                             R5 R2
-       42 JUMPIFNOT                        R5 ; [+7]
-       43 GETUPVAL                         R6 6
-       44 MOVE                             R7 R4
-       45 GETUPVAL                         R8 7
-       46 GETTABLEKS                       R8 R8 K8 ["Public"]
-       48 CALL                             R6 2 1
-       49 NOT                              R5 R6
-       50 MOVE                             R3 R5
-       51 JUMP                             ; [+8]
-       52 GETTABLEKS                       R4 R0 K6 ["PrivacyType"]
-       54 JUMPIFEQKS                       R4 K8 ["Public"] ; [+2]
-       56 LOADB                            R2 0 +1
-       57 LOADB                            R2 1
-       58 GETTABLEKS                       R3 R0 K9 ["IsFriendsOnly"]
-       60 JUMPIF                           R2 ; [+6]
-       61 LOADK                            R6 K10 ["Plugin"]
-       62 LOADK                            R7 K11 ["PrivacyType.Private"]
-       63 NAMECALL                         R4 R1 K12 ["getText"]
-       65 CALL                             R4 3 -1
-       66 RETURN                           R4 -1
-       67 GETTABLEKS                       R5 R0 K13 ["ContentMaturity"]
-       69 JUMPIFEQKS                       R5 K14 ["unrated"] ; [+2]
-       71 LOADB                            R4 0 +1
-       72 LOADB                            R4 1
-       73 GETTABLEKS                       R5 R0 K15 ["IsSequestered"]
-       75 JUMPIFNOT                        R2 ; [+8]
-       76 JUMPIF                           R4 ; [+1]
-       77 JUMPIFNOT                        R5 ; [+6]
-       78 LOADK                            R8 K10 ["Plugin"]
-       79 LOADK                            R9 K16 ["PrivacyType.Unplayable"]
-       80 NAMECALL                         R6 R1 K12 ["getText"]
-       82 CALL                             R6 3 -1
-       83 RETURN                           R6 -1
-       84 JUMPIFNOT                        R2 ; [+9]
-       85 GETTABLEKS                       R6 R0 K17 ["IsDiscoveryBlocked"]
-       87 JUMPIFNOT                        R6 ; [+6]
-       88 LOADK                            R8 K10 ["Plugin"]
-       89 LOADK                            R9 K18 ["PrivacyType.NeedsAttention"]
-       90 NAMECALL                         R6 R1 K12 ["getText"]
-       92 CALL                             R6 3 -1
-       93 RETURN                           R6 -1
-       94 GETTABLEKS                       R6 R0 K19 ["AgeRecommendation"]
-       96 MOVE                             R7 R2
-       97 JUMPIFNOT                        R7 ; [+8]
-       98 NOT                              R7 R4
-       99 JUMPIFNOT                        R7 ; [+6]
-      100 GETTABLEKS                       R8 R0 K20 ["CoreContentSelectStatus"]
-      102 JUMPIFEQKS                       R8 K21 ["Eligible"] ; [+2]
-      104 LOADB                            R7 0 +1
-      105 LOADB                            R7 1
-      106 MOVE                             R8 R7
-      107 JUMPIFNOT                        R8 ; [+13]
-      108 LOADB                            R8 0
-      109 GETTABLEKS                       R9 R0 K22 ["CoreContentReasons"]
-      111 JUMPIFEQKNIL                     R9 ; [+9]
-      113 GETTABLEKS                       R10 R0 K22 ["CoreContentReasons"]
-      115 LENGTH                           R9 R10
-      116 LOADN                            R10 0
-      117 JUMPIFLT                         R10 R9 ; [+2]
-      119 LOADB                            R8 0 +1
-      120 LOADB                            R8 1
-      121 JUMPIFNOT                        R2 ; [+13]
-      122 JUMPIFEQKNIL                     R6 ; [+4]
-      124 GETUPVAL                         R9 8
-      125 JUMPIFNOTLT                      R6 R9 ; [+9]
-      127 JUMPIFNOT                        R7 ; [+7]
-      128 JUMPIFNOT                        R8 ; [+6]
-      129 LOADK                            R11 K10 ["Plugin"]
-      130 LOADK                            R12 K18 ["PrivacyType.NeedsAttention"]
-      131 NAMECALL                         R9 R1 K12 ["getText"]
-      133 CALL                             R9 3 -1
-      134 RETURN                           R9 -1
-      135 JUMPIFNOT                        R2 ; [+7]
-      136 JUMPIFNOT                        R3 ; [+6]
-      137 LOADK                            R11 K10 ["Plugin"]
-      138 LOADK                            R12 K23 ["PrivacyType.Limited"]
-      139 NAMECALL                         R9 R1 K12 ["getText"]
-      141 CALL                             R9 3 -1
-      142 RETURN                           R9 -1
-      143 LOADNIL                          R9
-      144 JUMPIFNOT                        R7 ; [+6]
-      145 JUMPIFEQKNIL                     R6 ; [+3]
-      147 MOVE                             R9 R6
-      148 JUMP                             ; [+14]
-      149 LOADN                            R9 0
-      150 JUMP                             ; [+12]
-      151 GETUPVAL                         R11 8
-      152 JUMPIFEQKNIL                     R6 ; [+3]
-      154 MOVE                             R12 R6
-      155 JUMP                             ; [+1]
-      156 LOADN                            R12 0
-      157 FASTCALL2                        MATH_MAX R11 R12 ; [+3]
-      159 GETIMPORT                        R10 K26 [math.max]
-      161 CALL                             R10 2 1
-      162 MOVE                             R9 R10
-      163 LOADNIL                          R10
-      164 GETUPVAL                         R11 8
-      165 JUMPIFNOTLE                      R11 R9 ; [+8]
-      167 GETUPVAL                         R12 8
-      168 FASTCALL1                        TOSTRING R12 ; [+2]
-      169 GETIMPORT                        R11 K28 [tostring]
-      171 CALL                             R11 1 1
-      172 MOVE                             R10 R11
-      173 JUMP                             ; [+9]
-      174 GETUPVAL                         R11 9
-      175 JUMPIFNOTLE                      R11 R9 ; [+7]
-      177 GETUPVAL                         R12 9
-      178 FASTCALL1                        TOSTRING R12 ; [+2]
-      179 GETIMPORT                        R11 K28 [tostring]
-      181 CALL                             R11 1 1
-      182 MOVE                             R10 R11
-      183 JUMPIFEQKNIL                     R10 ; [+10]
-      185 LOADK                            R13 K10 ["Plugin"]
-      186 LOADK                            R14 K29 ["PrivacyType.PublicAgeGated"]
-      187 DUPTABLE                         R15 K31 [{"minAge"}]
-      188 SETTABLEKS                       R10 R15 K30 ["minAge"]
-      190 NAMECALL                         R11 R1 K12 ["getText"]
-      192 CALL                             R11 4 -1
-      193 RETURN                           R11 -1
-      194 LOADK                            R13 K10 ["Plugin"]
-      195 LOADK                            R14 K32 ["PrivacyType.PublicAllAges"]
-      196 NAMECALL                         R11 R1 K12 ["getText"]
-      198 CALL                             R11 3 -1
-      199 RETURN                           R11 -1
+        9 GETTABLEKS                       R3 R0 K3 ["ReachStatus"]
+       11 CALL                             R2 1 1
+       12 JUMPIFNOT                        R2 ; [+3]
+       13 GETTABLEKS                       R3 R2 K4 ["label"]
+       15 RETURN                           R3 1
+       16 LOADNIL                          R3
+       17 LOADNIL                          R4
+       18 GETTABLEKS                       R5 R0 K5 ["Audiences"]
+       20 JUMPIFEQKNIL                     R5 ; [+18]
+       22 GETTABLEKS                       R5 R0 K5 ["Audiences"]
+       24 GETUPVAL                         R6 2
+       25 MOVE                             R7 R5
+       26 CALL                             R6 1 1
+       27 NOT                              R3 R6
+       28 MOVE                             R6 R3
+       29 JUMPIFNOT                        R6 ; [+7]
+       30 GETUPVAL                         R7 3
+       31 MOVE                             R8 R5
+       32 GETUPVAL                         R9 4
+       33 GETTABLEKS                       R9 R9 K6 ["Public"]
+       35 CALL                             R7 2 1
+       36 NOT                              R6 R7
+       37 MOVE                             R4 R6
+       38 JUMP                             ; [+8]
+       39 GETTABLEKS                       R5 R0 K7 ["PrivacyType"]
+       41 JUMPIFEQKS                       R5 K6 ["Public"] ; [+2]
+       43 LOADB                            R3 0 +1
+       44 LOADB                            R3 1
+       45 GETTABLEKS                       R4 R0 K8 ["IsFriendsOnly"]
+       47 JUMPIF                           R3 ; [+6]
+       48 LOADK                            R7 K9 ["Plugin"]
+       49 LOADK                            R8 K10 ["PrivacyType.Private"]
+       50 NAMECALL                         R5 R1 K11 ["getText"]
+       52 CALL                             R5 3 -1
+       53 RETURN                           R5 -1
+       54 GETTABLEKS                       R6 R0 K12 ["ContentMaturity"]
+       56 JUMPIFEQKS                       R6 K13 ["unrated"] ; [+2]
+       58 LOADB                            R5 0 +1
+       59 LOADB                            R5 1
+       60 GETTABLEKS                       R6 R0 K14 ["IsSequestered"]
+       62 JUMPIFNOT                        R3 ; [+8]
+       63 JUMPIF                           R5 ; [+1]
+       64 JUMPIFNOT                        R6 ; [+6]
+       65 LOADK                            R9 K9 ["Plugin"]
+       66 LOADK                            R10 K15 ["PrivacyType.Unplayable"]
+       67 NAMECALL                         R7 R1 K11 ["getText"]
+       69 CALL                             R7 3 -1
+       70 RETURN                           R7 -1
+       71 JUMPIFNOT                        R3 ; [+9]
+       72 GETTABLEKS                       R7 R0 K16 ["IsDiscoveryBlocked"]
+       74 JUMPIFNOT                        R7 ; [+6]
+       75 LOADK                            R9 K9 ["Plugin"]
+       76 LOADK                            R10 K17 ["PrivacyType.NeedsAttention"]
+       77 NAMECALL                         R7 R1 K11 ["getText"]
+       79 CALL                             R7 3 -1
+       80 RETURN                           R7 -1
+       81 GETTABLEKS                       R7 R0 K18 ["AgeRecommendation"]
+       83 MOVE                             R8 R3
+       84 JUMPIFNOT                        R8 ; [+8]
+       85 NOT                              R8 R5
+       86 JUMPIFNOT                        R8 ; [+6]
+       87 GETTABLEKS                       R9 R0 K19 ["CoreContentSelectStatus"]
+       89 JUMPIFEQKS                       R9 K20 ["Eligible"] ; [+2]
+       91 LOADB                            R8 0 +1
+       92 LOADB                            R8 1
+       93 MOVE                             R9 R8
+       94 JUMPIFNOT                        R9 ; [+13]
+       95 LOADB                            R9 0
+       96 GETTABLEKS                       R10 R0 K21 ["CoreContentReasons"]
+       98 JUMPIFEQKNIL                     R10 ; [+9]
+      100 GETTABLEKS                       R11 R0 K21 ["CoreContentReasons"]
+      102 LENGTH                           R10 R11
+      103 LOADN                            R11 0
+      104 JUMPIFLT                         R11 R10 ; [+2]
+      106 LOADB                            R9 0 +1
+      107 LOADB                            R9 1
+      108 JUMPIFNOT                        R3 ; [+13]
+      109 JUMPIFEQKNIL                     R7 ; [+4]
+      111 GETUPVAL                         R10 5
+      112 JUMPIFNOTLT                      R7 R10 ; [+9]
+      114 JUMPIFNOT                        R8 ; [+7]
+      115 JUMPIFNOT                        R9 ; [+6]
+      116 LOADK                            R12 K9 ["Plugin"]
+      117 LOADK                            R13 K17 ["PrivacyType.NeedsAttention"]
+      118 NAMECALL                         R10 R1 K11 ["getText"]
+      120 CALL                             R10 3 -1
+      121 RETURN                           R10 -1
+      122 JUMPIFNOT                        R3 ; [+7]
+      123 JUMPIFNOT                        R4 ; [+6]
+      124 LOADK                            R12 K9 ["Plugin"]
+      125 LOADK                            R13 K22 ["PrivacyType.Limited"]
+      126 NAMECALL                         R10 R1 K11 ["getText"]
+      128 CALL                             R10 3 -1
+      129 RETURN                           R10 -1
+      130 LOADNIL                          R10
+      131 JUMPIFNOT                        R8 ; [+6]
+      132 JUMPIFEQKNIL                     R7 ; [+3]
+      134 MOVE                             R10 R7
+      135 JUMP                             ; [+14]
+      136 LOADN                            R10 0
+      137 JUMP                             ; [+12]
+      138 GETUPVAL                         R12 5
+      139 JUMPIFEQKNIL                     R7 ; [+3]
+      141 MOVE                             R13 R7
+      142 JUMP                             ; [+1]
+      143 LOADN                            R13 0
+      144 FASTCALL2                        MATH_MAX R12 R13 ; [+3]
+      146 GETIMPORT                        R11 K25 [math.max]
+      148 CALL                             R11 2 1
+      149 MOVE                             R10 R11
+      150 LOADNIL                          R11
+      151 GETUPVAL                         R12 5
+      152 JUMPIFNOTLE                      R12 R10 ; [+8]
+      154 GETUPVAL                         R13 5
+      155 FASTCALL1                        TOSTRING R13 ; [+2]
+      156 GETIMPORT                        R12 K27 [tostring]
+      158 CALL                             R12 1 1
+      159 MOVE                             R11 R12
+      160 JUMP                             ; [+9]
+      161 GETUPVAL                         R12 6
+      162 JUMPIFNOTLE                      R12 R10 ; [+7]
+      164 GETUPVAL                         R13 6
+      165 FASTCALL1                        TOSTRING R13 ; [+2]
+      166 GETIMPORT                        R12 K27 [tostring]
+      168 CALL                             R12 1 1
+      169 MOVE                             R11 R12
+      170 JUMPIFEQKNIL                     R11 ; [+10]
+      172 LOADK                            R14 K9 ["Plugin"]
+      173 LOADK                            R15 K28 ["PrivacyType.PublicAgeGated"]
+      174 DUPTABLE                         R16 K30 [{"minAge"}]
+      175 SETTABLEKS                       R11 R16 K29 ["minAge"]
+      177 NAMECALL                         R12 R1 K11 ["getText"]
+      179 CALL                             R12 4 -1
+      180 RETURN                           R12 -1
+      181 LOADK                            R14 K9 ["Plugin"]
+      182 LOADK                            R15 K31 ["PrivacyType.PublicAllAges"]
+      183 NAMECALL                         R12 R1 K11 ["getText"]
+      185 CALL                             R12 3 -1
+      186 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -187,40 +175,22 @@ MAIN:
        44 CALL                             R6 1 1
        45 GETIMPORT                        R7 K5 [require]
        47 GETTABLEKS                       R8 R0 K6 ["Src"]
-       49 GETTABLEKS                       R8 R8 K14 ["SharedFlags"]
-       51 GETTABLEKS                       R8 R8 K16 ["getFFlagLuaStartPageCoreContentStatus"]
+       49 GETTABLEKS                       R8 R8 K10 ["Util"]
+       51 GETTABLEKS                       R8 R8 K16 ["getReachStatusBadgePresentation"]
        53 CALL                             R7 1 1
        54 GETIMPORT                        R8 K5 [require]
        56 GETTABLEKS                       R9 R0 K6 ["Src"]
-       58 GETTABLEKS                       R9 R9 K14 ["SharedFlags"]
-       60 GETTABLEKS                       R9 R9 K17 ["getFFlagLuaStartPageAudiencesReplacement"]
+       58 GETTABLEKS                       R9 R9 K10 ["Util"]
+       60 GETTABLEKS                       R9 R9 K17 ["CoreContentStatusConstants"]
        62 CALL                             R8 1 1
-       63 GETIMPORT                        R9 K5 [require]
-       65 GETTABLEKS                       R10 R0 K6 ["Src"]
-       67 GETTABLEKS                       R10 R10 K14 ["SharedFlags"]
-       69 GETTABLEKS                       R10 R10 K18 ["getFFlagLuaStartPageReachStatus"]
-       71 CALL                             R9 1 1
-       72 GETIMPORT                        R10 K5 [require]
-       74 GETTABLEKS                       R11 R0 K6 ["Src"]
-       76 GETTABLEKS                       R11 R11 K10 ["Util"]
-       78 GETTABLEKS                       R11 R11 K19 ["getReachStatusBadgePresentation"]
-       80 CALL                             R10 1 1
-       81 GETIMPORT                        R11 K5 [require]
-       83 GETTABLEKS                       R12 R0 K6 ["Src"]
-       85 GETTABLEKS                       R12 R12 K10 ["Util"]
-       87 GETTABLEKS                       R12 R12 K20 ["CoreContentStatusConstants"]
-       89 CALL                             R11 1 1
-       90 GETTABLEKS                       R12 R11 K21 ["NEEDS_ATTENTION_AGE_THRESHOLD"]
-       92 GETTABLEKS                       R13 R11 K22 ["AGE_BRACKET_9"]
-       94 DUPCLOSURE                       R14 K23 [PROTO_0]
-       95 CAPTURE                          VAL R6
-       96 CAPTURE                          VAL R9
-       97 CAPTURE                          VAL R10
-       98 CAPTURE                          VAL R7
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R4
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R12
-      104 CAPTURE                          VAL R13
-      105 RETURN                           R14 1
+       63 GETTABLEKS                       R9 R8 K18 ["NEEDS_ATTENTION_AGE_THRESHOLD"]
+       65 GETTABLEKS                       R10 R8 K19 ["AGE_BRACKET_9"]
+       67 DUPCLOSURE                       R11 K20 [PROTO_0]
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R2
+       73 CAPTURE                          VAL R9
+       74 CAPTURE                          VAL R10
+       75 RETURN                           R11 1

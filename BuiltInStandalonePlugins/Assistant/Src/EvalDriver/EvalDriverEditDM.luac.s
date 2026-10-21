@@ -43,21 +43,43 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["get"]
-        3 CALL                             R0 0 1
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K1 ["AssistantEval"]
-        7 GETTABLEKS                       R1 R1 K2 ["Config"]
-        9 GETTABLEKS                       R2 R0 K3 ["tools"]
-       11 GETTABLEKS                       R2 R2 K4 ["executeLuau"]
-       13 GETTABLEKS                       R2 R2 K5 ["loadCode"]
-       15 GETTABLEKS                       R3 R1 K6 ["Source"]
-       17 CALL                             R2 1 2
-       18 MOVE                             R4 R3
-       19 CALL                             R4 0 1
-       20 RETURN                           R4 1
+        1 LOADK                            R2 K0 ["AssistantEval"]
+        2 LOADN                            R3 10
+        3 NAMECALL                         R0 R0 K1 ["WaitForChild"]
+        5 CALL                             R0 3 1
+        6 FASTCALL2K                       ASSERT R0 K2 ; [+5]
+        8 MOVE                             R2 R0
+        9 LOADK                            R3 K2 ["Failed to find AssistantEval in ReplicatedStorage"]
+       10 GETIMPORT                        R1 K4 [assert]
+       12 CALL                             R1 2 0
+       13 RETURN                           R0 1
 
 PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["get"]
+        3 CALL                             R0 0 1
+        4 GETUPVAL                         R2 1
+        5 LOADK                            R4 K1 ["AssistantEval"]
+        6 LOADN                            R5 10
+        7 NAMECALL                         R2 R2 K2 ["WaitForChild"]
+        9 CALL                             R2 3 1
+       10 FASTCALL2K                       ASSERT R2 K3 ; [+5]
+       12 MOVE                             R4 R2
+       13 LOADK                            R5 K3 ["Failed to find AssistantEval in ReplicatedStorage"]
+       14 GETIMPORT                        R3 K5 [assert]
+       16 CALL                             R3 2 0
+       17 MOVE                             R1 R2
+       18 GETTABLEKS                       R1 R1 K6 ["Config"]
+       20 GETTABLEKS                       R2 R0 K7 ["tools"]
+       22 GETTABLEKS                       R2 R2 K8 ["executeLuau"]
+       24 GETTABLEKS                       R2 R2 K9 ["loadCode"]
+       26 GETTABLEKS                       R3 R1 K10 ["Source"]
+       28 CALL                             R2 1 2
+       29 MOVE                             R4 R3
+       30 CALL                             R4 0 1
+       31 RETURN                           R4 1
+
+PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["Name"]
         2 GETTABLEKS                       R4 R1 K0 ["Name"]
         4 JUMPIFLT                         R3 R4 ; [+2]
@@ -65,42 +87,60 @@ PROTO_3:
         7 LOADB                            R2 1
         8 RETURN                           R2 1
 
-PROTO_4:
-        0 NEWTABLE                         R2 0 0
-        2 JUMPIFNOT                        R0 ; [+6]
-        3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K0 ["AssistantEval"]
-        6 GETTABLEKS                       R3 R3 K1 ["RunTimeEvals"]
-        8 JUMPIF                           R3 ; [+5]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R3 R3 K0 ["AssistantEval"]
-       12 GETTABLEKS                       R3 R3 K2 ["Evals"]
-       14 NAMECALL                         R4 R3 K3 ["GetChildren"]
-       16 CALL                             R4 1 3
-       17 FORGPREP                         R4
-       18 LOADK                            R11 K4 ["ModuleScript"]
-       19 NAMECALL                         R9 R8 K5 ["IsA"]
-       21 CALL                             R9 2 1
-       22 JUMPIFNOT                        R9 ; [+15]
-       23 JUMPIFNOT                        R1 ; [+7]
-       24 GETIMPORT                        R9 K8 [table.find]
-       26 MOVE                             R10 R1
-       27 GETTABLEKS                       R11 R8 K9 ["Name"]
-       29 CALL                             R9 2 1
-       30 JUMPIFNOT                        R9 ; [+7]
-       31 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
-       33 MOVE                             R10 R2
-       34 MOVE                             R11 R8
-       35 GETIMPORT                        R9 K11 [table.insert]
-       37 CALL                             R9 2 0
-       38 FORGLOOP                         R4 2 ; [-21]
-       40 GETIMPORT                        R4 K13 [table.sort]
-       42 MOVE                             R5 R2
-       43 DUPCLOSURE                       R6 K14 [PROTO_3]
-       44 CALL                             R4 2 0
-       45 RETURN                           R2 1
-
 PROTO_5:
+        0 NEWTABLE                         R2 0 0
+        2 JUMPIFNOT                        R0 ; [+17]
+        3 GETUPVAL                         R4 0
+        4 LOADK                            R6 K0 ["AssistantEval"]
+        5 LOADN                            R7 10
+        6 NAMECALL                         R4 R4 K1 ["WaitForChild"]
+        8 CALL                             R4 3 1
+        9 FASTCALL2K                       ASSERT R4 K2 ; [+5]
+       11 MOVE                             R6 R4
+       12 LOADK                            R7 K2 ["Failed to find AssistantEval in ReplicatedStorage"]
+       13 GETIMPORT                        R5 K4 [assert]
+       15 CALL                             R5 2 0
+       16 MOVE                             R3 R4
+       17 GETTABLEKS                       R3 R3 K5 ["RunTimeEvals"]
+       19 JUMPIF                           R3 ; [+16]
+       20 GETUPVAL                         R4 0
+       21 LOADK                            R6 K0 ["AssistantEval"]
+       22 LOADN                            R7 10
+       23 NAMECALL                         R4 R4 K1 ["WaitForChild"]
+       25 CALL                             R4 3 1
+       26 FASTCALL2K                       ASSERT R4 K2 ; [+5]
+       28 MOVE                             R6 R4
+       29 LOADK                            R7 K2 ["Failed to find AssistantEval in ReplicatedStorage"]
+       30 GETIMPORT                        R5 K4 [assert]
+       32 CALL                             R5 2 0
+       33 MOVE                             R3 R4
+       34 GETTABLEKS                       R3 R3 K6 ["Evals"]
+       36 NAMECALL                         R4 R3 K7 ["GetChildren"]
+       38 CALL                             R4 1 3
+       39 FORGPREP                         R4
+       40 LOADK                            R11 K8 ["ModuleScript"]
+       41 NAMECALL                         R9 R8 K9 ["IsA"]
+       43 CALL                             R9 2 1
+       44 JUMPIFNOT                        R9 ; [+15]
+       45 JUMPIFNOT                        R1 ; [+7]
+       46 GETIMPORT                        R9 K12 [table.find]
+       48 MOVE                             R10 R1
+       49 GETTABLEKS                       R11 R8 K13 ["Name"]
+       51 CALL                             R9 2 1
+       52 JUMPIFNOT                        R9 ; [+7]
+       53 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
+       55 MOVE                             R10 R2
+       56 MOVE                             R11 R8
+       57 GETIMPORT                        R9 K15 [table.insert]
+       59 CALL                             R9 2 0
+       60 FORGLOOP                         R4 2 ; [-21]
+       62 GETIMPORT                        R4 K17 [table.sort]
+       64 MOVE                             R5 R2
+       65 DUPCLOSURE                       R6 K18 [PROTO_4]
+       66 CALL                             R4 2 0
+       67 RETURN                           R2 1
+
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["get"]
         3 CALL                             R2 0 1
@@ -252,7 +292,7 @@ PROTO_5:
       224 FORGLOOP                         R5 2 ; [-211]
       226 RETURN                           R3 1
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["name"]
         2 GETTABLEKS                       R4 R1 K0 ["name"]
         4 JUMPIFLT                         R3 R4 ; [+2]
@@ -260,7 +300,7 @@ PROTO_6:
         7 LOADB                            R2 1
         8 RETURN                           R2 1
 
-PROTO_7:
+PROTO_8:
         0 NEWTABLE                         R1 0 0
         2 NAMECALL                         R2 R0 K0 ["GetChildren"]
         4 CALL                             R2 1 3
@@ -291,12 +331,12 @@ PROTO_7:
        36 FORGLOOP                         R2 2 ; [-31]
        38 GETIMPORT                        R2 K16 [table.sort]
        40 MOVE                             R3 R1
-       41 DUPCLOSURE                       R4 K17 [PROTO_6]
+       41 DUPCLOSURE                       R4 K17 [PROTO_7]
        42 CALL                             R2 2 0
        43 RETURN                           R1 1
 
-PROTO_8:
-        0 DUPCLOSURE                       R1 K0 [PROTO_7]
+PROTO_9:
+        0 DUPCLOSURE                       R1 K0 [PROTO_8]
         1 CAPTURE                          UPVAL U0
         2 MOVE                             R2 R1
         3 MOVE                             R3 R0
@@ -343,7 +383,7 @@ PROTO_8:
        60 CALL                             R3 -1 0
        61 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["className"]
         2 JUMPIFEQKS                       R2 K1 ["ModuleScript"] ; [+5]
         4 GETTABLEKS                       R2 R0 K0 ["className"]
@@ -382,7 +422,7 @@ PROTO_9:
        55 CALL                             R2 -1 0
        56 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 NEWTABLE                         R2 0 1
@@ -409,19 +449,19 @@ PROTO_10:
        32 CALL                             R2 2 0
        33 RETURN                           R1 1
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 GETTABLEKS                       R1 R0 K0 ["Value"]
         4 RETURN                           R1 1
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 SETTABLEKS                       R0 R1 K0 ["Value"]
         4 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 GETTABLEKS                       R2 R3 K0 ["Value"]
@@ -439,7 +479,7 @@ PROTO_13:
        17 SETTABLEKS                       R4 R5 K0 ["Value"]
        19 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["evalStorage"]
         2 JUMPIFNOT                        R1 ; [+26]
         3 GETTABLEKS                       R1 R0 K0 ["evalStorage"]
@@ -464,30 +504,48 @@ PROTO_14:
        27 FORGLOOP                         R1 2 ; [-20]
        29 RETURN                           R0 0
 
-PROTO_15:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["AssistantEval"]
-        3 GETTABLEKS                       R0 R0 K1 ["Modules"]
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R1 R1 K0 ["AssistantEval"]
-        8 GETTABLEKS                       R1 R1 K2 ["LoadedCode"]
-       10 JUMPIFNOT                        R0 ; [+1]
-       11 JUMPIF                           R1 ; [+4]
-       12 GETIMPORT                        R2 K4 [error]
-       14 LOADK                            R3 K5 ["AssistantEval.Modules or AssistantEval.LoadedCode does not exist"]
-       15 CALL                             R2 1 0
-       16 DUPTABLE                         R2 K8 [{"evalModules", "loadedCode"}]
-       17 GETUPVAL                         R3 1
-       18 MOVE                             R4 R0
-       19 CALL                             R3 1 1
-       20 SETTABLEKS                       R3 R2 K6 ["evalModules"]
-       22 GETUPVAL                         R3 1
-       23 MOVE                             R4 R1
-       24 CALL                             R3 1 1
-       25 SETTABLEKS                       R3 R2 K7 ["loadedCode"]
-       27 RETURN                           R2 1
-
 PROTO_16:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["AssistantEval"]
+        2 LOADN                            R4 10
+        3 NAMECALL                         R1 R1 K1 ["WaitForChild"]
+        5 CALL                             R1 3 1
+        6 FASTCALL2K                       ASSERT R1 K2 ; [+5]
+        8 MOVE                             R3 R1
+        9 LOADK                            R4 K2 ["Failed to find AssistantEval in ReplicatedStorage"]
+       10 GETIMPORT                        R2 K4 [assert]
+       12 CALL                             R2 2 0
+       13 MOVE                             R0 R1
+       14 GETTABLEKS                       R0 R0 K5 ["Modules"]
+       16 GETUPVAL                         R2 0
+       17 LOADK                            R4 K0 ["AssistantEval"]
+       18 LOADN                            R5 10
+       19 NAMECALL                         R2 R2 K1 ["WaitForChild"]
+       21 CALL                             R2 3 1
+       22 FASTCALL2K                       ASSERT R2 K2 ; [+5]
+       24 MOVE                             R4 R2
+       25 LOADK                            R5 K2 ["Failed to find AssistantEval in ReplicatedStorage"]
+       26 GETIMPORT                        R3 K4 [assert]
+       28 CALL                             R3 2 0
+       29 MOVE                             R1 R2
+       30 GETTABLEKS                       R1 R1 K6 ["LoadedCode"]
+       32 JUMPIFNOT                        R0 ; [+1]
+       33 JUMPIF                           R1 ; [+4]
+       34 GETIMPORT                        R2 K8 [error]
+       36 LOADK                            R3 K9 ["AssistantEval.Modules or AssistantEval.LoadedCode does not exist"]
+       37 CALL                             R2 1 0
+       38 DUPTABLE                         R2 K12 [{"evalModules", "loadedCode"}]
+       39 GETUPVAL                         R3 1
+       40 MOVE                             R4 R0
+       41 CALL                             R3 1 1
+       42 SETTABLEKS                       R3 R2 K10 ["evalModules"]
+       44 GETUPVAL                         R3 1
+       45 MOVE                             R4 R1
+       46 CALL                             R3 1 1
+       47 SETTABLEKS                       R3 R2 K11 ["loadedCode"]
+       49 RETURN                           R2 1
+
+PROTO_17:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 NEWTABLE                         R3 0 1
@@ -511,29 +569,38 @@ PROTO_16:
        25 FORGLOOP                         R2 2 ; [-14]
        27 RETURN                           R0 0
 
-PROTO_17:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["AssistantEval"]
-        3 GETTABLEKS                       R1 R1 K1 ["LoadedCode"]
-        5 GETTABLEKS                       R2 R0 K2 ["includeAssets"]
-        7 JUMPIFNOT                        R2 ; [+18]
-        8 GETTABLEKS                       R2 R0 K2 ["includeAssets"]
-       10 LOADNIL                          R3
-       11 LOADNIL                          R4
-       12 FORGPREP                         R2
-       13 LOADK                            R8 K3 ["rbxasset://assistant_eval/"]
-       14 MOVE                             R9 R6
-       15 CONCAT                           R7 R8 R9
-       16 GETUPVAL                         R8 1
-       17 MOVE                             R10 R7
-       18 NAMECALL                         R8 R8 K4 ["LoadLocalAsset"]
-       20 CALL                             R8 2 1
-       21 JUMPIFNOT                        R8 ; [+2]
-       22 SETTABLEKS                       R1 R8 K5 ["Parent"]
-       24 FORGLOOP                         R2 2 ; [-12]
-       26 RETURN                           R0 0
-
 PROTO_18:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R4 K0 ["AssistantEval"]
+        2 LOADN                            R5 10
+        3 NAMECALL                         R2 R2 K1 ["WaitForChild"]
+        5 CALL                             R2 3 1
+        6 FASTCALL2K                       ASSERT R2 K2 ; [+5]
+        8 MOVE                             R4 R2
+        9 LOADK                            R5 K2 ["Failed to find AssistantEval in ReplicatedStorage"]
+       10 GETIMPORT                        R3 K4 [assert]
+       12 CALL                             R3 2 0
+       13 MOVE                             R1 R2
+       14 GETTABLEKS                       R1 R1 K5 ["LoadedCode"]
+       16 GETTABLEKS                       R2 R0 K6 ["includeAssets"]
+       18 JUMPIFNOT                        R2 ; [+18]
+       19 GETTABLEKS                       R2 R0 K6 ["includeAssets"]
+       21 LOADNIL                          R3
+       22 LOADNIL                          R4
+       23 FORGPREP                         R2
+       24 LOADK                            R8 K7 ["rbxasset://assistant_eval/"]
+       25 MOVE                             R9 R6
+       26 CONCAT                           R7 R8 R9
+       27 GETUPVAL                         R8 1
+       28 MOVE                             R10 R7
+       29 NAMECALL                         R8 R8 K8 ["LoadLocalAsset"]
+       31 CALL                             R8 2 1
+       32 JUMPIFNOT                        R8 ; [+2]
+       33 SETTABLEKS                       R1 R8 K9 ["Parent"]
+       35 FORGLOOP                         R2 2 ; [-12]
+       37 RETURN                           R0 0
+
+PROTO_19:
         0 JUMPIFNOTEQKS                    R0 K0 ["InvokeCallTool"] ; [+35]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -569,7 +636,7 @@ PROTO_18:
        43 CALL                             R3 1 0
        44 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["getAssistantEvalBridge"]
         3 CALL                             R0 0 1
@@ -583,7 +650,7 @@ PROTO_19:
        11 SETTABLEKS                       R1 R0 K1 ["OnInvoke"]
        13 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 NEWTABLE                         R1 0 2
         2 LOADK                            R2 K0 ["AssistantEval"]
         3 LOADK                            R3 K1 ["RunTimeEvals"]
@@ -641,7 +708,7 @@ PROTO_20:
        72 CALL                             R4 0 0
        73 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETIMPORT                        R1 K1 [print]
         2 LOADK                            R2 K2 ["runEvalEdit"]
         3 GETTABLEKS                       R3 R0 K3 ["evalName"]
@@ -662,7 +729,7 @@ PROTO_21:
        24 CALL                             R5 0 1
        25 RETURN                           R5 1
 
-PROTO_22:
+PROTO_23:
         0 GETIMPORT                        R1 K1 [print]
         2 LOADK                            R2 K2 ["invokeReference"]
         3 GETTABLEKS                       R3 R0 K3 ["evalName"]
@@ -683,7 +750,7 @@ PROTO_22:
        24 CALL                             R5 0 1
        25 RETURN                           R5 1
 
-PROTO_23:
+PROTO_24:
         0 GETIMPORT                        R1 K1 [print]
         2 LOADK                            R2 K2 ["setupEval"]
         3 GETTABLEKS                       R3 R0 K3 ["evalName"]
@@ -704,7 +771,7 @@ PROTO_23:
        24 CALL                             R5 0 1
        25 RETURN                           R5 1
 
-PROTO_24:
+PROTO_25:
         0 NEWTABLE                         R1 0 1
         2 LOADK                            R2 K0 ["EvalResult:Server"]
         3 SETLIST                          R1 R2 1 [1]
@@ -724,7 +791,7 @@ PROTO_24:
        21 FORNLOOP                         R2
        22 RETURN                           R1 1
 
-PROTO_25:
+PROTO_26:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
@@ -742,7 +809,7 @@ PROTO_25:
        16 FORGLOOP                         R3 2 ; [-6]
        18 RETURN                           R0 0
 
-PROTO_26:
+PROTO_27:
         0 GETUPVAL                         R0 1
         1 GETTABLEKS                       R0 R0 K0 ["getUserSettingsAsync"]
         3 GETUPVAL                         R1 2
@@ -762,7 +829,7 @@ PROTO_26:
        21 LOADNIL                          R0
        22 RETURN                           R0 1
 
-PROTO_27:
+PROTO_28:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R3 R1 K0 ["clientEvalNums"]
         3 CALL                             R2 1 1
@@ -814,51 +881,78 @@ PROTO_27:
        61 JUMPBACK                         ; [-49]
        62 RETURN                           R4 1
 
-PROTO_28:
+PROTO_29:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["clientEvalNums"]
         3 CALL                             R1 1 0
-        4 GETUPVAL                         R1 1
-        5 GETTABLEKS                       R1 R1 K1 ["AssistantEval"]
-        7 GETTABLEKS                       R1 R1 K2 ["RunTimeEvals"]
-        9 LOADK                            R3 K3 ["MultiplayerRunSessionId"]
-       10 NAMECALL                         R1 R1 K4 ["FindFirstChild"]
-       12 CALL                             R1 2 1
-       13 JUMPIFNOT                        R1 ; [+3]
-       14 NAMECALL                         R2 R1 K5 ["Destroy"]
-       16 CALL                             R2 1 0
-       17 GETUPVAL                         R2 2
-       18 LOADB                            R4 0
-       19 NAMECALL                         R2 R2 K6 ["GenerateGUID"]
-       21 CALL                             R2 2 1
-       22 GETIMPORT                        R3 K9 [Instance.new]
-       24 LOADK                            R4 K10 ["StringValue"]
-       25 CALL                             R3 1 1
-       26 LOADK                            R4 K3 ["MultiplayerRunSessionId"]
-       27 SETTABLEKS                       R4 R3 K11 ["Name"]
-       29 SETTABLEKS                       R2 R3 K12 ["Value"]
-       31 GETUPVAL                         R4 1
-       32 GETTABLEKS                       R4 R4 K1 ["AssistantEval"]
-       34 GETTABLEKS                       R4 R4 K2 ["RunTimeEvals"]
-       36 SETTABLEKS                       R4 R3 K13 ["Parent"]
-       38 RETURN                           R2 1
+        4 GETUPVAL                         R2 1
+        5 LOADK                            R4 K1 ["AssistantEval"]
+        6 LOADN                            R5 10
+        7 NAMECALL                         R2 R2 K2 ["WaitForChild"]
+        9 CALL                             R2 3 1
+       10 FASTCALL2K                       ASSERT R2 K3 ; [+5]
+       12 MOVE                             R4 R2
+       13 LOADK                            R5 K3 ["Failed to find AssistantEval in ReplicatedStorage"]
+       14 GETIMPORT                        R3 K5 [assert]
+       16 CALL                             R3 2 0
+       17 MOVE                             R1 R2
+       18 GETTABLEKS                       R1 R1 K6 ["RunTimeEvals"]
+       20 LOADK                            R3 K7 ["MultiplayerRunSessionId"]
+       21 NAMECALL                         R1 R1 K8 ["FindFirstChild"]
+       23 CALL                             R1 2 1
+       24 JUMPIFNOT                        R1 ; [+3]
+       25 NAMECALL                         R2 R1 K9 ["Destroy"]
+       27 CALL                             R2 1 0
+       28 GETUPVAL                         R2 2
+       29 LOADB                            R4 0
+       30 NAMECALL                         R2 R2 K10 ["GenerateGUID"]
+       32 CALL                             R2 2 1
+       33 GETIMPORT                        R3 K13 [Instance.new]
+       35 LOADK                            R4 K14 ["StringValue"]
+       36 CALL                             R3 1 1
+       37 LOADK                            R4 K7 ["MultiplayerRunSessionId"]
+       38 SETTABLEKS                       R4 R3 K15 ["Name"]
+       40 SETTABLEKS                       R2 R3 K16 ["Value"]
+       42 GETUPVAL                         R5 1
+       43 LOADK                            R7 K1 ["AssistantEval"]
+       44 LOADN                            R8 10
+       45 NAMECALL                         R5 R5 K2 ["WaitForChild"]
+       47 CALL                             R5 3 1
+       48 FASTCALL2K                       ASSERT R5 K3 ; [+5]
+       50 MOVE                             R7 R5
+       51 LOADK                            R8 K3 ["Failed to find AssistantEval in ReplicatedStorage"]
+       52 GETIMPORT                        R6 K5 [assert]
+       54 CALL                             R6 2 0
+       55 MOVE                             R4 R5
+       56 GETTABLEKS                       R4 R4 K6 ["RunTimeEvals"]
+       58 SETTABLEKS                       R4 R3 K17 ["Parent"]
+       60 RETURN                           R2 1
 
-PROTO_29:
+PROTO_30:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R3 R1 K0 ["clientEvalNums"]
         3 CALL                             R2 1 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K1 ["AssistantEval"]
-        7 GETTABLEKS                       R2 R2 K2 ["RunTimeEvals"]
-        9 LOADK                            R4 K3 ["MultiplayerRunSessionId"]
-       10 NAMECALL                         R2 R2 K4 ["FindFirstChild"]
-       12 CALL                             R2 2 1
-       13 JUMPIFNOT                        R2 ; [+3]
-       14 NAMECALL                         R3 R2 K5 ["Destroy"]
-       16 CALL                             R3 1 0
-       17 RETURN                           R0 0
+        4 GETUPVAL                         R3 1
+        5 LOADK                            R5 K1 ["AssistantEval"]
+        6 LOADN                            R6 10
+        7 NAMECALL                         R3 R3 K2 ["WaitForChild"]
+        9 CALL                             R3 3 1
+       10 FASTCALL2K                       ASSERT R3 K3 ; [+5]
+       12 MOVE                             R5 R3
+       13 LOADK                            R6 K3 ["Failed to find AssistantEval in ReplicatedStorage"]
+       14 GETIMPORT                        R4 K5 [assert]
+       16 CALL                             R4 2 0
+       17 MOVE                             R2 R3
+       18 GETTABLEKS                       R2 R2 K6 ["RunTimeEvals"]
+       20 LOADK                            R4 K7 ["MultiplayerRunSessionId"]
+       21 NAMECALL                         R2 R2 K8 ["FindFirstChild"]
+       23 CALL                             R2 2 1
+       24 JUMPIFNOT                        R2 ; [+3]
+       25 NAMECALL                         R3 R2 K9 ["Destroy"]
+       27 CALL                             R3 1 0
+       28 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 GETUPVAL                         R0 1
         1 GETTABLEKS                       R0 R0 K0 ["getInstanceByPath"]
         3 LOADK                            R1 K1 ["game.ReplicatedStorage.AssistantEval"]
@@ -881,7 +975,7 @@ PROTO_30:
        22 SETTABLEKS                       R1 R0 K2 ["Parent"]
        24 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+9]
         2 GETUPVAL                         R0 0
@@ -897,34 +991,43 @@ PROTO_31:
        16 SETTABLEKS                       R1 R0 K4 ["Parent"]
        18 RETURN                           R0 0
 
-PROTO_32:
-        0 GETIMPORT                        R0 K1 [game]
-        2 GETTABLEKS                       R0 R0 K2 ["Name"]
-        4 RETURN                           R0 1
-
 PROTO_33:
         0 GETIMPORT                        R0 K1 [game]
         2 GETTABLEKS                       R0 R0 K2 ["Name"]
         4 RETURN                           R0 1
 
 PROTO_34:
+        0 GETIMPORT                        R0 K1 [game]
+        2 GETTABLEKS                       R0 R0 K2 ["Name"]
+        4 RETURN                           R0 1
+
+PROTO_35:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["get"]
         3 CALL                             R1 0 1
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K1 ["AssistantEval"]
-        7 GETTABLEKS                       R2 R2 K2 ["Config"]
-        9 GETTABLEKS                       R3 R1 K3 ["tools"]
-       11 GETTABLEKS                       R3 R3 K4 ["executeLuau"]
-       13 GETTABLEKS                       R3 R3 K5 ["loadCode"]
-       15 GETTABLEKS                       R4 R2 K6 ["Source"]
-       17 CALL                             R3 1 2
-       18 MOVE                             R5 R4
-       19 CALL                             R5 0 1
-       20 MOVE                             R0 R5
-       21 RETURN                           R0 1
+        4 GETUPVAL                         R3 1
+        5 LOADK                            R5 K1 ["AssistantEval"]
+        6 LOADN                            R6 10
+        7 NAMECALL                         R3 R3 K2 ["WaitForChild"]
+        9 CALL                             R3 3 1
+       10 FASTCALL2K                       ASSERT R3 K3 ; [+5]
+       12 MOVE                             R5 R3
+       13 LOADK                            R6 K3 ["Failed to find AssistantEval in ReplicatedStorage"]
+       14 GETIMPORT                        R4 K5 [assert]
+       16 CALL                             R4 2 0
+       17 MOVE                             R2 R3
+       18 GETTABLEKS                       R2 R2 K6 ["Config"]
+       20 GETTABLEKS                       R3 R1 K7 ["tools"]
+       22 GETTABLEKS                       R3 R3 K8 ["executeLuau"]
+       24 GETTABLEKS                       R3 R3 K9 ["loadCode"]
+       26 GETTABLEKS                       R4 R2 K10 ["Source"]
+       28 CALL                             R3 1 2
+       29 MOVE                             R5 R4
+       30 CALL                             R5 0 1
+       31 MOVE                             R0 R5
+       32 RETURN                           R0 1
 
-PROTO_35:
+PROTO_36:
         0 GETUPVAL                         R3 0
         1 JUMPIFNOT                        R1 ; [+2]
         2 LOADB                            R4 1
@@ -934,16 +1037,10 @@ PROTO_35:
         6 CALL                             R3 2 1
         7 RETURN                           R3 1
 
-PROTO_36:
+PROTO_37:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 RETURN                           R0 1
-
-PROTO_37:
-        0 GETUPVAL                         R2 0
-        1 MOVE                             R3 R1
-        2 CALL                             R2 1 -1
-        3 RETURN                           R2 -1
 
 PROTO_38:
         0 GETUPVAL                         R2 0
@@ -952,6 +1049,12 @@ PROTO_38:
         3 RETURN                           R2 -1
 
 PROTO_39:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R1
+        2 CALL                             R2 1 -1
+        3 RETURN                           R2 -1
+
+PROTO_40:
         0 GETIMPORT                        R3 K1 [print]
         2 LOADK                            R4 K2 ["invokeReference"]
         3 GETTABLEKS                       R5 R1 K3 ["evalName"]
@@ -973,7 +1076,7 @@ PROTO_39:
        25 MOVE                             R2 R7
        26 RETURN                           R2 1
 
-PROTO_40:
+PROTO_41:
         0 GETIMPORT                        R3 K1 [print]
         2 LOADK                            R4 K2 ["runEvalEdit"]
         3 GETTABLEKS                       R5 R1 K3 ["evalName"]
@@ -995,7 +1098,7 @@ PROTO_40:
        25 MOVE                             R2 R7
        26 RETURN                           R2 1
 
-PROTO_41:
+PROTO_42:
         0 GETIMPORT                        R3 K1 [print]
         2 LOADK                            R4 K2 ["setupEval"]
         3 GETTABLEKS                       R5 R1 K3 ["evalName"]
@@ -1017,30 +1120,25 @@ PROTO_41:
        25 MOVE                             R2 R7
        26 RETURN                           R2 1
 
-PROTO_42:
+PROTO_43:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
         3 RETURN                           R2 1
 
-PROTO_43:
+PROTO_44:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 MOVE                             R5 R2
         3 CALL                             R3 2 1
         4 RETURN                           R3 1
 
-PROTO_44:
+PROTO_45:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 MOVE                             R5 R2
         3 CALL                             R3 2 -1
         4 RETURN                           R3 -1
-
-PROTO_45:
-        0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 -1
-        2 RETURN                           R0 -1
 
 PROTO_46:
         0 GETUPVAL                         R0 0
@@ -1048,7 +1146,12 @@ PROTO_46:
         2 RETURN                           R0 -1
 
 PROTO_47:
-        0 DUPCLOSURE                       R0 K0 [PROTO_33]
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 -1
+        2 RETURN                           R0 -1
+
+PROTO_48:
+        0 DUPCLOSURE                       R0 K0 [PROTO_34]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
         4 JUMPIFNOT                        R1 ; [+15]
@@ -1069,7 +1172,7 @@ PROTO_47:
        22 MOVE                             R4 R0
        23 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
        25 CALL                             R1 3 0
-       26 DUPCLOSURE                       R0 K7 [PROTO_34]
+       26 DUPCLOSURE                       R0 K7 [PROTO_35]
        27 CAPTURE                          UPVAL U5
        28 CAPTURE                          UPVAL U6
        29 GETUPVAL                         R1 0
@@ -1092,7 +1195,7 @@ PROTO_47:
        50 MOVE                             R4 R0
        51 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
        53 CALL                             R1 3 0
-       54 DUPCLOSURE                       R0 K9 [PROTO_35]
+       54 DUPCLOSURE                       R0 K9 [PROTO_36]
        55 CAPTURE                          UPVAL U7
        56 GETUPVAL                         R1 0
        57 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1114,7 +1217,7 @@ PROTO_47:
        77 MOVE                             R4 R0
        78 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
        80 CALL                             R1 3 0
-       81 DUPCLOSURE                       R0 K11 [PROTO_36]
+       81 DUPCLOSURE                       R0 K11 [PROTO_37]
        82 CAPTURE                          UPVAL U8
        83 GETUPVAL                         R1 0
        84 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1136,7 +1239,7 @@ PROTO_47:
       104 MOVE                             R4 R0
       105 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       107 CALL                             R1 3 0
-      108 DUPCLOSURE                       R0 K13 [PROTO_37]
+      108 DUPCLOSURE                       R0 K13 [PROTO_38]
       109 CAPTURE                          UPVAL U9
       110 GETUPVAL                         R1 0
       111 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1158,7 +1261,7 @@ PROTO_47:
       131 MOVE                             R4 R0
       132 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       134 CALL                             R1 3 0
-      135 DUPCLOSURE                       R0 K15 [PROTO_38]
+      135 DUPCLOSURE                       R0 K15 [PROTO_39]
       136 CAPTURE                          UPVAL U10
       137 GETUPVAL                         R1 0
       138 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1180,7 +1283,7 @@ PROTO_47:
       158 MOVE                             R4 R0
       159 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       161 CALL                             R1 3 0
-      162 DUPCLOSURE                       R0 K17 [PROTO_39]
+      162 DUPCLOSURE                       R0 K17 [PROTO_40]
       163 CAPTURE                          UPVAL U5
       164 GETUPVAL                         R1 0
       165 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1202,7 +1305,7 @@ PROTO_47:
       185 MOVE                             R4 R0
       186 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       188 CALL                             R1 3 0
-      189 DUPCLOSURE                       R0 K19 [PROTO_40]
+      189 DUPCLOSURE                       R0 K19 [PROTO_41]
       190 CAPTURE                          UPVAL U5
       191 GETUPVAL                         R1 0
       192 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1224,7 +1327,7 @@ PROTO_47:
       212 MOVE                             R4 R0
       213 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       215 CALL                             R1 3 0
-      216 DUPCLOSURE                       R0 K21 [PROTO_41]
+      216 DUPCLOSURE                       R0 K21 [PROTO_42]
       217 CAPTURE                          UPVAL U5
       218 GETUPVAL                         R1 0
       219 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1246,7 +1349,7 @@ PROTO_47:
       239 MOVE                             R4 R0
       240 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       242 CALL                             R1 3 0
-      243 DUPCLOSURE                       R0 K23 [PROTO_42]
+      243 DUPCLOSURE                       R0 K23 [PROTO_43]
       244 CAPTURE                          UPVAL U11
       245 GETUPVAL                         R1 0
       246 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1268,7 +1371,7 @@ PROTO_47:
       266 MOVE                             R4 R0
       267 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       269 CALL                             R1 3 0
-      270 DUPCLOSURE                       R0 K25 [PROTO_43]
+      270 DUPCLOSURE                       R0 K25 [PROTO_44]
       271 CAPTURE                          UPVAL U12
       272 GETUPVAL                         R1 0
       273 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1290,7 +1393,7 @@ PROTO_47:
       293 MOVE                             R4 R0
       294 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       296 CALL                             R1 3 0
-      297 DUPCLOSURE                       R0 K27 [PROTO_44]
+      297 DUPCLOSURE                       R0 K27 [PROTO_45]
       298 CAPTURE                          UPVAL U13
       299 GETUPVAL                         R1 0
       300 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1312,7 +1415,7 @@ PROTO_47:
       320 MOVE                             R4 R0
       321 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       323 CALL                             R1 3 0
-      324 DUPCLOSURE                       R0 K29 [PROTO_45]
+      324 DUPCLOSURE                       R0 K29 [PROTO_46]
       325 CAPTURE                          UPVAL U14
       326 GETUPVAL                         R1 0
       327 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1334,7 +1437,7 @@ PROTO_47:
       347 MOVE                             R4 R0
       348 NAMECALL                         R1 R1 K6 ["OnHostInvokeAsync"]
       350 CALL                             R1 3 0
-      351 DUPCLOSURE                       R0 K31 [PROTO_46]
+      351 DUPCLOSURE                       R0 K31 [PROTO_47]
       352 CAPTURE                          UPVAL U15
       353 GETUPVAL                         R1 0
       354 GETTABLEKS                       R1 R1 K1 ["FFlagAssistantUseNewDMNetworking"]
@@ -1358,7 +1461,7 @@ PROTO_47:
       377 CALL                             R1 3 0
       378 RETURN                           R0 0
 
-PROTO_48:
+PROTO_49:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["Identity"]
@@ -1367,7 +1470,7 @@ PROTO_48:
         8 CALL                             R0 2 0
         9 RETURN                           R0 0
 
-PROTO_49:
+PROTO_50:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["EditDataModelStarted"]
         2 GETUPVAL                         R3 1
@@ -1377,7 +1480,7 @@ PROTO_49:
         9 CALL                             R0 3 0
        10 RETURN                           R0 0
 
-PROTO_50:
+PROTO_51:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantUseNewDMNetworking"]
         3 JUMPIFNOT                        R0 ; [+32]
@@ -1423,13 +1526,13 @@ PROTO_50:
        54 CALL                             R1 3 0
        55 RETURN                           R0 0
 
-PROTO_51:
+PROTO_52:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["installLoadedCode"]
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
-PROTO_52:
+PROTO_53:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantUseNewDMNetworking"]
         3 JUMPIFNOT                        R0 ; [+19]
@@ -1456,7 +1559,7 @@ PROTO_52:
        32 CALL                             R0 3 0
        33 RETURN                           R0 0
 
-PROTO_53:
+PROTO_54:
         0 SETUPVAL                         R0 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R3 R3 K0 ["FFlagAssistantUseNewDMNetworking"]
@@ -1479,7 +1582,7 @@ PROTO_53:
        25 CALL                             R3 2 0
        26 SETUPVAL                         R1 5
        27 GETIMPORT                        R3 K7 [pcall]
-       29 DUPCLOSURE                       R4 K8 [PROTO_51]
+       29 DUPCLOSURE                       R4 K8 [PROTO_52]
        30 CAPTURE                          UPVAL U6
        31 CALL                             R3 1 0
        32 GETUPVAL                         R3 7
@@ -1500,7 +1603,7 @@ PROTO_53:
        49 CALL                             R3 0 0
        50 RETURN                           R0 0
 
-PROTO_54:
+PROTO_55:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -1518,192 +1621,193 @@ MAIN:
         3 LOADK                            R2 K2 ["Assistant"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
-       13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["Guest"]
-       16 GETTABLEKS                       R2 R2 K9 ["Environment"]
-       18 GETIMPORT                        R3 K11 [game]
-       20 LOADK                            R5 K12 ["HttpService"]
-       21 NAMECALL                         R3 R3 K13 ["GetService"]
-       23 CALL                             R3 2 1
-       24 GETIMPORT                        R4 K11 [game]
-       26 LOADK                            R6 K14 ["ReplicatedStorage"]
-       27 NAMECALL                         R4 R4 K13 ["GetService"]
-       29 CALL                             R4 2 1
-       30 GETIMPORT                        R5 K5 [require]
-       32 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       34 GETTABLEKS                       R6 R6 K15 ["DMNetworking"]
-       36 CALL                             R5 1 1
-       37 GETIMPORT                        R6 K5 [require]
-       39 GETTABLEKS                       R7 R0 K6 ["Packages"]
-       41 GETTABLEKS                       R7 R7 K16 ["DMNetworkingOLD"]
-       43 CALL                             R6 1 1
-       44 GETIMPORT                        R7 K5 [require]
-       46 GETIMPORT                        R8 K1 [script]
-       48 GETTABLEKS                       R8 R8 K17 ["Parent"]
-       50 GETTABLEKS                       R8 R8 K18 ["EvalUtils"]
-       52 CALL                             R7 1 1
-       53 GETIMPORT                        R8 K5 [require]
-       55 GETTABLEKS                       R9 R0 K19 ["Src"]
-       57 GETTABLEKS                       R9 R9 K20 ["Flags"]
-       59 CALL                             R8 1 1
-       60 GETTABLEKS                       R9 R1 K21 ["Utils"]
-       62 GETTABLEKS                       R9 R9 K22 ["Bin"]
-       64 GETTABLEKS                       R10 R1 K21 ["Utils"]
-       66 GETTABLEKS                       R10 R10 K23 ["DataModelType"]
-       68 GETTABLEKS                       R11 R5 K24 ["Remote"]
-       70 GETIMPORT                        R12 K5 [require]
-       72 GETIMPORT                        R13 K1 [script]
-       74 GETTABLEKS                       R13 R13 K17 ["Parent"]
-       76 GETTABLEKS                       R13 R13 K25 ["Types"]
-       78 CALL                             R12 1 1
-       79 GETIMPORT                        R13 K11 [game]
-       81 LOADK                            R15 K26 ["InsertService"]
-       82 NAMECALL                         R13 R13 K13 ["GetService"]
-       84 CALL                             R13 2 1
-       85 LOADNIL                          R14
-       86 LOADNIL                          R15
-       87 LOADNIL                          R16
-       88 LOADNIL                          R17
-       89 NEWCLOSURE                       R18 P0
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R11
-       92 CAPTURE                          REF R16
-       93 CAPTURE                          REF R17
-       94 CAPTURE                          REF R15
-       95 LOADNIL                          R19
-       96 LOADNIL                          R20
-       97 DUPCLOSURE                       R21 K27 [PROTO_1]
-       98 DUPCLOSURE                       R22 K28 [PROTO_2]
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R4
-      101 DUPCLOSURE                       R23 K29 [PROTO_4]
-      102 CAPTURE                          VAL R4
-      103 DUPCLOSURE                       R24 K30 [PROTO_5]
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          VAL R23
-      106 DUPCLOSURE                       R25 K31 [PROTO_8]
-      107 CAPTURE                          VAL R25
-      108 DUPCLOSURE                       R26 K32 [PROTO_9]
-      109 CAPTURE                          VAL R26
-      110 DUPCLOSURE                       R27 K33 [PROTO_10]
-      111 CAPTURE                          VAL R21
-      112 CAPTURE                          VAL R4
-      113 DUPCLOSURE                       R28 K34 [PROTO_11]
-      114 CAPTURE                          VAL R27
-      115 DUPCLOSURE                       R29 K35 [PROTO_12]
-      116 CAPTURE                          VAL R27
-      117 DUPCLOSURE                       R30 K36 [PROTO_13]
-      118 CAPTURE                          VAL R27
-      119 CAPTURE                          VAL R3
-      120 DUPCLOSURE                       R31 K37 [PROTO_14]
-      121 CAPTURE                          VAL R27
-      122 CAPTURE                          VAL R3
-      123 DUPCLOSURE                       R32 K38 [PROTO_15]
-      124 CAPTURE                          VAL R4
-      125 CAPTURE                          VAL R25
-      126 DUPCLOSURE                       R33 K39 [PROTO_16]
-      127 CAPTURE                          VAL R21
-      128 CAPTURE                          VAL R4
-      129 CAPTURE                          VAL R26
-      130 DUPCLOSURE                       R34 K40 [PROTO_17]
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R13
-      133 NEWCLOSURE                       R35 P15
-      134 CAPTURE                          VAL R7
-      135 CAPTURE                          VAL R8
-      136 CAPTURE                          VAL R11
-      137 CAPTURE                          REF R16
-      138 CAPTURE                          VAL R5
-      139 CAPTURE                          REF R15
-      140 CAPTURE                          VAL R10
-      141 NEWCLOSURE                       R36 P16
-      142 CAPTURE                          VAL R21
-      143 CAPTURE                          VAL R4
-      144 CAPTURE                          VAL R27
-      145 CAPTURE                          VAL R3
-      146 CAPTURE                          VAL R34
-      147 CAPTURE                          VAL R7
-      148 CAPTURE                          VAL R8
-      149 CAPTURE                          VAL R11
-      150 CAPTURE                          REF R16
-      151 CAPTURE                          VAL R5
-      152 CAPTURE                          REF R15
-      153 CAPTURE                          VAL R10
-      154 DUPCLOSURE                       R37 K41 [PROTO_21]
-      155 CAPTURE                          VAL R2
-      156 DUPCLOSURE                       R38 K42 [PROTO_22]
-      157 CAPTURE                          VAL R2
-      158 DUPCLOSURE                       R39 K43 [PROTO_23]
-      159 CAPTURE                          VAL R2
-      160 DUPCLOSURE                       R40 K44 [PROTO_24]
-      161 DUPCLOSURE                       R41 K45 [PROTO_25]
-      162 CAPTURE                          VAL R2
-      163 CAPTURE                          VAL R40
-      164 DUPCLOSURE                       R42 K46 [PROTO_27]
-      165 CAPTURE                          VAL R40
-      166 CAPTURE                          VAL R2
-      167 CAPTURE                          VAL R3
-      168 DUPCLOSURE                       R43 K47 [PROTO_28]
-      169 CAPTURE                          VAL R41
-      170 CAPTURE                          VAL R4
-      171 CAPTURE                          VAL R3
-      172 DUPCLOSURE                       R44 K48 [PROTO_29]
-      173 CAPTURE                          VAL R41
-      174 CAPTURE                          VAL R4
-      175 NEWCLOSURE                       R45 P25
-      176 CAPTURE                          REF R19
-      177 CAPTURE                          VAL R7
-      178 CAPTURE                          REF R20
-      179 NEWCLOSURE                       R46 P26
-      180 CAPTURE                          REF R19
-      181 CAPTURE                          REF R20
-      182 DUPCLOSURE                       R47 K49 [PROTO_32]
-      183 NEWTABLE                         R48 0 0
-      185 NEWCLOSURE                       R49 P28
-      186 CAPTURE                          VAL R8
-      187 CAPTURE                          VAL R11
-      188 CAPTURE                          REF R16
-      189 CAPTURE                          REF R17
-      190 CAPTURE                          REF R15
-      191 CAPTURE                          VAL R2
-      192 CAPTURE                          VAL R4
-      193 CAPTURE                          VAL R24
-      194 CAPTURE                          VAL R32
-      195 CAPTURE                          VAL R33
-      196 CAPTURE                          VAL R36
-      197 CAPTURE                          VAL R43
-      198 CAPTURE                          VAL R42
-      199 CAPTURE                          VAL R44
-      200 CAPTURE                          VAL R45
-      201 CAPTURE                          VAL R46
-      202 NEWCLOSURE                       R50 P29
-      203 CAPTURE                          VAL R8
-      204 CAPTURE                          VAL R11
-      205 CAPTURE                          REF R16
-      206 CAPTURE                          VAL R5
-      207 CAPTURE                          REF R17
-      208 CAPTURE                          REF R15
-      209 CAPTURE                          VAL R10
-      210 NEWCLOSURE                       R51 P30
-      211 CAPTURE                          REF R14
-      212 CAPTURE                          VAL R8
-      213 CAPTURE                          REF R16
-      214 CAPTURE                          REF R17
-      215 CAPTURE                          VAL R9
-      216 CAPTURE                          REF R15
-      217 CAPTURE                          VAL R7
-      218 CAPTURE                          VAL R49
-      219 CAPTURE                          VAL R11
-      220 CAPTURE                          VAL R5
-      221 CAPTURE                          VAL R10
-      222 CAPTURE                          VAL R50
-      223 NEWCLOSURE                       R52 P31
-      224 CAPTURE                          REF R48
-      225 DUPTABLE                         R53 K52 [{"init", "close"}]
-      226 SETTABLEKS                       R51 R53 K50 ["init"]
-      228 SETTABLEKS                       R52 R53 K51 ["close"]
-      230 CLOSEUPVALS                      R14
-      231 RETURN                           R53 1
+        7 GETIMPORT                        R1 K5 [game]
+        9 LOADK                            R3 K6 ["HttpService"]
+       10 NAMECALL                         R1 R1 K7 ["GetService"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K5 [game]
+       15 LOADK                            R4 K8 ["InsertService"]
+       16 NAMECALL                         R2 R2 K7 ["GetService"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R3 K5 [game]
+       21 LOADK                            R5 K9 ["ReplicatedStorage"]
+       22 NAMECALL                         R3 R3 K7 ["GetService"]
+       24 CALL                             R3 2 1
+       25 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       27 GETIMPORT                        R5 K12 [require]
+       29 GETTABLEKS                       R6 R4 K13 ["AssistantUI"]
+       31 CALL                             R5 1 1
+       32 GETIMPORT                        R6 K12 [require]
+       34 GETTABLEKS                       R7 R4 K14 ["Bin"]
+       36 CALL                             R6 1 1
+       37 GETIMPORT                        R7 K12 [require]
+       39 GETTABLEKS                       R8 R4 K15 ["DMNetworking"]
+       41 CALL                             R7 1 1
+       42 GETIMPORT                        R8 K12 [require]
+       44 GETTABLEKS                       R9 R4 K16 ["DMNetworkingOLD"]
+       46 CALL                             R8 1 1
+       47 GETIMPORT                        R9 K12 [require]
+       49 GETTABLEKS                       R10 R0 K17 ["Src"]
+       51 GETTABLEKS                       R10 R10 K18 ["EvalDriver"]
+       53 GETTABLEKS                       R10 R10 K19 ["EvalUtils"]
+       55 CALL                             R9 1 1
+       56 GETIMPORT                        R10 K12 [require]
+       58 GETTABLEKS                       R11 R0 K17 ["Src"]
+       60 GETTABLEKS                       R11 R11 K20 ["Flags"]
+       62 CALL                             R10 1 1
+       63 GETIMPORT                        R11 K12 [require]
+       65 GETTABLEKS                       R12 R0 K17 ["Src"]
+       67 GETTABLEKS                       R12 R12 K18 ["EvalDriver"]
+       69 GETTABLEKS                       R12 R12 K21 ["Types"]
+       71 CALL                             R11 1 1
+       72 GETTABLEKS                       R12 R5 K22 ["Guest"]
+       74 GETTABLEKS                       R12 R12 K23 ["Environment"]
+       76 GETTABLEKS                       R13 R5 K24 ["Utils"]
+       78 GETTABLEKS                       R13 R13 K25 ["DataModelType"]
+       80 GETTABLEKS                       R14 R7 K26 ["Remote"]
+       82 LOADNIL                          R15
+       83 LOADNIL                          R16
+       84 LOADNIL                          R17
+       85 LOADNIL                          R18
+       86 NEWCLOSURE                       R19 P0
+       87 CAPTURE                          VAL R10
+       88 CAPTURE                          VAL R14
+       89 CAPTURE                          REF R17
+       90 CAPTURE                          REF R18
+       91 CAPTURE                          REF R16
+       92 LOADNIL                          R20
+       93 LOADNIL                          R21
+       94 DUPCLOSURE                       R22 K27 [PROTO_1]
+       95 DUPCLOSURE                       R23 K28 [PROTO_2]
+       96 CAPTURE                          VAL R3
+       97 DUPCLOSURE                       R24 K29 [PROTO_3]
+       98 CAPTURE                          VAL R12
+       99 CAPTURE                          VAL R3
+      100 DUPCLOSURE                       R25 K30 [PROTO_5]
+      101 CAPTURE                          VAL R3
+      102 DUPCLOSURE                       R26 K31 [PROTO_6]
+      103 CAPTURE                          VAL R12
+      104 CAPTURE                          VAL R25
+      105 DUPCLOSURE                       R27 K32 [PROTO_9]
+      106 CAPTURE                          VAL R27
+      107 DUPCLOSURE                       R28 K33 [PROTO_10]
+      108 CAPTURE                          VAL R28
+      109 DUPCLOSURE                       R29 K34 [PROTO_11]
+      110 CAPTURE                          VAL R22
+      111 CAPTURE                          VAL R3
+      112 DUPCLOSURE                       R30 K35 [PROTO_12]
+      113 CAPTURE                          VAL R29
+      114 DUPCLOSURE                       R31 K36 [PROTO_13]
+      115 CAPTURE                          VAL R29
+      116 DUPCLOSURE                       R32 K37 [PROTO_14]
+      117 CAPTURE                          VAL R29
+      118 CAPTURE                          VAL R1
+      119 DUPCLOSURE                       R33 K38 [PROTO_15]
+      120 CAPTURE                          VAL R29
+      121 CAPTURE                          VAL R1
+      122 DUPCLOSURE                       R34 K39 [PROTO_16]
+      123 CAPTURE                          VAL R3
+      124 CAPTURE                          VAL R27
+      125 DUPCLOSURE                       R35 K40 [PROTO_17]
+      126 CAPTURE                          VAL R22
+      127 CAPTURE                          VAL R3
+      128 CAPTURE                          VAL R28
+      129 DUPCLOSURE                       R36 K41 [PROTO_18]
+      130 CAPTURE                          VAL R3
+      131 CAPTURE                          VAL R2
+      132 NEWCLOSURE                       R37 P16
+      133 CAPTURE                          VAL R9
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          VAL R14
+      136 CAPTURE                          REF R17
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          REF R16
+      139 CAPTURE                          VAL R13
+      140 NEWCLOSURE                       R38 P17
+      141 CAPTURE                          VAL R22
+      142 CAPTURE                          VAL R3
+      143 CAPTURE                          VAL R29
+      144 CAPTURE                          VAL R1
+      145 CAPTURE                          VAL R36
+      146 CAPTURE                          VAL R9
+      147 CAPTURE                          VAL R10
+      148 CAPTURE                          VAL R14
+      149 CAPTURE                          REF R17
+      150 CAPTURE                          VAL R7
+      151 CAPTURE                          REF R16
+      152 CAPTURE                          VAL R13
+      153 DUPCLOSURE                       R39 K42 [PROTO_22]
+      154 CAPTURE                          VAL R12
+      155 DUPCLOSURE                       R40 K43 [PROTO_23]
+      156 CAPTURE                          VAL R12
+      157 DUPCLOSURE                       R41 K44 [PROTO_24]
+      158 CAPTURE                          VAL R12
+      159 DUPCLOSURE                       R42 K45 [PROTO_25]
+      160 DUPCLOSURE                       R43 K46 [PROTO_26]
+      161 CAPTURE                          VAL R12
+      162 CAPTURE                          VAL R42
+      163 DUPCLOSURE                       R44 K47 [PROTO_28]
+      164 CAPTURE                          VAL R42
+      165 CAPTURE                          VAL R12
+      166 CAPTURE                          VAL R1
+      167 DUPCLOSURE                       R45 K48 [PROTO_29]
+      168 CAPTURE                          VAL R43
+      169 CAPTURE                          VAL R3
+      170 CAPTURE                          VAL R1
+      171 DUPCLOSURE                       R46 K49 [PROTO_30]
+      172 CAPTURE                          VAL R43
+      173 CAPTURE                          VAL R3
+      174 NEWCLOSURE                       R47 P26
+      175 CAPTURE                          REF R20
+      176 CAPTURE                          VAL R9
+      177 CAPTURE                          REF R21
+      178 NEWCLOSURE                       R48 P27
+      179 CAPTURE                          REF R20
+      180 CAPTURE                          REF R21
+      181 DUPCLOSURE                       R49 K50 [PROTO_33]
+      182 NEWTABLE                         R50 0 0
+      184 NEWCLOSURE                       R51 P29
+      185 CAPTURE                          VAL R10
+      186 CAPTURE                          VAL R14
+      187 CAPTURE                          REF R17
+      188 CAPTURE                          REF R18
+      189 CAPTURE                          REF R16
+      190 CAPTURE                          VAL R12
+      191 CAPTURE                          VAL R3
+      192 CAPTURE                          VAL R26
+      193 CAPTURE                          VAL R34
+      194 CAPTURE                          VAL R35
+      195 CAPTURE                          VAL R38
+      196 CAPTURE                          VAL R45
+      197 CAPTURE                          VAL R44
+      198 CAPTURE                          VAL R46
+      199 CAPTURE                          VAL R47
+      200 CAPTURE                          VAL R48
+      201 NEWCLOSURE                       R52 P30
+      202 CAPTURE                          VAL R10
+      203 CAPTURE                          VAL R14
+      204 CAPTURE                          REF R17
+      205 CAPTURE                          VAL R7
+      206 CAPTURE                          REF R18
+      207 CAPTURE                          REF R16
+      208 CAPTURE                          VAL R13
+      209 NEWCLOSURE                       R53 P31
+      210 CAPTURE                          REF R15
+      211 CAPTURE                          VAL R10
+      212 CAPTURE                          REF R17
+      213 CAPTURE                          REF R18
+      214 CAPTURE                          VAL R6
+      215 CAPTURE                          REF R16
+      216 CAPTURE                          VAL R9
+      217 CAPTURE                          VAL R51
+      218 CAPTURE                          VAL R14
+      219 CAPTURE                          VAL R7
+      220 CAPTURE                          VAL R13
+      221 CAPTURE                          VAL R52
+      222 NEWCLOSURE                       R54 P32
+      223 CAPTURE                          REF R50
+      224 DUPTABLE                         R55 K53 [{"init", "close"}]
+      225 SETTABLEKS                       R53 R55 K51 ["init"]
+      227 SETTABLEKS                       R54 R55 K52 ["close"]
+      229 CLOSEUPVALS                      R15
+      230 RETURN                           R55 1

@@ -12,7 +12,12 @@ MAIN:
         4 LOADB                            R3 0
         5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
         7 CALL                             R0 3 0
-        8 DUPTABLE                         R0 K5 [{"getFFlagEnableLuauSystemMenu"}]
-        9 DUPCLOSURE                       R1 K6 [PROTO_0]
-       10 SETTABLEKS                       R1 R0 K4 ["getFFlagEnableLuauSystemMenu"]
-       12 RETURN                           R0 1
+        8 GETIMPORT                        R0 K1 [game]
+       10 LOADK                            R2 K4 ["EnableAudioActivityMonitorMenu"]
+       11 LOADB                            R3 0
+       12 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       14 CALL                             R0 3 0
+       15 DUPTABLE                         R0 K6 [{"getFFlagEnableLuauSystemMenu"}]
+       16 DUPCLOSURE                       R1 K7 [PROTO_0]
+       17 SETTABLEKS                       R1 R0 K5 ["getFFlagEnableLuauSystemMenu"]
+       19 RETURN                           R0 1

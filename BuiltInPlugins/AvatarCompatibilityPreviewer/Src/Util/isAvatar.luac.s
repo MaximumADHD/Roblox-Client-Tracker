@@ -60,66 +60,74 @@ PROTO_1:
        51 LOADK                            R4 K10 ["FaceControls"]
        52 NAMECALL                         R2 R1 K11 ["FindFirstChildWhichIsA"]
        54 CALL                             R2 2 1
-       55 JUMPIF                           R2 ; [+2]
-       56 LOADB                            R3 0
-       57 RETURN                           R3 1
-       58 GETUPVAL                         R3 1
-       59 GETTABLEKS                       R3 R3 K12 ["LIMBS"]
-       61 LOADNIL                          R4
-       62 LOADNIL                          R5
-       63 FORGPREP                         R3
-       64 MOVE                             R11 R7
-       65 NAMECALL                         R9 R0 K8 ["FindFirstChild"]
-       67 CALL                             R9 2 1
-       68 JUMPIFNOTEQKNIL                  R9 ; [+3]
-       70 LOADNIL                          R8
-       71 JUMP                             ; [+13]
-       72 LOADK                            R12 K9 ["BasePart"]
-       73 NAMECALL                         R10 R9 K2 ["IsA"]
-       75 CALL                             R10 2 1
-       76 JUMPIF                           R10 ; [+2]
-       77 LOADNIL                          R8
-       78 JUMP                             ; [+6]
-       79 GETTABLEKS                       R10 R9 K0 ["Archivable"]
-       81 JUMPIF                           R10 ; [+2]
-       82 LOADNIL                          R8
-       83 JUMP                             ; [+1]
-       84 MOVE                             R8 R9
-       85 JUMPIF                           R8 ; [+2]
-       86 LOADB                            R8 0
-       87 RETURN                           R8 1
-       88 MOVE                             R10 R7
-       89 NAMECALL                         R8 R0 K8 ["FindFirstChild"]
-       91 CALL                             R8 2 1
-       92 LOADK                            R11 K13 ["WrapTarget"]
-       93 NAMECALL                         R9 R8 K14 ["FindFirstChildOfClass"]
-       95 CALL                             R9 2 1
-       96 JUMPIFNOTEQKNIL                  R9 ; [+3]
-       98 LOADB                            R9 0
-       99 RETURN                           R9 1
-      100 FORGLOOP                         R3 2 ; [-37]
-      102 LOADK                            R6 K15 ["Humanoid"]
-      103 NAMECALL                         R4 R0 K8 ["FindFirstChild"]
-      105 CALL                             R4 2 1
-      106 JUMPIFNOTEQKNIL                  R4 ; [+3]
-      108 LOADNIL                          R3
-      109 JUMP                             ; [+13]
-      110 LOADK                            R7 K15 ["Humanoid"]
-      111 NAMECALL                         R5 R4 K2 ["IsA"]
-      113 CALL                             R5 2 1
-      114 JUMPIF                           R5 ; [+2]
-      115 LOADNIL                          R3
-      116 JUMP                             ; [+6]
-      117 GETTABLEKS                       R5 R4 K0 ["Archivable"]
-      119 JUMPIF                           R5 ; [+2]
-      120 LOADNIL                          R3
-      121 JUMP                             ; [+1]
-      122 MOVE                             R3 R4
-      123 JUMPIFNOTEQKNIL                  R3 ; [+3]
-      125 LOADB                            R4 0
-      126 RETURN                           R4 1
-      127 LOADB                            R4 1
-      128 RETURN                           R4 1
+       55 JUMPIFNOTEQKNIL                  R2 ; [+14]
+       57 GETUPVAL                         R2 1
+       58 CALL                             R2 0 1
+       59 JUMPIFNOT                        R2 ; [+8]
+       60 GETUPVAL                         R4 2
+       61 GETTABLEKS                       R4 R4 K12 ["ATTRIBUTE_CREATED_BY_AVATAR_CREATION"]
+       63 NAMECALL                         R2 R0 K13 ["GetAttribute"]
+       65 CALL                             R2 2 1
+       66 JUMPIFEQKB                       R2 TRUE ; [+3]
+       68 LOADB                            R2 0
+       69 RETURN                           R2 1
+       70 GETUPVAL                         R2 2
+       71 GETTABLEKS                       R2 R2 K14 ["LIMBS"]
+       73 LOADNIL                          R3
+       74 LOADNIL                          R4
+       75 FORGPREP                         R2
+       76 MOVE                             R10 R6
+       77 NAMECALL                         R8 R0 K8 ["FindFirstChild"]
+       79 CALL                             R8 2 1
+       80 JUMPIFNOTEQKNIL                  R8 ; [+3]
+       82 LOADNIL                          R7
+       83 JUMP                             ; [+13]
+       84 LOADK                            R11 K9 ["BasePart"]
+       85 NAMECALL                         R9 R8 K2 ["IsA"]
+       87 CALL                             R9 2 1
+       88 JUMPIF                           R9 ; [+2]
+       89 LOADNIL                          R7
+       90 JUMP                             ; [+6]
+       91 GETTABLEKS                       R9 R8 K0 ["Archivable"]
+       93 JUMPIF                           R9 ; [+2]
+       94 LOADNIL                          R7
+       95 JUMP                             ; [+1]
+       96 MOVE                             R7 R8
+       97 JUMPIF                           R7 ; [+2]
+       98 LOADB                            R7 0
+       99 RETURN                           R7 1
+      100 MOVE                             R9 R6
+      101 NAMECALL                         R7 R0 K8 ["FindFirstChild"]
+      103 CALL                             R7 2 1
+      104 LOADK                            R10 K15 ["WrapTarget"]
+      105 NAMECALL                         R8 R7 K16 ["FindFirstChildOfClass"]
+      107 CALL                             R8 2 1
+      108 JUMPIFNOTEQKNIL                  R8 ; [+3]
+      110 LOADB                            R8 0
+      111 RETURN                           R8 1
+      112 FORGLOOP                         R2 2 ; [-37]
+      114 LOADK                            R5 K17 ["Humanoid"]
+      115 NAMECALL                         R3 R0 K8 ["FindFirstChild"]
+      117 CALL                             R3 2 1
+      118 JUMPIFNOTEQKNIL                  R3 ; [+3]
+      120 LOADNIL                          R2
+      121 JUMP                             ; [+13]
+      122 LOADK                            R6 K17 ["Humanoid"]
+      123 NAMECALL                         R4 R3 K2 ["IsA"]
+      125 CALL                             R4 2 1
+      126 JUMPIF                           R4 ; [+2]
+      127 LOADNIL                          R2
+      128 JUMP                             ; [+6]
+      129 GETTABLEKS                       R4 R3 K0 ["Archivable"]
+      131 JUMPIF                           R4 ; [+2]
+      132 LOADNIL                          R2
+      133 JUMP                             ; [+1]
+      134 MOVE                             R2 R3
+      135 JUMPIFNOTEQKNIL                  R2 ; [+3]
+      137 LOADB                            R3 0
+      138 RETURN                           R3 1
+      139 LOADB                            R3 1
+      140 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -136,8 +144,14 @@ MAIN:
        17 GETTABLEKS                       R3 R3 K11 ["Util"]
        19 GETTABLEKS                       R3 R3 K12 ["Constants"]
        21 CALL                             R2 1 1
-       22 DUPCLOSURE                       R3 K13 [PROTO_0]
-       23 DUPCLOSURE                       R4 K14 [PROTO_1]
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          VAL R2
-       26 RETURN                           R4 1
+       22 GETIMPORT                        R3 K9 [require]
+       24 GETTABLEKS                       R4 R0 K10 ["Src"]
+       26 GETTABLEKS                       R4 R4 K13 ["Flags"]
+       28 GETTABLEKS                       R4 R4 K14 ["getFFlagAvatarPreviewerAvatarCreationWithoutFaceControls"]
+       30 CALL                             R3 1 1
+       31 DUPCLOSURE                       R4 K15 [PROTO_0]
+       32 DUPCLOSURE                       R5 K16 [PROTO_1]
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          VAL R3
+       35 CAPTURE                          VAL R2
+       36 RETURN                           R5 1

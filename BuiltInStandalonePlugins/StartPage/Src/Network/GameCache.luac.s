@@ -16,79 +16,28 @@ PROTO_0:
        20 RETURN                           R2 1
 
 PROTO_1:
-        0 GETTABLEKS                       R2 R0 K0 ["LastViewed"]
-        2 JUMPIF                           R2 ; [+6]
-        3 GETIMPORT                        R2 K2 [warn]
-        5 LOADK                            R3 K3 ["Game must have an updated date value"]
-        6 CALL                             R2 1 0
-        7 LOADB                            R2 0
-        8 RETURN                           R2 1
-        9 GETTABLEKS                       R2 R1 K0 ["LastViewed"]
-       11 JUMPIF                           R2 ; [+6]
-       12 GETIMPORT                        R2 K2 [warn]
-       14 LOADK                            R3 K3 ["Game must have an updated date value"]
-       15 CALL                             R2 1 0
-       16 LOADB                            R2 1
-       17 RETURN                           R2 1
-       18 GETIMPORT                        R2 K6 [DateTime.fromIsoDate]
-       20 GETTABLEKS                       R3 R0 K0 ["LastViewed"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K6 [DateTime.fromIsoDate]
-       25 GETTABLEKS                       R4 R1 K0 ["LastViewed"]
-       27 CALL                             R3 1 1
-       28 JUMPIF                           R2 ; [+10]
-       29 GETIMPORT                        R4 K2 [warn]
-       31 LOADK                            R5 K7 ["LastViewed of game must be converted to DateTime: %*"]
-       32 MOVE                             R7 R2
-       33 NAMECALL                         R5 R5 K8 ["format"]
-       35 CALL                             R5 2 1
-       36 CALL                             R4 1 0
-       37 LOADB                            R4 0
-       38 RETURN                           R4 1
-       39 JUMPIF                           R3 ; [+10]
-       40 GETIMPORT                        R4 K2 [warn]
-       42 LOADK                            R5 K7 ["LastViewed of game must be converted to DateTime: %*"]
-       43 MOVE                             R7 R3
-       44 NAMECALL                         R5 R5 K8 ["format"]
-       46 CALL                             R5 2 1
-       47 CALL                             R4 1 0
-       48 LOADB                            R4 0
-       49 RETURN                           R4 1
-       50 GETTABLEKS                       R5 R2 K9 ["UnixTimestampMillis"]
-       52 GETTABLEKS                       R6 R3 K9 ["UnixTimestampMillis"]
-       54 JUMPIFLT                         R6 R5 ; [+2]
-       56 LOADB                            R4 0 +1
-       57 LOADB                            R4 1
-       58 RETURN                           R4 1
+        0 DUPTABLE                         R1 K3 [{"pageSize", "alwaysRefetch", "sortFn"}]
+        1 GETTABLEKS                       R3 R0 K0 ["pageSize"]
+        3 ORK                              R2 R3 K4 [10]
+        4 SETTABLEKS                       R2 R1 K0 ["pageSize"]
+        6 GETTABLEKS                       R3 R0 K5 ["isTemplates"]
+        8 NOT                              R2 R3
+        9 SETTABLEKS                       R2 R1 K1 ["alwaysRefetch"]
+       11 GETTABLEKS                       R3 R0 K6 ["searchKey"]
+       13 JUMPIFNOTEQKS                    R3 K7 ["Recents"] ; [+5]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K8 ["recencySortFn"]
+       18 JUMP                             ; [+1]
+       19 LOADNIL                          R2
+       20 SETTABLEKS                       R2 R1 K2 ["sortFn"]
+       22 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+4]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R1 R1 K0 ["recencySortFn"]
-        5 JUMP                             ; [+1]
-        6 GETUPVAL                         R1 2
-        7 DUPTABLE                         R2 K4 [{"pageSize", "alwaysRefetch", "sortFn"}]
-        8 GETTABLEKS                       R4 R0 K1 ["pageSize"]
-       10 ORK                              R3 R4 K5 [10]
-       11 SETTABLEKS                       R3 R2 K1 ["pageSize"]
-       13 GETTABLEKS                       R4 R0 K6 ["isTemplates"]
-       15 NOT                              R3 R4
-       16 SETTABLEKS                       R3 R2 K2 ["alwaysRefetch"]
-       18 GETTABLEKS                       R4 R0 K7 ["searchKey"]
-       20 JUMPIFNOTEQKS                    R4 K8 ["Recents"] ; [+3]
-       22 MOVE                             R3 R1
-       23 JUMP                             ; [+1]
-       24 LOADNIL                          R3
-       25 SETTABLEKS                       R3 R2 K3 ["sortFn"]
-       27 RETURN                           R2 1
-
-PROTO_3:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 RETURN                           R2 1
 
-PROTO_4:
+PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["CDNUrl"]
         2 JUMPIFNOT                        R1 ; [+16]
         3 GETUPVAL                         R2 0
@@ -121,7 +70,7 @@ PROTO_4:
        41 SETTABLEKS                       R1 R2 K5 ["TeamCreatePresence"]
        43 RETURN                           R2 1
 
-PROTO_5:
+PROTO_4:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
         2 JUMPIFNOT                        R2 ; [+1]
@@ -138,7 +87,7 @@ PROTO_5:
        14 CALL                             R2 2 0
        15 RETURN                           R0 0
 
-PROTO_6:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+3]
         2 GETUPVAL                         R1 1
@@ -155,7 +104,7 @@ PROTO_6:
        16 SETUPVAL                         R1 2
        17 RETURN                           R0 0
 
-PROTO_7:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["reset"]
         3 CALL                             R0 1 0
@@ -169,7 +118,7 @@ PROTO_7:
        14 CALL                             R0 1 0
        15 RETURN                           R0 0
 
-PROTO_8:
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 FASTCALL2K                       ASSERT R2 K0 ; [+4]
         3 LOADK                            R3 K0 ["FFlagLuaStartPageRefreshRecentsOnRegistryUpdate is not enabled"]
@@ -190,7 +139,7 @@ PROTO_8:
        22 FORGLOOP                         R1 1 ; [-11]
        24 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 FASTCALL2K                       ASSERT R2 K0 ; [+4]
         3 LOADK                            R3 K0 ["FFlagLuaStartPageRefreshRecentsOnRegistryUpdate is not enabled"]
@@ -246,53 +195,44 @@ MAIN:
        54 CALL                             R6 1 1
        55 CALL                             R6 0 1
        56 GETIMPORT                        R7 K5 [require]
-       58 GETTABLEKS                       R8 R0 K6 ["Src"]
-       60 GETTABLEKS                       R8 R8 K13 ["SharedFlags"]
-       62 GETTABLEKS                       R8 R8 K16 ["getFFlagStartPageBackfillRecentsFromCloud"]
-       64 CALL                             R7 1 1
-       65 CALL                             R7 0 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K17 ["Packages"]
-       70 GETTABLEKS                       R9 R9 K18 ["Dash"]
-       72 CALL                             R8 1 1
-       73 GETTABLEKS                       R9 R8 K19 ["collectArray"]
-       75 GETTABLEKS                       R10 R8 K20 ["includes"]
-       77 GETIMPORT                        R11 K5 [require]
-       79 GETTABLEKS                       R12 R0 K6 ["Src"]
-       81 GETTABLEKS                       R12 R12 K21 ["Types"]
-       83 CALL                             R11 1 1
-       84 DUPCLOSURE                       R12 K22 [PROTO_0]
-       85 DUPCLOSURE                       R13 K23 [PROTO_1]
-       86 DUPCLOSURE                       R14 K24 [PROTO_2]
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R2
+       58 GETTABLEKS                       R8 R0 K16 ["Packages"]
+       60 GETTABLEKS                       R8 R8 K17 ["Dash"]
+       62 CALL                             R7 1 1
+       63 GETTABLEKS                       R8 R7 K18 ["collectArray"]
+       65 GETTABLEKS                       R9 R7 K19 ["includes"]
+       67 GETIMPORT                        R10 K5 [require]
+       69 GETTABLEKS                       R11 R0 K6 ["Src"]
+       71 GETTABLEKS                       R11 R11 K20 ["Types"]
+       73 CALL                             R10 1 1
+       74 DUPCLOSURE                       R11 K21 [PROTO_0]
+       75 DUPCLOSURE                       R12 K22 [PROTO_1]
+       76 CAPTURE                          VAL R2
+       77 GETTABLEKS                       R13 R1 K23 ["new"]
+       79 MOVE                             R14 R11
+       80 MOVE                             R15 R12
+       81 CALL                             R13 2 1
+       82 NEWTABLE                         R14 0 0
+       84 LOADNIL                          R15
+       85 SETTABLEKS                       R14 R13 K24 ["tempUrls"]
+       87 NEWCLOSURE                       R16 P2
+       88 CAPTURE                          VAL R6
        89 CAPTURE                          VAL R13
-       90 GETTABLEKS                       R15 R1 K25 ["new"]
-       92 MOVE                             R16 R12
-       93 MOVE                             R17 R14
-       94 CALL                             R15 2 1
-       95 NEWTABLE                         R16 0 0
-       97 LOADNIL                          R17
-       98 SETTABLEKS                       R16 R15 K26 ["tempUrls"]
-      100 NEWCLOSURE                       R18 P3
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R15
-      103 CAPTURE                          REF R17
-      104 CAPTURE                          VAL R4
-      105 CAPTURE                          REF R16
-      106 CAPTURE                          VAL R10
-      107 CAPTURE                          VAL R9
-      108 SETTABLEKS                       R18 R15 K27 ["load"]
-      110 NEWCLOSURE                       R18 P4
-      111 CAPTURE                          VAL R15
-      112 CAPTURE                          REF R16
-      113 CAPTURE                          REF R17
-      114 SETTABLEKS                       R18 R15 K28 ["unload"]
-      116 DUPCLOSURE                       R18 K29 [PROTO_8]
-      117 CAPTURE                          VAL R5
-      118 SETTABLEKS                       R18 R15 K30 ["invalidateRecentsLists"]
-      120 DUPCLOSURE                       R18 K31 [PROTO_9]
-      121 CAPTURE                          VAL R5
-      122 SETTABLEKS                       R18 R15 K32 ["refreshRecentsLists"]
-      124 CLOSEUPVALS                      R16
-      125 RETURN                           R15 1
+       90 CAPTURE                          REF R15
+       91 CAPTURE                          VAL R4
+       92 CAPTURE                          REF R14
+       93 CAPTURE                          VAL R9
+       94 CAPTURE                          VAL R8
+       95 SETTABLEKS                       R16 R13 K25 ["load"]
+       97 NEWCLOSURE                       R16 P3
+       98 CAPTURE                          VAL R13
+       99 CAPTURE                          REF R14
+      100 CAPTURE                          REF R15
+      101 SETTABLEKS                       R16 R13 K26 ["unload"]
+      103 DUPCLOSURE                       R16 K27 [PROTO_7]
+      104 CAPTURE                          VAL R5
+      105 SETTABLEKS                       R16 R13 K28 ["invalidateRecentsLists"]
+      107 DUPCLOSURE                       R16 K29 [PROTO_8]
+      108 CAPTURE                          VAL R5
+      109 SETTABLEKS                       R16 R13 K30 ["refreshRecentsLists"]
+      111 CLOSEUPVALS                      R14
+      112 RETURN                           R13 1

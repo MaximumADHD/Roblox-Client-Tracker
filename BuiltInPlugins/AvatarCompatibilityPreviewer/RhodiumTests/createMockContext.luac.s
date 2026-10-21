@@ -1,4 +1,17 @@
 PROTO_0:
+        0 PREPVARARGS                      1
+        1 GETUPVAL                         R1 0
+        2 MOVE                             R2 R0
+        3 GETVARARGS                       R3 -1
+        4 CALL                             R1 -1 0
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R3 R0 K0 ["lastEvent"]
+        8 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
+       10 GETIMPORT                        R1 K3 [table.insert]
+       12 CALL                             R1 2 0
+       13 RETURN                           R0 0
+
+PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 1
@@ -8,73 +21,80 @@ PROTO_0:
         8 GETUPVAL                         R2 2
         9 GETTABLEKS                       R2 R2 K0 ["new"]
        11 CALL                             R2 0 1
-       12 GETUPVAL                         R3 3
-       13 GETTABLEKS                       R3 R3 K1 ["fn"]
-       15 CALL                             R3 0 2
-       16 GETUPVAL                         R5 3
-       17 GETTABLEKS                       R5 R5 K1 ["fn"]
-       19 CALL                             R5 0 2
-       20 NEWTABLE                         R7 0 5
-       22 GETUPVAL                         R8 4
-       23 GETTABLEKS                       R8 R8 K2 ["ContextServices"]
-       25 GETTABLEKS                       R8 R8 K3 ["Plugin"]
-       27 GETTABLEKS                       R8 R8 K0 ["new"]
-       29 MOVE                             R9 R0
-       30 CALL                             R8 1 1
-       31 GETUPVAL                         R9 5
-       32 LOADB                            R10 1
-       33 CALL                             R9 1 1
-       34 GETUPVAL                         R10 4
-       35 GETTABLEKS                       R10 R10 K2 ["ContextServices"]
-       37 GETTABLEKS                       R10 R10 K4 ["Analytics"]
-       39 GETTABLEKS                       R10 R10 K0 ["new"]
-       41 GETUPVAL                         R11 6
-       42 MOVE                             R12 R1
-       43 CALL                             R10 2 1
-       44 GETUPVAL                         R11 7
-       45 GETTABLEKS                       R11 R11 K5 ["Contexts"]
-       47 GETTABLEKS                       R11 R11 K6 ["PreviewContext"]
-       49 GETTABLEKS                       R11 R11 K0 ["new"]
-       51 CALL                             R11 0 1
-       52 GETUPVAL                         R12 8
-       53 GETTABLEKS                       R12 R12 K0 ["new"]
-       55 MOVE                             R13 R2
-       56 CALL                             R12 1 -1
-       57 SETLIST                          R7 R8 -1 [1]
-       59 GETUPVAL                         R8 9
-       60 CALL                             R8 0 1
-       61 JUMPIFNOT                        R8 ; [+21]
-       62 GETUPVAL                         R8 10
-       63 GETTABLEKS                       R8 R8 K7 ["PluginActions"]
-       65 GETTABLEKS                       R8 R8 K0 ["new"]
-       67 MOVE                             R9 R0
-       68 GETUPVAL                         R10 11
-       69 MOVE                             R11 R0
-       70 GETUPVAL                         R12 12
-       71 GETTABLEKS                       R12 R12 K8 ["mock"]
-       73 CALL                             R12 0 -1
-       74 CALL                             R10 -1 -1
-       75 CALL                             R8 -1 1
-       76 FASTCALL2                        TABLE_INSERT R7 R8 ; [+5]
-       78 MOVE                             R10 R7
-       79 MOVE                             R11 R8
-       80 GETIMPORT                        R9 K11 [table.insert]
-       82 CALL                             R9 2 0
-       83 DUPTABLE                         R8 K17 [{"context", "plugin", "analyticsService", "selectionService", "placesService"}]
-       84 SETTABLEKS                       R7 R8 K12 ["context"]
-       86 SETTABLEKS                       R0 R8 K13 ["plugin"]
-       88 SETTABLEKS                       R1 R8 K14 ["analyticsService"]
-       90 SETTABLEKS                       R2 R8 K15 ["selectionService"]
-       92 DUPTABLE                         R9 K20 [{"startPlaySolo", "stopPlaySolo"}]
-       93 SETTABLEKS                       R3 R9 K18 ["startPlaySolo"]
-       95 SETTABLEKS                       R5 R9 K19 ["stopPlaySolo"]
-       97 SETTABLEKS                       R9 R8 K16 ["placesService"]
-       99 DUPTABLE                         R9 K21 [{"placesService"}]
-      100 DUPTABLE                         R10 K20 [{"startPlaySolo", "stopPlaySolo"}]
-      101 SETTABLEKS                       R4 R10 K18 ["startPlaySolo"]
-      103 SETTABLEKS                       R6 R10 K19 ["stopPlaySolo"]
-      105 SETTABLEKS                       R10 R9 K16 ["placesService"]
-      107 RETURN                           R8 2
+       12 NEWTABLE                         R3 0 0
+       14 GETTABLEKS                       R4 R1 K1 ["SendEventDeferred"]
+       16 NEWCLOSURE                       R5 P0
+       17 CAPTURE                          VAL R4
+       18 CAPTURE                          VAL R3
+       19 SETTABLEKS                       R5 R1 K1 ["SendEventDeferred"]
+       21 GETUPVAL                         R5 3
+       22 GETTABLEKS                       R5 R5 K2 ["fn"]
+       24 CALL                             R5 0 2
+       25 GETUPVAL                         R7 3
+       26 GETTABLEKS                       R7 R7 K2 ["fn"]
+       28 CALL                             R7 0 2
+       29 NEWTABLE                         R9 0 5
+       31 GETUPVAL                         R10 4
+       32 GETTABLEKS                       R10 R10 K3 ["ContextServices"]
+       34 GETTABLEKS                       R10 R10 K4 ["Plugin"]
+       36 GETTABLEKS                       R10 R10 K0 ["new"]
+       38 MOVE                             R11 R0
+       39 CALL                             R10 1 1
+       40 GETUPVAL                         R11 5
+       41 LOADB                            R12 1
+       42 CALL                             R11 1 1
+       43 GETUPVAL                         R12 4
+       44 GETTABLEKS                       R12 R12 K3 ["ContextServices"]
+       46 GETTABLEKS                       R12 R12 K5 ["Analytics"]
+       48 GETTABLEKS                       R12 R12 K0 ["new"]
+       50 GETUPVAL                         R13 6
+       51 MOVE                             R14 R1
+       52 CALL                             R12 2 1
+       53 GETUPVAL                         R13 7
+       54 GETTABLEKS                       R13 R13 K6 ["Contexts"]
+       56 GETTABLEKS                       R13 R13 K7 ["PreviewContext"]
+       58 GETTABLEKS                       R13 R13 K0 ["new"]
+       60 CALL                             R13 0 1
+       61 GETUPVAL                         R14 8
+       62 GETTABLEKS                       R14 R14 K0 ["new"]
+       64 MOVE                             R15 R2
+       65 CALL                             R14 1 -1
+       66 SETLIST                          R9 R10 -1 [1]
+       68 GETUPVAL                         R10 9
+       69 CALL                             R10 0 1
+       70 JUMPIFNOT                        R10 ; [+21]
+       71 GETUPVAL                         R10 10
+       72 GETTABLEKS                       R10 R10 K8 ["PluginActions"]
+       74 GETTABLEKS                       R10 R10 K0 ["new"]
+       76 MOVE                             R11 R0
+       77 GETUPVAL                         R12 11
+       78 MOVE                             R13 R0
+       79 GETUPVAL                         R14 12
+       80 GETTABLEKS                       R14 R14 K9 ["mock"]
+       82 CALL                             R14 0 -1
+       83 CALL                             R12 -1 -1
+       84 CALL                             R10 -1 1
+       85 FASTCALL2                        TABLE_INSERT R9 R10 ; [+5]
+       87 MOVE                             R12 R9
+       88 MOVE                             R13 R10
+       89 GETIMPORT                        R11 K12 [table.insert]
+       91 CALL                             R11 2 0
+       92 DUPTABLE                         R10 K19 [{"context", "plugin", "analyticsService", "analyticsEvents", "selectionService", "placesService"}]
+       93 SETTABLEKS                       R9 R10 K13 ["context"]
+       95 SETTABLEKS                       R0 R10 K14 ["plugin"]
+       97 SETTABLEKS                       R1 R10 K15 ["analyticsService"]
+       99 SETTABLEKS                       R3 R10 K16 ["analyticsEvents"]
+      101 SETTABLEKS                       R2 R10 K17 ["selectionService"]
+      103 DUPTABLE                         R11 K22 [{"startPlaySolo", "stopPlaySolo"}]
+      104 SETTABLEKS                       R5 R11 K20 ["startPlaySolo"]
+      106 SETTABLEKS                       R7 R11 K21 ["stopPlaySolo"]
+      108 SETTABLEKS                       R11 R10 K18 ["placesService"]
+      110 DUPTABLE                         R11 K23 [{"placesService"}]
+      111 DUPTABLE                         R12 K22 [{"startPlaySolo", "stopPlaySolo"}]
+      112 SETTABLEKS                       R6 R12 K20 ["startPlaySolo"]
+      114 SETTABLEKS                       R8 R12 K21 ["stopPlaySolo"]
+      116 SETTABLEKS                       R12 R11 K18 ["placesService"]
+      118 RETURN                           R10 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -137,7 +157,7 @@ MAIN:
       102 GETTABLEKS                       R14 R14 K25 ["Instances"]
       104 GETTABLEKS                       R14 R14 K28 ["MockPlugin"]
       106 GETTABLEKS                       R15 R3 K29 ["jest"]
-      108 DUPCLOSURE                       R16 K30 [PROTO_0]
+      108 DUPCLOSURE                       R16 K30 [PROTO_1]
       109 CAPTURE                          VAL R14
       110 CAPTURE                          VAL R12
       111 CAPTURE                          VAL R13

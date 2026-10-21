@@ -251,30 +251,40 @@ PROTO_9:
       125 GETTABLEKS                       R12 R12 K6 ["Enabled"]
       127 GETTABLEKS                       R13 R0 K48 ["onWidgetEnabledChanged"]
       129 SETTABLE                         R13 R11 R12
-      130 DUPTABLE                         R12 K51 [{"Wrapper", "StyleLink"}]
-      131 GETUPVAL                         R13 0
-      132 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      134 GETUPVAL                         R14 6
-      135 NEWTABLE                         R15 1 0
-      137 GETUPVAL                         R16 0
-      138 GETTABLEKS                       R16 R16 K52 ["Tag"]
-      140 LOADK                            R17 K53 ["X-Fill X-Column"]
-      141 SETTABLE                         R17 R15 R16
-      142 MOVE                             R16 R5
-      143 CALL                             R13 3 1
-      144 SETTABLEKS                       R13 R12 K49 ["Wrapper"]
-      146 GETUPVAL                         R13 0
-      147 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      149 LOADK                            R14 K50 ["StyleLink"]
-      150 DUPTABLE                         R15 K55 [{"StyleSheet"}]
-      151 GETTABLEKS                       R16 R0 K56 ["design"]
-      153 SETTABLEKS                       R16 R15 K54 ["StyleSheet"]
-      155 CALL                             R13 2 1
-      156 SETTABLEKS                       R13 R12 K50 ["StyleLink"]
-      158 CALL                             R9 3 1
-      159 SETTABLEKS                       R9 R8 K20 ["MainWidget"]
-      161 CALL                             R6 2 -1
-      162 RETURN                           R6 -1
+      130 GETUPVAL                         R13 6
+      131 JUMPIFNOT                        R13 ; [+3]
+      132 GETTABLEKS                       R12 R0 K49 ["design"]
+      134 JUMP                             ; [+1]
+      135 LOADNIL                          R12
+      136 SETTABLEKS                       R12 R11 K50 ["PluginDesign"]
+      138 DUPTABLE                         R12 K53 [{"Wrapper", "StyleLink"}]
+      139 GETUPVAL                         R13 0
+      140 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      142 GETUPVAL                         R14 7
+      143 NEWTABLE                         R15 1 0
+      145 GETUPVAL                         R16 0
+      146 GETTABLEKS                       R16 R16 K54 ["Tag"]
+      148 LOADK                            R17 K55 ["X-Fill X-Column"]
+      149 SETTABLE                         R17 R15 R16
+      150 MOVE                             R16 R5
+      151 CALL                             R13 3 1
+      152 SETTABLEKS                       R13 R12 K51 ["Wrapper"]
+      154 GETUPVAL                         R14 6
+      155 JUMPIF                           R14 ; [+11]
+      156 GETUPVAL                         R13 0
+      157 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      159 LOADK                            R14 K52 ["StyleLink"]
+      160 DUPTABLE                         R15 K57 [{"StyleSheet"}]
+      161 GETTABLEKS                       R16 R0 K49 ["design"]
+      163 SETTABLEKS                       R16 R15 K56 ["StyleSheet"]
+      165 CALL                             R13 2 1
+      166 JUMP                             ; [+1]
+      167 LOADNIL                          R13
+      168 SETTABLEKS                       R13 R12 K52 ["StyleLink"]
+      170 CALL                             R9 3 1
+      171 SETTABLEKS                       R9 R8 K20 ["MainWidget"]
+      173 CALL                             R6 2 -1
+      174 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -290,58 +300,62 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
        18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["UI"]
-       23 GETTABLEKS                       R4 R3 K10 ["DockWidget"]
-       25 GETTABLEKS                       R5 R3 K11 ["Pane"]
-       27 GETTABLEKS                       R6 R2 K12 ["ContextServices"]
-       29 GETTABLEKS                       R7 R6 K13 ["Plugin"]
-       31 GETTABLEKS                       R8 R6 K14 ["Mouse"]
-       33 GETIMPORT                        R9 K5 [require]
-       35 GETTABLEKS                       R10 R0 K15 ["Src"]
-       37 GETTABLEKS                       R10 R10 K16 ["Types"]
-       39 CALL                             R9 1 1
-       40 GETIMPORT                        R10 K5 [require]
-       42 GETTABLEKS                       R11 R0 K15 ["Src"]
-       44 GETTABLEKS                       R11 R11 K17 ["Util"]
-       46 GETTABLEKS                       R11 R11 K18 ["AttenuationUtil"]
-       48 CALL                             R10 1 1
-       49 GETTABLEKS                       R11 R2 K19 ["Style"]
-       51 GETTABLEKS                       R11 R11 K20 ["Themes"]
-       53 GETTABLEKS                       R11 R11 K21 ["StudioTheme"]
-       55 GETTABLEKS                       R12 R2 K22 ["Styling"]
-       57 GETTABLEKS                       R12 R12 K23 ["registerPluginStyles"]
-       59 GETTABLEKS                       R13 R0 K15 ["Src"]
-       61 GETTABLEKS                       R13 R13 K24 ["Resources"]
-       63 GETTABLEKS                       R13 R13 K25 ["Localization"]
-       65 GETTABLEKS                       R13 R13 K26 ["SourceStrings"]
-       67 GETTABLEKS                       R14 R0 K15 ["Src"]
-       69 GETTABLEKS                       R14 R14 K24 ["Resources"]
-       71 GETTABLEKS                       R14 R14 K25 ["Localization"]
-       73 GETTABLEKS                       R14 R14 K27 ["LocalizedStrings"]
-       75 GETTABLEKS                       R15 R0 K15 ["Src"]
-       77 GETTABLEKS                       R15 R15 K28 ["Components"]
-       79 GETIMPORT                        R16 K5 [require]
-       81 GETTABLEKS                       R17 R15 K29 ["AttenuationCurveRenderer"]
-       83 CALL                             R16 1 1
-       84 GETTABLEKS                       R17 R1 K30 ["PureComponent"]
-       86 LOADK                            R19 K31 ["MainPlugin"]
-       87 NAMECALL                         R17 R17 K32 ["extend"]
-       89 CALL                             R17 2 1
-       90 DUPCLOSURE                       R18 K33 [PROTO_8]
-       91 CAPTURE                          VAL R10
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R13
-       94 CAPTURE                          VAL R14
-       95 CAPTURE                          VAL R11
-       96 CAPTURE                          VAL R12
-       97 SETTABLEKS                       R18 R17 K34 ["init"]
-       99 DUPCLOSURE                       R18 K35 [PROTO_9]
-      100 CAPTURE                          VAL R1
-      101 CAPTURE                          VAL R16
-      102 CAPTURE                          VAL R6
-      103 CAPTURE                          VAL R7
-      104 CAPTURE                          VAL R8
-      105 CAPTURE                          VAL R4
-      106 CAPTURE                          VAL R5
-      107 SETTABLEKS                       R18 R17 K36 ["render"]
-      109 RETURN                           R17 1
+       21 GETTABLEKS                       R3 R2 K9 ["SharedFlags"]
+       23 GETTABLEKS                       R3 R3 K10 ["getFFlagDevFrameworkUsePluginDesign"]
+       25 CALL                             R3 0 1
+       26 GETTABLEKS                       R4 R2 K11 ["UI"]
+       28 GETTABLEKS                       R5 R4 K12 ["DockWidget"]
+       30 GETTABLEKS                       R6 R4 K13 ["Pane"]
+       32 GETTABLEKS                       R7 R2 K14 ["ContextServices"]
+       34 GETTABLEKS                       R8 R7 K15 ["Plugin"]
+       36 GETTABLEKS                       R9 R7 K16 ["Mouse"]
+       38 GETIMPORT                        R10 K5 [require]
+       40 GETTABLEKS                       R11 R0 K17 ["Src"]
+       42 GETTABLEKS                       R11 R11 K18 ["Types"]
+       44 CALL                             R10 1 1
+       45 GETIMPORT                        R11 K5 [require]
+       47 GETTABLEKS                       R12 R0 K17 ["Src"]
+       49 GETTABLEKS                       R12 R12 K19 ["Util"]
+       51 GETTABLEKS                       R12 R12 K20 ["AttenuationUtil"]
+       53 CALL                             R11 1 1
+       54 GETTABLEKS                       R12 R2 K21 ["Style"]
+       56 GETTABLEKS                       R12 R12 K22 ["Themes"]
+       58 GETTABLEKS                       R12 R12 K23 ["StudioTheme"]
+       60 GETTABLEKS                       R13 R2 K24 ["Styling"]
+       62 GETTABLEKS                       R13 R13 K25 ["registerPluginStyles"]
+       64 GETTABLEKS                       R14 R0 K17 ["Src"]
+       66 GETTABLEKS                       R14 R14 K26 ["Resources"]
+       68 GETTABLEKS                       R14 R14 K27 ["Localization"]
+       70 GETTABLEKS                       R14 R14 K28 ["SourceStrings"]
+       72 GETTABLEKS                       R15 R0 K17 ["Src"]
+       74 GETTABLEKS                       R15 R15 K26 ["Resources"]
+       76 GETTABLEKS                       R15 R15 K27 ["Localization"]
+       78 GETTABLEKS                       R15 R15 K29 ["LocalizedStrings"]
+       80 GETTABLEKS                       R16 R0 K17 ["Src"]
+       82 GETTABLEKS                       R16 R16 K30 ["Components"]
+       84 GETIMPORT                        R17 K5 [require]
+       86 GETTABLEKS                       R18 R16 K31 ["AttenuationCurveRenderer"]
+       88 CALL                             R17 1 1
+       89 GETTABLEKS                       R18 R1 K32 ["PureComponent"]
+       91 LOADK                            R20 K33 ["MainPlugin"]
+       92 NAMECALL                         R18 R18 K34 ["extend"]
+       94 CALL                             R18 2 1
+       95 DUPCLOSURE                       R19 K35 [PROTO_8]
+       96 CAPTURE                          VAL R11
+       97 CAPTURE                          VAL R7
+       98 CAPTURE                          VAL R14
+       99 CAPTURE                          VAL R15
+      100 CAPTURE                          VAL R12
+      101 CAPTURE                          VAL R13
+      102 SETTABLEKS                       R19 R18 K36 ["init"]
+      104 DUPCLOSURE                       R19 K37 [PROTO_9]
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          VAL R17
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R6
+      113 SETTABLEKS                       R19 R18 K38 ["render"]
+      115 RETURN                           R18 1

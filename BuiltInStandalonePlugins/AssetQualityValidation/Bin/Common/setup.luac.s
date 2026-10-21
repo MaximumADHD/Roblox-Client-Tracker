@@ -43,72 +43,80 @@ PROTO_3:
        20 NAMECALL                         R3 R2 K10 ["destroy"]
        22 CALL                             R3 1 0
        23 NEWTABLE                         R3 0 1
-       25 DUPTABLE                         R4 K22 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"] = "rbxlocaltheme://GameSettings", ["enabled"] = True, ["visible"] = True, ["checkable"] = True, ["checked"] = False}]
-       26 DUPTABLE                         R5 K30 [{["DataModel"] = "Standalone", ["PluginId"] = "AssetQualityValidation", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+       25 DUPTABLE                         R4 K21 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"], ["enabled"] = True, ["visible"] = True, ["checkable"] = True, ["checked"] = False}]
+       26 DUPTABLE                         R5 K29 [{["DataModel"] = "Standalone", ["PluginId"] = "AssetQualityValidation", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
        27 SETTABLEKS                       R5 R4 K11 ["uri"]
-       29 DUPCLOSURE                       R5 K31 [PROTO_0]
+       29 DUPCLOSURE                       R5 K30 [PROTO_0]
        30 SETTABLEKS                       R5 R4 K9 ["getText"]
-       32 DUPCLOSURE                       R5 K32 [PROTO_1]
+       32 DUPCLOSURE                       R5 K31 [PROTO_1]
        33 SETTABLEKS                       R5 R4 K14 ["getTooltip"]
-       35 SETLIST                          R3 R4 1 [1]
-       37 DUPTABLE                         R4 K37 [{["plugin"], ["pluginName"] = "AssetQualityValidation", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True, ["actionInfos"]}]
-       38 SETTABLEKS                       R0 R4 K33 ["plugin"]
-       40 GETUPVAL                         R5 2
-       41 SETTABLEKS                       R5 R4 K3 ["translationResourceTable"]
-       43 GETUPVAL                         R5 1
-       44 SETTABLEKS                       R5 R4 K34 ["fallbackResourceTable"]
-       46 SETTABLEKS                       R3 R4 K36 ["actionInfos"]
-       48 GETIMPORT                        R5 K39 [game]
-       50 LOADK                            R7 K40 ["RunService"]
-       51 NAMECALL                         R5 R5 K41 ["GetService"]
-       53 CALL                             R5 2 1
-       54 GETUPVAL                         R7 3
-       55 GETTABLEKS                       R7 R7 K42 ["get"]
-       57 CALL                             R7 0 1
-       58 GETUPVAL                         R8 3
-       59 GETTABLEKS                       R8 R8 K24 ["Standalone"]
-       61 JUMPIFEQ                         R7 R8 ; [+2]
-       63 LOADB                            R6 0 +1
-       64 LOADB                            R6 1
-       65 NAMECALL                         R7 R5 K43 ["IsEdit"]
-       67 CALL                             R7 1 1
-       68 JUMPIF                           R6 ; [+1]
-       69 JUMPIFNOT                        R7 ; [+40]
-       70 DUPTABLE                         R8 K48 [{["id"] = "AssetQualityValidation", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
-       71 GETIMPORT                        R9 K50 [DockWidgetPluginGuiInfo.new]
-       73 GETIMPORT                        R10 K54 [Enum.InitialDockState.Bottom]
-       75 LOADB                            R11 0
-       76 LOADB                            R12 0
-       77 LOADN                            R13 640
-       78 LOADN                            R14 480
-       79 LOADN                            R15 250
-       80 LOADN                            R16 200
-       81 CALL                             R9 7 1
-       82 SETTABLEKS                       R9 R8 K45 ["dockWidgetPluginGuiInfo"]
-       84 DUPCLOSURE                       R9 K55 [PROTO_2]
-       85 SETTABLEKS                       R9 R8 K46 ["getDockTitle"]
-       87 GETIMPORT                        R9 K58 [Enum.ZIndexBehavior.Sibling]
-       89 SETTABLEKS                       R9 R8 K47 ["zIndexBehavior"]
-       91 SETTABLEKS                       R8 R4 K59 ["dockWidgetInfo"]
-       93 GETUPVAL                         R8 4
-       94 GETTABLEKS                       R8 R8 K60 ["build"]
-       96 MOVE                             R9 R4
-       97 CALL                             R8 1 1
-       98 GETTABLEKS                       R9 R8 K61 ["pluginLoader"]
-      100 NAMECALL                         R9 R9 K62 ["waitForUserInteraction"]
-      102 CALL                             R9 1 1
-      103 JUMPIF                           R9 ; [+1]
-      104 RETURN                           R0 0
-      105 MOVE                             R10 R1
-      106 MOVE                             R11 R0
-      107 MOVE                             R12 R8
-      108 CALL                             R10 2 0
-      109 RETURN                           R0 0
-      110 GETUPVAL                         R8 4
-      111 GETTABLEKS                       R8 R8 K60 ["build"]
-      113 MOVE                             R9 R4
-      114 CALL                             R8 1 0
-      115 RETURN                           R0 0
+       35 GETUPVAL                         R6 3
+       36 GETTABLEKS                       R6 R6 K32 ["getFFlagEnableAssetQualityValidationIcon"]
+       38 CALL                             R6 0 1
+       39 JUMPIFNOT                        R6 ; [+2]
+       40 LOADK                            R5 K33 ["RibbonUGCValidation"]
+       41 JUMP                             ; [+1]
+       42 LOADK                            R5 K34 ["rbxlocaltheme://GameSettings"]
+       43 SETTABLEKS                       R5 R4 K15 ["icon"]
+       45 SETLIST                          R3 R4 1 [1]
+       47 DUPTABLE                         R4 K39 [{["plugin"], ["pluginName"] = "AssetQualityValidation", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True, ["actionInfos"]}]
+       48 SETTABLEKS                       R0 R4 K35 ["plugin"]
+       50 GETUPVAL                         R5 2
+       51 SETTABLEKS                       R5 R4 K3 ["translationResourceTable"]
+       53 GETUPVAL                         R5 1
+       54 SETTABLEKS                       R5 R4 K36 ["fallbackResourceTable"]
+       56 SETTABLEKS                       R3 R4 K38 ["actionInfos"]
+       58 GETIMPORT                        R5 K41 [game]
+       60 LOADK                            R7 K42 ["RunService"]
+       61 NAMECALL                         R5 R5 K43 ["GetService"]
+       63 CALL                             R5 2 1
+       64 GETUPVAL                         R7 4
+       65 GETTABLEKS                       R7 R7 K44 ["get"]
+       67 CALL                             R7 0 1
+       68 GETUPVAL                         R8 4
+       69 GETTABLEKS                       R8 R8 K23 ["Standalone"]
+       71 JUMPIFEQ                         R7 R8 ; [+2]
+       73 LOADB                            R6 0 +1
+       74 LOADB                            R6 1
+       75 NAMECALL                         R7 R5 K45 ["IsEdit"]
+       77 CALL                             R7 1 1
+       78 JUMPIF                           R6 ; [+1]
+       79 JUMPIFNOT                        R7 ; [+40]
+       80 DUPTABLE                         R8 K50 [{["id"] = "AssetQualityValidation", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+       81 GETIMPORT                        R9 K52 [DockWidgetPluginGuiInfo.new]
+       83 GETIMPORT                        R10 K56 [Enum.InitialDockState.Bottom]
+       85 LOADB                            R11 0
+       86 LOADB                            R12 0
+       87 LOADN                            R13 640
+       88 LOADN                            R14 480
+       89 LOADN                            R15 250
+       90 LOADN                            R16 200
+       91 CALL                             R9 7 1
+       92 SETTABLEKS                       R9 R8 K47 ["dockWidgetPluginGuiInfo"]
+       94 DUPCLOSURE                       R9 K57 [PROTO_2]
+       95 SETTABLEKS                       R9 R8 K48 ["getDockTitle"]
+       97 GETIMPORT                        R9 K60 [Enum.ZIndexBehavior.Sibling]
+       99 SETTABLEKS                       R9 R8 K49 ["zIndexBehavior"]
+      101 SETTABLEKS                       R8 R4 K61 ["dockWidgetInfo"]
+      103 GETUPVAL                         R8 5
+      104 GETTABLEKS                       R8 R8 K62 ["build"]
+      106 MOVE                             R9 R4
+      107 CALL                             R8 1 1
+      108 GETTABLEKS                       R9 R8 K63 ["pluginLoader"]
+      110 NAMECALL                         R9 R9 K64 ["waitForUserInteraction"]
+      112 CALL                             R9 1 1
+      113 JUMPIF                           R9 ; [+1]
+      114 RETURN                           R0 0
+      115 MOVE                             R10 R1
+      116 MOVE                             R11 R0
+      117 MOVE                             R12 R8
+      118 CALL                             R10 2 0
+      119 RETURN                           R0 0
+      120 GETUPVAL                         R8 5
+      121 GETTABLEKS                       R8 R8 K62 ["build"]
+      123 MOVE                             R9 R4
+      124 CALL                             R8 1 0
+      125 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -138,12 +146,18 @@ MAIN:
        43 GETIMPORT                        R7 K5 [require]
        45 GETTABLEKS                       R8 R0 K16 ["Bin"]
        47 GETTABLEKS                       R8 R8 K17 ["Common"]
-       49 GETTABLEKS                       R8 R8 K18 ["pluginType"]
+       49 GETTABLEKS                       R8 R8 K18 ["defineLuaFlags"]
        51 CALL                             R7 1 1
-       52 DUPCLOSURE                       R8 K19 [PROTO_3]
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          VAL R6
-       56 CAPTURE                          VAL R7
-       57 CAPTURE                          VAL R2
-       58 RETURN                           R8 1
+       52 GETIMPORT                        R8 K5 [require]
+       54 GETTABLEKS                       R9 R0 K16 ["Bin"]
+       56 GETTABLEKS                       R9 R9 K17 ["Common"]
+       58 GETTABLEKS                       R9 R9 K19 ["pluginType"]
+       60 CALL                             R8 1 1
+       61 DUPCLOSURE                       R9 K20 [PROTO_3]
+       62 CAPTURE                          VAL R4
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R2
+       68 RETURN                           R9 1

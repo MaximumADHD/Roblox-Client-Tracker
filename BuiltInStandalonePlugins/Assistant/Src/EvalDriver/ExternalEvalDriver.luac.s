@@ -676,144 +676,142 @@ MAIN:
         9 LOADK                            R3 K6 ["HttpService"]
        10 NAMECALL                         R1 R1 K7 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K11 ["AssistantUI"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K12 ["DMNetworking"]
-       26 CALL                             R3 1 1
-       27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R5 K13 ["DMNetworkingOLD"]
-       33 CALL                             R4 1 1
-       34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R6 R0 K14 ["Src"]
-       38 GETTABLEKS                       R6 R6 K15 ["Flags"]
-       40 CALL                             R5 1 1
-       41 GETIMPORT                        R6 K9 [require]
-       43 GETTABLEKS                       R7 R0 K10 ["Packages"]
-       45 GETTABLEKS                       R7 R7 K16 ["ModelContextProtocol"]
-       47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K9 [require]
-       50 GETIMPORT                        R8 K1 [script]
-       52 GETTABLEKS                       R8 R8 K17 ["Parent"]
-       54 GETTABLEKS                       R8 R8 K18 ["EvalDriverVersion"]
-       56 CALL                             R7 1 1
-       57 GETIMPORT                        R8 K9 [require]
-       59 GETIMPORT                        R9 K1 [script]
-       61 GETTABLEKS                       R9 R9 K17 ["Parent"]
-       63 GETTABLEKS                       R9 R9 K19 ["EvalUtils"]
-       65 CALL                             R8 1 1
-       66 GETIMPORT                        R9 K9 [require]
-       68 GETIMPORT                        R10 K1 [script]
-       70 GETTABLEKS                       R10 R10 K17 ["Parent"]
-       72 GETTABLEKS                       R10 R10 K20 ["PlaceManager"]
-       74 CALL                             R9 1 1
-       75 GETIMPORT                        R10 K9 [require]
-       77 GETIMPORT                        R11 K1 [script]
-       79 GETTABLEKS                       R11 R11 K17 ["Parent"]
-       81 GETTABLEKS                       R11 R11 K21 ["PlaySoloManager"]
-       83 CALL                             R10 1 1
-       84 GETTABLEKS                       R11 R2 K22 ["Utils"]
-       86 GETTABLEKS                       R11 R11 K23 ["Bin"]
-       88 GETTABLEKS                       R12 R2 K22 ["Utils"]
-       90 GETTABLEKS                       R12 R12 K24 ["DataModelType"]
-       92 GETTABLEKS                       R13 R2 K22 ["Utils"]
-       94 GETTABLEKS                       R13 R13 K25 ["EvalController"]
-       96 GETTABLEKS                       R14 R2 K22 ["Utils"]
-       98 GETTABLEKS                       R14 R14 K26 ["EvalFunctionRegistry"]
-      100 GETTABLEKS                       R15 R2 K22 ["Utils"]
-      102 GETTABLEKS                       R15 R15 K27 ["NetworkingIdentity"]
-      104 GETTABLEKS                       R16 R3 K28 ["Remote"]
-      106 GETTABLEKS                       R17 R6 K29 ["Types"]
-      108 GETTABLEKS                       R18 R6 K30 ["Server"]
-      110 GETTABLEKS                       R19 R6 K31 ["Util"]
-      112 GETTABLEKS                       R19 R19 K32 ["ToolResult"]
-      114 GETTABLEKS                       R20 R6 K33 ["WebSocketTransport"]
-      116 GETTABLEKS                       R20 R20 K33 ["WebSocketTransport"]
-      118 LOADNIL                          R21
-      119 LOADNIL                          R22
-      120 LOADNIL                          R23
-      121 LOADNIL                          R24
-      122 LOADNIL                          R25
-      123 LOADNIL                          R26
-      124 LOADNIL                          R27
-      125 LOADNIL                          R28
-      126 DUPCLOSURE                       R29 K34 [PROTO_0]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETIMPORT                        R3 K10 [require]
+       17 GETTABLEKS                       R4 R2 K11 ["AssistantUI"]
+       19 CALL                             R3 1 1
+       20 GETIMPORT                        R4 K10 [require]
+       22 GETTABLEKS                       R5 R2 K12 ["Bin"]
+       24 CALL                             R4 1 1
+       25 GETIMPORT                        R5 K10 [require]
+       27 GETTABLEKS                       R6 R2 K13 ["DMNetworking"]
+       29 CALL                             R5 1 1
+       30 GETIMPORT                        R6 K10 [require]
+       32 GETTABLEKS                       R7 R2 K14 ["DMNetworkingOLD"]
+       34 CALL                             R6 1 1
+       35 GETIMPORT                        R7 K10 [require]
+       37 GETTABLEKS                       R8 R2 K15 ["ModelContextProtocol"]
+       39 CALL                             R7 1 1
+       40 GETIMPORT                        R8 K10 [require]
+       42 GETTABLEKS                       R9 R0 K16 ["Src"]
+       44 GETTABLEKS                       R9 R9 K17 ["EvalDriver"]
+       46 GETTABLEKS                       R9 R9 K18 ["EvalDriverVersion"]
+       48 CALL                             R8 1 1
+       49 GETIMPORT                        R9 K10 [require]
+       51 GETTABLEKS                       R10 R0 K16 ["Src"]
+       53 GETTABLEKS                       R10 R10 K17 ["EvalDriver"]
+       55 GETTABLEKS                       R10 R10 K19 ["EvalUtils"]
+       57 CALL                             R9 1 1
+       58 GETIMPORT                        R10 K10 [require]
+       60 GETTABLEKS                       R11 R0 K16 ["Src"]
+       62 GETTABLEKS                       R11 R11 K20 ["Flags"]
+       64 CALL                             R10 1 1
+       65 GETIMPORT                        R11 K10 [require]
+       67 GETTABLEKS                       R12 R0 K16 ["Src"]
+       69 GETTABLEKS                       R12 R12 K17 ["EvalDriver"]
+       71 GETTABLEKS                       R12 R12 K21 ["PlaceManager"]
+       73 CALL                             R11 1 1
+       74 GETIMPORT                        R12 K10 [require]
+       76 GETTABLEKS                       R13 R0 K16 ["Src"]
+       78 GETTABLEKS                       R13 R13 K17 ["EvalDriver"]
+       80 GETTABLEKS                       R13 R13 K22 ["PlaySoloManager"]
+       82 CALL                             R12 1 1
+       83 GETTABLEKS                       R13 R3 K23 ["Utils"]
+       85 GETTABLEKS                       R13 R13 K24 ["DataModelType"]
+       87 GETTABLEKS                       R14 R3 K23 ["Utils"]
+       89 GETTABLEKS                       R14 R14 K25 ["EvalController"]
+       91 GETTABLEKS                       R15 R3 K23 ["Utils"]
+       93 GETTABLEKS                       R15 R15 K26 ["EvalFunctionRegistry"]
+       95 GETTABLEKS                       R16 R3 K23 ["Utils"]
+       97 GETTABLEKS                       R16 R16 K27 ["NetworkingIdentity"]
+       99 GETTABLEKS                       R17 R5 K28 ["Remote"]
+      101 GETTABLEKS                       R18 R7 K29 ["Types"]
+      103 GETTABLEKS                       R19 R7 K30 ["Server"]
+      105 GETTABLEKS                       R20 R7 K31 ["Util"]
+      107 GETTABLEKS                       R20 R20 K32 ["ToolResult"]
+      109 GETTABLEKS                       R21 R7 K33 ["WebSocketTransport"]
+      111 GETTABLEKS                       R21 R21 K33 ["WebSocketTransport"]
+      113 LOADNIL                          R22
+      114 LOADNIL                          R23
+      115 LOADNIL                          R24
+      116 LOADNIL                          R25
+      117 LOADNIL                          R26
+      118 LOADNIL                          R27
+      119 LOADNIL                          R28
+      120 LOADNIL                          R29
+      121 DUPCLOSURE                       R30 K34 [PROTO_0]
+      122 CAPTURE                          VAL R14
+      123 CAPTURE                          VAL R15
+      124 DUPCLOSURE                       R31 K35 [PROTO_1]
+      125 CAPTURE                          VAL R14
+      126 NEWCLOSURE                       R32 P2
       127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R14
-      129 DUPCLOSURE                       R30 K35 [PROTO_1]
-      130 CAPTURE                          VAL R13
-      131 NEWCLOSURE                       R31 P2
-      132 CAPTURE                          VAL R12
-      133 CAPTURE                          VAL R14
-      134 CAPTURE                          VAL R5
-      135 CAPTURE                          VAL R16
-      136 CAPTURE                          REF R22
-      137 CAPTURE                          VAL R15
-      138 CAPTURE                          REF R21
-      139 CAPTURE                          VAL R1
-      140 NEWCLOSURE                       R32 P3
-      141 CAPTURE                          REF R28
-      142 DUPTABLE                         R33 K38 [{"invokeEventBridge", "identifyStudio"}]
-      143 SETTABLEKS                       R31 R33 K36 ["invokeEventBridge"]
-      145 SETTABLEKS                       R32 R33 K37 ["identifyStudio"]
-      147 DUPCLOSURE                       R34 K39 [PROTO_4]
-      148 CAPTURE                          VAL R33
-      149 CAPTURE                          VAL R19
-      150 NEWCLOSURE                       R35 P5
-      151 CAPTURE                          REF R24
-      152 CAPTURE                          REF R25
-      153 CAPTURE                          REF R26
-      154 NEWCLOSURE                       R36 P6
-      155 CAPTURE                          VAL R17
-      156 CAPTURE                          REF R24
-      157 CAPTURE                          REF R25
-      158 CAPTURE                          REF R26
-      159 CAPTURE                          VAL R20
-      160 CAPTURE                          REF R27
-      161 CAPTURE                          VAL R18
-      162 CAPTURE                          VAL R33
-      163 CAPTURE                          VAL R19
-      164 CAPTURE                          VAL R34
-      165 NEWTABLE                         R37 0 0
-      167 NEWCLOSURE                       R38 P7
+      128 CAPTURE                          VAL R15
+      129 CAPTURE                          VAL R10
+      130 CAPTURE                          VAL R17
+      131 CAPTURE                          REF R23
+      132 CAPTURE                          VAL R16
+      133 CAPTURE                          REF R22
+      134 CAPTURE                          VAL R1
+      135 NEWCLOSURE                       R33 P3
+      136 CAPTURE                          REF R29
+      137 DUPTABLE                         R34 K38 [{"invokeEventBridge", "identifyStudio"}]
+      138 SETTABLEKS                       R32 R34 K36 ["invokeEventBridge"]
+      140 SETTABLEKS                       R33 R34 K37 ["identifyStudio"]
+      142 DUPCLOSURE                       R35 K39 [PROTO_4]
+      143 CAPTURE                          VAL R34
+      144 CAPTURE                          VAL R20
+      145 NEWCLOSURE                       R36 P5
+      146 CAPTURE                          REF R25
+      147 CAPTURE                          REF R26
+      148 CAPTURE                          REF R27
+      149 NEWCLOSURE                       R37 P6
+      150 CAPTURE                          VAL R18
+      151 CAPTURE                          REF R25
+      152 CAPTURE                          REF R26
+      153 CAPTURE                          REF R27
+      154 CAPTURE                          VAL R21
+      155 CAPTURE                          REF R28
+      156 CAPTURE                          VAL R19
+      157 CAPTURE                          VAL R34
+      158 CAPTURE                          VAL R20
+      159 CAPTURE                          VAL R35
+      160 NEWTABLE                         R38 0 0
+      162 NEWCLOSURE                       R39 P7
+      163 CAPTURE                          VAL R15
+      164 CAPTURE                          VAL R8
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          VAL R12
+      167 CAPTURE                          VAL R11
       168 CAPTURE                          VAL R14
-      169 CAPTURE                          VAL R7
-      170 CAPTURE                          VAL R8
+      169 CAPTURE                          VAL R30
+      170 CAPTURE                          VAL R31
       171 CAPTURE                          VAL R10
-      172 CAPTURE                          VAL R9
-      173 CAPTURE                          VAL R13
-      174 CAPTURE                          VAL R29
-      175 CAPTURE                          VAL R30
-      176 CAPTURE                          VAL R5
-      177 CAPTURE                          VAL R16
-      178 CAPTURE                          REF R22
-      179 CAPTURE                          REF R23
-      180 CAPTURE                          REF R21
-      181 NEWCLOSURE                       R39 P8
-      182 CAPTURE                          REF R24
-      183 CAPTURE                          REF R25
-      184 CAPTURE                          REF R26
-      185 CAPTURE                          VAL R5
+      172 CAPTURE                          VAL R17
+      173 CAPTURE                          REF R23
+      174 CAPTURE                          REF R24
+      175 CAPTURE                          REF R22
+      176 NEWCLOSURE                       R40 P8
+      177 CAPTURE                          REF R25
+      178 CAPTURE                          REF R26
+      179 CAPTURE                          REF R27
+      180 CAPTURE                          VAL R10
+      181 CAPTURE                          REF R24
+      182 CAPTURE                          REF R38
+      183 NEWCLOSURE                       R41 P9
+      184 CAPTURE                          REF R29
+      185 CAPTURE                          VAL R10
       186 CAPTURE                          REF R23
-      187 CAPTURE                          REF R37
-      188 NEWCLOSURE                       R40 P9
-      189 CAPTURE                          REF R28
-      190 CAPTURE                          VAL R5
-      191 CAPTURE                          REF R22
-      192 CAPTURE                          REF R23
-      193 CAPTURE                          VAL R11
-      194 CAPTURE                          REF R21
-      195 CAPTURE                          VAL R8
-      196 CAPTURE                          VAL R9
-      197 CAPTURE                          VAL R10
-      198 CAPTURE                          VAL R38
-      199 CAPTURE                          VAL R36
-      200 CAPTURE                          VAL R39
-      201 DUPTABLE                         R41 K41 [{"init"}]
-      202 SETTABLEKS                       R40 R41 K40 ["init"]
-      204 CLOSEUPVALS                      R21
-      205 RETURN                           R41 1
+      187 CAPTURE                          REF R24
+      188 CAPTURE                          VAL R4
+      189 CAPTURE                          REF R22
+      190 CAPTURE                          VAL R9
+      191 CAPTURE                          VAL R11
+      192 CAPTURE                          VAL R12
+      193 CAPTURE                          VAL R39
+      194 CAPTURE                          VAL R37
+      195 CAPTURE                          VAL R40
+      196 DUPTABLE                         R42 K41 [{"init"}]
+      197 SETTABLEKS                       R41 R42 K40 ["init"]
+      199 CLOSEUPVALS                      R22
+      200 RETURN                           R42 1

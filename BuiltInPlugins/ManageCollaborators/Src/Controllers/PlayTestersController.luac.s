@@ -88,6 +88,62 @@ PROTO_4:
        75 RETURN                           R4 1
 
 PROTO_5:
+        0 NEWTABLE                         R3 0 0
+        2 LOADN                            R6 1
+        3 LENGTH                           R4 R2
+        4 LOADN                            R5 50
+        5 FORNPREP                         R4
+        6 NEWTABLE                         R7 0 0
+        8 MOVE                             R10 R6
+        9 ADDK                             R13 R6 K1 [50]
+       10 SUBK                             R12 R13 K0 [1]
+       11 LENGTH                           R13 R2
+       12 FASTCALL2                        MATH_MIN R12 R13 ; [+3]
+       14 GETIMPORT                        R11 K4 [math.min]
+       16 CALL                             R11 2 1
+       17 MOVE                             R8 R11
+       18 LOADN                            R9 1
+       19 FORNPREP                         R8
+       20 GETTABLE                         R13 R2 R10
+       21 FASTCALL2                        TABLE_INSERT R7 R13 ; [+4]
+       23 MOVE                             R12 R7
+       24 GETIMPORT                        R11 K7 [table.insert]
+       26 CALL                             R11 2 0
+       27 FORNLOOP                         R8
+       28 GETTABLEKS                       R8 R0 K8 ["__networking"]
+       30 LOADK                            R10 K9 ["develop"]
+       31 LOADK                            R14 K10 ["/v1/universes/"]
+       32 MOVE                             R15 R1
+       33 LOADK                            R16 K11 ["/configuration/playtesters"]
+       34 CONCAT                           R12 R14 R16
+       35 LOADK                            R13 K12 ["/eligibility"]
+       36 CONCAT                           R11 R12 R13
+       37 DUPTABLE                         R12 K14 [{"Body"}]
+       38 DUPTABLE                         R13 K16 [{"playtesters"}]
+       39 SETTABLEKS                       R7 R13 K15 ["playtesters"]
+       41 SETTABLEKS                       R13 R12 K13 ["Body"]
+       43 NAMECALL                         R8 R8 K17 ["post"]
+       45 CALL                             R8 4 1
+       46 NAMECALL                         R8 R8 K18 ["await"]
+       48 CALL                             R8 1 1
+       49 GETTABLEKS                       R9 R8 K19 ["responseBody"]
+       51 GETTABLEKS                       R9 R9 K15 ["playtesters"]
+       53 JUMPIF                           R9 ; [+2]
+       54 NEWTABLE                         R9 0 0
+       56 LOADNIL                          R10
+       57 LOADNIL                          R11
+       58 FORGPREP                         R9
+       59 GETTABLEKS                       R14 R13 K20 ["userId"]
+       61 GETTABLEKS                       R16 R13 K21 ["isEligible"]
+       63 JUMPIFEQKB                       R16 TRUE ; [+2]
+       65 LOADB                            R15 0 +1
+       66 LOADB                            R15 1
+       67 SETTABLE                         R15 R3 R14
+       68 FORGLOOP                         R9 2 ; [-10]
+       70 FORNLOOP                         R4
+       71 RETURN                           R3 1
+
+PROTO_6:
         0 LOADN                            R5 1
         1 LENGTH                           R3 R2
         2 LOADN                            R4 10
@@ -126,7 +182,7 @@ PROTO_5:
        45 FORNLOOP                         R3
        46 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 LOADN                            R5 1
         1 LENGTH                           R3 R2
         2 LOADN                            R4 10
@@ -186,7 +242,9 @@ MAIN:
        24 CAPTURE                          VAL R0
        25 SETTABLEKS                       R4 R2 K10 ["getPlayTesters"]
        27 DUPCLOSURE                       R4 K11 [PROTO_5]
-       28 SETTABLEKS                       R4 R2 K12 ["addPlayTesters"]
+       28 SETTABLEKS                       R4 R2 K12 ["getEligibility"]
        30 DUPCLOSURE                       R4 K13 [PROTO_6]
-       31 SETTABLEKS                       R4 R2 K14 ["removePlayTesters"]
-       33 RETURN                           R2 1
+       31 SETTABLEKS                       R4 R2 K14 ["addPlayTesters"]
+       33 DUPCLOSURE                       R4 K15 [PROTO_7]
+       34 SETTABLEKS                       R4 R2 K16 ["removePlayTesters"]
+       36 RETURN                           R2 1

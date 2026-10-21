@@ -135,68 +135,64 @@ PROTO_26:
         1 RETURN                           R0 1
 
 PROTO_27:
-        0 LOADK                            R0 K0 ["experience-releases/v1beta1/experience_releases_api/multi_release_statuses"]
-        1 RETURN                           R0 1
-
-PROTO_28:
         0 LOADK                            R1 K0 ["core-content/v2/universe/%*/chip-status"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
         4 CALL                             R1 2 1
         5 RETURN                           R1 1
 
-PROTO_29:
+PROTO_28:
         0 LOADK                            R1 K0 ["content-safety/v1/places/%*/safety-status"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
         4 CALL                             R1 2 1
         5 RETURN                           R1 1
 
-PROTO_30:
+PROTO_29:
         0 LOADK                            R0 K0 ["team-create-service/v1/AreUniversesImpacted"]
         1 RETURN                           R0 1
 
-PROTO_31:
+PROTO_30:
         0 LOADK                            R1 K0 ["v1/universes/%*/activation-eligibility"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
         4 CALL                             R1 2 1
         5 RETURN                           R1 1
 
-PROTO_32:
+PROTO_31:
         0 LOADK                            R1 K0 ["v1/universes/%*/places"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
         4 CALL                             R1 2 1
         5 RETURN                           R1 1
 
-PROTO_33:
+PROTO_32:
         0 LOADK                            R0 K0 ["universes/v1/universes/create"]
         1 RETURN                           R0 1
 
-PROTO_34:
+PROTO_33:
         0 LOADK                            R1 K0 ["v2/universes/%*/configuration"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
         4 CALL                             R1 2 1
         5 RETURN                           R1 1
 
-PROTO_35:
+PROTO_34:
         0 LOADK                            R1 K0 ["universes/v1/user/universes/%*/places"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
         4 CALL                             R1 2 1
         5 RETURN                           R1 1
 
-PROTO_36:
+PROTO_35:
         0 LOADK                            R0 K0 ["activity-feed-api/v1/history"]
         1 RETURN                           R0 1
 
-PROTO_37:
+PROTO_36:
         0 LOADK                            R0 K0 ["studio-user-data-api/pinned-experiences"]
         1 RETURN                           R0 1
 
-PROTO_38:
+PROTO_37:
         0 LOADK                            R1 K0 ["studio-user-data-api/pinned-experiences/%*"]
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K1 ["format"]
@@ -385,71 +381,65 @@ MAIN:
       296 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       298 DUPCLOSURE                       R6 K72 [PROTO_27]
       299 SETTABLEKS                       R6 R5 K9 ["Url"]
-      301 SETTABLEKS                       R5 R4 K73 ["MULTI_RELEASE_STATUSES"]
+      301 SETTABLEKS                       R5 R4 K73 ["CORE_CONTENT_UNIVERSE_CHIP_STATUS"]
       303 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       304 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       306 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       308 DUPCLOSURE                       R6 K74 [PROTO_28]
       309 SETTABLEKS                       R6 R5 K9 ["Url"]
-      311 SETTABLEKS                       R5 R4 K75 ["CORE_CONTENT_UNIVERSE_CHIP_STATUS"]
+      311 SETTABLEKS                       R5 R4 K75 ["PLACE_SAFETY_STATUS_URL"]
       313 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       314 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       316 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       318 DUPCLOSURE                       R6 K76 [PROTO_29]
       319 SETTABLEKS                       R6 R5 K9 ["Url"]
-      321 SETTABLEKS                       R5 R4 K77 ["PLACE_SAFETY_STATUS_URL"]
+      321 SETTABLEKS                       R5 R4 K77 ["ARE_UNIVERSES_IMPACTED"]
       323 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      324 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      324 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
       326 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       328 DUPCLOSURE                       R6 K78 [PROTO_30]
       329 SETTABLEKS                       R6 R5 K9 ["Url"]
-      331 SETTABLEKS                       R5 R4 K79 ["ARE_UNIVERSES_IMPACTED"]
+      331 SETTABLEKS                       R5 R4 K79 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
       333 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       334 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
       336 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       338 DUPCLOSURE                       R6 K80 [PROTO_31]
       339 SETTABLEKS                       R6 R5 K9 ["Url"]
-      341 SETTABLEKS                       R5 R4 K81 ["UNIVERSE_ACTIVATION_ELIGIBILITY"]
+      341 SETTABLEKS                       R5 R4 K81 ["UNIVERSE_PLACES"]
       343 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      344 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
+      344 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       346 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       348 DUPCLOSURE                       R6 K82 [PROTO_32]
       349 SETTABLEKS                       R6 R5 K9 ["Url"]
-      351 SETTABLEKS                       R5 R4 K83 ["UNIVERSE_PLACES"]
+      351 SETTABLEKS                       R5 R4 K83 ["CREATE_UNIVERSE"]
       353 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      354 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
+      354 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
       356 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       358 DUPCLOSURE                       R6 K84 [PROTO_33]
       359 SETTABLEKS                       R6 R5 K9 ["Url"]
-      361 SETTABLEKS                       R5 R4 K85 ["CREATE_UNIVERSE"]
+      361 SETTABLEKS                       R5 R4 K85 ["UNIVERSE_CONFIGURATION_V2"]
       363 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      364 GETTABLEKS                       R6 R3 K18 ["DEVELOP_URL"]
+      364 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       366 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       368 DUPCLOSURE                       R6 K86 [PROTO_34]
       369 SETTABLEKS                       R6 R5 K9 ["Url"]
-      371 SETTABLEKS                       R5 R4 K87 ["UNIVERSE_CONFIGURATION_V2"]
+      371 SETTABLEKS                       R5 R4 K87 ["COPY_PLACE_TO_UNIVERSE"]
       373 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       374 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       376 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       378 DUPCLOSURE                       R6 K88 [PROTO_35]
       379 SETTABLEKS                       R6 R5 K9 ["Url"]
-      381 SETTABLEKS                       R5 R4 K89 ["COPY_PLACE_TO_UNIVERSE"]
+      381 SETTABLEKS                       R5 R4 K89 ["WRITE_ACTIVITY_HISTORY"]
       383 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       384 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       386 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       388 DUPCLOSURE                       R6 K90 [PROTO_36]
       389 SETTABLEKS                       R6 R5 K9 ["Url"]
-      391 SETTABLEKS                       R5 R4 K91 ["WRITE_ACTIVITY_HISTORY"]
+      391 SETTABLEKS                       R5 R4 K91 ["PINNED_EXPERIENCES"]
       393 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
       394 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
       396 SETTABLEKS                       R6 R5 K11 ["Prefix"]
       398 DUPCLOSURE                       R6 K92 [PROTO_37]
       399 SETTABLEKS                       R6 R5 K9 ["Url"]
-      401 SETTABLEKS                       R5 R4 K93 ["PINNED_EXPERIENCES"]
-      403 DUPTABLE                         R5 K12 [{"Prefix", "Url"}]
-      404 GETTABLEKS                       R6 R3 K13 ["APIS_URL"]
-      406 SETTABLEKS                       R6 R5 K11 ["Prefix"]
-      408 DUPCLOSURE                       R6 K94 [PROTO_38]
-      409 SETTABLEKS                       R6 R5 K9 ["Url"]
-      411 SETTABLEKS                       R5 R4 K95 ["PINNED_EXPERIENCE"]
-      413 RETURN                           R4 1
+      401 SETTABLEKS                       R5 R4 K93 ["PINNED_EXPERIENCE"]
+      403 RETURN                           R4 1

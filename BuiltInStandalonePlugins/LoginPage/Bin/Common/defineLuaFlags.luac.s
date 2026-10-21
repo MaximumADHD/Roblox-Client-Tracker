@@ -14,12 +14,19 @@ PROTO_1:
 
 PROTO_2:
         0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["LoginPageEnableBlankImageFallback"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
+PROTO_3:
+        0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["LoginPageRequestTimeoutSeconds"]
         3 NAMECALL                         R0 R0 K3 ["GetFastInt"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_3:
+PROTO_4:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["LoginPageTelemetryThrottleHundredthsPercent"]
         3 NAMECALL                         R0 R0 K3 ["GetFastInt"]
@@ -39,22 +46,29 @@ MAIN:
        12 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        14 CALL                             R0 3 0
        15 GETIMPORT                        R0 K1 [game]
-       17 LOADK                            R2 K5 ["LoginPageRequestTimeoutSeconds"]
-       18 LOADN                            R3 15
-       19 NAMECALL                         R0 R0 K6 ["DefineFastInt"]
+       17 LOADK                            R2 K5 ["LoginPageEnableBlankImageFallback"]
+       18 LOADB                            R3 0
+       19 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        21 CALL                             R0 3 0
        22 GETIMPORT                        R0 K1 [game]
-       24 LOADK                            R2 K7 ["LoginPageTelemetryThrottleHundredthsPercent"]
-       25 LOADN                            R3 10000
-       26 NAMECALL                         R0 R0 K6 ["DefineFastInt"]
+       24 LOADK                            R2 K6 ["LoginPageRequestTimeoutSeconds"]
+       25 LOADN                            R3 15
+       26 NAMECALL                         R0 R0 K7 ["DefineFastInt"]
        28 CALL                             R0 3 0
-       29 DUPTABLE                         R0 K12 [{"getFFlagEnableLoginPage", "getFFlagLoginPageEnableWatchdogTimeoutFallback", "getFIntLoginPageRequestTimeoutSeconds", "getFIntLoginPageTelemetryThrottleHundredthsPercent"}]
-       30 DUPCLOSURE                       R1 K13 [PROTO_0]
-       31 SETTABLEKS                       R1 R0 K8 ["getFFlagEnableLoginPage"]
-       33 DUPCLOSURE                       R1 K14 [PROTO_1]
-       34 SETTABLEKS                       R1 R0 K9 ["getFFlagLoginPageEnableWatchdogTimeoutFallback"]
-       36 DUPCLOSURE                       R1 K15 [PROTO_2]
-       37 SETTABLEKS                       R1 R0 K10 ["getFIntLoginPageRequestTimeoutSeconds"]
-       39 DUPCLOSURE                       R1 K16 [PROTO_3]
-       40 SETTABLEKS                       R1 R0 K11 ["getFIntLoginPageTelemetryThrottleHundredthsPercent"]
-       42 RETURN                           R0 1
+       29 GETIMPORT                        R0 K1 [game]
+       31 LOADK                            R2 K8 ["LoginPageTelemetryThrottleHundredthsPercent"]
+       32 LOADN                            R3 10000
+       33 NAMECALL                         R0 R0 K7 ["DefineFastInt"]
+       35 CALL                             R0 3 0
+       36 DUPTABLE                         R0 K14 [{"getFFlagEnableLoginPage", "getFFlagLoginPageEnableWatchdogTimeoutFallback", "getFFlagLoginPageEnableBlankImageFallback", "getFIntLoginPageRequestTimeoutSeconds", "getFIntLoginPageTelemetryThrottleHundredthsPercent"}]
+       37 DUPCLOSURE                       R1 K15 [PROTO_0]
+       38 SETTABLEKS                       R1 R0 K9 ["getFFlagEnableLoginPage"]
+       40 DUPCLOSURE                       R1 K16 [PROTO_1]
+       41 SETTABLEKS                       R1 R0 K10 ["getFFlagLoginPageEnableWatchdogTimeoutFallback"]
+       43 DUPCLOSURE                       R1 K17 [PROTO_2]
+       44 SETTABLEKS                       R1 R0 K11 ["getFFlagLoginPageEnableBlankImageFallback"]
+       46 DUPCLOSURE                       R1 K18 [PROTO_3]
+       47 SETTABLEKS                       R1 R0 K12 ["getFIntLoginPageRequestTimeoutSeconds"]
+       49 DUPCLOSURE                       R1 K19 [PROTO_4]
+       50 SETTABLEKS                       R1 R0 K13 ["getFIntLoginPageTelemetryThrottleHundredthsPercent"]
+       52 RETURN                           R0 1

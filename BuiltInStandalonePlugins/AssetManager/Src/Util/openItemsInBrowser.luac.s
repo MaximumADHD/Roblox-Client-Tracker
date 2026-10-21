@@ -22,7 +22,7 @@ PROTO_2:
         5 GETUPVAL                         R9 0
         6 GETTABLEKS                       R9 R9 K0 ["AssetType"]
         8 GETTABLEKS                       R9 R9 K1 ["Folder"]
-       10 JUMPIFEQ                         R8 R9 ; [+75]
+       10 JUMPIFEQ                         R8 R9 ; [+79]
        12 GETTABLE                         R8 R1 R6
        13 GETUPVAL                         R9 0
        14 GETTABLEKS                       R9 R9 K0 ["AssetType"]
@@ -55,7 +55,7 @@ PROTO_2:
        56 MOVE                             R10 R12
        57 NAMECALL                         R8 R8 K13 ["openLink"]
        59 CALL                             R8 2 0
-       60 JUMP                             ; [+25]
+       60 JUMP                             ; [+29]
        61 GETTABLE                         R8 R1 R6
        62 GETUPVAL                         R9 0
        63 GETTABLEKS                       R9 R9 K0 ["AssetType"]
@@ -68,15 +68,17 @@ PROTO_2:
        74 CALL                             R10 2 1
        75 NAMECALL                         R8 R8 K13 ["openLink"]
        77 CALL                             R8 2 0
-       78 JUMP                             ; [+7]
+       78 JUMP                             ; [+11]
        79 GETUPVAL                         R8 2
        80 GETUPVAL                         R10 3
-       81 MOVE                             R11 R7
-       82 CALL                             R10 1 -1
-       83 NAMECALL                         R8 R8 K16 ["OpenBrowserWindow"]
-       85 CALL                             R8 -1 0
-       86 FORGLOOP                         R3 2 ; [-83]
-       88 RETURN                           R0 0
+       81 GETTABLEKS                       R10 R10 K16 ["Utils"]
+       83 GETTABLEKS                       R10 R10 K17 ["createAssetUrl"]
+       85 MOVE                             R11 R7
+       86 CALL                             R10 1 -1
+       87 NAMECALL                         R8 R8 K18 ["OpenBrowserWindow"]
+       89 CALL                             R8 -1 0
+       90 FORGLOOP                         R3 2 ; [-87]
+       92 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -85,30 +87,29 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Util"]
-       20 GETTABLEKS                       R3 R3 K9 ["createAssetUrl"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R4 K8 ["Util"]
-       29 GETTABLEKS                       R4 R4 K10 ["Services"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R3 K11 ["GetService"]
-       34 LOADK                            R5 K12 ["GuiService"]
-       35 CALL                             R4 1 1
-       36 GETTABLEKS                       R5 R3 K11 ["GetService"]
-       38 LOADK                            R6 K13 ["StartPageService"]
-       39 CALL                             R5 1 1
-       40 DUPCLOSURE                       R6 K14 [PROTO_0]
-       41 DUPCLOSURE                       R7 K15 [PROTO_1]
-       42 DUPCLOSURE                       R8 K16 [PROTO_2]
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R5
-       45 CAPTURE                          VAL R4
-       46 CAPTURE                          VAL R2
-       47 RETURN                           R8 1
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["Services"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R3 K12 ["GetService"]
+       32 LOADK                            R5 K13 ["GuiService"]
+       33 CALL                             R4 1 1
+       34 GETTABLEKS                       R5 R3 K12 ["GetService"]
+       36 LOADK                            R6 K14 ["StartPageService"]
+       37 CALL                             R5 1 1
+       38 DUPCLOSURE                       R6 K15 [PROTO_0]
+       39 DUPCLOSURE                       R7 K16 [PROTO_1]
+       40 DUPCLOSURE                       R8 K17 [PROTO_2]
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R5
+       43 CAPTURE                          VAL R4
+       44 CAPTURE                          VAL R1
+       45 RETURN                           R8 1

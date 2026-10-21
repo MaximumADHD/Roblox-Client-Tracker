@@ -26,32 +26,45 @@ PROTO_0:
        30 SETTABLEKS                       R4 R3 K7 ["story"]
        32 NEWTABLE                         R4 0 0
        34 SETTABLEKS                       R4 R3 K8 ["storyProps"]
-       36 GETUPVAL                         R4 4
-       37 GETTABLEKS                       R4 R4 K14 ["Store"]
-       39 GETTABLEKS                       R4 R4 K12 ["new"]
-       41 GETUPVAL                         R5 5
-       42 LOADNIL                          R6
-       43 NEWTABLE                         R7 0 1
-       45 GETUPVAL                         R8 4
-       46 GETTABLEKS                       R8 R8 K15 ["thunkMiddleware"]
-       48 SETLIST                          R7 R8 1 [1]
-       50 CALL                             R4 3 1
-       51 SETTABLEKS                       R4 R3 K16 ["store"]
-       53 GETUPVAL                         R4 6
-       54 GETTABLEKS                       R4 R4 K12 ["new"]
-       56 MOVE                             R5 R3
-       57 CALL                             R4 1 1
-       58 SETTABLEKS                       R4 R3 K17 ["contextItems"]
-       60 GETUPVAL                         R4 7
-       61 GETTABLEKS                       R4 R4 K18 ["loadData"]
-       63 MOVE                             R5 R3
-       64 CALL                             R4 1 0
-       65 GETUPVAL                         R6 7
-       66 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       68 MOVE                             R5 R3
-       69 GETIMPORT                        R4 K20 [setmetatable]
-       71 CALL                             R4 2 1
-       72 RETURN                           R4 1
+       36 JUMPIFEQKS                       R2 K1 ["Production"] ; [+19]
+       38 NEWTABLE                         R4 0 0
+       40 GETIMPORT                        R5 K15 [game]
+       42 LOADK                            R7 K16 ["CoreGui"]
+       43 NAMECALL                         R5 R5 K17 ["GetService"]
+       45 CALL                             R5 2 1
+       46 NAMECALL                         R5 R5 K18 ["GetChildren"]
+       48 CALL                             R5 1 3
+       49 FORGPREP                         R5
+       50 LOADB                            R10 1
+       51 SETTABLE                         R10 R4 R9
+       52 FORGLOOP                         R5 2 ; [-3]
+       54 SETTABLEKS                       R4 R3 K19 ["persistentCoreGuiChildren"]
+       56 GETUPVAL                         R4 4
+       57 GETTABLEKS                       R4 R4 K20 ["Store"]
+       59 GETTABLEKS                       R4 R4 K12 ["new"]
+       61 GETUPVAL                         R5 5
+       62 LOADNIL                          R6
+       63 NEWTABLE                         R7 0 1
+       65 GETUPVAL                         R8 4
+       66 GETTABLEKS                       R8 R8 K21 ["thunkMiddleware"]
+       68 SETLIST                          R7 R8 1 [1]
+       70 CALL                             R4 3 1
+       71 SETTABLEKS                       R4 R3 K22 ["store"]
+       73 GETUPVAL                         R4 6
+       74 GETTABLEKS                       R4 R4 K12 ["new"]
+       76 MOVE                             R5 R3
+       77 CALL                             R4 1 1
+       78 SETTABLEKS                       R4 R3 K23 ["contextItems"]
+       80 GETUPVAL                         R4 7
+       81 GETTABLEKS                       R4 R4 K24 ["loadData"]
+       83 MOVE                             R5 R3
+       84 CALL                             R4 1 0
+       85 GETUPVAL                         R6 7
+       86 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       88 MOVE                             R5 R3
+       89 GETIMPORT                        R4 K26 [setmetatable]
+       91 CALL                             R4 2 1
+       92 RETURN                           R4 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["managedGroups"]
@@ -217,19 +230,23 @@ PROTO_7:
       115 LOADNIL                          R1
       116 SETTABLEKS                       R1 R0 K18 ["root"]
       118 GETTABLEKS                       R1 R0 K20 ["environment"]
-      120 JUMPIFEQKS                       R1 K21 ["Production"] ; [+17]
+      120 JUMPIFEQKS                       R1 K21 ["Production"] ; [+23]
       122 GETIMPORT                        R1 K23 [game]
       124 LOADK                            R3 K24 ["CoreGui"]
       125 NAMECALL                         R1 R1 K25 ["GetService"]
       127 CALL                             R1 2 1
-      128 NAMECALL                         R2 R1 K26 ["GetChildren"]
-      130 CALL                             R2 1 3
-      131 FORGPREP                         R2
-      132 NAMECALL                         R7 R6 K27 ["Destroy"]
-      134 CALL                             R7 1 0
-      135 LOADNIL                          R6
-      136 FORGLOOP                         R2 2 ; [-5]
-      138 RETURN                           R0 0
+      128 GETTABLEKS                       R2 R0 K26 ["persistentCoreGuiChildren"]
+      130 JUMPIF                           R2 ; [+2]
+      131 NEWTABLE                         R2 0 0
+      133 NAMECALL                         R3 R1 K27 ["GetChildren"]
+      135 CALL                             R3 1 3
+      136 FORGPREP                         R3
+      137 GETTABLE                         R8 R2 R7
+      138 JUMPIF                           R8 ; [+3]
+      139 NAMECALL                         R8 R7 K28 ["Destroy"]
+      141 CALL                             R8 1 0
+      142 FORGLOOP                         R3 2 ; [-6]
+      144 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0

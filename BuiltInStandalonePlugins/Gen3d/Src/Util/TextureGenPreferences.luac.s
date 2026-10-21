@@ -31,6 +31,17 @@ PROTO_2:
        10 RETURN                           R0 0
 
 PROTO_3:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["writeKeepExistingUv"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K1 ["fromPlugin"]
+        6 MOVE                             R4 R0
+        7 CALL                             R3 1 1
+        8 MOVE                             R4 R1
+        9 CALL                             R2 2 0
+       10 RETURN                           R0 0
+
+PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["model"]
         2 JUMPIFNOTEQKS                    R2 K1 [""] ; [+12]
         4 GETTABLEKS                       R3 R1 K0 ["model"]
@@ -48,17 +59,28 @@ PROTO_3:
        24 CALL                             R4 0 1
        25 JUMPIFNOT                        R4 ; [+2]
        26 GETTABLEKS                       R3 R1 K3 ["autoSelectView"]
-       28 GETTABLEKS                       R4 R0 K0 ["model"]
-       30 JUMPIFNOTEQ                      R2 R4 ; [+6]
-       32 GETTABLEKS                       R4 R0 K3 ["autoSelectView"]
-       34 JUMPIFNOTEQ                      R3 R4 ; [+2]
-       36 RETURN                           R0 1
-       37 GETIMPORT                        R4 K7 [table.clone]
-       39 MOVE                             R5 R0
-       40 CALL                             R4 1 1
-       41 SETTABLEKS                       R2 R4 K0 ["model"]
-       43 SETTABLEKS                       R3 R4 K3 ["autoSelectView"]
-       45 RETURN                           R4 1
+       28 GETTABLEKS                       R4 R0 K5 ["keepExistingUv"]
+       30 GETTABLEKS                       R5 R1 K5 ["keepExistingUv"]
+       32 JUMPIFEQKNIL                     R5 ; [+8]
+       34 GETUPVAL                         R5 1
+       35 GETTABLEKS                       R5 R5 K6 ["getFFlagGen3dTextureGenKeepExistingUv"]
+       37 CALL                             R5 0 1
+       38 JUMPIFNOT                        R5 ; [+2]
+       39 GETTABLEKS                       R4 R1 K5 ["keepExistingUv"]
+       41 GETTABLEKS                       R5 R0 K0 ["model"]
+       43 JUMPIFNOTEQ                      R2 R5 ; [+10]
+       45 GETTABLEKS                       R5 R0 K3 ["autoSelectView"]
+       47 JUMPIFNOTEQ                      R3 R5 ; [+6]
+       49 GETTABLEKS                       R5 R0 K5 ["keepExistingUv"]
+       51 JUMPIFNOTEQ                      R4 R5 ; [+2]
+       53 RETURN                           R0 1
+       54 GETIMPORT                        R5 K9 [table.clone]
+       56 MOVE                             R6 R0
+       57 CALL                             R5 1 1
+       58 SETTABLEKS                       R2 R5 K0 ["model"]
+       60 SETTABLEKS                       R3 R5 K3 ["autoSelectView"]
+       62 SETTABLEKS                       R4 R5 K5 ["keepExistingUv"]
+       64 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -80,7 +102,7 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K12 ["defineLuaFlags"]
        29 CALL                             R3 1 1
        30 GETTABLEKS                       R4 R1 K13 ["TextureGenPreferences"]
-       32 NEWTABLE                         R5 4 0
+       32 NEWTABLE                         R5 8 0
        34 DUPCLOSURE                       R6 K14 [PROTO_0]
        35 CAPTURE                          VAL R4
        36 SETTABLEKS                       R6 R5 K15 ["read"]
@@ -91,6 +113,10 @@ MAIN:
        43 CAPTURE                          VAL R4
        44 SETTABLEKS                       R6 R5 K19 ["writeAutoSelectView"]
        46 DUPCLOSURE                       R6 K20 [PROTO_3]
-       47 CAPTURE                          VAL R3
-       48 SETTABLEKS                       R6 R5 K21 ["apply"]
-       50 RETURN                           R5 1
+       47 CAPTURE                          VAL R4
+       48 SETTABLEKS                       R6 R5 K21 ["writeKeepExistingUv"]
+       50 DUPCLOSURE                       R6 K22 [PROTO_4]
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R1
+       53 SETTABLEKS                       R6 R5 K23 ["apply"]
+       55 RETURN                           R5 1

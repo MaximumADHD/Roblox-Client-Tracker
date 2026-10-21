@@ -151,11 +151,13 @@ PROTO_8:
        14 GETTABLEKS                       R5 R5 K4 ["Plugin"]
        16 NAMECALL                         R3 R3 K5 ["getSingleItemSelected"]
        18 CALL                             R3 2 1
-       19 JUMPIFEQKNIL                     R3 ; [+5]
+       19 JUMPIFEQKNIL                     R3 ; [+9]
        21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R5 R3 K6 ["AssetId"]
-       24 CALL                             R4 1 0
-       25 RETURN                           R0 0
+       22 GETTABLEKS                       R4 R4 K6 ["Utils"]
+       24 GETTABLEKS                       R4 R4 K7 ["reportInBrowser"]
+       26 GETTABLEKS                       R5 R3 K8 ["AssetId"]
+       28 CALL                             R4 1 0
+       29 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R4 0
@@ -182,60 +184,59 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Util"]
-       13 GETTABLEKS                       R2 R2 K8 ["Services"]
-       15 CALL                             R1 1 1
-       16 GETTABLEKS                       R2 R1 K9 ["GetService"]
-       18 LOADK                            R3 K10 ["StudioService"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K5 [require]
-       22 GETTABLEKS                       R4 R0 K6 ["Src"]
-       24 GETTABLEKS                       R4 R4 K11 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Util"]
+       20 GETTABLEKS                       R3 R3 K10 ["Services"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K11 ["GetService"]
+       25 LOADK                            R4 K12 ["StudioService"]
        26 CALL                             R3 1 1
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R5 R0 K6 ["Src"]
-       31 GETTABLEKS                       R5 R5 K7 ["Util"]
-       33 GETTABLEKS                       R5 R5 K12 ["reportInBrowser"]
-       35 CALL                             R4 1 1
-       36 GETIMPORT                        R5 K5 [require]
-       38 GETTABLEKS                       R6 R0 K6 ["Src"]
-       40 GETTABLEKS                       R6 R6 K7 ["Util"]
-       42 GETTABLEKS                       R6 R6 K13 ["updatePlugin"]
-       44 CALL                             R5 1 1
-       45 DUPCLOSURE                       R6 K14 [PROTO_2]
-       46 CAPTURE                          VAL R2
-       47 DUPCLOSURE                       R7 K15 [PROTO_3]
-       48 CAPTURE                          VAL R3
-       49 DUPTABLE                         R8 K22 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginUpdate", ["OnItemClicked"], ["ShouldRender"]}]
-       50 DUPCLOSURE                       R9 K23 [PROTO_4]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R5
-       53 SETTABLEKS                       R9 R8 K20 ["OnItemClicked"]
-       55 DUPCLOSURE                       R9 K24 [PROTO_5]
-       56 CAPTURE                          VAL R3
-       57 CAPTURE                          VAL R2
-       58 SETTABLEKS                       R9 R8 K21 ["ShouldRender"]
-       60 DUPTABLE                         R9 K26 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginInstall", ["OnItemClicked"], ["ShouldRender"]}]
-       61 DUPCLOSURE                       R10 K27 [PROTO_6]
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R2
-       64 SETTABLEKS                       R10 R9 K20 ["OnItemClicked"]
-       66 DUPCLOSURE                       R10 K28 [PROTO_7]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R2
-       69 SETTABLEKS                       R10 R9 K21 ["ShouldRender"]
-       71 DUPTABLE                         R10 K30 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginReport", ["OnItemClicked"], ["ShouldRender"]}]
-       72 DUPCLOSURE                       R11 K31 [PROTO_8]
-       73 CAPTURE                          VAL R3
-       74 CAPTURE                          VAL R4
-       75 SETTABLEKS                       R11 R10 K20 ["OnItemClicked"]
-       77 DUPCLOSURE                       R11 K32 [PROTO_9]
-       78 CAPTURE                          VAL R3
-       79 SETTABLEKS                       R11 R10 K21 ["ShouldRender"]
-       81 NEWTABLE                         R11 0 3
-       83 MOVE                             R12 R8
-       84 MOVE                             R13 R9
-       85 MOVE                             R14 R10
-       86 SETLIST                          R11 R12 3 [1]
-       88 RETURN                           R11 1
+       29 GETTABLEKS                       R5 R0 K8 ["Src"]
+       31 GETTABLEKS                       R5 R5 K13 ["Types"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K5 [require]
+       36 GETTABLEKS                       R6 R0 K8 ["Src"]
+       38 GETTABLEKS                       R6 R6 K9 ["Util"]
+       40 GETTABLEKS                       R6 R6 K14 ["updatePlugin"]
+       42 CALL                             R5 1 1
+       43 DUPCLOSURE                       R6 K15 [PROTO_2]
+       44 CAPTURE                          VAL R3
+       45 DUPCLOSURE                       R7 K16 [PROTO_3]
+       46 CAPTURE                          VAL R4
+       47 DUPTABLE                         R8 K23 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginUpdate", ["OnItemClicked"], ["ShouldRender"]}]
+       48 DUPCLOSURE                       R9 K24 [PROTO_4]
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R5
+       51 SETTABLEKS                       R9 R8 K21 ["OnItemClicked"]
+       53 DUPCLOSURE                       R9 K25 [PROTO_5]
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R3
+       56 SETTABLEKS                       R9 R8 K22 ["ShouldRender"]
+       58 DUPTABLE                         R9 K27 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginInstall", ["OnItemClicked"], ["ShouldRender"]}]
+       59 DUPCLOSURE                       R10 K28 [PROTO_6]
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          VAL R3
+       62 SETTABLEKS                       R10 R9 K21 ["OnItemClicked"]
+       64 DUPCLOSURE                       R10 K29 [PROTO_7]
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R3
+       67 SETTABLEKS                       R10 R9 K22 ["ShouldRender"]
+       69 DUPTABLE                         R10 K31 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginReport", ["OnItemClicked"], ["ShouldRender"]}]
+       70 DUPCLOSURE                       R11 K32 [PROTO_8]
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R1
+       73 SETTABLEKS                       R11 R10 K21 ["OnItemClicked"]
+       75 DUPCLOSURE                       R11 K33 [PROTO_9]
+       76 CAPTURE                          VAL R4
+       77 SETTABLEKS                       R11 R10 K22 ["ShouldRender"]
+       79 NEWTABLE                         R11 0 3
+       81 MOVE                             R12 R8
+       82 MOVE                             R13 R9
+       83 MOVE                             R14 R10
+       84 SETLIST                          R11 R12 3 [1]
+       86 RETURN                           R11 1

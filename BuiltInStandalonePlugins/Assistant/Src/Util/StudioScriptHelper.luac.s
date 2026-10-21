@@ -131,7 +131,7 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["Destroy"]
+        1 NAMECALL                         R0 R0 K0 ["Empty"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
@@ -232,7 +232,7 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["Destroy"]
+        1 NAMECALL                         R0 R0 K0 ["Empty"]
         3 CALL                             R0 1 0
         4 LOADNIL                          R0
         5 SETUPVAL                         R0 1
@@ -357,78 +357,78 @@ MAIN:
         3 LOADK                            R2 K2 ["Assistant"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["DMNetworking"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K9 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K9 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Util"]
-       34 GETTABLEKS                       R5 R5 K12 ["StudioNetworkingOLD"]
-       36 CALL                             R4 1 1
-       37 GETTABLEKS                       R5 R1 K13 ["Utils"]
-       39 GETTABLEKS                       R5 R5 K14 ["Bin"]
-       41 GETTABLEKS                       R6 R2 K15 ["Remote"]
-       43 NEWTABLE                         R7 8 0
-       45 LOADNIL                          R8
-       46 LOADNIL                          R9
-       47 LOADNIL                          R10
-       48 LOADNIL                          R11
-       49 GETTABLEKS                       R12 R5 K16 ["new"]
-       51 CALL                             R12 0 1
-       52 DUPCLOSURE                       R13 K17 [PROTO_0]
-       53 DUPCLOSURE                       R14 K18 [PROTO_1]
-       54 DUPCLOSURE                       R15 K19 [PROTO_2]
-       55 NEWCLOSURE                       R16 P3
-       56 CAPTURE                          REF R8
-       57 CAPTURE                          REF R10
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          VAL R12
-       62 CAPTURE                          VAL R14
-       63 CAPTURE                          VAL R15
-       64 CAPTURE                          REF R11
-       65 CAPTURE                          REF R9
-       66 SETTABLEKS                       R16 R7 K20 ["initialize"]
-       68 NEWCLOSURE                       R16 P4
-       69 CAPTURE                          VAL R12
-       70 CAPTURE                          REF R8
-       71 CAPTURE                          REF R9
-       72 CAPTURE                          REF R10
-       73 CAPTURE                          REF R11
-       74 SETTABLEKS                       R16 R7 K21 ["resetForTesting"]
-       76 NEWCLOSURE                       R16 P5
-       77 CAPTURE                          VAL R3
-       78 CAPTURE                          REF R10
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          REF R8
-       81 SETTABLEKS                       R16 R7 K22 ["getActiveScriptInfo"]
-       83 NEWCLOSURE                       R16 P6
-       84 CAPTURE                          VAL R3
-       85 CAPTURE                          REF R11
-       86 CAPTURE                          VAL R2
-       87 CAPTURE                          REF R9
-       88 SETTABLEKS                       R16 R7 K23 ["getOpenDocuments"]
-       90 DUPCLOSURE                       R16 K24 [PROTO_12]
-       91 CAPTURE                          VAL R7
-       92 SETTABLEKS                       R16 R7 K25 ["getSelectedTextFromActiveScript"]
-       94 DUPCLOSURE                       R16 K26 [PROTO_13]
-       95 CAPTURE                          VAL R7
-       96 SETTABLEKS                       R16 R7 K27 ["getActiveScriptName"]
-       98 DUPCLOSURE                       R16 K28 [PROTO_14]
-       99 CAPTURE                          VAL R7
-      100 SETTABLEKS                       R16 R7 K29 ["getActiveScriptPath"]
-      102 DUPCLOSURE                       R16 K30 [PROTO_15]
-      103 CAPTURE                          VAL R7
-      104 SETTABLEKS                       R16 R7 K31 ["generateExplainCodePrompt"]
-      106 CLOSEUPVALS                      R8
-      107 RETURN                           R7 1
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["AssistantUI"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["Bin"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETTABLEKS                       R5 R1 K9 ["DMNetworking"]
+       23 CALL                             R4 1 1
+       24 GETIMPORT                        R5 K6 [require]
+       26 GETTABLEKS                       R6 R0 K10 ["Src"]
+       28 GETTABLEKS                       R6 R6 K11 ["Flags"]
+       30 CALL                             R5 1 1
+       31 GETIMPORT                        R6 K6 [require]
+       33 GETTABLEKS                       R7 R0 K10 ["Src"]
+       35 GETTABLEKS                       R7 R7 K12 ["Util"]
+       37 GETTABLEKS                       R7 R7 K13 ["StudioNetworkingOLD"]
+       39 CALL                             R6 1 1
+       40 GETTABLEKS                       R7 R4 K14 ["Remote"]
+       42 NEWTABLE                         R8 8 0
+       44 LOADNIL                          R9
+       45 LOADNIL                          R10
+       46 LOADNIL                          R11
+       47 LOADNIL                          R12
+       48 GETTABLEKS                       R13 R3 K15 ["new"]
+       50 CALL                             R13 0 1
+       51 DUPCLOSURE                       R14 K16 [PROTO_0]
+       52 DUPCLOSURE                       R15 K17 [PROTO_1]
+       53 DUPCLOSURE                       R16 K18 [PROTO_2]
+       54 NEWCLOSURE                       R17 P3
+       55 CAPTURE                          REF R9
+       56 CAPTURE                          REF R11
+       57 CAPTURE                          VAL R5
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R13
+       61 CAPTURE                          VAL R15
+       62 CAPTURE                          VAL R16
+       63 CAPTURE                          REF R12
+       64 CAPTURE                          REF R10
+       65 SETTABLEKS                       R17 R8 K19 ["initialize"]
+       67 NEWCLOSURE                       R17 P4
+       68 CAPTURE                          VAL R13
+       69 CAPTURE                          REF R9
+       70 CAPTURE                          REF R10
+       71 CAPTURE                          REF R11
+       72 CAPTURE                          REF R12
+       73 SETTABLEKS                       R17 R8 K20 ["resetForTesting"]
+       75 NEWCLOSURE                       R17 P5
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          REF R11
+       78 CAPTURE                          VAL R4
+       79 CAPTURE                          REF R9
+       80 SETTABLEKS                       R17 R8 K21 ["getActiveScriptInfo"]
+       82 NEWCLOSURE                       R17 P6
+       83 CAPTURE                          VAL R5
+       84 CAPTURE                          REF R12
+       85 CAPTURE                          VAL R4
+       86 CAPTURE                          REF R10
+       87 SETTABLEKS                       R17 R8 K22 ["getOpenDocuments"]
+       89 DUPCLOSURE                       R17 K23 [PROTO_12]
+       90 CAPTURE                          VAL R8
+       91 SETTABLEKS                       R17 R8 K24 ["getSelectedTextFromActiveScript"]
+       93 DUPCLOSURE                       R17 K25 [PROTO_13]
+       94 CAPTURE                          VAL R8
+       95 SETTABLEKS                       R17 R8 K26 ["getActiveScriptName"]
+       97 DUPCLOSURE                       R17 K27 [PROTO_14]
+       98 CAPTURE                          VAL R8
+       99 SETTABLEKS                       R17 R8 K28 ["getActiveScriptPath"]
+      101 DUPCLOSURE                       R17 K29 [PROTO_15]
+      102 CAPTURE                          VAL R8
+      103 SETTABLEKS                       R17 R8 K30 ["generateExplainCodePrompt"]
+      105 CLOSEUPVALS                      R9
+      106 RETURN                           R8 1

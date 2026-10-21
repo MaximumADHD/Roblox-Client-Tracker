@@ -27,114 +27,99 @@ PROTO_0:
        45 RETURN                           R5 1
        46 GETUPVAL                         R5 1
        47 GETTABLEKS                       R5 R5 K9 ["fflagGroupGameEarlyTesters"]
-       49 JUMPIFNOT                        R5 ; [+29]
-       50 GETUPVAL                         R5 1
-       51 GETTABLEKS                       R5 R5 K10 ["fflagCollabPV2GroupMigration"]
-       53 JUMPIFNOT                        R5 ; [+25]
-       54 GETUPVAL                         R5 2
+       49 JUMPIFNOT                        R5 ; [+7]
+       50 GETUPVAL                         R5 2
+       51 MOVE                             R6 R0
+       52 CALL                             R5 1 1
+       53 JUMPIFNOT                        R5 ; [+3]
+       54 GETUPVAL                         R5 3
        55 MOVE                             R6 R0
        56 CALL                             R5 1 1
-       57 JUMPIFNOT                        R5 ; [+21]
-       58 LOADB                            R5 0
-       59 GETUPVAL                         R6 3
-       60 MOVE                             R7 R0
-       61 CALL                             R6 1 1
-       62 GETUPVAL                         R7 4
-       63 GETTABLEKS                       R7 R7 K11 ["MIGRATED"]
-       65 JUMPIFNOTEQ                      R6 R7 ; [+13]
-       67 GETUPVAL                         R6 5
-       68 NAMECALL                         R6 R6 K12 ["GetUserId"]
-       70 CALL                             R6 1 1
-       71 GETTABLEKS                       R7 R0 K13 ["GameOwnerMetadata"]
-       73 GETTABLEKS                       R7 R7 K14 ["groupOwnerId"]
-       75 JUMPIFEQ                         R6 R7 ; [+2]
-       77 LOADB                            R5 0 +1
-       78 LOADB                            R5 1
-       79 NEWTABLE                         R6 0 0
-       81 JUMPIF                           R5 ; [+39]
-       82 GETIMPORT                        R7 K16 [next]
-       84 MOVE                             R8 R4
-       85 CALL                             R7 1 1
-       86 JUMPIFNOTEQKNIL                  R7 ; [+13]
-       88 GETIMPORT                        R7 K16 [next]
-       90 MOVE                             R8 R3
-       91 CALL                             R7 1 1
-       92 JUMPIFNOTEQKNIL                  R7 ; [+7]
-       94 GETIMPORT                        R7 K16 [next]
-       96 MOVE                             R8 R2
-       97 CALL                             R7 1 1
-       98 JUMPIFEQKNIL                     R7 ; [+22]
-      100 DUPTABLE                         R9 K20 [{["key"] = "All", ["filters"]}]
-      101 NEWTABLE                         R10 2 0
-      103 GETUPVAL                         R11 0
-      104 GETTABLEKS                       R11 R11 K8 ["UserSubjectKey"]
-      106 LOADB                            R12 1
-      107 SETTABLE                         R12 R10 R11
-      108 GETUPVAL                         R11 0
-      109 GETTABLEKS                       R11 R11 K21 ["RoleSubjectKey"]
-      111 LOADB                            R12 1
-      112 SETTABLE                         R12 R10 R11
-      113 SETTABLEKS                       R10 R9 K19 ["filters"]
-      115 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
-      117 MOVE                             R8 R6
-      118 GETIMPORT                        R7 K24 [table.insert]
-      120 CALL                             R7 2 0
-      121 JUMPIF                           R5 ; [+22]
-      122 GETIMPORT                        R7 K16 [next]
-      124 MOVE                             R8 R4
+       57 NEWTABLE                         R6 0 0
+       59 JUMPIF                           R5 ; [+39]
+       60 GETIMPORT                        R7 K11 [next]
+       62 MOVE                             R8 R4
+       63 CALL                             R7 1 1
+       64 JUMPIFNOTEQKNIL                  R7 ; [+13]
+       66 GETIMPORT                        R7 K11 [next]
+       68 MOVE                             R8 R3
+       69 CALL                             R7 1 1
+       70 JUMPIFNOTEQKNIL                  R7 ; [+7]
+       72 GETIMPORT                        R7 K11 [next]
+       74 MOVE                             R8 R2
+       75 CALL                             R7 1 1
+       76 JUMPIFEQKNIL                     R7 ; [+22]
+       78 DUPTABLE                         R9 K15 [{["key"] = "All", ["filters"]}]
+       79 NEWTABLE                         R10 2 0
+       81 GETUPVAL                         R11 0
+       82 GETTABLEKS                       R11 R11 K8 ["UserSubjectKey"]
+       84 LOADB                            R12 1
+       85 SETTABLE                         R12 R10 R11
+       86 GETUPVAL                         R11 0
+       87 GETTABLEKS                       R11 R11 K16 ["RoleSubjectKey"]
+       89 LOADB                            R12 1
+       90 SETTABLE                         R12 R10 R11
+       91 SETTABLEKS                       R10 R9 K14 ["filters"]
+       93 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
+       95 MOVE                             R8 R6
+       96 GETIMPORT                        R7 K19 [table.insert]
+       98 CALL                             R7 2 0
+       99 JUMPIF                           R5 ; [+22]
+      100 GETIMPORT                        R7 K11 [next]
+      102 MOVE                             R8 R4
+      103 CALL                             R7 1 1
+      104 JUMPIFEQKNIL                     R7 ; [+17]
+      106 DUPTABLE                         R9 K21 [{["key"] = "Creators", ["filters"]}]
+      107 NEWTABLE                         R10 1 0
+      109 GETUPVAL                         R11 0
+      110 GETTABLEKS                       R11 R11 K8 ["UserSubjectKey"]
+      112 LOADB                            R12 1
+      113 SETTABLE                         R12 R10 R11
+      114 SETTABLEKS                       R10 R9 K14 ["filters"]
+      116 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
+      118 MOVE                             R8 R6
+      119 GETIMPORT                        R7 K19 [table.insert]
+      121 CALL                             R7 2 0
+      122 GETIMPORT                        R7 K11 [next]
+      124 MOVE                             R8 R3
       125 CALL                             R7 1 1
-      126 JUMPIFEQKNIL                     R7 ; [+17]
-      128 DUPTABLE                         R9 K26 [{["key"] = "Creators", ["filters"]}]
-      129 NEWTABLE                         R10 1 0
-      131 GETUPVAL                         R11 0
-      132 GETTABLEKS                       R11 R11 K8 ["UserSubjectKey"]
-      134 LOADB                            R12 1
-      135 SETTABLE                         R12 R10 R11
-      136 SETTABLEKS                       R10 R9 K19 ["filters"]
-      138 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
-      140 MOVE                             R8 R6
-      141 GETIMPORT                        R7 K24 [table.insert]
-      143 CALL                             R7 2 0
-      144 GETIMPORT                        R7 K16 [next]
-      146 MOVE                             R8 R3
-      147 CALL                             R7 1 1
-      148 JUMPIFNOTEQKNIL                  R7 ; [+7]
-      150 GETIMPORT                        R7 K16 [next]
-      152 MOVE                             R8 R2
-      153 CALL                             R7 1 1
-      154 JUMPIFEQKNIL                     R7 ; [+17]
-      156 DUPTABLE                         R9 K28 [{["key"] = "Roles", ["filters"]}]
-      157 NEWTABLE                         R10 1 0
-      159 GETUPVAL                         R11 0
-      160 GETTABLEKS                       R11 R11 K21 ["RoleSubjectKey"]
-      162 LOADB                            R12 1
-      163 SETTABLE                         R12 R10 R11
-      164 SETTABLEKS                       R10 R9 K19 ["filters"]
-      166 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
-      168 MOVE                             R8 R6
-      169 GETIMPORT                        R7 K24 [table.insert]
-      171 CALL                             R7 2 0
-      172 JUMPIFNOT                        R5 ; [+11]
-      173 DUPTABLE                         R9 K30 [{["key"] = "EarlyTesters", ["filters"]}]
-      174 NEWTABLE                         R10 0 0
-      176 SETTABLEKS                       R10 R9 K19 ["filters"]
-      178 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
-      180 MOVE                             R8 R6
-      181 GETIMPORT                        R7 K24 [table.insert]
-      183 CALL                             R7 2 0
-      184 JUMPIFNOT                        R5 ; [+16]
-      185 DUPTABLE                         R9 K26 [{["key"] = "Creators", ["filters"]}]
-      186 NEWTABLE                         R10 1 0
-      188 GETUPVAL                         R11 0
-      189 GETTABLEKS                       R11 R11 K8 ["UserSubjectKey"]
-      191 LOADB                            R12 1
-      192 SETTABLE                         R12 R10 R11
-      193 SETTABLEKS                       R10 R9 K19 ["filters"]
-      195 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
-      197 MOVE                             R8 R6
-      198 GETIMPORT                        R7 K24 [table.insert]
-      200 CALL                             R7 2 0
-      201 RETURN                           R6 1
+      126 JUMPIFNOTEQKNIL                  R7 ; [+7]
+      128 GETIMPORT                        R7 K11 [next]
+      130 MOVE                             R8 R2
+      131 CALL                             R7 1 1
+      132 JUMPIFEQKNIL                     R7 ; [+17]
+      134 DUPTABLE                         R9 K23 [{["key"] = "Roles", ["filters"]}]
+      135 NEWTABLE                         R10 1 0
+      137 GETUPVAL                         R11 0
+      138 GETTABLEKS                       R11 R11 K16 ["RoleSubjectKey"]
+      140 LOADB                            R12 1
+      141 SETTABLE                         R12 R10 R11
+      142 SETTABLEKS                       R10 R9 K14 ["filters"]
+      144 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
+      146 MOVE                             R8 R6
+      147 GETIMPORT                        R7 K19 [table.insert]
+      149 CALL                             R7 2 0
+      150 JUMPIFNOT                        R5 ; [+11]
+      151 DUPTABLE                         R9 K25 [{["key"] = "EarlyTesters", ["filters"]}]
+      152 NEWTABLE                         R10 0 0
+      154 SETTABLEKS                       R10 R9 K14 ["filters"]
+      156 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
+      158 MOVE                             R8 R6
+      159 GETIMPORT                        R7 K19 [table.insert]
+      161 CALL                             R7 2 0
+      162 JUMPIFNOT                        R5 ; [+16]
+      163 DUPTABLE                         R9 K21 [{["key"] = "Creators", ["filters"]}]
+      164 NEWTABLE                         R10 1 0
+      166 GETUPVAL                         R11 0
+      167 GETTABLEKS                       R11 R11 K8 ["UserSubjectKey"]
+      169 LOADB                            R12 1
+      170 SETTABLE                         R12 R10 R11
+      171 SETTABLEKS                       R10 R9 K14 ["filters"]
+      173 FASTCALL2                        TABLE_INSERT R6 R9 ; [+4]
+      175 MOVE                             R8 R6
+      176 GETIMPORT                        R7 K19 [table.insert]
+      178 CALL                             R7 2 0
+      179 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -153,28 +138,17 @@ MAIN:
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
        27 GETTABLEKS                       R4 R0 K5 ["Src"]
-       29 GETTABLEKS                       R4 R4 K6 ["Util"]
-       31 GETTABLEKS                       R4 R4 K10 ["MigrationStatus"]
+       29 GETTABLEKS                       R4 R4 K10 ["Selectors"]
+       31 GETTABLEKS                       R4 R4 K11 ["IsGroupGame"]
        33 CALL                             R3 1 1
        34 GETIMPORT                        R4 K4 [require]
        36 GETTABLEKS                       R5 R0 K5 ["Src"]
-       38 GETTABLEKS                       R5 R5 K11 ["Selectors"]
-       40 GETTABLEKS                       R5 R5 K12 ["GetMigrationStatus"]
+       38 GETTABLEKS                       R5 R5 K10 ["Selectors"]
+       40 GETTABLEKS                       R5 R5 K12 ["CanManageEarlyTesters"]
        42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R6 R0 K5 ["Src"]
-       47 GETTABLEKS                       R6 R6 K11 ["Selectors"]
-       49 GETTABLEKS                       R6 R6 K13 ["IsGroupGame"]
-       51 CALL                             R5 1 1
-       52 GETIMPORT                        R6 K15 [game]
-       54 LOADK                            R8 K16 ["StudioService"]
-       55 NAMECALL                         R6 R6 K17 ["GetService"]
-       57 CALL                             R6 2 1
-       58 DUPCLOSURE                       R7 K18 [PROTO_0]
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          VAL R5
-       62 CAPTURE                          VAL R4
-       63 CAPTURE                          VAL R3
-       64 CAPTURE                          VAL R6
-       65 RETURN                           R7 1
+       43 DUPCLOSURE                       R5 K13 [PROTO_0]
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R4
+       48 RETURN                           R5 1

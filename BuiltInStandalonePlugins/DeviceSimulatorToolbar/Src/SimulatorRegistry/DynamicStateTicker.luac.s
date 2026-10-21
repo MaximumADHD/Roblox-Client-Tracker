@@ -243,6 +243,19 @@ PROTO_6:
         5 RETURN                           R0 0
 
 PROTO_7:
+        0 GETIMPORT                        R1 K1 [game]
+        2 MOVE                             R3 R0
+        3 NAMECALL                         R1 R1 K2 ["BindToClose"]
+        5 CALL                             R1 2 0
+        6 RETURN                           R0 0
+
+PROTO_8:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Destroy"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_9:
         0 NEWTABLE                         R3 32 0
         2 GETUPVAL                         R4 0
         3 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
@@ -297,25 +310,37 @@ PROTO_7:
        84 NAMECALL                         R4 R3 K23 ["Connect"]
        86 CALL                             R4 2 1
        87 SETTABLEKS                       R4 R2 K27 ["_heartbeatConnection"]
-       89 NAMECALL                         R4 R2 K28 ["_refreshRegistry"]
-       91 CALL                             R4 1 0
-       92 RETURN                           R2 1
+       89 GETUPVAL                         R4 3
+       90 GETTABLEKS                       R4 R4 K28 ["getFFlagDeviceSimulatorStopWorkOnClose"]
+       92 CALL                             R4 0 1
+       93 JUMPIFNOT                        R4 ; [+10]
+       94 GETTABLEKS                       R4 R1 K29 ["bindToClose"]
+       96 JUMPIF                           R4 ; [+1]
+       97 DUPCLOSURE                       R4 K30 [PROTO_7]
+       98 GETIMPORT                        R5 K32 [pcall]
+      100 MOVE                             R6 R4
+      101 NEWCLOSURE                       R7 P3
+      102 CAPTURE                          VAL R2
+      103 CALL                             R5 2 0
+      104 NAMECALL                         R4 R2 K33 ["_refreshRegistry"]
+      106 CALL                             R4 1 0
+      107 RETURN                           R2 1
 
-PROTO_8:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_service"]
         3 NAMECALL                         R0 R0 K1 ["GetRegisteredSimulatorsAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
-PROTO_9:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_onRegistryChanged"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_10:
+PROTO_12:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -385,7 +410,7 @@ PROTO_10:
        89 CALL                             R2 1 0
        90 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -415,7 +440,7 @@ PROTO_11:
        36 CALL                             R2 1 0
        37 RETURN                           R0 0
 
-PROTO_12:
+PROTO_14:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R2 0 1
@@ -438,7 +463,7 @@ PROTO_12:
        28 CALL                             R2 1 0
        29 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_service"]
         3 GETUPVAL                         R2 1
@@ -450,7 +475,7 @@ PROTO_13:
        11 CALL                             R0 3 -1
        12 RETURN                           R0 -1
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_onDynamicStateChanged"]
         3 GETUPVAL                         R1 1
@@ -460,7 +485,7 @@ PROTO_14:
         8 CALL                             R0 3 0
         9 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -573,7 +598,7 @@ PROTO_15:
       146 CALL                             R0 1 0
       147 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -604,7 +629,7 @@ PROTO_16:
        36 CALL                             R3 1 0
        37 RETURN                           R0 0
 
-PROTO_17:
+PROTO_19:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R3 0 1
@@ -637,7 +662,7 @@ PROTO_17:
        38 CALL                             R3 1 0
        39 RETURN                           R0 0
 
-PROTO_18:
+PROTO_20:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -655,7 +680,7 @@ PROTO_18:
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
-PROTO_19:
+PROTO_21:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -665,7 +690,7 @@ PROTO_19:
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
 
-PROTO_20:
+PROTO_22:
         0 GETTABLEKS                       R1 R0 K0 ["_destroyed"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
@@ -722,35 +747,36 @@ MAIN:
        50 CAPTURE                          VAL R1
        51 DUPCLOSURE                       R10 K21 [PROTO_4]
        52 CAPTURE                          VAL R1
-       53 DUPCLOSURE                       R11 K22 [PROTO_7]
+       53 DUPCLOSURE                       R11 K22 [PROTO_9]
        54 CAPTURE                          VAL R5
        55 CAPTURE                          VAL R3
        56 CAPTURE                          VAL R2
-       57 SETTABLEKS                       R11 R5 K23 ["new"]
-       59 DUPCLOSURE                       R11 K24 [PROTO_11]
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R3
-       62 SETTABLEKS                       R11 R5 K25 ["_refreshRegistry"]
-       64 DUPCLOSURE                       R11 K26 [PROTO_12]
-       65 CAPTURE                          VAL R1
-       66 SETTABLEKS                       R11 R5 K27 ["_onHeartbeat"]
-       68 DUPCLOSURE                       R11 K28 [PROTO_16]
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R10
-       71 CAPTURE                          VAL R7
-       72 CAPTURE                          VAL R3
-       73 CAPTURE                          VAL R8
-       74 SETTABLEKS                       R11 R5 K29 ["_poll"]
-       76 DUPCLOSURE                       R11 K30 [PROTO_17]
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R9
-       79 SETTABLEKS                       R11 R5 K31 ["SetStagedValues"]
-       81 DUPCLOSURE                       R11 K32 [PROTO_18]
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R11 R5 K33 ["RefreshDynamicState"]
-       85 DUPCLOSURE                       R11 K34 [PROTO_19]
-       86 CAPTURE                          VAL R1
-       87 SETTABLEKS                       R11 R5 K35 ["RefreshRegistry"]
-       89 DUPCLOSURE                       R11 K36 [PROTO_20]
-       90 SETTABLEKS                       R11 R5 K37 ["Destroy"]
-       92 RETURN                           R5 1
+       57 CAPTURE                          VAL R1
+       58 SETTABLEKS                       R11 R5 K23 ["new"]
+       60 DUPCLOSURE                       R11 K24 [PROTO_13]
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R3
+       63 SETTABLEKS                       R11 R5 K25 ["_refreshRegistry"]
+       65 DUPCLOSURE                       R11 K26 [PROTO_14]
+       66 CAPTURE                          VAL R1
+       67 SETTABLEKS                       R11 R5 K27 ["_onHeartbeat"]
+       69 DUPCLOSURE                       R11 K28 [PROTO_18]
+       70 CAPTURE                          VAL R1
+       71 CAPTURE                          VAL R10
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R3
+       74 CAPTURE                          VAL R8
+       75 SETTABLEKS                       R11 R5 K29 ["_poll"]
+       77 DUPCLOSURE                       R11 K30 [PROTO_19]
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R9
+       80 SETTABLEKS                       R11 R5 K31 ["SetStagedValues"]
+       82 DUPCLOSURE                       R11 K32 [PROTO_20]
+       83 CAPTURE                          VAL R1
+       84 SETTABLEKS                       R11 R5 K33 ["RefreshDynamicState"]
+       86 DUPCLOSURE                       R11 K34 [PROTO_21]
+       87 CAPTURE                          VAL R1
+       88 SETTABLEKS                       R11 R5 K35 ["RefreshRegistry"]
+       90 DUPCLOSURE                       R11 K36 [PROTO_22]
+       91 SETTABLEKS                       R11 R5 K37 ["Destroy"]
+       93 RETURN                           R5 1

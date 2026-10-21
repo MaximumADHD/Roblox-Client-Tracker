@@ -383,6 +383,24 @@ PROTO_11:
        25 RETURN                           R0 0
 
 PROTO_12:
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["getScopeWithUid"]
+        3 CALL                             R2 2 1
+        4 JUMPIF                           R2 ; [+9]
+        5 GETUPVAL                         R3 0
+        6 LOADK                            R4 K1 ["Cannot reveal scope %* in sidebar, it is not registered"]
+        7 MOVE                             R6 R1
+        8 NAMECALL                         R4 R4 K2 ["format"]
+       10 CALL                             R4 2 1
+       11 LOADK                            R5 K3 ["WARN"]
+       12 CALL                             R3 2 0
+       13 RETURN                           R0 0
+       14 MOVE                             R5 R2
+       15 NAMECALL                         R3 R0 K4 ["_expandAncestorsRecursive"]
+       17 CALL                             R3 2 0
+       18 RETURN                           R0 0
+
+PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["_expansion"]
         2 LOADNIL                          R2
         3 LOADNIL                          R3
@@ -396,7 +414,7 @@ PROTO_12:
        13 FORGLOOP                         R1 2 ; [-9]
        15 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETTABLEKS                       R3 R0 K0 ["_expansion"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+13]
@@ -423,7 +441,7 @@ PROTO_13:
        28 CALL                             R2 3 0
        29 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 NEWTABLE                         R1 0 0
         2 GETTABLEKS                       R2 R0 K0 ["_pluginController"]
         4 NAMECALL                         R2 R2 K1 ["getGameInfo"]
@@ -518,7 +536,7 @@ PROTO_14:
       141 CALL                             R4 2 0
       142 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 LOADB                            R3 1
         1 NAMECALL                         R1 R0 K0 ["_getAvailableInventories"]
         3 CALL                             R1 2 1
@@ -545,7 +563,7 @@ PROTO_15:
        33 FORGLOOP                         R3 2 ; [-9]
        35 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K0 ["getScopeWithUid"]
@@ -557,16 +575,18 @@ PROTO_16:
        11 CALL                             R3 2 1
        12 GETTABLEKS                       R3 R3 K1 ["Name"]
        14 GETUPVAL                         R5 1
-       15 MOVE                             R6 R2
-       16 MOVE                             R7 R3
-       17 CALL                             R5 2 1
-       18 LOADN                            R6 0
-       19 JUMPIFLT                         R5 R6 ; [+2]
-       21 LOADB                            R4 0 +1
-       22 LOADB                            R4 1
-       23 RETURN                           R4 1
+       15 GETTABLEKS                       R5 R5 K2 ["Utils"]
+       17 GETTABLEKS                       R5 R5 K3 ["naturalCompare"]
+       19 MOVE                             R6 R2
+       20 MOVE                             R7 R3
+       21 CALL                             R5 2 1
+       22 LOADN                            R6 0
+       23 JUMPIFLT                         R5 R6 ; [+2]
+       25 LOADB                            R4 0 +1
+       26 LOADB                            R4 1
+       27 RETURN                           R4 1
 
-PROTO_17:
+PROTO_18:
         0 NEWTABLE                         R3 0 0
         2 GETTABLEKS                       R4 R0 K0 ["_scopes"]
         4 LOADNIL                          R5
@@ -610,7 +630,7 @@ PROTO_17:
        58 CALL                             R4 2 0
        59 RETURN                           R3 1
 
-PROTO_18:
+PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["_pluginController"]
         2 NAMECALL                         R1 R1 K1 ["getGameInfo"]
         4 CALL                             R1 1 1
@@ -637,7 +657,7 @@ PROTO_18:
        39 SETTABLE                         R4 R3 R2
        40 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETTABLEKS                       R1 R0 K0 ["_pluginController"]
         2 NAMECALL                         R1 R1 K1 ["getGameInfo"]
         4 CALL                             R1 1 1
@@ -651,18 +671,18 @@ PROTO_19:
        16 CALL                             R2 -1 -1
        17 RETURN                           R2 -1
 
-PROTO_20:
+PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["_newItemNotifs"]
         2 RETURN                           R1 1
 
-PROTO_21:
+PROTO_22:
         0 MOVE                             R4 R1
         1 LOADB                            R5 1
         2 NAMECALL                         R2 R0 K0 ["_setNewItemNotif"]
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 LOADB                            R4 1
         1 JUMPIFEQKNIL                     R2 ; [+5]
         3 JUMPIFEQKB                       R2 TRUE ; [+2]
@@ -685,7 +705,7 @@ PROTO_22:
        30 CALL                             R3 -1 0
        31 RETURN                           R0 0
 
-PROTO_23:
+PROTO_24:
         0 GETTABLEKS                       R3 R0 K0 ["_newItemNotifs"]
         2 GETTABLE                         R2 R3 R1
         3 MOVE                             R5 R1
@@ -697,16 +717,16 @@ PROTO_23:
        10 CALL                             R3 3 0
        11 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETTABLEKS                       R3 R0 K0 ["_scopes"]
         2 GETTABLE                         R2 R3 R1
         3 RETURN                           R2 1
 
-PROTO_25:
+PROTO_26:
         0 GETTABLEKS                       R1 R0 K0 ["_visibleInventories"]
         2 RETURN                           R1 1
 
-PROTO_26:
+PROTO_27:
         0 GETTABLEKS                       R1 R0 K0 ["_scopes"]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["RecentUploads"]
@@ -716,7 +736,7 @@ PROTO_26:
        10 SETTABLE                         R3 R1 R2
        11 RETURN                           R0 0
 
-PROTO_27:
+PROTO_28:
         0 GETTABLEKS                       R1 R0 K0 ["_pluginController"]
         2 NAMECALL                         R1 R1 K1 ["getUser"]
         4 CALL                             R1 1 1
@@ -737,7 +757,7 @@ PROTO_27:
        30 CALL                             R3 1 0
        31 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 NEWTABLE                         R3 0 0
         2 MOVE                             R4 R1
         3 LOADNIL                          R5
@@ -768,7 +788,7 @@ PROTO_28:
        37 SETTABLEKS                       R3 R4 K6 ["Children"]
        39 RETURN                           R0 0
 
-PROTO_29:
+PROTO_30:
         0 GETTABLEKS                       R2 R1 K0 ["Type"]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
@@ -785,7 +805,7 @@ PROTO_29:
        20 CALL                             R3 2 -1
        21 RETURN                           R3 -1
 
-PROTO_30:
+PROTO_31:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K3 ["_folderReadyMap"]
@@ -800,7 +820,7 @@ PROTO_30:
        16 CALL                             R2 1 0
        17 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 MOVE                             R2 R1
         1 LOADNIL                          R3
         2 LOADNIL                          R4
@@ -826,7 +846,7 @@ PROTO_31:
        29 FORGLOOP                         R2 2 ; [-26]
        31 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 GETTABLEKS                       R2 R0 K3 ["_visibleInventories"]
         4 CALL                             R1 1 1
@@ -845,7 +865,7 @@ PROTO_32:
        25 CALL                             R3 2 0
        26 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETIMPORT                        R2 K2 [table.find]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K3 ["RootAccountScopeTypes"]
@@ -861,7 +881,7 @@ PROTO_33:
        19 GETTABLE                         R2 R3 R4
        20 RETURN                           R2 1
 
-PROTO_34:
+PROTO_35:
         0 JUMPIF                           R1 ; [+2]
         1 LOADB                            R2 0
         2 RETURN                           R2 1
@@ -884,7 +904,7 @@ PROTO_34:
        27 LOADB                            R2 1
        28 RETURN                           R2 1
 
-PROTO_35:
+PROTO_36:
         0 MOVE                             R5 R2
         1 NAMECALL                         R3 R0 K0 ["getScopeWithUid"]
         3 CALL                             R3 2 1
@@ -903,7 +923,7 @@ PROTO_35:
        21 LOADB                            R4 0
        22 RETURN                           R4 1
 
-PROTO_36:
+PROTO_37:
         0 GETTABLEKS                       R1 R0 K0 ["_pendingFolderFetchCount"]
         2 SUBK                             R1 R1 K1 [1]
         3 SETTABLEKS                       R1 R0 K0 ["_pendingFolderFetchCount"]
@@ -913,7 +933,7 @@ PROTO_36:
        11 CALL                             R1 1 0
        12 RETURN                           R0 0
 
-PROTO_37:
+PROTO_38:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["NewFolderUid"]
         3 JUMPIFNOTEQ                      R1 R2 ; [+3]
@@ -925,7 +945,7 @@ PROTO_37:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_38:
+PROTO_39:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["getScopeRoot"]
@@ -937,7 +957,7 @@ PROTO_38:
        11 CALL                             R1 1 1
        12 RETURN                           R1 1
 
-PROTO_39:
+PROTO_40:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["_folderFetchEpoch"]
@@ -975,7 +995,7 @@ PROTO_39:
        45 CALL                             R1 1 0
        46 RETURN                           R0 0
 
-PROTO_40:
+PROTO_41:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["_folderFetchEpoch"]
@@ -993,7 +1013,7 @@ PROTO_40:
        18 CALL                             R1 1 0
        19 RETURN                           R0 0
 
-PROTO_41:
+PROTO_42:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["collectArray"]
         3 MOVE                             R3 R1
@@ -1027,11 +1047,11 @@ PROTO_41:
        39 CALL                             R5 4 0
        40 RETURN                           R0 0
 
-PROTO_42:
+PROTO_43:
         0 GETTABLEKS                       R1 R0 K0 ["_stagedFolder"]
         2 RETURN                           R1 1
 
-PROTO_43:
+PROTO_44:
         0 GETTABLEKS                       R1 R0 K0 ["_stagedFolder"]
         2 JUMPIFNOTEQKNIL                  R1 ; [+2]
         4 RETURN                           R0 0
@@ -1050,7 +1070,7 @@ PROTO_43:
        24 CALL                             R2 1 0
        25 RETURN                           R0 0
 
-PROTO_44:
+PROTO_45:
         0 LOADNIL                          R3
         1 JUMPIF                           R1 ; [+46]
         2 MOVE                             R4 R2
@@ -1097,16 +1117,16 @@ PROTO_44:
        67 CALL                             R4 1 0
        68 RETURN                           R0 0
 
-PROTO_45:
+PROTO_46:
         0 GETTABLEKS                       R1 R0 K0 ["_recentlyCreatedFolder"]
         2 RETURN                           R1 1
 
-PROTO_46:
+PROTO_47:
         0 LOADNIL                          R1
         1 SETTABLEKS                       R1 R0 K0 ["_recentlyCreatedFolder"]
         3 RETURN                           R0 0
 
-PROTO_47:
+PROTO_48:
         0 GETUPVAL                         R1 0
         1 ADDK                             R1 R1 K0 [1]
         2 SETUPVAL                         R1 0
@@ -1143,7 +1163,7 @@ PROTO_47:
        42 LOADB                            R1 0
        43 RETURN                           R1 1
 
-PROTO_48:
+PROTO_49:
         0 LOADN                            R2 0
         1 NEWCLOSURE                       R3 P0
         2 CAPTURE                          REF R2
@@ -1172,7 +1192,7 @@ PROTO_48:
        30 CLOSEUPVALS                      R2
        31 RETURN                           R4 1
 
-PROTO_49:
+PROTO_50:
         0 GETTABLEKS                       R2 R0 K0 ["_scopes"]
         2 GETTABLEKS                       R3 R1 K1 ["Uid"]
         4 SETTABLE                         R1 R2 R3
@@ -1207,7 +1227,7 @@ PROTO_49:
        49 CALL                             R4 2 0
        50 RETURN                           R0 0
 
-PROTO_50:
+PROTO_51:
         0 GETTABLEKS                       R3 R0 K0 ["_scopes"]
         2 GETTABLEKS                       R4 R1 K1 ["Uid"]
         4 GETTABLE                         R2 R3 R4
@@ -1231,7 +1251,7 @@ PROTO_50:
        32 CALL                             R3 1 0
        33 RETURN                           R0 0
 
-PROTO_51:
+PROTO_52:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
@@ -1240,50 +1260,52 @@ PROTO_51:
         6 CALL                             R3 2 0
         7 RETURN                           R0 0
 
-PROTO_52:
+PROTO_53:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["_scopes"]
         3 GETTABLE                         R2 R3 R0
         4 GETUPVAL                         R4 0
         5 GETTABLEKS                       R4 R4 K0 ["_scopes"]
         7 GETTABLE                         R3 R4 R1
-        8 JUMPIFNOT                        R2 ; [+31]
-        9 JUMPIFNOT                        R3 ; [+30]
+        8 JUMPIFNOT                        R2 ; [+35]
+        9 JUMPIFNOT                        R3 ; [+34]
        10 GETUPVAL                         R4 1
        11 CALL                             R4 0 1
-       12 JUMPIFNOT                        R4 ; [+12]
+       12 JUMPIFNOT                        R4 ; [+16]
        13 GETUPVAL                         R5 2
-       14 GETTABLEKS                       R6 R2 K1 ["Name"]
-       16 GETTABLEKS                       R7 R3 K1 ["Name"]
-       18 CALL                             R5 2 1
-       19 LOADN                            R6 0
-       20 JUMPIFLT                         R5 R6 ; [+2]
-       22 LOADB                            R4 0 +1
-       23 LOADB                            R4 1
-       24 RETURN                           R4 1
-       25 GETTABLEKS                       R5 R2 K1 ["Name"]
-       27 NAMECALL                         R5 R5 K2 ["lower"]
-       29 CALL                             R5 1 1
-       30 GETTABLEKS                       R6 R3 K1 ["Name"]
-       32 NAMECALL                         R6 R6 K2 ["lower"]
-       34 CALL                             R6 1 1
-       35 JUMPIFLT                         R5 R6 ; [+2]
-       37 LOADB                            R4 0 +1
-       38 LOADB                            R4 1
-       39 RETURN                           R4 1
-       40 GETUPVAL                         R4 3
-       41 LOADK                            R5 K3 ["Cannot sort children because scope with UID $%* does not exist."]
-       42 JUMPIF                           R2 ; [+2]
-       43 MOVE                             R7 R0
-       44 JUMP                             ; [+1]
-       45 MOVE                             R7 R1
-       46 NAMECALL                         R5 R5 K4 ["format"]
-       48 CALL                             R5 2 1
-       49 CALL                             R4 1 0
-       50 LOADB                            R4 0
-       51 RETURN                           R4 1
+       14 GETTABLEKS                       R5 R5 K1 ["Utils"]
+       16 GETTABLEKS                       R5 R5 K2 ["naturalCompare"]
+       18 GETTABLEKS                       R6 R2 K3 ["Name"]
+       20 GETTABLEKS                       R7 R3 K3 ["Name"]
+       22 CALL                             R5 2 1
+       23 LOADN                            R6 0
+       24 JUMPIFLT                         R5 R6 ; [+2]
+       26 LOADB                            R4 0 +1
+       27 LOADB                            R4 1
+       28 RETURN                           R4 1
+       29 GETTABLEKS                       R5 R2 K3 ["Name"]
+       31 NAMECALL                         R5 R5 K4 ["lower"]
+       33 CALL                             R5 1 1
+       34 GETTABLEKS                       R6 R3 K3 ["Name"]
+       36 NAMECALL                         R6 R6 K4 ["lower"]
+       38 CALL                             R6 1 1
+       39 JUMPIFLT                         R5 R6 ; [+2]
+       41 LOADB                            R4 0 +1
+       42 LOADB                            R4 1
+       43 RETURN                           R4 1
+       44 GETUPVAL                         R4 3
+       45 LOADK                            R5 K5 ["Cannot sort children because scope with UID $%* does not exist."]
+       46 JUMPIF                           R2 ; [+2]
+       47 MOVE                             R7 R0
+       48 JUMP                             ; [+1]
+       49 MOVE                             R7 R1
+       50 NAMECALL                         R5 R5 K6 ["format"]
+       52 CALL                             R5 2 1
+       53 CALL                             R4 1 0
+       54 LOADB                            R4 0
+       55 RETURN                           R4 1
 
-PROTO_53:
+PROTO_54:
         0 GETIMPORT                        R2 K2 [table.sort]
         2 MOVE                             R3 R1
         3 NEWCLOSURE                       R4 P0
@@ -1294,7 +1316,7 @@ PROTO_53:
         8 CALL                             R2 2 0
         9 RETURN                           R1 1
 
-PROTO_54:
+PROTO_55:
         0 GETTABLEKS                       R3 R1 K0 ["Children"]
         2 JUMPIF                           R3 ; [+4]
         3 NEWTABLE                         R3 0 0
@@ -1309,14 +1331,14 @@ PROTO_54:
        19 CALL                             R3 2 0
        20 RETURN                           R0 0
 
-PROTO_55:
+PROTO_56:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOTEQ                      R0 R2 ; [+2]
         3 LOADB                            R1 0 +1
         4 LOADB                            R1 1
         5 RETURN                           R1 1
 
-PROTO_56:
+PROTO_57:
         0 GETTABLEKS                       R3 R0 K0 ["_scopes"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOTEQKNIL                  R2 ; [+2]
@@ -1390,14 +1412,14 @@ PROTO_56:
       101 CALL                             R6 2 0
       102 RETURN                           R0 0
 
-PROTO_57:
+PROTO_58:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOTEQ                      R0 R2 ; [+2]
         3 LOADB                            R1 0 +1
         4 LOADB                            R1 1
         5 RETURN                           R1 1
 
-PROTO_58:
+PROTO_59:
         0 MOVE                             R7 R1
         1 NAMECALL                         R5 R0 K0 ["getScopeWithUid"]
         3 CALL                             R5 2 1
@@ -1453,7 +1475,7 @@ PROTO_58:
        66 CALL                             R8 1 0
        67 RETURN                           R0 0
 
-PROTO_59:
+PROTO_60:
         0 NEWTABLE                         R1 0 0
         2 SETTABLEKS                       R1 R0 K0 ["_scopes"]
         4 NEWTABLE                         R1 0 0
@@ -1469,7 +1491,7 @@ PROTO_59:
        21 CALL                             R1 1 0
        22 RETURN                           R0 0
 
-PROTO_60:
+PROTO_61:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K0 ["getScopeWithUid"]
@@ -1491,7 +1513,7 @@ PROTO_60:
        25 LOADB                            R4 1
        26 RETURN                           R4 1
 
-PROTO_61:
+PROTO_62:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["_resetScopes"]
         3 CALL                             R1 1 0
@@ -1555,7 +1577,7 @@ PROTO_61:
        83 CALL                             R2 1 0
        84 RETURN                           R0 0
 
-PROTO_62:
+PROTO_63:
         0 GETUPVAL                         R1 0
         1 LOADK                            R2 K0 ["Error fetching groups: %*"]
         2 MOVE                             R4 R0
@@ -1564,7 +1586,7 @@ PROTO_62:
         6 CALL                             R1 1 0
         7 RETURN                           R0 0
 
-PROTO_63:
+PROTO_64:
         0 NAMECALL                         R1 R0 K0 ["_clearHistory"]
         2 CALL                             R1 1 0
         3 GETTABLEKS                       R1 R0 K1 ["_networking"]
@@ -1572,21 +1594,21 @@ PROTO_63:
         6 CAPTURE                          VAL R0
         7 CAPTURE                          UPVAL U0
         8 CAPTURE                          UPVAL U1
-        9 DUPCLOSURE                       R4 K2 [PROTO_62]
+        9 DUPCLOSURE                       R4 K2 [PROTO_63]
        10 CAPTURE                          UPVAL U2
        11 NAMECALL                         R1 R1 K3 ["fetchGroupsAsync"]
        13 CALL                             R1 3 0
        14 RETURN                           R0 0
 
-PROTO_64:
+PROTO_65:
         0 GETTABLEKS                       R1 R0 K0 ["_explorerItems"]
         2 RETURN                           R1 1
 
-PROTO_65:
+PROTO_66:
         0 GETTABLEKS                       R1 R0 K0 ["_expansion"]
         2 RETURN                           R1 1
 
-PROTO_66:
+PROTO_67:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+20]
@@ -1626,18 +1648,18 @@ PROTO_66:
        51 CALL                             R2 1 0
        52 RETURN                           R0 0
 
-PROTO_67:
+PROTO_68:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["keys"]
         3 GETTABLEKS                       R2 R0 K1 ["_hiddenInventories"]
         5 CALL                             R1 1 -1
         6 RETURN                           R1 -1
 
-PROTO_68:
+PROTO_69:
         0 GETTABLEKS                       R1 R0 K0 ["_showScopeOptions"]
         2 RETURN                           R1 1
 
-PROTO_69:
+PROTO_70:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["_showScopeOptions"]
         3 GETTABLEKS                       R1 R0 K1 ["OnShowScopeOptionsChanged"]
@@ -1646,7 +1668,7 @@ PROTO_69:
         8 CALL                             R1 2 0
         9 RETURN                           R0 0
 
-PROTO_70:
+PROTO_71:
         0 GETTABLEKS                       R1 R0 K0 ["_toggleSet"]
         2 LOADNIL                          R2
         3 LOADNIL                          R3
@@ -1669,7 +1691,7 @@ PROTO_70:
        27 CALL                             R1 1 0
        28 RETURN                           R0 0
 
-PROTO_71:
+PROTO_72:
         0 JUMPIFNOT                        R1 ; [+3]
         1 NAMECALL                         R2 R0 K0 ["_saveGroupOptions"]
         3 CALL                             R2 1 0
@@ -1691,11 +1713,11 @@ PROTO_71:
        29 CALL                             R2 1 0
        30 RETURN                           R0 0
 
-PROTO_72:
+PROTO_73:
         0 GETTABLEKS                       R1 R0 K0 ["_groupOptions"]
         2 RETURN                           R1 1
 
-PROTO_73:
+PROTO_74:
         0 GETTABLEKS                       R3 R0 K0 ["_toggleSet"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+5]
@@ -1714,7 +1736,7 @@ PROTO_73:
        22 CALL                             R2 -1 0
        23 RETURN                           R0 0
 
-PROTO_74:
+PROTO_75:
         0 GETUPVAL                         R2 0
         1 MOVE                             R4 R0
         2 NAMECALL                         R2 R2 K0 ["getScopeWithUid"]
@@ -1736,7 +1758,7 @@ PROTO_74:
        25 LOADB                            R4 1
        26 RETURN                           R4 1
 
-PROTO_75:
+PROTO_76:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+8]
@@ -1788,7 +1810,7 @@ PROTO_75:
        72 CALL                             R2 2 0
        73 RETURN                           R0 0
 
-PROTO_76:
+PROTO_77:
         0 NAMECALL                         R2 R0 K0 ["getVisibleInventories"]
         2 CALL                             R2 1 3
         3 FORGPREP                         R2
@@ -1807,7 +1829,7 @@ PROTO_76:
        22 LOADB                            R2 1
        23 RETURN                           R2 1
 
-PROTO_77:
+PROTO_78:
         0 GETTABLEKS                       R1 R0 K0 ["_groupOptions"]
         2 LOADNIL                          R2
         3 LOADNIL                          R3
@@ -1822,11 +1844,11 @@ PROTO_77:
        14 LOADB                            R1 1
        15 RETURN                           R1 1
 
-PROTO_78:
+PROTO_79:
         0 GETTABLEKS                       R1 R0 K0 ["_toggleSet"]
         2 RETURN                           R1 1
 
-PROTO_79:
+PROTO_80:
         0 NAMECALL                         R1 R0 K0 ["hasAllOptionsChecked"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R0 K1 ["_groupOptions"]
@@ -1859,13 +1881,13 @@ PROTO_79:
        41 CALL                             R2 -1 0
        42 RETURN                           R0 0
 
-PROTO_80:
+PROTO_81:
         0 SUBK                             R4 R1 K0 [1]
         1 MODK                             R3 R4 K1 [502]
         2 ADDK                             R2 R3 K0 [1]
         3 RETURN                           R2 1
 
-PROTO_81:
+PROTO_82:
         0 GETTABLEKS                       R3 R0 K0 ["_historyRingBuffer"]
         2 GETTABLEKS                       R4 R0 K1 ["_historyBufferIndex"]
         4 GETTABLE                         R2 R3 R4
@@ -1931,7 +1953,7 @@ PROTO_81:
        93 CALL                             R4 1 0
        94 RETURN                           R0 0
 
-PROTO_82:
+PROTO_83:
         0 GETTABLEKS                       R4 R0 K0 ["_historyBufferIndex"]
         2 NAMECALL                         R2 R0 K1 ["_getHistoryRingIndex"]
         4 CALL                             R2 2 1
@@ -1942,7 +1964,7 @@ PROTO_82:
        12 CALL                             R3 1 0
        13 RETURN                           R0 0
 
-PROTO_83:
+PROTO_84:
         0 GETTABLEKS                       R5 R0 K0 ["_historyBufferIndex"]
         2 ADD                              R4 R5 R1
         3 NAMECALL                         R2 R0 K1 ["_getHistoryRingIndex"]
@@ -1990,7 +2012,7 @@ PROTO_83:
        64 CALL                             R3 1 0
        65 RETURN                           R0 0
 
-PROTO_84:
+PROTO_85:
         0 GETTABLEKS                       R4 R0 K1 ["_historyBufferIndex"]
         2 SUBK                             R3 R4 K0 [1]
         3 NAMECALL                         R1 R0 K2 ["_getHistoryRingIndex"]
@@ -2002,7 +2024,7 @@ PROTO_84:
        12 LOADB                            R2 1
        13 RETURN                           R2 1
 
-PROTO_85:
+PROTO_86:
         0 GETTABLEKS                       R4 R0 K1 ["_historyBufferIndex"]
         2 ADDK                             R3 R4 K0 [1]
         3 NAMECALL                         R1 R0 K2 ["_getHistoryRingIndex"]
@@ -2014,7 +2036,7 @@ PROTO_85:
        12 LOADB                            R2 1
        13 RETURN                           R2 1
 
-PROTO_86:
+PROTO_87:
         0 NAMECALL                         R1 R0 K0 ["getHistoryAtStart"]
         2 CALL                             R1 1 1
         3 JUMPIF                           R1 ; [+4]
@@ -2023,7 +2045,7 @@ PROTO_86:
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
-PROTO_87:
+PROTO_88:
         0 NAMECALL                         R1 R0 K0 ["getHistoryAtEnd"]
         2 CALL                             R1 1 1
         3 JUMPIF                           R1 ; [+4]
@@ -2032,7 +2054,7 @@ PROTO_87:
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
-PROTO_88:
+PROTO_89:
         0 GETTABLEKS                       R2 R0 K0 ["_historyRingBuffer"]
         2 GETTABLEKS                       R3 R0 K1 ["_historyBufferIndex"]
         4 GETTABLE                         R1 R2 R3
@@ -2047,7 +2069,7 @@ PROTO_88:
        19 CALL                             R2 1 0
        20 RETURN                           R0 0
 
-PROTO_89:
+PROTO_90:
         0 GETTABLEKS                       R1 R0 K0 ["_pluginController"]
         2 NAMECALL                         R1 R1 K1 ["getPlugin"]
         4 CALL                             R1 1 -1
@@ -2061,270 +2083,272 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
-       23 GETTABLEKS                       R4 R3 K10 ["ContextItem"]
-       25 GETTABLEKS                       R5 R2 K11 ["Util"]
-       27 GETTABLEKS                       R5 R5 K12 ["Signal"]
-       29 GETIMPORT                        R6 K5 [require]
-       31 GETTABLEKS                       R7 R0 K13 ["Src"]
-       33 GETTABLEKS                       R7 R7 K11 ["Util"]
-       35 GETTABLEKS                       R7 R7 K14 ["cleanConnections"]
-       37 CALL                             R6 1 1
-       38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R8 R0 K13 ["Src"]
-       42 GETTABLEKS                       R8 R8 K11 ["Util"]
-       44 GETTABLEKS                       R8 R8 K15 ["createAccountUidFromPath"]
-       46 CALL                             R7 1 1
-       47 GETIMPORT                        R8 K5 [require]
-       49 GETTABLEKS                       R9 R0 K13 ["Src"]
-       51 GETTABLEKS                       R9 R9 K11 ["Util"]
-       53 GETTABLEKS                       R9 R9 K16 ["logIfDebug"]
-       55 CALL                             R8 1 1
-       56 GETIMPORT                        R9 K5 [require]
-       58 GETTABLEKS                       R10 R0 K13 ["Src"]
-       60 GETTABLEKS                       R10 R10 K17 ["Types"]
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
+       30 GETTABLEKS                       R5 R4 K11 ["ContextItem"]
+       32 GETTABLEKS                       R6 R3 K12 ["Util"]
+       34 GETTABLEKS                       R6 R6 K13 ["Signal"]
+       36 GETIMPORT                        R7 K5 [require]
+       38 GETTABLEKS                       R8 R0 K14 ["Src"]
+       40 GETTABLEKS                       R8 R8 K12 ["Util"]
+       42 GETTABLEKS                       R8 R8 K15 ["cleanConnections"]
+       44 CALL                             R7 1 1
+       45 GETIMPORT                        R8 K5 [require]
+       47 GETTABLEKS                       R9 R0 K14 ["Src"]
+       49 GETTABLEKS                       R9 R9 K12 ["Util"]
+       51 GETTABLEKS                       R9 R9 K16 ["createAccountUidFromPath"]
+       53 CALL                             R8 1 1
+       54 GETIMPORT                        R9 K5 [require]
+       56 GETTABLEKS                       R10 R0 K14 ["Src"]
+       58 GETTABLEKS                       R10 R10 K12 ["Util"]
+       60 GETTABLEKS                       R10 R10 K17 ["logIfDebug"]
        62 CALL                             R9 1 1
        63 GETIMPORT                        R10 K5 [require]
-       65 GETTABLEKS                       R11 R0 K13 ["Src"]
-       67 GETTABLEKS                       R11 R11 K11 ["Util"]
-       69 GETTABLEKS                       R11 R11 K18 ["createFolderUid"]
-       71 CALL                             R10 1 1
-       72 GETIMPORT                        R11 K5 [require]
-       74 GETTABLEKS                       R12 R0 K13 ["Src"]
-       76 GETTABLEKS                       R12 R12 K11 ["Util"]
-       78 GETTABLEKS                       R12 R12 K19 ["createScopeUid"]
-       80 CALL                             R11 1 1
-       81 GETIMPORT                        R12 K5 [require]
-       83 GETTABLEKS                       R13 R0 K13 ["Src"]
-       85 GETTABLEKS                       R13 R13 K11 ["Util"]
-       87 GETTABLEKS                       R13 R13 K20 ["convertFolderItemToScope"]
-       89 CALL                             R12 1 1
-       90 GETIMPORT                        R13 K5 [require]
-       92 GETTABLEKS                       R14 R0 K13 ["Src"]
-       94 GETTABLEKS                       R14 R14 K11 ["Util"]
-       96 GETTABLEKS                       R14 R14 K21 ["naturalCompare"]
-       98 CALL                             R13 1 1
-       99 GETIMPORT                        R14 K5 [require]
-      101 GETTABLEKS                       R15 R0 K13 ["Src"]
-      103 GETTABLEKS                       R15 R15 K22 ["Resources"]
-      105 GETTABLEKS                       R15 R15 K23 ["Constants"]
-      107 CALL                             R14 1 1
-      108 GETIMPORT                        R15 K5 [require]
-      110 GETTABLEKS                       R16 R0 K13 ["Src"]
-      112 GETTABLEKS                       R16 R16 K24 ["Flags"]
-      114 GETTABLEKS                       R16 R16 K25 ["getFFlagAmrNaturalSortOrder"]
-      116 CALL                             R15 1 1
-      117 GETIMPORT                        R16 K5 [require]
-      119 GETTABLEKS                       R17 R0 K13 ["Src"]
-      121 GETTABLEKS                       R17 R17 K24 ["Flags"]
-      123 GETTABLEKS                       R17 R17 K26 ["getFFlagAmrSaveToggledGroups"]
-      125 CALL                             R16 1 1
-      126 LOADK                            R19 K27 ["ExplorerController"]
-      127 NAMECALL                         R17 R4 K28 ["extend"]
-      129 CALL                             R17 2 1
-      130 DUPCLOSURE                       R18 K29 [PROTO_3]
-      131 CAPTURE                          VAL R5
-      132 CAPTURE                          VAL R17
-      133 CAPTURE                          VAL R9
-      134 CAPTURE                          VAL R11
-      135 CAPTURE                          VAL R14
-      136 SETTABLEKS                       R18 R17 K30 ["new"]
-      138 DUPCLOSURE                       R18 K31 [PROTO_4]
-      139 CAPTURE                          VAL R17
-      140 SETTABLEKS                       R18 R17 K32 ["mock"]
-      142 DUPCLOSURE                       R18 K33 [PROTO_5]
-      143 SETTABLEKS                       R18 R17 K34 ["getIsMock"]
-      145 DUPCLOSURE                       R18 K35 [PROTO_6]
-      146 CAPTURE                          VAL R6
-      147 SETTABLEKS                       R18 R17 K36 ["destroy"]
-      149 DUPCLOSURE                       R18 K37 [PROTO_7]
-      150 CAPTURE                          VAL R16
-      151 SETTABLEKS                       R18 R17 K38 ["populateSavedSettings"]
-      153 DUPCLOSURE                       R18 K39 [PROTO_8]
-      154 CAPTURE                          VAL R9
-      155 SETTABLEKS                       R18 R17 K40 ["_isOmnisearchEnabled"]
-      157 DUPCLOSURE                       R18 K41 [PROTO_10]
-      158 CAPTURE                          VAL R1
-      159 SETTABLEKS                       R18 R17 K42 ["_setExpansion"]
-      161 DUPCLOSURE                       R18 K43 [PROTO_11]
-      162 SETTABLEKS                       R18 R17 K44 ["_expandAncestorsRecursive"]
-      164 DUPCLOSURE                       R18 K45 [PROTO_12]
-      165 SETTABLEKS                       R18 R17 K46 ["_cleanStaleExpandedScopes"]
-      167 DUPCLOSURE                       R18 K47 [PROTO_13]
-      168 CAPTURE                          VAL R8
-      169 SETTABLEKS                       R18 R17 K48 ["toggleExpansion"]
-      171 DUPCLOSURE                       R18 K49 [PROTO_14]
-      172 CAPTURE                          VAL R9
-      173 CAPTURE                          VAL R14
-      174 CAPTURE                          VAL R11
-      175 SETTABLEKS                       R18 R17 K50 ["_updateRenderTree"]
-      177 DUPCLOSURE                       R18 K51 [PROTO_15]
-      178 SETTABLEKS                       R18 R17 K52 ["_updateVisibleInventories"]
-      180 DUPCLOSURE                       R18 K53 [PROTO_17]
-      181 CAPTURE                          VAL R9
-      182 CAPTURE                          VAL R13
-      183 SETTABLEKS                       R18 R17 K54 ["_getAvailableInventories"]
-      185 DUPCLOSURE                       R18 K55 [PROTO_18]
-      186 CAPTURE                          VAL R11
-      187 CAPTURE                          VAL R9
-      188 SETTABLEKS                       R18 R17 K56 ["_generateProjectCustomScopes"]
-      190 DUPCLOSURE                       R18 K57 [PROTO_19]
-      191 CAPTURE                          VAL R11
-      192 CAPTURE                          VAL R9
-      193 SETTABLEKS                       R18 R17 K58 ["getProjectPlacesScope"]
-      195 DUPCLOSURE                       R18 K59 [PROTO_20]
-      196 SETTABLEKS                       R18 R17 K60 ["getScopeNotifications"]
-      198 DUPCLOSURE                       R18 K61 [PROTO_21]
-      199 SETTABLEKS                       R18 R17 K62 ["notifyNewItemsInScope"]
-      201 DUPCLOSURE                       R18 K63 [PROTO_22]
-      202 SETTABLEKS                       R18 R17 K64 ["_setNewItemNotif"]
-      204 DUPCLOSURE                       R18 K65 [PROTO_23]
-      205 SETTABLEKS                       R18 R17 K66 ["_toggleNewItemNotif"]
-      207 DUPCLOSURE                       R18 K67 [PROTO_24]
-      208 SETTABLEKS                       R18 R17 K68 ["getScopeWithUid"]
-      210 DUPCLOSURE                       R18 K69 [PROTO_25]
-      211 SETTABLEKS                       R18 R17 K70 ["getVisibleInventories"]
-      213 DUPCLOSURE                       R18 K71 [PROTO_26]
-      214 CAPTURE                          VAL R14
-      215 SETTABLEKS                       R18 R17 K72 ["_addRecentUploads"]
-      217 DUPCLOSURE                       R18 K73 [PROTO_27]
-      218 SETTABLEKS                       R18 R17 K74 ["_addUserAndExperienceScopes"]
-      220 DUPCLOSURE                       R18 K75 [PROTO_28]
-      221 CAPTURE                          VAL R12
-      222 SETTABLEKS                       R18 R17 K76 ["convertFoldersToScopes"]
-      224 DUPCLOSURE                       R18 K77 [PROTO_29]
-      225 CAPTURE                          VAL R9
-      226 CAPTURE                          VAL R7
-      227 SETTABLEKS                       R18 R17 K78 ["getScopeRoot"]
-      229 DUPCLOSURE                       R18 K79 [PROTO_31]
-      230 SETTABLEKS                       R18 R17 K80 ["requestFolderReadiness"]
-      232 DUPCLOSURE                       R18 K81 [PROTO_32]
-      233 SETTABLEKS                       R18 R17 K82 ["_fetchFolderReadinessForAllInventories"]
-      235 DUPCLOSURE                       R18 K83 [PROTO_33]
-      236 CAPTURE                          VAL R14
-      237 CAPTURE                          VAL R9
-      238 SETTABLEKS                       R18 R17 K84 ["getFolderReadinessStatus"]
-      240 DUPCLOSURE                       R18 K85 [PROTO_34]
-      241 CAPTURE                          VAL R14
-      242 CAPTURE                          VAL R9
-      243 SETTABLEKS                       R18 R17 K86 ["isFolderReadyForScope"]
-      245 DUPCLOSURE                       R18 K87 [PROTO_35]
-      246 SETTABLEKS                       R18 R17 K88 ["isAncestor"]
-      248 DUPCLOSURE                       R18 K89 [PROTO_36]
-      249 SETTABLEKS                       R18 R17 K90 ["_decrementPendingFolderFetchCountAndCleanUp"]
-      251 DUPCLOSURE                       R18 K91 [PROTO_41]
-      252 CAPTURE                          VAL R1
-      253 CAPTURE                          VAL R14
-      254 CAPTURE                          VAL R8
-      255 SETTABLEKS                       R18 R17 K92 ["fetchFolders"]
-      257 DUPCLOSURE                       R18 K93 [PROTO_42]
-      258 SETTABLEKS                       R18 R17 K94 ["getStagedFolder"]
-      260 DUPCLOSURE                       R18 K95 [PROTO_43]
-      261 CAPTURE                          VAL R14
-      262 SETTABLEKS                       R18 R17 K96 ["removeStagedFolder"]
-      264 DUPCLOSURE                       R18 K97 [PROTO_44]
-      265 CAPTURE                          VAL R9
-      266 CAPTURE                          VAL R14
-      267 SETTABLEKS                       R18 R17 K98 ["stageFolder"]
-      269 DUPCLOSURE                       R18 K99 [PROTO_45]
-      270 SETTABLEKS                       R18 R17 K100 ["getRecentlyCreatedFolder"]
-      272 DUPCLOSURE                       R18 K101 [PROTO_46]
-      273 SETTABLEKS                       R18 R17 K102 ["clearRecentlyCreatedFolder"]
-      275 DUPCLOSURE                       R18 K103 [PROTO_48]
-      276 CAPTURE                          VAL R14
-      277 SETTABLEKS                       R18 R17 K104 ["getFolderIndex"]
-      279 DUPCLOSURE                       R18 K105 [PROTO_49]
-      280 SETTABLEKS                       R18 R17 K106 ["handleCreatedFolder"]
-      282 DUPCLOSURE                       R18 K107 [PROTO_50]
-      283 SETTABLEKS                       R18 R17 K108 ["handleRenamedFolder"]
-      285 DUPCLOSURE                       R18 K109 [PROTO_51]
-      286 CAPTURE                          VAL R10
-      287 SETTABLEKS                       R18 R17 K110 ["handleDeletedFolder"]
-      289 DUPCLOSURE                       R18 K111 [PROTO_53]
-      290 CAPTURE                          VAL R15
-      291 CAPTURE                          VAL R13
-      292 CAPTURE                          VAL R8
-      293 SETTABLEKS                       R18 R17 K112 ["_sortChildrenByName"]
-      295 DUPCLOSURE                       R18 K113 [PROTO_54]
-      296 SETTABLEKS                       R18 R17 K114 ["_addScopeToChildren"]
-      298 DUPCLOSURE                       R18 K115 [PROTO_56]
-      299 CAPTURE                          VAL R8
-      300 CAPTURE                          VAL R1
+       65 GETTABLEKS                       R11 R0 K14 ["Src"]
+       67 GETTABLEKS                       R11 R11 K18 ["Types"]
+       69 CALL                             R10 1 1
+       70 GETIMPORT                        R11 K5 [require]
+       72 GETTABLEKS                       R12 R0 K14 ["Src"]
+       74 GETTABLEKS                       R12 R12 K12 ["Util"]
+       76 GETTABLEKS                       R12 R12 K19 ["createFolderUid"]
+       78 CALL                             R11 1 1
+       79 GETIMPORT                        R12 K5 [require]
+       81 GETTABLEKS                       R13 R0 K14 ["Src"]
+       83 GETTABLEKS                       R13 R13 K12 ["Util"]
+       85 GETTABLEKS                       R13 R13 K20 ["createScopeUid"]
+       87 CALL                             R12 1 1
+       88 GETIMPORT                        R13 K5 [require]
+       90 GETTABLEKS                       R14 R0 K14 ["Src"]
+       92 GETTABLEKS                       R14 R14 K12 ["Util"]
+       94 GETTABLEKS                       R14 R14 K21 ["convertFolderItemToScope"]
+       96 CALL                             R13 1 1
+       97 GETIMPORT                        R14 K5 [require]
+       99 GETTABLEKS                       R15 R0 K14 ["Src"]
+      101 GETTABLEKS                       R15 R15 K22 ["Resources"]
+      103 GETTABLEKS                       R15 R15 K23 ["Constants"]
+      105 CALL                             R14 1 1
+      106 GETIMPORT                        R15 K5 [require]
+      108 GETTABLEKS                       R16 R0 K14 ["Src"]
+      110 GETTABLEKS                       R16 R16 K24 ["Flags"]
+      112 GETTABLEKS                       R16 R16 K25 ["getFFlagAmrNaturalSortOrder"]
+      114 CALL                             R15 1 1
+      115 GETIMPORT                        R16 K5 [require]
+      117 GETTABLEKS                       R17 R0 K14 ["Src"]
+      119 GETTABLEKS                       R17 R17 K24 ["Flags"]
+      121 GETTABLEKS                       R17 R17 K26 ["getFFlagAmrSaveToggledGroups"]
+      123 CALL                             R16 1 1
+      124 LOADK                            R19 K27 ["ExplorerController"]
+      125 NAMECALL                         R17 R5 K28 ["extend"]
+      127 CALL                             R17 2 1
+      128 DUPCLOSURE                       R18 K29 [PROTO_3]
+      129 CAPTURE                          VAL R6
+      130 CAPTURE                          VAL R17
+      131 CAPTURE                          VAL R10
+      132 CAPTURE                          VAL R12
+      133 CAPTURE                          VAL R14
+      134 SETTABLEKS                       R18 R17 K30 ["new"]
+      136 DUPCLOSURE                       R18 K31 [PROTO_4]
+      137 CAPTURE                          VAL R17
+      138 SETTABLEKS                       R18 R17 K32 ["mock"]
+      140 DUPCLOSURE                       R18 K33 [PROTO_5]
+      141 SETTABLEKS                       R18 R17 K34 ["getIsMock"]
+      143 DUPCLOSURE                       R18 K35 [PROTO_6]
+      144 CAPTURE                          VAL R7
+      145 SETTABLEKS                       R18 R17 K36 ["destroy"]
+      147 DUPCLOSURE                       R18 K37 [PROTO_7]
+      148 CAPTURE                          VAL R16
+      149 SETTABLEKS                       R18 R17 K38 ["populateSavedSettings"]
+      151 DUPCLOSURE                       R18 K39 [PROTO_8]
+      152 CAPTURE                          VAL R10
+      153 SETTABLEKS                       R18 R17 K40 ["_isOmnisearchEnabled"]
+      155 DUPCLOSURE                       R18 K41 [PROTO_10]
+      156 CAPTURE                          VAL R2
+      157 SETTABLEKS                       R18 R17 K42 ["_setExpansion"]
+      159 DUPCLOSURE                       R18 K43 [PROTO_11]
+      160 SETTABLEKS                       R18 R17 K44 ["_expandAncestorsRecursive"]
+      162 DUPCLOSURE                       R18 K45 [PROTO_12]
+      163 CAPTURE                          VAL R9
+      164 SETTABLEKS                       R18 R17 K46 ["revealScope"]
+      166 DUPCLOSURE                       R18 K47 [PROTO_13]
+      167 SETTABLEKS                       R18 R17 K48 ["_cleanStaleExpandedScopes"]
+      169 DUPCLOSURE                       R18 K49 [PROTO_14]
+      170 CAPTURE                          VAL R9
+      171 SETTABLEKS                       R18 R17 K50 ["toggleExpansion"]
+      173 DUPCLOSURE                       R18 K51 [PROTO_15]
+      174 CAPTURE                          VAL R10
+      175 CAPTURE                          VAL R14
+      176 CAPTURE                          VAL R12
+      177 SETTABLEKS                       R18 R17 K52 ["_updateRenderTree"]
+      179 DUPCLOSURE                       R18 K53 [PROTO_16]
+      180 SETTABLEKS                       R18 R17 K54 ["_updateVisibleInventories"]
+      182 DUPCLOSURE                       R18 K55 [PROTO_18]
+      183 CAPTURE                          VAL R10
+      184 CAPTURE                          VAL R1
+      185 SETTABLEKS                       R18 R17 K56 ["_getAvailableInventories"]
+      187 DUPCLOSURE                       R18 K57 [PROTO_19]
+      188 CAPTURE                          VAL R12
+      189 CAPTURE                          VAL R10
+      190 SETTABLEKS                       R18 R17 K58 ["_generateProjectCustomScopes"]
+      192 DUPCLOSURE                       R18 K59 [PROTO_20]
+      193 CAPTURE                          VAL R12
+      194 CAPTURE                          VAL R10
+      195 SETTABLEKS                       R18 R17 K60 ["getProjectPlacesScope"]
+      197 DUPCLOSURE                       R18 K61 [PROTO_21]
+      198 SETTABLEKS                       R18 R17 K62 ["getScopeNotifications"]
+      200 DUPCLOSURE                       R18 K63 [PROTO_22]
+      201 SETTABLEKS                       R18 R17 K64 ["notifyNewItemsInScope"]
+      203 DUPCLOSURE                       R18 K65 [PROTO_23]
+      204 SETTABLEKS                       R18 R17 K66 ["_setNewItemNotif"]
+      206 DUPCLOSURE                       R18 K67 [PROTO_24]
+      207 SETTABLEKS                       R18 R17 K68 ["_toggleNewItemNotif"]
+      209 DUPCLOSURE                       R18 K69 [PROTO_25]
+      210 SETTABLEKS                       R18 R17 K70 ["getScopeWithUid"]
+      212 DUPCLOSURE                       R18 K71 [PROTO_26]
+      213 SETTABLEKS                       R18 R17 K72 ["getVisibleInventories"]
+      215 DUPCLOSURE                       R18 K73 [PROTO_27]
+      216 CAPTURE                          VAL R14
+      217 SETTABLEKS                       R18 R17 K74 ["_addRecentUploads"]
+      219 DUPCLOSURE                       R18 K75 [PROTO_28]
+      220 SETTABLEKS                       R18 R17 K76 ["_addUserAndExperienceScopes"]
+      222 DUPCLOSURE                       R18 K77 [PROTO_29]
+      223 CAPTURE                          VAL R13
+      224 SETTABLEKS                       R18 R17 K78 ["convertFoldersToScopes"]
+      226 DUPCLOSURE                       R18 K79 [PROTO_30]
+      227 CAPTURE                          VAL R10
+      228 CAPTURE                          VAL R8
+      229 SETTABLEKS                       R18 R17 K80 ["getScopeRoot"]
+      231 DUPCLOSURE                       R18 K81 [PROTO_32]
+      232 SETTABLEKS                       R18 R17 K82 ["requestFolderReadiness"]
+      234 DUPCLOSURE                       R18 K83 [PROTO_33]
+      235 SETTABLEKS                       R18 R17 K84 ["_fetchFolderReadinessForAllInventories"]
+      237 DUPCLOSURE                       R18 K85 [PROTO_34]
+      238 CAPTURE                          VAL R14
+      239 CAPTURE                          VAL R10
+      240 SETTABLEKS                       R18 R17 K86 ["getFolderReadinessStatus"]
+      242 DUPCLOSURE                       R18 K87 [PROTO_35]
+      243 CAPTURE                          VAL R14
+      244 CAPTURE                          VAL R10
+      245 SETTABLEKS                       R18 R17 K88 ["isFolderReadyForScope"]
+      247 DUPCLOSURE                       R18 K89 [PROTO_36]
+      248 SETTABLEKS                       R18 R17 K90 ["isAncestor"]
+      250 DUPCLOSURE                       R18 K91 [PROTO_37]
+      251 SETTABLEKS                       R18 R17 K92 ["_decrementPendingFolderFetchCountAndCleanUp"]
+      253 DUPCLOSURE                       R18 K93 [PROTO_42]
+      254 CAPTURE                          VAL R2
+      255 CAPTURE                          VAL R14
+      256 CAPTURE                          VAL R9
+      257 SETTABLEKS                       R18 R17 K94 ["fetchFolders"]
+      259 DUPCLOSURE                       R18 K95 [PROTO_43]
+      260 SETTABLEKS                       R18 R17 K96 ["getStagedFolder"]
+      262 DUPCLOSURE                       R18 K97 [PROTO_44]
+      263 CAPTURE                          VAL R14
+      264 SETTABLEKS                       R18 R17 K98 ["removeStagedFolder"]
+      266 DUPCLOSURE                       R18 K99 [PROTO_45]
+      267 CAPTURE                          VAL R10
+      268 CAPTURE                          VAL R14
+      269 SETTABLEKS                       R18 R17 K100 ["stageFolder"]
+      271 DUPCLOSURE                       R18 K101 [PROTO_46]
+      272 SETTABLEKS                       R18 R17 K102 ["getRecentlyCreatedFolder"]
+      274 DUPCLOSURE                       R18 K103 [PROTO_47]
+      275 SETTABLEKS                       R18 R17 K104 ["clearRecentlyCreatedFolder"]
+      277 DUPCLOSURE                       R18 K105 [PROTO_49]
+      278 CAPTURE                          VAL R14
+      279 SETTABLEKS                       R18 R17 K106 ["getFolderIndex"]
+      281 DUPCLOSURE                       R18 K107 [PROTO_50]
+      282 SETTABLEKS                       R18 R17 K108 ["handleCreatedFolder"]
+      284 DUPCLOSURE                       R18 K109 [PROTO_51]
+      285 SETTABLEKS                       R18 R17 K110 ["handleRenamedFolder"]
+      287 DUPCLOSURE                       R18 K111 [PROTO_52]
+      288 CAPTURE                          VAL R11
+      289 SETTABLEKS                       R18 R17 K112 ["handleDeletedFolder"]
+      291 DUPCLOSURE                       R18 K113 [PROTO_54]
+      292 CAPTURE                          VAL R15
+      293 CAPTURE                          VAL R1
+      294 CAPTURE                          VAL R9
+      295 SETTABLEKS                       R18 R17 K114 ["_sortChildrenByName"]
+      297 DUPCLOSURE                       R18 K115 [PROTO_55]
+      298 SETTABLEKS                       R18 R17 K116 ["_addScopeToChildren"]
+      300 DUPCLOSURE                       R18 K117 [PROTO_57]
       301 CAPTURE                          VAL R9
-      302 SETTABLEKS                       R18 R17 K116 ["_removeScope"]
-      304 DUPCLOSURE                       R18 K117 [PROTO_58]
-      305 CAPTURE                          VAL R10
-      306 CAPTURE                          VAL R8
-      307 CAPTURE                          VAL R1
-      308 SETTABLEKS                       R18 R17 K118 ["moveScopes"]
-      310 DUPCLOSURE                       R18 K119 [PROTO_59]
-      311 SETTABLEKS                       R18 R17 K120 ["_resetScopes"]
-      313 DUPCLOSURE                       R18 K121 [PROTO_63]
-      314 CAPTURE                          VAL R16
-      315 CAPTURE                          VAL R1
-      316 CAPTURE                          VAL R8
-      317 SETTABLEKS                       R18 R17 K122 ["refreshScopes"]
-      319 DUPCLOSURE                       R18 K123 [PROTO_64]
-      320 SETTABLEKS                       R18 R17 K124 ["getExplorerItems"]
-      322 DUPCLOSURE                       R18 K125 [PROTO_65]
-      323 SETTABLEKS                       R18 R17 K126 ["getExpansion"]
-      325 DUPCLOSURE                       R18 K127 [PROTO_66]
-      326 CAPTURE                          VAL R16
-      327 SETTABLEKS                       R18 R17 K128 ["toggleVisibleInventory"]
-      329 DUPCLOSURE                       R18 K129 [PROTO_67]
-      330 CAPTURE                          VAL R1
-      331 SETTABLEKS                       R18 R17 K130 ["getHiddenInventories"]
-      333 DUPCLOSURE                       R18 K131 [PROTO_68]
-      334 SETTABLEKS                       R18 R17 K132 ["getShowScopeOptions"]
-      336 DUPCLOSURE                       R18 K133 [PROTO_69]
-      337 SETTABLEKS                       R18 R17 K134 ["enableScopeOptions"]
-      339 DUPCLOSURE                       R18 K135 [PROTO_70]
-      340 CAPTURE                          VAL R16
-      341 CAPTURE                          VAL R1
-      342 SETTABLEKS                       R18 R17 K136 ["_saveGroupOptions"]
-      344 DUPCLOSURE                       R18 K137 [PROTO_71]
-      345 SETTABLEKS                       R18 R17 K138 ["closeScopeOptions"]
-      347 DUPCLOSURE                       R18 K139 [PROTO_72]
-      348 SETTABLEKS                       R18 R17 K140 ["getGroupOptions"]
-      350 DUPCLOSURE                       R18 K141 [PROTO_73]
-      351 SETTABLEKS                       R18 R17 K142 ["toggleScopeOption"]
-      353 DUPCLOSURE                       R18 K143 [PROTO_75]
-      354 CAPTURE                          VAL R16
-      355 CAPTURE                          VAL R9
-      356 SETTABLEKS                       R18 R17 K144 ["updateScopeOptions"]
-      358 DUPCLOSURE                       R18 K145 [PROTO_76]
-      359 SETTABLEKS                       R18 R17 K146 ["isScopeOptionChecked"]
-      361 DUPCLOSURE                       R18 K147 [PROTO_77]
-      362 SETTABLEKS                       R18 R17 K148 ["hasAllOptionsChecked"]
-      364 DUPCLOSURE                       R18 K149 [PROTO_78]
-      365 SETTABLEKS                       R18 R17 K150 ["getToggleSet"]
-      367 DUPCLOSURE                       R18 K151 [PROTO_79]
-      368 SETTABLEKS                       R18 R17 K152 ["toggleSelectAllOptions"]
-      370 DUPCLOSURE                       R18 K153 [PROTO_80]
-      371 SETTABLEKS                       R18 R17 K154 ["_getHistoryRingIndex"]
-      373 DUPCLOSURE                       R18 K155 [PROTO_81]
-      374 SETTABLEKS                       R18 R17 K156 ["addToHistory"]
-      376 DUPCLOSURE                       R18 K157 [PROTO_82]
-      377 SETTABLEKS                       R18 R17 K158 ["updateCurrentHistoryItem"]
-      379 DUPCLOSURE                       R18 K159 [PROTO_83]
-      380 CAPTURE                          VAL R8
-      381 SETTABLEKS                       R18 R17 K160 ["_goToHistory"]
-      383 DUPCLOSURE                       R18 K161 [PROTO_84]
-      384 SETTABLEKS                       R18 R17 K162 ["getHistoryAtStart"]
-      386 DUPCLOSURE                       R18 K163 [PROTO_85]
-      387 SETTABLEKS                       R18 R17 K164 ["getHistoryAtEnd"]
-      389 DUPCLOSURE                       R18 K165 [PROTO_86]
-      390 SETTABLEKS                       R18 R17 K166 ["backHistory"]
-      392 DUPCLOSURE                       R18 K167 [PROTO_87]
-      393 SETTABLEKS                       R18 R17 K168 ["forwardHistory"]
-      395 DUPCLOSURE                       R18 K169 [PROTO_88]
-      396 SETTABLEKS                       R18 R17 K170 ["_clearHistory"]
-      398 DUPCLOSURE                       R18 K171 [PROTO_89]
-      399 SETTABLEKS                       R18 R17 K172 ["getPlugin"]
-      401 RETURN                           R17 1
+      302 CAPTURE                          VAL R2
+      303 CAPTURE                          VAL R10
+      304 SETTABLEKS                       R18 R17 K118 ["_removeScope"]
+      306 DUPCLOSURE                       R18 K119 [PROTO_59]
+      307 CAPTURE                          VAL R11
+      308 CAPTURE                          VAL R9
+      309 CAPTURE                          VAL R2
+      310 SETTABLEKS                       R18 R17 K120 ["moveScopes"]
+      312 DUPCLOSURE                       R18 K121 [PROTO_60]
+      313 SETTABLEKS                       R18 R17 K122 ["_resetScopes"]
+      315 DUPCLOSURE                       R18 K123 [PROTO_64]
+      316 CAPTURE                          VAL R16
+      317 CAPTURE                          VAL R2
+      318 CAPTURE                          VAL R9
+      319 SETTABLEKS                       R18 R17 K124 ["refreshScopes"]
+      321 DUPCLOSURE                       R18 K125 [PROTO_65]
+      322 SETTABLEKS                       R18 R17 K126 ["getExplorerItems"]
+      324 DUPCLOSURE                       R18 K127 [PROTO_66]
+      325 SETTABLEKS                       R18 R17 K128 ["getExpansion"]
+      327 DUPCLOSURE                       R18 K129 [PROTO_67]
+      328 CAPTURE                          VAL R16
+      329 SETTABLEKS                       R18 R17 K130 ["toggleVisibleInventory"]
+      331 DUPCLOSURE                       R18 K131 [PROTO_68]
+      332 CAPTURE                          VAL R2
+      333 SETTABLEKS                       R18 R17 K132 ["getHiddenInventories"]
+      335 DUPCLOSURE                       R18 K133 [PROTO_69]
+      336 SETTABLEKS                       R18 R17 K134 ["getShowScopeOptions"]
+      338 DUPCLOSURE                       R18 K135 [PROTO_70]
+      339 SETTABLEKS                       R18 R17 K136 ["enableScopeOptions"]
+      341 DUPCLOSURE                       R18 K137 [PROTO_71]
+      342 CAPTURE                          VAL R16
+      343 CAPTURE                          VAL R2
+      344 SETTABLEKS                       R18 R17 K138 ["_saveGroupOptions"]
+      346 DUPCLOSURE                       R18 K139 [PROTO_72]
+      347 SETTABLEKS                       R18 R17 K140 ["closeScopeOptions"]
+      349 DUPCLOSURE                       R18 K141 [PROTO_73]
+      350 SETTABLEKS                       R18 R17 K142 ["getGroupOptions"]
+      352 DUPCLOSURE                       R18 K143 [PROTO_74]
+      353 SETTABLEKS                       R18 R17 K144 ["toggleScopeOption"]
+      355 DUPCLOSURE                       R18 K145 [PROTO_76]
+      356 CAPTURE                          VAL R16
+      357 CAPTURE                          VAL R10
+      358 SETTABLEKS                       R18 R17 K146 ["updateScopeOptions"]
+      360 DUPCLOSURE                       R18 K147 [PROTO_77]
+      361 SETTABLEKS                       R18 R17 K148 ["isScopeOptionChecked"]
+      363 DUPCLOSURE                       R18 K149 [PROTO_78]
+      364 SETTABLEKS                       R18 R17 K150 ["hasAllOptionsChecked"]
+      366 DUPCLOSURE                       R18 K151 [PROTO_79]
+      367 SETTABLEKS                       R18 R17 K152 ["getToggleSet"]
+      369 DUPCLOSURE                       R18 K153 [PROTO_80]
+      370 SETTABLEKS                       R18 R17 K154 ["toggleSelectAllOptions"]
+      372 DUPCLOSURE                       R18 K155 [PROTO_81]
+      373 SETTABLEKS                       R18 R17 K156 ["_getHistoryRingIndex"]
+      375 DUPCLOSURE                       R18 K157 [PROTO_82]
+      376 SETTABLEKS                       R18 R17 K158 ["addToHistory"]
+      378 DUPCLOSURE                       R18 K159 [PROTO_83]
+      379 SETTABLEKS                       R18 R17 K160 ["updateCurrentHistoryItem"]
+      381 DUPCLOSURE                       R18 K161 [PROTO_84]
+      382 CAPTURE                          VAL R9
+      383 SETTABLEKS                       R18 R17 K162 ["_goToHistory"]
+      385 DUPCLOSURE                       R18 K163 [PROTO_85]
+      386 SETTABLEKS                       R18 R17 K164 ["getHistoryAtStart"]
+      388 DUPCLOSURE                       R18 K165 [PROTO_86]
+      389 SETTABLEKS                       R18 R17 K166 ["getHistoryAtEnd"]
+      391 DUPCLOSURE                       R18 K167 [PROTO_87]
+      392 SETTABLEKS                       R18 R17 K168 ["backHistory"]
+      394 DUPCLOSURE                       R18 K169 [PROTO_88]
+      395 SETTABLEKS                       R18 R17 K170 ["forwardHistory"]
+      397 DUPCLOSURE                       R18 K171 [PROTO_89]
+      398 SETTABLEKS                       R18 R17 K172 ["_clearHistory"]
+      400 DUPCLOSURE                       R18 K173 [PROTO_90]
+      401 SETTABLEKS                       R18 R17 K174 ["getPlugin"]
+      403 RETURN                           R17 1

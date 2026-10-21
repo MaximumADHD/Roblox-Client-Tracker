@@ -1,4 +1,18 @@
 PROTO_0:
+        0 NAMECALL                         R1 R0 K0 ["GetDescendants"]
+        2 CALL                             R1 1 3
+        3 FORGPREP                         R1
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R6 R6 K1 ["getInstanceNameWithoutClassification"]
+        7 GETTABLEKS                       R7 R5 K2 ["Name"]
+        9 CALL                             R6 1 1
+       10 GETTABLEKS                       R7 R5 K2 ["Name"]
+       12 JUMPIFEQ                         R6 R7 ; [+3]
+       14 SETTABLEKS                       R6 R5 K2 ["Name"]
+       16 FORGLOOP                         R1 2 ; [-13]
+       18 RETURN                           R0 0
+
+PROTO_1:
         0 GETUPVAL                         R3 0
         1 MOVE                             R5 R0
         2 NAMECALL                         R3 R3 K0 ["FindFirstChild"]
@@ -25,7 +39,7 @@ PROTO_0:
        30 SETTABLEKS                       R2 R4 K7 ["AnimationId"]
        32 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETIMPORT                        R1 K2 [Instance.new]
         2 LOADK                            R2 K3 ["HumanoidDescription"]
         3 CALL                             R1 1 1
@@ -194,7 +208,7 @@ PROTO_1:
       224 SETTABLEKS                       R0 R4 K52 ["Parent"]
       226 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 NAMECALL                         R1 R0 K0 ["GetBoundingBox"]
         2 CALL                             R1 1 2
         3 GETIMPORT                        R5 K3 [CFrame.new]
@@ -215,7 +229,7 @@ PROTO_2:
        25 SETTABLEKS                       R5 R4 K9 ["PivotOffset"]
        27 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 NAMECALL                         R2 R1 K0 ["GetBoundingBox"]
         2 CALL                             R2 1 2
         3 NAMECALL                         R4 R0 K0 ["GetBoundingBox"]
@@ -260,14 +274,23 @@ MAIN:
        15 GETTABLEKS                       R3 R0 K10 ["Src"]
        17 GETTABLEKS                       R3 R3 K11 ["Util"]
        19 GETTABLEKS                       R3 R3 K12 ["AvatarAutoSetup"]
-       21 GETTABLEKS                       R3 R3 K13 ["Types"]
+       21 GETTABLEKS                       R3 R3 K13 ["AssetClassificationUtils"]
        23 CALL                             R2 1 1
-       24 NEWTABLE                         R3 4 0
-       26 DUPCLOSURE                       R4 K14 [PROTO_1]
-       27 CAPTURE                          VAL R1
-       28 SETTABLEKS                       R4 R3 K15 ["addAnimateScript"]
-       30 DUPCLOSURE                       R4 K16 [PROTO_2]
-       31 SETTABLEKS                       R4 R3 K17 ["setPivotOffset"]
-       33 DUPCLOSURE                       R4 K18 [PROTO_3]
-       34 SETTABLEKS                       R4 R3 K19 ["positionInWorkspace"]
-       36 RETURN                           R3 1
+       24 GETIMPORT                        R3 K9 [require]
+       26 GETTABLEKS                       R4 R0 K10 ["Src"]
+       28 GETTABLEKS                       R4 R4 K11 ["Util"]
+       30 GETTABLEKS                       R4 R4 K12 ["AvatarAutoSetup"]
+       32 GETTABLEKS                       R4 R4 K14 ["Types"]
+       34 CALL                             R3 1 1
+       35 NEWTABLE                         R4 4 0
+       37 DUPCLOSURE                       R5 K15 [PROTO_0]
+       38 CAPTURE                          VAL R2
+       39 SETTABLEKS                       R5 R4 K16 ["removeClassificationPrefixes"]
+       41 DUPCLOSURE                       R5 K17 [PROTO_2]
+       42 CAPTURE                          VAL R1
+       43 SETTABLEKS                       R5 R4 K18 ["addAnimateScript"]
+       45 DUPCLOSURE                       R5 K19 [PROTO_3]
+       46 SETTABLEKS                       R5 R4 K20 ["setPivotOffset"]
+       48 DUPCLOSURE                       R5 K21 [PROTO_4]
+       49 SETTABLEKS                       R5 R4 K22 ["positionInWorkspace"]
+       51 RETURN                           R4 1

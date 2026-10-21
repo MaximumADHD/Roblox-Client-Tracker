@@ -41,20 +41,17 @@ PROTO_0:
        44 CALL                             R3 0 0
        45 RETURN                           R0 0
        46 GETUPVAL                         R3 8
-       47 CALL                             R3 0 1
-       48 JUMPIFNOT                        R3 ; [+9]
-       49 GETUPVAL                         R3 9
-       50 GETTABLEKS                       R3 R3 K2 ["eventEnd"]
-       52 GETUPVAL                         R4 10
-       53 GETTABLEKS                       R4 R4 K3 ["BenchmarkingEvent"]
-       55 GETTABLEKS                       R4 R4 K4 ["Share"]
-       57 CALL                             R3 1 0
-       58 GETUPVAL                         R3 11
-       59 GETUPVAL                         R5 0
-       60 NOT                              R4 R5
-       61 GETUPVAL                         R5 3
-       62 CALL                             R3 2 0
-       63 RETURN                           R0 0
+       47 GETTABLEKS                       R3 R3 K2 ["eventEnd"]
+       49 GETUPVAL                         R4 9
+       50 GETTABLEKS                       R4 R4 K3 ["BenchmarkingEvent"]
+       52 GETTABLEKS                       R4 R4 K4 ["Share"]
+       54 CALL                             R3 1 0
+       55 GETUPVAL                         R3 10
+       56 GETUPVAL                         R5 0
+       57 NOT                              R4 R5
+       58 GETUPVAL                         R5 3
+       59 CALL                             R3 2 0
+       60 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -126,39 +123,35 @@ PROTO_2:
        14 CAPTURE                          REF R8
        15 CAPTURE                          UPVAL U1
        16 CAPTURE                          UPVAL U2
-       17 CAPTURE                          UPVAL U3
-       18 CAPTURE                          VAL R3
-       19 NEWCLOSURE                       R8 P1
-       20 CAPTURE                          VAL R2
-       21 CAPTURE                          REF R7
-       22 CAPTURE                          UPVAL U4
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          REF R6
-       25 CAPTURE                          UPVAL U5
-       26 CAPTURE                          UPVAL U0
-       27 CAPTURE                          VAL R0
-       28 CAPTURE                          VAL R9
-       29 LENGTH                           R10 R2
-       30 LOADN                            R11 0
-       31 JUMPIFNOTLT                      R11 R10 ; [+16]
-       33 GETUPVAL                         R10 1
-       34 CALL                             R10 0 1
-       35 JUMPIFNOT                        R10 ; [+9]
-       36 GETUPVAL                         R10 2
-       37 GETTABLEKS                       R10 R10 K0 ["eventStart"]
-       39 GETUPVAL                         R11 3
-       40 GETTABLEKS                       R11 R11 K1 ["BenchmarkingEvent"]
-       42 GETTABLEKS                       R11 R11 K2 ["Share"]
-       44 CALL                             R10 1 0
-       45 MOVE                             R10 R8
-       46 CALL                             R10 0 0
-       47 JUMP                             ; [+5]
-       48 MOVE                             R10 R3
-       49 LOADB                            R11 1
-       50 NEWTABLE                         R12 0 0
-       52 CALL                             R10 2 0
-       53 CLOSEUPVALS                      R5
-       54 RETURN                           R0 0
+       17 CAPTURE                          VAL R3
+       18 NEWCLOSURE                       R8 P1
+       19 CAPTURE                          VAL R2
+       20 CAPTURE                          REF R7
+       21 CAPTURE                          UPVAL U3
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          REF R6
+       24 CAPTURE                          UPVAL U4
+       25 CAPTURE                          UPVAL U0
+       26 CAPTURE                          VAL R0
+       27 CAPTURE                          VAL R9
+       28 LENGTH                           R10 R2
+       29 LOADN                            R11 0
+       30 JUMPIFNOTLT                      R11 R10 ; [+13]
+       32 GETUPVAL                         R10 1
+       33 GETTABLEKS                       R10 R10 K0 ["eventStart"]
+       35 GETUPVAL                         R11 2
+       36 GETTABLEKS                       R11 R11 K1 ["BenchmarkingEvent"]
+       38 GETTABLEKS                       R11 R11 K2 ["Share"]
+       40 CALL                             R10 1 0
+       41 MOVE                             R10 R8
+       42 CALL                             R10 0 0
+       43 JUMP                             ; [+5]
+       44 MOVE                             R10 R3
+       45 LOADB                            R11 1
+       46 NEWTABLE                         R12 0 0
+       48 CALL                             R10 2 0
+       49 CLOSEUPVALS                      R5
+       50 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -189,16 +182,10 @@ MAIN:
        43 GETTABLEKS                       R6 R6 K10 ["Analytics"]
        45 GETTABLEKS                       R6 R6 K13 ["Benchmarking"]
        47 CALL                             R5 1 1
-       48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R7 R0 K8 ["Src"]
-       52 GETTABLEKS                       R7 R7 K14 ["Flags"]
-       54 GETTABLEKS                       R7 R7 K15 ["getFFlagAmrEnableBenchmarking"]
-       56 CALL                             R6 1 1
-       57 DUPCLOSURE                       R7 K16 [PROTO_2]
-       58 CAPTURE                          VAL R1
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R2
-       63 CAPTURE                          VAL R4
-       64 RETURN                           R7 1
+       48 DUPCLOSURE                       R6 K14 [PROTO_2]
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R4
+       54 RETURN                           R6 1

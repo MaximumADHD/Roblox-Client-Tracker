@@ -14,7 +14,7 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 DUPTABLE                         R3 K13 [{["Name"] = "Avatar", ["Controls"]}]
-       24 NEWTABLE                         R4 0 19
+       24 NEWTABLE                         R4 0 20
        26 DUPTABLE                         R5 K19 [{["Id"] = "Select", ["Type"] = "IconButton", ["Action"]}]
        27 DUPTABLE                         R6 K27 [{["PluginId"] = "BuilderTools", ["DataModel"] = "Standalone", ["ItemId"] = "Select", ["Category"] = "Actions"}]
        28 SETTABLEKS                       R6 R5 K18 ["Action"]
@@ -103,16 +103,26 @@ MAIN:
       146 DUPTABLE                         R21 K122 [{["PluginId"] = "AdaptiveAnimationSupport", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
       147 SETTABLEKS                       R21 R20 K18 ["Action"]
       149 SETLIST                          R4 R5 16 [1]
-      151 DUPTABLE                         R5 K47 [{["Size"] = "Large", ["Type"] = "Separator"}]
-      152 DUPTABLE                         R6 K124 [{["Id"] = "Animation", ["Type"] = "IconButton", ["Action"]}]
-      153 DUPTABLE                         R7 K126 [{["PluginId"] = "AnimationEditor", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
-      154 SETTABLEKS                       R7 R6 K18 ["Action"]
-      156 DUPTABLE                         R7 K129 [{["Id"] = "AnimationGraphEditor", ["Type"] = "IconButton", ["Action"], ["FastFlag"] = "EnableAnimationGraphEditor"}]
-      157 DUPTABLE                         R21 K130 [{["PluginId"] = "AnimationGraphEditor", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
-      158 SETTABLEKS                       R21 R7 K18 ["Action"]
-      160 SETLIST                          R4 R5 3 [17]
-      162 SETTABLEKS                       R4 R3 K12 ["Controls"]
-      164 MOVE                             R4 R1
-      165 MOVE                             R5 R3
-      166 CALL                             R4 1 -1
-      167 RETURN                           R4 -1
+      151 DUPTABLE                         R5 K124 [{["Id"] = "AssetQualityValidation", ["Type"] = "IconButton", ["Action"], ["FastFlag"]}]
+      152 DUPTABLE                         R6 K125 [{["PluginId"] = "AssetQualityValidation", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
+      153 SETTABLEKS                       R6 R5 K18 ["Action"]
+      155 DUPTABLE                         R6 K127 [{"EnableIfAll"}]
+      156 NEWTABLE                         R7 0 2
+      158 LOADK                            R8 K128 ["EnableAssetQualityValidation"]
+      159 LOADK                            R9 K129 ["EnableAssetQualityValidationIcon"]
+      160 SETLIST                          R7 R8 2 [1]
+      162 SETTABLEKS                       R7 R6 K126 ["EnableIfAll"]
+      164 SETTABLEKS                       R6 R5 K31 ["FastFlag"]
+      166 DUPTABLE                         R6 K47 [{["Size"] = "Large", ["Type"] = "Separator"}]
+      167 DUPTABLE                         R7 K131 [{["Id"] = "Animation", ["Type"] = "IconButton", ["Action"]}]
+      168 DUPTABLE                         R8 K133 [{["PluginId"] = "AnimationEditor", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
+      169 SETTABLEKS                       R8 R7 K18 ["Action"]
+      171 DUPTABLE                         R8 K136 [{["Id"] = "AnimationGraphEditor", ["Type"] = "IconButton", ["Action"], ["FastFlag"] = "EnableAnimationGraphEditor"}]
+      172 DUPTABLE                         R21 K137 [{["PluginId"] = "AnimationGraphEditor", ["DataModel"] = "Standalone", ["ItemId"] = "Toggle", ["Category"] = "Actions"}]
+      173 SETTABLEKS                       R21 R8 K18 ["Action"]
+      175 SETLIST                          R4 R5 4 [17]
+      177 SETTABLEKS                       R4 R3 K12 ["Controls"]
+      179 MOVE                             R4 R1
+      180 MOVE                             R5 R3
+      181 CALL                             R4 1 -1
+      182 RETURN                           R4 -1

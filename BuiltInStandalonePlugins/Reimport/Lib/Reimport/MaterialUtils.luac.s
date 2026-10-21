@@ -220,7 +220,7 @@ MAIN:
        33 CALL                             R3 1 1
        34 NEWTABLE                         R4 4 0
        36 DUPTABLE                         R5 K18 [{"Color", "Metal", "Rough", "Normal", "Emissive"}]
-       37 NEWTABLE                         R6 0 7
+       37 NEWTABLE                         R6 0 10
        39 LOADK                            R7 K19 ["diffuse"]
        40 LOADK                            R8 K20 ["diff"]
        41 LOADK                            R9 K21 ["albedo"]
@@ -228,59 +228,68 @@ MAIN:
        43 LOADK                            R11 K23 ["col"]
        44 LOADK                            R12 K24 ["color"]
        45 LOADK                            R13 K25 ["alb"]
-       46 SETLIST                          R6 R7 7 [1]
-       48 SETTABLEKS                       R6 R5 K13 ["Color"]
-       50 NEWTABLE                         R6 0 5
-       52 LOADK                            R7 K26 ["metallic"]
-       53 LOADK                            R8 K27 ["metalness"]
-       54 LOADK                            R9 K28 ["metal"]
-       55 LOADK                            R10 K29 ["mtl"]
-       56 LOADK                            R11 K30 ["met"]
-       57 SETLIST                          R6 R7 5 [1]
-       59 SETTABLEKS                       R6 R5 K14 ["Metal"]
-       61 NEWTABLE                         R6 0 3
-       63 LOADK                            R7 K31 ["roughness"]
-       64 LOADK                            R8 K32 ["rough"]
-       65 LOADK                            R9 K33 ["rgh"]
-       66 SETLIST                          R6 R7 3 [1]
-       68 SETTABLEKS                       R6 R5 K15 ["Rough"]
-       70 NEWTABLE                         R6 0 5
-       72 LOADK                            R7 K34 ["normal"]
-       73 LOADK                            R8 K35 ["nor"]
-       74 LOADK                            R9 K36 ["nrm"]
-       75 LOADK                            R10 K37 ["nrml"]
-       76 LOADK                            R11 K38 ["norm"]
-       77 SETLIST                          R6 R7 5 [1]
-       79 SETTABLEKS                       R6 R5 K16 ["Normal"]
-       81 NEWTABLE                         R6 0 10
-       83 LOADK                            R7 K39 ["emissive"]
-       84 LOADK                            R8 K40 ["emission"]
-       85 LOADK                            R9 K41 ["emiss"]
-       86 LOADK                            R10 K42 ["emit"]
-       87 LOADK                            R11 K43 ["glow"]
-       88 LOADK                            R12 K44 ["illum"]
-       89 LOADK                            R13 K45 ["selfillum"]
-       90 LOADK                            R14 K46 ["light"]
-       91 LOADK                            R15 K47 ["luminance"]
-       92 LOADK                            R16 K48 ["emissivemask"]
-       93 SETLIST                          R6 R7 10 [1]
-       95 SETTABLEKS                       R6 R5 K17 ["Emissive"]
-       97 LOADNIL                          R6
-       98 NEWCLOSURE                       R7 P0
-       99 CAPTURE                          REF R6
-      100 CAPTURE                          VAL R5
-      101 DUPCLOSURE                       R8 K49 [PROTO_1]
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R7
-      104 SETTABLEKS                       R8 R4 K50 ["matchSuffix"]
-      106 DUPCLOSURE                       R8 K51 [PROTO_2]
-      107 CAPTURE                          VAL R2
-      108 CAPTURE                          VAL R4
-      109 SETTABLEKS                       R8 R4 K52 ["findMaps"]
-      111 DUPCLOSURE                       R8 K53 [PROTO_3]
-      112 SETTABLEKS                       R8 R4 K54 ["getMapUri"]
-      114 DUPCLOSURE                       R8 K55 [PROTO_4]
-      115 CAPTURE                          VAL R1
-      116 SETTABLEKS                       R8 R4 K56 ["setMaps"]
-      118 CLOSEUPVALS                      R6
-      119 RETURN                           R4 1
+       46 LOADK                            R14 K26 ["colormap"]
+       47 LOADK                            R15 K27 ["diffusemap"]
+       48 LOADK                            R16 K28 ["albedomap"]
+       49 SETLIST                          R6 R7 10 [1]
+       51 SETTABLEKS                       R6 R5 K13 ["Color"]
+       53 NEWTABLE                         R6 0 7
+       55 LOADK                            R7 K29 ["metallic"]
+       56 LOADK                            R8 K30 ["metalness"]
+       57 LOADK                            R9 K31 ["metal"]
+       58 LOADK                            R10 K32 ["mtl"]
+       59 LOADK                            R11 K33 ["met"]
+       60 LOADK                            R12 K34 ["metalmap"]
+       61 LOADK                            R13 K35 ["metalnessmap"]
+       62 SETLIST                          R6 R7 7 [1]
+       64 SETTABLEKS                       R6 R5 K14 ["Metal"]
+       66 NEWTABLE                         R6 0 5
+       68 LOADK                            R7 K36 ["roughness"]
+       69 LOADK                            R8 K37 ["rough"]
+       70 LOADK                            R9 K38 ["rgh"]
+       71 LOADK                            R10 K39 ["roughmap"]
+       72 LOADK                            R11 K40 ["roughnessmap"]
+       73 SETLIST                          R6 R7 5 [1]
+       75 SETTABLEKS                       R6 R5 K15 ["Rough"]
+       77 NEWTABLE                         R6 0 6
+       79 LOADK                            R7 K41 ["normal"]
+       80 LOADK                            R8 K42 ["nor"]
+       81 LOADK                            R9 K43 ["nrm"]
+       82 LOADK                            R10 K44 ["nrml"]
+       83 LOADK                            R11 K45 ["norm"]
+       84 LOADK                            R12 K46 ["normalmap"]
+       85 SETLIST                          R6 R7 6 [1]
+       87 SETTABLEKS                       R6 R5 K16 ["Normal"]
+       89 NEWTABLE                         R6 0 11
+       91 LOADK                            R7 K47 ["emissive"]
+       92 LOADK                            R8 K48 ["emission"]
+       93 LOADK                            R9 K49 ["emiss"]
+       94 LOADK                            R10 K50 ["emit"]
+       95 LOADK                            R11 K51 ["glow"]
+       96 LOADK                            R12 K52 ["illum"]
+       97 LOADK                            R13 K53 ["selfillum"]
+       98 LOADK                            R14 K54 ["light"]
+       99 LOADK                            R15 K55 ["luminance"]
+      100 LOADK                            R16 K56 ["emissivemask"]
+      101 LOADK                            R17 K57 ["emissivemap"]
+      102 SETLIST                          R6 R7 11 [1]
+      104 SETTABLEKS                       R6 R5 K17 ["Emissive"]
+      106 LOADNIL                          R6
+      107 NEWCLOSURE                       R7 P0
+      108 CAPTURE                          REF R6
+      109 CAPTURE                          VAL R5
+      110 DUPCLOSURE                       R8 K58 [PROTO_1]
+      111 CAPTURE                          VAL R2
+      112 CAPTURE                          VAL R7
+      113 SETTABLEKS                       R8 R4 K59 ["matchSuffix"]
+      115 DUPCLOSURE                       R8 K60 [PROTO_2]
+      116 CAPTURE                          VAL R2
+      117 CAPTURE                          VAL R4
+      118 SETTABLEKS                       R8 R4 K61 ["findMaps"]
+      120 DUPCLOSURE                       R8 K62 [PROTO_3]
+      121 SETTABLEKS                       R8 R4 K63 ["getMapUri"]
+      123 DUPCLOSURE                       R8 K64 [PROTO_4]
+      124 CAPTURE                          VAL R1
+      125 SETTABLEKS                       R8 R4 K65 ["setMaps"]
+      127 CLOSEUPVALS                      R6
+      128 RETURN                           R4 1

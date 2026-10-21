@@ -384,13 +384,13 @@ PROTO_0:
       588 GETTABLEKS                       R18 R18 K30 ["createElement"]
       590 GETUPVAL                         R19 26
       591 GETTABLEKS                       R19 R19 K121 ["Dialog"]
-      593 DUPTABLE                         R20 K131 [{["Title"] = "", ["MinContentSize"], ["Size"], ["MinSize"], ["Modal"] = True, ["OnClose"], ["Enabled"] = True, ["Resizable"] = True}]
-      594 GETIMPORT                        R21 K133 [Vector2.new]
+      593 DUPTABLE                         R20 K132 [{["Title"] = "", ["MinContentSize"], ["Size"], ["MinSize"], ["Modal"] = True, ["OnClose"], ["Enabled"] = True, ["Resizable"] = True, ["PluginDesign"]}]
+      594 GETIMPORT                        R21 K134 [Vector2.new]
       596 LOADN                            R22 800
       597 LOADN                            R23 600
       598 CALL                             R21 2 1
       599 SETTABLEKS                       R21 R20 K123 ["MinContentSize"]
-      601 GETIMPORT                        R21 K133 [Vector2.new]
+      601 GETIMPORT                        R21 K134 [Vector2.new]
       603 LOADN                            R22 800
       604 GETUPVAL                         R24 27
       605 CALL                             R24 0 1
@@ -400,39 +400,49 @@ PROTO_0:
       609 LOADN                            R23 600
       610 CALL                             R21 2 1
       611 SETTABLEKS                       R21 R20 K124 ["Size"]
-      613 GETIMPORT                        R21 K133 [Vector2.new]
+      613 GETIMPORT                        R21 K134 [Vector2.new]
       615 LOADN                            R22 800
       616 LOADN                            R23 600
       617 CALL                             R21 2 1
       618 SETTABLEKS                       R21 R20 K125 ["MinSize"]
       620 GETTABLEKS                       R21 R0 K25 ["onClose"]
       622 SETTABLEKS                       R21 R20 K128 ["OnClose"]
-      624 DUPTABLE                         R21 K135 [{"OverlayProviderWrapper"}]
-      625 GETUPVAL                         R22 12
-      626 GETTABLEKS                       R22 R22 K30 ["createElement"]
-      628 GETUPVAL                         R23 28
-      629 DUPTABLE                         R24 K137 [{"gui"}]
-      630 SETTABLEKS                       R16 R24 K136 ["gui"]
-      632 DUPTABLE                         R25 K141 [{"StyleLink", "MainContainer", "Overlay"}]
-      633 GETUPVAL                         R26 12
-      634 GETTABLEKS                       R26 R26 K30 ["createElement"]
-      636 LOADK                            R27 K138 ["StyleLink"]
-      637 DUPTABLE                         R28 K143 [{"StyleSheet"}]
-      638 SETTABLEKS                       R1 R28 K142 ["StyleSheet"]
-      640 CALL                             R26 2 1
-      641 SETTABLEKS                       R26 R25 K138 ["StyleLink"]
-      643 SETTABLEKS                       R15 R25 K139 ["MainContainer"]
-      645 GETUPVAL                         R26 12
-      646 GETTABLEKS                       R26 R26 K30 ["createElement"]
-      648 GETUPVAL                         R27 14
-      649 DUPTABLE                         R28 K147 [{["tag"] = "size-full", ["ref"], ["ZIndex"] = 100}]
-      650 SETTABLEKS                       R17 R28 K144 ["ref"]
-      652 CALL                             R26 2 1
-      653 SETTABLEKS                       R26 R25 K140 ["Overlay"]
-      655 CALL                             R22 3 1
-      656 SETTABLEKS                       R22 R21 K134 ["OverlayProviderWrapper"]
-      658 CALL                             R18 3 -1
-      659 RETURN                           R18 -1
+      624 GETUPVAL                         R22 28
+      625 JUMPIFNOT                        R22 ; [+2]
+      626 MOVE                             R21 R1
+      627 JUMP                             ; [+1]
+      628 LOADNIL                          R21
+      629 SETTABLEKS                       R21 R20 K131 ["PluginDesign"]
+      631 DUPTABLE                         R21 K136 [{"OverlayProviderWrapper"}]
+      632 GETUPVAL                         R22 12
+      633 GETTABLEKS                       R22 R22 K30 ["createElement"]
+      635 GETUPVAL                         R23 29
+      636 DUPTABLE                         R24 K138 [{"gui"}]
+      637 SETTABLEKS                       R16 R24 K137 ["gui"]
+      639 DUPTABLE                         R25 K142 [{"StyleLink", "MainContainer", "Overlay"}]
+      640 GETUPVAL                         R27 28
+      641 JUMPIF                           R27 ; [+9]
+      642 GETUPVAL                         R26 12
+      643 GETTABLEKS                       R26 R26 K30 ["createElement"]
+      645 LOADK                            R27 K139 ["StyleLink"]
+      646 DUPTABLE                         R28 K144 [{"StyleSheet"}]
+      647 SETTABLEKS                       R1 R28 K143 ["StyleSheet"]
+      649 CALL                             R26 2 1
+      650 JUMP                             ; [+1]
+      651 LOADNIL                          R26
+      652 SETTABLEKS                       R26 R25 K139 ["StyleLink"]
+      654 SETTABLEKS                       R15 R25 K140 ["MainContainer"]
+      656 GETUPVAL                         R26 12
+      657 GETTABLEKS                       R26 R26 K30 ["createElement"]
+      659 GETUPVAL                         R27 14
+      660 DUPTABLE                         R28 K148 [{["tag"] = "size-full", ["ref"], ["ZIndex"] = 100}]
+      661 SETTABLEKS                       R17 R28 K145 ["ref"]
+      663 CALL                             R26 2 1
+      664 SETTABLEKS                       R26 R25 K141 ["Overlay"]
+      666 CALL                             R22 3 1
+      667 SETTABLEKS                       R22 R21 K135 ["OverlayProviderWrapper"]
+      669 CALL                             R18 3 -1
+      670 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -456,145 +466,149 @@ MAIN:
        31 GETTABLEKS                       R8 R0 K6 ["Packages"]
        33 GETTABLEKS                       R8 R8 K13 ["Framework"]
        35 CALL                             R7 1 1
-       36 GETTABLEKS                       R8 R7 K14 ["UI"]
-       38 GETTABLEKS                       R9 R7 K15 ["ContextServices"]
-       40 GETTABLEKS                       R9 R9 K16 ["Localization"]
-       42 GETTABLEKS                       R10 R7 K15 ["ContextServices"]
-       44 GETTABLEKS                       R10 R10 K17 ["Design"]
-       46 GETTABLEKS                       R11 R7 K18 ["Util"]
-       48 GETTABLEKS                       R11 R11 K19 ["LayoutOrderIterator"]
-       50 GETIMPORT                        R12 K5 [require]
-       52 GETTABLEKS                       R13 R0 K20 ["Src"]
-       54 GETTABLEKS                       R13 R13 K21 ["Types"]
-       56 CALL                             R12 1 1
-       57 GETIMPORT                        R13 K5 [require]
-       59 GETIMPORT                        R14 K1 [script]
-       61 GETTABLEKS                       R14 R14 K22 ["StageInfoBar"]
-       63 CALL                             R13 1 1
-       64 GETIMPORT                        R14 K5 [require]
-       66 GETIMPORT                        R15 K1 [script]
-       68 GETTABLEKS                       R15 R15 K23 ["ErrorBanner"]
-       70 CALL                             R14 1 1
-       71 GETIMPORT                        R15 K5 [require]
-       73 GETIMPORT                        R16 K1 [script]
-       75 GETTABLEKS                       R16 R16 K24 ["InfoEntryContainer"]
-       77 CALL                             R15 1 1
-       78 GETIMPORT                        R16 K5 [require]
-       80 GETIMPORT                        R17 K1 [script]
-       82 GETTABLEKS                       R17 R17 K25 ["LookDetailsList"]
-       84 CALL                             R16 1 1
-       85 GETIMPORT                        R17 K5 [require]
-       87 GETIMPORT                        R18 K1 [script]
-       89 GETTABLEKS                       R18 R18 K26 ["LookComposerBottomBar"]
-       91 CALL                             R17 1 1
-       92 GETIMPORT                        R18 K5 [require]
-       94 GETIMPORT                        R19 K1 [script]
-       96 GETTABLEKS                       R19 R19 K27 ["SuccessPage"]
-       98 CALL                             R18 1 1
-       99 GETIMPORT                        R19 K5 [require]
-      101 GETIMPORT                        R20 K1 [script]
-      103 GETTABLEKS                       R20 R20 K28 ["FailurePage"]
-      105 CALL                             R19 1 1
-      106 GETIMPORT                        R20 K5 [require]
-      108 GETIMPORT                        R21 K1 [script]
-      110 GETTABLEKS                       R21 R21 K29 ["EditInfoPage"]
-      112 CALL                             R20 1 1
-      113 GETIMPORT                        R21 K5 [require]
-      115 GETTABLEKS                       R22 R0 K20 ["Src"]
-      117 GETTABLEKS                       R22 R22 K30 ["Components"]
-      119 GETTABLEKS                       R22 R22 K31 ["LookComposerDialog"]
-      121 GETTABLEKS                       R22 R22 K32 ["useLookSkinColor"]
-      123 CALL                             R21 1 1
-      124 GETIMPORT                        R22 K5 [require]
-      126 GETTABLEKS                       R23 R0 K20 ["Src"]
-      128 GETTABLEKS                       R23 R23 K30 ["Components"]
-      130 GETTABLEKS                       R23 R23 K31 ["LookComposerDialog"]
-      132 GETTABLEKS                       R23 R23 K33 ["useLookMetadata"]
-      134 CALL                             R22 1 1
-      135 GETIMPORT                        R23 K5 [require]
-      137 GETTABLEKS                       R24 R0 K20 ["Src"]
-      139 GETTABLEKS                       R24 R24 K30 ["Components"]
-      141 GETTABLEKS                       R24 R24 K31 ["LookComposerDialog"]
-      143 GETTABLEKS                       R24 R24 K34 ["useLookCreator"]
-      145 CALL                             R23 1 1
-      146 GETIMPORT                        R24 K5 [require]
-      148 GETTABLEKS                       R25 R0 K20 ["Src"]
-      150 GETTABLEKS                       R25 R25 K30 ["Components"]
-      152 GETTABLEKS                       R25 R25 K31 ["LookComposerDialog"]
-      154 GETTABLEKS                       R25 R25 K35 ["useLookDialogItems"]
-      156 CALL                             R24 1 1
-      157 GETIMPORT                        R25 K5 [require]
-      159 GETTABLEKS                       R26 R0 K20 ["Src"]
-      161 GETTABLEKS                       R26 R26 K30 ["Components"]
-      163 GETTABLEKS                       R26 R26 K31 ["LookComposerDialog"]
-      165 GETTABLEKS                       R26 R26 K36 ["useLookPreview"]
-      167 CALL                             R25 1 1
-      168 GETIMPORT                        R26 K5 [require]
-      170 GETTABLEKS                       R27 R0 K20 ["Src"]
-      172 GETTABLEKS                       R27 R27 K30 ["Components"]
-      174 GETTABLEKS                       R27 R27 K31 ["LookComposerDialog"]
-      176 GETTABLEKS                       R27 R27 K37 ["useLookErrors"]
-      178 CALL                             R26 1 1
-      179 GETIMPORT                        R27 K5 [require]
-      181 GETTABLEKS                       R28 R0 K20 ["Src"]
-      183 GETTABLEKS                       R28 R28 K30 ["Components"]
-      185 GETTABLEKS                       R28 R28 K31 ["LookComposerDialog"]
-      187 GETTABLEKS                       R28 R28 K38 ["useAsyncLookCreationCalls"]
-      189 CALL                             R27 1 1
-      190 GETIMPORT                        R28 K5 [require]
-      192 GETTABLEKS                       R29 R0 K20 ["Src"]
-      194 GETTABLEKS                       R29 R29 K30 ["Components"]
-      196 GETTABLEKS                       R29 R29 K31 ["LookComposerDialog"]
-      198 GETTABLEKS                       R29 R29 K39 ["useLookDialogStageManager"]
-      200 CALL                             R28 1 1
-      201 GETIMPORT                        R29 K5 [require]
-      203 GETTABLEKS                       R30 R0 K20 ["Src"]
-      205 GETTABLEKS                       R30 R30 K40 ["Flags"]
-      207 GETTABLEKS                       R30 R30 K41 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
-      209 CALL                             R29 1 1
-      210 GETIMPORT                        R30 K5 [require]
-      212 GETTABLEKS                       R31 R0 K20 ["Src"]
-      214 GETTABLEKS                       R31 R31 K40 ["Flags"]
-      216 GETTABLEKS                       R31 R31 K42 ["getFFlagAvatarPreviewerLookComposerLargerDefaultSize"]
-      218 CALL                             R30 1 1
-      219 GETIMPORT                        R31 K5 [require]
-      221 GETTABLEKS                       R32 R0 K20 ["Src"]
-      223 GETTABLEKS                       R32 R32 K40 ["Flags"]
-      225 GETTABLEKS                       R32 R32 K43 ["getFFlagAvatarPreviewerEligibilityChecks"]
-      227 CALL                             R31 1 1
-      228 DUPTABLE                         R32 K46 [{"AvatarLook", "MakeupLook"}]
-      229 DUPTABLE                         R33 K51 [{["title"] = "CreateAnAvatarLook", ["description"] = "CreateAnAvatarLookDescription"}]
-      230 SETTABLEKS                       R33 R32 K44 ["AvatarLook"]
-      232 DUPTABLE                         R33 K54 [{["title"] = "CreateAMakeupLook", ["description"] = "CreateAMakeupLookDescription"}]
-      233 SETTABLEKS                       R33 R32 K45 ["MakeupLook"]
-      235 DUPCLOSURE                       R33 K55 [PROTO_0]
-      236 CAPTURE                          VAL R29
-      237 CAPTURE                          VAL R10
-      238 CAPTURE                          VAL R9
-      239 CAPTURE                          VAL R22
-      240 CAPTURE                          VAL R23
-      241 CAPTURE                          VAL R24
-      242 CAPTURE                          VAL R21
-      243 CAPTURE                          VAL R25
-      244 CAPTURE                          VAL R27
-      245 CAPTURE                          VAL R26
-      246 CAPTURE                          VAL R28
-      247 CAPTURE                          VAL R11
-      248 CAPTURE                          VAL R1
-      249 CAPTURE                          VAL R5
-      250 CAPTURE                          VAL R3
-      251 CAPTURE                          VAL R15
-      252 CAPTURE                          VAL R16
-      253 CAPTURE                          VAL R20
-      254 CAPTURE                          VAL R31
-      255 CAPTURE                          VAL R18
-      256 CAPTURE                          VAL R19
-      257 CAPTURE                          VAL R4
-      258 CAPTURE                          VAL R32
-      259 CAPTURE                          VAL R13
-      260 CAPTURE                          VAL R14
-      261 CAPTURE                          VAL R17
-      262 CAPTURE                          VAL R8
-      263 CAPTURE                          VAL R30
-      264 CAPTURE                          VAL R6
-      265 RETURN                           R33 1
+       36 GETTABLEKS                       R8 R7 K14 ["SharedFlags"]
+       38 GETTABLEKS                       R8 R8 K15 ["getFFlagDevFrameworkUsePluginDesign"]
+       40 CALL                             R8 0 1
+       41 GETTABLEKS                       R9 R7 K16 ["UI"]
+       43 GETTABLEKS                       R10 R7 K17 ["ContextServices"]
+       45 GETTABLEKS                       R10 R10 K18 ["Localization"]
+       47 GETTABLEKS                       R11 R7 K17 ["ContextServices"]
+       49 GETTABLEKS                       R11 R11 K19 ["Design"]
+       51 GETTABLEKS                       R12 R7 K20 ["Util"]
+       53 GETTABLEKS                       R12 R12 K21 ["LayoutOrderIterator"]
+       55 GETIMPORT                        R13 K5 [require]
+       57 GETTABLEKS                       R14 R0 K22 ["Src"]
+       59 GETTABLEKS                       R14 R14 K23 ["Types"]
+       61 CALL                             R13 1 1
+       62 GETIMPORT                        R14 K5 [require]
+       64 GETIMPORT                        R15 K1 [script]
+       66 GETTABLEKS                       R15 R15 K24 ["StageInfoBar"]
+       68 CALL                             R14 1 1
+       69 GETIMPORT                        R15 K5 [require]
+       71 GETIMPORT                        R16 K1 [script]
+       73 GETTABLEKS                       R16 R16 K25 ["ErrorBanner"]
+       75 CALL                             R15 1 1
+       76 GETIMPORT                        R16 K5 [require]
+       78 GETIMPORT                        R17 K1 [script]
+       80 GETTABLEKS                       R17 R17 K26 ["InfoEntryContainer"]
+       82 CALL                             R16 1 1
+       83 GETIMPORT                        R17 K5 [require]
+       85 GETIMPORT                        R18 K1 [script]
+       87 GETTABLEKS                       R18 R18 K27 ["LookDetailsList"]
+       89 CALL                             R17 1 1
+       90 GETIMPORT                        R18 K5 [require]
+       92 GETIMPORT                        R19 K1 [script]
+       94 GETTABLEKS                       R19 R19 K28 ["LookComposerBottomBar"]
+       96 CALL                             R18 1 1
+       97 GETIMPORT                        R19 K5 [require]
+       99 GETIMPORT                        R20 K1 [script]
+      101 GETTABLEKS                       R20 R20 K29 ["SuccessPage"]
+      103 CALL                             R19 1 1
+      104 GETIMPORT                        R20 K5 [require]
+      106 GETIMPORT                        R21 K1 [script]
+      108 GETTABLEKS                       R21 R21 K30 ["FailurePage"]
+      110 CALL                             R20 1 1
+      111 GETIMPORT                        R21 K5 [require]
+      113 GETIMPORT                        R22 K1 [script]
+      115 GETTABLEKS                       R22 R22 K31 ["EditInfoPage"]
+      117 CALL                             R21 1 1
+      118 GETIMPORT                        R22 K5 [require]
+      120 GETTABLEKS                       R23 R0 K22 ["Src"]
+      122 GETTABLEKS                       R23 R23 K32 ["Components"]
+      124 GETTABLEKS                       R23 R23 K33 ["LookComposerDialog"]
+      126 GETTABLEKS                       R23 R23 K34 ["useLookSkinColor"]
+      128 CALL                             R22 1 1
+      129 GETIMPORT                        R23 K5 [require]
+      131 GETTABLEKS                       R24 R0 K22 ["Src"]
+      133 GETTABLEKS                       R24 R24 K32 ["Components"]
+      135 GETTABLEKS                       R24 R24 K33 ["LookComposerDialog"]
+      137 GETTABLEKS                       R24 R24 K35 ["useLookMetadata"]
+      139 CALL                             R23 1 1
+      140 GETIMPORT                        R24 K5 [require]
+      142 GETTABLEKS                       R25 R0 K22 ["Src"]
+      144 GETTABLEKS                       R25 R25 K32 ["Components"]
+      146 GETTABLEKS                       R25 R25 K33 ["LookComposerDialog"]
+      148 GETTABLEKS                       R25 R25 K36 ["useLookCreator"]
+      150 CALL                             R24 1 1
+      151 GETIMPORT                        R25 K5 [require]
+      153 GETTABLEKS                       R26 R0 K22 ["Src"]
+      155 GETTABLEKS                       R26 R26 K32 ["Components"]
+      157 GETTABLEKS                       R26 R26 K33 ["LookComposerDialog"]
+      159 GETTABLEKS                       R26 R26 K37 ["useLookDialogItems"]
+      161 CALL                             R25 1 1
+      162 GETIMPORT                        R26 K5 [require]
+      164 GETTABLEKS                       R27 R0 K22 ["Src"]
+      166 GETTABLEKS                       R27 R27 K32 ["Components"]
+      168 GETTABLEKS                       R27 R27 K33 ["LookComposerDialog"]
+      170 GETTABLEKS                       R27 R27 K38 ["useLookPreview"]
+      172 CALL                             R26 1 1
+      173 GETIMPORT                        R27 K5 [require]
+      175 GETTABLEKS                       R28 R0 K22 ["Src"]
+      177 GETTABLEKS                       R28 R28 K32 ["Components"]
+      179 GETTABLEKS                       R28 R28 K33 ["LookComposerDialog"]
+      181 GETTABLEKS                       R28 R28 K39 ["useLookErrors"]
+      183 CALL                             R27 1 1
+      184 GETIMPORT                        R28 K5 [require]
+      186 GETTABLEKS                       R29 R0 K22 ["Src"]
+      188 GETTABLEKS                       R29 R29 K32 ["Components"]
+      190 GETTABLEKS                       R29 R29 K33 ["LookComposerDialog"]
+      192 GETTABLEKS                       R29 R29 K40 ["useAsyncLookCreationCalls"]
+      194 CALL                             R28 1 1
+      195 GETIMPORT                        R29 K5 [require]
+      197 GETTABLEKS                       R30 R0 K22 ["Src"]
+      199 GETTABLEKS                       R30 R30 K32 ["Components"]
+      201 GETTABLEKS                       R30 R30 K33 ["LookComposerDialog"]
+      203 GETTABLEKS                       R30 R30 K41 ["useLookDialogStageManager"]
+      205 CALL                             R29 1 1
+      206 GETIMPORT                        R30 K5 [require]
+      208 GETTABLEKS                       R31 R0 K22 ["Src"]
+      210 GETTABLEKS                       R31 R31 K42 ["Flags"]
+      212 GETTABLEKS                       R31 R31 K43 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+      214 CALL                             R30 1 1
+      215 GETIMPORT                        R31 K5 [require]
+      217 GETTABLEKS                       R32 R0 K22 ["Src"]
+      219 GETTABLEKS                       R32 R32 K42 ["Flags"]
+      221 GETTABLEKS                       R32 R32 K44 ["getFFlagAvatarPreviewerLookComposerLargerDefaultSize"]
+      223 CALL                             R31 1 1
+      224 GETIMPORT                        R32 K5 [require]
+      226 GETTABLEKS                       R33 R0 K22 ["Src"]
+      228 GETTABLEKS                       R33 R33 K42 ["Flags"]
+      230 GETTABLEKS                       R33 R33 K45 ["getFFlagAvatarPreviewerEligibilityChecks"]
+      232 CALL                             R32 1 1
+      233 DUPTABLE                         R33 K48 [{"AvatarLook", "MakeupLook"}]
+      234 DUPTABLE                         R34 K53 [{["title"] = "CreateAnAvatarLook", ["description"] = "CreateAnAvatarLookDescription"}]
+      235 SETTABLEKS                       R34 R33 K46 ["AvatarLook"]
+      237 DUPTABLE                         R34 K56 [{["title"] = "CreateAMakeupLook", ["description"] = "CreateAMakeupLookDescription"}]
+      238 SETTABLEKS                       R34 R33 K47 ["MakeupLook"]
+      240 DUPCLOSURE                       R34 K57 [PROTO_0]
+      241 CAPTURE                          VAL R30
+      242 CAPTURE                          VAL R11
+      243 CAPTURE                          VAL R10
+      244 CAPTURE                          VAL R23
+      245 CAPTURE                          VAL R24
+      246 CAPTURE                          VAL R25
+      247 CAPTURE                          VAL R22
+      248 CAPTURE                          VAL R26
+      249 CAPTURE                          VAL R28
+      250 CAPTURE                          VAL R27
+      251 CAPTURE                          VAL R29
+      252 CAPTURE                          VAL R12
+      253 CAPTURE                          VAL R1
+      254 CAPTURE                          VAL R5
+      255 CAPTURE                          VAL R3
+      256 CAPTURE                          VAL R16
+      257 CAPTURE                          VAL R17
+      258 CAPTURE                          VAL R21
+      259 CAPTURE                          VAL R32
+      260 CAPTURE                          VAL R19
+      261 CAPTURE                          VAL R20
+      262 CAPTURE                          VAL R4
+      263 CAPTURE                          VAL R33
+      264 CAPTURE                          VAL R14
+      265 CAPTURE                          VAL R15
+      266 CAPTURE                          VAL R18
+      267 CAPTURE                          VAL R9
+      268 CAPTURE                          VAL R31
+      269 CAPTURE                          VAL R8
+      270 CAPTURE                          VAL R6
+      271 RETURN                           R34 1

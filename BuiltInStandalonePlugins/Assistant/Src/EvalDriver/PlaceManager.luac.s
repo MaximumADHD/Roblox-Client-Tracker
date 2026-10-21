@@ -336,101 +336,98 @@ MAIN:
         3 LOADK                            R2 K2 ["Assistant"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["StudioFoundation"]
-       20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["Util"]
-       23 GETTABLEKS                       R3 R3 K10 ["StudioUri"]
-       25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R5 K11 ["DMNetworking"]
-       31 CALL                             R4 1 1
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K12 ["DMNetworkingOLD"]
-       38 CALL                             R5 1 1
-       39 GETTABLEKS                       R6 R1 K13 ["Utils"]
-       41 GETTABLEKS                       R6 R6 K14 ["EvalFunctionRegistry"]
-       43 GETIMPORT                        R7 K5 [require]
-       45 GETTABLEKS                       R8 R0 K15 ["Src"]
-       47 GETTABLEKS                       R8 R8 K16 ["Flags"]
-       49 CALL                             R7 1 1
-       50 GETIMPORT                        R8 K5 [require]
-       52 GETTABLEKS                       R9 R0 K6 ["Packages"]
-       54 GETTABLEKS                       R9 R9 K17 ["Signal"]
-       56 CALL                             R8 1 1
-       57 GETTABLEKS                       R9 R1 K13 ["Utils"]
-       59 GETTABLEKS                       R9 R9 K18 ["Bin"]
-       61 GETTABLEKS                       R10 R4 K19 ["Remote"]
-       63 LOADNIL                          R11
-       64 NEWTABLE                         R12 0 0
-       66 LOADNIL                          R13
-       67 LOADB                            R14 0
-       68 GETTABLEKS                       R15 R8 K20 ["new"]
-       70 CALL                             R15 0 1
-       71 LOADB                            R16 0
-       72 GETTABLEKS                       R17 R8 K20 ["new"]
-       74 CALL                             R17 0 1
-       75 LOADNIL                          R18
-       76 LOADNIL                          R19
-       77 LOADNIL                          R20
-       78 GETTABLEKS                       R21 R8 K20 ["new"]
-       80 CALL                             R21 0 1
-       81 LOADNIL                          R22
-       82 LOADNIL                          R23
-       83 NEWCLOSURE                       R24 P0
-       84 CAPTURE                          REF R18
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["AssistantUI"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["Bin"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETTABLEKS                       R5 R1 K9 ["DMNetworking"]
+       23 CALL                             R4 1 1
+       24 GETIMPORT                        R5 K6 [require]
+       26 GETTABLEKS                       R6 R1 K10 ["DMNetworkingOLD"]
+       28 CALL                             R5 1 1
+       29 GETIMPORT                        R6 K6 [require]
+       31 GETTABLEKS                       R7 R1 K11 ["Signal"]
+       33 CALL                             R6 1 1
+       34 GETIMPORT                        R7 K6 [require]
+       36 GETTABLEKS                       R8 R1 K12 ["StudioFoundation"]
+       38 CALL                             R7 1 1
+       39 GETIMPORT                        R8 K6 [require]
+       41 GETTABLEKS                       R9 R0 K13 ["Src"]
+       43 GETTABLEKS                       R9 R9 K14 ["Flags"]
+       45 CALL                             R8 1 1
+       46 GETTABLEKS                       R9 R2 K15 ["Utils"]
+       48 GETTABLEKS                       R9 R9 K16 ["EvalFunctionRegistry"]
+       50 GETTABLEKS                       R10 R7 K17 ["Util"]
+       52 GETTABLEKS                       R10 R10 K18 ["StudioUri"]
+       54 GETTABLEKS                       R11 R4 K19 ["Remote"]
+       56 LOADNIL                          R12
+       57 NEWTABLE                         R13 0 0
+       59 LOADNIL                          R14
+       60 LOADB                            R15 0
+       61 GETTABLEKS                       R16 R6 K20 ["new"]
+       63 CALL                             R16 0 1
+       64 LOADB                            R17 0
+       65 GETTABLEKS                       R18 R6 K20 ["new"]
+       67 CALL                             R18 0 1
+       68 LOADNIL                          R19
+       69 LOADNIL                          R20
+       70 LOADNIL                          R21
+       71 GETTABLEKS                       R22 R6 K20 ["new"]
+       73 CALL                             R22 0 1
+       74 LOADNIL                          R23
+       75 LOADNIL                          R24
+       76 NEWCLOSURE                       R25 P0
+       77 CAPTURE                          REF R19
+       78 CAPTURE                          REF R20
+       79 CAPTURE                          REF R21
+       80 CAPTURE                          REF R12
+       81 CAPTURE                          REF R23
+       82 CAPTURE                          REF R24
+       83 CAPTURE                          VAL R22
+       84 NEWCLOSURE                       R26 P1
        85 CAPTURE                          REF R19
-       86 CAPTURE                          REF R20
-       87 CAPTURE                          REF R11
-       88 CAPTURE                          REF R22
-       89 CAPTURE                          REF R23
-       90 CAPTURE                          VAL R21
-       91 NEWCLOSURE                       R25 P1
-       92 CAPTURE                          REF R18
-       93 CAPTURE                          REF R20
-       94 CAPTURE                          REF R11
-       95 CAPTURE                          VAL R7
-       96 CAPTURE                          REF R19
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          REF R23
-       99 NEWCLOSURE                       R26 P2
-      100 CAPTURE                          VAL R3
-      101 CAPTURE                          REF R11
-      102 NEWCLOSURE                       R27 P3
-      103 CAPTURE                          REF R16
-      104 CAPTURE                          VAL R24
-      105 CAPTURE                          VAL R3
-      106 CAPTURE                          REF R11
-      107 CAPTURE                          VAL R25
-      108 CAPTURE                          REF R22
-      109 CAPTURE                          VAL R17
-      110 NEWCLOSURE                       R28 P4
-      111 CAPTURE                          REF R16
-      112 CAPTURE                          REF R14
-      113 CAPTURE                          VAL R17
-      114 CAPTURE                          VAL R15
-      115 CAPTURE                          VAL R7
-      116 CAPTURE                          REF R13
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R10
-      119 CAPTURE                          VAL R4
-      120 CAPTURE                          VAL R6
-      121 NEWCLOSURE                       R29 P5
-      122 CAPTURE                          REF R12
-      123 CAPTURE                          VAL R7
-      124 CAPTURE                          REF R13
-      125 NEWCLOSURE                       R30 P6
-      126 CAPTURE                          REF R11
-      127 CAPTURE                          VAL R28
-      128 CAPTURE                          VAL R29
-      129 DUPTABLE                         R31 K23 [{"init", "closePlace"}]
-      130 SETTABLEKS                       R30 R31 K21 ["init"]
-      132 SETTABLEKS                       R27 R31 K22 ["closePlace"]
-      134 CLOSEUPVALS                      R11
-      135 RETURN                           R31 1
+       86 CAPTURE                          REF R21
+       87 CAPTURE                          REF R12
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          REF R20
+       90 CAPTURE                          VAL R6
+       91 CAPTURE                          REF R24
+       92 NEWCLOSURE                       R27 P2
+       93 CAPTURE                          VAL R10
+       94 CAPTURE                          REF R12
+       95 NEWCLOSURE                       R28 P3
+       96 CAPTURE                          REF R17
+       97 CAPTURE                          VAL R25
+       98 CAPTURE                          VAL R10
+       99 CAPTURE                          REF R12
+      100 CAPTURE                          VAL R26
+      101 CAPTURE                          REF R23
+      102 CAPTURE                          VAL R18
+      103 NEWCLOSURE                       R29 P4
+      104 CAPTURE                          REF R17
+      105 CAPTURE                          REF R15
+      106 CAPTURE                          VAL R18
+      107 CAPTURE                          VAL R16
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          REF R14
+      110 CAPTURE                          VAL R3
+      111 CAPTURE                          VAL R11
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          VAL R9
+      114 NEWCLOSURE                       R30 P5
+      115 CAPTURE                          REF R13
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          REF R14
+      118 NEWCLOSURE                       R31 P6
+      119 CAPTURE                          REF R12
+      120 CAPTURE                          VAL R29
+      121 CAPTURE                          VAL R30
+      122 DUPTABLE                         R32 K23 [{"init", "closePlace"}]
+      123 SETTABLEKS                       R31 R32 K21 ["init"]
+      125 SETTABLEKS                       R28 R32 K22 ["closePlace"]
+      127 CLOSEUPVALS                      R12
+      128 RETURN                           R32 1

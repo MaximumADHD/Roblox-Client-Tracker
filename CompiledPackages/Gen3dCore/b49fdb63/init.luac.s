@@ -1,0 +1,196 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Preview"]
+        7 GETTABLEKS                       R1 R1 K5 ["AdaptiveFramingOps"]
+        9 CALL                             R0 1 1
+       10 GETIMPORT                        R1 K1 [require]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K6 ["AssetUploadOps"]
+       16 CALL                             R1 1 1
+       17 GETIMPORT                        R2 K1 [require]
+       19 GETIMPORT                        R3 K3 [script]
+       21 GETTABLEKS                       R3 R3 K4 ["Preview"]
+       23 GETTABLEKS                       R3 R3 K7 ["CameraMathOps"]
+       25 CALL                             R2 1 1
+       26 GETIMPORT                        R3 K1 [require]
+       28 GETIMPORT                        R4 K3 [script]
+       30 GETTABLEKS                       R4 R4 K8 ["Constants"]
+       32 CALL                             R3 1 1
+       33 GETIMPORT                        R4 K1 [require]
+       35 GETIMPORT                        R5 K3 [script]
+       37 GETTABLEKS                       R5 R5 K9 ["Gen3dTypes"]
+       39 CALL                             R4 1 1
+       40 GETIMPORT                        R5 K1 [require]
+       42 GETIMPORT                        R6 K3 [script]
+       44 GETTABLEKS                       R6 R6 K10 ["GenerationSessions"]
+       46 CALL                             R5 1 1
+       47 GETIMPORT                        R6 K1 [require]
+       49 GETIMPORT                        R7 K3 [script]
+       51 GETTABLEKS                       R7 R7 K11 ["GenerationUtils"]
+       53 CALL                             R6 1 1
+       54 GETIMPORT                        R7 K1 [require]
+       56 GETIMPORT                        R8 K3 [script]
+       58 GETTABLEKS                       R8 R8 K12 ["HostSurface"]
+       60 CALL                             R7 1 1
+       61 GETIMPORT                        R8 K1 [require]
+       63 GETIMPORT                        R9 K3 [script]
+       65 GETTABLEKS                       R9 R9 K13 ["ImageAttachment"]
+       67 GETTABLEKS                       R9 R9 K14 ["ImageAttachmentOps"]
+       69 CALL                             R8 1 1
+       70 GETIMPORT                        R9 K1 [require]
+       72 GETIMPORT                        R10 K3 [script]
+       74 GETTABLEKS                       R10 R10 K15 ["ImageGeneration"]
+       76 GETTABLEKS                       R10 R10 K16 ["ImageGenerationResponseOps"]
+       78 CALL                             R9 1 1
+       79 GETIMPORT                        R10 K1 [require]
+       81 GETIMPORT                        R11 K3 [script]
+       83 GETTABLEKS                       R11 R11 K17 ["ImageSelection"]
+       85 GETTABLEKS                       R11 R11 K18 ["ImageSelectionOps"]
+       87 CALL                             R10 1 1
+       88 GETIMPORT                        R11 K1 [require]
+       90 GETIMPORT                        R12 K3 [script]
+       92 GETTABLEKS                       R12 R12 K19 ["LayoutGenOps"]
+       94 CALL                             R11 1 1
+       95 GETIMPORT                        R12 K1 [require]
+       97 GETIMPORT                        R13 K3 [script]
+       99 GETTABLEKS                       R13 R13 K20 ["MeshGen"]
+      101 GETTABLEKS                       R13 R13 K21 ["MeshGenConstants"]
+      103 CALL                             R12 1 1
+      104 GETIMPORT                        R13 K1 [require]
+      106 GETIMPORT                        R14 K3 [script]
+      108 GETTABLEKS                       R14 R14 K22 ["MeshReapply"]
+      110 CALL                             R13 1 1
+      111 GETIMPORT                        R14 K1 [require]
+      113 GETIMPORT                        R15 K3 [script]
+      115 GETTABLEKS                       R15 R15 K4 ["Preview"]
+      117 GETTABLEKS                       R15 R15 K23 ["PreviewCaptureOps"]
+      119 CALL                             R14 1 1
+      120 GETIMPORT                        R15 K1 [require]
+      122 GETIMPORT                        R16 K3 [script]
+      124 GETTABLEKS                       R16 R16 K24 ["PreviewCarousel"]
+      126 CALL                             R15 1 1
+      127 GETIMPORT                        R16 K1 [require]
+      129 GETIMPORT                        R17 K3 [script]
+      131 GETTABLEKS                       R17 R17 K25 ["PromptTemplate"]
+      133 CALL                             R16 1 1
+      134 GETIMPORT                        R17 K1 [require]
+      136 GETIMPORT                        R18 K3 [script]
+      138 GETTABLEKS                       R18 R18 K26 ["SegmentMesh"]
+      140 GETTABLEKS                       R18 R18 K27 ["SegmentMeshOps"]
+      142 CALL                             R17 1 1
+      143 GETIMPORT                        R18 K1 [require]
+      145 GETIMPORT                        R19 K3 [script]
+      147 GETTABLEKS                       R19 R19 K26 ["SegmentMesh"]
+      149 GETTABLEKS                       R19 R19 K28 ["SegmentationEnums"]
+      151 CALL                             R18 1 1
+      152 GETIMPORT                        R19 K1 [require]
+      154 GETIMPORT                        R20 K3 [script]
+      156 GETTABLEKS                       R20 R20 K29 ["Selection"]
+      158 CALL                             R19 1 1
+      159 GETIMPORT                        R20 K1 [require]
+      161 GETIMPORT                        R21 K3 [script]
+      163 GETTABLEKS                       R21 R21 K30 ["TextureGen"]
+      165 GETTABLEKS                       R21 R21 K31 ["TextureGenOps"]
+      167 CALL                             R20 1 1
+      168 GETIMPORT                        R21 K1 [require]
+      170 GETIMPORT                        R22 K3 [script]
+      172 GETTABLEKS                       R22 R22 K30 ["TextureGen"]
+      174 GETTABLEKS                       R22 R22 K32 ["TextureGenPreferences"]
+      176 CALL                             R21 1 1
+      177 GETIMPORT                        R22 K1 [require]
+      179 GETIMPORT                        R23 K3 [script]
+      181 GETTABLEKS                       R23 R23 K15 ["ImageGeneration"]
+      183 GETTABLEKS                       R23 R23 K33 ["TexturePreviewResponseOps"]
+      185 CALL                             R22 1 1
+      186 GETIMPORT                        R23 K1 [require]
+      188 GETIMPORT                        R24 K3 [script]
+      190 GETTABLEKS                       R24 R24 K30 ["TextureGen"]
+      192 GETTABLEKS                       R24 R24 K34 ["TexturePreviewSourceOps"]
+      194 CALL                             R23 1 1
+      195 GETIMPORT                        R24 K1 [require]
+      197 GETIMPORT                        R25 K3 [script]
+      199 GETTABLEKS                       R25 R25 K35 ["Flags"]
+      201 GETTABLEKS                       R25 R25 K36 ["getFFlagGen3dSharedMeshGenOps"]
+      203 CALL                             R24 1 1
+      204 GETIMPORT                        R25 K1 [require]
+      206 GETIMPORT                        R26 K3 [script]
+      208 GETTABLEKS                       R26 R26 K35 ["Flags"]
+      210 GETTABLEKS                       R26 R26 K37 ["getFFlagGen3dTextureCameraBackendCanvas"]
+      212 CALL                             R25 1 1
+      213 GETIMPORT                        R26 K1 [require]
+      215 GETIMPORT                        R27 K3 [script]
+      217 GETTABLEKS                       R27 R27 K35 ["Flags"]
+      219 GETTABLEKS                       R27 R27 K38 ["getFFlagGen3dTextureGenAssetIdUpload"]
+      221 CALL                             R26 1 1
+      222 GETIMPORT                        R27 K1 [require]
+      224 GETIMPORT                        R28 K3 [script]
+      226 GETTABLEKS                       R28 R28 K35 ["Flags"]
+      228 GETTABLEKS                       R28 R28 K39 ["getFFlagGen3dTextureGenBatchedPreview"]
+      230 CALL                             R27 1 1
+      231 GETIMPORT                        R28 K1 [require]
+      233 GETIMPORT                        R29 K3 [script]
+      235 GETTABLEKS                       R29 R29 K35 ["Flags"]
+      237 GETTABLEKS                       R29 R29 K40 ["getFFlagGen3dTextureGenKeepExistingUv"]
+      239 CALL                             R28 1 1
+      240 GETIMPORT                        R29 K1 [require]
+      242 GETIMPORT                        R30 K3 [script]
+      244 GETTABLEKS                       R30 R30 K35 ["Flags"]
+      246 GETTABLEKS                       R30 R30 K41 ["getFFlagGen3dTextureGenPersistPreferences"]
+      248 CALL                             R29 1 1
+      249 GETIMPORT                        R30 K1 [require]
+      251 GETIMPORT                        R31 K3 [script]
+      253 GETTABLEKS                       R31 R31 K35 ["Flags"]
+      255 GETTABLEKS                       R31 R31 K42 ["getFFlagGen3dTextureGenPreviewAssetIdUpload"]
+      257 CALL                             R30 1 1
+      258 GETIMPORT                        R31 K1 [require]
+      260 GETIMPORT                        R32 K3 [script]
+      262 GETTABLEKS                       R32 R32 K35 ["Flags"]
+      264 GETTABLEKS                       R32 R32 K43 ["getFFlagGen3dTextureGenReapplyMeshInPlace"]
+      266 CALL                             R31 1 1
+      267 GETIMPORT                        R32 K1 [require]
+      269 GETIMPORT                        R33 K3 [script]
+      271 GETTABLEKS                       R33 R33 K35 ["Flags"]
+      273 GETTABLEKS                       R33 R33 K44 ["getFFlagGen3dTexturePreviewReferences"]
+      275 CALL                             R32 1 1
+      276 GETIMPORT                        R33 K1 [require]
+      278 GETIMPORT                        R34 K3 [script]
+      280 GETTABLEKS                       R34 R34 K45 ["patchCubeGenerationGatewayHost"]
+      282 CALL                             R33 1 1
+      283 NEWTABLE                         R34 64 0
+      285 SETTABLEKS                       R3 R34 K8 ["Constants"]
+      287 SETTABLEKS                       R15 R34 K24 ["PreviewCarousel"]
+      289 SETTABLEKS                       R16 R34 K25 ["PromptTemplate"]
+      291 SETTABLEKS                       R4 R34 K9 ["Gen3dTypes"]
+      293 SETTABLEKS                       R5 R34 K46 ["createGenerationSessions"]
+      295 SETTABLEKS                       R6 R34 K11 ["GenerationUtils"]
+      297 SETTABLEKS                       R13 R34 K22 ["MeshReapply"]
+      299 SETTABLEKS                       R17 R34 K27 ["SegmentMeshOps"]
+      301 SETTABLEKS                       R20 R34 K31 ["TextureGenOps"]
+      303 SETTABLEKS                       R21 R34 K32 ["TextureGenPreferences"]
+      305 SETTABLEKS                       R8 R34 K14 ["ImageAttachmentOps"]
+      307 SETTABLEKS                       R9 R34 K16 ["ImageGenerationResponseOps"]
+      309 SETTABLEKS                       R22 R34 K33 ["TexturePreviewResponseOps"]
+      311 SETTABLEKS                       R23 R34 K34 ["TexturePreviewSourceOps"]
+      313 SETTABLEKS                       R1 R34 K6 ["AssetUploadOps"]
+      315 SETTABLEKS                       R33 R34 K45 ["patchCubeGenerationGatewayHost"]
+      317 SETTABLEKS                       R10 R34 K18 ["ImageSelectionOps"]
+      319 SETTABLEKS                       R11 R34 K19 ["LayoutGenOps"]
+      321 SETTABLEKS                       R12 R34 K21 ["MeshGenConstants"]
+      323 SETTABLEKS                       R2 R34 K7 ["CameraMathOps"]
+      325 SETTABLEKS                       R14 R34 K23 ["PreviewCaptureOps"]
+      327 SETTABLEKS                       R0 R34 K5 ["AdaptiveFramingOps"]
+      329 SETTABLEKS                       R19 R34 K29 ["Selection"]
+      331 SETTABLEKS                       R18 R34 K28 ["SegmentationEnums"]
+      333 SETTABLEKS                       R7 R34 K12 ["HostSurface"]
+      335 SETTABLEKS                       R31 R34 K43 ["getFFlagGen3dTextureGenReapplyMeshInPlace"]
+      337 SETTABLEKS                       R27 R34 K39 ["getFFlagGen3dTextureGenBatchedPreview"]
+      339 SETTABLEKS                       R28 R34 K40 ["getFFlagGen3dTextureGenKeepExistingUv"]
+      341 SETTABLEKS                       R32 R34 K44 ["getFFlagGen3dTexturePreviewReferences"]
+      343 SETTABLEKS                       R26 R34 K38 ["getFFlagGen3dTextureGenAssetIdUpload"]
+      345 SETTABLEKS                       R30 R34 K42 ["getFFlagGen3dTextureGenPreviewAssetIdUpload"]
+      347 SETTABLEKS                       R25 R34 K37 ["getFFlagGen3dTextureCameraBackendCanvas"]
+      349 SETTABLEKS                       R29 R34 K41 ["getFFlagGen3dTextureGenPersistPreferences"]
+      351 SETTABLEKS                       R24 R34 K36 ["getFFlagGen3dSharedMeshGenOps"]
+      353 RETURN                           R34 1

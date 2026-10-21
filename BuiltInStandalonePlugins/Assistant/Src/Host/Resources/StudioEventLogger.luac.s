@@ -2492,40 +2492,50 @@ PROTO_44:
       189 RETURN                           R0 0
 
 PROTO_45:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["logEvent"]
-        3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K3 [{"customFields", "standardizedFields"}]
-        5 DUPTABLE                         R6 K6 [{"clientJobId", "assetHash"}]
-        6 SETTABLEKS                       R0 R6 K4 ["clientJobId"]
-        8 SETTABLEKS                       R1 R6 K5 ["assetHash"]
-       10 GETUPVAL                         R7 2
-       11 GETTABLEKS                       R7 R7 K7 ["assign"]
-       13 MOVE                             R8 R6
-       14 DUPTABLE                         R9 K9 [{"timestampMilliseconds"}]
-       15 GETUPVAL                         R10 3
-       16 GETTABLEKS                       R10 R10 K10 ["getTimestampMilliseconds"]
-       18 CALL                             R10 0 1
-       19 SETTABLEKS                       R10 R9 K8 ["timestampMilliseconds"]
-       21 CALL                             R7 2 1
-       22 MOVE                             R5 R7
-       23 SETTABLEKS                       R5 R4 K1 ["customFields"]
-       25 NEWTABLE                         R6 0 0
-       27 GETUPVAL                         R7 4
-       28 GETTABLEKS                       R7 R7 K11 ["StandardizedFields"]
-       30 LOADNIL                          R8
-       31 LOADNIL                          R9
-       32 FORGPREP                         R7
-       33 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
-       35 MOVE                             R13 R6
-       36 MOVE                             R14 R11
-       37 GETIMPORT                        R12 K14 [table.insert]
-       39 CALL                             R12 2 0
-       40 FORGLOOP                         R7 2 ; [-8]
-       42 MOVE                             R5 R6
-       43 SETTABLEKS                       R5 R4 K2 ["standardizedFields"]
-       45 CALL                             R2 2 0
-       46 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{"clientJobId", "assetHash"}]
+        1 SETTABLEKS                       R0 R3 K0 ["clientJobId"]
+        3 SETTABLEKS                       R1 R3 K1 ["assetHash"]
+        5 JUMPIFEQKNIL                     R2 ; [+21]
+        7 GETTABLEKS                       R4 R2 K3 ["Body"]
+        9 SETTABLEKS                       R4 R3 K4 ["bodyCount"]
+       11 GETTABLEKS                       R4 R2 K5 ["Layered"]
+       13 SETTABLEKS                       R4 R3 K6 ["layeredCount"]
+       15 GETTABLEKS                       R4 R2 K7 ["EyeLayered"]
+       17 SETTABLEKS                       R4 R3 K8 ["eyeLayeredCount"]
+       19 GETTABLEKS                       R4 R2 K9 ["Rigid"]
+       21 SETTABLEKS                       R4 R3 K10 ["rigidCount"]
+       23 GETTABLEKS                       R4 R2 K11 ["Avatar"]
+       25 SETTABLEKS                       R4 R3 K12 ["avatarCount"]
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R4 R4 K13 ["logEvent"]
+       30 GETUPVAL                         R5 1
+       31 DUPTABLE                         R6 K16 [{"customFields", "standardizedFields"}]
+       32 GETUPVAL                         R7 2
+       33 GETTABLEKS                       R7 R7 K17 ["assign"]
+       35 MOVE                             R8 R3
+       36 DUPTABLE                         R9 K19 [{"timestampMilliseconds"}]
+       37 GETUPVAL                         R10 3
+       38 GETTABLEKS                       R10 R10 K20 ["getTimestampMilliseconds"]
+       40 CALL                             R10 0 1
+       41 SETTABLEKS                       R10 R9 K18 ["timestampMilliseconds"]
+       43 CALL                             R7 2 1
+       44 SETTABLEKS                       R7 R6 K14 ["customFields"]
+       46 NEWTABLE                         R8 0 0
+       48 GETUPVAL                         R9 4
+       49 GETTABLEKS                       R9 R9 K21 ["StandardizedFields"]
+       51 LOADNIL                          R10
+       52 LOADNIL                          R11
+       53 FORGPREP                         R9
+       54 FASTCALL2                        TABLE_INSERT R8 R13 ; [+5]
+       56 MOVE                             R15 R8
+       57 MOVE                             R16 R13
+       58 GETIMPORT                        R14 K24 [table.insert]
+       60 CALL                             R14 2 0
+       61 FORGLOOP                         R9 2 ; [-8]
+       63 MOVE                             R7 R8
+       64 SETTABLEKS                       R7 R6 K15 ["standardizedFields"]
+       66 CALL                             R4 2 0
+       67 RETURN                           R0 0
 
 PROTO_46:
         0 DUPTABLE                         R2 K2 [{"clientJobId", "setupType"}]
@@ -2542,36 +2552,40 @@ PROTO_46:
        21 SETTABLEKS                       R3 R2 K10 ["enableAdditionalHeadProcessing"]
        23 GETTABLEKS                       R3 R0 K11 ["DecalToDynamicHead"]
        25 SETTABLEKS                       R3 R2 K12 ["decalToDynamicHead"]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R3 R3 K13 ["logEvent"]
-       30 GETUPVAL                         R4 1
-       31 DUPTABLE                         R5 K16 [{"customFields", "standardizedFields"}]
-       32 GETUPVAL                         R6 2
-       33 GETTABLEKS                       R6 R6 K17 ["assign"]
-       35 MOVE                             R7 R2
-       36 DUPTABLE                         R8 K19 [{"timestampMilliseconds"}]
-       37 GETUPVAL                         R9 3
-       38 GETTABLEKS                       R9 R9 K20 ["getTimestampMilliseconds"]
-       40 CALL                             R9 0 1
-       41 SETTABLEKS                       R9 R8 K18 ["timestampMilliseconds"]
-       43 CALL                             R6 2 1
-       44 SETTABLEKS                       R6 R5 K14 ["customFields"]
-       46 NEWTABLE                         R7 0 0
-       48 GETUPVAL                         R8 4
-       49 GETTABLEKS                       R8 R8 K21 ["StandardizedFields"]
-       51 LOADNIL                          R9
-       52 LOADNIL                          R10
-       53 FORGPREP                         R8
-       54 FASTCALL2                        TABLE_INSERT R7 R12 ; [+5]
-       56 MOVE                             R14 R7
-       57 MOVE                             R15 R12
-       58 GETIMPORT                        R13 K24 [table.insert]
-       60 CALL                             R13 2 0
-       61 FORGLOOP                         R8 2 ; [-8]
-       63 MOVE                             R6 R7
-       64 SETTABLEKS                       R6 R5 K15 ["standardizedFields"]
-       66 CALL                             R3 2 0
-       67 RETURN                           R0 0
+       27 GETTABLEKS                       R3 R0 K3 ["SetupType"]
+       29 JUMPIFNOTEQKS                    R3 K13 ["Development"] ; [+5]
+       31 GETTABLEKS                       R3 R0 K14 ["DecimationOptions"]
+       33 SETTABLEKS                       R3 R2 K15 ["decimationOptions"]
+       35 GETUPVAL                         R3 0
+       36 GETTABLEKS                       R3 R3 K16 ["logEvent"]
+       38 GETUPVAL                         R4 1
+       39 DUPTABLE                         R5 K19 [{"customFields", "standardizedFields"}]
+       40 GETUPVAL                         R6 2
+       41 GETTABLEKS                       R6 R6 K20 ["assign"]
+       43 MOVE                             R7 R2
+       44 DUPTABLE                         R8 K22 [{"timestampMilliseconds"}]
+       45 GETUPVAL                         R9 3
+       46 GETTABLEKS                       R9 R9 K23 ["getTimestampMilliseconds"]
+       48 CALL                             R9 0 1
+       49 SETTABLEKS                       R9 R8 K21 ["timestampMilliseconds"]
+       51 CALL                             R6 2 1
+       52 SETTABLEKS                       R6 R5 K17 ["customFields"]
+       54 NEWTABLE                         R7 0 0
+       56 GETUPVAL                         R8 4
+       57 GETTABLEKS                       R8 R8 K24 ["StandardizedFields"]
+       59 LOADNIL                          R9
+       60 LOADNIL                          R10
+       61 FORGPREP                         R8
+       62 FASTCALL2                        TABLE_INSERT R7 R12 ; [+5]
+       64 MOVE                             R14 R7
+       65 MOVE                             R15 R12
+       66 GETIMPORT                        R13 K27 [table.insert]
+       68 CALL                             R13 2 0
+       69 FORGLOOP                         R8 2 ; [-8]
+       71 MOVE                             R6 R7
+       72 SETTABLEKS                       R6 R5 K18 ["standardizedFields"]
+       74 CALL                             R3 2 0
+       75 RETURN                           R0 0
 
 PROTO_47:
         0 GETUPVAL                         R2 0

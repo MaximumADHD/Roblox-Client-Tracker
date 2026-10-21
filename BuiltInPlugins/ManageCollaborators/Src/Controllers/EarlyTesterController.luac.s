@@ -40,43 +40,67 @@ PROTO_1:
        44 RETURN                           R5 1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["_networking"]
-        2 LOADK                            R4 K1 ["groups"]
-        3 LOADK                            R6 K2 ["/v1/groups/"]
-        4 MOVE                             R7 R1
-        5 LOADK                            R8 K3 ["/roles"]
-        6 CONCAT                           R5 R6 R8
-        7 DUPTABLE                         R6 K5 [{"Params"}]
-        8 DUPTABLE                         R7 K8 [{["includePrivate"] = True}]
-        9 SETTABLEKS                       R7 R6 K4 ["Params"]
-       11 NAMECALL                         R2 R2 K9 ["get"]
-       13 CALL                             R2 4 1
-       14 NAMECALL                         R2 R2 K10 ["await"]
-       16 CALL                             R2 1 1
-       17 GETTABLEKS                       R3 R2 K11 ["responseBody"]
-       19 GETTABLEKS                       R3 R3 K12 ["roles"]
-       21 JUMPIF                           R3 ; [+2]
-       22 NEWTABLE                         R3 0 0
-       24 NEWTABLE                         R4 0 0
-       26 MOVE                             R5 R3
-       27 LOADNIL                          R6
-       28 LOADNIL                          R7
-       29 FORGPREP                         R5
-       30 GETTABLEKS                       R10 R9 K13 ["id"]
-       32 GETUPVAL                         R11 0
-       33 GETTABLEKS                       R11 R11 K14 ["GroupDefaultMemberRolesetId"]
-       35 JUMPIFEQ                         R10 R11 ; [+12]
-       37 GETTABLEKS                       R10 R9 K15 ["rank"]
-       39 JUMPIFEQKN                       R10 K16 [0] ; [+8]
-       41 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
-       43 MOVE                             R11 R4
-       44 MOVE                             R12 R9
-       45 GETIMPORT                        R10 K19 [table.insert]
-       47 CALL                             R10 2 0
-       48 FORGLOOP                         R5 2 ; [-19]
-       50 RETURN                           R4 1
+        0 GETTABLEKS                       R3 R0 K0 ["_networking"]
+        2 LOADK                            R5 K1 ["groups"]
+        3 LOADK                            R7 K2 ["/v2/groups/"]
+        4 MOVE                             R8 R1
+        5 LOADK                            R9 K3 ["/roles/"]
+        6 MOVE                             R10 R2
+        7 LOADK                            R11 K4 ["/permissions/resolved"]
+        8 CONCAT                           R6 R7 R11
+        9 NAMECALL                         R3 R3 K5 ["get"]
+       11 CALL                             R3 3 1
+       12 NAMECALL                         R3 R3 K6 ["await"]
+       14 CALL                             R3 1 1
+       15 GETTABLEKS                       R4 R3 K7 ["responseBody"]
+       17 GETTABLEKS                       R4 R4 K8 ["permissions"]
+       19 JUMPIF                           R4 ; [+2]
+       20 NEWTABLE                         R4 0 0
+       22 GETTABLEKS                       R6 R4 K9 ["canAssign"]
+       24 JUMPIFEQKB                       R6 TRUE ; [+2]
+       26 LOADB                            R5 0 +1
+       27 LOADB                            R5 1
+       28 RETURN                           R5 1
 
 PROTO_3:
+        0 GETTABLEKS                       R3 R0 K0 ["_networking"]
+        2 LOADK                            R5 K1 ["groups"]
+        3 LOADK                            R7 K2 ["/v1/groups/"]
+        4 MOVE                             R8 R1
+        5 LOADK                            R9 K3 ["/roles"]
+        6 CONCAT                           R6 R7 R9
+        7 DUPTABLE                         R7 K5 [{"Params"}]
+        8 DUPTABLE                         R8 K8 [{["includePrivate"] = True}]
+        9 SETTABLEKS                       R8 R7 K4 ["Params"]
+       11 NAMECALL                         R3 R3 K9 ["get"]
+       13 CALL                             R3 4 1
+       14 NAMECALL                         R3 R3 K10 ["await"]
+       16 CALL                             R3 1 1
+       17 GETTABLEKS                       R4 R3 K11 ["responseBody"]
+       19 GETTABLEKS                       R4 R4 K12 ["roles"]
+       21 JUMPIF                           R4 ; [+2]
+       22 NEWTABLE                         R4 0 0
+       24 NEWTABLE                         R5 0 0
+       26 MOVE                             R6 R4
+       27 LOADNIL                          R7
+       28 LOADNIL                          R8
+       29 FORGPREP                         R6
+       30 JUMPIF                           R2 ; [+11]
+       31 GETTABLEKS                       R11 R10 K13 ["id"]
+       33 GETUPVAL                         R12 0
+       34 GETTABLEKS                       R12 R12 K14 ["GroupDefaultMemberRolesetId"]
+       36 JUMPIFEQ                         R11 R12 ; [+12]
+       38 GETTABLEKS                       R11 R10 K15 ["rank"]
+       40 JUMPIFEQKN                       R11 K16 [0] ; [+8]
+       42 FASTCALL2                        TABLE_INSERT R5 R10 ; [+5]
+       44 MOVE                             R12 R5
+       45 MOVE                             R13 R10
+       46 GETIMPORT                        R11 K19 [table.insert]
+       48 CALL                             R11 2 0
+       49 FORGLOOP                         R6 2 ; [-20]
+       51 RETURN                           R5 1
+
+PROTO_4:
         0 DUPTABLE                         R3 K6 [{[1] = 100, ["sortOrder"] = "Asc", ["includePrivate"] = True}]
         1 JUMPIFEQKNIL                     R2 ; [+3]
         3 SETTABLEKS                       R2 R3 K7 ["cursor"]
@@ -129,7 +153,7 @@ PROTO_3:
        75 MOVE                             R9 R7
        76 RETURN                           R8 2
 
-PROTO_4:
+PROTO_5:
         0 DUPTABLE                         R4 K7 [{[1], ["limit"] = 100, ["includeRoles"] = False, ["includePrivate"] = True}]
         1 SETTABLEKS                       R2 R4 K0 ["query"]
         3 JUMPIFEQKNIL                     R3 ; [+3]
@@ -183,7 +207,7 @@ PROTO_4:
        77 MOVE                             R10 R8
        78 RETURN                           R9 2
 
-PROTO_5:
+PROTO_6:
         0 NEWTABLE                         R3 0 0
         2 LOADNIL                          R4
         3 DUPTABLE                         R5 K4 [{[1] = 25, ["sortOrder"] = "Asc"}]
@@ -236,7 +260,7 @@ PROTO_5:
        75 JUMPBACK                         ; [-73]
        76 RETURN                           R3 1
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["_networking"]
         2 LOADK                            R5 K1 ["groups"]
         3 LOADK                            R7 K2 ["/v1/groups/"]
@@ -263,7 +287,7 @@ PROTO_6:
        36 SETTABLEKS                       R5 R4 K13 ["isPrivate"]
        38 RETURN                           R4 1
 
-PROTO_7:
+PROTO_8:
         0 GETTABLEKS                       R4 R0 K0 ["_networking"]
         2 LOADK                            R6 K1 ["groups"]
         3 LOADK                            R8 K2 ["/v1/groups/"]
@@ -280,7 +304,7 @@ PROTO_7:
        16 CALL                             R4 1 0
        17 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R4 R0 K0 ["_networking"]
         2 LOADK                            R6 K1 ["groups"]
         3 LOADK                            R8 K2 ["/v1/groups/"]
@@ -297,7 +321,7 @@ PROTO_8:
        16 CALL                             R4 1 0
        17 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETTABLEKS                       R4 R0 K0 ["_networking"]
         2 LOADK                            R6 K1 ["groups"]
         3 LOADK                            R8 K2 ["/v2/groups/"]
@@ -320,7 +344,7 @@ PROTO_9:
        26 CALL                             R4 1 0
        27 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETTABLEKS                       R4 R0 K0 ["_networking"]
         2 LOADK                            R6 K1 ["groups"]
         3 LOADK                            R8 K2 ["/v2/groups/"]
@@ -367,25 +391,27 @@ MAIN:
        35 DUPCLOSURE                       R4 K12 [PROTO_1]
        36 SETTABLEKS                       R4 R3 K13 ["getAssignment"]
        38 DUPCLOSURE                       R4 K14 [PROTO_2]
-       39 CAPTURE                          VAL R1
-       40 SETTABLEKS                       R4 R3 K15 ["getAllRoles"]
-       42 DUPCLOSURE                       R4 K16 [PROTO_3]
-       43 SETTABLEKS                       R4 R3 K17 ["getGroupMembersPage"]
+       39 SETTABLEKS                       R4 R3 K15 ["getCanAssignRole"]
+       41 DUPCLOSURE                       R4 K16 [PROTO_3]
+       42 CAPTURE                          VAL R1
+       43 SETTABLEKS                       R4 R3 K17 ["getAllRoles"]
        45 DUPCLOSURE                       R4 K18 [PROTO_4]
-       46 SETTABLEKS                       R4 R3 K19 ["searchGroupMembers"]
+       46 SETTABLEKS                       R4 R3 K19 ["getGroupMembersPage"]
        48 DUPCLOSURE                       R4 K20 [PROTO_5]
-       49 SETTABLEKS                       R4 R3 K21 ["getRoleMembers"]
+       49 SETTABLEKS                       R4 R3 K21 ["searchGroupMembers"]
        51 DUPCLOSURE                       R4 K22 [PROTO_6]
-       52 SETTABLEKS                       R4 R3 K23 ["createRole"]
+       52 SETTABLEKS                       R4 R3 K23 ["getRoleMembers"]
        54 DUPCLOSURE                       R4 K24 [PROTO_7]
-       55 SETTABLEKS                       R4 R3 K25 ["addMember"]
+       55 SETTABLEKS                       R4 R3 K25 ["createRole"]
        57 DUPCLOSURE                       R4 K26 [PROTO_8]
-       58 SETTABLEKS                       R4 R3 K27 ["removeMember"]
+       58 SETTABLEKS                       R4 R3 K27 ["addMember"]
        60 DUPCLOSURE                       R4 K28 [PROTO_9]
-       61 SETTABLEKS                       R4 R3 K29 ["grantPermission"]
+       61 SETTABLEKS                       R4 R3 K29 ["removeMember"]
        63 DUPCLOSURE                       R4 K30 [PROTO_10]
-       64 SETTABLEKS                       R4 R3 K31 ["revokePermission"]
-       66 MOVE                             R4 R2
-       67 CALL                             R4 0 1
-       68 SETTABLEKS                       R4 R3 K32 ["MAX_EARLY_TESTER_MEMBERS"]
-       70 RETURN                           R3 1
+       64 SETTABLEKS                       R4 R3 K31 ["grantPermission"]
+       66 DUPCLOSURE                       R4 K32 [PROTO_11]
+       67 SETTABLEKS                       R4 R3 K33 ["revokePermission"]
+       69 MOVE                             R4 R2
+       70 CALL                             R4 0 1
+       71 SETTABLEKS                       R4 R3 K34 ["MAX_EARLY_TESTER_MEMBERS"]
+       73 RETURN                           R3 1

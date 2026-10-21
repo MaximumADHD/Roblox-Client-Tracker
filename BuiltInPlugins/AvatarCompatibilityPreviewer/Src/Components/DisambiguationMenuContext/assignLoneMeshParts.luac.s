@@ -1,30 +1,4 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 GETUPVAL                         R3 1
-        3 GETTABLEKS                       R3 R3 K0 ["LIMBS"]
-        5 LOADNIL                          R4
-        6 LOADNIL                          R5
-        7 FORGPREP                         R3
-        8 MOVE                             R10 R7
-        9 NAMECALL                         R8 R0 K1 ["FindFirstChild"]
-       11 CALL                             R8 2 1
-       12 JUMPIFEQKNIL                     R8 ; [+14]
-       14 MOVE                             R11 R1
-       15 MOVE                             R12 R2
-       16 NAMECALL                         R9 R8 K1 ["FindFirstChild"]
-       18 CALL                             R9 3 1
-       19 JUMPIFEQKNIL                     R9 ; [+7]
-       21 LOADK                            R12 K2 ["Attachment"]
-       22 NAMECALL                         R10 R9 K3 ["IsA"]
-       24 CALL                             R10 2 1
-       25 JUMPIFNOT                        R10 ; [+1]
-       26 RETURN                           R9 1
-       27 FORGLOOP                         R3 2 ; [-20]
-       29 LOADNIL                          R3
-       30 RETURN                           R3 1
-
-PROTO_1:
         0 MOVE                             R1 R0
         1 LOADNIL                          R2
         2 LOADNIL                          R3
@@ -260,12 +234,14 @@ MAIN:
        36 GETTABLEKS                       R5 R5 K10 ["Util"]
        38 GETTABLEKS                       R5 R5 K12 ["HumanoidValueUtil"]
        40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K13 [PROTO_0]
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          VAL R3
-       44 DUPCLOSURE                       R6 K14 [PROTO_1]
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R4
-       49 RETURN                           R6 1
+       41 GETIMPORT                        R5 K5 [require]
+       43 GETTABLEKS                       R6 R0 K6 ["Src"]
+       45 GETTABLEKS                       R6 R6 K10 ["Util"]
+       47 GETTABLEKS                       R6 R6 K13 ["findAssociatedAttachment"]
+       49 CALL                             R5 1 1
+       50 DUPCLOSURE                       R6 K14 [PROTO_0]
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R4
+       55 RETURN                           R6 1

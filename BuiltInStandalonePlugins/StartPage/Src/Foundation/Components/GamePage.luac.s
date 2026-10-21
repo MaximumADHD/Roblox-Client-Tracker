@@ -1161,88 +1161,76 @@ MAIN:
       365 GETTABLEKS                       R53 R53 K65 ["getFStringLuaStartPageOSDeprecationLink"]
       367 CALL                             R52 1 1
       368 CALL                             R52 0 1
-      369 GETIMPORT                        R53 K5 [require]
-      371 GETTABLEKS                       R54 R0 K10 ["Src"]
-      373 GETTABLEKS                       R54 R54 K16 ["SharedFlags"]
-      375 GETTABLEKS                       R54 R54 K66 ["getFFlagLuaStartPageBuilderIcons"]
-      377 CALL                             R53 1 1
-      378 CALL                             R53 0 1
-      379 GETIMPORT                        R54 K69 [UDim2.fromOffset]
-      381 LOADN                            R55 16
-      382 LOADN                            R56 16
-      383 CALL                             R54 2 1
-      384 DUPTABLE                         R55 K76 [{["label"] = "", ["width"], ["size"], ["maxHeight"] = 300}]
-      385 GETIMPORT                        R56 K79 [UDim.new]
-      387 LOADN                            R57 0
-      388 LOADN                            R58 186
-      389 CALL                             R56 2 1
-      390 SETTABLEKS                       R56 R55 K72 ["width"]
-      392 GETTABLEKS                       R56 R33 K80 ["Small"]
-      394 SETTABLEKS                       R56 R55 K73 ["size"]
-      396 NEWTABLE                         R56 0 2
-      398 DUPTABLE                         R57 K86 [{["id"] = "grid", ["icon"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/Grid.png", ["name"]}]
-      399 JUMPIFNOT                        R53 ; [+3]
-      400 GETTABLEKS                       R58 R34 K35 ["Grid"]
-      402 JUMP                             ; [+1]
-      403 LOADNIL                          R58
-      404 SETTABLEKS                       R58 R57 K85 ["name"]
-      406 DUPTABLE                         R58 K89 [{["id"] = "list", ["icon"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/Lilst.png", ["name"]}]
-      407 JUMPIFNOT                        R53 ; [+3]
-      408 GETTABLEKS                       R59 R34 K90 ["ListBulleted"]
-      410 JUMP                             ; [+1]
-      411 LOADNIL                          R59
-      412 SETTABLEKS                       R59 R58 K85 ["name"]
-      414 SETLIST                          R56 R57 2 [1]
-      416 DUPCLOSURE                       R57 K91 [PROTO_1]
-      417 CAPTURE                          VAL R19
-      418 DUPCLOSURE                       R58 K92 [PROTO_2]
-      419 DUPCLOSURE                       R59 K93 [PROTO_24]
-      420 CAPTURE                          VAL R50
-      421 CAPTURE                          VAL R39
-      422 CAPTURE                          VAL R23
-      423 CAPTURE                          VAL R2
-      424 CAPTURE                          VAL R3
-      425 CAPTURE                          VAL R5
-      426 CAPTURE                          VAL R45
-      427 CAPTURE                          VAL R19
-      428 CAPTURE                          VAL R20
-      429 CAPTURE                          VAL R22
-      430 CAPTURE                          VAL R9
-      431 CAPTURE                          VAL R8
-      432 CAPTURE                          VAL R48
-      433 CAPTURE                          VAL R49
-      434 CAPTURE                          VAL R41
-      435 CAPTURE                          VAL R6
-      436 CAPTURE                          VAL R7
-      437 CAPTURE                          VAL R1
-      438 CAPTURE                          VAL R31
-      439 CAPTURE                          VAL R35
-      440 CAPTURE                          VAL R36
-      441 CAPTURE                          VAL R37
-      442 CAPTURE                          VAL R38
-      443 CAPTURE                          VAL R15
-      444 CAPTURE                          VAL R14
-      445 CAPTURE                          VAL R16
-      446 CAPTURE                          VAL R11
-      447 CAPTURE                          VAL R17
-      448 CAPTURE                          VAL R10
-      449 CAPTURE                          VAL R12
-      450 CAPTURE                          VAL R13
-      451 CAPTURE                          VAL R26
-      452 CAPTURE                          VAL R52
-      453 CAPTURE                          VAL R28
-      454 CAPTURE                          VAL R43
-      455 CAPTURE                          VAL R40
-      456 CAPTURE                          VAL R42
-      457 CAPTURE                          VAL R32
-      458 CAPTURE                          VAL R18
-      459 CAPTURE                          VAL R55
-      460 CAPTURE                          VAL R27
-      461 CAPTURE                          VAL R56
-      462 CAPTURE                          VAL R29
-      463 CAPTURE                          VAL R25
-      464 CAPTURE                          VAL R46
-      465 CAPTURE                          VAL R44
-      466 CAPTURE                          VAL R47
-      467 CAPTURE                          VAL R54
-      468 RETURN                           R59 1
+      369 GETIMPORT                        R53 K68 [UDim2.fromOffset]
+      371 LOADN                            R54 16
+      372 LOADN                            R55 16
+      373 CALL                             R53 2 1
+      374 DUPTABLE                         R54 K75 [{["label"] = "", ["width"], ["size"], ["maxHeight"] = 300}]
+      375 GETIMPORT                        R55 K78 [UDim.new]
+      377 LOADN                            R56 0
+      378 LOADN                            R57 186
+      379 CALL                             R55 2 1
+      380 SETTABLEKS                       R55 R54 K71 ["width"]
+      382 GETTABLEKS                       R55 R33 K79 ["Small"]
+      384 SETTABLEKS                       R55 R54 K72 ["size"]
+      386 NEWTABLE                         R55 0 2
+      388 DUPTABLE                         R56 K83 [{["id"] = "grid", ["name"]}]
+      389 GETTABLEKS                       R57 R34 K35 ["Grid"]
+      391 SETTABLEKS                       R57 R56 K82 ["name"]
+      393 DUPTABLE                         R57 K85 [{["id"] = "list", ["name"]}]
+      394 GETTABLEKS                       R58 R34 K86 ["ListBulleted"]
+      396 SETTABLEKS                       R58 R57 K82 ["name"]
+      398 SETLIST                          R55 R56 2 [1]
+      400 DUPCLOSURE                       R56 K87 [PROTO_1]
+      401 CAPTURE                          VAL R19
+      402 DUPCLOSURE                       R57 K88 [PROTO_2]
+      403 DUPCLOSURE                       R58 K89 [PROTO_24]
+      404 CAPTURE                          VAL R50
+      405 CAPTURE                          VAL R39
+      406 CAPTURE                          VAL R23
+      407 CAPTURE                          VAL R2
+      408 CAPTURE                          VAL R3
+      409 CAPTURE                          VAL R5
+      410 CAPTURE                          VAL R45
+      411 CAPTURE                          VAL R19
+      412 CAPTURE                          VAL R20
+      413 CAPTURE                          VAL R22
+      414 CAPTURE                          VAL R9
+      415 CAPTURE                          VAL R8
+      416 CAPTURE                          VAL R48
+      417 CAPTURE                          VAL R49
+      418 CAPTURE                          VAL R41
+      419 CAPTURE                          VAL R6
+      420 CAPTURE                          VAL R7
+      421 CAPTURE                          VAL R1
+      422 CAPTURE                          VAL R31
+      423 CAPTURE                          VAL R35
+      424 CAPTURE                          VAL R36
+      425 CAPTURE                          VAL R37
+      426 CAPTURE                          VAL R38
+      427 CAPTURE                          VAL R15
+      428 CAPTURE                          VAL R14
+      429 CAPTURE                          VAL R16
+      430 CAPTURE                          VAL R11
+      431 CAPTURE                          VAL R17
+      432 CAPTURE                          VAL R10
+      433 CAPTURE                          VAL R12
+      434 CAPTURE                          VAL R13
+      435 CAPTURE                          VAL R26
+      436 CAPTURE                          VAL R52
+      437 CAPTURE                          VAL R28
+      438 CAPTURE                          VAL R43
+      439 CAPTURE                          VAL R40
+      440 CAPTURE                          VAL R42
+      441 CAPTURE                          VAL R32
+      442 CAPTURE                          VAL R18
+      443 CAPTURE                          VAL R54
+      444 CAPTURE                          VAL R27
+      445 CAPTURE                          VAL R55
+      446 CAPTURE                          VAL R29
+      447 CAPTURE                          VAL R25
+      448 CAPTURE                          VAL R46
+      449 CAPTURE                          VAL R44
+      450 CAPTURE                          VAL R47
+      451 CAPTURE                          VAL R53
+      452 RETURN                           R58 1

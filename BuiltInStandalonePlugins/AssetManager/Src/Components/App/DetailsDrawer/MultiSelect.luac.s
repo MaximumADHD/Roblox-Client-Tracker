@@ -123,28 +123,51 @@ PROTO_1:
       107 MOVE                             R12 R4
       108 CALL                             R11 1 -1
       109 CALL                             R8 -1 0
-      110 GETUPVAL                         R8 1
-      111 GETTABLEKS                       R8 R8 K17 ["DrawerBody"]
-      113 GETTABLEKS                       R9 R0 K18 ["LayoutOrder"]
-      115 GETUPVAL                         R10 1
-      116 GETTABLEKS                       R10 R10 K19 ["ThumbnailSquare"]
-      118 GETUPVAL                         R11 5
-      119 GETTABLEKS                       R11 R11 K20 ["createElement"]
-      121 GETUPVAL                         R12 6
-      122 GETTABLEKS                       R12 R12 K21 ["Image"]
-      124 DUPTABLE                         R13 K26 [{["Image"], ["tag"] = "size-full", ["testId"] = "details-drawer-default-thumbnail"}]
-      125 GETUPVAL                         R14 7
-      126 GETTABLEKS                       R14 R14 K27 ["get"]
-      128 GETUPVAL                         R15 7
-      129 GETTABLEKS                       R15 R15 K28 ["AvailableImages"]
-      131 GETTABLEKS                       R15 R15 K29 ["DefaultThumbnail"]
-      133 CALL                             R14 1 1
-      134 SETTABLEKS                       R14 R13 K21 ["Image"]
-      136 CALL                             R11 2 -1
-      137 CALL                             R10 -1 1
-      138 MOVE                             R11 R6
-      139 CALL                             R8 3 -1
-      140 RETURN                           R8 -1
+      110 GETUPVAL                         R8 5
+      111 GETTABLEKS                       R8 R8 K17 ["createElement"]
+      113 GETUPVAL                         R9 1
+      114 GETTABLEKS                       R9 R9 K18 ["DrawerBody"]
+      116 DUPTABLE                         R10 K21 [{"LayoutOrder", "Thumbnail"}]
+      117 GETTABLEKS                       R11 R0 K19 ["LayoutOrder"]
+      119 SETTABLEKS                       R11 R10 K19 ["LayoutOrder"]
+      121 GETUPVAL                         R11 5
+      122 GETTABLEKS                       R11 R11 K17 ["createElement"]
+      124 GETUPVAL                         R12 1
+      125 GETTABLEKS                       R12 R12 K22 ["ThumbnailSquare"]
+      127 LOADNIL                          R13
+      128 DUPTABLE                         R14 K24 [{"Content"}]
+      129 GETUPVAL                         R15 5
+      130 GETTABLEKS                       R15 R15 K17 ["createElement"]
+      132 GETUPVAL                         R16 6
+      133 GETTABLEKS                       R16 R16 K25 ["Image"]
+      135 DUPTABLE                         R17 K30 [{["Image"], ["tag"] = "size-full", ["testId"] = "details-drawer-default-thumbnail"}]
+      136 GETUPVAL                         R18 7
+      137 GETTABLEKS                       R18 R18 K31 ["get"]
+      139 GETUPVAL                         R19 7
+      140 GETTABLEKS                       R19 R19 K32 ["AvailableImages"]
+      142 GETTABLEKS                       R19 R19 K33 ["DefaultThumbnail"]
+      144 CALL                             R18 1 1
+      145 SETTABLEKS                       R18 R17 K25 ["Image"]
+      147 CALL                             R15 2 1
+      148 SETTABLEKS                       R15 R14 K23 ["Content"]
+      150 CALL                             R11 3 1
+      151 SETTABLEKS                       R11 R10 K20 ["Thumbnail"]
+      153 DUPTABLE                         R11 K35 [{"Details"}]
+      154 GETUPVAL                         R12 5
+      155 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      157 GETUPVAL                         R13 1
+      158 GETTABLEKS                       R13 R13 K36 ["Section"]
+      160 DUPTABLE                         R14 K41 [{["LayoutOrder"] = 1, ["Title"], ["TestId"] = "details-drawer-details"}]
+      161 LOADK                            R17 K13 ["AssetProperty"]
+      162 LOADK                            R18 K34 ["Details"]
+      163 NAMECALL                         R15 R1 K8 ["getText"]
+      165 CALL                             R15 3 1
+      166 SETTABLEKS                       R15 R14 K38 ["Title"]
+      168 MOVE                             R15 R6
+      169 CALL                             R12 3 1
+      170 SETTABLEKS                       R12 R11 K34 ["Details"]
+      172 CALL                             R8 3 -1
+      173 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
