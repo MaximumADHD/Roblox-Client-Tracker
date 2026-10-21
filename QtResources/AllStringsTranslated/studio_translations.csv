@@ -8400,6 +8400,16 @@ Studio.Toolbox.Studio.Toolbox.AssetUploadResult.UpdateOriginalIdLabel,,,Original
 Studio.Toolbox.Studio.Toolbox.AssetUploadResult.UpdateRefIdLabel,,,Ref ID:,Ref ID:
 Studio.Toolbox.AssetUploadResult.UpdateOriginalIdLabel,,,Original ID:,Original ID:
 Studio.Toolbox.AssetUploadResult.UpdateRefIdLabel,,,Ref ID:,Ref ID:
+Studio.Toolbox.InventoryDeprecationBanner.Message,,,Toolbox inventory will be deprecated soon. Manage your inventory using the new Asset Manager.,Toolbox inventory will be deprecated soon. Manage your inventory using the new Asset Manager.
+Studio.Toolbox.InventoryDeprecationBanner.ReadMore,,,Read more,Read more
+Studio.Toolbox.AssetConfig.AvatarItemDialogHeadingDraftPublish,,,Publish and Make Open Use,Publish and Make Open Use
+Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionDraftPublishing,,,This can take a moment,This can take a moment
+Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionDraftPublish,,,{count:int} assets used by this item are drafts. They must be published and made open use before you can upload this item.,{count:int} assets used by this item are drafts. They must be published and made open use before you can upload this item.
+Studio.Toolbox.AssetConfig.AvatarItemDialogAcceptDraftPublish,,,Publish and Make Open Use,Publish and Make Open Use
+Studio.Toolbox.AssetConfig.AvatarItemDialogHeadingDraftPublishInProgress,,,Preparing Assets,Preparing Assets
+Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionDraftPublishSingular,,,An asset used by this item is a draft. It must be published and made open use before you can upload this item.,An asset used by this item is a draft. It must be published and made open use before you can upload this item.
+Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionPublishFailed,,,Some assets couldn't be published. See Output window for details.,Some assets couldn't be published. See Output window for details.
+Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionOpenUseFailed,,,Some assets couldn't be made open use. See Output window for details.,Some assets couldn't be made open use. See Output window for details.
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9851,6 +9861,18 @@ Studio.AssetManager.AssetType.Assets,,,Assets,Assets
 Studio.AssetManager.AssetStatus.Restricted,,,Restricted,Restricted
 Studio.AssetManager.AssetStatus.Draft,,,Draft,Draft
 Studio.AssetManager.AssetSource.Unknown,,,Unknown,Unknown
+Studio.AssetManager.AssetType.AnimatedImage,,,AnimatedImage,AnimatedImage
+Studio.AssetManager.AssetType.AnimatedImages,,,AnimatedImages,AnimatedImages
+Studio.AssetManager.Search.PreparingSearch,,,Preparing search...,Preparing search...
+Studio.AssetManager.Search.RefreshSearchIndex,,,Refresh,Refresh
+Studio.AssetManager.Tooltip.PreparingSearch,,,We're preparing your inventory to enable search and folders. This may take a few seconds to minutes.,We're preparing your inventory to enable search and folders. This may take a few seconds to minutes.
+Studio.AssetManager.Tooltip.RefreshSearchIndex,,,Try refreshing inventory status to enable search and folders.,Try refreshing inventory status to enable search and folders.
+Studio.AssetManager.SearchOptions.SearchResultsFor,,,Search results for '{query}',Search results for '{query}'
+Studio.AssetManager.AssetProperty.Details,,,Details,Details
+Studio.AssetManager.AssetProperty.Description,,,Description,Description
+Studio.AssetManager.AssetProperty.AssetTypeDetails,,,{assetType} Details,{assetType} Details
+Studio.AssetManager.ContextMenu.CopyUris,,,Copy URIs,Copy URIs
+Studio.AssetManager.Toast.ShowInFolderFailed,,,Could not open the folder for this item.,Could not open the folder for this item.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10253,6 +10275,7 @@ Studio.LayeredClothingEditor.Select.RejectCharacter,,,Characters can't be select
 Studio.LayeredClothingEditor.Select.RejectBodyPart,,,"This MeshPart has a WrapTarget, so it's treated as a body part. Remove the WrapTarget to fit it as an accessory.","This MeshPart has a WrapTarget, so it's treated as a body part. Remove the WrapTarget to fit it as an accessory."
 Studio.LayeredClothingEditor.Select.RejectMissingCageMesh,,,"This item's cage is missing a mesh. Set CageMeshId and ReferenceMeshId on its WrapLayer, or remove the WrapLayer.","This item's cage is missing a mesh. Set CageMeshId and ReferenceMeshId on its WrapLayer, or remove the WrapLayer."
 Studio.LayeredClothingEditor.Select.RejectUnsupportedType,,,"Select a MeshPart, an Accessory, or a Part with a SpecialMesh.","Select a MeshPart, an Accessory, or a Part with a SpecialMesh."
+Studio.LayeredClothingEditor.EditingMode.AutoWeightDisabled,,,Auto Skinning Behavior is set to Disabled,Auto Skinning Behavior is set to Disabled
 Studio.MeshImporter.Plugin.Name,,,MeshImporter,MeshImporter
 Studio.MeshImporter.Plugin.Toolbar,,,Mesh Importer,Mesh Importer
 Studio.MeshImporter.Plugin.Button,,,Import,Import
@@ -11310,7 +11333,7 @@ Studio.ManageCollaborators.Description.CopyingTeamTestLinkWillEnableTeamCreate,,
 Studio.ManageCollaborators.Title.EnableTeamCreate,,,Enable Team Create,Enable Team Create
 Studio.ManageCollaborators.Description.CopyingLinkWillEnableTeamCreate,,,Copying a link will relaunch Studio in Team Create,Copying a link will relaunch Studio in Team Create
 Studio.ManageCollaborators.Subtitle.SearchCollaborators,,,Search Collaborators,Search Collaborators
-Studio.ManageCollaborators.UpsellBanner.CTA,,,Get Started,Get Started
+Studio.ManageCollaborators.UpsellBanner.CTA,,,Get started,Get started
 Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating with others, we need you to age check before early 2026.","To keep collaborating with others, we need you to age check before early 2026."
 Studio.ManageCollaborators.UpsellDialog.title,,,One more step to collaborate with others who aren't in similar age groups,One more step to collaborate with others who aren't in similar age groups
 Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaboration with others who aren't in similar age groups, establish Trusted Connections or get parental consent.","To use Studio collaboration with others who aren't in similar age groups, establish Trusted Connections or get parental consent."
@@ -11402,6 +11425,7 @@ Studio.ManageCollaborators.Action.ManageRoles,,,Manage roles,Manage roles
 Studio.ManageCollaborators.Action.Verify,,,Verify,Verify
 Studio.ManageCollaborators.SearchBar.CantInviteLabel,,,Can't invite,Can't invite
 Studio.ManageCollaborators.SearchBar.CantInviteTooltip,,,Not everyone can be an early tester,Not everyone can be an early tester
+Studio.ManageCollaborators.Label.EarlyTesterRoleCopy,,,Early testers for {experienceName} ({universeId}),Early testers for {experienceName} ({universeId})
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -13063,6 +13087,17 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ContinueButtonLabel,,,Cont
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MarketplaceDiscoverabilityTitle,,,Discoverable in Marketplace,Discoverable in Marketplace
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MarketplaceDiscoverabilityDescription,,,"To make this avatar discoverable in the Marketplace, all included items must be on sale.","To make this avatar discoverable in the Marketplace, all included items must be on sale."
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.MarketplaceDiscoverabilityTooltip,,,This status may update if the sale status of any included item changes.,This status may update if the sale status of any included item changes.
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.ExportingAvatar,,,Exporting avatar,Exporting avatar
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.CancelPromptTitle,,,Cancel Avatar Generation,Cancel Avatar Generation
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.CancelPromptConfirmText,,,Are you sure you want to cancel avatar generation?,Are you sure you want to cancel avatar generation?
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.SettingUpBody,,,Setting up body,Setting up body
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.GeneratingBody,,,Generating body,Generating body
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.GenerateDynamicHead,,,Generate dynamic head,Generate dynamic head
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.GenerateDynamicHeadDetail,,,Create FACS controls for facial animation,Create FACS controls for facial animation
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StagesRunning,,,{count} running,{count} running
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StagesWaiting,,,{count} waiting,{count} waiting
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StagesCompleted,,,{count} completed,{count} completed
+Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.OtherStages,,,(+{count} more),(+{count} more)
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13682,6 +13717,10 @@ Studio.Actions.PluginScreenshot.CopiedToClipboard,,,Plugin screenshot copied to 
 Studio.Actions.Action.PluginScreenshot.Text,,,Plugin Screenshot,Plugin Screenshot
 Studio.Actions.Action.PluginScreenshot.Tooltip,,,Capture a plugin window,Capture a plugin window
 Studio.Actions.PluginScreenshot.NoWindows,,,No visible plugin windows to capture,No visible plugin windows to capture
+Studio.Actions.Title.CopyAsLua,,,Copy as Lua,Copy as Lua
+Studio.Actions.Tooltip.CopyAsLua,,,Copy the selected instances to the clipboard as Lua,Copy the selected instances to the clipboard as Lua
+Studio.Actions.Title.CopyAsJson,,,Copy as JSON,Copy as JSON
+Studio.Actions.Tooltip.CopyAsJson,,,Copy the selected instances to the clipboard as JSON,Copy the selected instances to the clipboard as JSON
 Studio.PathEditor.Plugin.Name,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Toolbar,,,PathEditor,PathEditor
 Studio.PathEditor.Plugin.Button,,,Toggle,Toggle
@@ -15534,6 +15573,122 @@ Studio.Assistant.CreditMetering.RobuxAvailable,,,{balance} available,{balance} a
 Studio.Assistant.CreditMetering.YoureOutOfRobux,,,You're out of Robux,You're out of Robux
 Studio.Assistant.CreditMetering.BuyMoreToKeepGoing,,,Buy more to keep going.,Buy more to keep going.
 Studio.Assistant.ErrorMessage.QuotaExceededAPIKeyCMS,,,"The server is temporarily unavailable. Please try again later, or add your own API key to continue using Assistant.","The server is temporarily unavailable. Please try again later, or add your own API key to continue using Assistant."
+Studio.Assistant.Permissions.HttpDomainPlaceholder,,,example.com or *.example.com,example.com or *.example.com
+Studio.Assistant.Permissions.LoadError,,,Couldn't load permissions,Couldn't load permissions
+Studio.Assistant.Permissions.Retry,,,Retry,Retry
+Studio.Assistant.Permissions.Loading,,,Loading...,Loading...
+Studio.Assistant.Permissions.Description,,,Manage approval for MCP actions that can access sensitive data or make irreversible changes.,Manage approval for MCP actions that can access sensitive data or make irreversible changes.
+Studio.Assistant.Permissions.SaveError,,,"Save failed, please try again","Save failed, please try again"
+Studio.Assistant.Permissions.AccessLevel,,,Access level,Access level
+Studio.Assistant.Permissions.Custom,,,Custom,Custom
+Studio.Assistant.Permissions.RestoreDefault,,,Restore default,Restore default
+Studio.Assistant.Permissions.Deny,,,Deny,Deny
+Studio.Assistant.Permissions.Allow,,,Allow,Allow
+Studio.Assistant.Permissions.CapabilitiesCount,,,{count} capabilities,{count} capabilities
+Studio.Assistant.Permissions.MixedCapabilitiesCount,,,"{allowed} allowed, {denied} denied","{allowed} allowed, {denied} denied"
+Studio.Assistant.Permissions.HttpDomainAllowList,,,HTTP domain allow list,HTTP domain allow list
+Studio.Assistant.Permissions.NoDomainsAllowed,,,No domains allowed.,No domains allowed.
+Studio.Assistant.Permissions.UncategorizedCategory,,,Other,Other
+Studio.Assistant.Permissions.PresetSafeName,,,Safe,Safe
+Studio.Assistant.Permissions.PresetSafeDescription,,,Only the lowest-risk permissions.,Only the lowest-risk permissions.
+Studio.Assistant.Permissions.PresetBalancedName,,,Balanced,Balanced
+Studio.Assistant.Permissions.PresetBalancedDescription,,,"Low and moderate-risk permissions, such as reading and listing data.","Low and moderate-risk permissions, such as reading and listing data."
+Studio.Assistant.Permissions.PresetFullAccessName,,,Full access,Full access
+Studio.Assistant.Permissions.PresetFullAccessDescription,,,"Every supported permission, including high-risk writes and network access.","Every supported permission, including high-risk writes and network access."
+Studio.Assistant.Permissions.PresetCustomName,,,Custom,Custom
+Studio.Assistant.Permissions.PresetCustomDescription,,,Manual selections per permission.,Manual selections per permission.
+Studio.Assistant.Studio.Assistant.Permissions.CategorySocialDescription,,,"Work with players, notifications, groups, avatars, and messaging.","Work with players, notifications, groups, avatars, and messaging."
+Studio.Assistant.Studio.Assistant.Permissions.CategoryInternetDescription,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Assistant.Studio.Assistant.Permissions.CategoryLookAtGameName,,,Look at your game,Look at your game
+Studio.Assistant.Studio.Assistant.Permissions.CategoryDataDescription,,,Access data stores and memory stores.,Access data stores and memory stores.
+Studio.Assistant.Studio.Assistant.Permissions.CategoryLookAtGameDescription,,,"Inspect the place, read scripts, and check logs. Nothing is changed.","Inspect the place, read scripts, and check logs. Nothing is changed."
+Studio.Assistant.Studio.Assistant.Permissions.CategoryEditGameName,,,Edit your game,Edit your game
+Studio.Assistant.Studio.Assistant.Permissions.CategoryEditGameDescription,,,"Build and modify parts, scripts, UI, audio, and the environment.","Build and modify parts, scripts, UI, audio, and the environment."
+Studio.Assistant.Studio.Assistant.Permissions.CategorySocialName,,,Players & social,Players & social
+Studio.Assistant.Studio.Assistant.Permissions.CategoryDataName,,,Save & load data,Save & load data
+Studio.Assistant.Studio.Assistant.Permissions.CategoryInternetName,,,Connect to the internet,Connect to the internet
+Studio.Assistant.Studio.Assistant.Permissions.CategoryAssetsName,,,Publish & manage assets,Publish & manage assets
+Studio.Assistant.Studio.Assistant.Permissions.CategoryAssetsDescription,,,Create or update assets and manage existing ones.,Create or update assets and manage existing ones.
+Studio.Assistant.Studio.Assistant.Permissions.CategoryMonetizationName,,,Money & monetization,Money & monetization
+Studio.Assistant.Studio.Assistant.Permissions.CategoryMonetizationDescription,,,Configure monetization and spend Robux-backed actions.,Configure monetization and spend Robux-backed actions.
+Studio.Assistant.Studio.Assistant.Permissions.CategoryEnforcementName,,,Player consequences,Player consequences
+Studio.Assistant.Studio.Assistant.Permissions.CategoryEnforcementDescription,,,Take enforcement actions against players.,Take enforcement actions against players.
+Studio.Assistant.Studio.Assistant.Permissions.CategorySecurityName,,,Security & credentials,Security & credentials
+Studio.Assistant.Studio.Assistant.Permissions.CategorySecurityDescription,,,"Manage credentials, secrets, sandboxes, and execute Studio actions.","Manage credentials, secrets, sandboxes, and execute Studio actions."
+Studio.Assistant.Permissions.CategoryLookAtGameName,,,Look at your game,Look at your game
+Studio.Assistant.Permissions.CategoryLookAtGameDescription,,,"Inspect the place, read scripts, and check logs. Nothing is changed.","Inspect the place, read scripts, and check logs. Nothing is changed."
+Studio.Assistant.Permissions.CategoryEditGameName,,,Edit your game,Edit your game
+Studio.Assistant.Permissions.CategoryEditGameDescription,,,"Build and modify parts, scripts, UI, audio, and the environment.","Build and modify parts, scripts, UI, audio, and the environment."
+Studio.Assistant.Permissions.CategorySocialName,,,Players & social,Players & social
+Studio.Assistant.Permissions.CategorySocialDescription,,,"Work with players, notifications, groups, avatars, and messaging.","Work with players, notifications, groups, avatars, and messaging."
+Studio.Assistant.Permissions.CategoryDataName,,,Save & load data,Save & load data
+Studio.Assistant.Permissions.CategoryDataDescription,,,Access data stores and memory stores.,Access data stores and memory stores.
+Studio.Assistant.Permissions.CategoryInternetName,,,Connect to the internet,Connect to the internet
+Studio.Assistant.Permissions.CategoryInternetDescription,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Assistant.Permissions.CategoryAssetsName,,,Publish & manage assets,Publish & manage assets
+Studio.Assistant.Permissions.CategoryAssetsDescription,,,Create or update assets and manage existing ones.,Create or update assets and manage existing ones.
+Studio.Assistant.Permissions.CategoryMonetizationName,,,Money & monetization,Money & monetization
+Studio.Assistant.Permissions.CategoryMonetizationDescription,,,Configure monetization and spend Robux-backed actions.,Configure monetization and spend Robux-backed actions.
+Studio.Assistant.Permissions.CategoryEnforcementName,,,Player consequences,Player consequences
+Studio.Assistant.Permissions.CategoryEnforcementDescription,,,Take enforcement actions against players.,Take enforcement actions against players.
+Studio.Assistant.Permissions.CategorySecurityName,,,Security & credentials,Security & credentials
+Studio.Assistant.Permissions.CategorySecurityDescription,,,"Manage credentials, secrets, sandboxes, and execute Studio actions.","Manage credentials, secrets, sandboxes, and execute Studio actions."
+Studio.Assistant.Permissions.CapNetwork,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Assistant.Permissions.ScopeUniverseRead,,,Read experience configuration and metadata.,Read experience configuration and metadata.
+Studio.Assistant.Permissions.ScopePlaceRead,,,Read place configuration and metadata.,Read place configuration and metadata.
+Studio.Assistant.Permissions.ScopeGamePassRead,,,View game passes.,View game passes.
+Studio.Assistant.Permissions.ScopeGamePassWrite,,,Create and modify game passes.,Create and modify game passes.
+Studio.Assistant.Permissions.ScopeDataStoreRead,,,Read data store entries.,Read data store entries.
+Studio.Assistant.Permissions.ScopeDataStoreUpdate,,,Create and update data store entries.,Create and update data store entries.
+Studio.Assistant.Permissions.ScopeDataStoreDelete,,,Delete data store entries.,Delete data store entries.
+Studio.Assistant.Permissions.ScopeDataStoreVersionList,,,List data store entry versions.,List data store entry versions.
+Studio.Assistant.Permissions.ScopeDataStoreList,,,List data store entries.,List data store entries.
+Studio.Assistant.Permissions.ScopeDevProductRead,,,Read developer product definitions and metadata for a universe.,Read developer product definitions and metadata for a universe.
+Studio.Assistant.Permissions.ScopeDevProductWrite,,,Create and update developer products for a universe.,Create and update developer products for a universe.
+Studio.Assistant.Permissions.ScopeGroupRead,,,"Read group roles, membership details, and join requests.","Read group roles, membership details, and join requests."
+Studio.Assistant.Permissions.ScopeSubscriptionRead,,,Read a user's subscription to a universe subscription product.,Read a user's subscription to a universe subscription product.
+Studio.Assistant.Permissions.ScopeOrderedDataStoreRead,,,Read entries from an ordered data store scope.,Read entries from an ordered data store scope.
+Studio.Assistant.Permissions.ScopeOrderedDataStoreWrite,,,"Create, update, delete, and increment ordered data store entries.","Create, update, delete, and increment ordered data store entries."
+Studio.Assistant.Permissions.ScopeMemoryQueueAdd,,,Add items to a memory store queue.,Add items to a memory store queue.
+Studio.Assistant.Permissions.ScopeMemoryQueueDequeue,,,Read and dequeue items from a memory store queue.,Read and dequeue items from a memory store queue.
+Studio.Assistant.Permissions.ScopeMemoryQueueDiscard,,,Discard items from a memory store queue.,Discard items from a memory store queue.
+Studio.Assistant.Permissions.ScopeMemorySortedMapRead,,,Read items from a memory store sorted map.,Read items from a memory store sorted map.
+Studio.Assistant.Permissions.ScopeMemorySortedMapWrite,,,"Create, update, and delete memory store sorted map items.","Create, update, and delete memory store sorted map items."
+Studio.Assistant.Permissions.ScopeMemoryStoreFlush,,,Flush all memory store data for a universe.,Flush all memory store data for a universe.
+Studio.Assistant.Permissions.ScopeMemoryStoreGet,,,Read the status of a memory store operation.,Read the status of a memory store operation.
+Studio.Assistant.Permissions.ScopeUniverseWrite,,,"Modify universe-level data: configs, experiments, publishing, server restarts, metadata.","Modify universe-level data: configs, experiments, publishing, server restarts, metadata."
+Studio.Assistant.Permissions.ScopeSecretWrite,,,"Create, update, and delete universe secrets.","Create, update, and delete universe secrets."
+Studio.Assistant.Permissions.ScopeMessagingPublish,,,Publish messages to cross-server messaging topics in a universe.,Publish messages to cross-server messaging topics in a universe.
+Studio.Assistant.Permissions.ScopeSecretRead,,,Read universe secret metadata and the encryption public key.,Read universe secret metadata and the encryption public key.
+Studio.Assistant.Permissions.ScopePlaceWrite,,,Update place configuration and add version notes.,Update place configuration and add version notes.
+Studio.Assistant.Permissions.ScopeInstanceRead,,,Read instances (data model objects) within a place.,Read instances (data model objects) within a place.
+Studio.Assistant.Permissions.ScopeInstanceWrite,,,Update instances (data model objects) within a place.,Update instances (data model objects) within a place.
+Studio.Assistant.Permissions.ScopePlacePublish,,,Publish new place versions.,Publish new place versions.
+Studio.Assistant.Permissions.ScopeLuauExecutionRead,,,Read Luau execution session task status and logs.,Read Luau execution session task status and logs.
+Studio.Assistant.Permissions.ScopeLuauExecutionWrite,,,Create and run Luau execution session tasks.,Create and run Luau execution session tasks.
+Studio.Assistant.Permissions.ScopeUserRestrictionRead,,,Read user restrictions (bans) and restriction logs for a universe or place.,Read user restrictions (bans) and restriction logs for a universe or place.
+Studio.Assistant.Permissions.ScopeUserRestrictionWrite,,,Create and update user restrictions (bans) for a universe or place.,Create and update user restrictions (bans) for a universe or place.
+Studio.Assistant.Permissions.ScopeAssetRead,,,"Read asset metadata, versions, and quotas.","Read asset metadata, versions, and quotas."
+Studio.Assistant.Permissions.ScopeAssetWrite,,,"Upload, update, archive, restore, and roll back assets.","Upload, update, archive, restore, and roll back assets."
+Studio.Assistant.Permissions.ScopeAssetPermissionsWrite,,,Modify permissions on an asset.,Modify permissions on an asset.
+Studio.Assistant.Permissions.ScopeStoreProductRead,,,Read Creator Store product listings and search the toolbox.,Read Creator Store product listings and search the toolbox.
+Studio.Assistant.Permissions.ScopeStoreProductWrite,,,Create and update Creator Store products.,Create and update Creator Store products.
+Studio.Assistant.Permissions.ScopeStoreSaveRead,,,Read a user's Creator Store saved items.,Read a user's Creator Store saved items.
+Studio.Assistant.Permissions.ScopeStoreSaveWrite,,,Create and delete a user's Creator Store saved items.,Create and delete a user's Creator Store saved items.
+Studio.Assistant.Permissions.ScopeGroupWrite,,,"Manage group memberships, role assignments, and join requests.","Manage group memberships, role assignments, and join requests."
+Studio.Assistant.Permissions.ScopeGroupForumRead,,,"Read group forum categories, posts, and comments.","Read group forum categories, posts, and comments."
+Studio.Assistant.Permissions.ScopeUserAdvancedRead,,,Read advanced user profile fields.,Read advanced user profile fields.
+Studio.Assistant.Permissions.ScopeUserSocialRead,,,Read a user's social profile information.,Read a user's social profile information.
+Studio.Assistant.Permissions.ScopeUserInventoryRead,,,Read items in a user's inventory.,Read items in a user's inventory.
+Studio.Assistant.Permissions.ScopeUserNotificationWrite,,,Send notifications to a user.,Send notifications to a user.
+Studio.Assistant.Permissions.ScopeEventRead,,,Read game events (virtual events) for a universe.,Read game events (virtual events) for a universe.
+Studio.Assistant.Permissions.ScopeEventWrite,,,"Create, update, and delete game events (virtual events).","Create, update, and delete game events (virtual events)."
+Studio.Assistant.Permissions.ScopeThumbnailRead,,,Read universe thumbnails and personalization settings.,Read universe thumbnails and personalization settings.
+Studio.Assistant.Permissions.ScopeThumbnailWrite,,,"Upload, delete, and personalize universe thumbnails.","Upload, delete, and personalize universe thumbnails."
+Studio.Assistant.Permissions.ScopeAnalyticsRead,,,Query universe analytics metrics and dimension values.,Query universe analytics metrics and dimension values.
+Studio.Assistant.Permissions.ScopeAdCampaignRead,,,"Read ad campaigns, creatives, and campaign options.","Read ad campaigns, creatives, and campaign options."
+Studio.Assistant.Permissions.ScopeAdCampaignWrite,,,Create and update ad campaigns.,Create and update ad campaigns.
+Studio.Assistant.Permissions.ScopeAdBillingRead,,,Read ad billing account information.,Read ad billing account information.
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -16311,6 +16466,10 @@ Studio.BetaFeatures.LuauIfLocalTitle,,,If Local/Const Bindings,If Local/Const Bi
 Studio.BetaFeatures.LuauIfLocalDescription,,,Enables Luau scripting support for named conditional bindings,Enables Luau scripting support for named conditional bindings
 Studio.BetaFeatures.AnimationGraphStateMachineTitle,,,Animation Graph State Machines,Animation Graph State Machines
 Studio.BetaFeatures.AnimationGraphStateMachineDescription,,,Create state machines and use Luau expressions in animation graphs.,Create state machines and use Luau expressions in animation graphs.
+Studio.BetaFeatures.PluginKeyboardNavigationTitle,,,Keyboard Navigation,Keyboard Navigation
+Studio.BetaFeatures.PluginKeyboardNavigationDescription,,,"Enables studio ui keyboard navigation with Tab and Shift + Tab. This is a breaking change for plugins, as Tab is now sunk within widgets.","Enables studio ui keyboard navigation with Tab and Shift + Tab. This is a breaking change for plugins, as Tab is now sunk within widgets."
+Studio.BetaFeatures.PrimalSolverTitle,,,Primal Physics Solver,Primal Physics Solver
+Studio.BetaFeatures.PrimalSolverDescription,,,A new physics solver (Primal) offering improved constraint stability and convergence.,A new physics solver (Primal) offering improved constraint stability and convergence.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -17253,7 +17412,7 @@ Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedConnectionsDescription,,,"To
 Studio.TeamCreate.SafetyEvictDialog.GetParentPermission,,,Ask parent,Ask parent
 Studio.TeamCreate.SafetyEvictDialog.OwnerFurtherAction,,,"To collaborate on this experience, the owner needs to take further action","To collaborate on this experience, the owner needs to take further action"
 Studio.TeamCreate.SafetyEvictDialog.OwnerFurtherActionDescription,,,People in different age groups need additional steps to work together on Studio.,People in different age groups need additional steps to work together on Studio.
-Studio.TeamCreate.SafetyEvictDialog.VerifyButton,,,Verify,Verify
+Studio.TeamCreate.SafetyEvictDialog.VerifyButton,,,Continue,Continue
 Studio.TeamCreate.SafetyEvictDialog.VerifyYourAge,,,Verify your age,Verify your age
 Studio.TeamCreate.SafetyEvictDialog.VerifyYourAgeDescription,,,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
@@ -17509,6 +17668,7 @@ Studio.InputActionManager.Menu.ResponseCurve,,,Response Curve,Response Curve
 Studio.InputActionManager.Menu.Priority,,,Priority,Priority
 Studio.InputActionManager.Menu.Scriptable,,,Scriptable Binding,Scriptable Binding
 Studio.InputActionManager.Filter.PlayerScripts,,,PlayerScripts,PlayerScripts
+Studio.InputActionManager.Header.ShowAll,,,Show All,Show All
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
@@ -17639,11 +17799,15 @@ Studio.DeviceSimulator.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),S
 Studio.DeviceSimulator.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
 Studio.SurfaceAppearancePropertyItem.SurfaceSlot.All,,,All,All
 Studio.SurfaceAppearancePropertyItem.SurfaceSlot.Invalid,,,"This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All.","This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All."
-Studio.CollectionDebugger.Plugin.Name,,,Collections,Collections
+Studio.CollectionDebugger.Plugin.Name,,,Collection Debugger,Collection Debugger
 Studio.CollectionDebugger.Plugin.Description,,,Inspects collections and their callbacks,Inspects collections and their callbacks
 Studio.CollectionDebugger.App.FilterPlaceholder,,,Filter collections,Filter collections
 Studio.CollectionDebugger.App.NoCollections,,,No active collections,No active collections
 Studio.CollectionDebugger.App.InstanceCount,,,{count} inst,{count} inst
+Studio.CollectionDebugger.Plugin.TitleClient,,,{name} / Client,{name} / Client
+Studio.CollectionDebugger.Plugin.TitleServer,,,{name} / Server,{name} / Server
+Studio.CollectionDebugger.App.GoToScript,,,Go To Script,Go To Script
+Studio.CollectionDebugger.App.FrameTime,,,{time} ms,{time} ms
 Studio.CapabilitiesEditor.App.NoData,,,No capability data,No capability data
 Studio.CapabilitiesEditor.Plugin.Name,,,Capabilities,Capabilities
 Studio.CapabilitiesEditor.Plugin.Description,,,Inspect and edit script capabilities of sandboxed instances,Inspect and edit script capabilities of sandboxed instances
@@ -17666,6 +17830,24 @@ Studio.AnimatedImageImporter.Importer.ClipCount,,,{count} clips,{count} clips
 Studio.AnimatedImageImporter.Common.Create,,,Create,Create
 Studio.AnimatedImageImporter.Common.Cancel,,,Cancel,Cancel
 Studio.AnimatedImageImporter.Common.Multiple,,,Multiple,Multiple
+Studio.AnimatedImageImporter.Slicer.Height,,,Height,Height
+Studio.AnimatedImageImporter.Slicer.Columns,,,Columns,Columns
+Studio.AnimatedImageImporter.Slicer.Rows,,,Rows,Rows
+Studio.AnimatedImageImporter.Slicer.Width,,,Width,Width
+Studio.AnimatedImageImporter.Slicer.OffsetX,,,Offset X,Offset X
+Studio.AnimatedImageImporter.Silcer.OffsetY,,,Offset Y,Offset Y
+Studio.AnimatedImageImporter.Slicer.OffsetY,,,Offset Y,Offset Y
+Studio.AnimatedImageImporter.Common.FrameCount,,,{count} frames,{count} frames
+Studio.AnimatedImageImporter.Slicer.SliceImage,,,Slice image,Slice image
+Studio.AnimatedImageImporter.ImportAction.Text,,,2D Animation,2D Animation
+Studio.AnimatedImageImporter.ImportAction.Tooltip,,,Import a 2D animation from an image sequence or a spritesheet,Import a 2D animation from an image sequence or a spritesheet
+Studio.AnimatedImageImporter.FileDialog.SpritesheetOrImageSequenceTitle,,,Sprite sheet or image sequence,Sprite sheet or image sequence
+Studio.AnimatedImageImporter.FileDialog.Description,,,"Select an Aseprite file, or image assets to create a new <b>AnimatedImage</b> Instance.","Select an Aseprite file, or image assets to create a new <b>AnimatedImage</b> Instance."
+Studio.AnimatedImageImporter.FileDialog.Title,,,Create 2D Animation Clips,Create 2D Animation Clips
+Studio.AnimatedImageImporter.FileDialog.AsepriteTitle,,,Aseprite,Aseprite
+Studio.AnimatedImageImporter.FileDialog.AsepriteDescription,,,Upload an Aseprite file to automatically create an AnimatedImage Instance.,Upload an Aseprite file to automatically create an AnimatedImage Instance.
+Studio.AnimatedImageImporter.FileDialog.SpritesheetOrImageSequenceDescription,,,Browse your local files for one or more images to use the Clip Creator.,Browse your local files for one or more images to use the Clip Creator.
+Studio.AnimatedImageImporter.Importer.ClipFPS,,,Clip FPS,Clip FPS
 Studio.MoveDragger.Plugin.Description,,,Move an Object,Move an Object
 Studio.RotateDragger.Plugin.Description,,,Rotate an Object,Rotate an Object
 Studio.ScaleDragger.Plugin.Description,,,Scale an Object,Scale an Object
@@ -17673,3 +17855,296 @@ Studio.SplitApart.SplitApart,,,Split Apart,Split Apart
 Studio.SplitApart.SplitApartDisconnectedRegions,,,Split a union into its disconnected regions as independent parts,Split a union into its disconnected regions as independent parts
 Studio.SplitApart.SplitApartFailed,,,Split Apart failed,Split Apart failed
 Studio.SplitApart.NoDisconnectedRegionsToSplit,,,The selection has no disconnected regions to split apart.,The selection has no disconnected regions to split apart.
+Studio.ViewSelector.Studio.ViewSelector.Orbit.Body,,,Rotate around a central point of focus.,Rotate around a central point of focus.
+Studio.ViewSelector.Studio.ViewSelector.ModeSwitch.Manual,,,Manual,Manual
+Studio.ViewSelector.Studio.ViewSelector.ModeSwitch.Body,,,Should the mode automatically switch when focusing with F or moving with WASD?,Should the mode automatically switch when focusing with F or moving with WASD?
+Studio.ViewSelector.Studio.ViewSelector.Orthographic.Title,,,Orthographic,Orthographic
+Studio.ViewSelector.Studio.ViewSelector.Orthographic.Body,,,Parallel lines appear parallel,Parallel lines appear parallel
+Studio.ViewSelector.Studio.ViewSelector.ModeSwitch.Title,,,Mode Switch Mechanism,Mode Switch Mechanism
+Studio.ViewSelector.Studio.ViewSelector.ModeSwitch.Auto,,,Auto,Auto
+Studio.ViewSelector.Studio.ViewSelector.FirstPerson.Title,,,FPS Mode,FPS Mode
+Studio.ViewSelector.Studio.ViewSelector.FirstPerson.Body,,,Move using WASD or arrow keys in a first person view.,Move using WASD or arrow keys in a first person view.
+Studio.ViewSelector.Studio.ViewSelector.Orbit.Title,,,Orbit Mode,Orbit Mode
+Studio.ViewSelector2.FirstPerson.Body,,,Move using WASD or arrow keys in a first person view.,Move using WASD or arrow keys in a first person view.
+Studio.ViewSelector2.Orthographic.Title,,,Orthographic,Orthographic
+Studio.ViewSelector2.Orthographic.Body,,,Parallel lines appear parallel,Parallel lines appear parallel
+Studio.ViewSelector2.ModeSwitch.Title,,,Mode Switch Mechanism,Mode Switch Mechanism
+Studio.ViewSelector2.ModeSwitch.Body,,,Should the mode automatically switch when focusing with F or moving with WASD?,Should the mode automatically switch when focusing with F or moving with WASD?
+Studio.ViewSelector2.ModeSwitch.Auto,,,Auto,Auto
+Studio.ViewSelector2.ModeSwitch.Manual,,,Manual,Manual
+Studio.ViewSelector2.FirstPerson.Title,,,FPS Mode,FPS Mode
+Studio.ViewSelector2.Orbit.Title,,,Orbit Mode,Orbit Mode
+Studio.ViewSelector2.Orbit.Body,,,Rotate around a central point of focus.,Rotate around a central point of focus.
+Studio.SdfTerrainEditor.BrushSettings.Strength,,,Strength,Strength
+Studio.SdfTerrainEditor.SplineToolbar.LockDescription,,,Locked tangents rotate and resize together.,Locked tangents rotate and resize together.
+Studio.SdfTerrainEditor.Category.TransformSettings,,,Transform Settings,Transform Settings
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalDragOrientation.Keep,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSizeAxis.BaseDiameter,,,-,-
+Studio.SdfTerrainEditor.MaterialSettings.FillMode,,,Fill Mode,Fill Mode
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineToolbar.UnlockTangents,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.BrushSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.BrushSize,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPreset.CartTracks,,,-,-
+Studio.SdfTerrainEditor.SelectionSettings.Size,,,Size,Size
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushMode.Add,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Smooth,,,-,-
+Studio.SdfTerrainEditor.HeightmapSettings.ImportComingSoon,,,Image import coming soon,Image import coming soon
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SmoothVoxels.Title,,,-,-
+Studio.SdfTerrainEditor.DecalDragOrientation.MatchRelative,,,Match Relative,Match Relative
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.ClearSettings.ClearAll,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneLock.Manual,,,-,-
+Studio.SdfTerrainEditor.ClearSettings.ClearAll,,,Clear All Terrain,Clear All Terrain
+Studio.SdfTerrainEditor.DecalPicker.SelectAll,,,Select All,Select All
+Studio.SdfTerrainEditor.BrushSettings.IgnoreWater,,,Ignore Water,Ignore Water
+Studio.SdfTerrainEditor.DecalToolbar.Rotate,,,Rotate decals,Rotate decals
+Studio.SdfTerrainEditor.BrushMode.Subtract,,,Subtract,Subtract
+Studio.SdfTerrainEditor.PlaneSettings.Position,,,Plane Position,Plane Position
+Studio.SdfTerrainEditor.SmoothVoxels.Description,,,Click Upgrade to improve the cohesion of your terrain.,Click Upgrade to improve the cohesion of your terrain.
+Studio.SdfTerrainEditor.MaterialSettings.MaterialMode,,,Material Mode,Material Mode
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Clear,,,-,-
+Studio.SdfTerrainEditor.Main.Title,,,Terrain Editor,Terrain Editor
+Studio.SdfTerrainEditor.BaseTool.Paint,,,Paint,Paint
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.Snapping,,,-,-
+Studio.SdfTerrainEditor.BaseTool.Flatten,,,Flatten,Flatten
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SettingsPanel.SelectTool,,,-,-
+Studio.SdfTerrainEditor.PivotPosition.Center,,,Center,Center
+Studio.SdfTerrainEditor.MaterialMode.Replace,,,Replace,Replace
+Studio.SdfTerrainEditor.BaseTool.Smooth,,,Smooth,Smooth
+Studio.SdfTerrainEditor.DecalDragOrientation.MatchTarget,,,Match Target,Match Target
+Studio.SdfTerrainEditor.SplineToolbar.UnlockTangents,,,Unlock tangents,Unlock tangents
+Studio.SdfTerrainEditor.BrushSettings.BrushShape,,,Brush Shape,Brush Shape
+Studio.SdfTerrainEditor.SmoothVoxels.Title,,,Smooth Voxels,Smooth Voxels
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.TargetMaterial,,,-,-
+Studio.SdfTerrainEditor.BaseTool.Select,,,Select,Select
+Studio.SdfTerrainEditor.DecalPlacementMode.Drag,,,Drag,Drag
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Axis.X,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Axis.Y,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Axis.Z,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.CreateSpline,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PivotPosition.Bottom,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Draw,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.EditDecal,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.EditSpline,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Fill,,,-,-
+Studio.SdfTerrainEditor.BrushShape.Sphere,,,Sphere,Sphere
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Flatten,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Generate,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Import,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Paint,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.PlaceDecal,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Sculpt,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.SeaLevel,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Select,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Main.Tooltip,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BaseTool.Transform,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushMode.Subtract,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSizeAxis.Width,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.BrushMode,,,-,-
+Studio.SdfTerrainEditor.BrushSizeAxis.TopWidth,,,T,T
+Studio.SdfTerrainEditor.FlattenMode.Erode,,,Erode,Erode
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.BrushShape,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.Diameter,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.HeightmapSettings.Import,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.FlattenMode,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.FlattenPlane,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPreset.Curve,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.IgnoreParts,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.IgnoreWater,,,-,-
+Studio.SdfTerrainEditor.PlaneSettings.Lock,,,Plane Lock,Plane Lock
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.PivotPosition,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.Rotation,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.Roundness,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSettings.Strength,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushShape.Octahedron,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushShape.Plateau,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.HeightmapSettings.Colormap,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushShape.Sphere,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushShape.Taper,,,-,-
+Studio.SdfTerrainEditor.SplineToolbar.LockTangents,,,Lock tangents,Lock tangents
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSizeAxis.Depth,,,-,-
+Studio.SdfTerrainEditor.BaseTool.Draw,,,Draw,Draw
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSizeAxis.Height,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.BrushSizeAxis.TopWidth,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PivotPosition.Center,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.ClearSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.DecalSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.HeightmapSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.MaterialSettings,,,-,-
+Studio.SdfTerrainEditor.SplineToolbar.Tangents,,,Adjust control point tangents,Adjust control point tangents
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.PlaneSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineToolbar.Transform,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.SeaLevelSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.SelectionSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.TransformSettings.MergeEmpty,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Category.TransformSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalDragOrientation.MatchRelative,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalDragOrientation.MatchTarget,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPicker.Count,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPicker.Dimensions,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPicker.SelectAll,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPlacementMode.Drag,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPlacementMode.Point,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPreset.Footsteps,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FlattenPlane.Fixed,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPreset.Gravel,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPreset.Grooves,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalPreset.Moss,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalSettings.DragOrientation,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalSettings.Placement,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalSettings.Preset,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalToolbar.Move,,,-,-
+Studio.SdfTerrainEditor.Category.DecalSettings,,,Decal Settings,Decal Settings
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalToolbar.Rotate,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.DecalToolbar.Scale,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Dialog.Cancel,,,-,-
+Studio.SdfTerrainEditor.Category.SeaLevelSettings,,,Sea Level Settings,Sea Level Settings
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FillMode.Fill,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FillMode.Replace,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FlattenMode.Both,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FlattenMode.Erode,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FlattenMode.Grow,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.FlattenPlane.Auto,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.HeightmapSettings.DefaultMaterial,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.HeightmapSettings.Heightmap,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.TransformSettings.LiveEdit,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.HeightmapSettings.ImportComingSoon,,,-,-
+Studio.SdfTerrainEditor.TransformSettings.Rotation,,,Rotation,Rotation
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Main.Title,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Main.ToolbarButton,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialMode.Paint,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialMode.Replace,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.AutoMaterial,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.Fill,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.FillMode,,,-,-
+Studio.SdfTerrainEditor.SplineToolbar.Transform,,,Move and rotate control points,Move and rotate control points
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.MaterialMode,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.Slot,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.MaterialSettings.SourceMaterial,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PivotPosition.Top,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneLock.Auto,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneLock.Off,,,-,-
+Studio.SdfTerrainEditor.DecalSettings.DragOrientation,,,Drag Orientation,Drag Orientation
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneSettings.EditPlane,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneSettings.Lock,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneSettings.Position,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.PlaneSettings.Rotation,,,-,-
+Studio.SdfTerrainEditor.SeaLevelSettings.Evaporate,,,Evaporate,Evaporate
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SeaLevelSettings.Create,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SeaLevelSettings.Evaporate,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SelectionSettings.Position,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SelectionSettings.Size,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SelectionSettings.SnapToVoxels,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SettingsPanel.GenerateUnavailable,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SettingsPanel.NoSettings,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SmoothVoxels.Description,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SmoothVoxels.Explanation,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SmoothVoxels.LearnMore,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SmoothVoxels.Upgrade,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Snapping.Off,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Snapping.Voxel,,,-,-
+Studio.SdfTerrainEditor.SettingsPanel.NoSettings,,,No settings for {tool},No settings for {tool}
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineToolbar.LockDescription,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineToolbar.LockTangents,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineToolbar.Tangents,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineTooltip.Close,,,-,-
+Studio.SdfTerrainEditor.BaseTool.Transform,,,Transform,Transform
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.SplineTooltip.Finish,,,-,-
+Studio.SdfTerrainEditor.DecalPreset.Grooves,,,Grooves,Grooves
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Tabs.Create,,,-,-
+Studio.SdfTerrainEditor.Category.SelectionSettings,,,Selection Settings,Selection Settings
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.Tabs.Edit,,,-,-
+Studio.SdfTerrainEditor.Studio.SdfTerrainEditor.TransformSettings.Rotation,,,-,-
+Studio.SdfTerrainEditor.Axis.X,,,X,X
+Studio.SdfTerrainEditor.Axis.Y,,,Y,Y
+Studio.SdfTerrainEditor.Axis.Z,,,Z,Z
+Studio.SdfTerrainEditor.BaseTool.Clear,,,Clear,Clear
+Studio.SdfTerrainEditor.BaseTool.CreateSpline,,,Create Spline,Create Spline
+Studio.SdfTerrainEditor.BaseTool.EditDecal,,,Edit Decal,Edit Decal
+Studio.SdfTerrainEditor.BaseTool.EditSpline,,,Edit Spline,Edit Spline
+Studio.SdfTerrainEditor.BaseTool.Fill,,,Fill,Fill
+Studio.SdfTerrainEditor.BaseTool.Generate,,,Generate,Generate
+Studio.SdfTerrainEditor.BaseTool.Import,,,Import,Import
+Studio.SdfTerrainEditor.BaseTool.PlaceDecal,,,Place Decal,Place Decal
+Studio.SdfTerrainEditor.SettingsPanel.GenerateUnavailable,,,Generate is not available yet,Generate is not available yet
+Studio.SdfTerrainEditor.BaseTool.Sculpt,,,Sculpt,Sculpt
+Studio.SdfTerrainEditor.BaseTool.SeaLevel,,,Sea Level,Sea Level
+Studio.SdfTerrainEditor.BrushMode.Add,,,Add,Add
+Studio.SdfTerrainEditor.BrushSettings.BrushMode,,,Brush Mode,Brush Mode
+Studio.SdfTerrainEditor.BrushSettings.BrushSize,,,Brush Size,Brush Size
+Studio.SdfTerrainEditor.BrushSettings.Diameter,,,Diameter,Diameter
+Studio.SdfTerrainEditor.DecalPlacementMode.Point,,,Point,Point
+Studio.SdfTerrainEditor.BrushSettings.FlattenMode,,,Flatten Mode,Flatten Mode
+Studio.SdfTerrainEditor.BrushSettings.FlattenPlane,,,Flatten Plane,Flatten Plane
+Studio.SdfTerrainEditor.BrushSettings.IgnoreParts,,,Ignore Parts,Ignore Parts
+Studio.SdfTerrainEditor.PlaneSettings.Rotation,,,Plane Rotation,Plane Rotation
+Studio.SdfTerrainEditor.BrushSettings.PivotPosition,,,Pivot Position,Pivot Position
+Studio.SdfTerrainEditor.BrushSettings.Rotation,,,Rotation,Rotation
+Studio.SdfTerrainEditor.BrushSettings.Roundness,,,Roundness,Roundness
+Studio.SdfTerrainEditor.BrushSettings.Snapping,,,Snapping,Snapping
+Studio.SdfTerrainEditor.BrushShape.Octahedron,,,Octahedron,Octahedron
+Studio.SdfTerrainEditor.BrushShape.Plateau,,,Plateau,Plateau
+Studio.SdfTerrainEditor.BrushShape.Taper,,,Taper,Taper
+Studio.SdfTerrainEditor.BrushSizeAxis.BaseDiameter,,,B,B
+Studio.SdfTerrainEditor.BrushSizeAxis.Depth,,,D,D
+Studio.SdfTerrainEditor.BrushSizeAxis.Height,,,H,H
+Studio.SdfTerrainEditor.Category.PlaneSettings,,,Plane Settings,Plane Settings
+Studio.SdfTerrainEditor.BrushSizeAxis.Width,,,W,W
+Studio.SdfTerrainEditor.Category.BrushSettings,,,Brush Settings,Brush Settings
+Studio.SdfTerrainEditor.Category.ClearSettings,,,Clear Settings,Clear Settings
+Studio.SdfTerrainEditor.Category.HeightmapSettings,,,Heightmap Settings,Heightmap Settings
+Studio.SdfTerrainEditor.HeightmapSettings.Colormap,,,Colormap,Colormap
+Studio.SdfTerrainEditor.Category.MaterialSettings,,,Material Settings,Material Settings
+Studio.SdfTerrainEditor.DecalDragOrientation.Keep,,,Keep,Keep
+Studio.SdfTerrainEditor.DecalPicker.Count,,,{count:int} decals,{count:int} decals
+Studio.SdfTerrainEditor.DecalPicker.Dimensions,,,{width} × {height} × {depth},{width} × {height} × {depth}
+Studio.SdfTerrainEditor.DecalPreset.CartTracks,,,CartTracks,CartTracks
+Studio.SdfTerrainEditor.DecalToolbar.Scale,,,Resize the active decal's projection box,Resize the active decal's projection box
+Studio.SdfTerrainEditor.DecalPreset.Curve,,,Curve,Curve
+Studio.SdfTerrainEditor.DecalPreset.Footsteps,,,Footsteps,Footsteps
+Studio.SdfTerrainEditor.DecalPreset.Gravel,,,Gravel,Gravel
+Studio.SdfTerrainEditor.DecalPreset.Moss,,,Moss,Moss
+Studio.SdfTerrainEditor.DecalSettings.Placement,,,Placement,Placement
+Studio.SdfTerrainEditor.DecalSettings.Preset,,,Decal,Decal
+Studio.SdfTerrainEditor.DecalToolbar.Move,,,Move decals,Move decals
+Studio.SdfTerrainEditor.Dialog.Cancel,,,Cancel,Cancel
+Studio.SdfTerrainEditor.FillMode.Fill,,,Fill,Fill
+Studio.SdfTerrainEditor.SplineTooltip.Close,,,Click to close spline,Click to close spline
+Studio.SdfTerrainEditor.FillMode.Replace,,,Replace,Replace
+Studio.SdfTerrainEditor.FlattenMode.Both,,,Both,Both
+Studio.SdfTerrainEditor.FlattenMode.Grow,,,Grow,Grow
+Studio.SdfTerrainEditor.FlattenPlane.Auto,,,Auto,Auto
+Studio.SdfTerrainEditor.FlattenPlane.Fixed,,,Fixed,Fixed
+Studio.SdfTerrainEditor.HeightmapSettings.DefaultMaterial,,,Default Material,Default Material
+Studio.SdfTerrainEditor.HeightmapSettings.Heightmap,,,Heightmap,Heightmap
+Studio.SdfTerrainEditor.HeightmapSettings.Import,,,Import,Import
+Studio.SdfTerrainEditor.Main.ToolbarButton,,,Editor,Editor
+Studio.SdfTerrainEditor.Main.Tooltip,,,"Add, remove, and modify terrain","Add, remove, and modify terrain"
+Studio.SdfTerrainEditor.MaterialMode.Paint,,,Paint,Paint
+Studio.SdfTerrainEditor.MaterialSettings.AutoMaterial,,,Auto Material,Auto Material
+Studio.SdfTerrainEditor.MaterialSettings.Fill,,,Fill,Fill
+Studio.SdfTerrainEditor.MaterialSettings.Slot,,,Slot {slot:int},Slot {slot:int}
+Studio.SdfTerrainEditor.MaterialSettings.SourceMaterial,,,Source Material,Source Material
+Studio.SdfTerrainEditor.MaterialSettings.TargetMaterial,,,Target Material,Target Material
+Studio.SdfTerrainEditor.PivotPosition.Bottom,,,Bottom,Bottom
+Studio.SdfTerrainEditor.PivotPosition.Top,,,Top,Top
+Studio.SdfTerrainEditor.PlaneLock.Auto,,,Auto,Auto
+Studio.SdfTerrainEditor.PlaneLock.Manual,,,Manual,Manual
+Studio.SdfTerrainEditor.PlaneLock.Off,,,Off,Off
+Studio.SdfTerrainEditor.PlaneSettings.EditPlane,,,Edit Plane,Edit Plane
+Studio.SdfTerrainEditor.SeaLevelSettings.Create,,,Create,Create
+Studio.SdfTerrainEditor.SelectionSettings.Position,,,Position,Position
+Studio.SdfTerrainEditor.SelectionSettings.SnapToVoxels,,,Snap to Voxels,Snap to Voxels
+Studio.SdfTerrainEditor.SettingsPanel.SelectTool,,,Select a tool to see its settings,Select a tool to see its settings
+Studio.SdfTerrainEditor.SmoothVoxels.Explanation,,,The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. The upgrade can be reverted right after its completion using the Undo command.,The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. The upgrade can be reverted right after its completion using the Undo command.
+Studio.SdfTerrainEditor.SmoothVoxels.LearnMore,,,Learn more,Learn more
+Studio.SdfTerrainEditor.SmoothVoxels.Upgrade,,,Upgrade,Upgrade
+Studio.SdfTerrainEditor.Snapping.Off,,,Off,Off
+Studio.SdfTerrainEditor.Snapping.Voxel,,,Voxel,Voxel
+Studio.SdfTerrainEditor.SplineTooltip.Finish,,,Click to finish spline,Click to finish spline
+Studio.SdfTerrainEditor.Tabs.Create,,,Create,Create
+Studio.SdfTerrainEditor.Tabs.Edit,,,Edit,Edit
+Studio.SdfTerrainEditor.TransformSettings.LiveEdit,,,Live Edit,Live Edit
+Studio.SdfTerrainEditor.TransformSettings.MergeEmpty,,,Merge Empty,Merge Empty
+Studio.SdfTerrainEditor.MaterialSettings.Material,,,Material,Material
+Studio.SdfTerrainEditor.MaterialSettings.From,,,From,From
+Studio.SdfTerrainEditor.MaterialSettings.To,,,To,To
