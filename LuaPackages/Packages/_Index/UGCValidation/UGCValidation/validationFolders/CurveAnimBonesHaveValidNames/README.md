@@ -35,7 +35,3 @@ Folders without Rotation/Position children (e.g. `FaceControls`) are exempt.
 - `CurveAnimBonesRotationOnly` — enforces rotation-only for recognized bone folders.
 - `CurveAnimBonesHaveValidParents` — validates bone parent chains.
 - `CurveAnimBoneHierarchyUtils` (`src/util/`) — maps HRD/DRD bone names to body parts and parent bones.
-
-## Feature flag
-
-`getFFlagUGCValidateEmotesBonesAllowed` (shared across all bone modules)

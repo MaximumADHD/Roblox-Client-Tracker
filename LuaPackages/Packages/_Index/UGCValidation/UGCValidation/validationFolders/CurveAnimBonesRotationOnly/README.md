@@ -21,7 +21,3 @@ Bone folders (identified by `CurveAnimBoneHierarchyUtils.isBoneFolderName`) may 
 
 - `CurveAnimPartsRotateOnlyIfBones` — enforces rotation-only on body part folders when bones exist.
 - `CurveAnimBoneHierarchyUtils` (`src/util/`) — maps HRD/DRD bone names to body parts and parent bones.
-
-## Feature flag
-
-`getFFlagUGCValidateEmotesBonesAllowed` (shared across all bone modules)

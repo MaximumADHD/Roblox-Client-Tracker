@@ -4858,6 +4858,14 @@
         <string name="PreferredParent">Player</string>
         <string name="FFlag">PlayerControlStateEnabled</string>
       </Properties>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">HasField</string>
+            <string name="FFlag">ControlStateHasField</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -6037,6 +6045,53 @@
         <string name="ExplorerOrder">20</string>
         <string name="ExplorerImageIndex">40</string>
         <string name="PreferredParent">Model</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AvatarRules</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AvatarAnimationRules</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">AvatarRules</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AvatarBodyRules</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">AvatarRules</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AvatarCollisionRules</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">AvatarRules</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AvatarAccessoryRules</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">AvatarRules</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AvatarClothingRules</string>
+        <string name="ClassCategory">Avatar</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">AvatarRules</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

@@ -34,6 +34,43 @@ React.createElement(List.Item, {
 })
 ```
 
+`onSecondaryActivated` runs on a right click, a touch long press, or the gamepad and keyboard secondary shortcuts, and does not change the trailing accessory. Open a [[Menu]] from that callback and anchor it at the pointer with `useMeasurableRef` (a virtual popover anchor).
+
+```luau
+-- Row with a context menu at the click point
+local isMenuOpen, setIsMenuOpen = React.useState(false)
+local clickPosition, setClickPosition = React.useState(Vector2.zero)
+local clickAnchorRef = Foundation.Hooks.useMeasurableRef(clickPosition, Vector2.one)
+
+React.createElement(React.Fragment, nil, {
+	List = React.createElement(List.Root, nil, {
+		Item = React.createElement(List.Item, {
+			title = "My game",
+			onActivated = openGame,
+			onSecondaryActivated = function(_self, inputObject)
+				setClickPosition(Vector2.new(inputObject.Position.X, inputObject.Position.Y))
+				setIsMenuOpen(true)
+			end,
+		}),
+	}),
+	ContextMenu = React.createElement(Menu, {
+		isOpen = isMenuOpen,
+		anchorRef = clickAnchorRef,
+		items = {
+			{ id = "option1", text = "Option 1" },
+			{ id = "option2", text = "Option 2" },
+			{ id = "option3", text = "Option 3" },
+		},
+		onPressedOutside = function()
+			setIsMenuOpen(false)
+		end,
+		onActivated = function()
+			setIsMenuOpen(false)
+		end,
+	}),
+})
+```
+
 ---
 
 ## Usage

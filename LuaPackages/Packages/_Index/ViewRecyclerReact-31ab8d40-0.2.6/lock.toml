@@ -3,8 +3,8 @@ name = "ViewRecyclerReact"
 version = "0.2.6"
 source = "registry"
 dependencies = [
-    "React <patched> React 17.3.12 registry",
-    "ReactRoblox <patched> ReactRoblox 17.3.12 registry",
+    "React <patched> React 17.3.13 registry",
+    "ReactRoblox <patched> ReactRoblox 17.3.13 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
     "SignalsReact SignalsReact 0.6.0 registry",

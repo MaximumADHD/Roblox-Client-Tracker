@@ -10,6 +10,8 @@ There are seven status indicator variants defined in [[StatusIndicatorVariant]]:
 
 The indicator supports three shapes defined in [[StatusIndicatorShape]]: `Circle` (default), `Ring`, and `Square`. The `shape` prop only applies when no `value` is provided — numeric indicators always render as a circle.
 
+Sizes are defined in [[StatusIndicatorSize]]: `XSmall`, `Small` (default), `Medium`, and `Large`. Empty indicators use every size; a numeric indicator only grows at `Large`, and every other size renders at its default footprint. `Pictogram` is deprecated in favor of `Large`.
+
 The optional `mask` prop draws a colored border around the indicator to separate it from a busy background, such as an [[Avatar]] headshot. Pass a `colorStyle` value — typically the color sitting behind the indicator.
 
 The `StatusIndicator` can display in two modes:
@@ -33,6 +35,7 @@ local Foundation = require(Packages.Foundation)
 local StatusIndicator = Foundation.StatusIndicator
 local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
 local StatusIndicatorShape = Foundation.Enums.StatusIndicatorShape
+local StatusIndicatorSize = Foundation.Enums.StatusIndicatorSize
 
 -- Empty indicator (no value shown)
 React.createElement(StatusIndicator, {
@@ -48,6 +51,13 @@ React.createElement(StatusIndicator, {
 React.createElement(StatusIndicator, {
 	value = 5,
 	variant = StatusIndicatorVariant.Emphasis,
+})
+
+-- With a large numeric value
+React.createElement(StatusIndicator, {
+	value = 5,
+	variant = StatusIndicatorVariant.Emphasis,
+	size = StatusIndicatorSize.Large,
 })
 
 -- With a max value (shows "99+" when value exceeds 99)

@@ -7,7 +7,7 @@ We are currently in a migratory period, with our core module having two parts:
 - Deprecated system: a nested file structure where each file returns (boolean, error strings). For example, a layered clothing would first hit the .validate entrypoint, which goes to validateInternal, then gets directed to validateLayeredClothingAccessory which calls different categories of test files. This structure allows for easier understanding of the E2E code flow, but limits us from doing just about anything extra.
 - New structure:  enum-based folder structure, where each validation is clearly defined. That means, opening the validation file should tell you everything about when this validation runs, what data it uses, and what it checks for. We are migrating to this structure to enable auto fixing, quality detection, localization, standardized telemetry, efficient back-testing, automatic documentation, and much more.
 
-Starting from **November 1, 2025**, all new validations must be written in the new system.
+The deprecated system is pending removal. All new validations must be written in the new system.
 
 ## Adding a new Validation
 To start, lets create a fake validation that ensures all layered clothing Accessories are named "Accessory".
@@ -52,11 +52,35 @@ Thats it! Once you've specified the test enum, we will automatically run the tes
 
 
 ## Local Testing
-TODO: Update
+Run `lest` from the repo root to run the unit and system tests with all flags on and off, like CI. See [How to Test Lua](https://roblox.atlassian.net/wiki/spaces/HOW/pages/1556185919) for setting up `lest`.
+
+### Validating Studio uploads with a local RCC
+Your game-engine checkout needs `FFlagDebugUGCValidationViaLocalRCC` ([game-engine #182776](https://github.rbx.com/GameEngine/game-engine/pull/182776)).
+1. In your game-engine checkout, set `FFlagDebugUGCValidationViaLocalRCC` to `True` in `Client/ClientShared/LocalFlags.h`. Until `FFlagAssetQualityV2SummaryFromUrl` ships, set it to `True` there too. Studio sends its uploads to the local bridge, and validation skips the checks a local RCC can't run. `LocalFlags.h` is compiled in, so after changing it, rebuild Studio and, if it's running, restart the bridge.
+2. Run `python3 PythonHelpers/vaas_local_validation_server.py --game-engine-root <checkout>`. It builds RCC from that checkout, then validates every Studio upload with this repo's `src/`. It builds for macOS by default; on Linux or Windows, add `--build-platform linux/x86_64` or `--build-platform windows/x86_64`.
+3. Upload in a Studio built from the same checkout. After editing `src/`, upload again; RCC doesn't need a rebuild.
+
+A local RCC doesn't get the flags prod sets only in the `RCCAsAService` bucket. To match prod, also add these to `LocalFlags.h` (as of 2026-10-06):
+```
+{ "FFlagUGCValidationLCOOB3", "True" },
+{ "FFlagUGCValidateAQMeshQuality2", "True" },
+{ "FFlagUGCValidateAQScoreWarnings", "True" },
+{ "FFlagUGCValidateAQTextureQuality", "True" },
+{ "FIntLCPostDeformSizeMultiplierGeneralHundredths", "200" },
+{ "FIntUGCValidateMaxSerializedAssetSizeBytesDynamicHead", "80000" },
+{ "FIntUGCValidateMaxSerializedAssetSizeBytesLayeredClothing", "60000" },
+{ "FIntUGCValidateMaxSerializedAssetSizeBytesRigidAccessory", "31999" },
+{ "FIntUGCValidateMaxSerializedAssetSizeBytesTorsoAndLimbs", "60000" },
+```
 
 
 ## Adding unit and system tests
-TODO: Update
+Unit tests are `*.spec.lua` files next to the code they test. Their assets go in `AssetsForUnitTests/`; see its README.
+
+System tests run every fixture in `AssetsForSystemTests/` through full validation. A `GT` fixture must pass every check. An `EF` fixture must fail each check that lists it in `expectedFailures`. To add a fixture:
+1. Edit the constants at the top of `StudioHelpers/CreateSystemTestAsset.lua`.
+2. Run the script from the Studio command bar in ElevatedStudioPlugin mode. It bakes the mesh, cage, HSR, and CurveAnimation data so the tester doesn't need the network. Texture data can't be baked yet, so texture checks stay in `TEMPORARY_IGNORE`.
+3. Save the folder it prints as `AssetsForSystemTests/<name>.rbxm`.
 
 ## Publishing
 

@@ -6,6 +6,11 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Function Object:isA(className: string) -> boolean [Deprecated] [CustomLuaState]
 	Event Object.Changed(property: string)
 Class AnimationNode : Object [NotCreatable] [NotReplicated]
+Class AppHandle : Object [NotCreatable] [NotReplicated]
+	Function AppHandle:Call(name: string, args: { [string]: any }? = nil) -> string {🚧InternalTest}
+	Function AppHandle:Close() -> string {🚧InternalTest}
+	Function AppHandle:ExecuteLuau(source: string) -> string {🚧InternalTest}
+	Function AppHandle:RunTest(testName: string, args: { [string]: any }? = nil) -> string {🚧InternalTest}
 Class Capture : Object [NotCreatable] [NotReplicated]
 	Property Capture.CaptureTime: DateTime [ReadOnly] {🚧Capture}
 	Property Capture.CaptureType: Enum.CaptureType [ReadOnly] {🚧Capture}
@@ -329,8 +334,8 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () [Deprecated] {🚧Basic}
 	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () [Deprecated] {🚧Basic}
 	Function AnalyticsService:GetDurationLoggerTimestamp() -> number {🚧Basic + InternalTest}
-Class AnimatedImageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
-	Property AnimatedImageService.UserCreatedTracks: BinaryString {🔒RobloxScript}
+Class AnimatedImageService : Instance {🔒RobloxScript} [NotCreatable] [Service]
+	Property AnimatedImageService.UserCreatedTracks: BinaryString [Hidden] [NotScriptable] {🔒RobloxScript}
 	Function AnimatedImageService:AddAnimatedImageClipAsync(content: Content, clipName: string, frames: { any }) -> () [Yields] {🔒RobloxScript}
 	Function AnimatedImageService:GetAnimatedImageClipFramesAsync(content: Content, clipName: string) -> { any } [Yields] {🔒RobloxScript}
 	Function AnimatedImageService:GetAnimatedImageClipsChangedSignal(content: Content) -> RBXScriptSignal {🔒RobloxScript}
@@ -386,16 +391,16 @@ Class AnimationNodeDefinition : Instance
 	Function AnimationNodeDefinition:RemoveInputPin(pin: string) -> () {🚧Animation}
 	Function AnimationNodeDefinition:SetOrderedInputPinNames(pins: { any }) -> () {🚧Animation}
 	Event AnimationNodeDefinition.InputPinsChanged() {🚧Animation}
-Class AnimationPlayer : Instance {🔒RobloxScript} [NotCreatable]
-	Property AnimationPlayer.AnimationContent: Content [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.AutoPlay: boolean [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.CurrentFrame: number [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.Enabled: boolean [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.IsPlaying: boolean [Hidden] [ReadOnly] {🔒RobloxScript}
-	Property AnimationPlayer.Loop: boolean [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.Speed: number [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.TimePosition: number [Hidden] [NotReplicated] {🔒RobloxScript}
-	Property AnimationPlayer.Track: string [NotReplicated] {🔒RobloxScript} [📁LoadOnly]
+Class AnimationPlayer : Instance {🔒RobloxScript}
+	Property AnimationPlayer.AnimationContent: Content {🔒RobloxScript}
+	Property AnimationPlayer.AutoPlay: boolean {🔒RobloxScript}
+	Property AnimationPlayer.CurrentFrame: number [NotReplicated] {🔒RobloxScript}
+	Property AnimationPlayer.Enabled: boolean {🔒RobloxScript}
+	Property AnimationPlayer.IsPlaying: boolean [ReadOnly] {🔒RobloxScript}
+	Property AnimationPlayer.Loop: boolean {🔒RobloxScript}
+	Property AnimationPlayer.Speed: number {🔒RobloxScript}
+	Property AnimationPlayer.TimePosition: number [NotReplicated] {🔒RobloxScript}
+	Property AnimationPlayer.Track: string {🔒RobloxScript}
 	Function AnimationPlayer:Pause() -> () {🔒RobloxScript}
 	Function AnimationPlayer:Play() -> () {🔒RobloxScript}
 	Function AnimationPlayer:Stop() -> () {🔒RobloxScript}
@@ -980,6 +985,7 @@ Class AudioPitchShifter : Instance
 	Event AudioPitchShifter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioPlayer : Instance
 	Property AudioPlayer.Asset: string {🚧Audio}
+	Property AudioPlayer.AudioContent: Content {🚧Audio}
 	Property AudioPlayer.AutoLoad: boolean {🚧Audio}
 	Property AudioPlayer.IsReady: boolean [ReadOnly] {🚧Audio}
 	Property AudioPlayer.TimeLength: number [ReadOnly] {🚧Audio}
@@ -992,7 +998,6 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.PlaybackRegion: NumberRange {🚧Audio}
 	Property AudioPlayer.Volume: number {🚧Audio}
 	Property AudioPlayer.AssetId: string [Hidden] [NotReplicated] [Deprecated] {🚧Audio} [📁LoadOnly]
-	Property AudioPlayer.AudioContent: Content [Hidden] {🚧Audio}
 	Property AudioPlayer.AssetRepresentation: Enum.AssetRepresentation [Hidden] [NotReplicated] {🚧Audio} {🔒RobloxScript}
 	Function AudioPlayer:Cancel(actionId: number?) -> boolean {🚧Audio}
 	Function AudioPlayer:GetConnectedWires(pin: string) -> { Instance } {🚧Audio}
@@ -1042,8 +1047,10 @@ Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.Artist: string {🚧AssetRead}
 	Property AudioSearchParams.AudioSubType: Enum.AudioSubType {🚧AssetRead}
 	Property AudioSearchParams.MaxDuration: number {🚧AssetRead}
+	Property AudioSearchParams.MaxPageSize: number {🚧AssetRead}
 	Property AudioSearchParams.MinDuration: number {🚧AssetRead}
 	Property AudioSearchParams.SearchKeyword: string {🚧AssetRead}
+	Property AudioSearchParams.SortType: Enum.AudioSortType {🚧AssetRead}
 	Property AudioSearchParams.Tag: string {🚧AssetRead}
 	Property AudioSearchParams.Title: string {🚧AssetRead}
 	Property AudioSearchParams.AudioSubtype: Enum.AudioSubType [NotReplicated] [Deprecated] {🚧AssetRead} [📁LoadOnly]
@@ -1167,118 +1174,118 @@ Class AvatarAbilityRules : Instance {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSprinting: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSwimming: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableTurning: boolean {🔒RobloxScript}
-Class AvatarAccessoryRules : Instance {🔒RobloxScript}
-	Property AvatarAccessoryRules.AccessoryMode: Enum.AvatarSettingsAccessoryMode {🔒RobloxScript}
-	Property AvatarAccessoryRules.BackAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomAccessoryMode: Enum.AvatarSettingsCustomAccessoryMode [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomBackAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomBackAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomFaceAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomFaceAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomFrontAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomFrontAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomHairAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomHairAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomHeadAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomHeadAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomNeckAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomNeckAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomShoulderAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomShoulderAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomWaistAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.CustomWaistAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAccessoryRules.EnableEmissives: boolean {🔒RobloxScript}
-	Property AvatarAccessoryRules.EnableSound: boolean {🔒RobloxScript}
-	Property AvatarAccessoryRules.EnableVFX: boolean {🔒RobloxScript}
-	Property AvatarAccessoryRules.FaceAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.FrontAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.HairAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.HeadAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.LimitBounds: Vector3 {🔒RobloxScript}
-	Property AvatarAccessoryRules.LimitMethod: Enum.AvatarSettingsAccessoryLimitMethod {🔒RobloxScript}
-	Property AvatarAccessoryRules.NeckAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.ShoulderAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarAccessoryRules.WaistAccessoryOverride: number {🔒RobloxScript}
-	Function AvatarAccessoryRules:willRemoveAccessory(humanoid: Humanoid, accessory: Accoutrement) -> boolean {🔒RobloxScript}
-Class AvatarAnimationRules : Instance {🔒RobloxScript}
-	Property AvatarAnimationRules.AnimationClipsMode: Enum.AvatarSettingsAnimationClipsMode [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.AnimationPacksMode: Enum.AvatarSettingsAnimationPacksMode {🔒RobloxScript}
-	Property AvatarAnimationRules.ClimbAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomClimbAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomClimbAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomFallAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomFallAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomIdleAlt1AnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomIdleAlt1AnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomIdleAlt2AnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomIdleAlt2AnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomIdleAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomIdleAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomJumpAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomJumpAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomRunAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomRunAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomSwimAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomSwimAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomSwimIdleAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomSwimIdleAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomWalkAnimationEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.CustomWalkAnimationId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarAnimationRules.FallAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.IdleAltAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.IdleAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.JumpAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.MoodAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.RunAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.SwimAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.SwimIdleAnimationOverride: number {🔒RobloxScript}
-	Property AvatarAnimationRules.WalkAnimationOverride: number {🔒RobloxScript}
-Class AvatarBodyRules : Instance {🔒RobloxScript}
-	Property AvatarBodyRules.AppearanceMode: Enum.AvatarSettingsAppearanceMode [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.AvatarType: Enum.GameAvatarType {🔒RobloxScript}
-	Property AvatarBodyRules.BuildMode: Enum.AvatarSettingsBuildMode {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBodyBundleId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBodyType: Enum.AvatarSettingsCustomBodyType [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBodyTypeScale: NumberRange [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBuildBodyType: NumberRange {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBuildHead: NumberRange {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBuildHeight: NumberRange {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBuildProportions: NumberRange {🔒RobloxScript}
-	Property AvatarBodyRules.CustomBuildWidth: NumberRange {🔒RobloxScript}
-	Property AvatarBodyRules.CustomEyebrowEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomEyebrowId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomEyelashEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomEyelashId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomFaceEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomFaceId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomHeadEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomHeadId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomHeadScale: NumberRange [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomHeight: NumberRange [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomHeightScale: NumberRange [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomLeftArmEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomLeftArmId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomLeftLegEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomLeftLegId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomMoodEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomMoodId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomProportionsScale: NumberRange [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomRightArmEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomRightArmId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomRightLegEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomRightLegId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomTorsoEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomTorsoId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomWidthScale: NumberRange [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.CustomWorldHeight: NumberRange {🔒RobloxScript}
-	Property AvatarBodyRules.HeadOverride: number {🔒RobloxScript}
-	Property AvatarBodyRules.KeepPlayerHead: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarBodyRules.LeftArmOverride: number {🔒RobloxScript}
-	Property AvatarBodyRules.LeftLegOverride: number {🔒RobloxScript}
-	Property AvatarBodyRules.RightArmOverride: number {🔒RobloxScript}
-	Property AvatarBodyRules.RightLegOverride: number {🔒RobloxScript}
-	Property AvatarBodyRules.ScaleMode: Enum.AvatarSettingsScaleMode {🔒RobloxScript}
-	Property AvatarBodyRules.TorsoOverride: number {🔒RobloxScript}
+Class AvatarAccessoryRules : Instance
+	Property AvatarAccessoryRules.AccessoryMode: Enum.AvatarSettingsAccessoryMode {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.BackAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.EnableEmissives: boolean {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.EnableSound: boolean {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.EnableVFX: boolean {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.FaceAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.FrontAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.HairAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.HeadAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.LimitBounds: Vector3 {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.LimitMethod: Enum.AvatarSettingsAccessoryLimitMethod {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.NeckAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.ShoulderAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.WaistAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarAccessoryRules.CustomAccessoryMode: Enum.AvatarSettingsCustomAccessoryMode [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomBackAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomBackAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomFaceAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomFaceAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomFrontAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomFrontAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomHairAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomHairAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomHeadAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomHeadAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomNeckAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomNeckAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomShoulderAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomShoulderAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomWaistAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAccessoryRules.CustomWaistAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Function AvatarAccessoryRules:willRemoveAccessory(humanoid: Humanoid, accessory: Accoutrement) -> boolean {🚧AvatarAppearance} {🔒RobloxScript}
+Class AvatarAnimationRules : Instance
+	Property AvatarAnimationRules.AnimationPacksMode: Enum.AvatarSettingsAnimationPacksMode {🚧AvatarAppearance}
+	Property AvatarAnimationRules.ClimbAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.FallAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.IdleAltAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.IdleAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.JumpAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.MoodAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.RunAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.SwimAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.SwimIdleAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.WalkAnimationOverride: number {🚧AvatarAppearance}
+	Property AvatarAnimationRules.AnimationClipsMode: Enum.AvatarSettingsAnimationClipsMode [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomClimbAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomClimbAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomFallAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomFallAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomIdleAlt1AnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomIdleAlt1AnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomIdleAlt2AnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomIdleAlt2AnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomIdleAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomIdleAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomJumpAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomJumpAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomRunAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomRunAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomSwimAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomSwimAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomSwimIdleAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomSwimIdleAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomWalkAnimationEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarAnimationRules.CustomWalkAnimationId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+Class AvatarBodyRules : Instance
+	Property AvatarBodyRules.AvatarType: Enum.GameAvatarType {🚧AvatarAppearance}
+	Property AvatarBodyRules.BuildMode: Enum.AvatarSettingsBuildMode {🚧AvatarAppearance}
+	Property AvatarBodyRules.CustomBuildBodyType: NumberRange {🚧AvatarAppearance}
+	Property AvatarBodyRules.CustomBuildHead: NumberRange {🚧AvatarAppearance}
+	Property AvatarBodyRules.CustomBuildHeight: NumberRange {🚧AvatarAppearance}
+	Property AvatarBodyRules.CustomBuildProportions: NumberRange {🚧AvatarAppearance}
+	Property AvatarBodyRules.CustomBuildWidth: NumberRange {🚧AvatarAppearance}
+	Property AvatarBodyRules.CustomWorldHeight: NumberRange {🚧AvatarAppearance}
+	Property AvatarBodyRules.HeadOverride: number {🚧AvatarAppearance}
+	Property AvatarBodyRules.LeftArmOverride: number {🚧AvatarAppearance}
+	Property AvatarBodyRules.LeftLegOverride: number {🚧AvatarAppearance}
+	Property AvatarBodyRules.RightArmOverride: number {🚧AvatarAppearance}
+	Property AvatarBodyRules.RightLegOverride: number {🚧AvatarAppearance}
+	Property AvatarBodyRules.ScaleMode: Enum.AvatarSettingsScaleMode {🚧AvatarAppearance}
+	Property AvatarBodyRules.TorsoOverride: number {🚧AvatarAppearance}
+	Property AvatarBodyRules.AppearanceMode: Enum.AvatarSettingsAppearanceMode [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomBodyBundleId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomBodyType: Enum.AvatarSettingsCustomBodyType [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomBodyTypeScale: NumberRange [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomEyebrowEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomEyebrowId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomEyelashEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomEyelashId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomFaceEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomFaceId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomHeadEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomHeadId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomHeadScale: NumberRange [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomHeight: NumberRange [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomHeightScale: NumberRange [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomLeftArmEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomLeftArmId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomLeftLegEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomLeftLegId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomMoodEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomMoodId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomProportionsScale: NumberRange [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomRightArmEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomRightArmId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomRightLegEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomRightLegId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomTorsoEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomTorsoId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.CustomWidthScale: NumberRange [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarBodyRules.KeepPlayerHead: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
 Class AvatarChatService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 	Property AvatarChatService.ClientFeatures: number [Hidden] [ReadOnly] {🔒RobloxScript}
 	Property AvatarChatService.ClientFeaturesInitialized: boolean [Hidden] [ReadOnly] {🔒RobloxScript}
@@ -1295,52 +1302,52 @@ Class AvatarChatService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 	Function AvatarChatService:deviceMeetsRequirementsForFeature(feature: Enum.DeviceFeatureType) -> boolean {🔒RobloxScript}
 	Event AvatarChatService.OnClientFeatures(features: number) [Hidden] {🔒RobloxEngine}
 	Event AvatarChatService.RefreshClientFeatures() [Hidden] {🔒RobloxEngine}
-Class AvatarClothingRules : Instance {🔒RobloxScript}
-	Property AvatarClothingRules.ClassicPantsAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.ClassicShirtsAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.ClassicTShirtsAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.ClothingMode: Enum.AvatarSettingsClothingMode {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClassicPantsAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClassicPantsAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClassicShirtsAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClassicShirtsAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClassicTShirtsAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClassicTShirtsAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomClothingMode: Enum.AvatarSettingsCustomClothingMode [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomDressSkirtAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomDressSkirtAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomJacketAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomJacketAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomLeftShoesAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomLeftShoesAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomPantsAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomPantsAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomRightShoesAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomRightShoesAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomShirtAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomShirtAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomShortsAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomShortsAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomSweaterAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomSweaterAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomTShirtAccessoryEnabled: boolean [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.CustomTShirtAccessoryId: number [Deprecated] {🔒RobloxScript}
-	Property AvatarClothingRules.DressSkirtAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.JacketAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.LeftShoesAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.LimitBounds: Vector3 {🔒RobloxScript}
-	Property AvatarClothingRules.PantsAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.RightShoesAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.ShirtAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.ShortsAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.SweaterAccessoryOverride: number {🔒RobloxScript}
-	Property AvatarClothingRules.TShirtAccessoryOverride: number {🔒RobloxScript}
-	Function AvatarClothingRules:WillLimitLayeredAccessoryAsync(humanoid: Humanoid, accessory: Accoutrement) -> boolean [Yields] {🔒RobloxScript}
-Class AvatarCollisionRules : Instance {🔒RobloxScript}
-	Property AvatarCollisionRules.CollisionMode: Enum.AvatarSettingsCollisionMode {🔒RobloxScript}
-	Property AvatarCollisionRules.HitAndTouchDetectionMode: Enum.AvatarSettingsHitAndTouchDetectionMode {🔒RobloxScript}
-	Property AvatarCollisionRules.LegacyCollisionMode: Enum.AvatarSettingsLegacyCollisionMode [Deprecated] {🔒RobloxScript}
-	Property AvatarCollisionRules.SingleColliderSize: Vector3 {🔒RobloxScript}
+Class AvatarClothingRules : Instance
+	Property AvatarClothingRules.ClassicPantsAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.ClassicShirtsAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.ClassicTShirtsAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.ClothingMode: Enum.AvatarSettingsClothingMode {🚧AvatarAppearance}
+	Property AvatarClothingRules.DressSkirtAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.JacketAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.LeftShoesAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.LimitBounds: Vector3 {🚧AvatarAppearance}
+	Property AvatarClothingRules.PantsAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.RightShoesAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.ShirtAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.ShortsAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.SweaterAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.TShirtAccessoryOverride: number {🚧AvatarAppearance}
+	Property AvatarClothingRules.CustomClassicPantsAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomClassicPantsAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomClassicShirtsAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomClassicShirtsAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomClassicTShirtsAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomClassicTShirtsAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomClothingMode: Enum.AvatarSettingsCustomClothingMode [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomDressSkirtAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomDressSkirtAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomJacketAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomJacketAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomLeftShoesAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomLeftShoesAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomPantsAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomPantsAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomRightShoesAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomRightShoesAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomShirtAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomShirtAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomShortsAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomShortsAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomSweaterAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomSweaterAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomTShirtAccessoryEnabled: boolean [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Property AvatarClothingRules.CustomTShirtAccessoryId: number [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
+	Function AvatarClothingRules:WillLimitLayeredAccessoryAsync(humanoid: Humanoid, accessory: Accoutrement) -> boolean [Yields] {🚧AvatarAppearance} {🔒RobloxScript}
+Class AvatarCollisionRules : Instance
+	Property AvatarCollisionRules.CollisionMode: Enum.AvatarSettingsCollisionMode {🚧AvatarAppearance}
+	Property AvatarCollisionRules.HitAndTouchDetectionMode: Enum.AvatarSettingsHitAndTouchDetectionMode {🚧AvatarAppearance}
+	Property AvatarCollisionRules.SingleColliderSize: Vector3 {🚧AvatarAppearance}
+	Property AvatarCollisionRules.LegacyCollisionMode: Enum.AvatarSettingsLegacyCollisionMode [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, autoSetupParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string [Yields] {🚧DynamicGeneration}
 	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string [Yields] {🚧DynamicGeneration}
@@ -1463,7 +1470,7 @@ Class AvatarImportService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function AvatarImportService:ImportLoadedFBXAnimation(useFBXModel: boolean) -> Instance? [Yields] {🔒RobloxScript}
 	Function AvatarImportService:LoadRigAndDetectType(promptR15Callback: (...any) -> ...any) -> Instance? [Yields] {🔒RobloxScript}
 Class AvatarRules : Instance {🔒RobloxScript} [Deprecated]
-	Property AvatarRules.AvatarType: Enum.GameAvatarType [Deprecated] {🔒RobloxScript}
+	Property AvatarRules.AvatarType: Enum.GameAvatarType [Deprecated] {🚧AvatarAppearance} {🔒RobloxScript}
 Class AvatarSettings : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 	Property AvatarSettings.Loaded: boolean {🔍RobloxScript} {✏️NotAccessible}
 	Property AvatarSettings.RulesSchemaVersion: number {🔍RobloxScript} {✏️NotAccessible}
@@ -1654,6 +1661,9 @@ Class WrapLayer : BaseWrap
 	Property WrapLayer.ReferenceMeshContent: Content {🚧AvatarAppearance} {✏️Plugin}
 	Property WrapLayer.ReferenceMeshId: string {🚧AvatarAppearance} {✏️Plugin}
 	Property WrapLayer.ReferenceOrigin: CFrame {🚧AvatarAppearance} {✏️Plugin}
+	Property WrapLayer.RotateScaleDeformationMap: Content {🚧AvatarAppearance} {✏️Plugin}
+	Property WrapLayer.ScaleOnlyDeformationMap: Content {🚧AvatarAppearance} {✏️Plugin}
+	Property WrapLayer.TargetShaping: number {🚧AvatarAppearance} {✏️Plugin}
 	Property WrapLayer.AutoSkin: Enum.WrapLayerAutoSkin {🚧AvatarAppearance}
 	Property WrapLayer.Enabled: boolean {🚧AvatarAppearance}
 	Property WrapLayer.ReferenceOriginWorld: CFrame [ReadOnly] {🚧AvatarAppearance}
@@ -1829,6 +1839,7 @@ Class CallingService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Not
 	Function CallingService:CreateCallAsync(participantIds: { any }? = {}, chatChannelId: string? = "") -> { [string]: any } [Yields] {🔒RobloxScript}
 	Function CallingService:EndCall(callId: string, reason: string) -> () {🔒RobloxScript}
 	Function CallingService:GetCallingState(callId: string) -> { [string]: any } {🔒RobloxScript}
+	Function CallingService:ReceiveIncomingCall(pushPayloadJson: string) -> () {🔒RobloxScript}
 	Event CallingService.OnCallingRemoved(callId: string) {🔒RobloxScript}
 	Event CallingService.OnCallingStateChange(callingState: { [string]: any }) {🔒RobloxScript}
 Class CalloutService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
@@ -2050,6 +2061,7 @@ Class ClientStorageService : Instance {🔒RobloxScript} [NotCreatable] [Service
 	Function ClientStorageService:RemoveItem(key: string) -> () {🔒RobloxScript}
 	Function ClientStorageService:SetItem(key: string, value: string, options: { [string]: any }? = nil) -> () {🔒RobloxScript}
 Class CloudCRUDService : Instance [NotCreatable] [Service] [NotReplicated]
+Class CloudClientService : Instance [NotCreatable] [Service] [NotReplicated]
 Class CloudExecutionService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Clouds : Instance
 	Property Clouds.Cover: number {🚧Environment}
@@ -2086,6 +2098,7 @@ Class CollectionService : Instance [NotCreatable] [Service]
 	Function CollectionService:AddTag(instance: Instance, tag: string) -> () [CustomLuaState] {🚧Basic}
 	Function CollectionService:CreateCollection(query: string, root: Instance? = nil) -> CollectionHandle {🚧Basic}
 	Function CollectionService:GetAllTags() -> { any } {🚧Basic} {🧬Safe}
+	Function CollectionService:GetCollections(instance: Instance) -> { any } {🚧Basic}
 	Function CollectionService:GetInstanceAddedSignal(tag: string) -> RBXScriptSignal {🚧Basic}
 	Function CollectionService:GetInstanceRemovedSignal(tag: string) -> RBXScriptSignal {🚧Basic}
 	Function CollectionService:GetTagged(tag: string) -> { Instance } {🚧Basic} {🧬Safe}
@@ -2371,6 +2384,7 @@ Class ContextActionService : Instance [NotCreatable] [Service]
 	Event ContextActionService.BoundActionRemoved(actionRemoved: string, functionInfoTable: { [string]: any }, isCore: boolean) {🚧Input} {🔒RobloxScript}
 	Event ContextActionService.GetActionButtonEvent(actionName: string) {🚧Input} {🔒RobloxScript}
 	Event ContextActionService.InputContextsChanged() {🚧Input} {🔒RobloxScript}
+	Event ContextActionService.OpenInputActionManagerSignal(selectedInputObjects: { Instance }) {🚧Input} {🔒RobloxScript}
 Class ControlState : Instance
 	Property ControlState.Owner: Player? {🚀SimAccess}
 	Property ControlState.StateSchema: BinaryString [Hidden] [NotScriptable] {🔒RobloxEngine}
@@ -2385,6 +2399,7 @@ Class ControlState : Instance
 	Function ControlState:GetChangedState(prev: Enum.StateReferenceFrame? = "PreviousState", next: Enum.StateReferenceFrame? = "CurrentState") -> { [string]: any } {🚀SimAccess}
 	Function ControlState:GetReplicationWeight() -> number
 	Function ControlState:GetState(ref: Enum.StateReferenceFrame? = "CurrentState") -> { [string]: any } {🚀SimAccess}
+	Function ControlState:HasField(name: string) -> boolean [NotBrowsable]
 	Function ControlState:SetField(name: string, value: any) -> ()
 	Function ControlState:UpdateFields(state: { [string]: any }) -> ()
 	Event ControlState.OnStateChanged()
@@ -2823,6 +2838,7 @@ Class ExperienceService : Instance {🔒RobloxScript} [NotCreatable] [Service] [
 	Function ExperienceService:GetPendingJoinAttempt() -> { [string]: any } {🔒RobloxScript}
 	Function ExperienceService:GetPlaceJoinState() -> string {🔒RobloxScript}
 	Function ExperienceService:GetQueuePosition() -> number {🔒RobloxScript}
+	Function ExperienceService:IsInExperience() -> boolean {🔒RobloxScript}
 	Function ExperienceService:LaunchExperience(params: { [string]: any }) -> string {🔒RobloxScript}
 	Function ExperienceService:LaunchExperienceFromSource(params: { [string]: any }, source: string) -> string {🔒RobloxScript}
 	Function ExperienceService:LaunchExperienceFromSourceWithCallback(params: { [string]: any }, source: string, callback: (...any) -> ...any) -> () {🔒RobloxScript}
@@ -3509,7 +3525,7 @@ Class TextBox : GuiObject
 	Event TextBox.FocusLost(enterPressed: boolean, inputThatCausedFocusLoss: InputObject) {🚧UI}
 	Event TextBox.Focused() {🚧UI}
 	Event TextBox.ReturnPressedFromOnScreenKeyboard() {🚧UI}
-Class TextChannelWindow : GuiObject [NotBrowsable]
+Class TextChannelWindow : GuiObject
 	Property TextChannelWindow.FontFace: Font {🚧Chat + UI}
 	Property TextChannelWindow.UseDefaultFont: boolean {🚧Chat + UI}
 	Property TextChannelWindow.Target: TextChannel? {🚧UI}
@@ -3690,21 +3706,25 @@ Class HandleAdornment : PVAdornment [NotCreatable]
 Class BoxHandleAdornment : HandleAdornment
 	Property BoxHandleAdornment.Shading: Enum.AdornShading {🚧Basic + UI}
 	Property BoxHandleAdornment.Size: Vector3 {🚧Basic + UI}
+	Property BoxHandleAdornment.DoubleSided: boolean [Hidden] {🚧Basic + UI} {🔒RobloxScript}
 Class ConeHandleAdornment : HandleAdornment
 	Property ConeHandleAdornment.Height: number {🚧Basic + UI}
 	Property ConeHandleAdornment.Hollow: boolean {🚧Basic + UI}
 	Property ConeHandleAdornment.Radius: number {🚧Basic + UI}
 	Property ConeHandleAdornment.Shading: Enum.AdornShading {🚧Basic + UI}
+	Property ConeHandleAdornment.DoubleSided: boolean [Hidden] {🚧Basic + UI} {🔒RobloxScript}
 Class CylinderHandleAdornment : HandleAdornment
 	Property CylinderHandleAdornment.Angle: number {🚧Basic + UI}
 	Property CylinderHandleAdornment.Height: number {🚧Basic + UI}
 	Property CylinderHandleAdornment.InnerRadius: number {🚧Basic + UI}
 	Property CylinderHandleAdornment.Radius: number {🚧Basic + UI}
 	Property CylinderHandleAdornment.Shading: Enum.AdornShading {🚧Basic + UI}
+	Property CylinderHandleAdornment.DoubleSided: boolean [Hidden] {🚧Basic + UI} {🔒RobloxScript}
 Class ImageHandleAdornment : HandleAdornment
 	Property ImageHandleAdornment.Image: string {🚧UI}
 	Property ImageHandleAdornment.ImageContent: Content {🚧UI}
 	Property ImageHandleAdornment.Size: Vector2 {🚧Basic + UI}
+	Property ImageHandleAdornment.DoubleSided: boolean [Hidden] {🚧Basic + UI} {🔒RobloxScript}
 Class LineHandleAdornment : HandleAdornment
 	Property LineHandleAdornment.Length: number {🚧Basic + UI}
 	Property LineHandleAdornment.Thickness: number {🚧Basic + UI}
@@ -3713,9 +3733,11 @@ Class PyramidHandleAdornment : HandleAdornment
 	Property PyramidHandleAdornment.Shading: Enum.AdornShading {🚧Basic + UI}
 	Property PyramidHandleAdornment.Sides: number {🚧Basic + UI}
 	Property PyramidHandleAdornment.Size: number {🚧Basic + UI}
+	Property PyramidHandleAdornment.DoubleSided: boolean [Hidden] {🚧Basic + UI} {🔒RobloxScript}
 Class SphereHandleAdornment : HandleAdornment
 	Property SphereHandleAdornment.Radius: number {🚧Basic + UI}
 	Property SphereHandleAdornment.Shading: Enum.AdornShading {🚧Basic + UI}
+	Property SphereHandleAdornment.DoubleSided: boolean [Hidden] {🚧Basic + UI} {🔒RobloxScript}
 Class WireframeHandleAdornment : HandleAdornment
 	Property WireframeHandleAdornment.Scale: Vector3 {🚧Basic + UI}
 	Property WireframeHandleAdornment.Thickness: number {🚧Basic + UI}
@@ -4049,6 +4071,7 @@ Class Humanoid : Instance
 	Property Humanoid.Health_XML: number [Hidden] [NotScriptable] {🚧AvatarBehavior}
 	Property Humanoid.maxHealth: number [NotReplicated] [Deprecated] {🚧AvatarBehavior} [📁LoadOnly]
 	Function Humanoid:AddAccessory(accessory: Instance) -> () {🚧AvatarAppearance}
+	Function Humanoid:ApplyAvatarRulesAsync(avatarRules: any) -> () [Yields] {🚧AvatarAppearance}
 	Function Humanoid:ApplyDescriptionAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields] {🚧AvatarAppearance}
 	Function Humanoid:ApplyDescriptionResetAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields] {🚧AvatarAppearance}
 	Function Humanoid:BuildRigFromAttachments() -> () {🚧AvatarBehavior}
@@ -4072,8 +4095,7 @@ Class Humanoid : Instance
 	Function Humanoid:UnequipTools() -> () {🚧AvatarBehavior}
 	Function Humanoid:AddCustomStatus(status: string) -> boolean [Deprecated]
 	Function Humanoid:AddStatus(status: Enum.Status? = "Poison") -> boolean [Deprecated]
-	Function Humanoid:ApplyAvatarRules(avatarRules: AvatarRules) -> () [Yields] [Deprecated] {🔒RobloxScript}
-	Function Humanoid:ApplyAvatarRulesAsync(avatarRules: AvatarRules) -> () [Yields] {🔒RobloxScript}
+	Function Humanoid:ApplyAvatarRules(avatarRules: any) -> () [Yields] [Deprecated] {🔒RobloxScript}
 	Function Humanoid:ApplyDescription(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields] [Deprecated] {🚧AvatarAppearance}
 	Function Humanoid:ApplyDescriptionReset(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields] [Deprecated] {🚧AvatarAppearance}
 	Function Humanoid:CacheDefaults() -> () {🔒RobloxScript}
@@ -4397,6 +4419,7 @@ Class InputAction : Instance
 	Property InputAction.Direction2DState: Vector2 [ReadOnly] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Property InputAction.Direction3DState: Vector3 [ReadOnly] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Property InputAction.ViewportPositionState: Vector2 [ReadOnly] [NotScriptable] {🚧Input} {🔒RobloxScript}
+	Property InputAction.Editor: boolean [NotReplicated] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Function InputAction:GetState() -> any {🚧Input} {🧬Safe} {🚀SimAccess}
 	Function InputAction:Fire(state: any) -> () [Deprecated] {🚧Input} {🚀SimAccess}
 	Function InputAction:GetInputBindings() -> { Instance } {🚧Input} {🔒RobloxScript}
@@ -4429,11 +4452,13 @@ Class InputBinding : Instance
 	Property InputBinding.Up: Enum.KeyCode {🚧Input}
 	Property InputBinding.DisplayImage: Content {🚧Input}
 	Property InputBinding.DisplayName: string {🚧Input}
+	Property InputBinding.Editor: boolean [NotReplicated] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Function InputBinding:Fire(state: any) -> () {🚧Input} {🚀SimAccess}
 Class InputContext : Instance
 	Property InputContext.Enabled: boolean {🚧Input}
 	Property InputContext.Priority: number {🚧Input}
 	Property InputContext.Sink: boolean {🚧Input}
+	Property InputContext.Editor: boolean [NotReplicated] [NotScriptable] {🚧Input} {🔒RobloxScript}
 	Function InputContext:GetInputActions() -> { Instance } {🚧Input} {🔒RobloxScript}
 	Event InputContext.InputActionsChanged() {🚧Input} {🔒RobloxScript}
 Class InputObject : Instance [NotCreatable]
@@ -4597,7 +4622,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.FogStart: number {🚧Environment}
 	Property Lighting.Outlines: boolean [Deprecated] {🚧Environment}
 	Property Lighting.ShadowColor: Color3 [NotReplicated] [Deprecated] {🚧Environment} [📁LoadOnly]
-	Property Lighting.Technology: Enum.Technology {🚧Environment} {🔒RobloxScript}
+	Property Lighting.Technology: Enum.Technology [Deprecated] {🚧Environment} {🔒RobloxScript}
 	Function Lighting:GetMinutesAfterMidnight() -> number {🚧Environment} {🧬Safe}
 	Function Lighting:GetMoonDirection() -> Vector3 {🚧Environment} {🧬Safe}
 	Function Lighting:GetMoonPhase() -> number {🚧Environment}
@@ -4607,6 +4632,8 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function Lighting:setMinutesAfterMidnight(minutes: number) -> () [Deprecated] {🚧Environment}
 	Event Lighting.LightingChanged(skyChanged: boolean) {🚧Environment}
 Class LinkingService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
+	Function LinkingService:CreateInternalDlic(url: string, source: string) -> string? {🔒RobloxScript}
+	Function LinkingService:DetectDlic(deeplinkId: string) -> () {🔒RobloxScript}
 	Function LinkingService:DetectUrl(url: string) -> () {🔒RobloxScript}
 	Function LinkingService:GetAndClearLastPendingUrl() -> { [string]: any } {🔒RobloxScript}
 	Function LinkingService:GetLastLuaUrl() -> string? {🔒RobloxScript}
@@ -5235,6 +5262,8 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Event NotificationService.RobloxConnectionChanged(connectionName: string, connectionState: Enum.ConnectionState, sequenceNumber: string, namespaceSequenceNumbers: string) {🚧Players} {🔒RobloxScript}
 	Event NotificationService.RobloxEventReceived(eventData: { [any]: any }) {🚧Players} {🔒RobloxScript}
 	Event NotificationService.TopicNotificationReceived(eventData: { [any]: any }) {🚧Players} {🔒RobloxScript}
+	Event NotificationService.TopicSubscriptionError(eventData: { [any]: any }) {🚧Players} {🔒RobloxScript}
+	Event NotificationService.TopicTokenExpiry(eventData: { [any]: any }) {🚧Players} {🔒RobloxScript}
 Class OmniRecommendationsService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function OmniRecommendationsService:ClearSessionId() -> () {🔒RobloxScript}
 	Function OmniRecommendationsService:GetSessionId() -> string {🔒RobloxScript}
@@ -6247,6 +6276,7 @@ Class Player : Instance
 	Function Player:Kick(message: string? = "") -> () {🚧Consequences + Players}
 	Function Player:LoadCharacterAsync() -> () [Yields] {🚧Players}
 	Function Player:LoadCharacterBlocking() -> () [Yields] {🚧Players} {🔒LocalUser}
+	Function Player:LoadCharacterWithAvatarRulesAsync(avatarRules: any) -> () [Yields] {🚧AvatarAppearance + Players}
 	Function Player:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields] {🚧Players}
 	Function Player:Move(walkDirection: Vector3, relativeToCamera: boolean? = false) -> () {🚧Players}
 	Function Player:PromptAgeCheck() -> () {🚧Players}
@@ -6277,7 +6307,6 @@ Class Player : Instance
 	Function Player:LoadBoolean(key: string) -> boolean [Deprecated] {🚧Players}
 	Function Player:LoadCharacter() -> () [Yields] [Deprecated] {🚧Players}
 	Function Player:LoadCharacterAppearance(assetInstance: Instance) -> () [Deprecated] {🚧AvatarAppearance + Players}
-	Function Player:LoadCharacterWithAvatarRulesAsync(avatarRules: AvatarRules) -> () [Yields] {🚧Players} {🔒RobloxScript}
 	Function Player:LoadCharacterWithHumanoidDescription(humanoidDescription: HumanoidDescription, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> () [Yields] [Deprecated] {🚧Players}
 	Function Player:LoadData() -> () [Deprecated] {🚧Players} {🔒LocalUser}
 	Function Player:LoadInstance(key: string) -> Instance? [Deprecated] {🚧Players}
@@ -6690,11 +6719,12 @@ Class ProjectService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 	Function ProjectService:ResolveContent(path: string) -> Content {🔒RobloxScript}
 	Function ProjectService:SetContent(path: string, value: Content) -> () {🔒RobloxScript}
 	Event ProjectService.ContentMapCreateFolderRequested(operationId: number, path: string, dependencyOperationIds: { any }) [Hidden] {🔒RobloxEngine}
-	Event ProjectService.ContentMapMoveRequested(operationId: number, fromPath: string, toPath: string, dependencyOperationIds: { any }) [Hidden] {🔒RobloxEngine}
+	Event ProjectService.ContentMapMoveRequested(operationId: number, fromPath: string, toPath: string, dependencyOperationIds: { any }, expectedShape: number, expectedSourceKind: number) [Hidden] {🔒RobloxEngine}
 	Event ProjectService.ContentMapMutationResult(operationId: number, result: number, authoritativeRevision: number) [Hidden] {🔒RobloxEngine}
-	Event ProjectService.ContentMapRemovePathRequested(operationId: number, path: string, dependencyOperationIds: { any }) [Hidden] {🔒RobloxEngine}
+	Event ProjectService.ContentMapRemovePathRequested(operationId: number, path: string, dependencyOperationIds: { any }, expectedSourceKind: number) [Hidden] {🔒RobloxEngine}
 	Event ProjectService.ContentMapSetContentRequested(operationId: number, path: string, content: Content, dependencyOperationIds: { any }) [Hidden] {🔒RobloxEngine}
 	Event ProjectService.EffectivePathsChanged() {🔒RobloxScript}
+	Event ProjectService.MutationFailed(operation: string, path: string, destinationPath: string, message: string) {🔒RobloxScript}
 	Event ProjectService.PathAdded(path: string) {🔒RobloxScript}
 	Event ProjectService.PathChanged(path: string) {🔒RobloxScript}
 	Event ProjectService.PathMoved(fromPath: string, toPath: string) {🔒RobloxScript}
@@ -6787,6 +6817,7 @@ Class RealtimeMedia : Instance
 	Property RealtimeMedia.AudioInputActive: boolean [ReadOnly] {🚧InternalTest}
 	Property RealtimeMedia.ForwardInput: boolean {🚧InternalTest} {🔒RobloxScript}
 	Property RealtimeMedia.IsConnected: boolean [ReadOnly] {🚧InternalTest}
+	Property RealtimeMedia.IsConnectionWeak: boolean [ReadOnly] {🚧InternalTest}
 	Function RealtimeMedia:ConnectAsync(serverUrl: string, connectParams: { [string]: any }? = nil) -> boolean [Yields] {🚧InternalTest}
 	Function RealtimeMedia:Disconnect() -> () {🚧InternalTest}
 	Function RealtimeMedia:GetConnectedWires(pin: string) -> { Instance } {🚧InternalTest}
@@ -6794,6 +6825,7 @@ Class RealtimeMedia : Instance
 	Function RealtimeMedia:GetOutputPins() -> { any } {🚧InternalTest}
 	Function RealtimeMedia:SendMessage(message: string, binary: boolean) -> boolean {🚧InternalTest}
 	Event RealtimeMedia.AudioInputRequested() {🚧InternalTest}
+	Event RealtimeMedia.Disconnected(expected: boolean) {🚧InternalTest}
 	Event RealtimeMedia.OnMessage(message: string, binary: boolean) {🚧InternalTest}
 	Event RealtimeMedia.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧InternalTest}
 Class RecommendationService : Instance [NotCreatable] [Service]
@@ -6988,7 +7020,7 @@ Class RotationCurve : Instance
 	Function RotationCurve:SetKeys(keys: { any }) -> number {🚧Basic}
 Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property RunService.RunState: Enum.RunState [NotReplicated] {🚧Basic} {🔒Plugin}
+	Property RunService.RunState: Enum.RunState [NotReplicated] {🚧Basic + PluginOrOpenCloud} {✏️Plugin}
 	Property RunService.ClientGitHash: string [ReadOnly] {🚧Basic} {🔒RobloxScript}
 	Property RunService.FrameNumber: number [ReadOnly] {🚧Basic}
 	Function RunService:BindToAnimation(function: (...any) -> ...any, frequency: Enum.StepFrequency? = "Hz30", priority: number? = 2000) -> RBXScriptConnection {🚧Basic}
@@ -6996,7 +7028,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:BindToSimulation(function: (...any) -> ...any, frequency: Enum.StepFrequency? = "Hz30", priority: number? = 2000) -> RBXScriptConnection {🚧Basic}
 	Function RunService:GetPredictionStatus(context: Instance) -> Enum.PredictionStatus {🚧Basic} {🚀SimAccess}
 	Function RunService:IsClient() -> boolean {🚧Basic} {🧬Safe}
-	Function RunService:IsEdit() -> boolean {🚧Basic} {🔒Plugin} {🧬Safe}
+	Function RunService:IsEdit() -> boolean {🚧Basic + PluginOrOpenCloud} {🧬Safe}
 	Function RunService:IsResimulating() -> boolean {🚧Basic} {🧬Safe} {🚀SimAccess}
 	Function RunService:IsRunMode() -> boolean {🚧Basic} {🧬Safe}
 	Function RunService:IsRunning() -> boolean {🚧Basic}
@@ -7142,11 +7174,13 @@ Class ScriptDebuggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptDebuggerService.Resumed(threadIds: { any }) {🔒Plugin}
 	Callback ScriptDebuggerService.OnStopped(stopped: { [string]: any }) -> { [string]: any } {🔒Plugin}
 Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
+	Function ScriptDocument:AddReadOnlyReasonsAsync(reasons: { any }) -> () [Yields] {🔒Plugin}
 	Function ScriptDocument:CloseAsync() -> ...any [Yields] {🔒Plugin}
 	Function ScriptDocument:EditTextAsync(newText: string, startLine: number, startCharacter: number, endLine: number, endCharacter: number) -> ...any [Yields] {🔒Plugin}
 	Function ScriptDocument:ForceSetSelectionAsync(cursorLine: number, cursorCharacter: number, anchorLine: number? = nil, anchorCharacter: number? = nil) -> ...any [Yields] {🔒Plugin}
 	Function ScriptDocument:GetLine(lineIndex: number? = nil) -> string {🔒Plugin}
 	Function ScriptDocument:GetLineCount() -> number {🔒Plugin}
+	Function ScriptDocument:GetReadOnlyReasons() -> { any } {🔒Plugin}
 	Function ScriptDocument:GetScript() -> LuaSourceContainer {🔒Plugin}
 	Function ScriptDocument:GetSelectedText() -> string {🔒Plugin}
 	Function ScriptDocument:GetSelection() -> ...any {🔒Plugin}
@@ -7156,7 +7190,9 @@ Class ScriptDocument : Instance [NotCreatable] [NotReplicated]
 	Function ScriptDocument:GetViewport() -> ...any {🔒Plugin}
 	Function ScriptDocument:HasSelectedText() -> boolean {🔒Plugin}
 	Function ScriptDocument:IsCommandBar() -> boolean {🔒Plugin}
+	Function ScriptDocument:IsReadOnly() -> boolean {🔒Plugin}
 	Function ScriptDocument:MultiEditTextAsync(edits: { any }) -> ...any [Yields] {🔒Plugin}
+	Function ScriptDocument:RemoveReadOnlyReasonsAsync(reasons: { any }) -> () [Yields] {🔒Plugin}
 	Function ScriptDocument:RequestSetSelectionAsync(cursorLine: number, cursorCharacter: number, anchorLine: number? = nil, anchorCharacter: number? = nil) -> ...any [Yields] {🔒Plugin}
 	Function ScriptDocument:ReviewableTextEditsAsync(changes: { any }) -> ...any [Yields] {🔒Plugin}
 	Function ScriptDocument:GetInternalUri() -> string {🔒RobloxScript}
@@ -7479,6 +7515,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {🚧Social} {🔒RobloxScript}
 	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance {🚧Social}
 Class Sound : Instance
+	Property Sound.AudioContent: Content {🚧LegacySound}
 	Property Sound.IsLoaded: boolean [ReadOnly] {🚧LegacySound}
 	Property Sound.SoundId: string {🚧LegacySound}
 	Property Sound.TimeLength: number [ReadOnly] {🚧LegacySound}
@@ -7497,7 +7534,6 @@ Class Sound : Instance
 	Property Sound.LoopRegion: NumberRange {🚧LegacySound}
 	Property Sound.PlaybackRegion: NumberRange {🚧LegacySound}
 	Property Sound.SoundGroup: SoundGroup? {🚧LegacySound}
-	Property Sound.AudioContent: Content [Hidden] {🚧LegacySound}
 	Property Sound.ChannelCount: number [Hidden] [ReadOnly] {🚧LegacySound} {🔒RobloxScript}
 	Property Sound.AssetRepresentation: Enum.AssetRepresentation [Hidden] [NotReplicated] {🚧LegacySound} {🔒RobloxScript}
 	Property Sound.IsSpatial: boolean [Hidden] [ReadOnly] {🚧LegacySound} {🔒RobloxScript}
@@ -7608,9 +7644,12 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function SoundService:PlayLocalSound(sound: Instance) -> () {🚧Audio}
 	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> () {🚧Audio}
 	Function SoundService:BeginRecording() -> boolean {🚧Audio} {🔒RobloxScript}
+	Function SoundService:DebugClearDetachedPlaybacks() -> () {🚧Audio} {🔒RobloxScript}
+	Function SoundService:EnableDetachedPlaybackMetadata() -> () {🚧Audio} {🔒RobloxScript}
 	Function SoundService:EndRecording() -> { [string]: any } [Yields] {🚧Audio} {🔒RobloxScript}
 	Function SoundService:GetAudioApiByDefault() -> boolean {🚧Audio} {🔒RobloxScript}
 	Function SoundService:GetAudioInstances() -> { any } {🚧Audio} {🔒RobloxScript}
+	Function SoundService:GetDetachedPlaybackData() -> { [string]: any } {🚧Audio} {🔒RobloxScript}
 	Function SoundService:GetInputDevice() -> ...any {🚧Audio} {🔒RobloxScript}
 	Function SoundService:GetInputDevices() -> ...any {🚧Audio} {🔒RobloxScript}
 	Function SoundService:GetListenerWorldCFrame() -> CFrame? {🚧Audio} {🔒RobloxScript}
@@ -7625,6 +7664,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function SoundService:SetOutputDevice(name: string, guid: string) -> () {🚧Audio} {🔒RobloxScript}
 	Function SoundService:SetRecordingDevice(deviceIndex: number) -> boolean {🚧Audio} {🔒RobloxScript}
 	Function SoundService:SetSoundEnabled(enabled: boolean) -> () {🚧Audio} {🔒RobloxScript}
+	Event SoundService.AudioDeviceInputAdded(audioDeviceInput: AudioDeviceInput) {🚧Audio} {🔒RobloxScript}
 	Event SoundService.AudioInstanceAdded(instance: Instance) {🚧Audio} {🔒RobloxScript}
 	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) [Hidden] {🚧Audio} {🔒RobloxEngine}
 	Event SoundService.DeviceListChanged(newDevices: ...any) {🚧Audio} {🔒RobloxScript}
@@ -7696,6 +7736,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.EnableDynamicHeads: Enum.LoadDynamicHeads [NotScriptable] {🚧Players}
 	Property StarterPlayer.LoadCharacterAppearance: boolean {🚧Players}
 	Property StarterPlayer.LoadCharacterLayeredClothing : Enum.LoadCharacterLayeredClothing [NotReplicated] [NotScriptable] {🚧Players}
+	Property StarterPlayer.PlaceAvatarRules: Instance? {🚧Players}
 	Property StarterPlayer.UserEmotesEnabled: boolean {🚧Players}
 	Property StarterPlayer.CharacterJumpHeight: number {🚧Players}
 	Property StarterPlayer.CharacterJumpPower: number {🚧Players}
@@ -7713,7 +7754,6 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.GameSettingsAvatar: Enum.GameAvatarType [Hidden] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.GameSettingsR15Collision: Enum.R15CollisionType [Hidden] [NotReplicated] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.LoadCharacterLayeredClothing: Enum.LoadCharacterLayeredClothing [Hidden] [NotScriptable] {🚧Players}
-	Property StarterPlayer.PlaceAvatarRules: Instance? [Hidden] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.UseImprovedCharacterEvents: Enum.RolloutState [NotScriptable] {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.CreateDefaultPlayerModule: boolean {🚧Players} {🔒RobloxScript}
 	Property StarterPlayer.PlayerModuleStatus: number [Hidden] {🚧Players} {🔒RobloxScript}
@@ -7809,7 +7849,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Theme: Instance? {🔒Plugin}
 	Property Studio.CommandBarLocalState: boolean {🔒Plugin}
 	Property Studio.LuaDebuggerEnabled: boolean {🔒Plugin}
-	Property Studio.PluginDebuggingEnabled: boolean {🔒Plugin}
 	Property Studio.ScriptTimeoutLength: number {🔒Plugin}
 	Property Studio.Clear Output On Start: boolean {🔒Plugin}
 	Property Studio.Maximum Output Lines: number {🔒Plugin}
@@ -7947,6 +7986,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.DisplayLanguage: string {🔒RobloxScript}
 	Property Studio.UI Theme: Enum.UITheme [Hidden] [ReadOnly] [Deprecated] {🔒Plugin}
 	Property Studio.LuaDebuggerEnabledAtStartup: boolean [Hidden] [ReadOnly] {🔒Plugin}
+	Property Studio.PluginDebuggingEnabled: boolean {🔒RobloxScript}
 	Property Studio.AutocompleteAcceptanceBehavior: Enum.CompletionAcceptanceBehavior {🔒RobloxScript}
 	Property Studio.Automatically trigger AI Code Completion: boolean {🔒RobloxScript}
 	Property Studio.CommandBarEnterExec: boolean {🔒RobloxScript}
@@ -8362,6 +8402,13 @@ Class TerrainRegion : Instance
 	Function TerrainRegion:ApplyTransformSubregion(rotation: CFrame, size: Vector3, region: Region3int16) -> TerrainRegion {🚧Environment} {🔒RobloxScript}
 	Function TerrainRegion:ConvertToSmooth() -> () [Deprecated] {🚧Environment} {🔒Plugin}
 	Function TerrainRegion:GetRegionWireframe() -> { any } {🚧Environment} {🔒RobloxScript}
+Class TestCoordinatorService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function TestCoordinatorService:AwaitAllAsync(pendingIds: { any }) -> { any } [Yields] {🚧InternalTest}
+	Function TestCoordinatorService:AwaitAnyAsync(pendingIds: { any }) -> { [string]: any } [Yields] {🚧InternalTest}
+	Function TestCoordinatorService:AwaitSignalAsync(topic: string) -> { [string]: any } [Yields] {🚧InternalTest}
+	Function TestCoordinatorService:BarrierAsync(name: string, participantIds: { any }) -> () [Yields] {🚧InternalTest}
+	Function TestCoordinatorService:Participant(id: string) -> ParticipantHandle {🚧InternalTest}
+	Function TestCoordinatorService:Signal(topic: string, payload: { [string]: any }? = nil) -> () {🚧InternalTest}
 Class TestService : Instance [Service]
 	Property TestService.Description: string
 	Property TestService.Enabled: boolean [ReadOnly] {🧬Unsafe}
@@ -8574,6 +8621,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🚧Chat}
 	Function TextChatService:GetChatGroupsAsync(players: { Instance }) -> { any } [Yields] {🚧Chat}
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: User, toUserId: User) -> boolean [Yields] {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:ChatIsLoaded() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:GetChatableUserCountAsync(userId: User, context: string) -> number [Yields] {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:GetPresetsAsync() -> { [string]: any } [Yields] {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:GetTextChannelWindows() -> { any } {🚧Chat} {🔒RobloxScript}
@@ -8584,7 +8632,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number, extras: { [string]: any }?, chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
-	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown", selectedChannelTab: number? = -1, textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:SendExpChatMessageClientRendered(textChatMessage: TextChatMessage, messageRenderedSurface: string? = "unknown", selectedChannelTab: number? = -1, textChannelWindowName: string? = "", specialEffects: { any }? = {}) -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatWindowScroll(chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeBackgroundIdle: number, timeTextIdle: number, chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendTextChatCommandClientSent(textChatCommandName: string, chatWindowType: string? = "", textChannelWindowName: string? = "") -> () {🚧Chat} {🔒RobloxScript}
@@ -8595,12 +8643,14 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.MessageReceived(textChatMessage: TextChatMessage) {🚧Chat}
 	Event TextChatService.SendingMessage(textChatMessage: TextChatMessage) {🚧Chat}
 	Event TextChatService.ChatActionReceived(chatActionMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
+	Event TextChatService.ClientToServerChatIsLoadedSignal() [Hidden] {🚧Chat} {🔒RobloxEngine}
 	Event TextChatService.ClientToServerChatableUserCountRequestSignal(requestId: string) [Hidden] {🚧Chat} {🔒RobloxEngine}
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) [Hidden] {🚧Chat} {🔒RobloxEngine}
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) [Hidden] {🚧Chat} {🔒RobloxEngine}
 	Event TextChatService.ClientToServerMessageReplicateSignalV4(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean, presetId: string, presetChatVersion: string) [Hidden] {🚧Chat} {🔒RobloxEngine}
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) [Hidden] {🚧Chat} {🔒RobloxEngine}
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV2(text: string, metadata: string, messageId: string, userId: number, verified: boolean, presetId: string, presetChatVersion: string) [Hidden] {🚧Chat} {🔒RobloxEngine}
+	Event TextChatService.CoreMessageReceived(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.ExpChatFeatureValueChanged(userId: number, featureName: string, featureValue: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnUserChatSettingUpdateServer(featureName: string) [Hidden] {🚧Chat} {🔒RobloxEngine}
@@ -8622,7 +8672,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Callback TextChatService.OnBubbleAdded(message: TextChatMessage, adornee: Instance) -> ...any {🚧Chat}
 	Callback TextChatService.OnChatWindowAdded(message: TextChatMessage) -> ...any {🚧Chat}
 	Callback TextChatService.OnIncomingMessage(message: TextChatMessage) -> ...any {🚧Chat}
-Class TextDocument : Instance [NotBrowsable]
+Class TextDocument : Instance
 	Property TextDocument.TextContent: Content {🔒Plugin}
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function TextFilterResult:GetNonChatStringForBroadcastAsync() -> string [Yields] {🚧UI}
@@ -9281,10 +9331,12 @@ Class VersionControlService : Instance [NotCreatable] [Service]
 	Event VersionControlService.ScriptEditorRemoved(scriptGuid: string, editor: Instance) [Hidden] {🔒LocalUser}
 	Event VersionControlService.ScriptStartEdit(scriptGuid: string) [Hidden] {🔒LocalUser}
 	Event VersionControlService.ScriptStopEdit(scriptGuid: string) [Hidden] {🔒LocalUser}
-Class VideoCaptureService : Instance {🔒RobloxScript} [NotCreatable] [Service]
+Class VideoCaptureService : Instance [NotCreatable] [Service]
 	Property VideoCaptureService.Active: boolean [Hidden] [NotReplicated] {🔒RobloxScript}
 	Property VideoCaptureService.CameraID: string [Hidden] [NotReplicated] {🔒RobloxScript}
+	Function VideoCaptureService:ClearMockInput() -> () {🚧InternalTest}
 	Function VideoCaptureService:GetCameraDevices() -> { [any]: any } {🔒RobloxScript}
+	Function VideoCaptureService:SetMockInputAsync(videoContent: Content) -> ...any [Yields] {🚧InternalTest}
 	Event VideoCaptureService.DevicesChanged() {🔒RobloxScript}
 	Event VideoCaptureService.Error(cameraid: string, errorcode: string) {🔒RobloxScript}
 	Event VideoCaptureService.Started(cameraid: string) {🔒RobloxScript}
@@ -9437,6 +9489,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function VoiceChatService:joinVoice() -> () {🚧Audio + Chat} {🔒RobloxScript}
 	Function VoiceChatService:lastVoiceChatConnectivity() -> { [string]: any } {🚧Audio + Chat} {🔒RobloxScript}
 	Function VoiceChatService:lastVoiceChatStats() -> { [string]: any } {🚧Audio + Chat} {🔒RobloxScript}
+	Function VoiceChatService:lastVoiceChatSubscriptions() -> { [string]: any } {🚧Audio + Chat} {🔒RobloxScript}
 	Function VoiceChatService:leaveVoice(leaveReason: Enum.VoiceClientLeaveReasons? = "LuaInitiated") -> () {🚧Audio + Chat} {🔒RobloxScript}
 	Function VoiceChatService:notifyServerACSCleanup() -> () {🚧Audio + Chat} {🔒RobloxScript}
 	Function VoiceChatService:rejoinVoice() -> () {🚧Audio + Chat} {🔒RobloxScript}
@@ -9559,6 +9612,13 @@ Class MLSession : Object [NotCreatable] [NotReplicated]
 	Function MLSession:ForwardAsync(data: { [string]: any }) -> { [string]: any } [Yields] {🚧Basic}
 Class OutputLink : Object {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function OutputLink:Print(messageType: Enum.MessageType, message: string, urlText: string) -> () {🔒RobloxScript}
+Class ParticipantHandle : Object [NotCreatable] [NotReplicated]
+	Function ParticipantHandle:Click(x: number, y: number) -> string {🚧InternalTest}
+	Function ParticipantHandle:InputText(text: string, enter: boolean? = false) -> string {🚧InternalTest}
+	Function ParticipantHandle:Launch(options: { [string]: any }? = nil) -> string {🚧InternalTest}
+	Function ParticipantHandle:Screenshot(name: string) -> string {🚧InternalTest}
+	Function ParticipantHandle:Scroll(direction: string, power: number? = 0.5) -> string {🚧InternalTest}
+	Function ParticipantHandle:Shutdown() -> string {🚧InternalTest}
 Class PluginConnection : Object [NotCreatable] [NotReplicated]
 	Property PluginConnection.Connected: boolean [ReadOnly] {🔒Plugin}
 	Property PluginConnection.TargetId: string [ReadOnly] {🔒Plugin}
@@ -10081,6 +10141,13 @@ Enum AudioSampleFormat
 Enum AudioSimulationFidelity
 	EnumItem AudioSimulationFidelity.None : 0
 	EnumItem AudioSimulationFidelity.Automatic : 1
+Enum AudioSortType
+	EnumItem AudioSortType.Relevance : 1
+	EnumItem AudioSortType.MostUsed : 2
+	EnumItem AudioSortType.Trending : 3
+	EnumItem AudioSortType.RecentlyCreated : 4
+	EnumItem AudioSortType.ShortestToLongest : 5
+	EnumItem AudioSortType.LongestToShortest : 6
 Enum AudioSubType
 	EnumItem AudioSubType.Music : 1
 	EnumItem AudioSubType.SoundEffect : 2
@@ -10962,6 +11029,8 @@ Enum EasingStyle
 	EnumItem EasingStyle.Exponential : 8
 	EnumItem EasingStyle.Circular : 9
 	EnumItem EasingStyle.Cubic : 10
+	EnumItem EasingStyle.Bezier : 11
+	EnumItem EasingStyle.Spring : 12
 Enum EditableStatus
 	EnumItem EditableStatus.Unknown : 0
 	EnumItem EditableStatus.Allowed : 1
@@ -11271,6 +11340,7 @@ Enum FriendsCallingEndReason
 	EnumItem FriendsCallingEndReason.Declined : 4
 	EnumItem FriendsCallingEndReason.Failed : 5
 	EnumItem FriendsCallingEndReason.Canceled : 6
+	EnumItem FriendsCallingEndReason.NoReason : 7
 Enum FriendsCallingParticipantErrors
 	EnumItem FriendsCallingParticipantErrors.None : 0
 	EnumItem FriendsCallingParticipantErrors.Unknown : 1

@@ -33,7 +33,3 @@ A bone at the root of its chain (e.g. Spine, any Finger1, ToeBase, HeadBase) is 
 - `CurveAnimBonesHaveValidNames` — validates bone folder names against schema.
 - `CurveAnimBoneHierarchyUtils` (`src/util/`) — maps bone names to parent bones.
 - `R15plusUtils.getAvatarBoneSchema()` — source of truth for bone schemas per body part.
-
-## Feature flag
-
-`getFFlagUGCValidateEmotesBonesAllowed` (shared across all bone modules)
