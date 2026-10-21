@@ -29,11 +29,13 @@ type _CatalogSortContentDataImpl = {
 type _CatalogSortContentDataFields = {
 	id: string,
 	type: string,
+	encrypted_ad_tracking_data: string?,
 }
 
 type _CatalogSortContentDataPartialFields = {
 	id: string?,
 	type: string?,
+	encrypted_ad_tracking_data: string?,
 }
 
 export type CatalogSortContentData = typeof(setmetatable(
@@ -144,6 +146,9 @@ do
 		return setmetatable({
 			id = if data == nil or data.id == nil then "" else data.id,
 			type = if data == nil or data.type == nil then "" else data.type,
+			encrypted_ad_tracking_data = if data == nil or data.encrypted_ad_tracking_data == nil
+				then nil
+				else data.encrypted_ad_tracking_data,
 		}, _CatalogSortContentDataImpl :: _CatalogSortContentDataImpl)
 	end
 
@@ -159,6 +164,11 @@ do
 		if self.type ~= nil and self.type ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.type)
+		end
+
+		if self.encrypted_ad_tracking_data ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.encrypted_ad_tracking_data)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -189,6 +199,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.encrypted_ad_tracking_data = buffer.tostring(value)
 					continue
 				end
 
@@ -225,6 +240,10 @@ do
 			output.type = self.type
 		end
 
+		if self.encrypted_ad_tracking_data ~= nil then
+			output.encryptedAdTrackingData = self.encrypted_ad_tracking_data
+		end
+
 		return output
 	end
 
@@ -237,6 +256,14 @@ do
 
 		if input.type ~= nil then
 			self.type = input.type
+		end
+
+		if input.encrypted_ad_tracking_data ~= nil then
+			self.encrypted_ad_tracking_data = input.encrypted_ad_tracking_data
+		end
+
+		if input.encryptedAdTrackingData ~= nil then
+			self.encrypted_ad_tracking_data = input.encryptedAdTrackingData
 		end
 
 		return self

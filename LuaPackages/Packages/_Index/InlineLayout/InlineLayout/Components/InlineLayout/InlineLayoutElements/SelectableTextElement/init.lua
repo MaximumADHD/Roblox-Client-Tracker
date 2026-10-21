@@ -32,7 +32,7 @@ local function TextElementWrapper(props: Props)
 
 	return React.createElement(View, {
 		tag = Dash.join({
-			["size-0-0 auto-xy"] = true,
+			["size-full-0 auto-y"] = true,
 		}, viewTags),
 		LayoutOrder = props.LayoutOrder,
 	}, {
@@ -46,8 +46,9 @@ local function TextElementWrapper(props: Props)
 			BorderSizePixel = 0,
 			TextEditable = false,
 			ZIndex = 0,
-			Size = UDim2.fromScale(0, 0),
-			AutomaticSize = Enum.AutomaticSize.XY,
+			-- Fill the measured frame InlineLayout places the element in, instead of an automatic width.
+			Size = UDim2.fromScale(1, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
 			TextWrapped = false,
 			ClearTextOnFocus = false,
 			RichText = false,

@@ -43,6 +43,7 @@ local enableDebugTracing = ReactFeatureFlags.enableDebugTracing
 local enableSchedulingProfiler = ReactFeatureFlags.enableSchedulingProfiler
 local warnAboutDeprecatedLifecycles = ReactFeatureFlags.warnAboutDeprecatedLifecycles
 local enableDoubleInvokingEffects = ReactFeatureFlags.enableDoubleInvokingEffects
+local enableAllocationTrims = ReactFeatureFlags.enableAllocationTrims
 
 local ReactStrictModeWarnings = require(script.Parent["ReactStrictModeWarnings.new"])
 local isMounted = require(script.Parent.ReactFiberTreeReflection).isMounted
@@ -228,9 +229,20 @@ local function applyDerivedStateFromProps<Props, State>(
 		warnOnUndefinedDerivedState(ctor, partialState)
 	end
 	-- Merge the partial state and the previous state.
-	local memoizedState = if partialState == nil
-		then prevState
-		else Object.assign({}, prevState, partialState)
+	local memoizedState
+	if enableAllocationTrims then
+		-- ROBLOX performance: clone in one shot when possible (see getStateFromUpdate)
+		memoizedState = if partialState == nil
+			then prevState
+			elseif
+				type(prevState) == "table" and getmetatable(prevState) == nil
+			then Object.assign(table.clone(prevState), partialState)
+			else Object.assign({}, prevState, partialState)
+	else
+		memoizedState = if partialState == nil
+			then prevState
+			else Object.assign({}, prevState, partialState)
+	end
 	workInProgress.memoizedState = memoizedState
 
 	-- Once the update queue is empty, persist the derived state onto the

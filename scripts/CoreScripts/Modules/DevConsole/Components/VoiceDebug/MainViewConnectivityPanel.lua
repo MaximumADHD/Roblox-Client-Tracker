@@ -33,12 +33,14 @@ local STATUS_DOT_WARN = Constants.Color.WarningYellow
 local STATUS_DOT_BAD = Constants.Color.ErrorRed
 local STATUS_DOT_DIM = Constants.Color.UnselectedGray
 
-local OK_STATES = { complete = true, connected = true, stable = true }
+local OK_STATES = { complete = true, completed = true, connected = true, stable = true }
 local WARN_STATES = { checking = true, connecting = true, new = true }
 local BAD_STATES = { failed = true, disconnected = true, closed = true }
 
 local DOT_SIZE = 7
 local DOT_GAP = 5
+local CENTER_Y_SCALE = 0.5
+local ALERT_ACCENT_WIDTH = 2
 
 local PILL_COLORS = {
 	host = { background = Color3.fromRGB(13, 39, 64), text = Color3.fromRGB(95, 184, 255) },
@@ -141,8 +143,8 @@ local function LegCell(props: { color: Color3?, text: string, size: UDim2, pos: 
 		BackgroundTransparency = 1,
 	}, {
 		Dot = color and Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Position = UDim2.new(0, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0, CENTER_Y_SCALE),
+			Position = UDim2.new(0, 0, CENTER_Y_SCALE, 0),
 			Size = UDim2.new(0, DOT_SIZE, 0, DOT_SIZE),
 			BackgroundColor3 = color,
 			BorderSizePixel = 0,
@@ -158,6 +160,16 @@ local function LegCell(props: { color: Color3?, text: string, size: UDim2, pos: 
 			pos = UDim2.new(0, textOffset, 0, 0),
 		}),
 	})
+end
+
+local function formatSelectedCandidatePair(localType: string?, remoteType: string?, localProtocol: string?): string?
+	if localType == nil or localType == "" or remoteType == nil or remoteType == "" then
+		return nil
+	end
+	if localProtocol and localProtocol ~= "" then
+		return string.format("%s ↔ %s (%s)", localType, remoteType, localProtocol)
+	end
+	return string.format("%s ↔ %s", localType, remoteType)
 end
 
 local function TransportStateTable(props: { connectivity: ConnectivityData?, layoutOrder: number? })
@@ -196,7 +208,7 @@ local function TransportStateTable(props: { connectivity: ConnectivityData?, lay
 		}, {
 			Accent = isConsoleV2Enabled and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
-				Size = UDim2.new(0, 2, 1, 0),
+				Size = UDim2.new(0, ALERT_ACCENT_WIDTH, 1, 0),
 				BackgroundColor3 = Constants.Color.WarningYellow,
 				BackgroundTransparency = isAlert and 0 or 1,
 				BorderSizePixel = 0,
@@ -242,6 +254,66 @@ local function TransportStateTable(props: { connectivity: ConnectivityData?, lay
 		}),
 		Subscribe = Roact.createElement(LegCell, {
 			text = formatLegState(restartText),
+			size = UDim2.new(LEG_COL_WIDTH, UDim.new(1, 0)),
+			pos = UDim2.new(LABEL_COL_WIDTH + LEG_COL_WIDTH, UDim.new(0, 0)),
+		}),
+	})
+
+	local timeToConnectedText: string? = nil
+	if connectivity.timeToConnectedMs and connectivity.timeToConnectedMs > 0 then
+		timeToConnectedText = string.format("%.0f ms", connectivity.timeToConnectedMs)
+	end
+	rows.timeToConnectedRow = Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		LayoutOrder = #stateRowDefs + 2,
+		BackgroundTransparency = 1,
+	}, {
+		Label = Roact.createElement(CellLabel, {
+			text = "Time to connected",
+			size = UDim2.new(LABEL_COL_WIDTH, UDim.new(1, 0)),
+			pos = UDim2.new(0, 0, 0, 0),
+			textTruncate = Enum.TextTruncate.AtEnd,
+		}),
+		Publish = Roact.createElement(LegCell, {
+			text = formatLegState(timeToConnectedText),
+			size = UDim2.new(LEG_COL_WIDTH, UDim.new(1, 0)),
+			pos = UDim2.new(LABEL_COL_WIDTH, UDim.new(0, 0)),
+		}),
+		Subscribe = Roact.createElement(LegCell, {
+			text = formatLegState(timeToConnectedText),
+			size = UDim2.new(LEG_COL_WIDTH, UDim.new(1, 0)),
+			pos = UDim2.new(LABEL_COL_WIDTH + LEG_COL_WIDTH, UDim.new(0, 0)),
+		}),
+	})
+
+	local publishPairText = formatSelectedCandidatePair(
+		connectivity.selectedCandidatePairLocalTypePublish,
+		connectivity.selectedCandidatePairRemoteTypePublish,
+		connectivity.selectedCandidatePairLocalProtocolPublish
+	)
+	local subscribePairText = formatSelectedCandidatePair(
+		connectivity.selectedCandidatePairLocalTypeSubscribe,
+		connectivity.selectedCandidatePairRemoteTypeSubscribe,
+		connectivity.selectedCandidatePairLocalProtocolSubscribe
+	)
+	rows.selectedCandidatePairRow = Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		LayoutOrder = #stateRowDefs + 3,
+		BackgroundTransparency = 1,
+	}, {
+		Label = Roact.createElement(CellLabel, {
+			text = "Selected candidate pair",
+			size = UDim2.new(LABEL_COL_WIDTH, UDim.new(1, 0)),
+			pos = UDim2.new(0, 0, 0, 0),
+			textTruncate = Enum.TextTruncate.AtEnd,
+		}),
+		Publish = Roact.createElement(LegCell, {
+			text = formatLegState(publishPairText),
+			size = UDim2.new(LEG_COL_WIDTH, UDim.new(1, 0)),
+			pos = UDim2.new(LABEL_COL_WIDTH, UDim.new(0, 0)),
+		}),
+		Subscribe = Roact.createElement(LegCell, {
+			text = formatLegState(subscribePairText),
 			size = UDim2.new(LEG_COL_WIDTH, UDim.new(1, 0)),
 			pos = UDim2.new(LABEL_COL_WIDTH + LEG_COL_WIDTH, UDim.new(0, 0)),
 		}),
@@ -351,8 +423,8 @@ local function TypePill(props)
 		BackgroundTransparency = 1,
 	}, {
 		Pill = Roact.createElement("Frame", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Position = UDim2.new(0, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0, CENTER_Y_SCALE),
+			Position = UDim2.new(0, 0, CENTER_Y_SCALE, 0),
 			Size = UDim2.new(0, 0, 0, PILL_HEIGHT),
 			AutomaticSize = Enum.AutomaticSize.X,
 			BackgroundColor3 = colors.background,

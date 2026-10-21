@@ -11,6 +11,10 @@ local settings_page = require(script.settings_page)
 -- Exported types
 export type SettingsPageRequest = settings_page.SettingsPageRequest
 export type SettingsPageResponse = settings_page.SettingsPageResponse
+export type FormAction = settings_page.FormAction
+export type SaveSettingsFormRequest = settings_page.SaveSettingsFormRequest
+export type FormWriteError = settings_page.FormWriteError
+export type SaveSettingsFormResponse = settings_page.SaveSettingsFormResponse
 
 return {
 	settings_page = settings_page,

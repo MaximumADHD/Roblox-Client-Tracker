@@ -22,6 +22,7 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local Constants = require(InGameMenu.Resources.Constants)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local c
 
@@ -47,9 +48,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 

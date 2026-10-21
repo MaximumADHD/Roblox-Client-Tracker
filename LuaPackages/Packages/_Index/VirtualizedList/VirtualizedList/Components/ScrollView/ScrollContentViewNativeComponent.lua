@@ -38,6 +38,7 @@ function ScrollContentViewNativeComponent:render()
 	local nativeProps = Object.assign({
 		Name = "RCTScrollContentView",
 		[Change.AbsoluteSize] = self.props.onLayout,
+		BorderSizePixel = 0,
 		Size = UDim2.new(1, 0, 1, 0),
 	}, if self.props.AutomaticSize then { AutomaticSize = self.props.AutomaticSize } else nil, styleProps)
 

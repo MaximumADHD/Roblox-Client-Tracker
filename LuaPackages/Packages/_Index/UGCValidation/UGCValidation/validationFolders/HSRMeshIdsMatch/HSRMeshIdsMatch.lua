@@ -3,6 +3,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent.Parent
 
 local getEngineFeatureUGCValidateHSRMeshIds = require(root.flags.getEngineFeatureUGCValidateHSRMeshIds)
+local getFFlagUGCValidateVersionedContentIds = require(root.flags.getFFlagUGCValidateVersionedContentIds)
 
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
@@ -82,7 +83,14 @@ HSRMeshIdsMatch.run = function(reporter: Types.ValidationReporter, data: Types.S
 			continue
 		end
 
-		local parsedId = ParseContentIds.tryGetAssetIdFromContentId(HSRAssetId)
+		local parsedId
+		if getFFlagUGCValidateVersionedContentIds() then
+			-- Same per-reference key FetchHSRAssets stores the HSR asset under.
+			local assetId, version = ParseContentIds.tryParseContentId(HSRAssetId)
+			parsedId = if assetId then ParseContentIds.getReferenceKey(assetId, version) else nil
+		else
+			parsedId = ParseContentIds.tryGetAssetIdFromContentId(HSRAssetId)
+		end
 		if not parsedId then
 			reporter:fail(ErrorSourceStrings.Keys.HSRAssetIdInvalidUrl, {
 				InstancePath = wrapLayer:GetFullName(),

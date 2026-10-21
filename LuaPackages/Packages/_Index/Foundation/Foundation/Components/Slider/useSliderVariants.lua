@@ -26,9 +26,6 @@ type SliderVariantProps = {
 	fill: {
 		tag: string,
 	},
-	hitbox: {
-		height: number,
-	}?,
 	knob: {
 		style: ColorStyleValue,
 		dragStyle: ColorStyleValue,
@@ -41,19 +38,17 @@ type SliderVariantProps = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		bar = {
-			tag = if Flags.FoundationSliderBeta
-				then "position-center-center anchor-center-center radius-circle"
-				else "position-center-center anchor-center-center size-full-100 radius-small",
+			tag = "position-center-center anchor-center-center radius-circle",
 		},
 		fill = {
-			tag = if Flags.FoundationSliderBeta then "radius-circle" else "radius-small",
+			tag = "radius-circle",
 		},
 	}
 
 	local variants: { [SliderVariant]: VariantProps } = {
 		[SliderVariant.Emphasis] = {
 			bar = {
-				tag = if Flags.FoundationSliderBeta then "bg-shift-200" else "bg-shift-400",
+				tag = "bg-shift-200",
 			},
 			fill = {
 				tag = "bg-emphasis",
@@ -68,7 +63,7 @@ local function variantsFactory(tokens: Tokens)
 		},
 		[SliderVariant.Standard] = {
 			bar = {
-				tag = if Flags.FoundationSliderBeta then "bg-shift-200" else "bg-shift-400",
+				tag = "bg-shift-200",
 			},
 			fill = {
 				tag = "bg-system-contrast",
@@ -76,14 +71,12 @@ local function variantsFactory(tokens: Tokens)
 			knob = {
 				style = tokens.Color.System.Contrast,
 				dragStyle = tokens.Color.System.Contrast,
-				stroke = if Flags.FoundationSliderBeta
-					then {
-						Color = tokens.Color.Stroke.Default.Color3,
-						Transparency = tokens.Color.Stroke.Default.Transparency,
-						Thickness = tokens.Stroke.Standard,
-					}
-					else nil :: never,
-				hasShadow = if Flags.FoundationSliderBeta then true else false,
+				stroke = {
+					Color = tokens.Color.Stroke.Default.Color3,
+					Transparency = tokens.Color.Stroke.Default.Transparency,
+					Thickness = tokens.Stroke.Standard,
+				},
+				hasShadow = true,
 			},
 		},
 		[SliderVariant.Utility] = {
@@ -102,20 +95,16 @@ local function variantsFactory(tokens: Tokens)
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			bar = if Flags.FoundationSliderBeta then { height = tokens.Size.Size_100 } else nil :: never,
-			hitbox = if Flags.FoundationSliderBeta then nil :: never else { height = tokens.Size.Size_300 },
+			bar = { height = tokens.Size.Size_100 },
 		},
 		[InputSize.Small] = {
-			bar = if Flags.FoundationSliderBeta then { height = tokens.Size.Size_150 } else nil :: never,
-			hitbox = if Flags.FoundationSliderBeta then nil :: never else { height = tokens.Size.Size_400 },
+			bar = { height = tokens.Size.Size_150 },
 		},
 		[InputSize.Medium] = {
-			bar = if Flags.FoundationSliderBeta then { height = tokens.Size.Size_200 } else nil :: never,
-			hitbox = if Flags.FoundationSliderBeta then nil :: never else { height = tokens.Size.Size_500 },
+			bar = { height = tokens.Size.Size_200 },
 		},
 		[InputSize.Large] = {
-			bar = if Flags.FoundationSliderBeta then { height = tokens.Size.Size_250 } else nil :: never,
-			hitbox = if Flags.FoundationSliderBeta then nil :: never else { height = tokens.Size.Size_700 },
+			bar = { height = tokens.Size.Size_250 },
 		},
 	}
 

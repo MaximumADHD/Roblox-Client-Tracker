@@ -4,7 +4,7 @@ local Constants = require(root.Constants)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
 
-local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
+local getFFlagUGCValidateVersionedContentIds = require(root.flags.getFFlagUGCValidateVersionedContentIds)
 
 local FetchContentIds = {}
 
@@ -27,7 +27,12 @@ function FetchContentIds.getData(sharedData: Types.SharedData): Types.ContentIdE
 				continue
 			end
 
-			local id = ParseContentIds.tryGetAssetIdFromContentId(contentId)
+			local id, version
+			if getFFlagUGCValidateVersionedContentIds() then
+				id, version = ParseContentIds.tryParseContentId(contentId)
+			else
+				id = ParseContentIds.tryGetAssetIdFromContentId(contentId)
+			end
 			if id == nil then
 				continue
 			end
@@ -35,31 +40,34 @@ function FetchContentIds.getData(sharedData: Types.SharedData): Types.ContentIdE
 			if contentIdMap[id] == nil then
 				contentIdMap[id] = {}
 			end
-			table.insert(contentIdMap[id], { fieldName = fieldName, instance = instance })
+			table.insert(contentIdMap[id], { fieldName = fieldName, instance = instance, version = version })
 		end
 
-		if getFFlagUGCValidateAllowEmissives() then
-			local contentFields = Constants.CONTENT_FIELDS_WITHOUT_CONTENTID[instance.ClassName]
-			if not contentFields then
+		local contentFields = Constants.CONTENT_FIELDS_WITHOUT_CONTENTID[instance.ClassName]
+		if not contentFields then
+			continue
+		end
+
+		for _, contentFieldName in contentFields do
+			local content = (instance :: any)[contentFieldName]
+			if content.SourceType ~= Enum.ContentSourceType.Uri then
 				continue
 			end
 
-			for _, contentFieldName in contentFields do
-				local content = (instance :: any)[contentFieldName]
-				if content.SourceType ~= Enum.ContentSourceType.Uri then
-					continue
-				end
-
-				local id = ParseContentIds.tryGetAssetIdFromContentId(content.Uri)
-				if id == nil then
-					continue
-				end
-
-				if contentIdMap[id] == nil then
-					contentIdMap[id] = {}
-				end
-				table.insert(contentIdMap[id], { fieldName = contentFieldName, instance = instance })
+			local id, version
+			if getFFlagUGCValidateVersionedContentIds() then
+				id, version = ParseContentIds.tryParseContentId(content.Uri)
+			else
+				id = ParseContentIds.tryGetAssetIdFromContentId(content.Uri)
 			end
+			if id == nil then
+				continue
+			end
+
+			if contentIdMap[id] == nil then
+				contentIdMap[id] = {}
+			end
+			table.insert(contentIdMap[id], { fieldName = contentFieldName, instance = instance, version = version })
 		end
 	end
 

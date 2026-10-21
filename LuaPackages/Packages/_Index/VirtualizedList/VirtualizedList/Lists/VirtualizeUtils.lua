@@ -110,7 +110,7 @@ local function computeWindowedRenderLimits(
 	local leadFactor = 0.5 -- Math.max(0, Math.min(1, velocity / 25 + 0.5));
 
 	-- ROBLOX FIXME Luau: needs normalization - velocity is known to be of type `number`
-	local fillPreference = if (velocity :: number) > 1
+	local fillPreference = if velocity :: number > 1
 		then "after"
 		else if (velocity :: number) < -1 then "before" else "none"
 	local overscanBegin = math.max(0, visibleBegin - (1 - leadFactor) * overscanLength)

@@ -4,6 +4,8 @@ local ParseContentIds = require(root.util.ParseContentIds)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local Types = require(root.util.Types)
 
+local getFFlagUGCValidateVersionedContentIds = require(root.flags.getFFlagUGCValidateVersionedContentIds)
+
 local FetchHSRAssets = {}
 
 function FetchHSRAssets.getData(
@@ -30,7 +32,14 @@ function FetchHSRAssets.getData(
 			continue
 		end
 
-		local parsedId = ParseContentIds.tryGetAssetIdFromContentId(HSRAssetId)
+		local parsedId
+		if getFFlagUGCValidateVersionedContentIds() then
+			-- Keyed per reference, so WrapLayers pinned to different versions of one HSR asset each get their own fetch.
+			local assetId, version = ParseContentIds.tryParseContentId(HSRAssetId)
+			parsedId = if assetId then ParseContentIds.getReferenceKey(assetId, version) else nil
+		else
+			parsedId = ParseContentIds.tryGetAssetIdFromContentId(HSRAssetId)
+		end
 		if not parsedId then
 			continue
 		end

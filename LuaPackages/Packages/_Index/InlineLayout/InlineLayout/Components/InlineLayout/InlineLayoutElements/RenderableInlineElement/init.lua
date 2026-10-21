@@ -30,6 +30,8 @@ export type RenderableInlineElement = {
 		canForceSplit: boolean?
 	) -> (RenderableInlineElement, RenderableInlineElement?),
 	render: (self: RenderableInlineElement, id: string | number, layoutOrder: number) -> (),
+	-- Optional. Returns the element without leading whitespace, or nil if nothing is left. Called when the element starts a row.
+	trimStart: ((self: RenderableInlineElement) -> RenderableInlineElement?)?,
 	mapProps: (
 		self: RenderableInlineElement,
 		props: { [any]: any } & { layoutOrder: number, key: string, id: string | number }

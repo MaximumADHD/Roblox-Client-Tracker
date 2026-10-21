@@ -22,9 +22,10 @@ local withInt = require(InGameMenu.TestHelpers.withInt)
 
 local act = Roact.act
 
-local DeferredLuaHelpers = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers
+local TestUtils = require(CorePackages.Workspace.Packages.TestUtils)
+local DeferredLuaHelpers = TestUtils.DeferredLuaHelpers
+local waitUntil = TestUtils.waitUntil
 local waitForEvents = DeferredLuaHelpers.waitForEvents
-local forceUpdateGuiObject = DeferredLuaHelpers.forceUpdateGuiObject
 local MockUserGameSettings = require(InGameMenu.Mocks.MockUserGameSettings)
 local GetFFlagFullscreenTitleBarInjectGameServices =
 	require(InGameMenu.Flags.GetFFlagFullscreenTitleBarInjectGameServices)
@@ -33,6 +34,42 @@ local TITLE_BAR_OFF_POS = UDim2.new(0, 0, 0, -88)
 local TITLE_BAR_ON_POS = UDim2.fromOffset(0, 0)
 local OUTSIDE_OF_TITLE_BAR_POSITION = Vector2.new(100, 500)
 local OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION = Vector2.new(2, 2)
+-- Seconds. Covers the trigger delay, the disappear delay, and the bar animation.
+local BAR_ANIMATION_TIMEOUT = 5
+local TRIGGER_DELAY_MILLIS = 400
+
+local function withControlledPromiseDelay(callback)
+	local Promise = InGameMenuDependencies.Promise
+	local originalDelay = Promise.delay
+	local pendingDelays = {}
+	Promise.delay = function(seconds)
+		local pendingDelay = { seconds = seconds, cancelled = false }
+		pendingDelay.promise = Promise.new(function(resolve, _, onCancel)
+			pendingDelay.resolve = resolve
+			onCancel(function()
+				pendingDelay.cancelled = true
+			end)
+		end)
+		table.insert(pendingDelays, pendingDelay)
+		return pendingDelay.promise
+	end
+
+	local function takeDelays(seconds)
+		local taken = {}
+		for index = #pendingDelays, 1, -1 do
+			if pendingDelays[index].seconds == seconds then
+				table.insert(taken, 1, table.remove(pendingDelays, index))
+			end
+		end
+		return taken
+	end
+
+	local success, message = pcall(callback, takeDelays)
+	Promise.delay = originalDelay
+	if not success then
+		error(message)
+	end
+end
 
 local mockPolicyMapper = function(policy)
 	return {
@@ -123,24 +160,20 @@ if GetFFlagFullscreenTitleBarInjectGameServices() then
 
 		act(function()
 			VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-			task.wait()
-			forceUpdateGuiObject(barInstance)
 		end)
-
 		act(function()
-			-- This wait plays the scheduler forward through an animation
-			task.wait(2)
+			VirtualInput.waitForInputEventsProcessed()
 		end)
 
+		waitUntil(function()
+			return barInstance.Position == TITLE_BAR_ON_POS
+		end, BAR_ANIMATION_TIMEOUT)
 		expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
 		Roact.unmount(handle)
 	end)
 
-	-- Pre-existing bug, not introduced by the Jest3 migration (identical in the old .spec.lua):
-	-- flag-bisected to FullscreenTitleBarInjectGameServices=true alone causing the bar to never
-	-- animate to TITLE_BAR_ON_POS. Skipped rather than fixed since this is a harness migration.
-	it.skip("should hide the bar when mouse moved out of the title bar", function()
+	it("should hide the bar when mouse moved out of the title bar", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer),
 		}, {
@@ -167,87 +200,121 @@ if GetFFlagFullscreenTitleBarInjectGameServices() then
 
 		act(function()
 			VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-			task.wait()
 		end)
-
 		act(function()
-			task.wait(2)
+			VirtualInput.waitForInputEventsProcessed()
 		end)
 
+		waitUntil(function()
+			return barInstance.Position == TITLE_BAR_ON_POS
+		end, BAR_ANIMATION_TIMEOUT)
 		expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
 		act(function()
 			-- Re-move the mouse, so that the MouseEnter event can fire on the title bar frame.
 			VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-			task.wait()
-			VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
-			task.wait(1)
 		end)
-
 		act(function()
-			task.wait(2)
+			VirtualInput.waitForInputEventsProcessed()
+		end)
+		act(function()
+			VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
+		end)
+		act(function()
+			VirtualInput.waitForInputEventsProcessed()
 		end)
 
+		waitUntil(function()
+			return barInstance.Position == TITLE_BAR_OFF_POS
+		end, BAR_ANIMATION_TIMEOUT)
 		expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
 		Roact.unmount(handle)
 	end)
 
-	-- Pre-existing bug, not introduced by the Jest3 migration (identical in the old .spec.lua):
-	-- flag-bisected to FullscreenTitleBarInjectGameServices=true alone causing the bar to never
-	-- animate to TITLE_BAR_ON_POS. Skipped rather than fixed since this is a harness migration.
-	it.skip("should cancel triggering title bar when mouse moved out of the trigger area within the delay", function()
-		withInt("FullscreenTitleBarTriggerDelayMillis", 500, function()
-			local element = Roact.createElement(RoactRodux.StoreProvider, {
-				store = Rodux.Store.new(reducer),
-			}, {
-				PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
-					policy = { mockPolicyMapper },
+	it("should cancel triggering title bar when mouse moved out of the trigger area within the delay", function()
+		withInt("FullscreenTitleBarTriggerDelayMillis", TRIGGER_DELAY_MILLIS, function()
+			withControlledPromiseDelay(function(takeDelays)
+				local triggerDelaySeconds = TRIGGER_DELAY_MILLIS / 1000
+				local element = Roact.createElement(RoactRodux.StoreProvider, {
+					store = Rodux.Store.new(reducer),
 				}, {
-					ThemeProvider = UnitTestHelpers.createStyleProvider({
-						FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
+					PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
+						policy = { mockPolicyMapper },
+					}, {
+						ThemeProvider = UnitTestHelpers.createStyleProvider({
+							FullscreenTitleBar = Roact.createElement(FullscreenTitleBar, mockProps),
+						}),
 					}),
-				}),
-			})
+				})
 
-			local handle = Roact.mount(element)
-			act(function()
-				mockUserGameSettings.FullscreenChanged:GoFullscreen()
-				waitForEvents()
+				local handle = Roact.mount(element)
+				act(function()
+					mockUserGameSettings.FullscreenChanged:GoFullscreen()
+					waitForEvents()
+				end)
+
+				local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
+				local triggerAreaInstance = triggerArea:waitForRbxInstance()
+				expect(triggerAreaInstance).never.toBeNil()
+				local barInstance = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.Bar"):waitForRbxInstance()
+				expect(barInstance).toMatchInstance({ Position = TITLE_BAR_OFF_POS })
+
+				act(function()
+					VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
+				end)
+				act(function()
+					VirtualInput.waitForInputEventsProcessed()
+				end)
+				act(function()
+					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION)
+				end)
+				act(function()
+					VirtualInput.waitForInputEventsProcessed()
+				end)
+
+				local cancelledDelays = takeDelays(triggerDelaySeconds)
+				expect(#cancelledDelays).toBe(1)
+				expect(cancelledDelays[1].cancelled).toBe(true)
+				act(function()
+					cancelledDelays[1].resolve()
+					waitForEvents()
+				end)
+				expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
+
+				act(function()
+					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
+				end)
+				act(function()
+					VirtualInput.waitForInputEventsProcessed()
+				end)
+				act(function()
+					VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
+				end)
+				act(function()
+					VirtualInput.waitForInputEventsProcessed()
+				end)
+
+				local elapsedDelays = takeDelays(triggerDelaySeconds)
+				expect(#elapsedDelays).toBe(1)
+				expect(elapsedDelays[1].cancelled).toBe(false)
+				act(function()
+					elapsedDelays[1].resolve()
+					waitForEvents()
+				end)
+				act(function()
+					VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION)
+				end)
+				act(function()
+					VirtualInput.waitForInputEventsProcessed()
+				end)
+
+				waitUntil(function()
+					return barInstance.Position == TITLE_BAR_ON_POS
+				end, BAR_ANIMATION_TIMEOUT)
+				expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
+
+				Roact.unmount(handle)
 			end)
-
-			local triggerArea = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.TriggerArea")
-			local triggerAreaInstance = triggerArea:waitForRbxInstance()
-			expect(triggerAreaInstance).never.toBeNil()
-			local barInstance = Element.new("game.CoreGui.InGameFullscreenTitleBarScreen.Bar"):waitForRbxInstance()
-			expect(barInstance).toMatchInstance({ Position = TITLE_BAR_OFF_POS })
-
-			act(function()
-				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-				task.wait(0.4)
-				VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION)
-			end)
-
-			act(function()
-				task.wait(1.5) -- wait for any remaining action
-			end)
-
-			expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
-
-			act(function()
-				VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
-				task.wait()
-				VirtualInput.Mouse.mouseMove(triggerArea:getAnchor())
-				task.wait(0.6)
-				VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TRIGGER_INSIDE_OF_TITLE_BAR__POSITION)
-			end)
-
-			act(function()
-				task.wait(1.5) -- wait for any remaining action
-			end)
-
-			expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
-
-			Roact.unmount(handle)
 		end)
 	end)
 end

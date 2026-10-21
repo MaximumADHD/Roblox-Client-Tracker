@@ -71,7 +71,7 @@ local scrubBehaviorToSensitivity: { [ScrubBehavior]: number } = {
 export type NumberInputProps = {
 	-- Input number value
 	value: Bindable<number>?,
-	-- **DEPRECATED** Variant of controls to use
+	-- **DEPRECATED**: Variant of controls to use. Prefer `hasControls` under FoundationNumberInputBeta. Still accepted.
 	controlsVariant: NumberInputControlsVariant?,
 	-- Whether the input shows an error state. Always shows while true, if false then invalid input will still render an error state.
 	hasError: boolean?,
@@ -113,8 +113,7 @@ export type NumberInputProps = {
 	precision: number?,
 	-- Callback to format the value when input is not focused
 	formatAsString: ((value: number) -> string)?,
-	-- Whether the input can be dragged to change the value. A number sets the scrub sensitivity.
-	-- **DEPRECATED** Use scrubBehavior instead
+	-- **DEPRECATED**: Whether the input can be dragged to change the value. Use `scrubBehavior` instead. Still accepted.
 	isScrubbable: boolean?,
 	-- Controls scrub (drag-to-change) behavior
 	scrubBehavior: ScrubBehavior?,

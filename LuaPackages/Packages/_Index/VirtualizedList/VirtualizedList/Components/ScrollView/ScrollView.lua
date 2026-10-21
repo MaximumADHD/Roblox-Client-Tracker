@@ -299,20 +299,18 @@ NativeHorizontalScrollViewTuple, NativeVerticalScrollViewTuple =
  ]]
 -- Public methods for ScrollView
 export type ScrollViewImperativeMethods =
-	ReadOnly<
-		{
-			getScrollResponder: typeof((({} :: any) :: ScrollView).getScrollResponder),
-			getScrollableNode: typeof((({} :: any) :: ScrollView).getScrollableNode),
-			getInnerViewNode: typeof((({} :: any) :: ScrollView).getInnerViewNode),
-			getInnerViewRef: typeof((({} :: any) :: ScrollView).getInnerViewRef),
-			getNativeScrollRef: typeof((({} :: any) :: ScrollView).getNativeScrollRef),
-			scrollTo: typeof((({} :: any) :: ScrollView).scrollTo),
-			scrollToEnd: typeof((({} :: any) :: ScrollView).scrollToEnd),
-			flashScrollIndicators: typeof((({} :: any) :: ScrollView).flashScrollIndicators),
-			scrollResponderZoomTo: typeof((({} :: any) :: ScrollView).scrollResponderZoomTo),
-			scrollResponderScrollNativeHandleToKeyboard: typeof((({} :: any) :: ScrollView).scrollResponderScrollNativeHandleToKeyboard),
-		}
-	>
+	ReadOnly<{
+		getScrollResponder: typeof((({} :: any) :: ScrollView).getScrollResponder),
+		getScrollableNode: typeof((({} :: any) :: ScrollView).getScrollableNode),
+		getInnerViewNode: typeof((({} :: any) :: ScrollView).getInnerViewNode),
+		getInnerViewRef: typeof((({} :: any) :: ScrollView).getInnerViewRef),
+		getNativeScrollRef: typeof((({} :: any) :: ScrollView).getNativeScrollRef),
+		scrollTo: typeof((({} :: any) :: ScrollView).scrollTo),
+		scrollToEnd: typeof((({} :: any) :: ScrollView).scrollToEnd),
+		flashScrollIndicators: typeof((({} :: any) :: ScrollView).flashScrollIndicators),
+		scrollResponderZoomTo: typeof((({} :: any) :: ScrollView).scrollResponderZoomTo),
+		scrollResponderScrollNativeHandleToKeyboard: typeof((({} :: any) :: ScrollView).scrollResponderScrollNativeHandleToKeyboard),
+	}>
 
 export type DecelerationRateType = "fast" | "normal" | number
 export type ScrollResponderType = ScrollViewImperativeMethods

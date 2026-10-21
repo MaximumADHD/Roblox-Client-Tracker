@@ -67,7 +67,7 @@ export type SectionBase<SectionItemT> = {
 				updateProps: (select: "leading" | "trailing", newProps: Object) -> (),
 			},
 		}?
-	) -> (nil | React_Element))?,
+	) -> nil | React_Element)?,
 	ItemSeparatorComponent: (React_ComponentType<any> | nil)?,
 	keyExtractor: (item: SectionItemT, index: (number | nil)?) -> string,
 }
@@ -95,20 +95,20 @@ type OptionalProps<SectionT = Object> = {
 				updateProps: (select: "leading" | "trailing", newProps: Object) -> (),
 			},
 		}
-	) -> (nil | React_Element))?,
+	) -> nil | React_Element)?,
 	--[[*
    * Rendered at the top of each section. These stick to the top of the `ScrollView` by default on
    * iOS. See `stickySectionHeadersEnabled`.
    ]]
 	renderSectionHeader: ((info: {
 		section: SectionT,
-	}) -> (nil | React_Element))?,
+	}) -> nil | React_Element)?,
 	--[[*
    * Rendered at the bottom of each section.
    ]]
 	renderSectionFooter: ((info: {
 		section: SectionT,
-	}) -> (nil | React_Element))?,
+	}) -> nil | React_Element)?,
 	--[[*
    * Rendered at the top and bottom of each section (note this is different from
    * `ItemSeparatorComponent` which is only rendered between items). These are intended to separate
@@ -228,13 +228,12 @@ function VirtualizedSectionList:init()
 			else defaultKeyExtractor
 		local key = if keyExtractorWithNullableIndex ~= nil
 			then keyExtractorWithNullableIndex(viewable.item, info.index)
-			else
-				keyExtractorWithNonNullableIndex(
-					viewable.item,
-					if info.index == nil
-						then 1 --[[ROBLOX deviation: added 1 to index]]
-						else info.index
-				)
+			else keyExtractorWithNonNullableIndex(
+				viewable.item,
+				if info.index == nil
+					then 1 --[[ROBLOX deviation: added 1 to index]]
+					else info.index
+			)
 
 		return Object.assign({}, viewable, { index = info.index, key = key, section = info.section })
 	end
@@ -415,11 +414,7 @@ function VirtualizedSectionList:render(): React_Node
 	)
 end
 
-function VirtualizedSectionList:_getItem<SectionT>(
-	props: Props<SectionT>,
-	sections_: ReadOnlyArray<Item>?,
-	index: number
-): Item?
+function VirtualizedSectionList:_getItem<SectionT>(props: Props<SectionT>, sections_: ReadOnlyArray<Item>?, index: number): Item?
 	if not sections_ then
 		return nil
 	end
@@ -446,9 +441,7 @@ function VirtualizedSectionList:_getItem<SectionT>(
 	return nil
 end
 
-function VirtualizedSectionList:_subExtractor<SectionT>(
-	index: number
-): {
+function VirtualizedSectionList:_subExtractor<SectionT>(index: number): {
 	section: SectionT,
 	-- Key of the section or combined key for section + item
 	key: string,
@@ -671,7 +664,10 @@ end
 --[[ $FlowFixMe[class-object-subtyping] added when improving typing for this
  * parameters ]]
 -- $FlowFixMe[method-unbinding]
-return VirtualizedSectionList :: React_AbstractComponent<React_ElementConfig<typeof(VirtualizedSectionList)>, ReadOnly<{
-	getListRef: (self: VirtualizedSectionList) -> React_ElementRef<typeof(VirtualizedList)>?,
-	scrollToLocation: (self: VirtualizedSectionList, params: ScrollToLocationParamsType) -> (),
-}>>
+return VirtualizedSectionList :: React_AbstractComponent<
+		React_ElementConfig<typeof(VirtualizedSectionList)>,
+		ReadOnly<{
+			getListRef: (self: VirtualizedSectionList) -> React_ElementRef<typeof(VirtualizedList)>?,
+			scrollToLocation: (self: VirtualizedSectionList, params: ScrollToLocationParamsType) -> (),
+		}>
+	>

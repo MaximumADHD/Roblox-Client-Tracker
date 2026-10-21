@@ -257,6 +257,8 @@ local CreateChatTranslationOptionsWithChatLanguageSwitcher = require(
 local GameBasicSettingsFramerateCap = game:GetEngineFeature("GameBasicSettingsFramerateCap")
 local RUUserScalePreferenceAPI = game:GetEngineFeature("RUUserScalePreferenceAPI")
 
+local FFlagFramerateCapIOSOptions = game:DefineFastFlag("FramerateCapIOSOptions", false)
+
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 
@@ -598,7 +600,12 @@ local function Initialize()
 		if GameBasicSettingsFramerateCap then
 			-- VR is uncapped
 			if not VRService.VREnabled then
-				local framerateCaps = table.clone(Constants.FramerateCaps)
+				local framerateCapOptions = Constants.FramerateCaps
+				if FFlagFramerateCapIOSOptions and platform == Enum.Platform.IOS then
+					framerateCapOptions = Constants.FramerateCapsIOS
+				end
+
+				local framerateCaps = table.clone(framerateCapOptions)
 				local framerateCapsToText = {
 					if FFlagEraseFPSFromDefaultSetting
 						then RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.Default")
@@ -626,7 +633,11 @@ local function Initialize()
 						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate"),
 						"DropDown",
 						framerateCapsToText,
-						table.find(framerateCaps, GameSettings.FramerateCap),
+						-- Fall back to Default (index 1) when the saved cap isn't offered on
+						-- this platform, instead of leaving the row unselected.
+						if FFlagFramerateCapIOSOptions
+							then table.find(framerateCaps, GameSettings.FramerateCap) or 1
+							else table.find(framerateCaps, GameSettings.FramerateCap),
 						nil,
 						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate.Description")
 					)
@@ -3537,11 +3548,28 @@ local function Initialize()
 		-- Selector index -> ExpChat DictationMode value.
 		local MODES = { "standard", "continuous" }
 
-		this.VoiceTypingModeFrame, _, this.VoiceTypingModeSelector =
-			utility:AddNewRow(this, locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceTypingMode"), "Selector", {
-				locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceTypingModeStandard"),
-				locales:Format("CoreScripts.InGameMenu.GameSettings.VoiceTypingModeContinuous"),
-			}, 1)
+		-- Don't panic if we're missing translations
+		local function formatWithFallback(key: string, fallback: string): string
+			local ok, text = pcall(function()
+				return locales:Format(key)
+			end)
+			if not ok then
+				log:debug("[GameSettings] createVoiceTypingModeSettingOptions missing translation for {}", key)
+				return fallback
+			end
+			return text
+		end
+
+		this.VoiceTypingModeFrame, _, this.VoiceTypingModeSelector = utility:AddNewRow(
+			this,
+			formatWithFallback("CoreScripts.InGameMenu.GameSettings.VoiceTypingMode", "Voice typing mode"),
+			"Selector",
+			{
+				formatWithFallback("CoreScripts.InGameMenu.GameSettings.VoiceTypingModeStandard", "Manual Send"),
+				formatWithFallback("CoreScripts.InGameMenu.GameSettings.VoiceTypingModeContinuous", "Auto Send"),
+			},
+			1
+		)
 		this.VoiceTypingModeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["VoiceTypingModeFrame"]
 
 		local getDictationModeSettingStore =

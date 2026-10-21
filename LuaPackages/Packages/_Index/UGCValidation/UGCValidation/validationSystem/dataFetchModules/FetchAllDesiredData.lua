@@ -67,7 +67,7 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 	end
 
 	if desiredData[DataEnums.curveAnimations] then
-		local result = FetchCurveAnimations.getData(rootInstance)
+		local result = FetchCurveAnimations.getData(rootInstance, sharedData.consumerConfig)
 		sharedData.curveAnimations = result or FetchAllDesiredData.DATA_FETCH_FAILURE
 	end
 

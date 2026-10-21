@@ -3,12 +3,15 @@
 --[[
 	ParseContentIds.lua exposes functions to get all the asset ids used in the hierarchy tree of an asset. Internal
 	functions are used to parse the asset id from the url it is contained in e.g parse 1234 from https://assetdelivery.roblox.com/v1/asset/?id=1234
+	With FFlagUGCValidateVersionedContentIds, a content id may also pin a version, e.g. rbxassetid://1234&version=3
 ]]
 
 local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+
+local getFFlagUGCValidateVersionedContentIds = require(root.flags.getFFlagUGCValidateVersionedContentIds)
 
 local ParseContentIds = {}
 
@@ -47,8 +50,46 @@ local function getAssetDeliveryAssetUrlId(contentId)
 	return id
 end
 
+local MAX_VERSION_DIGITS = 10
+
+-- splits a trailing "&version=<n>" pin (any letter case in the key, 1 <= n, at most MAX_VERSION_DIGITS digits) off a
+-- content id. Anything else after the id, including a second pin, stays in the base so the id patterns above reject it
+local function splitVersionPin(contentId: string): (string, number?)
+	local base, key, digits = string.match(contentId, "^(.*)&(%a+)=(%d+)$")
+	if base == nil or string.lower(key) ~= "version" or #digits > MAX_VERSION_DIGITS then
+		return contentId, nil
+	end
+
+	local version = tonumber(digits)
+	if version == nil or version < 1 then
+		return contentId, nil
+	end
+	return base, version
+end
+
+-- the asset id is always a string, without leading zeros (the engine reads rbxassetid://0123 as asset 123). A bare id
+-- can't carry a pin: the engine doesn't load "1234&version=3", and Studio stores it as rbxassetid://1234&version=3
+local function tryParseVersionedContentId(contentId: string): (string?, number?)
+	local base, version = splitVersionPin(contentId)
+
+	local id = string.match(base, "^%d+$")
+	if id ~= nil and version ~= nil then
+		return nil, nil
+	end
+
+	id = id or getRbxAssetId(base) or getAssetUrlId(base) or getAssetDeliveryAssetUrlId(base)
+	if id == nil then
+		return nil, nil
+	end
+	return (string.gsub(id, "^0+(%d)", "%1")), version
+end
+
 -- attempt to extract the asset id out of a valid content id URL
 local function tryGetAssetIdFromContentIdInternal(contentId)
+	if getFFlagUGCValidateVersionedContentIds() then
+		return (tryParseVersionedContentId(contentId))
+	end
+
 	local id = tonumber(contentId)
 	if id ~= nil then
 		return id
@@ -188,6 +229,52 @@ end
 
 function ParseContentIds.tryGetAssetIdFromContentId(contentId: string): string
 	return tryGetAssetIdFromContentIdInternal(contentId)
+end
+
+-- returns the asset id and the version the content id pins, if any. With FFlagUGCValidateVersionedContentIds off,
+-- pinned content ids don't parse and the version is always nil
+function ParseContentIds.tryParseContentId(contentId: string): (string?, number?)
+	if getFFlagUGCValidateVersionedContentIds() then
+		return tryParseVersionedContentId(contentId)
+	end
+	return tryGetAssetIdFromContentIdInternal(contentId), nil
+end
+
+-- key for one reference to an asset; an unpinned reference keys by the asset id alone
+function ParseContentIds.getReferenceKey(assetId: string, version: number?): string
+	if version == nil then
+		return assetId
+	end
+	return string.format("%s&version=%d", assetId, version)
+end
+
+-- rbxassetid uri for one reference, keeping its version pin
+function ParseContentIds.toAssetUri(assetId: string, version: number?): string
+	return "rbxassetid://" .. ParseContentIds.getReferenceKey(assetId, version)
+end
+
+-- one entry per distinct (asset id, version) reference in a FetchContentIds map, with the first field that uses it
+function ParseContentIds.getDistinctReferences(
+	contentIdMap
+): { { key: string, uri: string, assetId: string, entry: any } }
+	local references = {}
+	local seenKeys = {}
+	for assetId, entries in contentIdMap do
+		for _, entry in entries do
+			local key = ParseContentIds.getReferenceKey(assetId, entry.version)
+			if seenKeys[key] then
+				continue
+			end
+			seenKeys[key] = true
+			table.insert(references, {
+				key = key,
+				uri = ParseContentIds.toAssetUri(assetId, entry.version),
+				assetId = assetId,
+				entry = entry,
+			})
+		end
+	end
+	return references
 end
 
 function ParseContentIds.parseWithErrorCheck(

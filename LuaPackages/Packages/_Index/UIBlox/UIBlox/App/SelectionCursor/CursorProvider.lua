@@ -56,7 +56,7 @@ local CursorProvider = function(props: Props)
 	local frameRef = React.createRef()
 	local selectionImageObject, setSelectionImageObject = React.useState(nil)
 	local refCache = RoactGamepad.useRefCache()
-	local componentTokens = useStyle().Tokens.Component.SelectionCursor
+	local tokens = useStyle().Tokens
 
 	local getCursor = function(radius: UDim?, offset: number?, borderWidth: number?): React.Ref<GuiObject>
 		warn("UIBlox's SelectionCursor is deprecated and should not be used anymore.")
@@ -70,13 +70,13 @@ local CursorProvider = function(props: Props)
 			assert(borderWidth > 0, "Error! borderWidth should be larger than 0.")
 			pBorderWidth = borderWidth
 		else
-			pBorderWidth = componentTokens.BorderWidth
+			pBorderWidth = tokens.Stroke.Thick
 		end
 		local pOffset = 0
 		if offset ~= nil then
 			pOffset = (offset - pBorderWidth)
 		else
-			pOffset = (componentTokens.Offset - pBorderWidth)
+			pOffset = (tokens.Size.Size_150 - pBorderWidth)
 		end
 		local key = encodeKey(pRadius, pOffset, pBorderWidth)
 

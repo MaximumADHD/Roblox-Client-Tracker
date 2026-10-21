@@ -6,6 +6,7 @@ local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 
 local ControlState = require(Foundation.Enums.ControlState)
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 local Scrim = require(script.Parent.Scrim)
 local ScrollView = require(Foundation.Components.ScrollView)
@@ -59,7 +60,7 @@ local function OverflowScrollContainer(
 	local resolvedPreferredInput = usePreferredInput()
 	local preferredInput = props.forcePreferredInput or resolvedPreferredInput
 	local scrollingFrameRef = React.useRef<<ScrollingFrame?>>(nil)
-	local clippingRect = useClippingRect(scrollingFrameRef)
+	local clippingRect, hasClippingAncestor = useClippingRect(scrollingFrameRef)
 	-- A binding rather than state so a resize flows to the scrims without re-rendering the container.
 	local rowHeight: React.Binding<number>, setRowHeight = React.useBinding(0)
 
@@ -145,7 +146,7 @@ local function OverflowScrollContainer(
 		{
 			Scroll = React.createElement(ScrollView, {
 				tag = "size-full-0 auto-y",
-				ClipsDescendants = false,
+				ClipsDescendants = if Flags.FoundationUnifiedScrimScrolling then not hasClippingAncestor else false,
 				onStateChanged = onContentStateChanged,
 				stateLayer = {
 					affordance = StateLayerAffordance.None,

@@ -251,8 +251,7 @@ local function getTokenValue(tokens: any, path: string): any
 	return current
 end
 
--- Set a nested value in a token table using a dot-separated path
--- Does nothing if the path doesn't exist (won't create intermediate tables)
+-- Set a nested value in a token table using a dot-separated path.
 local function setTokenValue(tokens: any, path: string, value: any)
 	local segments = string.split(path, ".")
 	local current = tokens

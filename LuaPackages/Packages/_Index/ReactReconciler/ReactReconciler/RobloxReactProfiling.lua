@@ -224,6 +224,8 @@ return {
 	profileRootAfterYielding = if ReactMicroprofilerLevel >= LEVEL_ROOTS_LOG_ONLY
 		then profileRootAfterYielding
 		else noop,
+	-- ROBLOX performance: lets the work loop skip the per-fiber no-op calls
+	enableUnitOfWorkProfiling = ReactMicroprofilerLevel >= LEVEL_FIBERS,
 	profileUnitOfWorkBefore = if ReactMicroprofilerLevel >= LEVEL_FIBERS
 		then profileUnitOfWorkBefore
 		else noop,

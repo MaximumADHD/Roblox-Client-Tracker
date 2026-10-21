@@ -139,9 +139,11 @@ local function ValidationTestWrapper(
 		if type(issues) == "table" and issues.__forceError then
 			error(issues.message, 0)
 		end
-		-- fetchError sentinel: backend re-raises so RCC reschedules; Studio/IEC reports as err.
+		-- fetchError sentinel: backend re-raises so RCC reschedules; Studio/IEC reports as err. A shadow test only
+		-- reports it, so it never changes the job's outcome.
 		if getFFlagUGCValidationFetchErrorMethod() and type(issues) == "table" and issues.__fetchError then
-			if sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend then
+			local isShadow = validationModule.shadowFlag() and not validationModule.fflag()
+			if sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend and not isShadow then
 				error(issues.message, 0)
 			end
 			reporter:err(issues.message)

@@ -6,13 +6,17 @@ export type Message<T, Fields> = proto.Package<T, Fields>
 export type CustomJson<T, Json> = proto.CustomJson<T, Json>
 export type TypeRegistry = proto.TypeRegistry
 
+local search_autocomplete = require(script.search_autocomplete)
 local search_results_page = require(script.search_results_page)
 
 -- Exported types
+export type GetSearchAutocompleteRequest = search_autocomplete.GetSearchAutocompleteRequest
+export type GetSearchAutocompleteResponse = search_autocomplete.GetSearchAutocompleteResponse
 export type SearchResultsPageVerticalType = search_results_page.SearchResultsPageVerticalType
 export type GetSearchResultsPageRequest = search_results_page.GetSearchResultsPageRequest
 export type GetSearchResultsPageResponse = search_results_page.GetSearchResultsPageResponse
 
 return {
+	search_autocomplete = search_autocomplete,
 	search_results_page = search_results_page,
 }

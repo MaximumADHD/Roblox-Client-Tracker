@@ -7,6 +7,7 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local IconVariant = BuilderIcons.IconVariant
 
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -52,10 +53,10 @@ export type ChipProps = {
 	size: ChipSize?,
 	variant: ChipVariant?,
 
-	-- DEPRECATED
+	-- **DEPRECATED**: Chip content is driven by `text` and accessories. Still accepted but ignored.
 	children: React.ReactNode?,
 	isDisabled: boolean?,
-	-- DEPRECATED
+	-- **DEPRECATED**: Leading accessories use `leading`. Use `leading` instead. Still accepted.
 	icon: (string | Icon)?,
 } & Types.SelectionProps & Types.CommonProps
 
@@ -104,6 +105,10 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 		return leadingIcon, trailingIcon
 	end, { props.leading, props.icon, props.trailing } :: { unknown })
 
+	local hasText = props.text ~= nil and props.text ~= ""
+	local isIconOnly = if Flags.FoundationFixChipAccessoryLayout
+		then not hasText and (leading == nil) ~= (trailing == nil)
+		else nil
 	local variantProps =
 		useChipVariants(tokens, props.size, props.variant, props.isChecked, leading ~= nil, trailing ~= nil)
 	local cursorBorderWidth = math.floor(tokens.Stroke.Thicker)
@@ -154,10 +159,11 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 					chipBackgroundStyle = variantProps.chip.backgroundStyle,
 					contentStyle = variantProps.text.contentStyle,
 					isDisabled = props.isDisabled,
+					isIconOnly = isIconOnly,
 					testId = `{props.testId}--leading-accessory`,
 				})
 				else nil,
-			Text = if props.text and props.text ~= ""
+			Text = if hasText
 				then React.createElement(Text, {
 					Text = props.text,
 					textStyle = variantProps.text.contentStyle,
@@ -175,6 +181,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 					chipBackgroundStyle = variantProps.chip.backgroundStyle,
 					contentStyle = variantProps.text.contentStyle,
 					isDisabled = props.isDisabled,
+					isIconOnly = isIconOnly,
 					testId = `{props.testId}--trailing-accessory`,
 				})
 				else nil,

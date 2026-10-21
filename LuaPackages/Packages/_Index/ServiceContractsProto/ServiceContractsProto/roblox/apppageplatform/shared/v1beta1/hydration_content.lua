@@ -38,6 +38,7 @@ type _Messages = {
 	HydrationContent_UniversePrivateServerEntry: _HydrationContent_UniversePrivateServerEntryMessage,
 	HydrationContent_NotificationBadgeEntry: _HydrationContent_NotificationBadgeEntryMessage,
 	HydrationContent_CollectibleItemEntry: _HydrationContent_CollectibleItemEntryMessage,
+	HydrationContent_LeaderboardStatsEntry: _HydrationContent_LeaderboardStatsEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -80,6 +81,7 @@ local _roblox_apppageplatform_shared_v1beta1_notification_badge_data = require(s
 local _roblox_apppageplatform_shared_v1beta1_universe_private_server_data =
 	require(script.Parent.universe_private_server_data)
 local _roblox_apppageplatform_shared_v1beta1_collectible_item_data = require(script.Parent.collectible_item_data)
+local _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data = require(script.Parent.leaderboard_stats_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -153,6 +155,9 @@ type _HydrationContentFields =
 			[string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData,
 		},
 		collectible_item: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData },
+		leaderboard_stats: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData,
+		},
 	}
 
 type _HydrationContentPartialFields =
@@ -217,6 +222,9 @@ type _HydrationContentPartialFields =
 			[string]: _roblox_apppageplatform_shared_v1beta1_notification_badge_data.NotificationBadgeData,
 		}?,
 		collectible_item: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData }?,
+		leaderboard_stats: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData,
+		}?,
 	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -1110,6 +1118,35 @@ type _HydrationContent_CollectibleItemEntryMessage = proto.Message<
 	_HydrationContent_CollectibleItemEntryPartialFields
 >
 
+type _HydrationContent_LeaderboardStatsEntryImpl = {
+	__index: _HydrationContent_LeaderboardStatsEntryImpl,
+	new: (fields: _HydrationContent_LeaderboardStatsEntryPartialFields?) -> HydrationContent_LeaderboardStatsEntry,
+	encode: (self: HydrationContent_LeaderboardStatsEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_LeaderboardStatsEntry,
+	jsonEncode: (self: HydrationContent_LeaderboardStatsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_LeaderboardStatsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_LeaderboardStatsEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData?,
+}
+
+type _HydrationContent_LeaderboardStatsEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData?,
+}
+
+export type HydrationContent_LeaderboardStatsEntry = typeof(setmetatable(
+	{} :: _HydrationContent_LeaderboardStatsEntryFields,
+	{} :: _HydrationContent_LeaderboardStatsEntryImpl
+))
+type _HydrationContent_LeaderboardStatsEntryMessage = proto.Message<
+	HydrationContent_LeaderboardStatsEntry,
+	_HydrationContent_LeaderboardStatsEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -1165,6 +1202,7 @@ do
 				else data.universe_private_server,
 			notification_badge = if data == nil or data.notification_badge == nil then {} else data.notification_badge,
 			collectible_item = if data == nil or data.collectible_item == nil then {} else data.collectible_item,
+			leaderboard_stats = if data == nil or data.leaderboard_stats == nil then {} else data.leaderboard_stats,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1595,6 +1633,20 @@ do
 			end
 		end
 
+		if self.leaderboard_stats ~= nil and next(self.leaderboard_stats) ~= nil then
+			for key, value in self.leaderboard_stats do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1992,6 +2044,19 @@ do
 					self.collectible_item[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 31 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_LeaderboardStatsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData.new()
+
+					self.leaderboard_stats[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -2260,6 +2325,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.collectibleItem = newOutput
+		end
+
+		if self.leaderboard_stats ~= nil and next(self.leaderboard_stats) ~= nil then
+			local newOutput = {}
+			for key, value in self.leaderboard_stats do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.leaderboardStats = newOutput
 		end
 
 		return output
@@ -2879,6 +2952,28 @@ do
 			end
 
 			self.collectible_item = newOutput
+		end
+
+		if input.leaderboard_stats ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData } =
+				{}
+			for key, value in input.leaderboard_stats do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData.jsonDecode(value)
+			end
+
+			self.leaderboard_stats = newOutput
+		end
+
+		if input.leaderboardStats ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData } =
+				{}
+			for key, value in input.leaderboardStats do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData.jsonDecode(value)
+			end
+
+			self.leaderboard_stats = newOutput
 		end
 
 		return self
@@ -6659,6 +6754,130 @@ do
 	messages.HydrationContent_CollectibleItemEntry = _HydrationContent_CollectibleItemEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_CollectibleItemEntry)
+end
+
+do
+	local _HydrationContent_LeaderboardStatsEntryImpl = {}
+	_HydrationContent_LeaderboardStatsEntryImpl.__index = _HydrationContent_LeaderboardStatsEntryImpl
+
+	function _HydrationContent_LeaderboardStatsEntryImpl.new(
+		data: _HydrationContent_LeaderboardStatsEntryPartialFields?
+	): HydrationContent_LeaderboardStatsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_LeaderboardStatsEntryImpl :: _HydrationContent_LeaderboardStatsEntryImpl)
+	end
+
+	function _HydrationContent_LeaderboardStatsEntryImpl.encode(self: HydrationContent_LeaderboardStatsEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_LeaderboardStatsEntryImpl.decode(input: buffer): HydrationContent_LeaderboardStatsEntry
+		local self = _HydrationContent_LeaderboardStatsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_LeaderboardStatsEntryImpl.jsonEncode(self: HydrationContent_LeaderboardStatsEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_LeaderboardStatsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_LeaderboardStatsEntry
+		local self = _HydrationContent_LeaderboardStatsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData.jsonDecode(
+				input.value
+			)
+		end
+
+		return self
+	end
+
+	_HydrationContent_LeaderboardStatsEntryImpl.descriptor = {
+		name = "HydrationContent_LeaderboardStatsEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LeaderboardStatsEntry",
+	}
+
+	messages.HydrationContent_LeaderboardStatsEntry = _HydrationContent_LeaderboardStatsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_LeaderboardStatsEntry)
 end
 
 return {

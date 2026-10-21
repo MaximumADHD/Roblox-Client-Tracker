@@ -8,21 +8,12 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local APIUtil = require(root.util.APIUtil)
 
-local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
-local getFFlagUGCValidateEmotesBoneUserVerification = require(root.flags.getFFlagUGCValidateEmotesBoneUserVerification)
-local getFFlagUGCValidateAnimBonesSupport = require(root.flags.getFFlagUGCValidateAnimBonesSupport)
-
 local CurveAnimBonesAllowed = {}
 
-CurveAnimBonesAllowed.categories = { ValidationEnums.UploadCategory.EMOTE_ANIMATION }
-if getFFlagUGCValidateAnimBonesSupport() then
-	table.insert(CurveAnimBonesAllowed.categories, ValidationEnums.UploadCategory.ANIMATION)
-end
+CurveAnimBonesAllowed.categories =
+	{ ValidationEnums.UploadCategory.EMOTE_ANIMATION, ValidationEnums.UploadCategory.ANIMATION }
 CurveAnimBonesAllowed.requiredData = { ValidationEnums.SharedDataMember.consumerConfig }
 CurveAnimBonesAllowed.conditionalData = { ValidationEnums.SharedDataMember.curveAnimBoneData }
-CurveAnimBonesAllowed.fflag = function()
-	return getFFlagUGCValidateEmotesBonesAllowed() or getFFlagUGCValidateAnimBonesSupport()
-end
 CurveAnimBonesAllowed.expectedFailures = {}
 CurveAnimBonesAllowed.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
@@ -48,10 +39,6 @@ local function checkTrustedCreatorPermission(): (boolean, string?)
 end
 
 CurveAnimBonesAllowed.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	if not getFFlagUGCValidateEmotesBoneUserVerification() then
-		return
-	end
-
 	local validationEnv = data.consumerConfig.validationEnv
 
 	if validationEnv == ValidationEnums.ValidationEnv.IEC then

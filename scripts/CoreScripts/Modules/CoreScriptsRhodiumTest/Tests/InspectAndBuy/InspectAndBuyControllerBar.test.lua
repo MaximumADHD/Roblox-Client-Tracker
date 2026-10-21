@@ -7,6 +7,7 @@ local Players = game:GetService("Players")
 local Modules = CoreGui.RobloxGui.Modules
 
 local Rhodium = require(CorePackages.Packages.Dev.Rhodium)
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 local VirtualInput = Rhodium.VirtualInput
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
@@ -45,9 +46,7 @@ local function sharedBeforeEach(c, _path, store, cleanup, gamepad)
 			store:dispatch(action)
 			store:flush()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.gamepadInput = function(input)
@@ -55,9 +54,7 @@ local function sharedBeforeEach(c, _path, store, cleanup, gamepad)
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end
 

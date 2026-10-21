@@ -26,10 +26,9 @@ LCWithinRenderBounds.run = function(reporter: Types.ValidationReporter, data: Ty
 	local accessory = data.rootInstance
 
 	-- Engine-feature gate. Legacy returned FAIL when the engine feature was
-	-- disabled (validateLayeredClothingInRenderBounds.lua:22-26). The engine
-	-- feature is default-off in production today (per the FFlagUGCValidationLCOOB
-	-- driver flag in the Common bucket), so this gate fires for live uploads;
-	-- preserve the legacy FAIL verdict rather than silently passing.
+	-- disabled, so keep that verdict rather than silently passing. The driver
+	-- flag is versioned: look up FFlagUGCValidationLCOOB3 in Portal, not
+	-- FFlagUGCValidationLCOOB.
 	if not getEngineFeatureEngineUGCValidationLCOOB() then
 		reporter:fail(ErrorSourceStrings.Keys.LCWithinRenderBounds_EngineFeatureDisabled, {
 			accessoryName = accessory.Name,

@@ -3,7 +3,9 @@ local Immutable = require(script.Parent.Parent.Immutable)
 local SetActiveTab = require(script.Parent.Parent.Actions.SetActiveTab)
 local SetTabList = require(script.Parent.Parent.Actions.SetTabList)
 
-type TabList = {[any]: any}
+local FFlagDevConsoleTabReselectKeepsClientView = require(script.Parent.Flags.FFlagDevConsoleTabReselectKeepsClientView)
+
+type TabList = { [any]: any }
 
 export type State = {
 	isDeveloperView: boolean,
@@ -11,20 +13,21 @@ export type State = {
 	tabList: TabList,
 	currTabIndex: number?,
 }
-return function(state: State?, action: {[string]: any}): State
-	local mainView = state or {
-		-- initializes to the first tab in the list of views which should be Log
-		isDeveloperView = false,
-		isClientView = true,
-		tabList = {} :: TabList,
-		currTabIndex = nil,
-	}
+return function(state: State?, action: { [string]: any }): State
+	local mainView = state
+		or {
+			-- initializes to the first tab in the list of views which should be Log
+			isDeveloperView = false,
+			isClientView = true,
+			tabList = {} :: TabList,
+			currTabIndex = nil,
+		}
 
 	if action.type == SetActiveTab.name then
 		if mainView.tabList[action.newTabIndex] then
 			local update = {
 				currTabIndex = action.newTabIndex,
-				isClientView = action.isClientView
+				isClientView = action.isClientView,
 			}
 
 			-- TODO (dnurkkala): This one requires a bit of explanation. See DEVTOOLS-2136.
@@ -34,14 +37,17 @@ return function(state: State?, action: {[string]: any}): State
 				update.isClientView = true
 			end
 
-            local updated = Immutable.JoinDictionaries(mainView, update)
+			if FFlagDevConsoleTabReselectKeepsClientView and update.isClientView == nil then
+				update.isClientView = true
+			end
 
-            if update.isClientView == nil then
-                updated = Immutable.RemoveFromDictionary(updated, "isClientView")
-            end
+			local updated = Immutable.JoinDictionaries(mainView, update)
+
+			if update.isClientView == nil then
+				updated = Immutable.RemoveFromDictionary(updated, "isClientView")
+			end
 			return updated
 		end
-
 	elseif action.type == SetTabList.name then
 		if action.tabList[action.initIndex] then
 			local update = {

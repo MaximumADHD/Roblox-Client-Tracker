@@ -336,13 +336,22 @@ local function createWorkInProgress(current: Fiber, pendingProps: any): Fiber
 		-- Needed because Blocks store data on type.
 		workInProgress.type = current.type
 
-		-- We already have an alternate.
-		-- Reset the effect tag.
-		workInProgress.flags = NoFlags
+		if ReactFeatureFlags.enableWorkLoopTrims then
+			-- ROBLOX performance: flags is overwritten below, so it isn't reset here, and
+			-- deletions is only cleared when set (see the field copies below)
+			workInProgress.subtreeFlags = NoFlags
+			if workInProgress.deletions ~= nil then
+				workInProgress.deletions = nil
+			end
+		else
+			-- We already have an alternate.
+			-- Reset the effect tag.
+			workInProgress.flags = NoFlags
 
-		-- The current effects are no longer valid
-		workInProgress.subtreeFlags = NoFlags
-		workInProgress.deletions = nil
+			-- The current effects are no longer valid
+			workInProgress.subtreeFlags = NoFlags
+			workInProgress.deletions = nil
+		end
 
 		if enableProfilerTimer then
 			-- We intentionally reset, rather than copy, actualDuration & actualStartTime.
@@ -360,27 +369,65 @@ local function createWorkInProgress(current: Fiber, pendingProps: any): Fiber
 	workInProgress.childLanes = current.childLanes
 	workInProgress.lanes = current.lanes
 
-	workInProgress.child = current.child
-	workInProgress.memoizedProps = current.memoizedProps
-	workInProgress.memoizedState = current.memoizedState
-	workInProgress.updateQueue = current.updateQueue
+	if ReactFeatureFlags.enableWorkLoopTrims then
+		-- ROBLOX performance: only assign nil to fields that are currently non-nil.
+		-- In Luau, assigning nil to an absent key inserts it; when the hash part
+		-- has no free node the table is rehashed, and the rehash drops nil-valued
+		-- keys again. Host component fibers sit at 14 live keys in a 16-node hash,
+		-- so unguarded nil copies rehashed them several times per render.
+		if current.child ~= nil or workInProgress.child ~= nil then
+			workInProgress.child = current.child
+		end
+		workInProgress.memoizedProps = current.memoizedProps
+		if current.memoizedState ~= nil or workInProgress.memoizedState ~= nil then
+			workInProgress.memoizedState = current.memoizedState
+		end
+		if current.updateQueue ~= nil or workInProgress.updateQueue ~= nil then
+			workInProgress.updateQueue = current.updateQueue
+		end
 
-	-- Clone the dependencies object. This is mutated during the render phase, so
-	-- it cannot be shared with the current fiber.
-	local currentDependencies = current.dependencies
-	if currentDependencies == nil then
-		workInProgress.dependencies = nil
+		local currentDependencies = current.dependencies
+		if currentDependencies == nil then
+			if workInProgress.dependencies ~= nil then
+				workInProgress.dependencies = nil
+			end
+		else
+			workInProgress.dependencies = {
+				lanes = currentDependencies.lanes,
+				firstContext = currentDependencies.firstContext,
+			}
+		end
+
+		if current.sibling ~= nil or workInProgress.sibling ~= nil then
+			workInProgress.sibling = current.sibling
+		end
+		workInProgress.index = current.index
+		if current.ref ~= nil or workInProgress.ref ~= nil then
+			workInProgress.ref = current.ref
+		end
 	else
-		workInProgress.dependencies = {
-			lanes = currentDependencies.lanes,
-			firstContext = currentDependencies.firstContext,
-		}
-	end
+		workInProgress.child = current.child
+		workInProgress.memoizedProps = current.memoizedProps
+		workInProgress.memoizedState = current.memoizedState
+		workInProgress.updateQueue = current.updateQueue
 
-	-- These will be overridden during the parent's reconciliation
-	workInProgress.sibling = current.sibling
-	workInProgress.index = current.index
-	workInProgress.ref = current.ref
+		-- Clone the dependencies object. This is mutated during the render phase, so
+		-- it cannot be shared with the current fiber.
+		local currentDependencies = current.dependencies
+		if currentDependencies == nil then
+			workInProgress.dependencies = nil
+		else
+			workInProgress.dependencies = {
+				lanes = currentDependencies.lanes,
+				firstContext = currentDependencies.firstContext,
+			}
+		end
+
+		-- These will be overridden during the parent's reconciliation
+		workInProgress.sibling = current.sibling
+		workInProgress.index = current.index
+		workInProgress.ref = current.ref
+	end
 
 	if enableProfilerTimer then
 		workInProgress.selfBaseDuration = current.selfBaseDuration

@@ -13,9 +13,6 @@ local getEngineFeatureEngineUGCValidationReportScriptTime =
 local getEngineFeatureEngineUGCValidationIECTelemetry =
 	require(root.flags.getEngineFeatureEngineUGCValidationIECTelemetry)
 
-local getEngineFeatureEngineUGCValidateRigidNonSkinned =
-	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
-
 local getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds =
 	require(root.flags.getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds)
 
@@ -134,10 +131,6 @@ if getFFlagUGCValidateTexturePack() then
 	Analytics.ErrorType.validateTexturePack_FailedToDownloadTexturePack =
 		"validateTexturePack_FailedToDownloadTexturePack"
 	Analytics.ErrorType.validateTexturePack_TexturePackMismatch = "validateTexturePack_TexturePackMismatch"
-end
-if getEngineFeatureEngineUGCValidateRigidNonSkinned() then
-	Analytics.ErrorType.validateRigidMeshSkinning_FailedToDownload = "validateRigidMeshSkinning_FailedToDownload"
-	Analytics.ErrorType.validateRigidMeshSkinning_BonesFoundInMesh = "validateRigidMeshSkinning_BonesFoundInMesh"
 end
 
 Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"

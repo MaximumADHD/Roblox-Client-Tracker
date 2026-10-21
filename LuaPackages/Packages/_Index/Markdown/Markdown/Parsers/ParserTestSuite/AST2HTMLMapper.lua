@@ -94,7 +94,7 @@ local function handleStyledText(node: Node): string
 	elseif style == "BOLD_2" or style == "ITALIC_2" then
 		return `<strong>{processChildren(node.children)}</strong>`
 	elseif style == "STRIKE" then
-		return `<u>{processChildren(node.children)}</u>`
+		return `<s>{processChildren(node.children)}</s>`
 	elseif style == "INLINE_CODE" then
 		return `<code>{processChildren(node.children)}</code>`
 	elseif style == nil then

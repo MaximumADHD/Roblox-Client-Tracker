@@ -18,6 +18,10 @@ local Constants = require(InGameMenu.Resources.Constants)
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
+local waitForIGMPage = require(Modules.CoreScriptsRhodiumTest.TestHelpers["waitForIGMPage.test"])
+local TestUtils = require(CorePackages.Workspace.Packages.TestUtils)
+local waitForEvents = TestUtils.DeferredLuaHelpers.waitForEvents
+local waitUntil = TestUtils.waitUntil
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe = JestGlobals.describe
@@ -26,8 +30,6 @@ local beforeAll = JestGlobals.beforeAll
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
 local expect = JestGlobals.expect
-
-local TestConstants = require(script.Parent.TestConstants)
 
 local c
 
@@ -56,9 +58,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	-- Because of how we process slider events using heartbeat,
@@ -88,9 +88,7 @@ describe("In-Game Menu Settings page focus management", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		c.gamepadInput(Enum.KeyCode.ButtonA)
 		expect(tostring(GuiService.SelectedCoreObject)).toBe("button1")
@@ -102,9 +100,7 @@ describe("In-Game Menu Settings page focus management", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		c.gamepadInput(Enum.KeyCode.ButtonA)
 		expect(tostring(GuiService.SelectedCoreObject)).toBe("button1")
@@ -120,9 +116,7 @@ describe("In-Game Menu Settings page focus management", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		c.gamepadInput(Enum.KeyCode.ButtonA)
 		expect(tostring(GuiService.SelectedCoreObject)).toBe("button1")
@@ -144,9 +138,7 @@ describe("In-Game Menu Settings page focus management", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		local rootPath = XPath.new(path)
 		local settingsPagePath = rootPath:cat(XPath.new("PageContainer.GameSettings"))
@@ -178,9 +170,7 @@ describe("In-Game Menu Settings page focus management", function()
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("GameSettings"))
-			act(function()
-				wait()
-			end)
+			waitForIGMPage(c.path, "GameSettings")
 
 			-- Opens the dropdown
 			c.gamepadInput(Enum.KeyCode.ButtonA)
@@ -207,9 +197,7 @@ describe("In-Game Menu Settings page focus management", function()
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("GameSettings"))
-			act(function()
-				wait()
-			end)
+			waitForIGMPage(c.path, "GameSettings")
 
 			local rootPath = XPath.new(path)
 			local movementModeDropdownPath = rootPath:cat(
@@ -223,13 +211,8 @@ describe("In-Game Menu Settings page focus management", function()
 			local movementModeDropdown = movementModeDropdownElement:getRbxInstance()
 
 			-- Focus on the second dropdown in the page
-			act(function()
-				wait()
-			end)
 			GuiService.SelectedCoreObject = movementModeDropdown
-			act(function()
-				wait()
-			end)
+			waitForEvents.act()
 
 			-- Opens the dropdown
 			c.gamepadInput(Enum.KeyCode.ButtonA)
@@ -257,9 +240,7 @@ describe("In-Game Menu Settings page focus management", function()
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
 
-		act(function()
-			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		expect(store:getState().currentZone).toBe(1)
 
@@ -291,9 +272,7 @@ describe("Navigation flows as expected", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		-- First item is CameraMode dropdown
 		expect(tostring(GuiService.SelectedCoreObject)).toBe("OpenDropDownButton")
@@ -352,9 +331,7 @@ describe("Navigation flows as expected", function()
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("GameSettings"))
-			act(function()
-				wait()
-			end)
+			waitForIGMPage(c.path, "GameSettings")
 
 			-- First item is CameraMode dropdown
 			expect(tostring(GuiService.SelectedCoreObject)).toBe("OpenDropDownButton")
@@ -382,11 +359,10 @@ describe("Navigation flows as expected", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
-		act(function()
-			wait()
+		waitForIGMPage(c.path, "GameSettings")
+		waitUntil(function()
+			return tostring(GuiService.SelectedCoreObject) == "OpenDropDownButton"
 		end)
-
-		-- First item is CameraMode dropdown
 		expect(tostring(GuiService.SelectedCoreObject)).toBe("OpenDropDownButton")
 
 		c.gamepadInput(Enum.KeyCode.DPadDown)
@@ -486,9 +462,7 @@ describe("IGM slider with gamepad", function()
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
 
-		act(function()
-			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		-- select the slider
 		act(function()
@@ -536,9 +510,7 @@ describe("IGM slider with gamepad", function()
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
 
-		act(function()
-			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		-- select the text box
 		act(function()
@@ -587,9 +559,7 @@ describe("IGM slider with gamepad", function()
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
 
-		act(function()
-			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		-- select the slider
 		act(function()
@@ -634,9 +604,7 @@ describe("IGM slider with gamepad", function()
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage("GameSettings"))
 
-		act(function()
-			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-		end)
+		waitForIGMPage(c.path, "GameSettings")
 
 		-- select the text box
 		act(function()

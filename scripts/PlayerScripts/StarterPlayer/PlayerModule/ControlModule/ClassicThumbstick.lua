@@ -6,8 +6,6 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserPlayerScriptsClassicThumbstickRenameUI = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
-local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
 local FFlagUserPlayerScriptsResetDTTouchOnCreate = FlagUtil.getUserFlag("UserPlayerScriptsResetDTTouchOnCreate")
 
@@ -116,26 +114,9 @@ function ClassicThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	if FFlagUserPlayerScriptsSAuthDirectAPIs then
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
-		if binding then
-			binding:Fire(Vector2.zero)
-		end
-	elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
-		if binding then
-			local success, result = pcall(function()
-				binding.Type = Enum.InputBindingType.Scriptable
-				binding:Fire(Vector2.zero)
-			end)
-			if not success then
-				self.playerData.actions.MoveAction:Fire(Vector2.zero)
-			end
-		else
-			self.playerData.actions.MoveAction:Fire(Vector2.zero)
-		end
-	else
-		self.playerData.actions.MoveAction:Fire(Vector2.zero)
+	local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+	if binding then
+		binding:Fire(Vector2.zero)
 	end
 
 	self.isJumping = false
@@ -256,26 +237,9 @@ function ClassicThumbstick:Create(parentFrame)
 		end
 
 		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then
-			local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
-			if binding then
-				binding:Fire(currentMoveVector)
-			end
-		elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-			local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
-			if binding then
-				local success, result = pcall(function()
-					binding.Type = Enum.InputBindingType.Scriptable
-					binding:Fire(currentMoveVector)
-				end)
-				if not success then
-					self.playerData.actions.MoveAction:Fire(currentMoveVector)
-				end
-			else
-				self.playerData.actions.MoveAction:Fire(currentMoveVector)
-			end
-		else
-			self.playerData.actions.MoveAction:Fire(currentMoveVector)
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+		if binding then
+			binding:Fire(currentMoveVector)
 		end
 	end
 

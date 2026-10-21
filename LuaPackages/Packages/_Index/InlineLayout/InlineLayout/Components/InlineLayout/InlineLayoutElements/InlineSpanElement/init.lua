@@ -10,6 +10,7 @@ local InlineElementType = require(Root.Utils.InlineElementType)
 local RenderableInlineElement = require(Root.Components.InlineLayout.InlineLayoutElements.RenderableInlineElement)
 local HardBreakElement = require(Root.Components.InlineLayout.InlineLayoutElements.HardBreakElement)
 local isInlineElement = require(Root.Utils.isInlineElement)
+local renderInMeasuredFrame = require(Root.Utils.renderInMeasuredFrame)
 
 local InlineSpanElement = {}
 InlineSpanElement.__index = InlineSpanElement
@@ -144,9 +145,36 @@ function InlineSpanElement:split(desiredWidth: number, forceSplit: boolean?)
 	return headElement, tailElement
 end
 
+-- Trims leading whitespace from the first child, dropping children that end up empty.
+-- Returns self if there is nothing to trim, and nil if no child is left.
+function InlineSpanElement:trimStart()
+	for index, element in self.Elements do
+		local trimmed = if element.trimStart then element:trimStart() else element
+		if trimmed == element and index == 1 then
+			return self
+		end
+		if trimmed ~= nil then
+			local elements = { trimmed }
+			table.move(self.Elements, index + 1, #self.Elements, 2, elements)
+			return InlineSpanElement.new(
+				self.WrapperElement,
+				self.wrapperElementProps,
+				elements,
+				self.startingIndex + index - 1
+			)
+		end
+	end
+	return nil
+end
+
 function InlineSpanElement:render(id: string | number, layoutOrder: number)
+	-- Children fill their parent's width, so each needs its own measured frame inside the span's row.
 	local elements = Dash.map(self.Elements, function(element, index)
-		return element:render(`{id}-{self.startingIndex + index - 1}`, index)
+		return renderInMeasuredFrame(
+			element:render(`{id}-{self.startingIndex + index - 1}`, index),
+			element:getWidth(),
+			index
+		)
 	end)
 	return React.createElement(
 		self.WrapperElement,

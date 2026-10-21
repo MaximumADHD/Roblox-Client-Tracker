@@ -11,11 +11,13 @@ local InputSize = require(Foundation.Enums.InputSize)
 local List = require(Foundation.Components.List)
 local ListItemInputType = require(Foundation.Enums.ListItemInputType)
 local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
+local Menu = require(Foundation.Components.Menu)
 local StoryIcons = require(Foundation.Utility.Stories.Shared.StoryIcons)
 local StorySection = require(Foundation.Utility.Stories.Shared.StorySection)
 local Section = StorySection.Section
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
+local useMeasurableRef = require(Foundation.Components.Popover.useMeasurableRef)
 
 local MatrixGrid = MatrixGridShared.MatrixGrid
 local matrixInfoLabel = MatrixGridShared.matrixInfoLabel
@@ -341,11 +343,50 @@ local function ClickableExample(props: { LayoutOrder: number? }): React.ReactNod
 	})
 end
 
-local function ClickableStory(): React.ReactNode
+local CONTEXT_MENU_ITEMS = {
+	{ id = "option1", text = "Option 1" },
+	{ id = "option2", text = "Option 2" },
+	{ id = "option3", text = "Option 3" },
+}
+
+local function SecondaryActivationExample(props: { LayoutOrder: number? }): React.ReactNode
+	local isMenuOpen, setIsMenuOpen = React.useState(false)
+	local lastAction, setLastAction = React.useState(nil :: string?)
+	local clickPosition, setClickPosition = React.useState(Vector2.zero)
+	local clickAnchorRef = useMeasurableRef(clickPosition, Vector2.one)
+
 	return React.createElement(View, {
-		tag = STORY_FRAME_TAG,
+		tag = "col auto-xy",
+		LayoutOrder = props.LayoutOrder,
 	}, {
-		Example = React.createElement(ClickableExample, { LayoutOrder = 1 }),
+		Shell = React.createElement(Shell, { LayoutOrder = 1 }, {
+			Item = React.createElement(List.Item, {
+				title = {
+					title = "Title",
+					metadata = if lastAction then `Last action: {lastAction}` else "Right-click for menu",
+				},
+				description = "Right-click or long-press — menu opens at the pointer",
+				onSecondaryActivated = function(_self: GuiObject, inputObject: InputObject)
+					setClickPosition(Vector2.new(inputObject.Position.X, inputObject.Position.Y))
+					setIsMenuOpen(true)
+				end,
+				LayoutOrder = 1,
+			}),
+		}),
+		ContextMenu = React.createElement(Menu, {
+			LayoutOrder = 2,
+			isOpen = isMenuOpen,
+			items = CONTEXT_MENU_ITEMS,
+			size = InputSize.Medium,
+			anchorRef = clickAnchorRef,
+			onPressedOutside = function()
+				setIsMenuOpen(false)
+			end,
+			onActivated = function(id)
+				setLastAction(tostring(id))
+				setIsMenuOpen(false)
+			end,
+		}),
 	})
 end
 
@@ -377,21 +418,39 @@ local function ControlledStory(): React.ReactNode
 	return React.createElement(View, {
 		tag = STORY_FRAME_TAG,
 	}, {
-		InputActivation = React.createElement(Section, {
+		PrimaryActivation = React.createElement(Section, {
 			LayoutOrder = 1,
-			name = "Input activation",
+			name = "Primary activation",
+			note = "onActivated runs on a primary click or press.",
 			contentTag = "auto-xy",
 		}, {
-			Matrix = React.createElement(MatrixGrid, {
-				showLabelColumn = false,
-				columnHeaders = CONTROLLED_INPUT_HEADERS,
-				cellColumnWidth = LIST_WIDTH,
-				headerTextAlign = "left",
-				cellAlign = "left",
-				rowAlign = "top",
-				rows = { { cells = controlledInputCells() } },
-			}),
+			Example = React.createElement(ClickableExample, { LayoutOrder = 1 }),
 		}),
+		SecondaryActivation = React.createElement(Section, {
+			LayoutOrder = 2,
+			name = "Secondary activation",
+			note = "Right-click (or long-press) opens a Menu at the pointer via useMeasurableRef.",
+			contentTag = "auto-xy",
+		}, {
+			Example = React.createElement(SecondaryActivationExample, { LayoutOrder = 1 }),
+		}),
+		InputActivation = if Flags.FoundationListItemDecoupledInput
+			then React.createElement(Section, {
+				LayoutOrder = 3,
+				name = "Input activation",
+				contentTag = "auto-xy",
+			}, {
+				Matrix = React.createElement(MatrixGrid, {
+					showLabelColumn = false,
+					columnHeaders = CONTROLLED_INPUT_HEADERS,
+					cellColumnWidth = LIST_WIDTH,
+					headerTextAlign = "left",
+					cellAlign = "left",
+					rowAlign = "top",
+					rows = { { cells = controlledInputCells() } },
+				}),
+			})
+			else nil,
 	})
 end
 
@@ -583,8 +642,8 @@ local stories = {
 		story = SizingStory,
 	},
 	{
-		name = "Clickable",
-		story = ClickableStory,
+		name = "Controlled component",
+		story = ControlledStory,
 	},
 	{
 		name = "Content",
@@ -596,10 +655,6 @@ if Flags.FoundationListItemDecoupledInput then
 	table.insert(stories, 3, {
 		name = "States",
 		story = StatesStory,
-	})
-	table.insert(stories, 5, {
-		name = "Controlled component",
-		story = ControlledStory,
 	})
 end
 

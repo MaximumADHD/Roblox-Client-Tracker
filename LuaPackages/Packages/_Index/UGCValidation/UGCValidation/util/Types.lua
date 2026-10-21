@@ -116,7 +116,8 @@ export type CurveAnimComputedFramesData = {
 	tracks: { any },
 }
 
-export type ContentIdEntry = { instance: Instance, fieldName: string }
+-- version is set when the field pins one (rbxassetid://1234&version=3)
+export type ContentIdEntry = { instance: Instance, fieldName: string, version: number? }
 export type ContentIdMap = { [string]: ContentIdEntry }
 export type ContentIdEntriesMap = { [string]: { ContentIdEntry } }
 
@@ -223,8 +224,9 @@ export type UGCValidationConsumerName =
 -- Pipeline position the AQ fetch should start from:
 --   "scene"  — generate a GLTF from the rootInstance, then fetch AQS from it (default)
 --   "gltf"   — GLTF payload already built upstream; skip generation, fetch AQS from aqFetchData
---   "jobId"  — AQ job already ran; fetch the AQS summary directly via aqFetchData
-export type AqFetchStage = "scene" | "gltf" | "jobId"
+--   "jobId"  — AQ job already ran; fetch the AQS summary directly via aqJobId (aqFetchData pre-EngineAssetQualityV2SummaryFromUrl)
+--   "summaryUrl" — AQ job already ran; fetch the AQS summary from the presigned aqSummaryUrl
+export type AqFetchStage = "scene" | "gltf" | "jobId" | "summaryUrl"
 
 -- Origin / lifecycle axis (where the upload came from).
 export type ConsumerEnv = "Studio" | "Backend" | "IEC"
@@ -280,6 +282,9 @@ export type UGCValidationConsumerConfigs = {
 	-- SystemTester-only: lets fixtures bake HSR Instances inline and bypass
 	-- AssetDelivery. Production consumers leave this nil — live fetch is authoritative.
 	preloadedHsrAssets: { [string]: { Instance } }?,
+	-- SystemTester-only: CurveAnimations baked into fixtures, keyed by Animation.AnimationId, so
+	-- FetchCurveAnimations skips the download. Production consumers leave this nil.
+	preloadedCurveAnimations: { [string]: CurveAnimation }?,
 	-- SystemTester-only: enum names to drop from dispatch entirely (not just filter
 	-- from results). Use for modules that hit network endpoints unreachable from
 	-- the test env. Production consumers leave this nil.
@@ -289,7 +294,9 @@ export type UGCValidationConsumerConfigs = {
 	-- engine mesh content the fixtures cannot load. Production consumers leave this nil so the reset runs.
 	skipPhysicsDataReset: boolean?,
 	aqFetchStage: AqFetchStage?, -- default "scene"
-	aqFetchData: string?, -- jobId or GLTF payload; empty when stage == "scene"
+	aqFetchData: string?, -- GLTF payload (or jobId pre-EngineAssetQualityV2SummaryFromUrl); empty otherwise
+	aqJobId: string?,
+	aqSummaryUrl: string?,
 	backendConfigs: BackendConfigs?,
 	iecConfigs: IECConfigs?,
 }
@@ -306,11 +313,14 @@ export type PreloadedConsumerConfigs = {
 	preloadedEditableMeshes: { [string]: EditableMesh },
 	preloadedEditableImages: { [string]: EditableImage },
 	preloadedHsrAssets: { [string]: { Instance } },
+	preloadedCurveAnimations: { [string]: CurveAnimation },
 	skipModules: { [string]: boolean },
 	skipAssetQualityChecks: boolean,
 	skipPhysicsDataReset: boolean,
 	aqFetchStage: AqFetchStage,
 	aqFetchData: string,
+	aqJobId: string?,
+	aqSummaryUrl: string?,
 	backendConfigs: BackendConfigs,
 	iecConfigs: IECConfigs,
 }

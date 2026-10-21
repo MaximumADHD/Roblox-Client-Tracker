@@ -104,6 +104,9 @@ end
 local FFlagUserPlayerConnectionMemoryLeak = FlagUtil.getUserFlag("UserPlayerConnectionMemoryLeak")
 local FFlagUserPSFixCameraControllerReset = FlagUtil.getUserFlag("UserPSFixCameraControllerReset")
 local FFlagUserVRFixCameraCloseArticulation = FlagUtil.getUserFlag("UserVRFixCameraCloseArticulation")
+local FFlagUserOrthographicOcclusion = FFlagUserOrthographicOcclusion and pcall(function()
+	return Instance.new("Camera").ProjectionType -- check for orthographic support
+end)
 
 local VRFirstPersonState = CommonUtils.get("VRFirstPersonState")
 
@@ -563,12 +566,20 @@ function CameraModule:Update(data, dt)
 			VRFirstPersonState.inFirstPerson = self.activeCameraController:IsInFirstPerson()
 		end
 
-		if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion then
-			newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
+		local currentCamera = game.Workspace.CurrentCamera :: Camera
+
+		if FFlagUserOrthographicOcclusion then
+			if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion and not (currentCamera.ProjectionType == Enum.ProjectionType.Orthographic) then
+				newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
+			end
+		else
+			if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion then
+				newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
+			end
 		end
 
+
 		-- Here is where the new CFrame and Focus are set for this render frame
-		local currentCamera = game.Workspace.CurrentCamera :: Camera
 		currentCamera.CFrame = newCameraCFrame
 		currentCamera.Focus = newCameraFocus
 

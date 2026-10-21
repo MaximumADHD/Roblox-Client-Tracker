@@ -6,6 +6,7 @@ local Players = game:GetService("Players")
 local Modules = CoreGui.RobloxGui.Modules
 
 local Rhodium = require(CorePackages.Packages.Dev.Rhodium)
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 local VirtualInput = Rhodium.VirtualInput
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
@@ -57,9 +58,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.keyboardInput = function(input)
@@ -67,9 +66,7 @@ beforeEach(function()
 			Rhodium.VirtualInput.Keyboard.hitKey(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 

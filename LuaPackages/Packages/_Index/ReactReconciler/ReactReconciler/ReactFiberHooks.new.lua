@@ -30,6 +30,7 @@ local createBinding = require(Packages.React).createBinding
 
 -- ROBLOX: use patched console from shared
 local console = require(Packages.Shared).console
+local MemoValues = require(Packages.Shared).MemoValues
 
 local ReactTypes = require(Packages.Shared)
 type ReactContext<T> = ReactTypes.ReactContext<T>
@@ -67,6 +68,8 @@ local enableSchedulingProfiler: boolean? = ReactFeatureFlags.enableSchedulingPro
 local enableNewReconciler: boolean? = ReactFeatureFlags.enableNewReconciler
 -- local decoupleUpdatePriorityFromScheduler = ReactFeatureFlags.decoupleUpdatePriorityFromScheduler
 local enableDoubleInvokingEffects = ReactFeatureFlags.enableDoubleInvokingEffects
+local enableAllocationTrims = ReactFeatureFlags.enableAllocationTrims
+local enableHookDoubleBuffering = ReactFeatureFlags.enableHookDoubleBuffering
 
 -- local ReactTypeOfMode = require(script.Parent.ReactTypeOfMode)
 local DebugTracingMode = require(script.Parent.ReactTypeOfMode).DebugTracingMode
@@ -186,6 +189,9 @@ export type Hook = {
 	baseQueue: Update<any, any> | nil,
 	queue: UpdateQueue<any, any> | nil,
 	next: Hook?,
+	-- ROBLOX performance: the hook at the same position in the alternate
+	-- fiber's list, overwritten in place the next time this hook is cloned
+	alternate: Hook?,
 }
 
 export type Effect = {
@@ -199,6 +205,9 @@ export type Effect = {
 
 export type FunctionComponentUpdateQueue = {
 	lastEffect: Effect?,
+	-- ROBLOX performance: the alternate fiber's queue, whose effect ring is
+	-- overwritten in place the next time an effect is pushed for this fiber
+	alternate: FunctionComponentUpdateQueue?,
 }
 
 type BasicStateAction<S> = ((S) -> S) | S
@@ -223,6 +232,13 @@ local currentHook: any = nil
 -- FIXME (roblox): type refinement
 -- local workInProgressHook: Hook | nil = nil
 local workInProgressHook: any = nil
+
+-- ROBLOX performance: effects from the ring of the queue being reused by the
+-- currently rendering fiber that have not been overwritten yet
+-- FIXME (roblox): type refinement
+-- local nextStaleEffect: Effect | nil = nil
+local nextStaleEffect: any = nil
+local lastStaleEffect: Effect | nil = nil
 
 -- Whether an update was scheduled at any point during the render phase. This
 -- does not get reset if we do another render pass; only when we're completely
@@ -458,6 +474,14 @@ local function areHookInputsEqual(nextDeps: Array<any>, prevDeps: Array<any>)
 end
 
 exports.bailoutHooks = function(current: Fiber, workInProgress: Fiber, lanes: Lanes)
+	if enableHookDoubleBuffering then
+		-- The work-in-progress hooks point at effects in the queue we are about
+		-- to discard, and will become the current hooks, so that queue must not
+		-- be reused while they are.
+		if current.updateQueue ~= nil then
+			(current.updateQueue :: any).alternate = nil
+		end
+	end
 	-- ROBLOX performance TODO: return non-nil updateQueue object to the ReactUpdateQUeue pool
 	workInProgress.updateQueue = current.updateQueue
 	if __DEV__ and enableDoubleInvokingEffects then
@@ -514,6 +538,10 @@ exports.resetHooksAfterThrow = function(): ()
 
 	currentHook = nil
 	workInProgressHook = nil
+	if enableHookDoubleBuffering then
+		nextStaleEffect = nil
+		lastStaleEffect = nil
+	end
 
 	if __DEV__ then
 		hookTypesDev = nil
@@ -528,15 +556,30 @@ exports.resetHooksAfterThrow = function(): ()
 end
 
 local function mountWorkInProgressHook(): Hook
-	local hook: Hook = {
-		memoizedState = nil,
+	-- ROBLOX performance: fields listed here presize the table, even when nil.
+	-- Omit baseQueue (only set when updates are skipped) so that the hook fits
+	-- in 4 hash slots instead of 8.
+	local hook: Hook
+	if enableAllocationTrims then
+		hook = {
+			memoizedState = nil,
 
-		baseState = nil,
-		baseQueue = nil,
-		queue = nil,
+			baseState = nil,
+			queue = nil,
 
-		next = nil,
-	}
+			next = nil,
+		}
+	else
+		hook = {
+			memoizedState = nil,
+
+			baseState = nil,
+			baseQueue = nil,
+			queue = nil,
+
+			next = nil,
+		}
+	end
 
 	if workInProgressHook == nil then
 		-- This is the first hook in the list
@@ -595,15 +638,79 @@ local function updateWorkInProgressHook(): Hook
 
 		currentHook = nextCurrentHook
 
-		local newHook: Hook = {
-			memoizedState = currentHook.memoizedState,
+		local newHook: Hook
+		if enableHookDoubleBuffering then
+			-- ROBLOX performance: overwrite the hook at this position in the alternate
+			-- fiber instead of allocating one each render
+			newHook = currentHook.alternate
+			if newHook ~= nil then
+				-- Only assign nil to fields that are currently non-nil. Most hooks only hold
+				-- memoizedState/next/alternate, and a rehash can shrink them to 4 hash nodes;
+				-- unguarded nil copies then insert absent keys and rehash the hook again
+				-- (see createWorkInProgress)
+				local value = currentHook.memoizedState
+				if value ~= nil or newHook.memoizedState ~= nil then
+					newHook.memoizedState = value
+				end
+				value = currentHook.baseState
+				if value ~= nil or newHook.baseState ~= nil then
+					newHook.baseState = value
+				end
+				value = currentHook.baseQueue
+				if value ~= nil or newHook.baseQueue ~= nil then
+					newHook.baseQueue = value
+				end
+				value = currentHook.queue
+				if value ~= nil or newHook.queue ~= nil then
+					newHook.queue = value
+				end
+				if newHook.next ~= nil then
+					newHook.next = nil
+				end
+			else
+				newHook = {
+					memoizedState = currentHook.memoizedState,
+					baseState = currentHook.baseState,
+					baseQueue = currentHook.baseQueue,
+					queue = currentHook.queue,
+					next = nil,
+				}
+				newHook.alternate = currentHook
+				currentHook.alternate = newHook
+			end
+		else
+			if enableAllocationTrims then
+				-- ROBLOX performance: only list baseQueue when it's set, so that the
+				-- common case fits in 4 hash slots instead of 8 (see mountWorkInProgressHook)
+				local baseQueue = currentHook.baseQueue
+				if baseQueue == nil then
+					newHook = {
+						memoizedState = currentHook.memoizedState,
+						baseState = currentHook.baseState,
+						queue = currentHook.queue,
+						next = nil,
+					}
+				else
+					newHook = {
+						memoizedState = currentHook.memoizedState,
+						baseState = currentHook.baseState,
+						baseQueue = baseQueue,
+						queue = currentHook.queue,
+						next = nil,
+					}
+				end
+			else
+				newHook = {
+					memoizedState = currentHook.memoizedState,
 
-			baseState = currentHook.baseState,
-			baseQueue = currentHook.baseQueue,
-			queue = currentHook.queue,
+					baseState = currentHook.baseState,
+					baseQueue = currentHook.baseQueue,
+					queue = currentHook.queue,
 
-			next = nil,
-		}
+					next = nil,
+				}
+			end
+		end
 
 		if workInProgressHook == nil then
 			-- This is the first hook in the list.
@@ -1212,39 +1319,109 @@ function rerenderState<S>(initialState: (() -> S) | S): (S, Dispatch<BasicStateA
 	return rerenderReducer(basicStateReducer, initialState)
 end
 
-local function pushEffect(tag, create, destroy, deps)
-	local effect: Effect = {
-		tag = tag,
-		create = create,
-		destroy = destroy,
-		deps = deps,
-		-- Circular
-		next = nil :: any,
-	}
-	local componentUpdateQueue: FunctionComponentUpdateQueue =
-		currentlyRenderingFiber.updateQueue :: any
-	if componentUpdateQueue == nil then
-		-- ROBLOX performance: inline simple function in hot path
-		-- componentUpdateQueue = createFunctionComponentUpdateQueue()
-		componentUpdateQueue = {
+local function reuseFunctionComponentUpdateQueue(): FunctionComponentUpdateQueue
+	local current = currentlyRenderingFiber.alternate
+	local currentQueue: FunctionComponentUpdateQueue? = if current ~= nil
+		then current.updateQueue :: any
+		else nil
+	local componentUpdateQueue = if currentQueue ~= nil
+		then currentQueue.alternate
+		else nil
+	if componentUpdateQueue ~= nil then
+		local lastEffect = componentUpdateQueue.lastEffect
+		lastStaleEffect = lastEffect
+		nextStaleEffect = if lastEffect ~= nil then lastEffect.next else nil
+		componentUpdateQueue.lastEffect = nil
+		return componentUpdateQueue
+	end
+	nextStaleEffect = nil
+	lastStaleEffect = nil
+	local newQueue: FunctionComponentUpdateQueue
+	if currentQueue ~= nil then
+		newQueue = {
+			lastEffect = nil,
+			alternate = currentQueue,
+		}
+		currentQueue.alternate = newQueue
+	else
+		newQueue = {
 			lastEffect = nil,
 		}
-		currentlyRenderingFiber.updateQueue = componentUpdateQueue
-		effect.next = effect
-		componentUpdateQueue.lastEffect = effect
-	else
+	end
+	return newQueue
+end
+
+local function pushEffect(tag, create, destroy, deps)
+	if enableHookDoubleBuffering then
+		local componentUpdateQueue: FunctionComponentUpdateQueue =
+			currentlyRenderingFiber.updateQueue :: any
+		if componentUpdateQueue == nil then
+			componentUpdateQueue = reuseFunctionComponentUpdateQueue()
+			currentlyRenderingFiber.updateQueue = componentUpdateQueue
+		end
+		local effect: Effect = nextStaleEffect
+		if effect ~= nil then
+			nextStaleEffect = if effect == lastStaleEffect then nil else effect.next
+			effect.tag = tag
+			effect.create = create
+			-- ROBLOX performance: skip nil-to-nil writes (see updateWorkInProgressHook)
+			if destroy ~= nil or effect.destroy ~= nil then
+				effect.destroy = destroy
+			end
+			effect.deps = deps
+		else
+			effect = {
+				tag = tag,
+				create = create,
+				destroy = destroy,
+				deps = deps,
+				-- Circular
+				next = nil :: any,
+			}
+		end
 		local lastEffect = componentUpdateQueue.lastEffect
 		if lastEffect == nil then
-			componentUpdateQueue.lastEffect = effect
 			effect.next = effect
 		else
-			local firstEffect = lastEffect.next
+			effect.next = lastEffect.next
 			lastEffect.next = effect
-			effect.next = firstEffect
-			componentUpdateQueue.lastEffect = effect
 		end
+		componentUpdateQueue.lastEffect = effect
+		return effect
+	else
+		local effect: Effect = {
+			tag = tag,
+			create = create,
+			destroy = destroy,
+			deps = deps,
+			-- Circular
+			next = nil :: any,
+		}
+		local componentUpdateQueue: FunctionComponentUpdateQueue =
+			currentlyRenderingFiber.updateQueue :: any
+		if componentUpdateQueue == nil then
+			-- ROBLOX performance: inline simple function in hot path
+			-- componentUpdateQueue = createFunctionComponentUpdateQueue()
+			componentUpdateQueue = {
+				lastEffect = nil,
+			}
+			currentlyRenderingFiber.updateQueue = componentUpdateQueue
+			effect.next = effect
+			componentUpdateQueue.lastEffect = effect
+		else
+			local lastEffect = componentUpdateQueue.lastEffect
+			if lastEffect == nil then
+				componentUpdateQueue.lastEffect = effect
+				effect.next = effect
+			else
+				local firstEffect = lastEffect.next
+				lastEffect.next = effect
+				effect.next = firstEffect
+				componentUpdateQueue.lastEffect = effect
+			end
+		end
+		return effect
 	end
-	return effect
 end
 
 -- ROBLOX deviation: Bindings are a feature unique to Roact
@@ -1252,13 +1429,23 @@ function mountBinding<T>(initialValue: T): (ReactBinding<T>, ReactBindingUpdater
 	local hook = mountWorkInProgressHook()
 	local value, updateValue = createBinding(initialValue)
 
-	-- ROBLOX Luau FIXME: Luau doesn't allow mixed arrays, forcing us to use any here
-	hook.memoizedState = { value :: any, updateValue :: any }
+	if enableAllocationTrims then
+		-- ROBLOX performance: store the updater in the otherwise-unused baseState
+		-- field rather than allocating a { binding, updater } tuple
+		hook.memoizedState = value
+		hook.baseState = updateValue
+	else
+		-- ROBLOX Luau FIXME: Luau doesn't allow mixed arrays, forcing us to use any here
+		hook.memoizedState = { value :: any, updateValue :: any }
+	end
 	return value, updateValue
 end
 
 function updateBinding<T>(initialValue: T): (ReactBinding<T>, ReactBindingUpdater<T>)
 	local hook = updateWorkInProgressHook()
+	if enableAllocationTrims then
+		return hook.memoizedState, hook.baseState
+	end
 	return unpack(hook.memoizedState)
 end
 
@@ -1505,17 +1692,37 @@ end
 
 local updateDebugValue = mountDebugValue
 
+-- ROBLOX performance: instead of allocating a { value, deps } tuple on every
+-- recompute, useCallback and useMemo store the value in hook.memoizedState and
+-- the deps in hook.baseState, which is otherwise unused by these hooks
 function mountCallback<T>(callback: T, deps: Array<any> | nil): T
 	local hook = mountWorkInProgressHook()
 	local nextDeps = deps
-	-- ROBLOX Luau FIXME: Luau doesn't allow mixed arrays, forcing us to use any here
-	hook.memoizedState = { callback :: any, nextDeps :: any }
+	if enableAllocationTrims then
+		hook.memoizedState = callback
+		hook.baseState = nextDeps
+	else
+		-- ROBLOX Luau FIXME: Luau doesn't allow mixed arrays, forcing us to use any here
+		hook.memoizedState = { callback :: any, nextDeps :: any }
+	end
 	return callback
 end
 
 function updateCallback<T>(callback: T, deps: Array<any> | nil): T
 	local hook = updateWorkInProgressHook()
 	local nextDeps = deps
+	if enableAllocationTrims then
+		if nextDeps ~= nil then
+			-- ROBLOX TODO: Luau false positive when this is `Array<any>?` (E001) Type 'Array<any>?' could not be converted into 'Array<any>'
+			local prevDeps: Array<any> = hook.baseState
+			if areHookInputsEqual(nextDeps, prevDeps) then
+				return hook.memoizedState
+			end
+		end
+		hook.memoizedState = callback
+		hook.baseState = nextDeps
+		return callback
+	end
 	local prevState = hook.memoizedState
 	if prevState ~= nil then
 		if nextDeps ~= nil then
@@ -1537,6 +1744,13 @@ function mountMemo<T...>(nextCreate: () -> T..., deps: Array<any> | nil): ...any
 
 	-- deviation: equivilant to upstream ternary logic
 	local nextDeps = deps
+	if enableAllocationTrims then
+		-- ROBLOX DEVIATION: pack memoized values to allow for multiple return values
+		local nextValue = MemoValues.pack(nextCreate())
+		hook.memoizedState = nextValue
+		hook.baseState = nextDeps
+		return MemoValues.unpack(nextValue)
+	end
 	-- ROBLOX DEVIATION: Wrap memoized values in a table and unpack to allow for multiple return values
 	local nextValue = { nextCreate() }
 	hook.memoizedState = { nextValue :: any, nextDeps }
@@ -1548,6 +1762,20 @@ function updateMemo<T...>(nextCreate: () -> T..., deps: Array<any> | nil): ...an
 	local hook = updateWorkInProgressHook()
 	-- deviation: equivilant to upstream ternary logic
 	local nextDeps = deps
+	if enableAllocationTrims then
+		-- Assume these are defined. If they're not, areHookInputsEqual will warn.
+		if nextDeps ~= nil then
+			local prevDeps: Array<any> = hook.baseState
+			if areHookInputsEqual(nextDeps, prevDeps) then
+				return MemoValues.unpack(hook.memoizedState)
+			end
+		end
+		-- ROBLOX DEVIATION: pack memoized values to allow for multiple return values
+		local nextValue = MemoValues.pack(nextCreate())
+		hook.memoizedState = nextValue
+		hook.baseState = nextDeps
+		return MemoValues.unpack(nextValue)
+	end
 	local prevState = hook.memoizedState
 	if prevState ~= nil then
 		-- Assume these are defined. If they're not, areHookInputsEqual will warn.
@@ -1874,23 +2102,46 @@ function dispatchAction<S, A>(fiber: Fiber, queue: UpdateQueue<S, A>, action: A,
 					ReactCurrentDispatcher.current = prevDispatcher
 				end
 
-				if is(eagerState, currentState) then
-					-- Fast path. We can bail out without scheduling React to re-render.
-					-- It's still possible that we'll need to rebase this update later,
-					-- if the component re-renders for a different reason and by that
-					-- time the reducer has changed.
+				if ReactFeatureFlags.fixEagerReducerError then
+					-- Only a successful eager computation can prove the state unchanged; on
+					-- error eagerState holds the error value
+					if ok and is(eagerState, currentState) then
+						-- Fast path. We can bail out without scheduling React to re-render.
+						-- It's still possible that we'll need to rebase this update later,
+						-- if the component re-renders for a different reason and by that
+						-- time the reducer has changed.
 
-					-- First remove the update just added to prevent unbounded queue growth.
-					if FFlagReactCleanQueueOnUpdateBailout then
-						if pending == nil then
-							queue.pending = nil
-						else
-							pending.next = update.next
-							queue.pending = pending
+						-- First remove the update just added to prevent unbounded queue growth.
+						if FFlagReactCleanQueueOnUpdateBailout then
+							if pending == nil then
+								queue.pending = nil
+							else
+								pending.next = update.next
+								queue.pending = pending
+							end
 						end
-					end
 
-					return
+						return
+					end
+				else
+					if is(eagerState, currentState) then
+						-- Fast path. We can bail out without scheduling React to re-render.
+						-- It's still possible that we'll need to rebase this update later,
+						-- if the component re-renders for a different reason and by that
+						-- time the reducer has changed.
+
+						-- First remove the update just added to prevent unbounded queue growth.
+						if FFlagReactCleanQueueOnUpdateBailout then
+							if pending == nil then
+								queue.pending = nil
+							else
+								pending.next = update.next
+								queue.pending = pending
+							end
+						end
+
+						return
+					end
 				end
 				-- ROBLOX catch
 				if not ok then
@@ -2028,6 +2279,15 @@ if __DEV__ then
 		)
 	end
 
+	-- ROBLOX deviation: varargs keep nil and trailing nil return values
+	local function restoreDispatcherAndReturn(prevDispatcher, ok: boolean, ...): ...any
+		ReactCurrentDispatcher.current = prevDispatcher
+		if not ok then
+			error((...))
+		end
+		return ...
+	end
+
 	local warnInvalidHookAccess = function()
 		console.error(
 			"Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. "
@@ -2099,13 +2359,20 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(mountMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(mountMemo, create, deps)
+				)
+			else
+				local results = { pcall(mountMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				-- ROBLOX FIXME Luau: TypeError: Type 'boolean' could not be converted into 'T'
+				return unpack(results, 2)
 			end
-			-- ROBLOX FIXME Luau: TypeError: Type 'boolean' could not be converted into 'T'
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -2249,12 +2516,19 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(mountMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(mountMemo, create, deps)
+				)
+			else
+				local results = { pcall(mountMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				return unpack(results, 2)
 			end
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -2397,12 +2671,19 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(updateMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(updateMemo, create, deps)
+				)
+			else
+				local results = { pcall(updateMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				return unpack(results, 2)
 			end
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -2545,12 +2826,19 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(updateMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(updateMemo, create, deps)
+				)
+			else
+				local results = { pcall(updateMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				return unpack(results, 2)
 			end
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -2701,12 +2989,19 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(mountMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(mountMemo, create, deps)
+				)
+			else
+				local results = { pcall(mountMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				return unpack(results, 2)
 			end
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -2865,12 +3160,19 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(updateMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(updateMemo, create, deps)
+				)
+			else
+				local results = { pcall(updateMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				return unpack(results, 2)
 			end
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -3030,12 +3332,19 @@ if __DEV__ then
         ROBLOX DEVIATION: `results` captures all pcall return value: either
         { false, errorObject } or { true, ...returnValues }
       ]]
-			local results = { pcall(updateMemo, create, deps) }
-			ReactCurrentDispatcher.current = prevDispatcher
-			if not results[1] then
-				error(results[2])
+			if enableAllocationTrims then
+				return restoreDispatcherAndReturn(
+					prevDispatcher,
+					pcall(updateMemo, create, deps)
+				)
+			else
+				local results = { pcall(updateMemo, create, deps) }
+				ReactCurrentDispatcher.current = prevDispatcher
+				if not results[1] then
+					error(results[2])
+				end
+				return unpack(results, 2)
 			end
-			return unpack(results, 2)
 		end :: any,
 		useReducer = function<S, I, A>(
 			reducer: (S, A) -> S,
@@ -3156,9 +3465,20 @@ local function renderWithHooks<Props, SecondArg>(
 		--   current ~= nil and current.type ~= workInProgress.type
 	end
 
-	workInProgress.memoizedState = nil
-	-- ROBLOX performance TODO: return non-nil updateQueue object to the ReactUpdateQUeue pool
-	workInProgress.updateQueue = nil
+	if ReactFeatureFlags.enableWorkLoopTrims then
+		-- ROBLOX performance: don't assign nil to an absent key, which inserts it
+		-- and can rehash the fiber (see createWorkInProgress)
+		if workInProgress.memoizedState ~= nil then
+			workInProgress.memoizedState = nil
+		end
+		if workInProgress.updateQueue ~= nil then
+			workInProgress.updateQueue = nil
+		end
+	else
+		workInProgress.memoizedState = nil
+		-- ROBLOX performance TODO: return non-nil updateQueue object to the ReactUpdateQUeue pool
+		workInProgress.updateQueue = nil
+	end
 	workInProgress.lanes = NoLanes
 
 	-- The following should have already been reset
@@ -3256,6 +3576,10 @@ local function renderWithHooks<Props, SecondArg>(
 
 	currentHook = nil
 	workInProgressHook = nil
+	if enableHookDoubleBuffering then
+		nextStaleEffect = nil
+		lastStaleEffect = nil
+	end
 
 	if __DEV__ then
 		currentHookNameInDev = nil

@@ -1,13 +1,13 @@
 local root = script.Parent.Parent.Parent
 
-local HttpService = game:GetService("HttpService")
-
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
-local APIUtil = require(root.util.APIUtil)
 
 local getFFlagUGCValidateEmissiveMapAllowed = require(root.flags.getFFlagUGCValidateEmissiveMapAllowed)
+local getFFlagUGCValidateDecalBlockEmissives = require(root.flags.getFFlagUGCValidateDecalBlockEmissives)
+
+local EMISSIVE_PROPERTY_EPSILON = 1e-5
 
 local EmissiveMapAllowed = {}
 
@@ -21,78 +21,71 @@ EmissiveMapAllowed.categories = {
 }
 EmissiveMapAllowed.requiredData = {
 	ValidationEnums.SharedDataMember.consumerConfig,
-	ValidationEnums.SharedDataMember.uploadEnum,
-	ValidationEnums.SharedDataMember.meshTextures,
+	ValidationEnums.SharedDataMember.rootInstance,
 }
-EmissiveMapAllowed.fflag = getFFlagUGCValidateEmissiveMapAllowed
+-- The in-experience block and the decal block each have their own flag so they can roll out separately.
+EmissiveMapAllowed.fflag = function()
+	return getFFlagUGCValidateEmissiveMapAllowed() or getFFlagUGCValidateDecalBlockEmissives()
+end
 EmissiveMapAllowed.expectedFailures = {}
 
-local function hasEmissiveInMeshTextures(meshTextures: { [string]: Types.EditableImageWithPBRData }): boolean
-	for _, textureData in meshTextures do
-		if textureData.EmissiveMask then
-			return true
-		end
-	end
-	return false
+local function hasEmissiveMask(instance: SurfaceAppearance | Decal): boolean
+	return instance.EmissiveMaskContent.SourceType ~= Enum.ContentSourceType.None
 end
 
-local function checkEmissivePermission(uploadEnum: Types.UploadEnum): (boolean, string?)
-	if not uploadEnum.assetType then
-		return false, "Unable to determine asset type for emissive permission check"
+-- Decals must keep every emissive property at its default, so a changed strength or tint counts even without a mask.
+local function isDecalEmissive(decal: Decal): boolean
+	local tint = decal.EmissiveTint
+	return hasEmissiveMask(decal)
+		or math.abs(decal.EmissiveStrength - 1) > EMISSIVE_PROPERTY_EPSILON
+		or math.abs(tint.R - 1) > EMISSIVE_PROPERTY_EPSILON
+		or math.abs(tint.G - 1) > EMISSIVE_PROPERTY_EPSILON
+		or math.abs(tint.B - 1) > EMISSIVE_PROPERTY_EPSILON
+end
+
+-- Decals (makeup) can't be emissive in any environment.
+local function reportEmissiveDecals(reporter: Types.ValidationReporter, instances: { Instance })
+	for _, instance in instances do
+		if instance:IsA("Decal") and isDecalEmissive(instance :: Decal) then
+			reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowedOnDecal, {
+				InstancePath = instance:GetFullName(),
+			})
+		end
+	end
+end
+
+-- SurfaceAppearance emissive maps are only blocked for in-experience uploads.
+local function reportInExperienceEmissive(
+	reporter: Types.ValidationReporter,
+	instances: { Instance },
+	consumerConfig: Types.PreloadedConsumerConfigs
+)
+	-- Lifecycle-gated on consumerEnv (not validationEnv): VaaS runs IEC-origin uploads with validationEnv=Backend.
+	-- A Backend run with a universeId is the marketplace publish of an IEC item.
+	local isInExperience = consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.IEC
+		or consumerConfig.backendConfigs.universeId ~= nil
+	if not isInExperience then
+		return
 	end
 
-	local url = string.format(
-		"https://itemconfiguration.%s/v1/permissions/action-allowed-for-item-type?action=1&assetType=%s",
-		APIUtil.getBaseDomain(),
-		tostring(uploadEnum.assetType.Value)
-	)
-
-	local success, response = APIUtil.requestAndRetryGet(url)
-	if not success then
-		return false, "Failed to check emissive map permission: " .. tostring(response)
+	for _, instance in instances do
+		if instance:IsA("SurfaceAppearance") and hasEmissiveMask(instance :: SurfaceAppearance) then
+			reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowedInExperience)
+			return
+		end
 	end
-
-	local decodeSuccess, responseData = pcall(function()
-		return HttpService:JSONDecode(response)
-	end)
-	if not decodeSuccess then
-		return false, "Failed to decode emissive map permission response"
-	end
-
-	local metadataPermissions = responseData.metadataPermissions
-	if not metadataPermissions then
-		return false, nil
-	end
-
-	return metadataPermissions.EmissiveResult == true, nil
 end
 
 EmissiveMapAllowed.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	if not hasEmissiveInMeshTextures(data.meshTextures) then
-		return
-	end
+	local rootInstance = data.rootInstance :: Instance
+	local instances = rootInstance:GetDescendants()
+	table.insert(instances, rootInstance)
 
-	local validationEnv = data.consumerConfig.validationEnv
-
-	if validationEnv == ValidationEnums.ValidationEnv.IEC then
-		reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowed)
-		return
+	if getFFlagUGCValidateDecalBlockEmissives() then
+		reportEmissiveDecals(reporter, instances)
 	end
-
-	if validationEnv == ValidationEnums.ValidationEnv.Backend then
-		local isAllowed = data.consumerConfig.backendConfigs.isEmissiveAllowed
-		if not isAllowed then
-			reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowed)
-		end
-		return
-	end
-
-	local isAllowed, errMsg = checkEmissivePermission(data.uploadEnum)
-	if errMsg then
-		reporter:forceError(errMsg)
-	end
-	if not isAllowed then
-		reporter:fail(ErrorSourceStrings.Keys.EmissiveMap_NotAllowed)
+	if getFFlagUGCValidateEmissiveMapAllowed() then
+		reportInExperienceEmissive(reporter, instances, data.consumerConfig)
 	end
 end
 

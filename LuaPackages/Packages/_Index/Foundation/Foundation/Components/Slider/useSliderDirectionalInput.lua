@@ -38,7 +38,7 @@ local function getStepForKeyCode(keyCode: Enum.KeyCode, isVertical: boolean): { 
 		end
 	end
 
-	local axis = if Flags.FoundationSliderBeta and isVertical then "vertical" else "horizontal"
+	local axis = if isVertical then "vertical" else "horizontal"
 	if table.find(constants.stepIncrement[axis], keyCode) then
 		return { sign = 1, size = SliderStepSize.Step }
 	elseif table.find(constants.stepDecrement[axis], keyCode) then
@@ -178,9 +178,7 @@ local function useSliderDirectionalInput(
 			end
 
 			if table.find(constants.analogStep, input.KeyCode) then
-				local stepAxis = if Flags.FoundationSliderBeta and isVertical
-					then input.Position.Y
-					else input.Position.X
+				local stepAxis = if isVertical then input.Position.Y else input.Position.X
 				if math.abs(stepAxis) >= constants.thumbstickDeadzone then
 					local sign = if stepAxis > 0 then 1 else -1
 					local isReversal = thumbstickSign ~= 0 and sign ~= thumbstickSign

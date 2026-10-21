@@ -253,6 +253,15 @@ afterEach(function()
 	VoiceChatServiceManager:Disconnect()
 end)
 
+beforeEach(function()
+	jest.useFakeTimers()
+	jest.setEngineFrameTime(16)
+end)
+
+afterEach(function()
+	jest.useRealTimers()
+end)
+
 describe("VoiceChatServiceManager Recent Users Interaction", function()
 	local fflagClearUserFromRecentVoiceDataOnLeave
 	local fintVoiceUsersInteractionExpiryTimeSeconds
@@ -485,14 +494,6 @@ describe("Voice Chat Service Manager", function()
 	end)
 
 	describe("permission prompt", function()
-		local newContent
-		beforeEach(function()
-			newContent = game:SetFastFlagForTesting("UseVoiceExitBetaLanguageV2", true)
-		end)
-		afterEach(function()
-			game:SetFastFlagForTesting("UseVoiceExitBetaLanguageV2", newContent)
-		end)
-
 		if not GetFFlagJoinWithoutMicPermissions() then
 			it.skip("shows correct prompt when user does not give voice permission", function()
 				local permFn = getPermissionsFunction(PermissionsProtocol.Status.DENIED)
@@ -810,7 +811,9 @@ describe("Voice Chat Service Manager", function()
 			)
 			waitForEvents()
 			expect(removeReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(0)
-			task.wait(reverseNudgeUXDisplayTimeSeconds + 0.1)
+			act(function()
+				jest.advanceTimersByTime((reverseNudgeUXDisplayTimeSeconds + 0.1) * 1000)
+			end)
 			expect(addReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(1)
 			expect(removeReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(1)
 		end)
@@ -836,7 +839,9 @@ describe("Voice Chat Service Manager", function()
 					addReverseNudgeToxicUserEventMockFn,
 					removeReverseNudgeToxicUserEventMockFn
 				)
-				task.wait(reverseNudgeUXDisplayTimeSeconds + 0.1)
+				act(function()
+					jest.advanceTimersByTime((reverseNudgeUXDisplayTimeSeconds + 0.1) * 1000)
+				end)
 				expect(addReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(3)
 				expect(removeReverseNudgeToxicUserEventMock).toHaveBeenCalledTimes(1)
 			end

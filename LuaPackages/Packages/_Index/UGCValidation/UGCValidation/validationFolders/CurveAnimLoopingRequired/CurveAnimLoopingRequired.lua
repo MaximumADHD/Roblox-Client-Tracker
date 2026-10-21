@@ -4,8 +4,6 @@ local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
-local getFFlagUGCValidateCurveAnimLoopingRequired = require(root.flags.getFFlagUGCValidateCurveAnimLoopingRequired)
-
 local CurveAnimLoopingRequired = {}
 
 CurveAnimLoopingRequired.categories = { ValidationEnums.UploadCategory.ANIMATION }
@@ -13,7 +11,6 @@ CurveAnimLoopingRequired.requiredData = {
 	ValidationEnums.SharedDataMember.curveAnimations,
 	ValidationEnums.SharedDataMember.uploadEnum,
 }
-CurveAnimLoopingRequired.fflag = getFFlagUGCValidateCurveAnimLoopingRequired
 CurveAnimLoopingRequired.expectedFailures = {}
 CurveAnimLoopingRequired.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 

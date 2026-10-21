@@ -36,7 +36,7 @@ local Flags = require(Foundation.Utility.Flags)
 local useAccordionItemVariants = require(script.Parent.Parent.useAccordionItemVariants)
 
 export type AccordionItemProps = {
-	-- **DEPRECATED** BuilderIcon displayed opposite the collapse chevron
+	-- **DEPRECATED**: BuilderIcon displayed opposite the collapse chevron. Use `icon` instead. Still accepted.
 	leadingIcon: string? | {
 		name: string,
 		variant: IconVariant,

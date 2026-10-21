@@ -51,7 +51,7 @@ export type BadgeProps = {
 	variant: BadgeVariant?,
 	shape: BadgeShape?,
 	size: BadgeSize?,
-	-- DEPRECATED
+	-- **DEPRECATED**: Badges are not interactive. Still accepted but ignored.
 	isDisabled: boolean?,
 } & Types.CommonProps
 

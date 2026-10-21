@@ -13,6 +13,7 @@ local getFIntUGCValidateMaxHSRDataLen = require(root.flags.getFIntUGCValidateMax
 local getFFlagUGCValidateWrapDataCaps = require(root.flags.getFFlagUGCValidateWrapDataCaps)
 local getFIntUGCValidateMaxHSRMeshIdDataLen = require(root.flags.getFIntUGCValidateMaxHSRMeshIdDataLen)
 local getFFlagUGCValidateDisallowAeroMeshData = require(root.flags.getFFlagUGCValidateDisallowAeroMeshData)
+local getFFlagUGCValidateTemporaryIdsBackendOnly = require(root.flags.getFFlagUGCValidateTemporaryIdsBackendOnly)
 
 local describeProblematicProperties = require(script.Parent.describeProblematicProperties)
 
@@ -79,8 +80,12 @@ PropertiesSensible.run = function(reporter: Types.ValidationReporter, data: Type
 		-- Lifecycle-gated on consumerEnv (not validationEnv): these are first-publish caps, so a VaaS run (consumerEnv=IEC) doesn't trip them.
 		local consumerEnv = data.consumerConfig.consumerEnv
 		local capHSRDataEmpty = consumerEnv == ValidationEnums.ConsumerEnv.Backend
-		local capTemporaryIds = consumerEnv ~= ValidationEnums.ConsumerEnv.IEC
-			and table.find(WRAP_TEMPORARY_ID_CATEGORIES, data.uploadCategory) ~= nil
+		-- Studio sets temp ids just by reading a cage; publish uploads and clears them before the Backend run.
+		local capTemporaryIds = (
+			if getFFlagUGCValidateTemporaryIdsBackendOnly()
+				then consumerEnv == ValidationEnums.ConsumerEnv.Backend
+				else consumerEnv ~= ValidationEnums.ConsumerEnv.IEC
+		) and table.find(WRAP_TEMPORARY_ID_CATEGORIES, data.uploadCategory) ~= nil
 
 		local wrapTarget: { [string]: number } = { HSRMeshIdData = getFIntUGCValidateMaxHSRMeshIdDataLen() }
 		local wrapLayer: { [string]: number } = { HSRMeshIdData = getFIntUGCValidateMaxHSRMeshIdDataLen() }

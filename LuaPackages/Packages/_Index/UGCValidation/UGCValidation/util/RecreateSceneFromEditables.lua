@@ -13,7 +13,6 @@ local RigBuilder = require(root.util.RigBuilder)
 local buildEmoteKeyframeSequenceFromCurveAnim = require(root.util.buildEmoteKeyframeSequenceFromCurveAnim)
 local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
 	require(root.flags.getEngineFeatureEngineUGCValidateEmoteAnimationExport)
-local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 
 local RecreateSceneFromEditables = {}
 
@@ -55,10 +54,8 @@ local function copyMeshPart(
 		if editablePBRData.RoughnessMap then
 			surfaceAppearance.RoughnessMapContent = Content.fromObject(editablePBRData.RoughnessMap.editable)
 		end
-		if getFFlagUGCValidateAllowEmissives() then
-			if editablePBRData.EmissiveMask then
-				surfaceAppearance.EmissiveMaskContent = Content.fromObject(editablePBRData.EmissiveMask.editable)
-			end
+		if editablePBRData.EmissiveMask then
+			surfaceAppearance.EmissiveMaskContent = Content.fromObject(editablePBRData.EmissiveMask.editable)
 		end
 
 		surfaceAppearance.Parent = newMeshPart

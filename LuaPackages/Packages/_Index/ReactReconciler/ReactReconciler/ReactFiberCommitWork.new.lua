@@ -163,6 +163,9 @@ local ProfileMode = require(script.Parent.ReactTypeOfMode).ProfileMode
 local commitUpdateQueue = ReactUpdateQueueModule.commitUpdateQueue
 local getPublicInstance = ReactFiberHostConfig.getPublicInstance
 local supportsMutation = ReactFiberHostConfig.supportsMutation
+-- ROBLOX performance: hosts that don't order children skip the sibling lookup
+local skipHostSiblingLookup = ReactFeatureFlags.enableSkipHostSiblingLookup
+	and ReactFiberHostConfig.supportsChildOrdering == false
 local supportsPersistence = ReactFiberHostConfig.supportsPersistence
 local supportsHydration = ReactFiberHostConfig.supportsHydration
 local commitMount = ReactFiberHostConfig.commitMount
@@ -439,7 +442,15 @@ local function commitHookEffectListUnmount(
 			if bit32.band(effect.tag, flags) == flags then
 				-- Unmount
 				local destroy = effect.destroy
-				effect.destroy = nil
+				if ReactFeatureFlags.enableWorkLoopTrims then
+					-- ROBLOX performance: only clear destroy when it is set; assigning nil to
+					-- an absent key inserts it and can rehash the effect
+					if destroy ~= nil then
+						effect.destroy = nil
+					end
+				else
+					effect.destroy = nil
+				end
 				if destroy ~= nil then
 					safelyCallDestroy(finishedWork, nearestMountedAncestor, destroy)
 				end
@@ -460,7 +471,15 @@ local function commitHookEffectListMount(flags: HookFlags, finishedWork: Fiber)
 			if bit32.band(effect.tag, flags) == flags then
 				-- Mount
 				local create = effect.create
-				effect.destroy = create()
+				if ReactFeatureFlags.enableWorkLoopTrims then
+					-- ROBLOX performance: skip nil-to-nil writes (see commitHookEffectListUnmount)
+					local newDestroy = create()
+					if newDestroy ~= nil or effect.destroy ~= nil then
+						effect.destroy = newDestroy
+					end
+				else
+					effect.destroy = create()
+				end
 
 				if __DEV__ then
 					local destroy = effect.destroy
@@ -548,48 +567,104 @@ local function recursivelyCommitLayoutEffects(
 			nearestProfilerOnStack = finishedWork
 		end
 
-		local child = finishedWork.child
-		while child ~= nil do
-			local primarySubtreeFlags = bit32.band(finishedWork.subtreeFlags, LayoutMask)
-			if primarySubtreeFlags ~= NoFlags then
-				if __DEV__ then
-					local prevCurrentFiberInDEV = currentDebugFiberInDEV
-					setCurrentDebugFiberInDEV(child)
-					invokeGuardedCallback(
-						nil,
-						recursivelyCommitLayoutEffects,
-						nil,
-						child,
-						finishedRoot,
-						-- ROBLOX deviation: pass in these functions to avoid dependency cycle
-						captureCommitPhaseError,
-						schedulePassiveEffectCallback
-					)
-					if hasCaughtError() then
-						local error_ = clearCaughtError()
-						captureCommitPhaseError(child, finishedWork, error_)
-					end
-					if prevCurrentFiberInDEV ~= nil then
-						setCurrentDebugFiberInDEV(prevCurrentFiberInDEV)
+		if ReactFeatureFlags.enableCommitTraversalTrims then
+			-- ROBLOX performance: check subtreeFlags once, and skip children with no layout
+			-- work in themselves or their subtree (Profilers are always visited to bubble
+			-- effectDuration)
+			local child = if bit32.band(finishedWork.subtreeFlags, LayoutMask)
+					~= NoFlags
+				then finishedWork.child
+				else nil
+			while child ~= nil do
+				if
+					bit32.band(bit32.bor(child.flags, child.subtreeFlags), LayoutMask)
+						~= NoFlags
+					or child.tag == Profiler
+				then
+					if __DEV__ then
+						local prevCurrentFiberInDEV = currentDebugFiberInDEV
+						setCurrentDebugFiberInDEV(child)
+						invokeGuardedCallback(
+							nil,
+							recursivelyCommitLayoutEffects,
+							nil,
+							child,
+							finishedRoot,
+							-- ROBLOX deviation: pass in these functions to avoid dependency cycle
+							captureCommitPhaseError,
+							schedulePassiveEffectCallback
+						)
+						if hasCaughtError() then
+							local error_ = clearCaughtError()
+							captureCommitPhaseError(child, finishedWork, error_)
+						end
+						if prevCurrentFiberInDEV ~= nil then
+							setCurrentDebugFiberInDEV(prevCurrentFiberInDEV)
+						else
+							resetCurrentDebugFiberInDEV()
+						end
 					else
-						resetCurrentDebugFiberInDEV()
-					end
-				else
-					local ok, error_ = xpcall(
-						-- ROBLOX deviation: pass in captureCommitPhaseError function to avoid dependency cycle
-						recursivelyCommitLayoutEffects,
-						describeError,
-						child,
-						finishedRoot,
-						captureCommitPhaseError,
-						schedulePassiveEffectCallback
-					)
-					if not ok then
-						captureCommitPhaseError(child, finishedWork, error_)
+						local ok, error_ = xpcall(
+							-- ROBLOX deviation: pass in captureCommitPhaseError function to avoid dependency cycle
+							recursivelyCommitLayoutEffects,
+							describeError,
+							child,
+							finishedRoot,
+							captureCommitPhaseError,
+							schedulePassiveEffectCallback
+						)
+						if not ok then
+							captureCommitPhaseError(child, finishedWork, error_)
+						end
 					end
 				end
+				child = child.sibling
 			end
-			child = child.sibling
+		else
+			local child = finishedWork.child
+			while child ~= nil do
+				local primarySubtreeFlags =
+					bit32.band(finishedWork.subtreeFlags, LayoutMask)
+				if primarySubtreeFlags ~= NoFlags then
+					if __DEV__ then
+						local prevCurrentFiberInDEV = currentDebugFiberInDEV
+						setCurrentDebugFiberInDEV(child)
+						invokeGuardedCallback(
+							nil,
+							recursivelyCommitLayoutEffects,
+							nil,
+							child,
+							finishedRoot,
+							-- ROBLOX deviation: pass in these functions to avoid dependency cycle
+							captureCommitPhaseError,
+							schedulePassiveEffectCallback
+						)
+						if hasCaughtError() then
+							local error_ = clearCaughtError()
+							captureCommitPhaseError(child, finishedWork, error_)
+						end
+						if prevCurrentFiberInDEV ~= nil then
+							setCurrentDebugFiberInDEV(prevCurrentFiberInDEV)
+						else
+							resetCurrentDebugFiberInDEV()
+						end
+					else
+						local ok, error_ = xpcall(
+							-- ROBLOX deviation: pass in captureCommitPhaseError function to avoid dependency cycle
+							recursivelyCommitLayoutEffects,
+							describeError,
+							child,
+							finishedRoot,
+							captureCommitPhaseError,
+							schedulePassiveEffectCallback
+						)
+						if not ok then
+							captureCommitPhaseError(child, finishedWork, error_)
+						end
+					end
+				end
+				child = child.sibling
+			end
 		end
 
 		local primaryFlags = bit32.band(flags, bit32.bor(Update, Callback))
@@ -649,85 +724,178 @@ local function recursivelyCommitLayoutEffects(
 	-- elseif tag == Offscreen then
 	-- TODO: Fast path to invoke all nested layout effects when Offscren goes from hidden to visible.
 	else
-		local child = finishedWork.child
-		while child ~= nil do
-			local primarySubtreeFlags = bit32.band(finishedWork.subtreeFlags, LayoutMask)
-			if primarySubtreeFlags ~= NoFlags then
-				if __DEV__ then
-					local prevCurrentFiberInDEV = ReactCurrentFiber.current
-					setCurrentDebugFiberInDEV(child)
-					--[[
-              ROBLOX DEVIATION: In DEV, After MAX_RUN_DEPTH pcalls, do not wrap recursive calls in pcall. Otherwise,
-              we hit the stack limit and get a stack overflow error.
-            ]]
-					if runDepth < MAX_RUN_DEPTH then
-						runDepth += 1
-						invokeGuardedCallback(
-							nil,
-							recursivelyCommitLayoutEffects,
-							nil,
-							child,
-							finishedRoot,
-							-- ROBLOX deviation: pass in this function to avoid dependency cycle
-							captureCommitPhaseError,
-							schedulePassiveEffectCallback
-						)
-						runDepth -= 1
+		if ReactFeatureFlags.enableCommitTraversalTrims then
+			-- ROBLOX performance: check subtreeFlags once, and skip children with no layout
+			-- work in themselves or their subtree (Profilers are always visited to bubble
+			-- effectDuration)
+			local child = if bit32.band(finishedWork.subtreeFlags, LayoutMask)
+					~= NoFlags
+				then finishedWork.child
+				else nil
+			while child ~= nil do
+				if
+					bit32.band(bit32.bor(child.flags, child.subtreeFlags), LayoutMask)
+						~= NoFlags
+					or child.tag == Profiler
+				then
+					if __DEV__ then
+						local prevCurrentFiberInDEV = ReactCurrentFiber.current
+						setCurrentDebugFiberInDEV(child)
+						--[[
+	              ROBLOX DEVIATION: In DEV, After MAX_RUN_DEPTH pcalls, do not wrap recursive calls in pcall. Otherwise,
+	              we hit the stack limit and get a stack overflow error.
+	            ]]
+						if runDepth < MAX_RUN_DEPTH then
+							runDepth += 1
+							invokeGuardedCallback(
+								nil,
+								recursivelyCommitLayoutEffects,
+								nil,
+								child,
+								finishedRoot,
+								-- ROBLOX deviation: pass in this function to avoid dependency cycle
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+							runDepth -= 1
 
-						if hasCaughtError() then
-							local error_ = clearCaughtError()
-							captureCommitPhaseError(child, finishedWork, error_)
+							if hasCaughtError() then
+								local error_ = clearCaughtError()
+								captureCommitPhaseError(child, finishedWork, error_)
+							end
+						else
+							recursivelyCommitLayoutEffects(
+								child,
+								finishedRoot,
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+						end
+						if prevCurrentFiberInDEV ~= nil then
+							setCurrentDebugFiberInDEV(prevCurrentFiberInDEV)
+						else
+							resetCurrentDebugFiberInDEV()
 						end
 					else
-						recursivelyCommitLayoutEffects(
-							child,
-							finishedRoot,
-							captureCommitPhaseError,
-							schedulePassiveEffectCallback
-						)
-					end
-					if prevCurrentFiberInDEV ~= nil then
-						setCurrentDebugFiberInDEV(prevCurrentFiberInDEV)
-					else
-						resetCurrentDebugFiberInDEV()
-					end
-				else
-					-- ROBLOX deviation: YOLO flag for disabling pcall
-					local ok, error_
-					if not __YOLO__ and runDepth < MAX_RUN_DEPTH then
-						--[[
-              ROBLOX DEVIATION: After MAX_RUN_DEPTH pcalls, do not wrap recursive calls in pcall. Otherwise, we hit the
-              stack limit and get a stack overflow error.
-            ]]
-						runDepth += 1
+						-- ROBLOX deviation: YOLO flag for disabling pcall
+						local ok, error_
+						if not __YOLO__ and runDepth < MAX_RUN_DEPTH then
+							--[[
+	              ROBLOX DEVIATION: After MAX_RUN_DEPTH pcalls, do not wrap recursive calls in pcall. Otherwise, we hit the
+	              stack limit and get a stack overflow error.
+	            ]]
+							runDepth += 1
 
-						ok, error_ = xpcall(
-							-- ROBLOX deviation: pass in this function to avoid dependency cycle
-							recursivelyCommitLayoutEffects,
-							describeError,
-							child,
-							finishedRoot,
-							captureCommitPhaseError,
-							schedulePassiveEffectCallback
-						)
+							ok, error_ = xpcall(
+								-- ROBLOX deviation: pass in this function to avoid dependency cycle
+								recursivelyCommitLayoutEffects,
+								describeError,
+								child,
+								finishedRoot,
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
 
-						runDepth -= 1
-					else
-						ok = true
-						recursivelyCommitLayoutEffects(
-							child,
-							finishedRoot,
-							captureCommitPhaseError,
-							schedulePassiveEffectCallback
-						)
-					end
+							runDepth -= 1
+						else
+							ok = true
+							recursivelyCommitLayoutEffects(
+								child,
+								finishedRoot,
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+						end
 
-					if not ok then
-						captureCommitPhaseError(child, finishedWork, error_)
+						if not ok then
+							captureCommitPhaseError(child, finishedWork, error_)
+						end
 					end
 				end
+				child = child.sibling
 			end
-			child = child.sibling
+		else
+			local child = finishedWork.child
+			while child ~= nil do
+				local primarySubtreeFlags =
+					bit32.band(finishedWork.subtreeFlags, LayoutMask)
+				if primarySubtreeFlags ~= NoFlags then
+					if __DEV__ then
+						local prevCurrentFiberInDEV = ReactCurrentFiber.current
+						setCurrentDebugFiberInDEV(child)
+						--[[
+	              ROBLOX DEVIATION: In DEV, After MAX_RUN_DEPTH pcalls, do not wrap recursive calls in pcall. Otherwise,
+	              we hit the stack limit and get a stack overflow error.
+	            ]]
+						if runDepth < MAX_RUN_DEPTH then
+							runDepth += 1
+							invokeGuardedCallback(
+								nil,
+								recursivelyCommitLayoutEffects,
+								nil,
+								child,
+								finishedRoot,
+								-- ROBLOX deviation: pass in this function to avoid dependency cycle
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+							runDepth -= 1
+
+							if hasCaughtError() then
+								local error_ = clearCaughtError()
+								captureCommitPhaseError(child, finishedWork, error_)
+							end
+						else
+							recursivelyCommitLayoutEffects(
+								child,
+								finishedRoot,
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+						end
+						if prevCurrentFiberInDEV ~= nil then
+							setCurrentDebugFiberInDEV(prevCurrentFiberInDEV)
+						else
+							resetCurrentDebugFiberInDEV()
+						end
+					else
+						-- ROBLOX deviation: YOLO flag for disabling pcall
+						local ok, error_
+						if not __YOLO__ and runDepth < MAX_RUN_DEPTH then
+							--[[
+	              ROBLOX DEVIATION: After MAX_RUN_DEPTH pcalls, do not wrap recursive calls in pcall. Otherwise, we hit the
+	              stack limit and get a stack overflow error.
+	            ]]
+							runDepth += 1
+
+							ok, error_ = xpcall(
+								-- ROBLOX deviation: pass in this function to avoid dependency cycle
+								recursivelyCommitLayoutEffects,
+								describeError,
+								child,
+								finishedRoot,
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+
+							runDepth -= 1
+						else
+							ok = true
+							recursivelyCommitLayoutEffects(
+								child,
+								finishedRoot,
+								captureCommitPhaseError,
+								schedulePassiveEffectCallback
+							)
+						end
+
+						if not ok then
+							captureCommitPhaseError(child, finishedWork, error_)
+						end
+					end
+				end
+				child = child.sibling
+			end
 		end
 
 		local primaryFlags = bit32.band(flags, bit32.bor(Update, Callback))
@@ -1504,7 +1672,13 @@ local function commitPlacement(finishedWork: Fiber)
 		parentFiber.flags = bit32.band(parentFiber.flags, bit32.bnot(ContentReset))
 	end
 
-	local before = getHostSibling(finishedWork)
+	local before
+	if skipHostSiblingLookup then
+		-- ROBLOX performance: the host ignores insertion order, so no sibling is needed
+		before = nil
+	else
+		before = getHostSibling(finishedWork)
+	end
 	-- We only have the top Fiber that was inserted but we need to recurse down its
 	-- children to find all the terminal nodes.
 	if isContainer then

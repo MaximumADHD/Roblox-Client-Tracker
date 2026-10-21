@@ -61,21 +61,19 @@ local AnimatedView = "AnimatedView"
 -- ROBLOX deviation: predefine variables
 local styles
 
-export type Props = ReadOnly<
-	{
-		children: React_Element<any>?,
-		nextHeaderLayoutY: number?,
-		onLayout: (event: LayoutEvent) -> (),
-		scrollAnimatedValue: AnimatedImplementation_Value,
-		-- Will cause sticky headers to stick at the bottom of the ScrollView instead
-		-- of the top.
-		inverted: boolean?,
-		-- The height of the parent ScrollView. Currently only set when inverted.
-		scrollViewHeight: number?,
-		nativeID: string?,
-		hiddenOnScroll: boolean?,
-	}
->
+export type Props = ReadOnly<{
+	children: React_Element<any>?,
+	nextHeaderLayoutY: number?,
+	onLayout: (event: LayoutEvent) -> (),
+	scrollAnimatedValue: AnimatedImplementation_Value,
+	-- Will cause sticky headers to stick at the bottom of the ScrollView instead
+	-- of the top.
+	inverted: boolean?,
+	-- The height of the parent ScrollView. Currently only set when inverted.
+	scrollViewHeight: number?,
+	nativeID: string?,
+	hiddenOnScroll: boolean?,
+}>
 
 type State = Object & {
 	measured: boolean,

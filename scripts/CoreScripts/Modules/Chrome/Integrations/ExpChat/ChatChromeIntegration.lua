@@ -44,7 +44,9 @@ end
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
+local GetExpChatMessagesStore = ExpChat.Stores.GetMessagesStore
 local shouldSkipHistoricalMessage = ExpChat.shouldSkipHistoricalMessage
+local isHistoricalMessage = ExpChat.isHistoricalMessage
 local shouldSuppressUnreadForTabMetadata = ExpChat.shouldSuppressUnreadForTabMetadata
 -- TODO: exp-chat should own friends unread-count tracking and expose an
 -- abstracted interface for chrome, rather than chrome reaching into a
@@ -58,6 +60,7 @@ local FFlagExpChatInitializeWindowFromGameSettings = SharedFlags.FFlagExpChatIni
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
+local FFlagExpChatHistoricalMessagesUnibarUnread = SharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -90,18 +93,40 @@ local chatChromeIntegration: ChatIntegration
 
 local chatSelectorVisibilitySignal = ChatSelector.VisibilityStateChanged
 
+local acknowledgedHistoricalMessages = 0
+local hasObservedChatVisibility = false
+
+local function readHistoricalWindowMessageCount(scope: any): number
+	local countSignal = GetExpChatMessagesStore(scope).getHistoricalWindowMessageCount
+	return if countSignal then countSignal(scope) else 0
+end
+
+local function getHistoricalUnreadCount(): number
+	local count = readHistoricalWindowMessageCount(false)
+	acknowledgedHistoricalMessages = math.min(acknowledgedHistoricalMessages, count)
+	return count - acknowledgedHistoricalMessages
+end
+
+local function acknowledgeHistoricalMessages()
+	acknowledgedHistoricalMessages = readHistoricalWindowMessageCount(false)
+end
+
 local function updateUnreadNotification()
 	if not chatChromeIntegration.notification then
 		return
 	end
 
+	local historicalUnreadMessages = if FFlagExpChatHistoricalMessagesUnibarUnread
+		then getHistoricalUnreadCount()
+		else 0
+
 	if not FFlagExpChatEnableFriendsTab then
-		chatChromeIntegration.notification:fireCount(unreadMessages)
+		chatChromeIntegration.notification:fireCount(unreadMessages + historicalUnreadMessages)
 		return
 	end
 
 	local friendsChatUnreadMessages = GetFriendsChatIconUnreadStore(false).getUnreadCountToDisplay(false)
-	local unreadCount = unreadMessages + friendsChatUnreadMessages
+	local unreadCount = unreadMessages + friendsChatUnreadMessages + historicalUnreadMessages
 	if chatVisibility or unreadCount == 0 then
 		chatChromeIntegration.notification:clear()
 	else
@@ -170,9 +195,13 @@ end, function()
 	end
 
 	chatVisibility = isVisible :: boolean
+	hasObservedChatVisibility = true
 	if FFlagExpChatEnableFriendsTab then
 		if isVisible then
 			unreadMessages = 0
+			if FFlagExpChatHistoricalMessagesUnibarUnread then
+				acknowledgeHistoricalMessages()
+			end
 			-- Opening the chat window clears the friends portion of the badge; it
 			-- only reappears when new messages arrive afterward.
 			GetFriendsChatIconUnreadStore(false).clearDisplayCount()
@@ -180,6 +209,9 @@ end, function()
 		updateUnreadNotification()
 	elseif isVisible and unreadMessages and chatChromeIntegration.notification then
 		unreadMessages = 0
+		if FFlagExpChatHistoricalMessagesUnibarUnread then
+			acknowledgeHistoricalMessages()
+		end
 		chatChromeIntegration.notification:clear()
 	end
 end)
@@ -346,9 +378,22 @@ if FFlagExpChatEnableFriendsTab then
 	end)
 end
 
+if FFlagExpChatHistoricalMessagesUnibarUnread then
+	SignalsUtils.createDetachedEffect(function(scope)
+		readHistoricalWindowMessageCount(scope)
+		if hasObservedChatVisibility and chatVisibility then
+			acknowledgeHistoricalMessages()
+		end
+		updateUnreadNotification()
+	end)
+end
+
 -- Purely informational system messages (chat-enabled, welcome, and summary lines)
 -- should not bump the unibar unread badge, mirroring the channel-tab unread
 local function shouldIgnoreUnreadForMessage(textChatMessage: TextChatMessage?): boolean
+	if FFlagExpChatHistoricalMessagesUnibarUnread and isHistoricalMessage(textChatMessage) then
+		return true
+	end
 	return (textChatMessage ~= nil and shouldSkipHistoricalMessage(textChatMessage))
 		or (
 			FFlagExpChatSuppressWelcomeMessageUnibarUnread

@@ -14,6 +14,7 @@ end)
 local React = require(CorePackages.Packages.React)
 local RTL = require(CorePackages.Packages.Dev.ReactTestingLibrary)
 local act = require(CorePackages.Packages.ReactRoblox).act
+local waitUntil = require(Packages.TestUtils).waitUntil
 local Foundation = require(CorePackages.Packages.Foundation)
 local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(Packages.SignalsReact)
@@ -239,14 +240,6 @@ local function element(legacy: boolean, ref: React.Ref<unknown>?)
 	})
 end
 
-local function settleLayout()
-	for _ = 1, 3 do
-		act(function()
-			task.wait()
-		end)
-	end
-end
-
 beforeEach(function()
 	policyEnabled = true
 	showTopBar:set(true)
@@ -264,7 +257,6 @@ local function render(legacy)
 	act(function()
 		screen = RTL.render(element(legacy))
 	end)
-	settleLayout()
 	return screen
 end
 
@@ -305,7 +297,10 @@ for _, legacy in { false, true } do
 				act(function()
 					screen.rerender(element(legacy))
 				end)
-				settleLayout()
+				waitUntil(function()
+					local badge = screen.queryByText("16+")
+					return if enabled then badge ~= nil and badge.Visible else badge == nil
+				end)
 				if enabled then
 					expect(screen.getByText("16+").Visible).toBe(true)
 				else
@@ -325,15 +320,24 @@ for _, legacy in { false, true } do
 				local screen = render(true)
 				local unibar = screen.getByTestId("unibar")
 				local badge = screen.getByText("16+").Parent
+				local padding = require(TopBar.Constants).TopBarPadding
+				local function gap()
+					return badge.AbsolutePosition.X - (unibar.AbsolutePosition.X + unibar.AbsoluteSize.X)
+				end
+				local function areaCoversBadge()
+					local area = keepOutAreas["experience-age-rating"]
+					return area ~= nil
+						and area.position.X + area.size.X >= badge.AbsolutePosition.X + badge.AbsoluteSize.X
+				end
 				for _, width in { 80, 160, 40 } do
 					act(function()
 						setUnibarWidth(width)
 					end)
-					settleLayout()
-					local gap = badge.AbsolutePosition.X - (unibar.AbsolutePosition.X + unibar.AbsoluteSize.X)
-					expect(gap >= require(TopBar.Constants).TopBarPadding).toBe(true)
-					local area = keepOutAreas["experience-age-rating"]
-					expect(area.position.X + area.size.X >= badge.AbsolutePosition.X + badge.AbsoluteSize.X).toBe(true)
+					waitUntil(function()
+						return unibar.AbsoluteSize.X == width and gap() >= padding and areaCoversBadge()
+					end)
+					expect(gap() >= padding).toBe(true)
+					expect(areaCoversBadge()).toBe(true)
 				end
 			end)
 
@@ -358,21 +362,32 @@ for _, legacy in { false, true } do
 		local function checkHidden(hide, show)
 			local screen = render(legacy)
 			local badge = screen.getByText("16+")
+			waitUntil(function()
+				return badge.TextFits
+			end)
 			local originalX = badge.AbsolutePosition.X
 			local originalWidth = badge.AbsoluteSize.X
 			expect(badge.TextFits).toBe(true)
-			act(hide)
-			settleLayout()
-			expect(badge.Visible and badge.Parent.Visible).toBe(true)
-			if legacy and require(Packages.CoreScriptsRoactCommon).Traversal.Flags.FFlagAddTraversalBackButton then
-				-- These mock controls remain visible even when the hide signal fires.
-				local unibar = screen.getByTestId("unibar")
-				expect(badge.AbsolutePosition.X >= unibar.AbsolutePosition.X + unibar.AbsoluteSize.X).toBe(true)
-			else
-				expect(badge.AbsolutePosition.X < originalX).toBe(true)
+			-- These mock controls remain visible even when the hide signal fires.
+			local controlsStayVisible = legacy
+				and require(Packages.CoreScriptsRoactCommon).Traversal.Flags.FFlagAddTraversalBackButton
+			local function badgeClearsControls()
+				if controlsStayVisible then
+					local unibar = screen.getByTestId("unibar")
+					return badge.AbsolutePosition.X >= unibar.AbsolutePosition.X + unibar.AbsoluteSize.X
+				end
+				return badge.AbsolutePosition.X < originalX
 			end
+			act(hide)
+			waitUntil(function()
+				return badge.Visible and badge.Parent.Visible and badgeClearsControls()
+			end)
+			expect(badge.Visible and badge.Parent.Visible).toBe(true)
+			expect(badgeClearsControls()).toBe(true)
 			act(show)
-			settleLayout()
+			waitUntil(function()
+				return badge.AbsolutePosition.X == originalX and badge.AbsoluteSize.X == originalWidth
+			end)
 			expect(badge.AbsolutePosition.X).toBe(originalX)
 			expect(badge.AbsoluteSize.X).toBe(originalWidth)
 			expect(badge.TextFits).toBe(true)

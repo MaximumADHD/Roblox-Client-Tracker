@@ -12,6 +12,7 @@ local srcWorkspace = script.Parent.Parent
 local Packages = srcWorkspace.Parent
 
 local LuauPolyfill = require(Packages.LuauPolyfill)
+local SafeFlags = require(Packages.SafeFlags)
 local Array = LuauPolyfill.Array
 local Boolean = LuauPolyfill.Boolean
 local Map = LuauPolyfill.Map
@@ -22,6 +23,8 @@ type Array<T> = LuauPolyfill.Array<T>
 type Map<T, U> = LuauPolyfill.Map<T, U>
 type Object = LuauPolyfill.Object
 type Set<T> = LuauPolyfill.Set<T>
+
+local FFlagVirtualizedListStableCells = SafeFlags.createGetFFlag("VirtualizedListStableCells")()
 
 -- ROBLOX deviation: UIListLayout limit
 local BIG_INT = 999999999
@@ -481,7 +484,7 @@ type VirtualizedList = {
 	getScrollableNode: (self: VirtualizedList) -> number?,
 	getScrollRef: (
 		self: VirtualizedList
-	) -> (React_ElementRef<typeof(ScrollView)> | React_ElementRef<typeof(View)> | nil),
+	) -> React_ElementRef<typeof(ScrollView)> | React_ElementRef<typeof(View)> | nil,
 	setNativeProps: (self: VirtualizedList, props: Object) -> (),
 	_getCellKey: (self: VirtualizedList) -> string,
 	_getListKey: (self: VirtualizedList) -> string,
@@ -529,6 +532,8 @@ type VirtualizedList = {
 	_averageCellLength: number,
 	_cellKeysToChildListKeys: Map<string, Set<string>>,
 	_cellRefs: Object,
+	_cellLayoutHandlers: { [string]: { index: number, handler: (rbx: any) -> () } },
+	_cellRefHandlers: { [string]: (ref: any) -> () },
 	_fillRateHelper: FillRateHelper,
 	_frames: Object,
 	_footerLength: number,
@@ -565,6 +570,8 @@ type VirtualizedList = {
 	_computeBlankness: (self: VirtualizedList) -> (),
 	_defaultRenderScrollComponent: (props: Object) -> React_Element,
 	_onCellLayout: (self: VirtualizedList, rbx: any, cellKey: string, index: number) -> (),
+	_getCellLayoutHandler: (self: VirtualizedList, cellKey: string, index: number) -> (rbx: any) -> (),
+	_getCellRefHandler: (self: VirtualizedList, cellKey: string) -> (ref: any) -> (),
 	_onCellUnmount: (cellKey: string) -> (),
 	_triggerRemeasureForChildListsInCell: (self: VirtualizedList, cellKey: string) -> (),
 	measureLayoutRelativeToContainingList: (self: VirtualizedList) -> (),
@@ -673,6 +680,8 @@ function VirtualizedList:init(props: Props)
 	-- Maps a cell key to the set of keys for all outermost child lists within that cell
 	self._cellKeysToChildListKeys = Map.new() :: Map<string, Set<string>>
 	self._cellRefs = {}
+	self._cellLayoutHandlers = {}
+	self._cellRefHandlers = {}
 	self._frames = {}
 	self._footerLength = 0
 	self._hasDoneInitialScroll = false
@@ -987,6 +996,10 @@ function VirtualizedList:init(props: Props)
 		if curr ~= nil then
 			self._frames[cellKey] = Object.assign({}, curr, { inLayout = false })
 		end
+		if FFlagVirtualizedListStableCells then
+			self._cellLayoutHandlers[cellKey] = nil
+			self._cellRefHandlers[cellKey] = nil
+		end
 	end
 
 	self._onLayout = function(rbx): ()
@@ -1050,15 +1063,11 @@ function VirtualizedList:init(props: Props)
 				if self.props.contentOffset == nil then
 					local scrollInstance = self:getScrollRef()._nativeRef.current
 					if self.props.horizontal then
-						scrollInstance.CanvasPosition = Vector2.new(
-							scrollInstance.AbsoluteCanvasSize.X,
-							scrollInstance.CanvasPosition.Y
-						)
+						scrollInstance.CanvasPosition =
+							Vector2.new(scrollInstance.AbsoluteCanvasSize.X, scrollInstance.CanvasPosition.Y)
 					else
-						scrollInstance.CanvasPosition = Vector2.new(
-							scrollInstance.CanvasPosition.X,
-							scrollInstance.AbsoluteCanvasSize.Y
-						)
+						scrollInstance.CanvasPosition =
+							Vector2.new(scrollInstance.CanvasPosition.X, scrollInstance.AbsoluteCanvasSize.Y)
 					end
 				end
 			end)
@@ -1075,12 +1084,10 @@ function VirtualizedList:init(props: Props)
 	--[[ Translates metrics from a scroll event in a parent VirtualizedList into
 	   * coordinates relative to the child list.
 	]]
-	self._convertParentScrollMetrics = function(
-		metrics: {
-			visibleLength: number,
-			offset: number,
-		}
-	): {
+	self._convertParentScrollMetrics = function(metrics: {
+		visibleLength: number,
+		offset: number,
+	}): {
 		contentLength: number,
 		dOffset: number,
 		offset: number,
@@ -1309,14 +1316,12 @@ function VirtualizedList:scrollToEnd(params: {
 end
 
 -- scrollToIndex may be janky without getItemLayout prop
-function VirtualizedList:scrollToIndex(
-	params: {
-		animated: boolean?,
-		index: number,
-		viewOffset: number?,
-		viewPosition: number?,
-	}
-)
+function VirtualizedList:scrollToIndex(params: {
+	animated: boolean?,
+	index: number,
+	viewOffset: number?,
+	viewPosition: number?,
+})
 	local data, horizontal, getItemCount, getItemLayout, onScrollToIndexFailed =
 		self.props.data,
 		self.props.horizontal,
@@ -1364,20 +1369,14 @@ function VirtualizedList:scrollToIndex(
 	local offset = math.max(
 		0,
 		if self.props.inverted
-			then
-				(
-					(if horizontal then canvasSize.X else canvasSize.Y)
-					- (if horizontal then windowSize_.X else windowSize_.Y)
-					- frame.offset
-					- (Boolean.toJSBoolean(viewPosition) and viewPosition or 0)
-						* (self._scrollMetrics.visibleLength - frame.length)
-				)
-			else
-				(
-					frame.offset
-					- (Boolean.toJSBoolean(viewPosition) and viewPosition or 0)
-						* (self._scrollMetrics.visibleLength - frame.length)
-				)
+			then ((if horizontal then canvasSize.X else canvasSize.Y) - (if horizontal
+				then windowSize_.X
+				else windowSize_.Y) - frame.offset - (Boolean.toJSBoolean(viewPosition) and viewPosition or 0) * (self._scrollMetrics.visibleLength - frame.length))
+			else (
+				frame.offset
+				- (Boolean.toJSBoolean(viewPosition) and viewPosition or 0)
+					* (self._scrollMetrics.visibleLength - frame.length)
+			)
 	) - (Boolean.toJSBoolean(viewOffset) and viewOffset or 0)
 
 	if self._scrollRef == nil then
@@ -1692,14 +1691,18 @@ function VirtualizedList:_pushCells(
 				key = key,
 				prevCellKey = prevCellKey,
 				onUpdateSeparators = self._onUpdateSeparators,
-				onLayout = function(rbx)
-					return self:_onCellLayout(rbx, key, ii_)
-				end,
+				onLayout = if FFlagVirtualizedListStableCells
+					then self:_getCellLayoutHandler(key, ii_)
+					else function(rbx)
+						return self:_onCellLayout(rbx, key, ii_)
+					end,
 				onUnmount = self._onCellUnmount,
 				parentProps = self.props,
-				ref = function(ref)
-					self._cellRefs[tostring(key)] = ref
-				end,
+				ref = if FFlagVirtualizedListStableCells
+					then self:_getCellRefHandler(key)
+					else function(ref)
+						self._cellRefs[tostring(key)] = ref
+					end,
 				isSequentiallySelectable = self.props.isSequentiallySelectable,
 			})
 		)
@@ -1749,7 +1752,9 @@ function VirtualizedList:render(): React_Node
 
 	local isVirtualizationDisabled = self:_isVirtualizationDisabled()
 	local inversionStyle = if self.props.inverted
-		then if horizontalOrDefault(self.props.horizontal) then styles.horizontallyInverted else styles.verticallyInverted
+		then if horizontalOrDefault(self.props.horizontal)
+			then styles.horizontallyInverted
+			else styles.verticallyInverted
 		else nil
 	local cells = {}
 	local stickyIndicesFromProps = Set.new(self.props.stickyHeaderIndices)
@@ -1791,10 +1796,10 @@ function VirtualizedList:render(): React_Node
 		_keylessItemComponentName = ""
 		local spacerKey = self._getSpacerKey(not horizontal)
 		local lastInitialIndex = (
-				if isIndexTruthy(self.props.initialScrollIndex)
-					then -1
-					else initialNumToRenderOrDefault(self.props.initialNumToRender) - 1
-			) + 1 --[[ ROBLOX deviation: index starts at 1]]
+			if isIndexTruthy(self.props.initialScrollIndex)
+				then -1
+				else initialNumToRenderOrDefault(self.props.initialNumToRender) - 1
+		) + 1 --[[ ROBLOX deviation: index starts at 1]]
 		local first, last, scrollPositionDelta = self.state.first, self.state.last, self.state.scrollPositionDelta
 		if scrollPositionDelta > 0 then
 			first += scrollPositionDelta
@@ -1906,13 +1911,13 @@ function VirtualizedList:render(): React_Node
 		end
 	elseif ListEmptyComponent then
 		local element: React_Element = (
-				if React.isValidElement(ListEmptyComponent)
-					then ListEmptyComponent
-					else
-						-- $FlowFixMe[not-a-component]
-						-- $FlowFixMe[incompatible-type-arg]
-						React.createElement(ListEmptyComponent, nil)
-			) :: any
+			if React.isValidElement(ListEmptyComponent)
+				then ListEmptyComponent
+				else
+					-- $FlowFixMe[not-a-component]
+					-- $FlowFixMe[incompatible-type-arg]
+					React.createElement(ListEmptyComponent, nil)
+		) :: any
 
 		table.insert(
 			cells,
@@ -2152,6 +2157,32 @@ end
 
 function VirtualizedList:_computeBlankness()
 	self._fillRateHelper:computeBlankness(self.props, self.state, self._scrollMetrics)
+end
+
+-- Cells skip re-rendering when their props are unchanged, so callbacks passed to
+-- them must keep their identity across list renders.
+function VirtualizedList:_getCellLayoutHandler(cellKey: string, index: number): (rbx: any) -> ()
+	local cached = self._cellLayoutHandlers[cellKey]
+	if cached ~= nil and cached.index == index then
+		return cached.handler
+	end
+
+	local handler = function(rbx)
+		return self:_onCellLayout(rbx, cellKey, index)
+	end
+	self._cellLayoutHandlers[cellKey] = { index = index, handler = handler }
+	return handler
+end
+
+function VirtualizedList:_getCellRefHandler(cellKey: string): (ref: any) -> ()
+	local handler = self._cellRefHandlers[cellKey]
+	if handler == nil then
+		handler = function(ref)
+			self._cellRefs[tostring(cellKey)] = ref
+		end
+		self._cellRefHandlers[cellKey] = handler
+	end
+	return handler
 end
 
 function VirtualizedList:_onCellLayout(rbx: Frame, cellKey: string, index: number): ()
@@ -2615,6 +2646,30 @@ function CellRenderer:updateSeparatorProps(newProps: Object)
 	end)
 end
 
+local function shallowEqual(a: Object, b: Object): boolean
+	for key, value in a do
+		if b[key] ~= value then
+			return false
+		end
+	end
+	for key in b do
+		if a[key] == nil then
+			return false
+		end
+	end
+	return true
+end
+
+function CellRenderer:shouldComponentUpdate(nextProps: CellRendererProps, nextState: CellRendererState): boolean
+	if not FFlagVirtualizedListStableCells then
+		return true
+	end
+	-- getDerivedStateFromProps rebuilds separatorProps on every update, so it
+	-- is compared by contents rather than identity.
+	return not shallowEqual(self.props, nextProps)
+		or not shallowEqual(self.state.separatorProps, nextState.separatorProps)
+end
+
 function CellRenderer:componentWillUnmount()
 	self.props.onUnmount(self.props.cellKey)
 end
@@ -2669,8 +2724,7 @@ function CellRenderer:render()
 		parentProps.renderItem, parentProps.getItemLayout, parentProps.ListItemComponent
 	local element = self:_renderElement(renderItem, ListItemComponent, item, index)
 
-	local onLayout =
-		--[[ $FlowFixMe[prop-missing] (>=0.68.0 site=react_native_fb) This comment
+	local onLayout = --[[ $FlowFixMe[prop-missing] (>=0.68.0 site=react_native_fb) This comment
      * suppresses an error found when Flow v0.68 was deployed. To see the
      * error delete this comment and run Flow. ]]
 		if getItemLayout and not parentProps.debug and not fillRateHelper:enabled() then nil else self.props.onLayout
@@ -2690,41 +2744,38 @@ function CellRenderer:render()
 	local result = if not Boolean.toJSBoolean(CellRendererComponent)
 		then --[[ $FlowFixMe[incompatible-type-arg] (>=0.89.0 site=react_native_fb) *
       This comment suppresses an error found when Flow v0.89 was deployed. *
-      To see the error, delete this comment and run Flow. ]]
-			React.createElement(
-				View,
-				{
-					Name = "CellRendererView",
-					style = cellStyle,
-					onLayout = onLayout,
-					LayoutOrder = if inversionStyle then -index else index,
-					AutomaticSize = if horizontal then Enum.AutomaticSize.X else Enum.AutomaticSize.Y,
-					nativeRef = self._nativeRef,
-					SelectionGroup = if self.props.isSequentiallySelectable then true else nil,
-					SelectionBehaviorLeft = if self.props.isSequentiallySelectable
-						then if self.props.horizontal then Enum.SelectionBehavior.Escape else Enum.SelectionBehavior.Stop
-						else nil,
-					SelectionBehaviorRight = if self.props.isSequentiallySelectable
-						then if self.props.horizontal then Enum.SelectionBehavior.Escape else Enum.SelectionBehavior.Stop
-						else nil,
-					SelectionBehaviorUp = if self.props.isSequentiallySelectable
-						then if self.props.horizontal then Enum.SelectionBehavior.Stop else Enum.SelectionBehavior.Escape
-						else nil,
-					SelectionBehaviorDown = if self.props.isSequentiallySelectable
-						then if self.props.horizontal then Enum.SelectionBehavior.Stop else Enum.SelectionBehavior.Escape
-						else nil,
-				},
-				if itemSeparator
-					then React.createElement("UIListLayout", {
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						FillDirection = if horizontal
-							then Enum.FillDirection.Horizontal
-							else Enum.FillDirection.Vertical,
-					})
+      To see the error, delete this comment and run Flow. ]] React.createElement(
+			View,
+			{
+				Name = "CellRendererView",
+				style = cellStyle,
+				onLayout = onLayout,
+				LayoutOrder = if inversionStyle then -index else index,
+				AutomaticSize = if horizontal then Enum.AutomaticSize.X else Enum.AutomaticSize.Y,
+				nativeRef = self._nativeRef,
+				SelectionGroup = if self.props.isSequentiallySelectable then true else nil,
+				SelectionBehaviorLeft = if self.props.isSequentiallySelectable
+					then if self.props.horizontal then Enum.SelectionBehavior.Escape else Enum.SelectionBehavior.Stop
 					else nil,
-				element,
-				itemSeparator
-			)
+				SelectionBehaviorRight = if self.props.isSequentiallySelectable
+					then if self.props.horizontal then Enum.SelectionBehavior.Escape else Enum.SelectionBehavior.Stop
+					else nil,
+				SelectionBehaviorUp = if self.props.isSequentiallySelectable
+					then if self.props.horizontal then Enum.SelectionBehavior.Stop else Enum.SelectionBehavior.Escape
+					else nil,
+				SelectionBehaviorDown = if self.props.isSequentiallySelectable
+					then if self.props.horizontal then Enum.SelectionBehavior.Stop else Enum.SelectionBehavior.Escape
+					else nil,
+			},
+			if itemSeparator
+				then React.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = if horizontal then Enum.FillDirection.Horizontal else Enum.FillDirection.Vertical,
+				})
+				else nil,
+			element,
+			itemSeparator
+		)
 		else React.createElement(
 			CellRendererComponent,
 			Object.assign(
@@ -2744,15 +2795,13 @@ function CellRenderer:render()
 	return React.createElement(VirtualizedListCellContextProvider, { cellKey = self.props.cellKey }, result)
 end
 
-function describeNestedLists(
-	childList: {
-		cellKey: string,
-		key: string,
-		ref: VirtualizedList,
-		parentDebugInfo: ListDebugInfo,
-		horizontal: boolean,
-	}
-): string
+function describeNestedLists(childList: {
+	cellKey: string,
+	key: string,
+	ref: VirtualizedList,
+	parentDebugInfo: ListDebugInfo,
+	horizontal: boolean,
+}): string
 	local trace = "VirtualizedList trace:\n"
 		.. ("  Child (%s):\n"):format(if Boolean.toJSBoolean(childList.horizontal) then "horizontal" else "vertical")
 		.. ("    listKey: %s\n"):format(childList.key)
@@ -2760,9 +2809,9 @@ function describeNestedLists(
 	local debugInfo = childList.parentDebugInfo
 	while debugInfo do
 		-- debugInfo = debugInfo :: ListDebugInfo -- ROBLOX deviation cast as not nil
-		trace ..= ("\n  Parent (%s):\n"):format(if debugInfo.horizontal then "horizontal" else "vertical") .. (
-			"    listKey: %s\n"
-		):format(debugInfo.listKey) .. ("    cellKey: %s"):format(debugInfo.cellKey)
+		trace ..= ("\n  Parent (%s):\n"):format(if debugInfo.horizontal then "horizontal" else "vertical") .. ("    listKey: %s\n"):format(
+			debugInfo.listKey
+		) .. ("    cellKey: %s"):format(debugInfo.cellKey)
 		debugInfo = debugInfo.parent :: ListDebugInfo -- ROBLOX FIXME Luau: it's ListDebugInfo? but I think in this scope it's non optional
 	end
 	return trace

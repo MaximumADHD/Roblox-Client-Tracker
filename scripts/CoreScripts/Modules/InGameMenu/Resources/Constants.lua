@@ -148,6 +148,11 @@ local Constants = {
 		240, -- Anything higher than this will cause weird issues with physics events, as the physics engine runs at 240Hz (CREATORBUG-5874)
 	},
 
+	FramerateCapsIOS = {
+		60,
+		120,
+	},
+
 	OnAppRatingPromptEventDescriptor = if FFlagEnableGameLeftMessage then {
 		mid = MessageBus.getMessageId("AppRatingPrompt", "leftGame"),
 		validateParams = t.strictInterface({

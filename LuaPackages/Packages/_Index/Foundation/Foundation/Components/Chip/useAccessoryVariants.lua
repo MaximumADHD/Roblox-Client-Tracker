@@ -15,7 +15,6 @@ type Style = "Circular" | "Default"
 type Position = "Leading" | "Trailing"
 
 local function variantsFactory(tokens: Tokens)
-	-- Every circular accessory should be large, so we collapsed the two values (there were size and isCircular props before)
 	local accessorySize: { [Style]: { [ChipSize]: UDim2 } } = {
 		["Default"] = {
 			[ChipSize.Small :: ChipSize] = UDim2.fromOffset(tokens.Size.Size_300, tokens.Size.Size_300),
@@ -42,6 +41,19 @@ local function variantsFactory(tokens: Tokens)
 		},
 	}
 
+	local iconOnlySpacing: { [Style]: { [ChipSize]: UDim } } = {
+		["Default"] = {
+			[ChipSize.Small :: ChipSize] = UDim.new(0, tokens.Size.Size_150),
+			[ChipSize.Medium] = UDim.new(0, tokens.Size.Size_200),
+			[ChipSize.Large] = UDim.new(0, tokens.Size.Size_250),
+		},
+		["Circular"] = {
+			[ChipSize.Small :: ChipSize] = UDim.new(0, tokens.Padding.XSmall),
+			[ChipSize.Medium] = UDim.new(0, tokens.Size.Size_150),
+			[ChipSize.Large] = UDim.new(0, tokens.Padding.Small),
+		},
+	}
+
 	local textSpacing: { [Position]: { [ChipSize]: UDim } } = {
 		["Leading"] = {
 			[ChipSize.Small :: ChipSize] = UDim.new(0, tokens.Padding.XSmall),
@@ -59,10 +71,11 @@ local function variantsFactory(tokens: Tokens)
 		textSpacing = textSpacing,
 		accessorySpacing = accessorySpacing,
 		accessorySize = accessorySize,
+		iconOnlySpacing = iconOnlySpacing,
 	}
 end
 
-return function(tokens: Tokens, size: ChipSize, isLeading: boolean, isCircular: boolean)
+return function(tokens: Tokens, size: ChipSize, isLeading: boolean, isCircular: boolean, isIconOnly: boolean?)
 	local props = VariantsContext.useVariants("ChipAccessory", variantsFactory, tokens)
 
 	local style: Style = if isCircular then "Circular" else "Default"
@@ -71,15 +84,20 @@ return function(tokens: Tokens, size: ChipSize, isLeading: boolean, isCircular: 
 	return composeStyleVariant({
 		accessory = {
 			Size = props.accessorySize[style][size],
-			padding = if isLeading
+			padding = if isIconOnly
 				then {
-					left = props.accessorySpacing[style][size],
-					right = props.textSpacing[position][size],
+					left = props.iconOnlySpacing[style][size],
+					right = props.iconOnlySpacing[style][size],
 				}
-				else {
-					left = props.textSpacing[position][size],
-					right = props.accessorySpacing[style][size],
-				},
+				else if isLeading
+					then {
+						left = props.accessorySpacing[style][size],
+						right = props.textSpacing[position][size],
+					}
+					else {
+						left = props.textSpacing[position][size],
+						right = props.accessorySpacing[style][size],
+					},
 		},
 	})
 end

@@ -44,9 +44,9 @@ type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 export type DialogProps = {
 	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
 	size: DialogSize?,
-	-- **DEPRECATED**: Dialog should always use the overlay portal. Set `disablePortal` to false.
+	-- **DEPRECATED**: Dialog should always use the overlay portal. Set `disablePortal` to false. Still accepted.
 	disablePortal: boolean?,
-	-- **DEPRECATED**: Dialog should always render with a backdrop. Set `hasBackdrop` to true.
+	-- **DEPRECATED**: Dialog should always render with a backdrop. Set `hasBackdrop` to true. Still accepted.
 	hasBackdrop: boolean?,
 	children: React.ReactNode,
 	testId: string?,

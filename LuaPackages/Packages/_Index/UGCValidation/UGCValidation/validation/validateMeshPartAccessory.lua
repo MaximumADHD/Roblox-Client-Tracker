@@ -7,7 +7,6 @@ local Constants = require(root.Constants)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
 local validateTags = require(root.validation.validateTags)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
-local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local validateDependencies = require(root.validation.validateDependencies)
@@ -21,8 +20,6 @@ local getEditableImageFromContext = require(root.util.getEditableImageFromContex
 local pcallDeferred = require(root.util.pcallDeferred)
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 
-local getEngineFeatureEngineUGCValidateRigidNonSkinned =
-	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
@@ -103,11 +100,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_DoubleSided, nil, validationContext)
 	end
 
-	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
 	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)
 	if not getEditableMeshSuccess then
 		if not meshInfo.contentId then
-			hasMeshContent = false
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_NoMeshId, nil, validationContext)
 			reasonsAccumulator:updateReasons(false, {
 				string.format(
@@ -132,7 +127,6 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	end
 
 	meshInfo.editableMesh = editableMesh :: EditableMesh
-	hasMeshContent = true
 
 	local textureId = handle.TextureID
 	local textureInfo = {
@@ -166,14 +160,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
 
 	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
-
-	if hasMeshContent then
-		reasonsAccumulator:updateReasons(ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext))
-	end
-
-	if getEngineFeatureEngineUGCValidateRigidNonSkinned() and not validationContext.allowEditableInstances then
-		reasonsAccumulator:updateReasons(validateRigidMeshNotSkinned(meshInfo.contentId, validationContext))
-	end
+	reasonsAccumulator:updateReasons(ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext))
 
 	return reasonsAccumulator:getFinalResults()
 end

@@ -12,6 +12,7 @@ local Packages = script.Parent.Parent
 local ReactGlobals = require(Packages.ReactGlobals)
 local ReactTypes = require(Packages.Shared)
 type RefObject = ReactTypes.RefObject
+local enableAllocationTrims = ReactTypes.ReactFeatureFlags.enableAllocationTrims
 
 -- ROBLOX DEVIATION: In Roact, refs are implemented in terms of bindings
 --[[
@@ -65,6 +66,51 @@ exports.createRef = function(): RefObject
 	})
 
 	return (ref :: any) :: RefObject
+end
+
+--[[
+  With allocation trims, a ref's metatable __index is the binding itself, so
+  reading `current` reads the binding's `current` field, which __newindex keeps
+  equal to the binding's value (assigning `current` is the only way a ref's
+  binding gets updated). The metamethods are shared between refs, and the
+  binding doesn't allocate an updater function.
+]]
+local function refNewIndex(self, key, value)
+	local binding = getmetatable(self).__index
+	binding[key] = value
+	if key == "current" then
+		-- ROBLOX FIXME: Bindings - This is not allowed in Roact, but is okay in
+		-- React. Lots of discussion at
+		-- https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31065
+		-- error("Cannot assign to the 'current' property of refs", 2)
+		Binding.update(binding, value)
+	end
+end
+
+local function refToString(self)
+	return string.format("Ref(%s)", tostring(getmetatable(self).__index:getValue()))
+end
+
+local function createRefWithoutClosures(): RefObject
+	-- ROBLOX DEVIATION: see createRef
+	local source
+	if ReactGlobals.__DEV__ then
+		-- ROBLOX TODO: LUAFDN-619 - improve debug stacktraces for refs
+		source = debug.traceback("Ref created at:", 1)
+	end
+
+	local binding = Binding.createWithoutUpdater(nil, source)
+	return (
+		setmetatable({}, {
+			__index = binding,
+			__newindex = refNewIndex,
+			__tostring = refToString,
+		}) :: any
+	) :: RefObject
+end
+
+if enableAllocationTrims then
+	exports.createRef = createRefWithoutClosures :: () -> RefObject
 end
 
 return exports

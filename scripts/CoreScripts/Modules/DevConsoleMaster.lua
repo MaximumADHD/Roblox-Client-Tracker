@@ -51,8 +51,6 @@ local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
 
 local FFlagDevConsoleRequestOrchestratorTab = game:DefineFastFlag("DevConsoleRequestOrchestratorTab2", false)
 local FFlagDevConsoleAdminSeesDevTabs = game:DefineFastFlag("DevConsoleAdminSeesDevTabs", false)
-local FFlagDevConsoleRefreshVoiceAvailabilityOnReopen =
-	game:DefineFastFlag("DevConsoleRefreshVoiceAvailabilityOnReopen", false)
 
 local VoiceChatServiceManager = require(CoreGui.RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
@@ -404,7 +402,11 @@ end
 
 function DevConsoleMaster:ToggleVisibility()
 	if not self.init then
-		master:Start()
+		if getFFlagVoiceDebugConsoleV2() then
+			self:Start()
+		else
+			master:Start()
+		end
 	end
 
 	local isVisible = not self.store:getState().DisplayOptions.isVisible
@@ -436,8 +438,12 @@ end
 function DevConsoleMaster:SetVisibility(value)
 	if type(value) == "boolean" then
 		if not self.init and value then
-			master:Start()
-		elseif FFlagDevConsoleRefreshVoiceAvailabilityOnReopen and value then
+			if getFFlagVoiceDebugConsoleV2() then
+				self:Start()
+			else
+				master:Start()
+			end
+		elseif getFFlagVoiceDebugConsoleV2() and value then
 			self:refreshVoiceDevConsoleAvailability()
 		end
 
@@ -458,5 +464,9 @@ StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 
 	master:SetVisibility(visible)
 end)
+
+if getFFlagVoiceDebugConsoleV2() then
+	master.Klass = DevConsoleMaster
+end
 
 return master

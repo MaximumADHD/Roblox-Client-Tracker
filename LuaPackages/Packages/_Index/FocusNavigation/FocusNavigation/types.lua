@@ -25,6 +25,13 @@ export type SyntheticInputEvent = InputEvent & {
 export type SyntheticEventData = SyntheticInputEvent | nil
 export type EventData = InputEvent | SyntheticEventData | nil
 
+export type DispatchedEvent = {
+	eventName: string,
+	target: GuiObject,
+	eventData: EventData,
+	synthetic: boolean,
+}
+
 export type EventMap = {
 	[Enum.KeyCode]: string,
 }

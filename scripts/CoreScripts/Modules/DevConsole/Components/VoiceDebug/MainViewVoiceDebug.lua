@@ -7,6 +7,9 @@ local DataConsumer = require(Components.DataConsumer)
 local LineGraph = require(Components.LineGraph)
 local Sparkline = require(Components.Sparkline)
 local ConnectivityPanel = require(script.Parent.MainViewConnectivityPanel)
+local SubscriptionsPanel = require(script.Parent.MainViewSubscriptionsPanel)
+local RemoteOperationsPanel = require(script.Parent.MainViewRemoteOperationsPanel)
+local ClientOperationQueuePanel = require(script.Parent.MainViewClientOperationQueuePanel)
 local CollapsibleSection = require(script.Parent.CollapsibleSection)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
@@ -20,6 +23,7 @@ local ROW_ACCENT_WIDTH = 3
 local ROW_LABEL_LEFT_PAD = 8
 local ROW_COLUMN_GAP = 8
 local ROW_SPARKLINE_WIDTH = 52
+local ROW_SPARKLINE_BUTTON_HEIGHT = 13
 local ROW_VALUE_WIDTH = 56
 local ROW_UNIT_WIDTH = 36
 local ROW_DELTA_WIDTH = 72
@@ -29,17 +33,33 @@ local ROW_RIGHT_BLOCK_WIDTH = ROW_SPARKLINE_WIDTH
 	+ ROW_DELTA_WIDTH
 	+ 3 * ROW_COLUMN_GAP
 
+local CENTER_Y_SCALE = 0.5
+
 local HEALTH_CARD_HEIGHT = 56
 local HEALTH_CARD_WIDTH = 110
 local HEALTH_CARD_CAPTION_HEIGHT = 14
 local HEALTH_CARD_VALUE_HEIGHT = 20
 local HEALTH_CARD_SUBCAPTION_HEIGHT = 12
+local HEALTH_CARD_PADDING_X = 8
+local HEALTH_CARD_PADDING_Y = 6
+
+local GRAPH_HORIZONTAL_MARGIN = 32
+local CONTENT_LEFT_PADDING = 16
+local CONTENT_RIGHT_PADDING = 24
+
+local UTIL_BAR_RIGHT_INSET_SMALL = -24
+local UTIL_BAR_RIGHT_INSET_DEFAULT = -20
+local UTIL_BAR_ITEM_GAP = 8
+local BOTTOM_SPACER_HEIGHT = 16
 
 local TWO_DECIMAL_FIELDS = {
+	rttMs = true,
 	incomingBitrateKbps = true,
 	outgoingBitrateKbps = true,
 	incomingJitterMs = true,
 	outgoingJitterMs = true,
+	jitterBufferDelayMs = true,
+	incomingLossPercent = true,
 }
 
 local GROUP_ORDER = { "Connection", "Incoming", "Outgoing" }
@@ -51,11 +71,27 @@ local VoiceDebugFieldDisplayOrder = require(script.Parent.VoiceDebugFieldDisplay
 
 local getFFlagVoiceDebugConsoleV2 = require(script.Parent.GetFFlagVoiceDebugConsoleV2)
 
+local FreezeToggle = require(script.Parent.FreezeToggle)
+
 local EXTENDED_DISPLAY_ORDER = {
 	"incomingBitrateKbps",
 	"outgoingBitrateKbps",
 	"outgoingCodec",
 	"incomingLossPercent",
+	"totalConcealmentEvents",
+	"lastPublisherAudioLevelDbov",
+	"lastSubscriberAudioLevelDbov",
+}
+
+-- Subset of EXTENDED_DISPLAY_ORDER gated out of the flag-off fallback loop below. Unlike
+-- incomingBitrateKbps/outgoingBitrateKbps/outgoingCodec/incomingLossPercent -- pre-existing
+-- fields that have always rendered via that fallback regardless of V2 -- these three are native
+-- struct fields that are always present (possibly zero-valued) in self.state.stats, so leaving
+-- them ungated would render them even with the flag off.
+local FALLBACK_GATED_FIELDS = {
+	totalConcealmentEvents = true,
+	lastPublisherAudioLevelDbov = true,
+	lastSubscriberAudioLevelDbov = true,
 }
 
 -- Precomputed once: both source lists are static module constants, so there's no need to
@@ -84,9 +120,19 @@ local function makeStringFormatY(key: string)
 	end
 end
 
-local function isFieldWarn(key: string, value: any): boolean
-	local meta = VoiceDebugFieldMeta[key]
-	return meta ~= nil and meta.warnAt ~= nil and type(value) == "number" and value > meta.warnAt
+local function getFieldSeverity(key: string, value: any): VoiceDebugFieldMeta.SeverityLevel?
+	return VoiceDebugFieldMeta.getFieldSeverity(key, value)
+end
+
+local function severityColor(severity: VoiceDebugFieldMeta.SeverityLevel?, defaultColor: Color3): Color3
+	if severity == "error" then
+		return Constants.Color.ErrorRed
+	elseif severity == "warn" then
+		return Constants.Color.WarningYellow
+	elseif severity == "ok" then
+		return Constants.Color.HoverGreen
+	end
+	return defaultColor
 end
 
 local function formatNumber(key: string, value: number): string
@@ -125,7 +171,7 @@ local function formatCardValue(value: any, decimals: number?): string
 end
 
 local function HealthCard(props)
-	local valueColor = props.isWarn and Constants.Color.WarningYellow or Constants.Color.Text
+	local valueColor = severityColor(props.severity, Constants.Color.Text)
 
 	return Roact.createElement("Frame", {
 		LayoutOrder = props.layoutOrder,
@@ -140,10 +186,10 @@ local function HealthCard(props)
 		}),
 
 		Padding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 8),
-			PaddingRight = UDim.new(0, 8),
-			PaddingTop = UDim.new(0, 6),
-			PaddingBottom = UDim.new(0, 6),
+			PaddingLeft = UDim.new(0, HEALTH_CARD_PADDING_X),
+			PaddingRight = UDim.new(0, HEALTH_CARD_PADDING_X),
+			PaddingTop = UDim.new(0, HEALTH_CARD_PADDING_Y),
+			PaddingBottom = UDim.new(0, HEALTH_CARD_PADDING_Y),
 		}),
 
 		Layout = Roact.createElement("UIListLayout", {
@@ -195,11 +241,34 @@ function MainViewVoiceDebug:init()
 	end
 
 	self.onStatsUpdated = function(newStats)
+		if self.state.frozen then
+			return
+		end
 		self:setState({
 			stats = newStats,
 			series = self.props.VoiceDebugData:getSeries(),
 			connectivity = self.props.VoiceDebugData:getConnectivity(),
+			subscriptions = self.props.VoiceDebugData:getSubscriptions(),
+			remoteOperations = self.props.VoiceDebugData:getRemoteOperations(),
 		})
+	end
+
+	self.onFreezeToggled = function()
+		if self.state.frozen then
+			self:setState({
+				frozen = false,
+				stats = self.props.VoiceDebugData:getCurrentData(),
+				series = self.props.VoiceDebugData:getSeries(),
+				connectivity = self.props.VoiceDebugData:getConnectivity(),
+				subscriptions = self.props.VoiceDebugData:getSubscriptions(),
+				remoteOperations = self.props.VoiceDebugData:getRemoteOperations(),
+			})
+		else
+			-- The live series map's CircularBuffers keep mutating in place on every stats
+			-- update; snapshot them so a re-render while frozen (e.g. clicking a sparkline
+			-- row) doesn't mix frozen stat values with live series/graph data.
+			self:setState({ frozen = true, series = self.props.VoiceDebugData:getSeriesSnapshot() })
+		end
 	end
 
 	local statsUpdatedSignal = self.props.VoiceDebugData:Signal()
@@ -212,7 +281,10 @@ function MainViewVoiceDebug:init()
 		stats = {},
 		series = {},
 		connectivity = {},
+		subscriptions = {},
+		remoteOperations = {},
 		selectedGraphKeyByGroup = {},
+		frozen = false,
 	}
 end
 
@@ -270,8 +342,8 @@ function MainViewVoiceDebug:renderHealthStrip()
 		RoundTrip = Roact.createElement(HealthCard, {
 			layoutOrder = 1,
 			caption = "Round-trip",
-			value = formatCardValue(stats.rttMs),
-			isWarn = isFieldWarn("rttMs", stats.rttMs),
+			value = formatCardValue(stats.rttMs, 2),
+			severity = getFieldSeverity("rttMs", stats.rttMs),
 			subCaption = formatCardSubCaption(series.rttMs, "ms"),
 		}),
 
@@ -279,7 +351,7 @@ function MainViewVoiceDebug:renderHealthStrip()
 			layoutOrder = 2,
 			caption = "Loss in",
 			value = formatCardValue(stats.incomingLossPercent, 1),
-			isWarn = isFieldWarn("incomingLossPercent", stats.incomingLossPercent),
+			severity = getFieldSeverity("incomingLossPercent", stats.incomingLossPercent),
 			subCaption = formatCardSubCaption(series.incomingLossPercent, "%"),
 		}),
 
@@ -287,7 +359,7 @@ function MainViewVoiceDebug:renderHealthStrip()
 			layoutOrder = 3,
 			caption = "Jitter in",
 			value = formatCardValue(stats.incomingJitterMs, 2),
-			isWarn = isFieldWarn("incomingJitterMs", stats.incomingJitterMs),
+			severity = getFieldSeverity("incomingJitterMs", stats.incomingJitterMs),
 			subCaption = formatCardSubCaption(series.incomingJitterMs, "ms"),
 		}),
 
@@ -299,7 +371,7 @@ function MainViewVoiceDebug:renderHealthStrip()
 				tostring(stats.incomingStreams or "—"),
 				tostring(stats.outgoingStreams or "—")
 			),
-			isWarn = false,
+			severity = nil,
 			subCaption = "in / out",
 		}),
 	})
@@ -314,15 +386,16 @@ local function buildStatRow(self, key: string, value: any, layoutOrder: number):
 		local seriesEntry = self.state.series[key]
 		local plottable = meta ~= nil and meta.plottable == true and seriesEntry ~= nil
 
-		local warn = isFieldWarn(key, value)
-		local rowColor = warn and Constants.Color.WarningYellow or Constants.Color.Text
+		local severity: VoiceDebugFieldMeta.SeverityLevel? = getFieldSeverity(key, value)
+		local rowColor = severityColor(severity, Constants.Color.Text)
+		local showAccent = severity == "warn" or severity == "error"
 
 		local rowChildren = {
 			Accent = Roact.createElement("Frame", {
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(0, ROW_ACCENT_WIDTH, 1, 0),
-				BackgroundColor3 = Constants.Color.WarningYellow,
-				BackgroundTransparency = warn and 0 or 1,
+				BackgroundColor3 = severityColor(severity, Constants.Color.WarningYellow),
+				BackgroundTransparency = showAccent and 0 or 1,
 				BorderSizePixel = 0,
 			}),
 
@@ -381,9 +454,9 @@ local function buildStatRow(self, key: string, value: any, layoutOrder: number):
 			local textButtonXOffset = -(ROW_VALUE_WIDTH + ROW_UNIT_WIDTH + ROW_DELTA_WIDTH + ROW_SPARKLINE_WIDTH + 3 * ROW_COLUMN_GAP)
 
 			rowChildren.SparklineButton = Roact.createElement("TextButton", {
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(1, textButtonXOffset, 0.5, 0),
-				Size = UDim2.new(0, ROW_SPARKLINE_WIDTH, 0, 13),
+				AnchorPoint = Vector2.new(0, CENTER_Y_SCALE),
+				Position = UDim2.new(1, textButtonXOffset, CENTER_Y_SCALE, 0),
+				Size = UDim2.new(0, ROW_SPARKLINE_WIDTH, 0, ROW_SPARKLINE_BUTTON_HEIGHT),
 				Text = "",
 				AutoButtonColor = false,
 				BackgroundTransparency = 1,
@@ -396,7 +469,7 @@ local function buildStatRow(self, key: string, value: any, layoutOrder: number):
 					getY = getY,
 					minY = seriesEntry.min,
 					maxY = seriesEntry.max,
-					color = warn and Constants.Color.WarningYellow or Constants.Color.HighlightBlue,
+					color = showAccent and Constants.Color.WarningYellow or Constants.Color.HighlightBlue,
 					size = UDim2.new(1, 0, 1, 0),
 				}),
 			})
@@ -423,7 +496,7 @@ end
 local function buildGraphElement(seriesEntry, meta, key: string, layoutOrder: number)
 	return Roact.createElement(LineGraph, {
 		pos = UDim2.new(0, 0, 0, PADDING),
-		size = UDim2.new(1, -32, 0, GRAPH_HEIGHT),
+		size = UDim2.new(1, -GRAPH_HORIZONTAL_MARGIN, 0, GRAPH_HEIGHT),
 		layoutOrder = layoutOrder,
 
 		graphData = seriesEntry.dataSet,
@@ -518,8 +591,9 @@ function MainViewVoiceDebug:renderStatLabels(displayOrder: { string })
 		end
 	end
 
+	local isV2 = getFFlagVoiceDebugConsoleV2()
 	for key in self.state.stats do
-		if not labels[key] then
+		if not labels[key] and (isV2 or not FALLBACK_GATED_FIELDS[key]) then
 			addRow(key)
 		end
 	end
@@ -542,7 +616,7 @@ function MainViewVoiceDebug:renderGraphs(displayOrder: { string })
 			layoutOrder += 1
 			graphs[key] = Roact.createElement(LineGraph, {
 				pos = UDim2.new(),
-				size = UDim2.new(1, -32, 0, GRAPH_HEIGHT),
+				size = UDim2.new(1, -GRAPH_HORIZONTAL_MARGIN, 0, GRAPH_HEIGHT),
 				layoutOrder = layoutOrder,
 
 				graphData = seriesEntry.dataSet,
@@ -591,7 +665,7 @@ function MainViewVoiceDebug:render()
 		}),
 
 		FramePadding = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 16),
+			PaddingLeft = UDim.new(0, CONTENT_LEFT_PADDING),
 		}),
 
 		UtilAndTab = Roact.createElement(UtilAndTab, {
@@ -601,6 +675,31 @@ function MainViewVoiceDebug:render()
 			layoutOrder = 1,
 			refForParent = self.utilRef,
 			onHeightChanged = self.onUtilTabHeightChanged,
+
+			extraContent = getFFlagVoiceDebugConsoleV2() and Roact.createElement("Frame", {
+				AutomaticSize = Enum.AutomaticSize.X,
+				Size = UDim2.new(0, 0, 1, 0),
+				BackgroundTransparency = 1,
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(
+					1,
+					formFactor == Constants.FormFactor.Small and UTIL_BAR_RIGHT_INSET_SMALL or UTIL_BAR_RIGHT_INSET_DEFAULT,
+					0.5,
+					0
+				),
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Padding = UDim.new(0, UTIL_BAR_ITEM_GAP),
+				}),
+				FreezeToggle = Roact.createElement(FreezeToggle, {
+					frozen = self.state.frozen,
+					onToggle = self.onFreezeToggled,
+					layoutOrder = 1,
+				}),
+			}) or nil,
 		}),
 
 		Content = Roact.createElement("ScrollingFrame", {
@@ -615,9 +714,8 @@ function MainViewVoiceDebug:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				Padding = UDim.new(0, PADDING),
 			}),
-
 			ContentPadding = Roact.createElement("UIPadding", {
-				PaddingRight = UDim.new(0, 24),
+				PaddingRight = UDim.new(0, CONTENT_RIGHT_PADDING),
 			}),
 
 			MetricsSection = Roact.createElement(CollapsibleSection, {
@@ -643,6 +741,27 @@ function MainViewVoiceDebug:render()
 				connectivity = self.state.connectivity,
 				layoutOrder = 2,
 			}),
+
+			SubscriptionsContainer = Roact.createElement(SubscriptionsPanel, {
+				subscriptions = self.state.subscriptions,
+				layoutOrder = 3,
+			}),
+
+			RemoteOperationsContainer = Roact.createElement(RemoteOperationsPanel, {
+				remoteOperations = self.state.remoteOperations,
+				layoutOrder = 4,
+			}),
+
+			ClientOperationQueueContainer = Roact.createElement(ClientOperationQueuePanel, {
+				remoteOperations = self.state.remoteOperations,
+				layoutOrder = 5,
+			}),
+
+			BottomSpacer = Roact.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, BOTTOM_SPACER_HEIGHT),
+				LayoutOrder = 6,
+				BackgroundTransparency = 1,
+			}),
 		} or {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
@@ -650,7 +769,7 @@ function MainViewVoiceDebug:render()
 			}),
 
 			ContentPadding = Roact.createElement("UIPadding", {
-				PaddingRight = UDim.new(0, 24),
+				PaddingRight = UDim.new(0, CONTENT_RIGHT_PADDING),
 			}),
 
 			StatsContainer = Roact.createElement("Frame", {

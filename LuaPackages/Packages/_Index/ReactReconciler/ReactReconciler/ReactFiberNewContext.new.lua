@@ -17,6 +17,8 @@ local Error = LuauPolyfill.Error
 
 -- ROBLOX: use patched console from shared
 local console = require(Packages.Shared).console
+local enableAllocationTrims =
+	require(Packages.Shared).ReactFeatureFlags.enableAllocationTrims
 
 local ReactTypes = require(Packages.Shared)
 type ReactContext<T> = ReactTypes.ReactContext<T>
@@ -396,12 +398,22 @@ exports.readContext = function<T>(
 			resolvedObservedBits = observedBits
 		end
 
-		local contextItem = {
-			-- context: ((context: any): ReactContext<mixed>),
-			context = context,
-			observedBits = resolvedObservedBits,
-			next = nil,
-		}
+		local contextItem
+		if enableAllocationTrims then
+			-- ROBLOX performance: don't list `next = nil`, which would presize the table
+			-- to 4 hash slots; most components read a single context
+			contextItem = {
+				context = context,
+				observedBits = resolvedObservedBits,
+			}
+		else
+			contextItem = {
+				-- context: ((context: any): ReactContext<mixed>),
+				context = context,
+				observedBits = resolvedObservedBits,
+				next = nil,
+			}
+		end
 
 		if lastContextDependency == nil then
 			if currentlyRenderingFiber == nil then
@@ -416,12 +428,29 @@ exports.readContext = function<T>(
 			end
 
 			-- This is the first dependency for this component. Create a new list.
-			lastContextDependency = contextItem;
-			(currentlyRenderingFiber :: Fiber).dependencies = {
-				lanes = NoLanes,
-				firstContext = contextItem,
-				responders = nil,
-			}
+			lastContextDependency = contextItem
+			if enableAllocationTrims then
+				-- ROBLOX performance: reuse the dependencies object cloned by
+				-- createWorkInProgress/resetWorkInProgress instead of discarding it. It
+				-- is never shared with current here: sharing only happens in
+				-- bailoutOnAlreadyFinishedWork, after this fiber's context reads.
+				local dependencies = (currentlyRenderingFiber :: Fiber).dependencies
+				if dependencies ~= nil then
+					dependencies.lanes = NoLanes
+					dependencies.firstContext = contextItem
+				else
+					(currentlyRenderingFiber :: Fiber).dependencies = {
+						lanes = NoLanes,
+						firstContext = contextItem,
+					}
+				end
+			else
+				(currentlyRenderingFiber :: Fiber).dependencies = {
+					lanes = NoLanes,
+					firstContext = contextItem,
+					responders = nil,
+				}
+			end
 		else
 			-- Append a new context item.
 			(lastContextDependency :: any).next = contextItem

@@ -15,6 +15,7 @@ local isValidFocusTarget = require(script.Parent.isValidFocusTarget)
 local types = require(script.Parent.types)
 type EventMap = types.EventMap
 type EventData = types.EventData
+type DispatchedEvent = types.DispatchedEvent
 type InputEvent = types.InputEvent
 type EngineInterface = types.EngineInterface
 type ContainerFocusBehavior = types.ContainerFocusBehavior
@@ -42,6 +43,7 @@ export type FocusNavigationService = {
 
 	activeEventMap: Utils.Signal<EventMap>,
 	focusedGuiObject: Utils.Signal<GuiObject?>,
+	eventDispatched: Utils.Signal<DispatchedEvent?>,
 
 	dispatchSyntheticEvent: (
 		self: FocusNavigationService,
@@ -67,6 +69,7 @@ type FocusNavigationServicePrivate = {
 
 	_fireActiveEventMapSignal: Utils.FireSignal<EventMap>,
 	_fireFocusedGuiObjectSignal: Utils.FireSignal<GuiObject?>,
+	_fireEventDispatchedSignal: Utils.FireSignal<DispatchedEvent?>,
 
 	_connectToInputEvents: (FocusNavigationServicePrivate) -> (),
 	_fireInputEvent: (FocusNavigationServicePrivate, GuiObject, InputObject, boolean?) -> (),
@@ -96,6 +99,7 @@ type FocusNavigationServicePrivate = {
 
 	activeEventMap: Utils.Signal<EventMap>,
 	focusedGuiObject: Utils.Signal<GuiObject?>,
+	eventDispatched: Utils.Signal<DispatchedEvent?>,
 }
 
 type FocusNavigationServiceOptions = {
@@ -112,6 +116,7 @@ local FocusNavigationService = {} :: FocusNavigationServicePrivate & FocusNaviga
 function FocusNavigationService.new(engineInterface: EngineInterface, options: FocusNavigationServiceOptions?)
 	local activeEventMapSignal, fireActiveEventMapSignal = createSignal({})
 	local focusedGuiObjectSignal, fireFocusedGuiObjectSignal = createSignal(engineInterface.getSelection())
+	local eventDispatchedSignal, fireEventDispatchedSignal = createSignal(nil :: DispatchedEvent?)
 
 	local self: FocusNavigationServicePrivate = setmetatable({
 		_eventPropagationService = EventPropagationService.new(),
@@ -128,9 +133,11 @@ function FocusNavigationService.new(engineInterface: EngineInterface, options: F
 
 		_fireActiveEventMapSignal = fireActiveEventMapSignal,
 		_fireFocusedGuiObjectSignal = fireFocusedGuiObjectSignal,
+		_fireEventDispatchedSignal = fireEventDispatchedSignal,
 
 		activeEventMap = activeEventMapSignal,
 		focusedGuiObject = focusedGuiObjectSignal,
+		eventDispatched = eventDispatchedSignal,
 	}, FocusNavigationService) :: any
 
 	self:_connectToInputEvents()
@@ -142,16 +149,23 @@ function FocusNavigationService:_fireInputEvent(focusedGuiObject: GuiObject, inp
 	local event = self.activeEventMap:getValue()[input.KeyCode]
 
 	if event then
-		self._eventPropagationService:propagateEvent(focusedGuiObject, event, {
+		local eventData = {
 			Delta = input.Delta,
 			KeyCode = input.KeyCode,
 			Position = input.Position,
 			UserInputState = input.UserInputState,
 			UserInputType = input.UserInputType,
 			wasProcessed = wasProcessed,
-		}, {
+		}
+		self._eventPropagationService:propagateEvent(focusedGuiObject, event, eventData, {
 			synthetic = false,
 			silent = false,
+		})
+		self._fireEventDispatchedSignal({
+			eventName = event,
+			target = focusedGuiObject,
+			eventData = eventData,
+			synthetic = false,
 		})
 	end
 end
@@ -498,6 +512,12 @@ function FocusNavigationService:dispatchSyntheticEvent(
 	self._eventPropagationService:propagateEvent(target, eventName, eventData, {
 		synthetic = true,
 		silent = false,
+	})
+	self._fireEventDispatchedSignal({
+		eventName = eventName,
+		target = target,
+		eventData = eventData,
+		synthetic = true,
 	})
 
 	return true

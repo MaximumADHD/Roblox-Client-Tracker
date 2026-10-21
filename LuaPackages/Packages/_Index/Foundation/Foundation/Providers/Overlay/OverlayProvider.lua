@@ -3,8 +3,6 @@ local Packages = Foundation.Parent
 
 local Constants = require(Foundation.Constants)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local getMainGui = require(Foundation.Utility.getMainGui)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
@@ -25,8 +23,6 @@ local defaultProps = {
 	DisplayOrder = Constants.MAX_LAYOUT_ORDER - 1,
 }
 
-local moduleMainGui = if Flags.FoundationOverlayResilientMainGui then nil else getMainGui()
-
 local function OverlayProvider(overlayProps: Props)
 	local props = withDefaults(overlayProps, defaultProps)
 	local overlay: GuiBase2d?, setOverlay = React.useState(props.gui)
@@ -41,9 +37,7 @@ local function OverlayProvider(overlayProps: Props)
 		end
 	end, { props.gui })
 
-	local mainGui: Instance? = if Flags.FoundationOverlayResilientMainGui
-		then if props.gui == nil and shouldMountOverlay then getMainGui() else nil
-		else moduleMainGui
+	local mainGui: Instance? = if props.gui == nil and shouldMountOverlay then getMainGui() else nil
 
 	local shouldRender = props.gui == nil and mainGui ~= nil and shouldMountOverlay
 	local overlayInstance = if props.gui ~= nil then props.gui else overlay

@@ -44,6 +44,39 @@ export type SeriesEntry = {
 
 export type SeriesMap = { [string]: SeriesEntry }
 
+export type SubscriptionData = {
+	audioSsrc: number?,
+	feedReferenceId: number?,
+	userId: number?,
+	audioMid: string?,
+	culled: boolean?,
+	isMuted: boolean?,
+	isMutedLocally: boolean?,
+	incomingBytes: number?,
+	incomingBitrateKbps: number?,
+	codecName: string?,
+}
+
+export type SubscriptionsData = {
+	subscriptions: { SubscriptionData }?,
+}
+
+export type RemoteOperationEntry = {
+	name: string?,
+	operationType: string?,
+	timestampSeconds: number?,
+	timestampText: string?,
+}
+
+export type RemoteOperationsData = {
+	sent: { RemoteOperationEntry }?,
+	received: { RemoteOperationEntry }?,
+	operations: { RemoteOperationEntry }?,
+	sentCaptureEnabled: boolean?,
+	receivedCaptureEnabled: boolean?,
+	opQueueCaptureEnabled: boolean?,
+}
+
 export type ConnectivityData = {
 	iceGatheringStatePublish: string?,
 	iceGatheringStateSubscribe: string?,
@@ -58,6 +91,15 @@ export type ConnectivityData = {
 	sdpPublishRemoteAnswer: string?,
 	sdpSubscribeRemoteOffer: string?,
 	sdpSubscribeAnswer: string?,
+	timeToConnectedMs: number?,
+	selectedCandidatePairLocalTypePublish: string?,
+	selectedCandidatePairRemoteTypePublish: string?,
+	selectedCandidatePairLocalProtocolPublish: string?,
+	selectedCandidatePairRemoteProtocolPublish: string?,
+	selectedCandidatePairLocalTypeSubscribe: string?,
+	selectedCandidatePairRemoteTypeSubscribe: string?,
+	selectedCandidatePairLocalProtocolSubscribe: string?,
+	selectedCandidatePairRemoteProtocolSubscribe: string?,
 }
 
 local getFFlagVoiceDebugConsoleV2 = require(script.Parent.GetFFlagVoiceDebugConsoleV2)
@@ -88,6 +130,35 @@ local function computeBitrateKbps(currentBytes: number?, prevBytes: number?, dtS
 	return (currentBytes - prevBytes) * 8 / dtSeconds / 1000
 end
 
+export type SubscriptionBytesEntry = {
+	userId: number?,
+	bytes: number?,
+}
+
+local function computeSubscriptionBitrates(
+	subscriptions: { SubscriptionData },
+	prevBySsrc: { [number]: SubscriptionBytesEntry },
+	dt: number?
+)
+	local currentSsrcs: { [number]: boolean } = {}
+	for _, subscription in subscriptions do
+		local ssrc = subscription.audioSsrc
+		if type(ssrc) == "number" and ssrc == ssrc and ssrc % 1 == 0 then
+			currentSsrcs[ssrc] = true
+			local prevEntry = prevBySsrc[ssrc]
+			local isSameSubscriber = prevEntry ~= nil and prevEntry.userId == subscription.userId
+			subscription.incomingBitrateKbps =
+				computeBitrateKbps(subscription.incomingBytes, isSameSubscriber and prevEntry.bytes or nil, dt)
+			prevBySsrc[ssrc] = { userId = subscription.userId, bytes = subscription.incomingBytes }
+		end
+	end
+	for ssrc in prevBySsrc do
+		if not currentSsrcs[ssrc] then
+			prevBySsrc[ssrc] = nil
+		end
+	end
+end
+
 local function computeLossPercent(packets: number?, packetsLost: number?): number?
 	if type(packets) ~= "number" or type(packetsLost) ~= "number" then
 		return nil
@@ -110,6 +181,30 @@ local function deltaSince(current: number?, prev: number?): number?
 	return current - prev
 end
 
+local function nativeSecondsToWallClockSeconds(timestampSeconds: number, nativeNowSeconds: number, wallClockNow: number): number
+	return wallClockNow + (timestampSeconds - nativeNowSeconds)
+end
+
+local function formatWallClockTime(epochSeconds: number): string
+	return os.date("%H:%M:%S", epochSeconds) :: string
+end
+
+local function decorateOperationEntries(entries: { RemoteOperationEntry }, nativeNowSeconds: number, wallClockNow: number): { RemoteOperationEntry }
+	local decorated = table.create(#entries)
+	for i, entry in entries do
+		local timestampText = if entry.timestampSeconds
+			then formatWallClockTime(nativeSecondsToWallClockSeconds(entry.timestampSeconds, nativeNowSeconds, wallClockNow))
+			else nil
+		decorated[i] = {
+			name = entry.name,
+			operationType = entry.operationType,
+			timestampSeconds = entry.timestampSeconds,
+			timestampText = timestampText,
+		}
+	end
+	return decorated
+end
+
 local VoiceDebugData = {}
 VoiceDebugData.__index = VoiceDebugData
 
@@ -121,6 +216,9 @@ function VoiceDebugData.new()
 	self._statsData = {} :: StatsData
 	self._series = {} :: SeriesMap
 	self._connectivityData = {} :: ConnectivityData
+	self._subscriptionsData = {} :: SubscriptionsData
+	self._remoteOperationsData = {} :: RemoteOperationsData
+	self._prevSubscriptionBytesBySsrc = {} :: { [number]: SubscriptionBytesEntry }
 	self._isRunning = false
 	return self
 end
@@ -137,12 +235,35 @@ function VoiceDebugData:getSeries(): SeriesMap
 	return self._series
 end
 
+-- Returns a deep copy of the series map: entries reference the live CircularBuffer, which
+-- keeps mutating in place on every stats update, so callers that need a point-in-time snapshot
+-- (e.g. the Freeze control) must clone the buffers, not just the wrapper table.
+function VoiceDebugData:getSeriesSnapshot(): SeriesMap
+	local snapshot: SeriesMap = {}
+	for key, entry in self._series do
+		snapshot[key] = {
+			max = entry.max,
+			min = entry.min,
+			dataSet = entry.dataSet:clone(),
+		}
+	end
+	return snapshot
+end
+
 function VoiceDebugData:isRunning()
 	return self._isRunning
 end
 
 function VoiceDebugData:getConnectivity(): ConnectivityData
 	return self._connectivityData
+end
+
+function VoiceDebugData:getSubscriptions(): { SubscriptionData }
+	return self._subscriptionsData.subscriptions or {}
+end
+
+function VoiceDebugData:getRemoteOperations(): RemoteOperationsData
+	return self._remoteOperationsData
 end
 
 function VoiceDebugData:_updateSeriesValue(key: string, value: number, time: number)
@@ -204,10 +325,26 @@ function VoiceDebugData:start()
 			-- Already redacted natively (see lastVoiceChatConnectivity()'s implementation) before it
 			-- ever reaches Lua -- no client-side redaction needed here.
 			self._connectivityData = (voiceChatService :: any):lastVoiceChatConnectivity()
+			self._subscriptionsData = (voiceChatService :: any):lastVoiceChatSubscriptions() or {}
+			local rawRemoteOperations = (voiceChatService :: any):lastVoiceChatRemoteOperations() or {}
 
 			local time = os.time()
 
 			if getFFlagVoiceDebugConsoleV2() then
+				local nativeNowSeconds = rawRemoteOperations.nativeNowSeconds
+				if nativeNowSeconds then
+					local wallClockNow = os.time()
+					self._remoteOperationsData = {
+						sent = decorateOperationEntries(rawRemoteOperations.sent or {}, nativeNowSeconds, wallClockNow),
+						received = decorateOperationEntries(rawRemoteOperations.received or {}, nativeNowSeconds, wallClockNow),
+						operations = decorateOperationEntries(rawRemoteOperations.operations or {}, nativeNowSeconds, wallClockNow),
+						sentCaptureEnabled = rawRemoteOperations.sentCaptureEnabled == true,
+						receivedCaptureEnabled = rawRemoteOperations.receivedCaptureEnabled == true,
+						opQueueCaptureEnabled = rawRemoteOperations.opQueueCaptureEnabled == true,
+					}
+				else
+					self._remoteOperationsData = {} :: any
+				end
 				local clockNow = os.clock()
 				local dt = self._prevBytesClock and (clockNow - self._prevBytesClock) or nil
 				self._statsData.incomingBitrateKbps =
@@ -226,6 +363,8 @@ function VoiceDebugData:start()
 				)
 				self._prevIncomingPackets = self._statsData.incomingPackets
 				self._prevIncomingPacketsLost = self._statsData.incomingPacketsLost
+
+				computeSubscriptionBitrates(self._subscriptionsData.subscriptions or {}, self._prevSubscriptionBytesBySsrc, dt)
 			end
 
 			for key, value in self._statsData do
@@ -254,11 +393,16 @@ function VoiceDebugData:stop()
 	self._prevOutgoingBytes = nil
 	self._prevIncomingPackets = nil
 	self._prevIncomingPacketsLost = nil
+	self._prevSubscriptionBytesBySsrc = {}
 end
 
 VoiceDebugData._parseCodecFromSdp = parseCodecFromSdp
 VoiceDebugData._computeBitrateKbps = computeBitrateKbps
 VoiceDebugData._computeLossPercent = computeLossPercent
 VoiceDebugData._deltaSince = deltaSince
+VoiceDebugData._computeSubscriptionBitrates = computeSubscriptionBitrates
+VoiceDebugData._nativeSecondsToWallClockSeconds = nativeSecondsToWallClockSeconds
+VoiceDebugData._formatWallClockTime = formatWallClockTime
+VoiceDebugData._decorateOperationEntries = decorateOperationEntries
 
 return VoiceDebugData

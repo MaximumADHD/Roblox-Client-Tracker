@@ -195,13 +195,26 @@ exports.getInstanceFromNode = function(node): Fiber?
 		ReactWorkTags = ReactReconciler.ReactWorkTags
 
 		HostComponent = ReactWorkTags.HostComponent
-		HostText = ReactWorkTags.HostComponent
-		HostRoot = ReactWorkTags.HostComponent
-		SuspenseComponent = ReactWorkTags.HostComponent
+		if Shared.ReactFeatureFlags.fixGetInstanceFromNode then
+			HostText = ReactWorkTags.HostText
+			HostRoot = ReactWorkTags.HostRoot
+			SuspenseComponent = ReactWorkTags.SuspenseComponent
+		else
+			HostText = ReactWorkTags.HostComponent
+			HostRoot = ReactWorkTags.HostComponent
+			SuspenseComponent = ReactWorkTags.HostComponent
+		end
 	end
 
-	local inst = (node :: any)[internalInstanceKey]
-		or (node :: any)[internalContainerInstanceKey]
+	-- ROBLOX deviation: with ReactFixGetInstanceFromNode, fibers are looked up in
+	-- the maps they live in (indexing an Instance with an unknown key throws)
+	local inst
+	if Shared.ReactFeatureFlags.fixGetInstanceFromNode then
+		inst = instanceToFiber[node] or containerToRoot[node :: any]
+	else
+		inst = (node :: any)[internalInstanceKey]
+			or (node :: any)[internalContainerInstanceKey]
+	end
 	if inst then
 		if
 			inst.tag == HostComponent

@@ -13,11 +13,18 @@ type _Messages =
 		SettingsPageResponse: _SettingsPageResponseMessage,
 		SettingsPageResponse_TemplatesEntry: _SettingsPageResponse_TemplatesEntryMessage,
 		SettingsPageResponse_LocalizedLiteralsEntry: _SettingsPageResponse_LocalizedLiteralsEntryMessage,
+		FormAction: _FormActionMessage,
+		SaveSettingsFormRequest: _SaveSettingsFormRequestMessage,
+		FormWriteError: _FormWriteErrorMessage,
+		SaveSettingsFormResponse: _SaveSettingsFormResponseMessage,
 	}
 local messages: _Messages = {} :: _Messages
 
+local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
 local _roblox_apppageplatform_shared_v1beta1_client_capabilities =
 	require(script.Parent.Parent.Parent.shared.v1beta1.client_capabilities)
+local _roblox_apppageplatform_shared_v1beta1_config_driven_form_data =
+	require(script.Parent.Parent.Parent.shared.v1beta1.config_driven_form_data)
 local _roblox_apppageplatform_shared_v1beta1_hydration_content =
 	require(script.Parent.Parent.Parent.shared.v1beta1.hydration_content)
 local _roblox_apppageplatform_shared_v1beta1_page_entry_content =
@@ -170,6 +177,106 @@ type _SettingsPageResponse_LocalizedLiteralsEntryMessage = proto.Message<
 	SettingsPageResponse_LocalizedLiteralsEntry,
 	_SettingsPageResponse_LocalizedLiteralsEntryPartialFields
 >
+
+type _FormActionImpl = {
+	__index: _FormActionImpl,
+	new: (fields: _FormActionPartialFields?) -> FormAction,
+	encode: (self: FormAction) -> buffer,
+	decode: (input: buffer) -> FormAction,
+	jsonEncode: (self: FormAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FormAction,
+	descriptor: proto.Descriptor,
+}
+
+type _FormActionFields = {
+	name: string,
+	parameters: _google_protobuf_struct.Struct?,
+}
+
+type _FormActionPartialFields = {
+	name: string?,
+	parameters: _google_protobuf_struct.Struct?,
+}
+
+export type FormAction = typeof(setmetatable({} :: _FormActionFields, {} :: _FormActionImpl))
+type _FormActionMessage = proto.Message<FormAction, _FormActionPartialFields>
+
+type _SaveSettingsFormRequestImpl = {
+	__index: _SaveSettingsFormRequestImpl,
+	new: (fields: _SaveSettingsFormRequestPartialFields?) -> SaveSettingsFormRequest,
+	encode: (self: SaveSettingsFormRequest) -> buffer,
+	decode: (input: buffer) -> SaveSettingsFormRequest,
+	jsonEncode: (self: SaveSettingsFormRequest) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SaveSettingsFormRequest,
+	descriptor: proto.Descriptor,
+}
+
+type _SaveSettingsFormRequestFields = {
+	operation: ({ type: "diff", value: _google_protobuf_struct.Struct } | { type: "action", value: FormAction })?,
+}
+
+type _SaveSettingsFormRequestPartialFields = {
+	operation: ({ type: "diff", value: _google_protobuf_struct.Struct } | { type: "action", value: FormAction })?,
+}
+
+export type SaveSettingsFormRequest = typeof(setmetatable(
+	{} :: _SaveSettingsFormRequestFields,
+	{} :: _SaveSettingsFormRequestImpl
+))
+type _SaveSettingsFormRequestMessage = proto.Message<SaveSettingsFormRequest, _SaveSettingsFormRequestPartialFields>
+
+type _FormWriteErrorImpl = {
+	__index: _FormWriteErrorImpl,
+	new: (fields: _FormWriteErrorPartialFields?) -> FormWriteError,
+	encode: (self: FormWriteError) -> buffer,
+	decode: (input: buffer) -> FormWriteError,
+	jsonEncode: (self: FormWriteError) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FormWriteError,
+	descriptor: proto.Descriptor,
+}
+
+type _FormWriteErrorFields = {
+	name: string,
+	status: number,
+	message: string,
+}
+
+type _FormWriteErrorPartialFields = {
+	name: string?,
+	status: number?,
+	message: string?,
+}
+
+export type FormWriteError = typeof(setmetatable({} :: _FormWriteErrorFields, {} :: _FormWriteErrorImpl))
+type _FormWriteErrorMessage = proto.Message<FormWriteError, _FormWriteErrorPartialFields>
+
+type _SaveSettingsFormResponseImpl = {
+	__index: _SaveSettingsFormResponseImpl,
+	new: (fields: _SaveSettingsFormResponsePartialFields?) -> SaveSettingsFormResponse,
+	encode: (self: SaveSettingsFormResponse) -> buffer,
+	decode: (input: buffer) -> SaveSettingsFormResponse,
+	jsonEncode: (self: SaveSettingsFormResponse) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SaveSettingsFormResponse,
+	descriptor: proto.Descriptor,
+}
+
+type _SaveSettingsFormResponseFields = {
+	refreshed_data: _roblox_apppageplatform_shared_v1beta1_config_driven_form_data.ConfigDrivenFormInputData?,
+	committed_groups: { string },
+	write_errors: { FormWriteError },
+}
+
+type _SaveSettingsFormResponsePartialFields = {
+	refreshed_data: _roblox_apppageplatform_shared_v1beta1_config_driven_form_data.ConfigDrivenFormInputData?,
+	committed_groups: { string }?,
+	write_errors: { FormWriteError }?,
+}
+
+export type SaveSettingsFormResponse = typeof(setmetatable(
+	{} :: _SaveSettingsFormResponseFields,
+	{} :: _SaveSettingsFormResponseImpl
+))
+type _SaveSettingsFormResponseMessage = proto.Message<SaveSettingsFormResponse, _SaveSettingsFormResponsePartialFields>
 
 do
 	local _SettingsPageRequestImpl = {}
@@ -997,7 +1104,570 @@ do
 	typeRegistry.default:register(messages.SettingsPageResponse_LocalizedLiteralsEntry)
 end
 
+do
+	local _FormActionImpl = {}
+	_FormActionImpl.__index = _FormActionImpl
+
+	function _FormActionImpl.new(data: _FormActionPartialFields?): FormAction
+		return setmetatable({
+			name = if data == nil or data.name == nil then "" else data.name,
+			parameters = if data == nil or data.parameters == nil then nil else data.parameters,
+		}, _FormActionImpl :: _FormActionImpl)
+	end
+
+	function _FormActionImpl.encode(self: FormAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.name ~= nil and self.name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.name)
+		end
+
+		if self.parameters ~= nil then
+			local encoded = self.parameters:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FormActionImpl.decode(input: buffer): FormAction
+		local self = _FormActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.parameters = _google_protobuf_struct.Struct.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FormActionImpl.jsonEncode(self: FormAction): any
+		local output = {}
+
+		if self.name ~= nil and self.name ~= "" then
+			output.name = self.name
+		end
+
+		if self.parameters ~= nil then
+			output.parameters = self.parameters:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _FormActionImpl.jsonDecode(input: { [string]: any }): FormAction
+		local self = _FormActionImpl.new()
+
+		if input.name ~= nil then
+			self.name = input.name
+		end
+
+		if input.parameters ~= nil then
+			self.parameters = _google_protobuf_struct.Struct.jsonDecode(input.parameters)
+		end
+
+		return self
+	end
+
+	_FormActionImpl.descriptor = {
+		name = "FormAction",
+		fullName = "roblox.apppageplatform.settings.v1beta1.FormAction",
+	}
+
+	messages.FormAction = _FormActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FormAction)
+end
+
+do
+	local _SaveSettingsFormRequestImpl = {}
+	_SaveSettingsFormRequestImpl.__index = _SaveSettingsFormRequestImpl
+
+	function _SaveSettingsFormRequestImpl.new(data: _SaveSettingsFormRequestPartialFields?): SaveSettingsFormRequest
+		return setmetatable({
+			operation = if data == nil or data.operation == nil then nil else data.operation,
+		}, _SaveSettingsFormRequestImpl :: _SaveSettingsFormRequestImpl)
+	end
+
+	function _SaveSettingsFormRequestImpl.encode(self: SaveSettingsFormRequest): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.operation ~= nil then
+			if self.operation.type == "diff" then
+				local encoded = self.operation.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.operation.type == "action" then
+				local encoded = self.operation.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SaveSettingsFormRequestImpl.decode(input: buffer): SaveSettingsFormRequest
+		local self = _SaveSettingsFormRequestImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.operation = { type = "diff", value = _google_protobuf_struct.Struct.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.operation = { type = "action", value = messages.FormAction.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SaveSettingsFormRequestImpl.jsonEncode(self: SaveSettingsFormRequest): any
+		local output = {}
+
+		if self.operation ~= nil then
+			if self.operation.type == "diff" then
+				output.diff = self.operation.value:jsonEncode()
+			elseif self.operation.type == "action" then
+				output.action = self.operation.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _SaveSettingsFormRequestImpl.jsonDecode(input: { [string]: any }): SaveSettingsFormRequest
+		local self = _SaveSettingsFormRequestImpl.new()
+
+		if input.diff ~= nil then
+			self.operation = { type = "diff", value = _google_protobuf_struct.Struct.jsonDecode(input.diff) }
+		end
+
+		if input.action ~= nil then
+			self.operation = { type = "action", value = messages.FormAction.jsonDecode(input.action) }
+		end
+
+		return self
+	end
+
+	_SaveSettingsFormRequestImpl.descriptor = {
+		name = "SaveSettingsFormRequest",
+		fullName = "roblox.apppageplatform.settings.v1beta1.SaveSettingsFormRequest",
+	}
+
+	messages.SaveSettingsFormRequest = _SaveSettingsFormRequestImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SaveSettingsFormRequest)
+end
+
+do
+	local _FormWriteErrorImpl = {}
+	_FormWriteErrorImpl.__index = _FormWriteErrorImpl
+
+	function _FormWriteErrorImpl.new(data: _FormWriteErrorPartialFields?): FormWriteError
+		return setmetatable({
+			name = if data == nil or data.name == nil then "" else data.name,
+			status = if data == nil or data.status == nil then 0 else data.status,
+			message = if data == nil or data.message == nil then "" else data.message,
+		}, _FormWriteErrorImpl :: _FormWriteErrorImpl)
+	end
+
+	function _FormWriteErrorImpl.encode(self: FormWriteError): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.name ~= nil and self.name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.name)
+		end
+
+		if self.status ~= nil and self.status ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.status)
+		end
+
+		if self.message ~= nil and self.message ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.message)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FormWriteErrorImpl.decode(input: buffer): FormWriteError
+		local self = _FormWriteErrorImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.status = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.message = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FormWriteErrorImpl.jsonEncode(self: FormWriteError): any
+		local output = {}
+
+		if self.name ~= nil and self.name ~= "" then
+			output.name = self.name
+		end
+
+		if self.status ~= nil and self.status ~= 0 then
+			output.status = self.status
+		end
+
+		if self.message ~= nil and self.message ~= "" then
+			output.message = self.message
+		end
+
+		return output
+	end
+
+	function _FormWriteErrorImpl.jsonDecode(input: { [string]: any }): FormWriteError
+		local self = _FormWriteErrorImpl.new()
+
+		if input.name ~= nil then
+			self.name = input.name
+		end
+
+		if input.status ~= nil then
+			self.status = input.status
+		end
+
+		if input.message ~= nil then
+			self.message = input.message
+		end
+
+		return self
+	end
+
+	_FormWriteErrorImpl.descriptor = {
+		name = "FormWriteError",
+		fullName = "roblox.apppageplatform.settings.v1beta1.FormWriteError",
+	}
+
+	messages.FormWriteError = _FormWriteErrorImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FormWriteError)
+end
+
+do
+	local _SaveSettingsFormResponseImpl = {}
+	_SaveSettingsFormResponseImpl.__index = _SaveSettingsFormResponseImpl
+
+	function _SaveSettingsFormResponseImpl.new(data: _SaveSettingsFormResponsePartialFields?): SaveSettingsFormResponse
+		return setmetatable({
+			refreshed_data = if data == nil or data.refreshed_data == nil then nil else data.refreshed_data,
+			committed_groups = if data == nil or data.committed_groups == nil then {} else data.committed_groups,
+			write_errors = if data == nil or data.write_errors == nil then {} else data.write_errors,
+		}, _SaveSettingsFormResponseImpl :: _SaveSettingsFormResponseImpl)
+	end
+
+	function _SaveSettingsFormResponseImpl.encode(self: SaveSettingsFormResponse): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.refreshed_data ~= nil then
+			local encoded = self.refreshed_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.committed_groups ~= nil and #self.committed_groups > 0 then
+			for _, value in self.committed_groups do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.write_errors ~= nil and #self.write_errors > 0 then
+			for _, value in self.write_errors do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SaveSettingsFormResponseImpl.decode(input: buffer): SaveSettingsFormResponse
+		local self = _SaveSettingsFormResponseImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.refreshed_data =
+						_roblox_apppageplatform_shared_v1beta1_config_driven_form_data.ConfigDrivenFormInputData.decode(
+							value
+						)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.committed_groups, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.write_errors, messages.FormWriteError.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SaveSettingsFormResponseImpl.jsonEncode(self: SaveSettingsFormResponse): any
+		local output = {}
+
+		if self.refreshed_data ~= nil then
+			output.refreshedData = self.refreshed_data:jsonEncode()
+		end
+
+		if self.committed_groups ~= nil and #self.committed_groups > 0 then
+			local newOutput = {}
+			for _, value in self.committed_groups do
+				table.insert(newOutput, value)
+			end
+			output.committedGroups = newOutput
+		end
+
+		if self.write_errors ~= nil and #self.write_errors > 0 then
+			local newOutput = {}
+			for _, value in self.write_errors do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.writeErrors = newOutput
+		end
+
+		return output
+	end
+
+	function _SaveSettingsFormResponseImpl.jsonDecode(input: { [string]: any }): SaveSettingsFormResponse
+		local self = _SaveSettingsFormResponseImpl.new()
+
+		if input.refreshed_data ~= nil then
+			self.refreshed_data =
+				_roblox_apppageplatform_shared_v1beta1_config_driven_form_data.ConfigDrivenFormInputData.jsonDecode(
+					input.refreshed_data
+				)
+		end
+
+		if input.refreshedData ~= nil then
+			self.refreshed_data =
+				_roblox_apppageplatform_shared_v1beta1_config_driven_form_data.ConfigDrivenFormInputData.jsonDecode(
+					input.refreshedData
+				)
+		end
+
+		if input.committed_groups ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.committed_groups do
+				table.insert(newOutput, value)
+			end
+
+			self.committed_groups = newOutput
+		end
+
+		if input.committedGroups ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.committedGroups do
+				table.insert(newOutput, value)
+			end
+
+			self.committed_groups = newOutput
+		end
+
+		if input.write_errors ~= nil then
+			local newOutput: { FormWriteError } = {}
+			for _, value in input.write_errors do
+				table.insert(newOutput, messages.FormWriteError.jsonDecode(value))
+			end
+
+			self.write_errors = newOutput
+		end
+
+		if input.writeErrors ~= nil then
+			local newOutput: { FormWriteError } = {}
+			for _, value in input.writeErrors do
+				table.insert(newOutput, messages.FormWriteError.jsonDecode(value))
+			end
+
+			self.write_errors = newOutput
+		end
+
+		return self
+	end
+
+	_SaveSettingsFormResponseImpl.descriptor = {
+		name = "SaveSettingsFormResponse",
+		fullName = "roblox.apppageplatform.settings.v1beta1.SaveSettingsFormResponse",
+	}
+
+	messages.SaveSettingsFormResponse = _SaveSettingsFormResponseImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SaveSettingsFormResponse)
+end
+
 return {
 	SettingsPageRequest = messages.SettingsPageRequest,
 	SettingsPageResponse = messages.SettingsPageResponse,
+	FormAction = messages.FormAction,
+	SaveSettingsFormRequest = messages.SaveSettingsFormRequest,
+	FormWriteError = messages.FormWriteError,
+	SaveSettingsFormResponse = messages.SaveSettingsFormResponse,
 }

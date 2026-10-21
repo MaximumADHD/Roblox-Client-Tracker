@@ -239,7 +239,15 @@ flushSyncCallbackQueueImpl = function()
 						end
 					end
 				)
-				syncQueue = nil
+				if ReactFeatureFlags.keepSyncQueueOnError then
+					-- Only drop the queue on success: on error the remaining callbacks must
+					-- stay queued for the retry below.
+					if ok then
+						syncQueue = nil
+					end
+				else
+					syncQueue = nil
+				end
 			else
 				ok = true
 				local isSync = true
@@ -299,7 +307,15 @@ flushSyncCallbackQueueImpl = function()
 						end
 					end
 				)
-				syncQueue = nil
+				if ReactFeatureFlags.keepSyncQueueOnError then
+					-- Only drop the queue on success: on error the remaining callbacks must
+					-- stay queued for the retry below.
+					if ok then
+						syncQueue = nil
+					end
+				else
+					syncQueue = nil
+				end
 			else
 				ok = true
 				local isSync = true

@@ -7,7 +7,6 @@ local CurveAnimationHierarchyUtils = require(root.util.CurveAnimationHierarchyUt
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 local CurveAnimTranslationUtils = require(root.util.CurveAnimTranslationUtils)
 
-local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 local getFFlagUGCValidateAnimPartsRotationOnly = require(root.flags.getFFlagUGCValidateAnimPartsRotationOnly)
 local getFFlagUGCValidateAnimTranslationThreshold = require(root.flags.getFFlagUGCValidateAnimTranslationThreshold)
 local FIntUGCValidateBodyPartTranslationMaxDistanceHundredths =
@@ -28,9 +27,6 @@ if getFFlagUGCValidateAnimPartsRotationOnly() then
 	CurveAnimPartsRotateOnlyIfBones.conditionalData = {}
 else
 	CurveAnimPartsRotateOnlyIfBones.conditionalData = { ValidationEnums.SharedDataMember.curveAnimBoneData }
-end
-CurveAnimPartsRotateOnlyIfBones.fflag = function()
-	return getFFlagUGCValidateEmotesBonesAllowed() or getFFlagUGCValidateAnimPartsRotationOnly()
 end
 CurveAnimPartsRotateOnlyIfBones.expectedFailures = {}
 CurveAnimPartsRotateOnlyIfBones.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }

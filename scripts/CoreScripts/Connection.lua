@@ -155,6 +155,14 @@ if useLeaveGameHelper then
 	leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 end
 
+local FFlagConnectionRelaunchBuildPlaytest =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionRelaunchBuildPlaytest
+
+local playtestReconnect
+if FFlagConnectionRelaunchBuildPlaytest then
+	playtestReconnect = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.playtestReconnect)
+end
+
 local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError2", false)
 local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
 	game:GetEngineFeature("PlacelaunchCollaborationCoreGatedConnectionError")
@@ -362,6 +370,13 @@ local reconnectFunction = function()
 	AnalyticsService:ReportCounter("ReconnectPrompt-ReconnectActivated")
 	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
 	errorPrompt:primaryShimmerPlay()
+
+	local relaunchPlaceId = if FFlagConnectionRelaunchBuildPlaytest then playtestReconnect.getRelaunchPlaceId() else nil
+	if relaunchPlaceId ~= nil then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectBuildPlaytestRelaunch"}}, 1.0)
+		playtestReconnect.relaunch(relaunchPlaceId)
+		return
+	end
 
 	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ReconnectSameServer"}}, 1.0)
 	TeleportService:TeleportReconnect()
@@ -1065,6 +1080,10 @@ local function stateTransit(errorType, errorCode, oldState)
 			end
 			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "Disconnected"}}, 1.0)
 			AnalyticsService:ReportCounter("ReconnectPrompt-Disconnect")
+			-- Auto-reconnect retries TeleportReconnect, which cannot rejoin a team test server.
+			if FFlagConnectionRelaunchBuildPlaytest and playtestReconnect.getRelaunchPlaceId() ~= nil then
+				return ConnectionPromptState.RECONNECT_DISCONNECT
+			end
 			if FFlagConnectionEnableAutoReconnect and autoReconnectAllowedList[errorCode] then
 				return ConnectionPromptState.AUTO_RECONNECTING
 			end

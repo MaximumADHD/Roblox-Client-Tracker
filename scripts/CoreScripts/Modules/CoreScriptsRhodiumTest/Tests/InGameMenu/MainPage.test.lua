@@ -34,10 +34,28 @@ local act = require(CorePackages.Packages.Roact).act
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
-
-local TestConstants = require(script.Parent.TestConstants)
+local waitForIGMPage = require(Modules.CoreScriptsRhodiumTest.TestHelpers["waitForIGMPage.test"])
+local TestUtils = require(CorePackages.Workspace.Packages.TestUtils)
+local waitForEvents = TestUtils.DeferredLuaHelpers.waitForEvents
+local waitUntil = TestUtils.waitUntil
 
 local c
+
+-- ContextualMenu hides its frame only when its Otter spring rests at the closed goal.
+local function waitForMenuVisible(contextualMenu, visible)
+	waitUntil(function()
+		return contextualMenu.Visible == visible
+	end, 5)
+	expect(contextualMenu.Visible).toBe(visible)
+end
+
+local function waitForMenuOpened(contextualMenu)
+	local baseMenu = contextualMenu:FindFirstChild("BaseMenu", true)
+	waitUntil(function()
+		return baseMenu.Position.Y.Scale == 0
+	end, 5)
+	expect(contextualMenu.Visible).toBe(true)
+end
 
 beforeEach(function()
 	c = {}
@@ -66,9 +84,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.mouseClick = function(target)
@@ -76,9 +92,7 @@ beforeEach(function()
 			target:click()
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.keyboardInput = function(input)
@@ -86,9 +100,7 @@ beforeEach(function()
 			Rhodium.VirtualInput.Keyboard.hitKey(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 
@@ -151,9 +163,7 @@ describe("In-Game Menu main page focus handoffs", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, Constants.MainPagePageKey)
 
 		local originalPath = XPath.new(path)
 		local playersButtonPath =
@@ -228,22 +238,14 @@ describe("In-Game Menu main page focus handoffs", function()
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
 
-		act(function()
-			wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-		end)
+		waitForIGMPage(c.path, Constants.MainPagePageKey)
 
 		expect(store:getState().currentZone).toBe(1)
 
-		act(function()
-			c.gamepadInput(Enum.KeyCode.DPadLeft)
-			wait()
-		end)
+		c.gamepadInput(Enum.KeyCode.DPadLeft)
 		expect(store:getState().currentZone).toBe(0)
 
-		act(function()
-			c.gamepadInput(Enum.KeyCode.DPadRight)
-			wait()
-		end)
+		c.gamepadInput(Enum.KeyCode.DPadRight)
 		expect(store:getState().currentZone).toBe(1)
 	end)
 
@@ -271,9 +273,7 @@ describe("MainPage's 'more' menu", function()
 		local path = c.path
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-		act(function()
-			wait(TestConstants.PageAnimationDuration)
-		end)
+		waitForIGMPage(c.path, Constants.MainPagePageKey)
 
 		local originalPath = XPath.new(path)
 		local moreMenuButtonPath =
@@ -288,22 +288,17 @@ describe("MainPage's 'more' menu", function()
 
 		-- Open the menu
 		c.mouseClick(moreMenuButtonElement)
-		expect(contextualMenu.Visible).toBe(true)
+		waitForMenuVisible(contextualMenu, true)
 
 		-- MoreButton is obscured while open; click the actual dismiss target so
 		-- input cannot land on an animating menu action.
 		contextualMenuBackgroundElement:setAnchor(100, 100)
 		c.mouseClick(contextualMenuBackgroundElement)
-
-		local DELAY_FOR_ANIMATION_AND_REFOCUS = 1 -- closing menu takes longer to animate
-		act(function()
-			wait(DELAY_FOR_ANIMATION_AND_REFOCUS)
-		end)
-		expect(contextualMenu.Visible).toBe(false)
+		waitForMenuVisible(contextualMenu, false)
 
 		-- Reopen menu
 		c.mouseClick(moreMenuButtonElement)
-		expect(contextualMenu.Visible).toBe(true)
+		waitForMenuVisible(contextualMenu, true)
 	end)
 
 	it("Should open when clicking the ellipsis button, and close when pressing B", function()
@@ -317,9 +312,7 @@ describe("MainPage's 'more' menu", function()
 
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, Constants.MainPagePageKey)
 
 		local originalPath = XPath.new(path)
 		local moreMenuButtonPath =
@@ -335,9 +328,7 @@ describe("MainPage's 'more' menu", function()
 			:FindFirstChildWhichIsA("ImageButton", true)
 
 		GuiService.SelectedCoreObject = moreMenuButton
-		act(function()
-			wait(0.2)
-		end)
+		waitForEvents.act()
 
 		-- Opening the menu
 		c.gamepadInput(Enum.KeyCode.ButtonA)
@@ -356,9 +347,7 @@ describe("MainPage's 'more' menu", function()
 		local path = c.path
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, Constants.MainPagePageKey)
 
 		local originalPath = XPath.new(path)
 		local moreMenuButtonPath =
@@ -374,21 +363,13 @@ describe("MainPage's 'more' menu", function()
 		expect(contextualMenu.Visible).toBe(false)
 		-- Opening the menu
 		GuiService.SelectedCoreObject = moreMenuButton
-		act(function()
-			wait(0.2)
-		end)
+		waitForEvents.act()
 		c.gamepadInput(Enum.KeyCode.ButtonA)
-
-		expect(contextualMenu.Visible).toBe(true)
+		waitForMenuVisible(contextualMenu, true)
 
 		-- Switching page closes the menu
 		c.gamepadInput(Enum.KeyCode.ButtonX)
-
-		--  UI change is delayed by an animation
-		act(function()
-			wait(1)
-		end)
-		expect(contextualMenu.Visible).toBe(false)
+		waitForMenuVisible(contextualMenu, false)
 	end)
 
 	it("Should close when Respawn opens", function()
@@ -396,9 +377,7 @@ describe("MainPage's 'more' menu", function()
 		local path = c.path
 		c.storeUpdate(SetMenuOpen(true))
 		c.storeUpdate(SetCurrentPage(Constants.MainPagePageKey))
-		act(function()
-			wait()
-		end)
+		waitForIGMPage(c.path, Constants.MainPagePageKey)
 
 		local originalPath = XPath.new(path)
 		local moreMenuButtonPath =
@@ -412,21 +391,13 @@ describe("MainPage's 'more' menu", function()
 
 		-- Opening the menu
 		GuiService.SelectedCoreObject = moreMenuButton
-		act(function()
-			wait(0.2)
-		end)
+		waitForEvents.act()
 		c.gamepadInput(Enum.KeyCode.ButtonA)
-
-		expect(contextualMenu.Visible).toBe(true)
+		waitForMenuVisible(contextualMenu, true)
 
 		-- Switching page closes the menu
 		c.gamepadInput(Enum.KeyCode.ButtonY)
-
-		--  UI change is delayed by an animation
-		act(function()
-			wait(1)
-		end)
-		expect(contextualMenu.Visible).toBe(false)
+		waitForMenuVisible(contextualMenu, false)
 	end)
 end)
 
@@ -493,12 +464,10 @@ describe("In-Game Menu Shortcuts", function()
 
 		c.gamepadInput(Enum.KeyCode.ButtonL3)
 
-		expect(contextualMenu.Visible).toBe(true)
+		waitForMenuOpened(contextualMenu)
 		expect(tostring(GuiService.SelectedCoreObject)).toBe("Cell") -- Highlights more menu
-		wait(3) -- wait for animation
 		c.gamepadInput(Enum.KeyCode.ButtonL3)
-		wait(3) -- wait for animation
-		expect(contextualMenu.Visible).toBe(false)
+		waitForMenuVisible(contextualMenu, false)
 		if GetFFlagIGMGamepadSelectionHistory() then
 			-- Remembers to highlight previously highlighted Players option
 			expect(tostring(GuiService.SelectedCoreObject)).toBe("PagePlayers")

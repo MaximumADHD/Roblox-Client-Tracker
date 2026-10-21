@@ -19,6 +19,26 @@ local isNodeBlock = require(script.Parent.Parent.isNodeBlock)
 
 local module = {}
 
+-- CommonMark strips the leading spaces and tabs of a paragraph's content and ignores spaces at the
+-- beginning of the line after a hard line break. Trim them from the TEXT node at the start of the
+-- content, when atStart is set, and from any TEXT node that follows a hard line break (a BREAK whose
+-- source ends the line, unlike an inline <br> tag). Text that is left empty is dropped.
+local function trimLeadingWhitespace(children: { Node }, atStart: boolean): { Node }
+	local trimmed = {}
+	local trimNext = atStart
+	for _, child in children do
+		if trimNext and child.name == "TEXT" and child.text then
+			child.text = child.text:gsub("^[ \t]+", "")
+			if #child.text == 0 then
+				continue
+			end
+		end
+		trimNext = child.name == "BREAK" and child.text ~= nil and string.sub(child.text, -1) == "\n"
+		insert(trimmed, child)
+	end
+	return trimmed
+end
+
 -- Clean up the AST output: group lists & tables correctly, output paragraphs and rich-text
 function module.postProcessTree(node: Node, options: ParserOptions): { Node }
 	local children = {}
@@ -59,6 +79,12 @@ function module.postProcessTree(node: Node, options: ParserOptions): { Node }
 			insert(children, tableNode)
 			assert(count > 0, "Did not find a table row node when expected")
 			i += count
+		elseif child.name == "QUOTE" then
+			-- Merge consecutive quote lines into a single quote node
+			local count, quoteNode = module.buildQuote(nodes, i, options)
+			insert(children, quoteNode)
+			assert(count > 0, "Did not find a quote node when expected")
+			i += count
 		elseif child.name == "LINE_BREAK" then
 			-- Drop line break token now that we've used them to separate paragraphs
 			i += 1
@@ -70,6 +96,7 @@ function module.postProcessTree(node: Node, options: ParserOptions): { Node }
 		end
 	end
 	if isNodeBlock(node) then
+		children = trimLeadingWhitespace(children, false)
 		-- Strip leading space and trailing space in a block
 		local firstChild = children[1]
 		if firstChild and firstChild.text then
@@ -115,7 +142,8 @@ function module.buildParagraph(
 			if node.attributes and node.attributes.style == "INLINE_CODE" then
 				node.children = module.applyCodeSpanRules(paragraphNode.children)
 			else
-				node.children = paragraphNode.children
+				-- Keep the span's own leading space, but trim the line after a hard break inside it.
+				node.children = trimLeadingWhitespace(paragraphNode.children, false)
 			end
 			insert(children, node)
 			count += 1
@@ -127,6 +155,11 @@ function module.buildParagraph(
 		else
 			break
 		end
+	end
+	if not includeWhitespace then
+		-- Text right after a block tag continues the same source line, so its leading space is kept.
+		local previous = nodes[offset - 1]
+		children = trimLeadingWhitespace(children, not (previous and previous.name == "TAG"))
 	end
 	return count,
 		{
@@ -190,6 +223,63 @@ function module.buildList(nodes: { Node }, offset: number, options: ParserOption
 			offset = nodes[offset].offset,
 			type = getNodeType("LIST", options),
 		}
+end
+
+local function isEmptyQuoteLine(lineChildren: { Node }): boolean
+	for _, child in lineChildren do
+		if child.name ~= "TEXT" or (child.text and #child.text > 0) then
+			return false
+		end
+	end
+	return true
+end
+
+-- Each quote line is tokenized as its own QUOTE node. Merge a run of consecutive QUOTE siblings into one QUOTE node
+-- (a blank line between them produces a LINE_BREAK sibling, which ends the run). The inline content of each line is
+-- kept, separated by BREAK nodes, so every source line still renders on its own visual line.
+function module.buildQuote(nodes: { Node }, offset: number, options: ParserOptions): (number, Node)
+	local count = 0
+	local lines: { { node: Node, children: { Node } } } = {}
+	local i = offset
+	while i <= #nodes and nodes[i].name == "QUOTE" do
+		local line = nodes[i]
+		insert(lines, { node = line, children = module.postProcessTree(line, options) })
+		count += 1
+		i += 1
+	end
+
+	-- Drop empty lines at the start and end of the quote
+	local first, last = 1, #lines
+	while first <= last and isEmptyQuoteLine(lines[first].children) do
+		first += 1
+	end
+	while last >= first and isEmptyQuoteLine(lines[last].children) do
+		last -= 1
+	end
+
+	local children: { Node } = {}
+	for lineIndex = first, last do
+		local line = lines[lineIndex]
+		if lineIndex > first then
+			-- The break sits at the newline that starts this line
+			insert(children, {
+				name = "BREAK",
+				children = {},
+				offset = line.node.offset,
+				type = getNodeType("BREAK", options),
+			})
+		end
+		for _, child in line.children do
+			-- Drop text left empty after whitespace trimming
+			if not (child.name == "TEXT" and child.text == "") then
+				insert(children, child)
+			end
+		end
+	end
+
+	local quoteNode = nodes[offset]
+	quoteNode.children = children
+	return count, quoteNode
 end
 
 function module.buildTable(nodes: { Node }, offset: number, options: ParserOptions): (number, Node)

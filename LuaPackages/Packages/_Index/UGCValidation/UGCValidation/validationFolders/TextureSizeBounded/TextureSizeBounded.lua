@@ -8,8 +8,6 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 
-local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
-
 local TextureSizeBounded = {}
 
 TextureSizeBounded.categories = {
@@ -116,10 +114,7 @@ TextureSizeBounded.run = function(reporter: Types.ValidationReporter, data: Type
 				continue
 			end
 
-			local mapNames = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
-			if getFFlagUGCValidateAllowEmissives() then
-				table.insert(mapNames, "EmissiveMask")
-			end
+			local mapNames = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap", "EmissiveMask" }
 			for _, mapName in mapNames do
 				local mapData = (textureData :: any)[mapName]
 				if mapData and mapData.editable then

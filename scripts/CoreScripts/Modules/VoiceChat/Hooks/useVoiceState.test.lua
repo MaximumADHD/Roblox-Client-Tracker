@@ -193,7 +193,8 @@ describe("useVoiceState", function()
 		app.render({
 			voiceEnabled = true,
 		})
-		task.wait(0.1) -- need to wait for event bindings
+		-- The hook binds its events after the render
+		waitForEvents.act()
 
 		ReactRoblox.act(function()
 			doPlayerJoin(players[1])

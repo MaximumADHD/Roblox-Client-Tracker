@@ -71,10 +71,12 @@ end
 function module.getTokenNameFromCharAndLength(char: DelimiterChar, length: number): DelimiterName
 	if char == "`" then
 		return "INLINE_CODE"
+	elseif char == "~" then
+		return "STRIKE"
 	elseif length == 2 then
 		return if char == "*" then "BOLD_2" else "ITALIC_2"
 	else
-		return if char == "*" then "BOLD" elseif char == "~" then "STRIKE" else "ITALIC"
+		return if char == "*" then "BOLD" else "ITALIC"
 	end
 end
 

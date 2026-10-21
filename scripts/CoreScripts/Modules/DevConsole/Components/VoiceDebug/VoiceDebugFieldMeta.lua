@@ -1,17 +1,55 @@
+export type SeverityLevel = "ok" | "warn" | "error"
+
+export type FieldThresholds = {
+	warn: number,
+	error: number,
+}
+
 export type FieldMeta = {
 	label: string,
 	unit: string?,
 	plottable: boolean?,
-	warnAt: number?,
+	thresholds: FieldThresholds?,
 	group: string?,
 }
 
-local VoiceDebugFieldMeta: { [string]: FieldMeta } = {
+local RTT_THRESHOLDS: FieldThresholds = { warn = 150, error = 300 }
+local JITTER_THRESHOLDS: FieldThresholds = { warn = 30, error = 50 }
+local JITTER_BUFFER_DELAY_THRESHOLDS: FieldThresholds = { warn = 60, error = 150 }
+local LOSS_PERCENT_THRESHOLDS: FieldThresholds = { warn = 3, error = math.huge }
+
+-- Explicit `getFieldSeverity` property alongside the indexer: without it, Luau treats the
+-- function assignment below as an indexed write and requires it to conform to FieldMeta.
+type VoiceDebugFieldMetaTable = {
+	[string]: FieldMeta,
+	getFieldSeverity: (key: string, value: any) -> SeverityLevel?,
+}
+
+-- Forward-declared so getFieldSeverity can close over it; assigned once below, alongside the
+-- rest of the table literal, so the required getFieldSeverity field is never observably missing.
+local VoiceDebugFieldMeta: VoiceDebugFieldMetaTable
+
+local function getFieldSeverity(key: string, value: any): SeverityLevel?
+	local meta = VoiceDebugFieldMeta[key]
+	local thresholds = meta and meta.thresholds
+	if not thresholds or type(value) ~= "number" then
+		return nil
+	end
+	if value >= thresholds.error then
+		return "error"
+	end
+	if value >= thresholds.warn then
+		return "warn"
+	end
+	return "ok"
+end
+
+VoiceDebugFieldMeta = {
 	rttMs = {
 		label = "Round-trip time",
 		unit = "ms",
 		plottable = true,
-		warnAt = 30,
+		thresholds = RTT_THRESHOLDS,
 		group = "Connection",
 	},
 	incomingStreams = {
@@ -26,13 +64,14 @@ local VoiceDebugFieldMeta: { [string]: FieldMeta } = {
 		label = "Incoming jitter",
 		unit = "ms",
 		plottable = true,
-		warnAt = 5,
+		thresholds = JITTER_THRESHOLDS,
 		group = "Incoming",
 	},
 	outgoingJitterMs = {
 		label = "Outgoing jitter",
 		unit = "ms",
 		plottable = true,
+		thresholds = JITTER_THRESHOLDS,
 		group = "Outgoing",
 	},
 	incomingPackets = {
@@ -62,6 +101,7 @@ local VoiceDebugFieldMeta: { [string]: FieldMeta } = {
 	jitterBufferDelayMs = {
 		label = "Jitter buffer delay",
 		unit = "ms",
+		thresholds = JITTER_BUFFER_DELAY_THRESHOLDS,
 		group = "Incoming",
 	},
 	incomingFecPackets = {
@@ -72,6 +112,10 @@ local VoiceDebugFieldMeta: { [string]: FieldMeta } = {
 		label = "Incoming FEC packets discarded",
 		group = "Incoming",
 	},
+	totalConcealmentEvents = {
+		label = "Concealment events",
+		group = "Incoming",
+	},
 	incomingBytes = {
 		label = "Incoming bytes",
 		group = "Incoming",
@@ -79,6 +123,17 @@ local VoiceDebugFieldMeta: { [string]: FieldMeta } = {
 	outgoingBytes = {
 		label = "Outgoing bytes",
 		group = "Outgoing",
+	},
+
+	lastPublisherAudioLevelDbov = {
+		label = "Publisher audio level",
+		unit = "dBov",
+		group = "Outgoing",
+	},
+	lastSubscriberAudioLevelDbov = {
+		label = "Subscriber audio level",
+		unit = "dBov",
+		group = "Incoming",
 	},
 
 	incomingBitrateKbps = {
@@ -102,9 +157,11 @@ local VoiceDebugFieldMeta: { [string]: FieldMeta } = {
 		label = "Incoming loss",
 		unit = "%",
 		plottable = true,
-		warnAt = 3,
+		thresholds = LOSS_PERCENT_THRESHOLDS,
 		group = "Incoming",
 	},
+
+	getFieldSeverity = getFieldSeverity,
 }
 
 return VoiceDebugFieldMeta

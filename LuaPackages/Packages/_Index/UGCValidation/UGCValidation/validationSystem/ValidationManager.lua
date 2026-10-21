@@ -17,6 +17,7 @@ local ValidationModuleLoader = require(root.validationSystem.ValidationModuleLoa
 local Constants = require(root.Constants)
 local ValidationTestWrapper = require(root.validationSystem.ValidationTestWrapper)
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
+local FetchContentIds = require(root.validationSystem.dataFetchModules.FetchContentIds)
 local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
 local stripMeshFromGltf = require(root.util.stripMeshFromGltf)
@@ -28,6 +29,8 @@ local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
 	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
 local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
 local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
+local getEngineFeatureEngineDebugUGCValidationViaLocalRCC =
+	require(root.flags.getEngineFeatureEngineDebugUGCValidationViaLocalRCC)
 local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
 	require(root.flags.getEngineFeatureEngineUGCValidateEmoteAnimationExport)
 
@@ -54,6 +57,9 @@ local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
 
 local getFIntUGCValidationFetchQualityMaxRetry = require(root.flags.getFIntUGCValidationFetchQualityMaxRetry)
+local getEngineFeatureEngineAssetQualityV2SummaryFromUrl =
+	require(root.flags.getEngineFeatureEngineAssetQualityV2SummaryFromUrl)
+local getFIntUGCValidationFetchQualityRetryDelayMs = require(root.flags.getFIntUGCValidationFetchQualityRetryDelayMs)
 
 local ValidationManager = {}
 local consumersThatCannotYield = {
@@ -78,6 +84,13 @@ local SOURCE_TO_ENV: { [Types.UGCValidationConsumerName]: Types.ConsumerEnv } = 
 }
 
 local AssetQualityFetchStatus = ValidationEnums.AssetQualityFetchStatus
+-- Modules that call RCC-only backend APIs, which a locally run RCC can't reach.
+local LOCAL_RCC_UNSUPPORTED_MODULES: { [string]: boolean }? = if getEngineFeatureEngineDebugUGCValidationViaLocalRCC()
+	then {
+		[ValidationEnums.ValidationModule.DescendantIdsAllowed] = true,
+		[ValidationEnums.ValidationModule.DescendantIdsPublished] = true,
+	}
+	else nil
 
 local function initRunVariables(
 	uploadCategory: string,
@@ -188,13 +201,19 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 	end
 
 	if success then
+		local retryDelayMs = getFIntUGCValidationFetchQualityRetryDelayMs()
 		for iter = 1, 1 + getFIntUGCValidationFetchQualityMaxRetry() do
+			if iter > 1 and retryDelayMs > 0 then
+				task.wait(retryDelayMs / 1000)
+			end
 			success, errors = pcall(function()
 				sharedData.aqsFetchMetrics.fetchAttemptCount = iter
 				local startTime = os.clock()
 				local results
 				if sharedData.consumerConfig.aqFetchStage == "jobId" then
-					local jobId = sharedData.consumerConfig.aqFetchData
+					local jobId = if getEngineFeatureEngineAssetQualityV2SummaryFromUrl()
+						then sharedData.consumerConfig.aqJobId
+						else sharedData.consumerConfig.aqFetchData
 					-- Under full VaaS a provided jobId is already resolved, so trust it via the direct V2 fetch; V1 covers the no-jobId / pre-VaaS path.
 					if getFFlagUGCValidationAllowFullVaas() and jobId ~= nil and jobId ~= "" then
 						results = (AssetQualityService :: any):FetchAssetQualitySummaryFromJobIdV2Async(
@@ -207,6 +226,12 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 							qualityTests
 						)
 					end
+				elseif sharedData.consumerConfig.aqFetchStage == "summaryUrl" then
+					results = (AssetQualityService :: any):FetchAssetQualitySummaryFromUrlAsync(
+						sharedData.consumerConfig.aqSummaryUrl,
+						sharedData.consumerConfig.aqJobId,
+						qualityTests
+					)
 				else
 					results = AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfString, qualityTests)
 				end
@@ -409,7 +434,14 @@ local function createConsumerConfigWithDefaults(
 	newConfigs.preloadedEditableMeshes = newConfigs.preloadedEditableMeshes or {}
 	newConfigs.preloadedEditableImages = newConfigs.preloadedEditableImages or {}
 	newConfigs.preloadedHsrAssets = newConfigs.preloadedHsrAssets or {}
+	newConfigs.preloadedCurveAnimations = newConfigs.preloadedCurveAnimations or {}
 	newConfigs.skipModules = newConfigs.skipModules or {}
+	if LOCAL_RCC_UNSUPPORTED_MODULES then
+		newConfigs.skipModules = table.clone(newConfigs.skipModules)
+		for testEnum in LOCAL_RCC_UNSUPPORTED_MODULES do
+			newConfigs.skipModules[testEnum] = true
+		end
+	end
 	newConfigs.skipAssetQualityChecks = newConfigs.skipAssetQualityChecks or false
 	newConfigs.skipPhysicsDataReset = newConfigs.skipPhysicsDataReset or false
 	newConfigs.isVaaS = newConfigs.isVaaS or false
@@ -430,9 +462,24 @@ local function createConsumerConfigWithDefaults(
 
 	newConfigs.aqFetchStage = newConfigs.aqFetchStage or "scene"
 	newConfigs.aqFetchData = newConfigs.aqFetchData or ""
+	local aqFetchStageData = newConfigs.aqFetchData
+	if getEngineFeatureEngineAssetQualityV2SummaryFromUrl() then
+		newConfigs.aqJobId = newConfigs.aqJobId or ""
+		newConfigs.aqSummaryUrl = newConfigs.aqSummaryUrl or ""
+		if newConfigs.aqFetchStage == "jobId" then
+			aqFetchStageData = newConfigs.aqJobId
+		elseif newConfigs.aqFetchStage == "summaryUrl" then
+			aqFetchStageData = newConfigs.aqSummaryUrl
+		end
+	else
+		assert(
+			newConfigs.aqFetchStage ~= "summaryUrl",
+			`aqFetchStage "summaryUrl" requires EngineAssetQualityV2SummaryFromUrl`
+		)
+	end
 	assert(
-		(newConfigs.aqFetchStage == "scene") == (newConfigs.aqFetchData == ""),
-		`aqFetchData must be non-empty iff aqFetchStage is "gltf" or "jobId" (got stage="{newConfigs.aqFetchStage}")`
+		(newConfigs.aqFetchStage == "scene") == (aqFetchStageData == ""),
+		`aqFetchData/aqJobId/aqSummaryUrl (per stage) must be non-empty iff aqFetchStage is not "scene" (got stage="{newConfigs.aqFetchStage}")`
 	)
 
 	return newConfigs :: Types.PreloadedConsumerConfigs
@@ -478,7 +525,10 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 	sharedData.uploadCategory = uploadCategory
 	sharedData.aqsFetchMetrics = {
 		fetchStatus = AssetQualityFetchStatus.assetQualityFetchNA,
-		aqJobId = if configs.aqFetchStage == "jobId" then configs.aqFetchData else nil,
+		aqJobId = if getEngineFeatureEngineAssetQualityV2SummaryFromUrl()
+			then configs.aqJobId
+			elseif configs.aqFetchStage == "jobId" then configs.aqFetchData
+			else nil,
 	}
 
 	-- Step 3: Run schema check based on upload category. If schema is wrong, no point in any validations
@@ -492,6 +542,22 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 		return results
 	end
 
+	-- RCC can't download drafts, and the physics reset below throws on a failed download, so check for drafts first. An
+	-- enforced failure ends validation here; a shadow run's state isn't recorded, so it carries on.
+	local draftsTest = ValidationEnums.ValidationModule.DescendantIdsPublished
+	if desiredValidations[draftsTest] then
+		sharedData.contentIds = FetchContentIds.getData(sharedData)
+		local draftsResults = ValidationTestWrapper(draftsTest, sharedData, results.states)
+		updateResultData(results, desiredValidations, draftsResults, sharedData.jobId, configs.enforceShadowValidations)
+		local draftsState = results.states[draftsTest]
+		if draftsState ~= nil and draftsState ~= ValidationEnums.Status.PASS then
+			populateRelevantSourceStrings(results)
+			results.aqJobId = sharedData.aqsFetchMetrics.aqJobId or ""
+			reportFullResult(results, sharedData, 1000 * (os.clock() - startTime))
+			return results
+		end
+	end
+
 	-- Anti-tamper: reset MeshPart physics before any .Size check; let a backend load failure throw rather than validate tampered bounds.
 	if
 		getFFlagUGCValidationAllowFullVaas()
@@ -502,7 +568,7 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 	end
 
 	-- A VaaS job keeps source=InExp* but executes on the RCC backend, which has no ambient heartbeat, so it must yield
-	-- like a backend consumer (sync fetch + manual RunService pump, no task.wait). Capability-gated on validationEnv.
+	-- like a backend consumer (sync fetch inside a manual RunService pump, no task.wait outside it). Capability-gated on validationEnv.
 	local cannotYield = consumersThatCannotYield[configs.source]
 		or configs.validationEnv == ValidationEnums.ValidationEnv.Backend
 

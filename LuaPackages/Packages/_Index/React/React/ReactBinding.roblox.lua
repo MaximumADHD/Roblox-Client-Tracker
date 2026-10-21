@@ -26,6 +26,8 @@ type BindingUpdater<T> = ReactTypes.ReactBindingUpdater<T>
 
 local Symbol = LuauPolyfill.Symbol
 local createSignal = require(script.Parent["createSignal.roblox"])
+local enableAllocationTrims =
+	require(Packages.Shared).ReactFeatureFlags.enableAllocationTrims
 
 local BindingImpl = Symbol("BindingImpl")
 
@@ -63,19 +65,94 @@ local BindingPublicMeta = {
 	end,
 }
 
+-- ROBLOX performance: with allocation trims, bindings made by create() share
+-- these methods rather than allocating closures per binding, and only create
+-- their signal on the first subscribe; most refs are never subscribed to
+local baseImplPrototype = {}
+
+function baseImplPrototype.getValue(impl: any): any
+	return impl.value
+end
+
+function baseImplPrototype.update(impl: any, newValue: any)
+	impl.value = newValue
+	local fire = impl.fire
+	if fire ~= nil then
+		fire(newValue)
+	end
+end
+
+function baseImplPrototype.subscribe(impl: any, callback: (any) -> ())
+	local subscribe = impl.subscribeToSignal
+	if subscribe == nil then
+		subscribe, impl.fire = createSignal()
+		impl.subscribeToSignal = subscribe
+	end
+	return subscribe(callback)
+end
+
+local BaseImplMeta = { __index = baseImplPrototype }
+
 function BindingInternalApi.update<T>(binding: any, newValue: T)
-	return (binding[BindingImpl] :: BindingInternal<T>).update(newValue)
+	if enableAllocationTrims then
+		local impl = binding[BindingImpl] :: BindingInternal<T>
+		if getmetatable(impl :: any) == BaseImplMeta then
+			return baseImplPrototype.update(impl, newValue)
+		end
+		return impl.update(newValue)
+	else
+		return (binding[BindingImpl] :: BindingInternal<T>).update(newValue)
+	end
 end
 
 function BindingInternalApi.subscribe<T>(binding: any, callback: (T) -> ())
-	return (binding[BindingImpl] :: BindingInternal<T>).subscribe(callback)
+	if enableAllocationTrims then
+		local impl = binding[BindingImpl] :: BindingInternal<T>
+		if getmetatable(impl :: any) == BaseImplMeta then
+			return baseImplPrototype.subscribe(impl, callback)
+		end
+		return impl.subscribe(callback)
+	else
+		return (binding[BindingImpl] :: BindingInternal<T>).subscribe(callback)
+	end
 end
 
 function BindingInternalApi.getValue<T>(binding: any): T
 	return (binding[BindingImpl] :: BindingInternal<T>):getValue()
 end
 
+-- Creates a binding without allocating an updater function for it (allocation
+-- trims only; see createRef)
+function BindingInternalApi.createWithoutUpdater<T>(
+	initialValue: T,
+	source: string?
+): Binding<T>
+	local impl = setmetatable({ value = initialValue }, BaseImplMeta)
+
+	return (
+		setmetatable({
+			["$$typeof"] = ReactSymbols.REACT_BINDING_TYPE,
+			[BindingImpl] = impl,
+			_source = source,
+		}, BindingPublicMeta) :: any
+	) :: Binding<T>
+end
+
 function BindingInternalApi.create<T>(initialValue: T): (Binding<T>, BindingUpdater<T>)
+	if enableAllocationTrims then
+		local source
+		if ReactGlobals.__DEV__ then
+			-- ROBLOX TODO: LUAFDN-619 - improve debug stacktraces for bindings
+			source = debug.traceback("Binding created at:", 3)
+		end
+		local binding = BindingInternalApi.createWithoutUpdater(initialValue, source)
+		local impl = (binding :: any)[BindingImpl]
+		return binding,
+			function(newValue: T)
+				baseImplPrototype.update(impl, newValue)
+			end
+	end
+
 	local subscribe, fire = createSignal()
 	local impl = {
 		value = initialValue,

@@ -11,6 +11,7 @@ local useEventHandler = require(script.useEventHandler)
 local useEventHandlerMap = require(script.useEventHandlerMap)
 local useContainerFocusBehavior = require(script.useContainerFocusBehavior)
 local useDispatchSyntheticEvent = require(script.useDispatchSyntheticEvent)
+local useEventDispatched = require(script.useEventDispatched)
 local FocusBehaviorHooks = require(script.FocusBehaviorHooks)
 
 -- Forwarded types from FocusNavigation and EventPropagation
@@ -22,6 +23,7 @@ export type EventHandlerMap = FocusNavigation.EventHandlerMap
 export type EngineInterface = FocusNavigation.EngineInterface
 export type InputEvent = FocusNavigation.InputEvent
 export type EventMap = FocusNavigation.EventMap
+export type DispatchedEvent = FocusNavigation.DispatchedEvent
 export type FocusNavigationService = FocusNavigation.FocusNavigationService
 
 return {
@@ -35,6 +37,7 @@ return {
 	-- Observable properties
 	useActiveEventMap = useActiveEventMap,
 	useFocusedGuiObject = useFocusedGuiObject,
+	useEventDispatched = useEventDispatched,
 
 	-- Focus control
 	useFocusGuiObject = useFocusGuiObject,

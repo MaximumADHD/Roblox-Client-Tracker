@@ -95,311 +95,310 @@ end
  *    Set `showDefaultLoadingIndicators` to use `ListHeaderComponent`.
  ]]
 local BidirectionalFlatList = (
-		React.forwardRef(function<T>(props: Props<T>, ref: React_Ref<any>)
-			local function promiseFn()
-				return Promise.resolve()
-			end
-			local _activityIndicatorColor, autoscrollToTopThreshold, data, enableAutoscrollToTop, FooterLoadingIndicator, HeaderLoadingIndicator, ListHeaderComponent, ListFooterComponent, onEndReached, onEndReachedThreshold, onScroll, onStartReached, onStartReachedThreshold, showDefaultLoadingIndicators =
-				if props.activityIndicatorColor == nil then "black" else props.activityIndicatorColor,
-				if props.autoscrollToTopThreshold == nil then 100 else props.autoscrollToTopThreshold,
-				props.data,
-				props.enableAutoscrollToTop,
-				props.FooterLoadingIndicator,
-				props.HeaderLoadingIndicator,
-				props.ListHeaderComponent,
-				props.ListFooterComponent,
-				(if props.onEndReached == nil then promiseFn else props.onEndReached) :: any,
-				if props.onEndReachedThreshold == nil then 10 else props.onEndReachedThreshold,
-				props.onScroll,
-				(if props.onStartReached == nil then promiseFn else props.onStartReached) :: any,
-				if props.onStartReachedThreshold == nil then 10 else props.onStartReachedThreshold,
-				if props.showDefaultLoadingIndicators == nil then true else props.showDefaultLoadingIndicators
+	React.forwardRef(function<T>(props: Props<T>, ref: React_Ref<any>)
+		local function promiseFn()
+			return Promise.resolve()
+		end
+		local _activityIndicatorColor, autoscrollToTopThreshold, data, enableAutoscrollToTop, FooterLoadingIndicator, HeaderLoadingIndicator, ListHeaderComponent, ListFooterComponent, onEndReached, onEndReachedThreshold, onScroll, onStartReached, onStartReachedThreshold, showDefaultLoadingIndicators =
+			if props.activityIndicatorColor == nil then "black" else props.activityIndicatorColor,
+			if props.autoscrollToTopThreshold == nil then 100 else props.autoscrollToTopThreshold,
+			props.data,
+			props.enableAutoscrollToTop,
+			props.FooterLoadingIndicator,
+			props.HeaderLoadingIndicator,
+			props.ListHeaderComponent,
+			props.ListFooterComponent,
+			(if props.onEndReached == nil then promiseFn else props.onEndReached) :: any,
+			if props.onEndReachedThreshold == nil then 10 else props.onEndReachedThreshold,
+			props.onScroll,
+			(if props.onStartReached == nil then promiseFn else props.onStartReached) :: any,
+			if props.onStartReachedThreshold == nil then 10 else props.onStartReachedThreshold,
+			if props.showDefaultLoadingIndicators == nil then true else props.showDefaultLoadingIndicators
 
-			local enableRetryOnStartReached = if props.enableRetryOnStartReached == nil
-				then false
-				else props.enableRetryOnStartReached
-			local enableRetryOnEndReached = if props.enableRetryOnEndReached == nil
-				then false
-				else props.enableRetryOnEndReached
+		local enableRetryOnStartReached = if props.enableRetryOnStartReached == nil
+			then false
+			else props.enableRetryOnStartReached
+		local enableRetryOnEndReached = if props.enableRetryOnEndReached == nil
+			then false
+			else props.enableRetryOnEndReached
 
-			local onStartReachedInProgress, setOnStartReachedInProgress = useState(false)
-			local onEndReachedInProgress, setOnEndReachedInProgress = useState(false)
-			local scrollCount, setScrollCount = useState(0)
-			local onStartReachedTracker = useRef({}) :: MutableRefObject<{}>
-			local onEndReachedTracker = useRef({}) :: MutableRefObject<{}>
-			local onStartReachedInPromise = useRef(nil)
-			local onEndReachedInPromise = useRef(nil)
+		local onStartReachedInProgress, setOnStartReachedInProgress = useState(false)
+		local onEndReachedInProgress, setOnEndReachedInProgress = useState(false)
+		local scrollCount, setScrollCount = useState(0)
+		local onStartReachedTracker = useRef({}) :: MutableRefObject<{}>
+		local onEndReachedTracker = useRef({}) :: MutableRefObject<{}>
+		local onStartReachedInPromise = useRef(nil)
+		local onEndReachedInPromise = useRef(nil)
 
-			local function maybeCallOnStartReached()
-				-- If onStartReached has already been called for given data length, then ignore.
-				if data and #data > 0 and onStartReachedTracker.current[#data] then
-					return
-				end
-
-				-- ROBLOX deviation START: when inverted there might be some unwanted scroll events that will trigger onStartReached events
-				local hasScrolled = if props.inverted then scrollCount >= 3 else scrollCount >= 1
-				if not hasScrolled then
-					return
-				end
-
-				if data and #data > 0 and hasScrolled then
-					onStartReachedTracker.current[#data] = true
-				end
-				-- ROBLOX deviation END
-
-				setOnStartReachedInProgress(true)
-				local function p()
-					return Promise.new(function(resolve)
-						onStartReachedInPromise.current = nil
-						setOnStartReachedInProgress(false)
-						resolve()
-					end)
-				end
-
-				if onEndReachedInPromise.current then
-					onEndReachedInPromise.current:andThen(function()
-						onStartReachedInPromise.current = onStartReached():andThen(p)
-					end)
-				else
-					onStartReachedInPromise.current = onStartReached():andThen(p)
-				end
+		local function maybeCallOnStartReached()
+			-- If onStartReached has already been called for given data length, then ignore.
+			if data and #data > 0 and onStartReachedTracker.current[#data] then
+				return
 			end
 
-			local function maybeCallOnEndReached()
-				-- If onEndReached has already been called for given data length, then ignore.
-				if data and #data > 0 and onEndReachedTracker.current[#data] then
-					return
-				end
-
-				-- ROBLOX deviation START: when inverted there might be some unwanted scroll events that will trigger onStartReached events
-				local hasScrolled = if props.inverted then scrollCount >= 3 else scrollCount >= 1
-				if not hasScrolled then
-					return
-				end
-
-				if data and #data > 0 and hasScrolled then
-					onEndReachedTracker.current[#data] = true
-				end
-				-- ROBLOX deviation END
-
-				setOnEndReachedInProgress(true)
-				local function p()
-					return Promise.new(function(resolve)
-						onEndReachedInPromise.current = nil
-						setOnEndReachedInProgress(false)
-						resolve()
-					end)
-				end
-
-				if onStartReachedInPromise.current then
-					onStartReachedInPromise.current:andThen(function()
-						onEndReachedInPromise.current = onEndReached():andThen(p)
-					end)
-				else
-					onEndReachedInPromise.current = onEndReached():andThen(p)
-				end
+			-- ROBLOX deviation START: when inverted there might be some unwanted scroll events that will trigger onStartReached events
+			local hasScrolled = if props.inverted then scrollCount >= 3 else scrollCount >= 1
+			if not hasScrolled then
+				return
 			end
 
-			-- ROBLOX deviation: inline type
-			local function handleScroll(rbx: ScrollingFrame): ()
-				-- ROBLOX deviation: track user interaction
-				setScrollCount(function(lastCount)
-					return lastCount + 1
+			if data and #data > 0 and hasScrolled then
+				onStartReachedTracker.current[#data] = true
+			end
+			-- ROBLOX deviation END
+
+			setOnStartReachedInProgress(true)
+			local function p()
+				return Promise.new(function(resolve)
+					onStartReachedInPromise.current = nil
+					setOnStartReachedInProgress(false)
+					resolve()
 				end)
-				-- Call the parent onScroll handler, if provided.
-				if onScroll then
-					onScroll(rbx)
-				end
+			end
 
-				--[[
+			if onEndReachedInPromise.current then
+				onEndReachedInPromise.current:andThen(function()
+					onStartReachedInPromise.current = onStartReached():andThen(p)
+				end)
+			else
+				onStartReachedInPromise.current = onStartReached():andThen(p)
+			end
+		end
+
+		local function maybeCallOnEndReached()
+			-- If onEndReached has already been called for given data length, then ignore.
+			if data and #data > 0 and onEndReachedTracker.current[#data] then
+				return
+			end
+
+			-- ROBLOX deviation START: when inverted there might be some unwanted scroll events that will trigger onStartReached events
+			local hasScrolled = if props.inverted then scrollCount >= 3 else scrollCount >= 1
+			if not hasScrolled then
+				return
+			end
+
+			if data and #data > 0 and hasScrolled then
+				onEndReachedTracker.current[#data] = true
+			end
+			-- ROBLOX deviation END
+
+			setOnEndReachedInProgress(true)
+			local function p()
+				return Promise.new(function(resolve)
+					onEndReachedInPromise.current = nil
+					setOnEndReachedInProgress(false)
+					resolve()
+				end)
+			end
+
+			if onStartReachedInPromise.current then
+				onStartReachedInPromise.current:andThen(function()
+					onEndReachedInPromise.current = onEndReached():andThen(p)
+				end)
+			else
+				onEndReachedInPromise.current = onEndReached():andThen(p)
+			end
+		end
+
+		-- ROBLOX deviation: inline type
+		local function handleScroll(rbx: ScrollingFrame): ()
+			-- ROBLOX deviation: track user interaction
+			setScrollCount(function(lastCount)
+				return lastCount + 1
+			end)
+			-- Call the parent onScroll handler, if provided.
+			if onScroll then
+				onScroll(rbx)
+			end
+
+			--[[
 					ROBLOX deviation START: calulate offset and other event values
 					Originally:
 					local offset = event.nativeEvent.contentOffset.y
 					local visibleLength = event.nativeEvent.layoutMeasurement.height
 					local contentLength = event.nativeEvent.contentSize.height
 				]]
-				local content = rbx:GetChildren()[1] :: Frame
-				local getLength = _getLength(props.horizontal)
-				local visibleLength = getLength(rbx.AbsoluteSize)
-				local contentLength = getLength(content.AbsoluteSize)
-				local offset = if props.inverted
-					then getLength(rbx.AbsoluteCanvasSize) - getLength(rbx.CanvasPosition) - visibleLength
-					else getLength(rbx.CanvasPosition)
-				-- ROBLOX deviation END
+			local content = rbx:GetChildren()[1] :: Frame
+			local getLength = _getLength(props.horizontal)
+			local visibleLength = getLength(rbx.AbsoluteSize)
+			local contentLength = getLength(content.AbsoluteSize)
+			local offset = if props.inverted
+				then getLength(rbx.AbsoluteCanvasSize) - getLength(rbx.CanvasPosition) - visibleLength
+				else getLength(rbx.CanvasPosition)
+			-- ROBLOX deviation END
 
-				-- Check if scroll has reached either start of end of list.
-				local isScrollAtStart = offset < onStartReachedThreshold
-				local isScrollAtEnd = contentLength - visibleLength - offset < onEndReachedThreshold
+			-- Check if scroll has reached either start of end of list.
+			local isScrollAtStart = offset < onStartReachedThreshold
+			local isScrollAtEnd = contentLength - visibleLength - offset < onEndReachedThreshold
 
-				if isScrollAtStart then
-					maybeCallOnStartReached()
-				elseif enableRetryOnStartReached and data and #data > 0 and onStartReachedTracker.current[#data] then
-					onStartReachedTracker.current[#data] = false
-				end
-
-				if isScrollAtEnd then
-					maybeCallOnEndReached()
-				elseif enableRetryOnEndReached and data and #data > 0 and onEndReachedTracker.current[#data] then
-					onEndReachedTracker.current[#data] = false
-				end
+			if isScrollAtStart then
+				maybeCallOnStartReached()
+			elseif enableRetryOnStartReached and data and #data > 0 and onStartReachedTracker.current[#data] then
+				onStartReachedTracker.current[#data] = false
 			end
 
-			local function renderHeaderLoadingIndicator(): React_ReactElement?
-				if not showDefaultLoadingIndicators then
-					if ListHeaderComponent then
-						return React.createElement(ListHeaderComponent, nil)
-					else
-						return nil
-					end
-				end
+			if isScrollAtEnd then
+				maybeCallOnEndReached()
+			elseif enableRetryOnEndReached and data and #data > 0 and onEndReachedTracker.current[#data] then
+				onEndReachedTracker.current[#data] = false
+			end
+		end
 
-				if not onStartReachedInProgress then
+		local function renderHeaderLoadingIndicator(): React_ReactElement?
+			if not showDefaultLoadingIndicators then
+				if ListHeaderComponent then
+					return React.createElement(ListHeaderComponent, nil)
+				else
 					return nil
 				end
-
-				if HeaderLoadingIndicator then
-					return React.createElement(HeaderLoadingIndicator, nil)
-				end
-
-				-- ROBLOX deviation START: default Activity indicator not available
-				-- return React.createElement(
-				-- 	View,
-				-- 	{ style = styles.indicatorContainer },
-				-- 	React.createElement(ActivityIndicator, { size = "small", color = activityIndicatorColor })
-				-- )
-				if _G.__DEV__ then
-					warn("default activity indicator not available")
-				end
-				return nil
-				-- ROBLOX deviation END
 			end
 
-			local function renderFooterLoadingIndicator(): React_ReactElement?
-				if not showDefaultLoadingIndicators then
-					if ListFooterComponent then
-						return React.createElement(ListFooterComponent, nil)
-					else
-						return nil
-					end
-				end
+			if not onStartReachedInProgress then
+				return nil
+			end
 
-				if not onEndReachedInProgress then
+			if HeaderLoadingIndicator then
+				return React.createElement(HeaderLoadingIndicator, nil)
+			end
+
+			-- ROBLOX deviation START: default Activity indicator not available
+			-- return React.createElement(
+			-- 	View,
+			-- 	{ style = styles.indicatorContainer },
+			-- 	React.createElement(ActivityIndicator, { size = "small", color = activityIndicatorColor })
+			-- )
+			if _G.__DEV__ then
+				warn("default activity indicator not available")
+			end
+			return nil
+			-- ROBLOX deviation END
+		end
+
+		local function renderFooterLoadingIndicator(): React_ReactElement?
+			if not showDefaultLoadingIndicators then
+				if ListFooterComponent then
+					return React.createElement(ListFooterComponent, nil)
+				else
 					return nil
 				end
-
-				if FooterLoadingIndicator then
-					return React.createElement(FooterLoadingIndicator, nil)
-				end
-
-				-- ROBLOX deviation START: default Activity indicator not available
-				-- return React.createElement(
-				-- 	View,
-				-- 	{ style = styles.indicatorContainer },
-				-- 	React.createElement(ActivityIndicator, { size = "small", color = activityIndicatorColor })
-				-- )
-				if _G.__DEV__ then
-					warn("default activity indicator not available")
-				end
-				return nil
-				-- ROBLOX deviation END
 			end
 
-			return React.createElement(
-				React.Fragment,
-				nil,
-				React.createElement(
-					FlatList,
-					Object.assign(table.clone(props), {
-						-- ROBLOX deviation START
-						renderItem = function(ref_)
-							local item = ref_.item
-							return React.createElement(View, {
-								onLayout = function(rbx)
-									local scrollRef = if ref and (ref :: Object).current
-										then
-											(ref :: Object).current._listRef._scrollRef.getNativeScrollRef()._nativeRef.current
+			if not onEndReachedInProgress then
+				return nil
+			end
+
+			if FooterLoadingIndicator then
+				return React.createElement(FooterLoadingIndicator, nil)
+			end
+
+			-- ROBLOX deviation START: default Activity indicator not available
+			-- return React.createElement(
+			-- 	View,
+			-- 	{ style = styles.indicatorContainer },
+			-- 	React.createElement(ActivityIndicator, { size = "small", color = activityIndicatorColor })
+			-- )
+			if _G.__DEV__ then
+				warn("default activity indicator not available")
+			end
+			return nil
+			-- ROBLOX deviation END
+		end
+
+		return React.createElement(
+			React.Fragment,
+			nil,
+			React.createElement(
+				FlatList,
+				Object.assign(table.clone(props), {
+					-- ROBLOX deviation START
+					renderItem = function(ref_)
+						local item = ref_.item
+						return React.createElement(View, {
+							onLayout = function(rbx)
+								local scrollRef = if ref and (ref :: Object).current
+									then (ref :: Object).current._listRef._scrollRef.getNativeScrollRef()._nativeRef.current
+									else nil
+
+								local getLength = _getLength(props.horizontal)
+
+								if item.shouldResizeOnMount and scrollRef then
+									local itemLength = getLength(rbx.AbsoluteSize)
+
+									if itemLength <= 0 or scrollRef == nil then
+										item.shouldResizeOnMount = false
+										return
+									end
+									-- ROBLOX NOTE: When the new item is loaded and resizes, push the canvas up by the height of the item.
+									-- Unless autoscrollToTop is enabled
+									local canvasPosition = scrollRef.CanvasPosition
+									local windowSize = scrollRef.AbsoluteSize
+									local canvasSize = scrollRef.AbsoluteCanvasSize
+									local autoScrollThreshold = if enableAutoscrollToTop
+										then autoscrollToTopThreshold
 										else nil
 
-									local getLength = _getLength(props.horizontal)
+									if autoScrollThreshold then
+										local currentOffset = if props.inverted
+											then getLength(canvasSize) - getLength(canvasPosition) - getLength(
+												windowSize
+											)
+											else getLength(canvasPosition)
 
-									if item.shouldResizeOnMount and scrollRef then
-										local itemLength = getLength(rbx.AbsoluteSize)
-
-										if itemLength <= 0 or scrollRef == nil then
+										if currentOffset < autoScrollThreshold then
 											item.shouldResizeOnMount = false
+											scrollRef.CanvasPosition = if props.inverted
+												then (if props.horizontal
+													then Vector2.new(
+														getLength(canvasSize) - getLength(windowSize),
+														scrollRef.CanvasPosition.Y
+													)
+													else Vector2.new(
+														scrollRef.CanvasPosition.X,
+														getLength(canvasSize) - getLength(windowSize)
+													))
+												else (if props.horizontal
+													then Vector2.new(0, scrollRef.CanvasPosition.Y)
+													else Vector2.new(scrollRef.CanvasPosition.X, 0))
 											return
 										end
-										-- ROBLOX NOTE: When the new item is loaded and resizes, push the canvas up by the height of the item.
-										-- Unless autoscrollToTop is enabled
-										local canvasPosition = scrollRef.CanvasPosition
-										local windowSize = scrollRef.AbsoluteSize
-										local canvasSize = scrollRef.AbsoluteCanvasSize
-										local autoScrollThreshold = if enableAutoscrollToTop
-											then autoscrollToTopThreshold
-											else nil
-
-										if autoScrollThreshold then
-											local currentOffset = if props.inverted
-												then getLength(canvasSize) - getLength(canvasPosition) - getLength(
-													windowSize
-												)
-												else getLength(canvasPosition)
-
-											if currentOffset < autoScrollThreshold then
-												item.shouldResizeOnMount = false
-												scrollRef.CanvasPosition = if props.inverted
-													then (if props.horizontal
-														then Vector2.new(
-															getLength(canvasSize) - getLength(windowSize),
-															scrollRef.CanvasPosition.Y
-														)
-														else Vector2.new(
-															scrollRef.CanvasPosition.X,
-															getLength(canvasSize) - getLength(windowSize)
-														))
-													else (if props.horizontal
-														then Vector2.new(0, scrollRef.CanvasPosition.Y)
-														else Vector2.new(scrollRef.CanvasPosition.X, 0))
-												return
-											end
-										end
-										local nextCanvasPosition = if props.inverted
-											then if props.horizontal
-												then Vector2.new(canvasPosition.X - itemLength, canvasPosition.Y)
-												else Vector2.new(canvasPosition.X, canvasPosition.Y - itemLength)
-											else if props.horizontal
-												then Vector2.new(canvasPosition.X + itemLength, canvasPosition.Y)
-												else Vector2.new(canvasPosition.X, canvasPosition.Y + itemLength)
-
-										item.shouldResizeOnMount = false
-										scrollRef.CanvasPosition = nextCanvasPosition
 									end
-								end,
-								AutomaticSize = if props.horizontal then Enum.AutomaticSize.X else Enum.AutomaticSize.Y,
-								Size = if props.horizontal then UDim2.new(0, 0, 1, 0) else UDim2.new(1, 0, 0, 0),
-								BorderSizePixel = 0,
-								name = "resize",
-							}, {
-								child = props.renderItem(ref_),
-							})
-						end,
-						-- ROBLOX deviation END
-						ref = ref,
-						-- ROBLOX deviation: prop used by RefreshControl (not supported yet)
-						-- progressViewOffset = 50,
-						ListHeaderComponent = renderHeaderLoadingIndicator,
-						ListFooterComponent = renderFooterLoadingIndicator,
-						onEndReached = Object.None,
-						onScroll = handleScroll,
-						maintainVisibleContentPosition = {
-							autoscrollToTopThreshold = if enableAutoscrollToTop then autoscrollToTopThreshold else nil,
-							minIndexForVisible = 1,
-						},
-					})
-				)
+									local nextCanvasPosition = if props.inverted
+										then if props.horizontal
+											then Vector2.new(canvasPosition.X - itemLength, canvasPosition.Y)
+											else Vector2.new(canvasPosition.X, canvasPosition.Y - itemLength)
+										else if props.horizontal
+											then Vector2.new(canvasPosition.X + itemLength, canvasPosition.Y)
+											else Vector2.new(canvasPosition.X, canvasPosition.Y + itemLength)
+
+									item.shouldResizeOnMount = false
+									scrollRef.CanvasPosition = nextCanvasPosition
+								end
+							end,
+							AutomaticSize = if props.horizontal then Enum.AutomaticSize.X else Enum.AutomaticSize.Y,
+							Size = if props.horizontal then UDim2.new(0, 0, 1, 0) else UDim2.new(1, 0, 0, 0),
+							BorderSizePixel = 0,
+							name = "resize",
+						}, {
+							child = props.renderItem(ref_),
+						})
+					end,
+					-- ROBLOX deviation END
+					ref = ref,
+					-- ROBLOX deviation: prop used by RefreshControl (not supported yet)
+					-- progressViewOffset = 50,
+					ListHeaderComponent = renderHeaderLoadingIndicator,
+					ListFooterComponent = renderFooterLoadingIndicator,
+					onEndReached = Object.None,
+					onScroll = handleScroll,
+					maintainVisibleContentPosition = {
+						autoscrollToTopThreshold = if enableAutoscrollToTop then autoscrollToTopThreshold else nil,
+						minIndexForVisible = 1,
+					},
+				})
 			)
-		end)
-	) :: BidirectionalFlatListType
+		)
+	end)
+) :: BidirectionalFlatListType
 
 exports.BidirectionalFlatList = BidirectionalFlatList
 

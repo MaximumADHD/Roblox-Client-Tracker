@@ -35,6 +35,7 @@ local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidat
 local LegacyValidationAdapter = require(root.util.LegacyValidationAdapter)
 local AssetQualityValidationClient = require(root.util.AssetQualityValidationClient)
 local SplitHumanoidRigDescriptionForUpload = require(root.util.SplitHumanoidRigDescriptionForUpload)
+local UnpublishedDependencies = require(root.util.UnpublishedDependencies)
 local UGCValidation = {}
 
 -- New endpoints, all other .validate endpoints should be removed, then we can move these here and keep init.lua super clean
@@ -74,6 +75,9 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 		local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 		if not success then
 			if isServer then
+				if UnpublishedDependencies.shouldReturnOnLoadFailure(validationContext) then
+					return false, {} :: any
+				end
 				error(result[1])
 			else
 				return success, result
@@ -512,6 +516,9 @@ if getEngineFeatureUGCValidationWithContextEntrypoint() then
 		local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 		if not success then
 			if isServer then
+				if UnpublishedDependencies.shouldReturnOnLoadFailure(validationContext) then
+					return false, {}
+				end
 				error(result[1])
 			else
 				return success, result
@@ -632,6 +639,9 @@ function UGCValidation.validateShoesWithContext(validationContext: Types.Validat
 	local success, result = createEditableInstancesForContext.processAll(instances, allowEditableInstances)
 	if not success then
 		if isServer then
+			if UnpublishedDependencies.shouldReturnOnLoadFailure(validationContext) then
+				return false, {}
+			end
 			error(result[1])
 		else
 			return success, result

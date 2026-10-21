@@ -1,4 +1,6 @@
 --!nonstrict
+local getFFlagVoiceDebugConsoleV2 = require(script.Parent.Components.VoiceDebug.GetFFlagVoiceDebugConsoleV2)
+
 local CircularBuffer = {}
 CircularBuffer.__index = CircularBuffer
 
@@ -102,6 +104,29 @@ end
 
 function CircularBuffer:getData()
 	return self._data
+end
+
+if getFFlagVoiceDebugConsoleV2() then
+	-- Deep-copies the linked-list nodes (not just the wrapper table) so mutating the clone via
+	-- push_back never touches the original buffer's nodes, and vice versa. push_back always links
+	-- index i's node to index (i % maxSize) + 1, so the next index can be derived without an
+	-- identity search.
+	function CircularBuffer:clone()
+		local copy = CircularBuffer.new(self._maxSize)
+		local nodeCopies = {}
+		for index, node in self._data do
+			nodeCopies[index] = { entry = node.entry }
+		end
+		for index, node in self._data do
+			if node._next then
+				local nextIndex = (index % self._maxSize) + 1
+				nodeCopies[index]._next = nodeCopies[nextIndex]
+			end
+		end
+		copy._data = nodeCopies
+		copy._backIndex = self._backIndex
+		return copy
+	end
 end
 
 function CircularBuffer:at(ind)

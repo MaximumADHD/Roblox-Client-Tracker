@@ -9,7 +9,6 @@ local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUG
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
 local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
-local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 local getFFlagUGCValidateMakeupCategoryParity = require(root.flags.getFFlagUGCValidateMakeupCategoryParity)
 local getFFlagUGCValidateDisallowAeroMeshData = require(root.flags.getFFlagUGCValidateDisallowAeroMeshData)
 
@@ -420,14 +419,10 @@ Constants.PROPERTIES = {
 				},
 			}
 			else Enum.AlphaMode.Overlay,
-		EmissiveMaskContent = if getFFlagUGCValidateAllowEmissives() then nil else Content.none,
-		EmissiveStrength = if getFFlagUGCValidateAllowEmissives()
-			then {
-				[Constants.COMPARISON_METHODS.GREATER_EQ] = 0,
-				[Constants.COMPARISON_METHODS.SMALLER_EQ] = 40,
-			}
-			else 1,
-		EmissiveTint = if getFFlagUGCValidateAllowEmissives() then nil else Color3.new(1, 1, 1),
+		EmissiveStrength = {
+			[Constants.COMPARISON_METHODS.GREATER_EQ] = 0,
+			[Constants.COMPARISON_METHODS.SMALLER_EQ] = 40,
+		},
 	},
 	WrapLayer = {
 		-- ====== Simple checks ======

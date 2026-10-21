@@ -10,8 +10,6 @@ local UserInputService = game:GetService("UserInputService")
 local InputReplication = require(script.Parent:WaitForChild("InputReplication"))
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
 local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(Players.LocalPlayer)
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
-local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 local FFlagUserAbilitiesUserInterfaceB = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceB")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
@@ -215,26 +213,9 @@ function InputSlots.setupSlotActions(player, isServerAuthority)
 				else
 					local actionInSlot = getAbilityAction(slotMap[slot])
 					if actionInSlot then
-						if FFlagUserPlayerScriptsSAuthDirectAPIs then
-							local binding = actionInSlot:FindFirstChild("ScriptableBinding")
-							if binding then
-								binding:Fire(value)
-							end
-						elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-							local binding = actionInSlot:FindFirstChild("ScriptableBinding")
-							if binding then
-								local success, result = pcall(function()
-									binding.Type = Enum.InputBindingType.Scriptable
-									binding:Fire(value)
-								end)
-								if not success then
-									actionInSlot:Fire(value)
-								end
-							else
-								actionInSlot:Fire(value)
-							end
-						else
-							actionInSlot:Fire(value)
+						local binding = actionInSlot:FindFirstChild("ScriptableBinding")
+						if binding then
+							binding:Fire(value)
 						end
 					end
 				end

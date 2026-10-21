@@ -7,6 +7,8 @@ local HEADER_NAMES = Constants.DebugVisualizationsFormatting.ChartHeaderNames
 local DebugVisualizationsContent = require(script.Parent.DebugVisualizationsStaticContent)
 local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole2", false)
 local FFlagSlimTintContextFilter = game:DefineFastFlag("SlimTintContextFilter", false)
+local FFlagSlimTintModeTelemetry = game:DefineFastFlag("SlimTintModeTelemetry", false)
+local DebugVisualizationsTelemetry = require(script.Parent.DebugVisualizationsTelemetry)
 
 local SORT_COMPARATOR = {
 	[HEADER_NAMES[1]] = function(a, b) -- "Name"
@@ -103,6 +105,9 @@ function DebugVisualizationsData:_toggleValue(name, value)
 			local svc = (settings() :: any):GetService(info["Service"])
 			svc[info["Setter"]](svc, value)
 			info["Value"] = value
+			if FFlagSlimTintModeTelemetry and name == "SlimTintMode" then
+				DebugVisualizationsTelemetry.logSlimTintModeSelected(value)
+			end
 			table.sort(self._sortedVisualizationData, SORT_COMPARATOR[self._sortType])
 			self._visualizationsUpdated:Fire(self._sortedVisualizationData)
 			return

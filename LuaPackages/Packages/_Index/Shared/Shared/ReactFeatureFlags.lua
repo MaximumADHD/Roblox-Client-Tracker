@@ -123,6 +123,12 @@ exports.deletedTreeCleanUpLevel =
 exports.enableNewTreeCleanupPath =
 	SafeFlags.createGetFFlag("ReactEnableNewTreeCleanupPath", false)()
 
+-- Double buffer hook list nodes and effect queues between a fiber and its
+-- alternate, overwriting the stale copy in place instead of allocating a new
+-- one on every update render.
+exports.enableHookDoubleBuffering =
+	SafeFlags.createGetFFlag("ReactEnableHookDoubleBuffering", false)()
+
 -- Clean up stacktraces by filtering out stack frames coming from inside React
 -- itself.
 exports.filterInternalStackFrames = ReactGlobals.__DEV__
@@ -154,5 +160,53 @@ exports.decoupleUpdatePriorityFromScheduler = true
 exports.enableEagerRootListeners = false
 
 exports.enableDoubleInvokingEffects = false
+
+-- ROBLOX performance: allocate less per render. useMemo/useCallback/useBinding
+-- store their state without tuple tables, hook and context dependency objects
+-- are sized to the fields they use, readContext reuses the cloned dependencies
+-- object, state merges use table.clone, and refs/bindings share methods
+-- instead of allocating closures per instance.
+exports.enableAllocationTrims =
+	SafeFlags.createGetFFlag("ReactEnableAllocationTrims", false)()
+
+-- ROBLOX performance: cheaper per-fiber render work. Skip nil stores into
+-- absent fiber, hook and effect keys (each can rehash the table in Luau), and
+-- skip the per-fiber profiling and DEV-only helper calls when they are no-ops.
+exports.enableWorkLoopTrims = SafeFlags.createGetFFlag("ReactWorkLoopTrims", false)()
+
+-- ROBLOX performance: cheaper commit traversals. Host updates get their own
+-- flag outside LayoutMask, the passive flush is scheduled from the root's flags
+-- so the before mutation pass can skip passive-only subtrees, and passive mount
+-- effects run from fibers collected by the unmount pass.
+exports.enableCommitTraversalTrims =
+	SafeFlags.createGetFFlag("ReactCommitTraversalTrims", false)()
+
+-- ROBLOX performance: skip the host sibling lookup in commitPlacement for hosts
+-- whose child order doesn't matter (supportsChildOrdering = false). Roblox
+-- parents by setting Parent, so insertBefore ignores the sibling, and the lookup
+-- costs k(k-1)/2 fiber steps when k siblings are inserted into a mounted parent.
+exports.enableSkipHostSiblingLookup =
+	SafeFlags.createGetFFlag("ReactSkipHostSiblingLookup", false)()
+
+-- ROBLOX: re-entrancy-safe binding signals. Subscribing during a fire no longer
+-- inserts into the table being traversed, and a nested fire no longer resets the
+-- outer fire's state. Also skips clearing when nothing was suspended.
+exports.enableReentrantSafeSignals =
+	SafeFlags.createGetFFlag("ReactReentrantSafeSignals", false)()
+
+-- ROBLOX fix: when a sync callback throws, keep the remaining callbacks queued
+-- for the retry instead of dropping them (upstream semantics).
+exports.keepSyncQueueOnError =
+	SafeFlags.createGetFFlag("ReactKeepSyncQueueOnError", false)()
+
+-- ROBLOX fix: getInstanceFromNode reads fibers from the instance maps and
+-- compares against the right work tags (DevTools and test utilities).
+exports.fixGetInstanceFromNode =
+	SafeFlags.createGetFFlag("ReactFixGetInstanceFromNode", false)()
+
+-- ROBLOX fix: when an eager reducer call errors, don't compare the error value
+-- with the current state as if it were the next state.
+exports.fixEagerReducerError =
+	SafeFlags.createGetFFlag("ReactFixEagerReducerError", false)()
 
 return exports

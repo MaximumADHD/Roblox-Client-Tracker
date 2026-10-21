@@ -15,7 +15,13 @@ local TextElement = {}
 type Props = BaseTextElementProps
 
 function mapProps(props: Props)
-	return Dash.omit(props, { "id", "EngineTags" })
+	-- Fill the measured frame InlineLayout places the element in, instead of an automatic width
+	-- (which can go stale). Left-align so a fragment ending in a space starts at the frame's left edge.
+	return Dash.join(Dash.omit(props, { "id", "EngineTags" }), {
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Size = UDim2.fromScale(1, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+	})
 end
 
 function TextElement.new(props: Props)

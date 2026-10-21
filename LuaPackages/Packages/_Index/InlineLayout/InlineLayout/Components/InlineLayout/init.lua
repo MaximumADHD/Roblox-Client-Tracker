@@ -16,6 +16,7 @@ local map = Dash.map
 local RenderableInlineElement = require(Root.Components.InlineLayout.InlineLayoutElements.RenderableInlineElement)
 local HardBreakElement = require(Root.Components.InlineLayout.InlineLayoutElements.HardBreakElement)
 local HoverContext = require(Root.Components.InlineLayout.InlineLayoutElements.HoverContext)
+local renderInMeasuredFrame = require(Root.Utils.renderInMeasuredFrame)
 local MarkdownCore = require(Packages.MarkdownCore)
 local View = Foundation.View
 
@@ -51,6 +52,8 @@ local function layoutElements(elements: { InlineElement }, width: number): { Rea
 	local i = 1
 	local breakPoint = 0
 	local layoutOrderWithinRow
+	-- Whether the current row was started by wrapping, rather than being the first row or following a hard break.
+	local rowStartedByWrap = false
 
 	local function flushRow()
 		table.insert(rows, currentRow)
@@ -66,7 +69,24 @@ local function layoutElements(elements: { InlineElement }, width: number): { Rea
 		if element == HardBreakElement then
 			i += 1
 			flushRow()
+			rowStartedByWrap = false
 			continue
+		end
+
+		-- A wrapped row doesn't start with whitespace. Word splits already drop it from the tail, but an
+		-- element that wraps whole, e.g. the text after a bold run or a link, can still begin with a space.
+		-- Trim it before measuring, so the row doesn't reserve space for it. Other rows render their
+		-- input as-is; the parser trims whitespace at the start of a paragraph or after a hard break.
+		if #currentRow == 0 and rowStartedByWrap and element.trimStart then
+			local trimmed = element:trimStart()
+			if trimmed == nil then
+				-- Nothing is left to render, so the next element starts the row instead.
+				wrappedElement = nil
+				i += 1
+				breakPoint += 1
+				continue
+			end
+			element = trimmed
 		end
 
 		local elementWidth = element:getWidth()
@@ -75,7 +95,10 @@ local function layoutElements(elements: { InlineElement }, width: number): { Rea
 		-- 3. Check if its size exceeds the remaining width
 		if elementWidth <= availableWidth then
 			-- 4. If not, push rendered element onto the currentRow
-			table.insert(currentRow, element:render(i, layoutOrderWithinRow))
+			table.insert(
+				currentRow,
+				renderInMeasuredFrame(element:render(i, layoutOrderWithinRow), elementWidth, layoutOrderWithinRow)
+			)
 			availableWidth -= elementWidth
 			wrappedElement = nil
 			i += 1
@@ -83,7 +106,10 @@ local function layoutElements(elements: { InlineElement }, width: number): { Rea
 			local head, tail = element:split(availableWidth)
 			-- 5. Check if head can fit on the row. If so, push it and assign the tail to wrappedElement.
 			if head:getWidth() <= availableWidth then
-				table.insert(currentRow, head:render(i, layoutOrderWithinRow))
+				table.insert(
+					currentRow,
+					renderInMeasuredFrame(head:render(i, layoutOrderWithinRow), head:getWidth(), layoutOrderWithinRow)
+				)
 				wrappedElement = tail
 			else
 				-- 6. Put element on the next available row.
@@ -92,7 +118,14 @@ local function layoutElements(elements: { InlineElement }, width: number): { Rea
 					if element.canForceSplit then
 						head, tail = element:split(availableWidth, true)
 					end
-					table.insert(currentRow, head:render(i, layoutOrderWithinRow))
+					table.insert(
+						currentRow,
+						renderInMeasuredFrame(
+							head:render(i, layoutOrderWithinRow),
+							head:getWidth(),
+							layoutOrderWithinRow
+						)
+					)
 					-- Can be nil, but can be an element if the element can be split, just not exactly as we want.
 					wrappedElement = tail
 				else
@@ -104,6 +137,7 @@ local function layoutElements(elements: { InlineElement }, width: number): { Rea
 				i += 1
 			end
 			flushRow()
+			rowStartedByWrap = true
 		end
 		breakPoint += 1
 	end

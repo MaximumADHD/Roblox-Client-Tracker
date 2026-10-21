@@ -7,6 +7,7 @@ local ReactRoblox = require(Packages.ReactRoblox)
 local ColorMode = require(Foundation.Enums.ColorMode)
 local Device = require(Foundation.Enums.Device)
 local FoundationProvider = require(Foundation.Providers.Foundation)
+local ThemeName = require(Foundation.Enums.ThemeName)
 local Types = require(Foundation.Utility.Stories.Types)
 local getTokenOverridesStore = require(script.Parent.TokenOverridesStore)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
@@ -92,7 +93,10 @@ local function StoryMiddleware(story)
 	-- A component wrapping each story in the StyleProvider
 	return function(storyProps: StoryProps)
 		local overlay = useCreateOverlay(storyProps)
-		local colorMode = ColorMode[storyProps.theme]
+		-- Developer Storybook passes `colorMode`. Flipbook still passes Light/Dark as `theme`.
+		local colorModeName = storyProps.colorMode or storyProps.theme
+		local colorMode = if colorModeName ~= nil then ColorMode[colorModeName] else nil
+		local themeName = if storyProps.themeName ~= nil then ThemeName[storyProps.themeName] else nil
 		local tokenOverrides = useTokenOverrides()
 
 		local devStorybookStoryProps = Types.toDeveloperStorybookStoryProps(storyProps)
@@ -116,6 +120,7 @@ local function StoryMiddleware(story)
 				PaddingRight = UDim.new(0, 10),
 			}),
 			FoundationContext = React.createElement(FoundationProvider, {
+				themeName = themeName,
 				colorMode = colorMode,
 				device = device,
 				preferences = preferences,

@@ -10,7 +10,6 @@ local validateTags = require(root.validation.validateTags)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateScaleType = require(root.validation.validateScaleType)
-local validateRigidMeshNotSkinned = require(root.validation.validateRigidMeshNotSkinned)
 local validateDependencies = require(root.validation.validateDependencies)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 
@@ -19,8 +18,6 @@ local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
-local getEngineFeatureEngineUGCValidateRigidNonSkinned =
-	require(root.flags.getEngineFeatureEngineUGCValidateRigidNonSkinned)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
@@ -94,11 +91,9 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	local validationResult = true
 	reasons = {}
 
-	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
 	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
 	if not getEditableMeshSuccess then
 		if not meshInfo.contentId then
-			hasMeshContent = false
 			validationResult = false
 			table.insert(reasons, {
 				string.format(
@@ -118,7 +113,6 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	end
 
 	meshInfo.editableMesh = editableMesh
-	hasMeshContent = true
 
 	local textureInfo = {
 		fullName = mesh:GetFullName(),
@@ -160,16 +154,6 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
-	end
-
-	if hasMeshContent then
-		if getEngineFeatureEngineUGCValidateRigidNonSkinned() then
-			success, failedReason = validateRigidMeshNotSkinned(meshInfo.contentId, validationContext)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
-		end
 	end
 
 	return validationResult, reasons

@@ -86,6 +86,7 @@ local ProfileMode = ReactTypeOfMode.ProfileMode
 local ReactFiberFlags = require(script.Parent.ReactFiberFlags)
 local Ref = ReactFiberFlags.Ref
 local Update = ReactFiberFlags.Update
+local HostUpdate = ReactFiberFlags.HostUpdate
 local Callback = ReactFiberFlags.Callback
 local Passive = ReactFiberFlags.Passive
 local Deletion = ReactFiberFlags.Deletion
@@ -299,11 +300,24 @@ if supportsMutation then
 			currentHostContext
 		)
 		-- TODO: Type this specific to this type of component.
-		workInProgress.updateQueue = updatePayload
+		if ReactFeatureFlags.enableWorkLoopTrims then
+			-- ROBLOX performance: don't assign nil to an absent key, which inserts it
+			-- and can rehash the fiber (see createWorkInProgress)
+			if updatePayload ~= nil or workInProgress.updateQueue ~= nil then
+				workInProgress.updateQueue = updatePayload
+			end
+		else
+			workInProgress.updateQueue = updatePayload
+		end
 		-- If the update payload indicates that there is a change or if there
 		-- is a new ref we mark this as an update. All the work is done in commitWork.
 		if updatePayload then
-			markUpdate(workInProgress)
+			if ReactFeatureFlags.enableCommitTraversalTrims then
+				-- ROBLOX performance: HostUpdate instead of Update so the layout phase can skip this fiber
+				workInProgress.flags = bit32.bor(workInProgress.flags, HostUpdate)
+			else
+				markUpdate(workInProgress)
+			end
 		end
 	end
 	function updateHostText(
@@ -1059,12 +1073,27 @@ local function completeWork(
 			-- we include in the same measure.
 			-- TODO: Can optimize by using a static flag to track whether a tree
 			-- contains layout effects, like we do for passive effects.
-			if
-				bit32.band(flags, bit32.bor(LayoutMask, Deletion)) ~= NoFlags
-				or bit32.band(subtreeFlags, bit32.bor(LayoutMask, Deletion))
-					~= NoFlags
-			then
-				newFlags = bit32.bor(newFlags, OnCommitFlag)
+			if ReactFeatureFlags.enableCommitTraversalTrims then
+				-- ROBLOX deviation: HostUpdate is not in LayoutMask, but still counts as layout work here
+				if
+					bit32.band(flags, bit32.bor(LayoutMask, Deletion, HostUpdate))
+						~= NoFlags
+					or bit32.band(
+							subtreeFlags,
+							bit32.bor(LayoutMask, Deletion, HostUpdate)
+						)
+						~= NoFlags
+				then
+					newFlags = bit32.bor(newFlags, OnCommitFlag)
+				end
+			else
+				if
+					bit32.band(flags, bit32.bor(LayoutMask, Deletion)) ~= NoFlags
+					or bit32.band(subtreeFlags, bit32.bor(LayoutMask, Deletion))
+						~= NoFlags
+				then
+					newFlags = bit32.bor(newFlags, OnCommitFlag)
+				end
 			end
 
 			-- Call onPostCommit only if the subtree contains passive work.

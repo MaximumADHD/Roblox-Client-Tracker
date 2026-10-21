@@ -104,6 +104,8 @@ return {
 	invariant = require(script.invariant),
 	invokeGuardedCallbackImpl = require(script.invokeGuardedCallbackImpl),
 	isValidElementType = require(script.isValidElementType),
+	-- ROBLOX deviation: shared representation of useMemo's multiple return values
+	MemoValues = require(script["MemoValues.roblox"]),
 	objectIs = require(script.objectIs),
 	ReactComponentStackFrame = require(script.ReactComponentStackFrame),
 	ReactElementType = require(script.ReactElementType),

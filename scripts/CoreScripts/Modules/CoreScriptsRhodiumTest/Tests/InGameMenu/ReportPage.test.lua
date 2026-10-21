@@ -20,8 +20,8 @@ local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
 local act = require(CorePackages.Packages.Roact).act
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
-
-local TestConstants = require(script.Parent.TestConstants)
+local waitForIGMPage = require(Modules.CoreScriptsRhodiumTest.TestHelpers["waitForIGMPage.test"])
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local c
 
@@ -39,9 +39,7 @@ beforeEach(function()
 			store:dispatch(action)
 			store:flush()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.gamepadInput = function(input)
@@ -49,9 +47,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 
@@ -68,22 +64,14 @@ it("should switch between the page and SideNavigation", function()
 	c.storeUpdate(SetMenuOpen(true))
 	c.storeUpdate(SetCurrentPage("Report"))
 
-	act(function()
-		wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-	end)
+	waitForIGMPage(c.path, "Report")
 
 	expect(store:getState().currentZone).toBe(1)
 
-	act(function()
-		c.gamepadInput(Enum.KeyCode.DPadLeft)
-		wait()
-	end)
+	c.gamepadInput(Enum.KeyCode.DPadLeft)
 	expect(store:getState().currentZone).toBe(0)
 
-	act(function()
-		c.gamepadInput(Enum.KeyCode.DPadRight)
-		wait()
-	end)
+	c.gamepadInput(Enum.KeyCode.DPadRight)
 	expect(store:getState().currentZone).toBe(1)
 end)
 

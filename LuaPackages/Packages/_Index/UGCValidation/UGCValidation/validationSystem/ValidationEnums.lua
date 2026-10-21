@@ -61,6 +61,7 @@ ValidationEnums.ValidationModule = {
 	PropertiesSensible = "PropertiesSensible",
 	InstanceTreeMatchesSchema = "InstanceTreeMatchesSchema",
 	DescendantIdsAllowed = "DescendantIdsAllowed",
+	DescendantIdsPublished = "DescendantIdsPublished",
 	ScaleTypeValid = "ScaleTypeValid",
 	CollisionFidelityCorrect = "CollisionFidelityCorrect",
 	AttachmentBoundsValid = "AttachmentBoundsValid",
@@ -77,6 +78,7 @@ ValidationEnums.ValidationModule = {
 	DynamicHeadFacsPresent = "DynamicHeadFacsPresent",
 	DynamicHeadControlsActive = "DynamicHeadControlsActive",
 	FacsJointBoundsValid = "FacsJointBoundsValid",
+	FacsJointCountBounded = "FacsJointCountBounded",
 
 	-- HRD/DRD/Bone checks (introduced for R15+ launch)
 	HrdBonesFollowSchema = "HrdBonesFollowSchema",

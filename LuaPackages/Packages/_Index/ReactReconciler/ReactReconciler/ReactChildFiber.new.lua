@@ -419,7 +419,15 @@ local function ChildReconciler(shouldTrackSideEffects)
 		local clone = createWorkInProgress(fiber, pendingProps)
 		-- ROBLOX deviation: set index to 1 for 1-indexing
 		clone.index = 1
-		clone.sibling = nil
+		if ReactFeatureFlags.enableWorkLoopTrims then
+			-- ROBLOX performance: don't assign nil to an absent key, which inserts it
+			-- and can rehash the fiber (see createWorkInProgress)
+			if clone.sibling ~= nil then
+				clone.sibling = nil
+			end
+		else
+			clone.sibling = nil
+		end
 		return clone
 	end
 
@@ -493,7 +501,15 @@ local function ChildReconciler(shouldTrackSideEffects)
 			then
 				-- Move based on index
 				local existing = useFiber(current :: Fiber, element.props)
-				existing.ref = coerceRef(returnFiber, current, element)
+				if ReactFeatureFlags.enableWorkLoopTrims then
+					-- ROBLOX performance: skip nil-to-nil ref writes (see useFiber)
+					local ref = coerceRef(returnFiber, current, element)
+					if ref ~= nil or existing.ref ~= nil then
+						existing.ref = ref
+					end
+				else
+					existing.ref = coerceRef(returnFiber, current, element)
+				end
 				existing.return_ = returnFiber
 				if __DEV__ then
 					existing._debugSource = element._source
@@ -1421,7 +1437,15 @@ local function ChildReconciler(shouldTrackSideEffects)
 					then
 						deleteRemainingChildren(returnFiber, child.sibling)
 						local existing = useFiber(child, element.props)
-						existing.ref = coerceRef(returnFiber, child, element)
+						if ReactFeatureFlags.enableWorkLoopTrims then
+							-- ROBLOX performance: skip nil-to-nil ref writes (see useFiber)
+							local ref = coerceRef(returnFiber, child, element)
+							if ref ~= nil or existing.ref ~= nil then
+								existing.ref = ref
+							end
+						else
+							existing.ref = coerceRef(returnFiber, child, element)
+						end
 						existing.return_ = returnFiber
 						if __DEV__ then
 							existing._debugSource = element._source

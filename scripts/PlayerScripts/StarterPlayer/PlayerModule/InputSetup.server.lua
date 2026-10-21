@@ -12,7 +12,6 @@ local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
@@ -41,9 +40,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	if moveAction and not moveAction:FindFirstChild("DynamicThumbstickScriptableBinding") then
 		local dynamicThumbstickBinding = Instance.new("InputBinding")
 		dynamicThumbstickBinding.Name = "DynamicThumbstickScriptableBinding"
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then dynamicThumbstickBinding.Type = Enum.InputBindingType.Scriptable end
+		dynamicThumbstickBinding.Type = Enum.InputBindingType.Scriptable
 		dynamicThumbstickBinding.Parent = moveAction
-	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and moveAction then
+	elseif moveAction then
 		local existingBinding = moveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
@@ -51,9 +50,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	if moveAction and not moveAction:FindFirstChild("ClassicThumbstickScriptableBinding") then
 		local classicThumbstickBinding = Instance.new("InputBinding")
 		classicThumbstickBinding.Name = "ClassicThumbstickScriptableBinding"
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then classicThumbstickBinding.Type = Enum.InputBindingType.Scriptable end
+		classicThumbstickBinding.Type = Enum.InputBindingType.Scriptable
 		classicThumbstickBinding.Parent = moveAction
-	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and moveAction then
+	elseif moveAction then
 		local existingBinding = moveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
 		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
@@ -61,9 +60,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	if moveAction and not moveAction:FindFirstChild("ClickToMoveScriptableBinding") then
 		local clickToMoveBinding = Instance.new("InputBinding")
 		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then clickToMoveBinding.Type = Enum.InputBindingType.Scriptable end
+		clickToMoveBinding.Type = Enum.InputBindingType.Scriptable
 		clickToMoveBinding.Parent = moveAction
-	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and moveAction then
+	elseif moveAction then
 		local existingBinding = moveAction:FindFirstChild("ClickToMoveScriptableBinding")
 		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
@@ -71,9 +70,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	if jumpAction and not jumpAction:FindFirstChild("ClickToMoveScriptableBinding") then
 		local clickToMoveBinding = Instance.new("InputBinding")
 		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then clickToMoveBinding.Type = Enum.InputBindingType.Scriptable end
+		clickToMoveBinding.Type = Enum.InputBindingType.Scriptable
 		clickToMoveBinding.Parent = jumpAction
-	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and jumpAction then
+	elseif jumpAction then
 		local existingBinding = jumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
@@ -81,9 +80,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	if cameraAction and not cameraAction:FindFirstChild("CameraScriptableBinding") then
 		local cameraScriptableBinding = Instance.new("InputBinding")
 		cameraScriptableBinding.Name = "CameraScriptableBinding"
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then cameraScriptableBinding.Type = Enum.InputBindingType.Scriptable end
+		cameraScriptableBinding.Type = Enum.InputBindingType.Scriptable
 		cameraScriptableBinding.Parent = cameraAction
-	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and cameraAction then
+	elseif cameraAction then
 		local existingBinding = cameraAction:FindFirstChild("CameraScriptableBinding")
 		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
@@ -91,9 +90,9 @@ if FFlagUserPlayerScriptsUseScriptableBindings then
 	if rotationAction and not rotationAction:FindFirstChild("RotationScriptableBinding") then
 		local rotationScriptableBinding = Instance.new("InputBinding")
 		rotationScriptableBinding.Name = "RotationScriptableBinding"
-		if FFlagUserPlayerScriptsSAuthDirectAPIs then rotationScriptableBinding.Type = Enum.InputBindingType.Scriptable end
+		rotationScriptableBinding.Type = Enum.InputBindingType.Scriptable
 		rotationScriptableBinding.Parent = rotationAction
-	elseif FFlagUserPlayerScriptsSAuthDirectAPIs and rotationAction then
+	elseif rotationAction then
 		local existingBinding = rotationAction:FindFirstChild("RotationScriptableBinding")
 		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
 	end
@@ -115,7 +114,7 @@ if not FFlagUserPlayerScriptsPlayerControlState then
 			if FFlagUserPlayerScriptsUseScriptableBindings then
 				local scriptableBinding = Instance.new("InputBinding")
 				scriptableBinding.Name = "ScriptableBinding"
-				if FFlagUserPlayerScriptsSAuthDirectAPIs then scriptableBinding.Type = Enum.InputBindingType.Scriptable end
+				scriptableBinding.Type = Enum.InputBindingType.Scriptable
 				scriptableBinding.Parent = action
 			end
 			action.Parent = characterContext

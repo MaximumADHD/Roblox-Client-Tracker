@@ -75,6 +75,11 @@ local function useVirtualizedList<T>(props: VirtualizedListProps<T>)
 			return
 		end
 
+		-- Property-changed signals don't fire for the value at connect time,
+		-- so a frame that mounts at its final size would otherwise render one row.
+		setWindowHeight(scrollingFrame.AbsoluteWindowSize.Y)
+		setScrollHeight(scrollingFrame.CanvasPosition.Y)
+
 		local absoluteSizeChangedConnection = scrollingFrame
 			:GetPropertyChangedSignal("AbsoluteWindowSize")
 			:Connect(function()

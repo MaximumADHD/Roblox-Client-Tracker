@@ -8,6 +8,7 @@ local BannerButton = require(Components.BannerButton)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
 local HEADER_HEIGHT = 20
+local HEADER_LABEL_INDENT = 20
 
 local CollapsibleSection = Roact.PureComponent:extend("CollapsibleSection")
 
@@ -37,6 +38,7 @@ function CollapsibleSection:render()
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, PADDING),
 		}),
 
 		Header = Roact.createElement(BannerButton, {
@@ -50,8 +52,8 @@ function CollapsibleSection:render()
 			Label = Roact.createElement(CellLabel, {
 				text = title,
 				bold = true,
-				size = UDim2.new(1, -20, 1, 0),
-				pos = UDim2.new(0, 20, 0, 0),
+				size = UDim2.new(1, -HEADER_LABEL_INDENT, 1, 0),
+				pos = UDim2.new(0, HEADER_LABEL_INDENT, 0, 0),
 			}),
 		}),
 

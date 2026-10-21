@@ -44,6 +44,7 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_UNIVERSE_PRIVATE_SERVER"
 	| "HYDRATION_CONTENT_TYPE_NOTIFICATION_BADGE"
 	| "HYDRATION_CONTENT_TYPE_COLLECTIBLE_ITEM"
+	| "HYDRATION_CONTENT_TYPE_LEADERBOARD_STATS"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -110,6 +111,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_NOTIFICATION_BADGE"
 		elseif value == 30 then
 			return "HYDRATION_CONTENT_TYPE_COLLECTIBLE_ITEM"
+		elseif value == 31 then
+			return "HYDRATION_CONTENT_TYPE_LEADERBOARD_STATS"
 		else
 			return nil
 		end
@@ -178,6 +181,8 @@ messages.HydrationContentType = {
 			return 29
 		elseif self == "HYDRATION_CONTENT_TYPE_COLLECTIBLE_ITEM" then
 			return 30
+		elseif self == "HYDRATION_CONTENT_TYPE_LEADERBOARD_STATS" then
+			return 31
 		else
 			return self
 		end
@@ -246,6 +251,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_NOTIFICATION_BADGE"
 		elseif name == "HYDRATION_CONTENT_TYPE_COLLECTIBLE_ITEM" then
 			return "HYDRATION_CONTENT_TYPE_COLLECTIBLE_ITEM"
+		elseif name == "HYDRATION_CONTENT_TYPE_LEADERBOARD_STATS" then
+			return "HYDRATION_CONTENT_TYPE_LEADERBOARD_STATS"
 		else
 			return nil
 		end

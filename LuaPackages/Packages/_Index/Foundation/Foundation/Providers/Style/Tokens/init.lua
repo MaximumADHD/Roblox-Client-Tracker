@@ -3,6 +3,7 @@ local Packages = Foundation.Parent
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 
 local ColorMode = require(Foundation.Enums.ColorMode)
+local DeprecatedTokenUtilities = require(script.DeprecatedTokenUtilities)
 local Device = require(Foundation.Enums.Device)
 local Flags = require(Foundation.Utility.Flags)
 local ThemeName = require(Foundation.Enums.ThemeName)
@@ -57,7 +58,6 @@ local function buildTokens(generator: (number) -> Tokens, scale: number, tokenOv
 		Ease = tokens.Ease,
 		LightMode = tokens.LightMode,
 		Inverse = tokens.Inverse,
-		Semantic = tokens.Semantic, -- TODO(tokens): Remove once icon sizes are moved
 		Size = tokens.Size,
 		Padding = tokens.Padding,
 		Margin = tokens.Margin,
@@ -74,6 +74,12 @@ local function buildTokens(generator: (number) -> Tokens, scale: number, tokenOv
 
 	if tokenOverrides then
 		applyTokenOverrides(filteredTokens, tokenOverrides)
+	end
+
+	if Flags.FoundationRemoveDeprecatedSemanticTokens then
+		filteredTokens.Semantic = nil
+	else
+		filteredTokens.Semantic = DeprecatedTokenUtilities.getDeprecatedSemanticTokens(filteredTokens, scale)
 	end
 
 	return filteredTokens

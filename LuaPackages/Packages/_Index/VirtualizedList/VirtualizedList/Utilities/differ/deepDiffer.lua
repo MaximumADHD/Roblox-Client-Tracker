@@ -107,7 +107,13 @@ end
 local exports = setmetatable({
 	unstable_setLogListeners = unstable_setLogListeners,
 }, {
-	__call = function(_self, one: any, two: any, maxDepthOrOptions_: (Options | number)?, maybeOptions: Options?): boolean
+	__call = function(
+		_self,
+		one: any,
+		two: any,
+		maxDepthOrOptions_: (Options | number)?,
+		maybeOptions: Options?
+	): boolean
 		return deepDiffer(one, two, maxDepthOrOptions_, maybeOptions)
 	end,
 })

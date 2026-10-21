@@ -24,7 +24,8 @@ local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 local localPlayerGui = localPlayer and localPlayer:WaitForChild("PlayerGui", 8)
 local proximityPromptsGui = localPlayerGui and localPlayerGui:WaitForChild("ProximityPrompts", 8)
-if not game:GetEngineFeature("ProximityPrompts")
+if
+	not game:GetEngineFeature("ProximityPrompts")
 	or not localPlayer
 	or not localPlayerGui
 	or not proximityPromptsGui
@@ -112,8 +113,10 @@ beforeAll(function()
 	expect(promptScreenGui).never.toBeNil()
 
 	rebuildPromptUI()
-	PlayerHelper.WaitNFrames(1)
-	wait(0.5) -- Wait for fade in to be over
+	PlayerHelper.WaitForExpression(function()
+		local actionText = promptUI:FindFirstChild("ActionText", true)
+		return actionText ~= nil and actionText.TextTransparency == 0
+	end, 5, "Prompt UI did not fade in")
 
 	-- Unsure of why this is needed, but it seems the first Rhodium mouse event is ignored only for BillboardGui's, so we send a click beforehand:
 	Rhodium.VirtualInput.Mouse.sendMouseButtonEvent(200, 200, 0, true)
@@ -554,11 +557,10 @@ describe("Triggered behavior", function()
 
 			PlayerHelper.WaitNFrames(1)
 
-			local gamepad
-			RoactAct(function()
-				gamepad = Rhodium.VirtualInput.GamePad.new()
-				wait(1)
-			end)
+			local gamepad = Rhodium.VirtualInput.GamePad.new()
+			PlayerHelper.WaitForExpression(function()
+				return #UserInputService:GetConnectedGamepads() > 0
+			end, 5, "Gamepad did not connect")
 
 			-- Button press should work
 			promptTriggeredMock.mockClear()

@@ -20,6 +20,7 @@ local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local c
 
@@ -45,9 +46,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 

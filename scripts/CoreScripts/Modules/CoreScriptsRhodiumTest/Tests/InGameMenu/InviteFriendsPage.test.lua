@@ -27,6 +27,7 @@ local InviteFriendsPage = require(InGameMenu.Components.InviteFriendsPage)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local c
 
@@ -45,9 +46,7 @@ describe("In-Game Menu Invite Friends page focus management", function()
 					gamepad:hitButton(input)
 					VirtualInput.waitForInputEventsProcessed()
 				end)
-				act(function()
-					wait()
-				end)
+				waitForEvents.act()
 			end
 			c.gamepadInputForZone = function(input, expectedZone)
 				local reachedExpectedZone = Instance.new("BindableEvent")

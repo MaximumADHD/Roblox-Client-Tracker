@@ -30,8 +30,6 @@ local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
 local FFlagUserPlayerScriptsCTMDirectPlayerData = FlagUtil.getUserFlag("UserPlayerScriptsCTMDirectPlayerData")
 local FFlagUserPSIASClickToMoveRelaxTeleport = FlagUtil.getUserFlag("UserPSIASClickToMoveRelaxTeleport")
 local FFlagUserPlayerScriptsRefactor2 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor2")
-local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserDoubleJumpButtonFix = FlagUtil.getUserFlag("UserDoubleJumpButtonFix")
 
 --[[ Input Actions ]]--
@@ -1080,78 +1078,27 @@ function ClickToMove:Update(playerData, dt)
 		if ExistingPather and ExistingPather == currentPather then
 			if FFlagUserPlayerScriptsCTMDirectPlayerData then
 				local expectedState = calculateLocalMoveVector(currentPather.NextActionMoveDirection)
-				if FFlagUserPlayerScriptsSAuthDirectAPIs then
-					local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-					if binding then
-						binding:Fire(expectedState)
-					end
-				elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-					local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-					if binding then
-						local success, result = pcall(function()
-							binding.Type = Enum.InputBindingType.Scriptable
-							binding:Fire(expectedState)
-						end)
-						if not success then
-							playerData.actions.MoveAction:Fire(expectedState)
-						end
-					else
-						playerData.actions.MoveAction:Fire(expectedState)
-					end
-				else
-					playerData.actions.MoveAction:Fire(expectedState)
+				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if binding then
+					binding:Fire(expectedState)
 				end
 				playerData.moveVector = expectedState
 
 				-- Handle jump request from Pather
 				if currentPather.NextActionJump then
 					if playerData.actions.JumpAction:GetState() ~= true then
-						if FFlagUserPlayerScriptsSAuthDirectAPIs then
-							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-							if binding then
-								binding:Fire(true)
-							end
-						elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-							if binding then
-								local success, result = pcall(function()
-									binding.Type = Enum.InputBindingType.Scriptable
-									binding:Fire(true)
-								end)
-								if not success then
-									playerData.actions.JumpAction:Fire(true)
-								end
-							else
-								playerData.actions.JumpAction:Fire(true)
-							end
-						else
-							playerData.actions.JumpAction:Fire(true)
+						local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+						if binding then
+							binding:Fire(true)
 						end
 					end
 					self.lastPatherJumped = true
 					playerData.isJumping = true
 				elseif self.lastPatherJumped then
 					if playerData.actions.JumpAction:GetState() == true then
-						if FFlagUserPlayerScriptsSAuthDirectAPIs then
-							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-							if binding then
-								binding:Fire(false)
-							end
-						elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-							if binding then
-								local success, result = pcall(function()
-									binding.Type = Enum.InputBindingType.Scriptable
-									binding:Fire(false)
-								end)
-								if not success then
-									playerData.actions.JumpAction:Fire(false)
-								end
-							else
-								playerData.actions.JumpAction:Fire(false)
-							end
-						else
-							playerData.actions.JumpAction:Fire(false)
+						local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+						if binding then
+							binding:Fire(false)
 						end
 					end
 					self.lastPatherJumped = false
@@ -1168,17 +1115,13 @@ function ClickToMove:Update(playerData, dt)
 					ClickToMoveDisplay.CancelFailureAnimation()
 				else
 					self.lastPatherMoveVector = expectedState
-					if FFlagUserPlayerScriptsFireThroughScriptableBindings then
-						local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-						if binding then
-							local success, result = pcall(function()
-								binding.Type = Enum.InputBindingType.Scriptable
-								binding:Fire(expectedState)
-							end)
-							if not success then
-								playerData.actions.MoveAction:Fire(expectedState)
-							end
-						else
+					local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+					if binding then
+						local success, result = pcall(function()
+							binding.Type = Enum.InputBindingType.Scriptable
+							binding:Fire(expectedState)
+						end)
+						if not success then
 							playerData.actions.MoveAction:Fire(expectedState)
 						end
 					else
@@ -1188,17 +1131,13 @@ function ClickToMove:Update(playerData, dt)
 					-- Handle jump request from Pather
 					if currentPather.NextActionJump then
 						if playerData.actions.JumpAction:GetState() ~= true then
-							if FFlagUserPlayerScriptsFireThroughScriptableBindings then
-								local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-								if binding then
-									local success, result = pcall(function()
-										binding.Type = Enum.InputBindingType.Scriptable
-										binding:Fire(true)
-									end)
-									if not success then
-										playerData.actions.JumpAction:Fire(true)
-									end
-								else
+							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+							if binding then
+								local success, result = pcall(function()
+									binding.Type = Enum.InputBindingType.Scriptable
+									binding:Fire(true)
+								end)
+								if not success then
 									playerData.actions.JumpAction:Fire(true)
 								end
 							else
@@ -1208,17 +1147,13 @@ function ClickToMove:Update(playerData, dt)
 						end
 					elseif self.lastPatherJumped then
 						if playerData.actions.JumpAction:GetState() == true then
-							if FFlagUserPlayerScriptsFireThroughScriptableBindings then
-								local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-								if binding then
-									local success, result = pcall(function()
-										binding.Type = Enum.InputBindingType.Scriptable
-										binding:Fire(false)
-									end)
-									if not success then
-										playerData.actions.JumpAction:Fire(false)
-									end
-								else
+							local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+							if binding then
+								local success, result = pcall(function()
+									binding.Type = Enum.InputBindingType.Scriptable
+									binding:Fire(false)
+								end)
+								if not success then
 									playerData.actions.JumpAction:Fire(false)
 								end
 							else
@@ -1236,26 +1171,9 @@ function ClickToMove:Update(playerData, dt)
 
 			if self.lastPatherJumped then
 				if playerData.actions.JumpAction:GetState() == true then
-					if FFlagUserPlayerScriptsSAuthDirectAPIs then
-						local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-						if binding then
-							binding:Fire(false)
-						end
-					elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-						local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-						if binding then
-							local success, result = pcall(function()
-								binding.Type = Enum.InputBindingType.Scriptable
-								binding:Fire(false)
-							end)
-							if not success then
-								playerData.actions.JumpAction:Fire(false)
-							end
-						else
-							playerData.actions.JumpAction:Fire(false)
-						end
-					else
-						playerData.actions.JumpAction:Fire(false)
+					local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+					if binding then
+						binding:Fire(false)
 					end
 				end
 				self.lastPatherJumped = false
@@ -1266,95 +1184,27 @@ function ClickToMove:Update(playerData, dt)
 	if self.shouldCleanupPath then
 		self.shouldCleanupPath = false
 		if FFlagUserPlayerScriptsCTMDirectPlayerData then
-			if FFlagUserPlayerScriptsSAuthDirectAPIs then
-				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					binding:Fire(Vector2.zero)
-				end
-			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					local success, result = pcall(function()
-						binding.Type = Enum.InputBindingType.Scriptable
-						binding:Fire(Vector2.zero)
-					end)
-					if not success then
-						playerData.actions.MoveAction:Fire(Vector2.zero)
-					end
-				else
-					playerData.actions.MoveAction:Fire(Vector2.zero)
-				end
-			else
-				playerData.actions.MoveAction:Fire(Vector2.zero)
+			local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+			if binding then
+				binding:Fire(Vector2.zero)
 			end
 			playerData.moveVector = Vector2.zero
 			self.lastPatherJumped = false
-			if FFlagUserPlayerScriptsSAuthDirectAPIs then
-				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					binding:Fire(false)
-				end
-			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					local success, result = pcall(function()
-						binding.Type = Enum.InputBindingType.Scriptable
-						binding:Fire(false)
-					end)
-					if not success then
-						playerData.actions.JumpAction:Fire(false)
-					end
-				else
-					playerData.actions.JumpAction:Fire(false)
-				end
-			else
-				playerData.actions.JumpAction:Fire(false)
+			local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+			if binding then
+				binding:Fire(false)
 			end
 			playerData.isJumping = false
 		else
 			self.lastPatherMoveVector = Vector2.zero
-			if FFlagUserPlayerScriptsSAuthDirectAPIs then
-				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					binding:Fire(Vector2.zero)
-				end
-			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-				local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					local success, result = pcall(function()
-						binding.Type = Enum.InputBindingType.Scriptable
-						binding:Fire(Vector2.zero)
-					end)
-					if not success then
-						playerData.actions.MoveAction:Fire(Vector2.zero)
-					end
-				else
-					playerData.actions.MoveAction:Fire(Vector2.zero)
-				end
-			else
-				playerData.actions.MoveAction:Fire(Vector2.zero)
+			local binding = playerData.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+			if binding then
+				binding:Fire(Vector2.zero)
 			end
 			self.lastPatherJumped = false
-			if FFlagUserPlayerScriptsSAuthDirectAPIs then
-				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					binding:Fire(false)
-				end
-			elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-				local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-				if binding then
-					local success, result = pcall(function()
-						binding.Type = Enum.InputBindingType.Scriptable
-						binding:Fire(false)
-					end)
-					if not success then
-						playerData.actions.JumpAction:Fire(false)
-					end
-				else
-					playerData.actions.JumpAction:Fire(false)
-				end
-			else
-				playerData.actions.JumpAction:Fire(false)
+			local binding = playerData.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+			if binding then
+				binding:Fire(false)
 			end
 		end
 	end

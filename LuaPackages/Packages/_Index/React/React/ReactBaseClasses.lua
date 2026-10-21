@@ -15,6 +15,7 @@ type Object = LuauPolyfill.Object
 local console = require(Packages.Shared).console
 
 local SharedModule = require(Packages.Shared)
+local enableAllocationTrims = SharedModule.ReactFeatureFlags.enableAllocationTrims
 -- ROBLOX deviation START: we do boolean checks and error() like React 18 does to save functional call in hot path
 -- local invariant = SharedModule.invariant
 -- ROBLOX deviation END
@@ -195,9 +196,18 @@ local function setStateInInit(
 		-- Partial state object
 		partialState = statePayload
 	end
-	-- ROBLOX TODO: can't use table.clone optimization here: invalid argument #1 to 'clone' (table has a protected metatable)
-	-- local newState = if prevState then table.clone(prevState) else {}
-	componentInstance.state = Object.assign({}, prevState, partialState)
+	if enableAllocationTrims then
+		-- ROBLOX performance: table.clone copies in one shot, but can't clone
+		-- UninitializedState (protected metatable) and would copy any other metatable
+		componentInstance.state = if type(prevState) == "table"
+				and getmetatable(prevState) == nil
+			then Object.assign(table.clone(prevState), partialState)
+			else Object.assign({}, prevState, partialState)
+	else
+		-- ROBLOX TODO: can't use table.clone optimization here: invalid argument #1 to 'clone' (table has a protected metatable)
+		-- local newState = if prevState then table.clone(prevState) else {}
+		componentInstance.state = Object.assign({}, prevState, partialState)
+	end
 end
 
 function Component:extend(name): React_Component<any, any>

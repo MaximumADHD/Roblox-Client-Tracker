@@ -477,6 +477,9 @@ exports.noTimeout = -1
 -- -------------------
 
 exports.supportsMutation = true
+-- ROBLOX deviation: Instances are ordered by LayoutOrder/ZIndex, not by their
+-- position among siblings, so insertBefore only sets Parent
+exports.supportsChildOrdering = false
 
 exports.commitMount = function(
 	domElement: Instance,

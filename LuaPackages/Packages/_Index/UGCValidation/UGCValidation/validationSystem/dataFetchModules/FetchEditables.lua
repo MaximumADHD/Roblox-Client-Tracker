@@ -12,7 +12,6 @@ local getMeshSizeFromEditable = require(root.util.getMeshSize)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local DataEnums = ValidationEnums.SharedDataMember
 local Types = require(root.util.Types)
-local getFFlagUGCValidateAllowEmissives = require(root.flags.getFFlagUGCValidateAllowEmissives)
 local getFFlagUGCValidateEmissiveAreaChecksFixedAlgo =
 	require(root.flags.getFFlagUGCValidateEmissiveAreaChecksFixedAlgo)
 
@@ -96,9 +95,7 @@ local function getTextureData(
 			NormalMap = surfaceAppearance.NormalMapContent,
 			RoughnessMap = surfaceAppearance.RoughnessMapContent,
 		}
-		if getFFlagUGCValidateAllowEmissives() then
-			contentMapping.EmissiveMask = surfaceAppearance.EmissiveMaskContent :: Content?
-		end
+		contentMapping.EmissiveMask = surfaceAppearance.EmissiveMaskContent :: Content?
 	else
 		local content
 		if meshInstance:IsA("MeshPart") then

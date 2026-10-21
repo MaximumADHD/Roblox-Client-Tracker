@@ -10,6 +10,8 @@
 local srcRoot = script.Parent.Parent
 local getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload =
 	require(srcRoot.flags.getEngineFeatureEngineSplitHumanoidRigDescriptionInUpload)
+local getFFlagUGCValidationStripAccessoryHandleAttributes =
+	require(srcRoot.flags.getFFlagUGCValidationStripAccessoryHandleAttributes)
 local SplitHumanoidRigDescriptionForUpload = require(srcRoot.util.SplitHumanoidRigDescriptionForUpload)
 
 local function fixUpPreValidation(root: Instance): Instance
@@ -53,6 +55,19 @@ local function fixUpPreValidation(root: Instance): Instance
 		then
 			local surfaceAppearance = Instance.new("SurfaceAppearance")
 			surfaceAppearance.Parent = thing
+		end
+
+		-- Avatar Auto Setup tags accessory Handles with hidden RBX attributes (e.g. RBX_AutoSetupped) that creators
+		-- can't clear. Toolbox strips Handle attributes from the copy it uploads, so strip them here to match.
+		if
+			getFFlagUGCValidationStripAccessoryHandleAttributes()
+			and (thing:IsA("MeshPart") or thing:IsA("Part"))
+			and thing.Name == "Handle"
+			and isParentAnAccessory
+		then
+			for attribute in thing:GetAttributes() do
+				thing:SetAttribute(attribute, nil)
+			end
 		end
 	end
 

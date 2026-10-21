@@ -13,6 +13,10 @@ local RobloxGui = CoreGui.RobloxGui
 local RateLimiter = require(RobloxGui.Modules.ErrorReporting.RateLimiter)
 local PiiFilter = require(RobloxGui.Modules.ErrorReporting.PiiFilter)
 local LuaCoreScriptsErrorV2CounterConfig = require(RobloxGui.Modules.ErrorReporting.LuaCoreScriptsErrorV2CounterConfig)
+local createCoreScriptErrorHandler = require(RobloxGui.Modules.ErrorReporting.createCoreScriptErrorHandler)
+local createCoreScriptReportProcessor = require(RobloxGui.Modules.ErrorReporting.createCoreScriptReportProcessor)
+local FFlagCoreScriptErrorReporterIncludeScriptContext =
+	require(RobloxGui.Modules.Flags.FFlagCoreScriptErrorReporterIncludeScriptContext)
 
 local ErrorReporters = require(CorePackages.Workspace.Packages.ErrorReporters)
 local BacktraceReporter = ErrorReporters.BacktraceReporter
@@ -46,8 +50,7 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTent
 
 game:DefineFastInt("CoreScriptBacktraceErrorReportPercentage", 100)
 
-local FFlagCoreScriptErrorReporterIncludeScriptContext =
-	game:DefineFastFlag("CoreScriptErrorReporterIncludeScriptContext", false)
+local FFlagCoreScriptErrorReporterUseErrorHandler = game:DefineFastFlag("CoreScriptErrorReporterUseErrorHandler", false)
 
 local function CanReportCoreScriptBacktrace()
 	return math.random(1, 100) <= math.clamp(game:GetFastInt("CoreScriptBacktraceErrorReportPercentage"), 0, 100)
@@ -55,11 +58,60 @@ end
 
 -- We don't have a default for this fast string, so if it's the empty string we
 -- know we're at the default and we can't do error reports.
-if
-	not game:GetFastFlag("DisableCorescriptBacktraceReporting")
+local isBacktraceEnabled = not game:GetFastFlag("DisableCorescriptBacktraceReporting")
 	and game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= ""
 	and CanReportCoreScriptBacktrace()
-then
+
+if isBacktraceEnabled and FFlagCoreScriptErrorReporterUseErrorHandler then
+	local processReport, staticAttributes = createCoreScriptReportProcessor()
+
+	local piiFilter = PiiFilter.new({
+		eraseTimeout = game:GetFastInt("CoreScriptBacktracePIIFilterEraseTimeoutSeconds"),
+	})
+
+	local useRateLimiting = game:GetFastFlag("CoreScriptBacktraceRepeatedErrorRateLimiting")
+	local rateLimiter
+	if useRateLimiting then
+		rateLimiter = RateLimiter.new({
+			period = game:GetFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod"),
+			threshold = game:GetFastInt("CoreScriptBacktraceRepeatedErrorRateLimitCount"),
+			processInterval = game:GetFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths") / 10,
+		})
+	end
+
+	local sessionErrorReporter = SessionWithErrorReporter.new(LuaCoreScriptsSessionWithErrorConfig, 300, nil)
+
+	local reporter = BacktraceReporter.new({
+		httpService = HttpService,
+		token = game:GetFastString("CoreScriptBacktraceErrorUploadToken"),
+		processErrorReportMethod = processReport,
+	})
+
+	local handleErrorDetailed = createCoreScriptErrorHandler({
+		piiFilter = piiFilter,
+		rateLimiter = rateLimiter,
+		reporters = { reporter },
+		onErrorReported = function()
+			LoggingProtocol:logRobloxTelemetryCounter(LuaCoreScriptsErrorV2CounterConfig, 1)
+
+			sessionErrorReporter:reportEvent(1, nil, "ERROR")
+		end,
+	})
+
+	ScriptContext.ErrorDetailed:Connect(function(...)
+		local success, message = pcall(handleErrorDetailed, ...)
+
+		if not success then
+			warn(("CoreScript error reporter failed to handle an error:\n%s"):format(message))
+		end
+	end)
+
+	local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)
+	local serverVersion = serverVersionRemote:InvokeServer()
+	staticAttributes.ServerVersion = serverVersion
+end
+
+if isBacktraceEnabled and not FFlagCoreScriptErrorReporterUseErrorHandler then
 	local staticAttributes = {
 		LocalVersion = RunService:GetRobloxVersion(),
 		BaseUrl = ContentProvider.BaseUrl,
@@ -122,18 +174,22 @@ then
 			local reactError, reactRethrow = React.unstable_parseReactError(message)
 			-- if unstable_parseReactError receives a non-react error, it will
 			-- just use it as the message in its output
+			-- lute-lint-ignore(immutability)
 			message = reactError.message
 			-- if unstable_parseReactError receives a non-react error, the stack
 			-- will be nil and we should use what was provided in the callback
+			-- lute-lint-ignore(immutability)
 			stack = reactError.stack or stack
 			-- It's unclear what the details field typically contains; we'll
 			-- only replace it with our rethrow description if it's absent
+			-- lute-lint-ignore(immutability)
 			details = details or reactRethrow
 
 			local cleanedMessage = piiFilter:cleanPii(message)
 			local cleanedStack = piiFilter:cleanPii(stack)
 
 			if details ~= nil then
+				-- lute-lint-ignore(immutability)
 				details = piiFilter:cleanPii(details)
 			end
 

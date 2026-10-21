@@ -10,8 +10,10 @@
  ]]
 local Packages = script.Parent.Parent.Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
+local SafeFlags = require(Packages.SafeFlags)
 local Object = LuauPolyfill.Object
 type Object = LuauPolyfill.Object
+local FFlagMemoizeVirtualizedListContext = SafeFlags.createGetFFlag("MemoizeVirtualizedListContext")()
 
 -- ROBLOX deviation: unavailable Types
 type ReadOnly<T> = T
@@ -45,16 +47,14 @@ export type ChildListState = ReadOnly<{
 -- Data propagated through nested lists (regardless of orientation) that is
 -- useful for producing diagnostics for usage errors involving nesting (e.g
 -- missing/duplicate keys).
-export type ListDebugInfo = ReadOnly<
-	{
-		cellKey: string,
-		listKey: string,
-		parent: ListDebugInfo?,
-		-- We include all ancestors regardless of orientation, so this is not always
-		-- identical to the child's orientation.
-		horizontal: boolean,
-	}
->
+export type ListDebugInfo = ReadOnly<{
+	cellKey: string,
+	listKey: string,
+	parent: ListDebugInfo?,
+	-- We include all ancestors regardless of orientation, so this is not always
+	-- identical to the child's orientation.
+	horizontal: boolean,
+}>
 
 type Context = ReadOnly<{
 	cellKey: string?,
@@ -159,8 +159,17 @@ local function VirtualizedListCellContextProvider(ref: {
 }): React_Node
 	local cellKey, children = ref.cellKey, ref.children
 	local context = useContext(VirtualizedListContext)
+
+	local memoizedContext = if FFlagMemoizeVirtualizedListContext
+		then useMemo(function()
+			return if context == nil then nil else Object.assign(table.clone(context), { cellKey = cellKey })
+		end, { context, cellKey } :: { unknown })
+		else nil
+
 	return React.createElement(VirtualizedListContext.Provider, {
-		value = if context == nil then nil else Object.assign(table.clone(context), { cellKey = cellKey }),
+		value = if FFlagMemoizeVirtualizedListContext
+			then memoizedContext
+			else if context == nil then nil else Object.assign(table.clone(context), { cellKey = cellKey }),
 	}, children)
 end
 exports.VirtualizedListCellContextProvider = VirtualizedListCellContextProvider

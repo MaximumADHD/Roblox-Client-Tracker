@@ -21,15 +21,15 @@ export type Props = {
 
 local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local style = useStyle()
-	local tokens = style.Tokens.Component.SelectionCursor
+	local tokens = style.Tokens.Color.Selection
 	local reducedMotion = (style.Settings :: any).ReducedMotion
 	local colorSequence = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, tokens.Gradient.Start.Color3),
-		ColorSequenceKeypoint.new(1, tokens.Gradient.End.Color3),
+		ColorSequenceKeypoint.new(0, tokens.Start.Color3),
+		ColorSequenceKeypoint.new(1, tokens.End.Color3),
 	})
 	local transparencySequence = NumberSequence.new({
-		NumberSequenceKeypoint.new(0, tokens.Gradient.Start.Transparency),
-		NumberSequenceKeypoint.new(1, tokens.Gradient.End.Transparency),
+		NumberSequenceKeypoint.new(0, tokens.Start.Transparency),
+		NumberSequenceKeypoint.new(1, tokens.End.Transparency),
 	})
 	local rotation, updateRotation = React.useBinding(0)
 	local color, updateColor = React.useBinding(colorSequence)

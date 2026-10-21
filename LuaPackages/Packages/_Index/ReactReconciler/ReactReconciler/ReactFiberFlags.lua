@@ -11,6 +11,9 @@
 
 export type Flags = number
 
+local enableCommitTraversalTrims =
+	require(script.Parent.Parent.Shared).ReactFeatureFlags.enableCommitTraversalTrims
+
 local exports = {}
 
 -- Don't change these two values. They're used by React Dev Tools.
@@ -47,6 +50,10 @@ exports.Hydrating = --[[                    ]]
 	0b000000010000000000
 exports.HydratingAndUpdate = --[[           ]]
 	0b000000010000000100
+-- ROBLOX deviation: an update to an already mounted host component only has mutation phase
+-- work, so it gets its own bit (committed like Update) that is left out of LayoutMask
+exports.HostUpdate = --[[                   ]]
+	0b1000000000000000000
 
 -- Passive & Update & Callback & Ref & Snapshot
 exports.LifecycleEffectMask = --[[          ]]
@@ -73,10 +80,17 @@ exports.PassiveStatic = --[[                ]]
 	0b001000000000000000
 
 -- Union of side effect groupings as pertains to subtreeFlags
-exports.BeforeMutationMask = --[[           ]]
-	0b000000001100001010
-exports.MutationMask = --[[                 ]]
-	0b000000010010011110
+if enableCommitTraversalTrims then
+	-- ROBLOX performance: upstream includes Passive here so the before mutation traversal can
+	-- schedule the passive effect flush; commitRootImpl schedules it from the root's flags instead
+	exports.BeforeMutationMask = 0b000000000100001010
+	exports.MutationMask = 0b1000000010010011110
+else
+	exports.BeforeMutationMask = --[[           ]]
+		0b000000001100001010
+	exports.MutationMask = --[[                 ]]
+		0b000000010010011110
+end
 exports.LayoutMask = --[[                   ]]
 	0b000000000010100100
 exports.PassiveMask = --[[                  ]]

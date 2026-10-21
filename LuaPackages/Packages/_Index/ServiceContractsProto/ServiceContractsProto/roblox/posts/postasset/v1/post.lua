@@ -263,10 +263,12 @@ type _SceneSlotImpl = {
 
 type _SceneSlotFields = {
 	asset_id: number,
+	rbxm_data: buffer,
 }
 
 type _SceneSlotPartialFields = {
 	asset_id: number?,
+	rbxm_data: buffer?,
 }
 
 export type SceneSlot = typeof(setmetatable({} :: _SceneSlotFields, {} :: _SceneSlotImpl))
@@ -1822,6 +1824,7 @@ do
 	function _SceneSlotImpl.new(data: _SceneSlotPartialFields?): SceneSlot
 		return setmetatable({
 			asset_id = if data == nil or data.asset_id == nil then 0 else data.asset_id,
+			rbxm_data = if data == nil or data.rbxm_data == nil then buffer.create(0) else data.rbxm_data,
 		}, _SceneSlotImpl :: _SceneSlotImpl)
 	end
 
@@ -1832,6 +1835,11 @@ do
 		if self.asset_id ~= nil and self.asset_id ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.asset_id)
+		end
+
+		if self.rbxm_data ~= nil and buffer.len(self.rbxm_data) > 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, self.rbxm_data, buffer.len(self.rbxm_data))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -1858,7 +1866,12 @@ do
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
 			elseif wireType == proto.wireTypes.lengthDelimited then
-				-- No fields
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.rbxm_data = value
+					continue
+				end
 
 				local length
 				length, cursor = proto.readVarInt(input, cursor)
@@ -1889,6 +1902,10 @@ do
 			output.assetId = self.asset_id
 		end
 
+		if self.rbxm_data ~= nil and buffer.len(self.rbxm_data) > 0 then
+			output.rbxmData = proto.json.serializeBuffer(self.rbxm_data)
+		end
+
 		return output
 	end
 
@@ -1901,6 +1918,14 @@ do
 
 		if input.assetId ~= nil then
 			self.asset_id = input.assetId
+		end
+
+		if input.rbxm_data ~= nil then
+			self.rbxm_data = proto.json.deserializeBuffer(input.rbxm_data)
+		end
+
+		if input.rbxmData ~= nil then
+			self.rbxm_data = proto.json.deserializeBuffer(input.rbxmData)
 		end
 
 		return self

@@ -88,4 +88,84 @@ local function createSignal(): ((Function) -> () -> (), (...any) -> ())
 	return subscribe, fire
 end
 
-return createSignal
+local function fireConnections(connections: Map<Function, Connection>, ...): nil
+	for callback, connection in connections do
+		if not connection.disconnected then
+			callback(...)
+		end
+	end
+	return nil
+end
+
+-- ROBLOX: re-entrancy-safe version (enableReentrantSafeSignals). Connections
+-- made during a fire wait in `pending` until the outermost fire finishes, so the
+-- traversed table never gains keys mid-iteration, and nested fires don't reset
+-- the outer one.
+local function createReentrantSafeSignal(): ((Function) -> () -> (), (...any) -> ())
+	local connections: Map<Function, Connection> = {}
+	local pending: Map<Function, Connection> = {}
+	local depth = 0
+
+	local function subscribe(callback)
+		assert(
+			typeof(callback) == "function",
+			"Can only subscribe to signals with a function."
+		)
+
+		local connection = {
+			callback = callback,
+			disconnected = false,
+		}
+
+		-- Replacing an existing key is safe during traversal; adding one isn't
+		if depth > 0 and connections[callback] == nil then
+			pending[callback] = connection
+		else
+			connections[callback] = connection
+		end
+
+		local function disconnect()
+			assert(
+				not connection.disconnected,
+				"Listeners can only be disconnected once."
+			)
+
+			connection.disconnected = true
+			if connections[callback] == connection then
+				connections[callback] = nil
+			end
+			if pending[callback] == connection then
+				pending[callback] = nil
+			end
+		end
+
+		return disconnect
+	end
+
+	local function fire(...)
+		depth += 1
+		-- A throwing subscriber (e.g. a failed bound property assignment) must not leave depth raised,
+		-- or later subscribers would wait in `pending` forever.
+		local ok, err = pcall(fireConnections, connections, ...)
+		depth -= 1
+
+		if depth == 0 and next(pending) ~= nil then
+			for callback, connection in pending do
+				connections[callback] = connection
+			end
+			table.clear(pending)
+		end
+
+		if not ok then
+			error(err, 0)
+		end
+	end
+
+	return subscribe, fire
+end
+
+if require(script.Parent.Parent.Shared).ReactFeatureFlags.enableReentrantSafeSignals then
+	return createReentrantSafeSignal
+else
+	return createSignal
+end

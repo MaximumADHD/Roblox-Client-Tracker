@@ -338,6 +338,16 @@ local captureCommitPhaseErrorOnRoot, flushPassiveMountEffects
 
 -- ROBLOX deviation: Pre-declare functions
 local mod: { [string]: any } = {}
+-- ROBLOX performance: the only flags commitMutationEffectsImpl acts on (ReactCommitTraversalTrims)
+mod.MutationWorkFlags = bit32.bor(
+	ReactFiberFlags.Placement,
+	ReactFiberFlags.Update,
+	ReactFiberFlags.Ref,
+	ReactFiberFlags.HostUpdate
+)
+-- ROBLOX performance: mod.passiveMountFibers is a reused list of Passive fibers, in the order the
+-- unmount pass visits them (ReactCommitTraversalTrims). Taken while in use, so a re-entrant flush
+-- allocates its own.
 
 type ExecutionContext = number
 
@@ -1954,42 +1964,92 @@ mod.workLoopConcurrent = function()
 	end
 end
 
-mod.performUnitOfWork = function(unitOfWork: Fiber): ()
-	-- ROBLOX deviation: RobloxReactProfiling
-	local profileRunning = RobloxReactProfiling.profileUnitOfWorkBefore(unitOfWork)
+if ReactFeatureFlags.enableWorkLoopTrims then
+	mod.performUnitOfWork = function(unitOfWork: Fiber): ()
+		-- ROBLOX performance: only call the profiling hooks (no-ops unless fiber
+		-- level profiling is enabled) and the DEV-only helpers when they do work
+		local profileUnitOfWork = RobloxReactProfiling.enableUnitOfWorkProfiling
+		local profileRunning
+		if profileUnitOfWork then
+			profileRunning = RobloxReactProfiling.profileUnitOfWorkBefore(unitOfWork)
+		end
 
-	-- The current, flushed, state of this fiber is the alternate. Ideally
-	-- nothing should rely on this, but relying on it here means that we don't
-	-- need an additional field on the work in progress.
-	local current = unitOfWork.alternate
-	setCurrentDebugFiberInDEV(unitOfWork)
+		-- The current, flushed, state of this fiber is the alternate. Ideally
+		-- nothing should rely on this, but relying on it here means that we don't
+		-- need an additional field on the work in progress.
+		local current = unitOfWork.alternate
+		if __DEV__ then
+			setCurrentDebugFiberInDEV(unitOfWork)
+		end
 
-	local next_
-	if
-		ReactFeatureFlags.enableProfilerTimer
-		and bit32.band(unitOfWork.mode, ReactTypeOfMode.ProfileMode)
-			~= ReactTypeOfMode.NoMode
-	then
-		ReactProfilerTimer.startProfilerTimer(unitOfWork)
-		next_ = mod.beginWork(current, unitOfWork, exports.subtreeRenderLanes)
-		ReactProfilerTimer.stopProfilerTimerIfRunningAndRecordDelta(unitOfWork, true)
-	else
-		next_ = mod.beginWork(current, unitOfWork, exports.subtreeRenderLanes)
+		local next_
+		if
+			ReactFeatureFlags.enableProfilerTimer
+			and bit32.band(unitOfWork.mode, ReactTypeOfMode.ProfileMode)
+				~= ReactTypeOfMode.NoMode
+		then
+			ReactProfilerTimer.startProfilerTimer(unitOfWork)
+			next_ = mod.beginWork(current, unitOfWork, exports.subtreeRenderLanes)
+			ReactProfilerTimer.stopProfilerTimerIfRunningAndRecordDelta(unitOfWork, true)
+		else
+			next_ = mod.beginWork(current, unitOfWork, exports.subtreeRenderLanes)
+		end
+
+		if __DEV__ then
+			resetCurrentDebugFiberInDEV()
+		end
+		unitOfWork.memoizedProps = unitOfWork.pendingProps
+		if next_ == nil then
+			-- If this doesn't spawn new work, complete the current work.
+			mod.completeUnitOfWork(unitOfWork)
+		else
+			workInProgress = next_
+		end
+
+		ReactCurrentOwner.current = nil
+
+		if profileUnitOfWork then
+			RobloxReactProfiling.profileUnitOfWorkAfter(profileRunning)
+		end
 	end
+else
+	mod.performUnitOfWork = function(unitOfWork: Fiber): ()
+		-- ROBLOX deviation: RobloxReactProfiling
+		local profileRunning = RobloxReactProfiling.profileUnitOfWorkBefore(unitOfWork)
 
-	resetCurrentDebugFiberInDEV()
-	unitOfWork.memoizedProps = unitOfWork.pendingProps
-	if next_ == nil then
-		-- If this doesn't spawn new work, complete the current work.
-		mod.completeUnitOfWork(unitOfWork)
-	else
-		workInProgress = next_
+		-- The current, flushed, state of this fiber is the alternate. Ideally
+		-- nothing should rely on this, but relying on it here means that we don't
+		-- need an additional field on the work in progress.
+		local current = unitOfWork.alternate
+		setCurrentDebugFiberInDEV(unitOfWork)
+
+		local next_
+		if
+			ReactFeatureFlags.enableProfilerTimer
+			and bit32.band(unitOfWork.mode, ReactTypeOfMode.ProfileMode)
+				~= ReactTypeOfMode.NoMode
+		then
+			ReactProfilerTimer.startProfilerTimer(unitOfWork)
+			next_ = mod.beginWork(current, unitOfWork, exports.subtreeRenderLanes)
+			ReactProfilerTimer.stopProfilerTimerIfRunningAndRecordDelta(unitOfWork, true)
+		else
+			next_ = mod.beginWork(current, unitOfWork, exports.subtreeRenderLanes)
+		end
+
+		resetCurrentDebugFiberInDEV()
+		unitOfWork.memoizedProps = unitOfWork.pendingProps
+		if next_ == nil then
+			-- If this doesn't spawn new work, complete the current work.
+			mod.completeUnitOfWork(unitOfWork)
+		else
+			workInProgress = next_
+		end
+
+		ReactCurrentOwner.current = nil
+
+		-- ROBLOX deviation: RobloxReactProfiling
+		RobloxReactProfiling.profileUnitOfWorkAfter(profileRunning)
 	end
-
-	ReactCurrentOwner.current = nil
-
-	-- ROBLOX deviation: RobloxReactProfiling
-	RobloxReactProfiling.profileUnitOfWorkAfter(profileRunning)
 end
 
 mod.completeUnitOfWork = function(unitOfWork: Fiber)
@@ -2008,7 +2068,14 @@ mod.completeUnitOfWork = function(unitOfWork: Fiber)
 			bit32.band(completedWork.flags, ReactFiberFlags.Incomplete)
 			== ReactFiberFlags.NoFlags
 		then
-			setCurrentDebugFiberInDEV(completedWork)
+			if ReactFeatureFlags.enableWorkLoopTrims then
+				-- ROBLOX performance: skip the DEV-only helper call in release
+				if __DEV__ then
+					setCurrentDebugFiberInDEV(completedWork)
+				end
+			else
+				setCurrentDebugFiberInDEV(completedWork)
+			end
 			local next_
 			if
 				not ReactFeatureFlags.enableProfilerTimer
@@ -2025,7 +2092,13 @@ mod.completeUnitOfWork = function(unitOfWork: Fiber)
 					false
 				)
 			end
-			resetCurrentDebugFiberInDEV()
+			if ReactFeatureFlags.enableWorkLoopTrims then
+				if __DEV__ then
+					resetCurrentDebugFiberInDEV()
+				end
+			else
+				resetCurrentDebugFiberInDEV()
+			end
 
 			if next_ ~= nil then
 				-- Completing this fiber spawned new work. Work on that next.
@@ -2236,6 +2309,26 @@ mod.commitRootImpl = function(root: FiberRoot, renderPriorityLevel)
 
 		-- Reset this to nil before calling lifecycles
 		ReactCurrentOwner.current = nil
+
+		-- ROBLOX performance: schedule the passive effect flush here (like React 18) rather than
+		-- from each Passive fiber during the before mutation phase, which lets that phase skip
+		-- subtrees whose only effects are passive
+		if ReactFeatureFlags.enableCommitTraversalTrims then
+			if
+				bit32.band(
+						bit32.bor(finishedWork.subtreeFlags, finishedWork.flags),
+						ReactFiberFlags.Passive
+					)
+					~= ReactFiberFlags.NoFlags
+				and not rootDoesHavePassiveEffects
+			then
+				rootDoesHavePassiveEffects = true
+				scheduleCallback(NormalSchedulerPriority, function()
+					exports.flushPassiveEffects()
+					return nil
+				end)
+			end
+		end
 
 		-- The commit phase is broken into several sub-phases. We do a separate pass
 		-- of the effect list for each phase: all mutation effects come before all
@@ -2515,27 +2608,74 @@ mod.commitBeforeMutationEffects = function(firstChild: Fiber)
 			end
 		end
 
-		if __DEV__ then
-			setCurrentDebugFiberInDEV(fiber)
-			invokeGuardedCallback(nil, mod.commitBeforeMutationEffectsImpl, nil, fiber)
-			if hasCaughtError() then
-				local error_ = clearCaughtError()
-				exports.captureCommitPhaseError(fiber, fiber.return_, error_)
-			end
-			resetCurrentDebugFiberInDEV()
-		else
-			-- ROBLOX deviation: YOLO flag for disabling pcall
-			local ok, error_
-			if not __YOLO__ then
-				ok, error_ =
-					xpcall(mod.commitBeforeMutationEffectsImpl, describeError, fiber)
-			else
-				ok = true
-				mod.commitBeforeMutationEffectsImpl(fiber)
-			end
+		if ReactFeatureFlags.enableCommitTraversalTrims then
+			-- ROBLOX performance: commitBeforeMutationEffectsImpl only has work for Snapshot or a
+			-- focused instance (the passive flush is scheduled in commitRootImpl instead)
+			if
+				focusedInstanceHandle ~= nil
+				or bit32.band(fiber.flags, ReactFiberFlags.Snapshot)
+					~= ReactFiberFlags.NoFlags
+			then
+				if __DEV__ then
+					setCurrentDebugFiberInDEV(fiber)
+					invokeGuardedCallback(
+						nil,
+						mod.commitBeforeMutationEffectsImpl,
+						nil,
+						fiber
+					)
+					if hasCaughtError() then
+						local error_ = clearCaughtError()
+						exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+					end
+					resetCurrentDebugFiberInDEV()
+				else
+					-- ROBLOX deviation: YOLO flag for disabling pcall
+					local ok, error_
+					if not __YOLO__ then
+						ok, error_ = xpcall(
+							mod.commitBeforeMutationEffectsImpl,
+							describeError,
+							fiber
+						)
+					else
+						ok = true
+						mod.commitBeforeMutationEffectsImpl(fiber)
+					end
 
-			if not ok then
-				exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+					if not ok then
+						exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+					end
+				end
+			end
+		else
+			if __DEV__ then
+				setCurrentDebugFiberInDEV(fiber)
+				invokeGuardedCallback(
+					nil,
+					mod.commitBeforeMutationEffectsImpl,
+					nil,
+					fiber
+				)
+				if hasCaughtError() then
+					local error_ = clearCaughtError()
+					exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+				end
+				resetCurrentDebugFiberInDEV()
+			else
+				-- ROBLOX deviation: YOLO flag for disabling pcall
+				local ok, error_
+				if not __YOLO__ then
+					ok, error_ =
+						xpcall(mod.commitBeforeMutationEffectsImpl, describeError, fiber)
+				else
+					ok = true
+					mod.commitBeforeMutationEffectsImpl(fiber)
+				end
+
+				if not ok then
+					exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+				end
 			end
 		end
 		-- ROBLOX Luau FIXME: Luau doesn't narrow correctly for the while ~= nil pattern
@@ -2566,15 +2706,18 @@ mod.commitBeforeMutationEffectsImpl = function(fiber: Fiber)
 		resetCurrentDebugFiberInDEV()
 	end
 
-	if bit32.band(flags, ReactFiberFlags.Passive) ~= ReactFiberFlags.NoFlags then
-		-- If there are passive effects, schedule a callback to flush at
-		-- the earliest opportunity.
-		if not rootDoesHavePassiveEffects then
-			rootDoesHavePassiveEffects = true
-			scheduleCallback(NormalSchedulerPriority, function()
-				exports.flushPassiveEffects()
-				return nil
-			end)
+	-- ROBLOX performance: with ReactCommitTraversalTrims the passive flush is scheduled in commitRootImpl
+	if not ReactFeatureFlags.enableCommitTraversalTrims then
+		if bit32.band(flags, ReactFiberFlags.Passive) ~= ReactFiberFlags.NoFlags then
+			-- If there are passive effects, schedule a callback to flush at
+			-- the earliest opportunity.
+			if not rootDoesHavePassiveEffects then
+				rootDoesHavePassiveEffects = true
+				scheduleCallback(NormalSchedulerPriority, function()
+					exports.flushPassiveEffects()
+					return nil
+				end)
+			end
 		end
 	end
 end
@@ -2628,38 +2771,80 @@ mod.commitMutationEffects = function(
 			end
 		end
 
-		if __DEV__ then
-			setCurrentDebugFiberInDEV(fiber)
-			invokeGuardedCallback(
-				nil,
-				mod.commitMutationEffectsImpl,
-				nil,
-				fiber,
-				root,
-				renderPriorityLevel
-			)
-			if hasCaughtError() then
-				local error_ = clearCaughtError()
-				exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+		if ReactFeatureFlags.enableCommitTraversalTrims then
+			-- ROBLOX performance: skip fibers with nothing for commitMutationEffectsImpl to do
+			if
+				bit32.band(fiber.flags, mod.MutationWorkFlags) ~= ReactFiberFlags.NoFlags
+			then
+				if __DEV__ then
+					setCurrentDebugFiberInDEV(fiber)
+					invokeGuardedCallback(
+						nil,
+						mod.commitMutationEffectsImpl,
+						nil,
+						fiber,
+						root,
+						renderPriorityLevel
+					)
+					if hasCaughtError() then
+						local error_ = clearCaughtError()
+						exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+					end
+					resetCurrentDebugFiberInDEV()
+				else
+					-- ROBLOX deviation: YOLO flag for disabling pcall
+					local ok, result
+					if not __YOLO__ then
+						ok, result = xpcall(
+							mod.commitMutationEffectsImpl,
+							describeError,
+							fiber,
+							root,
+							renderPriorityLevel
+						)
+					else
+						ok = true
+						mod.commitMutationEffectsImpl(fiber, root, renderPriorityLevel)
+					end
+					if not ok then
+						exports.captureCommitPhaseError(fiber, fiber.return_, result)
+					end
+				end
 			end
-			resetCurrentDebugFiberInDEV()
 		else
-			-- ROBLOX deviation: YOLO flag for disabling pcall
-			local ok, result
-			if not __YOLO__ then
-				ok, result = xpcall(
+			if __DEV__ then
+				setCurrentDebugFiberInDEV(fiber)
+				invokeGuardedCallback(
+					nil,
 					mod.commitMutationEffectsImpl,
-					describeError,
+					nil,
 					fiber,
 					root,
 					renderPriorityLevel
 				)
+				if hasCaughtError() then
+					local error_ = clearCaughtError()
+					exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+				end
+				resetCurrentDebugFiberInDEV()
 			else
-				ok = true
-				mod.commitMutationEffectsImpl(fiber, root, renderPriorityLevel)
-			end
-			if not ok then
-				exports.captureCommitPhaseError(fiber, fiber.return_, result)
+				-- ROBLOX deviation: YOLO flag for disabling pcall
+				local ok, result
+				if not __YOLO__ then
+					ok, result = xpcall(
+						mod.commitMutationEffectsImpl,
+						describeError,
+						fiber,
+						root,
+						renderPriorityLevel
+					)
+				else
+					ok = true
+					mod.commitMutationEffectsImpl(fiber, root, renderPriorityLevel)
+				end
+				if not ok then
+					exports.captureCommitPhaseError(fiber, fiber.return_, result)
+				end
 			end
 		end
 		-- ROBLOX Luau FIXME: Luau doesn't understand the while ~= nil construct
@@ -2705,6 +2890,12 @@ mod.commitMutationEffectsImpl = function(
 			ReactFiberFlags.Hydrating
 		)
 	)
+	if ReactFeatureFlags.enableCommitTraversalTrims then
+		-- ROBLOX deviation: HostUpdate is committed exactly like Update
+		if bit32.band(flags, ReactFiberFlags.HostUpdate) ~= ReactFiberFlags.NoFlags then
+			primaryFlags = bit32.bor(primaryFlags, ReactFiberFlags.Update)
+		end
+	end
 	if primaryFlags == ReactFiberFlags.Placement then
 		commitPlacement(fiber)
 		-- Clear the "placement" from effect tag so that we know that this is
@@ -2884,6 +3075,34 @@ flushPassiveMountEffects = function(root, firstChild: Fiber): ()
 	end
 end
 
+mod.commitPassiveMountEffectsOnFibers = function(root, fibers: Array<Fiber>)
+	for i = 1, #fibers do
+		local fiber = fibers[i]
+		if __DEV__ then
+			setCurrentDebugFiberInDEV(fiber)
+			invokeGuardedCallback(nil, commitPassiveMountOnFiber, nil, root, fiber)
+			if hasCaughtError() then
+				local error_ = clearCaughtError()
+				exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+			end
+			resetCurrentDebugFiberInDEV()
+		else
+			-- ROBLOX deviation: YOLO flag for disabling pcall
+			local ok, error_
+			if not __YOLO__ then
+				ok, error_ = xpcall(commitPassiveMountOnFiber, describeError, root, fiber)
+			else
+				ok = true
+				commitPassiveMountOnFiber(root, fiber)
+			end
+
+			if not ok then
+				exports.captureCommitPhaseError(fiber, fiber.return_, error_)
+			end
+		end
+	end
+end
+
 local function flushPassiveUnmountEffects(firstChild: Fiber): ()
 	local fiber = firstChild
 	while fiber ~= nil do
@@ -2943,6 +3162,81 @@ local function flushPassiveUnmountEffects(firstChild: Fiber): ()
 
 		local primaryFlags = bit32.band(fiber.flags, ReactFiberFlags.Passive)
 		if primaryFlags ~= ReactFiberFlags.NoFlags then
+			setCurrentDebugFiberInDEV(fiber)
+			commitPassiveUnmountOnFiber(fiber)
+			resetCurrentDebugFiberInDEV()
+		end
+
+		-- ROBLOX FIXME Luau: Luau doesn't understand the loop ~= nil construct
+		fiber = fiber.sibling :: Fiber
+	end
+end
+
+-- ROBLOX performance: flushPassiveUnmountEffects that also collects the Passive fibers it visits, in
+-- order, so the mount pass can commit them without walking the tree again (ReactCommitTraversalTrims)
+mod.flushPassiveUnmountEffectsCollecting = function(
+	firstChild: Fiber,
+	passiveFibers: Array<Fiber>
+): ()
+	local fiber = firstChild
+	while fiber ~= nil do
+		local deletions = fiber.deletions
+		if deletions ~= nil then
+			for i = 1, #deletions do
+				local fiberToDelete = deletions[i]
+				mod.flushPassiveUnmountEffectsInsideOfDeletedTree(fiberToDelete, fiber)
+
+				if not (enableNewTreeCleanupPath and deletedTreeCleanUpLevel >= 2) then
+					-- Now that passive effects have been processed, it's safe to detach lingering pointers.
+					mod.detachFiberAfterEffects(fiberToDelete)
+				end
+			end
+
+			if enableNewTreeCleanupPath then
+				if deletedTreeCleanUpLevel >= 1 then
+					-- A fiber was deleted from this parent fiber, but it's still part of
+					-- the previous (alternate) parent fiber's list of children. Because
+					-- children are a linked list, an earlier sibling that's still alive
+					-- will be connected to the deleted fiber via its `alternate`:
+					--
+					--   live fiber
+					--   --alternate--> previous live fiber
+					--   --sibling--> deleted fiber
+					--
+					-- We can't disconnect `alternate` on nodes that haven't been deleted
+					-- yet, but we can disconnect the `sibling` and `child` pointers.
+					local previousFiber = fiber.alternate
+					if previousFiber ~= nil then
+						local detachedChild = previousFiber.child
+						if detachedChild ~= nil then
+							previousFiber.child = nil
+							repeat
+								local detachedSibling = detachedChild.sibling
+								detachedChild.sibling = nil
+								detachedChild = detachedSibling
+							until detachedChild == nil
+						end
+					end
+				end
+			end
+		end
+
+		local child = fiber.child
+		if child ~= nil then
+			-- If any children have passive effects then traverse the subtree.
+			-- Note that this requires checking subtreeFlags of the current Fiber,
+			-- rather than the subtreeFlags/effectsTag of the first child,
+			-- since that would not cover passive effects in siblings.
+			local passiveFlags =
+				bit32.band(fiber.subtreeFlags, ReactFiberFlags.PassiveMask)
+			if passiveFlags ~= ReactFiberFlags.NoFlags then
+				mod.flushPassiveUnmountEffectsCollecting(child, passiveFibers)
+			end
+		end
+
+		local primaryFlags = bit32.band(fiber.flags, ReactFiberFlags.Passive)
+		if primaryFlags ~= ReactFiberFlags.NoFlags then
+			table.insert(passiveFibers, fiber)
 			setCurrentDebugFiberInDEV(fiber)
 			commitPassiveUnmountOnFiber(fiber)
 			resetCurrentDebugFiberInDEV()
@@ -3030,8 +3324,29 @@ flushPassiveEffectsImpl = function()
 	-- e.g. a destroy function in one component may unintentionally override a ref
 	-- value set by a create function in another component.
 	-- Layout effects have the same constraint.
-	flushPassiveUnmountEffects(root.current)
-	flushPassiveMountEffects(root, root.current)
+	if ReactFeatureFlags.enableCommitTraversalTrims then
+		-- ROBLOX performance: unless Profilers need the tree walk to track durations, mount effects
+		-- are committed from the Passive fibers collected by the unmount pass (same order)
+		if
+			not (
+				ReactFeatureFlags.enableProfilerTimer
+				and ReactFeatureFlags.enableProfilerCommitHooks
+			)
+		then
+			local passiveFibers = mod.passiveMountFibers or {}
+			mod.passiveMountFibers = nil
+			mod.flushPassiveUnmountEffectsCollecting(root.current, passiveFibers)
+			mod.commitPassiveMountEffectsOnFibers(root, passiveFibers)
+			table.clear(passiveFibers)
+			mod.passiveMountFibers = passiveFibers
+		else
+			flushPassiveUnmountEffects(root.current)
+			flushPassiveMountEffects(root, root.current)
+		end
+	else
+		flushPassiveUnmountEffects(root.current)
+		flushPassiveMountEffects(root, root.current)
+	end
 
 	if __DEV__ then
 		if enableDebugTracing then

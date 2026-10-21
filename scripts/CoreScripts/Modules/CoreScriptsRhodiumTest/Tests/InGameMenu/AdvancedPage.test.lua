@@ -25,6 +25,7 @@ local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local c
 
@@ -41,9 +42,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 	c.gamepadInputForZone = function(input, expectedZone)
 		local reachedExpectedZone = Instance.new("BindableEvent")
@@ -143,9 +142,7 @@ describe("In-Game Menu Advanced Settings page focus management", function()
 		"should select page back button when moving selection up and perf stats toggle when moving selection down",
 		function()
 			local path = XPath.new(c.path)
-			act(function()
-				wait(0.2)
-			end)
+			c.waitForPageAnimation()
 
 			local perfStatsTogglePath =
 				path:cat(XPath.new("PageContainer.AdvancedGameSettings.Page.PageContainer.PerformanceStats.Toggle"))
@@ -180,9 +177,7 @@ describe("In-Game Menu Advanced Settings page focus management", function()
 
 	it("should navigate back to basic settings page when back button is pressed", function()
 		local store = c.store
-		act(function()
-			wait(0.2)
-		end)
+		c.waitForPageAnimation()
 
 		expect(store:getState().menuPage).toBe("AdvancedGameSettings")
 
@@ -193,9 +188,7 @@ describe("In-Game Menu Advanced Settings page focus management", function()
 	end)
 
 	it("should toggle perf stats", function()
-		act(function()
-			wait(0.2)
-		end)
+		c.waitForPageAnimation()
 		expect(UserGameSettings.PerformanceStatsVisible).toBe(false)
 
 		c.gamepadInput(Enum.KeyCode.ButtonA)
@@ -206,9 +199,7 @@ describe("In-Game Menu Advanced Settings page focus management", function()
 	end)
 
 	it("should toggle micro profiler", function()
-		act(function()
-			wait(0.2)
-		end)
+		c.waitForPageAnimation()
 		c.gamepadInput(Enum.KeyCode.DPadDown)
 		expect(UserGameSettings.OnScreenProfilerEnabled).toBe(false)
 

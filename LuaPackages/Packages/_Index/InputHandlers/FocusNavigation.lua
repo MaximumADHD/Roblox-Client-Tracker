@@ -15,6 +15,7 @@ export type EventHandlerMap = Package.EventHandlerMap
 export type EngineInterface = Package.EngineInterface
 export type InputEvent = Package.InputEvent
 export type EventMap = Package.EventMap
+export type DispatchedEvent = Package.DispatchedEvent
 export type ContainerFocusBehavior = Package.ContainerFocusBehavior
 export type FocusNavigationService = Package.FocusNavigationService
 

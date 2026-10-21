@@ -243,9 +243,18 @@ jest.mock(CorePackages.Workspace.Packages.AppChat.ChatSessionRefCount, function(
 	}
 end)
 
+local detachedEffects: { (any) -> () } = {}
+local function flushDetachedEffects()
+	for _, effect in ipairs(detachedEffects) do
+		effect(false)
+	end
+end
+
 jest.mock(CorePackages.Workspace.Packages.SignalsUtils, function()
 	return {
-		createDetachedEffect = function() end,
+		createDetachedEffect = function(effect)
+			table.insert(detachedEffects, effect)
+		end,
 	}
 end)
 
@@ -268,6 +277,8 @@ jest.mock(script.Parent.ChatIconVisibleSignals, function()
 end)
 
 local mockShouldSkipHistorical = false
+local mockHistoricalWindowMessageCount = 0
+local mockHistoricalCountSignalExists = true
 jest.mock(CorePackages.Workspace.Packages.ExpChat, function()
 	return {
 		Stores = {
@@ -278,7 +289,19 @@ jest.mock(CorePackages.Workspace.Packages.ExpChat, function()
 					end,
 				}
 			end,
+			GetMessagesStore = function()
+				return {
+					getHistoricalWindowMessageCount = if mockHistoricalCountSignalExists
+						then function()
+							return mockHistoricalWindowMessageCount
+						end
+						else nil,
+				}
+			end,
 		},
+		isHistoricalMessage = function(textChatMessage)
+			return textChatMessage ~= nil and textChatMessage.IsHistorical == true
+		end,
 		Events = {
 			ChatTopBarButtonActivated = function() end,
 		},
@@ -395,6 +418,7 @@ local mockSharedFlags = {
 	FFlagExpChatEnableFriendsTab = false,
 	FFlagExpChatCanShowFriendsTab = false,
 	FFlagExpChatPerfTracking = false,
+	FFlagExpChatHistoricalMessagesUnibarUnread = false,
 }
 jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
 	return mockSharedFlags
@@ -468,9 +492,9 @@ local gameOverride = setmetatable({
 	end,
 })
 
-local function fireMessageReceived(textChannel: any)
+local function fireMessageReceived(textChannel: any, isHistorical: boolean?)
 	for _, handler in messageReceivedHandlers do
-		handler({ TextChannel = textChannel, Metadata = "" })
+		handler({ TextChannel = textChannel, Metadata = "", IsHistorical = isHistorical })
 	end
 end
 
@@ -482,10 +506,11 @@ end
 
 -- Loads the integration under the game override so the badge handler binds to
 -- the fake TextChatService. Mirrors `loadIntegration`'s post-load priming.
-local function loadIntegrationForBadge(): any
+local function loadIntegrationForBadge(skipVisibilityObservation: boolean?): any
 	mockSharedFlags.FFlagExpChatEnableFriendsTab = false
 	table.clear(messageReceivedHandlers)
 	table.clear(universeMessageReceivedHandlers)
+	table.clear(detachedEffects)
 
 	local moduleFunction = debug["loadmodule"](script.Parent.ChatChromeIntegration)
 	local defaultEnvironment = getfenv(moduleFunction)
@@ -500,8 +525,10 @@ local function loadIntegrationForBadge(): any
 	setfenv(moduleFunction, newEnvironment :: any)
 	local integration = moduleFunction()
 
-	assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
-	updateChatVisibility(chatWindowVisible)
+	if not skipVisibilityObservation then
+		assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
+		updateChatVisibility(chatWindowVisible)
+	end
 	integration.availability:available()
 	notificationFireCountSpy:mockClear()
 	notificationClearSpy:mockClear()
@@ -784,6 +811,176 @@ describe("ChatChromeIntegration unibar badge gating", function()
 		loadIntegrationForBadge()
 
 		fireUniverseMessageReceived()
+
+		expect(notificationFireCountSpy).toHaveBeenCalledWith(1)
+	end)
+end)
+
+describe("ChatChromeIntegration historical unread badge", function()
+	local A_CHANNEL = { IsDefaultTextChannel = true }
+
+	beforeEach(function()
+		lastRegisterProps = nil
+		lastIntegration = nil
+		chatWindowVisible = false
+		mockUniverseChatTabsEnabled = false
+		mockShouldRenderInDefaultWindow = true
+		mockShouldSkipHistorical = false
+		mockHistoricalWindowMessageCount = 0
+		mockHistoricalCountSignalExists = true
+		table.clear(messageReceivedHandlers)
+		table.clear(universeMessageReceivedHandlers)
+		table.clear(detachedEffects)
+		notificationFireCountSpy:mockClear()
+		notificationClearSpy:mockClear()
+		mockSharedFlags.FFlagEnableConsoleExpControls = false
+		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
+		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
+		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = false
+		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = false
+	end)
+
+	afterEach(function()
+		GameSettings.ChatVisible = originalChatVisible
+	end)
+
+	it("SHOULD badge the stored historical count WHEN replayed history lands", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		loadIntegrationForBadge()
+
+		mockHistoricalWindowMessageCount = 3
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(3)
+	end)
+
+	it("SHOULD lower the badge WHEN the cap trims the stored historical count", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		loadIntegrationForBadge()
+
+		mockHistoricalWindowMessageCount = 5
+		flushDetachedEffects()
+		mockHistoricalWindowMessageCount = 2
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(2)
+	end)
+
+	it("SHOULD stop badging replayed history WHEN the window is opened", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		loadIntegrationForBadge()
+		mockHistoricalWindowMessageCount = 3
+		flushDetachedEffects()
+
+		assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
+		chatWindowVisible = true
+		updateChatVisibility(true)
+		notificationFireCountSpy:mockClear()
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(0)
+	end)
+
+	it("SHOULD badge history that arrives after eviction dropped acknowledged history", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		loadIntegrationForBadge()
+		mockHistoricalWindowMessageCount = 5
+		flushDetachedEffects()
+
+		assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
+		chatWindowVisible = true
+		updateChatVisibility(true)
+		chatWindowVisible = false
+		updateChatVisibility(false)
+
+		mockHistoricalWindowMessageCount = 2
+		flushDetachedEffects()
+		mockHistoricalWindowMessageCount = 4
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(2)
+	end)
+
+	it("SHOULD NOT badge replayed history WHEN the window is already open on join", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		chatWindowVisible = true
+		loadIntegrationForBadge()
+
+		mockHistoricalWindowMessageCount = 3
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(0)
+	end)
+
+	it("SHOULD badge replayed history WHEN only the startup preference says the window is open", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = true
+		GameSettings.ChatVisible = true
+		chatWindowVisible = true
+		loadIntegrationForBadge(true)
+
+		mockHistoricalWindowMessageCount = 3
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(3)
+	end)
+
+	it("SHOULD badge replayed history WHEN the window reports itself closed after replay", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = true
+		GameSettings.ChatVisible = true
+		chatWindowVisible = true
+		loadIntegrationForBadge(true)
+
+		mockHistoricalWindowMessageCount = 3
+		flushDetachedEffects()
+
+		assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
+		chatWindowVisible = false
+		updateChatVisibility(false)
+		notificationFireCountSpy:mockClear()
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(3)
+	end)
+
+	it("SHOULD NOT double count WHEN a historical message also arrives on MessageReceived", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		loadIntegrationForBadge()
+		mockHistoricalWindowMessageCount = 2
+
+		fireMessageReceived(A_CHANNEL, true)
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(2)
+	end)
+
+	it("SHOULD badge nothing WHEN the store exposes no historical count", function()
+		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
+		mockHistoricalCountSignalExists = false
+		loadIntegrationForBadge()
+
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(0)
+	end)
+
+	it("SHOULD NOT read the stored historical count WHEN the flag is off", function()
+		loadIntegrationForBadge()
+
+		mockHistoricalWindowMessageCount = 3
+		flushDetachedEffects()
+
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+	end)
+
+	it("SHOULD keep counting historical messages from MessageReceived WHEN the flag is off", function()
+		loadIntegrationForBadge()
+
+		fireMessageReceived(A_CHANNEL, true)
 
 		expect(notificationFireCountSpy).toHaveBeenCalledWith(1)
 	end)

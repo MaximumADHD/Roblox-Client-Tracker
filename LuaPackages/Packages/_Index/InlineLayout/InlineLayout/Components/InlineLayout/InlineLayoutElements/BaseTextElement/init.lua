@@ -176,6 +176,23 @@ function BaseTextElement:split(desiredWidth: number, forceSplit: boolean?)
 		if tailText then self:_clone(join(self.props, { Text = tailText:gsub("^%s*", "") })) else nil
 end
 
+-- Returns the element without leading whitespace, for when it starts a row.
+-- Returns self if there is nothing to trim, and nil if no text is left.
+function BaseTextElement:trimStart()
+	local text = self.props.Text
+	if text == nil then
+		return self
+	end
+	local trimmedText = text:gsub("^%s+", "")
+	if trimmedText == "" then
+		return nil
+	end
+	if trimmedText == text then
+		return self
+	end
+	return self:_clone(join(self.props, { Text = trimmedText }))
+end
+
 function BaseTextElement:render(id: string | number, layoutOrder: number)
 	local text = self.props.Text
 	if self.hasRichText and self.props.Text and self.props.EngineTags then

@@ -373,8 +373,27 @@ local function ContentStory()
 			LayoutOrder = 3,
 			name = "Icon by circular sizing",
 		}, circularSizingCells()),
+		IconOnly = React.createElement(
+			Section,
+			{
+				LayoutOrder = 4,
+				name = "Icon-only by size",
+			},
+			Dash.map(SIZE_ORDER, function(size, index)
+				return React.createElement(LabeledCell, {
+					LayoutOrder = index,
+					label = size,
+				}, {
+					Chip = React.createElement(Chip, {
+						leading = LEADING_ICON,
+						size = size,
+						onActivated = noop,
+					}),
+				})
+			end)
+		),
 		AvatarByTypeAndSize = React.createElement(MatrixSection, {
-			LayoutOrder = 4,
+			LayoutOrder = 5,
 			name = "Avatar by type and size",
 			labelColumnWidth = LABEL_COLUMN_WIDTH,
 			cellColumnWidth = CELL_COLUMN_WIDTH,
@@ -382,7 +401,7 @@ local function ContentStory()
 			rows = avatarTypeAndSizeRows(),
 		}),
 		Truncation = React.createElement(Section, {
-			LayoutOrder = 5,
+			LayoutOrder = 6,
 			name = "Truncation",
 			contentTag = "col gap-large size-full-0 auto-y",
 		}, truncationExamples()),

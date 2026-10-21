@@ -8,6 +8,9 @@ local VirtualInput = Rhodium.VirtualInput
 
 local Modules = CoreGui.RobloxGui.Modules
 local act = require(CorePackages.Packages.Roact).act
+local Promise = require(CorePackages.Packages.Promise)
+local AnimationStepSignal = require(CorePackages.Packages.Otter).__devAnimationStepSignal
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe = JestGlobals.describe
@@ -27,16 +30,65 @@ local TITLE_BAR_ON_POS = UDim2.fromOffset(0, 0)
 local OUTSIDE_OF_TITLE_BAR_POSITION = Vector2.new(100, 500)
 local TRIGGER_DELAY = 0.1
 
+-- The bar shows and hides on Promise.delay timers and animates on an Otter spring. Both run on a
+-- clock that the test advances: Promise reads its time and its tick event from hooks that the
+-- library exposes, and Otter steps on its mock animation signal.
+local FRAME = 1 / 60
+local fakeNow = 0
+local timeCallbacks = {}
+local mockTimeEvent = {
+	Connect = function(_, callback)
+		timeCallbacks[callback] = true
+		return {
+			Disconnect = function()
+				timeCallbacks[callback] = nil
+			end,
+		}
+	end,
+}
+local originalGetTime = Promise._getTime
+local originalTimeEvent = Promise._timeEvent
+
+local function advance(seconds: number)
+	for _ = 1, math.max(1, math.ceil(seconds / FRAME)) do
+		act(function()
+			fakeNow += FRAME
+			for callback in table.clone(timeCallbacks) do
+				callback()
+			end
+			AnimationStepSignal:Fire(FRAME)
+		end)
+	end
+end
+
+local function moveMouse(position: Vector2)
+	act(function()
+		VirtualInput.Mouse.mouseMove(position)
+		VirtualInput.waitForInputEventsProcessed()
+	end)
+	waitForEvents.act()
+end
+
 local c
 
 describe("SettingsFullScreenTitleBar", function()
 	beforeEach(function()
 		c = {}
 		c.triggerDelay = game:SetFastIntForTesting("FullscreenTitleBarTriggerDelayMillis", TRIGGER_DELAY * 1000)
+		fakeNow = 0
+		table.clear(timeCallbacks)
+		Promise._getTime = function()
+			return fakeNow
+		end
+		Promise._timeEvent = mockTimeEvent :: any
+		_G.__OTTER_MOCK_ANIMATION_STEP_SIGNAL__ = true
 	end)
 
 	afterEach(function()
 		game:SetFastIntForTesting("FullscreenTitleBarTriggerDelayMillis", c.triggerDelay)
+		Promise._getTime = originalGetTime
+		Promise._timeEvent = originalTimeEvent
+		_G.__OTTER_MOCK_ANIMATION_STEP_SIGNAL__ = nil
 	end)
 
 	it("should create and destroy without errors", function()
@@ -54,23 +106,12 @@ describe("SettingsFullScreenTitleBar", function()
 		SettingsFullScreenTitleBar.unmount(tree)
 	end)
 
-	local function waitForEvents()
-		act(function()
-			-- execut any action triggered by the mouse move
-			task.wait()
-		end)
-		act(function()
-			-- stay on trigger area longer than the trigger delay
-			task.wait(TRIGGER_DELAY)
-			task.wait()
-		end)
-		act(function()
-			-- This wait plays the scheduler forward through an animation
-			task.wait(2)
-		end)
+	-- Stay longer than the trigger delay, then play the bar animation to its end.
+	local function advancePastTriggerAndAnimation()
+		advance(TRIGGER_DELAY + 2)
 	end
 
-	it.skip("should be triggered/hidden on mouse in/out after delay", function()
+	it("should be triggered/hidden on mouse in/out after delay", function()
 		local tree = SettingsFullScreenTitleBar.mount({
 			_mockFullScreen = true,
 		}, game.CoreGui, "SettingsFullScreenTitleBar")
@@ -84,22 +125,22 @@ describe("SettingsFullScreenTitleBar", function()
 
 		expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
 
-		VirtualInput.Mouse.mouseMove(triggerArea:getCenter())
-		waitForEvents()
+		moveMouse(triggerArea:getCenter())
+		advancePastTriggerAndAnimation()
 		expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
-		VirtualInput.Mouse.mouseMove(bar:getCenter())
-		waitForEvents()
+		moveMouse(bar:getCenter())
+		advancePastTriggerAndAnimation()
 		expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
-		VirtualInput.Mouse.mouseMove(OUTSIDE_OF_TITLE_BAR_POSITION)
-		waitForEvents()
+		moveMouse(OUTSIDE_OF_TITLE_BAR_POSITION)
+		advancePastTriggerAndAnimation()
 		expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
 
 		SettingsFullScreenTitleBar.unmount(tree)
 	end)
 
-	it.skip("should trigger the close action on button click", function()
+	it("should trigger the close action on button click", function()
 		local clicked = 0
 		local mockFn = jest.fn()
 		local tree = SettingsFullScreenTitleBar.mount({
@@ -116,12 +157,14 @@ describe("SettingsFullScreenTitleBar", function()
 
 		expect(barInstance.Position).toBe(TITLE_BAR_OFF_POS)
 
-		VirtualInput.Mouse.mouseMove(triggerArea:getCenter())
-		waitForEvents()
+		moveMouse(triggerArea:getCenter())
+		advancePastTriggerAndAnimation()
 		expect(barInstance.Position).toBe(TITLE_BAR_ON_POS)
 
-		Element.new(closeButtonInstance):click()
-		waitForEvents()
+		act(function()
+			Element.new(closeButtonInstance):click()
+		end)
+		waitForEvents.act()
 		expect(mockFn).toHaveBeenCalledTimes(1)
 
 		SettingsFullScreenTitleBar.unmount(tree)

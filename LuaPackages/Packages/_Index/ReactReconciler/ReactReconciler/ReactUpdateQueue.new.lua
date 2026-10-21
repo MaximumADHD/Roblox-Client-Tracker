@@ -132,6 +132,7 @@ local DidCapture = ReactFiberFlags.DidCapture
 local ReactFeatureFlags = require(Packages.Shared).ReactFeatureFlags
 local debugRenderPhaseSideEffectsForStrictMode =
 	ReactFeatureFlags.debugRenderPhaseSideEffectsForStrictMode
+local enableAllocationTrims = ReactFeatureFlags.enableAllocationTrims
 
 local ReactTypeOfMode = require(script.Parent.ReactTypeOfMode)
 local StrictMode = ReactTypeOfMode.StrictMode
@@ -488,9 +489,20 @@ local function getStateFromUpdate<State>(
 			return prevState
 		end
 		-- Merge the partial state and the previous state.
-		-- ROBLOX TODO: the below optimziation doesn't work because: invalid argument #1 to 'clone' (table has a protected metatable)
-		-- local newState = if prevState ~= nil then table.clone(prevState :: any) else {}
-		return Object.assign({}, prevState, partialState)
+		if enableAllocationTrims then
+			-- ROBLOX performance: table.clone copies in one shot instead of growing the
+			-- new table key by key. It can't clone UninitializedState (protected
+			-- metatable) and would copy any other metatable, so skip those.
+			local newState = if type(prevState) == "table"
+					and getmetatable(prevState) == nil
+				then table.clone(prevState :: any)
+				else Object.assign({}, prevState)
+			return Object.assign(newState, partialState)
+		else
+			-- ROBLOX TODO: the below optimziation doesn't work because: invalid argument #1 to 'clone' (table has a protected metatable)
+			-- local newState = if prevState ~= nil then table.clone(prevState :: any) else {}
+			return Object.assign({}, prevState, partialState)
+		end
 	elseif updateTag == ForceUpdate then
 		hasForceUpdate = true
 		return prevState

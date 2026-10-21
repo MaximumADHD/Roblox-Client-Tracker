@@ -33,7 +33,7 @@ export type IconProps = {
 	size: IconSize | Bindable<number>?,
 	variant: IconVariant?,
 	Rotation: Bindable<number>?,
-	-- **DEPRECATED**
+	-- **DEPRECATED**: Icon does not support children. Still accepted.
 	children: React.ReactNode?,
 } & Types.CommonProps
 

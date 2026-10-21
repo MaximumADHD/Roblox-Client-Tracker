@@ -9,6 +9,7 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local Rhodium = require(CorePackages.Packages.Dev.Rhodium)
+local waitUntil = require(CorePackages.Workspace.Packages.TestUtils).waitUntil
 local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 
@@ -17,8 +18,6 @@ local describe = JestGlobals.describe
 local it = JestGlobals.it
 local afterAll = JestGlobals.afterAll
 local jestExpect = JestGlobals.expect
-
-local RoactAct = Roact.act
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -152,14 +151,19 @@ describe("MoreMenu", function()
 		local instanceName = "Test-" .. HttpService:GenerateGUID(false)
 		local handle = Roact.mount(element, CoreGui, instanceName)
 
-		RoactAct(function()
-			wait(1)
-		end)
-
 		local path = ("game.CoreGui.%s.*"):format(instanceName)
 		path = XPath.new(path)
 		local baseWidget = Element.new(path)
 		jestExpect(baseWidget:waitForRbxInstance(1)).toBeDefined()
+
+		-- The ContextualMenu spring rests at Y scale 0 when the menu is fully open.
+		local baseMenuElement = Element.new(
+			path:cat(XPath.new("Container.MoreMenu.MoreMenuContainer.ContextualMenu.PositionFrame.BaseMenu"))
+		)
+		waitUntil(function()
+			local baseMenu = baseMenuElement:getRbxInstance()
+			return baseMenu ~= nil and baseMenu.Position.Y.Scale == 0
+		end, 5)
 
 		local childContainerPath = path:cat(
 			XPath.new(
@@ -175,10 +179,9 @@ describe("MoreMenu", function()
 
 		emoteElement:click()
 
-		RoactAct(function()
-			wait()
+		waitUntil(function()
+			return EmotesMenuMaster:isOpen()
 		end)
-
 		jestExpect(EmotesMenuMaster:isOpen()).toBeTruthy()
 		Roact.unmount(handle)
 	end)

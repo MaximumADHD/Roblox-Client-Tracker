@@ -24,6 +24,7 @@ local useBackgroundStyle = require(Foundation.Providers.Style.BackgroundStyleCon
 
 local Types = require(Foundation.Components.Types)
 
+local Flags = require(Foundation.Utility.Flags)
 local useAccessoryVariants = require(script.Parent.useAccessoryVariants)
 
 local ChipSize = require(Foundation.Enums.ChipSize)
@@ -60,6 +61,7 @@ type AccessoryProps<Config = Config> = {
 	contentStyle: any,
 	chipBackgroundStyle: Types.ColorStyle,
 	isDisabled: boolean?,
+	isIconOnly: boolean?,
 	testId: string,
 }
 
@@ -88,7 +90,10 @@ local function Accessory(accessoryProps: AccessoryProps)
 		tokens,
 		accessoryProps.size,
 		accessoryProps.isLeading,
-		fullConfig.type == "AvatarGroup" or fullConfig.isCircular or false
+		if Flags.FoundationFixChipAccessoryLayout
+			then fullConfig.type == "AvatarGroup"
+			else fullConfig.type == "AvatarGroup" or fullConfig.isCircular or false,
+		accessoryProps.isIconOnly
 	)
 
 	local element: React.ReactNode

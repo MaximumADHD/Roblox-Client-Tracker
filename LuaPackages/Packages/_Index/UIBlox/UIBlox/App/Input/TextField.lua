@@ -55,6 +55,8 @@ local defaultProps = {
 	width = UDim.new(0, 400),
 }
 
+local DISABLED_GROUP_TRANSPARENCY = 0.68
+
 local function TextField(props: TextFieldProps)
 	local style = useStyle()
 	local tokens = style.Tokens
@@ -145,7 +147,7 @@ local function TextField(props: TextFieldProps)
 			Size = UDim2.new(1, 0, 0, tokens.Size.Size_1200),
 			BackgroundTransparency = 1,
 			LayoutOrder = 2,
-			GroupTransparency = if props.disabled then 1 - tokens.Component.TextField.Disabled.Field.Opacity else 0,
+			GroupTransparency = if props.disabled then DISABLED_GROUP_TRANSPARENCY else 0,
 		}, {
 			Input = React.createElement("ImageButton", {
 				Size = UDim2.new(1, -outerBorderOffset, 1, -outerBorderOffset),

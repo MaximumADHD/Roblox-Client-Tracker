@@ -36,8 +36,6 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
-local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
-local FFlagUserPlayerScriptsSAuthDirectAPIs = FlagUtil.getUserFlag("UserPlayerScriptsSAuthDirectAPIs2")
 local FFlagUserDoubleJumpButtonFix = FlagUtil.getUserFlag("UserDoubleJumpButtonFix")
 local FFlagUserPlayerScriptsResetDTTouchOnCreate = FlagUtil.getUserFlag("UserPlayerScriptsResetDTTouchOnCreate")
 
@@ -195,26 +193,9 @@ end
 -- Was called OnMoveTouchEnded in previous version
 function DynamicThumbstick:OnInputEnded()
 	self.isTouchActive = false
-	if FFlagUserPlayerScriptsSAuthDirectAPIs then
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
-		if binding then
-			binding:Fire(Vector2.zero)
-		end
-	elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
-		if binding then
-			local success, result = pcall(function()
-				binding.Type = Enum.InputBindingType.Scriptable
-				binding:Fire(Vector2.zero)
-			end)
-			if not success then
-				self.playerData.actions.MoveAction:Fire(Vector2.zero)
-			end
-		else
-			self.playerData.actions.MoveAction:Fire(Vector2.zero)
-		end
-	else
-		self.playerData.actions.MoveAction:Fire(Vector2.zero)
+	local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+	if binding then
+		binding:Fire(Vector2.zero)
 	end
 	self:FadeThumbstick(false)
 end
@@ -338,26 +319,9 @@ function DynamicThumbstick:DoMove(direction: Vector2)
 	end
 
 	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-	if FFlagUserPlayerScriptsSAuthDirectAPIs then
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
-		if binding then
-			binding:Fire(currentMoveVector)
-		end
-	elseif FFlagUserPlayerScriptsFireThroughScriptableBindings then
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
-		if binding then
-			local success, result = pcall(function()
-				binding.Type = Enum.InputBindingType.Scriptable
-				binding:Fire(currentMoveVector)
-			end)
-			if not success then
-				self.playerData.actions.MoveAction:Fire(currentMoveVector)
-			end
-		else
-			self.playerData.actions.MoveAction:Fire(currentMoveVector)
-		end
-	else
-		self.playerData.actions.MoveAction:Fire(currentMoveVector)
+	local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+	if binding then
+		binding:Fire(currentMoveVector)
 	end
 end
 

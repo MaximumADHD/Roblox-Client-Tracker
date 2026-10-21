@@ -9,10 +9,10 @@ export type ThemeName =
 	| "CosmicDust"
 	| "Default"
 	| "ElectricLime"
+	| "Halloween2026"
 	| "HyperPlum"
 	| "InfernoBlast"
 	| "Kids"
-	| "KidsClassic"
 	| "KineticEnergy"
 	| "LavaGlow"
 	| "NebulaDrift"
@@ -29,10 +29,10 @@ local ThemeName = {
 	CosmicDust = "CosmicDust" :: "CosmicDust",
 	Default = "Default" :: "Default",
 	ElectricLime = "ElectricLime" :: "ElectricLime",
+	Halloween2026 = "Halloween2026" :: "Halloween2026",
 	HyperPlum = "HyperPlum" :: "HyperPlum",
 	InfernoBlast = "InfernoBlast" :: "InfernoBlast",
 	Kids = "Kids" :: "Kids",
-	KidsClassic = "KidsClassic" :: "KidsClassic",
 	KineticEnergy = "KineticEnergy" :: "KineticEnergy",
 	LavaGlow = "LavaGlow" :: "LavaGlow",
 	NebulaDrift = "NebulaDrift" :: "NebulaDrift",

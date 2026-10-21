@@ -220,7 +220,7 @@ export type Props<ItemT> = VirtualizedListProps & FlatListProps<ItemT>
 
 export type FlatList<ItemT> = {
 	props: Props<ItemT>,
-	scrollToEnd: (self: FlatList<ItemT>, params: ({ animated: boolean? })?) -> (),
+	scrollToEnd: (self: FlatList<ItemT>, params: { animated: boolean? }?) -> (),
 	scrollToIndex: (
 		self: FlatList<ItemT>,
 		params: {
@@ -264,9 +264,9 @@ export type FlatList<ItemT> = {
 			}
 		) -> ()
 	) -> (),
-	_renderer: () -> ({
+	_renderer: () -> {
 		[string]: (info: RenderItemProps<ItemT>) -> React.Node,
-	}),
+	},
 }
 
 --[[*
@@ -385,7 +385,7 @@ function FlatList:init<ItemT>(props: Props<ItemT>)
 		self._listRef = ref
 	end
 
-	self._getItem = function(data: Array<ItemT>, index: number): (Array<ItemT> | ItemT)
+	self._getItem = function(data: Array<ItemT>, index: number): Array<ItemT> | ItemT
 		local numColumns = numColumnsOrDefault(self.props.numColumns)
 		if numColumns > 1 then
 			local ret = {}
@@ -411,7 +411,7 @@ function FlatList:init<ItemT>(props: Props<ItemT>)
 		end
 	end
 
-	self._keyExtractor = function(items: (ItemT | Array<ItemT>), index: number): string?
+	self._keyExtractor = function(items: ItemT | Array<ItemT>, index: number): string?
 		local numColumns = numColumnsOrDefault(self.props.numColumns)
 		local keyExtractor = if self.props.keyExtractor ~= nil then self.props.keyExtractor else defaultKeyExtractor
 		if numColumns > 1 then
@@ -516,20 +516,23 @@ function FlatList:init<ItemT>(props: Props<ItemT>)
 			}
 		end)
 	elseif self.props.onViewableItemsChanged then
-		table.insert(self._virtualizedListPairs, {--[[ $FlowFixMe[incompatible-call] (>=0.63.0 site=react_native_fb) This
+		table.insert(
+			self._virtualizedListPairs,
+			{--[[ $FlowFixMe[incompatible-call] (>=0.63.0 site=react_native_fb) This
          * comment suppresses an error found when Flow v0.63 was deployed. To
          * see the error delete this comment and run Flow. ]]
-			viewabilityConfig = self.props.viewabilityConfig,
-			onViewableItemsChanged = self:_createOnViewableItemsChanged(self.props.onViewableItemsChanged),
-		})
+				viewabilityConfig = self.props.viewabilityConfig,
+				onViewableItemsChanged = self:_createOnViewableItemsChanged(self.props.onViewableItemsChanged),
+			}
+		)
 	end
 end
 --[[
 * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
 ]]
-function FlatList:scrollToEnd(params: ({
+function FlatList:scrollToEnd(params: {
 	animated: boolean?,
-})?)
+}?)
 	if self._listRef then
 		self._listRef:scrollToEnd(params)
 	end
@@ -543,14 +546,12 @@ end
 * Note: cannot scroll to locations outside the render window without specifying the
 * `getItemLayout` prop.
 ]]
-function FlatList:scrollToIndex(
-	params: ({
-		animated: boolean?,
-		index: number,
-		viewOffset: number?,
-		viewPosition: number?,
-	})
-)
+function FlatList:scrollToIndex(params: {
+	animated: boolean?,
+	index: number,
+	viewOffset: number?,
+	viewPosition: number?,
+})
 	if self._listRef then
 		self._listRef:scrollToIndex(params)
 	end
@@ -690,14 +691,12 @@ function FlatList:_pushMultiColumnViewable(arr: Array<ViewToken>, v: ViewToken):
 		table.insert(arr, Object.assign({}, v, { item = item, key = keyExtractor(item, index), index = index }))
 	end)
 end
-function FlatList:_createOnViewableItemsChanged(
-	onViewableItemsChanged: ((
-		info: {
-			viewableItems: Array<ViewToken>,
-			changed: Array<ViewToken>,
-		}
-	) -> ())?
-)
+function FlatList:_createOnViewableItemsChanged(onViewableItemsChanged: ((
+	info: {
+		viewableItems: Array<ViewToken>,
+		changed: Array<ViewToken>,
+	}
+) -> ())?)
 	return function(info: {
 		viewableItems: Array<ViewToken>,
 		changed: Array<ViewToken>,

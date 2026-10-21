@@ -7,31 +7,31 @@ local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local getCellDefaultTokens = function(style: StyleTypes.AppStyle)
 	assert(style.Tokens ~= nil, "Design token support is not enabled!")
 	return {
-		iconSize = style.Tokens.Component.MenuCell.Base.IconFrame.Size,
-		selectedIconSize = style.Tokens.Component.MenuCell.Base.CheckFrame.Size,
-		iconPaddingLeft = style.Tokens.Component.MenuCell.Base.Container.Spacing.Leading,
+		iconSize = style.Tokens.Size.Size_800,
+		selectedIconSize = style.Tokens.Size.Size_800,
+		iconPaddingLeft = style.Tokens.Size.Size_300,
 		textPadding = {
-			left = style.Tokens.Component.MenuCell.Base.TextFrame.Spacing.Leading,
-			right = style.Tokens.Component.MenuCell.Base.TextFrame.Spacing.Trailing,
+			left = style.Tokens.Size.Size_300,
+			right = style.Tokens.Size.Size_300,
 		},
 		fontStyle = {
-			Font = style.Tokens.Component.MenuCell.Base.Text.Typography.Font,
-			RelativeSize = style.Tokens.Component.MenuCell.Base.Text.Typography.FontSize / style.Font.BaseSize,
-			RelativeMinSize = style.Tokens.Component.MenuCell.Base.Text.Typography.FontSize / style.Font.BaseSize,
+			Font = style.Tokens.Typography.TitleLarge.Font,
+			RelativeSize = style.Tokens.Typography.TitleLarge.FontSize / style.Font.BaseSize,
+			RelativeMinSize = style.Tokens.Typography.TitleLarge.FontSize / style.Font.BaseSize,
 		},
-		dividerSize = style.Tokens.Component.MenuCell.Divider.Container.BorderWidth,
-		selectedIconPaddingRight = style.Tokens.Component.MenuCell.Base.Container.Spacing.Trailing,
+		dividerSize = style.Tokens.Stroke.Standard,
+		selectedIconPaddingRight = style.Tokens.Size.Size_300,
 	}
 end
 
 local getBaseMenuDefaultTokens = function(style: StyleTypes.AppStyle)
 	assert(style.Tokens ~= nil, "Design token support is not enabled!")
 	return {
-		elementHeight = style.Tokens.Component.MenuCell.Base.Container.Height,
-		borderCornerRadius = style.Tokens.Component.BaseMenu.BorderRadius,
+		elementHeight = style.Tokens.Size.Size_1400,
+		borderCornerRadius = style.Tokens.Radius.Medium,
 		background = {
-			Color = style.Tokens.Component.BaseMenu.BackgroundColor.Color3,
-			Transparency = style.Tokens.Component.BaseMenu.BackgroundColor.Transparency,
+			Color = style.Tokens.Color.Surface.Surface_300.Color3,
+			Transparency = style.Tokens.Color.Surface.Surface_300.Transparency,
 		},
 	}
 end

@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
+local afterEach = JestGlobals.afterEach
 local describe = JestGlobals.describe
 local it = JestGlobals.it
 local expect = JestGlobals.expect
@@ -15,6 +16,10 @@ local SendInviteButton = require(script.Parent.SendInviteButton)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local InviteStatus = Constants.InviteStatus
+
+afterEach(function()
+	jest.useRealTimers()
+end)
 
 it("should create and destroy without errors", function()
 	local element = UnitTestHelpers.createStyleProvider({
@@ -38,6 +43,8 @@ end)
 
 describe("animations", function()
 	it("should call animation began and ended once", function()
+		jest.useFakeTimers()
+		jest.setEngineFrameTime(16)
 		local beginSpy, beginFn = jest.fn()
 		local endSpy, endFn = jest.fn()
 
@@ -53,7 +60,7 @@ describe("animations", function()
 		})
 
 		local instance = Roact.mount(element)
-		wait(1)
+		jest.advanceTimersByTime(1000)
 		Roact.unmount(instance)
 
 		expect(beginSpy).toHaveBeenCalledTimes(1)

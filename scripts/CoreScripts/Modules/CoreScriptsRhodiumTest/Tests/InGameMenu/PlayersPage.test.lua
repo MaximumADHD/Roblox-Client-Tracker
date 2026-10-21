@@ -19,8 +19,10 @@ local InGameMenu = Modules.InGameMenu
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local mountIGM = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountIGM.test"])
-
-local TestConstants = require(script.Parent.TestConstants)
+local waitForIGMPage = require(Modules.CoreScriptsRhodiumTest.TestHelpers["waitForIGMPage.test"])
+local TestUtils = require(CorePackages.Workspace.Packages.TestUtils)
+local waitForEvents = TestUtils.DeferredLuaHelpers.waitForEvents
+local waitUntil = TestUtils.waitUntil
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
@@ -31,7 +33,8 @@ beforeEach(function()
 	c = {}
 	GuiService.SelectedCoreObject = nil
 	Players.LocalPlayer.PlayerGui:ClearAllChildren()
-	local _path, store, cleanup, gamepad = mountIGM() -- add arguments to this in mountIGM if needed
+	local path, store, cleanup, gamepad = mountIGM() -- add arguments to this in mountIGM if needed
+	c.path = path
 	c.store = store
 	c.cleanup = cleanup
 
@@ -40,9 +43,7 @@ beforeEach(function()
 			store:dispatch(action)
 			store:flush()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.gamepadInput = function(input)
@@ -50,9 +51,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 
@@ -63,6 +62,26 @@ end)
 -- Foundation migration (APPEXP-4897) changes the contextual menu's UI tree
 -- structure, making these gamepad-focus assertions unreliable under allOn.
 -- Skip when the migration flag is active.
+local function getSelectedText()
+	local selected = GuiService.SelectedCoreObject
+	local text = selected and selected:FindFirstChild("Text", true)
+	return text and text.Text
+end
+
+local function waitForSelectedText(expectedText)
+	waitUntil(function()
+		return getSelectedText() == expectedText
+	end)
+	expect(getSelectedText()).toBe(expectedText)
+end
+
+local function waitForSelectedName(expectedName)
+	waitUntil(function()
+		return tostring(GuiService.SelectedCoreObject) == expectedName
+	end)
+	expect(tostring(GuiService.SelectedCoreObject)).toBe(expectedName)
+end
+
 if not FFlagCoreUiMigrateUIBloxToFoundation then
 	describe("Players page contextual menu", function()
 		it("Opens when a player is selected", function()
@@ -71,10 +90,11 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("Players"))
+			waitForIGMPage(c.path, "Players")
 
 			-- Open the contextual menu on the first selected player
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 		end)
 
 		it("Exits when pressing B and selects the player again", function()
@@ -83,10 +103,11 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("Players"))
+			waitForIGMPage(c.path, "Players")
 
 			-- Open the contextual menu on the first selected player
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 
 			-- Exits
 			c.gamepadInput(Enum.KeyCode.ButtonB)
@@ -95,7 +116,7 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 			if game:GetFastFlag("LuaMenuPerfImprovements") then
 				playerString = "player_12345678"
 			end
-			expect(tostring(GuiService.SelectedCoreObject)).toBe(playerString)
+			waitForSelectedName(playerString)
 		end)
 
 		it("Ignores input if canCaptureFocus is false", function()
@@ -106,10 +127,11 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("Players"))
+			waitForIGMPage(c.path, "Players")
 
 			-- Open the contextual menu
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 
 			-- Open the Respawn dialog
 			c.gamepadInput(Enum.KeyCode.ButtonY)
@@ -118,7 +140,7 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 			-- Pressing B closes the dialog, not the contextual menu
 			c.gamepadInput(Enum.KeyCode.ButtonB)
 			expect(store:getState().respawn.dialogOpen).toBe(false)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 
 			-- Contextual menu is capturing input again, can now be closed
 			c.gamepadInput(Enum.KeyCode.ButtonB)
@@ -127,7 +149,7 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 			if game:GetFastFlag("LuaMenuPerfImprovements") then
 				playerString = "player_12345678"
 			end
-			expect(tostring(GuiService.SelectedCoreObject)).toBe(playerString)
+			waitForSelectedName(playerString)
 		end)
 
 		it("Does not abandon the bounds of the menu", function()
@@ -136,17 +158,18 @@ if not FFlagCoreUiMigrateUIBloxToFoundation then
 
 			c.storeUpdate(SetMenuOpen(true))
 			c.storeUpdate(SetCurrentPage("Players"))
+			waitForIGMPage(c.path, "Players")
 
 			-- Open the contextual menu
 			c.gamepadInput(Enum.KeyCode.ButtonA)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 
 			-- Tries to exit the menu area
 			c.gamepadInput(Enum.KeyCode.DPadDown)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 
 			c.gamepadInput(Enum.KeyCode.DPadLeft)
-			expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).toBe("Examine Avatar")
+			waitForSelectedText("Examine Avatar")
 		end)
 	end)
 end
@@ -160,21 +183,13 @@ it("should switch between the page and SideNavigation", function()
 	c.storeUpdate(SetMenuOpen(true))
 	c.storeUpdate(SetCurrentPage("Players"))
 
-	act(function()
-		wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
-	end)
+	waitForIGMPage(c.path, "Players")
 
 	expect(store:getState().currentZone).toBe(1)
 
-	act(function()
-		c.gamepadInput(Enum.KeyCode.DPadLeft)
-		wait()
-	end)
+	c.gamepadInput(Enum.KeyCode.DPadLeft)
 	expect(store:getState().currentZone).toBe(0)
 
-	act(function()
-		c.gamepadInput(Enum.KeyCode.DPadRight)
-		wait()
-	end)
+	c.gamepadInput(Enum.KeyCode.DPadRight)
 	expect(store:getState().currentZone).toBe(1)
 end)

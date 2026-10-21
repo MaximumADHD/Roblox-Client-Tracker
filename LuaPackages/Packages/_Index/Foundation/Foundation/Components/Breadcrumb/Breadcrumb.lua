@@ -36,25 +36,36 @@ local MAX_ITEMS = 4
 local SEPARATOR = "/"
 
 export type BreadcrumbItem = {
+	-- Label shown for this crumb.
 	text: string,
+	-- Called when an ancestor crumb is activated. Omitted crumbs, including the current page, render as non-interactive text.
 	onActivated: (() -> ())?,
+	-- Accessory rendered before the crumb text: a BuilderIcons name, an icon config, an avatar, or an image.
 	leading: (string | BreadcrumbAccessory)?,
+	-- Forwarded to the crumb so a menu or tooltip can anchor to it. Stays unset while the crumb is collapsed into the overflow menu.
 	ref: React.Ref<GuiObject>?,
+	-- Identifier for this crumb. Defaults to `{breadcrumb testId}--item-{index}`.
 	testId: string?,
 
-	-- DEPRECATED
+	-- **DEPRECATED**: Accessories are leading-only. Use `leading` instead. Still accepted but ignored.
 	trailing: (string | BreadcrumbAccessory)?,
 }
 
 export type BreadcrumbProps = {
+	-- Ordered crumbs from the top-most ancestor to the current page.
 	items: { BreadcrumbItem },
+	-- Size of every crumb and separator. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- When set, the current crumb shows a dropdown chevron and calls this on activation.
 	onDropdownActivated: (() -> ())?,
 
-	-- DEPRECATED
+	-- **DEPRECATED**: The separator is always `/`. Still accepted but ignored.
 	separator: string?,
+	-- **DEPRECATED**: Trails longer than four crumbs collapse automatically. Still accepted but ignored.
 	maxItems: number?,
+	-- **DEPRECATED**: Collapse always keeps the first crumb visible. Still accepted but ignored.
 	itemsBeforeCollapse: number?,
+	-- **DEPRECATED**: Collapse always keeps the current page visible. Still accepted but ignored.
 	itemsAfterCollapse: number?,
 } & Types.CommonProps
 

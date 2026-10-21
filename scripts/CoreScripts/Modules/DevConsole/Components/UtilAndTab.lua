@@ -23,6 +23,7 @@ local ClientServerButton = require(Components.ClientServerButton)
 local CheckboxContainer = require(Components.CheckboxContainer)
 local TabRowContainer = require(Components.TabRowContainer)
 local SearchBar = require(Components.SearchBar)
+local getFFlagVoiceDebugConsoleV2 = require(Components.VoiceDebug.GetFFlagVoiceDebugConsoleV2)
 
 local UtilAndTab = Roact.Component:extend("UtilAndTab")
 
@@ -220,6 +221,8 @@ function UtilAndTab:render()
 					[Roact.Event.Activated] = self.showSearchBar,
 				}),
 				Buttons = buttons,
+
+				ExtraContent = if getFFlagVoiceDebugConsoleV2() then self.props.extraContent else nil,
 			}),
 
 			-- the searchBar is only visible when there is an active searchterm in the textbox
@@ -330,6 +333,8 @@ function UtilAndTab:render()
 				}),
 
 				Buttons = buttons,
+
+				ExtraContent = if getFFlagVoiceDebugConsoleV2() then self.props.extraContent else nil,
 			}),
 		})
 	end

@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local PolicyProvider = InGameMenuDependencies.PolicyProvider
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
-local GetFFlagUseVoiceExitBetaLanguage = require(SharedFlags).GetFFlagUseVoiceExitBetaLanguage
 local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
 
 local implementation = PolicyProvider.GetPolicyImplementations.MemStorageService("app-policy")
@@ -37,9 +36,6 @@ InGameMenuPolicy.Mapper = function(policy)
 		end,
 
 		getGameInfoShowChatFeatures = function()
-			if GetFFlagUseVoiceExitBetaLanguage() then
-				return policy.GameInfoShowChatFeatures or false
-			end
 			return false
 		end,
 

@@ -139,19 +139,12 @@ export type OptionSelectorGroupItemProps = {
 	metadata: string?,
 	-- Optional description to give more context about the option selector item.
 	description: string?,
-	-- Size of the option selector item.
-	-- **DEPRECATED**: Prefer `size` on `OptionSelectorGroup.Root`, which takes `OptionSelectorGroupSize`
-	-- and cascades via context behind FoundationOptionSelectorGroupBeta. Kept for backwards
-	-- compatibility when Root omits `size`; `InputSize.Large` falls back to `Medium` behind beta.
+	-- **DEPRECATED**: Size moved to `OptionSelectorGroup` (items do not work in isolation). Use parent `size` (`OptionSelectorGroupSize`) instead; `InputSize.Large` maps to `Medium` under FoundationOptionSelectorGroupBeta. Still accepted when Root omits `size`.
 	size: InputSize?,
 	-- Absolute/scaled width override. Prefer `fillBehavior` for flex layouts; use `width` when
 	-- you need cross-directional scaled sizing that fill/fit cannot express.
 	width: UDim?,
-	-- How the item sizes along the group's main axis. Only applies to stacked-elements items
-	-- (Horizontal group); defaults to Fit. Inline-elements items (Vertical group) always span
-	-- the group width (Fill).
-	-- **DEPRECATED**: Prefer `fillBehavior` on `OptionSelectorGroup.Root`, which cascades via
-	-- context behind FoundationOptionSelectorGroupBeta when Root explicitly sets it.
+	-- **DEPRECATED**: Prefer `fillBehavior` on `OptionSelectorGroup.Root`, which cascades via context behind FoundationOptionSelectorGroupBeta when Root explicitly sets it. Still accepted.
 	fillBehavior: FillBehavior?,
 } & Types.CommonProps
 

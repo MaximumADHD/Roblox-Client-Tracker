@@ -5,6 +5,7 @@ local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
 local Avatar = require(Foundation.Components.Avatar)
+local Flags = require(Foundation.Utility.Flags)
 local MatrixGridShared = require(Foundation.Utility.Stories.Shared.MatrixGrid)
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
@@ -55,14 +56,19 @@ local SIZE_ORDER: { StatusIndicatorSize } = {
 	StatusIndicatorSize.XSmall,
 	StatusIndicatorSize.Small,
 	StatusIndicatorSize.Medium,
-	StatusIndicatorSize.Pictogram,
+	if Flags.FoundationStatusIndicatorDesignUpdate then StatusIndicatorSize.Large else StatusIndicatorSize.Pictogram,
 }
 
 local PLAYGROUND_SIZE_OPTIONS: { StatusIndicatorSize } = {
 	StatusIndicatorSize.Small,
 	StatusIndicatorSize.XSmall,
 	StatusIndicatorSize.Medium,
-	StatusIndicatorSize.Pictogram,
+	if Flags.FoundationStatusIndicatorDesignUpdate then StatusIndicatorSize.Large else StatusIndicatorSize.Pictogram,
+}
+
+local NUMERIC_SIZE_ORDER: { StatusIndicatorSize } = {
+	StatusIndicatorSize.Small,
+	StatusIndicatorSize.Large,
 }
 
 local VARIANT_HEADERS = MatrixGridShared.enumHeaders(VARIANT_ORDER)
@@ -70,6 +76,8 @@ local VARIANT_HEADERS = MatrixGridShared.enumHeaders(VARIANT_ORDER)
 local SHAPE_HEADERS = MatrixGridShared.enumHeaders(SHAPE_ORDER)
 
 local SIZE_HEADERS = MatrixGridShared.enumHeaders(SIZE_ORDER)
+
+local NUMERIC_SIZE_HEADERS = MatrixGridShared.enumHeaders(NUMERIC_SIZE_ORDER)
 
 local OVERFLOW_VALUES = { 9, 99, 100 }
 local OVERFLOW_MAX_VALUES = { 9, 100 }
@@ -144,7 +152,9 @@ local function SizingStory(): React.ReactNode
 		Size = React.createElement(Section, {
 			LayoutOrder = 1,
 			name = "Size",
-			note = "Applies to the empty indicator only: a numeric indicator ignores size and sits at one footprint.",
+			note = if Flags.FoundationStatusIndicatorDesignUpdate
+				then nil
+				else "Applies to the empty indicator only: a numeric indicator ignores size and sits at one footprint.",
 			contentTag = "auto-xy",
 		}, {
 			Matrix = React.createElement(MatrixGrid, {
@@ -164,6 +174,32 @@ local function SizingStory(): React.ReactNode
 				},
 			}),
 		}),
+		NumericSize = if Flags.FoundationStatusIndicatorDesignUpdate
+			then React.createElement(Section, {
+				LayoutOrder = 2,
+				name = "Numeric size",
+				note = "Large is the only size that changes a numeric indicator; every other size renders at the default footprint.",
+				contentTag = "auto-xy",
+			}, {
+				Matrix = React.createElement(MatrixGrid, {
+					showLabelColumn = false,
+					columnHeaders = NUMERIC_SIZE_HEADERS,
+					cellColumnWidth = CELL_COLUMN_WIDTH,
+					headerTextAlign = "left",
+					cellAlign = "left",
+					rows = {
+						{
+							cells = Dash.map(NUMERIC_SIZE_ORDER, function(size)
+								return React.createElement(StatusIndicator, {
+									value = 9,
+									size = size,
+								})
+							end),
+						},
+					},
+				}),
+			})
+			else nil,
 	})
 end
 

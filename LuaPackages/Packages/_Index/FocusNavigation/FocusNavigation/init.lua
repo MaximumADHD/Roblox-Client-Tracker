@@ -23,6 +23,7 @@ export type EventHandlerMap = EventPropagation.EventHandlerMap<EventData>
 export type EngineInterface = types.EngineInterface
 export type InputEvent = types.InputEvent
 export type EventMap = types.EventMap
+export type DispatchedEvent = types.DispatchedEvent
 export type ContainerFocusBehavior = types.ContainerFocusBehavior
 export type FocusNavigationService = FocusNavigationService.FocusNavigationService
 

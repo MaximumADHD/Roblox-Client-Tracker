@@ -13,6 +13,7 @@ export type EventHandlerMap = Package.EventHandlerMap
 export type EngineInterface = Package.EngineInterface
 export type InputEvent = Package.InputEvent
 export type EventMap = Package.EventMap
+export type DispatchedEvent = Package.DispatchedEvent
 export type FocusNavigationService = Package.FocusNavigationService
 
 

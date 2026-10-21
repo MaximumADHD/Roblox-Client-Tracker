@@ -73,11 +73,34 @@ local AFFORDANCE_BACKGROUND = "Background" :: Affordance
 local AFFORDANCE_BORDER = "Border" :: Affordance
 local INIT_STATE_VALUE = ControlState.Initialize.rawValue()
 
+local STATE_TOKEN_KEYS: { [string]: string } = {
+	[ControlState.Initialize.rawValue()] = "Idle",
+	[ControlState.Default.rawValue()] = "Idle",
+	[ControlState.Pressed.rawValue()] = "Press",
+	[ControlState.Hover.rawValue()] = "Hover",
+	[ControlState.Selected.rawValue()] = "Idle",
+	[ControlState.SelectedPressed.rawValue()] = "Press",
+	[ControlState.Disabled.rawValue()] = "Idle",
+}
+
+local function getStateTokens(tokens: any, stateStyle: StateStyle): any
+	if stateStyle == "Standard" then
+		return tokens.Color.State
+	elseif stateStyle == "Inverse" then
+		return tokens.Inverse.State
+	elseif stateStyle == "Lighten" then
+		return tokens.DarkMode.State
+	else
+		return tokens.LightMode.State
+	end
+end
+
 local StateLayer = React.forwardRef(function(providedProps: Props, ref: React.Ref<Frame>)
 	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 
-	local componentTokens = useStyle().Tokens.Component.StateLayer
-	local initColorItem = componentTokens[props.stateStyle][INIT_STATE_VALUE].Color
+	local tokens = useStyle().Tokens
+	local stateTokens = getStateTokens(tokens, props.stateStyle)
+	local initColorItem = stateTokens[STATE_TOKEN_KEYS[INIT_STATE_VALUE]]
 	local stateColor, setStateColor = React.useBinding(initColorItem.Color3)
 	local stateTransparency, setStateTransparency = React.useBinding(initColorItem.Transparency)
 	local cursor = useCursor(props.cornerRadius)
@@ -101,7 +124,7 @@ local StateLayer = React.forwardRef(function(providedProps: Props, ref: React.Re
 	-- affordance style
 	if props.affordance == AFFORDANCE_BORDER then
 		frameChildren.UIStroke = React.createElement("UIStroke", {
-			Thickness = componentTokens.Base.BorderWidth,
+			Thickness = tokens.Stroke.Standard,
 			Color = stateColor,
 			Transparency = stateTransparency,
 		})
@@ -120,13 +143,13 @@ local StateLayer = React.forwardRef(function(providedProps: Props, ref: React.Re
 	)
 	local buttonPosition = UDim2.new(-outset.left.Scale, -outset.left.Offset, -outset.top.Scale, -outset.top.Offset)
 	local onStateChanged = React.useCallback(function(oldState, newState)
-		local colorItem = componentTokens[props.stateStyle][newState.rawValue()].Color
+		local colorItem = stateTokens[STATE_TOKEN_KEYS[newState.rawValue()]]
 		setStateColor(colorItem.Color3)
 		setStateTransparency(colorItem.Transparency)
 		if props.onStateChanged then
 			props.onStateChanged(oldState, newState)
 		end
-	end, { componentTokens, setStateColor, setStateTransparency, props.stateStyle, props.onStateChanged } :: { any })
+	end, { stateTokens, setStateColor, setStateTransparency, props.onStateChanged } :: { any })
 	frameChildren.Button = React.createElement(Interactable, {
 		Size = buttonSize,
 		Position = buttonPosition,

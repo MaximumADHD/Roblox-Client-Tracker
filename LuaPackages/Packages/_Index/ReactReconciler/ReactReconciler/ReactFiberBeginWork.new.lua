@@ -331,12 +331,26 @@ local function reconcileChildren(
 
 		-- If we had any progressed work already, that is invalid at this point so
 		-- let's throw it out.
-		workInProgress.child = reconcileChildFibers(
-			workInProgress,
-			(current :: Fiber).child,
-			nextChildren,
-			renderLanes
-		)
+		if ReactFeatureFlags.enableWorkLoopTrims then
+			-- ROBLOX performance: don't assign nil to an absent key, which inserts it
+			-- and can rehash the fiber (see createWorkInProgress)
+			local child = reconcileChildFibers(
+				workInProgress,
+				(current :: Fiber).child,
+				nextChildren,
+				renderLanes
+			)
+			if child ~= nil or workInProgress.child ~= nil then
+				workInProgress.child = child
+			end
+		else
+			workInProgress.child = reconcileChildFibers(
+				workInProgress,
+				(current :: Fiber).child,
+				nextChildren,
+				renderLanes
+			)
+		end
 	end
 end
 

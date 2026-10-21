@@ -226,8 +226,8 @@ local function PlaygroundStory(props: { controls: PlaygroundControls }): React.R
 	local range = rangeFromPreset(controls.rangePreset)
 	local value, setValue = React.useBinding(controls.value)
 	local rangeValue, setRangeValue = React.useBinding(defaultRangeValueForRange(range))
-	local isVertical = Flags.FoundationSliderBeta and controls.orientation == Orientation.Vertical
-	local isRange = Flags.FoundationSliderBeta and controls.type == SliderType.Range
+	local isVertical = controls.orientation == Orientation.Vertical
+	local isRange = controls.type == SliderType.Range
 	local width = widthFromPreset(controls.widthPreset)
 
 	-- Dragging seeks through setValue, so the control has to push its own value back
@@ -252,7 +252,7 @@ local function PlaygroundStory(props: { controls: PlaygroundControls }): React.R
 				range = range,
 				size = controls.size,
 				width = width,
-				orientation = if Flags.FoundationSliderBeta then controls.orientation else nil,
+				orientation = controls.orientation,
 				knobVisibility = controls.knobVisibility,
 				variant = controls.variant,
 				isDisabled = controls.isDisabled,
@@ -266,7 +266,7 @@ local function PlaygroundStory(props: { controls: PlaygroundControls }): React.R
 				range = range,
 				size = controls.size,
 				width = width,
-				orientation = if Flags.FoundationSliderBeta then controls.orientation else nil,
+				orientation = controls.orientation,
 				knobVisibility = controls.knobVisibility,
 				variant = controls.variant,
 				isDisabled = controls.isDisabled,
@@ -371,7 +371,7 @@ end
 local function StatesStory(): React.ReactNode
 	local rows: { MatrixGridRow } = {
 		{
-			label = matrixLabel(if Flags.FoundationSliderBeta then "Single" else ""),
+			label = matrixLabel("Single"),
 			cells = {
 				React.createElement(StaticSlider, {
 					value = DEFAULT_VALUE,
@@ -384,10 +384,7 @@ local function StatesStory(): React.ReactNode
 				}),
 			},
 		},
-	}
-
-	if Flags.FoundationSliderBeta then
-		table.insert(rows, {
+		{
 			label = matrixLabel("Range"),
 			cells = {
 				React.createElement(StaticRangeSlider, {}),
@@ -395,15 +392,14 @@ local function StatesStory(): React.ReactNode
 					isDisabled = true,
 				}),
 			},
-		})
-	end
+		},
+	}
 
 	return React.createElement(View, {
 		tag = `col {STORY_PAGE_TAG}`,
 	}, {
 		Grid = React.createElement(StoryMatrixGrid, {
 			LayoutOrder = 1,
-			showLabelColumn = Flags.FoundationSliderBeta,
 			columnHeaders = { "Enabled", "Disabled" },
 			cellColumnWidth = VARIANT_CELL_COLUMN_WIDTH,
 			rows = rows,
@@ -789,8 +785,16 @@ local stories = {
 		story = SizingStory,
 	},
 	{
+		name = "Type",
+		story = TypeStory,
+	},
+	{
 		name = "States",
 		story = StatesStory,
+	},
+	{
+		name = "Orientation",
+		story = OrientationStory,
 	},
 	{
 		name = "Containment",
@@ -806,17 +810,6 @@ local stories = {
 	},
 }
 
-if Flags.FoundationSliderBeta then
-	table.insert(stories, 5, {
-		name = "Orientation",
-		story = OrientationStory,
-	})
-	table.insert(stories, 4, {
-		name = "Type",
-		story = TypeStory,
-	})
-end
-
 local controls: { [string]: unknown } = {
 	size = SIZE_ORDER,
 	knobVisibility = KNOB_VISIBILITY_ORDER,
@@ -828,8 +821,8 @@ local controls: { [string]: unknown } = {
 	rangePreset = RANGE_PRESET_ORDER,
 	value = DEFAULT_VALUE,
 	step = 0,
-	orientation = if Flags.FoundationSliderBeta then ORIENTATION_ORDER else nil,
-	type = if Flags.FoundationSliderBeta then TYPE_ORDER else nil,
+	orientation = ORIENTATION_ORDER,
+	type = TYPE_ORDER,
 }
 
 return {

@@ -265,13 +265,8 @@ function ViewabilityHelper:onUpdate(
 
 	local viewableIndices = {} :: Array<number>
 	if itemCount then
-		viewableIndices = self:computeViewableItems(
-			itemCount,
-			scrollOffset,
-			viewportHeight,
-			getFrameMetrics,
-			renderRange
-		)
+		viewableIndices =
+			self:computeViewableItems(itemCount, scrollOffset, viewportHeight, getFrameMetrics, renderRange)
 	end
 	if
 		#self._viewableIndices == #viewableIndices

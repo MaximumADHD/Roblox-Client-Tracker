@@ -5,8 +5,6 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 
-local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
-local getFFlagUGCValidateCurveAnimRigDataR15Plus = require(root.flags.getFFlagUGCValidateCurveAnimRigDataR15Plus)
 local getEngineFeatureIsValidR15Plus = require(root.flags.getEngineFeatureIsValidR15Plus)
 
 local CurveAnimRigDataPresent = {}
@@ -38,11 +36,8 @@ CurveAnimRigDataPresent.run = function(reporter: Types.ValidationReporter, data:
 			return
 		end
 
-		local hasBones = getFFlagUGCValidateEmotesBonesAllowed()
-			and CurveAnimBoneHierarchyUtils.hasBoneFolders(curveAnim)
-
-		if hasBones then
-			if getFFlagUGCValidateCurveAnimRigDataR15Plus() and getEngineFeatureIsValidR15Plus() then
+		if CurveAnimBoneHierarchyUtils.hasBoneFolders(curveAnim) then
+			if getEngineFeatureIsValidR15Plus() then
 				for _, child in curveAnim:GetChildren() do
 					if not child:IsA("AnimationRigData") then
 						continue

@@ -38,6 +38,9 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_HOME_SORT_DETAIL"
 	| "DISPLAY_LOCATION_SANDBOX"
 	| "DISPLAY_LOCATION_GROUP_PROFILE"
+	| "DISPLAY_LOCATION_SEARCH_AUTOCOMPLETE"
+	| "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL"
+	| "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -92,6 +95,12 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_SANDBOX"
 		elseif value == 24 then
 			return "DISPLAY_LOCATION_GROUP_PROFILE"
+		elseif value == 25 then
+			return "DISPLAY_LOCATION_SEARCH_AUTOCOMPLETE"
+		elseif value == 26 then
+			return "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL"
+		elseif value == 27 then
+			return "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
 		else
 			return nil
 		end
@@ -148,6 +157,12 @@ messages.DisplayLocation = {
 			return 23
 		elseif self == "DISPLAY_LOCATION_GROUP_PROFILE" then
 			return 24
+		elseif self == "DISPLAY_LOCATION_SEARCH_AUTOCOMPLETE" then
+			return 25
+		elseif self == "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL" then
+			return 26
+		elseif self == "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS" then
+			return 27
 		else
 			return self
 		end
@@ -204,6 +219,12 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_SANDBOX"
 		elseif name == "DISPLAY_LOCATION_GROUP_PROFILE" then
 			return "DISPLAY_LOCATION_GROUP_PROFILE"
+		elseif name == "DISPLAY_LOCATION_SEARCH_AUTOCOMPLETE" then
+			return "DISPLAY_LOCATION_SEARCH_AUTOCOMPLETE"
+		elseif name == "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL" then
+			return "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL"
+		elseif name == "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS" then
+			return "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
 		else
 			return nil
 		end

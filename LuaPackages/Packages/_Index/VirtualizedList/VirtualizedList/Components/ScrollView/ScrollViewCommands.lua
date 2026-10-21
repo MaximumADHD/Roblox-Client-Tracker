@@ -59,7 +59,12 @@ exports.default = {
 	flashScrollIndicators = function(viewRef: React_ElementRef<ScrollViewNativeComponentType>)
 		warn("flashScrollIndicators not implemented")
 	end,
-	scrollTo = function(viewRef: React_ElementRef<ScrollViewNativeComponentType>, x: number, y: number, animated: boolean)
+	scrollTo = function(
+		viewRef: React_ElementRef<ScrollViewNativeComponentType>,
+		x: number,
+		y: number,
+		animated: boolean
+	)
 		if animated then
 			viewRef._nativeRef.animateScrollTo(x, y)
 		else

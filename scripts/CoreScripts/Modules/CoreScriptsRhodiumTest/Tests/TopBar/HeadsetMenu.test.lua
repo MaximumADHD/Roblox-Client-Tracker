@@ -13,6 +13,7 @@ local jest = JestGlobals.jest
 
 local act = require(CorePackages.Packages.Roact).act
 local Rhodium = require(CorePackages.Packages.Dev.Rhodium)
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 local mountTopBar = require(Modules.CoreScriptsRhodiumTest.TestHelpers["mountTopBar.test"])
 
 local TopBar = Modules.TopBar
@@ -54,9 +55,7 @@ beforeEach(function()
 			gamepad:hitButton(input)
 			Rhodium.VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 
 	c.keyboardInput = function(input)
@@ -64,9 +63,7 @@ beforeEach(function()
 			Rhodium.VirtualInput.Keyboard.hitKey(input)
 			Rhodium.VirtualInput.waitForInputEventsProcessed()
 		end)
-		act(function()
-			wait()
-		end)
+		waitForEvents.act()
 	end
 end)
 

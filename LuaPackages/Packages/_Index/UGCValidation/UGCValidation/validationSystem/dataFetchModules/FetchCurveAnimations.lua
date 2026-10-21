@@ -7,7 +7,8 @@
 	checks on the emote belong in validators. Returns nil when any download throws or does
 	not resolve to a single CurveAnimation root — a partial list would hide the problem,
 	so we surface it as DATA_FETCH_FAILURE, which CurveAnimDataAvailable reports as a
-	CurveAnim_FetchFailed failure.
+	CurveAnim_FetchFailed failure. An AnimationId found in consumerConfig.preloadedCurveAnimations
+	is used as-is instead of downloaded.
 ]]
 
 local root = script.Parent.Parent.Parent
@@ -19,12 +20,21 @@ local getFFlagUGCValidateCurveAnimSingleRoot = require(root.flags.getFFlagUGCVal
 
 local FetchCurveAnimations = {}
 
-function FetchCurveAnimations.getData(rootInstance: Instance): Types.CurveAnimationsData?
+function FetchCurveAnimations.getData(
+	rootInstance: Instance,
+	consumerConfig: Types.PreloadedConsumerConfigs?
+): Types.CurveAnimationsData?
 	local curveAnimations: Types.CurveAnimationsData = {}
 
 	for _, animation in getAllInstancesIsA(rootInstance, "Animation") do
 		local animationId = (animation :: Animation).AnimationId
 		if animationId == "" then
+			continue
+		end
+
+		local preloaded = consumerConfig and consumerConfig.preloadedCurveAnimations[animationId]
+		if preloaded then
+			table.insert(curveAnimations, preloaded)
 			continue
 		end
 

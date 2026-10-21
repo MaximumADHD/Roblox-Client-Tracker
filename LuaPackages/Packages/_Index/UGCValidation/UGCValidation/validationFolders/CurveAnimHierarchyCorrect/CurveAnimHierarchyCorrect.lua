@@ -6,7 +6,6 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local CurveAnimationHierarchyUtils = require(root.util.CurveAnimationHierarchyUtils)
 
 local getFFlagUGCValidateMaxTotalInstances = require(root.flags.getFFlagUGCValidateMaxTotalInstances)
-local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 
 local CurveAnimHierarchyCorrect = {}
 
@@ -57,23 +56,6 @@ CurveAnimHierarchyCorrect.run = function(reporter: Types.ValidationReporter, dat
 			end
 
 			if child:IsA("Folder") then
-				if not CurveAnimationHierarchyUtils.isBodyPartFolderNameValid(child.Name) then
-					if not getFFlagUGCValidateEmotesBonesAllowed() then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_UnexpectedChild, {
-							childName = child.Name,
-						})
-						return
-					end
-				end
-
-				if not getFFlagUGCValidateEmotesBonesAllowed() then
-					if not CurveAnimationHierarchyUtils.validateCurveAnimationBodyPartFolder(child :: Folder) then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidBodyPartHierarchy, {
-							folderName = child.Name,
-						})
-						return
-					end
-				end
 				continue
 			end
 

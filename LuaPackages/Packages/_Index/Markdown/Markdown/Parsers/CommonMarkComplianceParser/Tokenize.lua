@@ -98,6 +98,12 @@ local HEAD_MATCHERS: HeadMatchers = {
 	["`"] = INLINE_CODE_MATCHERS,
 }
 
+-- Inside a block quote, a whitespace-only line is a blank line that ends the quote, just like an empty line.
+-- Without this, the QUOTE pattern's leading %s* would swallow the blank line and the next quote line would be merged in.
+-- Matched with the same lookahead as LINE_BREAK above: the trailing newline is left for the next line's block matchers.
+local QUOTE_HEAD_MATCHERS: { Matcher } = { { "LINE_BREAK", "^[ \t\r]+\n", 1 } }
+table.move(HEAD_MATCHERS["\n"], 1, #HEAD_MATCHERS["\n"], #QUOTE_HEAD_MATCHERS + 1, QUOTE_HEAD_MATCHERS)
+
 local INLINE_WRAPPER_CONFIG = {
 	["LINK"] = {
 		mapToText = function(token: Token)
@@ -124,6 +130,8 @@ local function tokenizeTextSpan(
 	local textOffset = 0
 	local lineStart = 0
 	local tokens: { Token } = {}
+	-- Name of the most recent block token, used to detect when we are inside a block quote
+	local currentBlock: string? = nil
 	-- Move the cursor through the input text one character at a time
 	while cursor <= #input do
 		-- Lookup a newline before the first character to match any "block" tokens after a newline
@@ -131,6 +139,7 @@ local function tokenizeTextSpan(
 		-- If the char under the cursor is present in our match table, try to match with a relevant pattern
 		local matchers: { Matcher } = if isInline
 			then (INLINE_HEAD_MATCHERS[head] or {})
+			elseif head == "\n" and currentBlock == "QUOTE" then QUOTE_HEAD_MATCHERS
 			else (HEAD_MATCHERS[head] or DEFAULT_MATCHERS)
 		local found = false
 
@@ -185,11 +194,15 @@ local function tokenizeTextSpan(
 				})
 			end
 
+			local isBlock = not isInline and head == "\n"
+			if isBlock then
+				currentBlock = token
+			end
 			insert(tokens, {
 				name = token :: string,
 				text = result,
 				capture = if #capture > 0 then capture else nil,
-				isBlock = not isInline and head == "\n",
+				isBlock = isBlock,
 				offset = cursor + currentTextOffset,
 				context = context,
 			})

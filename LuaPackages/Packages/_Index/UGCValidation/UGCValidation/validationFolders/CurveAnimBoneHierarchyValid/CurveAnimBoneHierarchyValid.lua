@@ -6,24 +6,17 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local CurveAnimationHierarchyUtils = require(root.util.CurveAnimationHierarchyUtils)
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 
-local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 local getFFlagUGCValidateRestrictNumFaceControls = require(root.flags.getFFlagUGCValidateRestrictNumFaceControls)
 local getFIntUGCValidateMaxTotalFaceControls = require(root.flags.getFIntUGCValidateMaxTotalFaceControls)
-local getFFlagUGCValidateAnimBonesSupport = require(root.flags.getFFlagUGCValidateAnimBonesSupport)
 
 local CurveAnimBoneHierarchyValid = {}
 
-CurveAnimBoneHierarchyValid.categories = { ValidationEnums.UploadCategory.EMOTE_ANIMATION }
-if getFFlagUGCValidateAnimBonesSupport() then
-	table.insert(CurveAnimBoneHierarchyValid.categories, ValidationEnums.UploadCategory.ANIMATION)
-end
+CurveAnimBoneHierarchyValid.categories =
+	{ ValidationEnums.UploadCategory.EMOTE_ANIMATION, ValidationEnums.UploadCategory.ANIMATION }
 CurveAnimBoneHierarchyValid.requiredData = {
 	ValidationEnums.SharedDataMember.curveAnimations,
 }
 CurveAnimBoneHierarchyValid.conditionalData = { ValidationEnums.SharedDataMember.curveAnimBoneData }
-CurveAnimBoneHierarchyValid.fflag = function()
-	return getFFlagUGCValidateEmotesBonesAllowed() or getFFlagUGCValidateAnimBonesSupport()
-end
 CurveAnimBoneHierarchyValid.expectedFailures = {}
 CurveAnimBoneHierarchyValid.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 

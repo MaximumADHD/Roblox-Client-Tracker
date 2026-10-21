@@ -49,6 +49,7 @@ local BadgeSize = require(script.Enums.BadgeSize)
 local BadgeVariant = require(script.Enums.BadgeVariant)
 local BannerContextPresentation = require(script.Enums.BannerContextPresentation)
 local BannerContextVariant = require(script.Enums.BannerContextVariant)
+local BannerSize = require(script.Enums.BannerSize)
 local Breakpoint = require(script.Enums.Breakpoint)
 local ButtonVariant = require(script.Enums.ButtonVariant)
 local CardDensity = require(script.Enums.CardDensity)
@@ -124,6 +125,7 @@ export type AlertSeverity = AlertSeverity.AlertSeverity
 export type AlertVariant = AlertVariant.AlertVariant
 export type BannerContextPresentation = BannerContextPresentation.BannerContextPresentation
 export type BannerContextVariant = BannerContextVariant.BannerContextVariant
+export type BannerSize = BannerSize.BannerSize
 export type AvatarGroupType = AvatarGroupType.AvatarGroupType
 export type AvatarIconSize = AvatarIconSize.AvatarIconSize
 export type AvatarSize = AvatarSize.AvatarSize
@@ -211,6 +213,9 @@ export type AlertProps = Alert.AlertProps
 
 local BannerContext = require(script.Components.BannerContext)
 export type BannerContextProps = BannerContext.BannerContextProps
+
+local Banner = require(script.Components.Banner)
+export type BannerProps = Banner.BannerProps
 
 local Avatar = require(script.Components.Avatar)
 export type AvatarProps = Avatar.AvatarProps
@@ -458,6 +463,7 @@ local Foundation = strict({
 	-- Components
 	Accordion = Accordion,
 	Alert = Alert,
+	Banner = Banner,
 	BannerContext = BannerContext,
 	Avatar = Avatar,
 	AvatarGroup = AvatarGroup,
@@ -564,6 +570,7 @@ local Foundation = strict({
 		AccessoryType = AccessoryType,
 		AlertSeverity = AlertSeverity,
 		AlertVariant = AlertVariant,
+		BannerSize = BannerSize,
 		BannerContextPresentation = BannerContextPresentation,
 		BannerContextVariant = BannerContextVariant,
 		AvatarGroupType = AvatarGroupType,

@@ -47,6 +47,8 @@ type _Messages =
 		RemoveBadgeFromInventoryAction_Params: _RemoveBadgeFromInventoryAction_ParamsMessage,
 		OpenProfileAction: _OpenProfileActionMessage,
 		OpenProfileAction_Params: _OpenProfileAction_ParamsMessage,
+		OpenExperienceLeaderboardSeeAllAction: _OpenExperienceLeaderboardSeeAllActionMessage,
+		OpenExperienceLeaderboardSeeAllAction_Params: _OpenExperienceLeaderboardSeeAllAction_ParamsMessage,
 		OpenFacialAgeEstimationAction: _OpenFacialAgeEstimationActionMessage,
 		OpenFacialAgeEstimationAction_Params: _OpenFacialAgeEstimationAction_ParamsMessage,
 		ShowToastAction: _ShowToastActionMessage,
@@ -185,6 +187,8 @@ type _Messages =
 		OpenProfileFramesEditorAction_Params: _OpenProfileFramesEditorAction_ParamsMessage,
 		ApplyDevStoreSeeAllCategoryFilterAction: _ApplyDevStoreSeeAllCategoryFilterActionMessage,
 		ApplyDevStoreSeeAllCategoryFilterAction_Params: _ApplyDevStoreSeeAllCategoryFilterAction_ParamsMessage,
+		SetPageScopeFieldAction: _SetPageScopeFieldActionMessage,
+		SetPageScopeFieldAction_Params: _SetPageScopeFieldAction_ParamsMessage,
 		SetGameTileNotInterestedAction: _SetGameTileNotInterestedActionMessage,
 		SetGameTileNotInterestedAction_Params: _SetGameTileNotInterestedAction_ParamsMessage,
 		UndoGameTileNotInterestedAction: _UndoGameTileNotInterestedActionMessage,
@@ -204,6 +208,10 @@ type _Messages =
 		ExperimentalActionProp: _ExperimentalActionPropMessage,
 		ExperimentalAction: _ExperimentalActionMessage,
 		ExperimentalAction_ActionParamsEntry: _ExperimentalAction_ActionParamsEntryMessage,
+		SubmitCustomFormResponseAction: _SubmitCustomFormResponseActionMessage,
+		SubmitCustomFormResponseAction_Params: _SubmitCustomFormResponseAction_ParamsMessage,
+		RefreshCustomFormResultsAction: _RefreshCustomFormResultsActionMessage,
+		RefreshCustomFormResultsAction_Params: _RefreshCustomFormResultsAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -1309,6 +1317,68 @@ export type OpenProfileAction_Params = typeof(setmetatable(
 	{} :: _OpenProfileAction_ParamsImpl
 ))
 type _OpenProfileAction_ParamsMessage = proto.Message<OpenProfileAction_Params, _OpenProfileAction_ParamsPartialFields>
+
+type _OpenExperienceLeaderboardSeeAllActionImpl = {
+	__index: _OpenExperienceLeaderboardSeeAllActionImpl,
+	new: (fields: _OpenExperienceLeaderboardSeeAllActionPartialFields?) -> OpenExperienceLeaderboardSeeAllAction,
+	encode: (self: OpenExperienceLeaderboardSeeAllAction) -> buffer,
+	decode: (input: buffer) -> OpenExperienceLeaderboardSeeAllAction,
+	jsonEncode: (self: OpenExperienceLeaderboardSeeAllAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenExperienceLeaderboardSeeAllAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenExperienceLeaderboardSeeAllActionFields = {
+	action_type: ActionType,
+	action_params: OpenExperienceLeaderboardSeeAllAction_Params?,
+}
+
+type _OpenExperienceLeaderboardSeeAllActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenExperienceLeaderboardSeeAllAction_Params?,
+}
+
+export type OpenExperienceLeaderboardSeeAllAction = typeof(setmetatable(
+	{} :: _OpenExperienceLeaderboardSeeAllActionFields,
+	{} :: _OpenExperienceLeaderboardSeeAllActionImpl
+))
+type _OpenExperienceLeaderboardSeeAllActionMessage = proto.Message<
+	OpenExperienceLeaderboardSeeAllAction,
+	_OpenExperienceLeaderboardSeeAllActionPartialFields
+>
+
+type _OpenExperienceLeaderboardSeeAllAction_ParamsImpl = {
+	__index: _OpenExperienceLeaderboardSeeAllAction_ParamsImpl,
+	new: (
+		fields: _OpenExperienceLeaderboardSeeAllAction_ParamsPartialFields?
+	) -> OpenExperienceLeaderboardSeeAllAction_Params,
+	encode: (self: OpenExperienceLeaderboardSeeAllAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenExperienceLeaderboardSeeAllAction_Params,
+	jsonEncode: (self: OpenExperienceLeaderboardSeeAllAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenExperienceLeaderboardSeeAllAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenExperienceLeaderboardSeeAllAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	initial_tab: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenExperienceLeaderboardSeeAllAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	initial_tab: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenExperienceLeaderboardSeeAllAction_Params = typeof(setmetatable(
+	{} :: _OpenExperienceLeaderboardSeeAllAction_ParamsFields,
+	{} :: _OpenExperienceLeaderboardSeeAllAction_ParamsImpl
+))
+type _OpenExperienceLeaderboardSeeAllAction_ParamsMessage = proto.Message<
+	OpenExperienceLeaderboardSeeAllAction_Params,
+	_OpenExperienceLeaderboardSeeAllAction_ParamsPartialFields
+>
 
 type _OpenFacialAgeEstimationActionImpl = {
 	__index: _OpenFacialAgeEstimationActionImpl,
@@ -4872,11 +4942,13 @@ type _OpenSearchResultsWithQueryAction_ParamsImpl = {
 type _OpenSearchResultsWithQueryAction_ParamsFields = {
 	search_query: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	search_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_autocomplete_suggestion: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _OpenSearchResultsWithQueryAction_ParamsPartialFields = {
 	search_query: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	search_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_autocomplete_suggestion: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type OpenSearchResultsWithQueryAction_Params = typeof(setmetatable(
@@ -5391,6 +5463,63 @@ export type ApplyDevStoreSeeAllCategoryFilterAction_Params = typeof(setmetatable
 type _ApplyDevStoreSeeAllCategoryFilterAction_ParamsMessage = proto.Message<
 	ApplyDevStoreSeeAllCategoryFilterAction_Params,
 	_ApplyDevStoreSeeAllCategoryFilterAction_ParamsPartialFields
+>
+
+type _SetPageScopeFieldActionImpl = {
+	__index: _SetPageScopeFieldActionImpl,
+	new: (fields: _SetPageScopeFieldActionPartialFields?) -> SetPageScopeFieldAction,
+	encode: (self: SetPageScopeFieldAction) -> buffer,
+	decode: (input: buffer) -> SetPageScopeFieldAction,
+	jsonEncode: (self: SetPageScopeFieldAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SetPageScopeFieldAction,
+	descriptor: proto.Descriptor,
+}
+
+type _SetPageScopeFieldActionFields = {
+	action_type: ActionType,
+	action_params: SetPageScopeFieldAction_Params?,
+}
+
+type _SetPageScopeFieldActionPartialFields = {
+	action_type: ActionType?,
+	action_params: SetPageScopeFieldAction_Params?,
+}
+
+export type SetPageScopeFieldAction = typeof(setmetatable(
+	{} :: _SetPageScopeFieldActionFields,
+	{} :: _SetPageScopeFieldActionImpl
+))
+type _SetPageScopeFieldActionMessage = proto.Message<SetPageScopeFieldAction, _SetPageScopeFieldActionPartialFields>
+
+type _SetPageScopeFieldAction_ParamsImpl = {
+	__index: _SetPageScopeFieldAction_ParamsImpl,
+	new: (fields: _SetPageScopeFieldAction_ParamsPartialFields?) -> SetPageScopeFieldAction_Params,
+	encode: (self: SetPageScopeFieldAction_Params) -> buffer,
+	decode: (input: buffer) -> SetPageScopeFieldAction_Params,
+	jsonEncode: (self: SetPageScopeFieldAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SetPageScopeFieldAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SetPageScopeFieldAction_ParamsFields = {
+	field_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	value: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	set_if_unset: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+type _SetPageScopeFieldAction_ParamsPartialFields = {
+	field_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	value: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	set_if_unset: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+export type SetPageScopeFieldAction_Params = typeof(setmetatable(
+	{} :: _SetPageScopeFieldAction_ParamsFields,
+	{} :: _SetPageScopeFieldAction_ParamsImpl
+))
+type _SetPageScopeFieldAction_ParamsMessage = proto.Message<
+	SetPageScopeFieldAction_Params,
+	_SetPageScopeFieldAction_ParamsPartialFields
 >
 
 type _SetGameTileNotInterestedActionImpl = {
@@ -5953,6 +6082,128 @@ type _ExperimentalAction_ActionParamsEntryMessage = proto.Message<
 	_ExperimentalAction_ActionParamsEntryPartialFields
 >
 
+type _SubmitCustomFormResponseActionImpl = {
+	__index: _SubmitCustomFormResponseActionImpl,
+	new: (fields: _SubmitCustomFormResponseActionPartialFields?) -> SubmitCustomFormResponseAction,
+	encode: (self: SubmitCustomFormResponseAction) -> buffer,
+	decode: (input: buffer) -> SubmitCustomFormResponseAction,
+	jsonEncode: (self: SubmitCustomFormResponseAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SubmitCustomFormResponseAction,
+	descriptor: proto.Descriptor,
+}
+
+type _SubmitCustomFormResponseActionFields = {
+	action_type: ActionType,
+	action_params: SubmitCustomFormResponseAction_Params?,
+}
+
+type _SubmitCustomFormResponseActionPartialFields = {
+	action_type: ActionType?,
+	action_params: SubmitCustomFormResponseAction_Params?,
+}
+
+export type SubmitCustomFormResponseAction = typeof(setmetatable(
+	{} :: _SubmitCustomFormResponseActionFields,
+	{} :: _SubmitCustomFormResponseActionImpl
+))
+type _SubmitCustomFormResponseActionMessage = proto.Message<
+	SubmitCustomFormResponseAction,
+	_SubmitCustomFormResponseActionPartialFields
+>
+
+type _SubmitCustomFormResponseAction_ParamsImpl = {
+	__index: _SubmitCustomFormResponseAction_ParamsImpl,
+	new: (fields: _SubmitCustomFormResponseAction_ParamsPartialFields?) -> SubmitCustomFormResponseAction_Params,
+	encode: (self: SubmitCustomFormResponseAction_Params) -> buffer,
+	decode: (input: buffer) -> SubmitCustomFormResponseAction_Params,
+	jsonEncode: (self: SubmitCustomFormResponseAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SubmitCustomFormResponseAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SubmitCustomFormResponseAction_ParamsFields = {
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	form_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cf_vertical: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	response: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+type _SubmitCustomFormResponseAction_ParamsPartialFields = {
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	form_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cf_vertical: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	response: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+export type SubmitCustomFormResponseAction_Params = typeof(setmetatable(
+	{} :: _SubmitCustomFormResponseAction_ParamsFields,
+	{} :: _SubmitCustomFormResponseAction_ParamsImpl
+))
+type _SubmitCustomFormResponseAction_ParamsMessage = proto.Message<
+	SubmitCustomFormResponseAction_Params,
+	_SubmitCustomFormResponseAction_ParamsPartialFields
+>
+
+type _RefreshCustomFormResultsActionImpl = {
+	__index: _RefreshCustomFormResultsActionImpl,
+	new: (fields: _RefreshCustomFormResultsActionPartialFields?) -> RefreshCustomFormResultsAction,
+	encode: (self: RefreshCustomFormResultsAction) -> buffer,
+	decode: (input: buffer) -> RefreshCustomFormResultsAction,
+	jsonEncode: (self: RefreshCustomFormResultsAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshCustomFormResultsAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshCustomFormResultsActionFields = {
+	action_type: ActionType,
+	action_params: RefreshCustomFormResultsAction_Params?,
+}
+
+type _RefreshCustomFormResultsActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshCustomFormResultsAction_Params?,
+}
+
+export type RefreshCustomFormResultsAction = typeof(setmetatable(
+	{} :: _RefreshCustomFormResultsActionFields,
+	{} :: _RefreshCustomFormResultsActionImpl
+))
+type _RefreshCustomFormResultsActionMessage = proto.Message<
+	RefreshCustomFormResultsAction,
+	_RefreshCustomFormResultsActionPartialFields
+>
+
+type _RefreshCustomFormResultsAction_ParamsImpl = {
+	__index: _RefreshCustomFormResultsAction_ParamsImpl,
+	new: (fields: _RefreshCustomFormResultsAction_ParamsPartialFields?) -> RefreshCustomFormResultsAction_Params,
+	encode: (self: RefreshCustomFormResultsAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshCustomFormResultsAction_Params,
+	jsonEncode: (self: RefreshCustomFormResultsAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshCustomFormResultsAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshCustomFormResultsAction_ParamsFields = {
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	form_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cf_vertical: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RefreshCustomFormResultsAction_ParamsPartialFields = {
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	form_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cf_vertical: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RefreshCustomFormResultsAction_Params = typeof(setmetatable(
+	{} :: _RefreshCustomFormResultsAction_ParamsFields,
+	{} :: _RefreshCustomFormResultsAction_ParamsImpl
+))
+type _RefreshCustomFormResultsAction_ParamsMessage = proto.Message<
+	RefreshCustomFormResultsAction_Params,
+	_RefreshCustomFormResultsAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -6060,6 +6311,10 @@ type _ActionFields = {
 		| { type: "open_item_info_row_prompt_action", value: OpenItemInfoRowPromptAction }
 		| { type: "toggle_catalog_item_favorite_action", value: ToggleCatalogItemFavoriteAction }
 		| { type: "play_with_reward_ad_action", value: PlayWithRewardAdAction }
+		| { type: "set_page_scope_field_action", value: SetPageScopeFieldAction }
+		| { type: "submit_custom_form_response_action", value: SubmitCustomFormResponseAction }
+		| { type: "refresh_custom_form_results_action", value: RefreshCustomFormResultsAction }
+		| { type: "open_experience_leaderboard_see_all_action", value: OpenExperienceLeaderboardSeeAllAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -6164,6 +6419,10 @@ type _ActionPartialFields = {
 		| { type: "open_item_info_row_prompt_action", value: OpenItemInfoRowPromptAction }
 		| { type: "toggle_catalog_item_favorite_action", value: ToggleCatalogItemFavoriteAction }
 		| { type: "play_with_reward_ad_action", value: PlayWithRewardAdAction }
+		| { type: "set_page_scope_field_action", value: SetPageScopeFieldAction }
+		| { type: "submit_custom_form_response_action", value: SubmitCustomFormResponseAction }
+		| { type: "refresh_custom_form_results_action", value: RefreshCustomFormResultsAction }
+		| { type: "open_experience_leaderboard_see_all_action", value: OpenExperienceLeaderboardSeeAllAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -6522,6 +6781,10 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_ITEM_INFO_ROW_PROMPT"
 	| "ACTION_TYPE_TOGGLE_CATALOG_ITEM_FAVORITE"
 	| "ACTION_TYPE_PLAY_WITH_REWARD_AD"
+	| "ACTION_TYPE_SET_PAGE_SCOPE_FIELD"
+	| "ACTION_TYPE_SUBMIT_CUSTOM_FORM_RESPONSE"
+	| "ACTION_TYPE_REFRESH_CUSTOM_FORM_RESULTS"
+	| "ACTION_TYPE_OPEN_EXPERIENCE_LEADERBOARD_SEE_ALL"
 	| number -- Unknown
 
 do
@@ -12356,6 +12619,313 @@ do
 	messages.OpenProfileAction_Params = _OpenProfileAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.OpenProfileAction_Params)
+end
+
+do
+	local _OpenExperienceLeaderboardSeeAllActionImpl = {}
+	_OpenExperienceLeaderboardSeeAllActionImpl.__index = _OpenExperienceLeaderboardSeeAllActionImpl
+
+	function _OpenExperienceLeaderboardSeeAllActionImpl.new(
+		data: _OpenExperienceLeaderboardSeeAllActionPartialFields?
+	): OpenExperienceLeaderboardSeeAllAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenExperienceLeaderboardSeeAllActionImpl :: _OpenExperienceLeaderboardSeeAllActionImpl)
+	end
+
+	function _OpenExperienceLeaderboardSeeAllActionImpl.encode(self: OpenExperienceLeaderboardSeeAllAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenExperienceLeaderboardSeeAllActionImpl.decode(input: buffer): OpenExperienceLeaderboardSeeAllAction
+		local self = _OpenExperienceLeaderboardSeeAllActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenExperienceLeaderboardSeeAllAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenExperienceLeaderboardSeeAllActionImpl.jsonEncode(self: OpenExperienceLeaderboardSeeAllAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenExperienceLeaderboardSeeAllActionImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenExperienceLeaderboardSeeAllAction
+		local self = _OpenExperienceLeaderboardSeeAllActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenExperienceLeaderboardSeeAllAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenExperienceLeaderboardSeeAllAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenExperienceLeaderboardSeeAllActionImpl.descriptor = {
+		name = "OpenExperienceLeaderboardSeeAllAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenExperienceLeaderboardSeeAllAction",
+	}
+
+	messages.OpenExperienceLeaderboardSeeAllAction = _OpenExperienceLeaderboardSeeAllActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenExperienceLeaderboardSeeAllAction)
+end
+
+do
+	local _OpenExperienceLeaderboardSeeAllAction_ParamsImpl = {}
+	_OpenExperienceLeaderboardSeeAllAction_ParamsImpl.__index = _OpenExperienceLeaderboardSeeAllAction_ParamsImpl
+
+	function _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.new(
+		data: _OpenExperienceLeaderboardSeeAllAction_ParamsPartialFields?
+	): OpenExperienceLeaderboardSeeAllAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			initial_tab = if data == nil or data.initial_tab == nil then nil else data.initial_tab,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _OpenExperienceLeaderboardSeeAllAction_ParamsImpl :: _OpenExperienceLeaderboardSeeAllAction_ParamsImpl)
+	end
+
+	function _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.encode(
+		self: OpenExperienceLeaderboardSeeAllAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.initial_tab ~= nil then
+			local encoded = self.initial_tab:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.decode(
+		input: buffer
+	): OpenExperienceLeaderboardSeeAllAction_Params
+		local self = _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.initial_tab = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.jsonEncode(
+		self: OpenExperienceLeaderboardSeeAllAction_Params
+	): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.initial_tab ~= nil then
+			output.initialTab = self.initial_tab:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenExperienceLeaderboardSeeAllAction_Params
+		local self = _OpenExperienceLeaderboardSeeAllAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.initial_tab ~= nil then
+			self.initial_tab =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.initial_tab)
+		end
+
+		if input.initialTab ~= nil then
+			self.initial_tab = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.initialTab)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_OpenExperienceLeaderboardSeeAllAction_ParamsImpl.descriptor = {
+		name = "OpenExperienceLeaderboardSeeAllAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenExperienceLeaderboardSeeAllAction_Params = _OpenExperienceLeaderboardSeeAllAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenExperienceLeaderboardSeeAllAction_Params)
 end
 
 do
@@ -30772,6 +31342,9 @@ do
 		return setmetatable({
 			search_query = if data == nil or data.search_query == nil then nil else data.search_query,
 			search_type = if data == nil or data.search_type == nil then nil else data.search_type,
+			is_autocomplete_suggestion = if data == nil or data.is_autocomplete_suggestion == nil
+				then nil
+				else data.is_autocomplete_suggestion,
 		}, _OpenSearchResultsWithQueryAction_ParamsImpl :: _OpenSearchResultsWithQueryAction_ParamsImpl)
 	end
 
@@ -30788,6 +31361,12 @@ do
 		if self.search_type ~= nil then
 			local encoded = self.search_type:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_autocomplete_suggestion ~= nil then
+			local encoded = self.is_autocomplete_suggestion:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -30819,6 +31398,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.search_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_autocomplete_suggestion =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -30855,6 +31440,10 @@ do
 			output.searchType = self.search_type:jsonEncode()
 		end
 
+		if self.is_autocomplete_suggestion ~= nil then
+			output.isAutocompleteSuggestion = self.is_autocomplete_suggestion:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -30880,6 +31469,16 @@ do
 
 		if input.searchType ~= nil then
 			self.search_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.searchType)
+		end
+
+		if input.is_autocomplete_suggestion ~= nil then
+			self.is_autocomplete_suggestion =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_autocomplete_suggestion)
+		end
+
+		if input.isAutocompleteSuggestion ~= nil then
+			self.is_autocomplete_suggestion =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isAutocompleteSuggestion)
 		end
 
 		return self
@@ -33389,6 +33988,300 @@ do
 	messages.ApplyDevStoreSeeAllCategoryFilterAction_Params = _ApplyDevStoreSeeAllCategoryFilterAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ApplyDevStoreSeeAllCategoryFilterAction_Params)
+end
+
+do
+	local _SetPageScopeFieldActionImpl = {}
+	_SetPageScopeFieldActionImpl.__index = _SetPageScopeFieldActionImpl
+
+	function _SetPageScopeFieldActionImpl.new(data: _SetPageScopeFieldActionPartialFields?): SetPageScopeFieldAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SetPageScopeFieldActionImpl :: _SetPageScopeFieldActionImpl)
+	end
+
+	function _SetPageScopeFieldActionImpl.encode(self: SetPageScopeFieldAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SetPageScopeFieldActionImpl.decode(input: buffer): SetPageScopeFieldAction
+		local self = _SetPageScopeFieldActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SetPageScopeFieldAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SetPageScopeFieldActionImpl.jsonEncode(self: SetPageScopeFieldAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SetPageScopeFieldActionImpl.jsonDecode(input: { [string]: any }): SetPageScopeFieldAction
+		local self = _SetPageScopeFieldActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SetPageScopeFieldAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SetPageScopeFieldAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SetPageScopeFieldActionImpl.descriptor = {
+		name = "SetPageScopeFieldAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SetPageScopeFieldAction",
+	}
+
+	messages.SetPageScopeFieldAction = _SetPageScopeFieldActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SetPageScopeFieldAction)
+end
+
+do
+	local _SetPageScopeFieldAction_ParamsImpl = {}
+	_SetPageScopeFieldAction_ParamsImpl.__index = _SetPageScopeFieldAction_ParamsImpl
+
+	function _SetPageScopeFieldAction_ParamsImpl.new(
+		data: _SetPageScopeFieldAction_ParamsPartialFields?
+	): SetPageScopeFieldAction_Params
+		return setmetatable({
+			field_name = if data == nil or data.field_name == nil then nil else data.field_name,
+			value = if data == nil or data.value == nil then nil else data.value,
+			set_if_unset = if data == nil or data.set_if_unset == nil then nil else data.set_if_unset,
+		}, _SetPageScopeFieldAction_ParamsImpl :: _SetPageScopeFieldAction_ParamsImpl)
+	end
+
+	function _SetPageScopeFieldAction_ParamsImpl.encode(self: SetPageScopeFieldAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.field_name ~= nil then
+			local encoded = self.field_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.set_if_unset ~= nil then
+			local encoded = self.set_if_unset:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SetPageScopeFieldAction_ParamsImpl.decode(input: buffer): SetPageScopeFieldAction_Params
+		local self = _SetPageScopeFieldAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.set_if_unset = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SetPageScopeFieldAction_ParamsImpl.jsonEncode(self: SetPageScopeFieldAction_Params): any
+		local output = {}
+
+		if self.field_name ~= nil then
+			output.fieldName = self.field_name:jsonEncode()
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		if self.set_if_unset ~= nil then
+			output.setIfUnset = self.set_if_unset:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SetPageScopeFieldAction_ParamsImpl.jsonDecode(input: { [string]: any }): SetPageScopeFieldAction_Params
+		local self = _SetPageScopeFieldAction_ParamsImpl.new()
+
+		if input.field_name ~= nil then
+			self.field_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.field_name)
+		end
+
+		if input.fieldName ~= nil then
+			self.field_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.fieldName)
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.value)
+		end
+
+		if input.set_if_unset ~= nil then
+			self.set_if_unset =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.set_if_unset)
+		end
+
+		if input.setIfUnset ~= nil then
+			self.set_if_unset = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.setIfUnset)
+		end
+
+		return self
+	end
+
+	_SetPageScopeFieldAction_ParamsImpl.descriptor = {
+		name = "SetPageScopeFieldAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SetPageScopeFieldAction_Params = _SetPageScopeFieldAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SetPageScopeFieldAction_Params)
 end
 
 do
@@ -36256,6 +37149,630 @@ do
 end
 
 do
+	local _SubmitCustomFormResponseActionImpl = {}
+	_SubmitCustomFormResponseActionImpl.__index = _SubmitCustomFormResponseActionImpl
+
+	function _SubmitCustomFormResponseActionImpl.new(
+		data: _SubmitCustomFormResponseActionPartialFields?
+	): SubmitCustomFormResponseAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SubmitCustomFormResponseActionImpl :: _SubmitCustomFormResponseActionImpl)
+	end
+
+	function _SubmitCustomFormResponseActionImpl.encode(self: SubmitCustomFormResponseAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SubmitCustomFormResponseActionImpl.decode(input: buffer): SubmitCustomFormResponseAction
+		local self = _SubmitCustomFormResponseActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SubmitCustomFormResponseAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SubmitCustomFormResponseActionImpl.jsonEncode(self: SubmitCustomFormResponseAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SubmitCustomFormResponseActionImpl.jsonDecode(input: { [string]: any }): SubmitCustomFormResponseAction
+		local self = _SubmitCustomFormResponseActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SubmitCustomFormResponseAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SubmitCustomFormResponseAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SubmitCustomFormResponseActionImpl.descriptor = {
+		name = "SubmitCustomFormResponseAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SubmitCustomFormResponseAction",
+	}
+
+	messages.SubmitCustomFormResponseAction = _SubmitCustomFormResponseActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SubmitCustomFormResponseAction)
+end
+
+do
+	local _SubmitCustomFormResponseAction_ParamsImpl = {}
+	_SubmitCustomFormResponseAction_ParamsImpl.__index = _SubmitCustomFormResponseAction_ParamsImpl
+
+	function _SubmitCustomFormResponseAction_ParamsImpl.new(
+		data: _SubmitCustomFormResponseAction_ParamsPartialFields?
+	): SubmitCustomFormResponseAction_Params
+		return setmetatable({
+			entity_id = if data == nil or data.entity_id == nil then nil else data.entity_id,
+			form_id = if data == nil or data.form_id == nil then nil else data.form_id,
+			cf_vertical = if data == nil or data.cf_vertical == nil then nil else data.cf_vertical,
+			response = if data == nil or data.response == nil then nil else data.response,
+		}, _SubmitCustomFormResponseAction_ParamsImpl :: _SubmitCustomFormResponseAction_ParamsImpl)
+	end
+
+	function _SubmitCustomFormResponseAction_ParamsImpl.encode(self: SubmitCustomFormResponseAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entity_id ~= nil then
+			local encoded = self.entity_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.form_id ~= nil then
+			local encoded = self.form_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cf_vertical ~= nil then
+			local encoded = self.cf_vertical:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.response ~= nil then
+			local encoded = self.response:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SubmitCustomFormResponseAction_ParamsImpl.decode(input: buffer): SubmitCustomFormResponseAction_Params
+		local self = _SubmitCustomFormResponseAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.form_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cf_vertical = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.response = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SubmitCustomFormResponseAction_ParamsImpl.jsonEncode(self: SubmitCustomFormResponseAction_Params): any
+		local output = {}
+
+		if self.entity_id ~= nil then
+			output.entityId = self.entity_id:jsonEncode()
+		end
+
+		if self.form_id ~= nil then
+			output.formId = self.form_id:jsonEncode()
+		end
+
+		if self.cf_vertical ~= nil then
+			output.cfVertical = self.cf_vertical:jsonEncode()
+		end
+
+		if self.response ~= nil then
+			output.response = self.response:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SubmitCustomFormResponseAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): SubmitCustomFormResponseAction_Params
+		local self = _SubmitCustomFormResponseAction_ParamsImpl.new()
+
+		if input.entity_id ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entity_id)
+		end
+
+		if input.entityId ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entityId)
+		end
+
+		if input.form_id ~= nil then
+			self.form_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.form_id)
+		end
+
+		if input.formId ~= nil then
+			self.form_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.formId)
+		end
+
+		if input.cf_vertical ~= nil then
+			self.cf_vertical =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cf_vertical)
+		end
+
+		if input.cfVertical ~= nil then
+			self.cf_vertical = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cfVertical)
+		end
+
+		if input.response ~= nil then
+			self.response = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.response)
+		end
+
+		return self
+	end
+
+	_SubmitCustomFormResponseAction_ParamsImpl.descriptor = {
+		name = "SubmitCustomFormResponseAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SubmitCustomFormResponseAction_Params = _SubmitCustomFormResponseAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SubmitCustomFormResponseAction_Params)
+end
+
+do
+	local _RefreshCustomFormResultsActionImpl = {}
+	_RefreshCustomFormResultsActionImpl.__index = _RefreshCustomFormResultsActionImpl
+
+	function _RefreshCustomFormResultsActionImpl.new(
+		data: _RefreshCustomFormResultsActionPartialFields?
+	): RefreshCustomFormResultsAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshCustomFormResultsActionImpl :: _RefreshCustomFormResultsActionImpl)
+	end
+
+	function _RefreshCustomFormResultsActionImpl.encode(self: RefreshCustomFormResultsAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshCustomFormResultsActionImpl.decode(input: buffer): RefreshCustomFormResultsAction
+		local self = _RefreshCustomFormResultsActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshCustomFormResultsAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshCustomFormResultsActionImpl.jsonEncode(self: RefreshCustomFormResultsAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshCustomFormResultsActionImpl.jsonDecode(input: { [string]: any }): RefreshCustomFormResultsAction
+		local self = _RefreshCustomFormResultsActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshCustomFormResultsAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshCustomFormResultsAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshCustomFormResultsActionImpl.descriptor = {
+		name = "RefreshCustomFormResultsAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshCustomFormResultsAction",
+	}
+
+	messages.RefreshCustomFormResultsAction = _RefreshCustomFormResultsActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshCustomFormResultsAction)
+end
+
+do
+	local _RefreshCustomFormResultsAction_ParamsImpl = {}
+	_RefreshCustomFormResultsAction_ParamsImpl.__index = _RefreshCustomFormResultsAction_ParamsImpl
+
+	function _RefreshCustomFormResultsAction_ParamsImpl.new(
+		data: _RefreshCustomFormResultsAction_ParamsPartialFields?
+	): RefreshCustomFormResultsAction_Params
+		return setmetatable({
+			entity_id = if data == nil or data.entity_id == nil then nil else data.entity_id,
+			form_id = if data == nil or data.form_id == nil then nil else data.form_id,
+			cf_vertical = if data == nil or data.cf_vertical == nil then nil else data.cf_vertical,
+		}, _RefreshCustomFormResultsAction_ParamsImpl :: _RefreshCustomFormResultsAction_ParamsImpl)
+	end
+
+	function _RefreshCustomFormResultsAction_ParamsImpl.encode(self: RefreshCustomFormResultsAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entity_id ~= nil then
+			local encoded = self.entity_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.form_id ~= nil then
+			local encoded = self.form_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cf_vertical ~= nil then
+			local encoded = self.cf_vertical:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshCustomFormResultsAction_ParamsImpl.decode(input: buffer): RefreshCustomFormResultsAction_Params
+		local self = _RefreshCustomFormResultsAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.form_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cf_vertical = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshCustomFormResultsAction_ParamsImpl.jsonEncode(self: RefreshCustomFormResultsAction_Params): any
+		local output = {}
+
+		if self.entity_id ~= nil then
+			output.entityId = self.entity_id:jsonEncode()
+		end
+
+		if self.form_id ~= nil then
+			output.formId = self.form_id:jsonEncode()
+		end
+
+		if self.cf_vertical ~= nil then
+			output.cfVertical = self.cf_vertical:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshCustomFormResultsAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshCustomFormResultsAction_Params
+		local self = _RefreshCustomFormResultsAction_ParamsImpl.new()
+
+		if input.entity_id ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entity_id)
+		end
+
+		if input.entityId ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entityId)
+		end
+
+		if input.form_id ~= nil then
+			self.form_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.form_id)
+		end
+
+		if input.formId ~= nil then
+			self.form_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.formId)
+		end
+
+		if input.cf_vertical ~= nil then
+			self.cf_vertical =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cf_vertical)
+		end
+
+		if input.cfVertical ~= nil then
+			self.cf_vertical = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cfVertical)
+		end
+
+		return self
+	end
+
+	_RefreshCustomFormResultsAction_ParamsImpl.descriptor = {
+		name = "RefreshCustomFormResultsAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshCustomFormResultsAction_Params = _RefreshCustomFormResultsAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshCustomFormResultsAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -36645,6 +38162,22 @@ do
 			elseif self.kind.type == "play_with_reward_ad_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 92, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "set_page_scope_field_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 93, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "submit_custom_form_response_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 94, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_custom_form_results_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 95, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_experience_leaderboard_see_all_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 96, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -37327,6 +38860,36 @@ do
 					self.kind =
 						{ type = "play_with_reward_ad_action", value = messages.PlayWithRewardAdAction.decode(value) }
 					continue
+				elseif field == 93 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "set_page_scope_field_action", value = messages.SetPageScopeFieldAction.decode(value) }
+					continue
+				elseif field == 94 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "submit_custom_form_response_action",
+						value = messages.SubmitCustomFormResponseAction.decode(value),
+					}
+					continue
+				elseif field == 95 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "refresh_custom_form_results_action",
+						value = messages.RefreshCustomFormResultsAction.decode(value),
+					}
+					continue
+				elseif field == 96 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_experience_leaderboard_see_all_action",
+						value = messages.OpenExperienceLeaderboardSeeAllAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -37560,6 +39123,14 @@ do
 				output.toggleCatalogItemFavoriteAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "play_with_reward_ad_action" then
 				output.playWithRewardAdAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "set_page_scope_field_action" then
+				output.setPageScopeFieldAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "submit_custom_form_response_action" then
+				output.submitCustomFormResponseAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_custom_form_results_action" then
+				output.refreshCustomFormResultsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_experience_leaderboard_see_all_action" then
+				output.openExperienceLeaderboardSeeAllAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -38890,6 +40461,66 @@ do
 			self.kind = {
 				type = "play_with_reward_ad_action",
 				value = messages.PlayWithRewardAdAction.jsonDecode(input.playWithRewardAdAction),
+			}
+		end
+
+		if input.set_page_scope_field_action ~= nil then
+			self.kind = {
+				type = "set_page_scope_field_action",
+				value = messages.SetPageScopeFieldAction.jsonDecode(input.set_page_scope_field_action),
+			}
+		end
+
+		if input.setPageScopeFieldAction ~= nil then
+			self.kind = {
+				type = "set_page_scope_field_action",
+				value = messages.SetPageScopeFieldAction.jsonDecode(input.setPageScopeFieldAction),
+			}
+		end
+
+		if input.submit_custom_form_response_action ~= nil then
+			self.kind = {
+				type = "submit_custom_form_response_action",
+				value = messages.SubmitCustomFormResponseAction.jsonDecode(input.submit_custom_form_response_action),
+			}
+		end
+
+		if input.submitCustomFormResponseAction ~= nil then
+			self.kind = {
+				type = "submit_custom_form_response_action",
+				value = messages.SubmitCustomFormResponseAction.jsonDecode(input.submitCustomFormResponseAction),
+			}
+		end
+
+		if input.refresh_custom_form_results_action ~= nil then
+			self.kind = {
+				type = "refresh_custom_form_results_action",
+				value = messages.RefreshCustomFormResultsAction.jsonDecode(input.refresh_custom_form_results_action),
+			}
+		end
+
+		if input.refreshCustomFormResultsAction ~= nil then
+			self.kind = {
+				type = "refresh_custom_form_results_action",
+				value = messages.RefreshCustomFormResultsAction.jsonDecode(input.refreshCustomFormResultsAction),
+			}
+		end
+
+		if input.open_experience_leaderboard_see_all_action ~= nil then
+			self.kind = {
+				type = "open_experience_leaderboard_see_all_action",
+				value = messages.OpenExperienceLeaderboardSeeAllAction.jsonDecode(
+					input.open_experience_leaderboard_see_all_action
+				),
+			}
+		end
+
+		if input.openExperienceLeaderboardSeeAllAction ~= nil then
+			self.kind = {
+				type = "open_experience_leaderboard_see_all_action",
+				value = messages.OpenExperienceLeaderboardSeeAllAction.jsonDecode(
+					input.openExperienceLeaderboardSeeAllAction
+				),
 			}
 		end
 
@@ -40311,6 +41942,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_TOGGLE_CATALOG_ITEM_FAVORITE"
 		elseif value == 92 then
 			return "ACTION_TYPE_PLAY_WITH_REWARD_AD"
+		elseif value == 93 then
+			return "ACTION_TYPE_SET_PAGE_SCOPE_FIELD"
+		elseif value == 94 then
+			return "ACTION_TYPE_SUBMIT_CUSTOM_FORM_RESPONSE"
+		elseif value == 95 then
+			return "ACTION_TYPE_REFRESH_CUSTOM_FORM_RESULTS"
+		elseif value == 96 then
+			return "ACTION_TYPE_OPEN_EXPERIENCE_LEADERBOARD_SEE_ALL"
 		else
 			return nil
 		end
@@ -40503,6 +42142,14 @@ messages.ActionType = {
 			return 91
 		elseif self == "ACTION_TYPE_PLAY_WITH_REWARD_AD" then
 			return 92
+		elseif self == "ACTION_TYPE_SET_PAGE_SCOPE_FIELD" then
+			return 93
+		elseif self == "ACTION_TYPE_SUBMIT_CUSTOM_FORM_RESPONSE" then
+			return 94
+		elseif self == "ACTION_TYPE_REFRESH_CUSTOM_FORM_RESULTS" then
+			return 95
+		elseif self == "ACTION_TYPE_OPEN_EXPERIENCE_LEADERBOARD_SEE_ALL" then
+			return 96
 		else
 			return self
 		end
@@ -40695,6 +42342,14 @@ messages.ActionType = {
 			return "ACTION_TYPE_TOGGLE_CATALOG_ITEM_FAVORITE"
 		elseif name == "ACTION_TYPE_PLAY_WITH_REWARD_AD" then
 			return "ACTION_TYPE_PLAY_WITH_REWARD_AD"
+		elseif name == "ACTION_TYPE_SET_PAGE_SCOPE_FIELD" then
+			return "ACTION_TYPE_SET_PAGE_SCOPE_FIELD"
+		elseif name == "ACTION_TYPE_SUBMIT_CUSTOM_FORM_RESPONSE" then
+			return "ACTION_TYPE_SUBMIT_CUSTOM_FORM_RESPONSE"
+		elseif name == "ACTION_TYPE_REFRESH_CUSTOM_FORM_RESULTS" then
+			return "ACTION_TYPE_REFRESH_CUSTOM_FORM_RESULTS"
+		elseif name == "ACTION_TYPE_OPEN_EXPERIENCE_LEADERBOARD_SEE_ALL" then
+			return "ACTION_TYPE_OPEN_EXPERIENCE_LEADERBOARD_SEE_ALL"
 		else
 			return nil
 		end
@@ -40741,6 +42396,8 @@ return {
 	RemoveBadgeFromInventoryAction_Params = messages.RemoveBadgeFromInventoryAction_Params,
 	OpenProfileAction = messages.OpenProfileAction,
 	OpenProfileAction_Params = messages.OpenProfileAction_Params,
+	OpenExperienceLeaderboardSeeAllAction = messages.OpenExperienceLeaderboardSeeAllAction,
+	OpenExperienceLeaderboardSeeAllAction_Params = messages.OpenExperienceLeaderboardSeeAllAction_Params,
 	OpenFacialAgeEstimationAction = messages.OpenFacialAgeEstimationAction,
 	OpenFacialAgeEstimationAction_Params = messages.OpenFacialAgeEstimationAction_Params,
 	ShowToastAction = messages.ShowToastAction,
@@ -40879,6 +42536,8 @@ return {
 	OpenProfileFramesEditorAction_Params = messages.OpenProfileFramesEditorAction_Params,
 	ApplyDevStoreSeeAllCategoryFilterAction = messages.ApplyDevStoreSeeAllCategoryFilterAction,
 	ApplyDevStoreSeeAllCategoryFilterAction_Params = messages.ApplyDevStoreSeeAllCategoryFilterAction_Params,
+	SetPageScopeFieldAction = messages.SetPageScopeFieldAction,
+	SetPageScopeFieldAction_Params = messages.SetPageScopeFieldAction_Params,
 	SetGameTileNotInterestedAction = messages.SetGameTileNotInterestedAction,
 	SetGameTileNotInterestedAction_Params = messages.SetGameTileNotInterestedAction_Params,
 	UndoGameTileNotInterestedAction = messages.UndoGameTileNotInterestedAction,
@@ -40897,6 +42556,10 @@ return {
 	ToggleCatalogItemFavoriteAction_Params = messages.ToggleCatalogItemFavoriteAction_Params,
 	ExperimentalActionProp = messages.ExperimentalActionProp,
 	ExperimentalAction = messages.ExperimentalAction,
+	SubmitCustomFormResponseAction = messages.SubmitCustomFormResponseAction,
+	SubmitCustomFormResponseAction_Params = messages.SubmitCustomFormResponseAction_Params,
+	RefreshCustomFormResultsAction = messages.RefreshCustomFormResultsAction,
+	RefreshCustomFormResultsAction_Params = messages.RefreshCustomFormResultsAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,
