@@ -1,192 +1,226 @@
 PROTO_0:
-        0 GETUPVAL                         R9 0
-        1 CALL                             R9 0 1
-        2 JUMPIFNOT                        R9 ; [+4]
-        3 NOT                              R8 R5
-        4 JUMPIF                           R8 ; [+3]
-        5 NOT                              R8 R6
-        6 JUMP                             ; [+1]
-        7 LOADNIL                          R8
-        8 NEWTABLE                         R9 0 0
-       10 NEWTABLE                         R10 0 0
-       12 JUMPIFNOT                        R4 ; [+20]
-       13 DUPTABLE                         R13 K2 [{"id", "text"}]
-       14 GETUPVAL                         R14 1
-       15 GETTABLEKS                       R14 R14 K3 ["CANCEL"]
-       17 SETTABLEKS                       R14 R13 K0 ["id"]
-       19 LOADK                            R16 K4 ["Menu"]
-       20 LOADK                            R17 K5 ["Cancel"]
-       21 NAMECALL                         R14 R0 K6 ["getText"]
-       23 CALL                             R14 3 1
-       24 SETTABLEKS                       R14 R13 K1 ["text"]
-       26 FASTCALL2                        TABLE_INSERT R9 R13 ; [+4]
-       28 MOVE                             R12 R9
-       29 GETIMPORT                        R11 K9 [table.insert]
-       31 CALL                             R11 2 0
-       32 RETURN                           R9 1
-       33 JUMPIFEQKNIL                     R1 ; [+187]
-       35 DUPTABLE                         R13 K12 [{"id", "isChecked", "isDisabled", "text"}]
-       36 GETUPVAL                         R14 1
-       37 GETTABLEKS                       R14 R14 K13 ["ENABLED"]
-       39 SETTABLEKS                       R14 R13 K0 ["id"]
-       41 SETTABLEKS                       R5 R13 K10 ["isChecked"]
-       43 NOT                              R14 R6
-       44 SETTABLEKS                       R14 R13 K11 ["isDisabled"]
-       46 LOADK                            R16 K4 ["Menu"]
-       47 LOADK                            R17 K14 ["Enabled"]
-       48 NAMECALL                         R14 R0 K6 ["getText"]
-       50 CALL                             R14 3 1
-       51 SETTABLEKS                       R14 R13 K1 ["text"]
-       53 FASTCALL2                        TABLE_INSERT R10 R13 ; [+4]
-       55 MOVE                             R12 R10
-       56 GETIMPORT                        R11 K9 [table.insert]
-       58 CALL                             R11 2 0
-       59 GETUPVAL                         R11 2
-       60 MOVE                             R12 R0
-       61 MOVE                             R13 R7
-       62 MOVE                             R14 R6
-       63 CALL                             R11 3 1
-       64 JUMPIFNOT                        R11 ; [+7]
-       65 FASTCALL2                        TABLE_INSERT R10 R11 ; [+5]
-       67 MOVE                             R13 R10
-       68 MOVE                             R14 R11
-       69 GETIMPORT                        R12 K9 [table.insert]
-       71 CALL                             R12 2 0
-       72 DUPTABLE                         R14 K17 [{["icon"] = "pencil", [2], ["isDisabled"], ["text"]}]
-       73 GETUPVAL                         R15 1
-       74 GETTABLEKS                       R15 R15 K18 ["RENAME"]
-       76 SETTABLEKS                       R15 R14 K0 ["id"]
-       78 SETTABLEKS                       R8 R14 K11 ["isDisabled"]
-       80 LOADK                            R17 K4 ["Menu"]
-       81 LOADK                            R18 K19 ["Rename"]
-       82 NAMECALL                         R15 R0 K6 ["getText"]
-       84 CALL                             R15 3 1
-       85 SETTABLEKS                       R15 R14 K1 ["text"]
-       87 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
-       89 MOVE                             R13 R9
-       90 GETIMPORT                        R12 K9 [table.insert]
-       92 CALL                             R12 2 0
-       93 DUPTABLE                         R14 K20 [{"id", "isDisabled", "text"}]
-       94 GETUPVAL                         R15 1
-       95 GETTABLEKS                       R15 R15 K21 ["DUPLICATE"]
-       97 SETTABLEKS                       R15 R14 K0 ["id"]
-       99 SETTABLEKS                       R8 R14 K11 ["isDisabled"]
-      101 LOADK                            R17 K4 ["Menu"]
-      102 LOADK                            R18 K22 ["Duplicate"]
-      103 NAMECALL                         R15 R0 K6 ["getText"]
-      105 CALL                             R15 3 1
-      106 SETTABLEKS                       R15 R14 K1 ["text"]
-      108 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
-      110 MOVE                             R13 R9
-      111 GETIMPORT                        R12 K9 [table.insert]
-      113 CALL                             R12 2 0
-      114 DUPTABLE                         R14 K24 [{["icon"] = "trash-can", [2], ["isDisabled"], ["text"]}]
-      115 GETUPVAL                         R15 1
-      116 GETTABLEKS                       R15 R15 K25 ["DELETE"]
-      118 SETTABLEKS                       R15 R14 K0 ["id"]
+        0 NOT                              R8 R5
+        1 JUMPIF                           R8 ; [+1]
+        2 NOT                              R8 R6
+        3 NEWTABLE                         R9 0 0
+        5 NEWTABLE                         R10 0 0
+        7 JUMPIFNOT                        R4 ; [+20]
+        8 DUPTABLE                         R13 K2 [{"id", "text"}]
+        9 GETUPVAL                         R14 0
+       10 GETTABLEKS                       R14 R14 K3 ["CANCEL"]
+       12 SETTABLEKS                       R14 R13 K0 ["id"]
+       14 LOADK                            R16 K4 ["Menu"]
+       15 LOADK                            R17 K5 ["Cancel"]
+       16 NAMECALL                         R14 R0 K6 ["getText"]
+       18 CALL                             R14 3 1
+       19 SETTABLEKS                       R14 R13 K1 ["text"]
+       21 FASTCALL2                        TABLE_INSERT R9 R13 ; [+4]
+       23 MOVE                             R12 R9
+       24 GETIMPORT                        R11 K9 [table.insert]
+       26 CALL                             R11 2 0
+       27 RETURN                           R9 1
+       28 JUMPIFEQKNIL                     R1 ; [+242]
+       30 DUPTABLE                         R13 K13 [{"icon", "id", "isChecked", "isDisabled", "text"}]
+       31 GETUPVAL                         R15 1
+       32 CALL                             R15 0 1
+       33 JUMPIFNOT                        R15 ; [+4]
+       34 GETUPVAL                         R14 2
+       35 MOVE                             R15 R5
+       36 CALL                             R14 1 1
+       37 JUMP                             ; [+1]
+       38 LOADNIL                          R14
+       39 SETTABLEKS                       R14 R13 K10 ["icon"]
+       41 GETUPVAL                         R14 0
+       42 GETTABLEKS                       R14 R14 K14 ["ENABLED"]
+       44 SETTABLEKS                       R14 R13 K0 ["id"]
+       46 GETUPVAL                         R15 1
+       47 CALL                             R15 0 1
+       48 JUMPIFNOT                        R15 ; [+2]
+       49 LOADNIL                          R14
+       50 JUMP                             ; [+1]
+       51 MOVE                             R14 R5
+       52 SETTABLEKS                       R14 R13 K11 ["isChecked"]
+       54 NOT                              R14 R6
+       55 SETTABLEKS                       R14 R13 K12 ["isDisabled"]
+       57 LOADK                            R16 K4 ["Menu"]
+       58 LOADK                            R17 K15 ["Enabled"]
+       59 NAMECALL                         R14 R0 K6 ["getText"]
+       61 CALL                             R14 3 1
+       62 SETTABLEKS                       R14 R13 K1 ["text"]
+       64 FASTCALL2                        TABLE_INSERT R10 R13 ; [+4]
+       66 MOVE                             R12 R10
+       67 GETIMPORT                        R11 K9 [table.insert]
+       69 CALL                             R11 2 0
+       70 GETUPVAL                         R11 3
+       71 MOVE                             R12 R0
+       72 MOVE                             R13 R7
+       73 MOVE                             R14 R6
+       74 CALL                             R11 3 1
+       75 JUMPIFNOT                        R11 ; [+7]
+       76 FASTCALL2                        TABLE_INSERT R10 R11 ; [+5]
+       78 MOVE                             R13 R10
+       79 MOVE                             R14 R11
+       80 GETIMPORT                        R12 K9 [table.insert]
+       82 CALL                             R12 2 0
+       83 DUPTABLE                         R14 K16 [{"icon", "id", "isDisabled", "text"}]
+       84 GETUPVAL                         R15 4
+       85 GETTABLEKS                       R15 R15 K17 ["Pencil"]
+       87 SETTABLEKS                       R15 R14 K10 ["icon"]
+       89 GETUPVAL                         R15 0
+       90 GETTABLEKS                       R15 R15 K18 ["RENAME"]
+       92 SETTABLEKS                       R15 R14 K0 ["id"]
+       94 SETTABLEKS                       R8 R14 K12 ["isDisabled"]
+       96 LOADK                            R17 K4 ["Menu"]
+       97 LOADK                            R18 K19 ["Rename"]
+       98 NAMECALL                         R15 R0 K6 ["getText"]
+      100 CALL                             R15 3 1
+      101 SETTABLEKS                       R15 R14 K1 ["text"]
+      103 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
+      105 MOVE                             R13 R9
+      106 GETIMPORT                        R12 K9 [table.insert]
+      108 CALL                             R12 2 0
+      109 DUPTABLE                         R14 K16 [{"icon", "id", "isDisabled", "text"}]
+      110 GETUPVAL                         R16 1
+      111 CALL                             R16 0 1
+      112 JUMPIFNOT                        R16 ; [+4]
+      113 GETUPVAL                         R15 4
+      114 GETTABLEKS                       R15 R15 K20 ["SquareCornerLine"]
+      116 JUMP                             ; [+1]
+      117 LOADNIL                          R15
+      118 SETTABLEKS                       R15 R14 K10 ["icon"]
       120 GETUPVAL                         R15 0
-      121 CALL                             R15 0 1
-      122 JUMPIFNOT                        R15 ; [+1]
-      123 NOT                              R15 R6
-      124 SETTABLEKS                       R15 R14 K11 ["isDisabled"]
-      126 LOADK                            R17 K4 ["Menu"]
-      127 LOADK                            R18 K26 ["Delete"]
-      128 NAMECALL                         R15 R0 K6 ["getText"]
-      130 CALL                             R15 3 1
-      131 SETTABLEKS                       R15 R14 K1 ["text"]
-      133 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
-      135 MOVE                             R13 R9
-      136 GETIMPORT                        R12 K9 [table.insert]
-      138 CALL                             R12 2 0
-      139 GETUPVAL                         R14 0
-      140 CALL                             R14 0 1
-      141 JUMPIFNOT                        R14 ; [+2]
-      142 MOVE                             R13 R10
-      143 JUMP                             ; [+1]
-      144 MOVE                             R13 R9
-      145 DUPTABLE                         R14 K28 [{"id", "isDisabled", "text", "items"}]
-      146 GETUPVAL                         R15 1
-      147 GETTABLEKS                       R15 R15 K29 ["CHANGE_ACTION_TYPE"]
+      121 GETTABLEKS                       R15 R15 K21 ["DUPLICATE"]
+      123 SETTABLEKS                       R15 R14 K0 ["id"]
+      125 SETTABLEKS                       R8 R14 K12 ["isDisabled"]
+      127 LOADK                            R17 K4 ["Menu"]
+      128 LOADK                            R18 K22 ["Duplicate"]
+      129 NAMECALL                         R15 R0 K6 ["getText"]
+      131 CALL                             R15 3 1
+      132 SETTABLEKS                       R15 R14 K1 ["text"]
+      134 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
+      136 MOVE                             R13 R9
+      137 GETIMPORT                        R12 K9 [table.insert]
+      139 CALL                             R12 2 0
+      140 DUPTABLE                         R14 K16 [{"icon", "id", "isDisabled", "text"}]
+      141 GETUPVAL                         R15 4
+      142 GETTABLEKS                       R15 R15 K23 ["TrashCan"]
+      144 SETTABLEKS                       R15 R14 K10 ["icon"]
+      146 GETUPVAL                         R15 0
+      147 GETTABLEKS                       R15 R15 K24 ["DELETE"]
       149 SETTABLEKS                       R15 R14 K0 ["id"]
-      151 SETTABLEKS                       R8 R14 K11 ["isDisabled"]
-      153 LOADK                            R17 K4 ["Menu"]
-      154 LOADK                            R18 K30 ["ChangeActionType"]
-      155 NAMECALL                         R15 R0 K6 ["getText"]
-      157 CALL                             R15 3 1
-      158 SETTABLEKS                       R15 R14 K1 ["text"]
-      160 GETUPVAL                         R15 3
-      161 MOVE                             R16 R1
-      162 CALL                             R15 1 1
-      163 SETTABLEKS                       R15 R14 K27 ["items"]
-      165 FASTCALL2                        TABLE_INSERT R13 R14 ; [+3]
-      167 GETIMPORT                        R12 K9 [table.insert]
-      169 CALL                             R12 2 0
-      170 JUMPIFNOTEQKS                    R3 K31 ["Keycode"] ; [+26]
-      172 GETUPVAL                         R13 4
-      173 GETTABLE                         R12 R13 R1
-      174 JUMPIFEQKNIL                     R12 ; [+22]
-      176 DUPTABLE                         R14 K20 [{"id", "isDisabled", "text"}]
-      177 GETUPVAL                         R15 1
-      178 GETTABLEKS                       R15 R15 K32 ["ROW_USE_COMPOSITE"]
-      180 SETTABLEKS                       R15 R14 K0 ["id"]
-      182 SETTABLEKS                       R8 R14 K11 ["isDisabled"]
-      184 LOADK                            R17 K4 ["Menu"]
-      185 LOADK                            R18 K33 ["UseComposite"]
-      186 NAMECALL                         R15 R0 K6 ["getText"]
-      188 CALL                             R15 3 1
-      189 SETTABLEKS                       R15 R14 K1 ["text"]
-      191 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
-      193 MOVE                             R13 R9
-      194 GETIMPORT                        R12 K9 [table.insert]
-      196 CALL                             R12 2 0
-      197 JUMPIFNOTEQKS                    R3 K34 ["Composite"] ; [+44]
-      199 DUPTABLE                         R14 K20 [{"id", "isDisabled", "text"}]
-      200 GETUPVAL                         R15 1
-      201 GETTABLEKS                       R15 R15 K35 ["ROW_USE_KEYCODE"]
-      203 SETTABLEKS                       R15 R14 K0 ["id"]
-      205 SETTABLEKS                       R8 R14 K11 ["isDisabled"]
-      207 LOADK                            R17 K4 ["Menu"]
-      208 LOADK                            R18 K36 ["UseKeycode"]
-      209 NAMECALL                         R15 R0 K6 ["getText"]
-      211 CALL                             R15 3 1
-      212 SETTABLEKS                       R15 R14 K1 ["text"]
-      214 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
-      216 MOVE                             R13 R9
+      151 NOT                              R15 R6
+      152 SETTABLEKS                       R15 R14 K12 ["isDisabled"]
+      154 LOADK                            R17 K4 ["Menu"]
+      155 LOADK                            R18 K25 ["Delete"]
+      156 NAMECALL                         R15 R0 K6 ["getText"]
+      158 CALL                             R15 3 1
+      159 SETTABLEKS                       R15 R14 K1 ["text"]
+      161 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
+      163 MOVE                             R13 R9
+      164 GETIMPORT                        R12 K9 [table.insert]
+      166 CALL                             R12 2 0
+      167 GETUPVAL                         R12 5
+      168 CALL                             R12 0 1
+      169 JUMPIFNOT                        R12 ; [+24]
+      170 DUPTABLE                         R14 K26 [{"icon", "id", "text"}]
+      171 GETUPVAL                         R15 4
+      172 GETTABLEKS                       R15 R15 K27 ["LocationPin"]
+      174 SETTABLEKS                       R15 R14 K10 ["icon"]
+      176 GETUPVAL                         R15 0
+      177 GETTABLEKS                       R15 R15 K28 ["SHOW_IN_EXPLORER"]
+      179 SETTABLEKS                       R15 R14 K0 ["id"]
+      181 LOADK                            R17 K4 ["Menu"]
+      182 LOADK                            R18 K29 ["ShowInExplorer"]
+      183 NAMECALL                         R15 R0 K6 ["getText"]
+      185 CALL                             R15 3 1
+      186 SETTABLEKS                       R15 R14 K1 ["text"]
+      188 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
+      190 MOVE                             R13 R9
+      191 GETIMPORT                        R12 K9 [table.insert]
+      193 CALL                             R12 2 0
+      194 DUPTABLE                         R14 K31 [{"id", "isDisabled", "text", "items"}]
+      195 GETUPVAL                         R15 0
+      196 GETTABLEKS                       R15 R15 K32 ["CHANGE_ACTION_TYPE"]
+      198 SETTABLEKS                       R15 R14 K0 ["id"]
+      200 SETTABLEKS                       R8 R14 K12 ["isDisabled"]
+      202 LOADK                            R17 K4 ["Menu"]
+      203 LOADK                            R18 K33 ["ChangeActionType"]
+      204 NAMECALL                         R15 R0 K6 ["getText"]
+      206 CALL                             R15 3 1
+      207 SETTABLEKS                       R15 R14 K1 ["text"]
+      209 GETUPVAL                         R15 6
+      210 MOVE                             R16 R1
+      211 CALL                             R15 1 1
+      212 SETTABLEKS                       R15 R14 K30 ["items"]
+      214 FASTCALL2                        TABLE_INSERT R10 R14 ; [+4]
+      216 MOVE                             R13 R10
       217 GETIMPORT                        R12 K9 [table.insert]
       219 CALL                             R12 2 0
-      220 JUMP                             ; [+21]
-      221 DUPTABLE                         R13 K24 [{["icon"] = "trash-can", [2], ["isDisabled"], ["text"]}]
-      222 GETUPVAL                         R14 1
-      223 GETTABLEKS                       R14 R14 K25 ["DELETE"]
-      225 SETTABLEKS                       R14 R13 K0 ["id"]
-      227 SETTABLEKS                       R8 R13 K11 ["isDisabled"]
-      229 LOADK                            R16 K4 ["Menu"]
-      230 LOADK                            R17 K26 ["Delete"]
-      231 NAMECALL                         R14 R0 K6 ["getText"]
-      233 CALL                             R14 3 1
-      234 SETTABLEKS                       R14 R13 K1 ["text"]
-      236 FASTCALL2                        TABLE_INSERT R9 R13 ; [+4]
-      238 MOVE                             R12 R9
-      239 GETIMPORT                        R11 K9 [table.insert]
-      241 CALL                             R11 2 0
-      242 GETUPVAL                         R11 0
-      243 CALL                             R11 0 1
-      244 JUMPIF                           R11 ; [+1]
-      245 RETURN                           R9 1
-      246 LENGTH                           R11 R10
-      247 JUMPIFNOTEQKN                    R11 K37 [0] ; [+9]
-      249 NEWTABLE                         R11 0 1
-      251 DUPTABLE                         R12 K38 [{"items"}]
-      252 SETTABLEKS                       R9 R12 K27 ["items"]
-      254 SETLIST                          R11 R12 1 [1]
-      256 RETURN                           R11 1
-      257 NEWTABLE                         R11 0 2
-      259 DUPTABLE                         R12 K38 [{"items"}]
-      260 SETTABLEKS                       R9 R12 K27 ["items"]
-      262 DUPTABLE                         R13 K38 [{"items"}]
-      263 SETTABLEKS                       R10 R13 K27 ["items"]
-      265 SETLIST                          R11 R12 2 [1]
-      267 RETURN                           R11 1
+      220 JUMPIFNOTEQKS                    R3 K34 ["Keycode"] ; [+26]
+      222 GETUPVAL                         R13 7
+      223 GETTABLE                         R12 R13 R1
+      224 JUMPIFEQKNIL                     R12 ; [+22]
+      226 DUPTABLE                         R14 K35 [{"id", "isDisabled", "text"}]
+      227 GETUPVAL                         R15 0
+      228 GETTABLEKS                       R15 R15 K36 ["ROW_USE_COMPOSITE"]
+      230 SETTABLEKS                       R15 R14 K0 ["id"]
+      232 SETTABLEKS                       R8 R14 K12 ["isDisabled"]
+      234 LOADK                            R17 K4 ["Menu"]
+      235 LOADK                            R18 K37 ["UseComposite"]
+      236 NAMECALL                         R15 R0 K6 ["getText"]
+      238 CALL                             R15 3 1
+      239 SETTABLEKS                       R15 R14 K1 ["text"]
+      241 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
+      243 MOVE                             R13 R9
+      244 GETIMPORT                        R12 K9 [table.insert]
+      246 CALL                             R12 2 0
+      247 JUMPIFNOTEQKS                    R3 K38 ["Composite"] ; [+49]
+      249 DUPTABLE                         R14 K35 [{"id", "isDisabled", "text"}]
+      250 GETUPVAL                         R15 0
+      251 GETTABLEKS                       R15 R15 K39 ["ROW_USE_KEYCODE"]
+      253 SETTABLEKS                       R15 R14 K0 ["id"]
+      255 SETTABLEKS                       R8 R14 K12 ["isDisabled"]
+      257 LOADK                            R17 K4 ["Menu"]
+      258 LOADK                            R18 K40 ["UseKeycode"]
+      259 NAMECALL                         R15 R0 K6 ["getText"]
+      261 CALL                             R15 3 1
+      262 SETTABLEKS                       R15 R14 K1 ["text"]
+      264 FASTCALL2                        TABLE_INSERT R9 R14 ; [+4]
+      266 MOVE                             R13 R9
+      267 GETIMPORT                        R12 K9 [table.insert]
+      269 CALL                             R12 2 0
+      270 JUMP                             ; [+26]
+      271 DUPTABLE                         R13 K16 [{"icon", "id", "isDisabled", "text"}]
+      272 GETUPVAL                         R14 4
+      273 GETTABLEKS                       R14 R14 K23 ["TrashCan"]
+      275 SETTABLEKS                       R14 R13 K10 ["icon"]
+      277 GETUPVAL                         R14 0
+      278 GETTABLEKS                       R14 R14 K24 ["DELETE"]
+      280 SETTABLEKS                       R14 R13 K0 ["id"]
+      282 SETTABLEKS                       R8 R13 K12 ["isDisabled"]
+      284 LOADK                            R16 K4 ["Menu"]
+      285 LOADK                            R17 K25 ["Delete"]
+      286 NAMECALL                         R14 R0 K6 ["getText"]
+      288 CALL                             R14 3 1
+      289 SETTABLEKS                       R14 R13 K1 ["text"]
+      291 FASTCALL2                        TABLE_INSERT R9 R13 ; [+4]
+      293 MOVE                             R12 R9
+      294 GETIMPORT                        R11 K9 [table.insert]
+      296 CALL                             R11 2 0
+      297 LENGTH                           R11 R10
+      298 JUMPIFNOTEQKN                    R11 K41 [0] ; [+9]
+      300 NEWTABLE                         R11 0 1
+      302 DUPTABLE                         R12 K42 [{"items"}]
+      303 SETTABLEKS                       R9 R12 K30 ["items"]
+      305 SETLIST                          R11 R12 1 [1]
+      307 RETURN                           R11 1
+      308 NEWTABLE                         R11 0 2
+      310 DUPTABLE                         R12 K42 [{"items"}]
+      311 SETTABLEKS                       R9 R12 K30 ["items"]
+      313 DUPTABLE                         R13 K42 [{"items"}]
+      314 SETTABLEKS                       R10 R13 K30 ["items"]
+      316 SETLIST                          R11 R12 2 [1]
+      318 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -223,18 +257,31 @@ MAIN:
        54 GETIMPORT                        R6 K5 [require]
        56 GETTABLEKS                       R7 R0 K8 ["Src"]
        58 GETTABLEKS                       R7 R7 K10 ["Util"]
-       60 GETTABLEKS                       R7 R7 K11 ["Constants"]
-       62 GETTABLEKS                       R7 R7 K16 ["MenuIdentifiers"]
-       64 CALL                             R6 1 1
-       65 GETTABLEKS                       R7 R0 K8 ["Src"]
-       67 GETTABLEKS                       R7 R7 K17 ["Flags"]
-       69 GETIMPORT                        R8 K5 [require]
-       71 GETTABLEKS                       R9 R7 K18 ["getFFlagIAMBooleanProperties"]
-       73 CALL                             R8 1 1
-       74 DUPCLOSURE                       R9 K19 [PROTO_0]
-       75 CAPTURE                          VAL R8
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R5
-       78 CAPTURE                          VAL R4
-       79 CAPTURE                          VAL R3
-       80 RETURN                           R9 1
+       60 GETTABLEKS                       R7 R7 K16 ["getIconForBoolean"]
+       62 CALL                             R6 1 1
+       63 GETIMPORT                        R7 K5 [require]
+       65 GETTABLEKS                       R8 R0 K8 ["Src"]
+       67 GETTABLEKS                       R8 R8 K10 ["Util"]
+       69 GETTABLEKS                       R8 R8 K11 ["Constants"]
+       71 GETTABLEKS                       R8 R8 K17 ["MenuIdentifiers"]
+       73 CALL                             R7 1 1
+       74 GETTABLEKS                       R8 R0 K8 ["Src"]
+       76 GETTABLEKS                       R8 R8 K18 ["Flags"]
+       78 GETIMPORT                        R9 K5 [require]
+       80 GETTABLEKS                       R10 R8 K19 ["getFFlagIAMShowInExplorer"]
+       82 CALL                             R9 1 1
+       83 GETIMPORT                        R10 K5 [require]
+       85 GETTABLEKS                       R11 R8 K20 ["getFFlagIAMIconImprovements"]
+       87 CALL                             R10 1 1
+       88 GETTABLEKS                       R11 R1 K21 ["Enums"]
+       90 GETTABLEKS                       R11 R11 K22 ["IconName"]
+       92 DUPCLOSURE                       R12 K23 [PROTO_0]
+       93 CAPTURE                          VAL R7
+       94 CAPTURE                          VAL R10
+       95 CAPTURE                          VAL R6
+       96 CAPTURE                          VAL R5
+       97 CAPTURE                          VAL R11
+       98 CAPTURE                          VAL R9
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R3
+      101 RETURN                           R12 1

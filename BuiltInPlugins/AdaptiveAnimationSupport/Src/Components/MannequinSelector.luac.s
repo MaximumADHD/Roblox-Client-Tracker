@@ -1568,7 +1568,7 @@ PROTO_12:
       143 GETTABLEKS                       R19 R19 K20 ["createElement"]
       145 GETUPVAL                         R20 11
       146 GETTABLEKS                       R20 R20 K36 ["Image"]
-      148 DUPTABLE                         R21 K46 [{["Image"], ["aspectRatio"] = 0.493472584856397, ["tag"] = "anchor-top-right size-full bg-over-media-300", ["Position"], ["sizeConstraint"], ["onActivated"], ["stateLayer"]}]
+      148 DUPTABLE                         R21 K46 [{["Image"], ["aspectRatio"] = 0.4934725848563969, ["tag"] = "anchor-top-right size-full bg-over-media-300", ["Position"], ["sizeConstraint"], ["onActivated"], ["stateLayer"]}]
       149 GETUPVAL                         R22 2
       150 GETTABLEKS                       R22 R22 K47 ["MANNEQUIN"]
       152 SETTABLEKS                       R22 R21 K36 ["Image"]
@@ -1911,7 +1911,7 @@ PROTO_12:
       621 GETUPVAL                         R15 2
       622 GETTABLEKS                       R15 R15 K47 ["MANNEQUIN"]
       624 SETTABLEKS                       R15 R14 K36 ["Image"]
-      626 DUPTABLE                         R15 K145 [{["AspectRatio"] = 0.493472584856397, ["DominantAxis"]}]
+      626 DUPTABLE                         R15 K145 [{["AspectRatio"] = 0.4934725848563969, ["DominantAxis"]}]
       627 GETIMPORT                        R16 K147 [Enum.DominantAxis.Height]
       629 SETTABLEKS                       R16 R15 K113 ["DominantAxis"]
       631 SETTABLEKS                       R15 R14 K38 ["aspectRatio"]

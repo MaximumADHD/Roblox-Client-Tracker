@@ -32,7 +32,7 @@ MAIN:
         6 CALL                             R0 2 1
         7 DUPCLOSURE                       R1 K4 [PROTO_1]
         8 CAPTURE                          VAL R0
-        9 NEWTABLE                         R2 4 0
+        9 NEWTABLE                         R2 2 0
        11 LOADNIL                          R4
        12 ORK                              R4 R4 K5 [False]
        13 LOADK                            R5 K6 ["EnableRoactConfigs"]
@@ -51,13 +51,4 @@ MAIN:
        27 CAPTURE                          REF R4
        28 CLOSEUPVALS                      R4
        29 SETTABLEKS                       R3 R2 K7 ["RunningUnderCLI"]
-       31 LOADNIL                          R4
-       32 ORK                              R4 R4 K5 [False]
-       33 LOADK                            R5 K8 ["RunTests"]
-       34 NEWCLOSURE                       R3 P1
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          VAL R5
-       37 CAPTURE                          REF R4
-       38 CLOSEUPVALS                      R4
-       39 SETTABLEKS                       R3 R2 K8 ["RunTests"]
-       41 RETURN                           R2 1
+       31 RETURN                           R2 1

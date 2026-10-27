@@ -26,6 +26,14 @@ PROTO_2:
         6 RETURN                           R3 -1
 
 PROTO_3:
+        0 SETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["pluginLoader"]
+        4 NAMECALL                         R1 R1 K1 ["_onUserInteracted"]
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
+
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
@@ -60,7 +68,7 @@ PROTO_3:
        47 NAMECALL                         R6 R4 K37 ["IsEdit"]
        49 CALL                             R6 1 1
        50 JUMPIF                           R5 ; [+1]
-       51 JUMPIFNOT                        R6 ; [+40]
+       51 JUMPIFNOT                        R6 ; [+66]
        52 DUPTABLE                         R7 K42 [{["id"] = "InputActionManager", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
        53 GETIMPORT                        R8 K45 [DockWidgetPluginGuiInfo.new]
        55 GETIMPORT                        R9 K49 [Enum.InitialDockState.Bottom]
@@ -81,21 +89,43 @@ PROTO_3:
        76 GETTABLEKS                       R7 R7 K55 ["build"]
        78 MOVE                             R8 R3
        79 CALL                             R7 1 1
-       80 GETTABLEKS                       R8 R7 K56 ["pluginLoader"]
-       82 NAMECALL                         R8 R8 K57 ["waitForUserInteraction"]
-       84 CALL                             R8 1 1
-       85 JUMPIF                           R8 ; [+1]
-       86 RETURN                           R0 0
-       87 MOVE                             R9 R1
-       88 MOVE                             R10 R0
-       89 MOVE                             R11 R7
-       90 CALL                             R9 2 0
-       91 RETURN                           R0 0
-       92 GETUPVAL                         R7 4
-       93 GETTABLEKS                       R7 R7 K55 ["build"]
-       95 MOVE                             R8 R3
-       96 CALL                             R7 1 0
-       97 RETURN                           R0 0
+       80 LOADNIL                          R8
+       81 GETUPVAL                         R9 5
+       82 CALL                             R9 0 1
+       83 JUMPIFNOT                        R9 ; [+19]
+       84 LOADK                            R11 K56 ["FilterInstances"]
+       85 NEWCLOSURE                       R12 P3
+       86 CAPTURE                          REF R8
+       87 CAPTURE                          VAL R7
+       88 NAMECALL                         R9 R0 K57 ["OnInvoke"]
+       90 CALL                             R9 3 1
+       91 GETTABLEKS                       R10 R7 K58 ["pluginLoader"]
+       93 NAMECALL                         R10 R10 K59 ["waitForUserInteraction"]
+       95 CALL                             R10 1 1
+       96 JUMPIF                           R10 ; [+2]
+       97 CLOSEUPVALS                      R8
+       98 RETURN                           R0 0
+       99 NAMECALL                         R11 R9 K60 ["Destroy"]
+      101 CALL                             R11 1 0
+      102 JUMP                             ; [+8]
+      103 GETTABLEKS                       R9 R7 K58 ["pluginLoader"]
+      105 NAMECALL                         R9 R9 K59 ["waitForUserInteraction"]
+      107 CALL                             R9 1 1
+      108 JUMPIF                           R9 ; [+2]
+      109 CLOSEUPVALS                      R8
+      110 RETURN                           R0 0
+      111 MOVE                             R9 R1
+      112 MOVE                             R10 R0
+      113 MOVE                             R11 R7
+      114 MOVE                             R12 R8
+      115 CALL                             R9 3 0
+      116 CLOSEUPVALS                      R8
+      117 RETURN                           R0 0
+      118 GETUPVAL                         R7 4
+      119 GETTABLEKS                       R7 R7 K55 ["build"]
+      121 MOVE                             R8 R3
+      122 CALL                             R7 1 0
+      123 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -119,12 +149,23 @@ MAIN:
        32 GETIMPORT                        R5 K5 [require]
        34 GETTABLEKS                       R6 R0 K14 ["Bin"]
        36 GETTABLEKS                       R6 R6 K15 ["Common"]
-       38 GETTABLEKS                       R6 R6 K16 ["pluginType"]
+       38 GETTABLEKS                       R6 R6 K16 ["defineLuaFlags"]
        40 CALL                             R5 1 1
-       41 DUPCLOSURE                       R6 K17 [PROTO_3]
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R5
-       46 CAPTURE                          VAL R2
-       47 RETURN                           R6 1
+       41 GETTABLEKS                       R6 R5 K17 ["getFFlagIAMOpenFromProperties"]
+       43 GETIMPORT                        R7 K5 [require]
+       45 GETTABLEKS                       R8 R0 K9 ["Src"]
+       47 GETTABLEKS                       R8 R8 K18 ["Types"]
+       49 CALL                             R7 1 1
+       50 GETIMPORT                        R8 K5 [require]
+       52 GETTABLEKS                       R9 R0 K14 ["Bin"]
+       54 GETTABLEKS                       R9 R9 K15 ["Common"]
+       56 GETTABLEKS                       R9 R9 K19 ["pluginType"]
+       58 CALL                             R8 1 1
+       59 DUPCLOSURE                       R9 K20 [PROTO_4]
+       60 CAPTURE                          VAL R0
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R2
+       65 CAPTURE                          VAL R6
+       66 RETURN                           R9 1

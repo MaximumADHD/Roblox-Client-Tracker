@@ -4,7 +4,7 @@ PROTO_0:
         4 FASTCALL1                        MATH_LOG10 R5 ; [+2]
         5 GETIMPORT                        R4 K4 [math.log10]
         7 CALL                             R4 1 1
-        8 SUBK                             R3 R4 K0 [0.301029995663981]
+        8 SUBK                             R3 R4 K0 [0.3010299956639812]
         9 LOADN                            R5 10
        10 FASTCALL1                        MATH_FLOOR R3 ; [+3]
        11 MOVE                             R7 R3
@@ -75,7 +75,7 @@ PROTO_0:
       101 GETIMPORT                        R13 K6 [math.floor]
       103 CALL                             R13 1 1
       104 SUB                              R12 R3 R13
-      105 DIVK                             R11 R12 K33 [0.397940008672038]
+      105 DIVK                             R11 R12 K33 [0.39794000867203766]
       106 SUBRK                            R13 K30 [1] R11
       107 LOADN                            R14 0
       108 LOADN                            R15 1

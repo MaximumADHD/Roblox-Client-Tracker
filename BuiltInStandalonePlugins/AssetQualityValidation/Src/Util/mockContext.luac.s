@@ -1,42 +1,50 @@
 PROTO_0:
         0 FASTCALL1                        TYPE R0 ; [+3]
-        1 MOVE                             R4 R0
-        2 GETIMPORT                        R3 K1 [type]
-        4 CALL                             R3 1 1
-        5 JUMPIFEQKS                       R3 K2 ["table"] ; [+2]
-        7 LOADB                            R2 0 +1
-        8 LOADB                            R2 1
-        9 FASTCALL2K                       ASSERT R2 K3 ; [+4]
-       11 LOADK                            R3 K3 ["Expected children to be a table"]
-       12 GETIMPORT                        R1 K5 [assert]
-       14 CALL                             R1 2 0
-       15 GETUPVAL                         R1 0
-       16 GETTABLEKS                       R1 R1 K6 ["provideMockContext"]
-       18 GETUPVAL                         R2 1
-       19 DUPTABLE                         R3 K8 [{"ContextStack"}]
-       20 GETUPVAL                         R4 2
-       21 GETTABLEKS                       R4 R4 K9 ["createElement"]
-       23 GETUPVAL                         R5 3
-       24 GETTABLEKS                       R5 R5 K7 ["ContextStack"]
-       26 DUPTABLE                         R6 K11 [{"providers"}]
-       27 NEWTABLE                         R7 0 2
-       29 GETUPVAL                         R8 2
-       30 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       32 GETUPVAL                         R9 4
-       33 DUPTABLE                         R10 K16 [{["theme"] = "Dark", ["device"] = "Desktop"}]
-       34 CALL                             R8 2 1
-       35 GETUPVAL                         R9 2
-       36 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       38 GETUPVAL                         R10 5
-       39 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
-       41 CALL                             R9 1 -1
-       42 SETLIST                          R7 R8 -1 [1]
-       44 SETTABLEKS                       R7 R6 K10 ["providers"]
-       46 MOVE                             R7 R0
-       47 CALL                             R4 3 1
-       48 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
-       50 CALL                             R1 2 -1
-       51 RETURN                           R1 -1
+        1 MOVE                             R5 R0
+        2 GETIMPORT                        R4 K1 [type]
+        4 CALL                             R4 1 1
+        5 JUMPIFEQKS                       R4 K2 ["table"] ; [+2]
+        7 LOADB                            R3 0 +1
+        8 LOADB                            R3 1
+        9 FASTCALL2K                       ASSERT R3 K3 ; [+4]
+       11 LOADK                            R4 K3 ["Expected children to be a table"]
+       12 GETIMPORT                        R2 K5 [assert]
+       14 CALL                             R2 2 0
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K6 ["provideMockContext"]
+       18 GETUPVAL                         R3 1
+       19 DUPTABLE                         R4 K8 [{"ContextStack"}]
+       20 GETUPVAL                         R5 2
+       21 GETTABLEKS                       R5 R5 K9 ["createElement"]
+       23 GETUPVAL                         R6 3
+       24 GETTABLEKS                       R6 R6 K7 ["ContextStack"]
+       26 DUPTABLE                         R7 K11 [{"providers"}]
+       27 NEWTABLE                         R8 0 1
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R9 R9 K9 ["createElement"]
+       32 GETUPVAL                         R10 4
+       33 GETTABLEKS                       R10 R10 K12 ["MockProvider"]
+       35 CALL                             R9 1 -1
+       36 SETLIST                          R8 R9 -1 [1]
+       38 SETTABLEKS                       R8 R7 K10 ["providers"]
+       40 MOVE                             R8 R0
+       41 CALL                             R5 3 1
+       42 SETTABLEKS                       R5 R4 K7 ["ContextStack"]
+       44 CALL                             R2 2 1
+       45 GETUPVAL                         R3 2
+       46 GETTABLEKS                       R3 R3 K9 ["createElement"]
+       48 GETUPVAL                         R4 5
+       49 DUPTABLE                         R5 K16 [{["theme"], ["device"] = "Desktop"}]
+       50 MOVE                             R6 R1
+       51 JUMPIF                           R6 ; [+7]
+       52 GETUPVAL                         R6 6
+       53 GETTABLEKS                       R6 R6 K17 ["Enums"]
+       55 GETTABLEKS                       R6 R6 K18 ["ColorMode"]
+       57 GETTABLEKS                       R6 R6 K19 ["Dark"]
+       59 SETTABLEKS                       R6 R5 K13 ["theme"]
+       61 MOVE                             R6 R2
+       62 CALL                             R3 3 -1
+       63 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -69,22 +77,33 @@ MAIN:
        47 CALL                             R8 1 1
        48 GETTABLEKS                       R9 R8 K15 ["Contexts"]
        50 GETTABLEKS                       R9 R9 K16 ["Localization"]
-       52 NEWTABLE                         R10 0 2
-       54 GETTABLEKS                       R11 R5 K17 ["Analytics"]
-       56 GETTABLEKS                       R11 R11 K18 ["mock"]
-       58 CALL                             R11 0 1
-       59 GETTABLEKS                       R12 R5 K19 ["Design"]
-       61 GETTABLEKS                       R12 R12 K18 ["mock"]
-       63 GETIMPORT                        R13 K22 [Instance.new]
-       65 LOADK                            R14 K23 ["StyleSheet"]
-       66 CALL                             R13 1 -1
-       67 CALL                             R12 -1 -1
-       68 SETLIST                          R10 R11 -1 [1]
-       70 DUPCLOSURE                       R11 K24 [PROTO_0]
-       71 CAPTURE                          VAL R4
-       72 CAPTURE                          VAL R10
-       73 CAPTURE                          VAL R1
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R9
-       77 RETURN                           R11 1
+       52 GETIMPORT                        R10 K5 [require]
+       54 GETTABLEKS                       R11 R0 K17 ["Src"]
+       56 GETTABLEKS                       R11 R11 K18 ["Util"]
+       58 GETTABLEKS                       R11 R11 K19 ["localizationLibraries"]
+       60 CALL                             R10 1 1
+       61 NEWTABLE                         R11 0 3
+       63 GETTABLEKS                       R12 R5 K20 ["Analytics"]
+       65 GETTABLEKS                       R12 R12 K21 ["mock"]
+       67 CALL                             R12 0 1
+       68 GETTABLEKS                       R13 R5 K22 ["Design"]
+       70 GETTABLEKS                       R13 R13 K21 ["mock"]
+       72 GETIMPORT                        R14 K25 [Instance.new]
+       74 LOADK                            R15 K26 ["StyleSheet"]
+       75 CALL                             R14 1 -1
+       76 CALL                             R13 -1 1
+       77 GETTABLEKS                       R14 R5 K16 ["Localization"]
+       79 GETTABLEKS                       R14 R14 K21 ["mock"]
+       81 DUPTABLE                         R15 K28 [{"libraries"}]
+       82 SETTABLEKS                       R10 R15 K27 ["libraries"]
+       84 CALL                             R14 1 -1
+       85 SETLIST                          R11 R12 -1 [1]
+       87 DUPCLOSURE                       R12 K29 [PROTO_0]
+       88 CAPTURE                          VAL R4
+       89 CAPTURE                          VAL R11
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R2
+       92 CAPTURE                          VAL R9
+       93 CAPTURE                          VAL R7
+       94 CAPTURE                          VAL R6
+       95 RETURN                           R12 1

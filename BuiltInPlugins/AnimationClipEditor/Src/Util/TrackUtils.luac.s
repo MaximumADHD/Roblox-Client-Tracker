@@ -117,7 +117,7 @@ PROTO_4:
         1 CALL                             R4 0 1
         2 JUMPIFNOT                        R4 ; [+16]
         3 ORK                              R1 R1 K0 [0]
-        4 ORK                              R2 R2 K1 [∞]
+        4 ORK                              R2 R2 K1 [Infinity]
         5 MOVE                             R4 R0
         6 LOADNIL                          R5
         7 LOADNIL                          R6
@@ -2389,12 +2389,12 @@ PROTO_63:
 
 PROTO_64:
         0 SUB                              R5 R0 R1
-        1 DIVK                             R4 R5 K1 [6.28318530717959]
+        1 DIVK                             R4 R5 K1 [6.283185307179586]
         2 ADDK                             R3 R4 K0 [0.5]
         3 FASTCALL1                        MATH_FLOOR R3 ; [+2]
         4 GETIMPORT                        R2 K4 [math.floor]
         6 CALL                             R2 1 1
-        7 MULK                             R5 R2 K6 [3.14159265358979]
+        7 MULK                             R5 R2 K6 [3.141592653589793]
         8 MULK                             R4 R5 K5 [2]
         9 ADD                              R3 R1 R4
        10 RETURN                           R3 1
@@ -2418,68 +2418,68 @@ PROTO_65:
        17 GETTABLE                         R6 R7 R8
        18 MOVE                             R7 R0
        19 CALL                             R6 1 3
-       20 ADDK                             R9 R3 K4 [3.14159265358979]
-       21 SUBRK                            R10 K4 [3.14159265358979] R4
-       22 ADDK                             R11 R5 K4 [3.14159265358979]
+       20 ADDK                             R9 R3 K4 [3.141592653589793]
+       21 SUBRK                            R10 K4 [3.141592653589793] R4
+       22 ADDK                             R11 R5 K4 [3.141592653589793]
        23 DUPCLOSURE                       R12 K5 [PROTO_64]
        24 MOVE                             R13 R3
        25 SUB                              R17 R6 R13
-       26 DIVK                             R16 R17 K7 [6.28318530717959]
+       26 DIVK                             R16 R17 K7 [6.283185307179586]
        27 ADDK                             R15 R16 K6 [0.5]
        28 FASTCALL1                        MATH_FLOOR R15 ; [+2]
        29 GETIMPORT                        R14 K10 [math.floor]
        31 CALL                             R14 1 1
-       32 MULK                             R16 R14 K4 [3.14159265358979]
+       32 MULK                             R16 R14 K4 [3.141592653589793]
        33 MULK                             R15 R16 K11 [2]
        34 ADD                              R3 R13 R15
        35 MOVE                             R13 R9
        36 SUB                              R17 R6 R13
-       37 DIVK                             R16 R17 K7 [6.28318530717959]
+       37 DIVK                             R16 R17 K7 [6.283185307179586]
        38 ADDK                             R15 R16 K6 [0.5]
        39 FASTCALL1                        MATH_FLOOR R15 ; [+2]
        40 GETIMPORT                        R14 K10 [math.floor]
        42 CALL                             R14 1 1
-       43 MULK                             R16 R14 K4 [3.14159265358979]
+       43 MULK                             R16 R14 K4 [3.141592653589793]
        44 MULK                             R15 R16 K11 [2]
        45 ADD                              R9 R13 R15
        46 MOVE                             R13 R4
        47 SUB                              R17 R7 R13
-       48 DIVK                             R16 R17 K7 [6.28318530717959]
+       48 DIVK                             R16 R17 K7 [6.283185307179586]
        49 ADDK                             R15 R16 K6 [0.5]
        50 FASTCALL1                        MATH_FLOOR R15 ; [+2]
        51 GETIMPORT                        R14 K10 [math.floor]
        53 CALL                             R14 1 1
-       54 MULK                             R16 R14 K4 [3.14159265358979]
+       54 MULK                             R16 R14 K4 [3.141592653589793]
        55 MULK                             R15 R16 K11 [2]
        56 ADD                              R4 R13 R15
        57 MOVE                             R13 R10
        58 SUB                              R17 R7 R13
-       59 DIVK                             R16 R17 K7 [6.28318530717959]
+       59 DIVK                             R16 R17 K7 [6.283185307179586]
        60 ADDK                             R15 R16 K6 [0.5]
        61 FASTCALL1                        MATH_FLOOR R15 ; [+2]
        62 GETIMPORT                        R14 K10 [math.floor]
        64 CALL                             R14 1 1
-       65 MULK                             R16 R14 K4 [3.14159265358979]
+       65 MULK                             R16 R14 K4 [3.141592653589793]
        66 MULK                             R15 R16 K11 [2]
        67 ADD                              R10 R13 R15
        68 MOVE                             R13 R5
        69 SUB                              R17 R8 R13
-       70 DIVK                             R16 R17 K7 [6.28318530717959]
+       70 DIVK                             R16 R17 K7 [6.283185307179586]
        71 ADDK                             R15 R16 K6 [0.5]
        72 FASTCALL1                        MATH_FLOOR R15 ; [+2]
        73 GETIMPORT                        R14 K10 [math.floor]
        75 CALL                             R14 1 1
-       76 MULK                             R16 R14 K4 [3.14159265358979]
+       76 MULK                             R16 R14 K4 [3.141592653589793]
        77 MULK                             R15 R16 K11 [2]
        78 ADD                              R5 R13 R15
        79 MOVE                             R13 R11
        80 SUB                              R17 R8 R13
-       81 DIVK                             R16 R17 K7 [6.28318530717959]
+       81 DIVK                             R16 R17 K7 [6.283185307179586]
        82 ADDK                             R15 R16 K6 [0.5]
        83 FASTCALL1                        MATH_FLOOR R15 ; [+2]
        84 GETIMPORT                        R14 K10 [math.floor]
        86 CALL                             R14 1 1
-       87 MULK                             R16 R14 K4 [3.14159265358979]
+       87 MULK                             R16 R14 K4 [3.141592653589793]
        88 MULK                             R15 R16 K11 [2]
        89 ADD                              R11 R13 R15
        90 SUB                              R16 R6 R3

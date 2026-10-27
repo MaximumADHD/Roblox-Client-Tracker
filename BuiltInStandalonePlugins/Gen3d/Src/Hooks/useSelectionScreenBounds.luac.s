@@ -24,12 +24,12 @@ PROTO_0:
        29 SETTABLEKS                       R4 R5 K9 ["max"]
        31 RETURN                           R5 1
        32 GETIMPORT                        R4 K4 [Vector2.new]
-       34 LOADK                            R5 K11 [∞]
-       35 LOADK                            R6 K11 [∞]
+       34 LOADK                            R5 K11 [Infinity]
+       35 LOADK                            R6 K11 [Infinity]
        36 CALL                             R4 2 1
        37 GETIMPORT                        R5 K4 [Vector2.new]
-       39 LOADK                            R6 K12 [-∞]
-       40 LOADK                            R7 K12 [-∞]
+       39 LOADK                            R6 K12 [-Infinity]
+       40 LOADK                            R7 K12 [-Infinity]
        41 CALL                             R5 2 1
        42 MOVE                             R6 R3
        43 LOADNIL                          R7

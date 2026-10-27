@@ -210,8 +210,8 @@ MAIN:
        47 GETTABLEKS                       R7 R7 K18 ["InputSize"]
        49 GETTABLEKS                       R8 R2 K19 ["View"]
        51 GETIMPORT                        R9 K22 [UDim.new]
-       53 LOADK                            R10 K23 [0.333333333333333]
-       54 LOADK                            R11 K24 [-5.33333333333333]
+       53 LOADK                            R10 K23 [0.3333333333333333]
+       54 LOADK                            R11 K24 [-5.333333333333333]
        55 CALL                             R9 2 1
        56 DUPCLOSURE                       R10 K25 [PROTO_4]
        57 CAPTURE                          VAL R3

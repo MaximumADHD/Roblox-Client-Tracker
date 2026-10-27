@@ -5,7 +5,7 @@ PROTO_0:
         4 LOADN                            R5 1
         5 FORNPREP                         R4
         6 DIV                              R9 R6 R0
-        7 MULK                             R8 R9 K2 [3.14159265358979]
+        7 MULK                             R8 R9 K2 [3.141592653589793]
         8 MULK                             R7 R8 K1 [2]
         9 JUMPIFNOTEQKS                    R2 K3 ["x"] ; [+25]
        11 LOADN                            R11 0

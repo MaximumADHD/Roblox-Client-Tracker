@@ -305,41 +305,17 @@ PROTO_10:
        16 GETUPVAL                         R4 2
        17 MOVE                             R5 R3
        18 CALL                             R4 1 0
-       19 GETUPVAL                         R4 1
-       20 MOVE                             R5 R0
-       21 LOADK                            R6 K3 ["edit-menu-%*--content"]
-       22 MOVE                             R8 R2
-       23 NAMECALL                         R6 R6 K1 ["format"]
-       25 CALL                             R6 2 1
-       26 LOADK                            R7 K4 ["Edit menu not found"]
-       27 CALL                             R4 3 1
-       28 GETUPVAL                         R5 3
-       29 MOVE                             R6 R4
-       30 LOADK                            R7 K5 ["Scriptable Binding"]
-       31 LOADK                            R8 K6 ["Scriptable Binding option not found"]
-       32 CALL                             R5 3 1
-       33 LOADK                            R8 K7 ["GuiButton"]
-       34 NAMECALL                         R6 R5 K8 ["FindFirstAncestorWhichIsA"]
-       36 CALL                             R6 2 1
-       37 FASTCALL2K                       ASSERT R6 K6 ; [+5]
-       39 MOVE                             R8 R6
-       40 LOADK                            R9 K6 ["Scriptable Binding option not found"]
-       41 GETIMPORT                        R7 K10 [assert]
-       43 CALL                             R7 2 0
-       44 GETUPVAL                         R7 4
-       45 MOVE                             R8 R6
-       46 CALL                             R7 1 0
-       47 GETUPVAL                         R7 5
-       48 MOVE                             R8 R6
-       49 CALL                             R7 1 0
-       50 GETUPVAL                         R5 6
-       51 CALL                             R5 0 0
-       52 GETUPVAL                         R5 1
-       53 MOVE                             R6 R0
-       54 LOADK                            R7 K11 ["--foundation-menu-submenu-item--submenu--content"]
-       55 LOADK                            R8 K12 ["Scriptable submenu not found"]
-       56 CALL                             R5 3 -1
-       57 RETURN                           R5 -1
+       19 GETUPVAL                         R4 3
+       20 CALL                             R4 0 0
+       21 GETUPVAL                         R4 1
+       22 MOVE                             R5 R0
+       23 LOADK                            R6 K3 ["edit-menu-%*--content"]
+       24 MOVE                             R8 R2
+       25 NAMECALL                         R6 R6 K1 ["format"]
+       27 CALL                             R6 2 1
+       28 LOADK                            R7 K4 ["Edit menu not found"]
+       29 CALL                             R4 3 -1
+       30 RETURN                           R4 -1
 
 PROTO_11:
         0 GETUPVAL                         R2 0
@@ -348,15 +324,165 @@ PROTO_11:
         3 CALL                             R2 2 1
         4 GETUPVAL                         R3 1
         5 MOVE                             R4 R2
-        6 LOADK                            R5 K0 ["Enabled"]
-        7 LOADK                            R6 K1 ["Enabled option not found"]
+        6 LOADK                            R5 K0 ["Scriptable Binding"]
+        7 LOADK                            R6 K1 ["Scriptable Binding option not found"]
         8 CALL                             R3 3 1
         9 LOADK                            R6 K2 ["GuiButton"]
        10 NAMECALL                         R4 R3 K3 ["FindFirstAncestorWhichIsA"]
        12 CALL                             R4 2 1
        13 FASTCALL2K                       ASSERT R4 K1 ; [+5]
        15 MOVE                             R6 R4
-       16 LOADK                            R7 K1 ["Enabled option not found"]
+       16 LOADK                            R7 K1 ["Scriptable Binding option not found"]
+       17 GETIMPORT                        R5 K5 [assert]
+       19 CALL                             R5 2 0
+       20 GETUPVAL                         R5 2
+       21 MOVE                             R6 R4
+       22 CALL                             R5 1 0
+       23 GETUPVAL                         R5 3
+       24 MOVE                             R6 R4
+       25 CALL                             R5 1 0
+       26 GETUPVAL                         R3 4
+       27 CALL                             R3 0 0
+       28 GETUPVAL                         R3 5
+       29 MOVE                             R4 R0
+       30 LOADK                            R5 K6 ["--foundation-menu-submenu-item--submenu--content"]
+       31 LOADK                            R6 K7 ["Scriptable submenu not found"]
+       32 CALL                             R3 3 -1
+       33 RETURN                           R3 -1
+
+PROTO_12:
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 CALL                             R3 2 1
+        4 GETUPVAL                         R4 1
+        5 MOVE                             R5 R3
+        6 LOADK                            R6 K0 ["Scriptable Binding"]
+        7 LOADK                            R7 K1 ["Scriptable Binding option not found"]
+        8 CALL                             R4 3 1
+        9 LOADK                            R7 K2 ["GuiButton"]
+       10 NAMECALL                         R5 R4 K3 ["FindFirstAncestorWhichIsA"]
+       12 CALL                             R5 2 1
+       13 FASTCALL2K                       ASSERT R5 K1 ; [+5]
+       15 MOVE                             R7 R5
+       16 LOADK                            R8 K1 ["Scriptable Binding option not found"]
+       17 GETIMPORT                        R6 K5 [assert]
+       19 CALL                             R6 2 0
+       20 GETUPVAL                         R6 2
+       21 MOVE                             R7 R5
+       22 CALL                             R6 1 0
+       23 GETUPVAL                         R6 3
+       24 MOVE                             R7 R5
+       25 CALL                             R6 1 0
+       26 GETUPVAL                         R4 4
+       27 CALL                             R4 0 0
+       28 GETUPVAL                         R4 5
+       29 MOVE                             R5 R0
+       30 LOADK                            R6 K6 ["--foundation-menu-submenu-item--submenu--content"]
+       31 LOADK                            R7 K7 ["Scriptable submenu not found"]
+       32 CALL                             R4 3 1
+       33 MOVE                             R2 R4
+       34 GETUPVAL                         R3 1
+       35 MOVE                             R4 R2
+       36 LOADK                            R5 K8 ["Enabled"]
+       37 LOADK                            R6 K9 ["Enabled option not found"]
+       38 CALL                             R3 3 1
+       39 LOADK                            R6 K2 ["GuiButton"]
+       40 NAMECALL                         R4 R3 K3 ["FindFirstAncestorWhichIsA"]
+       42 CALL                             R4 2 1
+       43 FASTCALL2K                       ASSERT R4 K9 ; [+5]
+       45 MOVE                             R6 R4
+       46 LOADK                            R7 K9 ["Enabled option not found"]
+       47 GETIMPORT                        R5 K5 [assert]
+       49 CALL                             R5 2 0
+       50 GETUPVAL                         R5 2
+       51 MOVE                             R6 R4
+       52 CALL                             R5 1 0
+       53 GETUPVAL                         R5 3
+       54 MOVE                             R6 R4
+       55 CALL                             R5 1 0
+       56 GETUPVAL                         R3 4
+       57 CALL                             R3 0 0
+       58 RETURN                           R0 0
+
+PROTO_13:
+        0 GETUPVAL                         R4 0
+        1 MOVE                             R5 R0
+        2 MOVE                             R6 R1
+        3 CALL                             R4 2 1
+        4 GETUPVAL                         R5 1
+        5 MOVE                             R6 R4
+        6 LOADK                            R7 K0 ["Scriptable Binding"]
+        7 LOADK                            R8 K1 ["Scriptable Binding option not found"]
+        8 CALL                             R5 3 1
+        9 LOADK                            R8 K2 ["GuiButton"]
+       10 NAMECALL                         R6 R5 K3 ["FindFirstAncestorWhichIsA"]
+       12 CALL                             R6 2 1
+       13 FASTCALL2K                       ASSERT R6 K1 ; [+5]
+       15 MOVE                             R8 R6
+       16 LOADK                            R9 K1 ["Scriptable Binding option not found"]
+       17 GETIMPORT                        R7 K5 [assert]
+       19 CALL                             R7 2 0
+       20 GETUPVAL                         R7 2
+       21 MOVE                             R8 R6
+       22 CALL                             R7 1 0
+       23 GETUPVAL                         R7 3
+       24 MOVE                             R8 R6
+       25 CALL                             R7 1 0
+       26 GETUPVAL                         R5 4
+       27 CALL                             R5 0 0
+       28 GETUPVAL                         R5 5
+       29 MOVE                             R6 R0
+       30 LOADK                            R7 K6 ["--foundation-menu-submenu-item--submenu--content"]
+       31 LOADK                            R8 K7 ["Scriptable submenu not found"]
+       32 CALL                             R5 3 1
+       33 MOVE                             R3 R5
+       34 GETUPVAL                         R4 1
+       35 MOVE                             R5 R3
+       36 LOADK                            R6 K8 ["Rename"]
+       37 LOADK                            R7 K9 ["Rename option not found"]
+       38 CALL                             R4 3 1
+       39 LOADK                            R7 K2 ["GuiButton"]
+       40 NAMECALL                         R5 R4 K3 ["FindFirstAncestorWhichIsA"]
+       42 CALL                             R5 2 1
+       43 FASTCALL2K                       ASSERT R5 K9 ; [+5]
+       45 MOVE                             R7 R5
+       46 LOADK                            R8 K9 ["Rename option not found"]
+       47 GETIMPORT                        R6 K5 [assert]
+       49 CALL                             R6 2 0
+       50 GETUPVAL                         R6 2
+       51 MOVE                             R7 R5
+       52 CALL                             R6 1 0
+       53 GETUPVAL                         R6 3
+       54 MOVE                             R7 R5
+       55 CALL                             R6 1 0
+       56 GETUPVAL                         R4 4
+       57 CALL                             R4 0 0
+       58 GETUPVAL                         R4 6
+       59 GETTABLEKS                       R4 R4 K10 ["editText"]
+       61 MOVE                             R5 R0
+       62 GETUPVAL                         R6 7
+       63 GETTABLEKS                       R6 R6 K11 ["SCRIPTABLE_RENAME"]
+       65 MOVE                             R7 R2
+       66 CALL                             R4 3 0
+       67 RETURN                           R0 0
+
+PROTO_14:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 MOVE                             R4 R1
+        3 CALL                             R2 2 1
+        4 GETUPVAL                         R3 1
+        5 MOVE                             R4 R2
+        6 LOADK                            R5 K0 ["Show in Explorer"]
+        7 LOADK                            R6 K1 ["Show in Explorer option not found"]
+        8 CALL                             R3 3 1
+        9 LOADK                            R6 K2 ["GuiButton"]
+       10 NAMECALL                         R4 R3 K3 ["FindFirstAncestorWhichIsA"]
+       12 CALL                             R4 2 1
+       13 FASTCALL2K                       ASSERT R4 K1 ; [+5]
+       15 MOVE                             R6 R4
+       16 LOADK                            R7 K1 ["Show in Explorer option not found"]
        17 GETIMPORT                        R5 K5 [assert]
        19 CALL                             R5 2 0
        20 GETUPVAL                         R5 2
@@ -369,22 +495,22 @@ PROTO_11:
        27 CALL                             R3 0 0
        28 RETURN                           R0 0
 
-PROTO_12:
+PROTO_15:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 MOVE                             R5 R1
         3 CALL                             R3 2 1
         4 GETUPVAL                         R4 1
         5 MOVE                             R5 R3
-        6 LOADK                            R6 K0 ["Rename"]
-        7 LOADK                            R7 K1 ["Rename option not found"]
+        6 LOADK                            R6 K0 ["Scriptable Binding"]
+        7 LOADK                            R7 K1 ["Scriptable Binding option not found"]
         8 CALL                             R4 3 1
         9 LOADK                            R7 K2 ["GuiButton"]
        10 NAMECALL                         R5 R4 K3 ["FindFirstAncestorWhichIsA"]
        12 CALL                             R5 2 1
        13 FASTCALL2K                       ASSERT R5 K1 ; [+5]
        15 MOVE                             R7 R5
-       16 LOADK                            R8 K1 ["Rename option not found"]
+       16 LOADK                            R8 K1 ["Scriptable Binding option not found"]
        17 GETIMPORT                        R6 K5 [assert]
        19 CALL                             R6 2 0
        20 GETUPVAL                         R6 2
@@ -396,15 +522,35 @@ PROTO_12:
        26 GETUPVAL                         R4 4
        27 CALL                             R4 0 0
        28 GETUPVAL                         R4 5
-       29 GETTABLEKS                       R4 R4 K6 ["editText"]
-       31 MOVE                             R5 R0
-       32 GETUPVAL                         R6 6
-       33 GETTABLEKS                       R6 R6 K7 ["SCRIPTABLE_RENAME"]
-       35 MOVE                             R7 R2
-       36 CALL                             R4 3 0
-       37 RETURN                           R0 0
+       29 MOVE                             R5 R0
+       30 LOADK                            R6 K6 ["--foundation-menu-submenu-item--submenu--content"]
+       31 LOADK                            R7 K7 ["Scriptable submenu not found"]
+       32 CALL                             R4 3 1
+       33 MOVE                             R2 R4
+       34 GETUPVAL                         R3 1
+       35 MOVE                             R4 R2
+       36 LOADK                            R5 K8 ["Show in Explorer"]
+       37 LOADK                            R6 K9 ["Show in Explorer option not found"]
+       38 CALL                             R3 3 1
+       39 LOADK                            R6 K2 ["GuiButton"]
+       40 NAMECALL                         R4 R3 K3 ["FindFirstAncestorWhichIsA"]
+       42 CALL                             R4 2 1
+       43 FASTCALL2K                       ASSERT R4 K9 ; [+5]
+       45 MOVE                             R6 R4
+       46 LOADK                            R7 K9 ["Show in Explorer option not found"]
+       47 GETIMPORT                        R5 K5 [assert]
+       49 CALL                             R5 2 0
+       50 GETUPVAL                         R5 2
+       51 MOVE                             R6 R4
+       52 CALL                             R5 1 0
+       53 GETUPVAL                         R5 3
+       54 MOVE                             R6 R4
+       55 CALL                             R5 1 0
+       56 GETUPVAL                         R3 4
+       57 CALL                             R3 0 0
+       58 RETURN                           R0 0
 
-PROTO_13:
+PROTO_16:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 CALL                             R3 1 1
@@ -449,7 +595,7 @@ PROTO_13:
        46 CALL                             R7 3 0
        47 RETURN                           R0 0
 
-PROTO_14:
+PROTO_17:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 LOADK                            R4 K0 ["context-%*"]
@@ -464,7 +610,7 @@ PROTO_14:
        13 GETTABLEKS                       R2 R2 K3 ["LayoutOrder"]
        15 RETURN                           R2 1
 
-PROTO_15:
+PROTO_18:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 LOADK                            R4 K0 ["action-%*"]
@@ -479,7 +625,7 @@ PROTO_15:
        13 GETTABLEKS                       R2 R2 K3 ["LayoutOrder"]
        15 RETURN                           R2 1
 
-PROTO_16:
+PROTO_19:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 CALL                             R3 1 1
@@ -546,7 +692,7 @@ PROTO_16:
        75 CALL                             R8 1 0
        76 RETURN                           R0 0
 
-PROTO_17:
+PROTO_20:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 CALL                             R3 1 1
@@ -602,7 +748,7 @@ PROTO_17:
        61 CALL                             R9 0 0
        62 RETURN                           R0 0
 
-PROTO_18:
+PROTO_21:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R1
         2 CALL                             R3 1 1
@@ -668,7 +814,7 @@ PROTO_18:
        72 CALL                             R8 1 0
        73 RETURN                           R0 0
 
-PROTO_19:
+PROTO_22:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -676,7 +822,7 @@ PROTO_19:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_20:
+PROTO_23:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -684,7 +830,7 @@ PROTO_20:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_21:
+PROTO_24:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 0
         2 GETUPVAL                         R3 1
@@ -755,7 +901,7 @@ PROTO_21:
        77 CALL                             R8 3 0
        78 RETURN                           R0 0
 
-PROTO_22:
+PROTO_25:
         0 JUMPIFNOTEQKS                    R2 K0 ["Keycode"] ; [+7]
         2 LOADK                            R3 K1 ["keycode-binding-%*"]
         3 MOVE                             R5 R1
@@ -821,7 +967,7 @@ PROTO_22:
        73 CALL                             R10 1 0
        74 RETURN                           R0 0
 
-PROTO_23:
+PROTO_26:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -829,7 +975,7 @@ PROTO_23:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_24:
+PROTO_27:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -837,13 +983,13 @@ PROTO_24:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
-PROTO_25:
+PROTO_28:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_26:
+PROTO_29:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 LOADK                            R4 K0 ["header"]
@@ -884,13 +1030,13 @@ PROTO_26:
        41 CALL                             R5 2 0
        42 RETURN                           R0 0
 
-PROTO_27:
+PROTO_30:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_28:
+PROTO_31:
         0 GETUPVAL                         R4 0
         1 MOVE                             R5 R1
         2 CALL                             R4 1 1
@@ -961,7 +1107,7 @@ PROTO_28:
        77 CALL                             R10 2 0
        78 RETURN                           R0 0
 
-PROTO_29:
+PROTO_32:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 LOADK                            R5 K0 ["node-%*"]
@@ -976,7 +1122,7 @@ PROTO_29:
        13 LOADB                            R2 1
        14 RETURN                           R2 1
 
-PROTO_30:
+PROTO_33:
         0 LOADB                            R2 1
         1 MOVE                             R3 R1
         2 LOADNIL                          R4
@@ -993,7 +1139,7 @@ PROTO_30:
        14 FORGLOOP                         R3 2 ; [-10]
        16 RETURN                           R2 1
 
-PROTO_31:
+PROTO_34:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
         2 LOADK                            R5 K0 ["schema-%*"]
@@ -1110,118 +1256,139 @@ MAIN:
       145 CAPTURE                          VAL R3
       146 CAPTURE                          VAL R14
       147 CAPTURE                          VAL R10
-      148 CAPTURE                          VAL R16
-      149 CAPTURE                          VAL R13
-      150 CAPTURE                          VAL R9
-      151 CAPTURE                          VAL R8
-      152 DUPCLOSURE                       R21 K46 [PROTO_11]
-      153 CAPTURE                          VAL R20
-      154 CAPTURE                          VAL R16
-      155 CAPTURE                          VAL R13
-      156 CAPTURE                          VAL R9
-      157 CAPTURE                          VAL R8
-      158 SETTABLEKS                       R21 R18 K47 ["toggleScriptable"]
-      160 DUPCLOSURE                       R21 K48 [PROTO_12]
-      161 CAPTURE                          VAL R20
-      162 CAPTURE                          VAL R16
-      163 CAPTURE                          VAL R13
-      164 CAPTURE                          VAL R9
-      165 CAPTURE                          VAL R8
-      166 CAPTURE                          VAL R6
-      167 CAPTURE                          VAL R4
-      168 SETTABLEKS                       R21 R18 K49 ["renameScriptable"]
-      170 DUPCLOSURE                       R21 K50 [PROTO_13]
-      171 CAPTURE                          VAL R3
-      172 CAPTURE                          VAL R14
-      173 CAPTURE                          VAL R10
-      174 CAPTURE                          VAL R16
-      175 CAPTURE                          VAL R9
-      176 CAPTURE                          VAL R8
-      177 CAPTURE                          VAL R6
-      178 CAPTURE                          VAL R4
-      179 SETTABLEKS                       R21 R18 K51 ["changePriority"]
-      181 DUPCLOSURE                       R21 K52 [PROTO_14]
-      182 CAPTURE                          VAL R14
-      183 SETTABLEKS                       R21 R18 K53 ["getContextLayoutOrder"]
-      185 DUPCLOSURE                       R21 K54 [PROTO_15]
-      186 CAPTURE                          VAL R14
-      187 SETTABLEKS                       R21 R18 K55 ["getActionLayoutOrder"]
-      189 DUPCLOSURE                       R21 K56 [PROTO_16]
-      190 CAPTURE                          VAL R3
-      191 CAPTURE                          VAL R14
-      192 CAPTURE                          VAL R10
-      193 CAPTURE                          VAL R16
-      194 CAPTURE                          VAL R9
-      195 CAPTURE                          VAL R8
-      196 CAPTURE                          VAL R13
-      197 SETTABLEKS                       R21 R18 K57 ["changeActionType"]
-      199 DUPCLOSURE                       R21 K58 [PROTO_17]
-      200 CAPTURE                          VAL R3
-      201 CAPTURE                          VAL R14
-      202 CAPTURE                          VAL R10
-      203 CAPTURE                          VAL R16
-      204 CAPTURE                          VAL R9
-      205 CAPTURE                          VAL R8
-      206 SETTABLEKS                       R21 R18 K59 ["changeRowBehavior"]
-      208 DUPCLOSURE                       R21 K60 [PROTO_18]
-      209 CAPTURE                          VAL R3
-      210 CAPTURE                          VAL R8
-      211 CAPTURE                          VAL R14
-      212 CAPTURE                          VAL R13
-      213 CAPTURE                          VAL R9
-      214 CAPTURE                          VAL R16
-      215 DUPCLOSURE                       R22 K61 [PROTO_19]
-      216 CAPTURE                          VAL R21
-      217 SETTABLEKS                       R22 R18 K62 ["addPrimaryModifier"]
-      219 DUPCLOSURE                       R22 K63 [PROTO_20]
-      220 CAPTURE                          VAL R21
-      221 SETTABLEKS                       R22 R18 K64 ["addSecondaryModifier"]
-      223 DUPCLOSURE                       R22 K65 [PROTO_21]
-      224 CAPTURE                          VAL R8
-      225 CAPTURE                          VAL R3
-      226 CAPTURE                          VAL R14
-      227 CAPTURE                          VAL R13
-      228 CAPTURE                          VAL R9
-      229 CAPTURE                          VAL R16
-      230 SETTABLEKS                       R22 R18 K66 ["addBinding"]
-      232 DUPCLOSURE                       R22 K67 [PROTO_22]
-      233 CAPTURE                          VAL R14
-      234 CAPTURE                          VAL R3
-      235 CAPTURE                          VAL R10
-      236 CAPTURE                          VAL R16
-      237 CAPTURE                          VAL R9
-      238 DUPCLOSURE                       R23 K68 [PROTO_23]
+      148 CAPTURE                          VAL R8
+      149 DUPCLOSURE                       R21 K46 [PROTO_11]
+      150 CAPTURE                          VAL R20
+      151 CAPTURE                          VAL R16
+      152 CAPTURE                          VAL R13
+      153 CAPTURE                          VAL R9
+      154 CAPTURE                          VAL R8
+      155 CAPTURE                          VAL R14
+      156 DUPCLOSURE                       R22 K47 [PROTO_12]
+      157 CAPTURE                          VAL R20
+      158 CAPTURE                          VAL R16
+      159 CAPTURE                          VAL R13
+      160 CAPTURE                          VAL R9
+      161 CAPTURE                          VAL R8
+      162 CAPTURE                          VAL R14
+      163 SETTABLEKS                       R22 R18 K48 ["toggleScriptable"]
+      165 DUPCLOSURE                       R22 K49 [PROTO_13]
+      166 CAPTURE                          VAL R20
+      167 CAPTURE                          VAL R16
+      168 CAPTURE                          VAL R13
+      169 CAPTURE                          VAL R9
+      170 CAPTURE                          VAL R8
+      171 CAPTURE                          VAL R14
+      172 CAPTURE                          VAL R6
+      173 CAPTURE                          VAL R4
+      174 SETTABLEKS                       R22 R18 K50 ["renameScriptable"]
+      176 DUPCLOSURE                       R22 K51 [PROTO_14]
+      177 CAPTURE                          VAL R20
+      178 CAPTURE                          VAL R16
+      179 CAPTURE                          VAL R13
+      180 CAPTURE                          VAL R9
+      181 CAPTURE                          VAL R8
+      182 SETTABLEKS                       R22 R18 K52 ["showInExplorer"]
+      184 DUPCLOSURE                       R22 K53 [PROTO_15]
+      185 CAPTURE                          VAL R20
+      186 CAPTURE                          VAL R16
+      187 CAPTURE                          VAL R13
+      188 CAPTURE                          VAL R9
+      189 CAPTURE                          VAL R8
+      190 CAPTURE                          VAL R14
+      191 SETTABLEKS                       R22 R18 K54 ["showInExplorerScriptable"]
+      193 DUPCLOSURE                       R22 K55 [PROTO_16]
+      194 CAPTURE                          VAL R3
+      195 CAPTURE                          VAL R14
+      196 CAPTURE                          VAL R10
+      197 CAPTURE                          VAL R16
+      198 CAPTURE                          VAL R9
+      199 CAPTURE                          VAL R8
+      200 CAPTURE                          VAL R6
+      201 CAPTURE                          VAL R4
+      202 SETTABLEKS                       R22 R18 K56 ["changePriority"]
+      204 DUPCLOSURE                       R22 K57 [PROTO_17]
+      205 CAPTURE                          VAL R14
+      206 SETTABLEKS                       R22 R18 K58 ["getContextLayoutOrder"]
+      208 DUPCLOSURE                       R22 K59 [PROTO_18]
+      209 CAPTURE                          VAL R14
+      210 SETTABLEKS                       R22 R18 K60 ["getActionLayoutOrder"]
+      212 DUPCLOSURE                       R22 K61 [PROTO_19]
+      213 CAPTURE                          VAL R3
+      214 CAPTURE                          VAL R14
+      215 CAPTURE                          VAL R10
+      216 CAPTURE                          VAL R16
+      217 CAPTURE                          VAL R9
+      218 CAPTURE                          VAL R8
+      219 CAPTURE                          VAL R13
+      220 SETTABLEKS                       R22 R18 K62 ["changeActionType"]
+      222 DUPCLOSURE                       R22 K63 [PROTO_20]
+      223 CAPTURE                          VAL R3
+      224 CAPTURE                          VAL R14
+      225 CAPTURE                          VAL R10
+      226 CAPTURE                          VAL R16
+      227 CAPTURE                          VAL R9
+      228 CAPTURE                          VAL R8
+      229 SETTABLEKS                       R22 R18 K64 ["changeRowBehavior"]
+      231 DUPCLOSURE                       R22 K65 [PROTO_21]
+      232 CAPTURE                          VAL R3
+      233 CAPTURE                          VAL R8
+      234 CAPTURE                          VAL R14
+      235 CAPTURE                          VAL R13
+      236 CAPTURE                          VAL R9
+      237 CAPTURE                          VAL R16
+      238 DUPCLOSURE                       R23 K66 [PROTO_22]
       239 CAPTURE                          VAL R22
-      240 SETTABLEKS                       R23 R18 K69 ["cancelCreateKeycode"]
-      242 DUPCLOSURE                       R23 K70 [PROTO_24]
+      240 SETTABLEKS                       R23 R18 K67 ["addPrimaryModifier"]
+      242 DUPCLOSURE                       R23 K68 [PROTO_23]
       243 CAPTURE                          VAL R22
-      244 SETTABLEKS                       R23 R18 K71 ["cancelCreateComposite"]
-      246 DUPCLOSURE                       R23 K72 [PROTO_26]
-      247 CAPTURE                          VAL R14
-      248 CAPTURE                          VAL R13
-      249 CAPTURE                          VAL R9
-      250 CAPTURE                          VAL R7
-      251 CAPTURE                          VAL R11
-      252 CAPTURE                          VAL R12
-      253 SETTABLEKS                       R23 R18 K73 ["createContext"]
-      255 DUPCLOSURE                       R23 K74 [PROTO_28]
-      256 CAPTURE                          VAL R3
-      257 CAPTURE                          VAL R14
-      258 CAPTURE                          VAL R13
-      259 CAPTURE                          VAL R9
-      260 CAPTURE                          VAL R16
-      261 CAPTURE                          VAL R7
-      262 CAPTURE                          VAL R11
-      263 CAPTURE                          VAL R12
-      264 SETTABLEKS                       R23 R18 K75 ["createAction"]
-      266 DUPCLOSURE                       R23 K76 [PROTO_29]
-      267 CAPTURE                          VAL R17
-      268 CAPTURE                          VAL R3
-      269 SETTABLEKS                       R23 R18 K77 ["checkNodeExists"]
-      271 DUPCLOSURE                       R23 K78 [PROTO_30]
-      272 CAPTURE                          VAL R18
-      273 SETTABLEKS                       R23 R18 K79 ["checkNodesExist"]
-      275 DUPCLOSURE                       R23 K80 [PROTO_31]
-      276 CAPTURE                          VAL R17
-      277 SETTABLEKS                       R23 R18 K81 ["schemaExists"]
-      279 RETURN                           R18 1
+      244 SETTABLEKS                       R23 R18 K69 ["addSecondaryModifier"]
+      246 DUPCLOSURE                       R23 K70 [PROTO_24]
+      247 CAPTURE                          VAL R8
+      248 CAPTURE                          VAL R3
+      249 CAPTURE                          VAL R14
+      250 CAPTURE                          VAL R13
+      251 CAPTURE                          VAL R9
+      252 CAPTURE                          VAL R16
+      253 SETTABLEKS                       R23 R18 K71 ["addBinding"]
+      255 DUPCLOSURE                       R23 K72 [PROTO_25]
+      256 CAPTURE                          VAL R14
+      257 CAPTURE                          VAL R3
+      258 CAPTURE                          VAL R10
+      259 CAPTURE                          VAL R16
+      260 CAPTURE                          VAL R9
+      261 DUPCLOSURE                       R24 K73 [PROTO_26]
+      262 CAPTURE                          VAL R23
+      263 SETTABLEKS                       R24 R18 K74 ["cancelCreateKeycode"]
+      265 DUPCLOSURE                       R24 K75 [PROTO_27]
+      266 CAPTURE                          VAL R23
+      267 SETTABLEKS                       R24 R18 K76 ["cancelCreateComposite"]
+      269 DUPCLOSURE                       R24 K77 [PROTO_29]
+      270 CAPTURE                          VAL R14
+      271 CAPTURE                          VAL R13
+      272 CAPTURE                          VAL R9
+      273 CAPTURE                          VAL R7
+      274 CAPTURE                          VAL R11
+      275 CAPTURE                          VAL R12
+      276 SETTABLEKS                       R24 R18 K78 ["createContext"]
+      278 DUPCLOSURE                       R24 K79 [PROTO_31]
+      279 CAPTURE                          VAL R3
+      280 CAPTURE                          VAL R14
+      281 CAPTURE                          VAL R13
+      282 CAPTURE                          VAL R9
+      283 CAPTURE                          VAL R16
+      284 CAPTURE                          VAL R7
+      285 CAPTURE                          VAL R11
+      286 CAPTURE                          VAL R12
+      287 SETTABLEKS                       R24 R18 K80 ["createAction"]
+      289 DUPCLOSURE                       R24 K81 [PROTO_32]
+      290 CAPTURE                          VAL R17
+      291 CAPTURE                          VAL R3
+      292 SETTABLEKS                       R24 R18 K82 ["checkNodeExists"]
+      294 DUPCLOSURE                       R24 K83 [PROTO_33]
+      295 CAPTURE                          VAL R18
+      296 SETTABLEKS                       R24 R18 K84 ["checkNodesExist"]
+      298 DUPCLOSURE                       R24 K85 [PROTO_34]
+      299 CAPTURE                          VAL R17
+      300 SETTABLEKS                       R24 R18 K86 ["schemaExists"]
+      302 RETURN                           R18 1

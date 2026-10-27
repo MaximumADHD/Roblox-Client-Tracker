@@ -62,24 +62,28 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
-       21 NEWTABLE                         R3 0 4
-       23 GETTABLEKS                       R4 R2 K10 ["AssetInfoField"]
-       25 GETTABLEKS                       R4 R4 K11 ["DisplayName"]
-       27 GETTABLEKS                       R5 R2 K10 ["AssetInfoField"]
-       29 GETTABLEKS                       R5 R5 K12 ["Created"]
-       31 GETTABLEKS                       R6 R2 K10 ["AssetInfoField"]
-       33 GETTABLEKS                       R6 R6 K13 ["Modified"]
-       35 GETTABLEKS                       R7 R2 K10 ["AssetInfoField"]
-       37 GETTABLEKS                       R7 R7 K14 ["AssetType"]
-       39 SETLIST                          R3 R4 4 [1]
-       41 DUPCLOSURE                       R4 K15 [PROTO_1]
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R2
-       45 RETURN                           R4 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 NEWTABLE                         R4 0 4
+       30 GETTABLEKS                       R5 R3 K11 ["AssetInfoField"]
+       32 GETTABLEKS                       R5 R5 K12 ["DisplayName"]
+       34 GETTABLEKS                       R6 R3 K11 ["AssetInfoField"]
+       36 GETTABLEKS                       R6 R6 K13 ["Created"]
+       38 GETTABLEKS                       R7 R3 K11 ["AssetInfoField"]
+       40 GETTABLEKS                       R7 R7 K14 ["Modified"]
+       42 GETTABLEKS                       R8 R3 K11 ["AssetInfoField"]
+       44 GETTABLEKS                       R8 R8 K15 ["AssetType"]
+       46 SETLIST                          R4 R5 4 [1]
+       48 DUPCLOSURE                       R5 K16 [PROTO_1]
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R2
+       51 CAPTURE                          VAL R3
+       52 RETURN                           R5 1

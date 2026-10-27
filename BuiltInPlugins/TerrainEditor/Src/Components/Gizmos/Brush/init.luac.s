@@ -217,7 +217,7 @@ PROTO_1:
       300 DUPTABLE                         R25 K47 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
       301 SETTABLEKS                       R1 R25 K38 ["Adornee"]
       303 GETIMPORT                        R27 K49 [CFrame.Angles]
-      305 LOADK                            R28 K50 [1.5707963267949]
+      305 LOADK                            R28 K50 [1.5707963267948966]
       306 LOADN                            R29 0
       307 LOADN                            R30 0
       308 CALL                             R27 3 1

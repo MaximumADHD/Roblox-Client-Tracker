@@ -60,7 +60,7 @@ MAIN:
        84 DUPTABLE                         R18 K52 [{"MaxSize"}]
        85 GETIMPORT                        R19 K55 [Vector2.new]
        87 LOADN                            R20 400
-       88 LOADK                            R21 K56 [∞]
+       88 LOADK                            R21 K56 [Infinity]
        89 CALL                             R19 2 1
        90 SETTABLEKS                       R19 R18 K51 ["MaxSize"]
        92 CALL                             R16 2 -1

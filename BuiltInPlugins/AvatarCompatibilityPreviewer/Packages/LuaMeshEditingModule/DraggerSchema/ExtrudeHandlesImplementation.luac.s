@@ -49,7 +49,7 @@ PROTO_4:
 PROTO_5:
         0 LOADK                            R4 K0 [{0, 0, 0}]
         1 LOADK                            R6 K2 [{1, 1, 1}]
-        2 MULK                             R5 R6 K1 [∞]
+        2 MULK                             R5 R6 K1 [Infinity]
         3 RETURN                           R4 2
 
 PROTO_6:

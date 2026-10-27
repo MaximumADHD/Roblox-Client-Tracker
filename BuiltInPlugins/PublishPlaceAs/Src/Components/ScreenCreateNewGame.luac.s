@@ -130,19 +130,27 @@ PROTO_6:
        29 MOVE                             R5 R0
        30 CALL                             R1 4 0
        31 GETUPVAL                         R0 9
-       32 LOADB                            R1 1
-       33 CALL                             R0 1 0
-       34 GETUPVAL                         R0 10
-       35 GETTABLEKS                       R0 R0 K5 ["saveAll"]
-       37 GETUPVAL                         R1 11
-       38 GETUPVAL                         R2 12
-       39 GETUPVAL                         R3 13
-       40 LOADNIL                          R4
-       41 GETUPVAL                         R5 14
-       42 GETUPVAL                         R6 15
-       43 GETTABLEKS                       R6 R6 K6 ["OwnedGroups"]
-       45 CALL                             R0 6 0
-       46 RETURN                           R0 0
+       32 GETTABLEKS                       R0 R0 K5 ["OnCreateNewGame"]
+       34 JUMPIFNOT                        R0 ; [+7]
+       35 GETUPVAL                         R0 9
+       36 GETTABLEKS                       R0 R0 K5 ["OnCreateNewGame"]
+       38 GETUPVAL                         R1 10
+       39 GETTABLEKS                       R1 R1 K6 ["teamCreateEnabled"]
+       41 CALL                             R0 1 0
+       42 GETUPVAL                         R0 11
+       43 LOADB                            R1 1
+       44 CALL                             R0 1 0
+       45 GETUPVAL                         R0 12
+       46 GETTABLEKS                       R0 R0 K7 ["saveAll"]
+       48 GETUPVAL                         R1 10
+       49 GETUPVAL                         R2 13
+       50 GETUPVAL                         R3 14
+       51 LOADNIL                          R4
+       52 GETUPVAL                         R5 15
+       53 GETUPVAL                         R6 9
+       54 GETTABLEKS                       R6 R6 K8 ["OwnedGroups"]
+       56 CALL                             R0 6 0
+       57 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -155,7 +163,7 @@ PROTO_8:
         0 JUMPIFEQKS                       R0 K0 ["Submit"] ; [+2]
         2 LOADB                            R3 0 +1
         3 LOADB                            R3 1
-        4 JUMPIFNOT                        R3 ; [+51]
+        4 JUMPIFNOT                        R3 ; [+62]
         5 NEWTABLE                         R4 2 0
         7 GETUPVAL                         R5 0
         8 GETUPVAL                         R6 1
@@ -169,41 +177,49 @@ PROTO_8:
        16 GETUPVAL                         R8 6
        17 MOVE                             R9 R4
        18 CALL                             R5 4 0
-       19 JUMPIFNOTEQ                      R1 R2 ; [+22]
+       19 JUMPIFNOTEQ                      R1 R2 ; [+33]
        21 GETUPVAL                         R5 7
        22 DUPTABLE                         R7 K5 [{["showEmailDialog"] = False, ["bottomText"] = ""}]
        23 NAMECALL                         R5 R5 K6 ["setState"]
        25 CALL                             R5 2 0
        26 GETUPVAL                         R5 8
-       27 LOADB                            R6 1
-       28 CALL                             R5 1 0
-       29 GETUPVAL                         R5 9
-       30 GETTABLEKS                       R5 R5 K7 ["saveAll"]
-       32 GETUPVAL                         R6 10
-       33 GETUPVAL                         R7 11
-       34 GETUPVAL                         R8 12
-       35 MOVE                             R9 R1
-       36 GETUPVAL                         R10 13
-       37 GETUPVAL                         R11 14
-       38 GETTABLEKS                       R11 R11 K8 ["OwnedGroups"]
-       40 CALL                             R5 6 0
-       41 RETURN                           R0 0
-       42 GETUPVAL                         R5 7
-       43 DUPTABLE                         R7 K9 [{"bottomText"}]
-       44 GETUPVAL                         R8 11
-       45 GETUPVAL                         R10 0
-       46 LOADK                            R11 K10 ["ErrorEmailNotEqual"]
-       47 NAMECALL                         R8 R8 K11 ["getText"]
-       49 CALL                             R8 3 1
-       50 SETTABLEKS                       R8 R7 K3 ["bottomText"]
-       52 NAMECALL                         R5 R5 K6 ["setState"]
-       54 CALL                             R5 2 0
-       55 RETURN                           R0 0
-       56 GETUPVAL                         R4 7
-       57 DUPTABLE                         R6 K5 [{["showEmailDialog"] = False, ["bottomText"] = ""}]
-       58 NAMECALL                         R4 R4 K6 ["setState"]
-       60 CALL                             R4 2 0
-       61 RETURN                           R0 0
+       27 GETTABLEKS                       R5 R5 K7 ["OnCreateNewGame"]
+       29 JUMPIFNOT                        R5 ; [+7]
+       30 GETUPVAL                         R5 8
+       31 GETTABLEKS                       R5 R5 K7 ["OnCreateNewGame"]
+       33 GETUPVAL                         R6 9
+       34 GETTABLEKS                       R6 R6 K8 ["teamCreateEnabled"]
+       36 CALL                             R5 1 0
+       37 GETUPVAL                         R5 10
+       38 LOADB                            R6 1
+       39 CALL                             R5 1 0
+       40 GETUPVAL                         R5 11
+       41 GETTABLEKS                       R5 R5 K9 ["saveAll"]
+       43 GETUPVAL                         R6 9
+       44 GETUPVAL                         R7 12
+       45 GETUPVAL                         R8 13
+       46 MOVE                             R9 R1
+       47 GETUPVAL                         R10 14
+       48 GETUPVAL                         R11 8
+       49 GETTABLEKS                       R11 R11 K10 ["OwnedGroups"]
+       51 CALL                             R5 6 0
+       52 RETURN                           R0 0
+       53 GETUPVAL                         R5 7
+       54 DUPTABLE                         R7 K11 [{"bottomText"}]
+       55 GETUPVAL                         R8 12
+       56 GETUPVAL                         R10 0
+       57 LOADK                            R11 K12 ["ErrorEmailNotEqual"]
+       58 NAMECALL                         R8 R8 K13 ["getText"]
+       60 CALL                             R8 3 1
+       61 SETTABLEKS                       R8 R7 K3 ["bottomText"]
+       63 NAMECALL                         R5 R5 K6 ["setState"]
+       65 CALL                             R5 2 0
+       66 RETURN                           R0 0
+       67 GETUPVAL                         R4 7
+       68 DUPTABLE                         R6 K5 [{["showEmailDialog"] = False, ["bottomText"] = ""}]
+       69 NAMECALL                         R4 R4 K6 ["setState"]
+       71 CALL                             R4 2 0
+       72 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -296,13 +312,13 @@ PROTO_9:
       119 CAPTURE                          UPVAL U13
       120 CAPTURE                          UPVAL U14
       121 CAPTURE                          UPVAL U15
-      122 CAPTURE                          VAL R10
-      123 CAPTURE                          UPVAL U16
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R3
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R9
-      128 CAPTURE                          VAL R1
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R8
+      124 CAPTURE                          VAL R10
+      125 CAPTURE                          UPVAL U16
+      126 CAPTURE                          VAL R3
+      127 CAPTURE                          VAL R4
+      128 CAPTURE                          VAL R9
       129 SETTABLEKS                       R19 R18 K49 ["OnActivated"]
       131 SETTABLEKS                       R18 R17 K43 ["MainButton"]
       133 SETTABLEKS                       R5 R17 K5 ["OnClose"]
@@ -394,13 +410,13 @@ PROTO_9:
       263 CAPTURE                          UPVAL U14
       264 CAPTURE                          UPVAL U15
       265 CAPTURE                          VAL R0
-      266 CAPTURE                          VAL R10
-      267 CAPTURE                          UPVAL U16
-      268 CAPTURE                          VAL R8
-      269 CAPTURE                          VAL R3
-      270 CAPTURE                          VAL R4
-      271 CAPTURE                          VAL R9
-      272 CAPTURE                          VAL R1
+      266 CAPTURE                          VAL R1
+      267 CAPTURE                          VAL R8
+      268 CAPTURE                          VAL R10
+      269 CAPTURE                          UPVAL U16
+      270 CAPTURE                          VAL R3
+      271 CAPTURE                          VAL R4
+      272 CAPTURE                          VAL R9
       273 SETTABLEKS                       R22 R21 K63 ["OnButtonPressed"]
       275 CALL                             R19 2 1
       276 SETTABLEKS                       R19 R18 K53 ["EmailDialog"]

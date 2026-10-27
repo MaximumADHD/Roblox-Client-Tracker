@@ -61,7 +61,7 @@ PROTO_4:
        28 GETUPVAL                         R4 1
        29 GETTABLEKS                       R5 R0 K2 ["m_textLabel"]
        31 CALL                             R4 1 1
-       32 LOADK                            R6 K11 [0.00857142857142857]
+       32 LOADK                            R6 K11 [0.008571428571428572]
        33 GETTABLEKS                       R7 R2 K5 ["AbsoluteSize"]
        35 GETTABLEKS                       R7 R7 K12 ["X"]
        37 MUL                              R5 R6 R7

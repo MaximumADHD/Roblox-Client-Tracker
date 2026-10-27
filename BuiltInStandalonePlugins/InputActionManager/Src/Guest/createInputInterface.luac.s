@@ -2016,79 +2016,76 @@ PROTO_52:
        27 SETTABLE                         R2 R3 R0
        28 SETTABLEKS                       R1 R2 K4 ["ContextsChanged"]
        30 GETUPVAL                         R0 5
-       31 CALL                             R0 0 1
-       32 JUMPIFNOT                        R0 ; [+92]
-       33 GETUPVAL                         R0 6
-       34 GETTABLEKS                       R0 R0 K5 ["CreateDefaultPlayerModule"]
-       36 LOADB                            R1 1
-       37 GETUPVAL                         R2 7
-       38 GETTABLEKS                       R2 R2 K6 ["PlayerScriptsUseInputActionSystem"]
-       40 GETIMPORT                        R3 K10 [Enum.RolloutState.Enabled]
-       42 JUMPIFEQ                         R2 R3 ; [+13]
-       44 GETUPVAL                         R1 8
-       45 CALL                             R1 0 1
-       46 JUMPIFNOT                        R1 ; [+9]
-       47 GETUPVAL                         R2 7
-       48 GETTABLEKS                       R2 R2 K6 ["PlayerScriptsUseInputActionSystem"]
-       50 GETIMPORT                        R3 K12 [Enum.RolloutState.Default]
-       52 JUMPIFEQ                         R2 R3 ; [+2]
-       54 LOADB                            R1 0 +1
-       55 LOADB                            R1 1
-       56 GETUPVAL                         R2 9
-       57 LOADK                            R4 K13 ["ShowDefaultPlayerScriptsChanged"]
-       58 LOADNIL                          R5
-       59 AND                              R6 R0 R1
-       60 NAMECALL                         R2 R2 K14 ["FireGuest"]
-       62 CALL                             R2 4 0
-       63 GETUPVAL                         R0 2
-       64 GETUPVAL                         R2 6
-       65 NAMECALL                         R0 R0 K0 ["GetOrCreateUniqueId"]
-       67 CALL                             R0 2 1
-       68 GETUPVAL                         R1 6
-       69 LOADK                            R3 K5 ["CreateDefaultPlayerModule"]
-       70 NAMECALL                         R1 R1 K15 ["GetPropertyChangedSignal"]
-       72 CALL                             R1 2 1
-       73 NEWCLOSURE                       R3 P1
-       74 CAPTURE                          UPVAL U6
-       75 CAPTURE                          UPVAL U7
-       76 CAPTURE                          UPVAL U8
-       77 CAPTURE                          UPVAL U9
-       78 NAMECALL                         R1 R1 K2 ["Connect"]
-       80 CALL                             R1 2 1
-       81 GETUPVAL                         R3 4
-       82 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
-       84 GETTABLE                         R2 R3 R0
-       85 JUMPIF                           R2 ; [+6]
-       86 NEWTABLE                         R2 0 0
-       88 GETUPVAL                         R3 4
-       89 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
-       91 SETTABLE                         R2 R3 R0
-       92 SETTABLEKS                       R1 R2 K13 ["ShowDefaultPlayerScriptsChanged"]
-       94 GETUPVAL                         R0 2
-       95 GETUPVAL                         R2 7
-       96 NAMECALL                         R0 R0 K0 ["GetOrCreateUniqueId"]
-       98 CALL                             R0 2 1
-       99 GETUPVAL                         R1 7
-      100 LOADK                            R3 K6 ["PlayerScriptsUseInputActionSystem"]
-      101 NAMECALL                         R1 R1 K15 ["GetPropertyChangedSignal"]
-      103 CALL                             R1 2 1
-      104 NEWCLOSURE                       R3 P2
-      105 CAPTURE                          UPVAL U6
-      106 CAPTURE                          UPVAL U7
-      107 CAPTURE                          UPVAL U8
-      108 CAPTURE                          UPVAL U9
-      109 NAMECALL                         R1 R1 K2 ["Connect"]
-      111 CALL                             R1 2 1
-      112 GETUPVAL                         R3 4
-      113 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
-      115 GETTABLE                         R2 R3 R0
-      116 JUMPIF                           R2 ; [+6]
-      117 NEWTABLE                         R2 0 0
-      119 GETUPVAL                         R3 4
-      120 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
-      122 SETTABLE                         R2 R3 R0
-      123 SETTABLEKS                       R1 R2 K16 ["PlayerScriptsUseInputActionSystemChanged"]
-      125 RETURN                           R0 0
+       31 GETTABLEKS                       R0 R0 K5 ["CreateDefaultPlayerModule"]
+       33 LOADB                            R1 1
+       34 GETUPVAL                         R2 6
+       35 GETTABLEKS                       R2 R2 K6 ["PlayerScriptsUseInputActionSystem"]
+       37 GETIMPORT                        R3 K10 [Enum.RolloutState.Enabled]
+       39 JUMPIFEQ                         R2 R3 ; [+13]
+       41 GETUPVAL                         R1 7
+       42 CALL                             R1 0 1
+       43 JUMPIFNOT                        R1 ; [+9]
+       44 GETUPVAL                         R2 6
+       45 GETTABLEKS                       R2 R2 K6 ["PlayerScriptsUseInputActionSystem"]
+       47 GETIMPORT                        R3 K12 [Enum.RolloutState.Default]
+       49 JUMPIFEQ                         R2 R3 ; [+2]
+       51 LOADB                            R1 0 +1
+       52 LOADB                            R1 1
+       53 GETUPVAL                         R2 8
+       54 LOADK                            R4 K13 ["ShowDefaultPlayerScriptsChanged"]
+       55 LOADNIL                          R5
+       56 AND                              R6 R0 R1
+       57 NAMECALL                         R2 R2 K14 ["FireGuest"]
+       59 CALL                             R2 4 0
+       60 GETUPVAL                         R0 2
+       61 GETUPVAL                         R2 5
+       62 NAMECALL                         R0 R0 K0 ["GetOrCreateUniqueId"]
+       64 CALL                             R0 2 1
+       65 GETUPVAL                         R1 5
+       66 LOADK                            R3 K5 ["CreateDefaultPlayerModule"]
+       67 NAMECALL                         R1 R1 K15 ["GetPropertyChangedSignal"]
+       69 CALL                             R1 2 1
+       70 NEWCLOSURE                       R3 P1
+       71 CAPTURE                          UPVAL U5
+       72 CAPTURE                          UPVAL U6
+       73 CAPTURE                          UPVAL U7
+       74 CAPTURE                          UPVAL U8
+       75 NAMECALL                         R1 R1 K2 ["Connect"]
+       77 CALL                             R1 2 1
+       78 GETUPVAL                         R3 4
+       79 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
+       81 GETTABLE                         R2 R3 R0
+       82 JUMPIF                           R2 ; [+6]
+       83 NEWTABLE                         R2 0 0
+       85 GETUPVAL                         R3 4
+       86 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
+       88 SETTABLE                         R2 R3 R0
+       89 SETTABLEKS                       R1 R2 K13 ["ShowDefaultPlayerScriptsChanged"]
+       91 GETUPVAL                         R0 2
+       92 GETUPVAL                         R2 6
+       93 NAMECALL                         R0 R0 K0 ["GetOrCreateUniqueId"]
+       95 CALL                             R0 2 1
+       96 GETUPVAL                         R1 6
+       97 LOADK                            R3 K6 ["PlayerScriptsUseInputActionSystem"]
+       98 NAMECALL                         R1 R1 K15 ["GetPropertyChangedSignal"]
+      100 CALL                             R1 2 1
+      101 NEWCLOSURE                       R3 P2
+      102 CAPTURE                          UPVAL U5
+      103 CAPTURE                          UPVAL U6
+      104 CAPTURE                          UPVAL U7
+      105 CAPTURE                          UPVAL U8
+      106 NAMECALL                         R1 R1 K2 ["Connect"]
+      108 CALL                             R1 2 1
+      109 GETUPVAL                         R3 4
+      110 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
+      112 GETTABLE                         R2 R3 R0
+      113 JUMPIF                           R2 ; [+6]
+      114 NEWTABLE                         R2 0 0
+      116 GETUPVAL                         R3 4
+      117 GETTABLEKS                       R3 R3 K3 ["connectionsByUuid"]
+      119 SETTABLE                         R2 R3 R0
+      120 SETTABLEKS                       R1 R2 K16 ["PlayerScriptsUseInputActionSystemChanged"]
+      122 RETURN                           R0 0
 
 PROTO_53:
         0 GETUPVAL                         R1 0
@@ -2426,46 +2423,45 @@ PROTO_56:
       204 CAPTURE                          UPVAL U4
       205 CAPTURE                          UPVAL U8
       206 CAPTURE                          VAL R3
-      207 CAPTURE                          UPVAL U11
-      208 CAPTURE                          UPVAL U1
-      209 CAPTURE                          UPVAL U2
-      210 CAPTURE                          UPVAL U3
-      211 CAPTURE                          VAL R0
-      212 LOADK                            R47 K24 ["RequestAsync"]
-      213 NEWCLOSURE                       R48 P35
-      214 CAPTURE                          VAL R3
-      215 CAPTURE                          VAL R44
-      216 NAMECALL                         R45 R0 K19 ["OnHostEvent"]
-      218 CALL                             R45 3 2
-      219 NEWCLOSURE                       R47 P36
-      220 CAPTURE                          VAL R3
-      221 CAPTURE                          VAL R32
-      222 CAPTURE                          VAL R46
-      223 CAPTURE                          VAL R34
-      224 CAPTURE                          VAL R36
-      225 CAPTURE                          VAL R38
-      226 CAPTURE                          VAL R40
-      227 CAPTURE                          VAL R42
-      228 CAPTURE                          VAL R17
-      229 JUMPIF                           R1 ; [+6]
-      230 NAMECALL                         R48 R0 K25 ["IsHost"]
-      232 CALL                             R48 1 1
-      233 JUMPIFNOT                        R48 ; [+2]
-      234 MOVE                             R48 R44
-      235 CALL                             R48 0 0
-      236 NEWCLOSURE                       R48 P37
-      237 CAPTURE                          VAL R47
-      238 CAPTURE                          VAL R3
-      239 DUPTABLE                         R49 K29 [{"destroy", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
-      240 SETTABLEKS                       R48 R49 K26 ["destroy"]
-      242 SETTABLEKS                       R45 R49 K27 ["Request"]
-      244 SETTABLEKS                       R31 R49 K28 ["GetContextsAsync"]
-      246 SETTABLEKS                       R33 R49 K18 ["UpdateContext"]
-      248 SETTABLEKS                       R35 R49 K20 ["UpdateAction"]
-      250 SETTABLEKS                       R37 R49 K21 ["UpdateBinding"]
-      252 SETTABLEKS                       R39 R49 K22 ["DuplicateContext"]
-      254 SETTABLEKS                       R41 R49 K23 ["DuplicateAction"]
-      256 RETURN                           R49 1
+      207 CAPTURE                          UPVAL U1
+      208 CAPTURE                          UPVAL U2
+      209 CAPTURE                          UPVAL U3
+      210 CAPTURE                          VAL R0
+      211 LOADK                            R47 K24 ["RequestAsync"]
+      212 NEWCLOSURE                       R48 P35
+      213 CAPTURE                          VAL R3
+      214 CAPTURE                          VAL R44
+      215 NAMECALL                         R45 R0 K19 ["OnHostEvent"]
+      217 CALL                             R45 3 2
+      218 NEWCLOSURE                       R47 P36
+      219 CAPTURE                          VAL R3
+      220 CAPTURE                          VAL R32
+      221 CAPTURE                          VAL R46
+      222 CAPTURE                          VAL R34
+      223 CAPTURE                          VAL R36
+      224 CAPTURE                          VAL R38
+      225 CAPTURE                          VAL R40
+      226 CAPTURE                          VAL R42
+      227 CAPTURE                          VAL R17
+      228 JUMPIF                           R1 ; [+6]
+      229 NAMECALL                         R48 R0 K25 ["IsHost"]
+      231 CALL                             R48 1 1
+      232 JUMPIFNOT                        R48 ; [+2]
+      233 MOVE                             R48 R44
+      234 CALL                             R48 0 0
+      235 NEWCLOSURE                       R48 P37
+      236 CAPTURE                          VAL R47
+      237 CAPTURE                          VAL R3
+      238 DUPTABLE                         R49 K29 [{"destroy", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+      239 SETTABLEKS                       R48 R49 K26 ["destroy"]
+      241 SETTABLEKS                       R45 R49 K27 ["Request"]
+      243 SETTABLEKS                       R31 R49 K28 ["GetContextsAsync"]
+      245 SETTABLEKS                       R33 R49 K18 ["UpdateContext"]
+      247 SETTABLEKS                       R35 R49 K20 ["UpdateAction"]
+      249 SETTABLEKS                       R37 R49 K21 ["UpdateBinding"]
+      251 SETTABLEKS                       R39 R49 K22 ["DuplicateContext"]
+      253 SETTABLEKS                       R41 R49 K23 ["DuplicateAction"]
+      255 RETURN                           R49 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -2517,31 +2513,27 @@ MAIN:
        72 GETTABLEKS                       R11 R7 K18 ["Src"]
        74 GETTABLEKS                       R11 R11 K22 ["Flags"]
        76 GETIMPORT                        R12 K15 [require]
-       78 GETTABLEKS                       R13 R11 K23 ["getFFlagIAMPlayerScripts"]
+       78 GETTABLEKS                       R13 R11 K23 ["getFFlagIAMSortActions"]
        80 CALL                             R12 1 1
        81 GETIMPORT                        R13 K15 [require]
-       83 GETTABLEKS                       R14 R11 K24 ["getFFlagIAMSortActions"]
+       83 GETTABLEKS                       R14 R11 K24 ["getFFlagPlayerScriptsUseInputActionSystemDefault"]
        85 CALL                             R13 1 1
-       86 GETIMPORT                        R14 K15 [require]
-       88 GETTABLEKS                       R15 R11 K25 ["getFFlagPlayerScriptsUseInputActionSystemDefault"]
-       90 CALL                             R14 1 1
-       91 GETTABLEKS                       R15 R7 K18 ["Src"]
-       93 GETTABLEKS                       R15 R15 K20 ["Util"]
-       95 GETIMPORT                        R16 K15 [require]
-       97 GETTABLEKS                       R17 R15 K26 ["Cell"]
-       99 GETTABLEKS                       R17 R17 K27 ["isValidBinding"]
-      101 CALL                             R16 1 1
-      102 DUPCLOSURE                       R17 K28 [PROTO_56]
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R4
-      105 CAPTURE                          VAL R6
-      106 CAPTURE                          VAL R14
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R3
-      109 CAPTURE                          VAL R10
-      110 CAPTURE                          VAL R13
-      111 CAPTURE                          VAL R0
-      112 CAPTURE                          VAL R2
-      113 CAPTURE                          VAL R16
-      114 CAPTURE                          VAL R12
-      115 RETURN                           R17 1
+       86 GETTABLEKS                       R14 R7 K18 ["Src"]
+       88 GETTABLEKS                       R14 R14 K20 ["Util"]
+       90 GETIMPORT                        R15 K15 [require]
+       92 GETTABLEKS                       R16 R14 K25 ["Cell"]
+       94 GETTABLEKS                       R16 R16 K26 ["isValidBinding"]
+       96 CALL                             R15 1 1
+       97 DUPCLOSURE                       R16 K27 [PROTO_56]
+       98 CAPTURE                          VAL R1
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R6
+      101 CAPTURE                          VAL R13
+      102 CAPTURE                          VAL R5
+      103 CAPTURE                          VAL R3
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R12
+      106 CAPTURE                          VAL R0
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R15
+      109 RETURN                           R16 1

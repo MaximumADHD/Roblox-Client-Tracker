@@ -7,6 +7,21 @@ PROTO_0:
         6 RETURN                           R1 -1
 
 PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETIMPORT                        R2 K1 [game]
+        3 LOADK                            R4 K2 ["CoreGui"]
+        4 NAMECALL                         R2 R2 K3 ["GetService"]
+        6 CALL                             R2 2 -1
+        7 CALL                             R1 -1 1
+        8 GETIMPORT                        R2 K6 [string.format]
+       10 LOADK                            R3 K7 ["game.%s.%s"]
+       11 NAMECALL                         R4 R1 K8 ["GetFullName"]
+       13 CALL                             R4 1 1
+       14 MOVE                             R5 R0
+       15 CALL                             R2 3 -1
+       16 RETURN                           R2 -1
+
+PROTO_2:
         0 GETIMPORT                        R0 K1 [ipairs]
         2 GETIMPORT                        R1 K3 [game]
         4 GETTABLEKS                       R1 R1 K4 ["CoreGui"]
@@ -21,7 +36,7 @@ PROTO_1:
        18 FORGLOOP                         R0 2 [inext] ; [-8]
        20 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 MOVE                             R4 R2
         1 JUMPIF                           R4 ; [+5]
         2 GETUPVAL                         R4 0
@@ -81,7 +96,7 @@ PROTO_2:
        78 CALL                             R7 3 -1
        79 RETURN                           R7 -1
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["createElement"]
         3 LOADK                            R5 K1 ["ScreenGui"]
@@ -134,9 +149,6 @@ PROTO_3:
        65 CALL                             R5 3 -1
        66 RETURN                           R5 -1
 
-PROTO_4:
-        0 RETURN                           R0 0
-
 PROTO_5:
         0 RETURN                           R0 0
 
@@ -144,38 +156,41 @@ PROTO_6:
         0 RETURN                           R0 0
 
 PROTO_7:
+        0 RETURN                           R0 0
+
+PROTO_8:
         0 LOADB                            R1 1
         1 RETURN                           R1 1
 
-PROTO_8:
+PROTO_9:
         0 JUMPIFNOTEQKS                    R1 K0 ["ToolboxManager"] ; [+3]
         2 GETUPVAL                         R2 0
         3 RETURN                           R2 1
         4 JUMPIFNOTEQKS                    R1 K1 ["WebBrowserManager"] ; [+7]
         6 NEWTABLE                         R2 1 0
-        8 DUPCLOSURE                       R3 K2 [PROTO_7]
+        8 DUPCLOSURE                       R3 K2 [PROTO_8]
         9 SETTABLEKS                       R3 R2 K3 ["IsAvailableAsync"]
        11 RETURN                           R2 1
        12 LOADNIL                          R2
        13 RETURN                           R2 1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 1
         4 DUPTABLE                         R1 K4 [{"ReloadWebBrowserWidgetAsync", "ShowWebBrowserWidgetAsync", "HideWebBrowserWidgetAsync"}]
-        5 DUPCLOSURE                       R2 K5 [PROTO_4]
+        5 DUPCLOSURE                       R2 K5 [PROTO_5]
         6 SETTABLEKS                       R2 R1 K1 ["ReloadWebBrowserWidgetAsync"]
-        8 DUPCLOSURE                       R2 K6 [PROTO_5]
+        8 DUPCLOSURE                       R2 K6 [PROTO_6]
         9 SETTABLEKS                       R2 R1 K2 ["ShowWebBrowserWidgetAsync"]
-       11 DUPCLOSURE                       R2 K7 [PROTO_6]
+       11 DUPCLOSURE                       R2 K7 [PROTO_7]
        12 SETTABLEKS                       R2 R1 K3 ["HideWebBrowserWidgetAsync"]
        14 NEWCLOSURE                       R2 P3
        15 CAPTURE                          VAL R1
        16 SETTABLEKS                       R2 R0 K8 ["GetPluginComponent"]
        18 RETURN                           R0 1
 
-PROTO_10:
+PROTO_11:
         0 GETIMPORT                        R4 K3 [Enum.ZIndexBehavior.Sibling]
         2 SETTABLEKS                       R4 R0 K1 ["ZIndexBehavior"]
         4 JUMPIFNOT                        R3 ; [+6]
@@ -232,7 +247,7 @@ PROTO_10:
        71 CALL                             R6 3 -1
        72 RETURN                           R6 -1
 
-PROTO_11:
+PROTO_12:
         0 GETIMPORT                        R0 K1 [ipairs]
         2 GETIMPORT                        R1 K3 [game]
         4 GETTABLEKS                       R1 R1 K4 ["CoreGui"]
@@ -254,7 +269,7 @@ PROTO_11:
        28 FORGLOOP                         R0 2 [inext] ; [-18]
        30 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["createElement"]
         3 GETUPVAL                         R5 1
@@ -282,12 +297,12 @@ PROTO_12:
        33 CALL                             R5 3 -1
        34 RETURN                           R5 -1
 
-PROTO_13:
+PROTO_14:
         0 NAMECALL                         R1 R0 K0 ["GetDescendants"]
         2 CALL                             R1 1 -1
         3 RETURN                           R1 -1
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getDescendants"]
         3 MOVE                             R3 R0
@@ -302,20 +317,20 @@ PROTO_14:
        14 FORGLOOP                         R4 2 ; [-4]
        16 RETURN                           R3 1
 
-PROTO_15:
+PROTO_16:
         0 ORK                              R1 R0 K0 [0.2]
         1 GETIMPORT                        R2 K3 [task.wait]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 0
         5 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["clickWithoutValidation"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 MOVE                             R2 R0
@@ -330,14 +345,14 @@ PROTO_17:
        14 CALL                             R2 0 0
        15 RETURN                           R1 1
 
-PROTO_18:
+PROTO_19:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["sendText"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["new"]
         3 MOVE                             R3 R0
@@ -353,13 +368,13 @@ PROTO_19:
        15 CALL                             R3 0 0
        16 RETURN                           R2 1
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["clickWithoutValidation"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 MOVE                             R2 R0
@@ -374,7 +389,7 @@ PROTO_21:
        14 CALL                             R2 0 0
        15 RETURN                           R1 1
 
-PROTO_22:
+PROTO_23:
         0 JUMPIF                           R0 ; [+5]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K0 ["new"]
@@ -388,14 +403,14 @@ PROTO_22:
        14 CALL                             R1 -1 -1
        15 RETURN                           R1 -1
 
-PROTO_23:
+PROTO_24:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["UGCTestBody"]
         3 NAMECALL                         R1 R0 K1 ["Clone"]
         5 CALL                             R1 1 -1
         6 RETURN                           R1 -1
 
-PROTO_24:
+PROTO_25:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["UGCTestBody"]
         3 NAMECALL                         R1 R0 K1 ["Clone"]
@@ -436,117 +451,122 @@ MAIN:
        41 CALL                             R7 1 1
        42 GETTABLEKS                       R8 R4 K15 ["ContextServices"]
        44 GETTABLEKS                       R9 R4 K16 ["TestHelpers"]
-       46 GETTABLEKS                       R9 R9 K17 ["Instances"]
-       48 GETTABLEKS                       R9 R9 K18 ["MockPlugin"]
-       50 GETIMPORT                        R10 K9 [require]
-       52 GETTABLEKS                       R11 R1 K19 ["Src"]
-       54 GETTABLEKS                       R11 R11 K20 ["Reducers"]
-       56 GETTABLEKS                       R11 R11 K21 ["ToolboxReducer"]
-       58 CALL                             R10 1 1
-       59 GETIMPORT                        R11 K9 [require]
-       61 GETTABLEKS                       R12 R1 K19 ["Src"]
-       63 GETTABLEKS                       R12 R12 K22 ["Components"]
-       65 GETTABLEKS                       R12 R12 K23 ["Asset"]
-       67 GETTABLEKS                       R12 R12 K23 ["Asset"]
-       69 CALL                             R11 1 1
-       70 GETIMPORT                        R12 K9 [require]
-       72 GETTABLEKS                       R13 R1 K19 ["Src"]
-       74 GETTABLEKS                       R13 R13 K22 ["Components"]
-       76 GETTABLEKS                       R13 R13 K23 ["Asset"]
-       78 GETTABLEKS                       R13 R13 K24 ["Preview"]
-       80 GETTABLEKS                       R13 R13 K25 ["AssetPreviewWrapper"]
-       82 CALL                             R12 1 1
-       83 GETIMPORT                        R13 K9 [require]
-       85 GETTABLEKS                       R14 R1 K19 ["Src"]
-       87 GETTABLEKS                       R14 R14 K26 ["Util"]
-       89 GETTABLEKS                       R14 R14 K27 ["MockWrapper"]
-       91 CALL                             R13 1 1
-       92 GETIMPORT                        R14 K9 [require]
-       94 GETTABLEKS                       R15 R1 K28 ["TestUtils"]
-       96 GETTABLEKS                       R15 R15 K29 ["MockItems"]
-       98 CALL                             R14 1 1
-       99 GETIMPORT                        R15 K9 [require]
-      101 GETIMPORT                        R16 K5 [script]
-      103 GETTABLEKS                       R16 R16 K6 ["Parent"]
-      105 GETTABLEKS                       R16 R16 K30 ["TabTestWrapper"]
-      107 CALL                             R15 1 1
-      108 GETIMPORT                        R16 K9 [require]
-      110 GETIMPORT                        R17 K5 [script]
-      112 GETTABLEKS                       R17 R17 K6 ["Parent"]
-      114 GETTABLEKS                       R17 R17 K31 ["ToolboxTestWrapper"]
-      116 CALL                             R16 1 1
-      117 GETIMPORT                        R17 K9 [require]
-      119 GETTABLEKS                       R18 R1 K7 ["Packages"]
-      121 GETTABLEKS                       R18 R18 K32 ["Dev"]
-      123 GETTABLEKS                       R18 R18 K33 ["Rhodium"]
-      125 CALL                             R17 1 1
-      126 GETTABLEKS                       R18 R17 K34 ["Element"]
-      128 NEWTABLE                         R19 32 0
-      130 DUPCLOSURE                       R20 K35 [PROTO_0]
-      131 SETTABLEKS                       R20 R19 K36 ["getPathInTestToolbox"]
-      133 DUPCLOSURE                       R20 K37 [PROTO_1]
-      134 SETTABLEKS                       R20 R19 K38 ["cleanupCategoryVerification"]
-      136 DUPCLOSURE                       R20 K39 [PROTO_2]
-      137 CAPTURE                          VAL R14
-      138 CAPTURE                          VAL R3
-      139 CAPTURE                          VAL R6
-      140 CAPTURE                          VAL R10
-      141 CAPTURE                          VAL R5
-      142 CAPTURE                          VAL R13
-      143 CAPTURE                          VAL R11
-      144 SETTABLEKS                       R20 R19 K40 ["createTestAsset"]
-      146 DUPCLOSURE                       R20 K41 [PROTO_3]
-      147 CAPTURE                          VAL R5
-      148 CAPTURE                          VAL R13
-      149 CAPTURE                          VAL R15
-      150 SETTABLEKS                       R20 R19 K42 ["createTestTab"]
-      152 DUPCLOSURE                       R20 K43 [PROTO_9]
-      153 CAPTURE                          VAL R9
-      154 SETTABLEKS                       R20 R19 K44 ["createMockPlugin"]
-      156 DUPCLOSURE                       R20 K45 [PROTO_10]
-      157 CAPTURE                          VAL R19
-      158 CAPTURE                          VAL R5
-      159 CAPTURE                          VAL R13
-      160 CAPTURE                          VAL R16
-      161 SETTABLEKS                       R20 R19 K46 ["createTestToolbox"]
-      163 DUPCLOSURE                       R20 K47 [PROTO_11]
-      164 SETTABLEKS                       R20 R19 K48 ["cleanupTestToolbox"]
-      166 DUPCLOSURE                       R20 K49 [PROTO_12]
-      167 CAPTURE                          VAL R5
-      168 CAPTURE                          VAL R13
-      169 CAPTURE                          VAL R12
-      170 CAPTURE                          VAL R14
-      171 SETTABLEKS                       R20 R19 K50 ["createPreviewAsset"]
-      173 DUPCLOSURE                       R20 K51 [PROTO_13]
-      174 SETTABLEKS                       R20 R19 K52 ["getDescendants"]
-      176 DUPCLOSURE                       R20 K53 [PROTO_14]
-      177 CAPTURE                          VAL R19
-      178 SETTABLEKS                       R20 R19 K54 ["getDescendant"]
-      180 DUPCLOSURE                       R20 K55 [PROTO_15]
-      181 SETTABLEKS                       R20 R19 K56 ["delay"]
-      183 DUPCLOSURE                       R20 K57 [PROTO_17]
-      184 CAPTURE                          VAL R18
-      185 CAPTURE                          VAL R7
-      186 CAPTURE                          VAL R19
-      187 SETTABLEKS                       R20 R19 K58 ["clickInstanceWithXPath"]
-      189 DUPCLOSURE                       R20 K59 [PROTO_19]
-      190 CAPTURE                          VAL R18
-      191 CAPTURE                          VAL R7
+       46 GETTABLEKS                       R9 R9 K17 ["getContentRoot"]
+       48 GETTABLEKS                       R10 R4 K16 ["TestHelpers"]
+       50 GETTABLEKS                       R10 R10 K18 ["Instances"]
+       52 GETTABLEKS                       R10 R10 K19 ["MockPlugin"]
+       54 GETIMPORT                        R11 K9 [require]
+       56 GETTABLEKS                       R12 R1 K20 ["Src"]
+       58 GETTABLEKS                       R12 R12 K21 ["Reducers"]
+       60 GETTABLEKS                       R12 R12 K22 ["ToolboxReducer"]
+       62 CALL                             R11 1 1
+       63 GETIMPORT                        R12 K9 [require]
+       65 GETTABLEKS                       R13 R1 K20 ["Src"]
+       67 GETTABLEKS                       R13 R13 K23 ["Components"]
+       69 GETTABLEKS                       R13 R13 K24 ["Asset"]
+       71 GETTABLEKS                       R13 R13 K24 ["Asset"]
+       73 CALL                             R12 1 1
+       74 GETIMPORT                        R13 K9 [require]
+       76 GETTABLEKS                       R14 R1 K20 ["Src"]
+       78 GETTABLEKS                       R14 R14 K23 ["Components"]
+       80 GETTABLEKS                       R14 R14 K24 ["Asset"]
+       82 GETTABLEKS                       R14 R14 K25 ["Preview"]
+       84 GETTABLEKS                       R14 R14 K26 ["AssetPreviewWrapper"]
+       86 CALL                             R13 1 1
+       87 GETIMPORT                        R14 K9 [require]
+       89 GETTABLEKS                       R15 R1 K20 ["Src"]
+       91 GETTABLEKS                       R15 R15 K27 ["Util"]
+       93 GETTABLEKS                       R15 R15 K28 ["MockWrapper"]
+       95 CALL                             R14 1 1
+       96 GETIMPORT                        R15 K9 [require]
+       98 GETTABLEKS                       R16 R1 K29 ["TestUtils"]
+      100 GETTABLEKS                       R16 R16 K30 ["MockItems"]
+      102 CALL                             R15 1 1
+      103 GETIMPORT                        R16 K9 [require]
+      105 GETIMPORT                        R17 K5 [script]
+      107 GETTABLEKS                       R17 R17 K6 ["Parent"]
+      109 GETTABLEKS                       R17 R17 K31 ["TabTestWrapper"]
+      111 CALL                             R16 1 1
+      112 GETIMPORT                        R17 K9 [require]
+      114 GETIMPORT                        R18 K5 [script]
+      116 GETTABLEKS                       R18 R18 K6 ["Parent"]
+      118 GETTABLEKS                       R18 R18 K32 ["ToolboxTestWrapper"]
+      120 CALL                             R17 1 1
+      121 GETIMPORT                        R18 K9 [require]
+      123 GETTABLEKS                       R19 R1 K7 ["Packages"]
+      125 GETTABLEKS                       R19 R19 K33 ["Dev"]
+      127 GETTABLEKS                       R19 R19 K34 ["Rhodium"]
+      129 CALL                             R18 1 1
+      130 GETTABLEKS                       R19 R18 K35 ["Element"]
+      132 NEWTABLE                         R20 32 0
+      134 DUPCLOSURE                       R21 K36 [PROTO_0]
+      135 SETTABLEKS                       R21 R20 K37 ["getPathInTestToolbox"]
+      137 DUPCLOSURE                       R21 K38 [PROTO_1]
+      138 CAPTURE                          VAL R9
+      139 SETTABLEKS                       R21 R20 K39 ["coreGuiContentPath"]
+      141 DUPCLOSURE                       R21 K40 [PROTO_2]
+      142 SETTABLEKS                       R21 R20 K41 ["cleanupCategoryVerification"]
+      144 DUPCLOSURE                       R21 K42 [PROTO_3]
+      145 CAPTURE                          VAL R15
+      146 CAPTURE                          VAL R3
+      147 CAPTURE                          VAL R6
+      148 CAPTURE                          VAL R11
+      149 CAPTURE                          VAL R5
+      150 CAPTURE                          VAL R14
+      151 CAPTURE                          VAL R12
+      152 SETTABLEKS                       R21 R20 K43 ["createTestAsset"]
+      154 DUPCLOSURE                       R21 K44 [PROTO_4]
+      155 CAPTURE                          VAL R5
+      156 CAPTURE                          VAL R14
+      157 CAPTURE                          VAL R16
+      158 SETTABLEKS                       R21 R20 K45 ["createTestTab"]
+      160 DUPCLOSURE                       R21 K46 [PROTO_10]
+      161 CAPTURE                          VAL R10
+      162 SETTABLEKS                       R21 R20 K47 ["createMockPlugin"]
+      164 DUPCLOSURE                       R21 K48 [PROTO_11]
+      165 CAPTURE                          VAL R20
+      166 CAPTURE                          VAL R5
+      167 CAPTURE                          VAL R14
+      168 CAPTURE                          VAL R17
+      169 SETTABLEKS                       R21 R20 K49 ["createTestToolbox"]
+      171 DUPCLOSURE                       R21 K50 [PROTO_12]
+      172 SETTABLEKS                       R21 R20 K51 ["cleanupTestToolbox"]
+      174 DUPCLOSURE                       R21 K52 [PROTO_13]
+      175 CAPTURE                          VAL R5
+      176 CAPTURE                          VAL R14
+      177 CAPTURE                          VAL R13
+      178 CAPTURE                          VAL R15
+      179 SETTABLEKS                       R21 R20 K53 ["createPreviewAsset"]
+      181 DUPCLOSURE                       R21 K54 [PROTO_14]
+      182 SETTABLEKS                       R21 R20 K55 ["getDescendants"]
+      184 DUPCLOSURE                       R21 K56 [PROTO_15]
+      185 CAPTURE                          VAL R20
+      186 SETTABLEKS                       R21 R20 K57 ["getDescendant"]
+      188 DUPCLOSURE                       R21 K58 [PROTO_16]
+      189 SETTABLEKS                       R21 R20 K59 ["delay"]
+      191 DUPCLOSURE                       R21 K60 [PROTO_18]
       192 CAPTURE                          VAL R19
-      193 SETTABLEKS                       R20 R19 K60 ["typeInstanceWithXPath"]
-      195 DUPCLOSURE                       R20 K61 [PROTO_21]
-      196 CAPTURE                          VAL R18
-      197 CAPTURE                          VAL R7
+      193 CAPTURE                          VAL R7
+      194 CAPTURE                          VAL R20
+      195 SETTABLEKS                       R21 R20 K61 ["clickInstanceWithXPath"]
+      197 DUPCLOSURE                       R21 K62 [PROTO_20]
       198 CAPTURE                          VAL R19
-      199 SETTABLEKS                       R20 R19 K62 ["clickInstance"]
-      201 DUPCLOSURE                       R20 K63 [PROTO_22]
-      202 CAPTURE                          VAL R9
-      203 CAPTURE                          VAL R8
-      204 SETTABLEKS                       R20 R19 K64 ["mockMouse"]
-      206 DUPCLOSURE                       R20 K65 [PROTO_23]
-      207 CAPTURE                          VAL R0
-      208 SETTABLEKS                       R20 R19 K66 ["getMockUGCBody"]
-      210 DUPCLOSURE                       R20 K67 [PROTO_24]
-      211 CAPTURE                          VAL R0
-      212 SETTABLEKS                       R20 R19 K68 ["getMockBodyWithUnknown"]
-      214 RETURN                           R19 1
+      199 CAPTURE                          VAL R7
+      200 CAPTURE                          VAL R20
+      201 SETTABLEKS                       R21 R20 K63 ["typeInstanceWithXPath"]
+      203 DUPCLOSURE                       R21 K64 [PROTO_22]
+      204 CAPTURE                          VAL R19
+      205 CAPTURE                          VAL R7
+      206 CAPTURE                          VAL R20
+      207 SETTABLEKS                       R21 R20 K65 ["clickInstance"]
+      209 DUPCLOSURE                       R21 K66 [PROTO_23]
+      210 CAPTURE                          VAL R10
+      211 CAPTURE                          VAL R8
+      212 SETTABLEKS                       R21 R20 K67 ["mockMouse"]
+      214 DUPCLOSURE                       R21 K68 [PROTO_24]
+      215 CAPTURE                          VAL R0
+      216 SETTABLEKS                       R21 R20 K69 ["getMockUGCBody"]
+      218 DUPCLOSURE                       R21 K70 [PROTO_25]
+      219 CAPTURE                          VAL R0
+      220 SETTABLEKS                       R21 R20 K71 ["getMockBodyWithUnknown"]
+      222 RETURN                           R20 1

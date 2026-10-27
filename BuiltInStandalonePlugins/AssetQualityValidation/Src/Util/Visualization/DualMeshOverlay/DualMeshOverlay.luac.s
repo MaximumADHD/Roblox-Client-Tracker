@@ -127,7 +127,7 @@ PROTO_1:
        39 JUMPIFNOT                        R14 ; [+21]
        40 JUMPIFNOT                        R15 ; [+20]
        41 MUL                              R16 R15 R6
-       42 LOADK                            R17 K8 [∞]
+       42 LOADK                            R17 K8 [Infinity]
        43 MOVE                             R18 R7
        44 LOADNIL                          R19
        45 LOADNIL                          R20

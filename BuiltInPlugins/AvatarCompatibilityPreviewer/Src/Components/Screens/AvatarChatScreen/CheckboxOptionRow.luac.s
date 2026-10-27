@@ -58,29 +58,40 @@ PROTO_1:
        69 GETUPVAL                         R11 1
        70 GETTABLEKS                       R11 R11 K2 ["createElement"]
        72 GETUPVAL                         R12 5
-       73 DUPTABLE                         R13 K28 [{["tag"] = "auto-xy text-label-small text-wrap text-align-x-left content-emphasis", ["Text"], ["LayoutOrder"]}]
-       74 GETTABLEKS                       R14 R0 K13 ["label"]
-       76 SETTABLEKS                       R14 R13 K27 ["Text"]
-       78 MOVE                             R14 R1
-       79 CALL                             R14 0 1
-       80 SETTABLEKS                       R14 R13 K5 ["LayoutOrder"]
-       82 CALL                             R11 2 1
-       83 SETTABLEKS                       R11 R10 K23 ["Label"]
-       85 GETUPVAL                         R11 1
-       86 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       88 GETUPVAL                         R12 5
-       89 DUPTABLE                         R13 K30 [{["tag"] = "auto-xy text-body-small text-wrap text-align-x-left content-default", ["Text"], ["LayoutOrder"]}]
-       90 GETTABLEKS                       R14 R0 K31 ["description"]
-       92 SETTABLEKS                       R14 R13 K27 ["Text"]
+       73 DUPTABLE                         R13 K27 [{"tag", "Text", "LayoutOrder"}]
+       74 NEWTABLE                         R14 4 0
+       76 LOADB                            R15 1
+       77 SETTABLEKS                       R15 R14 K28 ["auto-xy text-wrap text-align-x-left content-emphasis"]
+       79 GETUPVAL                         R15 6
+       80 CALL                             R15 0 1
+       81 SETTABLEKS                       R15 R14 K29 ["text-title-small"]
+       83 GETUPVAL                         R16 6
+       84 CALL                             R16 0 1
+       85 NOT                              R15 R16
+       86 SETTABLEKS                       R15 R14 K30 ["text-label-small"]
+       88 SETTABLEKS                       R14 R13 K3 ["tag"]
+       90 GETTABLEKS                       R14 R0 K13 ["label"]
+       92 SETTABLEKS                       R14 R13 K26 ["Text"]
        94 MOVE                             R14 R1
        95 CALL                             R14 0 1
        96 SETTABLEKS                       R14 R13 K5 ["LayoutOrder"]
        98 CALL                             R11 2 1
-       99 SETTABLEKS                       R11 R10 K24 ["Description"]
-      101 CALL                             R7 3 1
-      102 SETTABLEKS                       R7 R6 K10 ["Copy"]
-      104 CALL                             R3 3 -1
-      105 RETURN                           R3 -1
+       99 SETTABLEKS                       R11 R10 K23 ["Label"]
+      101 GETUPVAL                         R11 1
+      102 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      104 GETUPVAL                         R12 5
+      105 DUPTABLE                         R13 K32 [{["tag"] = "auto-xy text-body-small text-wrap text-align-x-left content-default", ["Text"], ["LayoutOrder"]}]
+      106 GETTABLEKS                       R14 R0 K33 ["description"]
+      108 SETTABLEKS                       R14 R13 K26 ["Text"]
+      110 MOVE                             R14 R1
+      111 CALL                             R14 0 1
+      112 SETTABLEKS                       R14 R13 K5 ["LayoutOrder"]
+      114 CALL                             R11 2 1
+      115 SETTABLEKS                       R11 R10 K24 ["Description"]
+      117 CALL                             R7 3 1
+      118 SETTABLEKS                       R7 R6 K10 ["Copy"]
+      120 CALL                             R3 3 -1
+      121 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -105,11 +116,17 @@ MAIN:
        32 GETTABLEKS                       R5 R3 K12 ["Checkbox"]
        34 GETTABLEKS                       R6 R3 K13 ["Text"]
        36 GETTABLEKS                       R7 R3 K14 ["View"]
-       38 DUPCLOSURE                       R8 K15 [PROTO_1]
-       39 CAPTURE                          VAL R2
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          VAL R7
-       42 CAPTURE                          VAL R5
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R6
-       45 RETURN                           R8 1
+       38 GETIMPORT                        R8 K5 [require]
+       40 GETTABLEKS                       R9 R0 K15 ["Src"]
+       42 GETTABLEKS                       R9 R9 K16 ["Flags"]
+       44 GETTABLEKS                       R9 R9 K17 ["getFFlagAvatarPreviewerAvatarCreationOptionsRedesign"]
+       46 CALL                             R8 1 1
+       47 DUPCLOSURE                       R9 K18 [PROTO_1]
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R7
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          VAL R6
+       54 CAPTURE                          VAL R8
+       55 RETURN                           R9 1

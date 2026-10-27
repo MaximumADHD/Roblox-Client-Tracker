@@ -36,7 +36,7 @@ PROTO_0:
 
 PROTO_1:
         0 MULK                             R3 R1 K0 [0.15]
-        1 MULK                             R4 R3 K1 [0.666666666666667]
+        1 MULK                             R4 R3 K1 [0.6666666666666666]
         2 MULK                             R5 R1 K2 [0.5]
         3 POWK                             R9 R5 K3 [2]
         4 MULK                             R11 R3 K2 [0.5]
@@ -61,11 +61,11 @@ PROTO_1:
        25 MOVE                             R9 R8
        26 MINUS                            R11 R3
        27 MULK                             R10 R11 K10 [0.25]
-       28 LOADK                            R11 K11 [1.5707963267949]
+       28 LOADK                            R11 K11 [1.5707963267948966]
        29 CALL                             R9 2 2
        30 MOVE                             R11 R8
        31 MULK                             R12 R3 K10 [0.25]
-       32 LOADK                            R13 K12 [-1.5707963267949]
+       32 LOADK                            R13 K12 [-1.5707963267948966]
        33 CALL                             R11 2 2
        34 DUPTABLE                         R13 K15 [{"parts", "localCFrames"}]
        35 NEWTABLE                         R14 0 2

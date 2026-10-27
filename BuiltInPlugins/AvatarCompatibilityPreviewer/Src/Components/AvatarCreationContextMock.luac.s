@@ -227,65 +227,79 @@ PROTO_13:
 
 PROTO_14:
         0 GETIMPORT                        R0 K1 [error]
-        2 LOADK                            R1 K2 ["Mock 2D generation error"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 2D generation error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_15:
         0 GETIMPORT                        R0 K1 [error]
-        2 LOADK                            R1 K2 ["Mock 2D preview load error"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 2D preview load error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_16:
         0 GETIMPORT                        R0 K1 [error]
-        2 LOADK                            R1 K2 ["Mock 3D generation error"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 3D generation error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_17:
         0 GETIMPORT                        R0 K1 [error]
-        2 LOADK                            R1 K2 ["Mock 3D load error"]
-        3 CALL                             R0 1 0
-        4 RETURN                           R0 0
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 3D load error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_18:
-        0 JUMPIFNOTEQKS                    R0 K0 ["generate2D"] ; [+6]
-        2 DUPTABLE                         R1 K2 [{"generate2DPreviewAsync"}]
-        3 DUPCLOSURE                       R2 K3 [PROTO_14]
-        4 SETTABLEKS                       R2 R1 K1 ["generate2DPreviewAsync"]
-        6 RETURN                           R1 1
-        7 JUMPIFNOTEQKS                    R0 K4 ["load2D"] ; [+6]
-        9 DUPTABLE                         R1 K6 [{"load2DPreviewAsync"}]
-       10 DUPCLOSURE                       R2 K7 [PROTO_15]
-       11 SETTABLEKS                       R2 R1 K5 ["load2DPreviewAsync"]
-       13 RETURN                           R1 1
-       14 JUMPIFNOTEQKS                    R0 K8 ["generate3D"] ; [+6]
-       16 DUPTABLE                         R1 K10 [{"generate3DAvatarAsync"}]
-       17 DUPCLOSURE                       R2 K11 [PROTO_16]
-       18 SETTABLEKS                       R2 R1 K9 ["generate3DAvatarAsync"]
-       20 RETURN                           R1 1
-       21 JUMPIFNOTEQKS                    R0 K12 ["load3D"] ; [+6]
-       23 DUPTABLE                         R1 K14 [{"load3DAvatarAsync"}]
-       24 DUPCLOSURE                       R2 K15 [PROTO_17]
-       25 SETTABLEKS                       R2 R1 K13 ["load3DAvatarAsync"]
-       27 RETURN                           R1 1
-       28 GETIMPORT                        R1 K17 [error]
-       30 LOADK                            R2 K18 ["Unhandled failure stage: %*"]
-       31 MOVE                             R4 R0
-       32 NAMECALL                         R2 R2 K19 ["format"]
-       34 CALL                             R2 2 1
-       35 CALL                             R1 1 0
-       36 RETURN                           R0 0
+        0 JUMPIFNOTEQKS                    R0 K0 ["generate2D"] ; [+7]
+        2 DUPTABLE                         R2 K2 [{"generate2DPreviewAsync"}]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          VAL R1
+        5 SETTABLEKS                       R3 R2 K1 ["generate2DPreviewAsync"]
+        7 RETURN                           R2 1
+        8 JUMPIFNOTEQKS                    R0 K3 ["load2D"] ; [+7]
+       10 DUPTABLE                         R2 K5 [{"load2DPreviewAsync"}]
+       11 NEWCLOSURE                       R3 P1
+       12 CAPTURE                          VAL R1
+       13 SETTABLEKS                       R3 R2 K4 ["load2DPreviewAsync"]
+       15 RETURN                           R2 1
+       16 JUMPIFNOTEQKS                    R0 K6 ["generate3D"] ; [+7]
+       18 DUPTABLE                         R2 K8 [{"generate3DAvatarAsync"}]
+       19 NEWCLOSURE                       R3 P2
+       20 CAPTURE                          VAL R1
+       21 SETTABLEKS                       R3 R2 K7 ["generate3DAvatarAsync"]
+       23 RETURN                           R2 1
+       24 JUMPIFNOTEQKS                    R0 K9 ["load3D"] ; [+7]
+       26 DUPTABLE                         R2 K11 [{"load3DAvatarAsync"}]
+       27 NEWCLOSURE                       R3 P3
+       28 CAPTURE                          VAL R1
+       29 SETTABLEKS                       R3 R2 K10 ["load3DAvatarAsync"]
+       31 RETURN                           R2 1
+       32 GETIMPORT                        R2 K13 [error]
+       34 LOADK                            R3 K14 ["Unhandled failure stage: %*"]
+       35 MOVE                             R5 R0
+       36 NAMECALL                         R3 R3 K15 ["format"]
+       38 CALL                             R3 2 1
+       39 CALL                             R2 1 0
+       40 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R2 2
         3 GETTABLEKS                       R2 R2 K0 ["stage"]
-        5 CALL                             R1 1 -1
-        6 CALL                             R0 -1 1
-        7 RETURN                           R0 1
+        5 GETUPVAL                         R3 2
+        6 GETTABLEKS                       R3 R3 K1 ["errorValue"]
+        8 CALL                             R1 2 -1
+        9 CALL                             R0 -1 1
+       10 RETURN                           R0 1
 
 PROTO_20:
         0 GETUPVAL                         R1 0
@@ -294,19 +308,20 @@ PROTO_20:
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CAPTURE                          VAL R0
-        7 NEWTABLE                         R3 0 1
+        7 NEWTABLE                         R3 0 2
         9 GETTABLEKS                       R4 R0 K1 ["stage"]
-       11 SETLIST                          R3 R4 1 [1]
-       13 CALL                             R1 2 1
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R2 R2 K2 ["createElement"]
-       17 GETUPVAL                         R3 3
-       18 GETTABLEKS                       R3 R3 K3 ["Provider"]
-       20 DUPTABLE                         R4 K5 [{"value"}]
-       21 SETTABLEKS                       R1 R4 K4 ["value"]
-       23 GETTABLEKS                       R5 R0 K6 ["children"]
-       25 CALL                             R2 3 -1
-       26 RETURN                           R2 -1
+       11 GETTABLEKS                       R5 R0 K2 ["errorValue"]
+       13 SETLIST                          R3 R4 2 [1]
+       15 CALL                             R1 2 1
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K3 ["createElement"]
+       19 GETUPVAL                         R3 3
+       20 GETTABLEKS                       R3 R3 K4 ["Provider"]
+       22 DUPTABLE                         R4 K6 [{"value"}]
+       23 SETTABLEKS                       R1 R4 K5 ["value"]
+       25 GETTABLEKS                       R5 R0 K7 ["children"]
+       27 CALL                             R2 3 -1
+       28 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

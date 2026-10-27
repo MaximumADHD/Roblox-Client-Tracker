@@ -28,7 +28,7 @@ PROTO_1:
        25 JUMP                             ; [+15]
        26 GETIMPORT                        R5 K11 [UDim2.fromOffset]
        28 GETTABLEKS                       R8 R0 K14 ["MaxWidth"]
-       30 ORK                              R7 R8 K13 [∞]
+       30 ORK                              R7 R8 K13 [Infinity]
        31 GETUPVAL                         R8 4
        32 GETTABLEKS                       R8 R8 K12 ["AssetStatusPopoverWidth"]
        34 FASTCALL2                        MATH_MIN R7 R8 ; [+3]

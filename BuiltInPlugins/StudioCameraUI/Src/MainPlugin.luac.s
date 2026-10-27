@@ -64,14 +64,14 @@ PROTO_3:
        41 SETTABLEKS                       R5 R4 K15 ["Size"]
        43 RETURN                           R0 0
        44 GETUPVAL                         R3 0
-       45 LOADK                            R4 K16 [0.68]
+       45 LOADK                            R4 K16 [0.6799999999999999]
        46 JUMPIFNOTLT                      R3 R4 ; [+2]
        48 RETURN                           R0 0
        49 GETUPVAL                         R3 0
        50 LOADK                            R4 K17 [0.76]
        51 JUMPIFNOTLT                      R3 R4 ; [+29]
        53 GETUPVAL                         R4 0
-       54 SUBK                             R3 R4 K16 [0.68]
+       54 SUBK                             R3 R4 K16 [0.6799999999999999]
        55 LOADN                            R5 22
        56 LOADN                            R6 27
        57 DIVK                             R7 R3 K11 [0.08]
@@ -105,7 +105,7 @@ PROTO_3:
        93 RETURN                           R0 0
 
 PROTO_4:
-        0 LOADK                            R1 K0 [∞]
+        0 LOADK                            R1 K0 [Infinity]
         1 SETUPVAL                         R1 0
         2 RETURN                           R0 0
 

@@ -70,6 +70,19 @@ PROTO_3:
        33 CALL                             R5 0 0
        34 RETURN                           R0 0
 
+PROTO_4:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 LOADK                            R3 K0 ["header-show-all"]
+        3 LOADK                            R4 K1 ["Show All button not found"]
+        4 CALL                             R1 3 1
+        5 GETUPVAL                         R2 1
+        6 MOVE                             R3 R1
+        7 CALL                             R2 1 0
+        8 GETUPVAL                         R2 2
+        9 CALL                             R2 0 0
+       10 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -110,4 +123,9 @@ MAIN:
        54 CAPTURE                          VAL R5
        55 CAPTURE                          VAL R4
        56 SETTABLEKS                       R10 R9 K21 ["toggleFilterItem"]
-       58 RETURN                           R9 1
+       58 DUPCLOSURE                       R10 K22 [PROTO_4]
+       59 CAPTURE                          VAL R7
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R4
+       62 SETTABLEKS                       R10 R9 K23 ["clickShowAll"]
+       64 RETURN                           R9 1

@@ -13,66 +13,80 @@ PROTO_0:
        17 RETURN                           R1 1
        18 LOADNIL                          R1
        19 RETURN                           R1 1
-       20 GETUPVAL                         R2 0
-       21 GETTABLEKS                       R2 R2 K1 ["AssetType"]
-       23 GETTABLE                         R1 R2 R0
-       24 JUMPIFNOT                        R1 ; [+5]
-       25 GETUPVAL                         R2 0
-       26 GETTABLEKS                       R2 R2 K1 ["AssetType"]
-       28 GETTABLE                         R1 R2 R0
-       29 RETURN                           R1 1
-       30 JUMPIFNOTEQKS                    R0 K3 ["ASSET_TYPE_MODEL"] ; [+7]
+       20 JUMPIFEQKS                       R0 K3 ["ASSET_TYPE_ANIMATED_IMAGE"] ; [+8]
+       22 GETUPVAL                         R1 0
+       23 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       25 GETTABLEKS                       R1 R1 K4 ["AnimatedImage"]
+       27 JUMPIFNOTEQ                      R0 R1 ; [+12]
+       29 GETUPVAL                         R2 2
+       30 CALL                             R2 0 1
+       31 JUMPIFNOT                        R2 ; [+6]
        32 GETUPVAL                         R1 0
        33 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       35 GETTABLEKS                       R1 R1 K4 ["Model"]
+       35 GETTABLEKS                       R1 R1 K4 ["AnimatedImage"]
        37 RETURN                           R1 1
-       38 JUMPIFNOTEQKS                    R0 K5 ["ASSET_TYPE_DECAL"] ; [+7]
-       40 GETUPVAL                         R1 0
-       41 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       43 GETTABLEKS                       R1 R1 K6 ["Decal"]
-       45 RETURN                           R1 1
-       46 JUMPIFNOTEQKS                    R0 K7 ["ASSET_TYPE_AUDIO"] ; [+7]
-       48 GETUPVAL                         R1 0
-       49 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       51 GETTABLEKS                       R1 R1 K8 ["Audio"]
-       53 RETURN                           R1 1
-       54 JUMPIFNOTEQKS                    R0 K9 ["ASSET_TYPE_ANIMATION"] ; [+7]
-       56 GETUPVAL                         R1 0
-       57 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       59 GETTABLEKS                       R1 R1 K10 ["Animation"]
-       61 RETURN                           R1 1
-       62 JUMPIFNOTEQKS                    R0 K11 ["ASSET_TYPE_PLUGIN"] ; [+7]
-       64 GETUPVAL                         R1 0
-       65 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       67 GETTABLEKS                       R1 R1 K12 ["Plugin"]
-       69 RETURN                           R1 1
-       70 JUMPIFNOTEQKS                    R0 K13 ["ASSET_TYPE_MESH_PART"] ; [+7]
-       72 GETUPVAL                         R1 0
-       73 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       75 GETTABLEKS                       R1 R1 K14 ["MeshPart"]
-       77 RETURN                           R1 1
-       78 JUMPIFNOTEQKS                    R0 K15 ["ASSET_TYPE_VIDEO"] ; [+7]
-       80 GETUPVAL                         R1 0
-       81 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       83 GETTABLEKS                       R1 R1 K16 ["Video"]
-       85 RETURN                           R1 1
-       86 JUMPIFNOTEQKS                    R0 K17 ["ASSET_TYPE_FONT_FAMILY"] ; [+7]
-       88 GETUPVAL                         R1 0
-       89 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       91 GETTABLEKS                       R1 R1 K18 ["FontFamily"]
-       93 RETURN                           R1 1
-       94 JUMPIFNOTEQKS                    R0 K19 ["ASSET_TYPE_IMAGE"] ; [+7]
-       96 GETUPVAL                         R1 0
-       97 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-       99 GETTABLEKS                       R1 R1 K20 ["Image"]
-      101 RETURN                           R1 1
-      102 JUMPIFNOTEQKS                    R0 K21 ["ASSET_TYPE_MESH"] ; [+7]
-      104 GETUPVAL                         R1 0
-      105 GETTABLEKS                       R1 R1 K1 ["AssetType"]
-      107 GETTABLEKS                       R1 R1 K22 ["Mesh"]
-      109 RETURN                           R1 1
-      110 LOADNIL                          R1
-      111 RETURN                           R1 1
+       38 LOADNIL                          R1
+       39 RETURN                           R1 1
+       40 GETUPVAL                         R2 0
+       41 GETTABLEKS                       R2 R2 K1 ["AssetType"]
+       43 GETTABLE                         R1 R2 R0
+       44 JUMPIFNOT                        R1 ; [+5]
+       45 GETUPVAL                         R2 0
+       46 GETTABLEKS                       R2 R2 K1 ["AssetType"]
+       48 GETTABLE                         R1 R2 R0
+       49 RETURN                           R1 1
+       50 JUMPIFNOTEQKS                    R0 K5 ["ASSET_TYPE_MODEL"] ; [+7]
+       52 GETUPVAL                         R1 0
+       53 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       55 GETTABLEKS                       R1 R1 K6 ["Model"]
+       57 RETURN                           R1 1
+       58 JUMPIFNOTEQKS                    R0 K7 ["ASSET_TYPE_DECAL"] ; [+7]
+       60 GETUPVAL                         R1 0
+       61 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       63 GETTABLEKS                       R1 R1 K8 ["Decal"]
+       65 RETURN                           R1 1
+       66 JUMPIFNOTEQKS                    R0 K9 ["ASSET_TYPE_AUDIO"] ; [+7]
+       68 GETUPVAL                         R1 0
+       69 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       71 GETTABLEKS                       R1 R1 K10 ["Audio"]
+       73 RETURN                           R1 1
+       74 JUMPIFNOTEQKS                    R0 K11 ["ASSET_TYPE_ANIMATION"] ; [+7]
+       76 GETUPVAL                         R1 0
+       77 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       79 GETTABLEKS                       R1 R1 K12 ["Animation"]
+       81 RETURN                           R1 1
+       82 JUMPIFNOTEQKS                    R0 K13 ["ASSET_TYPE_PLUGIN"] ; [+7]
+       84 GETUPVAL                         R1 0
+       85 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       87 GETTABLEKS                       R1 R1 K14 ["Plugin"]
+       89 RETURN                           R1 1
+       90 JUMPIFNOTEQKS                    R0 K15 ["ASSET_TYPE_MESH_PART"] ; [+7]
+       92 GETUPVAL                         R1 0
+       93 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+       95 GETTABLEKS                       R1 R1 K16 ["MeshPart"]
+       97 RETURN                           R1 1
+       98 JUMPIFNOTEQKS                    R0 K17 ["ASSET_TYPE_VIDEO"] ; [+7]
+      100 GETUPVAL                         R1 0
+      101 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+      103 GETTABLEKS                       R1 R1 K18 ["Video"]
+      105 RETURN                           R1 1
+      106 JUMPIFNOTEQKS                    R0 K19 ["ASSET_TYPE_FONT_FAMILY"] ; [+7]
+      108 GETUPVAL                         R1 0
+      109 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+      111 GETTABLEKS                       R1 R1 K20 ["FontFamily"]
+      113 RETURN                           R1 1
+      114 JUMPIFNOTEQKS                    R0 K21 ["ASSET_TYPE_IMAGE"] ; [+7]
+      116 GETUPVAL                         R1 0
+      117 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+      119 GETTABLEKS                       R1 R1 K22 ["Image"]
+      121 RETURN                           R1 1
+      122 JUMPIFNOTEQKS                    R0 K23 ["ASSET_TYPE_MESH"] ; [+7]
+      124 GETUPVAL                         R1 0
+      125 GETTABLEKS                       R1 R1 K1 ["AssetType"]
+      127 GETTABLEKS                       R1 R1 K24 ["Mesh"]
+      129 RETURN                           R1 1
+      130 LOADNIL                          R1
+      131 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -89,9 +103,15 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K8 ["Flags"]
        20 GETTABLEKS                       R3 R3 K9 ["getFFlagAmrEnableTextDocuments"]
        22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K10 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          VAL R2
-       26 SETGLOBAL                        R3 K11 ["convertAssetTypeStringToEnum"]
-       28 GETGLOBAL                        R3 K11 ["convertAssetTypeStringToEnum"]
-       30 RETURN                           R3 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R4 R0 K6 ["Src"]
+       27 GETTABLEKS                       R4 R4 K8 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K10 ["getFFlagAmrEnableAnimatedImage"]
+       31 CALL                             R3 1 1
+       32 DUPCLOSURE                       R4 K11 [PROTO_0]
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R3
+       36 SETGLOBAL                        R4 K12 ["convertAssetTypeStringToEnum"]
+       38 GETGLOBAL                        R4 K12 ["convertAssetTypeStringToEnum"]
+       40 RETURN                           R4 1

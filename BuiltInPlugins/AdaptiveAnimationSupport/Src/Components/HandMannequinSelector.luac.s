@@ -463,7 +463,7 @@ PROTO_6:
       224 GETUPVAL                         R15 7
       225 GETTABLEKS                       R15 R15 K85 ["HAND"]
       227 SETTABLEKS                       R15 R14 K78 ["Image"]
-      229 DUPTABLE                         R15 K89 [{["AspectRatio"] = 0.938888888888889, ["DominantAxis"]}]
+      229 DUPTABLE                         R15 K89 [{["AspectRatio"] = 0.9388888888888889, ["DominantAxis"]}]
       230 GETIMPORT                        R16 K91 [Enum.DominantAxis.Width]
       232 SETTABLEKS                       R16 R15 K88 ["DominantAxis"]
       234 SETTABLEKS                       R15 R14 K79 ["aspectRatio"]

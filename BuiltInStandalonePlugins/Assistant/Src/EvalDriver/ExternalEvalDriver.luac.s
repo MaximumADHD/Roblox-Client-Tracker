@@ -551,7 +551,7 @@ PROTO_28:
       118 GETUPVAL                         R1 9
       119 GETTABLEKS                       R1 R1 K35 ["invoke"]
       121 GETUPVAL                         R2 10
-      122 LOADK                            R3 K36 ["ExternalEvalDriver.AssistantEvalCallTool"]
+      122 LOADK                            R3 K36 ["AssistantEvalCallTool"]
       123 CALL                             R1 2 1
       124 GETUPVAL                         R2 11
       125 MOVE                             R6 R0
@@ -561,9 +561,9 @@ PROTO_28:
       131 CALL                             R2 -1 0
       132 RETURN                           R0 0
       133 GETUPVAL                         R1 12
-      134 LOADK                            R3 K39 ["AssistantEvalCallTool"]
+      134 LOADK                            R3 K36 ["AssistantEvalCallTool"]
       135 MOVE                             R4 R0
-      136 NAMECALL                         R1 R1 K40 ["OnGuestInvokeAsync"]
+      136 NAMECALL                         R1 R1 K39 ["OnGuestInvokeAsync"]
       138 CALL                             R1 3 0
       139 RETURN                           R0 0
 

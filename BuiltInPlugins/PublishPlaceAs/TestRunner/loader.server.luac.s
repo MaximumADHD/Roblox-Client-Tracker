@@ -67,91 +67,103 @@ MAIN:
        18 GETTABLEKS                       R0 R0 K4 ["Parent"]
        20 GETIMPORT                        R1 K1 [require]
        22 GETTABLEKS                       R2 R0 K7 ["Packages"]
-       24 GETTABLEKS                       R2 R2 K8 ["PluginLoader"]
+       24 GETTABLEKS                       R2 R2 K8 ["TestLoader"]
        26 CALL                             R1 1 1
-       27 GETTABLEKS                       R2 R1 K9 ["PluginLoaderBuilder"]
-       29 GETTABLEKS                       R3 R0 K10 ["Src"]
-       31 GETTABLEKS                       R3 R3 K11 ["Resources"]
-       33 GETTABLEKS                       R3 R3 K12 ["SourceStrings"]
-       35 GETTABLEKS                       R4 R0 K10 ["Src"]
-       37 GETTABLEKS                       R4 R4 K11 ["Resources"]
-       39 GETTABLEKS                       R4 R4 K13 ["LocalizedStrings"]
-       41 GETIMPORT                        R5 K1 [require]
-       43 GETTABLEKS                       R6 R0 K10 ["Src"]
-       45 GETTABLEKS                       R6 R6 K14 ["Flags"]
-       47 GETTABLEKS                       R6 R6 K15 ["getEngineFeatureStudioUnifiedPublishAction"]
-       49 CALL                             R5 1 1
-       50 MOVE                             R7 R5
-       51 CALL                             R7 0 1
-       52 JUMPIFNOT                        R7 ; [+10]
-       53 GETIMPORT                        R6 K1 [require]
-       55 GETTABLEKS                       R7 R0 K10 ["Src"]
-       57 GETTABLEKS                       R7 R7 K16 ["Util"]
-       59 GETTABLEKS                       R7 R7 K17 ["PublishStatusInfo"]
-       61 CALL                             R6 1 1
-       62 JUMP                             ; [+1]
-       63 LOADNIL                          R6
-       64 GETIMPORT                        R7 K19 [game]
-       66 LOADK                            R9 K20 ["StudioPublishService"]
-       67 NAMECALL                         R7 R7 K21 ["GetService"]
-       69 CALL                             R7 2 1
-       70 DUPTABLE                         R8 K33 [{["plugin"], ["pluginName"] = "PublishPlaceAs", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["noToolbar"] = True, ["extraTriggers"]}]
-       71 GETIMPORT                        R9 K34 [plugin]
-       73 SETTABLEKS                       R9 R8 K22 ["plugin"]
-       75 SETTABLEKS                       R4 R8 K25 ["translationResourceTable"]
-       77 SETTABLEKS                       R3 R8 K26 ["fallbackResourceTable"]
-       79 NEWTABLE                         R9 4 0
-       81 DUPCLOSURE                       R10 K35 [PROTO_0]
-       82 CAPTURE                          VAL R7
-       83 SETTABLEKS                       R10 R9 K36 ["StudioPublishService.GamePublishFinished"]
-       85 DUPCLOSURE                       R10 K37 [PROTO_1]
-       86 CAPTURE                          VAL R7
-       87 SETTABLEKS                       R10 R9 K38 ["StudioPublishService.GamePublishCancelled"]
-       89 DUPCLOSURE                       R10 K39 [PROTO_2]
-       90 CAPTURE                          VAL R7
-       91 SETTABLEKS                       R10 R9 K40 ["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]
-       93 SETTABLEKS                       R9 R8 K32 ["extraTriggers"]
-       95 MOVE                             R9 R5
-       96 CALL                             R9 0 1
-       97 JUMPIFNOT                        R9 ; [+30]
-       98 NEWTABLE                         R9 0 2
-      100 DUPTABLE                         R10 K45 [{["uri"], ["isPreexistingAction"] = True, ["getText"], ["getTooltip"]}]
-      101 DUPTABLE                         R11 K54 [{["DataModel"] = "Standalone", ["PluginId"] = "Collaboration", ["Category"] = "Actions", ["ItemId"] = "PublishStatus"}]
-      102 SETTABLEKS                       R11 R10 K41 ["uri"]
-      104 DUPCLOSURE                       R11 K55 [PROTO_3]
-      105 CAPTURE                          VAL R6
-      106 SETTABLEKS                       R11 R10 K43 ["getText"]
-      108 DUPCLOSURE                       R11 K56 [PROTO_4]
-      109 CAPTURE                          VAL R6
-      110 SETTABLEKS                       R11 R10 K44 ["getTooltip"]
-      112 DUPTABLE                         R11 K45 [{["uri"], ["isPreexistingAction"] = True, ["getText"], ["getTooltip"]}]
-      113 DUPTABLE                         R12 K58 [{["DataModel"] = "Standalone", ["PluginId"] = "Collaboration", ["Category"] = "Actions", ["ItemId"] = "PublishToRoblox"}]
-      114 SETTABLEKS                       R12 R11 K41 ["uri"]
-      116 DUPCLOSURE                       R12 K59 [PROTO_5]
-      117 CAPTURE                          VAL R6
-      118 SETTABLEKS                       R12 R11 K43 ["getText"]
-      120 DUPCLOSURE                       R12 K60 [PROTO_6]
-      121 CAPTURE                          VAL R6
-      122 SETTABLEKS                       R12 R11 K44 ["getTooltip"]
-      124 SETLIST                          R9 R10 2 [1]
-      126 SETTABLEKS                       R9 R8 K61 ["actionInfos"]
-      128 GETTABLEKS                       R9 R2 K62 ["build"]
-      130 MOVE                             R10 R8
-      131 CALL                             R9 1 1
-      132 GETTABLEKS                       R10 R9 K63 ["pluginLoader"]
-      134 NAMECALL                         R10 R10 K64 ["waitForUserInteraction"]
-      136 CALL                             R10 1 1
-      137 JUMPIF                           R10 ; [+1]
-      138 RETURN                           R0 0
-      139 GETIMPORT                        R11 K1 [require]
-      141 GETIMPORT                        R12 K3 [script]
-      143 GETTABLEKS                       R12 R12 K4 ["Parent"]
-      145 GETTABLEKS                       R12 R12 K4 ["Parent"]
-      147 GETTABLEKS                       R12 R12 K10 ["Src"]
-      149 GETTABLEKS                       R12 R12 K65 ["main"]
-      151 CALL                             R11 1 1
-      152 MOVE                             R12 R11
-      153 GETIMPORT                        R13 K34 [plugin]
-      155 MOVE                             R14 R9
-      156 CALL                             R12 2 0
-      157 RETURN                           R0 0
+       27 GETTABLEKS                       R2 R1 K9 ["launch"]
+       29 LOADK                            R3 K10 ["PublishPlaceAs"]
+       30 GETTABLEKS                       R4 R0 K11 ["Src"]
+       32 CALL                             R2 2 0
+       33 GETTABLEKS                       R2 R1 K12 ["isCli"]
+       35 CALL                             R2 0 1
+       36 JUMPIFNOT                        R2 ; [+1]
+       37 RETURN                           R0 0
+       38 GETIMPORT                        R2 K1 [require]
+       40 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       42 GETTABLEKS                       R3 R3 K13 ["PluginLoader"]
+       44 CALL                             R2 1 1
+       45 GETTABLEKS                       R3 R2 K14 ["PluginLoaderBuilder"]
+       47 GETTABLEKS                       R4 R0 K11 ["Src"]
+       49 GETTABLEKS                       R4 R4 K15 ["Resources"]
+       51 GETTABLEKS                       R4 R4 K16 ["SourceStrings"]
+       53 GETTABLEKS                       R5 R0 K11 ["Src"]
+       55 GETTABLEKS                       R5 R5 K15 ["Resources"]
+       57 GETTABLEKS                       R5 R5 K17 ["LocalizedStrings"]
+       59 GETIMPORT                        R6 K1 [require]
+       61 GETTABLEKS                       R7 R0 K11 ["Src"]
+       63 GETTABLEKS                       R7 R7 K18 ["Flags"]
+       65 GETTABLEKS                       R7 R7 K19 ["getEngineFeatureStudioUnifiedPublishAction"]
+       67 CALL                             R6 1 1
+       68 MOVE                             R8 R6
+       69 CALL                             R8 0 1
+       70 JUMPIFNOT                        R8 ; [+10]
+       71 GETIMPORT                        R7 K1 [require]
+       73 GETTABLEKS                       R8 R0 K11 ["Src"]
+       75 GETTABLEKS                       R8 R8 K20 ["Util"]
+       77 GETTABLEKS                       R8 R8 K21 ["PublishStatusInfo"]
+       79 CALL                             R7 1 1
+       80 JUMP                             ; [+1]
+       81 LOADNIL                          R7
+       82 GETIMPORT                        R8 K23 [game]
+       84 LOADK                            R10 K24 ["StudioPublishService"]
+       85 NAMECALL                         R8 R8 K25 ["GetService"]
+       87 CALL                             R8 2 1
+       88 DUPTABLE                         R9 K36 [{["plugin"], ["pluginName"] = "PublishPlaceAs", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["noToolbar"] = True, ["extraTriggers"]}]
+       89 GETIMPORT                        R10 K37 [plugin]
+       91 SETTABLEKS                       R10 R9 K26 ["plugin"]
+       93 SETTABLEKS                       R5 R9 K28 ["translationResourceTable"]
+       95 SETTABLEKS                       R4 R9 K29 ["fallbackResourceTable"]
+       97 NEWTABLE                         R10 4 0
+       99 DUPCLOSURE                       R11 K38 [PROTO_0]
+      100 CAPTURE                          VAL R8
+      101 SETTABLEKS                       R11 R10 K39 ["StudioPublishService.GamePublishFinished"]
+      103 DUPCLOSURE                       R11 K40 [PROTO_1]
+      104 CAPTURE                          VAL R8
+      105 SETTABLEKS                       R11 R10 K41 ["StudioPublishService.GamePublishCancelled"]
+      107 DUPCLOSURE                       R11 K42 [PROTO_2]
+      108 CAPTURE                          VAL R8
+      109 SETTABLEKS                       R11 R10 K43 ["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]
+      111 SETTABLEKS                       R10 R9 K35 ["extraTriggers"]
+      113 MOVE                             R10 R6
+      114 CALL                             R10 0 1
+      115 JUMPIFNOT                        R10 ; [+30]
+      116 NEWTABLE                         R10 0 2
+      118 DUPTABLE                         R11 K48 [{["uri"], ["isPreexistingAction"] = True, ["getText"], ["getTooltip"]}]
+      119 DUPTABLE                         R12 K57 [{["DataModel"] = "Standalone", ["PluginId"] = "Collaboration", ["Category"] = "Actions", ["ItemId"] = "PublishStatus"}]
+      120 SETTABLEKS                       R12 R11 K44 ["uri"]
+      122 DUPCLOSURE                       R12 K58 [PROTO_3]
+      123 CAPTURE                          VAL R7
+      124 SETTABLEKS                       R12 R11 K46 ["getText"]
+      126 DUPCLOSURE                       R12 K59 [PROTO_4]
+      127 CAPTURE                          VAL R7
+      128 SETTABLEKS                       R12 R11 K47 ["getTooltip"]
+      130 DUPTABLE                         R12 K48 [{["uri"], ["isPreexistingAction"] = True, ["getText"], ["getTooltip"]}]
+      131 DUPTABLE                         R13 K61 [{["DataModel"] = "Standalone", ["PluginId"] = "Collaboration", ["Category"] = "Actions", ["ItemId"] = "PublishToRoblox"}]
+      132 SETTABLEKS                       R13 R12 K44 ["uri"]
+      134 DUPCLOSURE                       R13 K62 [PROTO_5]
+      135 CAPTURE                          VAL R7
+      136 SETTABLEKS                       R13 R12 K46 ["getText"]
+      138 DUPCLOSURE                       R13 K63 [PROTO_6]
+      139 CAPTURE                          VAL R7
+      140 SETTABLEKS                       R13 R12 K47 ["getTooltip"]
+      142 SETLIST                          R10 R11 2 [1]
+      144 SETTABLEKS                       R10 R9 K64 ["actionInfos"]
+      146 GETTABLEKS                       R10 R3 K65 ["build"]
+      148 MOVE                             R11 R9
+      149 CALL                             R10 1 1
+      150 GETTABLEKS                       R11 R10 K66 ["pluginLoader"]
+      152 NAMECALL                         R11 R11 K67 ["waitForUserInteraction"]
+      154 CALL                             R11 1 1
+      155 JUMPIF                           R11 ; [+1]
+      156 RETURN                           R0 0
+      157 GETIMPORT                        R12 K1 [require]
+      159 GETIMPORT                        R13 K3 [script]
+      161 GETTABLEKS                       R13 R13 K4 ["Parent"]
+      163 GETTABLEKS                       R13 R13 K4 ["Parent"]
+      165 GETTABLEKS                       R13 R13 K11 ["Src"]
+      167 GETTABLEKS                       R13 R13 K68 ["main"]
+      169 CALL                             R12 1 1
+      170 MOVE                             R13 R12
+      171 GETIMPORT                        R14 K37 [plugin]
+      173 MOVE                             R15 R10
+      174 CALL                             R13 2 0
+      175 RETURN                           R0 0

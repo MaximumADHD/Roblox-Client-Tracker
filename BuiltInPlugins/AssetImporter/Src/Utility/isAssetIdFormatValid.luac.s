@@ -20,7 +20,7 @@ PROTO_0:
        24 JUMPIFEQKS                       R0 K7 [""] ; [+9]
        26 LOADB                            R2 0
        27 JUMPIFEQKNIL                     R1 ; [+6]
-       29 LOADK                            R3 K8 [9.22337203685478E+18]
+       29 LOADK                            R3 K8 [9.223372036854776E+18]
        30 JUMPIFLE                         R1 R3 ; [+2]
        32 LOADB                            R2 0 +1
        33 LOADB                            R2 1

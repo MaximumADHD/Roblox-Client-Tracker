@@ -7,7 +7,7 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 LOADN                            R2 0
-        2 LOADK                            R3 K0 [∞]
+        2 LOADK                            R3 K0 [Infinity]
         3 FASTCALL                         MATH_CLAMP ; [+2]
         4 GETIMPORT                        R0 K3 [math.clamp]
         6 CALL                             R0 3 1

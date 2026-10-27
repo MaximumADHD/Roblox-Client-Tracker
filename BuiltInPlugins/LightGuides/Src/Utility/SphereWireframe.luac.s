@@ -47,7 +47,7 @@ PROTO_1:
        52 GETTABLEKS                       R8 R0 K18 ["_offset"]
        54 GETIMPORT                        R9 K21 [CFrame.Angles]
        56 LOADN                            R10 0
-       57 LOADK                            R11 K22 [1.5707963267949]
+       57 LOADK                            R11 K22 [1.5707963267948966]
        58 LOADN                            R12 0
        59 CALL                             R9 3 1
        60 MUL                              R7 R8 R9
@@ -62,7 +62,7 @@ PROTO_1:
        75 SETTABLEKS                       R2 R5 K17 ["Color3"]
        77 GETTABLEKS                       R8 R0 K18 ["_offset"]
        79 GETIMPORT                        R9 K21 [CFrame.Angles]
-       81 LOADK                            R10 K22 [1.5707963267949]
+       81 LOADK                            R10 K22 [1.5707963267948966]
        82 LOADN                            R11 0
        83 LOADN                            R12 0
        84 CALL                             R9 3 1

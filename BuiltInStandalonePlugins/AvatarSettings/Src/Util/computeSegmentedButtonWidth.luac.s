@@ -16,8 +16,8 @@ PROTO_0:
        17 LOADN                            R10 18
        18 GETIMPORT                        R11 K7 [Enum.Font.SourceSans]
        20 GETIMPORT                        R12 K10 [Vector2.new]
-       22 LOADK                            R13 K11 [∞]
-       23 LOADK                            R14 K11 [∞]
+       22 LOADK                            R13 K11 [Infinity]
+       23 LOADK                            R14 K11 [Infinity]
        24 CALL                             R12 2 -1
        25 NAMECALL                         R7 R7 K12 ["GetTextSize"]
        27 CALL                             R7 -1 1

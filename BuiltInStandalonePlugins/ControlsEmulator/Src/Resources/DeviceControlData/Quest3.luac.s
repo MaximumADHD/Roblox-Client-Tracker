@@ -385,7 +385,7 @@ MAIN:
       519 GETIMPORT                        R2 K144 [Enum.KeyCode.ButtonR1]
       521 SETTABLEKS                       R2 R1 K33 ["keyCode"]
       523 GETIMPORT                        R2 K47 [UDim2.new]
-      525 LOADK                            R3 K150 [0.57]
+      525 LOADK                            R3 K150 [0.5700000000000001]
       526 LOADN                            R4 0
       527 LOADK                            R5 K119 [0.04]
       528 LOADN                            R6 0

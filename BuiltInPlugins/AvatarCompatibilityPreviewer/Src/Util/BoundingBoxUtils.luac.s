@@ -55,12 +55,12 @@ PROTO_0:
        76 RETURN                           R6 1
 
 PROTO_1:
-        0 LOADK                            R2 K0 [∞]
-        1 LOADK                            R3 K0 [∞]
-        2 LOADK                            R4 K0 [∞]
-        3 LOADK                            R5 K1 [-∞]
-        4 LOADK                            R6 K1 [-∞]
-        5 LOADK                            R7 K1 [-∞]
+        0 LOADK                            R2 K0 [Infinity]
+        1 LOADK                            R3 K0 [Infinity]
+        2 LOADK                            R4 K0 [Infinity]
+        3 LOADK                            R5 K1 [-Infinity]
+        4 LOADK                            R6 K1 [-Infinity]
+        5 LOADK                            R7 K1 [-Infinity]
         6 MOVE                             R8 R0
         7 LOADNIL                          R9
         8 LOADNIL                          R10

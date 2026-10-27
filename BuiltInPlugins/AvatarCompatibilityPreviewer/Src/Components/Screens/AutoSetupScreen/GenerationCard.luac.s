@@ -265,7 +265,7 @@ PROTO_2:
       313 DUPTABLE                         R21 K99 [{"MaxSize"}]
       314 GETIMPORT                        R22 K16 [Vector2.new]
       316 GETTABLEKS                       R23 R3 K100 ["MaxWidth"]
-      318 LOADK                            R24 K101 [∞]
+      318 LOADK                            R24 K101 [Infinity]
       319 CALL                             R22 2 1
       320 SETTABLEKS                       R22 R21 K98 ["MaxSize"]
       322 CALL                             R19 2 1

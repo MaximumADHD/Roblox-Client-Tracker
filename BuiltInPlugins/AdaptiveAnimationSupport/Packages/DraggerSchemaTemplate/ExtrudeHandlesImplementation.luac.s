@@ -25,7 +25,7 @@ PROTO_3:
 PROTO_4:
         0 LOADK                            R1 K0 [{0, 0, 0}]
         1 LOADK                            R3 K2 [{1, 1, 1}]
-        2 MULK                             R2 R3 K1 [∞]
+        2 MULK                             R2 R3 K1 [Infinity]
         3 RETURN                           R1 2
 
 PROTO_5:

@@ -177,12 +177,12 @@ PROTO_1:
       176 GETIMPORT                        R14 K20 [type]
       178 CALL                             R14 1 1
       179 JUMPIFNOTEQKS                    R14 K21 ["number"] ; [+21]
-      181 JUMPIFNOTEQKN                    R12 K37 [∞] ; [+5]
+      181 JUMPIFNOTEQKN                    R12 K37 [Infinity] ; [+5]
       183 MOVE                             R14 R5
       184 LOADK                            R15 K38 ["math.huge"]
       185 CONCAT                           R5 R14 R15
       186 JUMP                             ; [+21]
-      187 JUMPIFNOTEQKN                    R12 K39 [-∞] ; [+5]
+      187 JUMPIFNOTEQKN                    R12 K39 [-Infinity] ; [+5]
       189 MOVE                             R14 R5
       190 LOADK                            R15 K40 ["-math.huge"]
       191 CONCAT                           R5 R14 R15

@@ -159,39 +159,39 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
        25 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R3 K10 ["View"]
-       30 GETTABLEKS                       R5 R3 K11 ["Enums"]
-       32 GETTABLEKS                       R5 R5 K12 ["Visibility"]
-       34 GETTABLEKS                       R6 R0 K13 ["Src"]
-       36 GETTABLEKS                       R6 R6 K14 ["Components"]
-       38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R8 R6 K15 ["Table"]
-       42 GETTABLEKS                       R8 R8 K16 ["Context"]
-       44 CALL                             R7 1 1
-       45 GETIMPORT                        R8 K5 [require]
-       47 GETTABLEKS                       R9 R6 K15 ["Table"]
-       49 GETTABLEKS                       R9 R9 K17 ["Row"]
-       51 GETTABLEKS                       R9 R9 K18 ["Empty"]
-       53 CALL                             R8 1 1
-       54 GETIMPORT                        R9 K5 [require]
-       56 GETTABLEKS                       R10 R6 K19 ["Tree"]
-       58 GETTABLEKS                       R10 R10 K20 ["Header"]
-       60 CALL                             R9 1 1
-       61 GETTABLEKS                       R10 R3 K21 ["ScrollView"]
+       28 GETTABLEKS                       R4 R3 K10 ["ScrollView"]
+       30 GETTABLEKS                       R5 R3 K11 ["View"]
+       32 GETTABLEKS                       R6 R3 K12 ["Enums"]
+       34 GETTABLEKS                       R6 R6 K13 ["Visibility"]
+       36 GETTABLEKS                       R7 R0 K14 ["Src"]
+       38 GETTABLEKS                       R7 R7 K15 ["Components"]
+       40 GETIMPORT                        R8 K5 [require]
+       42 GETTABLEKS                       R9 R7 K16 ["Table"]
+       44 GETTABLEKS                       R9 R9 K17 ["Context"]
+       46 CALL                             R8 1 1
+       47 GETIMPORT                        R9 K5 [require]
+       49 GETTABLEKS                       R10 R7 K16 ["Table"]
+       51 GETTABLEKS                       R10 R10 K18 ["Row"]
+       53 GETTABLEKS                       R10 R10 K19 ["Empty"]
+       55 CALL                             R9 1 1
+       56 GETIMPORT                        R10 K5 [require]
+       58 GETTABLEKS                       R11 R7 K20 ["Tree"]
+       60 GETTABLEKS                       R11 R11 K21 ["Header"]
+       62 CALL                             R10 1 1
        63 GETIMPORT                        R11 K5 [require]
-       65 GETTABLEKS                       R12 R0 K13 ["Src"]
+       65 GETTABLEKS                       R12 R0 K14 ["Src"]
        67 GETTABLEKS                       R12 R12 K22 ["Types"]
        69 CALL                             R11 1 1
        70 GETIMPORT                        R12 K5 [require]
-       72 GETTABLEKS                       R13 R0 K13 ["Src"]
+       72 GETTABLEKS                       R13 R0 K14 ["Src"]
        74 GETTABLEKS                       R13 R13 K23 ["Hooks"]
-       76 GETTABLEKS                       R13 R13 K16 ["Context"]
+       76 GETTABLEKS                       R13 R13 K17 ["Context"]
        78 GETTABLEKS                       R13 R13 K24 ["useContextOrder"]
        80 CALL                             R12 1 1
        81 GETIMPORT                        R13 K5 [require]
-       83 GETTABLEKS                       R14 R0 K13 ["Src"]
+       83 GETTABLEKS                       R14 R0 K14 ["Src"]
        85 GETTABLEKS                       R14 R14 K23 ["Hooks"]
-       87 GETTABLEKS                       R14 R14 K16 ["Context"]
+       87 GETTABLEKS                       R14 R14 K17 ["Context"]
        89 GETTABLEKS                       R14 R14 K25 ["useCreateContext"]
        91 CALL                             R13 1 1
        92 DUPCLOSURE                       R14 K26 [PROTO_2]
@@ -199,10 +199,10 @@ MAIN:
        94 CAPTURE                          VAL R12
        95 CAPTURE                          VAL R13
        96 CAPTURE                          VAL R1
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R7
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          VAL R9
-      101 CAPTURE                          VAL R10
-      102 CAPTURE                          VAL R5
+       97 CAPTURE                          VAL R9
+       98 CAPTURE                          VAL R8
+       99 CAPTURE                          VAL R5
+      100 CAPTURE                          VAL R10
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R6
       103 RETURN                           R14 1

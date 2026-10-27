@@ -65,14 +65,14 @@ PROTO_1:
        72 LOADN                            R13 0
        73 GETTABLEKS                       R17 R9 K32 ["Y"]
        75 SUBK                             R16 R17 K31 [1]
-       76 MULK                             R15 R16 K30 [3.14159265358979]
+       76 MULK                             R15 R16 K30 [3.141592653589793]
        77 DIVK                             R14 R15 K19 [2]
        78 GETTABLEKS                       R19 R9 K33 ["Z"]
        80 SUBK                             R18 R19 K31 [1]
        81 GETTABLEKS                       R20 R9 K34 ["X"]
        83 SUBK                             R19 R20 K31 [1]
        84 MUL                              R17 R18 R19
-       85 MULK                             R16 R17 K30 [3.14159265358979]
+       85 MULK                             R16 R17 K30 [3.141592653589793]
        86 DIVK                             R15 R16 K19 [2]
        87 CALL                             R12 3 1
        88 MUL                              R11 R12 R9
@@ -81,7 +81,7 @@ PROTO_1:
        92 GETIMPORT                        R13 K29 [CFrame.Angles]
        94 GETTABLEKS                       R17 R9 K34 ["X"]
        96 SUBK                             R16 R17 K31 [1]
-       97 MULK                             R15 R16 K30 [3.14159265358979]
+       97 MULK                             R15 R16 K30 [3.141592653589793]
        98 DIVK                             R14 R15 K19 [2]
        99 LOADN                            R15 0
       100 GETTABLEKS                       R20 R9 K33 ["Z"]
@@ -89,7 +89,7 @@ PROTO_1:
       103 GETTABLEKS                       R21 R9 K32 ["Y"]
       105 SUBK                             R20 R21 K31 [1]
       106 MUL                              R18 R19 R20
-      107 MULK                             R17 R18 K30 [3.14159265358979]
+      107 MULK                             R17 R18 K30 [3.141592653589793]
       108 DIVK                             R16 R17 K19 [2]
       109 CALL                             R13 3 1
       110 MUL                              R12 R13 R9
@@ -408,7 +408,7 @@ PROTO_6:
 PROTO_7:
         0 SUB                              R13 R4 R2
         1 DIVK                             R12 R13 K1 [2]
-        2 MULK                             R11 R12 K0 [1.4142135623731]
+        2 MULK                             R11 R12 K0 [1.4142135623730951]
         3 DIV                              R10 R11 R8
         4 FASTCALL1                        MATH_ATAN R10 ; [+2]
         5 GETIMPORT                        R9 K4 [math.atan]
@@ -439,7 +439,7 @@ PROTO_7:
        35 MUL                              R24 R1 R25
        36 GETIMPORT                        R25 K13 [CFrame.Angles]
        38 LOADN                            R26 0
-       39 LOADK                            R27 K14 [1.5707963267949]
+       39 LOADK                            R27 K14 [1.5707963267948966]
        40 LOADN                            R28 0
        41 CALL                             R25 3 1
        42 MUL                              R23 R24 R25
@@ -456,7 +456,7 @@ PROTO_7:
        58 MUL                              R24 R1 R25
        59 GETIMPORT                        R25 K13 [CFrame.Angles]
        61 LOADN                            R26 0
-       62 LOADK                            R27 K14 [1.5707963267949]
+       62 LOADK                            R27 K14 [1.5707963267948966]
        63 LOADN                            R28 0
        64 CALL                             R25 3 1
        65 MUL                              R23 R24 R25
@@ -472,7 +472,7 @@ PROTO_7:
        80 CALL                             R25 3 1
        81 MUL                              R24 R1 R25
        82 GETIMPORT                        R25 K13 [CFrame.Angles]
-       84 LOADK                            R26 K14 [1.5707963267949]
+       84 LOADK                            R26 K14 [1.5707963267948966]
        85 LOADN                            R27 0
        86 LOADN                            R28 0
        87 CALL                             R25 3 1
@@ -489,7 +489,7 @@ PROTO_7:
       103 CALL                             R25 3 1
       104 MUL                              R24 R1 R25
       105 GETIMPORT                        R25 K13 [CFrame.Angles]
-      107 LOADK                            R26 K14 [1.5707963267949]
+      107 LOADK                            R26 K14 [1.5707963267948966]
       108 LOADN                            R27 0
       109 LOADN                            R28 0
       110 CALL                             R25 3 1
@@ -508,7 +508,7 @@ PROTO_7:
       128 MUL                              R22 R23 R24
       129 GETIMPORT                        R23 K13 [CFrame.Angles]
       131 LOADN                            R24 0
-      132 LOADK                            R25 K14 [1.5707963267949]
+      132 LOADK                            R25 K14 [1.5707963267948966]
       133 LOADN                            R26 0
       134 CALL                             R23 3 1
       135 MUL                              R21 R22 R23
@@ -524,7 +524,7 @@ PROTO_7:
       150 MUL                              R24 R1 R25
       151 GETIMPORT                        R25 K13 [CFrame.Angles]
       153 LOADN                            R26 0
-      154 LOADK                            R27 K14 [1.5707963267949]
+      154 LOADK                            R27 K14 [1.5707963267948966]
       155 LOADN                            R28 0
       156 CALL                             R25 3 1
       157 MUL                              R23 R24 R25
@@ -540,7 +540,7 @@ PROTO_7:
       172 CALL                             R25 3 1
       173 MUL                              R24 R1 R25
       174 GETIMPORT                        R25 K13 [CFrame.Angles]
-      176 LOADK                            R26 K14 [1.5707963267949]
+      176 LOADK                            R26 K14 [1.5707963267948966]
       177 LOADN                            R27 0
       178 LOADN                            R28 0
       179 CALL                             R25 3 1
@@ -557,7 +557,7 @@ PROTO_7:
       195 CALL                             R25 3 1
       196 MUL                              R24 R1 R25
       197 GETIMPORT                        R25 K13 [CFrame.Angles]
-      199 LOADK                            R26 K14 [1.5707963267949]
+      199 LOADK                            R26 K14 [1.5707963267948966]
       200 LOADN                            R27 0
       201 LOADN                            R28 0
       202 CALL                             R25 3 1
@@ -576,7 +576,7 @@ PROTO_7:
       220 GETIMPORT                        R26 K13 [CFrame.Angles]
       222 LOADN                            R27 0
       223 LOADN                            R28 0
-      224 LOADK                            R29 K23 [-0.785398163397448]
+      224 LOADK                            R29 K23 [-0.7853981633974483]
       225 CALL                             R26 3 1
       226 MUL                              R24 R25 R26
       227 GETIMPORT                        R25 K13 [CFrame.Angles]
@@ -599,7 +599,7 @@ PROTO_7:
       250 GETIMPORT                        R26 K13 [CFrame.Angles]
       252 LOADN                            R27 0
       253 LOADN                            R28 0
-      254 LOADK                            R29 K25 [0.785398163397448]
+      254 LOADK                            R29 K25 [0.7853981633974483]
       255 CALL                             R26 3 1
       256 MUL                              R24 R25 R26
       257 GETIMPORT                        R25 K13 [CFrame.Angles]
@@ -622,7 +622,7 @@ PROTO_7:
       280 GETIMPORT                        R26 K13 [CFrame.Angles]
       282 LOADN                            R27 0
       283 LOADN                            R28 0
-      284 LOADK                            R29 K25 [0.785398163397448]
+      284 LOADK                            R29 K25 [0.7853981633974483]
       285 CALL                             R26 3 1
       286 MUL                              R24 R25 R26
       287 GETIMPORT                        R25 K13 [CFrame.Angles]
@@ -645,7 +645,7 @@ PROTO_7:
       310 GETIMPORT                        R26 K13 [CFrame.Angles]
       312 LOADN                            R27 0
       313 LOADN                            R28 0
-      314 LOADK                            R29 K23 [-0.785398163397448]
+      314 LOADK                            R29 K23 [-0.7853981633974483]
       315 CALL                             R26 3 1
       316 MUL                              R24 R25 R26
       317 GETIMPORT                        R25 K13 [CFrame.Angles]

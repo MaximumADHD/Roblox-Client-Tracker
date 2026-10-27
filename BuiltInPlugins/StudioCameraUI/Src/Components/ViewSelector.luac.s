@@ -140,14 +140,14 @@ PROTO_3:
        48 FORNLOOP                         R5
        49 FORNLOOP                         R2
        50 GETIMPORT                        R2 K11 [CFrame.fromEulerAnglesYXZ]
-       52 LOADK                            R3 K12 [-1.5707963267949]
-       53 LOADK                            R4 K13 [3.14159265358979]
+       52 LOADK                            R3 K12 [-1.5707963267948966]
+       53 LOADK                            R4 K13 [3.141592653589793]
        54 LOADN                            R5 0
        55 CALL                             R2 3 1
        56 SETTABLEKS                       R2 R1 K14 ["0p0"]
        58 GETIMPORT                        R2 K16 [CFrame.fromEulerAnglesXYZ]
-       60 LOADK                            R3 K12 [-1.5707963267949]
-       61 LOADK                            R4 K13 [3.14159265358979]
+       60 LOADK                            R3 K12 [-1.5707963267948966]
+       61 LOADK                            R4 K13 [3.141592653589793]
        62 LOADN                            R5 0
        63 CALL                             R2 3 1
        64 SETTABLEKS                       R2 R1 K17 ["0n0"]
@@ -848,7 +848,7 @@ PROTO_25:
        16 ADD                              R3 R4 R5
        17 GETIMPORT                        R4 K6 [CFrame.fromAxisAngle]
        19 MOVE                             R5 R3
-       20 LOADK                            R6 K7 [1.5707963267949]
+       20 LOADK                            R6 K7 [1.5707963267948966]
        21 CALL                             R4 2 1
        22 GETTABLEKS                       R6 R0 K8 ["LookVector"]
        24 MUL                              R5 R4 R6
@@ -1384,14 +1384,14 @@ MAIN:
       113 FORNLOOP                         R18
       114 FORNLOOP                         R15
       115 GETIMPORT                        R15 K32 [CFrame.fromEulerAnglesYXZ]
-      117 LOADK                            R16 K33 [-1.5707963267949]
-      118 LOADK                            R17 K34 [3.14159265358979]
+      117 LOADK                            R16 K33 [-1.5707963267948966]
+      118 LOADK                            R17 K34 [3.141592653589793]
       119 LOADN                            R18 0
       120 CALL                             R15 3 1
       121 SETTABLEKS                       R15 R14 K35 ["0p0"]
       123 GETIMPORT                        R15 K37 [CFrame.fromEulerAnglesXYZ]
-      125 LOADK                            R16 K33 [-1.5707963267949]
-      126 LOADK                            R17 K34 [3.14159265358979]
+      125 LOADK                            R16 K33 [-1.5707963267948966]
+      126 LOADK                            R17 K34 [3.141592653589793]
       127 LOADN                            R18 0
       128 CALL                             R15 3 1
       129 SETTABLEKS                       R15 R14 K38 ["0n0"]

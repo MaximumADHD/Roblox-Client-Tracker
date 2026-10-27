@@ -47,184 +47,180 @@ PROTO_2:
         2 RETURN                           R1 1
 
 PROTO_3:
-        0 FASTCALL1                        TYPEOF R0 ; [+3]
+        0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 GETIMPORT                        R2 K1 [typeof]
-        4 CALL                             R2 1 1
-        5 JUMPIFNOTEQKS                    R2 K2 ["string"] ; [+3]
-        7 MOVE                             R1 R0
-        8 JUMP                             ; [+3]
-        9 NAMECALL                         R1 R0 K3 ["toString"]
-       11 CALL                             R1 1 1
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R2 R2 K4 ["XPath"]
-       15 GETTABLEKS                       R2 R2 K5 ["new"]
-       17 LOADK                            R3 K6 ["game.CoreGui.TextureGenerator.%*"]
-       18 MOVE                             R5 R1
-       19 NAMECALL                         R3 R3 K7 ["format"]
-       21 CALL                             R3 2 1
-       22 CALL                             R2 1 -1
-       23 RETURN                           R2 -1
+        2 CALL                             R2 1 1
+        3 GETIMPORT                        R3 K2 [string.split]
+        5 MOVE                             R4 R1
+        6 LOADK                            R5 K3 ["."]
+        7 CALL                             R3 2 3
+        8 FORGPREP                         R3
+        9 JUMPIFNOTEQKNIL                  R2 ; [+3]
+       11 LOADNIL                          R8
+       12 RETURN                           R8 1
+       13 MOVE                             R10 R7
+       14 LOADN                            R11 2
+       15 NAMECALL                         R8 R2 K4 ["WaitForChild"]
+       17 CALL                             R8 3 1
+       18 MOVE                             R2 R8
+       19 FORGLOOP                         R3 2 ; [-11]
+       21 RETURN                           R2 1
 
 PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["Element"]
-        3 GETTABLEKS                       R1 R1 K1 ["new"]
-        5 GETUPVAL                         R2 1
-        6 MOVE                             R3 R0
-        7 CALL                             R2 1 -1
-        8 CALL                             R1 -1 -1
-        9 RETURN                           R1 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 GETIMPORT                        R3 K2 [string.split]
+        5 MOVE                             R4 R1
+        6 LOADK                            R5 K3 ["."]
+        7 CALL                             R3 2 1
+        8 MOVE                             R4 R2
+        9 NAMECALL                         R5 R2 K4 ["GetFullName"]
+       11 CALL                             R5 1 1
+       12 MOVE                             R6 R3
+       13 LOADNIL                          R7
+       14 LOADNIL                          R8
+       15 FORGPREP                         R6
+       16 MOVE                             R11 R4
+       17 JUMPIFNOT                        R11 ; [+4]
+       18 MOVE                             R13 R10
+       19 NAMECALL                         R11 R4 K5 ["FindFirstChild"]
+       21 CALL                             R11 2 1
+       22 JUMPIFNOTEQKNIL                  R11 ; [+36]
+       24 NEWTABLE                         R12 0 2
+       26 LOADK                            R13 K6 ["Closest match: %*"]
+       27 MOVE                             R15 R5
+       28 NAMECALL                         R13 R13 K7 ["format"]
+       30 CALL                             R13 2 1
+       31 LOADK                            R14 K8 ["Children found:"]
+       32 SETLIST                          R12 R13 2 [1]
+       34 JUMPIFNOT                        R4 ; [+18]
+       35 NAMECALL                         R13 R4 K9 ["GetChildren"]
+       37 CALL                             R13 1 3
+       38 FORGPREP                         R13
+       39 LOADK                            R20 K10 ["\t- %*"]
+       40 GETTABLEKS                       R22 R17 K11 ["Name"]
+       42 NAMECALL                         R20 R20 K7 ["format"]
+       44 CALL                             R20 2 1
+       45 FASTCALL2                        TABLE_INSERT R12 R20 ; [+4]
+       47 MOVE                             R19 R12
+       48 GETIMPORT                        R18 K14 [table.insert]
+       50 CALL                             R18 2 0
+       51 FORGLOOP                         R13 2 ; [-13]
+       53 GETIMPORT                        R13 K16 [table.concat]
+       55 MOVE                             R14 R12
+       56 LOADK                            R15 K17 ["\n"]
+       57 CALL                             R13 2 -1
+       58 RETURN                           R13 -1
+       59 MOVE                             R4 R11
+       60 NAMECALL                         R12 R11 K4 ["GetFullName"]
+       62 CALL                             R12 1 1
+       63 MOVE                             R5 R12
+       64 FORGLOOP                         R6 2 ; [-49]
+       66 RETURN                           R5 1
 
 PROTO_5:
-        0 LOADNIL                          R1
-        1 FASTCALL1                        TYPEOF R0 ; [+3]
-        2 MOVE                             R4 R0
-        3 GETIMPORT                        R3 K1 [typeof]
-        5 CALL                             R3 1 1
-        6 JUMPIFNOTEQKS                    R3 K2 ["string"] ; [+9]
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R2 R2 K3 ["XPath"]
-       11 GETTABLEKS                       R2 R2 K4 ["new"]
-       13 MOVE                             R3 R0
-       14 CALL                             R2 1 1
-       15 JUMP                             ; [+1]
-       16 MOVE                             R2 R0
-       17 NAMECALL                         R3 R2 K5 ["parent"]
-       19 CALL                             R3 1 1
-       20 NAMECALL                         R4 R3 K6 ["toString"]
-       22 CALL                             R4 1 1
-       23 NAMECALL                         R5 R2 K6 ["toString"]
-       25 CALL                             R5 1 1
-       26 JUMPIFEQ                         R4 R5 ; [+23]
-       28 LOADN                            R7 0
-       29 NAMECALL                         R5 R3 K7 ["setWait"]
-       31 CALL                             R5 2 1
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R6 R6 K8 ["Element"]
-       35 GETTABLEKS                       R6 R6 K4 ["new"]
-       37 GETUPVAL                         R7 1
-       38 MOVE                             R8 R5
-       39 CALL                             R7 1 -1
-       40 CALL                             R6 -1 1
-       41 MOVE                             R4 R6
-       42 NAMECALL                         R4 R4 K9 ["getRbxInstance"]
-       44 CALL                             R4 1 1
-       45 MOVE                             R1 R4
-       46 JUMPIFNOTEQKNIL                  R1 ; [+3]
-       48 MOVE                             R2 R3
-       49 JUMPBACK                         ; [-33]
-       50 NEWTABLE                         R3 0 0
-       52 JUMPIFNOT                        R1 ; [+34]
-       53 MOVE                             R5 R3
-       54 NAMECALL                         R6 R1 K10 ["GetFullName"]
-       56 CALL                             R6 1 -1
-       57 FASTCALL                         TABLE_INSERT ; [+2]
-       58 GETIMPORT                        R4 K13 [table.insert]
-       60 CALL                             R4 -1 0
-       61 FASTCALL2K                       TABLE_INSERT R3 K14 ; [+5]
-       63 MOVE                             R5 R3
-       64 LOADK                            R6 K14 ["Children found:"]
-       65 GETIMPORT                        R4 K13 [table.insert]
-       67 CALL                             R4 2 0
-       68 NAMECALL                         R4 R1 K15 ["GetChildren"]
-       70 CALL                             R4 1 3
-       71 FORGPREP                         R4
-       72 LOADK                            R11 K16 ["\t- %*"]
-       73 GETTABLEKS                       R13 R8 K17 ["Name"]
-       75 NAMECALL                         R11 R11 K18 ["format"]
-       77 CALL                             R11 2 1
-       78 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       80 MOVE                             R10 R3
-       81 GETIMPORT                        R9 K13 [table.insert]
-       83 CALL                             R9 2 0
-       84 FORGLOOP                         R4 2 ; [-13]
-       86 JUMP                             ; [+7]
-       87 FASTCALL2K                       TABLE_INSERT R3 K19 ; [+5]
-       89 MOVE                             R5 R3
-       90 LOADK                            R6 K19 ["No segment found"]
-       91 GETIMPORT                        R4 K13 [table.insert]
-       93 CALL                             R4 2 0
-       94 GETIMPORT                        R4 K21 [table.concat]
-       96 MOVE                             R5 R3
-       97 LOADK                            R6 K22 ["\n"]
-       98 CALL                             R4 2 -1
-       99 RETURN                           R4 -1
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["X"]
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R3 R3 K1 ["Y"]
+        7 LOADN                            R4 0
+        8 LOADB                            R5 1
+        9 GETUPVAL                         R6 2
+       10 GETTABLEKS                       R6 R6 K2 ["_layerCollector"]
+       12 LOADN                            R7 0
+       13 NAMECALL                         R0 R0 K3 ["SendMouseButtonEvent"]
+       15 CALL                             R0 7 0
+       16 GETUPVAL                         R0 0
+       17 NAMECALL                         R0 R0 K4 ["WaitForInputEventsProcessed"]
+       19 CALL                             R0 1 0
+       20 GETUPVAL                         R0 0
+       21 GETUPVAL                         R2 1
+       22 GETTABLEKS                       R2 R2 K0 ["X"]
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R3 R3 K1 ["Y"]
+       27 LOADN                            R4 0
+       28 LOADB                            R5 0
+       29 GETUPVAL                         R6 2
+       30 GETTABLEKS                       R6 R6 K2 ["_layerCollector"]
+       32 LOADN                            R7 0
+       33 NAMECALL                         R0 R0 K3 ["SendMouseButtonEvent"]
+       35 CALL                             R0 7 0
+       36 GETUPVAL                         R0 0
+       37 NAMECALL                         R0 R0 K4 ["WaitForInputEventsProcessed"]
+       39 CALL                             R0 1 0
+       40 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["Element"]
-        3 GETTABLEKS                       R1 R1 K1 ["new"]
-        5 GETUPVAL                         R2 1
-        6 MOVE                             R3 R0
-        7 CALL                             R2 1 -1
-        8 CALL                             R1 -1 1
-        9 NAMECALL                         R2 R1 K2 ["getRbxInstance"]
-       11 CALL                             R2 1 1
-       12 JUMPIFNOTEQKNIL                  R2 ; [+24]
-       14 FASTCALL1                        TYPEOF R0 ; [+3]
-       15 MOVE                             R5 R0
-       16 GETIMPORT                        R4 K4 [typeof]
-       18 CALL                             R4 1 1
-       19 JUMPIFNOTEQKS                    R4 K5 ["string"] ; [+3]
-       21 MOVE                             R3 R0
-       22 JUMP                             ; [+3]
-       23 NAMECALL                         R3 R0 K6 ["toString"]
-       25 CALL                             R3 1 1
-       26 GETIMPORT                        R4 K8 [error]
-       28 LOADK                            R5 K9 ["%* was not found\nClosest match: %*"]
-       29 MOVE                             R7 R3
-       30 GETUPVAL                         R8 2
-       31 MOVE                             R9 R0
-       32 CALL                             R8 1 1
-       33 NAMECALL                         R5 R5 K10 ["format"]
-       35 CALL                             R5 3 1
-       36 CALL                             R4 1 0
-       37 RETURN                           R1 1
+        0 GETTABLEKS                       R3 R1 K0 ["AbsolutePosition"]
+        2 GETTABLEKS                       R5 R1 K2 ["AbsoluteSize"]
+        4 DIVK                             R4 R5 K1 [2]
+        5 ADD                              R2 R3 R4
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K3 ["act"]
+        9 NEWCLOSURE                       R4 P0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          VAL R2
+       12 CAPTURE                          VAL R0
+       13 CALL                             R3 1 0
+       14 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 CALL                             R0 1 1
-        3 NAMECALL                         R1 R0 K0 ["click"]
-        5 CALL                             R1 1 0
-        6 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R3 R0 K0 ["_layerCollector"]
+        3 MOVE                             R4 R1
+        4 CALL                             R2 2 1
+        5 JUMPIFNOTEQKNIL                  R2 ; [+14]
+        7 GETIMPORT                        R3 K2 [error]
+        9 LOADK                            R4 K3 ["%* was not found\n%*"]
+       10 MOVE                             R6 R1
+       11 GETUPVAL                         R7 1
+       12 GETTABLEKS                       R8 R0 K0 ["_layerCollector"]
+       14 MOVE                             R9 R1
+       15 CALL                             R7 2 1
+       16 NAMECALL                         R4 R4 K4 ["format"]
+       18 CALL                             R4 3 1
+       19 CALL                             R3 1 0
+       20 LOADK                            R6 K5 ["GuiObject"]
+       21 NAMECALL                         R4 R2 K6 ["IsA"]
+       23 CALL                             R4 2 1
+       24 FASTCALL2K                       ASSERT R4 K7 ; [+4]
+       26 LOADK                            R5 K7 ["Resolved path is not a GuiObject"]
+       27 GETIMPORT                        R3 K9 [assert]
+       29 CALL                             R3 2 0
+       30 MOVE                             R5 R2
+       31 NAMECALL                         R3 R0 K10 ["clickElement"]
+       33 CALL                             R3 2 0
+       34 RETURN                           R0 0
 
 PROTO_8:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["act"]
-        3 NEWCLOSURE                       R3 P0
-        4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          VAL R1
-        6 CALL                             R2 1 0
-        7 RETURN                           R0 0
-
-PROTO_9:
-        0 GETIMPORT                        R2 K1 [game]
+        0 GETTABLEKS                       R2 R0 K0 ["_layerCollector"]
         2 MOVE                             R4 R1
         3 LOADB                            R5 1
-        4 NAMECALL                         R2 R2 K2 ["FindFirstChild"]
+        4 NAMECALL                         R2 R2 K1 ["FindFirstChild"]
         6 CALL                             R2 3 1
-        7 LOADK                            R5 K3 ["%* not found"]
+        7 LOADK                            R5 K2 ["%* not found"]
         8 MOVE                             R7 R1
-        9 NAMECALL                         R5 R5 K4 ["format"]
+        9 NAMECALL                         R5 R5 K3 ["format"]
        11 CALL                             R5 2 1
        12 FASTCALL2                        ASSERT R2 R5 ; [+4]
        14 MOVE                             R4 R2
-       15 GETIMPORT                        R3 K6 [assert]
+       15 GETIMPORT                        R3 K5 [assert]
        17 CALL                             R3 2 0
-       18 GETIMPORT                        R3 K9 [string.gsub]
-       20 NAMECALL                         R4 R2 K10 ["GetFullName"]
-       22 CALL                             R4 1 1
-       23 LOADK                            R5 K11 ["CoreGui.TextureGenerator."]
-       24 LOADK                            R6 K12 [""]
-       25 CALL                             R3 3 1
-       26 MOVE                             R6 R3
-       27 NAMECALL                         R4 R0 K13 ["clickPath"]
-       29 CALL                             R4 2 0
-       30 RETURN                           R0 0
+       18 LOADK                            R6 K6 ["GuiObject"]
+       19 NAMECALL                         R4 R2 K7 ["IsA"]
+       21 CALL                             R4 2 1
+       22 FASTCALL2K                       ASSERT R4 K8 ; [+4]
+       24 LOADK                            R5 K8 ["Resolved path is not a GuiObject"]
+       25 GETIMPORT                        R3 K5 [assert]
+       27 CALL                             R3 2 0
+       28 MOVE                             R5 R2
+       29 NAMECALL                         R3 R0 K9 ["clickElement"]
+       31 CALL                             R3 2 0
+       32 RETURN                           R0 0
 
-PROTO_10:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_root"]
         3 NAMECALL                         R0 R0 K1 ["unmount"]
@@ -235,7 +231,7 @@ PROTO_10:
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
-PROTO_11:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["act"]
         3 NEWCLOSURE                       R2 P0
@@ -253,43 +249,44 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["ReactRoblox"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Dev"]
-       20 GETTABLEKS                       R3 R3 K9 ["Rhodium"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K10 ["RhodiumTests"]
-       27 GETTABLEKS                       R4 R4 K11 ["createMockContext"]
-       29 CALL                             R3 1 1
-       30 NEWTABLE                         R4 8 0
-       32 SETTABLEKS                       R4 R4 K12 ["__index"]
-       34 DUPCLOSURE                       R5 K13 [PROTO_1]
-       35 CAPTURE                          VAL R4
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          VAL R3
-       38 SETTABLEKS                       R5 R4 K14 ["new"]
-       40 DUPCLOSURE                       R5 K15 [PROTO_2]
-       41 SETTABLEKS                       R5 R4 K16 ["getLayerCollector"]
-       43 DUPCLOSURE                       R5 K17 [PROTO_3]
-       44 CAPTURE                          VAL R2
-       45 DUPCLOSURE                       R6 K18 [PROTO_4]
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          VAL R5
-       48 DUPCLOSURE                       R7 K19 [PROTO_5]
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          VAL R5
-       51 DUPCLOSURE                       R8 K20 [PROTO_6]
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R7
-       55 DUPCLOSURE                       R9 K21 [PROTO_8]
+       14 GETIMPORT                        R2 K9 [game]
+       16 LOADK                            R4 K10 ["VirtualInputManager"]
+       17 NAMECALL                         R2 R2 K11 ["GetService"]
+       19 CALL                             R2 2 1
+       20 GETIMPORT                        R3 K5 [require]
+       22 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["Framework"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R3 R3 K13 ["TestHelpers"]
+       29 GETTABLEKS                       R3 R3 K14 ["getContentRoot"]
+       31 GETIMPORT                        R4 K5 [require]
+       33 GETTABLEKS                       R5 R0 K15 ["RhodiumTests"]
+       35 GETTABLEKS                       R5 R5 K16 ["createMockContext"]
+       37 CALL                             R4 1 1
+       38 NEWTABLE                         R5 8 0
+       40 SETTABLEKS                       R5 R5 K17 ["__index"]
+       42 DUPCLOSURE                       R6 K18 [PROTO_1]
+       43 CAPTURE                          VAL R5
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R4
+       46 SETTABLEKS                       R6 R5 K19 ["new"]
+       48 DUPCLOSURE                       R6 K20 [PROTO_2]
+       49 SETTABLEKS                       R6 R5 K21 ["getLayerCollector"]
+       51 DUPCLOSURE                       R6 K22 [PROTO_3]
+       52 CAPTURE                          VAL R3
+       53 DUPCLOSURE                       R7 K23 [PROTO_4]
+       54 CAPTURE                          VAL R3
+       55 DUPCLOSURE                       R8 K24 [PROTO_6]
        56 CAPTURE                          VAL R1
-       57 CAPTURE                          VAL R8
-       58 SETTABLEKS                       R9 R4 K22 ["clickPath"]
-       60 DUPCLOSURE                       R9 K23 [PROTO_9]
-       61 SETTABLEKS                       R9 R4 K24 ["clickInstance"]
-       63 DUPCLOSURE                       R9 K25 [PROTO_11]
-       64 CAPTURE                          VAL R1
-       65 SETTABLEKS                       R9 R4 K26 ["destroy"]
-       67 RETURN                           R4 1
+       57 CAPTURE                          VAL R2
+       58 SETTABLEKS                       R8 R5 K25 ["clickElement"]
+       60 DUPCLOSURE                       R8 K26 [PROTO_7]
+       61 CAPTURE                          VAL R6
+       62 CAPTURE                          VAL R7
+       63 SETTABLEKS                       R8 R5 K27 ["clickPath"]
+       65 DUPCLOSURE                       R8 K28 [PROTO_8]
+       66 SETTABLEKS                       R8 R5 K29 ["clickInstance"]
+       68 DUPCLOSURE                       R8 K30 [PROTO_10]
+       69 CAPTURE                          VAL R1
+       70 SETTABLEKS                       R8 R5 K31 ["destroy"]
+       72 RETURN                           R5 1

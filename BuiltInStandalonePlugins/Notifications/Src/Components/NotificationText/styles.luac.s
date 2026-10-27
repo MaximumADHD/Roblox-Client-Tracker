@@ -42,7 +42,7 @@ MAIN:
        66 LOADK                            R12 K44 ["::UISizeConstraint"]
        67 DUPTABLE                         R13 K47 [{"MaxSize", "MinSize"}]
        68 GETIMPORT                        R14 K49 [Vector2.new]
-       70 LOADK                            R15 K50 [∞]
+       70 LOADK                            R15 K50 [Infinity]
        71 LOADN                            R16 36
        72 CALL                             R14 2 1
        73 SETTABLEKS                       R14 R13 K45 ["MaxSize"]
@@ -79,7 +79,7 @@ MAIN:
       121 LOADK                            R13 K44 ["::UISizeConstraint"]
       122 DUPTABLE                         R14 K47 [{"MaxSize", "MinSize"}]
       123 GETIMPORT                        R15 K49 [Vector2.new]
-      125 LOADK                            R16 K50 [∞]
+      125 LOADK                            R16 K50 [Infinity]
       126 LOADN                            R17 36
       127 CALL                             R15 2 1
       128 SETTABLEKS                       R15 R14 K45 ["MaxSize"]

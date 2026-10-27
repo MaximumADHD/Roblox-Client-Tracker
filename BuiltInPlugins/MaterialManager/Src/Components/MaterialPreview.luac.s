@@ -68,11 +68,11 @@ PROTO_1:
        72 GETTABLEKS                       R6 R6 K19 ["MeshPart"]
        74 GETIMPORT                        R8 K22 [CFrame.Angles]
        76 LOADN                            R9 0
-       77 LOADK                            R10 K23 [0.785398163397448]
+       77 LOADK                            R10 K23 [0.7853981633974483]
        78 LOADN                            R11 0
        79 CALL                             R8 3 1
        80 GETIMPORT                        R9 K22 [CFrame.Angles]
-       82 LOADK                            R10 K23 [0.785398163397448]
+       82 LOADK                            R10 K23 [0.7853981633974483]
        83 LOADN                            R11 0
        84 LOADN                            R12 0
        85 CALL                             R9 3 1

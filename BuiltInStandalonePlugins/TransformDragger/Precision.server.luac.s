@@ -1182,7 +1182,7 @@ PROTO_48:
 PROTO_49:
         0 JUMPIFNOTEQKN                    R1 K0 [1] ; [+9]
         2 GETIMPORT                        R2 K3 [CFrame.Angles]
-        4 LOADK                            R3 K4 [3.14159265358979]
+        4 LOADK                            R3 K4 [3.141592653589793]
         5 LOADN                            R4 0
         6 LOADN                            R5 0
         7 CALL                             R2 3 1
@@ -1192,7 +1192,7 @@ PROTO_49:
        12 GETIMPORT                        R2 K3 [CFrame.Angles]
        14 LOADN                            R3 0
        15 LOADN                            R4 0
-       16 LOADK                            R5 K6 [-1.5707963267949]
+       16 LOADK                            R5 K6 [-1.5707963267948966]
        17 CALL                             R2 3 1
        18 MUL                              R0 R0 R2
        19 RETURN                           R0 1
@@ -1200,13 +1200,13 @@ PROTO_49:
        22 GETIMPORT                        R2 K3 [CFrame.Angles]
        24 LOADN                            R3 0
        25 LOADN                            R4 0
-       26 LOADK                            R5 K8 [1.5707963267949]
+       26 LOADK                            R5 K8 [1.5707963267948966]
        27 CALL                             R2 3 1
        28 MUL                              R0 R0 R2
        29 RETURN                           R0 1
        30 JUMPIFNOTEQKN                    R1 K9 [4] ; [+9]
        32 GETIMPORT                        R2 K3 [CFrame.Angles]
-       34 LOADK                            R3 K6 [-1.5707963267949]
+       34 LOADK                            R3 K6 [-1.5707963267948966]
        35 LOADN                            R4 0
        36 LOADN                            R5 0
        37 CALL                             R2 3 1
@@ -1214,7 +1214,7 @@ PROTO_49:
        39 RETURN                           R0 1
        40 JUMPIFNOTEQKN                    R1 K10 [5] ; [+8]
        42 GETIMPORT                        R2 K3 [CFrame.Angles]
-       44 LOADK                            R3 K8 [1.5707963267949]
+       44 LOADK                            R3 K8 [1.5707963267948966]
        45 LOADN                            R4 0
        46 LOADN                            R5 0
        47 CALL                             R2 3 1
@@ -3655,7 +3655,7 @@ PROTO_59:
      2584 NAMECALL                         R23 R23 K32 ["toWorldSpace"]
      2586 CALL                             R23 -1 1
      2587 GETIMPORT                        R24 K97 [CFrame.Angles]
-     2589 LOADK                            R25 K113 [1.5707963267949]
+     2589 LOADK                            R25 K113 [1.5707963267948966]
      2590 LOADN                            R26 0
      2591 FASTCALL1                        MATH_RAD R20 ; [+3]
      2592 MOVE                             R28 R20
@@ -3847,7 +3847,7 @@ PROTO_59:
      2839 CALL                             R23 -1 1
      2840 GETIMPORT                        R24 K97 [CFrame.Angles]
      2842 LOADN                            R25 0
-     2843 LOADK                            R26 K113 [1.5707963267949]
+     2843 LOADK                            R26 K113 [1.5707963267948966]
      2844 FASTCALL1                        MATH_RAD R20 ; [+3]
      2845 MOVE                             R28 R20
      2846 GETIMPORT                        R27 K99 [math.rad]
@@ -3912,9 +3912,9 @@ PROTO_59:
      2919 SETTABLEKS                       R9 R8 K122 ["Transparency"]
      2921 GETUPVAL                         R8 27
      2922 GETIMPORT                        R9 K128 [Color3.new]
-     2924 LOADK                            R10 K129 [0.149019607843137]
-     2925 LOADK                            R11 K130 [0.533333333333333]
-     2926 LOADK                            R12 K131 [0.941176470588235]
+     2924 LOADK                            R10 K129 [0.14901960784313725]
+     2925 LOADK                            R11 K130 [0.5333333333333333]
+     2926 LOADK                            R12 K131 [0.9411764705882353]
      2927 CALL                             R9 3 1
      2928 SETTABLEKS                       R9 R8 K127 ["Color3"]
      2930 JUMP                             ; [+1]
@@ -4015,9 +4015,9 @@ PROTO_60:
        39 SETTABLEKS                       R1 R0 K14 ["Visible"]
        41 GETUPVAL                         R0 2
        42 GETIMPORT                        R1 K16 [Color3.new]
-       44 LOADK                            R2 K17 [0.149019607843137]
-       45 LOADK                            R3 K18 [0.533333333333333]
-       46 LOADK                            R4 K19 [0.941176470588235]
+       44 LOADK                            R2 K17 [0.14901960784313725]
+       45 LOADK                            R3 K18 [0.5333333333333333]
+       46 LOADK                            R4 K19 [0.9411764705882353]
        47 CALL                             R1 3 1
        48 SETTABLEKS                       R1 R0 K15 ["Color3"]
        50 GETUPVAL                         R0 2
@@ -5700,7 +5700,7 @@ PROTO_75:
        79 GETTABLEKS                       R14 R14 K19 ["CFrame"]
        81 GETIMPORT                        R15 K25 [CFrame.Angles]
        83 LOADN                            R16 0
-       84 LOADK                            R17 K26 [1.5707963267949]
+       84 LOADK                            R17 K26 [1.5707963267948966]
        85 LOADN                            R18 0
        86 CALL                             R15 3 1
        87 MUL                              R13 R14 R15
@@ -5780,7 +5780,7 @@ PROTO_75:
       187 GETUPVAL                         R14 3
       188 GETTABLEKS                       R14 R14 K19 ["CFrame"]
       190 GETIMPORT                        R15 K25 [CFrame.Angles]
-      192 LOADK                            R16 K26 [1.5707963267949]
+      192 LOADK                            R16 K26 [1.5707963267948966]
       193 LOADN                            R17 0
       194 LOADN                            R18 0
       195 CALL                             R15 3 1
@@ -5847,7 +5847,7 @@ PROTO_75:
       278 GETTABLEKS                       R14 R14 K19 ["CFrame"]
       280 GETIMPORT                        R15 K25 [CFrame.Angles]
       282 LOADN                            R16 0
-      283 LOADK                            R17 K26 [1.5707963267949]
+      283 LOADK                            R17 K26 [1.5707963267948966]
       284 LOADN                            R18 0
       285 CALL                             R15 3 1
       286 MUL                              R13 R14 R15
@@ -6540,7 +6540,7 @@ PROTO_77:
       477 GETIMPORT                        R11 K62 [CFrame.Angles]
       479 LOADN                            R12 0
       480 LOADN                            R13 0
-      481 LOADK                            R14 K63 [1.5707963267949]
+      481 LOADK                            R14 K63 [1.5707963267948966]
       482 CALL                             R11 3 1
       483 MUL                              R9 R10 R11
       484 SETUPVAL                         R9 18
@@ -6551,7 +6551,7 @@ PROTO_77:
       490 JUMPIFNOTEQKN                    R9 K65 [4] ; [+10]
       492 GETUPVAL                         R10 18
       493 GETIMPORT                        R11 K62 [CFrame.Angles]
-      495 LOADK                            R12 K63 [1.5707963267949]
+      495 LOADK                            R12 K63 [1.5707963267948966]
       496 LOADN                            R13 0
       497 LOADN                            R14 0
       498 CALL                             R11 3 1
@@ -7496,9 +7496,9 @@ PROTO_93:
        74 SETTABLEKS                       R1 R0 K12 ["Transparency"]
        76 GETUPVAL                         R0 2
        77 GETIMPORT                        R1 K17 [Color3.new]
-       79 LOADK                            R2 K18 [0.149019607843137]
-       80 LOADK                            R3 K19 [0.533333333333333]
-       81 LOADK                            R4 K20 [0.941176470588235]
+       79 LOADK                            R2 K18 [0.14901960784313725]
+       80 LOADK                            R3 K19 [0.5333333333333333]
+       81 LOADK                            R4 K20 [0.9411764705882353]
        82 CALL                             R1 3 1
        83 SETTABLEKS                       R1 R0 K16 ["Color3"]
        85 RETURN                           R0 0

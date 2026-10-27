@@ -19,27 +19,28 @@ PROTO_0:
        23 GETUPVAL                         R5 3
        24 GETTABLEKS                       R5 R5 K7 ["ContextStack"]
        26 DUPTABLE                         R6 K11 [{"providers"}]
-       27 NEWTABLE                         R7 0 2
+       27 NEWTABLE                         R7 0 1
        29 GETUPVAL                         R8 2
        30 GETTABLEKS                       R8 R8 K9 ["createElement"]
        32 GETUPVAL                         R9 4
-       33 DUPTABLE                         R10 K16 [{["theme"] = "Dark", ["device"] = "Desktop"}]
-       34 CALL                             R8 2 1
-       35 GETUPVAL                         R9 2
-       36 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       38 GETUPVAL                         R10 5
-       39 GETTABLEKS                       R10 R10 K17 ["Provider"]
-       41 DUPTABLE                         R11 K19 [{"localization"}]
-       42 GETUPVAL                         R12 6
-       43 SETTABLEKS                       R12 R11 K18 ["localization"]
-       45 CALL                             R9 2 -1
-       46 SETLIST                          R7 R8 -1 [1]
-       48 SETTABLEKS                       R7 R6 K10 ["providers"]
-       50 MOVE                             R7 R0
-       51 CALL                             R4 3 1
-       52 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
-       54 CALL                             R1 2 -1
-       55 RETURN                           R1 -1
+       33 GETTABLEKS                       R9 R9 K12 ["Provider"]
+       35 DUPTABLE                         R10 K14 [{"localization"}]
+       36 GETUPVAL                         R11 5
+       37 SETTABLEKS                       R11 R10 K13 ["localization"]
+       39 CALL                             R8 2 -1
+       40 SETLIST                          R7 R8 -1 [1]
+       42 SETTABLEKS                       R7 R6 K10 ["providers"]
+       44 MOVE                             R7 R0
+       45 CALL                             R4 3 1
+       46 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
+       48 CALL                             R1 2 1
+       49 GETUPVAL                         R2 2
+       50 GETTABLEKS                       R2 R2 K9 ["createElement"]
+       52 GETUPVAL                         R3 6
+       53 DUPTABLE                         R4 K19 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       54 MOVE                             R5 R1
+       55 CALL                             R2 3 -1
+       56 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -102,7 +103,7 @@ MAIN:
        98 CAPTURE                          VAL R12
        99 CAPTURE                          VAL R1
       100 CAPTURE                          VAL R2
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R9
-      103 CAPTURE                          VAL R13
+      101 CAPTURE                          VAL R9
+      102 CAPTURE                          VAL R13
+      103 CAPTURE                          VAL R7
       104 RETURN                           R14 1

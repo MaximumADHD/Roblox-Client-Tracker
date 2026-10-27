@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["https://www.roblox.com/my/account#!/info"]
-        2 NAMECALL                         R0 R0 K1 ["openLink"]
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["openLink"]
         4 CALL                             R0 2 0
         5 RETURN                           R0 0
 
@@ -38,9 +38,10 @@ PROTO_1:
        38 SETTABLEKS                       R3 R2 K17 ["Label"]
        40 DUPCLOSURE                       R3 K23 [PROTO_0]
        41 CAPTURE                          UPVAL U2
-       42 SETTABLEKS                       R3 R2 K18 ["OnActivated"]
-       44 SETTABLEKS                       R2 R1 K6 ["ActionSecondary"]
-       46 RETURN                           R1 1
+       42 CAPTURE                          UPVAL U3
+       43 SETTABLEKS                       R3 R2 K18 ["OnActivated"]
+       45 SETTABLEKS                       R2 R1 K6 ["ActionSecondary"]
+       47 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -56,16 +57,25 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["Localization"]
        18 GETTABLEKS                       R3 R1 K10 ["Util"]
        20 GETTABLEKS                       R3 R3 K11 ["DialogAction"]
-       22 GETIMPORT                        R4 K5 [require]
-       24 GETTABLEKS                       R5 R0 K12 ["Src"]
-       26 GETTABLEKS                       R5 R5 K10 ["Util"]
-       28 GETTABLEKS                       R5 R5 K13 ["Services"]
-       30 CALL                             R4 1 1
-       31 GETTABLEKS                       R5 R4 K14 ["StartPageManager"]
-       33 NEWTABLE                         R6 1 0
-       35 DUPCLOSURE                       R7 K15 [PROTO_1]
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R5
-       39 SETTABLEKS                       R7 R6 K16 ["get"]
-       41 RETURN                           R6 1
+       22 GETTABLEKS                       R4 R1 K12 ["RobloxAPI"]
+       24 GETTABLEKS                       R4 R4 K13 ["Url"]
+       26 GETIMPORT                        R5 K5 [require]
+       28 GETTABLEKS                       R6 R0 K14 ["Src"]
+       30 GETTABLEKS                       R6 R6 K10 ["Util"]
+       32 GETTABLEKS                       R6 R6 K15 ["Services"]
+       34 CALL                             R5 1 1
+       35 GETTABLEKS                       R6 R5 K16 ["StartPageManager"]
+       37 GETTABLEKS                       R7 R4 K17 ["composeUrl"]
+       39 GETTABLEKS                       R8 R4 K18 ["new"]
+       41 CALL                             R8 0 1
+       42 GETTABLEKS                       R8 R8 K19 ["BASE_URL"]
+       44 LOADK                            R9 K20 ["my/account#!/info"]
+       45 CALL                             R7 2 1
+       46 NEWTABLE                         R8 1 0
+       48 DUPCLOSURE                       R9 K21 [PROTO_1]
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          VAL R6
+       52 CAPTURE                          VAL R7
+       53 SETTABLEKS                       R9 R8 K22 ["get"]
+       55 RETURN                           R8 1

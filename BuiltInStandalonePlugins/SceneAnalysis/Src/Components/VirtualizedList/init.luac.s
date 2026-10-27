@@ -434,7 +434,7 @@ PROTO_24:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["getColumns"]
         3 CALL                             R0 0 1
-        4 LOADK                            R1 K1 [∞]
+        4 LOADK                            R1 K1 [Infinity]
         5 LOADN                            R2 0
         6 LOADNIL                          R3
         7 LOADNIL                          R4

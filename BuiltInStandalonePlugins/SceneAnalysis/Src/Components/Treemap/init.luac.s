@@ -99,7 +99,7 @@ PROTO_4:
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["timeCostOfLastSolve"]
-        2 LOADK                            R2 K1 [0.0333333333333333]
+        2 LOADK                            R2 K1 [0.03333333333333333]
         3 JUMPIFNOTLT                      R1 R2 ; [+7]
         5 LOADB                            R1 1
         6 SETTABLEKS                       R1 R0 K2 ["treemapSolveDirty"]

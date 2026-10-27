@@ -87,8 +87,8 @@ PROTO_5:
         5 GETUPVAL                         R4 1
         6 GETTABLEKS                       R4 R4 K4 ["SpinRate"]
         8 MUL                              R3 R0 R4
-        9 MULK                             R2 R3 K3 [6.28318530717959]
-       10 MODK                             R1 R2 K3 [6.28318530717959]
+        9 MULK                             R2 R3 K3 [6.283185307179586]
+       10 MODK                             R1 R2 K3 [6.283185307179586]
        11 GETUPVAL                         R3 2
        12 GETIMPORT                        R4 K7 [CFrame.Angles]
        14 LOADN                            R5 0

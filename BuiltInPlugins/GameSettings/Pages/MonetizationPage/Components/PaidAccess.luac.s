@@ -78,7 +78,7 @@ PROTO_1:
        78 GETTABLEKS                       R23 R4 K25 ["robuxFeeBase"]
        80 GETTABLEKS                       R23 R23 K26 ["subText"]
        82 GETTABLEKS                       R23 R23 K27 ["width"]
-       84 LOADK                            R24 K28 [∞]
+       84 LOADK                            R24 K28 [Infinity]
        85 CALL                             R22 2 -1
        86 CALL                             R18 -1 1
        87 GETUPVAL                         R19 4

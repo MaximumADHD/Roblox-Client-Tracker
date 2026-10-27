@@ -796,7 +796,7 @@ PROTO_32:
        28 NAMECALL                         R6 R1 K4 ["getText"]
        30 CALL                             R6 3 1
        31 GETIMPORT                        R7 K12 [Vector2.new]
-       33 LOADK                            R8 K13 [∞]
+       33 LOADK                            R8 K13 [Infinity]
        34 GETTABLEKS                       R9 R2 K14 ["button"]
        36 GETTABLEKS                       R9 R9 K15 ["height"]
        38 CALL                             R7 2 1
@@ -924,7 +924,7 @@ PROTO_32:
       213 GETIMPORT                        R32 K12 [Vector2.new]
       215 GETTABLEKS                       R33 R2 K51 ["radioButton"]
       217 GETTABLEKS                       R33 R33 K52 ["descriptionWidth"]
-      219 LOADK                            R34 K13 [∞]
+      219 LOADK                            R34 K13 [Infinity]
       220 CALL                             R32 2 -1
       221 NAMECALL                         R27 R27 K53 ["GetTextSize"]
       223 CALL                             R27 -1 1

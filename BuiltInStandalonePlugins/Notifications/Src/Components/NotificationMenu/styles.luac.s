@@ -82,7 +82,7 @@ MAIN:
       122 LOADK                            R21 K61 ["::UISizeConstraint"]
       123 DUPTABLE                         R22 K63 [{"MaxSize"}]
       124 GETIMPORT                        R23 K65 [Vector2.new]
-      126 LOADK                            R24 K66 [∞]
+      126 LOADK                            R24 K66 [Infinity]
       127 LOADN                            R25 48
       128 CALL                             R23 2 1
       129 SETTABLEKS                       R23 R22 K62 ["MaxSize"]

@@ -681,7 +681,7 @@ PROTO_3:
       237 RETURN                           R0 0
 
 PROTO_4:
-        0 LOADK                            R4 K0 [0.00833333333333333]
+        0 LOADK                            R4 K0 [0.008333333333333333]
         1 LOADK                            R5 K1 [0.02]
         2 FASTCALL3                        MATH_CLAMP R1 R4 R5
         4 MOVE                             R3 R1
@@ -744,10 +744,10 @@ PROTO_5:
        20 NAMECALL                         R5 R0 K6 ["onRenderStepSock"]
        22 CALL                             R5 2 0
        23 GETTABLEKS                       R5 R0 K7 ["rapTimeSoFar"]
-       25 LOADK                            R6 K8 [3.14159265358979]
+       25 LOADK                            R6 K8 [3.141592653589793]
        26 JUMPIFNOTLT                      R6 R5 ; [+6]
        28 GETTABLEKS                       R5 R0 K7 ["rapTimeSoFar"]
-       30 SUBK                             R5 R5 K8 [3.14159265358979]
+       30 SUBK                             R5 R5 K8 [3.141592653589793]
        31 SETTABLEKS                       R5 R0 K7 ["rapTimeSoFar"]
        33 GETTABLEKS                       R5 R0 K7 ["rapTimeSoFar"]
        35 ADD                              R5 R5 R3

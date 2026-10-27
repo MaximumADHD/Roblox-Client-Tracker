@@ -79,7 +79,7 @@ PROTO_2:
         7 GETUPVAL                         R1 1
         8 GETTABLEKS                       R1 R1 K5 ["FontSize"]
        10 SETTABLEKS                       R1 R0 K6 ["Size"]
-       12 LOADK                            R1 K7 [∞]
+       12 LOADK                            R1 K7 [Infinity]
        13 SETTABLEKS                       R1 R0 K8 ["Width"]
        15 GETUPVAL                         R1 2
        16 GETUPVAL                         R2 3

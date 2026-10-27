@@ -1540,73 +1540,91 @@ PROTO_55:
        53 RETURN                           R4 -1
 
 PROTO_56:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
-        3 GETUPVAL                         R1 1
-        4 LOADK                            R2 K1 ["clickWithoutValidation"]
-        5 CALL                             R0 2 0
-        6 RETURN                           R0 0
+        0 LOADK                            R3 K0 ["GuiButton"]
+        1 NAMECALL                         R1 R0 K1 ["IsA"]
+        3 CALL                             R1 2 1
+        4 JUMPIFNOT                        R1 ; [+1]
+        5 RETURN                           R0 1
+        6 LOADK                            R3 K0 ["GuiButton"]
+        7 LOADB                            R4 1
+        8 NAMECALL                         R1 R0 K2 ["FindFirstChildWhichIsA"]
+       10 CALL                             R1 3 1
+       11 JUMPIFNOT                        R1 ; [+6]
+       12 LOADK                            R4 K0 ["GuiButton"]
+       13 NAMECALL                         R2 R1 K1 ["IsA"]
+       15 CALL                             R2 2 1
+       16 JUMPIFNOT                        R2 ; [+1]
+       17 RETURN                           R1 1
+       18 LOADNIL                          R2
+       19 RETURN                           R2 1
 
 PROTO_57:
-        0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["AddAssetId"]
-        2 LOADB                            R3 1
-        3 NAMECALL                         R0 R0 K1 ["FindFirstChild"]
-        5 CALL                             R0 3 1
-        6 JUMPIFNOTEQKNIL                  R0 ; [+5]
-        8 GETIMPORT                        R1 K3 [error]
-       10 LOADK                            R2 K4 ["AddAssetId button not found on SimpleSelectScreen"]
-       11 CALL                             R1 1 0
-       12 LOADNIL                          R1
-       13 LOADK                            R4 K5 ["ImageButton"]
-       14 NAMECALL                         R2 R0 K6 ["IsA"]
-       16 CALL                             R2 2 1
-       17 JUMPIF                           R2 ; [+5]
-       18 LOADK                            R4 K7 ["TextButton"]
-       19 NAMECALL                         R2 R0 K6 ["IsA"]
-       21 CALL                             R2 2 1
-       22 JUMPIFNOT                        R2 ; [+2]
-       23 MOVE                             R1 R0
-       24 JUMP                             ; [+12]
-       25 LOADK                            R4 K5 ["ImageButton"]
-       26 LOADB                            R5 1
-       27 NAMECALL                         R2 R0 K8 ["FindFirstChildWhichIsA"]
-       29 CALL                             R2 3 1
-       30 JUMPIF                           R2 ; [+5]
-       31 LOADK                            R4 K7 ["TextButton"]
-       32 LOADB                            R5 1
-       33 NAMECALL                         R2 R0 K8 ["FindFirstChildWhichIsA"]
-       35 CALL                             R2 3 1
-       36 MOVE                             R1 R2
-       37 JUMPIFNOTEQKNIL                  R1 ; [+5]
-       39 GETIMPORT                        R2 K3 [error]
-       41 LOADK                            R3 K9 ["Clickable button not found inside AddAssetId node"]
-       42 CALL                             R2 1 0
-       43 MOVE                             R2 R1
-       44 GETUPVAL                         R3 1
-       45 MOVE                             R4 R2
-       46 GETUPVAL                         R5 0
-       47 CALL                             R3 2 1
-       48 GETUPVAL                         R4 2
-       49 SETTABLEKS                       R4 R2 K10 ["Size"]
-       51 GETUPVAL                         R4 3
-       52 GETTABLEKS                       R4 R4 K11 ["act"]
-       54 NEWCLOSURE                       R5 P0
-       55 CAPTURE                          UPVAL U4
-       56 CAPTURE                          VAL R2
-       57 CALL                             R4 1 0
-       58 MOVE                             R4 R3
-       59 LOADNIL                          R5
-       60 LOADNIL                          R6
-       61 FORGPREP                         R4
-       62 GETTABLEKS                       R9 R8 K12 ["gui"]
-       64 GETTABLEKS                       R9 R9 K13 ["Parent"]
-       66 JUMPIFNOT                        R9 ; [+6]
-       67 GETTABLEKS                       R9 R8 K12 ["gui"]
-       69 GETTABLEKS                       R10 R8 K14 ["old"]
-       71 SETTABLEKS                       R10 R9 K10 ["Size"]
-       73 FORGLOOP                         R4 2 ; [-12]
-       75 RETURN                           R0 0
+        0 LOADNIL                          R0
+        1 LOADN                            R1 -1
+        2 LOADB                            R2 0
+        3 LOADB                            R3 0
+        4 GETUPVAL                         R4 0
+        5 NAMECALL                         R4 R4 K0 ["GetDescendants"]
+        7 CALL                             R4 1 3
+        8 FORGPREP                         R4
+        9 GETTABLEKS                       R9 R8 K1 ["Name"]
+       11 JUMPIFNOTEQKS                    R9 K2 ["AddAssetId"] ; [+50]
+       13 LOADB                            R2 1
+       14 LOADK                            R12 K3 ["GuiButton"]
+       15 NAMECALL                         R10 R8 K4 ["IsA"]
+       17 CALL                             R10 2 1
+       18 JUMPIFNOT                        R10 ; [+2]
+       19 MOVE                             R9 R8
+       20 JUMP                             ; [+14]
+       21 LOADK                            R12 K3 ["GuiButton"]
+       22 LOADB                            R13 1
+       23 NAMECALL                         R10 R8 K5 ["FindFirstChildWhichIsA"]
+       25 CALL                             R10 3 1
+       26 JUMPIFNOT                        R10 ; [+7]
+       27 LOADK                            R13 K3 ["GuiButton"]
+       28 NAMECALL                         R11 R10 K4 ["IsA"]
+       30 CALL                             R11 2 1
+       31 JUMPIFNOT                        R11 ; [+2]
+       32 MOVE                             R9 R10
+       33 JUMP                             ; [+1]
+       34 LOADNIL                          R9
+       35 JUMPIFEQKNIL                     R9 ; [+26]
+       37 LOADB                            R3 1
+       38 LOADK                            R12 K6 ["ScreenGui"]
+       39 NAMECALL                         R10 R9 K7 ["FindFirstAncestorWhichIsA"]
+       41 CALL                             R10 2 1
+       42 JUMPIFEQKNIL                     R10 ; [+4]
+       44 GETTABLEKS                       R11 R10 K8 ["Enabled"]
+       46 JUMPIFNOT                        R11 ; [+15]
+       47 GETTABLEKS                       R12 R9 K9 ["AbsoluteSize"]
+       49 GETTABLEKS                       R12 R12 K10 ["X"]
+       51 GETTABLEKS                       R13 R9 K9 ["AbsoluteSize"]
+       53 GETTABLEKS                       R13 R13 K11 ["Y"]
+       55 MUL                              R11 R12 R13
+       56 JUMPIFEQKNIL                     R0 ; [+3]
+       58 JUMPIFNOTLE                      R1 R11 ; [+3]
+       60 MOVE                             R0 R9
+       61 MOVE                             R1 R11
+       62 FORGLOOP                         R4 2 ; [-54]
+       64 JUMPIF                           R2 ; [+4]
+       65 GETIMPORT                        R4 K13 [error]
+       67 LOADK                            R5 K14 ["AddAssetId button not found on SimpleSelectScreen"]
+       68 CALL                             R4 1 0
+       69 JUMPIFNOT                        R3 ; [+2]
+       70 JUMPIFNOTEQKNIL                  R0 ; [+5]
+       72 GETIMPORT                        R4 K13 [error]
+       74 LOADK                            R5 K15 ["Clickable button not found inside AddAssetId node"]
+       75 CALL                             R4 1 0
+       76 GETUPVAL                         R4 1
+       77 MOVE                             R5 R0
+       78 DUPTABLE                         R6 K20 [{["resizeAncestors"] = True, ["forceResize"] = True, ["raiseZIndex"] = True}]
+       79 CALL                             R4 2 0
+       80 GETUPVAL                         R4 2
+       81 GETTABLEKS                       R4 R4 K21 ["act"]
+       83 GETUPVAL                         R5 3
+       84 GETTABLEKS                       R5 R5 K22 ["deferYield"]
+       86 CALL                             R4 1 0
+       87 RETURN                           R0 0
 
 PROTO_58:
         0 GETUPVAL                         R0 0
@@ -3081,91 +3099,91 @@ MAIN:
      1337 CAPTURE                          VAL R21
      1338 CAPTURE                          VAL R22
      1339 SETTABLEKS                       R46 R28 K297 ["lookCreationStartFromAssetIdTest"]
-     1341 DUPCLOSURE                       R46 K298 [PROTO_57]
-     1342 CAPTURE                          VAL R0
-     1343 CAPTURE                          VAL R36
-     1344 CAPTURE                          VAL R34
+     1341 DUPCLOSURE                       R46 K298 [PROTO_56]
+     1342 DUPCLOSURE                       R47 K299 [PROTO_57]
+     1343 CAPTURE                          VAL R0
+     1344 CAPTURE                          VAL R17
      1345 CAPTURE                          VAL R6
-     1346 CAPTURE                          VAL R7
-     1347 SETTABLEKS                       R46 R28 K299 ["clickAddAssetIdButton"]
-     1349 DUPCLOSURE                       R46 K300 [PROTO_60]
+     1346 CAPTURE                          VAL R16
+     1347 SETTABLEKS                       R47 R28 K300 ["clickAddAssetIdButton"]
+     1349 DUPCLOSURE                       R47 K301 [PROTO_60]
      1350 CAPTURE                          VAL R0
      1351 CAPTURE                          VAL R7
      1352 CAPTURE                          VAL R6
-     1353 SETTABLEKS                       R46 R28 K301 ["openAssetImportDialog"]
-     1355 DUPCLOSURE                       R46 K302 [PROTO_61]
+     1353 SETTABLEKS                       R47 R28 K302 ["openAssetImportDialog"]
+     1355 DUPCLOSURE                       R47 K303 [PROTO_61]
      1356 CAPTURE                          VAL R7
      1357 CAPTURE                          VAL R0
-     1358 DUPCLOSURE                       R47 K303 [PROTO_62]
+     1358 DUPCLOSURE                       R48 K304 [PROTO_62]
      1359 CAPTURE                          VAL R7
      1360 CAPTURE                          VAL R0
-     1361 DUPCLOSURE                       R48 K304 [PROTO_65]
+     1361 DUPCLOSURE                       R49 K305 [PROTO_65]
      1362 CAPTURE                          VAL R7
      1363 CAPTURE                          VAL R0
      1364 CAPTURE                          VAL R6
      1365 CAPTURE                          VAL R34
-     1366 SETTABLEKS                       R48 R28 K305 ["typeTextInImportDialog"]
-     1368 DUPCLOSURE                       R48 K306 [PROTO_67]
+     1366 SETTABLEKS                       R49 R28 K306 ["typeTextInImportDialog"]
+     1368 DUPCLOSURE                       R49 K307 [PROTO_67]
      1369 CAPTURE                          VAL R28
      1370 CAPTURE                          VAL R7
      1371 CAPTURE                          VAL R0
      1372 CAPTURE                          VAL R6
-     1373 SETTABLEKS                       R48 R28 K307 ["enterTextInImportDialog"]
-     1375 DUPCLOSURE                       R48 K308 [PROTO_68]
+     1373 SETTABLEKS                       R49 R28 K308 ["enterTextInImportDialog"]
+     1375 DUPCLOSURE                       R49 K309 [PROTO_68]
      1376 CAPTURE                          VAL R7
      1377 CAPTURE                          VAL R0
-     1378 SETTABLEKS                       R48 R28 K309 ["getImportDialogText"]
-     1380 DUPCLOSURE                       R48 K310 [PROTO_69]
+     1378 SETTABLEKS                       R49 R28 K310 ["getImportDialogText"]
+     1380 DUPCLOSURE                       R49 K311 [PROTO_69]
      1381 CAPTURE                          VAL R7
      1382 CAPTURE                          VAL R0
-     1383 SETTABLEKS                       R48 R28 K311 ["isImportDialogAddItemButtonEnabled"]
-     1385 DUPCLOSURE                       R48 K312 [PROTO_70]
+     1383 SETTABLEKS                       R49 R28 K312 ["isImportDialogAddItemButtonEnabled"]
+     1385 DUPCLOSURE                       R49 K313 [PROTO_70]
      1386 CAPTURE                          VAL R17
      1387 CAPTURE                          VAL R7
      1388 CAPTURE                          VAL R0
-     1389 SETTABLEKS                       R48 R28 K313 ["clickAddItemButtonImportDialog"]
-     1391 DUPCLOSURE                       R48 K314 [PROTO_72]
+     1389 SETTABLEKS                       R49 R28 K314 ["clickAddItemButtonImportDialog"]
+     1391 DUPCLOSURE                       R49 K315 [PROTO_72]
      1392 CAPTURE                          VAL R9
      1393 CAPTURE                          VAL R28
-     1394 SETTABLEKS                       R48 R28 K315 ["addAssetIdsToImportDialog"]
-     1396 DUPCLOSURE                       R48 K316 [PROTO_73]
+     1394 SETTABLEKS                       R49 R28 K316 ["addAssetIdsToImportDialog"]
+     1396 DUPCLOSURE                       R49 K317 [PROTO_73]
      1397 CAPTURE                          VAL R28
-     1398 SETTABLEKS                       R48 R28 K317 ["loadItemsIntoImportDialog"]
-     1400 DUPCLOSURE                       R48 K318 [PROTO_74]
+     1398 SETTABLEKS                       R49 R28 K318 ["loadItemsIntoImportDialog"]
+     1400 DUPCLOSURE                       R49 K319 [PROTO_74]
      1401 CAPTURE                          VAL R7
      1402 CAPTURE                          VAL R0
-     1403 SETTABLEKS                       R48 R28 K319 ["getImportItemPriceText"]
-     1405 DUPCLOSURE                       R48 K320 [PROTO_75]
+     1403 SETTABLEKS                       R49 R28 K320 ["getImportItemPriceText"]
+     1405 DUPCLOSURE                       R49 K321 [PROTO_75]
      1406 CAPTURE                          VAL R7
      1407 CAPTURE                          VAL R0
-     1408 SETTABLEKS                       R48 R28 K321 ["getLookItemPriceText"]
-     1410 DUPCLOSURE                       R48 K322 [PROTO_77]
+     1408 SETTABLEKS                       R49 R28 K322 ["getLookItemPriceText"]
+     1410 DUPCLOSURE                       R49 K323 [PROTO_77]
      1411 CAPTURE                          VAL R7
      1412 CAPTURE                          VAL R0
      1413 CAPTURE                          VAL R9
-     1414 SETTABLEKS                       R48 R28 K323 ["getImportDialogItemNames"]
-     1416 DUPCLOSURE                       R48 K324 [PROTO_78]
+     1414 SETTABLEKS                       R49 R28 K324 ["getImportDialogItemNames"]
+     1416 DUPCLOSURE                       R49 K325 [PROTO_78]
      1417 CAPTURE                          VAL R32
-     1418 SETTABLEKS                       R48 R28 K325 ["getMockItemName"]
-     1420 DUPCLOSURE                       R48 K326 [PROTO_79]
+     1418 SETTABLEKS                       R49 R28 K326 ["getMockItemName"]
+     1420 DUPCLOSURE                       R49 K327 [PROTO_79]
      1421 CAPTURE                          VAL R28
-     1422 SETTABLEKS                       R48 R28 K327 ["hasImportNothingFoundError"]
-     1424 DUPCLOSURE                       R48 K328 [PROTO_80]
+     1422 SETTABLEKS                       R49 R28 K328 ["hasImportNothingFoundError"]
+     1424 DUPCLOSURE                       R49 K329 [PROTO_80]
      1425 CAPTURE                          VAL R28
-     1426 SETTABLEKS                       R48 R28 K329 ["hasImportNothingFoundErrorForIds"]
-     1428 DUPCLOSURE                       R48 K330 [PROTO_82]
+     1426 SETTABLEKS                       R49 R28 K330 ["hasImportNothingFoundErrorForIds"]
+     1428 DUPCLOSURE                       R49 K331 [PROTO_82]
      1429 CAPTURE                          VAL R0
      1430 CAPTURE                          VAL R34
      1431 CAPTURE                          VAL R6
      1432 CAPTURE                          VAL R7
-     1433 SETTABLEKS                       R48 R28 K331 ["clickAddItemsButtonImportDialog"]
-     1435 DUPCLOSURE                       R48 K332 [PROTO_85]
+     1433 SETTABLEKS                       R49 R28 K332 ["clickAddItemsButtonImportDialog"]
+     1435 DUPCLOSURE                       R49 K333 [PROTO_85]
      1436 CAPTURE                          VAL R0
      1437 CAPTURE                          VAL R7
      1438 CAPTURE                          VAL R6
-     1439 SETTABLEKS                       R48 R28 K333 ["openLookComposerDialog"]
-     1441 DUPCLOSURE                       R48 K334 [PROTO_86]
+     1439 SETTABLEKS                       R49 R28 K334 ["openLookComposerDialog"]
+     1441 DUPCLOSURE                       R49 K335 [PROTO_86]
      1442 CAPTURE                          VAL R28
-     1443 SETTABLEKS                       R48 R28 K335 ["importMarketplaceItems"]
+     1443 SETTABLEKS                       R49 R28 K336 ["importMarketplaceItems"]
      1445 CLOSEUPVALS                      R38
      1446 RETURN                           R28 1

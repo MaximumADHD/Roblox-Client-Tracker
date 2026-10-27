@@ -17,17 +17,17 @@ PROTO_0:
        22 NAMECALL                         R4 R4 K10 ["setAutoSkinningBehavior"]
        24 CALL                             R4 3 0
        25 GETUPVAL                         R4 0
-       26 DUPTABLE                         R6 K12 [{"isAutoSkinBehaviorOverride"}]
+       26 DUPTABLE                         R6 K14 [{["isAutoSkinBehaviorOverride"], ["isAutoSkinBehaviorDisabled"] = False}]
        27 GETUPVAL                         R7 0
        28 GETTABLEKS                       R7 R7 K11 ["isAutoSkinBehaviorOverride"]
        30 MOVE                             R8 R3
        31 CALL                             R7 1 1
        32 SETTABLEKS                       R7 R6 K11 ["isAutoSkinBehaviorOverride"]
-       34 NAMECALL                         R4 R4 K13 ["setState"]
+       34 NAMECALL                         R4 R4 K15 ["setState"]
        36 CALL                             R4 2 0
-       37 GETTABLEKS                       R4 R0 K14 ["Analytics"]
-       39 LOADK                            R6 K15 ["AutoSkinningToggled"]
-       40 NAMECALL                         R4 R4 K16 ["getHandler"]
+       37 GETTABLEKS                       R4 R0 K16 ["Analytics"]
+       39 LOADK                            R6 K17 ["AutoSkinningToggled"]
+       40 NAMECALL                         R4 R4 K18 ["getHandler"]
        42 CALL                             R4 2 1
        43 GETUPVAL                         R5 0
        44 GETTABLEKS                       R5 R5 K11 ["isAutoSkinBehaviorOverride"]
@@ -127,30 +127,30 @@ PROTO_5:
        14 RETURN                           R0 1
 
 PROTO_6:
-        0 DUPTABLE                         R1 K2 [{[1] = False}]
-        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["isAutoSkinBehaviorDisabled"] = False}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          VAL R0
         5 CAPTURE                          UPVAL U0
-        6 SETTABLEKS                       R1 R0 K4 ["autoSkinButtonClicked"]
-        8 DUPCLOSURE                       R1 K5 [PROTO_1]
+        6 SETTABLEKS                       R1 R0 K5 ["autoSkinButtonClicked"]
+        8 DUPCLOSURE                       R1 K6 [PROTO_1]
         9 SETTABLEKS                       R1 R0 K0 ["isAutoSkinBehaviorOverride"]
        11 NEWCLOSURE                       R1 P2
        12 CAPTURE                          VAL R0
        13 CAPTURE                          UPVAL U1
-       14 SETTABLEKS                       R1 R0 K6 ["cageEditingButtonClicked"]
+       14 SETTABLEKS                       R1 R0 K7 ["cageEditingButtonClicked"]
        16 NEWCLOSURE                       R1 P3
        17 CAPTURE                          VAL R0
        18 CAPTURE                          UPVAL U1
-       19 SETTABLEKS                       R1 R0 K7 ["outerCageButtonClicked"]
+       19 SETTABLEKS                       R1 R0 K8 ["outerCageButtonClicked"]
        21 NEWCLOSURE                       R1 P4
        22 CAPTURE                          VAL R0
        23 CAPTURE                          UPVAL U1
-       24 SETTABLEKS                       R1 R0 K8 ["innerCageButtonClicked"]
+       24 SETTABLEKS                       R1 R0 K9 ["innerCageButtonClicked"]
        26 NEWCLOSURE                       R1 P5
        27 CAPTURE                          VAL R0
        28 CAPTURE                          UPVAL U1
-       29 SETTABLEKS                       R1 R0 K9 ["isCageEditingActive"]
+       29 SETTABLEKS                       R1 R0 K10 ["isCageEditingActive"]
        31 RETURN                           R0 0
 
 PROTO_7:
@@ -194,22 +194,38 @@ PROTO_8:
        10 MOVE                             R5 R2
        11 NAMECALL                         R3 R3 K3 ["getAutoSkinningBehavior"]
        13 CALL                             R3 2 1
-       14 GETIMPORT                        R4 K7 [Enum.WrapLayerAutoSkin.Disabled]
-       16 JUMPIFNOTEQ                      R3 R4 ; [+3]
-       18 GETIMPORT                        R3 K9 [Enum.WrapLayerAutoSkin.EnabledOverride]
-       20 GETUPVAL                         R4 0
-       21 MOVE                             R6 R2
-       22 MOVE                             R7 R3
-       23 NAMECALL                         R4 R4 K10 ["setAutoSkinningBehavior"]
-       25 CALL                             R4 3 0
-       26 DUPTABLE                         R6 K12 [{"isAutoSkinBehaviorOverride"}]
-       27 GETTABLEKS                       R7 R0 K11 ["isAutoSkinBehaviorOverride"]
-       29 MOVE                             R8 R3
-       30 CALL                             R7 1 1
-       31 SETTABLEKS                       R7 R6 K11 ["isAutoSkinBehaviorOverride"]
-       33 NAMECALL                         R4 R0 K13 ["setState"]
-       35 CALL                             R4 2 0
-       36 RETURN                           R0 0
+       14 GETUPVAL                         R4 1
+       15 CALL                             R4 0 1
+       16 JUMPIFNOT                        R4 ; [+19]
+       17 DUPTABLE                         R6 K6 [{"isAutoSkinBehaviorOverride", "isAutoSkinBehaviorDisabled"}]
+       18 GETTABLEKS                       R7 R0 K4 ["isAutoSkinBehaviorOverride"]
+       20 MOVE                             R8 R3
+       21 CALL                             R7 1 1
+       22 SETTABLEKS                       R7 R6 K4 ["isAutoSkinBehaviorOverride"]
+       24 GETIMPORT                        R8 K10 [Enum.WrapLayerAutoSkin.Disabled]
+       26 JUMPIFEQ                         R3 R8 ; [+2]
+       28 LOADB                            R7 0 +1
+       29 LOADB                            R7 1
+       30 SETTABLEKS                       R7 R6 K5 ["isAutoSkinBehaviorDisabled"]
+       32 NAMECALL                         R4 R0 K11 ["setState"]
+       34 CALL                             R4 2 0
+       35 RETURN                           R0 0
+       36 GETIMPORT                        R4 K10 [Enum.WrapLayerAutoSkin.Disabled]
+       38 JUMPIFNOTEQ                      R3 R4 ; [+3]
+       40 GETIMPORT                        R3 K13 [Enum.WrapLayerAutoSkin.EnabledOverride]
+       42 GETUPVAL                         R4 0
+       43 MOVE                             R6 R2
+       44 MOVE                             R7 R3
+       45 NAMECALL                         R4 R4 K14 ["setAutoSkinningBehavior"]
+       47 CALL                             R4 3 0
+       48 DUPTABLE                         R6 K15 [{"isAutoSkinBehaviorOverride"}]
+       49 GETTABLEKS                       R7 R0 K4 ["isAutoSkinBehaviorOverride"]
+       51 MOVE                             R8 R3
+       52 CALL                             R7 1 1
+       53 SETTABLEKS                       R7 R6 K4 ["isAutoSkinBehaviorOverride"]
+       55 NAMECALL                         R4 R0 K11 ["setState"]
+       57 CALL                             R4 2 0
+       58 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -230,134 +246,150 @@ PROTO_9:
        27 GETTABLEKS                       R14 R0 K12 ["isCageEditingActive"]
        29 CALL                             R14 0 1
        30 GETTABLEKS                       R15 R2 K13 ["isAutoSkinBehaviorOverride"]
-       32 GETUPVAL                         R16 0
-       33 GETTABLEKS                       R16 R16 K14 ["new"]
-       35 CALL                             R16 0 1
-       36 GETUPVAL                         R17 1
-       37 GETTABLEKS                       R17 R17 K15 ["createElement"]
-       39 GETUPVAL                         R18 2
-       40 DUPTABLE                         R19 K21 [{"Size", "AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "Spacing", "Padding"}]
-       41 GETIMPORT                        R20 K23 [UDim2.new]
-       43 LOADN                            R21 0
-       44 LOADN                            R22 0
-       45 LOADN                            R23 0
-       46 MOVE                             R24 R13
-       47 CALL                             R20 4 1
-       48 SETTABLEKS                       R20 R19 K16 ["Size"]
-       50 GETIMPORT                        R20 K26 [Enum.AutomaticSize.X]
-       52 SETTABLEKS                       R20 R19 K17 ["AutomaticSize"]
-       54 GETIMPORT                        R20 K29 [Enum.FillDirection.Horizontal]
-       56 SETTABLEKS                       R20 R19 K18 ["Layout"]
-       58 SETTABLEKS                       R3 R19 K2 ["LayoutOrder"]
-       60 GETIMPORT                        R20 K31 [Enum.HorizontalAlignment.Left]
-       62 SETTABLEKS                       R20 R19 K19 ["HorizontalAlignment"]
-       64 SETTABLEKS                       R11 R19 K20 ["Spacing"]
-       66 SETTABLEKS                       R11 R19 K10 ["Padding"]
-       68 DUPTABLE                         R20 K37 [{"CageEditingButton", "CageTypeToggle", "FalloffSlider", "AutoSkinButton", "OptionsDropdownButton"}]
-       69 JUMPIFNOT                        R14 ; [+4]
-       70 GETUPVAL                         R23 3
-       71 GETTABLEKS                       R23 R23 K38 ["Pressed"]
-       73 JUMP                             ; [+1]
-       74 LOADNIL                          R23
-       75 NAMECALL                         R24 R16 K39 ["getNextOrder"]
-       77 CALL                             R24 1 1
-       78 GETTABLEKS                       R25 R10 K40 ["CageModeIcon"]
-       80 GETTABLEKS                       R26 R0 K41 ["cageEditingButtonClicked"]
-       82 LOADK                            R29 K42 ["EditingMode"]
-       83 LOADK                            R30 K43 ["Text"]
-       84 NAMECALL                         R27 R4 K44 ["getText"]
-       86 CALL                             R27 3 -1
-       87 NAMECALL                         R21 R0 K45 ["renderButton"]
-       89 CALL                             R21 -1 1
-       90 SETTABLEKS                       R21 R20 K32 ["CageEditingButton"]
-       92 MOVE                             R21 R14
-       93 JUMPIFNOT                        R21 ; [+53]
-       94 GETUPVAL                         R21 1
-       95 GETTABLEKS                       R21 R21 K15 ["createElement"]
-       97 GETUPVAL                         R22 4
-       98 DUPTABLE                         R23 K53 [{"ButtonSize", "LayoutOrder", "LeftIcon", "RightIcon", "LeftTooltipText", "RightTooltipText", "OnLeftSideClick", "OnRightSideClick", "IsOn"}]
-       99 GETTABLEKS                       R24 R10 K11 ["ButtonSize"]
-      101 SETTABLEKS                       R24 R23 K11 ["ButtonSize"]
-      103 NAMECALL                         R24 R16 K39 ["getNextOrder"]
-      105 CALL                             R24 1 1
-      106 SETTABLEKS                       R24 R23 K2 ["LayoutOrder"]
-      108 GETTABLEKS                       R24 R10 K54 ["OuterCageIcon"]
-      110 SETTABLEKS                       R24 R23 K46 ["LeftIcon"]
-      112 GETTABLEKS                       R24 R10 K55 ["InnerCageIcon"]
-      114 SETTABLEKS                       R24 R23 K47 ["RightIcon"]
-      116 LOADK                            R26 K42 ["EditingMode"]
-      117 LOADK                            R27 K56 ["OuterCage"]
-      118 NAMECALL                         R24 R4 K44 ["getText"]
-      120 CALL                             R24 3 1
-      121 SETTABLEKS                       R24 R23 K48 ["LeftTooltipText"]
-      123 LOADK                            R26 K42 ["EditingMode"]
-      124 LOADK                            R27 K57 ["InnerCage"]
-      125 NAMECALL                         R24 R4 K44 ["getText"]
-      127 CALL                             R24 3 1
-      128 SETTABLEKS                       R24 R23 K49 ["RightTooltipText"]
-      130 GETTABLEKS                       R24 R0 K58 ["outerCageButtonClicked"]
-      132 SETTABLEKS                       R24 R23 K50 ["OnLeftSideClick"]
-      134 GETTABLEKS                       R24 R0 K59 ["innerCageButtonClicked"]
-      136 SETTABLEKS                       R24 R23 K51 ["OnRightSideClick"]
-      138 GETIMPORT                        R25 K62 [Enum.CageType.Inner]
-      140 JUMPIFEQ                         R5 R25 ; [+2]
-      142 LOADB                            R24 0 +1
-      143 LOADB                            R24 1
-      144 SETTABLEKS                       R24 R23 K52 ["IsOn"]
-      146 CALL                             R21 2 1
-      147 SETTABLEKS                       R21 R20 K33 ["CageTypeToggle"]
-      149 MOVE                             R21 R14
-      150 JUMPIFNOT                        R21 ; [+13]
-      151 GETUPVAL                         R21 1
-      152 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      154 GETUPVAL                         R22 5
-      155 DUPTABLE                         R23 K63 [{"LayoutOrder", "ShowMinimal"}]
-      156 NAMECALL                         R24 R16 K39 ["getNextOrder"]
-      158 CALL                             R24 1 1
-      159 SETTABLEKS                       R24 R23 K2 ["LayoutOrder"]
-      161 SETTABLEKS                       R6 R23 K5 ["ShowMinimal"]
-      163 CALL                             R21 2 1
-      164 SETTABLEKS                       R21 R20 K34 ["FalloffSlider"]
-      166 JUMPIFNOT                        R15 ; [+4]
-      167 GETUPVAL                         R23 3
-      168 GETTABLEKS                       R23 R23 K38 ["Pressed"]
-      170 JUMP                             ; [+1]
-      171 LOADNIL                          R23
-      172 NAMECALL                         R24 R16 K39 ["getNextOrder"]
-      174 CALL                             R24 1 1
-      175 GETTABLEKS                       R25 R10 K64 ["AutoWeightIcon"]
-      177 GETTABLEKS                       R26 R0 K65 ["autoSkinButtonClicked"]
-      179 JUMPIFNOT                        R15 ; [+6]
-      180 LOADK                            R29 K42 ["EditingMode"]
-      181 LOADK                            R30 K66 ["AutoWeightOverride"]
-      182 NAMECALL                         R27 R4 K44 ["getText"]
-      184 CALL                             R27 3 1
-      185 JUMP                             ; [+5]
-      186 LOADK                            R29 K42 ["EditingMode"]
-      187 LOADK                            R30 K67 ["AutoWeightPreserve"]
-      188 NAMECALL                         R27 R4 K44 ["getText"]
-      190 CALL                             R27 3 1
-      191 NAMECALL                         R21 R0 K45 ["renderButton"]
-      193 CALL                             R21 6 1
-      194 SETTABLEKS                       R21 R20 K35 ["AutoSkinButton"]
-      196 MOVE                             R21 R9
-      197 JUMPIFNOT                        R21 ; [+21]
-      198 GETUPVAL                         R21 1
-      199 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      201 GETUPVAL                         R22 6
-      202 DUPTABLE                         R23 K71 [{"ButtonSize", "Icon", "Items", "OnItemActivated", "LayoutOrder"}]
-      203 SETTABLEKS                       R12 R23 K11 ["ButtonSize"]
-      205 GETTABLEKS                       R24 R10 K72 ["OptionsIcon"]
-      207 SETTABLEKS                       R24 R23 K68 ["Icon"]
-      209 SETTABLEKS                       R7 R23 K69 ["Items"]
-      211 SETTABLEKS                       R8 R23 K70 ["OnItemActivated"]
-      213 NAMECALL                         R24 R16 K39 ["getNextOrder"]
-      215 CALL                             R24 1 1
-      216 SETTABLEKS                       R24 R23 K2 ["LayoutOrder"]
-      218 CALL                             R21 2 1
-      219 SETTABLEKS                       R21 R20 K36 ["OptionsDropdownButton"]
-      221 CALL                             R17 3 -1
-      222 RETURN                           R17 -1
+       32 JUMPIFNOT                        R15 ; [+2]
+       33 LOADK                            R16 K14 ["AutoWeightOverride"]
+       34 JUMP                             ; [+6]
+       35 GETTABLEKS                       R17 R2 K15 ["isAutoSkinBehaviorDisabled"]
+       37 JUMPIFNOT                        R17 ; [+2]
+       38 LOADK                            R16 K16 ["AutoWeightDisabled"]
+       39 JUMP                             ; [+1]
+       40 LOADK                            R16 K17 ["AutoWeightPreserve"]
+       41 GETUPVAL                         R17 0
+       42 GETTABLEKS                       R17 R17 K18 ["new"]
+       44 CALL                             R17 0 1
+       45 GETUPVAL                         R18 1
+       46 GETTABLEKS                       R18 R18 K19 ["createElement"]
+       48 GETUPVAL                         R19 2
+       49 DUPTABLE                         R20 K25 [{"Size", "AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "Spacing", "Padding"}]
+       50 GETIMPORT                        R21 K27 [UDim2.new]
+       52 LOADN                            R22 0
+       53 LOADN                            R23 0
+       54 LOADN                            R24 0
+       55 MOVE                             R25 R13
+       56 CALL                             R21 4 1
+       57 SETTABLEKS                       R21 R20 K20 ["Size"]
+       59 GETIMPORT                        R21 K30 [Enum.AutomaticSize.X]
+       61 SETTABLEKS                       R21 R20 K21 ["AutomaticSize"]
+       63 GETIMPORT                        R21 K33 [Enum.FillDirection.Horizontal]
+       65 SETTABLEKS                       R21 R20 K22 ["Layout"]
+       67 SETTABLEKS                       R3 R20 K2 ["LayoutOrder"]
+       69 GETIMPORT                        R21 K35 [Enum.HorizontalAlignment.Left]
+       71 SETTABLEKS                       R21 R20 K23 ["HorizontalAlignment"]
+       73 SETTABLEKS                       R11 R20 K24 ["Spacing"]
+       75 SETTABLEKS                       R11 R20 K10 ["Padding"]
+       77 DUPTABLE                         R21 K41 [{"CageEditingButton", "CageTypeToggle", "FalloffSlider", "AutoSkinButton", "OptionsDropdownButton"}]
+       78 JUMPIFNOT                        R14 ; [+4]
+       79 GETUPVAL                         R24 3
+       80 GETTABLEKS                       R24 R24 K42 ["Pressed"]
+       82 JUMP                             ; [+1]
+       83 LOADNIL                          R24
+       84 NAMECALL                         R25 R17 K43 ["getNextOrder"]
+       86 CALL                             R25 1 1
+       87 GETTABLEKS                       R26 R10 K44 ["CageModeIcon"]
+       89 GETTABLEKS                       R27 R0 K45 ["cageEditingButtonClicked"]
+       91 LOADK                            R30 K46 ["EditingMode"]
+       92 LOADK                            R31 K47 ["Text"]
+       93 NAMECALL                         R28 R4 K48 ["getText"]
+       95 CALL                             R28 3 -1
+       96 NAMECALL                         R22 R0 K49 ["renderButton"]
+       98 CALL                             R22 -1 1
+       99 SETTABLEKS                       R22 R21 K36 ["CageEditingButton"]
+      101 MOVE                             R22 R14
+      102 JUMPIFNOT                        R22 ; [+53]
+      103 GETUPVAL                         R22 1
+      104 GETTABLEKS                       R22 R22 K19 ["createElement"]
+      106 GETUPVAL                         R23 4
+      107 DUPTABLE                         R24 K57 [{"ButtonSize", "LayoutOrder", "LeftIcon", "RightIcon", "LeftTooltipText", "RightTooltipText", "OnLeftSideClick", "OnRightSideClick", "IsOn"}]
+      108 GETTABLEKS                       R25 R10 K11 ["ButtonSize"]
+      110 SETTABLEKS                       R25 R24 K11 ["ButtonSize"]
+      112 NAMECALL                         R25 R17 K43 ["getNextOrder"]
+      114 CALL                             R25 1 1
+      115 SETTABLEKS                       R25 R24 K2 ["LayoutOrder"]
+      117 GETTABLEKS                       R25 R10 K58 ["OuterCageIcon"]
+      119 SETTABLEKS                       R25 R24 K50 ["LeftIcon"]
+      121 GETTABLEKS                       R25 R10 K59 ["InnerCageIcon"]
+      123 SETTABLEKS                       R25 R24 K51 ["RightIcon"]
+      125 LOADK                            R27 K46 ["EditingMode"]
+      126 LOADK                            R28 K60 ["OuterCage"]
+      127 NAMECALL                         R25 R4 K48 ["getText"]
+      129 CALL                             R25 3 1
+      130 SETTABLEKS                       R25 R24 K52 ["LeftTooltipText"]
+      132 LOADK                            R27 K46 ["EditingMode"]
+      133 LOADK                            R28 K61 ["InnerCage"]
+      134 NAMECALL                         R25 R4 K48 ["getText"]
+      136 CALL                             R25 3 1
+      137 SETTABLEKS                       R25 R24 K53 ["RightTooltipText"]
+      139 GETTABLEKS                       R25 R0 K62 ["outerCageButtonClicked"]
+      141 SETTABLEKS                       R25 R24 K54 ["OnLeftSideClick"]
+      143 GETTABLEKS                       R25 R0 K63 ["innerCageButtonClicked"]
+      145 SETTABLEKS                       R25 R24 K55 ["OnRightSideClick"]
+      147 GETIMPORT                        R26 K66 [Enum.CageType.Inner]
+      149 JUMPIFEQ                         R5 R26 ; [+2]
+      151 LOADB                            R25 0 +1
+      152 LOADB                            R25 1
+      153 SETTABLEKS                       R25 R24 K56 ["IsOn"]
+      155 CALL                             R22 2 1
+      156 SETTABLEKS                       R22 R21 K37 ["CageTypeToggle"]
+      158 MOVE                             R22 R14
+      159 JUMPIFNOT                        R22 ; [+13]
+      160 GETUPVAL                         R22 1
+      161 GETTABLEKS                       R22 R22 K19 ["createElement"]
+      163 GETUPVAL                         R23 5
+      164 DUPTABLE                         R24 K67 [{"LayoutOrder", "ShowMinimal"}]
+      165 NAMECALL                         R25 R17 K43 ["getNextOrder"]
+      167 CALL                             R25 1 1
+      168 SETTABLEKS                       R25 R24 K2 ["LayoutOrder"]
+      170 SETTABLEKS                       R6 R24 K5 ["ShowMinimal"]
+      172 CALL                             R22 2 1
+      173 SETTABLEKS                       R22 R21 K38 ["FalloffSlider"]
+      175 JUMPIFNOT                        R15 ; [+4]
+      176 GETUPVAL                         R24 3
+      177 GETTABLEKS                       R24 R24 K42 ["Pressed"]
+      179 JUMP                             ; [+1]
+      180 LOADNIL                          R24
+      181 NAMECALL                         R25 R17 K43 ["getNextOrder"]
+      183 CALL                             R25 1 1
+      184 GETTABLEKS                       R26 R10 K68 ["AutoWeightIcon"]
+      186 GETTABLEKS                       R27 R0 K69 ["autoSkinButtonClicked"]
+      188 GETUPVAL                         R29 6
+      189 CALL                             R29 0 1
+      190 JUMPIFNOT                        R29 ; [+6]
+      191 LOADK                            R30 K46 ["EditingMode"]
+      192 MOVE                             R31 R16
+      193 NAMECALL                         R28 R4 K48 ["getText"]
+      195 CALL                             R28 3 1
+      196 JUMP                             ; [+12]
+      197 JUMPIFNOT                        R15 ; [+6]
+      198 LOADK                            R30 K46 ["EditingMode"]
+      199 LOADK                            R31 K14 ["AutoWeightOverride"]
+      200 NAMECALL                         R28 R4 K48 ["getText"]
+      202 CALL                             R28 3 1
+      203 JUMP                             ; [+5]
+      204 LOADK                            R30 K46 ["EditingMode"]
+      205 LOADK                            R31 K17 ["AutoWeightPreserve"]
+      206 NAMECALL                         R28 R4 K48 ["getText"]
+      208 CALL                             R28 3 1
+      209 NAMECALL                         R22 R0 K49 ["renderButton"]
+      211 CALL                             R22 6 1
+      212 SETTABLEKS                       R22 R21 K39 ["AutoSkinButton"]
+      214 MOVE                             R22 R9
+      215 JUMPIFNOT                        R22 ; [+21]
+      216 GETUPVAL                         R22 1
+      217 GETTABLEKS                       R22 R22 K19 ["createElement"]
+      219 GETUPVAL                         R23 7
+      220 DUPTABLE                         R24 K73 [{"ButtonSize", "Icon", "Items", "OnItemActivated", "LayoutOrder"}]
+      221 SETTABLEKS                       R12 R24 K11 ["ButtonSize"]
+      223 GETTABLEKS                       R25 R10 K74 ["OptionsIcon"]
+      225 SETTABLEKS                       R25 R24 K70 ["Icon"]
+      227 SETTABLEKS                       R7 R24 K71 ["Items"]
+      229 SETTABLEKS                       R8 R24 K72 ["OnItemActivated"]
+      231 NAMECALL                         R25 R17 K43 ["getNextOrder"]
+      233 CALL                             R25 1 1
+      234 SETTABLEKS                       R25 R24 K2 ["LayoutOrder"]
+      236 CALL                             R22 2 1
+      237 SETTABLEKS                       R22 R21 K40 ["OptionsDropdownButton"]
+      239 CALL                             R18 3 -1
+      240 RETURN                           R18 -1
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -454,54 +486,61 @@ MAIN:
       118 GETTABLEKS                       R23 R23 K15 ["Util"]
       120 GETTABLEKS                       R23 R23 K35 ["Constants"]
       122 CALL                             R22 1 1
-      123 GETTABLEKS                       R23 R1 K36 ["PureComponent"]
-      125 LOADK                            R25 K37 ["CageControls"]
-      126 NAMECALL                         R23 R23 K38 ["extend"]
-      128 CALL                             R23 2 1
-      129 GETTABLEKS                       R24 R13 K15 ["Util"]
-      131 GETTABLEKS                       R25 R24 K39 ["LayoutOrderIterator"]
-      133 DUPCLOSURE                       R26 K40 [PROTO_6]
-      134 CAPTURE                          VAL R9
-      135 CAPTURE                          VAL R22
-      136 SETTABLEKS                       R26 R23 K41 ["init"]
-      138 DUPCLOSURE                       R26 K42 [PROTO_7]
-      139 CAPTURE                          VAL R1
-      140 CAPTURE                          VAL R19
-      141 CAPTURE                          VAL R21
-      142 SETTABLEKS                       R26 R23 K43 ["renderButton"]
-      144 DUPCLOSURE                       R26 K44 [PROTO_8]
-      145 CAPTURE                          VAL R9
-      146 SETTABLEKS                       R26 R23 K45 ["didMount"]
-      148 DUPCLOSURE                       R26 K46 [PROTO_9]
-      149 CAPTURE                          VAL R25
-      150 CAPTURE                          VAL R1
-      151 CAPTURE                          VAL R18
-      152 CAPTURE                          VAL R16
-      153 CAPTURE                          VAL R7
-      154 CAPTURE                          VAL R12
-      155 CAPTURE                          VAL R6
-      156 SETTABLEKS                       R26 R23 K47 ["render"]
-      158 DUPCLOSURE                       R26 K48 [PROTO_12]
-      159 CAPTURE                          VAL R10
-      160 CAPTURE                          VAL R11
-      161 MOVE                             R27 R15
-      162 DUPTABLE                         R28 K52 [{"Analytics", "Signals", "Localization", "EditingItemContext", "Stylizer"}]
-      163 GETTABLEKS                       R29 R14 K49 ["Analytics"]
-      165 SETTABLEKS                       R29 R28 K49 ["Analytics"]
-      167 SETTABLEKS                       R4 R28 K10 ["Signals"]
-      169 GETTABLEKS                       R29 R14 K50 ["Localization"]
-      171 SETTABLEKS                       R29 R28 K50 ["Localization"]
-      173 SETTABLEKS                       R5 R28 K11 ["EditingItemContext"]
-      175 GETTABLEKS                       R29 R14 K51 ["Stylizer"]
-      177 SETTABLEKS                       R29 R28 K51 ["Stylizer"]
-      179 CALL                             R27 1 1
-      180 MOVE                             R28 R23
-      181 CALL                             R27 1 1
-      182 MOVE                             R23 R27
-      183 GETTABLEKS                       R27 R2 K53 ["connect"]
-      185 LOADNIL                          R28
-      186 MOVE                             R29 R26
-      187 CALL                             R27 2 1
-      188 MOVE                             R28 R23
-      189 CALL                             R27 1 -1
-      190 RETURN                           R27 -1
+      123 GETIMPORT                        R23 K4 [require]
+      125 GETTABLEKS                       R24 R0 K19 ["Src"]
+      127 GETTABLEKS                       R24 R24 K36 ["Flags"]
+      129 GETTABLEKS                       R24 R24 K37 ["getFFlagLayeredClothingEditorRespectAutoSkin"]
+      131 CALL                             R23 1 1
+      132 GETTABLEKS                       R24 R1 K38 ["PureComponent"]
+      134 LOADK                            R26 K39 ["CageControls"]
+      135 NAMECALL                         R24 R24 K40 ["extend"]
+      137 CALL                             R24 2 1
+      138 GETTABLEKS                       R25 R13 K15 ["Util"]
+      140 GETTABLEKS                       R26 R25 K41 ["LayoutOrderIterator"]
+      142 DUPCLOSURE                       R27 K42 [PROTO_6]
+      143 CAPTURE                          VAL R9
+      144 CAPTURE                          VAL R22
+      145 SETTABLEKS                       R27 R24 K43 ["init"]
+      147 DUPCLOSURE                       R27 K44 [PROTO_7]
+      148 CAPTURE                          VAL R1
+      149 CAPTURE                          VAL R19
+      150 CAPTURE                          VAL R21
+      151 SETTABLEKS                       R27 R24 K45 ["renderButton"]
+      153 DUPCLOSURE                       R27 K46 [PROTO_8]
+      154 CAPTURE                          VAL R9
+      155 CAPTURE                          VAL R23
+      156 SETTABLEKS                       R27 R24 K47 ["didMount"]
+      158 DUPCLOSURE                       R27 K48 [PROTO_9]
+      159 CAPTURE                          VAL R26
+      160 CAPTURE                          VAL R1
+      161 CAPTURE                          VAL R18
+      162 CAPTURE                          VAL R16
+      163 CAPTURE                          VAL R7
+      164 CAPTURE                          VAL R12
+      165 CAPTURE                          VAL R23
+      166 CAPTURE                          VAL R6
+      167 SETTABLEKS                       R27 R24 K49 ["render"]
+      169 DUPCLOSURE                       R27 K50 [PROTO_12]
+      170 CAPTURE                          VAL R10
+      171 CAPTURE                          VAL R11
+      172 MOVE                             R28 R15
+      173 DUPTABLE                         R29 K54 [{"Analytics", "Signals", "Localization", "EditingItemContext", "Stylizer"}]
+      174 GETTABLEKS                       R30 R14 K51 ["Analytics"]
+      176 SETTABLEKS                       R30 R29 K51 ["Analytics"]
+      178 SETTABLEKS                       R4 R29 K10 ["Signals"]
+      180 GETTABLEKS                       R30 R14 K52 ["Localization"]
+      182 SETTABLEKS                       R30 R29 K52 ["Localization"]
+      184 SETTABLEKS                       R5 R29 K11 ["EditingItemContext"]
+      186 GETTABLEKS                       R30 R14 K53 ["Stylizer"]
+      188 SETTABLEKS                       R30 R29 K53 ["Stylizer"]
+      190 CALL                             R28 1 1
+      191 MOVE                             R29 R24
+      192 CALL                             R28 1 1
+      193 MOVE                             R24 R28
+      194 GETTABLEKS                       R28 R2 K55 ["connect"]
+      196 LOADNIL                          R29
+      197 MOVE                             R30 R27
+      198 CALL                             R28 2 1
+      199 MOVE                             R29 R24
+      200 CALL                             R28 1 -1
+      201 RETURN                           R28 -1

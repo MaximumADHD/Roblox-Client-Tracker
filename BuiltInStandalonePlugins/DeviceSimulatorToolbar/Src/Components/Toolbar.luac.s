@@ -924,7 +924,7 @@ PROTO_47:
        98 CALL                             R27 1 2
        99 GETUPVAL                         R29 3
       100 GETTABLEKS                       R29 R29 K7 ["useRef"]
-      102 LOADK                            R30 K17 [-∞]
+      102 LOADK                            R30 K17 [-Infinity]
       103 CALL                             R29 1 1
       104 GETUPVAL                         R30 3
       105 GETTABLEKS                       R30 R30 K7 ["useRef"]

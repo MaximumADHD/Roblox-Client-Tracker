@@ -5,7 +5,7 @@ PROTO_0:
         4 MOVE                             R3 R0
         5 GETIMPORT                        R2 K4 [math.log]
         7 CALL                             R2 1 1
-        8 MULK                             R1 R2 K1 [8.68588963806504]
+        8 MULK                             R1 R2 K1 [8.685889638065035]
         9 RETURN                           R1 1
        10 LOADN                            R1 -80
        11 RETURN                           R1 1
@@ -48,7 +48,7 @@ PROTO_1:
        47 MOVE                             R7 R0
        48 GETIMPORT                        R6 K10 [math.log]
        50 CALL                             R6 1 1
-       51 MULK                             R5 R6 K7 [8.68588963806504]
+       51 MULK                             R5 R6 K7 [8.685889638065035]
        52 JUMP                             ; [+1]
        53 LOADN                            R5 -80
        54 SETTABLE                         R5 R4 R3
@@ -60,7 +60,7 @@ PROTO_1:
        62 MOVE                             R7 R1
        63 GETIMPORT                        R6 K10 [math.log]
        65 CALL                             R6 1 1
-       66 MULK                             R5 R6 K7 [8.68588963806504]
+       66 MULK                             R5 R6 K7 [8.685889638065035]
        67 JUMP                             ; [+1]
        68 LOADN                            R5 -80
        69 SETTABLE                         R5 R4 R3
@@ -72,7 +72,7 @@ PROTO_1:
        77 MOVE                             R7 R2
        78 GETIMPORT                        R6 K10 [math.log]
        80 CALL                             R6 1 1
-       81 MULK                             R5 R6 K7 [8.68588963806504]
+       81 MULK                             R5 R6 K7 [8.685889638065035]
        82 JUMP                             ; [+1]
        83 LOADN                            R5 -80
        84 SETTABLE                         R5 R4 R3

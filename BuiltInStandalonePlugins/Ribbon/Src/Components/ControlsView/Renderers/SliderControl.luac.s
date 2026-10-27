@@ -89,7 +89,7 @@ PROTO_1:
       114 ORK                              R9 R10 K28 [0]
       115 SETTABLEKS                       R9 R8 K29 ["Minimum"]
       117 GETTABLEKS                       R10 R5 K31 ["Maximum"]
-      119 ORK                              R9 R10 K30 [∞]
+      119 ORK                              R9 R10 K30 [Infinity]
       120 SETTABLEKS                       R9 R8 K31 ["Maximum"]
       122 GETTABLEKS                       R9 R5 K32 ["Precision"]
       124 SETTABLEKS                       R9 R8 K32 ["Precision"]

@@ -51,37 +51,45 @@ PROTO_0:
        64 GETTABLEKS                       R6 R6 K0 ["createElement"]
        66 GETUPVAL                         R7 6
        67 GETTABLEKS                       R7 R7 K1 ["Provider"]
-       69 CALL                             R6 1 1
-       70 GETUPVAL                         R7 0
-       71 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       73 GETUPVAL                         R8 7
-       74 GETTABLEKS                       R8 R8 K1 ["Provider"]
-       76 DUPTABLE                         R9 K5 [{"plugin", "pluginEnabled"}]
-       77 GETTABLEKS                       R10 R0 K3 ["plugin"]
-       79 SETTABLEKS                       R10 R9 K3 ["plugin"]
-       81 GETTABLEKS                       R10 R0 K4 ["pluginEnabled"]
-       83 SETTABLEKS                       R10 R9 K4 ["pluginEnabled"]
-       85 CALL                             R7 2 1
-       86 GETUPVAL                         R8 0
-       87 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       89 GETUPVAL                         R9 8
-       90 GETTABLEKS                       R9 R9 K1 ["Provider"]
-       92 CALL                             R8 1 -1
-       93 SETLIST                          R1 R2 -1 [1]
-       95 GETUPVAL                         R2 0
-       96 GETTABLEKS                       R2 R2 K0 ["createElement"]
-       98 GETUPVAL                         R3 9
-       99 GETTABLEKS                       R3 R3 K6 ["ContextStack"]
-      101 DUPTABLE                         R4 K8 [{"providers"}]
-      102 SETTABLEKS                       R1 R4 K7 ["providers"]
-      104 DUPTABLE                         R5 K10 [{"Root"}]
-      105 GETUPVAL                         R6 0
-      106 GETTABLEKS                       R6 R6 K0 ["createElement"]
-      108 GETUPVAL                         R7 10
-      109 CALL                             R6 1 1
-      110 SETTABLEKS                       R6 R5 K9 ["Root"]
-      112 CALL                             R2 3 -1
-      113 RETURN                           R2 -1
+       69 DUPTABLE                         R8 K5 [{"plugin", "pluginEnabled"}]
+       70 GETTABLEKS                       R9 R0 K3 ["plugin"]
+       72 SETTABLEKS                       R9 R8 K3 ["plugin"]
+       74 GETTABLEKS                       R9 R0 K4 ["pluginEnabled"]
+       76 SETTABLEKS                       R9 R8 K4 ["pluginEnabled"]
+       78 CALL                             R6 2 1
+       79 GETUPVAL                         R7 0
+       80 GETTABLEKS                       R7 R7 K0 ["createElement"]
+       82 GETUPVAL                         R8 7
+       83 GETTABLEKS                       R8 R8 K1 ["Provider"]
+       85 DUPTABLE                         R9 K7 [{"filterInstances"}]
+       86 GETUPVAL                         R11 8
+       87 CALL                             R11 0 1
+       88 JUMPIFNOT                        R11 ; [+3]
+       89 GETTABLEKS                       R10 R0 K6 ["filterInstances"]
+       91 JUMP                             ; [+1]
+       92 LOADNIL                          R10
+       93 SETTABLEKS                       R10 R9 K6 ["filterInstances"]
+       95 CALL                             R7 2 1
+       96 GETUPVAL                         R8 0
+       97 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       99 GETUPVAL                         R9 9
+      100 GETTABLEKS                       R9 R9 K1 ["Provider"]
+      102 CALL                             R8 1 -1
+      103 SETLIST                          R1 R2 -1 [1]
+      105 GETUPVAL                         R2 0
+      106 GETTABLEKS                       R2 R2 K0 ["createElement"]
+      108 GETUPVAL                         R3 10
+      109 GETTABLEKS                       R3 R3 K8 ["ContextStack"]
+      111 DUPTABLE                         R4 K10 [{"providers"}]
+      112 SETTABLEKS                       R1 R4 K9 ["providers"]
+      114 DUPTABLE                         R5 K12 [{"Root"}]
+      115 GETUPVAL                         R6 0
+      116 GETTABLEKS                       R6 R6 K0 ["createElement"]
+      118 GETUPVAL                         R7 11
+      119 CALL                             R6 1 1
+      120 SETTABLEKS                       R6 R5 K11 ["Root"]
+      122 CALL                             R2 3 -1
+      123 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -142,16 +150,20 @@ MAIN:
        97 GETIMPORT                        R12 K5 [require]
        99 GETTABLEKS                       R13 R11 K21 ["getFFlagIAMRefactorPluginConfiguration"]
       101 CALL                             R12 1 1
-      102 DUPCLOSURE                       R13 K22 [PROTO_0]
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R7
-      105 CAPTURE                          VAL R12
-      106 CAPTURE                          VAL R6
-      107 CAPTURE                          VAL R3
-      108 CAPTURE                          VAL R8
-      109 CAPTURE                          VAL R4
-      110 CAPTURE                          VAL R5
-      111 CAPTURE                          VAL R9
-      112 CAPTURE                          VAL R2
-      113 CAPTURE                          VAL R10
-      114 RETURN                           R13 1
+      102 GETIMPORT                        R13 K5 [require]
+      104 GETTABLEKS                       R14 R11 K22 ["getFFlagIAMOpenFromProperties"]
+      106 CALL                             R13 1 1
+      107 DUPCLOSURE                       R14 K23 [PROTO_0]
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R6
+      112 CAPTURE                          VAL R3
+      113 CAPTURE                          VAL R8
+      114 CAPTURE                          VAL R5
+      115 CAPTURE                          VAL R4
+      116 CAPTURE                          VAL R13
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R2
+      119 CAPTURE                          VAL R10
+      120 RETURN                           R14 1

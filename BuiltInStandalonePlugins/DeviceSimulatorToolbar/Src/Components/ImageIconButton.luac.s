@@ -193,7 +193,7 @@ PROTO_3:
       246 DUPTABLE                         R25 K84 [{"MaxSize"}]
       247 GETIMPORT                        R26 K40 [Vector2.new]
       249 MOVE                             R27 R10
-      250 LOADK                            R28 K85 [∞]
+      250 LOADK                            R28 K85 [Infinity]
       251 CALL                             R26 2 1
       252 SETTABLEKS                       R26 R25 K83 ["MaxSize"]
       254 SETTABLEKS                       R25 R24 K81 ["sizeConstraint"]

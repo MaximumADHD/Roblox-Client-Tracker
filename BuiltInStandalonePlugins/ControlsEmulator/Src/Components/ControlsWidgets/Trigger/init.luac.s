@@ -1,6 +1,6 @@
 PROTO_0:
         0 DIVK                             R3 R1 K1 [2]
-        1 DIVRK                            R2 K0 [0.847297860387203] R3
+        1 DIVRK                            R2 K0 [0.8472978603872034] R3
         2 SUBK                             R9 R0 K4 [1]
         3 MUL                              R8 R2 R9
         4 FASTCALL1                        MATH_EXP R8 ; [+2]
@@ -177,7 +177,7 @@ PROTO_6:
        29 GETIMPORT                        R9 K9 [UDim2.new]
        31 GETUPVAL                         R11 1
        32 DIVK                             R13 R11 K11 [2]
-       33 DIVRK                            R12 K10 [0.847297860387203] R13
+       33 DIVRK                            R12 K10 [0.8472978603872034] R13
        34 SUBK                             R18 R4 K14 [1]
        35 MUL                              R17 R12 R18
        36 FASTCALL1                        MATH_EXP R17 ; [+2]

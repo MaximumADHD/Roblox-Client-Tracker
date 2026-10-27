@@ -462,164 +462,180 @@ PROTO_12:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 8 0
-        3 DUPCLOSURE                       R1 K0 [PROTO_0]
-        4 DUPTABLE                         R2 K5 [{"AvatarBodyRules", "AvatarAnimationRules", "AvatarAccessoryRules", "AvatarClothingRules"}]
-        5 DUPTABLE                         R3 K10 [{["modeProperty"] = "AppearanceMode", ["onValue"], ["slots"]}]
-        6 GETIMPORT                        R4 K14 [Enum.AvatarSettingsAppearanceMode.CustomParts]
-        8 SETTABLEKS                       R4 R3 K8 ["onValue"]
-       10 NEWTABLE                         R4 0 7
-       12 DUPTABLE                         R5 K23 [{["name"] = "CustomHead", ["override"] = "HeadOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       13 DUPTABLE                         R6 K26 [{["name"] = "CustomTorso", ["override"] = "TorsoOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       14 DUPTABLE                         R7 K29 [{["name"] = "CustomLeftArm", ["override"] = "LeftArmOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       15 DUPTABLE                         R8 K32 [{["name"] = "CustomRightArm", ["override"] = "RightArmOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       16 DUPTABLE                         R9 K35 [{["name"] = "CustomLeftLeg", ["override"] = "LeftLegOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       17 DUPTABLE                         R10 K38 [{["name"] = "CustomRightLeg", ["override"] = "RightLegOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       18 DUPTABLE                         R11 K42 [{["name"] = "CustomMood", ["override"] = "MoodAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = "AvatarAnimationRules"}]
-       19 SETLIST                          R4 R5 7 [1]
-       21 SETTABLEKS                       R4 R3 K9 ["slots"]
-       23 SETTABLEKS                       R3 R2 K1 ["AvatarBodyRules"]
-       25 DUPTABLE                         R3 K44 [{["modeProperty"] = "AnimationClipsMode", ["onValue"], ["slots"]}]
-       26 GETIMPORT                        R4 K47 [Enum.AvatarSettingsAnimationClipsMode.CustomClips]
-       28 SETTABLEKS                       R4 R3 K8 ["onValue"]
-       30 NEWTABLE                         R4 0 9
-       32 DUPTABLE                         R5 K50 [{["name"] = "CustomRunAnimation", ["override"] = "RunAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       33 DUPTABLE                         R6 K53 [{["name"] = "CustomWalkAnimation", ["override"] = "WalkAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       34 DUPTABLE                         R7 K56 [{["name"] = "CustomFallAnimation", ["override"] = "FallAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       35 DUPTABLE                         R8 K59 [{["name"] = "CustomJumpAnimation", ["override"] = "JumpAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       36 DUPTABLE                         R9 K62 [{["name"] = "CustomIdleAnimation", ["override"] = "IdleAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       37 DUPTABLE                         R10 K65 [{["name"] = "CustomIdleAlt1Animation", ["override"] = "IdleAltAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       38 DUPTABLE                         R11 K68 [{["name"] = "CustomSwimAnimation", ["override"] = "SwimAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       39 DUPTABLE                         R12 K71 [{["name"] = "CustomSwimIdleAnimation", ["override"] = "SwimIdleAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       40 DUPTABLE                         R13 K74 [{["name"] = "CustomClimbAnimation", ["override"] = "ClimbAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
-       41 SETLIST                          R4 R5 9 [1]
-       43 SETTABLEKS                       R4 R3 K9 ["slots"]
-       45 SETTABLEKS                       R3 R2 K2 ["AvatarAnimationRules"]
-       47 DUPTABLE                         R3 K76 [{["modeProperty"] = "CustomAccessoryMode", ["onValue"], ["slots"]}]
-       48 GETIMPORT                        R4 K79 [Enum.AvatarSettingsCustomAccessoryMode.CustomAccessories]
-       50 SETTABLEKS                       R4 R3 K8 ["onValue"]
-       52 NEWTABLE                         R4 0 0
-       54 SETTABLEKS                       R4 R3 K9 ["slots"]
-       56 SETTABLEKS                       R3 R2 K3 ["AvatarAccessoryRules"]
-       58 DUPTABLE                         R3 K81 [{["modeProperty"] = "CustomClothingMode", ["onValue"], ["slots"]}]
-       59 GETIMPORT                        R4 K84 [Enum.AvatarSettingsCustomClothingMode.CustomClothing]
-       61 SETTABLEKS                       R4 R3 K8 ["onValue"]
-       63 NEWTABLE                         R4 0 0
-       65 SETTABLEKS                       R4 R3 K9 ["slots"]
-       67 SETTABLEKS                       R3 R2 K4 ["AvatarClothingRules"]
-       69 NEWTABLE                         R3 0 8
-       71 LOADK                            R6 K85 ["Hair"]
-       72 LOADK                            R7 K86 ["Head"]
-       73 LOADK                            R8 K87 ["Face"]
-       74 LOADK                            R9 K88 ["Neck"]
-       75 LOADK                            R10 K89 ["Shoulder"]
-       76 LOADK                            R11 K90 ["Front"]
-       77 LOADK                            R12 K91 ["Back"]
-       78 LOADK                            R13 K92 ["Waist"]
-       79 SETLIST                          R3 R6 8 [1]
-       81 LOADNIL                          R4
-       82 LOADNIL                          R5
-       83 FORGPREP                         R3
-       84 GETTABLEKS                       R9 R2 K3 ["AvatarAccessoryRules"]
-       86 GETTABLEKS                       R9 R9 K9 ["slots"]
-       88 LOADK                            R12 K93 ["Custom"]
-       89 MOVE                             R13 R7
-       90 LOADK                            R14 K94 ["Accessory"]
-       91 CONCAT                           R11 R12 R14
-       92 MOVE                             R13 R7
-       93 LOADK                            R14 K95 ["AccessoryOverride"]
-       94 CONCAT                           R12 R13 R14
-       95 DUPTABLE                         R10 K96 [{["name"], ["override"], ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-       96 SETTABLEKS                       R11 R10 K15 ["name"]
-       98 SETTABLEKS                       R12 R10 K17 ["override"]
-      100 FASTCALL2                        TABLE_INSERT R9 R10 ; [+3]
-      102 GETIMPORT                        R8 K99 [table.insert]
-      104 CALL                             R8 2 0
-      105 FORGLOOP                         R3 2 ; [-22]
-      107 NEWTABLE                         R3 0 12
-      109 LOADK                            R6 K100 ["TShirt"]
-      110 LOADK                            R7 K101 ["Shirt"]
-      111 LOADK                            R8 K102 ["Jacket"]
-      112 LOADK                            R9 K103 ["Sweater"]
-      113 LOADK                            R10 K104 ["Pants"]
-      114 LOADK                            R11 K105 ["Shorts"]
-      115 LOADK                            R12 K106 ["DressSkirt"]
-      116 LOADK                            R13 K107 ["LeftShoes"]
-      117 LOADK                            R14 K108 ["RightShoes"]
-      118 LOADK                            R15 K109 ["ClassicShirts"]
-      119 LOADK                            R16 K110 ["ClassicTShirts"]
-      120 LOADK                            R17 K111 ["ClassicPants"]
-      121 SETLIST                          R3 R6 12 [1]
-      123 LOADNIL                          R4
-      124 LOADNIL                          R5
-      125 FORGPREP                         R3
-      126 GETTABLEKS                       R9 R2 K4 ["AvatarClothingRules"]
-      128 GETTABLEKS                       R9 R9 K9 ["slots"]
-      130 LOADK                            R12 K93 ["Custom"]
-      131 MOVE                             R13 R7
-      132 LOADK                            R14 K94 ["Accessory"]
-      133 CONCAT                           R11 R12 R14
-      134 MOVE                             R13 R7
-      135 LOADK                            R14 K95 ["AccessoryOverride"]
-      136 CONCAT                           R12 R13 R14
-      137 DUPTABLE                         R10 K96 [{["name"], ["override"], ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
-      138 SETTABLEKS                       R11 R10 K15 ["name"]
-      140 SETTABLEKS                       R12 R10 K17 ["override"]
-      142 FASTCALL2                        TABLE_INSERT R9 R10 ; [+3]
-      144 GETIMPORT                        R8 K99 [table.insert]
-      146 CALL                             R8 2 0
-      147 FORGLOOP                         R3 2 ; [-22]
-      149 DUPTABLE                         R3 K113 [{"AvatarRules"}]
-      150 DUPTABLE                         R4 K116 [{["AvatarType"] = True}]
-      151 SETTABLEKS                       R4 R3 K112 ["AvatarRules"]
-      153 MOVE                             R4 R2
-      154 LOADNIL                          R5
-      155 LOADNIL                          R6
-      156 FORGPREP                         R4
-      157 NEWTABLE                         R9 1 0
-      159 GETTABLEKS                       R10 R8 K6 ["modeProperty"]
-      161 LOADB                            R11 1
-      162 SETTABLE                         R11 R9 R10
-      163 GETTABLEKS                       R10 R8 K9 ["slots"]
-      165 LOADNIL                          R11
-      166 LOADNIL                          R12
-      167 FORGPREP                         R10
-      168 GETTABLEKS                       R16 R14 K15 ["name"]
-      170 LOADK                            R17 K117 ["Enabled"]
-      171 CONCAT                           R15 R16 R17
-      172 LOADB                            R16 1
-      173 SETTABLE                         R16 R9 R15
-      174 GETTABLEKS                       R16 R14 K15 ["name"]
-      176 LOADK                            R17 K118 ["Id"]
-      177 CONCAT                           R15 R16 R17
-      178 LOADB                            R16 1
-      179 SETTABLE                         R16 R9 R15
-      180 FORGLOOP                         R10 2 ; [-13]
-      182 SETTABLE                         R9 R3 R7
-      183 FORGLOOP                         R4 2 ; [-27]
-      185 LOADB                            R4 0
-      186 DUPCLOSURE                       R5 K119 [PROTO_1]
-      187 DUPCLOSURE                       R6 K120 [PROTO_2]
-      188 DUPCLOSURE                       R7 K121 [PROTO_3]
-      189 DUPCLOSURE                       R8 K122 [PROTO_4]
-      190 DUPCLOSURE                       R9 K123 [PROTO_5]
-      191 DUPCLOSURE                       R10 K124 [PROTO_6]
-      192 CAPTURE                          VAL R3
-      193 SETTABLEKS                       R10 R0 K125 ["isOverrideBacked"]
-      195 NEWCLOSURE                       R10 P7
-      196 CAPTURE                          REF R4
-      197 CAPTURE                          VAL R2
-      198 SETTABLEKS                       R10 R0 K126 ["writeOverrides"]
-      200 DUPCLOSURE                       R10 K127 [PROTO_8]
-      201 CAPTURE                          VAL R2
-      202 SETTABLEKS                       R10 R0 K128 ["syncLegacyProperties"]
-      204 NEWCLOSURE                       R10 P9
-      205 CAPTURE                          REF R4
-      206 CAPTURE                          VAL R2
-      207 CAPTURE                          VAL R0
-      208 SETTABLEKS                       R10 R0 K129 ["connect"]
-      210 DUPCLOSURE                       R10 K130 [PROTO_12]
-      211 CAPTURE                          VAL R2
-      212 SETTABLEKS                       R10 R0 K131 ["computeOverrides"]
-      214 CLOSEUPVALS                      R4
-      215 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getEngineFeatureAvatarSettingsClothingOverrideRenames"]
+       15 CALL                             R1 1 1
+       16 NEWTABLE                         R2 8 0
+       18 DUPCLOSURE                       R3 K9 [PROTO_0]
+       19 DUPTABLE                         R4 K14 [{"AvatarBodyRules", "AvatarAnimationRules", "AvatarAccessoryRules", "AvatarClothingRules"}]
+       20 DUPTABLE                         R5 K19 [{["modeProperty"] = "AppearanceMode", ["onValue"], ["slots"]}]
+       21 GETIMPORT                        R6 K23 [Enum.AvatarSettingsAppearanceMode.CustomParts]
+       23 SETTABLEKS                       R6 R5 K17 ["onValue"]
+       25 NEWTABLE                         R6 0 7
+       27 DUPTABLE                         R7 K32 [{["name"] = "CustomHead", ["override"] = "HeadOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+       28 DUPTABLE                         R8 K35 [{["name"] = "CustomTorso", ["override"] = "TorsoOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+       29 DUPTABLE                         R9 K38 [{["name"] = "CustomLeftArm", ["override"] = "LeftArmOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+       30 DUPTABLE                         R10 K41 [{["name"] = "CustomRightArm", ["override"] = "RightArmOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+       31 DUPTABLE                         R11 K44 [{["name"] = "CustomLeftLeg", ["override"] = "LeftLegOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+       32 DUPTABLE                         R12 K47 [{["name"] = "CustomRightLeg", ["override"] = "RightLegOverride", ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+       33 DUPTABLE                         R13 K51 [{["name"] = "CustomMood", ["override"] = "MoodAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = "AvatarAnimationRules"}]
+       34 SETLIST                          R6 R7 7 [1]
+       36 SETTABLEKS                       R6 R5 K18 ["slots"]
+       38 SETTABLEKS                       R5 R4 K10 ["AvatarBodyRules"]
+       40 DUPTABLE                         R5 K53 [{["modeProperty"] = "AnimationClipsMode", ["onValue"], ["slots"]}]
+       41 GETIMPORT                        R6 K56 [Enum.AvatarSettingsAnimationClipsMode.CustomClips]
+       43 SETTABLEKS                       R6 R5 K17 ["onValue"]
+       45 NEWTABLE                         R6 0 9
+       47 DUPTABLE                         R7 K59 [{["name"] = "CustomRunAnimation", ["override"] = "RunAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       48 DUPTABLE                         R8 K62 [{["name"] = "CustomWalkAnimation", ["override"] = "WalkAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       49 DUPTABLE                         R9 K65 [{["name"] = "CustomFallAnimation", ["override"] = "FallAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       50 DUPTABLE                         R10 K68 [{["name"] = "CustomJumpAnimation", ["override"] = "JumpAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       51 DUPTABLE                         R11 K71 [{["name"] = "CustomIdleAnimation", ["override"] = "IdleAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       52 DUPTABLE                         R12 K74 [{["name"] = "CustomIdleAlt1Animation", ["override"] = "IdleAltAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       53 DUPTABLE                         R13 K77 [{["name"] = "CustomSwimAnimation", ["override"] = "SwimAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       54 DUPTABLE                         R14 K80 [{["name"] = "CustomSwimIdleAnimation", ["override"] = "SwimIdleAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       55 DUPTABLE                         R15 K83 [{["name"] = "CustomClimbAnimation", ["override"] = "ClimbAnimationOverride", ["gate"] = "OnValue", ["overrideClass"] = }]
+       56 SETLIST                          R6 R7 9 [1]
+       58 SETTABLEKS                       R6 R5 K18 ["slots"]
+       60 SETTABLEKS                       R5 R4 K11 ["AvatarAnimationRules"]
+       62 DUPTABLE                         R5 K85 [{["modeProperty"] = "CustomAccessoryMode", ["onValue"], ["slots"]}]
+       63 GETIMPORT                        R6 K88 [Enum.AvatarSettingsCustomAccessoryMode.CustomAccessories]
+       65 SETTABLEKS                       R6 R5 K17 ["onValue"]
+       67 NEWTABLE                         R6 0 0
+       69 SETTABLEKS                       R6 R5 K18 ["slots"]
+       71 SETTABLEKS                       R5 R4 K12 ["AvatarAccessoryRules"]
+       73 DUPTABLE                         R5 K90 [{["modeProperty"] = "CustomClothingMode", ["onValue"], ["slots"]}]
+       74 GETIMPORT                        R6 K93 [Enum.AvatarSettingsCustomClothingMode.CustomClothing]
+       76 SETTABLEKS                       R6 R5 K17 ["onValue"]
+       78 NEWTABLE                         R6 0 0
+       80 SETTABLEKS                       R6 R5 K18 ["slots"]
+       82 SETTABLEKS                       R5 R4 K13 ["AvatarClothingRules"]
+       84 NEWTABLE                         R5 0 8
+       86 LOADK                            R8 K94 ["Hair"]
+       87 LOADK                            R9 K95 ["Head"]
+       88 LOADK                            R10 K96 ["Face"]
+       89 LOADK                            R11 K97 ["Neck"]
+       90 LOADK                            R12 K98 ["Shoulder"]
+       91 LOADK                            R13 K99 ["Front"]
+       92 LOADK                            R14 K100 ["Back"]
+       93 LOADK                            R15 K101 ["Waist"]
+       94 SETLIST                          R5 R8 8 [1]
+       96 LOADNIL                          R6
+       97 LOADNIL                          R7
+       98 FORGPREP                         R5
+       99 GETTABLEKS                       R11 R4 K12 ["AvatarAccessoryRules"]
+      101 GETTABLEKS                       R11 R11 K18 ["slots"]
+      103 LOADK                            R14 K102 ["Custom"]
+      104 MOVE                             R15 R9
+      105 LOADK                            R16 K103 ["Accessory"]
+      106 CONCAT                           R13 R14 R16
+      107 MOVE                             R15 R9
+      108 LOADK                            R16 K104 ["AccessoryOverride"]
+      109 CONCAT                           R14 R15 R16
+      110 DUPTABLE                         R12 K105 [{["name"], ["override"], ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+      111 SETTABLEKS                       R13 R12 K24 ["name"]
+      113 SETTABLEKS                       R14 R12 K26 ["override"]
+      115 FASTCALL2                        TABLE_INSERT R11 R12 ; [+3]
+      117 GETIMPORT                        R10 K108 [table.insert]
+      119 CALL                             R10 2 0
+      120 FORGLOOP                         R5 2 ; [-22]
+      122 DUPTABLE                         R5 K119 [{["LeftShoes"] = "LeftShoeAccessoryOverride", ["RightShoes"] = "RightShoeAccessoryOverride", ["ClassicShirts"] = "ClassicShirtOverride", ["ClassicTShirts"] = "ClassicTShirtOverride", ["ClassicPants"] = "ClassicPantsOverride"}]
+      123 NEWTABLE                         R6 0 12
+      125 LOADK                            R9 K120 ["TShirt"]
+      126 LOADK                            R10 K121 ["Shirt"]
+      127 LOADK                            R11 K122 ["Jacket"]
+      128 LOADK                            R12 K123 ["Sweater"]
+      129 LOADK                            R13 K124 ["Pants"]
+      130 LOADK                            R14 K125 ["Shorts"]
+      131 LOADK                            R15 K126 ["DressSkirt"]
+      132 LOADK                            R16 K109 ["LeftShoes"]
+      133 LOADK                            R17 K111 ["RightShoes"]
+      134 LOADK                            R18 K113 ["ClassicShirts"]
+      135 LOADK                            R19 K115 ["ClassicTShirts"]
+      136 LOADK                            R20 K117 ["ClassicPants"]
+      137 SETLIST                          R6 R9 12 [1]
+      139 LOADNIL                          R7
+      140 LOADNIL                          R8
+      141 FORGPREP                         R6
+      142 MOVE                             R12 R10
+      143 LOADK                            R13 K104 ["AccessoryOverride"]
+      144 CONCAT                           R11 R12 R13
+      145 MOVE                             R12 R1
+      146 CALL                             R12 0 1
+      147 JUMPIFNOT                        R12 ; [+2]
+      148 GETTABLE                         R12 R5 R10
+      149 OR                               R11 R12 R11
+      150 GETTABLEKS                       R13 R4 K13 ["AvatarClothingRules"]
+      152 GETTABLEKS                       R13 R13 K18 ["slots"]
+      154 LOADK                            R16 K102 ["Custom"]
+      155 MOVE                             R17 R10
+      156 LOADK                            R18 K103 ["Accessory"]
+      157 CONCAT                           R15 R16 R18
+      158 MOVE                             R16 R11
+      159 DUPTABLE                         R14 K105 [{["name"], ["override"], ["gate"] = "NotPlayerChoice", ["overrideClass"] = }]
+      160 SETTABLEKS                       R15 R14 K24 ["name"]
+      162 SETTABLEKS                       R16 R14 K26 ["override"]
+      164 FASTCALL2                        TABLE_INSERT R13 R14 ; [+3]
+      166 GETIMPORT                        R12 K108 [table.insert]
+      168 CALL                             R12 2 0
+      169 FORGLOOP                         R6 2 ; [-28]
+      171 DUPTABLE                         R6 K128 [{"AvatarRules"}]
+      172 DUPTABLE                         R7 K131 [{["AvatarType"] = True}]
+      173 SETTABLEKS                       R7 R6 K127 ["AvatarRules"]
+      175 MOVE                             R7 R4
+      176 LOADNIL                          R8
+      177 LOADNIL                          R9
+      178 FORGPREP                         R7
+      179 NEWTABLE                         R12 1 0
+      181 GETTABLEKS                       R13 R11 K15 ["modeProperty"]
+      183 LOADB                            R14 1
+      184 SETTABLE                         R14 R12 R13
+      185 GETTABLEKS                       R13 R11 K18 ["slots"]
+      187 LOADNIL                          R14
+      188 LOADNIL                          R15
+      189 FORGPREP                         R13
+      190 GETTABLEKS                       R19 R17 K24 ["name"]
+      192 LOADK                            R20 K132 ["Enabled"]
+      193 CONCAT                           R18 R19 R20
+      194 LOADB                            R19 1
+      195 SETTABLE                         R19 R12 R18
+      196 GETTABLEKS                       R19 R17 K24 ["name"]
+      198 LOADK                            R20 K133 ["Id"]
+      199 CONCAT                           R18 R19 R20
+      200 LOADB                            R19 1
+      201 SETTABLE                         R19 R12 R18
+      202 FORGLOOP                         R13 2 ; [-13]
+      204 SETTABLE                         R12 R6 R10
+      205 FORGLOOP                         R7 2 ; [-27]
+      207 LOADB                            R7 0
+      208 DUPCLOSURE                       R8 K134 [PROTO_1]
+      209 DUPCLOSURE                       R9 K135 [PROTO_2]
+      210 DUPCLOSURE                       R10 K136 [PROTO_3]
+      211 DUPCLOSURE                       R11 K137 [PROTO_4]
+      212 DUPCLOSURE                       R12 K138 [PROTO_5]
+      213 DUPCLOSURE                       R13 K139 [PROTO_6]
+      214 CAPTURE                          VAL R6
+      215 SETTABLEKS                       R13 R2 K140 ["isOverrideBacked"]
+      217 NEWCLOSURE                       R13 P7
+      218 CAPTURE                          REF R7
+      219 CAPTURE                          VAL R4
+      220 SETTABLEKS                       R13 R2 K141 ["writeOverrides"]
+      222 DUPCLOSURE                       R13 K142 [PROTO_8]
+      223 CAPTURE                          VAL R4
+      224 SETTABLEKS                       R13 R2 K143 ["syncLegacyProperties"]
+      226 NEWCLOSURE                       R13 P9
+      227 CAPTURE                          REF R7
+      228 CAPTURE                          VAL R4
+      229 CAPTURE                          VAL R2
+      230 SETTABLEKS                       R13 R2 K144 ["connect"]
+      232 DUPCLOSURE                       R13 K145 [PROTO_12]
+      233 CAPTURE                          VAL R4
+      234 SETTABLEKS                       R13 R2 K146 ["computeOverrides"]
+      236 CLOSEUPVALS                      R7
+      237 RETURN                           R2 1

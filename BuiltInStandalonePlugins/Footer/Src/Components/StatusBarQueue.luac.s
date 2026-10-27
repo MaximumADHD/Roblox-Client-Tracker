@@ -77,7 +77,7 @@ PROTO_2:
        61 GETUPVAL                         R9 2
        62 GETUPVAL                         R10 0
        63 GETTABLEKS                       R10 R10 K6 ["View"]
-       65 DUPTABLE                         R11 K11 [{["tag"] = "row auto-xy items-center gap-xsmall padding-x-xsmall", ["LayoutOrder"] = 1}]
+       65 DUPTABLE                         R11 K11 [{["tag"] = "row items-center gap-xsmall auto-xy padding-x-xsmall", ["LayoutOrder"] = 1}]
        66 DUPTABLE                         R12 K14 [{"ProgressIndicator", "TaskCountText"}]
        67 GETUPVAL                         R13 2
        68 GETUPVAL                         R14 0
@@ -105,7 +105,7 @@ PROTO_2:
       101 GETUPVAL                         R9 2
       102 GETUPVAL                         R10 0
       103 GETTABLEKS                       R10 R10 K6 ["View"]
-      105 DUPTABLE                         R11 K29 [{["tag"] = "row auto-xy items-center gap-xsmall padding-x-xsmall", ["LayoutOrder"] = 2}]
+      105 DUPTABLE                         R11 K29 [{["tag"] = "row items-center gap-xsmall auto-xy padding-x-xsmall", ["LayoutOrder"] = 2}]
       106 DUPTABLE                         R12 K32 [{"ErrorIcon", "ErrorCount"}]
       107 GETUPVAL                         R13 2
       108 GETUPVAL                         R14 0
@@ -144,7 +144,7 @@ PROTO_2:
       160 GETUPVAL                         R9 2
       161 GETUPVAL                         R10 0
       162 GETTABLEKS                       R10 R10 K6 ["View"]
-      164 DUPTABLE                         R11 K49 [{["tag"] = "row auto-xy items-center gap-xsmall padding-x-xsmall", ["LayoutOrder"] = 3}]
+      164 DUPTABLE                         R11 K49 [{["tag"] = "row items-center gap-xsmall auto-xy padding-x-xsmall", ["LayoutOrder"] = 3}]
       165 DUPTABLE                         R12 K52 [{"HistoryIcon", "CompletedCount"}]
       166 GETUPVAL                         R13 2
       167 GETUPVAL                         R14 0
@@ -179,34 +179,66 @@ PROTO_2:
       213 SETTABLEKS                       R13 R12 K51 ["CompletedCount"]
       215 CALL                             R9 3 1
       216 SETTABLEKS                       R9 R8 K57 ["CompletedSection"]
-      218 GETIMPORT                        R9 K59 [next]
-      220 MOVE                             R10 R8
-      221 CALL                             R9 1 1
-      222 JUMPIFNOTEQKNIL                  R9 ; [+3]
-      224 LOADNIL                          R9
-      225 RETURN                           R9 1
-      226 GETTABLEKS                       R10 R0 K60 ["isPanelOpen"]
-      228 JUMPIFNOT                        R10 ; [+2]
-      229 LOADK                            R9 K61 ["row auto-xy radius-small padding-xsmall gap-xsmall items-center bg-shift-300"]
-      230 JUMP                             ; [+1]
-      231 LOADK                            R9 K62 ["row auto-xy radius-small padding-xsmall gap-xsmall items-center"]
-      232 GETUPVAL                         R10 2
-      233 GETUPVAL                         R11 0
-      234 GETTABLEKS                       R11 R11 K6 ["View"]
-      236 DUPTABLE                         R12 K64 [{["tag"] = "row align-x-right size-full-full padding-right-small"}]
-      237 DUPTABLE                         R13 K66 [{"Container"}]
-      238 GETUPVAL                         R14 2
-      239 GETUPVAL                         R15 0
-      240 GETTABLEKS                       R15 R15 K22 ["Text"]
-      242 DUPTABLE                         R16 K71 [{["tag"], ["Text"] = "", ["onActivated"], ["testId"] = "--status-bar-queue-button"}]
-      243 SETTABLEKS                       R9 R16 K7 ["tag"]
-      245 GETTABLEKS                       R17 R0 K72 ["onOpenQueue"]
-      247 SETTABLEKS                       R17 R16 K68 ["onActivated"]
-      249 MOVE                             R17 R8
-      250 CALL                             R14 3 1
-      251 SETTABLEKS                       R14 R13 K65 ["Container"]
-      253 CALL                             R10 3 -1
-      254 RETURN                           R10 -1
+      218 GETTABLEKS                       R9 R0 K58 ["showMCPStatus"]
+      220 JUMPIF                           R9 ; [+8]
+      221 GETIMPORT                        R9 K60 [next]
+      223 MOVE                             R10 R8
+      224 CALL                             R9 1 1
+      225 JUMPIFNOTEQKNIL                  R9 ; [+3]
+      227 LOADNIL                          R9
+      228 RETURN                           R9 1
+      229 GETTABLEKS                       R10 R0 K61 ["isPanelOpen"]
+      231 JUMPIFNOT                        R10 ; [+2]
+      232 LOADK                            R9 K62 ["row items-center gap-xsmall auto-xy padding-xsmall radius-small bg-shift-300"]
+      233 JUMP                             ; [+1]
+      234 LOADK                            R9 K63 ["row items-center gap-xsmall auto-xy padding-xsmall radius-small"]
+      235 GETTABLEKS                       R10 R0 K58 ["showMCPStatus"]
+      237 JUMPIF                           R10 ; [+23]
+      238 GETUPVAL                         R10 2
+      239 GETUPVAL                         R11 0
+      240 GETTABLEKS                       R11 R11 K6 ["View"]
+      242 DUPTABLE                         R12 K65 [{["tag"] = "row align-x-right size-full-full padding-right-small"}]
+      243 DUPTABLE                         R13 K67 [{"Container"}]
+      244 GETUPVAL                         R14 2
+      245 GETUPVAL                         R15 0
+      246 GETTABLEKS                       R15 R15 K22 ["Text"]
+      248 DUPTABLE                         R16 K72 [{["tag"], ["Text"] = "", ["onActivated"], ["testId"] = "--status-bar-queue-button"}]
+      249 SETTABLEKS                       R9 R16 K7 ["tag"]
+      251 GETTABLEKS                       R17 R0 K73 ["onOpenQueue"]
+      253 SETTABLEKS                       R17 R16 K69 ["onActivated"]
+      255 MOVE                             R17 R8
+      256 CALL                             R14 3 1
+      257 SETTABLEKS                       R14 R13 K66 ["Container"]
+      259 CALL                             R10 3 -1
+      260 RETURN                           R10 -1
+      261 GETUPVAL                         R10 2
+      262 GETUPVAL                         R11 0
+      263 GETTABLEKS                       R11 R11 K6 ["View"]
+      265 DUPTABLE                         R12 K75 [{["tag"] = "row align-x-right items-center gap-small size-full-full padding-right-small"}]
+      266 DUPTABLE                         R13 K77 [{"Container", "MCPStatusContainer"}]
+      267 GETIMPORT                        R15 K60 [next]
+      269 MOVE                             R16 R8
+      270 CALL                             R15 1 1
+      271 JUMPIFEQKNIL                     R15 ; [+15]
+      273 GETUPVAL                         R14 2
+      274 GETUPVAL                         R15 0
+      275 GETTABLEKS                       R15 R15 K22 ["Text"]
+      277 DUPTABLE                         R16 K78 [{["tag"], ["Text"] = "", ["onActivated"], ["LayoutOrder"] = 1, ["testId"] = "--status-bar-queue-button"}]
+      278 SETTABLEKS                       R9 R16 K7 ["tag"]
+      280 GETTABLEKS                       R17 R0 K73 ["onOpenQueue"]
+      282 SETTABLEKS                       R17 R16 K69 ["onActivated"]
+      284 MOVE                             R17 R8
+      285 CALL                             R14 3 1
+      286 JUMP                             ; [+1]
+      287 LOADNIL                          R14
+      288 SETTABLEKS                       R14 R13 K66 ["Container"]
+      290 GETUPVAL                         R14 2
+      291 GETUPVAL                         R15 8
+      292 DUPTABLE                         R16 K79 [{["LayoutOrder"] = 2}]
+      293 CALL                             R14 2 1
+      294 SETTABLEKS                       R14 R13 K76 ["MCPStatusContainer"]
+      296 CALL                             R10 3 -1
+      297 RETURN                           R10 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -252,85 +284,94 @@ PROTO_6:
        10 LOADNIL                          R3
        11 CALL                             R2 1 2
        12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R4 R4 K3 ["useSignalState"]
-       15 GETTABLEKS                       R5 R0 K4 ["queueStatusBarSignals"]
-       17 GETTABLEKS                       R5 R5 K5 ["getCompleted"]
-       19 CALL                             R4 1 1
-       20 GETUPVAL                         R5 2
-       21 GETTABLEKS                       R5 R5 K3 ["useSignalState"]
-       23 GETTABLEKS                       R6 R0 K4 ["queueStatusBarSignals"]
-       25 GETTABLEKS                       R6 R6 K6 ["getTotal"]
-       27 CALL                             R5 1 1
-       28 GETUPVAL                         R6 2
-       29 GETTABLEKS                       R6 R6 K3 ["useSignalState"]
-       31 GETTABLEKS                       R7 R0 K4 ["queueStatusBarSignals"]
-       33 GETTABLEKS                       R7 R7 K7 ["getErrors"]
-       35 CALL                             R6 1 1
-       36 GETUPVAL                         R7 2
-       37 GETTABLEKS                       R7 R7 K3 ["useSignalState"]
-       39 GETTABLEKS                       R8 R0 K4 ["queueStatusBarSignals"]
-       41 GETTABLEKS                       R8 R8 K8 ["getIsPanelOpen"]
-       43 CALL                             R7 1 1
-       44 GETUPVAL                         R8 1
-       45 GETTABLEKS                       R8 R8 K9 ["useEffect"]
-       47 NEWCLOSURE                       R9 P0
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R3
-       50 NEWTABLE                         R10 0 1
-       52 MOVE                             R11 R1
-       53 SETLIST                          R10 R11 1 [1]
-       55 CALL                             R8 2 0
-       56 GETUPVAL                         R8 1
-       57 GETTABLEKS                       R8 R8 K10 ["useCallback"]
-       59 NEWCLOSURE                       R9 P1
-       60 CAPTURE                          VAL R0
-       61 NEWTABLE                         R10 0 1
-       63 GETTABLEKS                       R11 R0 K4 ["queueStatusBarSignals"]
-       65 SETLIST                          R10 R11 1 [1]
-       67 CALL                             R8 2 1
-       68 JUMPIF                           R2 ; [+2]
-       69 LOADNIL                          R9
-       70 RETURN                           R9 1
-       71 GETIMPORT                        R9 K12 [settings]
-       73 CALL                             R9 0 1
-       74 GETTABLEKS                       R9 R9 K13 ["Studio"]
-       76 GETTABLEKS                       R9 R9 K14 ["Theme"]
-       78 GETIMPORT                        R11 K18 [Enum.StudioStyleGuideColor.MainBackground]
-       80 NAMECALL                         R9 R9 K19 ["GetColor"]
-       82 CALL                             R9 2 1
-       83 GETUPVAL                         R10 3
-       84 GETTABLEKS                       R10 R10 K20 ["createPortal"]
-       86 GETUPVAL                         R11 4
-       87 LOADK                            R12 K21 ["Frame"]
-       88 DUPTABLE                         R13 K27 [{["Size"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["BorderSizePixel"] = 0}]
-       89 GETIMPORT                        R14 K30 [UDim2.fromScale]
-       91 LOADN                            R15 1
-       92 LOADN                            R16 1
-       93 CALL                             R14 2 1
-       94 SETTABLEKS                       R14 R13 K22 ["Size"]
-       96 SETTABLEKS                       R9 R13 K23 ["BackgroundColor3"]
-       98 DUPTABLE                         R14 K32 [{"Provider"}]
-       99 GETUPVAL                         R15 4
-      100 GETUPVAL                         R16 5
-      101 DUPTABLE                         R17 K34 [{"overlayGui"}]
-      102 SETTABLEKS                       R2 R17 K33 ["overlayGui"]
-      104 DUPTABLE                         R18 K36 [{"Content"}]
-      105 GETUPVAL                         R19 4
-      106 GETUPVAL                         R20 6
-      107 DUPTABLE                         R21 K42 [{"completed", "total", "errors", "isPanelOpen", "onOpenQueue"}]
-      108 SETTABLEKS                       R4 R21 K37 ["completed"]
-      110 SETTABLEKS                       R5 R21 K38 ["total"]
-      112 SETTABLEKS                       R6 R21 K39 ["errors"]
-      114 SETTABLEKS                       R7 R21 K40 ["isPanelOpen"]
-      116 SETTABLEKS                       R8 R21 K41 ["onOpenQueue"]
-      118 CALL                             R19 2 1
-      119 SETTABLEKS                       R19 R18 K35 ["Content"]
-      121 CALL                             R15 3 1
-      122 SETTABLEKS                       R15 R14 K31 ["Provider"]
-      124 CALL                             R11 3 1
-      125 MOVE                             R12 R2
-      126 CALL                             R10 2 -1
-      127 RETURN                           R10 -1
+       13 GETTABLEKS                       R4 R4 K3 ["getFFlagMCPClientCountAsASetting"]
+       15 CALL                             R4 0 1
+       16 GETUPVAL                         R5 3
+       17 GETTABLEKS                       R5 R5 K4 ["useSignalState"]
+       19 GETTABLEKS                       R6 R0 K5 ["queueStatusBarSignals"]
+       21 GETTABLEKS                       R6 R6 K6 ["getCompleted"]
+       23 CALL                             R5 1 1
+       24 GETUPVAL                         R6 3
+       25 GETTABLEKS                       R6 R6 K4 ["useSignalState"]
+       27 GETTABLEKS                       R7 R0 K5 ["queueStatusBarSignals"]
+       29 GETTABLEKS                       R7 R7 K7 ["getTotal"]
+       31 CALL                             R6 1 1
+       32 GETUPVAL                         R7 3
+       33 GETTABLEKS                       R7 R7 K4 ["useSignalState"]
+       35 GETTABLEKS                       R8 R0 K5 ["queueStatusBarSignals"]
+       37 GETTABLEKS                       R8 R8 K8 ["getErrors"]
+       39 CALL                             R7 1 1
+       40 GETUPVAL                         R8 3
+       41 GETTABLEKS                       R8 R8 K4 ["useSignalState"]
+       43 GETTABLEKS                       R9 R0 K5 ["queueStatusBarSignals"]
+       45 GETTABLEKS                       R9 R9 K9 ["getIsPanelOpen"]
+       47 CALL                             R8 1 1
+       48 GETUPVAL                         R9 1
+       49 GETTABLEKS                       R9 R9 K10 ["useEffect"]
+       51 NEWCLOSURE                       R10 P0
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R3
+       54 NEWTABLE                         R11 0 1
+       56 MOVE                             R12 R1
+       57 SETLIST                          R11 R12 1 [1]
+       59 CALL                             R9 2 0
+       60 GETUPVAL                         R9 1
+       61 GETTABLEKS                       R9 R9 K11 ["useCallback"]
+       63 NEWCLOSURE                       R10 P1
+       64 CAPTURE                          VAL R0
+       65 NEWTABLE                         R11 0 1
+       67 GETTABLEKS                       R12 R0 K5 ["queueStatusBarSignals"]
+       69 SETLIST                          R11 R12 1 [1]
+       71 CALL                             R9 2 1
+       72 JUMPIF                           R2 ; [+2]
+       73 LOADNIL                          R10
+       74 RETURN                           R10 1
+       75 GETIMPORT                        R10 K13 [settings]
+       77 CALL                             R10 0 1
+       78 GETTABLEKS                       R10 R10 K14 ["Studio"]
+       80 GETTABLEKS                       R10 R10 K15 ["Theme"]
+       82 GETIMPORT                        R12 K19 [Enum.StudioStyleGuideColor.MainBackground]
+       84 NAMECALL                         R10 R10 K20 ["GetColor"]
+       86 CALL                             R10 2 1
+       87 GETUPVAL                         R11 4
+       88 GETTABLEKS                       R11 R11 K21 ["createPortal"]
+       90 GETUPVAL                         R12 5
+       91 LOADK                            R13 K22 ["Frame"]
+       92 DUPTABLE                         R14 K28 [{["Size"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["BorderSizePixel"] = 0}]
+       93 GETIMPORT                        R15 K31 [UDim2.fromScale]
+       95 LOADN                            R16 1
+       96 LOADN                            R17 1
+       97 CALL                             R15 2 1
+       98 SETTABLEKS                       R15 R14 K23 ["Size"]
+      100 SETTABLEKS                       R10 R14 K24 ["BackgroundColor3"]
+      102 DUPTABLE                         R15 K33 [{"Provider"}]
+      103 GETUPVAL                         R16 5
+      104 GETUPVAL                         R17 6
+      105 DUPTABLE                         R18 K36 [{"overlayGui", "plugin"}]
+      106 SETTABLEKS                       R2 R18 K34 ["overlayGui"]
+      108 JUMPIFNOT                        R4 ; [+2]
+      109 MOVE                             R19 R1
+      110 JUMP                             ; [+1]
+      111 LOADNIL                          R19
+      112 SETTABLEKS                       R19 R18 K35 ["plugin"]
+      114 DUPTABLE                         R19 K38 [{"Content"}]
+      115 GETUPVAL                         R20 5
+      116 GETUPVAL                         R21 7
+      117 DUPTABLE                         R22 K45 [{"completed", "total", "errors", "isPanelOpen", "onOpenQueue", "showMCPStatus"}]
+      118 SETTABLEKS                       R5 R22 K39 ["completed"]
+      120 SETTABLEKS                       R6 R22 K40 ["total"]
+      122 SETTABLEKS                       R7 R22 K41 ["errors"]
+      124 SETTABLEKS                       R8 R22 K42 ["isPanelOpen"]
+      126 SETTABLEKS                       R9 R22 K43 ["onOpenQueue"]
+      128 SETTABLEKS                       R4 R22 K44 ["showMCPStatus"]
+      130 CALL                             R20 2 1
+      131 SETTABLEKS                       R20 R19 K37 ["Content"]
+      133 CALL                             R16 3 1
+      134 SETTABLEKS                       R16 R15 K32 ["Provider"]
+      136 CALL                             R12 3 1
+      137 MOVE                             R13 R2
+      138 CALL                             R11 2 -1
+      139 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -367,38 +408,50 @@ MAIN:
        53 GETTABLEKS                       R8 R8 K13 ["StudioFoundation"]
        55 CALL                             R7 1 1
        56 GETIMPORT                        R8 K5 [require]
-       58 GETTABLEKS                       R9 R0 K14 ["Src"]
-       60 GETTABLEKS                       R9 R9 K15 ["Util"]
-       62 GETTABLEKS                       R9 R9 K16 ["createQueueStatusSignals"]
+       58 GETTABLEKS                       R9 R0 K14 ["Bin"]
+       60 GETTABLEKS                       R9 R9 K15 ["Common"]
+       62 GETTABLEKS                       R9 R9 K16 ["defineLuaFlags"]
        64 CALL                             R8 1 1
-       65 GETTABLEKS                       R9 R2 K17 ["Enums"]
-       67 GETTABLEKS                       R10 R7 K18 ["Components"]
-       69 GETTABLEKS                       R10 R10 K19 ["FoundationProviderAdapter"]
-       71 GETTABLEKS                       R11 R3 K20 ["ContextServices"]
-       73 GETTABLEKS                       R11 R11 K21 ["Plugin"]
-       75 GETTABLEKS                       R12 R4 K22 ["createElement"]
-       77 GETTABLEKS                       R13 R9 K23 ["IconSize"]
-       79 GETTABLEKS                       R14 R9 K24 ["IconVariant"]
-       81 GETTABLEKS                       R15 R9 K25 ["ProgressShape"]
-       83 GETTABLEKS                       R16 R9 K26 ["ProgressSize"]
-       85 DUPCLOSURE                       R17 K27 [PROTO_2]
-       86 CAPTURE                          VAL R2
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R12
-       89 CAPTURE                          VAL R15
-       90 CAPTURE                          VAL R16
-       91 CAPTURE                          VAL R1
-       92 CAPTURE                          VAL R13
-       93 CAPTURE                          VAL R14
-       94 DUPCLOSURE                       R18 K28 [PROTO_6]
-       95 CAPTURE                          VAL R11
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R6
-       98 CAPTURE                          VAL R5
-       99 CAPTURE                          VAL R12
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R17
-      102 GETTABLEKS                       R19 R4 K29 ["memo"]
-      104 MOVE                             R20 R18
-      105 CALL                             R19 1 -1
-      106 RETURN                           R19 -1
+       65 GETIMPORT                        R9 K5 [require]
+       67 GETTABLEKS                       R10 R0 K17 ["Src"]
+       69 GETTABLEKS                       R10 R10 K18 ["Components"]
+       71 GETTABLEKS                       R10 R10 K19 ["MCPConnectionStatus"]
+       73 CALL                             R9 1 1
+       74 GETIMPORT                        R10 K5 [require]
+       76 GETTABLEKS                       R11 R0 K17 ["Src"]
+       78 GETTABLEKS                       R11 R11 K20 ["Util"]
+       80 GETTABLEKS                       R11 R11 K21 ["createQueueStatusSignals"]
+       82 CALL                             R10 1 1
+       83 GETTABLEKS                       R11 R2 K22 ["Enums"]
+       85 GETTABLEKS                       R12 R7 K18 ["Components"]
+       87 GETTABLEKS                       R12 R12 K23 ["FoundationProviderAdapter"]
+       89 GETTABLEKS                       R13 R3 K24 ["ContextServices"]
+       91 GETTABLEKS                       R13 R13 K25 ["Plugin"]
+       93 GETTABLEKS                       R14 R4 K26 ["createElement"]
+       95 GETTABLEKS                       R15 R11 K27 ["IconSize"]
+       97 GETTABLEKS                       R16 R11 K28 ["IconVariant"]
+       99 GETTABLEKS                       R17 R11 K29 ["ProgressShape"]
+      101 GETTABLEKS                       R18 R11 K30 ["ProgressSize"]
+      103 DUPCLOSURE                       R19 K31 [PROTO_2]
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R4
+      106 CAPTURE                          VAL R14
+      107 CAPTURE                          VAL R17
+      108 CAPTURE                          VAL R18
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R15
+      111 CAPTURE                          VAL R16
+      112 CAPTURE                          VAL R9
+      113 DUPCLOSURE                       R20 K32 [PROTO_6]
+      114 CAPTURE                          VAL R13
+      115 CAPTURE                          VAL R4
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R6
+      118 CAPTURE                          VAL R5
+      119 CAPTURE                          VAL R14
+      120 CAPTURE                          VAL R12
+      121 CAPTURE                          VAL R19
+      122 GETTABLEKS                       R21 R4 K33 ["memo"]
+      124 MOVE                             R22 R20
+      125 CALL                             R21 1 -1
+      126 RETURN                           R21 -1

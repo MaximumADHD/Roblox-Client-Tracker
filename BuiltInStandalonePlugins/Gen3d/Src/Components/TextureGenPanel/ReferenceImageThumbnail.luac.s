@@ -25,96 +25,110 @@ PROTO_1:
         6 GETTABLEKS                       R3 R3 K1 ["createElement"]
         8 GETUPVAL                         R4 1
         9 GETTABLEKS                       R4 R4 K2 ["View"]
-       11 DUPTABLE                         R5 K10 [{["Size"], ["LayoutOrder"], ["tag"] = "radius-medium clip", ["onStateChanged"], ["testId"] = "ReferenceImageThumbnail"}]
-       12 GETIMPORT                        R6 K13 [UDim2.fromOffset]
-       14 LOADN                            R7 96
-       15 LOADN                            R8 60
-       16 CALL                             R6 2 1
-       17 SETTABLEKS                       R6 R5 K3 ["Size"]
-       19 GETTABLEKS                       R6 R0 K4 ["LayoutOrder"]
-       21 SETTABLEKS                       R6 R5 K4 ["LayoutOrder"]
-       23 NEWCLOSURE                       R6 P0
-       24 CAPTURE                          VAL R2
-       25 CAPTURE                          UPVAL U1
-       26 SETTABLEKS                       R6 R5 K7 ["onStateChanged"]
-       28 DUPTABLE                         R6 K17 [{"Loading", "Image", "Remove"}]
-       29 GETTABLEKS                       R8 R0 K18 ["isLoading"]
-       31 JUMPIFNOT                        R8 ; [+18]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       35 GETUPVAL                         R8 1
-       36 GETTABLEKS                       R8 R8 K19 ["Skeleton"]
-       38 DUPTABLE                         R9 K23 [{["tag"] = "size-full", ["radius"], ["testId"] = "ReferenceImageLoading"}]
-       39 GETUPVAL                         R10 1
-       40 GETTABLEKS                       R10 R10 K24 ["Enums"]
-       42 GETTABLEKS                       R10 R10 K25 ["Radius"]
-       44 GETTABLEKS                       R10 R10 K26 ["Medium"]
-       46 SETTABLEKS                       R10 R9 K21 ["radius"]
-       48 CALL                             R7 2 1
-       49 JUMP                             ; [+1]
-       50 LOADNIL                          R7
-       51 SETTABLEKS                       R7 R6 K14 ["Loading"]
-       53 GETTABLEKS                       R8 R0 K27 ["imageId"]
-       55 JUMPIFNOT                        R8 ; [+17]
-       56 GETUPVAL                         R7 0
-       57 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       59 GETUPVAL                         R8 1
-       60 GETTABLEKS                       R8 R8 K15 ["Image"]
-       62 DUPTABLE                         R9 K30 [{["Image"], ["ScaleType"], ["tag"] = "size-full radius-medium"}]
-       63 GETTABLEKS                       R10 R0 K27 ["imageId"]
-       65 SETTABLEKS                       R10 R9 K15 ["Image"]
-       67 GETIMPORT                        R10 K33 [Enum.ScaleType.Crop]
-       69 SETTABLEKS                       R10 R9 K28 ["ScaleType"]
-       71 CALL                             R7 2 1
-       72 JUMP                             ; [+1]
-       73 LOADNIL                          R7
-       74 SETTABLEKS                       R7 R6 K15 ["Image"]
-       76 JUMPIFNOT                        R1 ; [+61]
-       77 GETTABLEKS                       R8 R0 K34 ["disabled"]
-       79 JUMPIF                           R8 ; [+58]
-       80 GETUPVAL                         R7 0
-       81 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       83 GETUPVAL                         R8 1
-       84 GETTABLEKS                       R8 R8 K2 ["View"]
-       86 DUPTABLE                         R9 K42 [{["AnchorPoint"], ["Position"], ["ZIndex"] = 2, ["tag"] = "auto-xy padding-xxsmall radius-small bg-over-media-0", ["onActivated"], ["testId"] = "ReferenceImageRemove"}]
-       87 GETIMPORT                        R10 K45 [Vector2.new]
-       89 LOADN                            R11 1
-       90 LOADN                            R12 0
-       91 CALL                             R10 2 1
-       92 SETTABLEKS                       R10 R9 K35 ["AnchorPoint"]
-       94 GETIMPORT                        R10 K46 [UDim2.new]
-       96 LOADN                            R11 1
-       97 LOADN                            R12 -2
-       98 LOADN                            R13 0
-       99 LOADN                            R14 2
-      100 CALL                             R10 4 1
-      101 SETTABLEKS                       R10 R9 K36 ["Position"]
-      103 GETTABLEKS                       R10 R0 K47 ["onRemove"]
-      105 SETTABLEKS                       R10 R9 K40 ["onActivated"]
-      107 DUPTABLE                         R10 K49 [{"Icon"}]
-      108 GETUPVAL                         R11 0
-      109 GETTABLEKS                       R11 R11 K1 ["createElement"]
-      111 GETUPVAL                         R12 1
-      112 GETTABLEKS                       R12 R12 K48 ["Icon"]
-      114 DUPTABLE                         R13 K52 [{"name", "size"}]
-      115 GETUPVAL                         R14 1
-      116 GETTABLEKS                       R14 R14 K24 ["Enums"]
-      118 GETTABLEKS                       R14 R14 K53 ["IconName"]
-      120 GETTABLEKS                       R14 R14 K54 ["X"]
-      122 SETTABLEKS                       R14 R13 K50 ["name"]
-      124 GETUPVAL                         R14 1
-      125 GETTABLEKS                       R14 R14 K24 ["Enums"]
-      127 GETTABLEKS                       R14 R14 K55 ["IconSize"]
-      129 GETTABLEKS                       R14 R14 K56 ["XSmall"]
-      131 SETTABLEKS                       R14 R13 K51 ["size"]
-      133 CALL                             R11 2 1
-      134 SETTABLEKS                       R11 R10 K48 ["Icon"]
-      136 CALL                             R7 3 1
-      137 JUMP                             ; [+1]
-      138 LOADNIL                          R7
-      139 SETTABLEKS                       R7 R6 K16 ["Remove"]
-      141 CALL                             R3 3 -1
-      142 RETURN                           R3 -1
+       11 DUPTABLE                         R5 K9 [{["Size"], ["LayoutOrder"], ["tag"] = "radius-medium clip", ["onStateChanged"], ["testId"]}]
+       12 GETTABLEKS                       R6 R0 K10 ["size"]
+       14 JUMPIF                           R6 ; [+5]
+       15 GETIMPORT                        R6 K13 [UDim2.fromOffset]
+       17 LOADN                            R7 96
+       18 LOADN                            R8 60
+       19 CALL                             R6 2 1
+       20 SETTABLEKS                       R6 R5 K3 ["Size"]
+       22 GETTABLEKS                       R6 R0 K4 ["LayoutOrder"]
+       24 SETTABLEKS                       R6 R5 K4 ["LayoutOrder"]
+       26 NEWCLOSURE                       R6 P0
+       27 CAPTURE                          VAL R2
+       28 CAPTURE                          UPVAL U1
+       29 SETTABLEKS                       R6 R5 K7 ["onStateChanged"]
+       31 GETTABLEKS                       R7 R0 K8 ["testId"]
+       33 ORK                              R6 R7 K14 ["ReferenceImageThumbnail"]
+       34 SETTABLEKS                       R6 R5 K8 ["testId"]
+       36 DUPTABLE                         R6 K18 [{"Loading", "Image", "Remove"}]
+       37 GETTABLEKS                       R8 R0 K19 ["isLoading"]
+       39 JUMPIFNOT                        R8 ; [+18]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       43 GETUPVAL                         R8 1
+       44 GETTABLEKS                       R8 R8 K20 ["Skeleton"]
+       46 DUPTABLE                         R9 K24 [{["tag"] = "size-full", ["radius"], ["testId"] = "ReferenceImageLoading"}]
+       47 GETUPVAL                         R10 1
+       48 GETTABLEKS                       R10 R10 K25 ["Enums"]
+       50 GETTABLEKS                       R10 R10 K26 ["Radius"]
+       52 GETTABLEKS                       R10 R10 K27 ["Medium"]
+       54 SETTABLEKS                       R10 R9 K22 ["radius"]
+       56 CALL                             R7 2 1
+       57 JUMP                             ; [+1]
+       58 LOADNIL                          R7
+       59 SETTABLEKS                       R7 R6 K15 ["Loading"]
+       61 GETTABLEKS                       R8 R0 K28 ["imageId"]
+       63 JUMPIFNOT                        R8 ; [+17]
+       64 GETUPVAL                         R7 0
+       65 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       67 GETUPVAL                         R8 1
+       68 GETTABLEKS                       R8 R8 K16 ["Image"]
+       70 DUPTABLE                         R9 K31 [{["Image"], ["ScaleType"], ["tag"] = "size-full radius-medium"}]
+       71 GETTABLEKS                       R10 R0 K28 ["imageId"]
+       73 SETTABLEKS                       R10 R9 K16 ["Image"]
+       75 GETIMPORT                        R10 K34 [Enum.ScaleType.Crop]
+       77 SETTABLEKS                       R10 R9 K29 ["ScaleType"]
+       79 CALL                             R7 2 1
+       80 JUMP                             ; [+1]
+       81 LOADNIL                          R7
+       82 SETTABLEKS                       R7 R6 K16 ["Image"]
+       84 JUMPIFNOT                        R1 ; [+74]
+       85 GETTABLEKS                       R8 R0 K35 ["disabled"]
+       87 JUMPIF                           R8 ; [+71]
+       88 GETUPVAL                         R7 0
+       89 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       91 GETUPVAL                         R8 1
+       92 GETTABLEKS                       R8 R8 K2 ["View"]
+       94 DUPTABLE                         R9 K42 [{["AnchorPoint"], ["Position"], ["ZIndex"] = 2, ["tag"] = "auto-xy padding-xxsmall radius-small bg-over-media-0", ["onActivated"], ["testId"]}]
+       95 GETIMPORT                        R10 K45 [Vector2.new]
+       97 LOADN                            R11 1
+       98 LOADN                            R12 0
+       99 CALL                             R10 2 1
+      100 SETTABLEKS                       R10 R9 K36 ["AnchorPoint"]
+      102 GETIMPORT                        R10 K46 [UDim2.new]
+      104 LOADN                            R11 1
+      105 LOADN                            R12 -2
+      106 LOADN                            R13 0
+      107 LOADN                            R14 2
+      108 CALL                             R10 4 1
+      109 SETTABLEKS                       R10 R9 K37 ["Position"]
+      111 GETTABLEKS                       R10 R0 K47 ["onRemove"]
+      113 SETTABLEKS                       R10 R9 K41 ["onActivated"]
+      115 GETTABLEKS                       R11 R0 K8 ["testId"]
+      117 JUMPIFNOT                        R11 ; [+7]
+      118 LOADK                            R10 K48 ["%*Remove"]
+      119 GETTABLEKS                       R12 R0 K8 ["testId"]
+      121 NAMECALL                         R10 R10 K49 ["format"]
+      123 CALL                             R10 2 1
+      124 JUMP                             ; [+1]
+      125 LOADK                            R10 K50 ["ReferenceImageRemove"]
+      126 SETTABLEKS                       R10 R9 K8 ["testId"]
+      128 DUPTABLE                         R10 K52 [{"Icon"}]
+      129 GETUPVAL                         R11 0
+      130 GETTABLEKS                       R11 R11 K1 ["createElement"]
+      132 GETUPVAL                         R12 1
+      133 GETTABLEKS                       R12 R12 K51 ["Icon"]
+      135 DUPTABLE                         R13 K54 [{"name", "size"}]
+      136 GETUPVAL                         R14 1
+      137 GETTABLEKS                       R14 R14 K25 ["Enums"]
+      139 GETTABLEKS                       R14 R14 K55 ["IconName"]
+      141 GETTABLEKS                       R14 R14 K56 ["X"]
+      143 SETTABLEKS                       R14 R13 K53 ["name"]
+      145 GETUPVAL                         R14 1
+      146 GETTABLEKS                       R14 R14 K25 ["Enums"]
+      148 GETTABLEKS                       R14 R14 K57 ["IconSize"]
+      150 GETTABLEKS                       R14 R14 K58 ["XSmall"]
+      152 SETTABLEKS                       R14 R13 K10 ["size"]
+      154 CALL                             R11 2 1
+      155 SETTABLEKS                       R11 R10 K51 ["Icon"]
+      157 CALL                             R7 3 1
+      158 JUMP                             ; [+1]
+      159 LOADNIL                          R7
+      160 SETTABLEKS                       R7 R6 K17 ["Remove"]
+      162 CALL                             R3 3 -1
+      163 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

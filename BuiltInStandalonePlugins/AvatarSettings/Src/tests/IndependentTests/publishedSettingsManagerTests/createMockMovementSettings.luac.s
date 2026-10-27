@@ -77,7 +77,7 @@ PROTO_0:
       103 JUMPIFNOT                        R1 ; [+7]
       104 GETUPVAL                         R1 4
       105 GETTABLEKS                       R1 R1 K13 ["mockUseSetting"]
-      107 LOADB                            R2 0
+      107 LOADB                            R2 1
       108 CALL                             R1 1 1
       109 SETTABLEKS                       R1 R0 K28 ["collisionBodyPartsCollidableOnDeathSetting"]
       111 GETUPVAL                         R1 0
@@ -257,7 +257,7 @@ PROTO_1:
       103 JUMPIFNOT                        R1 ; [+7]
       104 GETUPVAL                         R1 4
       105 GETTABLEKS                       R1 R1 K13 ["mockUseSetting"]
-      107 LOADB                            R2 1
+      107 LOADB                            R2 0
       108 CALL                             R1 1 1
       109 SETTABLEKS                       R1 R0 K28 ["collisionBodyPartsCollidableOnDeathSetting"]
       111 GETUPVAL                         R1 0

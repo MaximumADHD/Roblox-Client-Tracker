@@ -3,7 +3,7 @@ PROTO_0:
         1 GETTABLEKS                       R0 R0 K0 ["CurrentCamera"]
         3 GETTABLEKS                       R0 R0 K1 ["CFrame"]
         5 GETIMPORT                        R1 K3 [CFrame.Angles]
-        7 LOADK                            R2 K4 [1.5707963267949]
+        7 LOADK                            R2 K4 [1.5707963267948966]
         8 LOADN                            R3 0
         9 LOADN                            R4 0
        10 CALL                             R1 3 1

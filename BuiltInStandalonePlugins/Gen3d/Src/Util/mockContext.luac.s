@@ -19,24 +19,25 @@ PROTO_0:
        23 GETUPVAL                         R5 3
        24 GETTABLEKS                       R5 R5 K7 ["ContextStack"]
        26 DUPTABLE                         R6 K11 [{"providers"}]
-       27 NEWTABLE                         R7 0 2
+       27 NEWTABLE                         R7 0 1
        29 GETUPVAL                         R8 2
        30 GETTABLEKS                       R8 R8 K9 ["createElement"]
        32 GETUPVAL                         R9 4
-       33 DUPTABLE                         R10 K16 [{["theme"] = "Dark", ["device"] = "Desktop"}]
-       34 CALL                             R8 2 1
-       35 GETUPVAL                         R9 2
-       36 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       38 GETUPVAL                         R10 5
-       39 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
-       41 CALL                             R9 1 -1
-       42 SETLIST                          R7 R8 -1 [1]
-       44 SETTABLEKS                       R7 R6 K10 ["providers"]
-       46 MOVE                             R7 R0
-       47 CALL                             R4 3 1
-       48 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
-       50 CALL                             R1 2 -1
-       51 RETURN                           R1 -1
+       33 GETTABLEKS                       R9 R9 K12 ["MockProvider"]
+       35 CALL                             R8 1 -1
+       36 SETLIST                          R7 R8 -1 [1]
+       38 SETTABLEKS                       R7 R6 K10 ["providers"]
+       40 MOVE                             R7 R0
+       41 CALL                             R4 3 1
+       42 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
+       44 CALL                             R1 2 1
+       45 GETUPVAL                         R2 2
+       46 GETTABLEKS                       R2 R2 K9 ["createElement"]
+       48 GETUPVAL                         R3 5
+       49 DUPTABLE                         R4 K17 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       50 MOVE                             R5 R1
+       51 CALL                             R2 3 -1
+       52 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -85,6 +86,6 @@ MAIN:
        72 CAPTURE                          VAL R10
        73 CAPTURE                          VAL R1
        74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R9
+       75 CAPTURE                          VAL R9
+       76 CAPTURE                          VAL R7
        77 RETURN                           R11 1

@@ -11,22 +11,22 @@ PROTO_0:
        12 GETIMPORT                        R2 K5 [assert]
        14 CALL                             R2 2 0
        15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K6 ["provideMockContext"]
-       18 MOVE                             R3 R1
-       19 JUMPIF                           R3 ; [+1]
-       20 GETUPVAL                         R3 1
-       21 GETUPVAL                         R4 2
-       22 GETTABLEKS                       R4 R4 K7 ["createElement"]
-       24 GETUPVAL                         R5 3
-       25 GETTABLEKS                       R5 R5 K8 ["FoundationProvider"]
-       27 DUPTABLE                         R6 K10 [{"theme"}]
-       28 GETUPVAL                         R7 3
-       29 GETTABLEKS                       R7 R7 K11 ["Enums"]
-       31 GETTABLEKS                       R7 R7 K12 ["Theme"]
-       33 GETTABLEKS                       R7 R7 K13 ["Dark"]
-       35 SETTABLEKS                       R7 R6 K9 ["theme"]
+       16 GETTABLEKS                       R2 R2 K6 ["createElement"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R3 R3 K7 ["FoundationProvider"]
+       21 DUPTABLE                         R4 K9 [{"theme"}]
+       22 GETUPVAL                         R5 1
+       23 GETTABLEKS                       R5 R5 K10 ["Enums"]
+       25 GETTABLEKS                       R5 R5 K11 ["Theme"]
+       27 GETTABLEKS                       R5 R5 K12 ["Dark"]
+       29 SETTABLEKS                       R5 R4 K8 ["theme"]
+       31 GETUPVAL                         R5 2
+       32 GETTABLEKS                       R5 R5 K13 ["provideMockContext"]
+       34 MOVE                             R6 R1
+       35 JUMPIF                           R6 ; [+1]
+       36 GETUPVAL                         R6 3
        37 MOVE                             R7 R0
-       38 CALL                             R4 3 -1
+       38 CALL                             R5 2 -1
        39 CALL                             R2 -1 -1
        40 RETURN                           R2 -1
 
@@ -152,8 +152,8 @@ MAIN:
       187 MOVE                             R30 R22
       188 SETLIST                          R23 R24 7 [1]
       190 DUPCLOSURE                       R24 K44 [PROTO_0]
-      191 CAPTURE                          VAL R5
-      192 CAPTURE                          VAL R23
-      193 CAPTURE                          VAL R3
-      194 CAPTURE                          VAL R1
+      191 CAPTURE                          VAL R3
+      192 CAPTURE                          VAL R1
+      193 CAPTURE                          VAL R5
+      194 CAPTURE                          VAL R23
       195 RETURN                           R24 1

@@ -445,54 +445,63 @@ PROTO_8:
       347 LOADNIL                          R14
       348 GETUPVAL                         R15 6
       349 GETTABLEKS                       R15 R15 K74 ["FFlagAssistantStartMcpServerWithoutUI"]
-      351 JUMPIFNOT                        R15 ; [+23]
-      352 JUMPIFNOT                        R3 ; [+22]
-      353 GETUPVAL                         R15 30
-      354 GETTABLEKS                       R15 R15 K35 ["new"]
-      356 CALL                             R15 0 1
-      357 MOVE                             R14 R15
-      358 FASTCALL2K                       ASSERT R14 K75 ; [+5]
-      360 MOVE                             R16 R14
-      361 LOADK                            R17 K75 ["Failed to create external server controller"]
-      362 GETIMPORT                        R15 K77 [assert]
-      364 CALL                             R15 2 0
-      365 GETTABLEKS                       R15 R14 K78 ["init"]
-      367 CALL                             R15 0 0
-      368 GETTABLEKS                       R15 R0 K79 ["Unloading"]
-      370 NEWCLOSURE                       R17 P2
-      371 CAPTURE                          REF R14
-      372 NAMECALL                         R15 R15 K80 ["Connect"]
-      374 CALL                             R15 2 0
-      375 GETTABLEKS                       R15 R0 K79 ["Unloading"]
-      377 NEWCLOSURE                       R17 P3
-      378 CAPTURE                          VAL R7
-      379 CAPTURE                          VAL R6
-      380 CAPTURE                          UPVAL U14
-      381 CAPTURE                          UPVAL U6
-      382 CAPTURE                          VAL R8
-      383 CAPTURE                          UPVAL U17
-      384 CAPTURE                          VAL R1
-      385 CAPTURE                          UPVAL U16
-      386 CAPTURE                          VAL R2
-      387 CAPTURE                          UPVAL U18
-      388 CAPTURE                          VAL R4
-      389 CAPTURE                          UPVAL U31
-      390 CAPTURE                          UPVAL U4
-      391 NAMECALL                         R15 R15 K80 ["Connect"]
-      393 CALL                             R15 2 0
-      394 GETIMPORT                        R15 K7 [pcall]
-      396 NEWCLOSURE                       R16 P4
-      397 CAPTURE                          VAL R4
-      398 CAPTURE                          UPVAL U1
-      399 CALL                             R15 1 0
-      400 MOVE                             R15 R5
-      401 CALL                             R15 0 0
-      402 DUPTABLE                         R15 K82 [{"bridges", "net", "externalServerController"}]
-      403 SETTABLEKS                       R11 R15 K59 ["bridges"]
-      405 SETTABLEKS                       R2 R15 K28 ["net"]
-      407 SETTABLEKS                       R14 R15 K81 ["externalServerController"]
-      409 CLOSEUPVALS                      R14
-      410 RETURN                           R15 1
+      351 JUMPIFNOT                        R15 ; [+34]
+      352 JUMPIFNOT                        R3 ; [+33]
+      353 GETUPVAL                         R15 6
+      354 GETTABLEKS                       R15 R15 K75 ["FFlagMCPClientCountAsASetting"]
+      356 JUMPIFNOT                        R15 ; [+7]
+      357 GETUPVAL                         R15 30
+      358 GETTABLEKS                       R15 R15 K35 ["new"]
+      360 MOVE                             R16 R0
+      361 CALL                             R15 1 1
+      362 MOVE                             R14 R15
+      363 JUMP                             ; [+5]
+      364 GETUPVAL                         R15 30
+      365 GETTABLEKS                       R15 R15 K35 ["new"]
+      367 CALL                             R15 0 1
+      368 MOVE                             R14 R15
+      369 FASTCALL2K                       ASSERT R14 K76 ; [+5]
+      371 MOVE                             R16 R14
+      372 LOADK                            R17 K76 ["Failed to create external server controller"]
+      373 GETIMPORT                        R15 K78 [assert]
+      375 CALL                             R15 2 0
+      376 GETTABLEKS                       R15 R14 K79 ["init"]
+      378 CALL                             R15 0 0
+      379 GETTABLEKS                       R15 R0 K80 ["Unloading"]
+      381 NEWCLOSURE                       R17 P2
+      382 CAPTURE                          REF R14
+      383 NAMECALL                         R15 R15 K81 ["Connect"]
+      385 CALL                             R15 2 0
+      386 GETTABLEKS                       R15 R0 K80 ["Unloading"]
+      388 NEWCLOSURE                       R17 P3
+      389 CAPTURE                          VAL R7
+      390 CAPTURE                          VAL R6
+      391 CAPTURE                          UPVAL U14
+      392 CAPTURE                          UPVAL U6
+      393 CAPTURE                          VAL R8
+      394 CAPTURE                          UPVAL U17
+      395 CAPTURE                          VAL R1
+      396 CAPTURE                          UPVAL U16
+      397 CAPTURE                          VAL R2
+      398 CAPTURE                          UPVAL U18
+      399 CAPTURE                          VAL R4
+      400 CAPTURE                          UPVAL U31
+      401 CAPTURE                          UPVAL U4
+      402 NAMECALL                         R15 R15 K81 ["Connect"]
+      404 CALL                             R15 2 0
+      405 GETIMPORT                        R15 K7 [pcall]
+      407 NEWCLOSURE                       R16 P4
+      408 CAPTURE                          VAL R4
+      409 CAPTURE                          UPVAL U1
+      410 CALL                             R15 1 0
+      411 MOVE                             R15 R5
+      412 CALL                             R15 0 0
+      413 DUPTABLE                         R15 K83 [{"bridges", "net", "externalServerController"}]
+      414 SETTABLEKS                       R11 R15 K59 ["bridges"]
+      416 SETTABLEKS                       R2 R15 K28 ["net"]
+      418 SETTABLEKS                       R14 R15 K82 ["externalServerController"]
+      420 CLOSEUPVALS                      R14
+      421 RETURN                           R15 1
 
 MAIN:
         0 PREPVARARGS                      0

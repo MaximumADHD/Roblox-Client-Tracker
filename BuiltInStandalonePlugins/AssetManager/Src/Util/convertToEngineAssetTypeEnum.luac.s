@@ -17,53 +17,57 @@ MAIN:
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 16 0
        16 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       18 GETTABLEKS                       R3 R3 K9 ["Animation"]
-       20 GETIMPORT                        R4 K11 [Enum.AssetType.Animation]
+       18 GETTABLEKS                       R3 R3 K9 ["AnimatedImage"]
+       20 GETIMPORT                        R4 K11 [Enum.AssetType.AnimatedImage]
        22 SETTABLE                         R4 R2 R3
        23 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       25 GETTABLEKS                       R3 R3 K12 ["Audio"]
-       27 GETIMPORT                        R4 K13 [Enum.AssetType.Audio]
+       25 GETTABLEKS                       R3 R3 K12 ["Animation"]
+       27 GETIMPORT                        R4 K13 [Enum.AssetType.Animation]
        29 SETTABLE                         R4 R2 R3
        30 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       32 GETTABLEKS                       R3 R3 K14 ["Decal"]
-       34 GETIMPORT                        R4 K15 [Enum.AssetType.Decal]
+       32 GETTABLEKS                       R3 R3 K14 ["Audio"]
+       34 GETIMPORT                        R4 K15 [Enum.AssetType.Audio]
        36 SETTABLE                         R4 R2 R3
        37 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       39 GETTABLEKS                       R3 R3 K16 ["FontFamily"]
-       41 GETIMPORT                        R4 K17 [Enum.AssetType.FontFamily]
+       39 GETTABLEKS                       R3 R3 K16 ["Decal"]
+       41 GETIMPORT                        R4 K17 [Enum.AssetType.Decal]
        43 SETTABLE                         R4 R2 R3
        44 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       46 GETTABLEKS                       R3 R3 K18 ["Image"]
-       48 GETIMPORT                        R4 K19 [Enum.AssetType.Image]
+       46 GETTABLEKS                       R3 R3 K18 ["FontFamily"]
+       48 GETIMPORT                        R4 K19 [Enum.AssetType.FontFamily]
        50 SETTABLE                         R4 R2 R3
        51 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       53 GETTABLEKS                       R3 R3 K20 ["Mesh"]
-       55 GETIMPORT                        R4 K21 [Enum.AssetType.Mesh]
+       53 GETTABLEKS                       R3 R3 K20 ["Image"]
+       55 GETIMPORT                        R4 K21 [Enum.AssetType.Image]
        57 SETTABLE                         R4 R2 R3
        58 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       60 GETTABLEKS                       R3 R3 K22 ["MeshPart"]
-       62 GETIMPORT                        R4 K23 [Enum.AssetType.MeshPart]
+       60 GETTABLEKS                       R3 R3 K22 ["Mesh"]
+       62 GETIMPORT                        R4 K23 [Enum.AssetType.Mesh]
        64 SETTABLE                         R4 R2 R3
        65 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       67 GETTABLEKS                       R3 R3 K24 ["Model"]
-       69 GETIMPORT                        R4 K25 [Enum.AssetType.Model]
+       67 GETTABLEKS                       R3 R3 K24 ["MeshPart"]
+       69 GETIMPORT                        R4 K25 [Enum.AssetType.MeshPart]
        71 SETTABLE                         R4 R2 R3
        72 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       74 GETTABLEKS                       R3 R3 K26 ["Place"]
-       76 GETIMPORT                        R4 K27 [Enum.AssetType.Place]
+       74 GETTABLEKS                       R3 R3 K26 ["Model"]
+       76 GETIMPORT                        R4 K27 [Enum.AssetType.Model]
        78 SETTABLE                         R4 R2 R3
        79 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       81 GETTABLEKS                       R3 R3 K28 ["Plugin"]
-       83 GETIMPORT                        R4 K29 [Enum.AssetType.Plugin]
+       81 GETTABLEKS                       R3 R3 K28 ["Place"]
+       83 GETIMPORT                        R4 K29 [Enum.AssetType.Place]
        85 SETTABLE                         R4 R2 R3
        86 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       88 GETTABLEKS                       R3 R3 K30 ["TextDocument"]
-       90 GETIMPORT                        R4 K31 [Enum.AssetType.TextDocument]
+       88 GETTABLEKS                       R3 R3 K30 ["Plugin"]
+       90 GETIMPORT                        R4 K31 [Enum.AssetType.Plugin]
        92 SETTABLE                         R4 R2 R3
        93 GETTABLEKS                       R3 R1 K8 ["AssetType"]
-       95 GETTABLEKS                       R3 R3 K32 ["Video"]
-       97 GETIMPORT                        R4 K33 [Enum.AssetType.Video]
+       95 GETTABLEKS                       R3 R3 K32 ["TextDocument"]
+       97 GETIMPORT                        R4 K33 [Enum.AssetType.TextDocument]
        99 SETTABLE                         R4 R2 R3
-      100 DUPCLOSURE                       R3 K34 [PROTO_0]
-      101 CAPTURE                          VAL R2
-      102 RETURN                           R3 1
+      100 GETTABLEKS                       R3 R1 K8 ["AssetType"]
+      102 GETTABLEKS                       R3 R3 K34 ["Video"]
+      104 GETIMPORT                        R4 K35 [Enum.AssetType.Video]
+      106 SETTABLE                         R4 R2 R3
+      107 DUPCLOSURE                       R3 K36 [PROTO_0]
+      108 CAPTURE                          VAL R2
+      109 RETURN                           R3 1

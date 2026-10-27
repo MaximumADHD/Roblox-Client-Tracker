@@ -27,8 +27,8 @@ PROTO_2:
        10 GETUPVAL                         R7 2
        11 GETTABLEKS                       R7 R7 K3 ["TEXT_FONT"]
        13 GETIMPORT                        R8 K6 [Vector2.new]
-       15 LOADK                            R9 K7 [∞]
-       16 LOADK                            R10 K7 [∞]
+       15 LOADK                            R9 K7 [Infinity]
+       16 LOADK                            R10 K7 [Infinity]
        17 CALL                             R8 2 -1
        18 NAMECALL                         R3 R3 K8 ["GetTextSize"]
        20 CALL                             R3 -1 1

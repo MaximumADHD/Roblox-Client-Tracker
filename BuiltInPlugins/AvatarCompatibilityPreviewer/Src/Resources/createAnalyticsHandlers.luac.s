@@ -395,43 +395,66 @@ PROTO_27:
        26 RETURN                           R0 0
 
 PROTO_28:
+        0 GETUPVAL                         R3 0
+        1 LOADK                            R4 K0 ["AvatarCreationFailure"]
+        2 DUPTABLE                         R5 K4 [{"user_id", "stage", "error_code"}]
+        3 GETUPVAL                         R7 1
+        4 NAMECALL                         R7 R7 K5 ["GetUserId"]
+        6 CALL                             R7 1 -1
+        7 FASTCALL                         TOSTRING ; [+2]
+        8 GETIMPORT                        R6 K7 [tostring]
+       10 CALL                             R6 -1 1
+       11 SETTABLEKS                       R6 R5 K1 ["user_id"]
+       13 SETTABLEKS                       R1 R5 K2 ["stage"]
+       15 SETTABLEKS                       R2 R5 K3 ["error_code"]
+       17 CALL                             R3 2 0
+       18 RETURN                           R0 0
+
+PROTO_29:
         0 GETUPVAL                         R4 0
         1 LOADK                            R5 K0 ["AvatarCreationUsage"]
-        2 DUPTABLE                         R6 K7 [{"user_id", "job_id", "place_id", "universe_id", "output_asset_ids", "job_config"}]
+        2 DUPTABLE                         R6 K8 [{"user_id", "job_id", "place_id", "universe_id", "output_asset_ids", "job_config", "request_source"}]
         3 GETUPVAL                         R8 1
-        4 NAMECALL                         R8 R8 K8 ["GetUserId"]
+        4 NAMECALL                         R8 R8 K9 ["GetUserId"]
         6 CALL                             R8 1 -1
         7 FASTCALL                         TOSTRING ; [+2]
-        8 GETIMPORT                        R7 K10 [tostring]
+        8 GETIMPORT                        R7 K11 [tostring]
        10 CALL                             R7 -1 1
        11 SETTABLEKS                       R7 R6 K1 ["user_id"]
        13 SETTABLEKS                       R1 R6 K2 ["job_id"]
-       15 GETIMPORT                        R8 K12 [game]
-       17 GETTABLEKS                       R8 R8 K13 ["PlaceId"]
+       15 GETIMPORT                        R8 K13 [game]
+       17 GETTABLEKS                       R8 R8 K14 ["PlaceId"]
        19 FASTCALL1                        TOSTRING R8 ; [+2]
-       20 GETIMPORT                        R7 K10 [tostring]
+       20 GETIMPORT                        R7 K11 [tostring]
        22 CALL                             R7 1 1
        23 SETTABLEKS                       R7 R6 K3 ["place_id"]
-       25 GETIMPORT                        R8 K12 [game]
-       27 GETTABLEKS                       R8 R8 K14 ["GameId"]
+       25 GETIMPORT                        R8 K13 [game]
+       27 GETTABLEKS                       R8 R8 K15 ["GameId"]
        29 FASTCALL1                        TOSTRING R8 ; [+2]
-       30 GETIMPORT                        R7 K10 [tostring]
+       30 GETIMPORT                        R7 K11 [tostring]
        32 CALL                             R7 1 1
        33 SETTABLEKS                       R7 R6 K4 ["universe_id"]
-       35 GETIMPORT                        R7 K17 [table.concat]
+       35 GETIMPORT                        R7 K18 [table.concat]
        37 MOVE                             R8 R2
-       38 LOADK                            R9 K18 [","]
+       38 LOADK                            R9 K19 [","]
        39 CALL                             R7 2 1
        40 SETTABLEKS                       R7 R6 K5 ["output_asset_ids"]
        42 GETUPVAL                         R7 2
        43 MOVE                             R9 R3
-       44 NAMECALL                         R7 R7 K19 ["JSONEncode"]
+       44 NAMECALL                         R7 R7 K20 ["JSONEncode"]
        46 CALL                             R7 2 1
        47 SETTABLEKS                       R7 R6 K6 ["job_config"]
-       49 CALL                             R4 2 0
-       50 RETURN                           R0 0
+       49 GETUPVAL                         R8 3
+       50 CALL                             R8 0 1
+       51 JUMPIFNOT                        R8 ; [+2]
+       52 LOADK                            R7 K21 ["AvatarCompatibilityPreviewer"]
+       53 JUMP                             ; [+1]
+       54 LOADNIL                          R7
+       55 SETTABLEKS                       R7 R6 K7 ["request_source"]
+       57 CALL                             R4 2 0
+       58 RETURN                           R0 0
 
-PROTO_29:
+PROTO_30:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["SetStage"]
         2 DUPTABLE                         R4 K2 [{"stageKey"}]
@@ -439,13 +462,13 @@ PROTO_29:
         5 CALL                             R2 2 0
         6 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["TestInExperience"]
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["UnequipItem"]
         2 GETUPVAL                         R4 1
@@ -454,7 +477,7 @@ PROTO_31:
         5 CALL                             R2 2 0
         6 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AutoSetupPassedValidation"]
         2 LOADNIL                          R3
@@ -462,7 +485,7 @@ PROTO_32:
         5 CALL                             R0 3 0
         6 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AutoSetupFailedValidation"]
         2 LOADNIL                          R3
@@ -470,7 +493,7 @@ PROTO_33:
         5 CALL                             R0 3 0
         6 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 GETUPVAL                         R2 0
         1 LOADK                            R4 K0 ["AutoSetupValidationDuration"]
         2 MOVE                             R5 R1
@@ -478,7 +501,7 @@ PROTO_34:
         5 CALL                             R2 3 0
         6 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 GETUPVAL                         R2 0
         1 LOADK                            R4 K0 ["AutoSetupValidationErrorCount"]
         2 MOVE                             R5 R1
@@ -486,7 +509,7 @@ PROTO_35:
         5 CALL                             R2 3 0
         6 RETURN                           R0 0
 
-PROTO_36:
+PROTO_37:
         0 DUPTABLE                         R3 K2 [{"inputAssetId", "errorText"}]
         1 SETTABLEKS                       R1 R3 K0 ["inputAssetId"]
         3 SETTABLEKS                       R2 R3 K1 ["errorText"]
@@ -497,13 +520,6 @@ PROTO_36:
         9 NAMECALL                         R4 R4 K4 ["ReportInfluxSeries"]
        11 CALL                             R4 4 0
        12 RETURN                           R0 0
-
-PROTO_37:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R0 R0 K0 ["LogCounter"]
-        4 CALL                             R0 2 0
-        5 RETURN                           R0 0
 
 PROTO_38:
         0 GETUPVAL                         R0 0
@@ -576,6 +592,13 @@ PROTO_47:
         5 RETURN                           R0 0
 
 PROTO_48:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["LogCounter"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
+
+PROTO_49:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
@@ -674,134 +697,139 @@ PROTO_48:
       119 NEWCLOSURE                       R6 P27
       120 CAPTURE                          VAL R1
       121 CAPTURE                          UPVAL U10
-      122 CAPTURE                          UPVAL U11
-      123 SETTABLEKS                       R6 R5 K23 ["sendAvatarCreationUsage"]
-      125 NEWCLOSURE                       R6 P28
-      126 CAPTURE                          VAL R1
-      127 SETTABLEKS                       R6 R5 K24 ["setStage"]
-      129 NEWCLOSURE                       R6 P29
-      130 CAPTURE                          VAL R1
-      131 SETTABLEKS                       R6 R5 K25 ["testInExperience"]
-      133 NEWCLOSURE                       R6 P30
-      134 CAPTURE                          VAL R1
-      135 CAPTURE                          UPVAL U7
-      136 SETTABLEKS                       R6 R5 K26 ["unequipItem"]
-      138 NEWCLOSURE                       R6 P31
-      139 CAPTURE                          VAL R0
-      140 SETTABLEKS                       R6 R5 K27 ["autoSetupPassedValidation"]
-      142 NEWCLOSURE                       R6 P32
-      143 CAPTURE                          VAL R0
-      144 SETTABLEKS                       R6 R5 K28 ["autoSetupFailedValidation"]
-      146 NEWCLOSURE                       R6 P33
-      147 CAPTURE                          VAL R0
-      148 SETTABLEKS                       R6 R5 K29 ["autoSetupValidationDuration"]
-      150 NEWCLOSURE                       R6 P34
-      151 CAPTURE                          VAL R0
-      152 SETTABLEKS                       R6 R5 K30 ["autoSetupValidationErrorCount"]
-      154 NEWCLOSURE                       R6 P35
-      155 CAPTURE                          VAL R0
-      156 CAPTURE                          UPVAL U1
-      157 SETTABLEKS                       R6 R5 K31 ["autoSetupValidationError"]
-      159 GETUPVAL                         R7 12
-      160 CALL                             R7 0 1
-      161 JUMPIFNOT                        R7 ; [+4]
-      162 DUPCLOSURE                       R6 K32 [PROTO_37]
-      163 CAPTURE                          UPVAL U2
-      164 CAPTURE                          UPVAL U13
-      165 JUMP                             ; [+1]
-      166 LOADNIL                          R6
-      167 SETTABLEKS                       R6 R5 K33 ["marketplaceGetItemsError"]
-      169 GETUPVAL                         R7 12
-      170 CALL                             R7 0 1
-      171 JUMPIFNOT                        R7 ; [+4]
-      172 DUPCLOSURE                       R6 K34 [PROTO_38]
-      173 CAPTURE                          UPVAL U2
-      174 CAPTURE                          UPVAL U14
-      175 JUMP                             ; [+1]
-      176 LOADNIL                          R6
-      177 SETTABLEKS                       R6 R5 K35 ["marketplaceItemsAddedToPlugin"]
-      179 GETUPVAL                         R7 12
-      180 CALL                             R7 0 1
-      181 JUMPIFNOT                        R7 ; [+4]
-      182 DUPCLOSURE                       R6 K36 [PROTO_39]
-      183 CAPTURE                          UPVAL U2
-      184 CAPTURE                          UPVAL U15
-      185 JUMP                             ; [+1]
-      186 LOADNIL                          R6
-      187 SETTABLEKS                       R6 R5 K37 ["marketplaceLookAccessFailure"]
-      189 GETUPVAL                         R7 12
-      190 CALL                             R7 0 1
-      191 JUMPIFNOT                        R7 ; [+4]
-      192 DUPCLOSURE                       R6 K38 [PROTO_40]
-      193 CAPTURE                          UPVAL U2
-      194 CAPTURE                          UPVAL U16
-      195 JUMP                             ; [+1]
-      196 LOADNIL                          R6
-      197 SETTABLEKS                       R6 R5 K39 ["marketplaceManageableGroupsFailure"]
-      199 GETUPVAL                         R7 12
-      200 CALL                             R7 0 1
-      201 JUMPIFNOT                        R7 ; [+4]
-      202 DUPCLOSURE                       R6 K40 [PROTO_41]
-      203 CAPTURE                          UPVAL U2
-      204 CAPTURE                          UPVAL U17
-      205 JUMP                             ; [+1]
-      206 LOADNIL                          R6
-      207 SETTABLEKS                       R6 R5 K41 ["marketplaceLookPreviewSuccess"]
-      209 GETUPVAL                         R7 12
-      210 CALL                             R7 0 1
-      211 JUMPIFNOT                        R7 ; [+4]
-      212 DUPCLOSURE                       R6 K42 [PROTO_42]
-      213 CAPTURE                          UPVAL U2
-      214 CAPTURE                          UPVAL U18
-      215 JUMP                             ; [+1]
-      216 LOADNIL                          R6
-      217 SETTABLEKS                       R6 R5 K43 ["marketplaceLookValidationSuccess"]
-      219 GETUPVAL                         R7 12
-      220 CALL                             R7 0 1
-      221 JUMPIFNOT                        R7 ; [+4]
-      222 DUPCLOSURE                       R6 K44 [PROTO_43]
-      223 CAPTURE                          UPVAL U2
-      224 CAPTURE                          UPVAL U19
-      225 JUMP                             ; [+1]
-      226 LOADNIL                          R6
-      227 SETTABLEKS                       R6 R5 K45 ["marketplaceLookCreationSuccess"]
-      229 GETUPVAL                         R7 12
-      230 CALL                             R7 0 1
-      231 JUMPIFNOT                        R7 ; [+4]
-      232 DUPCLOSURE                       R6 K46 [PROTO_44]
-      233 CAPTURE                          UPVAL U2
-      234 CAPTURE                          UPVAL U20
-      235 JUMP                             ; [+1]
-      236 LOADNIL                          R6
-      237 SETTABLEKS                       R6 R5 K47 ["marketplaceLookPreviewError"]
-      239 GETUPVAL                         R7 12
-      240 CALL                             R7 0 1
-      241 JUMPIFNOT                        R7 ; [+4]
-      242 DUPCLOSURE                       R6 K48 [PROTO_45]
-      243 CAPTURE                          UPVAL U2
-      244 CAPTURE                          UPVAL U21
-      245 JUMP                             ; [+1]
-      246 LOADNIL                          R6
-      247 SETTABLEKS                       R6 R5 K49 ["marketplaceLookValidationError"]
-      249 GETUPVAL                         R7 12
-      250 CALL                             R7 0 1
-      251 JUMPIFNOT                        R7 ; [+4]
-      252 DUPCLOSURE                       R6 K50 [PROTO_46]
-      253 CAPTURE                          UPVAL U2
-      254 CAPTURE                          UPVAL U22
-      255 JUMP                             ; [+1]
-      256 LOADNIL                          R6
-      257 SETTABLEKS                       R6 R5 K51 ["marketplaceLookCreationError"]
-      259 GETUPVAL                         R7 12
-      260 CALL                             R7 0 1
-      261 JUMPIFNOT                        R7 ; [+4]
-      262 DUPCLOSURE                       R6 K52 [PROTO_47]
-      263 CAPTURE                          UPVAL U2
-      264 CAPTURE                          UPVAL U23
-      265 JUMP                             ; [+1]
-      266 LOADNIL                          R6
-      267 SETTABLEKS                       R6 R5 K53 ["marketplaceLookCreatorHubLink"]
-      269 RETURN                           R5 1
+      122 SETTABLEKS                       R6 R5 K23 ["sendAvatarCreationFailure"]
+      124 NEWCLOSURE                       R6 P28
+      125 CAPTURE                          VAL R1
+      126 CAPTURE                          UPVAL U10
+      127 CAPTURE                          UPVAL U11
+      128 CAPTURE                          UPVAL U12
+      129 SETTABLEKS                       R6 R5 K24 ["sendAvatarCreationUsage"]
+      131 NEWCLOSURE                       R6 P29
+      132 CAPTURE                          VAL R1
+      133 SETTABLEKS                       R6 R5 K25 ["setStage"]
+      135 NEWCLOSURE                       R6 P30
+      136 CAPTURE                          VAL R1
+      137 SETTABLEKS                       R6 R5 K26 ["testInExperience"]
+      139 NEWCLOSURE                       R6 P31
+      140 CAPTURE                          VAL R1
+      141 CAPTURE                          UPVAL U7
+      142 SETTABLEKS                       R6 R5 K27 ["unequipItem"]
+      144 NEWCLOSURE                       R6 P32
+      145 CAPTURE                          VAL R0
+      146 SETTABLEKS                       R6 R5 K28 ["autoSetupPassedValidation"]
+      148 NEWCLOSURE                       R6 P33
+      149 CAPTURE                          VAL R0
+      150 SETTABLEKS                       R6 R5 K29 ["autoSetupFailedValidation"]
+      152 NEWCLOSURE                       R6 P34
+      153 CAPTURE                          VAL R0
+      154 SETTABLEKS                       R6 R5 K30 ["autoSetupValidationDuration"]
+      156 NEWCLOSURE                       R6 P35
+      157 CAPTURE                          VAL R0
+      158 SETTABLEKS                       R6 R5 K31 ["autoSetupValidationErrorCount"]
+      160 NEWCLOSURE                       R6 P36
+      161 CAPTURE                          VAL R0
+      162 CAPTURE                          UPVAL U1
+      163 SETTABLEKS                       R6 R5 K32 ["autoSetupValidationError"]
+      165 GETUPVAL                         R7 13
+      166 CALL                             R7 0 1
+      167 JUMPIFNOT                        R7 ; [+4]
+      168 DUPCLOSURE                       R6 K33 [PROTO_38]
+      169 CAPTURE                          UPVAL U2
+      170 CAPTURE                          UPVAL U14
+      171 JUMP                             ; [+1]
+      172 LOADNIL                          R6
+      173 SETTABLEKS                       R6 R5 K34 ["marketplaceGetItemsError"]
+      175 GETUPVAL                         R7 13
+      176 CALL                             R7 0 1
+      177 JUMPIFNOT                        R7 ; [+4]
+      178 DUPCLOSURE                       R6 K35 [PROTO_39]
+      179 CAPTURE                          UPVAL U2
+      180 CAPTURE                          UPVAL U15
+      181 JUMP                             ; [+1]
+      182 LOADNIL                          R6
+      183 SETTABLEKS                       R6 R5 K36 ["marketplaceItemsAddedToPlugin"]
+      185 GETUPVAL                         R7 13
+      186 CALL                             R7 0 1
+      187 JUMPIFNOT                        R7 ; [+4]
+      188 DUPCLOSURE                       R6 K37 [PROTO_40]
+      189 CAPTURE                          UPVAL U2
+      190 CAPTURE                          UPVAL U16
+      191 JUMP                             ; [+1]
+      192 LOADNIL                          R6
+      193 SETTABLEKS                       R6 R5 K38 ["marketplaceLookAccessFailure"]
+      195 GETUPVAL                         R7 13
+      196 CALL                             R7 0 1
+      197 JUMPIFNOT                        R7 ; [+4]
+      198 DUPCLOSURE                       R6 K39 [PROTO_41]
+      199 CAPTURE                          UPVAL U2
+      200 CAPTURE                          UPVAL U17
+      201 JUMP                             ; [+1]
+      202 LOADNIL                          R6
+      203 SETTABLEKS                       R6 R5 K40 ["marketplaceManageableGroupsFailure"]
+      205 GETUPVAL                         R7 13
+      206 CALL                             R7 0 1
+      207 JUMPIFNOT                        R7 ; [+4]
+      208 DUPCLOSURE                       R6 K41 [PROTO_42]
+      209 CAPTURE                          UPVAL U2
+      210 CAPTURE                          UPVAL U18
+      211 JUMP                             ; [+1]
+      212 LOADNIL                          R6
+      213 SETTABLEKS                       R6 R5 K42 ["marketplaceLookPreviewSuccess"]
+      215 GETUPVAL                         R7 13
+      216 CALL                             R7 0 1
+      217 JUMPIFNOT                        R7 ; [+4]
+      218 DUPCLOSURE                       R6 K43 [PROTO_43]
+      219 CAPTURE                          UPVAL U2
+      220 CAPTURE                          UPVAL U19
+      221 JUMP                             ; [+1]
+      222 LOADNIL                          R6
+      223 SETTABLEKS                       R6 R5 K44 ["marketplaceLookValidationSuccess"]
+      225 GETUPVAL                         R7 13
+      226 CALL                             R7 0 1
+      227 JUMPIFNOT                        R7 ; [+4]
+      228 DUPCLOSURE                       R6 K45 [PROTO_44]
+      229 CAPTURE                          UPVAL U2
+      230 CAPTURE                          UPVAL U20
+      231 JUMP                             ; [+1]
+      232 LOADNIL                          R6
+      233 SETTABLEKS                       R6 R5 K46 ["marketplaceLookCreationSuccess"]
+      235 GETUPVAL                         R7 13
+      236 CALL                             R7 0 1
+      237 JUMPIFNOT                        R7 ; [+4]
+      238 DUPCLOSURE                       R6 K47 [PROTO_45]
+      239 CAPTURE                          UPVAL U2
+      240 CAPTURE                          UPVAL U21
+      241 JUMP                             ; [+1]
+      242 LOADNIL                          R6
+      243 SETTABLEKS                       R6 R5 K48 ["marketplaceLookPreviewError"]
+      245 GETUPVAL                         R7 13
+      246 CALL                             R7 0 1
+      247 JUMPIFNOT                        R7 ; [+4]
+      248 DUPCLOSURE                       R6 K49 [PROTO_46]
+      249 CAPTURE                          UPVAL U2
+      250 CAPTURE                          UPVAL U22
+      251 JUMP                             ; [+1]
+      252 LOADNIL                          R6
+      253 SETTABLEKS                       R6 R5 K50 ["marketplaceLookValidationError"]
+      255 GETUPVAL                         R7 13
+      256 CALL                             R7 0 1
+      257 JUMPIFNOT                        R7 ; [+4]
+      258 DUPCLOSURE                       R6 K51 [PROTO_47]
+      259 CAPTURE                          UPVAL U2
+      260 CAPTURE                          UPVAL U23
+      261 JUMP                             ; [+1]
+      262 LOADNIL                          R6
+      263 SETTABLEKS                       R6 R5 K52 ["marketplaceLookCreationError"]
+      265 GETUPVAL                         R7 13
+      266 CALL                             R7 0 1
+      267 JUMPIFNOT                        R7 ; [+4]
+      268 DUPCLOSURE                       R6 K53 [PROTO_48]
+      269 CAPTURE                          UPVAL U2
+      270 CAPTURE                          UPVAL U24
+      271 JUMP                             ; [+1]
+      272 LOADNIL                          R6
+      273 SETTABLEKS                       R6 R5 K54 ["marketplaceLookCreatorHubLink"]
+      275 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -842,208 +870,214 @@ MAIN:
        57 GETIMPORT                        R8 K10 [require]
        59 GETTABLEKS                       R9 R0 K13 ["Src"]
        61 GETTABLEKS                       R9 R9 K17 ["Flags"]
-       63 GETTABLEKS                       R9 R9 K19 ["getFFlagAvatarPreviewerLookComposer"]
+       63 GETTABLEKS                       R9 R9 K19 ["getFFlagAvatarPreviewerAvatarCreationUsageRequestSource"]
        65 CALL                             R8 1 1
-       66 DUPTABLE                         R9 K28 [{["eventName"] = "SBT_AvatarAutoSetupSucceeded", ["lastUpdated"], ["description"] = "Avatar auto setup succeeded.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
-       67 NEWTABLE                         R10 0 3
-       69 LOADN                            R11 2024
-       70 LOADN                            R12 11
-       71 LOADN                            R13 21
-       72 SETLIST                          R10 R11 3 [1]
-       74 SETTABLEKS                       R10 R9 K22 ["lastUpdated"]
-       76 NEWTABLE                         R10 0 1
-       78 LOADK                            R11 K29 ["RobloxTelemetryCounter"]
-       79 SETLIST                          R10 R11 1 [1]
-       81 SETTABLEKS                       R10 R9 K27 ["backends"]
-       83 DUPTABLE                         R10 K32 [{["eventName"] = "SBT_AvatarAutoSetupFailed", ["lastUpdated"], ["description"] = "Avatar auto setup failed.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
-       84 NEWTABLE                         R11 0 3
-       86 LOADN                            R12 2025
-       87 LOADN                            R13 2
-       88 LOADN                            R14 13
-       89 SETLIST                          R11 R12 3 [1]
-       91 SETTABLEKS                       R11 R10 K22 ["lastUpdated"]
-       93 NEWTABLE                         R11 0 1
-       95 LOADK                            R12 K29 ["RobloxTelemetryCounter"]
-       96 SETLIST                          R11 R12 1 [1]
-       98 SETTABLEKS                       R11 R10 K27 ["backends"]
-      100 DUPTABLE                         R11 K35 [{["eventName"] = "SBT_AvatarAutoSetupCanceled", ["lastUpdated"], ["description"] = "Avatar auto setup canceled.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
-      101 NEWTABLE                         R12 0 3
-      103 LOADN                            R13 2025
-      104 LOADN                            R14 2
-      105 LOADN                            R15 13
-      106 SETLIST                          R12 R13 3 [1]
-      108 SETTABLEKS                       R12 R11 K22 ["lastUpdated"]
-      110 NEWTABLE                         R12 0 1
-      112 LOADK                            R13 K29 ["RobloxTelemetryCounter"]
-      113 SETLIST                          R12 R13 1 [1]
-      115 SETTABLEKS                       R12 R11 K27 ["backends"]
-      117 DUPTABLE                         R12 K38 [{["eventName"] = "SBT_AvatarPreviewerItemEquipped", ["lastUpdated"], ["description"] = "Avatar previewer equipped an avatar item for testing.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
-      118 NEWTABLE                         R13 0 3
-      120 LOADN                            R14 2024
-      121 LOADN                            R15 11
-      122 LOADN                            R16 21
-      123 SETLIST                          R13 R14 3 [1]
-      125 SETTABLEKS                       R13 R12 K22 ["lastUpdated"]
-      127 NEWTABLE                         R13 0 1
-      129 LOADK                            R14 K29 ["RobloxTelemetryCounter"]
-      130 SETLIST                          R13 R14 1 [1]
-      132 SETTABLEKS                       R13 R12 K27 ["backends"]
-      134 DUPTABLE                         R13 K41 [{["eventName"] = "SBT_AvatarPreviewerPublished", ["lastUpdated"], ["description"] = "Avatar previewer published an asset to the marketplace.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
-      135 NEWTABLE                         R14 0 3
-      137 LOADN                            R15 2024
-      138 LOADN                            R16 11
-      139 LOADN                            R17 21
-      140 SETLIST                          R14 R15 3 [1]
-      142 SETTABLEKS                       R14 R13 K22 ["lastUpdated"]
-      144 NEWTABLE                         R14 0 1
-      146 LOADK                            R15 K29 ["RobloxTelemetryCounter"]
-      147 SETLIST                          R14 R15 1 [1]
-      149 SETTABLEKS                       R14 R13 K27 ["backends"]
-      151 DUPTABLE                         R14 K45 [{["eventName"] = "MKTUJ_LookComposerGetItemsError", ["lastUpdated"], ["description"] = "getMarketplaceItems returned >= 1 error.", ["links"] = "", ["backends"]}]
-      152 NEWTABLE                         R15 0 3
-      154 LOADN                            R16 2026
-      155 LOADN                            R17 3
-      156 LOADN                            R18 10
-      157 SETLIST                          R15 R16 3 [1]
-      159 SETTABLEKS                       R15 R14 K22 ["lastUpdated"]
-      161 NEWTABLE                         R15 0 1
-      163 LOADK                            R16 K29 ["RobloxTelemetryCounter"]
-      164 SETLIST                          R15 R16 1 [1]
-      166 SETTABLEKS                       R15 R14 K27 ["backends"]
-      168 DUPTABLE                         R15 K48 [{["eventName"] = "MKTUJ_LookComposerItemsAddedToPlugin", ["lastUpdated"], ["description"] = "Marketplace items imported into auto setup plugin.", ["links"] = "", ["backends"]}]
-      169 NEWTABLE                         R16 0 3
-      171 LOADN                            R17 2026
-      172 LOADN                            R18 3
-      173 LOADN                            R19 10
-      174 SETLIST                          R16 R17 3 [1]
-      176 SETTABLEKS                       R16 R15 K22 ["lastUpdated"]
-      178 NEWTABLE                         R16 0 1
-      180 LOADK                            R17 K29 ["RobloxTelemetryCounter"]
-      181 SETLIST                          R16 R17 1 [1]
-      183 SETTABLEKS                       R16 R15 K27 ["backends"]
-      185 DUPTABLE                         R16 K51 [{["eventName"] = "MKTUJ_LookComposerFeatureAccessFailure", ["lastUpdated"], ["description"] = "Marketplace look feature access failure.", ["links"] = "", ["backends"]}]
-      186 NEWTABLE                         R17 0 3
-      188 LOADN                            R18 2026
-      189 LOADN                            R19 3
-      190 LOADN                            R20 10
-      191 SETLIST                          R17 R18 3 [1]
-      193 SETTABLEKS                       R17 R16 K22 ["lastUpdated"]
-      195 NEWTABLE                         R17 0 1
-      197 LOADK                            R18 K29 ["RobloxTelemetryCounter"]
-      198 SETLIST                          R17 R18 1 [1]
-      200 SETTABLEKS                       R17 R16 K27 ["backends"]
-      202 DUPTABLE                         R17 K54 [{["eventName"] = "MKTUJ_LookComposerManageableGroupsFailure", ["lastUpdated"], ["description"] = "Marketplace manageable groups failure.", ["links"] = "", ["backends"]}]
-      203 NEWTABLE                         R18 0 3
-      205 LOADN                            R19 2026
-      206 LOADN                            R20 3
-      207 LOADN                            R21 10
-      208 SETLIST                          R18 R19 3 [1]
-      210 SETTABLEKS                       R18 R17 K22 ["lastUpdated"]
-      212 NEWTABLE                         R18 0 1
-      214 LOADK                            R19 K29 ["RobloxTelemetryCounter"]
-      215 SETLIST                          R18 R19 1 [1]
-      217 SETTABLEKS                       R18 R17 K27 ["backends"]
-      219 DUPTABLE                         R18 K57 [{["eventName"] = "MKTUJ_LookComposerPreviewSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog preview success.", ["links"] = "", ["backends"]}]
-      220 NEWTABLE                         R19 0 3
-      222 LOADN                            R20 2026
-      223 LOADN                            R21 3
-      224 LOADN                            R22 10
-      225 SETLIST                          R19 R20 3 [1]
-      227 SETTABLEKS                       R19 R18 K22 ["lastUpdated"]
-      229 NEWTABLE                         R19 0 1
-      231 LOADK                            R20 K29 ["RobloxTelemetryCounter"]
-      232 SETLIST                          R19 R20 1 [1]
-      234 SETTABLEKS                       R19 R18 K27 ["backends"]
-      236 DUPTABLE                         R19 K60 [{["eventName"] = "MKTUJ_LookComposerValidationSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog validation success.", ["links"] = "", ["backends"]}]
-      237 NEWTABLE                         R20 0 3
-      239 LOADN                            R21 2026
-      240 LOADN                            R22 3
-      241 LOADN                            R23 10
-      242 SETLIST                          R20 R21 3 [1]
-      244 SETTABLEKS                       R20 R19 K22 ["lastUpdated"]
-      246 NEWTABLE                         R20 0 1
-      248 LOADK                            R21 K29 ["RobloxTelemetryCounter"]
-      249 SETLIST                          R20 R21 1 [1]
-      251 SETTABLEKS                       R20 R19 K27 ["backends"]
-      253 DUPTABLE                         R20 K63 [{["eventName"] = "MKTUJ_LookComposerCreationSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog creation success.", ["links"] = "", ["backends"]}]
-      254 NEWTABLE                         R21 0 3
-      256 LOADN                            R22 2026
-      257 LOADN                            R23 3
-      258 LOADN                            R24 10
-      259 SETLIST                          R21 R22 3 [1]
-      261 SETTABLEKS                       R21 R20 K22 ["lastUpdated"]
-      263 NEWTABLE                         R21 0 1
-      265 LOADK                            R22 K29 ["RobloxTelemetryCounter"]
-      266 SETLIST                          R21 R22 1 [1]
-      268 SETTABLEKS                       R21 R20 K27 ["backends"]
-      270 DUPTABLE                         R21 K66 [{["eventName"] = "MKTUJ_LookComposerPreviewError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog preview error.", ["links"] = "", ["backends"]}]
-      271 NEWTABLE                         R22 0 3
-      273 LOADN                            R23 2026
-      274 LOADN                            R24 3
-      275 LOADN                            R25 10
-      276 SETLIST                          R22 R23 3 [1]
-      278 SETTABLEKS                       R22 R21 K22 ["lastUpdated"]
-      280 NEWTABLE                         R22 0 1
-      282 LOADK                            R23 K29 ["RobloxTelemetryCounter"]
-      283 SETLIST                          R22 R23 1 [1]
-      285 SETTABLEKS                       R22 R21 K27 ["backends"]
-      287 DUPTABLE                         R22 K69 [{["eventName"] = "MKTUJ_LookComposerValidationError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog validation error.", ["links"] = "", ["backends"]}]
-      288 NEWTABLE                         R23 0 3
-      290 LOADN                            R24 2026
-      291 LOADN                            R25 3
-      292 LOADN                            R26 10
-      293 SETLIST                          R23 R24 3 [1]
-      295 SETTABLEKS                       R23 R22 K22 ["lastUpdated"]
-      297 NEWTABLE                         R23 0 1
-      299 LOADK                            R24 K29 ["RobloxTelemetryCounter"]
-      300 SETLIST                          R23 R24 1 [1]
-      302 SETTABLEKS                       R23 R22 K27 ["backends"]
-      304 DUPTABLE                         R23 K72 [{["eventName"] = "MKTUJ_LookComposerCreationError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog creation error.", ["links"] = "", ["backends"]}]
-      305 NEWTABLE                         R24 0 3
-      307 LOADN                            R25 2026
-      308 LOADN                            R26 3
-      309 LOADN                            R27 10
-      310 SETLIST                          R24 R25 3 [1]
-      312 SETTABLEKS                       R24 R23 K22 ["lastUpdated"]
-      314 NEWTABLE                         R24 0 1
-      316 LOADK                            R25 K29 ["RobloxTelemetryCounter"]
-      317 SETLIST                          R24 R25 1 [1]
-      319 SETTABLEKS                       R24 R23 K27 ["backends"]
-      321 DUPTABLE                         R24 K75 [{["eventName"] = "MKTUJ_LookComposerCreatorHubLink", ["lastUpdated"], ["description"] = "Marketplace look creator hub link opened.", ["links"] = "", ["backends"]}]
-      322 NEWTABLE                         R25 0 3
-      324 LOADN                            R26 2026
-      325 LOADN                            R27 3
-      326 LOADN                            R28 10
-      327 SETLIST                          R25 R26 3 [1]
-      329 SETTABLEKS                       R25 R24 K22 ["lastUpdated"]
-      331 NEWTABLE                         R25 0 1
-      333 LOADK                            R26 K29 ["RobloxTelemetryCounter"]
-      334 SETLIST                          R25 R26 1 [1]
-      336 SETTABLEKS                       R25 R24 K27 ["backends"]
-      338 DUPCLOSURE                       R25 K76 [PROTO_0]
-      339 DUPCLOSURE                       R26 K77 [PROTO_48]
-      340 CAPTURE                          VAL R4
-      341 CAPTURE                          VAL R6
-      342 CAPTURE                          VAL R3
-      343 CAPTURE                          VAL R10
-      344 CAPTURE                          VAL R11
-      345 CAPTURE                          VAL R9
-      346 CAPTURE                          VAL R7
-      347 CAPTURE                          VAL R25
-      348 CAPTURE                          VAL R12
-      349 CAPTURE                          VAL R13
-      350 CAPTURE                          VAL R2
-      351 CAPTURE                          VAL R1
-      352 CAPTURE                          VAL R8
-      353 CAPTURE                          VAL R14
-      354 CAPTURE                          VAL R15
-      355 CAPTURE                          VAL R16
-      356 CAPTURE                          VAL R17
-      357 CAPTURE                          VAL R18
-      358 CAPTURE                          VAL R19
-      359 CAPTURE                          VAL R20
-      360 CAPTURE                          VAL R21
-      361 CAPTURE                          VAL R22
-      362 CAPTURE                          VAL R23
-      363 CAPTURE                          VAL R24
-      364 RETURN                           R26 1
+       66 GETIMPORT                        R9 K10 [require]
+       68 GETTABLEKS                       R10 R0 K13 ["Src"]
+       70 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       72 GETTABLEKS                       R10 R10 K20 ["getFFlagAvatarPreviewerLookComposer"]
+       74 CALL                             R9 1 1
+       75 DUPTABLE                         R10 K29 [{["eventName"] = "SBT_AvatarAutoSetupSucceeded", ["lastUpdated"], ["description"] = "Avatar auto setup succeeded.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+       76 NEWTABLE                         R11 0 3
+       78 LOADN                            R12 2024
+       79 LOADN                            R13 11
+       80 LOADN                            R14 21
+       81 SETLIST                          R11 R12 3 [1]
+       83 SETTABLEKS                       R11 R10 K23 ["lastUpdated"]
+       85 NEWTABLE                         R11 0 1
+       87 LOADK                            R12 K30 ["RobloxTelemetryCounter"]
+       88 SETLIST                          R11 R12 1 [1]
+       90 SETTABLEKS                       R11 R10 K28 ["backends"]
+       92 DUPTABLE                         R11 K33 [{["eventName"] = "SBT_AvatarAutoSetupFailed", ["lastUpdated"], ["description"] = "Avatar auto setup failed.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+       93 NEWTABLE                         R12 0 3
+       95 LOADN                            R13 2025
+       96 LOADN                            R14 2
+       97 LOADN                            R15 13
+       98 SETLIST                          R12 R13 3 [1]
+      100 SETTABLEKS                       R12 R11 K23 ["lastUpdated"]
+      102 NEWTABLE                         R12 0 1
+      104 LOADK                            R13 K30 ["RobloxTelemetryCounter"]
+      105 SETLIST                          R12 R13 1 [1]
+      107 SETTABLEKS                       R12 R11 K28 ["backends"]
+      109 DUPTABLE                         R12 K36 [{["eventName"] = "SBT_AvatarAutoSetupCanceled", ["lastUpdated"], ["description"] = "Avatar auto setup canceled.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+      110 NEWTABLE                         R13 0 3
+      112 LOADN                            R14 2025
+      113 LOADN                            R15 2
+      114 LOADN                            R16 13
+      115 SETLIST                          R13 R14 3 [1]
+      117 SETTABLEKS                       R13 R12 K23 ["lastUpdated"]
+      119 NEWTABLE                         R13 0 1
+      121 LOADK                            R14 K30 ["RobloxTelemetryCounter"]
+      122 SETLIST                          R13 R14 1 [1]
+      124 SETTABLEKS                       R13 R12 K28 ["backends"]
+      126 DUPTABLE                         R13 K39 [{["eventName"] = "SBT_AvatarPreviewerItemEquipped", ["lastUpdated"], ["description"] = "Avatar previewer equipped an avatar item for testing.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+      127 NEWTABLE                         R14 0 3
+      129 LOADN                            R15 2024
+      130 LOADN                            R16 11
+      131 LOADN                            R17 21
+      132 SETLIST                          R14 R15 3 [1]
+      134 SETTABLEKS                       R14 R13 K23 ["lastUpdated"]
+      136 NEWTABLE                         R14 0 1
+      138 LOADK                            R15 K30 ["RobloxTelemetryCounter"]
+      139 SETLIST                          R14 R15 1 [1]
+      141 SETTABLEKS                       R14 R13 K28 ["backends"]
+      143 DUPTABLE                         R14 K42 [{["eventName"] = "SBT_AvatarPreviewerPublished", ["lastUpdated"], ["description"] = "Avatar previewer published an asset to the marketplace.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+      144 NEWTABLE                         R15 0 3
+      146 LOADN                            R16 2024
+      147 LOADN                            R17 11
+      148 LOADN                            R18 21
+      149 SETLIST                          R15 R16 3 [1]
+      151 SETTABLEKS                       R15 R14 K23 ["lastUpdated"]
+      153 NEWTABLE                         R15 0 1
+      155 LOADK                            R16 K30 ["RobloxTelemetryCounter"]
+      156 SETLIST                          R15 R16 1 [1]
+      158 SETTABLEKS                       R15 R14 K28 ["backends"]
+      160 DUPTABLE                         R15 K46 [{["eventName"] = "MKTUJ_LookComposerGetItemsError", ["lastUpdated"], ["description"] = "getMarketplaceItems returned >= 1 error.", ["links"] = "", ["backends"]}]
+      161 NEWTABLE                         R16 0 3
+      163 LOADN                            R17 2026
+      164 LOADN                            R18 3
+      165 LOADN                            R19 10
+      166 SETLIST                          R16 R17 3 [1]
+      168 SETTABLEKS                       R16 R15 K23 ["lastUpdated"]
+      170 NEWTABLE                         R16 0 1
+      172 LOADK                            R17 K30 ["RobloxTelemetryCounter"]
+      173 SETLIST                          R16 R17 1 [1]
+      175 SETTABLEKS                       R16 R15 K28 ["backends"]
+      177 DUPTABLE                         R16 K49 [{["eventName"] = "MKTUJ_LookComposerItemsAddedToPlugin", ["lastUpdated"], ["description"] = "Marketplace items imported into auto setup plugin.", ["links"] = "", ["backends"]}]
+      178 NEWTABLE                         R17 0 3
+      180 LOADN                            R18 2026
+      181 LOADN                            R19 3
+      182 LOADN                            R20 10
+      183 SETLIST                          R17 R18 3 [1]
+      185 SETTABLEKS                       R17 R16 K23 ["lastUpdated"]
+      187 NEWTABLE                         R17 0 1
+      189 LOADK                            R18 K30 ["RobloxTelemetryCounter"]
+      190 SETLIST                          R17 R18 1 [1]
+      192 SETTABLEKS                       R17 R16 K28 ["backends"]
+      194 DUPTABLE                         R17 K52 [{["eventName"] = "MKTUJ_LookComposerFeatureAccessFailure", ["lastUpdated"], ["description"] = "Marketplace look feature access failure.", ["links"] = "", ["backends"]}]
+      195 NEWTABLE                         R18 0 3
+      197 LOADN                            R19 2026
+      198 LOADN                            R20 3
+      199 LOADN                            R21 10
+      200 SETLIST                          R18 R19 3 [1]
+      202 SETTABLEKS                       R18 R17 K23 ["lastUpdated"]
+      204 NEWTABLE                         R18 0 1
+      206 LOADK                            R19 K30 ["RobloxTelemetryCounter"]
+      207 SETLIST                          R18 R19 1 [1]
+      209 SETTABLEKS                       R18 R17 K28 ["backends"]
+      211 DUPTABLE                         R18 K55 [{["eventName"] = "MKTUJ_LookComposerManageableGroupsFailure", ["lastUpdated"], ["description"] = "Marketplace manageable groups failure.", ["links"] = "", ["backends"]}]
+      212 NEWTABLE                         R19 0 3
+      214 LOADN                            R20 2026
+      215 LOADN                            R21 3
+      216 LOADN                            R22 10
+      217 SETLIST                          R19 R20 3 [1]
+      219 SETTABLEKS                       R19 R18 K23 ["lastUpdated"]
+      221 NEWTABLE                         R19 0 1
+      223 LOADK                            R20 K30 ["RobloxTelemetryCounter"]
+      224 SETLIST                          R19 R20 1 [1]
+      226 SETTABLEKS                       R19 R18 K28 ["backends"]
+      228 DUPTABLE                         R19 K58 [{["eventName"] = "MKTUJ_LookComposerPreviewSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog preview success.", ["links"] = "", ["backends"]}]
+      229 NEWTABLE                         R20 0 3
+      231 LOADN                            R21 2026
+      232 LOADN                            R22 3
+      233 LOADN                            R23 10
+      234 SETLIST                          R20 R21 3 [1]
+      236 SETTABLEKS                       R20 R19 K23 ["lastUpdated"]
+      238 NEWTABLE                         R20 0 1
+      240 LOADK                            R21 K30 ["RobloxTelemetryCounter"]
+      241 SETLIST                          R20 R21 1 [1]
+      243 SETTABLEKS                       R20 R19 K28 ["backends"]
+      245 DUPTABLE                         R20 K61 [{["eventName"] = "MKTUJ_LookComposerValidationSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog validation success.", ["links"] = "", ["backends"]}]
+      246 NEWTABLE                         R21 0 3
+      248 LOADN                            R22 2026
+      249 LOADN                            R23 3
+      250 LOADN                            R24 10
+      251 SETLIST                          R21 R22 3 [1]
+      253 SETTABLEKS                       R21 R20 K23 ["lastUpdated"]
+      255 NEWTABLE                         R21 0 1
+      257 LOADK                            R22 K30 ["RobloxTelemetryCounter"]
+      258 SETLIST                          R21 R22 1 [1]
+      260 SETTABLEKS                       R21 R20 K28 ["backends"]
+      262 DUPTABLE                         R21 K64 [{["eventName"] = "MKTUJ_LookComposerCreationSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog creation success.", ["links"] = "", ["backends"]}]
+      263 NEWTABLE                         R22 0 3
+      265 LOADN                            R23 2026
+      266 LOADN                            R24 3
+      267 LOADN                            R25 10
+      268 SETLIST                          R22 R23 3 [1]
+      270 SETTABLEKS                       R22 R21 K23 ["lastUpdated"]
+      272 NEWTABLE                         R22 0 1
+      274 LOADK                            R23 K30 ["RobloxTelemetryCounter"]
+      275 SETLIST                          R22 R23 1 [1]
+      277 SETTABLEKS                       R22 R21 K28 ["backends"]
+      279 DUPTABLE                         R22 K67 [{["eventName"] = "MKTUJ_LookComposerPreviewError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog preview error.", ["links"] = "", ["backends"]}]
+      280 NEWTABLE                         R23 0 3
+      282 LOADN                            R24 2026
+      283 LOADN                            R25 3
+      284 LOADN                            R26 10
+      285 SETLIST                          R23 R24 3 [1]
+      287 SETTABLEKS                       R23 R22 K23 ["lastUpdated"]
+      289 NEWTABLE                         R23 0 1
+      291 LOADK                            R24 K30 ["RobloxTelemetryCounter"]
+      292 SETLIST                          R23 R24 1 [1]
+      294 SETTABLEKS                       R23 R22 K28 ["backends"]
+      296 DUPTABLE                         R23 K70 [{["eventName"] = "MKTUJ_LookComposerValidationError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog validation error.", ["links"] = "", ["backends"]}]
+      297 NEWTABLE                         R24 0 3
+      299 LOADN                            R25 2026
+      300 LOADN                            R26 3
+      301 LOADN                            R27 10
+      302 SETLIST                          R24 R25 3 [1]
+      304 SETTABLEKS                       R24 R23 K23 ["lastUpdated"]
+      306 NEWTABLE                         R24 0 1
+      308 LOADK                            R25 K30 ["RobloxTelemetryCounter"]
+      309 SETLIST                          R24 R25 1 [1]
+      311 SETTABLEKS                       R24 R23 K28 ["backends"]
+      313 DUPTABLE                         R24 K73 [{["eventName"] = "MKTUJ_LookComposerCreationError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog creation error.", ["links"] = "", ["backends"]}]
+      314 NEWTABLE                         R25 0 3
+      316 LOADN                            R26 2026
+      317 LOADN                            R27 3
+      318 LOADN                            R28 10
+      319 SETLIST                          R25 R26 3 [1]
+      321 SETTABLEKS                       R25 R24 K23 ["lastUpdated"]
+      323 NEWTABLE                         R25 0 1
+      325 LOADK                            R26 K30 ["RobloxTelemetryCounter"]
+      326 SETLIST                          R25 R26 1 [1]
+      328 SETTABLEKS                       R25 R24 K28 ["backends"]
+      330 DUPTABLE                         R25 K76 [{["eventName"] = "MKTUJ_LookComposerCreatorHubLink", ["lastUpdated"], ["description"] = "Marketplace look creator hub link opened.", ["links"] = "", ["backends"]}]
+      331 NEWTABLE                         R26 0 3
+      333 LOADN                            R27 2026
+      334 LOADN                            R28 3
+      335 LOADN                            R29 10
+      336 SETLIST                          R26 R27 3 [1]
+      338 SETTABLEKS                       R26 R25 K23 ["lastUpdated"]
+      340 NEWTABLE                         R26 0 1
+      342 LOADK                            R27 K30 ["RobloxTelemetryCounter"]
+      343 SETLIST                          R26 R27 1 [1]
+      345 SETTABLEKS                       R26 R25 K28 ["backends"]
+      347 DUPCLOSURE                       R26 K77 [PROTO_0]
+      348 DUPCLOSURE                       R27 K78 [PROTO_49]
+      349 CAPTURE                          VAL R4
+      350 CAPTURE                          VAL R6
+      351 CAPTURE                          VAL R3
+      352 CAPTURE                          VAL R11
+      353 CAPTURE                          VAL R12
+      354 CAPTURE                          VAL R10
+      355 CAPTURE                          VAL R7
+      356 CAPTURE                          VAL R26
+      357 CAPTURE                          VAL R13
+      358 CAPTURE                          VAL R14
+      359 CAPTURE                          VAL R2
+      360 CAPTURE                          VAL R1
+      361 CAPTURE                          VAL R8
+      362 CAPTURE                          VAL R9
+      363 CAPTURE                          VAL R15
+      364 CAPTURE                          VAL R16
+      365 CAPTURE                          VAL R17
+      366 CAPTURE                          VAL R18
+      367 CAPTURE                          VAL R19
+      368 CAPTURE                          VAL R20
+      369 CAPTURE                          VAL R21
+      370 CAPTURE                          VAL R22
+      371 CAPTURE                          VAL R23
+      372 CAPTURE                          VAL R24
+      373 CAPTURE                          VAL R25
+      374 RETURN                           R27 1

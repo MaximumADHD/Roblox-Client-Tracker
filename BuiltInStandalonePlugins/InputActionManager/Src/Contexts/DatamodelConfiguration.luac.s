@@ -145,37 +145,34 @@ PROTO_10:
        26 GETTABLEKS                       R9 R0 K8 ["plugin"]
        28 SETLIST                          R8 R9 1 [1]
        30 CALL                             R6 2 0
-       31 GETUPVAL                         R6 2
-       32 CALL                             R6 0 1
-       33 JUMPIFNOT                        R6 ; [+12]
-       34 GETUPVAL                         R6 0
-       35 GETTABLEKS                       R6 R6 K7 ["useEffect"]
-       37 NEWCLOSURE                       R7 P1
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R5
-       40 NEWTABLE                         R8 0 1
-       42 MOVE                             R9 R1
-       43 SETLIST                          R8 R9 1 [1]
-       45 CALL                             R6 2 0
-       46 GETUPVAL                         R6 0
-       47 GETTABLEKS                       R6 R6 K9 ["useMemo"]
-       49 NEWCLOSURE                       R7 P2
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R4
-       52 NEWTABLE                         R8 0 2
-       54 MOVE                             R9 R2
-       55 MOVE                             R10 R4
-       56 SETLIST                          R8 R9 2 [1]
-       58 CALL                             R6 2 1
-       59 GETUPVAL                         R7 0
-       60 GETTABLEKS                       R7 R7 K10 ["createElement"]
-       62 GETUPVAL                         R8 3
-       63 GETTABLEKS                       R8 R8 K11 ["Provider"]
-       65 DUPTABLE                         R9 K13 [{"value"}]
-       66 SETTABLEKS                       R6 R9 K12 ["value"]
-       68 GETTABLEKS                       R10 R0 K14 ["children"]
-       70 CALL                             R7 3 -1
-       71 RETURN                           R7 -1
+       31 GETUPVAL                         R6 0
+       32 GETTABLEKS                       R6 R6 K7 ["useEffect"]
+       34 NEWCLOSURE                       R7 P1
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          VAL R5
+       37 NEWTABLE                         R8 0 1
+       39 MOVE                             R9 R1
+       40 SETLIST                          R8 R9 1 [1]
+       42 CALL                             R6 2 0
+       43 GETUPVAL                         R6 0
+       44 GETTABLEKS                       R6 R6 K9 ["useMemo"]
+       46 NEWCLOSURE                       R7 P2
+       47 CAPTURE                          VAL R2
+       48 CAPTURE                          VAL R4
+       49 NEWTABLE                         R8 0 2
+       51 MOVE                             R9 R2
+       52 MOVE                             R10 R4
+       53 SETLIST                          R8 R9 2 [1]
+       55 CALL                             R6 2 1
+       56 GETUPVAL                         R7 0
+       57 GETTABLEKS                       R7 R7 K10 ["createElement"]
+       59 GETUPVAL                         R8 2
+       60 GETTABLEKS                       R8 R8 K11 ["Provider"]
+       62 DUPTABLE                         R9 K13 [{"value"}]
+       63 SETTABLEKS                       R6 R9 K12 ["value"]
+       65 GETTABLEKS                       R10 R0 K14 ["children"]
+       67 CALL                             R7 3 -1
+       68 RETURN                           R7 -1
 
 PROTO_11:
         0 GETUPVAL                         R2 0
@@ -207,23 +204,16 @@ PROTO_14:
         3 CAPTURE                          UPVAL U1
         4 NAMECALL                         R0 R0 K1 ["OnGuestEvent"]
         6 CALL                             R0 3 2
-        7 LOADNIL                          R2
-        8 GETUPVAL                         R3 2
-        9 CALL                             R3 0 1
-       10 JUMPIFNOT                        R3 ; [+9]
-       11 GETUPVAL                         R3 0
-       12 LOADK                            R5 K2 ["ShowDefaultPlayerScriptsChanged"]
-       13 NEWCLOSURE                       R6 P1
-       14 CAPTURE                          UPVAL U3
-       15 NAMECALL                         R3 R3 K1 ["OnGuestEvent"]
-       17 CALL                             R3 3 2
-       18 MOVE                             R0 R3
-       19 MOVE                             R2 R4
-       20 NEWCLOSURE                       R3 P2
-       21 CAPTURE                          VAL R1
-       22 CAPTURE                          REF R2
-       23 CLOSEUPVALS                      R2
-       24 RETURN                           R3 1
+        7 GETUPVAL                         R2 0
+        8 LOADK                            R4 K2 ["ShowDefaultPlayerScriptsChanged"]
+        9 NEWCLOSURE                       R5 P1
+       10 CAPTURE                          UPVAL U2
+       11 NAMECALL                         R2 R2 K1 ["OnGuestEvent"]
+       13 CALL                             R2 3 2
+       14 NEWCLOSURE                       R4 P2
+       15 CAPTURE                          VAL R1
+       16 CAPTURE                          VAL R3
+       17 RETURN                           R4 1
 
 PROTO_15:
         0 DUPTABLE                         R0 K2 [{"datamodelType", "createDefaultPlayerModule"}]
@@ -257,31 +247,30 @@ PROTO_16:
        28 NEWCLOSURE                       R7 P0
        29 CAPTURE                          VAL R5
        30 CAPTURE                          VAL R2
-       31 CAPTURE                          UPVAL U2
-       32 CAPTURE                          VAL R4
-       33 NEWTABLE                         R8 0 1
-       35 MOVE                             R9 R5
-       36 SETLIST                          R8 R9 1 [1]
-       38 CALL                             R6 2 0
-       39 GETUPVAL                         R6 0
-       40 GETTABLEKS                       R6 R6 K11 ["useMemo"]
-       42 NEWCLOSURE                       R7 P1
-       43 CAPTURE                          VAL R1
-       44 CAPTURE                          VAL R3
-       45 NEWTABLE                         R8 0 2
-       47 MOVE                             R9 R1
-       48 MOVE                             R10 R3
-       49 SETLIST                          R8 R9 2 [1]
-       51 CALL                             R6 2 1
-       52 GETUPVAL                         R7 0
-       53 GETTABLEKS                       R7 R7 K12 ["createElement"]
-       55 GETUPVAL                         R8 3
-       56 GETTABLEKS                       R8 R8 K13 ["Provider"]
-       58 DUPTABLE                         R9 K15 [{"value"}]
-       59 SETTABLEKS                       R6 R9 K14 ["value"]
-       61 GETTABLEKS                       R10 R0 K16 ["children"]
-       63 CALL                             R7 3 -1
-       64 RETURN                           R7 -1
+       31 CAPTURE                          VAL R4
+       32 NEWTABLE                         R8 0 1
+       34 MOVE                             R9 R5
+       35 SETLIST                          R8 R9 1 [1]
+       37 CALL                             R6 2 0
+       38 GETUPVAL                         R6 0
+       39 GETTABLEKS                       R6 R6 K11 ["useMemo"]
+       41 NEWCLOSURE                       R7 P1
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R3
+       44 NEWTABLE                         R8 0 2
+       46 MOVE                             R9 R1
+       47 MOVE                             R10 R3
+       48 SETLIST                          R8 R9 2 [1]
+       50 CALL                             R6 2 1
+       51 GETUPVAL                         R7 0
+       52 GETTABLEKS                       R7 R7 K12 ["createElement"]
+       54 GETUPVAL                         R8 2
+       55 GETTABLEKS                       R8 R8 K13 ["Provider"]
+       57 DUPTABLE                         R9 K15 [{"value"}]
+       58 SETTABLEKS                       R6 R9 K14 ["value"]
+       60 GETTABLEKS                       R10 R0 K16 ["children"]
+       62 CALL                             R7 3 -1
+       63 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -298,29 +287,22 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Contexts"]
        20 GETTABLEKS                       R3 R3 K10 ["Networking"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
-       29 GETTABLEKS                       R4 R4 K12 ["getFFlagIAMPlayerScripts"]
-       31 CALL                             R3 1 1
-       32 DUPTABLE                         R4 K16 [{["datamodelType"], ["createDefaultPlayerModule"] = True}]
-       33 GETIMPORT                        R5 K20 [Enum.StudioDataModelType.None]
-       35 SETTABLEKS                       R5 R4 K13 ["datamodelType"]
-       37 GETTABLEKS                       R5 R1 K21 ["createContext"]
-       39 MOVE                             R6 R4
-       40 CALL                             R5 1 1
-       41 DUPCLOSURE                       R6 K22 [PROTO_10]
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          VAL R2
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R5
-       46 DUPCLOSURE                       R7 K23 [PROTO_16]
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R2
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R5
-       51 DUPTABLE                         R8 K27 [{"Context", "Provider", "MockProvider"}]
-       52 SETTABLEKS                       R5 R8 K24 ["Context"]
-       54 SETTABLEKS                       R6 R8 K25 ["Provider"]
-       56 SETTABLEKS                       R7 R8 K26 ["MockProvider"]
-       58 RETURN                           R8 1
+       23 DUPTABLE                         R3 K14 [{["datamodelType"], ["createDefaultPlayerModule"] = True}]
+       24 GETIMPORT                        R4 K18 [Enum.StudioDataModelType.None]
+       26 SETTABLEKS                       R4 R3 K11 ["datamodelType"]
+       28 GETTABLEKS                       R4 R1 K19 ["createContext"]
+       30 MOVE                             R5 R3
+       31 CALL                             R4 1 1
+       32 DUPCLOSURE                       R5 K20 [PROTO_10]
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R4
+       36 DUPCLOSURE                       R6 K21 [PROTO_16]
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          VAL R2
+       39 CAPTURE                          VAL R4
+       40 DUPTABLE                         R7 K25 [{"Context", "Provider", "MockProvider"}]
+       41 SETTABLEKS                       R4 R7 K22 ["Context"]
+       43 SETTABLEKS                       R5 R7 K23 ["Provider"]
+       45 SETTABLEKS                       R6 R7 K24 ["MockProvider"]
+       47 RETURN                           R7 1

@@ -70,12 +70,68 @@ PROTO_1:
        37 RETURN                           R5 1
 
 PROTO_2:
+        0 LOADK                            R3 K0 ["%*-%*-Dropdown--text"]
+        1 MOVE                             R5 R1
+        2 MOVE                             R6 R2
+        3 NAMECALL                         R3 R3 K1 ["format"]
+        5 CALL                             R3 3 1
+        6 GETUPVAL                         R4 0
+        7 MOVE                             R5 R0
+        8 MOVE                             R6 R3
+        9 LOADK                            R7 K2 ["No label text found matching test id '%*'"]
+       10 MOVE                             R9 R3
+       11 NAMECALL                         R7 R7 K1 ["format"]
+       13 CALL                             R7 2 1
+       14 CALL                             R4 3 1
+       15 LOADK                            R8 K3 ["TextLabel"]
+       16 NAMECALL                         R6 R4 K4 ["IsA"]
+       18 CALL                             R6 2 1
+       19 FASTCALL2K                       ASSERT R6 K5 ; [+4]
+       21 LOADK                            R7 K5 ["Incorrect element type for Text"]
+       22 GETIMPORT                        R5 K7 [assert]
+       24 CALL                             R5 2 0
+       25 GETTABLEKS                       R5 R4 K8 ["Text"]
+       27 RETURN                           R5 1
+
+PROTO_3:
+        0 LOADK                            R3 K0 ["%*-%*-Dropdown"]
+        1 MOVE                             R5 R1
+        2 MOVE                             R6 R2
+        3 NAMECALL                         R3 R3 K1 ["format"]
+        5 CALL                             R3 3 1
+        6 GETUPVAL                         R4 0
+        7 MOVE                             R5 R0
+        8 MOVE                             R6 R3
+        9 LOADK                            R7 K2 ["Cell '%*' not found from binding root"]
+       10 MOVE                             R9 R3
+       11 NAMECALL                         R7 R7 K1 ["format"]
+       13 CALL                             R7 2 1
+       14 CALL                             R4 3 1
+       15 GETUPVAL                         R5 0
+       16 MOVE                             R6 R4
+       17 LOADK                            R7 K3 ["display-image"]
+       18 LOADK                            R8 K4 ["Display image not found under '%*'"]
+       19 MOVE                             R10 R3
+       20 NAMECALL                         R8 R8 K1 ["format"]
+       22 CALL                             R8 2 1
+       23 CALL                             R5 3 1
+       24 LOADK                            R9 K5 ["ImageLabel"]
+       25 NAMECALL                         R7 R5 K6 ["IsA"]
+       27 CALL                             R7 2 1
+       28 FASTCALL2K                       ASSERT R7 K7 ; [+4]
+       30 LOADK                            R8 K7 ["Incorrect element type for display image"]
+       31 GETIMPORT                        R6 K9 [assert]
+       33 CALL                             R6 2 0
+       34 GETTABLEKS                       R6 R5 K10 ["Image"]
+       36 RETURN                           R6 1
+
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 SETTABLEKS                       R1 R0 K0 ["Text"]
         4 RETURN                           R0 0
 
-PROTO_3:
+PROTO_5:
         0 LOADK                            R3 K0 ["%*--filter--internal-text-input--textbox"]
         1 MOVE                             R5 R1
         2 NAMECALL                         R3 R3 K1 ["format"]
@@ -98,7 +154,7 @@ PROTO_3:
        21 CALL                             R5 1 0
        22 RETURN                           R0 0
 
-PROTO_4:
+PROTO_6:
         0 LOADK                            R5 K0 ["%*-%*-Dropdown"]
         1 MOVE                             R7 R1
         2 MOVE                             R8 R2
@@ -210,7 +266,7 @@ PROTO_4:
       140 CALL                             R17 1 0
       141 RETURN                           R0 0
 
-PROTO_5:
+PROTO_7:
         0 LOADK                            R3 K0 ["%*-Touch-Instance"]
         1 ORK                              R5 R2 K1 ["keyCode"]
         2 NAMECALL                         R3 R3 K2 ["format"]
@@ -236,7 +292,7 @@ PROTO_5:
        27 CALL                             R5 0 0
        28 RETURN                           R0 0
 
-PROTO_6:
+PROTO_8:
         0 LOADK                            R2 K0 ["%*-Touch-Instance"]
         1 ORK                              R4 R1 K1 ["keyCode"]
         2 NAMECALL                         R2 R2 K2 ["format"]
@@ -267,7 +323,7 @@ PROTO_6:
        30 CALL                             R5 1 0
        31 RETURN                           R0 0
 
-PROTO_7:
+PROTO_9:
         0 FASTCALL2K                       ASSERT R1 K0 ; [+5]
         2 MOVE                             R6 R1
         3 LOADK                            R7 K0 ["property cell element is required"]
@@ -379,38 +435,44 @@ MAIN:
       116 DUPCLOSURE                       R23 K45 [PROTO_1]
       117 CAPTURE                          VAL R17
       118 SETTABLEKS                       R23 R22 K46 ["getDisplayedButton"]
-      120 DUPCLOSURE                       R23 K47 [PROTO_3]
+      120 DUPCLOSURE                       R23 K47 [PROTO_2]
       121 CAPTURE                          VAL R17
-      122 CAPTURE                          VAL R11
-      123 CAPTURE                          VAL R15
-      124 DUPCLOSURE                       R24 K48 [PROTO_4]
+      122 SETTABLEKS                       R23 R22 K48 ["getDisplayedText"]
+      124 DUPCLOSURE                       R23 K49 [PROTO_3]
       125 CAPTURE                          VAL R17
-      126 CAPTURE                          VAL R14
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R23
-      129 CAPTURE                          VAL R18
-      130 CAPTURE                          VAL R0
-      131 CAPTURE                          VAL R19
-      132 CAPTURE                          VAL R12
-      133 SETTABLEKS                       R24 R22 K49 ["changeProperty"]
-      135 DUPCLOSURE                       R24 K50 [PROTO_5]
-      136 CAPTURE                          VAL R17
-      137 CAPTURE                          VAL R14
-      138 CAPTURE                          VAL R1
-      139 CAPTURE                          VAL R12
-      140 SETTABLEKS                       R24 R22 K51 ["changeButton"]
-      142 DUPCLOSURE                       R24 K52 [PROTO_6]
-      143 CAPTURE                          VAL R17
-      144 CAPTURE                          VAL R13
-      145 CAPTURE                          VAL R16
-      146 CAPTURE                          VAL R14
-      147 SETTABLEKS                       R24 R22 K53 ["deleteButton"]
-      149 DUPCLOSURE                       R24 K54 [PROTO_7]
-      150 CAPTURE                          VAL R17
-      151 CAPTURE                          VAL R13
-      152 CAPTURE                          VAL R16
-      153 CAPTURE                          VAL R9
-      154 CAPTURE                          VAL R21
-      155 CAPTURE                          VAL R20
-      156 SETTABLEKS                       R24 R22 K55 ["checkStatus"]
-      158 RETURN                           R22 1
+      126 SETTABLEKS                       R23 R22 K50 ["getDisplayedImage"]
+      128 DUPCLOSURE                       R23 K51 [PROTO_5]
+      129 CAPTURE                          VAL R17
+      130 CAPTURE                          VAL R11
+      131 CAPTURE                          VAL R15
+      132 DUPCLOSURE                       R24 K52 [PROTO_6]
+      133 CAPTURE                          VAL R17
+      134 CAPTURE                          VAL R14
+      135 CAPTURE                          VAL R13
+      136 CAPTURE                          VAL R23
+      137 CAPTURE                          VAL R18
+      138 CAPTURE                          VAL R0
+      139 CAPTURE                          VAL R19
+      140 CAPTURE                          VAL R12
+      141 SETTABLEKS                       R24 R22 K53 ["changeProperty"]
+      143 DUPCLOSURE                       R24 K54 [PROTO_7]
+      144 CAPTURE                          VAL R17
+      145 CAPTURE                          VAL R14
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R12
+      148 SETTABLEKS                       R24 R22 K55 ["changeButton"]
+      150 DUPCLOSURE                       R24 K56 [PROTO_8]
+      151 CAPTURE                          VAL R17
+      152 CAPTURE                          VAL R13
+      153 CAPTURE                          VAL R16
+      154 CAPTURE                          VAL R14
+      155 SETTABLEKS                       R24 R22 K57 ["deleteButton"]
+      157 DUPCLOSURE                       R24 K58 [PROTO_9]
+      158 CAPTURE                          VAL R17
+      159 CAPTURE                          VAL R13
+      160 CAPTURE                          VAL R16
+      161 CAPTURE                          VAL R9
+      162 CAPTURE                          VAL R21
+      163 CAPTURE                          VAL R20
+      164 SETTABLEKS                       R24 R22 K59 ["checkStatus"]
+      166 RETURN                           R22 1

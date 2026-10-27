@@ -1154,7 +1154,7 @@ MAIN:
       103 SETTABLEKS                       R15 R14 K17 ["generateSnappingLines"]
       105 GETIMPORT                        R15 K20 [Color3.new]
       107 LOADN                            R16 1
-      108 LOADK                            R17 K21 [0.0313725490196078]
+      108 LOADK                            R17 K21 [0.03137254901960784]
       109 LOADK                            R18 K22 [0.403921568627451]
       110 CALL                             R15 3 1
       111 GETIMPORT                        R16 K20 [Color3.new]

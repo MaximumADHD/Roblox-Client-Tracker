@@ -112,7 +112,7 @@ PROTO_2:
        40 MOVE                             R15 R12
        41 NAMECALL                         R13 R2 K6 ["GetFaceVertices"]
        43 CALL                             R13 2 1
-       44 LOADK                            R14 K7 [∞]
+       44 LOADK                            R14 K7 [Infinity]
        45 MOVE                             R15 R13
        46 LOADNIL                          R16
        47 LOADNIL                          R17

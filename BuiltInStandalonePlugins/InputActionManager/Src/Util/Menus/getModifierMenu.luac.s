@@ -15,20 +15,23 @@ PROTO_0:
        19 GETIMPORT                        R3 K9 [table.insert]
        21 CALL                             R3 2 0
        22 RETURN                           R2 1
-       23 DUPTABLE                         R5 K12 [{["icon"] = "trash-can", [2], ["text"]}]
-       24 GETUPVAL                         R6 0
-       25 GETTABLEKS                       R6 R6 K13 ["DELETE"]
-       27 SETTABLEKS                       R6 R5 K0 ["id"]
-       29 LOADK                            R8 K4 ["Menu"]
-       30 LOADK                            R9 K14 ["Delete"]
-       31 NAMECALL                         R6 R0 K6 ["getText"]
-       33 CALL                             R6 3 1
-       34 SETTABLEKS                       R6 R5 K1 ["text"]
-       36 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
-       38 MOVE                             R4 R2
-       39 GETIMPORT                        R3 K9 [table.insert]
-       41 CALL                             R3 2 0
-       42 RETURN                           R2 1
+       23 DUPTABLE                         R5 K11 [{"icon", "id", "text"}]
+       24 GETUPVAL                         R6 1
+       25 GETTABLEKS                       R6 R6 K12 ["TrashCan"]
+       27 SETTABLEKS                       R6 R5 K10 ["icon"]
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K13 ["DELETE"]
+       32 SETTABLEKS                       R6 R5 K0 ["id"]
+       34 LOADK                            R8 K4 ["Menu"]
+       35 LOADK                            R9 K14 ["Delete"]
+       36 NAMECALL                         R6 R0 K6 ["getText"]
+       38 CALL                             R6 3 1
+       39 SETTABLEKS                       R6 R5 K1 ["text"]
+       41 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
+       43 MOVE                             R4 R2
+       44 GETIMPORT                        R3 K9 [table.insert]
+       46 CALL                             R3 2 0
+       47 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -50,6 +53,9 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K11 ["Constants"]
        29 GETTABLEKS                       R4 R4 K12 ["MenuIdentifiers"]
        31 CALL                             R3 1 1
-       32 DUPCLOSURE                       R4 K13 [PROTO_0]
-       33 CAPTURE                          VAL R3
-       34 RETURN                           R4 1
+       32 GETTABLEKS                       R4 R1 K13 ["Enums"]
+       34 GETTABLEKS                       R4 R4 K14 ["IconName"]
+       36 DUPCLOSURE                       R5 K15 [PROTO_0]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R4
+       39 RETURN                           R5 1

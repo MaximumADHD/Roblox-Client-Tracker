@@ -360,7 +360,7 @@ PROTO_7:
       355 GETIMPORT                        R24 K90 [Vector2.new]
       357 LOADN                            R26 5
       358 MUL                              R25 R26 R16
-      359 LOADK                            R26 K91 [∞]
+      359 LOADK                            R26 K91 [Infinity]
       360 CALL                             R24 2 -1
       361 NAMECALL                         R19 R19 K92 ["GetTextSize"]
       363 CALL                             R19 -1 1

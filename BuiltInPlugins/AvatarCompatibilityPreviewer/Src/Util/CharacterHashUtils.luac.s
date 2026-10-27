@@ -215,9 +215,9 @@ PROTO_4:
       206 GETTABLEKS                       R13 R0 K26 ["X"]
       208 GETTABLEKS                       R14 R0 K33 ["Y"]
       210 GETTABLEKS                       R15 R0 K27 ["Z"]
-      212 DIVK                             R16 R4 K39 [3.14159265358979]
-      213 DIVK                             R17 R10 K39 [3.14159265358979]
-      214 DIVK                             R18 R6 K40 [1.5707963267949]
+      212 DIVK                             R16 R4 K39 [3.141592653589793]
+      213 DIVK                             R17 R10 K39 [3.141592653589793]
+      214 DIVK                             R18 R6 K40 [1.5707963267948966]
       215 SETLIST                          R12 R13 6 [1]
       217 CALL                             R11 1 -1
       218 RETURN                           R11 -1

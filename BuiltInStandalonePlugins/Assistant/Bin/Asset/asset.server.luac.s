@@ -195,7 +195,7 @@ MAIN:
       272 MOVE                             R24 R18
       273 MOVE                             R25 R19
       274 CALL                             R21 4 0
-      275 GETTABLEKS                       R20 R12 K76 ["FFlagAssistantEval"]
+      275 GETTABLEKS                       R20 R12 K76 ["FFlagDebugAssistantEval"]
       277 JUMPIFNOT                        R20 ; [+108]
       278 GETIMPORT                        R20 K8 [require]
       280 GETTABLEKS                       R21 R0 K11 ["Src"]

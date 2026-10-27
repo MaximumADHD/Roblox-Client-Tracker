@@ -4,8 +4,8 @@ PROTO_0:
         2 GETUPVAL                         R5 1
         3 GETUPVAL                         R6 2
         4 GETIMPORT                        R7 K2 [Vector2.new]
-        6 LOADK                            R8 K3 [∞]
-        7 LOADK                            R9 K3 [∞]
+        6 LOADK                            R8 K3 [Infinity]
+        7 LOADK                            R9 K3 [Infinity]
         8 CALL                             R7 2 -1
         9 NAMECALL                         R2 R2 K4 ["GetTextSize"]
        11 CALL                             R2 -1 1

@@ -133,7 +133,7 @@ PROTO_2:
       172 MOVE                             R30 R18
       173 MOVE                             R31 R19
       174 GETIMPORT                        R32 K21 [Vector2.new]
-      176 LOADK                            R33 K67 [∞]
+      176 LOADK                            R33 K67 [Infinity]
       177 LOADN                            R34 35
       178 CALL                             R32 2 -1
       179 NAMECALL                         R27 R27 K68 ["GetTextSize"]

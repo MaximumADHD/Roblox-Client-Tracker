@@ -23,9 +23,9 @@ PROTO_1:
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K0 ["props"]
         6 GETTABLEKS                       R4 R2 K2 ["MinValue"]
-        8 ORK                              R3 R4 K1 [-∞]
+        8 ORK                              R3 R4 K1 [-Infinity]
         9 GETTABLEKS                       R5 R2 K4 ["MaxValue"]
-       11 ORK                              R4 R5 K3 [∞]
+       11 ORK                              R4 R5 K3 [Infinity]
        12 LOADB                            R5 1
        13 LOADNIL                          R6
        14 JUMPIFNOTEQKS                    R1 K5 [""] ; [+11]

@@ -72,6 +72,6 @@ MAIN:
       117 SETTABLEKS                       R18 R3 K115 ["AssetTechnicalDetailCount"]
       119 DUPTABLE                         R19 K122 [{["AccessControl"] = "AccessControl", ["AssetTypes"] = "AssetTypes", ["Duration"] = "Duration", ["Owner"] = "Owner", ["Scripted"] = "Scripted", ["SharedWith"] = "SharedWith"}]
       120 SETTABLEKS                       R19 R3 K123 ["DetailsDrawerRow"]
-      122 DUPTABLE                         R20 K127 [{["Private"] = "Private", ["Shared"] = "Shared", ["OpenUse"] = "OpenUse"}]
+      122 DUPTABLE                         R20 K127 [{["Restricted"] = "Restricted", ["Shared"] = "Shared", ["OpenUse"] = "OpenUse"}]
       123 SETTABLEKS                       R20 R3 K128 ["AssetPrivacy"]
       125 RETURN                           R3 1

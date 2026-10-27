@@ -515,7 +515,7 @@ PROTO_8:
       384 SETTABLEKS                       R26 R25 K100 ["scroll"]
       386 DUPTABLE                         R26 K123 [{"MaxSize"}]
       387 GETIMPORT                        R27 K125 [Vector2.new]
-      389 LOADK                            R28 K126 [∞]
+      389 LOADK                            R28 K126 [Infinity]
       390 MOVE                             R29 R7
       391 CALL                             R27 2 1
       392 SETTABLEKS                       R27 R26 K122 ["MaxSize"]

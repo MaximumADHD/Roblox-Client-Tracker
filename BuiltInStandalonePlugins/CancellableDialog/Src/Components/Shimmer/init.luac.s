@@ -16,7 +16,7 @@ PROTO_0:
        16 CALL                             R4 2 -1
        17 CALL                             R3 -1 0
        18 GETIMPORT                        R3 K10 [task.wait]
-       20 LOADK                            R4 K11 [0.0222222222222222]
+       20 LOADK                            R4 K11 [0.022222222222222223]
        21 CALL                             R3 1 0
        22 JUMPBACK                         ; [-23]
        23 RETURN                           R0 0

@@ -376,7 +376,7 @@ PROTO_7:
       110 NAMECALL                         R12 R0 K23 ["setState"]
       112 CALL                             R12 2 0
       113 GETIMPORT                        R11 K35 [task.wait]
-      115 LOADK                            R12 K36 [0.0333333333333333]
+      115 LOADK                            R12 K36 [0.03333333333333333]
       116 CALL                             R11 1 0
       117 FORGLOOP                         R6 2 ; [-68]
       119 RETURN                           R0 0

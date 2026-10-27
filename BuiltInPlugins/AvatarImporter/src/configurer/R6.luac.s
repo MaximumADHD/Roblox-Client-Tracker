@@ -116,7 +116,7 @@ PROTO_1:
       146 CALL                             R7 3 1
       147 GETIMPORT                        R8 K36 [CFrame.fromAxisAngle]
       149 LOADK                            R9 K37 [{0, 1, 0}]
-      150 LOADK                            R10 K38 [-1.5707963267949]
+      150 LOADK                            R10 K38 [-1.5707963267948966]
       151 CALL                             R8 2 1
       152 MUL                              R6 R7 R8
       153 GETIMPORT                        R8 K13 [CFrame.new]
@@ -126,7 +126,7 @@ PROTO_1:
       158 CALL                             R8 3 1
       159 GETIMPORT                        R9 K36 [CFrame.fromAxisAngle]
       161 LOADK                            R10 K37 [{0, 1, 0}]
-      162 LOADK                            R11 K38 [-1.5707963267949]
+      162 LOADK                            R11 K38 [-1.5707963267948966]
       163 CALL                             R9 2 1
       164 MUL                              R7 R8 R9
       165 GETIMPORT                        R9 K2 [Instance.new]
@@ -171,7 +171,7 @@ PROTO_1:
       223 CALL                             R11 3 1
       224 GETIMPORT                        R12 K36 [CFrame.fromAxisAngle]
       226 LOADK                            R13 K42 [{0, -1, 0}]
-      227 LOADK                            R14 K38 [-1.5707963267949]
+      227 LOADK                            R14 K38 [-1.5707963267948966]
       228 CALL                             R12 2 1
       229 MUL                              R10 R11 R12
       230 GETIMPORT                        R12 K13 [CFrame.new]
@@ -181,7 +181,7 @@ PROTO_1:
       235 CALL                             R12 3 1
       236 GETIMPORT                        R13 K36 [CFrame.fromAxisAngle]
       238 LOADK                            R14 K37 [{0, 1, 0}]
-      239 LOADK                            R15 K43 [1.5707963267949]
+      239 LOADK                            R15 K43 [1.5707963267948966]
       240 CALL                             R13 2 1
       241 MUL                              R11 R12 R13
       242 GETIMPORT                        R13 K2 [Instance.new]
@@ -226,7 +226,7 @@ PROTO_1:
       300 CALL                             R15 3 1
       301 GETIMPORT                        R16 K36 [CFrame.fromAxisAngle]
       303 LOADK                            R17 K37 [{0, 1, 0}]
-      304 LOADK                            R18 K38 [-1.5707963267949]
+      304 LOADK                            R18 K38 [-1.5707963267948966]
       305 CALL                             R16 2 1
       306 MUL                              R14 R15 R16
       307 GETIMPORT                        R16 K13 [CFrame.new]
@@ -236,7 +236,7 @@ PROTO_1:
       312 CALL                             R16 3 1
       313 GETIMPORT                        R17 K36 [CFrame.fromAxisAngle]
       315 LOADK                            R18 K37 [{0, 1, 0}]
-      316 LOADK                            R19 K38 [-1.5707963267949]
+      316 LOADK                            R19 K38 [-1.5707963267948966]
       317 CALL                             R17 2 1
       318 MUL                              R15 R16 R17
       319 GETIMPORT                        R17 K2 [Instance.new]
@@ -281,7 +281,7 @@ PROTO_1:
       377 CALL                             R19 3 1
       378 GETIMPORT                        R20 K36 [CFrame.fromAxisAngle]
       380 LOADK                            R21 K42 [{0, -1, 0}]
-      381 LOADK                            R22 K38 [-1.5707963267949]
+      381 LOADK                            R22 K38 [-1.5707963267948966]
       382 CALL                             R20 2 1
       383 MUL                              R18 R19 R20
       384 GETIMPORT                        R20 K13 [CFrame.new]
@@ -291,7 +291,7 @@ PROTO_1:
       389 CALL                             R20 3 1
       390 GETIMPORT                        R21 K36 [CFrame.fromAxisAngle]
       392 LOADK                            R22 K37 [{0, 1, 0}]
-      393 LOADK                            R23 K43 [1.5707963267949]
+      393 LOADK                            R23 K43 [1.5707963267948966]
       394 CALL                             R21 2 1
       395 MUL                              R19 R20 R21
       396 GETIMPORT                        R21 K2 [Instance.new]

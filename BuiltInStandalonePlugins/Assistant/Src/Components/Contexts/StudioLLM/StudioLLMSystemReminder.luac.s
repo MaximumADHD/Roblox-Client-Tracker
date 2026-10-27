@@ -1,18 +1,15 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["FFlagAssistantStandaloneDataModel"]
-        3 JUMPIFNOT                        R0 ; [+5]
-        4 GETUPVAL                         R0 0
-        5 GETTABLEKS                       R0 R0 K1 ["EngineFeatureAssistantBridgeStandalone"]
-        7 JUMPIFEQKB                       R0 TRUE ; [+3]
-        9 LOADB                            R0 0
-       10 RETURN                           R0 1
-       11 GETUPVAL                         R0 1
-       12 GETTABLEKS                       R0 R0 K2 ["get"]
-       14 CALL                             R0 0 1
-       15 GETTABLEKS                       R0 R0 K3 ["hasInternalPermission"]
-       17 CALL                             R0 0 -1
-       18 RETURN                           R0 -1
+        1 GETTABLEKS                       R0 R0 K0 ["EngineFeatureAssistantBridgeStandalone"]
+        3 JUMPIFEQKB                       R0 TRUE ; [+3]
+        5 LOADB                            R0 0
+        6 RETURN                           R0 1
+        7 GETUPVAL                         R0 1
+        8 GETTABLEKS                       R0 R0 K1 ["get"]
+       10 CALL                             R0 0 1
+       11 GETTABLEKS                       R0 R0 K2 ["hasInternalPermission"]
+       13 CALL                             R0 0 -1
+       14 RETURN                           R0 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -55,48 +52,45 @@ PROTO_1:
        50 GETTABLEKS                       R3 R3 K11 ["Edit"]
        52 SETLIST                          R2 R3 1 [1]
        54 GETUPVAL                         R4 1
-       55 GETTABLEKS                       R4 R4 K12 ["FFlagAssistantStandaloneDataModel"]
-       57 JUMPIFNOT                        R4 ; [+5]
-       58 GETUPVAL                         R4 1
-       59 GETTABLEKS                       R4 R4 K13 ["EngineFeatureAssistantBridgeStandalone"]
-       61 JUMPIFEQKB                       R4 TRUE ; [+3]
-       63 LOADB                            R3 0
-       64 JUMP                             ; [+7]
-       65 GETUPVAL                         R3 3
-       66 GETTABLEKS                       R3 R3 K14 ["get"]
-       68 CALL                             R3 0 1
-       69 GETTABLEKS                       R3 R3 K15 ["hasInternalPermission"]
-       71 CALL                             R3 0 1
-       72 JUMPIFNOT                        R3 ; [+11]
-       73 GETUPVAL                         R5 2
-       74 GETTABLEKS                       R5 R5 K8 ["Types"]
-       76 GETTABLEKS                       R5 R5 K16 ["Standalone"]
-       78 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
-       80 MOVE                             R4 R2
-       81 GETIMPORT                        R3 K19 [table.insert]
-       83 CALL                             R3 2 0
-       84 LOADK                            R7 K20 ["- Current Studio Mode: %*\n"]
-       85 JUMPIFNOT                        R1 ; [+2]
-       86 LOADK                            R9 K21 ["Play"]
-       87 JUMP                             ; [+1]
-       88 LOADK                            R9 K11 ["Edit"]
-       89 NAMECALL                         R7 R7 K7 ["format"]
-       91 CALL                             R7 2 1
-       92 MOVE                             R4 R7
-       93 LOADK                            R7 K22 ["- Available DataModels: %*\n"]
-       94 GETIMPORT                        R9 K24 [table.concat]
-       96 MOVE                             R10 R2
-       97 LOADK                            R11 K25 [", "]
-       98 CALL                             R9 2 1
-       99 NAMECALL                         R7 R7 K7 ["format"]
-      101 CALL                             R7 2 1
-      102 MOVE                             R5 R7
-      103 LOADK                            R6 K26 ["- Focused DataModel in the viewport: %*"]
-      104 MOVE                             R8 R0
-      105 NAMECALL                         R6 R6 K7 ["format"]
-      107 CALL                             R6 2 1
-      108 CONCAT                           R3 R4 R6
-      109 RETURN                           R3 1
+       55 GETTABLEKS                       R4 R4 K12 ["EngineFeatureAssistantBridgeStandalone"]
+       57 JUMPIFEQKB                       R4 TRUE ; [+3]
+       59 LOADB                            R3 0
+       60 JUMP                             ; [+7]
+       61 GETUPVAL                         R3 3
+       62 GETTABLEKS                       R3 R3 K13 ["get"]
+       64 CALL                             R3 0 1
+       65 GETTABLEKS                       R3 R3 K14 ["hasInternalPermission"]
+       67 CALL                             R3 0 1
+       68 JUMPIFNOT                        R3 ; [+11]
+       69 GETUPVAL                         R5 2
+       70 GETTABLEKS                       R5 R5 K8 ["Types"]
+       72 GETTABLEKS                       R5 R5 K15 ["Standalone"]
+       74 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
+       76 MOVE                             R4 R2
+       77 GETIMPORT                        R3 K18 [table.insert]
+       79 CALL                             R3 2 0
+       80 LOADK                            R7 K19 ["- Current Studio Mode: %*\n"]
+       81 JUMPIFNOT                        R1 ; [+2]
+       82 LOADK                            R9 K20 ["Play"]
+       83 JUMP                             ; [+1]
+       84 LOADK                            R9 K11 ["Edit"]
+       85 NAMECALL                         R7 R7 K7 ["format"]
+       87 CALL                             R7 2 1
+       88 MOVE                             R4 R7
+       89 LOADK                            R7 K21 ["- Available DataModels: %*\n"]
+       90 GETIMPORT                        R9 K23 [table.concat]
+       92 MOVE                             R10 R2
+       93 LOADK                            R11 K24 [", "]
+       94 CALL                             R9 2 1
+       95 NAMECALL                         R7 R7 K7 ["format"]
+       97 CALL                             R7 2 1
+       98 MOVE                             R5 R7
+       99 LOADK                            R6 K25 ["- Focused DataModel in the viewport: %*"]
+      100 MOVE                             R8 R0
+      101 NAMECALL                         R6 R6 K7 ["format"]
+      103 CALL                             R6 2 1
+      104 CONCAT                           R3 R4 R6
+      105 RETURN                           R3 1
 
 PROTO_2:
         0 NEWTABLE                         R1 0 0

@@ -368,7 +368,7 @@ PROTO_6:
         6 NAMECALL                         R1 R1 K2 ["getMouseLocation"]
         8 CALL                             R1 1 1
         9 LOADNIL                          R2
-       10 LOADK                            R3 K3 [∞]
+       10 LOADK                            R3 K3 [Infinity]
        11 GETIMPORT                        R4 K5 [ipairs]
        13 GETTABLEKS                       R5 R0 K0 ["_snapPoints"]
        15 CALL                             R4 1 3

@@ -42,7 +42,7 @@ PROTO_0:
        53 CALL                             R3 0 1
        54 JUMPIFNOT                        R3 ; [+11]
        55 GETUPVAL                         R3 1
-       56 LOADB                            R4 0
+       56 LOADB                            R4 1
        57 GETUPVAL                         R5 2
        58 MOVE                             R6 R0
        59 GETUPVAL                         R7 3

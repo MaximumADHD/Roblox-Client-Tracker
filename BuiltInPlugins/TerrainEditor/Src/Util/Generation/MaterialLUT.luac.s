@@ -179,10 +179,10 @@ PROTO_2:
       185 NEWTABLE                         R15 0 2
       187 GETTABLEKS                       R18 R13 K26 ["MinSlope"]
       189 DIVK                             R17 R18 K32 [180]
-      190 MULK                             R16 R17 K31 [3.14159265358979]
+      190 MULK                             R16 R17 K31 [3.141592653589793]
       191 GETTABLEKS                       R19 R13 K27 ["MaxSlope"]
       193 DIVK                             R18 R19 K32 [180]
-      194 MULK                             R17 R18 K31 [3.14159265358979]
+      194 MULK                             R17 R18 K31 [3.141592653589793]
       195 SETLIST                          R15 R16 2 [1]
       197 SETTABLEKS                       R15 R14 K33 ["slopeRange"]
       199 GETTABLEKS                       R15 R13 K34 ["Material"]
@@ -239,7 +239,7 @@ PROTO_2:
       259 JUMP                             ; [+23]
       260 SUBK                             R19 R16 K43 [1]
       261 DIVK                             R18 R19 K42 [1023]
-      262 MULK                             R17 R18 K46 [1.5707963267949]
+      262 MULK                             R17 R18 K46 [1.5707963267948966]
       263 GETUPVAL                         R18 2
       264 MOVE                             R19 R17
       265 MOVE                             R20 R13
@@ -297,7 +297,7 @@ PROTO_2:
       344 RETURN                           R9 1
 
 PROTO_3:
-        0 DIVK                             R6 R1 K2 [1.5707963267949]
+        0 DIVK                             R6 R1 K2 [1.5707963267948966]
         1 MULK                             R5 R6 K1 [1023]
         2 ADDK                             R4 R5 K0 [1]
         3 FASTCALL1                        MATH_FLOOR R4 ; [+2]
@@ -322,7 +322,7 @@ PROTO_4:
         9 FASTCALL                         MATH_CLAMP ; [+2]
        10 GETIMPORT                        R4 K6 [math.clamp]
        12 CALL                             R4 3 1
-       13 DIVK                             R9 R3 K7 [1.5707963267949]
+       13 DIVK                             R9 R3 K7 [1.5707963267948966]
        14 MULK                             R8 R9 K1 [1023]
        15 ADDK                             R7 R8 K0 [1]
        16 FASTCALL1                        MATH_FLOOR R7 ; [+2]
@@ -357,7 +357,7 @@ PROTO_5:
        18 FASTCALL                         MATH_CLAMP ; [+2]
        19 GETIMPORT                        R4 K9 [math.clamp]
        21 CALL                             R4 3 1
-       22 DIVK                             R9 R3 K10 [1.5707963267949]
+       22 DIVK                             R9 R3 K10 [1.5707963267948966]
        23 MULK                             R8 R9 K1 [1023]
        24 ADDK                             R7 R8 K0 [1]
        25 FASTCALL1                        MATH_FLOOR R7 ; [+2]

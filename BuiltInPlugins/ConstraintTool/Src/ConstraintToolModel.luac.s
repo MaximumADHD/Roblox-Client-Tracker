@@ -438,7 +438,7 @@ PROTO_10:
       169 SETTABLE                         R7 R6 R1
       170 MOVE                             R8 R1
       171 GETIMPORT                        R9 K29 [CFrame.new]
-      173 LOADK                            R10 K30 [∞]
+      173 LOADK                            R10 K30 [Infinity]
       174 LOADN                            R11 0
       175 LOADN                            R12 0
       176 CALL                             R9 3 -1
@@ -461,7 +461,7 @@ PROTO_11:
        15 GETTABLEKS                       R4 R3 K5 ["shaftRight"]
        17 GETIMPORT                        R7 K7 [CFrame.Angles]
        19 LOADN                            R8 0
-       20 LOADK                            R9 K8 [-1.5707963267949]
+       20 LOADK                            R9 K8 [-1.5707963267948966]
        21 LOADN                            R10 0
        22 CALL                             R7 3 1
        23 MUL                              R6 R2 R7
@@ -477,7 +477,7 @@ PROTO_11:
        36 SETTABLEKS                       R5 R4 K3 ["CFrame"]
        38 GETTABLEKS                       R4 R3 K13 ["shaftTop"]
        40 GETIMPORT                        R7 K7 [CFrame.Angles]
-       42 LOADK                            R8 K14 [1.5707963267949]
+       42 LOADK                            R8 K14 [1.5707963267948966]
        43 LOADN                            R9 0
        44 LOADN                            R10 0
        45 CALL                             R7 3 1
@@ -584,7 +584,7 @@ PROTO_14:
        20 CALL                             R2 0 1
        21 GETTABLEKS                       R3 R0 K12 ["_openedTimestamp"]
        23 SUB                              R1 R2 R3
-       24 LOADK                            R2 K13 [0.0166666666666667]
+       24 LOADK                            R2 K13 [0.016666666666666666]
        25 JUMPIFNOTLT                      R2 R1 ; [+4]
        27 NAMECALL                         R1 R0 K14 ["_processDeselected"]
        29 CALL                             R1 1 0
@@ -1062,7 +1062,7 @@ PROTO_25:
        13 MOVE                             R6 R1
        14 NAMECALL                         R4 R4 K4 ["VectorToWorldSpace"]
        16 CALL                             R4 2 1
-       17 LOADK                            R5 K5 [-∞]
+       17 LOADK                            R5 K5 [-Infinity]
        18 GETIMPORT                        R6 K7 [ipairs]
        20 GETUPVAL                         R7 0
        21 CALL                             R6 1 3
@@ -1084,7 +1084,7 @@ PROTO_25:
        42 GETUPVAL                         R4 1
        43 GETIMPORT                        R5 K11 [CFrame.fromAxisAngle]
        45 MOVE                             R6 R3
-       46 LOADK                            R7 K12 [1.5707963267949]
+       46 LOADK                            R7 K12 [1.5707963267948966]
        47 CALL                             R5 2 -1
        48 CALL                             R4 -1 1
        49 GETTABLEKS                       R5 R0 K13 ["_tiltRotate"]

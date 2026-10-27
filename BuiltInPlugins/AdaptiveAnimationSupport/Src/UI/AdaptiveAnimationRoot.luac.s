@@ -781,7 +781,7 @@ PROTO_31:
       183 JUMPIFNOT                        R14 ; [+29]
       184 GETIMPORT                        R14 K27 [CFrame.fromMatrix]
       186 LOADK                            R15 K28 [{0, 0, 0}]
-      187 LOADK                            R16 K29 [{-1, 0, 0}]
+      187 LOADK                            R16 K29 [{-1, -0, -0}]
       188 LOADK                            R17 K30 [{0, 1, 0}]
       189 LOADK                            R18 K31 [{0, 0, 1}]
       190 CALL                             R14 4 1
@@ -872,7 +872,7 @@ PROTO_31:
       295 JUMPIFNOT                        R17 ; [+29]
       296 GETIMPORT                        R17 K27 [CFrame.fromMatrix]
       298 LOADK                            R18 K28 [{0, 0, 0}]
-      299 LOADK                            R19 K29 [{-1, 0, 0}]
+      299 LOADK                            R19 K29 [{-1, -0, -0}]
       300 LOADK                            R20 K30 [{0, 1, 0}]
       301 LOADK                            R21 K31 [{0, 0, 1}]
       302 CALL                             R17 4 1

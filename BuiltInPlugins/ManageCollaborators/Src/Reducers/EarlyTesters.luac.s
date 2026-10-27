@@ -60,48 +60,55 @@ PROTO_4:
         3 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
         5 GETTABLEKS                       R3 R3 K2 ["join"]
         7 MOVE                             R4 R0
-        8 DUPTABLE                         R5 K14 [{["ExistingRole"], ["ExistingMemberIds"], ["Mode"], ["PendingRoleId"], ["PendingRoleName"], ["PendingRoleIsPrivate"], ["PendingRoleColor"], ["PendingMembers"], ["SaveError"], ["LoadError"] = False}]
+        8 DUPTABLE                         R5 K15 [{["ExistingRole"], ["ExistingMemberIds"], ["SavedMemberCount"], ["Mode"], ["PendingRoleId"], ["PendingRoleName"], ["PendingRoleIsPrivate"], ["PendingRoleColor"], ["PendingMembers"], ["SaveError"], ["LoadError"] = False}]
         9 SETTABLEKS                       R2 R5 K3 ["ExistingRole"]
        11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R7 R1 K15 ["members"]
+       12 GETTABLEKS                       R7 R1 K16 ["members"]
        14 CALL                             R6 1 1
        15 SETTABLEKS                       R6 R5 K4 ["ExistingMemberIds"]
-       17 JUMPIFEQKNIL                     R2 ; [+5]
-       19 GETUPVAL                         R6 2
-       20 GETTABLEKS                       R6 R6 K16 ["EditingAssigned"]
-       22 JUMP                             ; [+3]
-       23 GETUPVAL                         R6 2
-       24 GETTABLEKS                       R6 R6 K17 ["Unset"]
-       26 SETTABLEKS                       R6 R5 K5 ["Mode"]
-       28 JUMPIFEQKNIL                     R2 ; [+4]
-       30 GETTABLEKS                       R6 R2 K18 ["id"]
-       32 JUMP                             ; [+1]
-       33 LOADNIL                          R6
-       34 SETTABLEKS                       R6 R5 K6 ["PendingRoleId"]
-       36 JUMPIFEQKNIL                     R2 ; [+4]
-       38 GETTABLEKS                       R6 R2 K19 ["name"]
-       40 JUMP                             ; [+1]
-       41 LOADNIL                          R6
-       42 SETTABLEKS                       R6 R5 K7 ["PendingRoleName"]
-       44 JUMPIFEQKNIL                     R2 ; [+4]
-       46 GETTABLEKS                       R6 R2 K20 ["isPrivate"]
-       48 JUMP                             ; [+1]
-       49 LOADNIL                          R6
-       50 SETTABLEKS                       R6 R5 K8 ["PendingRoleIsPrivate"]
-       52 JUMPIFEQKNIL                     R2 ; [+4]
-       54 GETTABLEKS                       R6 R2 K21 ["color"]
-       56 JUMP                             ; [+1]
-       57 LOADNIL                          R6
-       58 SETTABLEKS                       R6 R5 K9 ["PendingRoleColor"]
-       60 GETUPVAL                         R6 3
-       61 GETTABLEKS                       R7 R1 K15 ["members"]
-       63 CALL                             R6 1 1
-       64 SETTABLEKS                       R6 R5 K10 ["PendingMembers"]
-       66 GETUPVAL                         R6 0
-       67 GETTABLEKS                       R6 R6 K22 ["None"]
-       69 SETTABLEKS                       R6 R5 K11 ["SaveError"]
-       71 CALL                             R3 2 -1
-       72 RETURN                           R3 -1
+       17 GETTABLEKS                       R7 R1 K16 ["members"]
+       19 JUMPIFNOT                        R7 ; [+4]
+       20 GETTABLEKS                       R7 R1 K16 ["members"]
+       22 LENGTH                           R6 R7
+       23 JUMP                             ; [+1]
+       24 LOADN                            R6 0
+       25 SETTABLEKS                       R6 R5 K5 ["SavedMemberCount"]
+       27 JUMPIFEQKNIL                     R2 ; [+5]
+       29 GETUPVAL                         R6 2
+       30 GETTABLEKS                       R6 R6 K17 ["EditingAssigned"]
+       32 JUMP                             ; [+3]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K18 ["Unset"]
+       36 SETTABLEKS                       R6 R5 K6 ["Mode"]
+       38 JUMPIFEQKNIL                     R2 ; [+4]
+       40 GETTABLEKS                       R6 R2 K19 ["id"]
+       42 JUMP                             ; [+1]
+       43 LOADNIL                          R6
+       44 SETTABLEKS                       R6 R5 K7 ["PendingRoleId"]
+       46 JUMPIFEQKNIL                     R2 ; [+4]
+       48 GETTABLEKS                       R6 R2 K20 ["name"]
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R6
+       52 SETTABLEKS                       R6 R5 K8 ["PendingRoleName"]
+       54 JUMPIFEQKNIL                     R2 ; [+4]
+       56 GETTABLEKS                       R6 R2 K21 ["isPrivate"]
+       58 JUMP                             ; [+1]
+       59 LOADNIL                          R6
+       60 SETTABLEKS                       R6 R5 K9 ["PendingRoleIsPrivate"]
+       62 JUMPIFEQKNIL                     R2 ; [+4]
+       64 GETTABLEKS                       R6 R2 K22 ["color"]
+       66 JUMP                             ; [+1]
+       67 LOADNIL                          R6
+       68 SETTABLEKS                       R6 R5 K10 ["PendingRoleColor"]
+       70 GETUPVAL                         R6 3
+       71 GETTABLEKS                       R7 R1 K16 ["members"]
+       73 CALL                             R6 1 1
+       74 SETTABLEKS                       R6 R5 K11 ["PendingMembers"]
+       76 GETUPVAL                         R6 0
+       77 GETTABLEKS                       R6 R6 K23 ["None"]
+       79 SETTABLEKS                       R6 R5 K12 ["SaveError"]
+       81 CALL                             R3 2 -1
+       82 RETURN                           R3 -1
 
 PROTO_5:
         0 GETUPVAL                         R2 0

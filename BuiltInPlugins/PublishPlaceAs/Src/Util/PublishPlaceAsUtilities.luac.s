@@ -90,60 +90,71 @@ MAIN:
         9 LOADK                            R3 K4 ["RbxAnalyticsService"]
        10 NAMECALL                         R1 R1 K5 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K1 [game]
-       15 LOADK                            R4 K6 ["PluginPolicyService"]
-       16 NAMECALL                         R2 R2 K5 ["GetService"]
-       18 CALL                             R2 2 1
-       19 LOADK                            R4 K7 ["PublishPlaceAs"]
-       20 NAMECALL                         R2 R2 K8 ["getPluginPolicy"]
-       22 CALL                             R2 2 1
-       23 GETIMPORT                        R3 K10 [script]
-       25 GETTABLEKS                       R3 R3 K11 ["Parent"]
-       27 GETTABLEKS                       R3 R3 K11 ["Parent"]
-       29 GETTABLEKS                       R3 R3 K11 ["Parent"]
-       31 GETIMPORT                        R4 K13 [require]
-       33 GETTABLEKS                       R5 R3 K14 ["Packages"]
-       35 GETTABLEKS                       R5 R5 K15 ["Cryo"]
-       37 CALL                             R4 1 1
-       38 GETIMPORT                        R5 K13 [require]
-       40 GETTABLEKS                       R6 R3 K16 ["Src"]
-       42 GETTABLEKS                       R6 R6 K17 ["Util"]
-       44 GETTABLEKS                       R6 R6 K18 ["KeyProvider"]
-       46 CALL                             R5 1 1
-       47 GETTABLEKS                       R6 R5 K19 ["getContextKeyName"]
-       49 CALL                             R6 0 1
-       50 GETTABLEKS                       R7 R5 K20 ["getPluginKeyName"]
-       52 CALL                             R7 0 1
-       53 GETTABLEKS                       R8 R5 K21 ["getPublishPlaceAsKeyName"]
-       55 CALL                             R8 0 1
-       56 GETTABLEKS                       R9 R5 K22 ["getRegionKeyName"]
-       58 CALL                             R9 0 1
-       59 GETTABLEKS                       R10 R5 K23 ["getStatusKeyName"]
-       61 CALL                             R10 0 1
-       62 NEWTABLE                         R11 8 0
-       64 DUPCLOSURE                       R12 K24 [PROTO_0]
-       65 CAPTURE                          VAL R2
-       66 SETTABLEKS                       R12 R11 K25 ["shouldShowDevPublishLocations"]
-       68 DUPCLOSURE                       R12 K26 [PROTO_1]
-       69 CAPTURE                          VAL R9
-       70 CAPTURE                          VAL R10
-       71 SETTABLEKS                       R12 R11 K27 ["getIsOptInChina"]
-       73 DUPCLOSURE                       R12 K28 [PROTO_2]
-       74 CAPTURE                          VAL R0
-       75 SETTABLEKS                       R12 R11 K29 ["getOptInLocationsRequirementsLink"]
-       77 DUPCLOSURE                       R12 K30 [PROTO_3]
-       78 CAPTURE                          VAL R2
-       79 SETTABLEKS                       R12 R11 K31 ["getPlayerAppDownloadLink"]
-       81 DUPCLOSURE                       R12 K32 [PROTO_4]
-       82 CAPTURE                          VAL R7
-       83 CAPTURE                          VAL R6
-       84 DUPCLOSURE                       R13 K33 [PROTO_5]
-       85 CAPTURE                          VAL R8
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R6
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R1
-       90 SETTABLEKS                       R13 R11 K34 ["sendAnalyticsToKibana"]
-       92 DUPCLOSURE                       R13 K35 [PROTO_6]
-       93 SETTABLEKS                       R13 R11 K36 ["calculateTextSize"]
-       95 RETURN                           R11 1
+       13 GETIMPORT                        R2 K7 [script]
+       15 GETTABLEKS                       R2 R2 K8 ["Parent"]
+       17 GETTABLEKS                       R2 R2 K8 ["Parent"]
+       19 GETTABLEKS                       R2 R2 K8 ["Parent"]
+       21 GETIMPORT                        R3 K10 [require]
+       23 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K12 ["Cryo"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K10 [require]
+       30 GETTABLEKS                       R5 R2 K11 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K13 ["TestLoader"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R6 R4 K14 ["isFTF"]
+       37 CALL                             R6 0 1
+       38 JUMPIFNOT                        R6 ; [+6]
+       39 DUPTABLE                         R5 K18 [{["ShowOptInLocations"] = False, ["PlayerAppDownloadLink"]}]
+       40 NEWTABLE                         R6 0 0
+       42 SETTABLEKS                       R6 R5 K17 ["PlayerAppDownloadLink"]
+       44 JUMP                             ; [+10]
+       45 GETIMPORT                        R5 K1 [game]
+       47 LOADK                            R7 K19 ["PluginPolicyService"]
+       48 NAMECALL                         R5 R5 K5 ["GetService"]
+       50 CALL                             R5 2 1
+       51 LOADK                            R7 K20 ["PublishPlaceAs"]
+       52 NAMECALL                         R5 R5 K21 ["getPluginPolicy"]
+       54 CALL                             R5 2 1
+       55 GETIMPORT                        R6 K10 [require]
+       57 GETTABLEKS                       R7 R2 K22 ["Src"]
+       59 GETTABLEKS                       R7 R7 K23 ["Util"]
+       61 GETTABLEKS                       R7 R7 K24 ["KeyProvider"]
+       63 CALL                             R6 1 1
+       64 GETTABLEKS                       R7 R6 K25 ["getContextKeyName"]
+       66 CALL                             R7 0 1
+       67 GETTABLEKS                       R8 R6 K26 ["getPluginKeyName"]
+       69 CALL                             R8 0 1
+       70 GETTABLEKS                       R9 R6 K27 ["getPublishPlaceAsKeyName"]
+       72 CALL                             R9 0 1
+       73 GETTABLEKS                       R10 R6 K28 ["getRegionKeyName"]
+       75 CALL                             R10 0 1
+       76 GETTABLEKS                       R11 R6 K29 ["getStatusKeyName"]
+       78 CALL                             R11 0 1
+       79 NEWTABLE                         R12 8 0
+       81 DUPCLOSURE                       R13 K30 [PROTO_0]
+       82 CAPTURE                          VAL R5
+       83 SETTABLEKS                       R13 R12 K31 ["shouldShowDevPublishLocations"]
+       85 DUPCLOSURE                       R13 K32 [PROTO_1]
+       86 CAPTURE                          VAL R10
+       87 CAPTURE                          VAL R11
+       88 SETTABLEKS                       R13 R12 K33 ["getIsOptInChina"]
+       90 DUPCLOSURE                       R13 K34 [PROTO_2]
+       91 CAPTURE                          VAL R0
+       92 SETTABLEKS                       R13 R12 K35 ["getOptInLocationsRequirementsLink"]
+       94 DUPCLOSURE                       R13 K36 [PROTO_3]
+       95 CAPTURE                          VAL R5
+       96 SETTABLEKS                       R13 R12 K37 ["getPlayerAppDownloadLink"]
+       98 DUPCLOSURE                       R13 K38 [PROTO_4]
+       99 CAPTURE                          VAL R8
+      100 CAPTURE                          VAL R7
+      101 DUPCLOSURE                       R14 K39 [PROTO_5]
+      102 CAPTURE                          VAL R9
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R3
+      106 CAPTURE                          VAL R1
+      107 SETTABLEKS                       R14 R12 K40 ["sendAnalyticsToKibana"]
+      109 DUPCLOSURE                       R14 K41 [PROTO_6]
+      110 SETTABLEKS                       R14 R12 K42 ["calculateTextSize"]
+      112 RETURN                           R12 1

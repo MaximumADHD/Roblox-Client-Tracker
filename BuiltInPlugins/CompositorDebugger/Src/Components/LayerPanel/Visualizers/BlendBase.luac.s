@@ -829,10 +829,10 @@ PROTO_14:
         7 GETTABLEKS                       R4 R4 K3 ["min"]
         9 JUMPIF                           R4 ; [+10]
        10 GETIMPORT                        R4 K6 [Vector2.new]
-       12 LOADK                            R5 K7 [∞]
+       12 LOADK                            R5 K7 [Infinity]
        13 GETTABLEKS                       R7 R2 K8 ["Show2D"]
        15 JUMPIFNOT                        R7 ; [+2]
-       16 LOADK                            R6 K7 [∞]
+       16 LOADK                            R6 K7 [Infinity]
        17 JUMP                             ; [+1]
        18 LOADN                            R6 0
        19 CALL                             R4 2 1
@@ -841,10 +841,10 @@ PROTO_14:
        23 GETTABLEKS                       R5 R5 K9 ["max"]
        25 JUMPIF                           R5 ; [+10]
        26 GETIMPORT                        R5 K6 [Vector2.new]
-       28 LOADK                            R6 K10 [-∞]
+       28 LOADK                            R6 K10 [-Infinity]
        29 GETTABLEKS                       R8 R2 K8 ["Show2D"]
        31 JUMPIFNOT                        R8 ; [+2]
-       32 LOADK                            R7 K10 [-∞]
+       32 LOADK                            R7 K10 [-Infinity]
        33 JUMP                             ; [+1]
        34 LOADN                            R7 1
        35 CALL                             R5 2 1

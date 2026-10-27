@@ -970,7 +970,7 @@ PROTO_27:
       123 GETTABLEKS                       R19 R2 K39 ["expanded"]
       125 SETTABLEKS                       R19 R18 K33 ["Expanded"]
       127 GETIMPORT                        R19 K42 [Vector2.new]
-      129 LOADK                            R20 K43 [∞]
+      129 LOADK                            R20 K43 [Infinity]
       130 LOADN                            R21 300
       131 CALL                             R19 2 1
       132 SETTABLEKS                       R19 R18 K34 ["MaxSize"]

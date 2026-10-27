@@ -83,8 +83,8 @@ PROTO_2:
        34 GETTABLEKS                       R13 R13 K11 ["Normal"]
        36 GETTABLEKS                       R13 R13 K13 ["Font"]
        38 GETIMPORT                        R14 K16 [Vector2.new]
-       40 LOADK                            R15 K17 [∞]
-       41 LOADK                            R16 K17 [∞]
+       40 LOADK                            R15 K17 [Infinity]
+       41 LOADK                            R16 K17 [Infinity]
        42 CALL                             R14 2 -1
        43 NAMECALL                         R9 R9 K18 ["GetTextSize"]
        45 CALL                             R9 -1 1

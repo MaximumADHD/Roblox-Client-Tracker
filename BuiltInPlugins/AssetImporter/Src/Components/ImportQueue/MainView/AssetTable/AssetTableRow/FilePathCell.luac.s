@@ -8,8 +8,8 @@ PROTO_0:
         7 GETUPVAL                         R4 2
         8 GETTABLEKS                       R4 R4 K1 ["Font"]
        10 GETIMPORT                        R5 K4 [Vector2.new]
-       12 LOADK                            R6 K5 [∞]
-       13 LOADK                            R7 K5 [∞]
+       12 LOADK                            R6 K5 [Infinity]
+       13 LOADK                            R7 K5 [Infinity]
        14 CALL                             R5 2 -1
        15 CALL                             R1 -1 1
        16 GETTABLEKS                       R1 R1 K6 ["X"]
@@ -21,8 +21,8 @@ PROTO_0:
        24 GETUPVAL                         R5 2
        25 GETTABLEKS                       R5 R5 K1 ["Font"]
        27 GETIMPORT                        R6 K4 [Vector2.new]
-       29 LOADK                            R7 K5 [∞]
-       30 LOADK                            R8 K5 [∞]
+       29 LOADK                            R7 K5 [Infinity]
+       30 LOADK                            R8 K5 [Infinity]
        31 CALL                             R6 2 -1
        32 NAMECALL                         R1 R1 K7 ["GetTextSize"]
        34 CALL                             R1 -1 1

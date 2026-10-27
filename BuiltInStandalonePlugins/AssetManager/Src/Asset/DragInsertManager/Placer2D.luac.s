@@ -306,7 +306,7 @@ PROTO_12:
         2 JUMPIFNOT                        R1 ; [+12]
         3 GETIMPORT                        R6 K6 [os.clock]
         5 CALL                             R6 0 1
-        6 MULK                             R5 R6 K3 [6.28318530717959]
+        6 MULK                             R5 R6 K3 [6.283185307179586]
         7 FASTCALL1                        MATH_SIN R5 ; [+2]
         8 GETIMPORT                        R4 K9 [math.sin]
        10 CALL                             R4 1 1

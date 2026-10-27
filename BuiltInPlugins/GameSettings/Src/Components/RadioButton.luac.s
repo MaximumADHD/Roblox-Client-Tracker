@@ -110,7 +110,7 @@ PROTO_7:
        52 GETIMPORT                        R11 K10 [Vector2.new]
        54 GETTABLEKS                       R12 R2 K12 ["radioButton"]
        56 GETTABLEKS                       R12 R12 K13 ["descriptionWidth"]
-       58 LOADK                            R13 K14 [∞]
+       58 LOADK                            R13 K14 [Infinity]
        59 CALL                             R11 2 -1
        60 NAMECALL                         R6 R6 K11 ["GetTextSize"]
        62 CALL                             R6 -1 1

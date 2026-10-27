@@ -94,11 +94,11 @@ PROTO_2:
        62 GETTABLEKS                       R17 R16 K15 ["Runtime"]
        64 ADD                              R10 R10 R17
        65 FORGLOOP                         R11 2 ; [-51]
-       67 DUPTABLE                         R13 K27 [{["text"], ["type"] = "collection", ["size"], ["id"], ["children"], ["runtime"], ["enabled"], ["source"], ["collectionId"]}]
-       68 GETTABLEKS                       R15 R8 K29 ["Query"]
-       70 ORK                              R14 R15 K28 [""]
+       67 DUPTABLE                         R13 K28 [{["text"], ["type"] = "collection", ["size"], ["id"], ["children"], ["runtime"], ["enabled"], ["contains"], ["source"], ["collectionId"]}]
+       68 GETTABLEKS                       R15 R8 K30 ["Query"]
+       70 ORK                              R14 R15 K29 [""]
        71 SETTABLEKS                       R14 R13 K1 ["text"]
-       73 GETTABLEKS                       R14 R8 K30 ["Size"]
+       73 GETTABLEKS                       R14 R8 K31 ["Size"]
        75 SETTABLEKS                       R14 R13 K25 ["size"]
        77 SETTABLEKS                       R7 R13 K4 ["id"]
        79 SETTABLEKS                       R9 R13 K26 ["children"]
@@ -113,14 +113,16 @@ PROTO_2:
        93 LOADB                            R14 0 +1
        94 LOADB                            R14 1
        95 SETTABLEKS                       R14 R13 K9 ["enabled"]
-       97 SETTABLEKS                       R1 R13 K11 ["source"]
-       99 SETTABLEKS                       R7 R13 K12 ["collectionId"]
-      101 FASTCALL2                        TABLE_INSERT R2 R13 ; [+4]
-      103 MOVE                             R12 R2
-      104 GETIMPORT                        R11 K23 [table.insert]
-      106 CALL                             R11 2 0
-      107 FORGLOOP                         R3 2 ; [-102]
-      109 RETURN                           R2 1
+       97 GETTABLEKS                       R14 R8 K32 ["Contains"]
+       99 SETTABLEKS                       R14 R13 K27 ["contains"]
+      101 SETTABLEKS                       R1 R13 K11 ["source"]
+      103 SETTABLEKS                       R7 R13 K12 ["collectionId"]
+      105 FASTCALL2                        TABLE_INSERT R2 R13 ; [+4]
+      107 MOVE                             R12 R2
+      108 GETIMPORT                        R11 K23 [table.insert]
+      110 CALL                             R11 2 0
+      111 FORGLOOP                         R3 2 ; [-106]
+      113 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

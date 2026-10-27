@@ -57,7 +57,7 @@ PROTO_3:
        10 RETURN                           R1 1
 
 PROTO_4:
-        0 LOADK                            R1 K0 [∞]
+        0 LOADK                            R1 K0 [Infinity]
         1 GETIMPORT                        R2 K2 [pairs]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 3

@@ -29,7 +29,7 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K10 ["Types"]
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K11 ["createUnimplemented"]
-       30 DUPTABLE                         R5 K22 [{"Destroy", "DEPRECATED_getIconAsync", "Request", "GetContextsAsync", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction"}]
+       30 DUPTABLE                         R5 K23 [{"Destroy", "DEPRECATED_getIconAsync", "Request", "GetContextsAsync", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding", "DuplicateContext", "DuplicateAction", "SetSelection"}]
        31 MOVE                             R6 R4
        32 LOADK                            R7 K12 ["Destroy"]
        33 CALL                             R6 1 1
@@ -70,13 +70,17 @@ MAIN:
        77 LOADK                            R7 K21 ["DuplicateAction"]
        78 CALL                             R6 1 1
        79 SETTABLEKS                       R6 R5 K21 ["DuplicateAction"]
-       81 GETTABLEKS                       R6 R1 K23 ["createContext"]
-       83 MOVE                             R7 R5
-       84 CALL                             R6 1 1
-       85 DUPCLOSURE                       R7 K24 [PROTO_0]
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R6
-       88 DUPTABLE                         R8 K27 [{"Context", "Provider"}]
-       89 SETTABLEKS                       R6 R8 K25 ["Context"]
-       91 SETTABLEKS                       R7 R8 K26 ["Provider"]
-       93 RETURN                           R8 1
+       81 MOVE                             R6 R4
+       82 LOADK                            R7 K22 ["SetSelection"]
+       83 CALL                             R6 1 1
+       84 SETTABLEKS                       R6 R5 K22 ["SetSelection"]
+       86 GETTABLEKS                       R6 R1 K24 ["createContext"]
+       88 MOVE                             R7 R5
+       89 CALL                             R6 1 1
+       90 DUPCLOSURE                       R7 K25 [PROTO_0]
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R6
+       93 DUPTABLE                         R8 K28 [{"Context", "Provider"}]
+       94 SETTABLEKS                       R6 R8 K26 ["Context"]
+       96 SETTABLEKS                       R7 R8 K27 ["Provider"]
+       98 RETURN                           R8 1

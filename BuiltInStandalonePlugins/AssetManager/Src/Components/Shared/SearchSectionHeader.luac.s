@@ -189,63 +189,67 @@ MAIN:
        99 LOADK                            R15 K25 ["Animations"]
       100 SETTABLE                         R15 R13 R14
       101 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      103 GETTABLEKS                       R14 R14 K26 ["Audio"]
-      105 LOADK                            R15 K27 ["Audios"]
+      103 GETTABLEKS                       R14 R14 K26 ["AnimatedImage"]
+      105 LOADK                            R15 K27 ["AnimatedImages"]
       106 SETTABLE                         R15 R13 R14
       107 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      109 GETTABLEKS                       R14 R14 K28 ["Decal"]
-      111 LOADK                            R15 K29 ["Decals"]
+      109 GETTABLEKS                       R14 R14 K28 ["Audio"]
+      111 LOADK                            R15 K29 ["Audios"]
       112 SETTABLE                         R15 R13 R14
       113 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      115 GETTABLEKS                       R14 R14 K30 ["FontFamily"]
-      117 LOADK                            R15 K31 ["FontFamilies"]
+      115 GETTABLEKS                       R14 R14 K30 ["Decal"]
+      117 LOADK                            R15 K31 ["Decals"]
       118 SETTABLE                         R15 R13 R14
       119 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      121 GETTABLEKS                       R14 R14 K32 ["Image"]
-      123 LOADK                            R15 K33 ["Images"]
+      121 GETTABLEKS                       R14 R14 K32 ["FontFamily"]
+      123 LOADK                            R15 K33 ["FontFamilies"]
       124 SETTABLE                         R15 R13 R14
       125 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      127 GETTABLEKS                       R14 R14 K34 ["MeshPart"]
-      129 LOADK                            R15 K35 ["MeshParts"]
+      127 GETTABLEKS                       R14 R14 K34 ["Image"]
+      129 LOADK                            R15 K35 ["Images"]
       130 SETTABLE                         R15 R13 R14
       131 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      133 GETTABLEKS                       R14 R14 K36 ["Mesh"]
-      135 LOADK                            R15 K37 ["Meshes"]
+      133 GETTABLEKS                       R14 R14 K36 ["MeshPart"]
+      135 LOADK                            R15 K37 ["MeshParts"]
       136 SETTABLE                         R15 R13 R14
       137 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      139 GETTABLEKS                       R14 R14 K38 ["Model"]
-      141 LOADK                            R15 K39 ["Models"]
+      139 GETTABLEKS                       R14 R14 K38 ["Mesh"]
+      141 LOADK                            R15 K39 ["Meshes"]
       142 SETTABLE                         R15 R13 R14
       143 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      145 GETTABLEKS                       R14 R14 K40 ["Place"]
-      147 LOADK                            R15 K41 ["Places"]
+      145 GETTABLEKS                       R14 R14 K40 ["Model"]
+      147 LOADK                            R15 K41 ["Models"]
       148 SETTABLE                         R15 R13 R14
       149 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      151 GETTABLEKS                       R14 R14 K42 ["Plugin"]
-      153 LOADK                            R15 K43 ["Plugins"]
+      151 GETTABLEKS                       R14 R14 K42 ["Place"]
+      153 LOADK                            R15 K43 ["Places"]
       154 SETTABLE                         R15 R13 R14
       155 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      157 GETTABLEKS                       R14 R14 K44 ["TextDocument"]
-      159 LOADK                            R15 K45 ["TextDocuments"]
+      157 GETTABLEKS                       R14 R14 K44 ["Plugin"]
+      159 LOADK                            R15 K45 ["Plugins"]
       160 SETTABLE                         R15 R13 R14
       161 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      163 GETTABLEKS                       R14 R14 K46 ["Video"]
-      165 LOADK                            R15 K47 ["Videos"]
+      163 GETTABLEKS                       R14 R14 K46 ["TextDocument"]
+      165 LOADK                            R15 K47 ["TextDocuments"]
       166 SETTABLE                         R15 R13 R14
       167 GETTABLEKS                       R14 R6 K23 ["AssetType"]
-      169 GETTABLEKS                       R14 R14 K48 ["Folder"]
-      171 LOADK                            R15 K49 ["Folders"]
+      169 GETTABLEKS                       R14 R14 K48 ["Video"]
+      171 LOADK                            R15 K49 ["Videos"]
       172 SETTABLE                         R15 R13 R14
-      173 DUPCLOSURE                       R14 K50 [PROTO_1]
-      174 CAPTURE                          VAL R5
-      175 CAPTURE                          VAL R12
-      176 CAPTURE                          VAL R11
-      177 CAPTURE                          VAL R10
-      178 CAPTURE                          VAL R9
-      179 CAPTURE                          VAL R6
-      180 CAPTURE                          VAL R13
-      181 CAPTURE                          VAL R8
-      182 CAPTURE                          VAL R7
-      183 CAPTURE                          VAL R1
-      184 CAPTURE                          VAL R2
-      185 RETURN                           R14 1
+      173 GETTABLEKS                       R14 R6 K23 ["AssetType"]
+      175 GETTABLEKS                       R14 R14 K50 ["Folder"]
+      177 LOADK                            R15 K51 ["Folders"]
+      178 SETTABLE                         R15 R13 R14
+      179 DUPCLOSURE                       R14 K52 [PROTO_1]
+      180 CAPTURE                          VAL R5
+      181 CAPTURE                          VAL R12
+      182 CAPTURE                          VAL R11
+      183 CAPTURE                          VAL R10
+      184 CAPTURE                          VAL R9
+      185 CAPTURE                          VAL R6
+      186 CAPTURE                          VAL R13
+      187 CAPTURE                          VAL R8
+      188 CAPTURE                          VAL R7
+      189 CAPTURE                          VAL R1
+      190 CAPTURE                          VAL R2
+      191 RETURN                           R14 1

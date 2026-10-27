@@ -152,7 +152,7 @@ PROTO_6:
        85 GETTABLEKS                       R9 R2 K20 ["Font"]
        87 GETIMPORT                        R10 K23 [Vector2.new]
        89 LOADN                            R11 0
-       90 LOADK                            R12 K24 [∞]
+       90 LOADK                            R12 K24 [Infinity]
        91 CALL                             R10 2 -1
        92 NAMECALL                         R5 R5 K25 ["GetTextSize"]
        94 CALL                             R5 -1 1

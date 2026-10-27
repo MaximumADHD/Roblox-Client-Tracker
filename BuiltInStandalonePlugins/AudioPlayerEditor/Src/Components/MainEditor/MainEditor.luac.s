@@ -3,7 +3,7 @@ PROTO_0:
         1 FASTCALL1                        MATH_LOG R3 ; [+2]
         2 GETIMPORT                        R2 K4 [math.log]
         4 CALL                             R2 1 1
-        5 DIVK                             R1 R2 K0 [0.693147180559945]
+        5 DIVK                             R1 R2 K0 [0.6931471805599453]
         6 RETURN                           R1 1
 
 PROTO_1:
@@ -1605,11 +1605,11 @@ PROTO_39:
      1290 FASTCALL1                        MATH_LOG R97 ; [+2]
      1291 GETIMPORT                        R96 K193 [math.log]
      1293 CALL                             R96 1 1
-     1294 DIVK                             R95 R96 K191 [0.693147180559945]
+     1294 DIVK                             R95 R96 K191 [0.6931471805599453]
      1295 SETTABLEKS                       R95 R94 K186 ["value"]
      1297 GETIMPORT                        R95 K61 [NumberRange.new]
      1299 LOADN                            R96 0
-     1300 LOADK                            R97 K194 [3.4594316186373]
+     1300 LOADK                            R97 K194 [3.4594316186372978]
      1301 CALL                             R95 2 1
      1302 SETTABLEKS                       R95 R94 K51 ["range"]
      1304 GETIMPORT                        R95 K66 [UDim.new]
@@ -1674,11 +1674,11 @@ PROTO_39:
      1391 FASTCALL1                        MATH_LOG R97 ; [+2]
      1392 GETIMPORT                        R96 K193 [math.log]
      1394 CALL                             R96 1 1
-     1395 DIVK                             R95 R96 K191 [0.693147180559945]
+     1395 DIVK                             R95 R96 K191 [0.6931471805599453]
      1396 SETTABLEKS                       R95 R94 K186 ["value"]
      1398 GETIMPORT                        R95 K61 [NumberRange.new]
      1400 LOADN                            R96 0
-     1401 LOADK                            R97 K207 [4.39231742277876]
+     1401 LOADK                            R97 K207 [4.392317422778761]
      1402 CALL                             R95 2 1
      1403 SETTABLEKS                       R95 R94 K51 ["range"]
      1405 GETIMPORT                        R95 K66 [UDim.new]

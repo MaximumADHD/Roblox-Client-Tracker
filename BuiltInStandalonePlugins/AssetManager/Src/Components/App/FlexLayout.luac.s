@@ -114,7 +114,7 @@ PROTO_4:
        96 GETIMPORT                        R23 K15 [Vector2.new]
        98 GETTABLEKS                       R24 R6 K16 ["MainView"]
       100 GETTABLEKS                       R24 R24 K18 ["MaxWidth"]
-      102 LOADK                            R25 K19 [∞]
+      102 LOADK                            R25 K19 [Infinity]
       103 CALL                             R23 2 1
       104 SETTABLEKS                       R23 R22 K11 ["MaxSize"]
       106 CALL                             R20 2 1
@@ -293,7 +293,7 @@ PROTO_4:
       357 GETIMPORT                        R31 K15 [Vector2.new]
       359 GETTABLEKS                       R32 R6 K59 ["Sidebar"]
       361 GETTABLEKS                       R32 R32 K18 ["MaxWidth"]
-      363 LOADK                            R33 K19 [∞]
+      363 LOADK                            R33 K19 [Infinity]
       364 CALL                             R31 2 1
       365 SETTABLEKS                       R31 R30 K11 ["MaxSize"]
       367 CALL                             R28 2 1

@@ -1,5 +1,5 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K5 [{[1] = 1.5707963267949, ["sinTime"] = 1, ["animatingDotIndex"] = 1}]
+        0 DUPTABLE                         R1 K5 [{[1] = 1.5707963267948966, ["sinTime"] = 1, ["animatingDotIndex"] = 1}]
         1 SETTABLEKS                       R1 R0 K6 ["state"]
         3 RETURN                           R0 0
 
@@ -130,9 +130,9 @@ PROTO_7:
        88 LOADK                            R21 K38 ["Frame"]
        89 DUPTABLE                         R22 K43 [{["Size"], ["LayoutOrder"], ["BorderSizePixel"] = 0, ["BackgroundColor3"], ["BackgroundTransparency"] = 1}]
        90 GETIMPORT                        R23 K45 [UDim2.new]
-       92 LOADK                            R24 K46 [0.666666666666667]
+       92 LOADK                            R24 K46 [0.6666666666666666]
        93 MOVE                             R25 R10
-       94 LOADK                            R26 K46 [0.666666666666667]
+       94 LOADK                            R26 K46 [0.6666666666666666]
        95 LOADN                            R27 0
        96 CALL                             R23 4 1
        97 SETTABLEKS                       R23 R22 K7 ["Size"]

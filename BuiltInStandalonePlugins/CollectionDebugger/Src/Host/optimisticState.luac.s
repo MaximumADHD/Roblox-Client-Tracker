@@ -55,7 +55,7 @@ PROTO_2:
         3 CALL                             R2 1 3
         4 FORGPREP_INEXT                   R2
         5 GETTABLEKS                       R7 R6 K2 ["collectionId"]
-        7 JUMPIFEQKNIL                     R7 ; [+48]
+        7 JUMPIFEQKNIL                     R7 ; [+51]
         9 GETTABLEKS                       R16 R6 K3 ["source"]
        11 FASTCALL1                        TOSTRING R16 ; [+2]
        12 GETIMPORT                        R15 K5 [tostring]
@@ -80,24 +80,26 @@ PROTO_2:
        38 CALL                             R14 1 1
        39 CONCAT                           R7 R8 R14
        40 GETTABLE                         R8 R0 R7
-       41 JUMPIFEQKNIL                     R8 ; [+14]
+       41 JUMPIFEQKNIL                     R8 ; [+17]
        43 GETTABLEKS                       R9 R6 K9 ["enabled"]
        45 GETTABLEKS                       R10 R8 K10 ["want"]
        47 JUMPIFNOTEQ                      R9 R10 ; [+4]
        49 LOADNIL                          R9
        50 SETTABLE                         R9 R0 R7
-       51 JUMP                             ; [+4]
+       51 JUMP                             ; [+7]
        52 GETTABLEKS                       R9 R8 K10 ["want"]
        54 SETTABLEKS                       R9 R6 K9 ["enabled"]
-       56 GETTABLEKS                       R7 R6 K11 ["children"]
-       58 JUMPIFNOT                        R7 ; [+7]
-       59 GETUPVAL                         R7 0
-       60 GETTABLEKS                       R7 R7 K12 ["applyPending"]
-       62 MOVE                             R8 R0
-       63 GETTABLEKS                       R9 R6 K11 ["children"]
-       65 CALL                             R7 2 0
-       66 FORGLOOP                         R2 2 [inext] ; [-62]
-       68 RETURN                           R0 0
+       56 LOADB                            R9 1
+       57 SETTABLEKS                       R9 R6 K11 ["unconfirmed"]
+       59 GETTABLEKS                       R7 R6 K12 ["children"]
+       61 JUMPIFNOT                        R7 ; [+7]
+       62 GETUPVAL                         R7 0
+       63 GETTABLEKS                       R7 R7 K13 ["applyPending"]
+       65 MOVE                             R8 R0
+       66 GETTABLEKS                       R9 R6 K12 ["children"]
+       68 CALL                             R7 2 0
+       69 FORGLOOP                         R2 2 [inext] ; [-65]
+       71 RETURN                           R0 0
 
 PROTO_3:
         0 MOVE                             R1 R0

@@ -87,6 +87,36 @@ PROTO_4:
        34 CALL                             R4 2 0
        35 RETURN                           R3 1
 
+PROTO_5:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 LOADK                            R4 K0 ["summary-%*"]
+        3 MOVE                             R6 R1
+        4 NAMECALL                         R4 R4 K1 ["format"]
+        6 CALL                             R4 2 1
+        7 LOADK                            R5 K2 ["Summary '%*' not found"]
+        8 MOVE                             R7 R1
+        9 NAMECALL                         R5 R5 K1 ["format"]
+       11 CALL                             R5 2 1
+       12 CALL                             R2 3 1
+       13 GETUPVAL                         R3 0
+       14 MOVE                             R4 R2
+       15 LOADK                            R5 K3 ["display-image"]
+       16 LOADK                            R6 K4 ["Display image not found under summary '%*'"]
+       17 MOVE                             R8 R1
+       18 NAMECALL                         R6 R6 K1 ["format"]
+       20 CALL                             R6 2 1
+       21 CALL                             R3 3 1
+       22 LOADK                            R7 K5 ["ImageLabel"]
+       23 NAMECALL                         R5 R3 K6 ["IsA"]
+       25 CALL                             R5 2 1
+       26 FASTCALL2K                       ASSERT R5 K7 ; [+4]
+       28 LOADK                            R6 K7 ["Incorrect element type for display image"]
+       29 GETIMPORT                        R4 K9 [assert]
+       31 CALL                             R4 2 0
+       32 GETTABLEKS                       R4 R3 K10 ["Image"]
+       34 RETURN                           R4 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -123,4 +153,7 @@ MAIN:
        50 DUPCLOSURE                       R6 K21 [PROTO_4]
        51 CAPTURE                          VAL R4
        52 SETTABLEKS                       R6 R5 K22 ["getSummary"]
-       54 RETURN                           R5 1
+       54 DUPCLOSURE                       R6 K23 [PROTO_5]
+       55 CAPTURE                          VAL R4
+       56 SETTABLEKS                       R6 R5 K24 ["getSummaryDisplayedImage"]
+       58 RETURN                           R5 1

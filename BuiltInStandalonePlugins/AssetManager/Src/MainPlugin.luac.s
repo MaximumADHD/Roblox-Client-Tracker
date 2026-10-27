@@ -31,14 +31,11 @@ PROTO_1:
        15 GETTABLEKS                       R5 R2 K4 ["Tutorial"]
        17 NAMECALL                         R3 R3 K2 ["populateSavedSettings"]
        19 CALL                             R3 2 0
-       20 GETUPVAL                         R3 2
-       21 CALL                             R3 0 1
-       22 JUMPIFNOT                        R3 ; [+7]
-       23 GETTABLEKS                       R3 R0 K5 ["explorerController"]
-       25 GETTABLEKS                       R5 R2 K6 ["Explorer"]
-       27 NAMECALL                         R3 R3 K2 ["populateSavedSettings"]
-       29 CALL                             R3 2 0
-       30 RETURN                           R0 0
+       20 GETTABLEKS                       R3 R0 K5 ["explorerController"]
+       22 GETTABLEKS                       R5 R2 K6 ["Explorer"]
+       24 NAMECALL                         R3 R3 K2 ["populateSavedSettings"]
+       26 CALL                             R3 2 0
+       27 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -777,68 +774,62 @@ MAIN:
       279 GETTABLEKS                       R41 R41 K52 ["Flags"]
       281 GETTABLEKS                       R41 R41 K56 ["getFFlagAmrEnableTutorials"]
       283 CALL                             R40 1 1
-      284 GETIMPORT                        R41 K5 [require]
-      286 GETTABLEKS                       R42 R0 K8 ["Src"]
-      288 GETTABLEKS                       R42 R42 K52 ["Flags"]
-      290 GETTABLEKS                       R42 R42 K57 ["getFFlagAmrSaveToggledGroups"]
-      292 CALL                             R41 1 1
-      293 GETTABLEKS                       R42 R1 K58 ["PureComponent"]
-      295 LOADK                            R44 K59 ["MainPlugin"]
-      296 NAMECALL                         R42 R42 K60 ["extend"]
-      298 CALL                             R42 2 1
-      299 DUPCLOSURE                       R43 K61 [PROTO_0]
-      300 SETTABLEKS                       R43 R42 K62 ["_getAllControllers"]
-      302 DUPCLOSURE                       R43 K63 [PROTO_1]
-      303 CAPTURE                          VAL R34
-      304 CAPTURE                          VAL R40
-      305 CAPTURE                          VAL R41
-      306 SETTABLEKS                       R43 R42 K64 ["_loadSettingsIntoControllers"]
-      308 DUPCLOSURE                       R43 K65 [PROTO_2]
-      309 CAPTURE                          VAL R40
-      310 CAPTURE                          VAL R2
-      311 SETTABLEKS                       R43 R42 K66 ["_notifyTutorialThatPluginIsEnabled"]
-      313 DUPCLOSURE                       R43 K67 [PROTO_9]
-      314 CAPTURE                          VAL R32
-      315 CAPTURE                          VAL R3
-      316 CAPTURE                          VAL R10
-      317 CAPTURE                          VAL R35
-      318 CAPTURE                          VAL R14
-      319 CAPTURE                          VAL R20
-      320 CAPTURE                          VAL R21
-      321 CAPTURE                          VAL R18
-      322 CAPTURE                          VAL R19
-      323 CAPTURE                          VAL R39
-      324 CAPTURE                          VAL R36
-      325 CAPTURE                          VAL R26
-      326 CAPTURE                          VAL R31
-      327 CAPTURE                          VAL R28
-      328 CAPTURE                          VAL R27
-      329 CAPTURE                          VAL R24
-      330 CAPTURE                          VAL R29
-      331 CAPTURE                          VAL R25
-      332 CAPTURE                          VAL R23
-      333 CAPTURE                          VAL R40
-      334 CAPTURE                          VAL R30
-      335 SETTABLEKS                       R43 R42 K68 ["init"]
-      337 DUPCLOSURE                       R43 K69 [PROTO_10]
-      338 SETTABLEKS                       R43 R42 K70 ["didUpdate"]
-      340 DUPCLOSURE                       R43 K71 [PROTO_11]
-      341 CAPTURE                          VAL R35
-      342 SETTABLEKS                       R43 R42 K72 ["willUnmount"]
-      344 DUPCLOSURE                       R43 K73 [PROTO_14]
-      345 CAPTURE                          VAL R38
-      346 CAPTURE                          VAL R4
-      347 CAPTURE                          VAL R6
-      348 CAPTURE                          VAL R14
-      349 CAPTURE                          VAL R15
-      350 CAPTURE                          VAL R16
-      351 CAPTURE                          VAL R17
-      352 CAPTURE                          VAL R1
-      353 CAPTURE                          VAL R12
-      354 CAPTURE                          VAL R9
-      355 CAPTURE                          VAL R33
-      356 CAPTURE                          VAL R37
-      357 CAPTURE                          VAL R22
-      358 CAPTURE                          VAL R13
-      359 SETTABLEKS                       R43 R42 K74 ["render"]
-      361 RETURN                           R42 1
+      284 GETTABLEKS                       R41 R1 K57 ["PureComponent"]
+      286 LOADK                            R43 K58 ["MainPlugin"]
+      287 NAMECALL                         R41 R41 K59 ["extend"]
+      289 CALL                             R41 2 1
+      290 DUPCLOSURE                       R42 K60 [PROTO_0]
+      291 SETTABLEKS                       R42 R41 K61 ["_getAllControllers"]
+      293 DUPCLOSURE                       R42 K62 [PROTO_1]
+      294 CAPTURE                          VAL R34
+      295 CAPTURE                          VAL R40
+      296 SETTABLEKS                       R42 R41 K63 ["_loadSettingsIntoControllers"]
+      298 DUPCLOSURE                       R42 K64 [PROTO_2]
+      299 CAPTURE                          VAL R40
+      300 CAPTURE                          VAL R2
+      301 SETTABLEKS                       R42 R41 K65 ["_notifyTutorialThatPluginIsEnabled"]
+      303 DUPCLOSURE                       R42 K66 [PROTO_9]
+      304 CAPTURE                          VAL R32
+      305 CAPTURE                          VAL R3
+      306 CAPTURE                          VAL R10
+      307 CAPTURE                          VAL R35
+      308 CAPTURE                          VAL R14
+      309 CAPTURE                          VAL R20
+      310 CAPTURE                          VAL R21
+      311 CAPTURE                          VAL R18
+      312 CAPTURE                          VAL R19
+      313 CAPTURE                          VAL R39
+      314 CAPTURE                          VAL R36
+      315 CAPTURE                          VAL R26
+      316 CAPTURE                          VAL R31
+      317 CAPTURE                          VAL R28
+      318 CAPTURE                          VAL R27
+      319 CAPTURE                          VAL R24
+      320 CAPTURE                          VAL R29
+      321 CAPTURE                          VAL R25
+      322 CAPTURE                          VAL R23
+      323 CAPTURE                          VAL R40
+      324 CAPTURE                          VAL R30
+      325 SETTABLEKS                       R42 R41 K67 ["init"]
+      327 DUPCLOSURE                       R42 K68 [PROTO_10]
+      328 SETTABLEKS                       R42 R41 K69 ["didUpdate"]
+      330 DUPCLOSURE                       R42 K70 [PROTO_11]
+      331 CAPTURE                          VAL R35
+      332 SETTABLEKS                       R42 R41 K71 ["willUnmount"]
+      334 DUPCLOSURE                       R42 K72 [PROTO_14]
+      335 CAPTURE                          VAL R38
+      336 CAPTURE                          VAL R4
+      337 CAPTURE                          VAL R6
+      338 CAPTURE                          VAL R14
+      339 CAPTURE                          VAL R15
+      340 CAPTURE                          VAL R16
+      341 CAPTURE                          VAL R17
+      342 CAPTURE                          VAL R1
+      343 CAPTURE                          VAL R12
+      344 CAPTURE                          VAL R9
+      345 CAPTURE                          VAL R33
+      346 CAPTURE                          VAL R37
+      347 CAPTURE                          VAL R22
+      348 CAPTURE                          VAL R13
+      349 SETTABLEKS                       R42 R41 K73 ["render"]
+      351 RETURN                           R41 1

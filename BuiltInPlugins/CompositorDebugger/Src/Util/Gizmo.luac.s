@@ -78,11 +78,11 @@ PROTO_2:
         9 LOADN                            R7 12
        10 LOADN                            R8 1
        11 FORNPREP                         R7
-       12 MULK                             R13 R9 K4 [0.523598775598299]
+       12 MULK                             R13 R9 K4 [0.5235987755982988]
        13 FASTCALL1                        MATH_COS R13 ; [+2]
        14 GETIMPORT                        R12 K7 [math.cos]
        16 CALL                             R12 1 1
-       17 MULK                             R14 R9 K4 [0.523598775598299]
+       17 MULK                             R14 R9 K4 [0.5235987755982988]
        18 FASTCALL1                        MATH_SIN R14 ; [+2]
        19 GETIMPORT                        R13 K9 [math.sin]
        21 CALL                             R13 1 1

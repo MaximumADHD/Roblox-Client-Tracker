@@ -375,22 +375,22 @@ PROTO_3:
        35 SETTABLEKS                       R6 R5 K17 ["Card"]
        37 GETUPVAL                         R6 1
        38 GETUPVAL                         R7 4
-       39 DUPTABLE                         R8 K30 [{["orientation"] = "horizontal", ["position"] = 0.333333333333333, ["testId"] = "horizontal-third-1"}]
+       39 DUPTABLE                         R8 K30 [{["orientation"] = "horizontal", ["position"] = 0.3333333333333333, ["testId"] = "horizontal-third-1"}]
        40 CALL                             R6 2 1
        41 SETTABLEKS                       R6 R5 K18 ["HorizontalThird1"]
        43 GETUPVAL                         R6 1
        44 GETUPVAL                         R7 4
-       45 DUPTABLE                         R8 K33 [{["orientation"] = "horizontal", ["position"] = 0.666666666666667, ["testId"] = "horizontal-third-2"}]
+       45 DUPTABLE                         R8 K33 [{["orientation"] = "horizontal", ["position"] = 0.6666666666666666, ["testId"] = "horizontal-third-2"}]
        46 CALL                             R6 2 1
        47 SETTABLEKS                       R6 R5 K19 ["HorizontalThird2"]
        49 GETUPVAL                         R6 1
        50 GETUPVAL                         R7 4
-       51 DUPTABLE                         R8 K36 [{["orientation"] = "vertical", ["position"] = 0.333333333333333, ["testId"] = "vertical-third-1"}]
+       51 DUPTABLE                         R8 K36 [{["orientation"] = "vertical", ["position"] = 0.3333333333333333, ["testId"] = "vertical-third-1"}]
        52 CALL                             R6 2 1
        53 SETTABLEKS                       R6 R5 K20 ["VerticalThird1"]
        55 GETUPVAL                         R6 1
        56 GETUPVAL                         R7 4
-       57 DUPTABLE                         R8 K38 [{["orientation"] = "vertical", ["position"] = 0.666666666666667, ["testId"] = "vertical-third-2"}]
+       57 DUPTABLE                         R8 K38 [{["orientation"] = "vertical", ["position"] = 0.6666666666666666, ["testId"] = "vertical-third-2"}]
        58 CALL                             R6 2 1
        59 SETTABLEKS                       R6 R5 K21 ["VerticalThird2"]
        61 CALL                             R2 3 -1

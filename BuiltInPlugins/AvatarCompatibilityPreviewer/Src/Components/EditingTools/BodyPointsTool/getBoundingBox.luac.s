@@ -11,12 +11,12 @@ PROTO_0:
        13 GETIMPORT                        R3 K6 [Vector3.new]
        15 CALL                             R3 0 1
        16 RETURN                           R1 3
-       17 LOADK                            R1 K7 [∞]
-       18 LOADK                            R2 K8 [-∞]
-       19 LOADK                            R3 K7 [∞]
-       20 LOADK                            R4 K8 [-∞]
-       21 LOADK                            R5 K7 [∞]
-       22 LOADK                            R6 K8 [-∞]
+       17 LOADK                            R1 K7 [Infinity]
+       18 LOADK                            R2 K8 [-Infinity]
+       19 LOADK                            R3 K7 [Infinity]
+       20 LOADK                            R4 K8 [-Infinity]
+       21 LOADK                            R5 K7 [Infinity]
+       22 LOADK                            R6 K8 [-Infinity]
        23 GETTABLEKS                       R7 R0 K9 ["worldModel"]
        25 GETTABLEKS                       R7 R7 K10 ["PrimaryPart"]
        27 GETTABLEKS                       R8 R0 K0 ["selectedPoints"]

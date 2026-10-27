@@ -151,34 +151,39 @@ PROTO_5:
        24 CALL                             R2 2 1
        25 SETUPVAL                         R2 2
        26 GETUPVAL                         R1 3
-       27 GETTABLEKS                       R1 R1 K6 ["installLoadedCode"]
-       29 CALL                             R1 0 0
-       30 GETUPVAL                         R1 5
-       31 GETTABLEKS                       R1 R1 K7 ["AssistantEval"]
-       33 GETTABLEKS                       R1 R1 K8 ["RunTimeEvals"]
-       35 LOADK                            R3 K9 ["MultiplayerRunSessionId"]
-       36 NAMECALL                         R1 R1 K10 ["FindFirstChild"]
-       38 CALL                             R1 2 1
-       39 JUMPIFNOT                        R1 ; [+3]
-       40 GETTABLEKS                       R2 R1 K11 ["Value"]
-       42 JUMPIF                           R2 ; [+1]
-       43 RETURN                           R0 0
-       44 GETIMPORT                        R2 K13 [pcall]
-       46 NEWCLOSURE                       R3 P0
-       47 CAPTURE                          UPVAL U5
-       48 CAPTURE                          UPVAL U1
-       49 CAPTURE                          UPVAL U4
-       50 CAPTURE                          UPVAL U3
-       51 CALL                             R2 1 2
-       52 DUPTABLE                         R4 K16 [{"success", "value"}]
-       53 SETTABLEKS                       R2 R4 K14 ["success"]
-       55 SETTABLEKS                       R3 R4 K15 ["value"]
-       57 GETUPVAL                         R5 6
-       58 GETTABLEKS                       R6 R1 K11 ["Value"]
-       60 GETUPVAL                         R7 2
-       61 MOVE                             R8 R4
-       62 CALL                             R5 3 0
-       63 RETURN                           R0 0
+       27 GETTABLEKS                       R1 R1 K6 ["hasAssistantEvalFolder"]
+       29 CALL                             R1 0 1
+       30 JUMPIF                           R1 ; [+1]
+       31 RETURN                           R0 0
+       32 GETUPVAL                         R1 3
+       33 GETTABLEKS                       R1 R1 K7 ["installLoadedCode"]
+       35 CALL                             R1 0 0
+       36 GETUPVAL                         R1 5
+       37 GETTABLEKS                       R1 R1 K8 ["AssistantEval"]
+       39 GETTABLEKS                       R1 R1 K9 ["RunTimeEvals"]
+       41 LOADK                            R3 K10 ["MultiplayerRunSessionId"]
+       42 NAMECALL                         R1 R1 K11 ["FindFirstChild"]
+       44 CALL                             R1 2 1
+       45 JUMPIFNOT                        R1 ; [+3]
+       46 GETTABLEKS                       R2 R1 K12 ["Value"]
+       48 JUMPIF                           R2 ; [+1]
+       49 RETURN                           R0 0
+       50 GETIMPORT                        R2 K14 [pcall]
+       52 NEWCLOSURE                       R3 P0
+       53 CAPTURE                          UPVAL U5
+       54 CAPTURE                          UPVAL U1
+       55 CAPTURE                          UPVAL U4
+       56 CAPTURE                          UPVAL U3
+       57 CALL                             R2 1 2
+       58 DUPTABLE                         R4 K17 [{"success", "value"}]
+       59 SETTABLEKS                       R2 R4 K15 ["success"]
+       61 SETTABLEKS                       R3 R4 K16 ["value"]
+       63 GETUPVAL                         R5 6
+       64 GETTABLEKS                       R6 R1 K12 ["Value"]
+       66 GETUPVAL                         R7 2
+       67 MOVE                             R8 R4
+       68 CALL                             R5 3 0
+       69 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

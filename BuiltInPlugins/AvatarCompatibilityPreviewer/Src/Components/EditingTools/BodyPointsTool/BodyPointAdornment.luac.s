@@ -46,7 +46,7 @@ PROTO_2:
        37 GETTABLEKS                       R1 R1 K2 ["current"]
        39 GETIMPORT                        R3 K6 [CFrame.Angles]
        41 LOADN                            R4 0
-       42 LOADK                            R5 K7 [1.5707963267949]
+       42 LOADK                            R5 K7 [1.5707963267948966]
        43 LOADN                            R6 0
        44 CALL                             R3 3 1
        45 MUL                              R2 R0 R3
@@ -57,7 +57,7 @@ PROTO_2:
        52 GETUPVAL                         R1 5
        53 GETTABLEKS                       R1 R1 K2 ["current"]
        55 GETIMPORT                        R3 K6 [CFrame.Angles]
-       57 LOADK                            R4 K7 [1.5707963267949]
+       57 LOADK                            R4 K7 [1.5707963267948966]
        58 LOADN                            R5 0
        59 LOADN                            R6 0
        60 CALL                             R3 3 1

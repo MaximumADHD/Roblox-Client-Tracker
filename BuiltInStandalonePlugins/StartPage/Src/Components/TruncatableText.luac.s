@@ -157,7 +157,7 @@ PROTO_4:
       122 DUPTABLE                         R23 K46 [{"MaxSize"}]
       123 GETIMPORT                        R24 K49 [Vector2.new]
       125 MOVE                             R25 R2
-      126 LOADK                            R26 K50 [∞]
+      126 LOADK                            R26 K50 [Infinity]
       127 CALL                             R24 2 1
       128 SETTABLEKS                       R24 R23 K45 ["MaxSize"]
       130 SETTABLEKS                       R23 R22 K43 ["sizeConstraint"]

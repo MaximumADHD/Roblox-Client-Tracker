@@ -1,6 +1,6 @@
 PROTO_0:
-        0 LOADK                            R0 K0 [{∞, ∞, ∞}]
-        1 LOADK                            R1 K1 [{-∞, -∞, -∞}]
+        0 LOADK                            R0 K0 [{Infinity, Infinity, Infinity}]
+        1 LOADK                            R1 K1 [{-Infinity, -Infinity, -Infinity}]
         2 RETURN                           R0 2
 
 PROTO_1:
@@ -135,8 +135,8 @@ PROTO_4:
        25 RETURN                           R1 1
 
 PROTO_5:
-        0 LOADK                            R2 K0 [{∞, ∞, ∞}]
-        1 LOADK                            R3 K1 [{-∞, -∞, -∞}]
+        0 LOADK                            R2 K0 [{Infinity, Infinity, Infinity}]
+        1 LOADK                            R3 K1 [{-Infinity, -Infinity, -Infinity}]
         2 LOADK                            R6 K2 ["Head"]
         3 NAMECALL                         R4 R0 K3 ["FindFirstChild"]
         5 CALL                             R4 2 1

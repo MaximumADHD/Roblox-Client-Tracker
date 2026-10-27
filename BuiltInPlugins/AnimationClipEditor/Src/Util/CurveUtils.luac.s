@@ -182,12 +182,12 @@ PROTO_2:
         6 GETTABLEKS                       R11 R4 K0 ["Value"]
         8 GETTABLEKS                       R12 R2 K0 ["Value"]
        10 SUB                              R10 R11 R12
-       11 ORK                              R6 R6 K1 [3.33333333333333]
+       11 ORK                              R6 R6 K1 [3.3333333333333335]
        12 ORK                              R7 R7 K2 [10]
-       13 LOADK                            R12 K3 [6.28318530717959]
+       13 LOADK                            R12 K3 [6.283185307179586]
        14 MUL                              R11 R12 R6
        15 MINUS                            R16 R7
-       16 MULK                             R15 R16 K4 [0.693147180559945]
+       16 MULK                             R15 R16 K4 [0.6931471805599453]
        17 DIV                              R14 R15 R11
        18 FASTCALL1                        MATH_ATAN R14 ; [+2]
        19 GETIMPORT                        R13 K7 [math.atan]
@@ -253,12 +253,12 @@ PROTO_2:
       100 JUMPIFNOTEQ                      R0 R13 ; [+10]
       102 LOADN                            R13 0
       103 SETTABLEKS                       R13 R2 K24 ["RightSlope"]
-      105 MULK                             R15 R7 K4 [0.693147180559945]
+      105 MULK                             R15 R7 K4 [0.6931471805599453]
       106 MUL                              R14 R15 R10
       107 DIV                              R13 R14 R9
       108 SETTABLEKS                       R13 R4 K23 ["LeftSlope"]
       110 RETURN                           R8 1
-      111 MULK                             R15 R7 K4 [0.693147180559945]
+      111 MULK                             R15 R7 K4 [0.6931471805599453]
       112 MUL                              R14 R15 R10
       113 DIV                              R13 R14 R9
       114 SETTABLEKS                       R13 R2 K24 ["RightSlope"]

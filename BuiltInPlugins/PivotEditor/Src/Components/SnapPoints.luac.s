@@ -1,7 +1,7 @@
 PROTO_0:
         0 NEWTABLE                         R1 0 0
-        2 LOADK                            R2 K0 [{∞, ∞, ∞}]
-        3 LOADK                            R3 K1 [{-∞, -∞, -∞}]
+        2 LOADK                            R2 K0 [{Infinity, Infinity, Infinity}]
+        3 LOADK                            R3 K1 [{-Infinity, -Infinity, -Infinity}]
         4 GETIMPORT                        R4 K3 [ipairs]
         6 GETTABLEKS                       R5 R0 K4 ["SnapPoints"]
         8 CALL                             R4 1 3

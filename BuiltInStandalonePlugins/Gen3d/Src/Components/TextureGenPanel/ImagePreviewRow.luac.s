@@ -60,7 +60,7 @@ PROTO_2:
        49 SETTABLEKS                       R4 R11 K13 ["ref"]
        51 SETTABLEKS                       R6 R11 K14 ["LayoutOrder"]
        53 GETIMPORT                        R12 K23 [UDim2.new]
-       55 LOADK                            R13 K24 [0.333333333333333]
+       55 LOADK                            R13 K24 [0.3333333333333333]
        56 LOADN                            R14 -6
        57 LOADN                            R15 0
        58 LOADN                            R16 90

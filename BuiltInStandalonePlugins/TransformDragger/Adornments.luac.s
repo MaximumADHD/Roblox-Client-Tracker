@@ -131,7 +131,7 @@ PROTO_3:
         3 GETIMPORT                        R7 K4 [CFrame.Angles]
         5 GETUPVAL                         R9 2
         6 JUMPIFNOT                        R9 ; [+2]
-        7 LOADK                            R8 K5 [3.14159265358979]
+        7 LOADK                            R8 K5 [3.141592653589793]
         8 JUMP                             ; [+1]
         9 LOADN                            R8 0
        10 LOADN                            R9 0
@@ -2849,9 +2849,9 @@ PROTO_51:
       129 MUL                              R16 R17 R7
       130 ADDK                             R15 R16 K26 [1]
       131 ADDK                             R14 R15 K26 [1]
-      132 LOADK                            R18 K29 [-0.00666666666666667]
+      132 LOADK                            R18 K29 [-0.006666666666666667]
       133 MUL                              R17 R18 R7
-      134 ADDK                             R16 R17 K28 [1.66666666666667]
+      134 ADDK                             R16 R17 K28 [1.6666666666666667]
       135 ADDK                             R15 R16 K26 [1]
       136 FASTCALL2K                       MATH_MIN R14 K30 ; [+5]
       138 MOVE                             R18 R14
@@ -4335,7 +4335,7 @@ PROTO_53:
      1251 GETTABLEKS                       R20 R6 K46 ["X"]
      1253 LOADN                            R21 0
      1254 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1256 LOADK                            R19 K66 [1.5707963267949]
+     1256 LOADK                            R19 K66 [1.5707963267948966]
      1257 JUMP                             ; [+1]
      1258 LOADN                            R19 0
      1259 GETTABLEKS                       R21 R6 K50 ["Y"]
@@ -4343,7 +4343,7 @@ PROTO_53:
      1262 JUMPIFNOTLT                      R22 R21 ; [+3]
      1264 LOADN                            R20 0
      1265 JUMP                             ; [+1]
-     1266 LOADK                            R20 K66 [1.5707963267949]
+     1266 LOADK                            R20 K66 [1.5707963267948966]
      1267 ADD                              R18 R19 R20
      1268 GETTABLEKS                       R20 R6 K51 ["Z"]
      1270 LOADN                            R21 0
@@ -4353,9 +4353,9 @@ PROTO_53:
      1275 GETTABLEKS                       R20 R6 K50 ["Y"]
      1277 LOADN                            R21 0
      1278 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1280 LOADK                            R19 K67 [-1.5707963267949]
+     1280 LOADK                            R19 K67 [-1.5707963267948966]
      1281 JUMP                             ; [+1]
-     1282 LOADK                            R19 K66 [1.5707963267949]
+     1282 LOADK                            R19 K66 [1.5707963267948966]
      1283 ADD                              R17 R18 R19
      1284 GETTABLEKS                       R19 R6 K46 ["X"]
      1286 LOADN                            R20 0
@@ -4491,13 +4491,13 @@ PROTO_53:
      1454 GETTABLEKS                       R21 R6 K46 ["X"]
      1456 LOADN                            R22 0
      1457 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1459 LOADK                            R20 K66 [1.5707963267949]
+     1459 LOADK                            R20 K66 [1.5707963267948966]
      1460 JUMP                             ; [+1]
      1461 LOADN                            R20 0
      1462 GETTABLEKS                       R22 R6 K51 ["Z"]
      1464 LOADN                            R23 0
      1465 JUMPIFNOTLT                      R23 R22 ; [+3]
-     1467 LOADK                            R21 K66 [1.5707963267949]
+     1467 LOADK                            R21 K66 [1.5707963267948966]
      1468 JUMP                             ; [+1]
      1469 LOADN                            R21 0
      1470 ADD                              R19 R20 R21
@@ -4509,9 +4509,9 @@ PROTO_53:
      1478 GETTABLEKS                       R21 R6 K51 ["Z"]
      1480 LOADN                            R22 0
      1481 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1483 LOADK                            R20 K67 [-1.5707963267949]
+     1483 LOADK                            R20 K67 [-1.5707963267948966]
      1484 JUMP                             ; [+1]
-     1485 LOADK                            R20 K66 [1.5707963267949]
+     1485 LOADK                            R20 K66 [1.5707963267948966]
      1486 ADD                              R18 R19 R20
      1487 GETTABLEKS                       R20 R6 K46 ["X"]
      1489 LOADN                            R21 0
@@ -4520,7 +4520,7 @@ PROTO_53:
      1493 JUMP                             ; [+1]
      1494 LOADN                            R19 -1
      1495 MUL                              R17 R18 R19
-     1496 SUBK                             R16 R17 K66 [1.5707963267949]
+     1496 SUBK                             R16 R17 K66 [1.5707963267948966]
      1497 CALL                             R13 3 1
      1498 MUL                              R11 R12 R13
      1499 SETTABLEKS                       R11 R10 K43 ["CFrame"]
@@ -4553,7 +4553,7 @@ PROTO_53:
      1535 CALL                             R14 3 1
      1536 CALL                             R13 1 1
      1537 GETIMPORT                        R14 K65 [CFrame.Angles]
-     1539 LOADK                            R15 K66 [1.5707963267949]
+     1539 LOADK                            R15 K66 [1.5707963267948966]
      1540 LOADN                            R16 0
      1541 LOADN                            R17 0
      1542 CALL                             R14 3 1
@@ -4651,7 +4651,7 @@ PROTO_53:
      1662 GETTABLEKS                       R20 R6 K51 ["Z"]
      1664 LOADN                            R21 0
      1665 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1667 LOADK                            R19 K66 [1.5707963267949]
+     1667 LOADK                            R19 K66 [1.5707963267948966]
      1668 JUMP                             ; [+1]
      1669 LOADN                            R19 0
      1670 GETTABLEKS                       R21 R6 K50 ["Y"]
@@ -4659,7 +4659,7 @@ PROTO_53:
      1673 JUMPIFNOTLT                      R22 R21 ; [+3]
      1675 LOADN                            R20 0
      1676 JUMP                             ; [+1]
-     1677 LOADK                            R20 K66 [1.5707963267949]
+     1677 LOADK                            R20 K66 [1.5707963267948966]
      1678 ADD                              R18 R19 R20
      1679 GETTABLEKS                       R20 R6 K46 ["X"]
      1681 LOADN                            R21 0
@@ -4667,9 +4667,9 @@ PROTO_53:
      1684 GETTABLEKS                       R20 R6 K50 ["Y"]
      1686 LOADN                            R21 0
      1687 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1689 LOADK                            R19 K67 [-1.5707963267949]
+     1689 LOADK                            R19 K67 [-1.5707963267948966]
      1690 JUMP                             ; [+3]
-     1691 LOADK                            R19 K66 [1.5707963267949]
+     1691 LOADK                            R19 K66 [1.5707963267948966]
      1692 JUMP                             ; [+1]
      1693 LOADN                            R19 0
      1694 ADD                              R17 R18 R19
@@ -4712,7 +4712,7 @@ PROTO_53:
      1742 CALL                             R13 1 1
      1743 GETIMPORT                        R14 K65 [CFrame.Angles]
      1745 LOADN                            R15 0
-     1746 LOADK                            R16 K66 [1.5707963267949]
+     1746 LOADK                            R16 K66 [1.5707963267948966]
      1747 LOADN                            R17 0
      1748 CALL                             R14 3 1
      1749 MUL                              R12 R13 R14
@@ -5926,14 +5926,14 @@ MAIN:
       151 DUPCLOSURE                       R52 K25 [PROTO_14]
       152 CAPTURE                          VAL R7
       153 GETIMPORT                        R53 K27 [Color3.new]
-      155 LOADK                            R54 K28 [0.149019607843137]
-      156 LOADK                            R55 K29 [0.533333333333333]
-      157 LOADK                            R56 K30 [0.941176470588235]
+      155 LOADK                            R54 K28 [0.14901960784313725]
+      156 LOADK                            R55 K29 [0.5333333333333333]
+      157 LOADK                            R56 K30 [0.9411764705882353]
       158 CALL                             R53 3 1
       159 GETIMPORT                        R54 K27 [Color3.new]
-      161 LOADK                            R55 K31 [0.0823529411764706]
-      162 LOADK                            R56 K32 [0.101960784313725]
-      163 LOADK                            R57 K33 [0.349019607843137]
+      161 LOADK                            R55 K31 [0.08235294117647059]
+      162 LOADK                            R56 K32 [0.10196078431372549]
+      163 LOADK                            R57 K33 [0.34901960784313724]
       164 CALL                             R54 3 1
       165 GETIMPORT                        R55 K27 [Color3.new]
       167 LOADN                            R56 0
@@ -5946,14 +5946,14 @@ MAIN:
       175 LOADN                            R59 1
       176 CALL                             R56 3 1
       177 GETIMPORT                        R57 K27 [Color3.new]
-      179 LOADK                            R58 K34 [0.937254901960784]
-      180 LOADK                            R59 K35 [0.901960784313726]
-      181 LOADK                            R60 K36 [0.250980392156863]
+      179 LOADK                            R58 K34 [0.9372549019607843]
+      180 LOADK                            R59 K35 [0.9019607843137255]
+      181 LOADK                            R60 K36 [0.25098039215686274]
       182 CALL                             R57 3 1
       183 GETIMPORT                        R58 K27 [Color3.new]
-      185 LOADK                            R59 K37 [0.72156862745098]
-      186 LOADK                            R60 K37 [0.72156862745098]
-      187 LOADK                            R61 K37 [0.72156862745098]
+      185 LOADK                            R59 K37 [0.7215686274509804]
+      186 LOADK                            R60 K37 [0.7215686274509804]
+      187 LOADK                            R61 K37 [0.7215686274509804]
       188 CALL                             R58 3 1
       189 DUPCLOSURE                       R59 K38 [PROTO_15]
       190 LOADNIL                          R60
@@ -5997,20 +5997,20 @@ MAIN:
       242 JUMP                             ; [+21]
       243 GETIMPORT                        R63 K27 [Color3.new]
       245 LOADN                            R64 0
-      246 LOADK                            R65 K51 [0.635294117647059]
+      246 LOADK                            R65 K51 [0.6352941176470588]
       247 LOADN                            R66 1
       248 CALL                             R63 3 1
       249 MOVE                             R62 R63
       250 GETIMPORT                        R63 K27 [Color3.new]
-      252 LOADK                            R64 K52 [0.247058823529412]
-      253 LOADK                            R65 K53 [0.776470588235294]
-      254 LOADK                            R66 K54 [0.474509803921569]
+      252 LOADK                            R64 K52 [0.24705882352941178]
+      253 LOADK                            R65 K53 [0.7764705882352941]
+      254 LOADK                            R66 K54 [0.4745098039215686]
       255 CALL                             R63 3 1
       256 MOVE                             R61 R63
       257 GETIMPORT                        R63 K27 [Color3.new]
-      259 LOADK                            R64 K55 [0.886274509803922]
-      260 LOADK                            R65 K56 [0.137254901960784]
-      261 LOADK                            R66 K32 [0.101960784313725]
+      259 LOADK                            R64 K55 [0.8862745098039215]
+      260 LOADK                            R65 K56 [0.13725490196078433]
+      261 LOADK                            R66 K32 [0.10196078431372549]
       262 CALL                             R63 3 1
       263 MOVE                             R60 R63
       264 GETIMPORT                        R63 K59 [BrickColor.Red]

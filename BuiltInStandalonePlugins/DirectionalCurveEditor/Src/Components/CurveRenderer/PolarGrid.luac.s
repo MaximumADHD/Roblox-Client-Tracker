@@ -33,12 +33,12 @@ PROTO_0:
        38 CALL                             R10 2 1
        39 SETTABLEKS                       R10 R9 K4 ["Position"]
        41 GETIMPORT                        R10 K17 [Vector2.new]
-       43 MULK                             R13 R5 K19 [3.14159265358979]
+       43 MULK                             R13 R5 K19 [3.141592653589793]
        44 DIVK                             R12 R13 K18 [180]
        45 FASTCALL1                        MATH_SIN R12 ; [+2]
        46 GETIMPORT                        R11 K22 [math.sin]
        48 CALL                             R11 1 1
-       49 MULK                             R15 R5 K19 [3.14159265358979]
+       49 MULK                             R15 R5 K19 [3.141592653589793]
        50 DIVK                             R14 R15 K18 [180]
        51 FASTCALL1                        MATH_COS R14 ; [+2]
        52 GETIMPORT                        R13 K24 [math.cos]

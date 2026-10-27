@@ -83,13 +83,13 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K14 [{["Id"] = True, ["Query"] = True, ["Size"] = True, ["Root"] = True, ["Enabled"] = True}]
-       15 DUPCLOSURE                       R3 K15 [PROTO_0]
-       16 DUPCLOSURE                       R4 K16 [PROTO_1]
+       14 DUPTABLE                         R2 K15 [{["Id"] = True, ["Query"] = True, ["Size"] = True, ["Root"] = True, ["Enabled"] = True, ["Contains"] = True}]
+       15 DUPCLOSURE                       R3 K16 [PROTO_0]
+       16 DUPCLOSURE                       R4 K17 [PROTO_1]
        17 CAPTURE                          VAL R2
-       18 DUPCLOSURE                       R5 K17 [PROTO_2]
+       18 DUPCLOSURE                       R5 K18 [PROTO_2]
        19 CAPTURE                          VAL R4
-       20 DUPTABLE                         R6 K20 [{"serialize", "serializeCallbacks"}]
-       21 SETTABLEKS                       R5 R6 K18 ["serialize"]
-       23 SETTABLEKS                       R4 R6 K19 ["serializeCallbacks"]
+       20 DUPTABLE                         R6 K21 [{"serialize", "serializeCallbacks"}]
+       21 SETTABLEKS                       R5 R6 K19 ["serialize"]
+       23 SETTABLEKS                       R4 R6 K20 ["serializeCallbacks"]
        25 RETURN                           R6 1

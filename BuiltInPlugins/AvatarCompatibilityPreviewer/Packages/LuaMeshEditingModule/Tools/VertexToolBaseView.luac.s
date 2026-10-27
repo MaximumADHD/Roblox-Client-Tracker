@@ -205,7 +205,7 @@ PROTO_9:
        98 LOADN                            R27 0
        99 JUMPIFNOTLT                      R27 R26 ; [+9]
       101 DIV                              R27 R25 R26
-      102 LOADK                            R29 K11 [0.333333333333333]
+      102 LOADK                            R29 K11 [0.3333333333333333]
       103 JUMPIFLT                         R29 R27 ; [+2]
       105 LOADB                            R28 0 +1
       106 LOADB                            R28 1

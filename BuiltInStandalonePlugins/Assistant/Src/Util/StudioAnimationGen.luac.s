@@ -1,24 +1,4 @@
 PROTO_0:
-        0 NEWTABLE                         R1 0 0
-        2 MOVE                             R2 R0
-        3 LOADNIL                          R3
-        4 LOADNIL                          R4
-        5 FORGPREP                         R2
-        6 GETTABLEKS                       R7 R6 K0 ["Name"]
-        8 LOADK                            R9 K1 ["Reach_(%d+)$"]
-        9 NAMECALL                         R7 R7 K2 ["match"]
-       11 CALL                             R7 2 1
-       12 JUMPIFEQKNIL                     R7 ; [+8]
-       14 FASTCALL1                        TONUMBER R7 ; [+3]
-       15 MOVE                             R10 R7
-       16 GETIMPORT                        R9 K5 [tonumber]
-       18 CALL                             R9 1 1
-       19 DIVK                             R8 R9 K3 [100]
-       20 SETTABLE                         R6 R1 R8
-       21 FORGLOOP                         R2 2 ; [-16]
-       23 RETURN                           R1 1
-
-PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -27,7 +7,7 @@ PROTO_1:
         6 CALL                             R0 4 -1
         7 RETURN                           R0 -1
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOT                        R2 ; [+2]
         2 GETUPVAL                         R2 1
@@ -97,51 +77,73 @@ PROTO_2:
        91 GETIMPORT                        R10 K1 [error]
        93 LOADK                            R11 K30 ["Animation generation failed: no KeyframeSequence extracted from FBX"]
        94 CALL                             R10 1 0
-       95 GETTABLEN                        R10 R9 1
-       96 LOADNIL                          R11
-       97 JUMPIFNOT                        R1 ; [+15]
-       98 GETTABLEKS                       R12 R1 K31 ["includeReachTakes"]
-      100 JUMPIFNOT                        R12 ; [+12]
-      101 GETUPVAL                         R12 2
-      102 MOVE                             R13 R9
-      103 CALL                             R12 1 1
-      104 GETIMPORT                        R13 K33 [next]
-      106 MOVE                             R14 R12
-      107 CALL                             R13 1 1
-      108 JUMPIFEQKNIL                     R13 ; [+4]
-      110 MOVE                             R11 R12
-      111 GETTABLEN                        R13 R12 1
-      112 OR                               R10 R13 R10
-      113 JUMPIFEQKNIL                     R6 ; [+11]
-      115 LOADK                            R14 K34 ["([^/\\]+)%.fbx$"]
-      116 NAMECALL                         R12 R6 K35 ["match"]
-      118 CALL                             R12 2 1
-      119 JUMPIF                           R12 ; [+6]
-      120 LOADK                            R14 K36 ["([^/\\]+)$"]
-      121 NAMECALL                         R12 R6 K35 ["match"]
-      123 CALL                             R12 2 1
-      124 JUMP                             ; [+1]
-      125 LOADK                            R12 K37 ["GeneratedAnim"]
-      126 SETTABLEKS                       R12 R10 K38 ["Name"]
-      128 GETUPVAL                         R13 3
-      129 GETTABLEKS                       R13 R13 K39 ["FFlagDebugLogAssistantUI"]
-      131 JUMPIFNOT                        R13 ; [+10]
-      132 GETIMPORT                        R13 K41 [print]
-      134 LOADK                            R15 K42 ["[AnimationGen] FBX saved: "]
-      135 FASTCALL1                        TOSTRING R6 ; [+3]
-      136 MOVE                             R17 R6
-      137 GETIMPORT                        R16 K23 [tostring]
-      139 CALL                             R16 1 1
-      140 CONCAT                           R14 R15 R16
-      141 CALL                             R13 1 0
-      142 DUPTABLE                         R13 K47 [{"animationClip", "contextId", "fbxFilePath", "reachTakes"}]
-      143 SETTABLEKS                       R10 R13 K43 ["animationClip"]
-      145 SETTABLEKS                       R7 R13 K44 ["contextId"]
-      147 SETTABLEKS                       R6 R13 K45 ["fbxFilePath"]
-      149 SETTABLEKS                       R11 R13 K46 ["reachTakes"]
-      151 RETURN                           R13 1
+       95 GETUPVAL                         R10 2
+       96 MOVE                             R11 R9
+       97 CALL                             R10 1 1
+       98 JUMPIFEQKNIL                     R6 ; [+11]
+      100 LOADK                            R13 K31 ["([^/\\]+)%.fbx$"]
+      101 NAMECALL                         R11 R6 K32 ["match"]
+      103 CALL                             R11 2 1
+      104 JUMPIF                           R11 ; [+6]
+      105 LOADK                            R13 K33 ["([^/\\]+)$"]
+      106 NAMECALL                         R11 R6 K32 ["match"]
+      108 CALL                             R11 2 1
+      109 JUMP                             ; [+1]
+      110 LOADK                            R11 K34 ["GeneratedAnim"]
+      111 SETTABLEKS                       R11 R10 K35 ["Name"]
+      113 GETUPVAL                         R12 3
+      114 GETTABLEKS                       R12 R12 K36 ["FFlagDebugLogAssistantUI"]
+      116 JUMPIFNOT                        R12 ; [+10]
+      117 GETIMPORT                        R12 K38 [print]
+      119 LOADK                            R14 K39 ["[AnimationGen] FBX saved: "]
+      120 FASTCALL1                        TOSTRING R6 ; [+3]
+      121 MOVE                             R16 R6
+      122 GETIMPORT                        R15 K23 [tostring]
+      124 CALL                             R15 1 1
+      125 CONCAT                           R13 R14 R15
+      126 CALL                             R12 1 0
+      127 DUPTABLE                         R12 K43 [{"animationClip", "contextId", "fbxFilePath"}]
+      128 SETTABLEKS                       R10 R12 K40 ["animationClip"]
+      130 SETTABLEKS                       R7 R12 K41 ["contextId"]
+      132 SETTABLEKS                       R6 R12 K42 ["fbxFilePath"]
+      134 RETURN                           R12 1
+
+PROTO_2:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETIMPORT                        R3 K3 [Enum.AssetType.Animation]
+        4 GETUPVAL                         R4 2
+        5 NAMECALL                         R0 R0 K4 ["PromptSaveInstanceToRobloxAsync"]
+        7 CALL                             R0 4 -1
+        8 RETURN                           R0 -1
 
 PROTO_3:
+        0 LOADNIL                          R1
+        1 GETIMPORT                        R2 K1 [game]
+        3 GETTABLEKS                       R2 R2 K2 ["CreatorType"]
+        5 GETIMPORT                        R3 K5 [Enum.CreatorType.Group]
+        7 JUMPIFNOTEQ                      R2 R3 ; [+5]
+        9 GETIMPORT                        R2 K1 [game]
+       11 GETTABLEKS                       R1 R2 K6 ["CreatorId"]
+       13 GETIMPORT                        R2 K8 [pcall]
+       15 NEWCLOSURE                       R3 P0
+       16 CAPTURE                          UPVAL U0
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          REF R1
+       19 CALL                             R2 1 2
+       20 JUMPIF                           R2 ; [+10]
+       21 GETIMPORT                        R4 K10 [warn]
+       23 LOADK                            R6 K11 ["[AnimationGen] Save to Roblox failed: "]
+       24 FASTCALL1                        TOSTRING R3 ; [+3]
+       25 MOVE                             R8 R3
+       26 GETIMPORT                        R7 K13 [tostring]
+       28 CALL                             R7 1 1
+       29 CONCAT                           R5 R6 R7
+       30 CALL                             R4 1 0
+       31 CLOSEUPVALS                      R1
+       32 RETURN                           R0 0
+
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["Actions"]
         2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
@@ -166,15 +168,17 @@ PROTO_3:
        30 CALL                             R4 2 0
        31 RETURN                           R3 1
 
-PROTO_4:
+PROTO_5:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
-        3 DUPTABLE                         R2 K2 [{"generateAnimationAsync", "openAnimationClipEditorAsync"}]
+        3 DUPTABLE                         R2 K3 [{"generateAnimationAsync", "openAnimationClipEditorAsync", "publishAnimationAsync"}]
         4 GETUPVAL                         R3 1
         5 SETTABLEKS                       R3 R2 K0 ["generateAnimationAsync"]
         7 SETTABLEKS                       R1 R2 K1 ["openAnimationClipEditorAsync"]
-        9 RETURN                           R2 1
+        9 GETUPVAL                         R3 2
+       10 SETTABLEKS                       R3 R2 K2 ["publishAnimationAsync"]
+       12 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -190,27 +194,40 @@ MAIN:
        17 GETIMPORT                        R4 K3 [game]
        19 LOADK                            R5 K6 ["GenerationService"]
        20 CALL                             R2 3 2
-       21 GETIMPORT                        R4 K8 [script]
-       23 LOADK                            R6 K9 ["Assistant"]
-       24 NAMECALL                         R4 R4 K10 ["FindFirstAncestor"]
-       26 CALL                             R4 2 1
-       27 GETIMPORT                        R5 K12 [require]
-       29 GETTABLEKS                       R6 R4 K13 ["Src"]
-       31 GETTABLEKS                       R6 R6 K14 ["Flags"]
-       33 CALL                             R5 1 1
-       34 GETIMPORT                        R6 K12 [require]
-       36 GETTABLEKS                       R7 R4 K15 ["Packages"]
-       38 GETTABLEKS                       R7 R7 K16 ["StudioFoundation"]
-       40 CALL                             R6 1 1
-       41 DUPCLOSURE                       R7 K17 [PROTO_0]
-       42 DUPCLOSURE                       R8 K18 [PROTO_2]
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R7
-       46 CAPTURE                          VAL R5
-       47 DUPCLOSURE                       R9 K19 [PROTO_4]
-       48 CAPTURE                          VAL R6
-       49 CAPTURE                          VAL R8
-       50 DUPTABLE                         R10 K21 [{"create"}]
-       51 SETTABLEKS                       R9 R10 K20 ["create"]
-       53 RETURN                           R10 1
+       21 GETIMPORT                        R4 K1 [pcall]
+       23 GETIMPORT                        R5 K3 [game]
+       25 GETTABLEKS                       R5 R5 K4 ["GetService"]
+       27 GETIMPORT                        R6 K3 [game]
+       29 LOADK                            R7 K7 ["StudioAssetService"]
+       30 CALL                             R4 3 2
+       31 GETIMPORT                        R6 K9 [script]
+       33 LOADK                            R8 K10 ["Assistant"]
+       34 NAMECALL                         R6 R6 K11 ["FindFirstAncestor"]
+       36 CALL                             R6 2 1
+       37 GETIMPORT                        R7 K13 [require]
+       39 GETTABLEKS                       R8 R6 K14 ["Src"]
+       41 GETTABLEKS                       R8 R8 K15 ["Flags"]
+       43 CALL                             R7 1 1
+       44 GETIMPORT                        R8 K13 [require]
+       46 GETTABLEKS                       R9 R6 K16 ["Packages"]
+       48 GETTABLEKS                       R9 R9 K17 ["StudioFoundation"]
+       50 CALL                             R8 1 1
+       51 GETIMPORT                        R9 K13 [require]
+       53 GETTABLEKS                       R10 R6 K14 ["Src"]
+       55 GETTABLEKS                       R10 R10 K18 ["Util"]
+       57 GETTABLEKS                       R10 R10 K19 ["selectMainAnimation"]
+       59 CALL                             R9 1 1
+       60 DUPCLOSURE                       R10 K20 [PROTO_1]
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R9
+       64 CAPTURE                          VAL R7
+       65 DUPCLOSURE                       R11 K21 [PROTO_3]
+       66 CAPTURE                          VAL R5
+       67 DUPCLOSURE                       R12 K22 [PROTO_5]
+       68 CAPTURE                          VAL R8
+       69 CAPTURE                          VAL R10
+       70 CAPTURE                          VAL R11
+       71 DUPTABLE                         R13 K24 [{"create"}]
+       72 SETTABLEKS                       R12 R13 K23 ["create"]
+       74 RETURN                           R13 1

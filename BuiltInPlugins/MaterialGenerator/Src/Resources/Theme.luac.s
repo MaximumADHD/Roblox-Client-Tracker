@@ -216,7 +216,7 @@ MAIN:
       317 NEWTABLE                         R19 1 0
       319 GETTABLEKS                       R20 R1 K112 ["join"]
       321 GETTABLEKS                       R21 R10 K113 ["&Error"]
-      323 DUPTABLE                         R22 K117 [{["HorizontalPadding"], ["MaxWidth"] = ∞}]
+      323 DUPTABLE                         R22 K117 [{["HorizontalPadding"], ["MaxWidth"] = Infinity}]
       324 GETIMPORT                        R23 K78 [UDim.new]
       326 LOADN                            R24 0
       327 LOADN                            R25 16

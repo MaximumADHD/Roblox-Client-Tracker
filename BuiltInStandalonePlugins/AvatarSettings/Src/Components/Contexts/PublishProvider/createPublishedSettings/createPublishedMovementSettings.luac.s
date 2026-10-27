@@ -23,7 +23,7 @@ PROTO_0:
        29 GETUPVAL                         R1 3
        30 CALL                             R1 0 1
        31 JUMPIFNOT                        R1 ; [+3]
-       32 LOADB                            R1 0
+       32 LOADB                            R1 1
        33 SETTABLEKS                       R1 R0 K28 ["collisionBodyPartsCollidableOnDeathSetting"]
        35 GETUPVAL                         R1 1
        36 CALL                             R1 0 1

@@ -82,8 +82,8 @@ PROTO_0:
       122 RETURN                           R0 0
 
 PROTO_1:
-        0 LOADK                            R1 K0 [{∞, ∞, ∞}]
-        1 LOADK                            R2 K1 [{-∞, -∞, -∞}]
+        0 LOADK                            R1 K0 [{Infinity, Infinity, Infinity}]
+        1 LOADK                            R2 K1 [{-Infinity, -Infinity, -Infinity}]
         2 NEWCLOSURE                       R3 P0
         3 CAPTURE                          REF R1
         4 CAPTURE                          REF R2
@@ -107,9 +107,9 @@ PROTO_1:
        25 MOVE                             R10 R8
        26 CALL                             R9 1 0
        27 FORGLOOP                         R4 2 ; [-19]
-       29 LOADK                            R4 K0 [{∞, ∞, ∞}]
+       29 LOADK                            R4 K0 [{Infinity, Infinity, Infinity}]
        30 JUMPIFNOTEQ                      R1 R4 ; [+13]
-       32 LOADK                            R4 K1 [{-∞, -∞, -∞}]
+       32 LOADK                            R4 K1 [{-Infinity, -Infinity, -Infinity}]
        33 JUMPIFNOTEQ                      R2 R4 ; [+10]
        35 GETIMPORT                        R4 K8 [CFrame.new]
        37 CALL                             R4 0 1

@@ -325,7 +325,7 @@ PROTO_10:
        24 GETTABLEKS                       R13 R13 K7 ["Font"]
        26 GETIMPORT                        R14 K10 [Vector2.new]
        28 MOVE                             R15 R5
-       29 LOADK                            R16 K11 [∞]
+       29 LOADK                            R16 K11 [Infinity]
        30 CALL                             R14 2 -1
        31 NAMECALL                         R9 R9 K12 ["GetTextSize"]
        33 CALL                             R9 -1 1
@@ -463,8 +463,8 @@ PROTO_12:
        44 GETTABLEKS                       R20 R20 K12 ["Normal"]
        46 GETTABLEKS                       R20 R20 K14 ["Font"]
        48 GETIMPORT                        R21 K17 [Vector2.new]
-       50 LOADK                            R22 K18 [∞]
-       51 LOADK                            R23 K18 [∞]
+       50 LOADK                            R22 K18 [Infinity]
+       51 LOADK                            R23 K18 [Infinity]
        52 CALL                             R21 2 -1
        53 NAMECALL                         R16 R16 K19 ["GetTextSize"]
        55 CALL                             R16 -1 1

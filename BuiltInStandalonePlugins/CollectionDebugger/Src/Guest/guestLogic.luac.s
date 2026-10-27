@@ -135,9 +135,18 @@ PROTO_3:
        25 FORGLOOP                         R4 1 ; [-18]
        27 RETURN                           R2 2
 
+PROTO_4:
+        0 GETTABLEKS                       R1 R0 K0 ["type"]
+        2 LOADB                            R2 1
+        3 JUMPIFEQKS                       R1 K1 ["setContainsFilter"] ; [+5]
+        5 JUMPIFEQKS                       R1 K2 ["toggleEnabled"] ; [+2]
+        7 LOADB                            R2 0 +1
+        8 LOADB                            R2 1
+        9 RETURN                           R2 1
+
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 4 0
+        1 NEWTABLE                         R0 8 0
         3 DUPCLOSURE                       R1 K0 [PROTO_0]
         4 SETTABLEKS                       R1 R0 K1 ["parseCallbackName"]
         6 DUPCLOSURE                       R1 K2 [PROTO_1]
@@ -146,4 +155,6 @@ MAIN:
        10 SETTABLEKS                       R1 R0 K5 ["selectionMatches"]
        12 DUPCLOSURE                       R1 K6 [PROTO_3]
        13 SETTABLEKS                       R1 R0 K7 ["unionMembers"]
-       15 RETURN                           R0 1
+       15 DUPCLOSURE                       R1 K8 [PROTO_4]
+       16 SETTABLEKS                       R1 R0 K9 ["commandNeedsRepublish"]
+       18 RETURN                           R0 1

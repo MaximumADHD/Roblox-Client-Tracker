@@ -16,7 +16,7 @@ PROTO_0:
        18 MOVE                             R4 R0
        19 GETIMPORT                        R3 K6 [math.abs]
        21 CALL                             R3 1 1
-       22 LOADK                            R4 K7 [∞]
+       22 LOADK                            R4 K7 [Infinity]
        23 JUMPIFLT                         R3 R4 ; [+2]
        25 LOADB                            R2 0 +1
        26 LOADB                            R2 1
@@ -111,7 +111,7 @@ PROTO_1:
       110 MOVE                             R22 R18
       111 GETIMPORT                        R21 K12 [math.abs]
       113 CALL                             R21 1 1
-      114 LOADK                            R22 K13 [∞]
+      114 LOADK                            R22 K13 [Infinity]
       115 JUMPIFLT                         R21 R22 ; [+2]
       117 LOADB                            R19 0 +1
       118 LOADB                            R19 1

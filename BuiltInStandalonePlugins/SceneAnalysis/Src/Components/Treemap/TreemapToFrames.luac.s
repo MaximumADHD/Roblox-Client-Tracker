@@ -1206,7 +1206,7 @@ PROTO_15:
 PROTO_16:
         0 LOADN                            R1 1
         1 MOVE                             R2 R0
-        2 LOADK                            R3 K0 [∞]
+        2 LOADK                            R3 K0 [Infinity]
         3 MOVE                             R6 R0
         4 SUBK                             R8 R0 K1 [2]
         5 FASTCALL2K                       MATH_MAX R8 K1 ; [+4]
@@ -1380,7 +1380,7 @@ PROTO_17:
       133 NAMECALL                         R8 R7 K32 ["ToHSV"]
       135 CALL                             R8 1 3
       136 GETIMPORT                        R11 K34 [Color3.fromHSV]
-      138 ADDK                             R13 R8 K35 [0.0222222222222222]
+      138 ADDK                             R13 R8 K35 [0.022222222222222223]
       139 MODK                             R12 R13 K29 [1]
       140 MOVE                             R13 R9
       141 MULK                             R15 R10 K36 [1.05]
@@ -1900,9 +1900,9 @@ MAIN:
        63 CALL                             R10 3 1
        64 SETTABLEKS                       R10 R9 K37 ["headerFontColor"]
        66 GETIMPORT                        R10 K2 [Color3.new]
-       68 LOADK                            R11 K49 [0.152941176470588]
-       69 LOADK                            R12 K50 [0.16078431372549]
-       70 LOADK                            R13 K51 [0.180392156862745]
+       68 LOADK                            R11 K49 [0.15294117647058825]
+       69 LOADK                            R12 K50 [0.1607843137254902]
+       70 LOADK                            R13 K51 [0.1803921568627451]
        71 CALL                             R10 3 1
        72 SETTABLEKS                       R10 R9 K38 ["headerColor"]
        74 NEWTABLE                         R10 0 0

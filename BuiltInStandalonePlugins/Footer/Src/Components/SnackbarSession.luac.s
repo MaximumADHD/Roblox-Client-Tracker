@@ -712,36 +712,44 @@ PROTO_29:
       312 GETTABLEKS                       R27 R27 K18 ["createPortal"]
       314 GETUPVAL                         R28 11
       315 GETUPVAL                         R29 12
-      316 DUPTABLE                         R30 K20 [{"overlayGui"}]
+      316 DUPTABLE                         R30 K21 [{"overlayGui", "plugin"}]
       317 SETTABLEKS                       R10 R30 K19 ["overlayGui"]
-      319 DUPTABLE                         R31 K22 [{"Container"}]
-      320 GETUPVAL                         R32 11
-      321 GETUPVAL                         R33 13
-      322 DUPTABLE                         R34 K27 [{["tag"] = "auto-xy", ["onAbsoluteSizeChanged"], ["onStateChanged"]}]
-      323 NEWCLOSURE                       R35 P14
-      324 CAPTURE                          VAL R17
-      325 SETTABLEKS                       R35 R34 K25 ["onAbsoluteSizeChanged"]
-      327 NEWCLOSURE                       R35 P15
-      328 CAPTURE                          VAL R25
-      329 CAPTURE                          UPVAL U14
-      330 SETTABLEKS                       R35 R34 K26 ["onStateChanged"]
-      332 DUPTABLE                         R35 K29 [{"Snackbar"}]
-      333 GETUPVAL                         R36 11
-      334 GETUPVAL                         R37 15
-      335 GETTABLEKS                       R37 R37 K28 ["Snackbar"]
-      337 DUPTABLE                         R38 K33 [{"title", "icon", "action", "onClose"}]
-      338 SETTABLEKS                       R3 R38 K30 ["title"]
-      340 SETTABLEKS                       R20 R38 K31 ["icon"]
-      342 SETTABLEKS                       R21 R38 K32 ["action"]
-      344 SETTABLEKS                       R19 R38 K16 ["onClose"]
-      346 CALL                             R36 2 1
-      347 SETTABLEKS                       R36 R35 K28 ["Snackbar"]
-      349 CALL                             R32 3 1
-      350 SETTABLEKS                       R32 R31 K21 ["Container"]
-      352 CALL                             R28 3 1
-      353 MOVE                             R29 R10
-      354 CALL                             R27 2 -1
-      355 RETURN                           R27 -1
+      319 GETUPVAL                         R32 13
+      320 GETTABLEKS                       R32 R32 K22 ["getFFlagMCPClientCountAsASetting"]
+      322 CALL                             R32 0 1
+      323 JUMPIFNOT                        R32 ; [+2]
+      324 MOVE                             R31 R1
+      325 JUMP                             ; [+1]
+      326 LOADNIL                          R31
+      327 SETTABLEKS                       R31 R30 K20 ["plugin"]
+      329 DUPTABLE                         R31 K24 [{"Container"}]
+      330 GETUPVAL                         R32 11
+      331 GETUPVAL                         R33 14
+      332 DUPTABLE                         R34 K29 [{["tag"] = "auto-xy", ["onAbsoluteSizeChanged"], ["onStateChanged"]}]
+      333 NEWCLOSURE                       R35 P14
+      334 CAPTURE                          VAL R17
+      335 SETTABLEKS                       R35 R34 K27 ["onAbsoluteSizeChanged"]
+      337 NEWCLOSURE                       R35 P15
+      338 CAPTURE                          VAL R25
+      339 CAPTURE                          UPVAL U15
+      340 SETTABLEKS                       R35 R34 K28 ["onStateChanged"]
+      342 DUPTABLE                         R35 K31 [{"Snackbar"}]
+      343 GETUPVAL                         R36 11
+      344 GETUPVAL                         R37 16
+      345 GETTABLEKS                       R37 R37 K30 ["Snackbar"]
+      347 DUPTABLE                         R38 K35 [{"title", "icon", "action", "onClose"}]
+      348 SETTABLEKS                       R3 R38 K32 ["title"]
+      350 SETTABLEKS                       R20 R38 K33 ["icon"]
+      352 SETTABLEKS                       R21 R38 K34 ["action"]
+      354 SETTABLEKS                       R19 R38 K16 ["onClose"]
+      356 CALL                             R36 2 1
+      357 SETTABLEKS                       R36 R35 K30 ["Snackbar"]
+      359 CALL                             R32 3 1
+      360 SETTABLEKS                       R32 R31 K23 ["Container"]
+      362 CALL                             R28 3 1
+      363 MOVE                             R29 R10
+      364 CALL                             R27 2 -1
+      365 RETURN                           R27 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -786,48 +794,54 @@ MAIN:
        66 GETTABLEKS                       R10 R10 K19 ["Util"]
        68 GETTABLEKS                       R10 R10 K20 ["createSnackbarSignals"]
        70 CALL                             R9 1 1
-       71 GETTABLEKS                       R10 R8 K21 ["Components"]
-       73 GETTABLEKS                       R10 R10 K22 ["FoundationProviderAdapter"]
-       75 GETTABLEKS                       R11 R3 K23 ["Enums"]
-       77 GETTABLEKS                       R12 R11 K24 ["ControlState"]
-       79 GETTABLEKS                       R13 R11 K25 ["IconVariant"]
-       81 GETTABLEKS                       R14 R4 K26 ["ContextServices"]
-       83 GETTABLEKS                       R14 R14 K27 ["Plugin"]
-       85 GETTABLEKS                       R15 R8 K19 ["Util"]
-       87 GETTABLEKS                       R15 R15 K28 ["StudioUri"]
-       89 GETTABLEKS                       R16 R3 K29 ["View"]
-       91 GETTABLEKS                       R17 R5 K30 ["createElement"]
-       93 DUPTABLE                         R18 K37 [{["PluginId"] = "MainWindow", ["Category"] = "Widgets", ["ItemId"] = "Window"}]
-       94 GETIMPORT                        R19 K40 [TweenInfo.new]
-       96 LOADK                            R20 K41 [0.2]
-       97 GETIMPORT                        R21 K45 [Enum.EasingStyle.Cubic]
-       99 GETIMPORT                        R22 K48 [Enum.EasingDirection.Out]
-      101 CALL                             R19 3 1
-      102 GETIMPORT                        R20 K40 [TweenInfo.new]
-      104 LOADK                            R21 K49 [0.15]
-      105 GETIMPORT                        R22 K45 [Enum.EasingStyle.Cubic]
-      107 GETIMPORT                        R23 K51 [Enum.EasingDirection.In]
-      109 CALL                             R20 3 1
-      110 DUPCLOSURE                       R21 K52 [PROTO_2]
-      111 CAPTURE                          VAL R0
-      112 DUPCLOSURE                       R22 K53 [PROTO_29]
-      113 CAPTURE                          VAL R14
-      114 CAPTURE                          VAL R7
-      115 CAPTURE                          VAL R5
-      116 CAPTURE                          VAL R15
-      117 CAPTURE                          VAL R18
-      118 CAPTURE                          VAL R21
-      119 CAPTURE                          VAL R19
-      120 CAPTURE                          VAL R20
-      121 CAPTURE                          VAL R2
-      122 CAPTURE                          VAL R13
-      123 CAPTURE                          VAL R6
-      124 CAPTURE                          VAL R17
-      125 CAPTURE                          VAL R10
-      126 CAPTURE                          VAL R16
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R3
-      129 GETTABLEKS                       R23 R5 K54 ["memo"]
-      131 MOVE                             R24 R22
-      132 CALL                             R23 1 -1
-      133 RETURN                           R23 -1
+       71 GETIMPORT                        R10 K9 [require]
+       73 GETTABLEKS                       R11 R1 K21 ["Bin"]
+       75 GETTABLEKS                       R11 R11 K22 ["Common"]
+       77 GETTABLEKS                       R11 R11 K23 ["defineLuaFlags"]
+       79 CALL                             R10 1 1
+       80 GETTABLEKS                       R11 R8 K24 ["Components"]
+       82 GETTABLEKS                       R11 R11 K25 ["FoundationProviderAdapter"]
+       84 GETTABLEKS                       R12 R3 K26 ["Enums"]
+       86 GETTABLEKS                       R13 R12 K27 ["ControlState"]
+       88 GETTABLEKS                       R14 R12 K28 ["IconVariant"]
+       90 GETTABLEKS                       R15 R4 K29 ["ContextServices"]
+       92 GETTABLEKS                       R15 R15 K30 ["Plugin"]
+       94 GETTABLEKS                       R16 R8 K19 ["Util"]
+       96 GETTABLEKS                       R16 R16 K31 ["StudioUri"]
+       98 GETTABLEKS                       R17 R3 K32 ["View"]
+      100 GETTABLEKS                       R18 R5 K33 ["createElement"]
+      102 DUPTABLE                         R19 K40 [{["PluginId"] = "MainWindow", ["Category"] = "Widgets", ["ItemId"] = "Window"}]
+      103 GETIMPORT                        R20 K43 [TweenInfo.new]
+      105 LOADK                            R21 K44 [0.2]
+      106 GETIMPORT                        R22 K48 [Enum.EasingStyle.Cubic]
+      108 GETIMPORT                        R23 K51 [Enum.EasingDirection.Out]
+      110 CALL                             R20 3 1
+      111 GETIMPORT                        R21 K43 [TweenInfo.new]
+      113 LOADK                            R22 K52 [0.15]
+      114 GETIMPORT                        R23 K48 [Enum.EasingStyle.Cubic]
+      116 GETIMPORT                        R24 K54 [Enum.EasingDirection.In]
+      118 CALL                             R21 3 1
+      119 DUPCLOSURE                       R22 K55 [PROTO_2]
+      120 CAPTURE                          VAL R0
+      121 DUPCLOSURE                       R23 K56 [PROTO_29]
+      122 CAPTURE                          VAL R15
+      123 CAPTURE                          VAL R7
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R16
+      126 CAPTURE                          VAL R19
+      127 CAPTURE                          VAL R22
+      128 CAPTURE                          VAL R20
+      129 CAPTURE                          VAL R21
+      130 CAPTURE                          VAL R2
+      131 CAPTURE                          VAL R14
+      132 CAPTURE                          VAL R6
+      133 CAPTURE                          VAL R18
+      134 CAPTURE                          VAL R11
+      135 CAPTURE                          VAL R10
+      136 CAPTURE                          VAL R17
+      137 CAPTURE                          VAL R13
+      138 CAPTURE                          VAL R3
+      139 GETTABLEKS                       R24 R5 K57 ["memo"]
+      141 MOVE                             R25 R23
+      142 CALL                             R24 1 -1
+      143 RETURN                           R24 -1

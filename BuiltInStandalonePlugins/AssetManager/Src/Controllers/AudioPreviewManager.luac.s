@@ -258,6 +258,30 @@ PROTO_9:
        23 RETURN                           R0 0
 
 PROTO_10:
+        0 GETTABLEKS                       R2 R0 K0 ["_totalTime"]
+        2 LOADN                            R3 0
+        3 JUMPIFNOTLE                      R2 R3 ; [+2]
+        5 RETURN                           R0 0
+        6 LOADN                            R4 0
+        7 LOADN                            R5 100
+        8 FASTCALL3                        MATH_CLAMP R1 R4 R5
+       10 MOVE                             R3 R1
+       11 GETIMPORT                        R2 K3 [math.clamp]
+       13 CALL                             R2 3 1
+       14 GETTABLEKS                       R3 R0 K4 ["_audioPlayer"]
+       16 JUMPIFNOT                        R3 ; [+8]
+       17 GETTABLEKS                       R3 R0 K4 ["_audioPlayer"]
+       19 DIVK                             R5 R2 K5 [100]
+       20 GETTABLEKS                       R6 R0 K0 ["_totalTime"]
+       22 MUL                              R4 R5 R6
+       23 SETTABLEKS                       R4 R3 K6 ["TimePosition"]
+       25 GETTABLEKS                       R3 R0 K7 ["OnProgressChanged"]
+       27 MOVE                             R5 R2
+       28 NAMECALL                         R3 R3 K8 ["Fire"]
+       30 CALL                             R3 2 0
+       31 RETURN                           R0 0
+
+PROTO_11:
         0 GETTABLEKS                       R2 R0 K0 ["_currentSoundId"]
         2 JUMPIFEQ                         R2 R1 ; [+6]
         4 MOVE                             R4 R1
@@ -273,7 +297,7 @@ PROTO_10:
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 DUPTABLE                         R1 K4 [{"CurrentSoundId", "IsPlaying", "IsLoading", "TotalTime"}]
         1 GETTABLEKS                       R2 R0 K5 ["_currentSoundId"]
         3 SETTABLEKS                       R2 R1 K0 ["CurrentSoundId"]
@@ -333,7 +357,9 @@ MAIN:
        67 DUPCLOSURE                       R7 K30 [PROTO_9]
        68 SETTABLEKS                       R7 R6 K31 ["stop"]
        70 DUPCLOSURE                       R7 K32 [PROTO_10]
-       71 SETTABLEKS                       R7 R6 K33 ["togglePlayback"]
+       71 SETTABLEKS                       R7 R6 K33 ["seek"]
        73 DUPCLOSURE                       R7 K34 [PROTO_11]
-       74 SETTABLEKS                       R7 R6 K35 ["getState"]
-       76 RETURN                           R6 1
+       74 SETTABLEKS                       R7 R6 K35 ["togglePlayback"]
+       76 DUPCLOSURE                       R7 K36 [PROTO_12]
+       77 SETTABLEKS                       R7 R6 K37 ["getState"]
+       79 RETURN                           R6 1

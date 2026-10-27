@@ -189,150 +189,129 @@ PROTO_9:
         2 GETUPVAL                         R5 0
         3 MOVE                             R6 R0
         4 NEWTABLE                         R7 0 7
-        6 DUPTABLE                         R8 K5 [{"Id", "Height", "Schema", "Validate"}]
+        6 DUPTABLE                         R8 K6 [{["Id"], ["Height"] = 26, ["Schema"], ["Validate"]}]
         7 GETUPVAL                         R9 1
-        8 GETTABLEKS                       R9 R9 K6 ["Size"]
+        8 GETTABLEKS                       R9 R9 K7 ["Size"]
        10 SETTABLEKS                       R9 R8 K1 ["Id"]
-       12 GETUPVAL                         R10 2
-       13 CALL                             R10 0 1
-       14 JUMPIFNOT                        R10 ; [+2]
-       15 LOADN                            R9 26
-       16 JUMP                             ; [+1]
-       17 LOADNIL                          R9
-       18 SETTABLEKS                       R9 R8 K2 ["Height"]
-       20 DUPTABLE                         R9 K12 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
-       21 NEWTABLE                         R10 0 3
-       23 LOADK                            R11 K13 ["X"]
-       24 LOADK                            R12 K14 ["Y"]
-       25 LOADK                            R13 K15 ["Z"]
-       26 SETLIST                          R10 R11 3 [1]
-       28 SETTABLEKS                       R10 R9 K9 ["Components"]
-       30 DUPCLOSURE                       R10 K16 [PROTO_0]
-       31 SETTABLEKS                       R10 R9 K10 ["GetValue"]
-       33 DUPCLOSURE                       R10 K17 [PROTO_1]
-       34 SETTABLEKS                       R10 R9 K11 ["GetComponents"]
-       36 SETTABLEKS                       R9 R8 K3 ["Schema"]
-       38 NEWCLOSURE                       R9 P2
-       39 CAPTURE                          UPVAL U3
-       40 CAPTURE                          VAL R4
-       41 CAPTURE                          UPVAL U4
-       42 SETTABLEKS                       R9 R8 K4 ["Validate"]
-       44 DUPTABLE                         R9 K22 [{["DataId"], ["Id"], ["Height"], ["Hidden"] = False, ["Schema"], ["Validate"], ["Value"]}]
-       45 GETUPVAL                         R10 1
-       46 GETTABLEKS                       R10 R10 K23 ["Transform"]
-       48 SETTABLEKS                       R10 R9 K18 ["DataId"]
-       50 GETUPVAL                         R10 1
-       51 GETTABLEKS                       R10 R10 K24 ["Position"]
-       53 SETTABLEKS                       R10 R9 K1 ["Id"]
-       55 GETUPVAL                         R11 2
-       56 CALL                             R11 0 1
-       57 JUMPIFNOT                        R11 ; [+2]
-       58 LOADN                            R10 26
-       59 JUMP                             ; [+1]
-       60 LOADNIL                          R10
-       61 SETTABLEKS                       R10 R9 K2 ["Height"]
-       63 DUPTABLE                         R10 K12 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
-       64 NEWTABLE                         R11 0 3
-       66 LOADK                            R12 K13 ["X"]
-       67 LOADK                            R13 K14 ["Y"]
-       68 LOADK                            R14 K15 ["Z"]
-       69 SETLIST                          R11 R12 3 [1]
-       71 SETTABLEKS                       R11 R10 K9 ["Components"]
-       73 NEWCLOSURE                       R11 P3
-       74 CAPTURE                          VAL R1
-       75 CAPTURE                          UPVAL U1
-       76 SETTABLEKS                       R11 R10 K10 ["GetValue"]
-       78 DUPCLOSURE                       R11 K25 [PROTO_4]
-       79 SETTABLEKS                       R11 R10 K11 ["GetComponents"]
-       81 SETTABLEKS                       R10 R9 K3 ["Schema"]
-       83 NEWCLOSURE                       R10 P5
-       84 CAPTURE                          UPVAL U3
-       85 CAPTURE                          VAL R4
-       86 SETTABLEKS                       R10 R9 K4 ["Validate"]
-       88 GETUPVAL                         R11 1
-       89 GETTABLEKS                       R11 R11 K23 ["Transform"]
-       91 GETTABLE                         R10 R1 R11
-       92 SETTABLEKS                       R10 R9 K21 ["Value"]
-       94 DUPTABLE                         R10 K26 [{"DataId", "Id", "Height", "Schema", "Validate", "Value"}]
-       95 GETUPVAL                         R11 1
-       96 GETTABLEKS                       R11 R11 K23 ["Transform"]
-       98 SETTABLEKS                       R11 R10 K18 ["DataId"]
-      100 GETUPVAL                         R11 1
-      101 GETTABLEKS                       R11 R11 K27 ["Rotation"]
-      103 SETTABLEKS                       R11 R10 K1 ["Id"]
-      105 GETUPVAL                         R12 2
-      106 CALL                             R12 0 1
-      107 JUMPIFNOT                        R12 ; [+2]
-      108 LOADN                            R11 26
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R11
-      111 SETTABLEKS                       R11 R10 K2 ["Height"]
-      113 DUPTABLE                         R11 K12 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
-      114 NEWTABLE                         R12 0 3
-      116 LOADK                            R13 K13 ["X"]
-      117 LOADK                            R14 K14 ["Y"]
-      118 LOADK                            R15 K15 ["Z"]
-      119 SETLIST                          R12 R13 3 [1]
-      121 SETTABLEKS                       R12 R11 K9 ["Components"]
-      123 NEWCLOSURE                       R12 P6
-      124 CAPTURE                          VAL R1
-      125 CAPTURE                          UPVAL U1
-      126 SETTABLEKS                       R12 R11 K10 ["GetValue"]
-      128 DUPCLOSURE                       R12 K28 [PROTO_7]
-      129 SETTABLEKS                       R12 R11 K11 ["GetComponents"]
-      131 SETTABLEKS                       R11 R10 K3 ["Schema"]
-      133 NEWCLOSURE                       R11 P8
-      134 CAPTURE                          VAL R0
-      135 CAPTURE                          UPVAL U3
-      136 CAPTURE                          VAL R4
-      137 CAPTURE                          UPVAL U5
-      138 CAPTURE                          UPVAL U6
-      139 CAPTURE                          UPVAL U1
-      140 SETTABLEKS                       R11 R10 K4 ["Validate"]
-      142 GETUPVAL                         R12 1
-      143 GETTABLEKS                       R12 R12 K23 ["Transform"]
-      145 GETTABLE                         R11 R1 R12
-      146 SETTABLEKS                       R11 R10 K21 ["Value"]
-      148 DUPTABLE                         R11 K29 [{"Id", "Schema"}]
-      149 GETUPVAL                         R12 1
-      150 GETTABLEKS                       R12 R12 K30 ["MergeEmpty"]
-      152 SETTABLEKS                       R12 R11 K1 ["Id"]
-      154 DUPTABLE                         R12 K32 [{["Type"] = "Checkbox"}]
-      155 SETTABLEKS                       R12 R11 K3 ["Schema"]
-      157 DUPTABLE                         R12 K29 [{"Id", "Schema"}]
-      158 GETUPVAL                         R13 1
-      159 GETTABLEKS                       R13 R13 K33 ["LiveEdit"]
-      161 SETTABLEKS                       R13 R12 K1 ["Id"]
-      163 DUPTABLE                         R13 K32 [{["Type"] = "Checkbox"}]
-      164 SETTABLEKS                       R13 R12 K3 ["Schema"]
-      166 DUPTABLE                         R13 K29 [{"Id", "Schema"}]
-      167 GETUPVAL                         R14 1
-      168 GETTABLEKS                       R14 R14 K34 ["SnapToVoxels"]
-      170 SETTABLEKS                       R14 R13 K1 ["Id"]
-      172 DUPTABLE                         R14 K32 [{["Type"] = "Checkbox"}]
-      173 SETTABLEKS                       R14 R13 K3 ["Schema"]
-      175 DUPTABLE                         R14 K36 [{"Id", "Layout", "Schema"}]
-      176 GETUPVAL                         R15 1
-      177 GETTABLEKS                       R15 R15 K37 ["Apply"]
-      179 SETTABLEKS                       R15 R14 K1 ["Id"]
-      181 GETIMPORT                        R15 K41 [Enum.FillDirection.Vertical]
-      183 SETTABLEKS                       R15 R14 K35 ["Layout"]
-      185 DUPTABLE                         R15 K44 [{["Label"], ["Type"] = "Button"}]
-      186 GETUPVAL                         R18 6
-      187 GETUPVAL                         R19 1
-      188 GETTABLEKS                       R19 R19 K37 ["Apply"]
-      190 NAMECALL                         R16 R4 K45 ["getText"]
-      192 CALL                             R16 3 1
-      193 SETTABLEKS                       R16 R15 K42 ["Label"]
-      195 SETTABLEKS                       R15 R14 K3 ["Schema"]
-      197 SETLIST                          R7 R8 7 [1]
-      199 DUPTABLE                         R8 K49 [{"Category", "Data", "Overrides"}]
-      200 GETUPVAL                         R9 6
-      201 SETTABLEKS                       R9 R8 K46 ["Category"]
-      203 SETTABLEKS                       R1 R8 K47 ["Data"]
-      205 SETTABLEKS                       R3 R8 K48 ["Overrides"]
-      207 CALL                             R5 3 -1
-      208 RETURN                           R5 -1
+       12 DUPTABLE                         R9 K13 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
+       13 NEWTABLE                         R10 0 3
+       15 LOADK                            R11 K14 ["X"]
+       16 LOADK                            R12 K15 ["Y"]
+       17 LOADK                            R13 K16 ["Z"]
+       18 SETLIST                          R10 R11 3 [1]
+       20 SETTABLEKS                       R10 R9 K10 ["Components"]
+       22 DUPCLOSURE                       R10 K17 [PROTO_0]
+       23 SETTABLEKS                       R10 R9 K11 ["GetValue"]
+       25 DUPCLOSURE                       R10 K18 [PROTO_1]
+       26 SETTABLEKS                       R10 R9 K12 ["GetComponents"]
+       28 SETTABLEKS                       R9 R8 K4 ["Schema"]
+       30 NEWCLOSURE                       R9 P2
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          VAL R4
+       33 CAPTURE                          UPVAL U3
+       34 SETTABLEKS                       R9 R8 K5 ["Validate"]
+       36 DUPTABLE                         R9 K23 [{["DataId"], ["Id"], ["Height"] = 26, ["Hidden"] = False, ["Schema"], ["Validate"], ["Value"]}]
+       37 GETUPVAL                         R10 1
+       38 GETTABLEKS                       R10 R10 K24 ["Transform"]
+       40 SETTABLEKS                       R10 R9 K19 ["DataId"]
+       42 GETUPVAL                         R10 1
+       43 GETTABLEKS                       R10 R10 K25 ["Position"]
+       45 SETTABLEKS                       R10 R9 K1 ["Id"]
+       47 DUPTABLE                         R10 K13 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
+       48 NEWTABLE                         R11 0 3
+       50 LOADK                            R12 K14 ["X"]
+       51 LOADK                            R13 K15 ["Y"]
+       52 LOADK                            R14 K16 ["Z"]
+       53 SETLIST                          R11 R12 3 [1]
+       55 SETTABLEKS                       R11 R10 K10 ["Components"]
+       57 NEWCLOSURE                       R11 P3
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          UPVAL U1
+       60 SETTABLEKS                       R11 R10 K11 ["GetValue"]
+       62 DUPCLOSURE                       R11 K26 [PROTO_4]
+       63 SETTABLEKS                       R11 R10 K12 ["GetComponents"]
+       65 SETTABLEKS                       R10 R9 K4 ["Schema"]
+       67 NEWCLOSURE                       R10 P5
+       68 CAPTURE                          UPVAL U2
+       69 CAPTURE                          VAL R4
+       70 SETTABLEKS                       R10 R9 K5 ["Validate"]
+       72 GETUPVAL                         R11 1
+       73 GETTABLEKS                       R11 R11 K24 ["Transform"]
+       75 GETTABLE                         R10 R1 R11
+       76 SETTABLEKS                       R10 R9 K22 ["Value"]
+       78 DUPTABLE                         R10 K27 [{["DataId"], ["Id"], ["Height"] = 26, ["Schema"], ["Validate"], ["Value"]}]
+       79 GETUPVAL                         R11 1
+       80 GETTABLEKS                       R11 R11 K24 ["Transform"]
+       82 SETTABLEKS                       R11 R10 K19 ["DataId"]
+       84 GETUPVAL                         R11 1
+       85 GETTABLEKS                       R11 R11 K28 ["Rotation"]
+       87 SETTABLEKS                       R11 R10 K1 ["Id"]
+       89 DUPTABLE                         R11 K13 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
+       90 NEWTABLE                         R12 0 3
+       92 LOADK                            R13 K14 ["X"]
+       93 LOADK                            R14 K15 ["Y"]
+       94 LOADK                            R15 K16 ["Z"]
+       95 SETLIST                          R12 R13 3 [1]
+       97 SETTABLEKS                       R12 R11 K10 ["Components"]
+       99 NEWCLOSURE                       R12 P6
+      100 CAPTURE                          VAL R1
+      101 CAPTURE                          UPVAL U1
+      102 SETTABLEKS                       R12 R11 K11 ["GetValue"]
+      104 DUPCLOSURE                       R12 K29 [PROTO_7]
+      105 SETTABLEKS                       R12 R11 K12 ["GetComponents"]
+      107 SETTABLEKS                       R11 R10 K4 ["Schema"]
+      109 NEWCLOSURE                       R11 P8
+      110 CAPTURE                          VAL R0
+      111 CAPTURE                          UPVAL U2
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          UPVAL U4
+      114 CAPTURE                          UPVAL U5
+      115 CAPTURE                          UPVAL U1
+      116 SETTABLEKS                       R11 R10 K5 ["Validate"]
+      118 GETUPVAL                         R12 1
+      119 GETTABLEKS                       R12 R12 K24 ["Transform"]
+      121 GETTABLE                         R11 R1 R12
+      122 SETTABLEKS                       R11 R10 K22 ["Value"]
+      124 DUPTABLE                         R11 K30 [{"Id", "Schema"}]
+      125 GETUPVAL                         R12 1
+      126 GETTABLEKS                       R12 R12 K31 ["MergeEmpty"]
+      128 SETTABLEKS                       R12 R11 K1 ["Id"]
+      130 DUPTABLE                         R12 K33 [{["Type"] = "Checkbox"}]
+      131 SETTABLEKS                       R12 R11 K4 ["Schema"]
+      133 DUPTABLE                         R12 K30 [{"Id", "Schema"}]
+      134 GETUPVAL                         R13 1
+      135 GETTABLEKS                       R13 R13 K34 ["LiveEdit"]
+      137 SETTABLEKS                       R13 R12 K1 ["Id"]
+      139 DUPTABLE                         R13 K33 [{["Type"] = "Checkbox"}]
+      140 SETTABLEKS                       R13 R12 K4 ["Schema"]
+      142 DUPTABLE                         R13 K30 [{"Id", "Schema"}]
+      143 GETUPVAL                         R14 1
+      144 GETTABLEKS                       R14 R14 K35 ["SnapToVoxels"]
+      146 SETTABLEKS                       R14 R13 K1 ["Id"]
+      148 DUPTABLE                         R14 K33 [{["Type"] = "Checkbox"}]
+      149 SETTABLEKS                       R14 R13 K4 ["Schema"]
+      151 DUPTABLE                         R14 K37 [{"Id", "Layout", "Schema"}]
+      152 GETUPVAL                         R15 1
+      153 GETTABLEKS                       R15 R15 K38 ["Apply"]
+      155 SETTABLEKS                       R15 R14 K1 ["Id"]
+      157 GETIMPORT                        R15 K42 [Enum.FillDirection.Vertical]
+      159 SETTABLEKS                       R15 R14 K36 ["Layout"]
+      161 DUPTABLE                         R15 K45 [{["Label"], ["Type"] = "Button"}]
+      162 GETUPVAL                         R18 5
+      163 GETUPVAL                         R19 1
+      164 GETTABLEKS                       R19 R19 K38 ["Apply"]
+      166 NAMECALL                         R16 R4 K46 ["getText"]
+      168 CALL                             R16 3 1
+      169 SETTABLEKS                       R16 R15 K43 ["Label"]
+      171 SETTABLEKS                       R15 R14 K4 ["Schema"]
+      173 SETLIST                          R7 R8 7 [1]
+      175 DUPTABLE                         R8 K50 [{"Category", "Data", "Overrides"}]
+      176 GETUPVAL                         R9 5
+      177 SETTABLEKS                       R9 R8 K47 ["Category"]
+      179 SETTABLEKS                       R1 R8 K48 ["Data"]
+      181 SETTABLEKS                       R3 R8 K49 ["Overrides"]
+      183 CALL                             R5 3 -1
+      184 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -368,69 +347,63 @@ MAIN:
        53 GETTABLEKS                       R10 R10 K7 ["Util"]
        55 GETTABLEKS                       R10 R10 K16 ["isVectorNaNOrInf"]
        57 CALL                             R9 1 1
-       58 GETIMPORT                        R10 K5 [require]
-       60 GETTABLEKS                       R11 R0 K6 ["Src"]
-       62 GETTABLEKS                       R11 R11 K17 ["Flags"]
-       64 GETTABLEKS                       R11 R11 K18 ["getFFlagTerrainEditorExplicitVectorHeight"]
-       66 CALL                             R10 1 1
-       67 NEWTABLE                         R11 2 0
-       69 NEWTABLE                         R12 16 0
-       71 GETTABLEKS                       R13 R4 K19 ["Apply"]
-       73 GETTABLEKS                       R14 R5 K20 ["LocalSession"]
-       75 SETTABLE                         R14 R12 R13
-       76 GETTABLEKS                       R13 R4 K21 ["ForcePreview"]
-       78 GETTABLEKS                       R14 R5 K20 ["LocalSession"]
-       80 SETTABLE                         R14 R12 R13
-       81 GETTABLEKS                       R13 R4 K22 ["LiveEdit"]
-       83 GETTABLEKS                       R14 R5 K23 ["LocalPersistent"]
-       85 SETTABLE                         R14 R12 R13
-       86 GETTABLEKS                       R13 R4 K24 ["MergeEmpty"]
-       88 GETTABLEKS                       R14 R5 K23 ["LocalPersistent"]
-       90 SETTABLE                         R14 R12 R13
-       91 GETTABLEKS                       R13 R4 K25 ["OperationSource"]
-       93 GETTABLEKS                       R14 R5 K23 ["LocalPersistent"]
-       95 SETTABLE                         R14 R12 R13
-       96 GETTABLEKS                       R13 R4 K26 ["Position"]
-       98 GETTABLEKS                       R14 R5 K27 ["GlobalPersistent"]
-      100 SETTABLE                         R14 R12 R13
-      101 GETTABLEKS                       R13 R4 K28 ["Size"]
-      103 GETTABLEKS                       R14 R5 K27 ["GlobalPersistent"]
-      105 SETTABLE                         R14 R12 R13
-      106 GETTABLEKS                       R13 R4 K29 ["SnapToVoxels"]
-      108 GETTABLEKS                       R14 R5 K27 ["GlobalPersistent"]
-      110 SETTABLE                         R14 R12 R13
-      111 GETTABLEKS                       R13 R4 K30 ["TerrainRegion"]
-      113 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      115 SETTABLE                         R14 R12 R13
-      116 GETTABLEKS                       R13 R4 K32 ["TerrainRegionBuffer"]
-      118 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      120 SETTABLE                         R14 R12 R13
-      121 GETTABLEKS                       R13 R4 K33 ["TerrainRegionBufferSize"]
-      123 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      125 SETTABLE                         R14 R12 R13
-      126 GETTABLEKS                       R13 R4 K34 ["TerrainRegionBufferTransform"]
-      128 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      130 SETTABLE                         R14 R12 R13
-      131 GETTABLEKS                       R13 R4 K35 ["TerrainRegionSize"]
-      133 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      135 SETTABLE                         R14 R12 R13
-      136 GETTABLEKS                       R13 R4 K36 ["TerrainRegionTransform"]
-      138 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      140 SETTABLE                         R14 R12 R13
-      141 GETTABLEKS                       R13 R4 K37 ["Transform"]
-      143 GETTABLEKS                       R14 R5 K27 ["GlobalPersistent"]
-      145 SETTABLE                         R14 R12 R13
-      146 GETTABLEKS                       R13 R4 K38 ["TransformMode"]
-      148 GETTABLEKS                       R14 R5 K31 ["GlobalSession"]
-      150 SETTABLE                         R14 R12 R13
-      151 SETTABLEKS                       R12 R11 K12 ["Storage"]
-      153 DUPCLOSURE                       R12 K39 [PROTO_9]
-      154 CAPTURE                          VAL R1
-      155 CAPTURE                          VAL R4
-      156 CAPTURE                          VAL R10
-      157 CAPTURE                          VAL R9
-      158 CAPTURE                          VAL R6
-      159 CAPTURE                          VAL R8
-      160 CAPTURE                          VAL R7
-      161 SETTABLEKS                       R12 R11 K40 ["Generator"]
-      163 RETURN                           R11 1
+       58 NEWTABLE                         R10 2 0
+       60 NEWTABLE                         R11 16 0
+       62 GETTABLEKS                       R12 R4 K17 ["Apply"]
+       64 GETTABLEKS                       R13 R5 K18 ["LocalSession"]
+       66 SETTABLE                         R13 R11 R12
+       67 GETTABLEKS                       R12 R4 K19 ["ForcePreview"]
+       69 GETTABLEKS                       R13 R5 K18 ["LocalSession"]
+       71 SETTABLE                         R13 R11 R12
+       72 GETTABLEKS                       R12 R4 K20 ["LiveEdit"]
+       74 GETTABLEKS                       R13 R5 K21 ["LocalPersistent"]
+       76 SETTABLE                         R13 R11 R12
+       77 GETTABLEKS                       R12 R4 K22 ["MergeEmpty"]
+       79 GETTABLEKS                       R13 R5 K21 ["LocalPersistent"]
+       81 SETTABLE                         R13 R11 R12
+       82 GETTABLEKS                       R12 R4 K23 ["OperationSource"]
+       84 GETTABLEKS                       R13 R5 K21 ["LocalPersistent"]
+       86 SETTABLE                         R13 R11 R12
+       87 GETTABLEKS                       R12 R4 K24 ["Position"]
+       89 GETTABLEKS                       R13 R5 K25 ["GlobalPersistent"]
+       91 SETTABLE                         R13 R11 R12
+       92 GETTABLEKS                       R12 R4 K26 ["Size"]
+       94 GETTABLEKS                       R13 R5 K25 ["GlobalPersistent"]
+       96 SETTABLE                         R13 R11 R12
+       97 GETTABLEKS                       R12 R4 K27 ["SnapToVoxels"]
+       99 GETTABLEKS                       R13 R5 K25 ["GlobalPersistent"]
+      101 SETTABLE                         R13 R11 R12
+      102 GETTABLEKS                       R12 R4 K28 ["TerrainRegion"]
+      104 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      106 SETTABLE                         R13 R11 R12
+      107 GETTABLEKS                       R12 R4 K30 ["TerrainRegionBuffer"]
+      109 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      111 SETTABLE                         R13 R11 R12
+      112 GETTABLEKS                       R12 R4 K31 ["TerrainRegionBufferSize"]
+      114 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      116 SETTABLE                         R13 R11 R12
+      117 GETTABLEKS                       R12 R4 K32 ["TerrainRegionBufferTransform"]
+      119 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      121 SETTABLE                         R13 R11 R12
+      122 GETTABLEKS                       R12 R4 K33 ["TerrainRegionSize"]
+      124 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      126 SETTABLE                         R13 R11 R12
+      127 GETTABLEKS                       R12 R4 K34 ["TerrainRegionTransform"]
+      129 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      131 SETTABLE                         R13 R11 R12
+      132 GETTABLEKS                       R12 R4 K35 ["Transform"]
+      134 GETTABLEKS                       R13 R5 K25 ["GlobalPersistent"]
+      136 SETTABLE                         R13 R11 R12
+      137 GETTABLEKS                       R12 R4 K36 ["TransformMode"]
+      139 GETTABLEKS                       R13 R5 K29 ["GlobalSession"]
+      141 SETTABLE                         R13 R11 R12
+      142 SETTABLEKS                       R11 R10 K12 ["Storage"]
+      144 DUPCLOSURE                       R11 K37 [PROTO_9]
+      145 CAPTURE                          VAL R1
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R9
+      148 CAPTURE                          VAL R6
+      149 CAPTURE                          VAL R8
+      150 CAPTURE                          VAL R7
+      151 SETTABLEKS                       R11 R10 K38 ["Generator"]
+      153 RETURN                           R10 1

@@ -78,7 +78,7 @@ PROTO_2:
        83 GETUPVAL                         R8 3
        84 GETTABLEKS                       R8 R8 K30 ["PlaneTransform"]
        86 GETIMPORT                        R9 K32 [CFrame.Angles]
-       88 LOADK                            R10 K33 [1.5707963267949]
+       88 LOADK                            R10 K33 [1.5707963267948966]
        89 LOADN                            R11 0
        90 LOADN                            R12 0
        91 CALL                             R9 3 1
@@ -277,7 +277,7 @@ PROTO_9:
        64 GETTABLEKS                       R8 R8 K10 ["CurrentCamera"]
        66 GETTABLEKS                       R8 R8 K11 ["CFrame"]
        68 GETIMPORT                        R9 K13 [CFrame.Angles]
-       70 LOADK                            R10 K14 [1.5707963267949]
+       70 LOADK                            R10 K14 [1.5707963267948966]
        71 LOADN                            R11 0
        72 LOADN                            R12 0
        73 CALL                             R9 3 1

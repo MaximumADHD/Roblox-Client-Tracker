@@ -40,7 +40,7 @@ PROTO_0:
        57 GETTABLEKS                       R13 R13 K19 ["Font"]
        59 GETIMPORT                        R14 K21 [Vector2.new]
        61 LOADN                            R15 500
-       62 LOADK                            R16 K22 [∞]
+       62 LOADK                            R16 K22 [Infinity]
        63 CALL                             R14 2 -1
        64 CALL                             R10 -1 1
        65 GETTABLEKS                       R11 R1 K23 ["Enabled"]
@@ -84,7 +84,7 @@ PROTO_0:
       123 GETTABLEKS                       R21 R2 K33 ["robuxFeeBase"]
       125 GETTABLEKS                       R21 R21 K34 ["subText"]
       127 GETTABLEKS                       R21 R21 K35 ["width"]
-      129 LOADK                            R22 K22 [∞]
+      129 LOADK                            R22 K22 [Infinity]
       130 CALL                             R20 2 -1
       131 CALL                             R16 -1 1
       132 MUL                              R20 R6 R5

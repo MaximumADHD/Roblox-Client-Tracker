@@ -38,7 +38,7 @@ PROTO_0:
        48 GETTABLEKS                       R9 R9 K3 ["Unit"]
        50 SETLIST                          R1 R2 8 [1]
        52 GETTABLEKS                       R2 R0 K3 ["Unit"]
-       54 LOADK                            R3 K4 [-∞]
+       54 LOADK                            R3 K4 [-Infinity]
        55 LOADNIL                          R4
        56 GETIMPORT                        R5 K6 [ipairs]
        58 MOVE                             R6 R1

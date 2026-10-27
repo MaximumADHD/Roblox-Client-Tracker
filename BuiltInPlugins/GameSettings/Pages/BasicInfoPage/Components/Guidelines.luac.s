@@ -97,8 +97,8 @@ PROTO_5:
        53 GETTABLEKS                       R14 R14 K15 ["Normal"]
        55 GETTABLEKS                       R14 R14 K17 ["Font"]
        57 GETIMPORT                        R15 K19 [Vector2.new]
-       59 LOADK                            R16 K20 [∞]
-       60 LOADK                            R17 K20 [∞]
+       59 LOADK                            R16 K20 [Infinity]
+       60 LOADK                            R17 K20 [Infinity]
        61 CALL                             R15 2 -1
        62 CALL                             R11 -1 1
        63 MOVE                             R10 R11

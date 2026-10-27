@@ -90,7 +90,7 @@ PROTO_1:
       100 CALL                             R17 1 1
       101 GETIMPORT                        R18 K28 [CFrame.Angles]
       103 LOADN                            R19 0
-      104 LOADK                            R20 K29 [1.5707963267949]
+      104 LOADK                            R20 K29 [1.5707963267948966]
       105 LOADN                            R21 0
       106 CALL                             R18 3 1
       107 MUL                              R16 R17 R18

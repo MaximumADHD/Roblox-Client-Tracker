@@ -25,7 +25,7 @@ PROTO_0:
        36 JUMPIFNOT                        R6 ; [+7]
        37 GETIMPORT                        R5 K9 [Vector2.new]
        39 GETTABLEKS                       R6 R0 K6 ["maxWidth"]
-       41 LOADK                            R7 K10 [∞]
+       41 LOADK                            R7 K10 [Infinity]
        42 CALL                             R5 2 1
        43 JUMP                             ; [+1]
        44 LOADNIL                          R5

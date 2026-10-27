@@ -456,41 +456,50 @@ PROTO_18:
       112 DUPTABLE                         R12 K51 [{"App"}]
       113 GETUPVAL                         R13 3
       114 GETUPVAL                         R14 6
-      115 DUPTABLE                         R15 K58 [{"args", "dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle", "textBoxRef", "externalInterfaceRef"}]
-      116 GETTABLEKS                       R16 R1 K59 ["Args"]
+      115 DUPTABLE                         R15 K59 [{"args", "openMcpSettingsSignal", "dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle", "textBoxRef", "externalInterfaceRef"}]
+      116 GETTABLEKS                       R16 R1 K60 ["Args"]
       118 SETTABLEKS                       R16 R15 K52 ["args"]
-      120 GETTABLEKS                       R16 R1 K38 ["PluginLoaderContext"]
-      122 GETTABLEKS                       R16 R16 K39 ["mainDockWidget"]
-      124 SETTABLEKS                       R16 R15 K53 ["dockWidget"]
-      126 GETTABLEKS                       R16 R0 K54 ["onFoundationStyleSheetChange"]
-      128 SETTABLEKS                       R16 R15 K54 ["onFoundationStyleSheetChange"]
-      130 GETTABLEKS                       R16 R0 K55 ["setDockWidgetTitle"]
-      132 SETTABLEKS                       R16 R15 K55 ["setDockWidgetTitle"]
-      134 GETTABLEKS                       R16 R0 K56 ["textBoxRef"]
-      136 SETTABLEKS                       R16 R15 K56 ["textBoxRef"]
-      138 GETTABLEKS                       R16 R0 K57 ["externalInterfaceRef"]
-      140 SETTABLEKS                       R16 R15 K57 ["externalInterfaceRef"]
-      142 CALL                             R13 2 1
-      143 SETTABLEKS                       R13 R12 K50 ["App"]
-      145 CALL                             R9 3 1
-      146 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
-      148 GETUPVAL                         R10 7
-      149 GETTABLEKS                       R10 R10 K60 ["FFlagStudioAssistantCloseTooltip"]
-      151 JUMPIFNOT                        R10 ; [+14]
-      152 GETTABLEKS                       R10 R2 K61 ["showCloseTooltip"]
-      154 JUMPIFNOT                        R10 ; [+11]
-      155 GETUPVAL                         R9 3
-      156 GETUPVAL                         R10 8
-      157 DUPTABLE                         R11 K64 [{"plugin", "onDismiss"}]
-      158 SETTABLEKS                       R3 R11 K62 ["plugin"]
-      160 GETTABLEKS                       R12 R0 K65 ["dismissCloseTooltip"]
-      162 SETTABLEKS                       R12 R11 K63 ["onDismiss"]
-      164 CALL                             R9 2 1
-      165 JUMP                             ; [+1]
-      166 LOADNIL                          R9
-      167 SETTABLEKS                       R9 R8 K19 ["CloseTooltip"]
-      169 CALL                             R6 2 -1
-      170 RETURN                           R6 -1
+      120 GETUPVAL                         R17 7
+      121 GETTABLEKS                       R17 R17 K61 ["FFlagMCPClientCountAsASetting"]
+      123 JUMPIFNOT                        R17 ; [+6]
+      124 GETTABLEKS                       R17 R1 K38 ["PluginLoaderContext"]
+      126 GETTABLEKS                       R17 R17 K62 ["actionTriggeredSignals"]
+      128 GETTABLEN                        R16 R17 1
+      129 JUMP                             ; [+1]
+      130 LOADNIL                          R16
+      131 SETTABLEKS                       R16 R15 K53 ["openMcpSettingsSignal"]
+      133 GETTABLEKS                       R16 R1 K38 ["PluginLoaderContext"]
+      135 GETTABLEKS                       R16 R16 K39 ["mainDockWidget"]
+      137 SETTABLEKS                       R16 R15 K54 ["dockWidget"]
+      139 GETTABLEKS                       R16 R0 K55 ["onFoundationStyleSheetChange"]
+      141 SETTABLEKS                       R16 R15 K55 ["onFoundationStyleSheetChange"]
+      143 GETTABLEKS                       R16 R0 K56 ["setDockWidgetTitle"]
+      145 SETTABLEKS                       R16 R15 K56 ["setDockWidgetTitle"]
+      147 GETTABLEKS                       R16 R0 K57 ["textBoxRef"]
+      149 SETTABLEKS                       R16 R15 K57 ["textBoxRef"]
+      151 GETTABLEKS                       R16 R0 K58 ["externalInterfaceRef"]
+      153 SETTABLEKS                       R16 R15 K58 ["externalInterfaceRef"]
+      155 CALL                             R13 2 1
+      156 SETTABLEKS                       R13 R12 K50 ["App"]
+      158 CALL                             R9 3 1
+      159 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
+      161 GETUPVAL                         R10 7
+      162 GETTABLEKS                       R10 R10 K63 ["FFlagStudioAssistantCloseTooltip"]
+      164 JUMPIFNOT                        R10 ; [+14]
+      165 GETTABLEKS                       R10 R2 K64 ["showCloseTooltip"]
+      167 JUMPIFNOT                        R10 ; [+11]
+      168 GETUPVAL                         R9 3
+      169 GETUPVAL                         R10 8
+      170 DUPTABLE                         R11 K67 [{"plugin", "onDismiss"}]
+      171 SETTABLEKS                       R3 R11 K65 ["plugin"]
+      173 GETTABLEKS                       R12 R0 K68 ["dismissCloseTooltip"]
+      175 SETTABLEKS                       R12 R11 K66 ["onDismiss"]
+      177 CALL                             R9 2 1
+      178 JUMP                             ; [+1]
+      179 LOADNIL                          R9
+      180 SETTABLEKS                       R9 R8 K19 ["CloseTooltip"]
+      182 CALL                             R6 2 -1
+      183 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

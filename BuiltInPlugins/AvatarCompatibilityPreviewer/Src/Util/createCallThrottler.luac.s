@@ -69,7 +69,7 @@ PROTO_2:
 PROTO_3:
         0 LOADNIL                          R3
         1 LOADB                            R4 0
-        2 LOADK                            R5 K0 [-∞]
+        2 LOADK                            R5 K0 [-Infinity]
         3 LOADNIL                          R6
         4 NEWCLOSURE                       R7 P0
         5 CAPTURE                          REF R4

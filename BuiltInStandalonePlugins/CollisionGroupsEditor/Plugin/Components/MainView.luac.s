@@ -881,7 +881,7 @@ PROTO_16:
       765 FASTCALL2                        MATH_MAX R30 R31 ; [+3]
       767 GETIMPORT                        R29 K186 [math.max]
       769 CALL                             R29 2 1
-      770 LOADK                            R30 K187 [∞]
+      770 LOADK                            R30 K187 [Infinity]
       771 CALL                             R28 2 1
       772 SETTABLEKS                       R28 R27 K179 ["MaxSize"]
       774 CALL                             R25 2 1

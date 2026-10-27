@@ -70,15 +70,4 @@ MAIN:
        48 CAPTURE                          VAL R3
        49 CAPTURE                          VAL R4
        50 CAPTURE                          VAL R5
-       51 GETTABLEKS                       R8 R1 K16 ["Flags"]
-       53 GETTABLEKS                       R8 R8 K17 ["getFFlagExplorerFixContextMenu"]
-       55 CALL                             R8 0 1
-       56 JUMPIFNOT                        R8 ; [+2]
-       57 MOVE                             R7 R6
-       58 RETURN                           R7 1
-       59 GETIMPORT                        R7 K5 [require]
-       61 GETIMPORT                        R8 K1 [script]
-       63 GETTABLEKS                       R8 R8 K18 ["Parent"]
-       65 GETTABLEKS                       R8 R8 K19 ["DEPRECATED_StudioContextMenuContextProvider"]
-       67 CALL                             R7 1 1
-       68 RETURN                           R7 1
+       51 RETURN                           R6 1

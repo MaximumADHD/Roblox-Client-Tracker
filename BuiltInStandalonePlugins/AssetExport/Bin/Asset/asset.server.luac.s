@@ -139,56 +139,48 @@ MAIN:
        73 CALL                             R7 1 1
        74 GETIMPORT                        R8 K9 [require]
        76 GETTABLEKS                       R9 R0 K14 ["Src"]
-       78 GETTABLEKS                       R9 R9 K23 ["Flags"]
-       80 GETTABLEKS                       R9 R9 K26 ["getFFlagAsyncObjExport"]
+       78 GETTABLEKS                       R9 R9 K26 ["Asset"]
+       80 GETTABLEKS                       R9 R9 K27 ["setupAssetsDm"]
        82 CALL                             R8 1 1
-       83 GETIMPORT                        R9 K9 [require]
-       85 GETTABLEKS                       R10 R0 K14 ["Src"]
-       87 GETTABLEKS                       R10 R10 K27 ["Asset"]
-       89 GETTABLEKS                       R10 R10 K28 ["setupAssetsDm"]
-       91 CALL                             R9 1 1
-       92 MOVE                             R10 R9
-       93 GETIMPORT                        R11 K1 [plugin]
-       95 CALL                             R10 1 1
-       96 MOVE                             R11 R6
-       97 CALL                             R11 0 1
-       98 JUMPIFNOT                        R11 ; [+37]
-       99 MOVE                             R11 R7
-      100 CALL                             R11 0 1
-      101 JUMPIFNOT                        R11 ; [+34]
-      102 MOVE                             R11 R8
-      103 CALL                             R11 0 1
-      104 JUMPIF                           R11 ; [+31]
-      105 GETIMPORT                        R11 K1 [plugin]
-      107 NAMECALL                         R11 R11 K29 ["GetPreinitPayload"]
-      109 CALL                             R11 1 1
-      110 FASTCALL1                        TYPE R11 ; [+3]
-      111 MOVE                             R14 R11
-      112 GETIMPORT                        R13 K31 [type]
-      114 CALL                             R13 1 1
-      115 JUMPIFNOTEQKS                    R13 K32 ["table"] ; [+4]
-      117 GETTABLEKS                       R12 R11 K33 ["pendingTrigger"]
-      119 JUMP                             ; [+1]
-      120 LOADNIL                          R12
-      121 JUMPIFEQKS                       R12 K34 ["selection"] ; [+5]
-      123 JUMPIFEQKS                       R12 K35 ["place"] ; [+3]
-      125 JUMPIFNOTEQKS                    R12 K36 ["animation"] ; [+10]
-      127 JUMPIFNOTEQKS                    R12 K35 ["place"] ; [+2]
-      129 LOADB                            R13 0 +1
-      130 LOADB                            R13 1
-      131 GETIMPORT                        R14 K39 [task.spawn]
-      133 DUPCLOSURE                       R15 K40 [PROTO_0]
-      134 CAPTURE                          VAL R13
-      135 CALL                             R14 1 0
-      136 DUPCLOSURE                       R11 K41 [PROTO_2]
-      137 CAPTURE                          VAL R3
-      138 CAPTURE                          VAL R0
-      139 CAPTURE                          VAL R10
-      140 CAPTURE                          VAL R5
-      141 GETTABLEKS                       R12 R5 K42 ["CurrentDataModelTypeChanged"]
-      143 MOVE                             R14 R11
-      144 NAMECALL                         R12 R12 K43 ["Connect"]
-      146 CALL                             R12 2 0
-      147 MOVE                             R12 R11
-      148 CALL                             R12 0 0
-      149 RETURN                           R0 0
+       83 MOVE                             R9 R8
+       84 GETIMPORT                        R10 K1 [plugin]
+       86 CALL                             R9 1 1
+       87 MOVE                             R10 R6
+       88 CALL                             R10 0 1
+       89 JUMPIFNOT                        R10 ; [+34]
+       90 MOVE                             R10 R7
+       91 CALL                             R10 0 1
+       92 JUMPIFNOT                        R10 ; [+31]
+       93 GETIMPORT                        R10 K1 [plugin]
+       95 NAMECALL                         R10 R10 K28 ["GetPreinitPayload"]
+       97 CALL                             R10 1 1
+       98 FASTCALL1                        TYPE R10 ; [+3]
+       99 MOVE                             R13 R10
+      100 GETIMPORT                        R12 K30 [type]
+      102 CALL                             R12 1 1
+      103 JUMPIFNOTEQKS                    R12 K31 ["table"] ; [+4]
+      105 GETTABLEKS                       R11 R10 K32 ["pendingTrigger"]
+      107 JUMP                             ; [+1]
+      108 LOADNIL                          R11
+      109 JUMPIFEQKS                       R11 K33 ["selectionGltf"] ; [+5]
+      111 JUMPIFEQKS                       R11 K34 ["placeGltf"] ; [+3]
+      113 JUMPIFNOTEQKS                    R11 K35 ["animation"] ; [+10]
+      115 JUMPIFNOTEQKS                    R11 K34 ["placeGltf"] ; [+2]
+      117 LOADB                            R12 0 +1
+      118 LOADB                            R12 1
+      119 GETIMPORT                        R13 K38 [task.spawn]
+      121 DUPCLOSURE                       R14 K39 [PROTO_0]
+      122 CAPTURE                          VAL R12
+      123 CALL                             R13 1 0
+      124 DUPCLOSURE                       R10 K40 [PROTO_2]
+      125 CAPTURE                          VAL R3
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          VAL R9
+      128 CAPTURE                          VAL R5
+      129 GETTABLEKS                       R11 R5 K41 ["CurrentDataModelTypeChanged"]
+      131 MOVE                             R13 R10
+      132 NAMECALL                         R11 R11 K42 ["Connect"]
+      134 CALL                             R11 2 0
+      135 MOVE                             R11 R10
+      136 CALL                             R11 0 0
+      137 RETURN                           R0 0

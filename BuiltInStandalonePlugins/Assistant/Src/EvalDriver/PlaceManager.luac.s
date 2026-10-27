@@ -239,17 +239,17 @@ PROTO_10:
        23 GETUPVAL                         R4 7
        24 GETTABLEKS                       R4 R4 K5 ["event"]
        26 MOVE                             R5 R1
-       27 LOADK                            R6 K6 ["PlaceManager.EditDataModelEnded"]
+       27 LOADK                            R6 K6 ["EditDataModelEnded"]
        28 CALL                             R4 2 1
        29 GETUPVAL                         R5 7
        30 GETTABLEKS                       R5 R5 K5 ["event"]
        32 MOVE                             R6 R1
-       33 LOADK                            R7 K7 ["PlaceManager.EditDataModelStarted"]
+       33 LOADK                            R7 K7 ["EditDataModelStarted"]
        34 CALL                             R5 2 1
        35 GETUPVAL                         R6 7
        36 GETTABLEKS                       R6 R6 K5 ["event"]
        38 MOVE                             R7 R1
-       39 LOADK                            R8 K8 ["PlaceManager.CheckEditDataModelStarted"]
+       39 LOADK                            R8 K8 ["CheckEditDataModelStarted"]
        40 CALL                             R6 2 1
        41 GETUPVAL                         R7 5
        42 MOVE                             R11 R2
@@ -274,20 +274,20 @@ PROTO_10:
        69 LOADK                            R6 K14 ["PlaceManager requires networking"]
        70 GETIMPORT                        R4 K3 [assert]
        72 CALL                             R4 2 0
-       73 LOADK                            R6 K15 ["EditDataModelEnded"]
+       73 LOADK                            R6 K6 ["EditDataModelEnded"]
        74 MOVE                             R7 R2
-       75 NAMECALL                         R4 R0 K16 ["OnGuestEvent"]
+       75 NAMECALL                         R4 R0 K15 ["OnGuestEvent"]
        77 CALL                             R4 3 0
-       78 LOADK                            R6 K17 ["EditDataModelStarted"]
+       78 LOADK                            R6 K7 ["EditDataModelStarted"]
        79 MOVE                             R7 R3
-       80 NAMECALL                         R4 R0 K16 ["OnGuestEvent"]
+       80 NAMECALL                         R4 R0 K15 ["OnGuestEvent"]
        82 CALL                             R4 3 0
-       83 LOADK                            R6 K18 ["CheckEditDataModelStarted"]
-       84 NAMECALL                         R4 R0 K19 ["FireHost"]
+       83 LOADK                            R6 K8 ["CheckEditDataModelStarted"]
+       84 NAMECALL                         R4 R0 K16 ["FireHost"]
        86 CALL                             R4 2 0
        87 GETUPVAL                         R4 9
-       88 GETTABLEKS                       R4 R4 K20 ["registerFunction"]
-       90 LOADK                            R5 K21 ["waitForEditDataModelStarted"]
+       88 GETTABLEKS                       R4 R4 K17 ["registerFunction"]
+       90 LOADK                            R5 K18 ["waitForEditDataModelStarted"]
        91 NEWCLOSURE                       R6 P2
        92 CAPTURE                          UPVAL U1
        93 CAPTURE                          UPVAL U3

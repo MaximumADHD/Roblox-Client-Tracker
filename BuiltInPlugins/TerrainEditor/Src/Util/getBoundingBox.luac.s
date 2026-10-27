@@ -85,8 +85,8 @@ PROTO_0:
       115 GETIMPORT                        R11 K6 [Vector3.new]
       117 CALL                             R11 3 1
       118 SETLIST                          R3 R4 8 [1]
-      120 LOADK                            R4 K7 [{∞, ∞, ∞}]
-      121 LOADK                            R5 K8 [{-∞, -∞, -∞}]
+      120 LOADK                            R4 K7 [{Infinity, Infinity, Infinity}]
+      121 LOADK                            R5 K8 [{-Infinity, -Infinity, -Infinity}]
       122 MOVE                             R6 R3
       123 LOADNIL                          R7
       124 LOADNIL                          R8

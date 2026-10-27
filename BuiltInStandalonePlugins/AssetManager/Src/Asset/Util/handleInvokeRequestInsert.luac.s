@@ -47,95 +47,99 @@ PROTO_2:
        30 GETTABLEKS                       R3 R3 K7 ["InsertPositionMode"]
        32 GETTABLEKS                       R3 R3 K9 ["Camera"]
        34 GETTABLEKS                       R4 R1 K0 ["Ids"]
-       36 GETTABLEKS                       R5 R1 K6 ["Types"]
-       38 GETTABLEKS                       R6 R1 K10 ["Names"]
-       40 GETTABLEKS                       R7 R1 K11 ["IsPackage"]
-       42 GETUPVAL                         R8 3
-       43 CALL                             R8 0 1
-       44 JUMPIFNOT                        R8 ; [+59]
-       45 LOADK                            R10 K12 ["GameId"]
-       46 NAMECALL                         R8 R0 K13 ["GetItem"]
-       48 CALL                             R8 2 1
-       49 JUMPIF                           R8 ; [+4]
-       50 GETIMPORT                        R8 K15 [game]
-       52 GETTABLEKS                       R8 R8 K12 ["GameId"]
-       54 JUMPIFEQKN                       R8 K1 [0] ; [+49]
-       56 GETUPVAL                         R9 4
-       57 LOADK                            R12 K16 ["AssetAccessController"]
-       58 NAMECALL                         R10 R0 K17 ["GetPluginComponent"]
-       60 CALL                             R10 2 1
-       61 MOVE                             R11 R4
-       62 GETIMPORT                        R12 K15 [game]
-       64 GETTABLEKS                       R12 R12 K18 ["CreatorType"]
-       66 GETIMPORT                        R13 K15 [game]
-       68 GETTABLEKS                       R13 R13 K19 ["CreatorId"]
-       70 GETTABLEKS                       R14 R1 K20 ["Creators"]
-       72 CALL                             R9 5 1
-       73 GETIMPORT                        R10 K22 [next]
-       75 MOVE                             R11 R9
-       76 CALL                             R10 1 1
-       77 JUMPIFEQKNIL                     R10 ; [+26]
-       79 GETUPVAL                         R10 5
-       80 MOVE                             R11 R9
-       81 MOVE                             R12 R4
-       82 MOVE                             R13 R5
-       83 MOVE                             R14 R6
-       84 MOVE                             R15 R7
-       85 CALL                             R10 5 4
-       86 MOVE                             R4 R10
-       87 MOVE                             R5 R11
-       88 MOVE                             R6 R12
-       89 MOVE                             R7 R13
-       90 GETUPVAL                         R10 6
-       91 LOADK                            R11 K23 ["insert: %* of %* asset(s) survived the publish gate"]
-       92 LENGTH                           R13 R4
-       93 GETTABLEKS                       R15 R1 K0 ["Ids"]
-       95 LENGTH                           R14 R15
-       96 NAMECALL                         R11 R11 K24 ["format"]
-       98 CALL                             R11 3 1
-       99 CALL                             R10 1 0
-      100 LENGTH                           R10 R4
-      101 JUMPIFNOTEQKN                    R10 K1 [0] ; [+2]
-      103 RETURN                           R0 0
-      104 DUPTABLE                         R8 K30 [{["GameId"], ["PositionMode"], ["SkipCameraMove"] = False, ["StudioComponents"], ["UseAnimationInstance"]}]
-      105 LOADK                            R11 K12 ["GameId"]
-      106 NAMECALL                         R9 R0 K13 ["GetItem"]
-      108 CALL                             R9 2 1
-      109 JUMPIF                           R9 ; [+4]
-      110 GETIMPORT                        R9 K15 [game]
-      112 GETTABLEKS                       R9 R9 K12 ["GameId"]
-      114 SETTABLEKS                       R9 R8 K12 ["GameId"]
-      116 SETTABLEKS                       R3 R8 K25 ["PositionMode"]
-      118 DUPTABLE                         R9 K31 [{"AssetAccessController"}]
-      119 LOADK                            R12 K16 ["AssetAccessController"]
-      120 NAMECALL                         R10 R0 K17 ["GetPluginComponent"]
-      122 CALL                             R10 2 1
-      123 SETTABLEKS                       R10 R9 K16 ["AssetAccessController"]
-      125 SETTABLEKS                       R9 R8 K28 ["StudioComponents"]
-      127 JUMPIFEQKNIL                     R2 ; [+4]
-      129 GETTABLEKS                       R9 R2 K29 ["UseAnimationInstance"]
-      131 JUMPIF                           R9 ; [+1]
-      132 LOADB                            R9 0
-      133 SETTABLEKS                       R9 R8 K29 ["UseAnimationInstance"]
-      135 GETUPVAL                         R9 2
-      136 GETTABLEKS                       R9 R9 K32 ["Utils"]
-      138 GETTABLEKS                       R9 R9 K33 ["createInsertAssetsPromise"]
-      140 MOVE                             R10 R4
-      141 MOVE                             R11 R5
-      142 MOVE                             R12 R6
-      143 MOVE                             R13 R7
-      144 MOVE                             R14 R8
-      145 CALL                             R9 5 1
-      146 DUPCLOSURE                       R11 K34 [PROTO_0]
-      147 CAPTURE                          UPVAL U0
-      148 CAPTURE                          UPVAL U1
-      149 NAMECALL                         R9 R9 K35 ["andThen"]
-      151 CALL                             R9 2 1
-      152 DUPCLOSURE                       R11 K36 [PROTO_1]
-      153 CAPTURE                          UPVAL U7
-      154 NAMECALL                         R9 R9 K37 ["catch"]
-      156 CALL                             R9 2 0
-      157 RETURN                           R0 0
+       36 GETTABLEKS                       R5 R1 K10 ["VersionNumbers"]
+       38 GETTABLEKS                       R6 R1 K6 ["Types"]
+       40 GETTABLEKS                       R7 R1 K11 ["Names"]
+       42 GETTABLEKS                       R8 R1 K12 ["IsPackage"]
+       44 GETUPVAL                         R9 3
+       45 CALL                             R9 0 1
+       46 JUMPIFNOT                        R9 ; [+61]
+       47 LOADK                            R11 K13 ["GameId"]
+       48 NAMECALL                         R9 R0 K14 ["GetItem"]
+       50 CALL                             R9 2 1
+       51 JUMPIF                           R9 ; [+4]
+       52 GETIMPORT                        R9 K16 [game]
+       54 GETTABLEKS                       R9 R9 K13 ["GameId"]
+       56 JUMPIFEQKN                       R9 K1 [0] ; [+51]
+       58 GETUPVAL                         R10 4
+       59 LOADK                            R13 K17 ["AssetAccessController"]
+       60 NAMECALL                         R11 R0 K18 ["GetPluginComponent"]
+       62 CALL                             R11 2 1
+       63 MOVE                             R12 R4
+       64 GETIMPORT                        R13 K16 [game]
+       66 GETTABLEKS                       R13 R13 K19 ["CreatorType"]
+       68 GETIMPORT                        R14 K16 [game]
+       70 GETTABLEKS                       R14 R14 K20 ["CreatorId"]
+       72 GETTABLEKS                       R15 R1 K21 ["Creators"]
+       74 CALL                             R10 5 1
+       75 GETIMPORT                        R11 K23 [next]
+       77 MOVE                             R12 R10
+       78 CALL                             R11 1 1
+       79 JUMPIFEQKNIL                     R11 ; [+28]
+       81 GETUPVAL                         R11 5
+       82 MOVE                             R12 R10
+       83 MOVE                             R13 R4
+       84 MOVE                             R14 R5
+       85 MOVE                             R15 R6
+       86 MOVE                             R16 R7
+       87 MOVE                             R17 R8
+       88 CALL                             R11 6 5
+       89 MOVE                             R4 R11
+       90 MOVE                             R5 R12
+       91 MOVE                             R6 R13
+       92 MOVE                             R7 R14
+       93 MOVE                             R8 R15
+       94 GETUPVAL                         R11 6
+       95 LOADK                            R12 K24 ["insert: %* of %* asset(s) survived the publish gate"]
+       96 LENGTH                           R14 R4
+       97 GETTABLEKS                       R16 R1 K0 ["Ids"]
+       99 LENGTH                           R15 R16
+      100 NAMECALL                         R12 R12 K25 ["format"]
+      102 CALL                             R12 3 1
+      103 CALL                             R11 1 0
+      104 LENGTH                           R11 R4
+      105 JUMPIFNOTEQKN                    R11 K1 [0] ; [+2]
+      107 RETURN                           R0 0
+      108 DUPTABLE                         R9 K31 [{["GameId"], ["PositionMode"], ["SkipCameraMove"] = False, ["StudioComponents"], ["UseAnimationInstance"]}]
+      109 LOADK                            R12 K13 ["GameId"]
+      110 NAMECALL                         R10 R0 K14 ["GetItem"]
+      112 CALL                             R10 2 1
+      113 JUMPIF                           R10 ; [+4]
+      114 GETIMPORT                        R10 K16 [game]
+      116 GETTABLEKS                       R10 R10 K13 ["GameId"]
+      118 SETTABLEKS                       R10 R9 K13 ["GameId"]
+      120 SETTABLEKS                       R3 R9 K26 ["PositionMode"]
+      122 DUPTABLE                         R10 K32 [{"AssetAccessController"}]
+      123 LOADK                            R13 K17 ["AssetAccessController"]
+      124 NAMECALL                         R11 R0 K18 ["GetPluginComponent"]
+      126 CALL                             R11 2 1
+      127 SETTABLEKS                       R11 R10 K17 ["AssetAccessController"]
+      129 SETTABLEKS                       R10 R9 K29 ["StudioComponents"]
+      131 JUMPIFEQKNIL                     R2 ; [+4]
+      133 GETTABLEKS                       R10 R2 K30 ["UseAnimationInstance"]
+      135 JUMPIF                           R10 ; [+1]
+      136 LOADB                            R10 0
+      137 SETTABLEKS                       R10 R9 K30 ["UseAnimationInstance"]
+      139 GETUPVAL                         R10 2
+      140 GETTABLEKS                       R10 R10 K33 ["Utils"]
+      142 GETTABLEKS                       R10 R10 K34 ["createInsertAssetsPromise"]
+      144 MOVE                             R11 R4
+      145 MOVE                             R12 R5
+      146 MOVE                             R13 R6
+      147 MOVE                             R14 R7
+      148 MOVE                             R15 R8
+      149 MOVE                             R16 R9
+      150 CALL                             R10 6 1
+      151 DUPCLOSURE                       R12 K35 [PROTO_0]
+      152 CAPTURE                          UPVAL U0
+      153 CAPTURE                          UPVAL U1
+      154 NAMECALL                         R10 R10 K36 ["andThen"]
+      156 CALL                             R10 2 1
+      157 DUPCLOSURE                       R12 K37 [PROTO_1]
+      158 CAPTURE                          UPVAL U7
+      159 NAMECALL                         R10 R10 K38 ["catch"]
+      161 CALL                             R10 2 0
+      162 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

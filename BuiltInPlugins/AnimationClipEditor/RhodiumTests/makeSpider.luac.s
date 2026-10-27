@@ -70,7 +70,7 @@ PROTO_0:
        95 CONCAT                           R11 R12 R13
        96 SETTABLEKS                       R11 R10 K14 ["Name"]
        98 SUBK                             R13 R7 K28 [1]
-       99 MULK                             R12 R13 K27 [0.523598333333333]
+       99 MULK                             R12 R13 K27 [0.5235983333333333]
       100 ADDK                             R11 R12 K26 [-0.7853975]
       101 GETIMPORT                        R12 K31 [CFrame.fromEulerAnglesXYZ]
       103 LOADN                            R13 0
@@ -343,7 +343,7 @@ PROTO_0:
       482 CONCAT                           R11 R12 R13
       483 SETTABLEKS                       R11 R10 K14 ["Name"]
       485 SUBK                             R13 R7 K28 [1]
-      486 MULK                             R12 R13 K27 [0.523598333333333]
+      486 MULK                             R12 R13 K27 [0.5235983333333333]
       487 ADDK                             R11 R12 K26 [-0.7853975]
       488 GETIMPORT                        R12 K31 [CFrame.fromEulerAnglesXYZ]
       490 LOADN                            R13 0

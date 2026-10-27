@@ -186,25 +186,8 @@ PROTO_6:
        76 JUMPIF                           R2 ; [+2]
        77 DUPTABLE                         R2 K11 [{["enabled"] = False, ["visible"] = False}]
        78 RETURN                           R2 1
-       79 GETUPVAL                         R2 4
-       80 GETTABLEKS                       R2 R2 K13 ["Flags"]
-       82 GETTABLEKS                       R2 R2 K14 ["getFFlagExplorerFixContextMenu"]
-       84 CALL                             R2 0 1
-       85 JUMPIFNOT                        R2 ; [+2]
-       86 DUPTABLE                         R2 K16 [{["enabled"] = True, ["visible"] = True}]
-       87 RETURN                           R2 1
-       88 GETUPVAL                         R2 5
-       89 GETTABLEKS                       R2 R2 K17 ["getStudioActionState"]
-       91 GETUPVAL                         R3 1
-       92 GETTABLEKS                       R3 R3 K0 ["source"]
-       94 GETTABLEKS                       R3 R3 K18 ["uri"]
-       96 CALL                             R2 1 1
-       97 DUPTABLE                         R3 K19 [{"enabled", "visible"}]
-       98 GETTABLEKS                       R4 R2 K20 ["Enabled"]
-      100 SETTABLEKS                       R4 R3 K8 ["enabled"]
-      102 GETTABLEKS                       R4 R2 K21 ["Visible"]
-      104 SETTABLEKS                       R4 R3 K10 ["visible"]
-      106 RETURN                           R3 1
+       79 DUPTABLE                         R2 K14 [{["enabled"] = True, ["visible"] = True}]
+       80 RETURN                           R2 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -229,84 +212,79 @@ PROTO_8:
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["source"]
         2 GETTABLEKS                       R1 R1 K1 ["type"]
-        4 JUMPIFNOTEQKS                    R1 K2 ["studioAction"] ; [+23]
+        4 JUMPIFNOTEQKS                    R1 K2 ["studioAction"] ; [+19]
         6 NEWCLOSURE                       R1 P0
         7 CAPTURE                          UPVAL U0
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U1
        10 CAPTURE                          UPVAL U2
-       11 CAPTURE                          UPVAL U3
-       12 CAPTURE                          UPVAL U4
-       13 GETUPVAL                         R2 5
-       14 GETTABLEKS                       R3 R0 K3 ["key"]
-       16 DUPTABLE                         R4 K7 [{"getActionState", "DEPRECATED_getActionStateAsync", "trigger"}]
-       17 SETTABLEKS                       R1 R4 K4 ["getActionState"]
-       19 SETTABLEKS                       R1 R4 K5 ["DEPRECATED_getActionStateAsync"]
-       21 NEWCLOSURE                       R5 P1
-       22 CAPTURE                          UPVAL U6
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R5 R4 K6 ["trigger"]
-       26 SETTABLE                         R4 R2 R3
-       27 RETURN                           R0 0
-       28 GETTABLEKS                       R1 R0 K0 ["source"]
-       30 GETTABLEKS                       R1 R1 K1 ["type"]
-       32 JUMPIFNOTEQKS                    R1 K8 ["submenu"] ; [+19]
-       34 GETTABLEKS                       R1 R0 K0 ["source"]
-       36 GETTABLEKS                       R1 R1 K9 ["submenuCategories"]
-       38 LOADNIL                          R2
-       39 LOADNIL                          R3
-       40 FORGPREP                         R1
-       41 MOVE                             R6 R5
-       42 LOADNIL                          R7
-       43 LOADNIL                          R8
-       44 FORGPREP                         R6
-       45 GETUPVAL                         R11 7
-       46 MOVE                             R12 R10
-       47 CALL                             R11 1 0
-       48 FORGLOOP                         R6 2 ; [-4]
-       50 FORGLOOP                         R1 2 ; [-10]
-       52 RETURN                           R0 0
+       11 GETUPVAL                         R2 3
+       12 GETTABLEKS                       R3 R0 K3 ["key"]
+       14 DUPTABLE                         R4 K6 [{"getActionState", "trigger"}]
+       15 SETTABLEKS                       R1 R4 K4 ["getActionState"]
+       17 NEWCLOSURE                       R5 P1
+       18 CAPTURE                          UPVAL U4
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R5 R4 K5 ["trigger"]
+       22 SETTABLE                         R4 R2 R3
+       23 RETURN                           R0 0
+       24 GETTABLEKS                       R1 R0 K0 ["source"]
+       26 GETTABLEKS                       R1 R1 K1 ["type"]
+       28 JUMPIFNOTEQKS                    R1 K7 ["submenu"] ; [+19]
+       30 GETTABLEKS                       R1 R0 K0 ["source"]
+       32 GETTABLEKS                       R1 R1 K8 ["submenuCategories"]
+       34 LOADNIL                          R2
+       35 LOADNIL                          R3
+       36 FORGPREP                         R1
+       37 MOVE                             R6 R5
+       38 LOADNIL                          R7
+       39 LOADNIL                          R8
+       40 FORGPREP                         R6
+       41 GETUPVAL                         R11 5
+       42 MOVE                             R12 R10
+       43 CALL                             R11 1 0
+       44 FORGLOOP                         R6 2 ; [-4]
+       46 FORGLOOP                         R1 2 ; [-10]
+       48 RETURN                           R0 0
 
 PROTO_10:
-        0 NEWTABLE                         R2 0 0
-        2 LOADNIL                          R3
-        3 LOADNIL                          R4
-        4 LOADNIL                          R5
-        5 NEWCLOSURE                       R6 P0
-        6 CAPTURE                          REF R5
+        0 NEWTABLE                         R1 0 0
+        2 LOADNIL                          R2
+        3 LOADNIL                          R3
+        4 LOADNIL                          R4
+        5 NEWCLOSURE                       R5 P0
+        6 CAPTURE                          REF R4
         7 CAPTURE                          UPVAL U0
-        8 NEWCLOSURE                       R7 P1
-        9 CAPTURE                          REF R3
-       10 CAPTURE                          REF R5
+        8 NEWCLOSURE                       R6 P1
+        9 CAPTURE                          REF R2
+       10 CAPTURE                          REF R4
        11 CAPTURE                          UPVAL U0
-       12 NEWCLOSURE                       R8 P2
-       13 CAPTURE                          REF R4
-       14 CAPTURE                          REF R5
+       12 NEWCLOSURE                       R7 P2
+       13 CAPTURE                          REF R3
+       14 CAPTURE                          REF R4
        15 CAPTURE                          UPVAL U0
-       16 NEWCLOSURE                       R9 P3
-       17 CAPTURE                          VAL R7
+       16 NEWCLOSURE                       R8 P3
+       17 CAPTURE                          VAL R6
        18 CAPTURE                          UPVAL U1
-       19 CAPTURE                          VAL R8
-       20 CAPTURE                          UPVAL U2
-       21 CAPTURE                          VAL R1
-       22 CAPTURE                          VAL R2
-       23 CAPTURE                          VAL R0
-       24 CAPTURE                          VAL R9
-       25 GETUPVAL                         R10 3
-       26 LOADNIL                          R11
-       27 LOADNIL                          R12
-       28 FORGPREP                         R10
-       29 MOVE                             R15 R14
-       30 LOADNIL                          R16
-       31 LOADNIL                          R17
-       32 FORGPREP                         R15
-       33 MOVE                             R20 R9
-       34 MOVE                             R21 R19
-       35 CALL                             R20 1 0
-       36 FORGLOOP                         R15 2 ; [-4]
-       38 FORGLOOP                         R10 2 ; [-10]
-       40 CLOSEUPVALS                      R3
-       41 RETURN                           R2 1
+       19 CAPTURE                          VAL R7
+       20 CAPTURE                          VAL R1
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          VAL R8
+       23 GETUPVAL                         R9 2
+       24 LOADNIL                          R10
+       25 LOADNIL                          R11
+       26 FORGPREP                         R9
+       27 MOVE                             R14 R13
+       28 LOADNIL                          R15
+       29 LOADNIL                          R16
+       30 FORGPREP                         R14
+       31 MOVE                             R19 R8
+       32 MOVE                             R20 R18
+       33 CALL                             R19 1 0
+       34 FORGLOOP                         R14 2 ; [-4]
+       36 FORGLOOP                         R9 2 ; [-10]
+       38 CLOSEUPVALS                      R2
+       39 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -325,23 +303,16 @@ MAIN:
        21 GETTABLEKS                       R3 R3 K13 ["ContextMenuActionList"]
        23 CALL                             R2 1 1
        24 GETIMPORT                        R3 K9 [require]
-       26 GETTABLEKS                       R4 R1 K10 ["Src"]
-       28 GETTABLEKS                       R4 R4 K11 ["SharedFeatures"]
-       30 GETTABLEKS                       R4 R4 K12 ["ContextMenu"]
-       32 GETTABLEKS                       R4 R4 K14 ["DEPRECATED_createContextMenuActionWatcher"]
-       34 CALL                             R3 1 1
-       35 GETIMPORT                        R4 K9 [require]
-       37 GETTABLEKS                       R5 R1 K15 ["Packages"]
-       39 GETTABLEKS                       R5 R5 K16 ["Explorer"]
-       41 CALL                             R4 1 1
-       42 GETIMPORT                        R5 K9 [require]
-       44 GETTABLEKS                       R6 R1 K10 ["Src"]
-       46 GETTABLEKS                       R6 R6 K17 ["Util"]
-       48 GETTABLEKS                       R6 R6 K18 ["exhaustiveMatch"]
-       50 CALL                             R5 1 1
-       51 DUPCLOSURE                       R6 K19 [PROTO_10]
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          VAL R5
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          VAL R2
-       56 RETURN                           R6 1
+       26 GETTABLEKS                       R4 R1 K14 ["Packages"]
+       28 GETTABLEKS                       R4 R4 K15 ["Explorer"]
+       30 CALL                             R3 1 1
+       31 GETIMPORT                        R4 K9 [require]
+       33 GETTABLEKS                       R5 R1 K10 ["Src"]
+       35 GETTABLEKS                       R5 R5 K16 ["Util"]
+       37 GETTABLEKS                       R5 R5 K17 ["exhaustiveMatch"]
+       39 CALL                             R4 1 1
+       40 DUPCLOSURE                       R5 K18 [PROTO_10]
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          VAL R4
+       43 CAPTURE                          VAL R2
+       44 RETURN                           R5 1

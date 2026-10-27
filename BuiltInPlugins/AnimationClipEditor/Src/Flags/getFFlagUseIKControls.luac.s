@@ -1,17 +1,12 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+13]
+        2 JUMPIFNOT                        R0 ; [+6]
         3 GETIMPORT                        R0 K1 [game]
-        5 LOADK                            R2 K2 ["HumanoidRigDescriptionEnabled"]
+        5 LOADK                            R2 K2 ["IKSolverValidateChain"]
         6 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         8 CALL                             R0 2 1
-        9 JUMPIFNOT                        R0 ; [+6]
-       10 GETIMPORT                        R0 K1 [game]
-       12 LOADK                            R2 K4 ["IKSolverValidateChain"]
-       13 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-       15 CALL                             R0 2 1
-       16 RETURN                           R0 1
+        9 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

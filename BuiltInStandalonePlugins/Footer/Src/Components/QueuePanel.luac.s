@@ -225,37 +225,45 @@ PROTO_10:
        77 GETTABLEKS                       R8 R8 K4 ["createPortal"]
        79 GETUPVAL                         R9 9
        80 GETUPVAL                         R10 10
-       81 DUPTABLE                         R11 K6 [{"overlayGui"}]
+       81 DUPTABLE                         R11 K7 [{"overlayGui", "plugin"}]
        82 SETTABLEKS                       R5 R11 K5 ["overlayGui"]
-       84 DUPTABLE                         R12 K8 [{"Container"}]
-       85 GETUPVAL                         R13 9
-       86 GETUPVAL                         R14 11
-       87 DUPTABLE                         R15 K10 [{"onAbsoluteSizeChanged"}]
-       88 SETTABLEKS                       R7 R15 K9 ["onAbsoluteSizeChanged"]
-       90 DUPTABLE                         R16 K12 [{"Queue"}]
-       91 GETUPVAL                         R17 9
-       92 GETUPVAL                         R18 12
-       93 DUPTABLE                         R19 K18 [{"title", "items", "onClearCompleted", "hasCompletedTasks", "onClose", "onViewItem"}]
-       94 GETTABLEKS                       R20 R0 K13 ["title"]
-       96 SETTABLEKS                       R20 R19 K13 ["title"]
-       98 GETTABLEKS                       R20 R0 K14 ["items"]
-      100 SETTABLEKS                       R20 R19 K14 ["items"]
-      102 GETTABLEKS                       R20 R0 K15 ["onClearCompleted"]
-      104 SETTABLEKS                       R20 R19 K15 ["onClearCompleted"]
-      106 GETTABLEKS                       R20 R0 K16 ["hasCompletedTasks"]
-      108 SETTABLEKS                       R20 R19 K16 ["hasCompletedTasks"]
-      110 GETTABLEKS                       R20 R0 K3 ["onClose"]
-      112 SETTABLEKS                       R20 R19 K3 ["onClose"]
-      114 GETTABLEKS                       R20 R0 K17 ["onViewItem"]
-      116 SETTABLEKS                       R20 R19 K17 ["onViewItem"]
-      118 CALL                             R17 2 1
-      119 SETTABLEKS                       R17 R16 K11 ["Queue"]
-      121 CALL                             R13 3 1
-      122 SETTABLEKS                       R13 R12 K7 ["Container"]
-      124 CALL                             R9 3 1
-      125 MOVE                             R10 R5
-      126 CALL                             R8 2 -1
-      127 RETURN                           R8 -1
+       84 GETUPVAL                         R13 11
+       85 GETTABLEKS                       R13 R13 K8 ["getFFlagMCPClientCountAsASetting"]
+       87 CALL                             R13 0 1
+       88 JUMPIFNOT                        R13 ; [+2]
+       89 MOVE                             R12 R1
+       90 JUMP                             ; [+1]
+       91 LOADNIL                          R12
+       92 SETTABLEKS                       R12 R11 K6 ["plugin"]
+       94 DUPTABLE                         R12 K10 [{"Container"}]
+       95 GETUPVAL                         R13 9
+       96 GETUPVAL                         R14 12
+       97 DUPTABLE                         R15 K12 [{"onAbsoluteSizeChanged"}]
+       98 SETTABLEKS                       R7 R15 K11 ["onAbsoluteSizeChanged"]
+      100 DUPTABLE                         R16 K14 [{"Queue"}]
+      101 GETUPVAL                         R17 9
+      102 GETUPVAL                         R18 13
+      103 DUPTABLE                         R19 K20 [{"title", "items", "onClearCompleted", "hasCompletedTasks", "onClose", "onViewItem"}]
+      104 GETTABLEKS                       R20 R0 K15 ["title"]
+      106 SETTABLEKS                       R20 R19 K15 ["title"]
+      108 GETTABLEKS                       R20 R0 K16 ["items"]
+      110 SETTABLEKS                       R20 R19 K16 ["items"]
+      112 GETTABLEKS                       R20 R0 K17 ["onClearCompleted"]
+      114 SETTABLEKS                       R20 R19 K17 ["onClearCompleted"]
+      116 GETTABLEKS                       R20 R0 K18 ["hasCompletedTasks"]
+      118 SETTABLEKS                       R20 R19 K18 ["hasCompletedTasks"]
+      120 GETTABLEKS                       R20 R0 K3 ["onClose"]
+      122 SETTABLEKS                       R20 R19 K3 ["onClose"]
+      124 GETTABLEKS                       R20 R0 K19 ["onViewItem"]
+      126 SETTABLEKS                       R20 R19 K19 ["onViewItem"]
+      128 CALL                             R17 2 1
+      129 SETTABLEKS                       R17 R16 K13 ["Queue"]
+      131 CALL                             R13 3 1
+      132 SETTABLEKS                       R13 R12 K9 ["Container"]
+      134 CALL                             R9 3 1
+      135 MOVE                             R10 R5
+      136 CALL                             R8 2 -1
+      137 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -288,39 +296,45 @@ MAIN:
        46 GETTABLEKS                       R7 R0 K6 ["Packages"]
        48 GETTABLEKS                       R7 R7 K14 ["StudioFoundation"]
        50 CALL                             R6 1 1
-       51 GETTABLEKS                       R7 R6 K10 ["Components"]
-       53 GETTABLEKS                       R7 R7 K15 ["FoundationProviderAdapter"]
-       55 GETTABLEKS                       R8 R2 K16 ["ContextServices"]
-       57 GETTABLEKS                       R8 R8 K17 ["Plugin"]
-       59 GETTABLEKS                       R9 R6 K18 ["Util"]
-       61 GETTABLEKS                       R9 R9 K19 ["StudioUri"]
-       63 GETTABLEKS                       R10 R1 K20 ["View"]
-       65 GETTABLEKS                       R11 R6 K18 ["Util"]
-       67 GETTABLEKS                       R11 R11 K21 ["uriToTestId"]
-       69 GETTABLEKS                       R12 R4 K22 ["createElement"]
-       71 GETTABLEKS                       R13 R4 K23 ["useCallback"]
-       73 GETTABLEKS                       R14 R4 K24 ["useEffect"]
-       75 GETTABLEKS                       R15 R4 K25 ["useMemo"]
-       77 GETTABLEKS                       R16 R4 K26 ["useState"]
-       79 DUPTABLE                         R17 K33 [{["PluginId"] = "MainWindow", ["Category"] = "Widgets", ["ItemId"] = "Window"}]
-       80 DUPCLOSURE                       R18 K34 [PROTO_0]
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R10
-       83 DUPCLOSURE                       R19 K35 [PROTO_10]
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          VAL R15
-       86 CAPTURE                          VAL R11
-       87 CAPTURE                          VAL R9
-       88 CAPTURE                          VAL R16
-       89 CAPTURE                          VAL R14
-       90 CAPTURE                          VAL R17
-       91 CAPTURE                          VAL R13
-       92 CAPTURE                          VAL R5
-       93 CAPTURE                          VAL R12
-       94 CAPTURE                          VAL R7
-       95 CAPTURE                          VAL R18
-       96 CAPTURE                          VAL R3
-       97 GETTABLEKS                       R20 R4 K36 ["memo"]
-       99 MOVE                             R21 R19
-      100 CALL                             R20 1 -1
-      101 RETURN                           R20 -1
+       51 GETIMPORT                        R7 K5 [require]
+       53 GETTABLEKS                       R8 R0 K15 ["Bin"]
+       55 GETTABLEKS                       R8 R8 K16 ["Common"]
+       57 GETTABLEKS                       R8 R8 K17 ["defineLuaFlags"]
+       59 CALL                             R7 1 1
+       60 GETTABLEKS                       R8 R6 K10 ["Components"]
+       62 GETTABLEKS                       R8 R8 K18 ["FoundationProviderAdapter"]
+       64 GETTABLEKS                       R9 R2 K19 ["ContextServices"]
+       66 GETTABLEKS                       R9 R9 K20 ["Plugin"]
+       68 GETTABLEKS                       R10 R6 K21 ["Util"]
+       70 GETTABLEKS                       R10 R10 K22 ["StudioUri"]
+       72 GETTABLEKS                       R11 R1 K23 ["View"]
+       74 GETTABLEKS                       R12 R6 K21 ["Util"]
+       76 GETTABLEKS                       R12 R12 K24 ["uriToTestId"]
+       78 GETTABLEKS                       R13 R4 K25 ["createElement"]
+       80 GETTABLEKS                       R14 R4 K26 ["useCallback"]
+       82 GETTABLEKS                       R15 R4 K27 ["useEffect"]
+       84 GETTABLEKS                       R16 R4 K28 ["useMemo"]
+       86 GETTABLEKS                       R17 R4 K29 ["useState"]
+       88 DUPTABLE                         R18 K36 [{["PluginId"] = "MainWindow", ["Category"] = "Widgets", ["ItemId"] = "Window"}]
+       89 DUPCLOSURE                       R19 K37 [PROTO_0]
+       90 CAPTURE                          VAL R13
+       91 CAPTURE                          VAL R11
+       92 DUPCLOSURE                       R20 K38 [PROTO_10]
+       93 CAPTURE                          VAL R9
+       94 CAPTURE                          VAL R16
+       95 CAPTURE                          VAL R12
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R17
+       98 CAPTURE                          VAL R15
+       99 CAPTURE                          VAL R18
+      100 CAPTURE                          VAL R14
+      101 CAPTURE                          VAL R5
+      102 CAPTURE                          VAL R13
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R19
+      106 CAPTURE                          VAL R3
+      107 GETTABLEKS                       R21 R4 K39 ["memo"]
+      109 MOVE                             R22 R20
+      110 CALL                             R21 1 -1
+      111 RETURN                           R21 -1

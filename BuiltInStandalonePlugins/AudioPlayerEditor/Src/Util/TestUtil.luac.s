@@ -276,36 +276,37 @@ PROTO_15:
        23 GETUPVAL                         R5 3
        24 GETTABLEKS                       R5 R5 K7 ["ContextStack"]
        26 DUPTABLE                         R6 K11 [{"providers"}]
-       27 NEWTABLE                         R7 0 2
+       27 NEWTABLE                         R7 0 1
        29 GETUPVAL                         R8 2
        30 GETTABLEKS                       R8 R8 K9 ["createElement"]
        32 GETUPVAL                         R9 4
-       33 DUPTABLE                         R10 K16 [{["theme"] = "Dark", ["device"] = "Desktop"}]
-       34 CALL                             R8 2 1
-       35 GETUPVAL                         R9 2
-       36 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       38 GETUPVAL                         R10 5
-       39 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
-       41 CALL                             R9 1 -1
-       42 SETLIST                          R7 R8 -1 [1]
-       44 SETTABLEKS                       R7 R6 K10 ["providers"]
-       46 DUPTABLE                         R7 K19 [{"Window"}]
-       47 GETUPVAL                         R8 2
-       48 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       50 LOADK                            R9 K20 ["Frame"]
-       51 DUPTABLE                         R10 K22 [{"Size"}]
-       52 GETIMPORT                        R11 K25 [UDim2.fromOffset]
-       54 LOADN                            R12 1000
-       55 LOADN                            R13 1000
-       56 CALL                             R11 2 1
-       57 SETTABLEKS                       R11 R10 K21 ["Size"]
-       59 MOVE                             R11 R0
-       60 CALL                             R8 3 1
-       61 SETTABLEKS                       R8 R7 K18 ["Window"]
-       63 CALL                             R4 3 1
-       64 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
-       66 CALL                             R1 2 -1
-       67 RETURN                           R1 -1
+       33 GETTABLEKS                       R9 R9 K12 ["MockProvider"]
+       35 CALL                             R8 1 -1
+       36 SETLIST                          R7 R8 -1 [1]
+       38 SETTABLEKS                       R7 R6 K10 ["providers"]
+       40 DUPTABLE                         R7 K14 [{"Window"}]
+       41 GETUPVAL                         R8 2
+       42 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       44 LOADK                            R9 K15 ["Frame"]
+       45 DUPTABLE                         R10 K17 [{"Size"}]
+       46 GETIMPORT                        R11 K20 [UDim2.fromOffset]
+       48 LOADN                            R12 1000
+       49 LOADN                            R13 1000
+       50 CALL                             R11 2 1
+       51 SETTABLEKS                       R11 R10 K16 ["Size"]
+       53 MOVE                             R11 R0
+       54 CALL                             R8 3 1
+       55 SETTABLEKS                       R8 R7 K13 ["Window"]
+       57 CALL                             R4 3 1
+       58 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
+       60 CALL                             R1 2 1
+       61 GETUPVAL                         R2 2
+       62 GETTABLEKS                       R2 R2 K9 ["createElement"]
+       64 GETUPVAL                         R3 5
+       65 DUPTABLE                         R4 K25 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       66 MOVE                             R5 R1
+       67 CALL                             R2 3 -1
+       68 RETURN                           R2 -1
 
 PROTO_16:
         0 GETUPVAL                         R3 0
@@ -444,8 +445,8 @@ MAIN:
        94 CAPTURE                          VAL R12
        95 CAPTURE                          VAL R1
        96 CAPTURE                          VAL R2
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R9
+       97 CAPTURE                          VAL R9
+       98 CAPTURE                          VAL R7
        99 SETTABLEKS                       R14 R13 K32 ["mockContext"]
       101 DUPCLOSURE                       R14 K33 [PROTO_16]
       102 CAPTURE                          VAL R13

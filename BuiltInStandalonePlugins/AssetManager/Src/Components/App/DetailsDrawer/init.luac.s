@@ -57,38 +57,45 @@ PROTO_2:
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
         4 GETTABLEKS                       R3 R3 K1 ["View"]
-        6 DUPTABLE                         R4 K8 [{["LayoutOrder"] = 5, ["tag"] = "col size-full-0 auto-y padding-x-medium padding-y-small", ["testId"] = "details-drawer-footer"}]
-        7 DUPTABLE                         R5 K10 [{"ManageSharing"}]
+        6 DUPTABLE                         R4 K8 [{["LayoutOrder"] = 4, ["tag"] = "col align-x-center gap-small size-full-0 auto-y margin-top-large padding-x-medium", ["testId"] = "details-drawer-empty"}]
+        7 DUPTABLE                         R5 K11 [{"Message", "CloseButton"}]
         8 GETUPVAL                         R6 0
         9 GETTABLEKS                       R6 R6 K0 ["createElement"]
        11 GETUPVAL                         R7 1
-       12 GETTABLEKS                       R7 R7 K11 ["Button"]
-       14 DUPTABLE                         R8 K18 [{["text"], ["variant"], ["size"], ["width"], ["onActivated"], ["testId"] = "details-drawer-manage-sharing"}]
-       15 LOADK                            R11 K19 ["AssetPermission"]
-       16 LOADK                            R12 K9 ["ManageSharing"]
-       17 NAMECALL                         R9 R1 K20 ["getText"]
+       12 GETTABLEKS                       R7 R7 K12 ["Text"]
+       14 DUPTABLE                         R8 K16 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "size-full-0 auto-y text-body-small text-wrap text-align-x-center content-default", ["testId"] = "details-drawer-empty-message"}]
+       15 LOADK                            R11 K17 ["DetailsDrawer"]
+       16 LOADK                            R12 K18 ["EmptyMessage"]
+       17 NAMECALL                         R9 R1 K19 ["getText"]
        19 CALL                             R9 3 1
-       20 SETTABLEKS                       R9 R8 K12 ["text"]
-       22 GETUPVAL                         R9 1
-       23 GETTABLEKS                       R9 R9 K21 ["Enums"]
-       25 GETTABLEKS                       R9 R9 K22 ["ButtonVariant"]
-       27 GETTABLEKS                       R9 R9 K23 ["Standard"]
-       29 SETTABLEKS                       R9 R8 K13 ["variant"]
-       31 GETUPVAL                         R9 1
-       32 GETTABLEKS                       R9 R9 K21 ["Enums"]
-       34 GETTABLEKS                       R9 R9 K24 ["InputSize"]
-       36 GETTABLEKS                       R9 R9 K25 ["Small"]
-       38 SETTABLEKS                       R9 R8 K14 ["size"]
-       40 GETIMPORT                        R9 K28 [UDim.new]
-       42 LOADN                            R10 1
-       43 LOADN                            R11 0
-       44 CALL                             R9 2 1
-       45 SETTABLEKS                       R9 R8 K15 ["width"]
-       47 SETTABLEKS                       R0 R8 K16 ["onActivated"]
-       49 CALL                             R6 2 1
-       50 SETTABLEKS                       R6 R5 K9 ["ManageSharing"]
-       52 CALL                             R2 3 -1
-       53 RETURN                           R2 -1
+       20 SETTABLEKS                       R9 R8 K12 ["Text"]
+       22 CALL                             R6 2 1
+       23 SETTABLEKS                       R6 R5 K9 ["Message"]
+       25 GETUPVAL                         R6 0
+       26 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       28 GETUPVAL                         R7 1
+       29 GETTABLEKS                       R7 R7 K20 ["Button"]
+       31 DUPTABLE                         R8 K27 [{["LayoutOrder"] = 2, ["text"], ["variant"], ["size"], ["onActivated"], ["testId"] = "details-drawer-empty-close-button"}]
+       32 LOADK                            R11 K17 ["DetailsDrawer"]
+       33 LOADK                            R12 K28 ["Close"]
+       34 NAMECALL                         R9 R1 K19 ["getText"]
+       36 CALL                             R9 3 1
+       37 SETTABLEKS                       R9 R8 K22 ["text"]
+       39 GETUPVAL                         R9 1
+       40 GETTABLEKS                       R9 R9 K29 ["Enums"]
+       42 GETTABLEKS                       R9 R9 K30 ["ButtonVariant"]
+       44 GETTABLEKS                       R9 R9 K31 ["Standard"]
+       46 SETTABLEKS                       R9 R8 K23 ["variant"]
+       48 GETUPVAL                         R9 1
+       49 GETTABLEKS                       R9 R9 K29 ["Enums"]
+       51 GETTABLEKS                       R9 R9 K32 ["InputSize"]
+       53 GETTABLEKS                       R9 R9 K33 ["XSmall"]
+       55 SETTABLEKS                       R9 R8 K24 ["size"]
+       57 SETTABLEKS                       R0 R8 K25 ["onActivated"]
+       59 CALL                             R6 2 1
+       60 SETTABLEKS                       R6 R5 K10 ["CloseButton"]
+       62 CALL                             R2 3 -1
+       63 RETURN                           R2 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -186,8 +193,8 @@ PROTO_5:
        89 NAMECALL                         R14 R4 K11 ["getText"]
        91 CALL                             R14 4 1
        92 JUMP                             ; [+5]
-       93 LOADK                            R16 K16 ["ContextMenu"]
-       94 LOADK                            R17 K17 ["ViewDetails"]
+       93 LOADK                            R16 K16 ["DetailsDrawer"]
+       94 LOADK                            R17 K17 ["EmptyTitle"]
        95 NAMECALL                         R14 R4 K11 ["getText"]
        97 CALL                             R14 3 1
        98 LOADB                            R15 0
@@ -224,34 +231,35 @@ PROTO_5:
       140 SETTABLEKS                       R9 R21 K32 ["Assets"]
       142 CALL                             R19 2 1
       143 SETTABLEKS                       R19 R18 K34 ["Body"]
-      145 JUMP                             ; [+28]
-      146 JUMPIFNOT                        R8 ; [+27]
+      145 JUMP                             ; [+30]
+      146 JUMPIFNOT                        R8 ; [+23]
       147 GETUPVAL                         R19 12
       148 GETTABLEKS                       R19 R19 K22 ["createElement"]
       150 GETUPVAL                         R20 15
-      151 DUPTABLE                         R21 K41 [{["LayoutOrder"] = 4, ["Asset"], ["TechnicalDetails"], ["IsLoadingTechnicalDetails"], ["ShowAccessPolicy"], ["Sharing"], ["IsLoadingSharing"]}]
+      151 DUPTABLE                         R21 K42 [{["LayoutOrder"] = 4, ["Asset"], ["TechnicalDetails"], ["IsLoadingTechnicalDetails"], ["ShowAccessPolicy"], ["Sharing"], ["IsLoadingSharing"], ["OnManageSharing"]}]
       152 SETTABLEKS                       R8 R21 K35 ["Asset"]
       154 SETTABLEKS                       R10 R21 K36 ["TechnicalDetails"]
       156 SETTABLEKS                       R11 R21 K37 ["IsLoadingTechnicalDetails"]
       158 SETTABLEKS                       R15 R21 K38 ["ShowAccessPolicy"]
       160 SETTABLEKS                       R16 R21 K39 ["Sharing"]
       162 SETTABLEKS                       R17 R21 K40 ["IsLoadingSharing"]
-      164 CALL                             R19 2 1
-      165 SETTABLEKS                       R19 R18 K34 ["Body"]
-      167 JUMPIFNOT                        R15 ; [+6]
-      168 GETUPVAL                         R19 16
-      169 MOVE                             R20 R13
-      170 MOVE                             R21 R4
-      171 CALL                             R19 2 1
-      172 SETTABLEKS                       R19 R18 K42 ["Footer"]
-      174 GETUPVAL                         R19 12
-      175 GETTABLEKS                       R19 R19 K22 ["createElement"]
-      177 GETUPVAL                         R20 13
-      178 GETTABLEKS                       R20 R20 K43 ["View"]
-      180 DUPTABLE                         R21 K48 [{["tag"] = "col size-full bg-surface-100", ["testId"] = "details-drawer"}]
-      181 MOVE                             R22 R18
-      182 CALL                             R19 3 -1
-      183 RETURN                           R19 -1
+      164 SETTABLEKS                       R13 R21 K41 ["OnManageSharing"]
+      166 CALL                             R19 2 1
+      167 SETTABLEKS                       R19 R18 K34 ["Body"]
+      169 JUMP                             ; [+6]
+      170 GETUPVAL                         R19 16
+      171 MOVE                             R20 R12
+      172 MOVE                             R21 R4
+      173 CALL                             R19 2 1
+      174 SETTABLEKS                       R19 R18 K34 ["Body"]
+      176 GETUPVAL                         R19 12
+      177 GETTABLEKS                       R19 R19 K22 ["createElement"]
+      179 GETUPVAL                         R20 13
+      180 GETTABLEKS                       R20 R20 K43 ["View"]
+      182 DUPTABLE                         R21 K48 [{["tag"] = "col size-full bg-surface-100", ["testId"] = "details-drawer"}]
+      183 MOVE                             R22 R18
+      184 CALL                             R19 3 -1
+      185 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0

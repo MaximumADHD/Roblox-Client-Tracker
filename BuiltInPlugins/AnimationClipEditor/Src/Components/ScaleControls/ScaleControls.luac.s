@@ -326,13 +326,13 @@ PROTO_6:
        12 GETUPVAL                         R4 1
        13 CALL                             R4 0 1
        14 JUMPIFNOT                        R4 ; [+2]
-       15 LOADK                            R3 K4 [∞]
+       15 LOADK                            R3 K4 [Infinity]
        16 JUMP                             ; [+1]
        17 LOADNIL                          R3
        18 GETUPVAL                         R5 1
        19 CALL                             R5 0 1
        20 JUMPIFNOT                        R5 ; [+2]
-       21 LOADK                            R4 K5 [-∞]
+       21 LOADK                            R4 K5 [-Infinity]
        22 JUMP                             ; [+1]
        23 LOADNIL                          R4
        24 NEWCLOSURE                       R5 P0
@@ -404,12 +404,12 @@ PROTO_6:
       105 DUPTABLE                         R6 K15 [{"earliestKeyframe", "latestKeyframe", "topSelectedChannelIndex", "bottomSelectedChannelIndex"}]
       106 SETTABLEKS                       R0 R6 K11 ["earliestKeyframe"]
       108 SETTABLEKS                       R1 R6 K12 ["latestKeyframe"]
-      110 JUMPIFEQKN                       R3 K4 [∞] ; [+3]
+      110 JUMPIFEQKN                       R3 K4 [Infinity] ; [+3]
       112 MOVE                             R7 R3
       113 JUMP                             ; [+1]
       114 LOADNIL                          R7
       115 SETTABLEKS                       R7 R6 K13 ["topSelectedChannelIndex"]
-      117 JUMPIFEQKN                       R4 K5 [-∞] ; [+3]
+      117 JUMPIFEQKN                       R4 K5 [-Infinity] ; [+3]
       119 MOVE                             R7 R4
       120 JUMP                             ; [+1]
       121 LOADNIL                          R7

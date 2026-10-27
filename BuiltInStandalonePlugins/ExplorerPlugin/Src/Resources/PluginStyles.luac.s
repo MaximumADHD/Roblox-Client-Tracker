@@ -114,7 +114,7 @@ MAIN:
       160 DUPTABLE                         R23 K65 [{"MaxSize"}]
       161 GETIMPORT                        R24 K68 [Vector2.new]
       163 LOADN                            R25 400
-      164 LOADK                            R26 K69 [∞]
+      164 LOADK                            R26 K69 [Infinity]
       165 CALL                             R24 2 1
       166 SETTABLEKS                       R24 R23 K64 ["MaxSize"]
       168 CALL                             R21 2 -1

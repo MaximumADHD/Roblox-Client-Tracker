@@ -17,7 +17,7 @@ PROTO_0:
        22 SETTABLEKS                       R1 R0 K7 ["windScaleFactor"]
        24 LOADN                            R1 0
        25 SETTABLEKS                       R1 R0 K8 ["spinX"]
-       27 LOADK                            R1 K9 [1.5707963267949]
+       27 LOADK                            R1 K9 [1.5707963267948966]
        28 SETTABLEKS                       R1 R0 K10 ["spinY"]
        30 GETIMPORT                        R1 K12 [workspace]
        32 GETTABLEKS                       R1 R1 K13 ["GlobalWind"]
@@ -198,7 +198,7 @@ PROTO_2:
        42 GETTABLEKS                       R3 R1 K10 ["z"]
        44 LOADN                            R4 0
        45 JUMPIFNOTLT                      R3 R4 ; [+2]
-       47 LOADK                            R2 K11 [3.14159265358979]
+       47 LOADK                            R2 K11 [3.141592653589793]
        48 GETTABLEKS                       R3 R1 K10 ["z"]
        50 JUMPIFEQKN                       R3 K12 [0] ; [+14]
        52 GETTABLEKS                       R6 R1 K13 ["x"]
@@ -213,10 +213,10 @@ PROTO_2:
        65 GETTABLEKS                       R3 R1 K13 ["x"]
        67 LOADN                            R4 0
        68 JUMPIFNOTLT                      R4 R3 ; [+5]
-       70 ADDK                             R3 R2 K18 [1.5707963267949]
+       70 ADDK                             R3 R2 K18 [1.5707963267948966]
        71 SETTABLEKS                       R3 R0 K17 ["spinY"]
        73 JUMP                             ; [+3]
-       74 SUBK                             R3 R2 K18 [1.5707963267949]
+       74 SUBK                             R3 R2 K18 [1.5707963267948966]
        75 SETTABLEKS                       R3 R0 K17 ["spinY"]
        77 GETTABLEKS                       R6 R1 K19 ["y"]
        79 MINUS                            R5 R6

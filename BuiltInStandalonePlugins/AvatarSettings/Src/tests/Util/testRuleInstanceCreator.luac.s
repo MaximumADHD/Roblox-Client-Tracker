@@ -105,7 +105,7 @@ PROTO_2:
        11 GETUPVAL                         R1 1
        12 CALL                             R1 0 1
        13 JUMPIFNOT                        R1 ; [+3]
-       14 LOADB                            R1 1
+       14 LOADB                            R1 0
        15 SETTABLEKS                       R1 R0 K8 ["BodyPartsCollidableOnDeath"]
        17 RETURN                           R0 1
 

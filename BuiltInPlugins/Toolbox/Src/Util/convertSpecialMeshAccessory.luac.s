@@ -28,83 +28,88 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 MOVE                             R2 R0
-        2 CALL                             R1 1 1
-        3 JUMPIFNOT                        R1 ; [+1]
-        4 RETURN                           R0 1
-        5 GETIMPORT                        R1 K2 [Instance.new]
-        7 LOADK                            R2 K3 ["Accessory"]
-        8 CALL                             R1 1 1
-        9 GETTABLEKS                       R2 R0 K4 ["Name"]
-       11 SETTABLEKS                       R2 R1 K4 ["Name"]
-       13 GETTABLEKS                       R2 R0 K5 ["Parent"]
-       15 SETTABLEKS                       R2 R1 K5 ["Parent"]
-       17 GETTABLEKS                       R2 R0 K6 ["Handle"]
-       19 LOADK                            R5 K7 ["SpecialMesh"]
-       20 NAMECALL                         R3 R2 K8 ["FindFirstChildOfClass"]
-       22 CALL                             R3 2 1
-       23 GETIMPORT                        R4 K2 [Instance.new]
-       25 LOADK                            R5 K9 ["MeshPart"]
-       26 CALL                             R4 1 1
-       27 LOADK                            R5 K6 ["Handle"]
-       28 SETTABLEKS                       R5 R4 K4 ["Name"]
-       30 GETTABLEKS                       R5 R3 K10 ["TextureId"]
-       32 SETTABLEKS                       R5 R4 K11 ["TextureID"]
-       34 SETTABLEKS                       R1 R4 K5 ["Parent"]
-       36 GETUPVAL                         R5 1
-       37 MOVE                             R7 R4
-       38 GETTABLEKS                       R8 R3 K12 ["MeshId"]
-       40 NAMECALL                         R5 R5 K13 ["SetMeshIdBlocking"]
-       42 CALL                             R5 3 0
-       43 GETTABLEKS                       R6 R4 K14 ["Size"]
-       45 GETTABLEKS                       R7 R3 K15 ["Scale"]
-       47 MUL                              R5 R6 R7
-       48 SETTABLEKS                       R5 R4 K14 ["Size"]
-       50 GETTABLEKS                       R5 R2 K16 ["CFrame"]
-       52 SETTABLEKS                       R5 R4 K16 ["CFrame"]
-       54 GETIMPORT                        R5 K18 [pairs]
-       56 NAMECALL                         R6 R2 K19 ["GetChildren"]
-       58 CALL                             R6 1 -1
-       59 CALL                             R5 -1 3
-       60 FORGPREP_NEXT                    R5
-       61 LOADK                            R12 K7 ["SpecialMesh"]
-       62 NAMECALL                         R10 R9 K20 ["IsA"]
-       64 CALL                             R10 2 1
-       65 JUMPIF                           R10 ; [+5]
-       66 NAMECALL                         R10 R9 K21 ["Clone"]
-       68 CALL                             R10 1 1
-       69 SETTABLEKS                       R4 R10 K5 ["Parent"]
-       71 FORGLOOP                         R5 2 ; [-11]
-       73 LOADK                            R7 K22 ["ThumbnailConfiguration"]
-       74 NAMECALL                         R5 R0 K23 ["FindFirstChild"]
-       76 CALL                             R5 2 1
-       77 JUMPIFNOT                        R5 ; [+34]
-       78 LOADK                            R8 K24 ["Configuration"]
-       79 NAMECALL                         R6 R5 K20 ["IsA"]
-       81 CALL                             R6 2 1
-       82 JUMPIFNOT                        R6 ; [+29]
-       83 LOADK                            R8 K25 ["ThumbnailCameraTarget"]
-       84 NAMECALL                         R6 R5 K23 ["FindFirstChild"]
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+2]
+        3 LOADNIL                          R1
+        4 RETURN                           R1 1
+        5 GETUPVAL                         R1 1
+        6 MOVE                             R2 R0
+        7 CALL                             R1 1 1
+        8 JUMPIFNOT                        R1 ; [+1]
+        9 RETURN                           R0 1
+       10 GETIMPORT                        R1 K2 [Instance.new]
+       12 LOADK                            R2 K3 ["Accessory"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R0 K4 ["Name"]
+       16 SETTABLEKS                       R2 R1 K4 ["Name"]
+       18 GETTABLEKS                       R2 R0 K5 ["Parent"]
+       20 SETTABLEKS                       R2 R1 K5 ["Parent"]
+       22 GETTABLEKS                       R2 R0 K6 ["Handle"]
+       24 LOADK                            R5 K7 ["SpecialMesh"]
+       25 NAMECALL                         R3 R2 K8 ["FindFirstChildOfClass"]
+       27 CALL                             R3 2 1
+       28 GETIMPORT                        R4 K2 [Instance.new]
+       30 LOADK                            R5 K9 ["MeshPart"]
+       31 CALL                             R4 1 1
+       32 LOADK                            R5 K6 ["Handle"]
+       33 SETTABLEKS                       R5 R4 K4 ["Name"]
+       35 GETTABLEKS                       R5 R3 K10 ["TextureId"]
+       37 SETTABLEKS                       R5 R4 K11 ["TextureID"]
+       39 SETTABLEKS                       R1 R4 K5 ["Parent"]
+       41 GETUPVAL                         R5 2
+       42 MOVE                             R7 R4
+       43 GETTABLEKS                       R8 R3 K12 ["MeshId"]
+       45 NAMECALL                         R5 R5 K13 ["SetMeshIdBlocking"]
+       47 CALL                             R5 3 0
+       48 GETTABLEKS                       R6 R4 K14 ["Size"]
+       50 GETTABLEKS                       R7 R3 K15 ["Scale"]
+       52 MUL                              R5 R6 R7
+       53 SETTABLEKS                       R5 R4 K14 ["Size"]
+       55 GETTABLEKS                       R5 R2 K16 ["CFrame"]
+       57 SETTABLEKS                       R5 R4 K16 ["CFrame"]
+       59 GETIMPORT                        R5 K18 [pairs]
+       61 NAMECALL                         R6 R2 K19 ["GetChildren"]
+       63 CALL                             R6 1 -1
+       64 CALL                             R5 -1 3
+       65 FORGPREP_NEXT                    R5
+       66 LOADK                            R12 K7 ["SpecialMesh"]
+       67 NAMECALL                         R10 R9 K20 ["IsA"]
+       69 CALL                             R10 2 1
+       70 JUMPIF                           R10 ; [+5]
+       71 NAMECALL                         R10 R9 K21 ["Clone"]
+       73 CALL                             R10 1 1
+       74 SETTABLEKS                       R4 R10 K5 ["Parent"]
+       76 FORGLOOP                         R5 2 ; [-11]
+       78 LOADK                            R7 K22 ["ThumbnailConfiguration"]
+       79 NAMECALL                         R5 R0 K23 ["FindFirstChild"]
+       81 CALL                             R5 2 1
+       82 JUMPIFNOT                        R5 ; [+34]
+       83 LOADK                            R8 K24 ["Configuration"]
+       84 NAMECALL                         R6 R5 K20 ["IsA"]
        86 CALL                             R6 2 1
-       87 LOADK                            R9 K26 ["ThumbnailCameraValue"]
-       88 NAMECALL                         R7 R5 K23 ["FindFirstChild"]
-       90 CALL                             R7 2 1
-       91 JUMPIFNOT                        R6 ; [+20]
-       92 LOADK                            R10 K27 ["ObjectValue"]
-       93 NAMECALL                         R8 R6 K20 ["IsA"]
-       95 CALL                             R8 2 1
-       96 JUMPIFNOT                        R8 ; [+15]
-       97 JUMPIFNOT                        R7 ; [+14]
-       98 LOADK                            R10 K28 ["CFrameValue"]
-       99 NAMECALL                         R8 R7 K20 ["IsA"]
-      101 CALL                             R8 2 1
-      102 JUMPIFNOT                        R8 ; [+9]
-      103 NAMECALL                         R8 R5 K21 ["Clone"]
-      105 CALL                             R8 1 1
-      106 GETTABLEKS                       R9 R8 K25 ["ThumbnailCameraTarget"]
-      108 SETTABLEKS                       R4 R9 K29 ["Value"]
-      110 SETTABLEKS                       R1 R8 K5 ["Parent"]
-      112 RETURN                           R1 1
+       87 JUMPIFNOT                        R6 ; [+29]
+       88 LOADK                            R8 K25 ["ThumbnailCameraTarget"]
+       89 NAMECALL                         R6 R5 K23 ["FindFirstChild"]
+       91 CALL                             R6 2 1
+       92 LOADK                            R9 K26 ["ThumbnailCameraValue"]
+       93 NAMECALL                         R7 R5 K23 ["FindFirstChild"]
+       95 CALL                             R7 2 1
+       96 JUMPIFNOT                        R6 ; [+20]
+       97 LOADK                            R10 K27 ["ObjectValue"]
+       98 NAMECALL                         R8 R6 K20 ["IsA"]
+      100 CALL                             R8 2 1
+      101 JUMPIFNOT                        R8 ; [+15]
+      102 JUMPIFNOT                        R7 ; [+14]
+      103 LOADK                            R10 K28 ["CFrameValue"]
+      104 NAMECALL                         R8 R7 K20 ["IsA"]
+      106 CALL                             R8 2 1
+      107 JUMPIFNOT                        R8 ; [+9]
+      108 NAMECALL                         R8 R5 K21 ["Clone"]
+      110 CALL                             R8 1 1
+      111 GETTABLEKS                       R9 R8 K25 ["ThumbnailCameraTarget"]
+      113 SETTABLEKS                       R4 R9 K29 ["Value"]
+      115 SETTABLEKS                       R1 R8 K5 ["Parent"]
+      117 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -112,8 +117,18 @@ MAIN:
         3 LOADK                            R2 K2 ["UGCValidationService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 DUPCLOSURE                       R1 K4 [PROTO_0]
-        8 DUPCLOSURE                       R2 K5 [PROTO_1]
-        9 CAPTURE                          VAL R1
-       10 CAPTURE                          VAL R0
-       11 RETURN                           R2 1
+        7 GETIMPORT                        R1 K5 [script]
+        9 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       15 GETIMPORT                        R2 K8 [require]
+       17 GETTABLEKS                       R3 R1 K9 ["Src"]
+       19 GETTABLEKS                       R3 R3 K10 ["Flags"]
+       21 GETTABLEKS                       R3 R3 K11 ["getFFlagToolboxRemoveLegacyCatalogUpload"]
+       23 CALL                             R2 1 1
+       24 DUPCLOSURE                       R3 K12 [PROTO_0]
+       25 DUPCLOSURE                       R4 K13 [PROTO_1]
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          VAL R3
+       28 CAPTURE                          VAL R0
+       29 RETURN                           R4 1

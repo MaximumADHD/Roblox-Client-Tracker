@@ -36,7 +36,7 @@ PROTO_2:
        35 GETTABLEKS                       R9 R9 K13 ["failLabelPaddingX"]
        37 SUB                              R7 R8 R9
        38 JUMPIF                           R7 ; [+1]
-       39 LOADK                            R7 K14 [∞]
+       39 LOADK                            R7 K14 [Infinity]
        40 GETUPVAL                         R8 0
        41 MOVE                             R10 R5
        42 GETTABLEKS                       R11 R2 K15 ["fontStyle"]
@@ -47,7 +47,7 @@ PROTO_2:
        52 GETTABLEKS                       R12 R12 K18 ["Font"]
        54 GETIMPORT                        R13 K21 [Vector2.new]
        56 MOVE                             R14 R7
-       57 LOADK                            R15 K14 [∞]
+       57 LOADK                            R15 K14 [Infinity]
        58 CALL                             R13 2 -1
        59 NAMECALL                         R8 R8 K22 ["GetTextSize"]
        61 CALL                             R8 -1 1
@@ -60,8 +60,8 @@ PROTO_2:
        72 GETTABLEKS                       R13 R13 K16 ["Normal"]
        74 GETTABLEKS                       R13 R13 K18 ["Font"]
        76 GETIMPORT                        R14 K21 [Vector2.new]
-       78 LOADK                            R15 K14 [∞]
-       79 LOADK                            R16 K14 [∞]
+       78 LOADK                            R15 K14 [Infinity]
+       79 LOADK                            R16 K14 [Infinity]
        80 CALL                             R14 2 -1
        81 NAMECALL                         R9 R9 K22 ["GetTextSize"]
        83 CALL                             R9 -1 1

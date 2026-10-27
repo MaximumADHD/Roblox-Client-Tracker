@@ -59,32 +59,18 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 LOADK                            R2 K0 ["AssistantApplication"]
-        2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
-        4 CALL                             R0 2 -1
-        5 RETURN                           R0 -1
-
-PROTO_6:
-        0 GETUPVAL                         R0 0
         1 JUMPIFEQKNIL                     R0 ; [+3]
         3 GETUPVAL                         R0 0
         4 RETURN                           R0 1
-        5 GETIMPORT                        R0 K1 [pcall]
-        7 NEWCLOSURE                       R1 P0
-        8 CAPTURE                          UPVAL U1
-        9 CALL                             R0 1 2
-       10 JUMPIFNOT                        R0 ; [+1]
-       11 JUMPIF                           R1 ; [+6]
-       12 GETIMPORT                        R2 K3 [warn]
-       14 LOADK                            R3 K4 ["[Gen3d] AssistantApplication plugin component unavailable; seed-image capture disabled"]
-       15 CALL                             R2 1 0
-       16 LOADNIL                          R2
-       17 RETURN                           R2 1
-       18 SETUPVAL                         R1 0
-       19 GETUPVAL                         R2 0
-       20 RETURN                           R2 1
+        5 GETUPVAL                         R0 1
+        6 LOADK                            R2 K0 ["AssistantApplication"]
+        7 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
+        9 CALL                             R0 2 1
+       10 SETUPVAL                         R0 0
+       11 GETUPVAL                         R0 0
+       12 RETURN                           R0 1
 
-PROTO_7:
+PROTO_6:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["captureSinglePreviewImageAsync"]
         3 GETUPVAL                         R4 1
@@ -103,7 +89,7 @@ PROTO_7:
        20 CALL                             R3 5 -1
        21 RETURN                           R3 -1
 
-PROTO_8:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["CurrentCamera"]
         3 JUMPIFNOTEQKNIL                  R0 ; [+3]
@@ -122,79 +108,57 @@ PROTO_8:
        26 SETTABLEKS                       R2 R1 K4 ["viewportHeightPx"]
        28 RETURN                           R1 1
 
-PROTO_9:
+PROTO_8:
         0 RETURN                           R0 0
 
-PROTO_10:
+PROTO_9:
         0 GETUPVAL                         R3 0
         1 JUMPIFEQKNIL                     R3 ; [+3]
         3 GETUPVAL                         R2 0
-        4 JUMP                             ; [+15]
-        5 GETIMPORT                        R3 K1 [pcall]
-        7 NEWCLOSURE                       R4 P0
-        8 CAPTURE                          UPVAL U1
-        9 CALL                             R3 1 2
-       10 JUMPIFNOT                        R3 ; [+1]
-       11 JUMPIF                           R4 ; [+6]
-       12 GETIMPORT                        R5 K3 [warn]
-       14 LOADK                            R6 K4 ["[Gen3d] AssistantApplication plugin component unavailable; seed-image capture disabled"]
-       15 CALL                             R5 1 0
-       16 LOADNIL                          R2
-       17 JUMP                             ; [+2]
-       18 SETUPVAL                         R4 0
-       19 GETUPVAL                         R2 0
-       20 JUMPIFNOTEQKNIL                  R2 ; [+5]
-       22 GETIMPORT                        R3 K6 [error]
-       24 LOADK                            R4 K7 ["AssistantApplication plugin component unavailable"]
-       25 CALL                             R3 1 0
-       26 MOVE                             R5 R0
-       27 MOVE                             R6 R1
-       28 NAMECALL                         R3 R2 K8 ["GetImageDataBase64Async"]
-       30 CALL                             R3 3 -1
-       31 RETURN                           R3 -1
+        4 JUMP                             ; [+7]
+        5 GETUPVAL                         R3 1
+        6 LOADK                            R5 K0 ["AssistantApplication"]
+        7 NAMECALL                         R3 R3 K1 ["GetPluginComponent"]
+        9 CALL                             R3 2 1
+       10 SETUPVAL                         R3 0
+       11 GETUPVAL                         R2 0
+       12 MOVE                             R5 R0
+       13 MOVE                             R6 R1
+       14 NAMECALL                         R3 R2 K2 ["GetImageDataBase64Async"]
+       16 CALL                             R3 3 -1
+       17 RETURN                           R3 -1
 
-PROTO_11:
+PROTO_10:
         0 GETUPVAL                         R2 0
         1 JUMPIFEQKNIL                     R2 ; [+3]
         3 GETUPVAL                         R1 0
-        4 JUMP                             ; [+15]
-        5 GETIMPORT                        R2 K1 [pcall]
-        7 NEWCLOSURE                       R3 P0
-        8 CAPTURE                          UPVAL U1
-        9 CALL                             R2 1 2
-       10 JUMPIFNOT                        R2 ; [+1]
-       11 JUMPIF                           R3 ; [+6]
-       12 GETIMPORT                        R4 K3 [warn]
-       14 LOADK                            R5 K4 ["[Gen3d] AssistantApplication plugin component unavailable; seed-image capture disabled"]
-       15 CALL                             R4 1 0
-       16 LOADNIL                          R1
-       17 JUMP                             ; [+2]
-       18 SETUPVAL                         R3 0
-       19 GETUPVAL                         R1 0
-       20 JUMPIFNOTEQKNIL                  R1 ; [+5]
-       22 GETIMPORT                        R2 K6 [error]
-       24 LOADK                            R3 K7 ["AssistantApplication plugin component unavailable"]
-       25 CALL                             R2 1 0
-       26 MOVE                             R4 R0
-       27 NAMECALL                         R2 R1 K8 ["ConvertImageDataToTempIdAsync"]
-       29 CALL                             R2 2 -1
-       30 RETURN                           R2 -1
+        4 JUMP                             ; [+7]
+        5 GETUPVAL                         R2 1
+        6 LOADK                            R4 K0 ["AssistantApplication"]
+        7 NAMECALL                         R2 R2 K1 ["GetPluginComponent"]
+        9 CALL                             R2 2 1
+       10 SETUPVAL                         R2 0
+       11 GETUPVAL                         R1 0
+       12 MOVE                             R4 R0
+       13 NAMECALL                         R2 R1 K2 ["ConvertImageDataToTempIdAsync"]
+       15 CALL                             R2 2 -1
+       16 RETURN                           R2 -1
 
-PROTO_12:
+PROTO_11:
         0 LOADNIL                          R1
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          REF R1
         3 CAPTURE                          VAL R0
         4 DUPTABLE                         R3 K5 [{"captureSinglePreviewImageAsync", "getStudioCamera", "capturePreviewImages", "getImageDataBase64Async", "convertImageDataToTempIdAsync"}]
-        5 DUPCLOSURE                       R4 K6 [PROTO_7]
+        5 DUPCLOSURE                       R4 K6 [PROTO_6]
         6 CAPTURE                          UPVAL U0
         7 CAPTURE                          UPVAL U1
         8 CAPTURE                          UPVAL U2
         9 SETTABLEKS                       R4 R3 K0 ["captureSinglePreviewImageAsync"]
-       11 DUPCLOSURE                       R4 K7 [PROTO_8]
+       11 DUPCLOSURE                       R4 K7 [PROTO_7]
        12 CAPTURE                          UPVAL U3
        13 SETTABLEKS                       R4 R3 K1 ["getStudioCamera"]
-       15 DUPCLOSURE                       R4 K8 [PROTO_9]
+       15 DUPCLOSURE                       R4 K8 [PROTO_8]
        16 SETTABLEKS                       R4 R3 K2 ["capturePreviewImages"]
        18 NEWCLOSURE                       R4 P4
        19 CAPTURE                          REF R1
@@ -250,7 +214,7 @@ MAIN:
        58 SETTABLEKS                       R9 R8 K22 ["captureSnapshotAsync"]
        60 DUPCLOSURE                       R9 K27 [PROTO_4]
        61 CAPTURE                          VAL R5
-       62 DUPCLOSURE                       R10 K28 [PROTO_12]
+       62 DUPCLOSURE                       R10 K28 [PROTO_11]
        63 CAPTURE                          VAL R6
        64 CAPTURE                          VAL R8
        65 CAPTURE                          VAL R5

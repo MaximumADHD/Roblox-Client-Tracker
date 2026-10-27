@@ -946,7 +946,7 @@ PROTO_26:
        52 JUMPIFEQKN                       R8 K14 [1] ; [+12]
        54 LOADB                            R7 0
        55 GETTABLEKS                       R8 R6 K8 ["X"]
-       57 JUMPIFNOTEQKN                    R8 K15 [0] ; [+7]
+       57 JUMPIFNOTEQKN                    R8 K15 [-0] ; [+7]
        59 GETTABLEKS                       R8 R6 K12 ["Y"]
        61 JUMPIFEQKN                       R8 K16 [0] ; [+2]
        63 LOADB                            R7 0 +1

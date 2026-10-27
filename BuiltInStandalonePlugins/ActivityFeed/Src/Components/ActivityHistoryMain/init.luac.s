@@ -920,7 +920,7 @@ PROTO_23:
       615 SETTABLEKS                       R45 R44 K76 ["Vlref"]
       617 GETTABLEKS                       R45 R25 K77 ["eventList"]
       619 SETTABLEKS                       R45 R44 K78 ["Events"]
-      621 LOADK                            R45 K79 [∞]
+      621 LOADK                            R45 K79 [Infinity]
       622 SETTABLEKS                       R45 R44 K80 ["IndexOffset"]
       624 SETTABLEKS                       R14 R44 K81 ["OnViewableItemsChanged"]
       626 GETTABLEKS                       R45 R25 K82 ["onScroll"]

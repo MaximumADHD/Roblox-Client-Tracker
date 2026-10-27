@@ -22,65 +22,64 @@ PROTO_2:
         9 MOVE                             R3 R0
        10 GETUPVAL                         R4 1
        11 GETUPVAL                         R5 2
-       12 GETUPVAL                         R6 3
-       13 CALL                             R4 2 1
-       14 DUPTABLE                         R5 K19 [{["openInsertObjectMenuAsync"], ["getInstanceId"], ["listenForVisibilityChanges"], ["instancePicker"], ["streamingInterface"], ["isServiceVisible"], ["clickScript"], ["DEPRECATED_openScript"], ["instanceOpener"], ["fieldsConfig"], ["enableOpenContextMenuDelayHack"] = True, ["DEBUG_dataModelType"], ["DEBUG_startTime"]}]
-       15 NEWCLOSURE                       R6 P0
-       16 CAPTURE                          UPVAL U4
-       17 CAPTURE                          UPVAL U2
-       18 SETTABLEKS                       R6 R5 K5 ["openInsertObjectMenuAsync"]
-       20 GETIMPORT                        R7 K4 [game]
-       22 GETTABLEKS                       R7 R7 K20 ["UniqueId"]
-       24 JUMPIFNOTEQKS                    R7 K21 ["00000000-0000-0000-0000-000000000000"] ; [+3]
-       26 LOADNIL                          R6
-       27 JUMP                             ; [+2]
-       28 DUPCLOSURE                       R6 K22 [PROTO_1]
-       29 CAPTURE                          UPVAL U5
-       30 SETTABLEKS                       R6 R5 K6 ["getInstanceId"]
-       32 GETUPVAL                         R6 6
-       33 SETTABLEKS                       R6 R5 K7 ["listenForVisibilityChanges"]
-       35 GETUPVAL                         R6 7
-       36 SETTABLEKS                       R6 R5 K8 ["instancePicker"]
-       38 GETUPVAL                         R7 0
-       39 GETTABLEKS                       R7 R7 K23 ["Flags"]
-       41 GETTABLEKS                       R7 R7 K24 ["getFFlagExplorerStreaming"]
-       43 CALL                             R7 0 1
-       44 JUMPIFNOT                        R7 ; [+3]
-       45 GETUPVAL                         R6 8
-       46 CALL                             R6 0 1
-       47 JUMP                             ; [+1]
-       48 LOADNIL                          R6
-       49 SETTABLEKS                       R6 R5 K9 ["streamingInterface"]
-       51 GETUPVAL                         R6 9
-       52 SETTABLEKS                       R6 R5 K10 ["isServiceVisible"]
-       54 GETUPVAL                         R7 10
-       55 CALL                             R7 0 1
-       56 JUMPIFNOT                        R7 ; [+2]
-       57 GETUPVAL                         R6 11
-       58 JUMP                             ; [+1]
-       59 LOADNIL                          R6
-       60 SETTABLEKS                       R6 R5 K11 ["clickScript"]
-       62 GETUPVAL                         R6 12
-       63 SETTABLEKS                       R6 R5 K12 ["DEPRECATED_openScript"]
-       65 GETUPVAL                         R6 13
-       66 SETTABLEKS                       R6 R5 K13 ["instanceOpener"]
-       68 DUPTABLE                         R6 K28 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
-       69 GETUPVAL                         R7 14
-       70 SETTABLEKS                       R7 R6 K25 ["createLiveSyncStatusWatcher"]
-       72 GETUPVAL                         R7 15
-       73 SETTABLEKS                       R7 R6 K26 ["createInstanceFileSyncStatusWatcher"]
-       75 GETUPVAL                         R7 16
-       76 SETTABLEKS                       R7 R6 K27 ["createCollaboratorSelectionWatcher"]
-       78 SETTABLEKS                       R6 R5 K14 ["fieldsConfig"]
-       80 GETUPVAL                         R6 2
-       81 GETTABLEKS                       R6 R6 K29 ["HostDataModelType"]
-       83 GETTABLEKS                       R6 R6 K30 ["Name"]
-       85 SETTABLEKS                       R6 R5 K17 ["DEBUG_dataModelType"]
-       87 GETIMPORT                        R6 K33 [os.clock]
-       89 CALL                             R6 0 1
-       90 SETTABLEKS                       R6 R5 K18 ["DEBUG_startTime"]
-       92 CALL                             R1 4 -1
-       93 RETURN                           R1 -1
+       12 CALL                             R4 1 1
+       13 DUPTABLE                         R5 K17 [{"openInsertObjectMenuAsync", "getInstanceId", "listenForVisibilityChanges", "instancePicker", "streamingInterface", "isServiceVisible", "clickScript", "DEPRECATED_openScript", "instanceOpener", "fieldsConfig", "DEBUG_dataModelType", "DEBUG_startTime"}]
+       14 NEWCLOSURE                       R6 P0
+       15 CAPTURE                          UPVAL U3
+       16 CAPTURE                          UPVAL U2
+       17 SETTABLEKS                       R6 R5 K5 ["openInsertObjectMenuAsync"]
+       19 GETIMPORT                        R7 K4 [game]
+       21 GETTABLEKS                       R7 R7 K18 ["UniqueId"]
+       23 JUMPIFNOTEQKS                    R7 K19 ["00000000-0000-0000-0000-000000000000"] ; [+3]
+       25 LOADNIL                          R6
+       26 JUMP                             ; [+2]
+       27 DUPCLOSURE                       R6 K20 [PROTO_1]
+       28 CAPTURE                          UPVAL U4
+       29 SETTABLEKS                       R6 R5 K6 ["getInstanceId"]
+       31 GETUPVAL                         R6 5
+       32 SETTABLEKS                       R6 R5 K7 ["listenForVisibilityChanges"]
+       34 GETUPVAL                         R6 6
+       35 SETTABLEKS                       R6 R5 K8 ["instancePicker"]
+       37 GETUPVAL                         R7 0
+       38 GETTABLEKS                       R7 R7 K21 ["Flags"]
+       40 GETTABLEKS                       R7 R7 K22 ["getFFlagExplorerStreaming"]
+       42 CALL                             R7 0 1
+       43 JUMPIFNOT                        R7 ; [+3]
+       44 GETUPVAL                         R6 7
+       45 CALL                             R6 0 1
+       46 JUMP                             ; [+1]
+       47 LOADNIL                          R6
+       48 SETTABLEKS                       R6 R5 K9 ["streamingInterface"]
+       50 GETUPVAL                         R6 8
+       51 SETTABLEKS                       R6 R5 K10 ["isServiceVisible"]
+       53 GETUPVAL                         R7 9
+       54 CALL                             R7 0 1
+       55 JUMPIFNOT                        R7 ; [+2]
+       56 GETUPVAL                         R6 10
+       57 JUMP                             ; [+1]
+       58 LOADNIL                          R6
+       59 SETTABLEKS                       R6 R5 K11 ["clickScript"]
+       61 GETUPVAL                         R6 11
+       62 SETTABLEKS                       R6 R5 K12 ["DEPRECATED_openScript"]
+       64 GETUPVAL                         R6 12
+       65 SETTABLEKS                       R6 R5 K13 ["instanceOpener"]
+       67 DUPTABLE                         R6 K26 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
+       68 GETUPVAL                         R7 13
+       69 SETTABLEKS                       R7 R6 K23 ["createLiveSyncStatusWatcher"]
+       71 GETUPVAL                         R7 14
+       72 SETTABLEKS                       R7 R6 K24 ["createInstanceFileSyncStatusWatcher"]
+       74 GETUPVAL                         R7 15
+       75 SETTABLEKS                       R7 R6 K25 ["createCollaboratorSelectionWatcher"]
+       77 SETTABLEKS                       R6 R5 K14 ["fieldsConfig"]
+       79 GETUPVAL                         R6 2
+       80 GETTABLEKS                       R6 R6 K27 ["HostDataModelType"]
+       82 GETTABLEKS                       R6 R6 K28 ["Name"]
+       84 SETTABLEKS                       R6 R5 K15 ["DEBUG_dataModelType"]
+       86 GETIMPORT                        R6 K31 [os.clock]
+       88 CALL                             R6 0 1
+       89 SETTABLEKS                       R6 R5 K16 ["DEBUG_startTime"]
+       91 CALL                             R1 4 -1
+       92 RETURN                           R1 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -97,15 +96,7 @@ PROTO_3:
        11 JUMPIFNOT                        R0 ; [+2]
        12 GETUPVAL                         R0 5
        13 CALL                             R0 0 0
-       14 GETUPVAL                         R0 6
-       15 GETTABLEKS                       R0 R0 K0 ["Flags"]
-       17 GETTABLEKS                       R0 R0 K1 ["getFFlagExplorerFixContextMenu"]
-       19 CALL                             R0 0 1
-       20 JUMPIF                           R0 ; [+4]
-       21 GETUPVAL                         R0 7
-       22 GETTABLEKS                       R0 R0 K2 ["destroy"]
-       24 CALL                             R0 0 0
-       25 RETURN                           R0 0
+       14 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R1 K1 [warn]
@@ -164,100 +155,85 @@ PROTO_5:
         6 CAPTURE                          UPVAL U3
         7 CAPTURE                          UPVAL U4
         8 CAPTURE                          UPVAL U5
-        9 CAPTURE                          UPVAL U6
-       10 CAPTURE                          UPVAL U7
-       11 NEWCLOSURE                       R2 P1
-       12 CAPTURE                          UPVAL U8
-       13 CAPTURE                          UPVAL U9
-       14 CALL                             R0 2 0
-       15 RETURN                           R0 0
+        9 NEWCLOSURE                       R2 P1
+       10 CAPTURE                          UPVAL U6
+       11 CAPTURE                          UPVAL U7
+       12 CALL                             R0 2 0
+       13 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["Flags"]
-        3 GETTABLEKS                       R2 R2 K1 ["getFFlagExplorerFixContextMenu"]
-        5 CALL                             R2 0 1
-        6 JUMPIFNOT                        R2 ; [+2]
-        7 LOADNIL                          R1
-        8 JUMP                             ; [+3]
-        9 GETUPVAL                         R1 1
-       10 MOVE                             R2 R0
-       11 CALL                             R1 1 1
-       12 GETUPVAL                         R2 2
-       13 GETTABLEKS                       R2 R2 K2 ["connectGuest"]
-       15 MOVE                             R3 R0
-       16 CALL                             R2 1 1
-       17 GETUPVAL                         R3 3
-       18 GETTABLEKS                       R3 R3 K2 ["connectGuest"]
-       20 CALL                             R3 0 1
-       21 GETUPVAL                         R4 4
-       22 MOVE                             R5 R0
-       23 CALL                             R4 1 2
-       24 GETUPVAL                         R6 5
-       25 MOVE                             R7 R0
-       26 CALL                             R6 1 2
-       27 LOADNIL                          R8
-       28 LOADNIL                          R9
-       29 GETUPVAL                         R10 0
-       30 GETTABLEKS                       R10 R10 K0 ["Flags"]
-       32 GETTABLEKS                       R10 R10 K3 ["getFFlagStudioTextDocumentAssetEditor"]
-       34 CALL                             R10 0 1
-       35 JUMPIFNOT                        R10 ; [+19]
-       36 GETUPVAL                         R10 6
-       37 CALL                             R10 0 1
-       38 MOVE                             R9 R10
-       39 GETTABLEKS                       R11 R0 K4 ["HostDataModelType"]
-       41 GETIMPORT                        R12 K8 [Enum.StudioDataModelType.Edit]
-       43 JUMPIFNOTEQ                      R11 R12 ; [+3]
-       45 GETUPVAL                         R10 7
-       46 JUMP                             ; [+1]
-       47 GETUPVAL                         R10 8
-       48 DUPTABLE                         R11 K11 [{"classNames", "open"}]
-       49 SETTABLEKS                       R10 R11 K9 ["classNames"]
-       51 GETUPVAL                         R12 9
-       52 SETTABLEKS                       R12 R11 K10 ["open"]
-       54 MOVE                             R8 R11
-       55 GETUPVAL                         R10 0
-       56 GETTABLEKS                       R10 R10 K12 ["Guest"]
-       58 GETTABLEKS                       R10 R10 K13 ["startGuest"]
-       60 DUPTABLE                         R11 K16 [{"guestConnectionObservable", "createGuestRpcInterface"}]
-       61 SETTABLEKS                       R4 R11 K14 ["guestConnectionObservable"]
-       63 NEWCLOSURE                       R12 P0
-       64 CAPTURE                          UPVAL U0
-       65 CAPTURE                          UPVAL U10
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          UPVAL U11
-       69 CAPTURE                          UPVAL U12
-       70 CAPTURE                          UPVAL U13
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          UPVAL U14
-       73 CAPTURE                          UPVAL U15
-       74 CAPTURE                          UPVAL U16
-       75 CAPTURE                          UPVAL U17
-       76 CAPTURE                          UPVAL U18
-       77 CAPTURE                          REF R8
-       78 CAPTURE                          UPVAL U19
-       79 CAPTURE                          UPVAL U20
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["connectGuest"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K0 ["connectGuest"]
+        8 CALL                             R2 0 1
+        9 GETUPVAL                         R3 2
+       10 MOVE                             R4 R0
+       11 CALL                             R3 1 2
+       12 GETUPVAL                         R5 3
+       13 MOVE                             R6 R0
+       14 CALL                             R5 1 2
+       15 LOADNIL                          R7
+       16 LOADNIL                          R8
+       17 GETUPVAL                         R9 4
+       18 GETTABLEKS                       R9 R9 K1 ["Flags"]
+       20 GETTABLEKS                       R9 R9 K2 ["getFFlagStudioTextDocumentAssetEditor"]
+       22 CALL                             R9 0 1
+       23 JUMPIFNOT                        R9 ; [+19]
+       24 GETUPVAL                         R9 5
+       25 CALL                             R9 0 1
+       26 MOVE                             R8 R9
+       27 GETTABLEKS                       R10 R0 K3 ["HostDataModelType"]
+       29 GETIMPORT                        R11 K7 [Enum.StudioDataModelType.Edit]
+       31 JUMPIFNOTEQ                      R10 R11 ; [+3]
+       33 GETUPVAL                         R9 6
+       34 JUMP                             ; [+1]
+       35 GETUPVAL                         R9 7
+       36 DUPTABLE                         R10 K10 [{"classNames", "open"}]
+       37 SETTABLEKS                       R9 R10 K8 ["classNames"]
+       39 GETUPVAL                         R11 8
+       40 SETTABLEKS                       R11 R10 K9 ["open"]
+       42 MOVE                             R7 R10
+       43 GETUPVAL                         R9 4
+       44 GETTABLEKS                       R9 R9 K11 ["Guest"]
+       46 GETTABLEKS                       R9 R9 K12 ["startGuest"]
+       48 DUPTABLE                         R10 K15 [{"guestConnectionObservable", "createGuestRpcInterface"}]
+       49 SETTABLEKS                       R3 R10 K13 ["guestConnectionObservable"]
+       51 NEWCLOSURE                       R11 P0
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          UPVAL U9
+       54 CAPTURE                          VAL R0
+       55 CAPTURE                          UPVAL U10
+       56 CAPTURE                          UPVAL U11
+       57 CAPTURE                          UPVAL U12
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          UPVAL U13
+       60 CAPTURE                          UPVAL U14
+       61 CAPTURE                          UPVAL U15
+       62 CAPTURE                          UPVAL U16
+       63 CAPTURE                          UPVAL U17
+       64 CAPTURE                          REF R7
+       65 CAPTURE                          UPVAL U18
+       66 CAPTURE                          UPVAL U19
+       67 CAPTURE                          UPVAL U20
+       68 SETTABLEKS                       R11 R10 K14 ["createGuestRpcInterface"]
+       70 CALL                             R9 1 1
+       71 GETTABLEKS                       R10 R0 K16 ["Unloading"]
+       73 NEWCLOSURE                       R12 P1
+       74 CAPTURE                          VAL R9
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          REF R8
        80 CAPTURE                          UPVAL U21
-       81 SETTABLEKS                       R12 R11 K15 ["createGuestRpcInterface"]
-       83 CALL                             R10 1 1
-       84 GETTABLEKS                       R11 R0 K17 ["Unloading"]
-       86 NEWCLOSURE                       R13 P1
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          VAL R2
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          REF R9
-       93 CAPTURE                          UPVAL U0
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          UPVAL U22
-       96 CAPTURE                          VAL R0
-       97 NAMECALL                         R11 R11 K18 ["Connect"]
-       99 CALL                             R11 2 0
-      100 CLOSEUPVALS                      R8
-      101 RETURN                           R0 0
+       81 CAPTURE                          VAL R0
+       82 NAMECALL                         R10 R10 K17 ["Connect"]
+       84 CALL                             R10 2 0
+       85 CLOSEUPVALS                      R7
+       86 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -275,136 +251,129 @@ MAIN:
        18 CALL                             R2 2 1
        19 GETIMPORT                        R3 K10 [require]
        21 GETTABLEKS                       R4 R2 K11 ["Src"]
-       23 GETTABLEKS                       R4 R4 K12 ["SharedFeatures"]
-       25 GETTABLEKS                       R4 R4 K13 ["ContextMenu"]
-       27 GETTABLEKS                       R4 R4 K14 ["DEPRECATED_createContextMenuActionWatcher"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K10 [require]
-       32 GETTABLEKS                       R5 R2 K11 ["Src"]
-       34 GETTABLEKS                       R5 R5 K15 ["Flags"]
-       36 GETTABLEKS                       R5 R5 K16 ["DEPRECATED_createGetSafeFFlag"]
-       38 CALL                             R4 1 1
-       39 GETIMPORT                        R5 K10 [require]
-       41 GETTABLEKS                       R6 R2 K17 ["Packages"]
-       43 GETTABLEKS                       R6 R6 K18 ["Explorer"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K10 [require]
-       48 GETTABLEKS                       R7 R2 K11 ["Src"]
-       50 GETTABLEKS                       R7 R7 K12 ["SharedFeatures"]
-       52 GETTABLEKS                       R7 R7 K19 ["StudioSelectAll"]
-       54 CALL                             R6 1 1
-       55 GETIMPORT                        R7 K10 [require]
-       57 GETTABLEKS                       R8 R2 K11 ["Src"]
-       59 GETTABLEKS                       R8 R8 K12 ["SharedFeatures"]
-       61 GETTABLEKS                       R8 R8 K20 ["StudioWindowInput"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K10 [require]
-       66 GETTABLEKS                       R9 R2 K11 ["Src"]
-       68 GETTABLEKS                       R9 R9 K21 ["Guest"]
-       70 GETTABLEKS                       R9 R9 K22 ["clickScript"]
-       72 CALL                             R8 1 1
-       73 GETIMPORT                        R9 K10 [require]
-       75 GETTABLEKS                       R10 R2 K11 ["Src"]
-       77 GETTABLEKS                       R10 R10 K21 ["Guest"]
-       79 GETTABLEKS                       R10 R10 K23 ["connectScriptContentEditor"]
-       81 CALL                             R9 1 1
-       82 GETIMPORT                        R10 K10 [require]
-       84 GETTABLEKS                       R11 R2 K11 ["Src"]
-       86 GETTABLEKS                       R11 R11 K21 ["Guest"]
-       88 GETTABLEKS                       R11 R11 K24 ["createInstanceFileSyncStatusWatcher"]
-       90 CALL                             R10 1 1
-       91 GETIMPORT                        R11 K10 [require]
-       93 GETTABLEKS                       R12 R2 K11 ["Src"]
-       95 GETTABLEKS                       R12 R12 K21 ["Guest"]
-       97 GETTABLEKS                       R12 R12 K25 ["createLiveSyncStatusWatcher"]
-       99 CALL                             R11 1 1
-      100 GETIMPORT                        R12 K10 [require]
-      102 GETTABLEKS                       R13 R2 K11 ["Src"]
-      104 GETTABLEKS                       R13 R13 K21 ["Guest"]
-      106 GETTABLEKS                       R13 R13 K26 ["createStudioCollaboratorSelectionWatcher"]
-      108 CALL                             R12 1 1
-      109 GETIMPORT                        R13 K10 [require]
-      111 GETTABLEKS                       R14 R2 K11 ["Src"]
-      113 GETTABLEKS                       R14 R14 K21 ["Guest"]
-      115 GETTABLEKS                       R14 R14 K27 ["createStudioGuestConnection"]
+       23 GETTABLEKS                       R4 R4 K12 ["Flags"]
+       25 GETTABLEKS                       R4 R4 K13 ["DEPRECATED_createGetSafeFFlag"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K10 [require]
+       30 GETTABLEKS                       R5 R2 K14 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K15 ["Explorer"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K10 [require]
+       37 GETTABLEKS                       R6 R2 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K16 ["SharedFeatures"]
+       41 GETTABLEKS                       R6 R6 K17 ["StudioSelectAll"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K10 [require]
+       46 GETTABLEKS                       R7 R2 K11 ["Src"]
+       48 GETTABLEKS                       R7 R7 K16 ["SharedFeatures"]
+       50 GETTABLEKS                       R7 R7 K18 ["StudioWindowInput"]
+       52 CALL                             R6 1 1
+       53 GETIMPORT                        R7 K10 [require]
+       55 GETTABLEKS                       R8 R2 K11 ["Src"]
+       57 GETTABLEKS                       R8 R8 K19 ["Guest"]
+       59 GETTABLEKS                       R8 R8 K20 ["clickScript"]
+       61 CALL                             R7 1 1
+       62 GETIMPORT                        R8 K10 [require]
+       64 GETTABLEKS                       R9 R2 K11 ["Src"]
+       66 GETTABLEKS                       R9 R9 K19 ["Guest"]
+       68 GETTABLEKS                       R9 R9 K21 ["connectScriptContentEditor"]
+       70 CALL                             R8 1 1
+       71 GETIMPORT                        R9 K10 [require]
+       73 GETTABLEKS                       R10 R2 K11 ["Src"]
+       75 GETTABLEKS                       R10 R10 K19 ["Guest"]
+       77 GETTABLEKS                       R10 R10 K22 ["createInstanceFileSyncStatusWatcher"]
+       79 CALL                             R9 1 1
+       80 GETIMPORT                        R10 K10 [require]
+       82 GETTABLEKS                       R11 R2 K11 ["Src"]
+       84 GETTABLEKS                       R11 R11 K19 ["Guest"]
+       86 GETTABLEKS                       R11 R11 K23 ["createLiveSyncStatusWatcher"]
+       88 CALL                             R10 1 1
+       89 GETIMPORT                        R11 K10 [require]
+       91 GETTABLEKS                       R12 R2 K11 ["Src"]
+       93 GETTABLEKS                       R12 R12 K19 ["Guest"]
+       95 GETTABLEKS                       R12 R12 K24 ["createStudioCollaboratorSelectionWatcher"]
+       97 CALL                             R11 1 1
+       98 GETIMPORT                        R12 K10 [require]
+      100 GETTABLEKS                       R13 R2 K11 ["Src"]
+      102 GETTABLEKS                       R13 R13 K19 ["Guest"]
+      104 GETTABLEKS                       R13 R13 K25 ["createStudioGuestConnection"]
+      106 CALL                             R12 1 1
+      107 GETIMPORT                        R13 K10 [require]
+      109 GETTABLEKS                       R14 R2 K11 ["Src"]
+      111 GETTABLEKS                       R14 R14 K16 ["SharedFeatures"]
+      113 GETTABLEKS                       R14 R14 K26 ["ContextMenu"]
+      115 GETTABLEKS                       R14 R14 K27 ["createStudioGuestContextMenuActions"]
       117 CALL                             R13 1 1
       118 GETIMPORT                        R14 K10 [require]
       120 GETTABLEKS                       R15 R2 K11 ["Src"]
-      122 GETTABLEKS                       R15 R15 K12 ["SharedFeatures"]
-      124 GETTABLEKS                       R15 R15 K13 ["ContextMenu"]
-      126 GETTABLEKS                       R15 R15 K28 ["createStudioGuestContextMenuActions"]
-      128 CALL                             R14 1 1
-      129 GETIMPORT                        R15 K10 [require]
-      131 GETTABLEKS                       R16 R2 K11 ["Src"]
-      133 GETTABLEKS                       R16 R16 K21 ["Guest"]
-      135 GETTABLEKS                       R16 R16 K29 ["createStudioInstancePicker"]
+      122 GETTABLEKS                       R15 R15 K19 ["Guest"]
+      124 GETTABLEKS                       R15 R15 K28 ["createStudioInstancePicker"]
+      126 CALL                             R14 1 1
+      127 GETIMPORT                        R15 K10 [require]
+      129 GETTABLEKS                       R16 R2 K11 ["Src"]
+      131 GETTABLEKS                       R16 R16 K19 ["Guest"]
+      133 GETTABLEKS                       R16 R16 K29 ["Streaming"]
+      135 GETTABLEKS                       R16 R16 K30 ["createStudioStreamingInterface"]
       137 CALL                             R15 1 1
       138 GETIMPORT                        R16 K10 [require]
       140 GETTABLEKS                       R17 R2 K11 ["Src"]
-      142 GETTABLEKS                       R17 R17 K21 ["Guest"]
-      144 GETTABLEKS                       R17 R17 K30 ["Streaming"]
-      146 GETTABLEKS                       R17 R17 K31 ["createStudioStreamingInterface"]
-      148 CALL                             R16 1 1
-      149 GETIMPORT                        R17 K10 [require]
-      151 GETTABLEKS                       R18 R2 K11 ["Src"]
-      153 GETTABLEKS                       R18 R18 K21 ["Guest"]
-      155 GETTABLEKS                       R18 R18 K32 ["editableClassNames"]
-      157 CALL                             R17 1 1
-      158 GETIMPORT                        R18 K10 [require]
-      160 GETTABLEKS                       R19 R2 K11 ["Src"]
-      162 GETTABLEKS                       R19 R19 K21 ["Guest"]
-      164 GETTABLEKS                       R19 R19 K33 ["isServiceVisible"]
-      166 CALL                             R18 1 1
-      167 GETIMPORT                        R19 K10 [require]
-      169 GETTABLEKS                       R20 R2 K11 ["Src"]
-      171 GETTABLEKS                       R20 R20 K21 ["Guest"]
-      173 GETTABLEKS                       R20 R20 K34 ["listenForVisibilityChanges"]
-      175 CALL                             R19 1 1
-      176 GETIMPORT                        R20 K10 [require]
-      178 GETTABLEKS                       R21 R2 K11 ["Src"]
-      180 GETTABLEKS                       R21 R21 K21 ["Guest"]
-      182 GETTABLEKS                       R21 R21 K35 ["luaSourceContainerClassNames"]
-      184 CALL                             R20 1 1
-      185 GETIMPORT                        R21 K10 [require]
-      187 GETTABLEKS                       R22 R2 K11 ["Src"]
-      189 GETTABLEKS                       R22 R22 K21 ["Guest"]
-      191 GETTABLEKS                       R22 R22 K36 ["openInsertObjectMenuAsync"]
-      193 CALL                             R21 1 1
-      194 GETIMPORT                        R22 K10 [require]
-      196 GETTABLEKS                       R23 R2 K11 ["Src"]
-      198 GETTABLEKS                       R23 R23 K21 ["Guest"]
-      200 GETTABLEKS                       R23 R23 K37 ["openInstance"]
-      202 CALL                             R22 1 1
-      203 GETIMPORT                        R23 K10 [require]
-      205 GETTABLEKS                       R24 R2 K11 ["Src"]
-      207 GETTABLEKS                       R24 R24 K21 ["Guest"]
-      209 GETTABLEKS                       R24 R24 K38 ["openScript"]
-      211 CALL                             R23 1 1
-      212 MOVE                             R24 R4
-      213 LOADK                            R25 K39 ["OpenScriptDocOptionsLua"]
-      214 CALL                             R24 1 1
-      215 DUPCLOSURE                       R25 K40 [PROTO_6]
-      216 CAPTURE                          VAL R5
-      217 CAPTURE                          VAL R3
-      218 CAPTURE                          VAL R6
-      219 CAPTURE                          VAL R7
-      220 CAPTURE                          VAL R13
-      221 CAPTURE                          VAL R15
-      222 CAPTURE                          VAL R9
-      223 CAPTURE                          VAL R17
-      224 CAPTURE                          VAL R20
-      225 CAPTURE                          VAL R22
-      226 CAPTURE                          VAL R14
-      227 CAPTURE                          VAL R21
-      228 CAPTURE                          VAL R1
-      229 CAPTURE                          VAL R19
-      230 CAPTURE                          VAL R16
-      231 CAPTURE                          VAL R18
-      232 CAPTURE                          VAL R24
-      233 CAPTURE                          VAL R8
-      234 CAPTURE                          VAL R23
-      235 CAPTURE                          VAL R11
-      236 CAPTURE                          VAL R10
-      237 CAPTURE                          VAL R12
-      238 CAPTURE                          VAL R0
-      239 RETURN                           R25 1
+      142 GETTABLEKS                       R17 R17 K19 ["Guest"]
+      144 GETTABLEKS                       R17 R17 K31 ["editableClassNames"]
+      146 CALL                             R16 1 1
+      147 GETIMPORT                        R17 K10 [require]
+      149 GETTABLEKS                       R18 R2 K11 ["Src"]
+      151 GETTABLEKS                       R18 R18 K19 ["Guest"]
+      153 GETTABLEKS                       R18 R18 K32 ["isServiceVisible"]
+      155 CALL                             R17 1 1
+      156 GETIMPORT                        R18 K10 [require]
+      158 GETTABLEKS                       R19 R2 K11 ["Src"]
+      160 GETTABLEKS                       R19 R19 K19 ["Guest"]
+      162 GETTABLEKS                       R19 R19 K33 ["listenForVisibilityChanges"]
+      164 CALL                             R18 1 1
+      165 GETIMPORT                        R19 K10 [require]
+      167 GETTABLEKS                       R20 R2 K11 ["Src"]
+      169 GETTABLEKS                       R20 R20 K19 ["Guest"]
+      171 GETTABLEKS                       R20 R20 K34 ["luaSourceContainerClassNames"]
+      173 CALL                             R19 1 1
+      174 GETIMPORT                        R20 K10 [require]
+      176 GETTABLEKS                       R21 R2 K11 ["Src"]
+      178 GETTABLEKS                       R21 R21 K19 ["Guest"]
+      180 GETTABLEKS                       R21 R21 K35 ["openInsertObjectMenuAsync"]
+      182 CALL                             R20 1 1
+      183 GETIMPORT                        R21 K10 [require]
+      185 GETTABLEKS                       R22 R2 K11 ["Src"]
+      187 GETTABLEKS                       R22 R22 K19 ["Guest"]
+      189 GETTABLEKS                       R22 R22 K36 ["openInstance"]
+      191 CALL                             R21 1 1
+      192 GETIMPORT                        R22 K10 [require]
+      194 GETTABLEKS                       R23 R2 K11 ["Src"]
+      196 GETTABLEKS                       R23 R23 K19 ["Guest"]
+      198 GETTABLEKS                       R23 R23 K37 ["openScript"]
+      200 CALL                             R22 1 1
+      201 MOVE                             R23 R3
+      202 LOADK                            R24 K38 ["OpenScriptDocOptionsLua"]
+      203 CALL                             R23 1 1
+      204 DUPCLOSURE                       R24 K39 [PROTO_6]
+      205 CAPTURE                          VAL R5
+      206 CAPTURE                          VAL R6
+      207 CAPTURE                          VAL R12
+      208 CAPTURE                          VAL R14
+      209 CAPTURE                          VAL R4
+      210 CAPTURE                          VAL R8
+      211 CAPTURE                          VAL R16
+      212 CAPTURE                          VAL R19
+      213 CAPTURE                          VAL R21
+      214 CAPTURE                          VAL R13
+      215 CAPTURE                          VAL R20
+      216 CAPTURE                          VAL R1
+      217 CAPTURE                          VAL R18
+      218 CAPTURE                          VAL R15
+      219 CAPTURE                          VAL R17
+      220 CAPTURE                          VAL R23
+      221 CAPTURE                          VAL R7
+      222 CAPTURE                          VAL R22
+      223 CAPTURE                          VAL R10
+      224 CAPTURE                          VAL R9
+      225 CAPTURE                          VAL R11
+      226 CAPTURE                          VAL R0
+      227 RETURN                           R24 1

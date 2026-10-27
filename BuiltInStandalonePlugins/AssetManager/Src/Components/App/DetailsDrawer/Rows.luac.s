@@ -340,119 +340,146 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["AbsoluteWindowSize"]
+        3 GETTABLEKS                       R2 R2 K1 ["X"]
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
+
+PROTO_13:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K1 ["createElement"]
-        7 GETUPVAL                         R3 2
-        8 GETTABLEKS                       R3 R3 K2 ["ScrollView"]
-       10 DUPTABLE                         R4 K10 [{["LayoutOrder"], ["tag"] = "fill size-full-0", ["layout"], ["scroll"], ["testId"] = "details-drawer-body"}]
-       11 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
-       13 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
-       15 DUPTABLE                         R5 K12 [{"FillDirection"}]
-       16 GETIMPORT                        R6 K15 [Enum.FillDirection.Vertical]
-       18 SETTABLEKS                       R6 R5 K11 ["FillDirection"]
-       20 SETTABLEKS                       R5 R4 K6 ["layout"]
-       22 DUPTABLE                         R5 K19 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-       23 GETIMPORT                        R6 K22 [Enum.AutomaticSize.XY]
-       25 SETTABLEKS                       R6 R5 K16 ["AutomaticCanvasSize"]
-       27 GETIMPORT                        R6 K24 [UDim2.new]
-       29 CALL                             R6 0 1
-       30 SETTABLEKS                       R6 R5 K17 ["CanvasSize"]
-       32 GETIMPORT                        R6 K25 [Enum.ScrollingDirection.XY]
-       34 SETTABLEKS                       R6 R5 K18 ["ScrollingDirection"]
-       36 SETTABLEKS                       R5 R4 K7 ["scroll"]
-       38 DUPTABLE                         R5 K27 [{"Inner"}]
-       39 GETUPVAL                         R6 1
-       40 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       42 GETUPVAL                         R7 2
-       43 GETTABLEKS                       R7 R7 K28 ["View"]
-       45 DUPTABLE                         R8 K32 [{["tag"] = "col size-full-0 auto-y", ["testId"] = "details-drawer-content", ["sizeConstraint"]}]
-       46 DUPTABLE                         R9 K34 [{"MinSize"}]
-       47 GETIMPORT                        R10 K36 [Vector2.new]
-       49 LOADN                            R11 180
-       50 LOADN                            R12 0
-       51 CALL                             R10 2 1
-       52 SETTABLEKS                       R10 R9 K33 ["MinSize"]
-       54 SETTABLEKS                       R9 R8 K31 ["sizeConstraint"]
-       56 DUPTABLE                         R9 K42 [{"Thumbnail", "MediaPreview", "AssetHeader", "ThumbnailDivider", "Content"}]
-       57 GETUPVAL                         R10 1
-       58 GETTABLEKS                       R10 R10 K1 ["createElement"]
-       60 GETUPVAL                         R11 2
-       61 GETTABLEKS                       R11 R11 K28 ["View"]
-       63 DUPTABLE                         R12 K45 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y padding-small bg-surface-0", ["testId"] = "details-drawer-thumbnail"}]
-       64 NAMECALL                         R13 R1 K46 ["getNextOrder"]
-       66 CALL                             R13 1 1
-       67 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-       69 DUPTABLE                         R13 K48 [{"Track"}]
-       70 GETTABLEKS                       R14 R0 K37 ["Thumbnail"]
-       72 SETTABLEKS                       R14 R13 K47 ["Track"]
-       74 CALL                             R10 3 1
-       75 SETTABLEKS                       R10 R9 K37 ["Thumbnail"]
-       77 GETTABLEKS                       R11 R0 K38 ["MediaPreview"]
-       79 JUMPIFNOT                        R11 ; [+19]
-       80 GETUPVAL                         R10 1
-       81 GETTABLEKS                       R10 R10 K1 ["createElement"]
-       83 GETUPVAL                         R11 2
-       84 GETTABLEKS                       R11 R11 K28 ["View"]
-       86 DUPTABLE                         R12 K50 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y padding-x-medium padding-y-small"}]
-       87 NAMECALL                         R13 R1 K46 ["getNextOrder"]
-       89 CALL                             R13 1 1
-       90 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-       92 DUPTABLE                         R13 K52 [{"Preview"}]
-       93 GETTABLEKS                       R14 R0 K38 ["MediaPreview"]
-       95 SETTABLEKS                       R14 R13 K51 ["Preview"]
-       97 CALL                             R10 3 1
-       98 JUMP                             ; [+1]
-       99 LOADNIL                          R10
-      100 SETTABLEKS                       R10 R9 K38 ["MediaPreview"]
-      102 GETTABLEKS                       R11 R0 K39 ["AssetHeader"]
-      104 JUMPIFNOT                        R11 ; [+19]
-      105 GETUPVAL                         R10 1
-      106 GETTABLEKS                       R10 R10 K1 ["createElement"]
-      108 GETUPVAL                         R11 2
-      109 GETTABLEKS                       R11 R11 K28 ["View"]
-      111 DUPTABLE                         R12 K54 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y"}]
-      112 NAMECALL                         R13 R1 K46 ["getNextOrder"]
-      114 CALL                             R13 1 1
-      115 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-      117 DUPTABLE                         R13 K55 [{"Content"}]
-      118 GETTABLEKS                       R14 R0 K39 ["AssetHeader"]
-      120 SETTABLEKS                       R14 R13 K41 ["Content"]
-      122 CALL                             R10 3 1
-      123 JUMP                             ; [+1]
-      124 LOADNIL                          R10
-      125 SETTABLEKS                       R10 R9 K39 ["AssetHeader"]
-      127 GETUPVAL                         R10 1
-      128 GETTABLEKS                       R10 R10 K1 ["createElement"]
-      130 GETUPVAL                         R11 2
-      131 GETTABLEKS                       R11 R11 K56 ["Divider"]
-      133 DUPTABLE                         R12 K58 [{"LayoutOrder", "orientation"}]
-      134 NAMECALL                         R13 R1 K46 ["getNextOrder"]
-      136 CALL                             R13 1 1
-      137 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-      139 GETUPVAL                         R13 2
-      140 GETTABLEKS                       R13 R13 K59 ["Enums"]
-      142 GETTABLEKS                       R13 R13 K60 ["DividerOrientation"]
-      144 GETTABLEKS                       R13 R13 K61 ["Horizontal"]
-      146 SETTABLEKS                       R13 R12 K57 ["orientation"]
-      148 CALL                             R10 2 1
-      149 SETTABLEKS                       R10 R9 K40 ["ThumbnailDivider"]
-      151 GETUPVAL                         R10 1
-      152 GETTABLEKS                       R10 R10 K1 ["createElement"]
-      154 GETUPVAL                         R11 2
-      155 GETTABLEKS                       R11 R11 K28 ["View"]
-      157 DUPTABLE                         R12 K63 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"] = "details-drawer-rows"}]
-      158 NAMECALL                         R13 R1 K46 ["getNextOrder"]
-      160 CALL                             R13 1 1
-      161 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-      163 GETTABLEKS                       R13 R0 K64 ["children"]
-      165 CALL                             R10 3 1
-      166 SETTABLEKS                       R10 R9 K41 ["Content"]
-      168 CALL                             R6 3 1
-      169 SETTABLEKS                       R6 R5 K26 ["Inner"]
-      171 CALL                             R2 3 -1
-      172 RETURN                           R2 -1
+        5 GETTABLEKS                       R2 R2 K1 ["useState"]
+        7 LOADN                            R3 0
+        8 CALL                             R2 1 2
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K2 ["createElement"]
+       12 GETUPVAL                         R5 2
+       13 GETTABLEKS                       R5 R5 K3 ["ScrollView"]
+       15 DUPTABLE                         R6 K12 [{["LayoutOrder"], ["tag"] = "fill size-full-0", ["layout"], ["scroll"], ["onAbsoluteWindowSizeChanged"], ["testId"] = "details-drawer-body"}]
+       16 GETTABLEKS                       R7 R0 K4 ["LayoutOrder"]
+       18 SETTABLEKS                       R7 R6 K4 ["LayoutOrder"]
+       20 DUPTABLE                         R7 K14 [{"FillDirection"}]
+       21 GETIMPORT                        R8 K17 [Enum.FillDirection.Vertical]
+       23 SETTABLEKS                       R8 R7 K13 ["FillDirection"]
+       25 SETTABLEKS                       R7 R6 K7 ["layout"]
+       27 DUPTABLE                         R7 K22 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection", "VerticalScrollBarInset"}]
+       28 GETIMPORT                        R8 K25 [Enum.AutomaticSize.Y]
+       30 SETTABLEKS                       R8 R7 K18 ["AutomaticCanvasSize"]
+       32 GETIMPORT                        R8 K28 [UDim2.fromOffset]
+       34 FASTCALL2K                       MATH_MAX R2 K29 ; [+5]
+       36 MOVE                             R10 R2
+       37 LOADK                            R11 K29 [180]
+       38 GETIMPORT                        R9 K32 [math.max]
+       40 CALL                             R9 2 1
+       41 LOADN                            R10 0
+       42 CALL                             R8 2 1
+       43 SETTABLEKS                       R8 R7 K19 ["CanvasSize"]
+       45 GETIMPORT                        R8 K34 [Enum.ScrollingDirection.XY]
+       47 SETTABLEKS                       R8 R7 K20 ["ScrollingDirection"]
+       49 GETIMPORT                        R8 K37 [Enum.ScrollBarInset.Always]
+       51 SETTABLEKS                       R8 R7 K21 ["VerticalScrollBarInset"]
+       53 SETTABLEKS                       R7 R6 K8 ["scroll"]
+       55 NEWCLOSURE                       R7 P0
+       56 CAPTURE                          VAL R3
+       57 SETTABLEKS                       R7 R6 K9 ["onAbsoluteWindowSizeChanged"]
+       59 DUPTABLE                         R7 K39 [{"Inner"}]
+       60 GETUPVAL                         R8 1
+       61 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       63 GETUPVAL                         R9 2
+       64 GETTABLEKS                       R9 R9 K40 ["View"]
+       66 DUPTABLE                         R10 K44 [{["tag"] = "col size-full-0 auto-y", ["testId"] = "details-drawer-content", ["sizeConstraint"]}]
+       67 DUPTABLE                         R11 K46 [{"MinSize"}]
+       68 GETIMPORT                        R12 K48 [Vector2.new]
+       70 LOADN                            R13 180
+       71 LOADN                            R14 0
+       72 CALL                             R12 2 1
+       73 SETTABLEKS                       R12 R11 K45 ["MinSize"]
+       75 SETTABLEKS                       R11 R10 K43 ["sizeConstraint"]
+       77 DUPTABLE                         R11 K53 [{"Media", "AssetHeader", "ThumbnailDivider", "Content"}]
+       78 GETUPVAL                         R12 1
+       79 GETTABLEKS                       R12 R12 K2 ["createElement"]
+       81 GETUPVAL                         R13 2
+       82 GETTABLEKS                       R13 R13 K40 ["View"]
+       84 DUPTABLE                         R14 K56 [{["LayoutOrder"], ["tag"] = "col gap-small size-full-0 auto-y padding-small bg-surface-0", ["testId"] = "details-drawer-media"}]
+       85 NAMECALL                         R15 R1 K57 ["getNextOrder"]
+       87 CALL                             R15 1 1
+       88 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
+       90 DUPTABLE                         R15 K60 [{"Thumbnail", "Preview"}]
+       91 GETUPVAL                         R16 1
+       92 GETTABLEKS                       R16 R16 K2 ["createElement"]
+       94 GETUPVAL                         R17 2
+       95 GETTABLEKS                       R17 R17 K40 ["View"]
+       97 DUPTABLE                         R18 K63 [{["LayoutOrder"] = 1, ["tag"] = "size-full-0 auto-y"}]
+       98 DUPTABLE                         R19 K64 [{"Content"}]
+       99 GETTABLEKS                       R20 R0 K58 ["Thumbnail"]
+      101 SETTABLEKS                       R20 R19 K52 ["Content"]
+      103 CALL                             R16 3 1
+      104 SETTABLEKS                       R16 R15 K58 ["Thumbnail"]
+      106 GETTABLEKS                       R17 R0 K65 ["MediaPreview"]
+      108 JUMPIFNOT                        R17 ; [+14]
+      109 GETUPVAL                         R16 1
+      110 GETTABLEKS                       R16 R16 K2 ["createElement"]
+      112 GETUPVAL                         R17 2
+      113 GETTABLEKS                       R17 R17 K40 ["View"]
+      115 DUPTABLE                         R18 K68 [{["LayoutOrder"] = 2, ["tag"] = "size-full-0 auto-y padding-x-xsmall"}]
+      116 DUPTABLE                         R19 K64 [{"Content"}]
+      117 GETTABLEKS                       R20 R0 K65 ["MediaPreview"]
+      119 SETTABLEKS                       R20 R19 K52 ["Content"]
+      121 CALL                             R16 3 1
+      122 JUMP                             ; [+1]
+      123 LOADNIL                          R16
+      124 SETTABLEKS                       R16 R15 K59 ["Preview"]
+      126 CALL                             R12 3 1
+      127 SETTABLEKS                       R12 R11 K49 ["Media"]
+      129 GETTABLEKS                       R13 R0 K50 ["AssetHeader"]
+      131 JUMPIFNOT                        R13 ; [+19]
+      132 GETUPVAL                         R12 1
+      133 GETTABLEKS                       R12 R12 K2 ["createElement"]
+      135 GETUPVAL                         R13 2
+      136 GETTABLEKS                       R13 R13 K40 ["View"]
+      138 DUPTABLE                         R14 K69 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y"}]
+      139 NAMECALL                         R15 R1 K57 ["getNextOrder"]
+      141 CALL                             R15 1 1
+      142 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
+      144 DUPTABLE                         R15 K64 [{"Content"}]
+      145 GETTABLEKS                       R16 R0 K50 ["AssetHeader"]
+      147 SETTABLEKS                       R16 R15 K52 ["Content"]
+      149 CALL                             R12 3 1
+      150 JUMP                             ; [+1]
+      151 LOADNIL                          R12
+      152 SETTABLEKS                       R12 R11 K50 ["AssetHeader"]
+      154 GETUPVAL                         R12 1
+      155 GETTABLEKS                       R12 R12 K2 ["createElement"]
+      157 GETUPVAL                         R13 2
+      158 GETTABLEKS                       R13 R13 K70 ["Divider"]
+      160 DUPTABLE                         R14 K72 [{"LayoutOrder", "orientation"}]
+      161 NAMECALL                         R15 R1 K57 ["getNextOrder"]
+      163 CALL                             R15 1 1
+      164 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
+      166 GETUPVAL                         R15 2
+      167 GETTABLEKS                       R15 R15 K73 ["Enums"]
+      169 GETTABLEKS                       R15 R15 K74 ["DividerOrientation"]
+      171 GETTABLEKS                       R15 R15 K75 ["Horizontal"]
+      173 SETTABLEKS                       R15 R14 K71 ["orientation"]
+      175 CALL                             R12 2 1
+      176 SETTABLEKS                       R12 R11 K51 ["ThumbnailDivider"]
+      178 GETUPVAL                         R12 1
+      179 GETTABLEKS                       R12 R12 K2 ["createElement"]
+      181 GETUPVAL                         R13 2
+      182 GETTABLEKS                       R13 R13 K40 ["View"]
+      184 DUPTABLE                         R14 K77 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"] = "details-drawer-rows"}]
+      185 NAMECALL                         R15 R1 K57 ["getNextOrder"]
+      187 CALL                             R15 1 1
+      188 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
+      190 GETTABLEKS                       R15 R0 K78 ["children"]
+      192 CALL                             R12 3 1
+      193 SETTABLEKS                       R12 R11 K52 ["Content"]
+      195 CALL                             R8 3 1
+      196 SETTABLEKS                       R8 R7 K38 ["Inner"]
+      198 CALL                             R4 3 -1
+      199 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -520,7 +547,7 @@ MAIN:
        92 CAPTURE                          VAL R2
        93 CAPTURE                          VAL R8
        94 SETTABLEKS                       R9 R7 K35 ["createRowList"]
-       96 DUPCLOSURE                       R9 K36 [PROTO_12]
+       96 DUPCLOSURE                       R9 K36 [PROTO_13]
        97 CAPTURE                          VAL R6
        98 CAPTURE                          VAL R1
        99 CAPTURE                          VAL R2

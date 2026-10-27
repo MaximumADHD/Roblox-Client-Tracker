@@ -304,29 +304,35 @@ PROTO_7:
        81 RETURN                           R5 -1
 
 PROTO_8:
-        0 NEWCLOSURE                       R8 P0
-        1 CAPTURE                          REF R1
-        2 CAPTURE                          UPVAL U0
-        3 CAPTURE                          REF R3
-        4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          UPVAL U4
-        8 CAPTURE                          UPVAL U5
-        9 CAPTURE                          VAL R4
-       10 CAPTURE                          UPVAL U6
-       11 CAPTURE                          UPVAL U7
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          VAL R5
-       14 CAPTURE                          VAL R6
-       15 CAPTURE                          UPVAL U8
-       16 CAPTURE                          VAL R7
-       17 CAPTURE                          UPVAL U9
-       18 CAPTURE                          UPVAL U10
-       19 CAPTURE                          UPVAL U11
-       20 CAPTURE                          VAL R2
-       21 CLOSEUPVALS                      R1
-       22 RETURN                           R8 1
+        0 GETUPVAL                         R8 0
+        1 CALL                             R8 0 1
+        2 JUMPIFNOT                        R8 ; [+3]
+        3 LOADNIL                          R8
+        4 CLOSEUPVALS                      R1
+        5 RETURN                           R8 1
+        6 NEWCLOSURE                       R8 P0
+        7 CAPTURE                          REF R1
+        8 CAPTURE                          UPVAL U1
+        9 CAPTURE                          REF R3
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          UPVAL U3
+       12 CAPTURE                          UPVAL U4
+       13 CAPTURE                          UPVAL U5
+       14 CAPTURE                          UPVAL U6
+       15 CAPTURE                          VAL R4
+       16 CAPTURE                          UPVAL U7
+       17 CAPTURE                          UPVAL U8
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          VAL R5
+       20 CAPTURE                          VAL R6
+       21 CAPTURE                          UPVAL U9
+       22 CAPTURE                          VAL R7
+       23 CAPTURE                          UPVAL U10
+       24 CAPTURE                          UPVAL U11
+       25 CAPTURE                          UPVAL U12
+       26 CAPTURE                          VAL R2
+       27 CLOSEUPVALS                      R1
+       28 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -389,19 +395,25 @@ MAIN:
       101 GETTABLEKS                       R14 R14 K22 ["Requests"]
       103 GETTABLEKS                       R14 R14 K24 ["UGCAssetUploadDataSharingRequest"]
       105 CALL                             R13 1 1
-      106 DUPCLOSURE                       R14 K25 [PROTO_0]
-      107 DUPCLOSURE                       R15 K26 [PROTO_1]
-      108 DUPCLOSURE                       R16 K27 [PROTO_8]
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          VAL R0
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R10
-      115 CAPTURE                          VAL R2
-      116 CAPTURE                          VAL R12
-      117 CAPTURE                          VAL R13
-      118 CAPTURE                          VAL R7
-      119 CAPTURE                          VAL R9
-      120 CAPTURE                          VAL R11
-      121 RETURN                           R16 1
+      106 GETIMPORT                        R14 K8 [require]
+      108 GETTABLEKS                       R15 R1 K9 ["Src"]
+      110 GETTABLEKS                       R15 R15 K25 ["Flags"]
+      112 GETTABLEKS                       R15 R15 K26 ["getFFlagToolboxRemoveLegacyCatalogUpload"]
+      114 CALL                             R14 1 1
+      115 DUPCLOSURE                       R15 K27 [PROTO_0]
+      116 DUPCLOSURE                       R16 K28 [PROTO_1]
+      117 DUPCLOSURE                       R17 K29 [PROTO_8]
+      118 CAPTURE                          VAL R14
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R0
+      122 CAPTURE                          VAL R3
+      123 CAPTURE                          VAL R5
+      124 CAPTURE                          VAL R10
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R12
+      127 CAPTURE                          VAL R13
+      128 CAPTURE                          VAL R7
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R11
+      131 RETURN                           R17 1

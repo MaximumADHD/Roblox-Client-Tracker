@@ -85,7 +85,7 @@ PROTO_3:
        35 JUMP                             ; [+2]
        36 GETTABLEKS                       R13 R8 K10 ["Name"]
        38 GETTABLE                         R12 R2 R13
-       39 ORK                              R11 R12 K8 [∞]
+       39 ORK                              R11 R12 K8 [Infinity]
        40 SETTABLEKS                       R11 R10 K5 ["depth"]
        42 SETTABLEKS                       R7 R10 K6 ["order"]
        44 SETTABLE                         R10 R3 R8

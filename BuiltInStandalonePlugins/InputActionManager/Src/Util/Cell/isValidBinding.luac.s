@@ -19,16 +19,13 @@ PROTO_0:
        24 LOADB                            R7 1
        25 RETURN                           R7 1
        26 FORGLOOP                         R1 2 ; [-9]
-       28 GETUPVAL                         R1 1
-       29 CALL                             R1 0 1
-       30 JUMPIFNOT                        R1 ; [+8]
-       31 GETTABLEKS                       R1 R0 K6 ["type"]
-       33 GETIMPORT                        R2 K9 [Enum.InputBindingType.Scriptable]
-       35 JUMPIFNOTEQ                      R1 R2 ; [+3]
-       37 LOADB                            R1 1
-       38 RETURN                           R1 1
-       39 LOADB                            R1 0
-       40 RETURN                           R1 1
+       28 GETTABLEKS                       R1 R0 K6 ["type"]
+       30 GETIMPORT                        R2 K9 [Enum.InputBindingType.Scriptable]
+       32 JUMPIFNOTEQ                      R1 R2 ; [+3]
+       34 LOADB                            R1 1
+       35 RETURN                           R1 1
+       36 LOADB                            R1 0
+       37 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -46,12 +43,6 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K9 ["Constants"]
        22 GETTABLEKS                       R3 R3 K10 ["CompositeProperties"]
        24 CALL                             R2 1 1
-       25 GETTABLEKS                       R3 R0 K6 ["Src"]
-       27 GETTABLEKS                       R3 R3 K11 ["Flags"]
-       29 GETIMPORT                        R4 K5 [require]
-       31 GETTABLEKS                       R5 R3 K12 ["getFFlagIAMNodePropertyMenu"]
-       33 CALL                             R4 1 1
-       34 DUPCLOSURE                       R5 K13 [PROTO_0]
-       35 CAPTURE                          VAL R2
-       36 CAPTURE                          VAL R4
-       37 RETURN                           R5 1
+       25 DUPCLOSURE                       R3 K11 [PROTO_0]
+       26 CAPTURE                          VAL R2
+       27 RETURN                           R3 1

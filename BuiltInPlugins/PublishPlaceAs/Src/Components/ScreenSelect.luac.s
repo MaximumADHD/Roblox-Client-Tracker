@@ -7,12 +7,14 @@ PROTO_0:
         9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 GETUPVAL                         R7 1
        12 GETTABLE                         R6 R7 R4
-       13 DUPTABLE                         R7 K5 [{"OnClose", "IsPublish", "CloseMode"}]
+       13 DUPTABLE                         R7 K6 [{"OnClose", "OnCreateNewGame", "IsPublish", "CloseMode"}]
        14 SETTABLEKS                       R1 R7 K0 ["OnClose"]
-       16 SETTABLEKS                       R2 R7 K1 ["IsPublish"]
-       18 SETTABLEKS                       R3 R7 K2 ["CloseMode"]
-       20 CALL                             R5 2 -1
-       21 RETURN                           R5 -1
+       16 GETTABLEKS                       R8 R0 K5 ["OnCreateNewGame"]
+       18 SETTABLEKS                       R8 R7 K5 ["OnCreateNewGame"]
+       20 SETTABLEKS                       R2 R7 K1 ["IsPublish"]
+       22 SETTABLEKS                       R3 R7 K2 ["CloseMode"]
+       24 CALL                             R5 2 -1
+       25 RETURN                           R5 -1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["Screen"]

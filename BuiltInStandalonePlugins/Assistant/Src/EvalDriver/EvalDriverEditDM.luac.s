@@ -608,7 +608,7 @@ PROTO_19:
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K2 ["invoke"]
         9 GETUPVAL                         R4 2
-       10 LOADK                            R5 K3 ["EvalDriverEditDM.AssistantEvalCallTool"]
+       10 LOADK                            R5 K3 ["AssistantEvalCallTool"]
        11 CALL                             R3 2 1
        12 GETUPVAL                         R6 3
        13 GETTABLEKS                       R6 R6 K4 ["Identity"]
@@ -619,19 +619,19 @@ PROTO_19:
        21 CALL                             R4 4 -1
        22 RETURN                           R4 -1
        23 GETUPVAL                         R3 4
-       24 LOADK                            R5 K7 ["AssistantEvalCallTool"]
+       24 LOADK                            R5 K3 ["AssistantEvalCallTool"]
        25 GETUPVAL                         R6 5
-       26 GETTABLEKS                       R6 R6 K8 ["Types"]
+       26 GETTABLEKS                       R6 R6 K7 ["Types"]
        28 GETTABLEKS                       R6 R6 K5 ["Standalone"]
        30 MOVE                             R7 R1
        31 MOVE                             R8 R2
-       32 NAMECALL                         R3 R3 K9 ["InvokeGuestAsync"]
+       32 NAMECALL                         R3 R3 K8 ["InvokeGuestAsync"]
        34 CALL                             R3 5 -1
        35 RETURN                           R3 -1
-       36 GETIMPORT                        R3 K11 [error]
-       38 LOADK                            R4 K12 ["Unknown event name: %*"]
+       36 GETIMPORT                        R3 K10 [error]
+       38 LOADK                            R4 K11 ["Unknown event name: %*"]
        39 MOVE                             R6 R0
-       40 NAMECALL                         R4 R4 K13 ["format"]
+       40 NAMECALL                         R4 R4 K12 ["format"]
        42 CALL                             R4 2 1
        43 CALL                             R3 1 0
        44 RETURN                           R0 0
@@ -1487,12 +1487,12 @@ PROTO_51:
         4 GETUPVAL                         R0 1
         5 GETTABLEKS                       R0 R0 K1 ["event"]
         7 GETUPVAL                         R1 2
-        8 LOADK                            R2 K2 ["EvalDriverEditDM.EditDataModelStarted"]
+        8 LOADK                            R2 K2 ["EditDataModelStarted"]
         9 CALL                             R0 2 1
        10 GETUPVAL                         R1 1
        11 GETTABLEKS                       R1 R1 K1 ["event"]
        13 GETUPVAL                         R2 2
-       14 LOADK                            R3 K3 ["EvalDriverEditDM.CheckEditDataModelStarted"]
+       14 LOADK                            R3 K3 ["CheckEditDataModelStarted"]
        15 CALL                             R1 2 1
        16 NEWCLOSURE                       R2 P0
        17 CAPTURE                          VAL R0
@@ -1513,16 +1513,16 @@ PROTO_51:
        37 CAPTURE                          UPVAL U5
        38 CAPTURE                          UPVAL U6
        39 GETUPVAL                         R1 5
-       40 LOADK                            R3 K9 ["CheckEditDataModelStarted"]
+       40 LOADK                            R3 K3 ["CheckEditDataModelStarted"]
        41 MOVE                             R4 R0
-       42 NAMECALL                         R1 R1 K10 ["OnHostEvent"]
+       42 NAMECALL                         R1 R1 K9 ["OnHostEvent"]
        44 CALL                             R1 3 0
        45 GETUPVAL                         R1 5
-       46 LOADK                            R3 K11 ["EditDataModelStarted"]
+       46 LOADK                            R3 K2 ["EditDataModelStarted"]
        47 GETUPVAL                         R4 6
-       48 GETTABLEKS                       R4 R4 K12 ["Types"]
+       48 GETTABLEKS                       R4 R4 K10 ["Types"]
        50 GETTABLEKS                       R4 R4 K7 ["Standalone"]
-       52 NAMECALL                         R1 R1 K13 ["FireGuest"]
+       52 NAMECALL                         R1 R1 K11 ["FireGuest"]
        54 CALL                             R1 3 0
        55 RETURN                           R0 0
 
@@ -1539,7 +1539,7 @@ PROTO_53:
         4 GETUPVAL                         R0 1
         5 GETTABLEKS                       R0 R0 K1 ["event"]
         7 GETUPVAL                         R1 2
-        8 LOADK                            R2 K2 ["EvalDriverEditDM.EditDataModelEnded"]
+        8 LOADK                            R2 K2 ["EditDataModelEnded"]
         9 CALL                             R0 2 1
        10 GETUPVAL                         R3 3
        11 GETTABLEKS                       R3 R3 K3 ["Identity"]
@@ -1551,11 +1551,11 @@ PROTO_53:
        21 CALL                             R1 1 0
        22 RETURN                           R0 0
        23 GETUPVAL                         R0 5
-       24 LOADK                            R2 K7 ["EditDataModelEnded"]
+       24 LOADK                            R2 K2 ["EditDataModelEnded"]
        25 GETUPVAL                         R3 6
-       26 GETTABLEKS                       R3 R3 K8 ["Types"]
+       26 GETTABLEKS                       R3 R3 K7 ["Types"]
        28 GETTABLEKS                       R3 R3 K4 ["Standalone"]
-       30 NAMECALL                         R0 R0 K9 ["FireGuest"]
+       30 NAMECALL                         R0 R0 K8 ["FireGuest"]
        32 CALL                             R0 3 0
        33 RETURN                           R0 0
 

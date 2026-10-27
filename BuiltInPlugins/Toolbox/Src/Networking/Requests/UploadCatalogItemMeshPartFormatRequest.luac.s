@@ -96,20 +96,25 @@ PROTO_4:
        36 RETURN                           R6 -1
 
 PROTO_5:
-        0 NEWCLOSURE                       R6 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          UPVAL U1
-        3 CAPTURE                          UPVAL U2
-        4 CAPTURE                          UPVAL U3
-        5 CAPTURE                          VAL R5
-        6 CAPTURE                          UPVAL U4
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          VAL R1
-        9 CAPTURE                          VAL R2
-       10 CAPTURE                          VAL R3
-       11 CAPTURE                          VAL R4
-       12 CAPTURE                          UPVAL U5
-       13 RETURN                           R6 1
+        0 GETUPVAL                         R6 0
+        1 CALL                             R6 0 1
+        2 JUMPIFNOT                        R6 ; [+2]
+        3 LOADNIL                          R6
+        4 RETURN                           R6 1
+        5 NEWCLOSURE                       R6 P0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U3
+        9 CAPTURE                          UPVAL U4
+       10 CAPTURE                          VAL R5
+       11 CAPTURE                          UPVAL U5
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          VAL R2
+       15 CAPTURE                          VAL R3
+       16 CAPTURE                          VAL R4
+       17 CAPTURE                          UPVAL U6
+       18 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -142,11 +147,17 @@ MAIN:
        48 GETIMPORT                        R7 K4 [require]
        50 GETTABLEKS                       R8 R3 K13 ["convertSpecialMeshAccessory"]
        52 CALL                             R7 1 1
-       53 DUPCLOSURE                       R8 K14 [PROTO_5]
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          VAL R1
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R7
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R5
-       60 RETURN                           R8 1
+       53 GETIMPORT                        R8 K4 [require]
+       55 GETTABLEKS                       R9 R0 K5 ["Src"]
+       57 GETTABLEKS                       R9 R9 K14 ["Flags"]
+       59 GETTABLEKS                       R9 R9 K15 ["getFFlagToolboxRemoveLegacyCatalogUpload"]
+       61 CALL                             R8 1 1
+       62 DUPCLOSURE                       R9 K16 [PROTO_5]
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R4
+       65 CAPTURE                          VAL R1
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R7
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R5
+       70 RETURN                           R9 1

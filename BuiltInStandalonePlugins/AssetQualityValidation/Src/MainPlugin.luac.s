@@ -168,49 +168,57 @@ PROTO_13:
        64 GETUPVAL                         R3 1
        65 GETTABLEKS                       R3 R3 K21 ["Localization"]
        67 GETTABLEKS                       R3 R3 K22 ["new"]
-       69 DUPTABLE                         R4 K27 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetQualityValidation"}]
+       69 DUPTABLE                         R4 K28 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetQualityValidation", ["libraries"]}]
        70 GETUPVAL                         R5 2
        71 SETTABLEKS                       R5 R4 K23 ["stringResourceTable"]
        73 GETUPVAL                         R5 3
        74 SETTABLEKS                       R5 R4 K24 ["translationResourceTable"]
-       76 CALL                             R3 1 1
-       77 SETTABLEKS                       R3 R0 K28 ["localizationLEGACY"]
-       79 GETUPVAL                         R3 4
-       80 GETTABLEKS                       R3 R3 K21 ["Localization"]
-       82 GETTABLEKS                       R3 R3 K22 ["new"]
-       84 DUPTABLE                         R4 K27 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetQualityValidation"}]
-       85 GETUPVAL                         R5 2
-       86 SETTABLEKS                       R5 R4 K23 ["stringResourceTable"]
-       88 GETUPVAL                         R5 3
-       89 SETTABLEKS                       R5 R4 K24 ["translationResourceTable"]
-       91 CALL                             R3 1 1
-       92 SETTABLEKS                       R3 R0 K29 ["localization"]
-       94 GETUPVAL                         R3 1
-       95 GETTABLEKS                       R3 R3 K30 ["Analytics"]
-       97 GETTABLEKS                       R3 R3 K22 ["new"]
-       99 DUPCLOSURE                       R4 K31 [PROTO_12]
-      100 NEWTABLE                         R5 0 0
-      102 CALL                             R3 2 1
-      103 SETTABLEKS                       R3 R0 K32 ["analytics"]
-      105 GETUPVAL                         R3 5
-      106 GETTABLEKS                       R3 R3 K22 ["new"]
-      108 CALL                             R3 0 1
-      109 SETTABLEKS                       R3 R0 K33 ["DEPRECATED_stylizer"]
-      111 GETUPVAL                         R3 6
-      112 GETTABLEKS                       R3 R3 K34 ["Util"]
-      114 GETTABLEKS                       R3 R3 K35 ["createFoundationDesignBinding"]
-      116 CALL                             R3 0 2
-      117 SETTABLEKS                       R4 R0 K36 ["onFoundationStyleSheetChange"]
-      119 GETUPVAL                         R5 7
-      120 GETTABLEKS                       R6 R1 K11 ["Plugin"]
-      122 LOADNIL                          R7
-      123 LOADNIL                          R8
-      124 NEWTABLE                         R9 0 1
-      126 MOVE                             R10 R3
-      127 SETLIST                          R9 R10 1 [1]
-      129 CALL                             R5 4 1
-      130 SETTABLEKS                       R5 R0 K37 ["design"]
-      132 RETURN                           R0 0
+       76 GETUPVAL                         R6 4
+       77 GETTABLEKS                       R6 R6 K29 ["getFFlagAQVFollowup"]
+       79 CALL                             R6 0 1
+       80 JUMPIFNOT                        R6 ; [+2]
+       81 GETUPVAL                         R5 5
+       82 JUMP                             ; [+1]
+       83 LOADNIL                          R5
+       84 SETTABLEKS                       R5 R4 K27 ["libraries"]
+       86 CALL                             R3 1 1
+       87 SETTABLEKS                       R3 R0 K30 ["localizationLEGACY"]
+       89 GETUPVAL                         R3 6
+       90 GETTABLEKS                       R3 R3 K21 ["Localization"]
+       92 GETTABLEKS                       R3 R3 K22 ["new"]
+       94 DUPTABLE                         R4 K31 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetQualityValidation"}]
+       95 GETUPVAL                         R5 2
+       96 SETTABLEKS                       R5 R4 K23 ["stringResourceTable"]
+       98 GETUPVAL                         R5 3
+       99 SETTABLEKS                       R5 R4 K24 ["translationResourceTable"]
+      101 CALL                             R3 1 1
+      102 SETTABLEKS                       R3 R0 K32 ["localization"]
+      104 GETUPVAL                         R3 1
+      105 GETTABLEKS                       R3 R3 K33 ["Analytics"]
+      107 GETTABLEKS                       R3 R3 K22 ["new"]
+      109 DUPCLOSURE                       R4 K34 [PROTO_12]
+      110 NEWTABLE                         R5 0 0
+      112 CALL                             R3 2 1
+      113 SETTABLEKS                       R3 R0 K35 ["analytics"]
+      115 GETUPVAL                         R3 7
+      116 GETTABLEKS                       R3 R3 K22 ["new"]
+      118 CALL                             R3 0 1
+      119 SETTABLEKS                       R3 R0 K36 ["DEPRECATED_stylizer"]
+      121 GETUPVAL                         R3 8
+      122 GETTABLEKS                       R3 R3 K37 ["Util"]
+      124 GETTABLEKS                       R3 R3 K38 ["createFoundationDesignBinding"]
+      126 CALL                             R3 0 2
+      127 SETTABLEKS                       R4 R0 K39 ["onFoundationStyleSheetChange"]
+      129 GETUPVAL                         R5 9
+      130 GETTABLEKS                       R6 R1 K11 ["Plugin"]
+      132 LOADNIL                          R7
+      133 LOADNIL                          R8
+      134 NEWTABLE                         R9 0 1
+      136 MOVE                             R10 R3
+      137 SETLIST                          R9 R10 1 [1]
+      139 CALL                             R5 4 1
+      140 SETTABLEKS                       R5 R0 K40 ["design"]
+      142 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
@@ -394,57 +402,69 @@ MAIN:
        56 GETTABLEKS                       R12 R12 K24 ["StudioUri"]
        58 GETTABLEKS                       R13 R2 K25 ["Styling"]
        60 GETTABLEKS                       R13 R13 K26 ["registerPluginStyles"]
-       62 GETTABLEKS                       R14 R0 K27 ["Src"]
-       64 GETTABLEKS                       R14 R14 K28 ["Resources"]
-       66 GETTABLEKS                       R14 R14 K13 ["Localization"]
-       68 GETTABLEKS                       R14 R14 K29 ["SourceStrings"]
-       70 GETTABLEKS                       R15 R0 K27 ["Src"]
-       72 GETTABLEKS                       R15 R15 K28 ["Resources"]
-       74 GETTABLEKS                       R15 R15 K13 ["Localization"]
-       76 GETTABLEKS                       R15 R15 K30 ["LocalizedStrings"]
-       78 GETTABLEKS                       R16 R0 K27 ["Src"]
-       80 GETTABLEKS                       R16 R16 K10 ["Components"]
-       82 GETIMPORT                        R17 K5 [require]
-       84 GETTABLEKS                       R18 R16 K31 ["ValidationPanel"]
-       86 CALL                             R17 1 1
-       87 GETIMPORT                        R18 K5 [require]
-       89 GETTABLEKS                       R19 R0 K27 ["Src"]
-       91 GETTABLEKS                       R19 R19 K23 ["Util"]
-       93 GETTABLEKS                       R19 R19 K32 ["fetchBundleTypes"]
-       95 CALL                             R18 1 1
-       96 GETTABLEKS                       R19 R1 K33 ["PureComponent"]
-       98 LOADK                            R21 K34 ["MainPlugin"]
-       99 NAMECALL                         R19 R19 K35 ["extend"]
-      101 CALL                             R19 2 1
-      102 GETTABLEKS                       R20 R12 K36 ["fromAction"]
-      104 LOADK                            R21 K2 ["AssetQualityValidation"]
-      105 LOADK                            R22 K37 ["Toggle"]
-      106 CALL                             R20 2 1
-      107 DUPCLOSURE                       R21 K38 [PROTO_13]
-      108 CAPTURE                          VAL R20
-      109 CAPTURE                          VAL R7
-      110 CAPTURE                          VAL R14
-      111 CAPTURE                          VAL R15
-      112 CAPTURE                          VAL R5
-      113 CAPTURE                          VAL R11
-      114 CAPTURE                          VAL R3
-      115 CAPTURE                          VAL R13
-      116 SETTABLEKS                       R21 R19 K39 ["init"]
-      118 DUPCLOSURE                       R21 K40 [PROTO_15]
-      119 CAPTURE                          VAL R18
-      120 SETTABLEKS                       R21 R19 K41 ["didMount"]
-      122 DUPCLOSURE                       R21 K42 [PROTO_16]
-      123 CAPTURE                          VAL R7
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R10
-      127 CAPTURE                          VAL R11
-      128 CAPTURE                          VAL R1
-      129 CAPTURE                          VAL R6
-      130 CAPTURE                          VAL R4
-      131 CAPTURE                          VAL R5
-      132 CAPTURE                          VAL R17
-      133 SETTABLEKS                       R21 R19 K43 ["render"]
-      135 DUPCLOSURE                       R21 K44 [PROTO_17]
-      136 SETTABLEKS                       R21 R19 K45 ["willUnmount"]
-      138 RETURN                           R19 1
+       62 GETIMPORT                        R14 K5 [require]
+       64 GETTABLEKS                       R15 R0 K27 ["Bin"]
+       66 GETTABLEKS                       R15 R15 K28 ["Common"]
+       68 GETTABLEKS                       R15 R15 K29 ["defineLuaFlags"]
+       70 CALL                             R14 1 1
+       71 GETIMPORT                        R15 K5 [require]
+       73 GETTABLEKS                       R16 R0 K30 ["Src"]
+       75 GETTABLEKS                       R16 R16 K23 ["Util"]
+       77 GETTABLEKS                       R16 R16 K31 ["localizationLibraries"]
+       79 CALL                             R15 1 1
+       80 GETTABLEKS                       R16 R0 K30 ["Src"]
+       82 GETTABLEKS                       R16 R16 K32 ["Resources"]
+       84 GETTABLEKS                       R16 R16 K13 ["Localization"]
+       86 GETTABLEKS                       R16 R16 K33 ["SourceStrings"]
+       88 GETTABLEKS                       R17 R0 K30 ["Src"]
+       90 GETTABLEKS                       R17 R17 K32 ["Resources"]
+       92 GETTABLEKS                       R17 R17 K13 ["Localization"]
+       94 GETTABLEKS                       R17 R17 K34 ["LocalizedStrings"]
+       96 GETTABLEKS                       R18 R0 K30 ["Src"]
+       98 GETTABLEKS                       R18 R18 K10 ["Components"]
+      100 GETIMPORT                        R19 K5 [require]
+      102 GETTABLEKS                       R20 R18 K35 ["ValidationPanel"]
+      104 CALL                             R19 1 1
+      105 GETIMPORT                        R20 K5 [require]
+      107 GETTABLEKS                       R21 R0 K30 ["Src"]
+      109 GETTABLEKS                       R21 R21 K23 ["Util"]
+      111 GETTABLEKS                       R21 R21 K36 ["fetchBundleTypes"]
+      113 CALL                             R20 1 1
+      114 GETTABLEKS                       R21 R1 K37 ["PureComponent"]
+      116 LOADK                            R23 K38 ["MainPlugin"]
+      117 NAMECALL                         R21 R21 K39 ["extend"]
+      119 CALL                             R21 2 1
+      120 GETTABLEKS                       R22 R12 K40 ["fromAction"]
+      122 LOADK                            R23 K2 ["AssetQualityValidation"]
+      123 LOADK                            R24 K41 ["Toggle"]
+      124 CALL                             R22 2 1
+      125 DUPCLOSURE                       R23 K42 [PROTO_13]
+      126 CAPTURE                          VAL R22
+      127 CAPTURE                          VAL R7
+      128 CAPTURE                          VAL R16
+      129 CAPTURE                          VAL R17
+      130 CAPTURE                          VAL R14
+      131 CAPTURE                          VAL R15
+      132 CAPTURE                          VAL R5
+      133 CAPTURE                          VAL R11
+      134 CAPTURE                          VAL R3
+      135 CAPTURE                          VAL R13
+      136 SETTABLEKS                       R23 R21 K43 ["init"]
+      138 DUPCLOSURE                       R23 K44 [PROTO_15]
+      139 CAPTURE                          VAL R20
+      140 SETTABLEKS                       R23 R21 K45 ["didMount"]
+      142 DUPCLOSURE                       R23 K46 [PROTO_16]
+      143 CAPTURE                          VAL R7
+      144 CAPTURE                          VAL R8
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R10
+      147 CAPTURE                          VAL R11
+      148 CAPTURE                          VAL R1
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R4
+      151 CAPTURE                          VAL R5
+      152 CAPTURE                          VAL R19
+      153 SETTABLEKS                       R23 R21 K47 ["render"]
+      155 DUPCLOSURE                       R23 K48 [PROTO_17]
+      156 SETTABLEKS                       R23 R21 K49 ["willUnmount"]
+      158 RETURN                           R21 1

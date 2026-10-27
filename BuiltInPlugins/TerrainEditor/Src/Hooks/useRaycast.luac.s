@@ -142,7 +142,7 @@ PROTO_3:
        66 GETTABLEKS                       R9 R9 K12 ["Cylinder"]
        68 JUMPIFNOTEQ                      R1 R9 ; [+9]
        70 GETIMPORT                        R9 K15 [CFrame.Angles]
-       72 LOADK                            R10 K16 [1.5707963267949]
+       72 LOADK                            R10 K16 [1.5707963267948966]
        73 LOADN                            R11 0
        74 LOADN                            R12 0
        75 CALL                             R9 3 1

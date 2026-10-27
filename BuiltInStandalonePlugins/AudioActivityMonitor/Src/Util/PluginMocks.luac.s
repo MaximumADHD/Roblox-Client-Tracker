@@ -53,6 +53,19 @@ PROTO_4:
        15 RETURN                           R1 1
 
 PROTO_5:
+        0 FASTCALL1                        TYPEOF R0 ; [+3]
+        1 MOVE                             R3 R0
+        2 GETIMPORT                        R2 K1 [typeof]
+        4 CALL                             R2 1 1
+        5 JUMPIFNOTEQKS                    R2 K2 ["table"] ; [+6]
+        7 GETIMPORT                        R1 K4 [table.clone]
+        9 MOVE                             R2 R0
+       10 CALL                             R1 1 1
+       11 RETURN                           R1 1
+       12 MOVE                             R1 R0
+       13 RETURN                           R1 1
+
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 0
         2 GETTABLE                         R2 R3 R0
@@ -65,7 +78,7 @@ PROTO_5:
        10 GETTABLE                         R1 R2 R0
        11 RETURN                           R1 1
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R4 0
         1 GETUPVAL                         R6 0
         2 GETTABLE                         R5 R6 R1
@@ -81,7 +94,7 @@ PROTO_6:
        14 CALL                             R3 2 -1
        15 RETURN                           R3 -1
 
-PROTO_7:
+PROTO_8:
         0 PREPVARARGS                      2
         1 GETUPVAL                         R3 0
         2 GETUPVAL                         R5 0
@@ -98,55 +111,100 @@ PROTO_7:
        15 CALL                             R2 -1 0
        16 RETURN                           R0 0
 
-PROTO_8:
-        0 NEWCLOSURE                       R3 P0
-        1 CAPTURE                          VAL R0
-        2 CAPTURE                          UPVAL U0
-        3 DUPTABLE                         R4 K2 [{"HostDataModelType", "MultipleDocumentInterfaceInstance"}]
-        4 SETTABLEKS                       R1 R4 K0 ["HostDataModelType"]
-        6 DUPTABLE                         R5 K4 [{"FocusedDataModelSession"}]
-        7 SETTABLEKS                       R2 R5 K3 ["FocusedDataModelSession"]
-        9 SETTABLEKS                       R5 R4 K1 ["MultipleDocumentInterfaceInstance"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R5 R5 K5 ["fn"]
-       14 NEWCLOSURE                       R6 P1
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U0
-       17 CALL                             R5 1 1
-       18 SETTABLEKS                       R5 R4 K6 ["OnInvoke"]
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R5 R5 K5 ["fn"]
-       23 NEWCLOSURE                       R6 P2
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          UPVAL U0
-       26 CALL                             R5 1 1
-       27 SETTABLEKS                       R5 R4 K7 ["Invoke"]
-       29 RETURN                           R4 1
-
 PROTO_9:
-        0 NEWTABLE                         R2 0 0
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R3 R3 K0 ["_createMockSession"]
-        5 MOVE                             R4 R1
-        6 CALL                             R3 1 1
-        7 NEWTABLE                         R4 0 0
-        9 MOVE                             R5 R0
-       10 LOADNIL                          R6
-       11 LOADNIL                          R7
-       12 FORGPREP                         R5
-       13 GETUPVAL                         R10 0
-       14 GETTABLEKS                       R10 R10 K1 ["_createMockPlugin"]
-       16 MOVE                             R11 R2
-       17 MOVE                             R12 R9
-       18 MOVE                             R13 R3
-       19 CALL                             R10 3 1
-       20 SETTABLE                         R10 R4 R9
-       21 FORGLOOP                         R5 2 ; [-9]
-       23 MOVE                             R5 R4
-       24 MOVE                             R6 R3
-       25 RETURN                           R5 2
+        0 GETUPVAL                         R4 0
+        1 GETTABLE                         R3 R4 R1
+        2 FASTCALL1                        TYPEOF R3 ; [+3]
+        3 MOVE                             R5 R3
+        4 GETIMPORT                        R4 K1 [typeof]
+        6 CALL                             R4 1 1
+        7 JUMPIFNOTEQKS                    R4 K2 ["table"] ; [+7]
+        9 GETIMPORT                        R4 K4 [table.clone]
+       11 MOVE                             R5 R3
+       12 CALL                             R4 1 1
+       13 MOVE                             R2 R4
+       14 RETURN                           R2 1
+       15 MOVE                             R2 R3
+       16 RETURN                           R2 1
 
 PROTO_10:
+        0 GETUPVAL                         R3 0
+        1 FASTCALL1                        TYPEOF R2 ; [+3]
+        2 MOVE                             R6 R2
+        3 GETIMPORT                        R5 K1 [typeof]
+        5 CALL                             R5 1 1
+        6 JUMPIFNOTEQKS                    R5 K2 ["table"] ; [+6]
+        8 GETIMPORT                        R4 K4 [table.clone]
+       10 MOVE                             R5 R2
+       11 CALL                             R4 1 1
+       12 JUMP                             ; [+1]
+       13 MOVE                             R4 R2
+       14 SETTABLE                         R4 R3 R1
+       15 RETURN                           R0 0
+
+PROTO_11:
+        0 NEWCLOSURE                       R4 P0
+        1 CAPTURE                          VAL R0
+        2 CAPTURE                          UPVAL U0
+        3 DUPTABLE                         R5 K2 [{"HostDataModelType", "MultipleDocumentInterfaceInstance"}]
+        4 SETTABLEKS                       R2 R5 K0 ["HostDataModelType"]
+        6 DUPTABLE                         R6 K4 [{"FocusedDataModelSession"}]
+        7 SETTABLEKS                       R3 R6 K3 ["FocusedDataModelSession"]
+        9 SETTABLEKS                       R6 R5 K1 ["MultipleDocumentInterfaceInstance"]
+       11 GETUPVAL                         R6 1
+       12 GETTABLEKS                       R6 R6 K5 ["fn"]
+       14 NEWCLOSURE                       R7 P1
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          UPVAL U0
+       17 CALL                             R6 1 1
+       18 SETTABLEKS                       R6 R5 K6 ["OnInvoke"]
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R6 R6 K5 ["fn"]
+       23 NEWCLOSURE                       R7 P2
+       24 CAPTURE                          VAL R0
+       25 CAPTURE                          UPVAL U0
+       26 CALL                             R6 1 1
+       27 SETTABLEKS                       R6 R5 K7 ["Invoke"]
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K5 ["fn"]
+       32 NEWCLOSURE                       R7 P3
+       33 CAPTURE                          VAL R1
+       34 CALL                             R6 1 1
+       35 SETTABLEKS                       R6 R5 K8 ["GetSetting"]
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R6 R6 K5 ["fn"]
+       40 NEWCLOSURE                       R7 P4
+       41 CAPTURE                          VAL R1
+       42 CALL                             R6 1 1
+       43 SETTABLEKS                       R6 R5 K9 ["SetSetting"]
+       45 RETURN                           R5 1
+
+PROTO_12:
+        0 NEWTABLE                         R2 0 0
+        2 NEWTABLE                         R3 0 0
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K0 ["_createMockSession"]
+        7 MOVE                             R5 R1
+        8 CALL                             R4 1 1
+        9 NEWTABLE                         R5 0 0
+       11 MOVE                             R6 R0
+       12 LOADNIL                          R7
+       13 LOADNIL                          R8
+       14 FORGPREP                         R6
+       15 GETUPVAL                         R11 0
+       16 GETTABLEKS                       R11 R11 K1 ["_createMockPlugin"]
+       18 MOVE                             R12 R2
+       19 MOVE                             R13 R3
+       20 MOVE                             R14 R10
+       21 MOVE                             R15 R4
+       22 CALL                             R11 4 1
+       23 SETTABLE                         R11 R5 R10
+       24 FORGLOOP                         R6 2 ; [-10]
+       26 MOVE                             R6 R5
+       27 MOVE                             R7 R4
+       28 RETURN                           R6 2
+
+PROTO_13:
         0 DUPTABLE                         R0 K2 [{"WindowFocused", "WindowFocusReleased"}]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K3 ["_createSignal"]
@@ -176,14 +234,15 @@ MAIN:
        23 DUPCLOSURE                       R4 K12 [PROTO_4]
        24 CAPTURE                          VAL R3
        25 SETTABLEKS                       R4 R3 K13 ["_createMockSession"]
-       27 DUPCLOSURE                       R4 K14 [PROTO_8]
-       28 CAPTURE                          VAL R3
-       29 CAPTURE                          VAL R2
-       30 SETTABLEKS                       R4 R3 K15 ["_createMockPlugin"]
-       32 DUPCLOSURE                       R4 K16 [PROTO_9]
-       33 CAPTURE                          VAL R3
-       34 SETTABLEKS                       R4 R3 K17 ["createMockPlugins"]
-       36 DUPCLOSURE                       R4 K18 [PROTO_10]
-       37 CAPTURE                          VAL R3
-       38 SETTABLEKS                       R4 R3 K19 ["createMockWidget"]
-       40 RETURN                           R3 1
+       27 DUPCLOSURE                       R4 K14 [PROTO_5]
+       28 DUPCLOSURE                       R5 K15 [PROTO_11]
+       29 CAPTURE                          VAL R3
+       30 CAPTURE                          VAL R2
+       31 SETTABLEKS                       R5 R3 K16 ["_createMockPlugin"]
+       33 DUPCLOSURE                       R5 K17 [PROTO_12]
+       34 CAPTURE                          VAL R3
+       35 SETTABLEKS                       R5 R3 K18 ["createMockPlugins"]
+       37 DUPCLOSURE                       R5 K19 [PROTO_13]
+       38 CAPTURE                          VAL R3
+       39 SETTABLEKS                       R5 R3 K20 ["createMockWidget"]
+       41 RETURN                           R3 1

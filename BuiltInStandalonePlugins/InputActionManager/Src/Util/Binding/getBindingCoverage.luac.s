@@ -5,7 +5,7 @@ PROTO_0:
         3 FORGPREP                         R1
         4 GETTABLE                         R6 R0 R5
         5 JUMPIFNOT                        R6 ; [+5]
-        6 GETIMPORT                        R7 K3 [Enum.KeyCode.Unknown]
+        6 GETIMPORT                        R7 K3 [Enum.KeyCode.None]
         8 JUMPIFEQ                         R6 R7 ; [+2]
        10 RETURN                           R6 1
        11 FORGLOOP                         R1 2 ; [-8]
@@ -15,7 +15,7 @@ PROTO_0:
 PROTO_1:
         0 NEWTABLE                         R1 0 0
         2 GETTABLEKS                       R2 R0 K0 ["keyCode"]
-        4 GETIMPORT                        R3 K4 [Enum.KeyCode.Unknown]
+        4 GETIMPORT                        R3 K4 [Enum.KeyCode.None]
         6 JUMPIFEQ                         R2 R3 ; [+14]
         8 GETUPVAL                         R3 0
         9 GETTABLEKS                       R4 R0 K0 ["keyCode"]
@@ -34,7 +34,7 @@ PROTO_1:
        24 FORGPREP                         R3
        25 GETTABLE                         R8 R0 R7
        26 JUMPIFNOT                        R8 ; [+6]
-       27 GETIMPORT                        R9 K4 [Enum.KeyCode.Unknown]
+       27 GETIMPORT                        R9 K4 [Enum.KeyCode.None]
        29 JUMPIFEQ                         R8 R9 ; [+3]
        31 MOVE                             R2 R8
        32 JUMP                             ; [+3]
@@ -70,45 +70,50 @@ PROTO_2:
        11 LOADNIL                          R5
        12 LOADNIL                          R6
        13 FORGPREP                         R4
-       14 ADDK                             R3 R3 K0 [1]
-       15 NEWTABLE                         R9 0 0
-       17 GETTABLEKS                       R10 R8 K1 ["bindings"]
-       19 LOADNIL                          R11
-       20 LOADNIL                          R12
-       21 FORGPREP                         R10
-       22 GETTABLE                         R15 R1 R14
-       23 JUMPIFNOT                        R15 ; [+8]
-       24 GETUPVAL                         R16 1
-       25 MOVE                             R17 R15
-       26 CALL                             R16 1 3
-       27 FORGPREP                         R16
-       28 LOADB                            R21 1
-       29 SETTABLE                         R21 R9 R19
-       30 FORGLOOP                         R16 1 ; [-3]
-       32 FORGLOOP                         R10 2 ; [-11]
-       34 MOVE                             R10 R9
-       35 LOADNIL                          R11
-       36 LOADNIL                          R12
-       37 FORGPREP                         R10
-       38 GETTABLE                         R15 R2 R13
-       39 ADDK                             R15 R15 K0 [1]
-       40 SETTABLE                         R15 R2 R13
-       41 FORGLOOP                         R10 1 ; [-4]
-       43 FORGLOOP                         R4 2 ; [-30]
-       45 NEWTABLE                         R4 0 0
-       47 GETUPVAL                         R5 0
-       48 CALL                             R5 0 3
-       49 FORGPREP                         R5
-       50 LOADN                            R10 0
-       51 JUMPIFNOTLT                      R10 R3 ; [+5]
-       53 GETTABLE                         R11 R2 R9
-       54 DIV                              R10 R11 R3
-       55 SETTABLE                         R10 R4 R9
-       56 JUMP                             ; [+2]
-       57 LOADN                            R10 0
-       58 SETTABLE                         R10 R4 R9
-       59 FORGLOOP                         R5 2 ; [-10]
-       61 RETURN                           R4 1
+       14 GETUPVAL                         R9 1
+       15 CALL                             R9 0 1
+       16 JUMPIFNOT                        R9 ; [+3]
+       17 GETTABLEKS                       R9 R8 K0 ["defaultPlayerScript"]
+       19 JUMPIF                           R9 ; [+29]
+       20 ADDK                             R3 R3 K1 [1]
+       21 NEWTABLE                         R9 0 0
+       23 GETTABLEKS                       R10 R8 K2 ["bindings"]
+       25 LOADNIL                          R11
+       26 LOADNIL                          R12
+       27 FORGPREP                         R10
+       28 GETTABLE                         R15 R1 R14
+       29 JUMPIFNOT                        R15 ; [+8]
+       30 GETUPVAL                         R16 2
+       31 MOVE                             R17 R15
+       32 CALL                             R16 1 3
+       33 FORGPREP                         R16
+       34 LOADB                            R21 1
+       35 SETTABLE                         R21 R9 R19
+       36 FORGLOOP                         R16 1 ; [-3]
+       38 FORGLOOP                         R10 2 ; [-11]
+       40 MOVE                             R10 R9
+       41 LOADNIL                          R11
+       42 LOADNIL                          R12
+       43 FORGPREP                         R10
+       44 GETTABLE                         R15 R2 R13
+       45 ADDK                             R15 R15 K1 [1]
+       46 SETTABLE                         R15 R2 R13
+       47 FORGLOOP                         R10 1 ; [-4]
+       49 FORGLOOP                         R4 2 ; [-36]
+       51 NEWTABLE                         R4 0 0
+       53 GETUPVAL                         R5 0
+       54 CALL                             R5 0 3
+       55 FORGPREP                         R5
+       56 LOADN                            R10 0
+       57 JUMPIFNOTLT                      R10 R3 ; [+5]
+       59 GETTABLE                         R11 R2 R9
+       60 DIV                              R10 R11 R3
+       61 SETTABLE                         R10 R4 R9
+       62 JUMP                             ; [+2]
+       63 LOADN                            R10 0
+       64 SETTABLE                         R10 R4 R9
+       65 FORGLOOP                         R5 2 ; [-10]
+       67 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -137,42 +142,48 @@ MAIN:
        39 CALL                             R4 1 1
        40 NAMECALL                         R5 R0 K16 ["GetInputSchemaKeyCodeTree"]
        42 CALL                             R5 1 1
-       43 NEWTABLE                         R6 0 0
-       45 MOVE                             R7 R5
-       46 LOADNIL                          R8
-       47 LOADNIL                          R9
-       48 FORGPREP                         R7
-       49 MOVE                             R12 R11
-       50 LOADNIL                          R13
-       51 LOADNIL                          R14
-       52 FORGPREP                         R12
-       53 MOVE                             R17 R16
-       54 LOADNIL                          R18
-       55 LOADNIL                          R19
-       56 FORGPREP                         R17
-       57 GETTABLE                         R22 R6 R21
-       58 JUMPIF                           R22 ; [+3]
-       59 NEWTABLE                         R22 0 0
-       61 SETTABLE                         R22 R6 R21
-       62 GETIMPORT                        R22 K19 [table.find]
-       64 GETTABLE                         R23 R6 R21
-       65 MOVE                             R24 R10
-       66 CALL                             R22 2 1
-       67 JUMPIF                           R22 ; [+7]
-       68 GETTABLE                         R23 R6 R21
-       69 FASTCALL2                        TABLE_INSERT R23 R10 ; [+4]
-       71 MOVE                             R24 R10
-       72 GETIMPORT                        R22 K21 [table.insert]
-       74 CALL                             R22 2 0
-       75 FORGLOOP                         R17 2 ; [-19]
-       77 FORGLOOP                         R12 2 ; [-25]
-       79 FORGLOOP                         R7 2 ; [-31]
-       81 DUPCLOSURE                       R7 K22 [PROTO_0]
-       82 CAPTURE                          VAL R3
-       83 DUPCLOSURE                       R8 K23 [PROTO_1]
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R3
-       86 DUPCLOSURE                       R9 K24 [PROTO_2]
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R8
-       89 RETURN                           R9 1
+       43 GETTABLEKS                       R6 R1 K10 ["Src"]
+       45 GETTABLEKS                       R6 R6 K17 ["Flags"]
+       47 GETIMPORT                        R7 K9 [require]
+       49 GETTABLEKS                       R8 R6 K18 ["getFFlagIAMFixCoverageDiffTelemetry"]
+       51 CALL                             R7 1 1
+       52 NEWTABLE                         R8 0 0
+       54 MOVE                             R9 R5
+       55 LOADNIL                          R10
+       56 LOADNIL                          R11
+       57 FORGPREP                         R9
+       58 MOVE                             R14 R13
+       59 LOADNIL                          R15
+       60 LOADNIL                          R16
+       61 FORGPREP                         R14
+       62 MOVE                             R19 R18
+       63 LOADNIL                          R20
+       64 LOADNIL                          R21
+       65 FORGPREP                         R19
+       66 GETTABLE                         R24 R8 R23
+       67 JUMPIF                           R24 ; [+3]
+       68 NEWTABLE                         R24 0 0
+       70 SETTABLE                         R24 R8 R23
+       71 GETIMPORT                        R24 K21 [table.find]
+       73 GETTABLE                         R25 R8 R23
+       74 MOVE                             R26 R12
+       75 CALL                             R24 2 1
+       76 JUMPIF                           R24 ; [+7]
+       77 GETTABLE                         R25 R8 R23
+       78 FASTCALL2                        TABLE_INSERT R25 R12 ; [+4]
+       80 MOVE                             R26 R12
+       81 GETIMPORT                        R24 K23 [table.insert]
+       83 CALL                             R24 2 0
+       84 FORGLOOP                         R19 2 ; [-19]
+       86 FORGLOOP                         R14 2 ; [-25]
+       88 FORGLOOP                         R9 2 ; [-31]
+       90 DUPCLOSURE                       R9 K24 [PROTO_0]
+       91 CAPTURE                          VAL R3
+       92 DUPCLOSURE                       R10 K25 [PROTO_1]
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R3
+       95 DUPCLOSURE                       R11 K26 [PROTO_2]
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R7
+       98 CAPTURE                          VAL R10
+       99 RETURN                           R11 1

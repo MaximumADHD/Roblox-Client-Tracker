@@ -59,7 +59,7 @@ PROTO_2:
        50 GETTABLEKS                       R5 R0 K10 ["_totalAngle"]
        52 GETTABLEKS                       R7 R0 K6 ["_sign"]
        54 GETTABLEKS                       R10 R0 K3 ["_previousAngle"]
-       56 SUBRK                            R9 K11 [6.28318530717959] R10
+       56 SUBRK                            R9 K11 [6.283185307179586] R10
        57 SUB                              R8 R9 R3
        58 MUL                              R6 R7 R8
        59 SUB                              R5 R5 R6

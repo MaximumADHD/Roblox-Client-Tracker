@@ -1,8 +1,8 @@
 PROTO_0:
         0 GETIMPORT                        R1 K2 [Vector2.new]
-        2 MULK                             R4 R0 K4 [2]
-        3 MODK                             R3 R4 K4 [2]
-        4 SUBK                             R2 R3 K3 [1]
+        2 MULK                             R4 R0 K5 [2]
+        3 MODK                             R3 R4 K4 [3]
+        4 SUBK                             R2 R3 K3 [1.5]
         5 LOADN                            R3 0
         6 CALL                             R1 2 -1
         7 RETURN                           R1 -1

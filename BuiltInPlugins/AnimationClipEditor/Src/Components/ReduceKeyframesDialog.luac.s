@@ -216,11 +216,11 @@ PROTO_5:
        11 ADD                              R15 R16 R14
        12 LOADN                            R16 3
        13 JUMPIFNOTLE                      R16 R15 ; [+3]
-       15 LOADK                            R16 K2 [1.5707963267949]
+       15 LOADK                            R16 K2 [1.5707963267948966]
        16 RETURN                           R16 1
        17 LOADN                            R16 -1
        18 JUMPIFNOTLE                      R15 R16 ; [+3]
-       20 LOADK                            R16 K3 [-1.5707963267949]
+       20 LOADK                            R16 K3 [-1.5707963267948966]
        21 RETURN                           R16 1
        22 SUBK                             R18 R15 K5 [1]
        23 DIVK                             R17 R18 K4 [2]
@@ -339,11 +339,11 @@ PROTO_6:
       147 ADD                              R42 R43 R41
       148 LOADN                            R43 3
       149 JUMPIFNOTLE                      R43 R42 ; [+3]
-      151 LOADK                            R26 K35 [1.5707963267949]
+      151 LOADK                            R26 K35 [1.5707963267948966]
       152 JUMP                             ; [+12]
       153 LOADN                            R43 -1
       154 JUMPIFNOTLE                      R42 R43 ; [+3]
-      156 LOADK                            R26 K36 [-1.5707963267949]
+      156 LOADK                            R26 K36 [-1.5707963267948966]
       157 JUMP                             ; [+7]
       158 SUBK                             R45 R42 K38 [1]
       159 DIVK                             R44 R45 K37 [2]

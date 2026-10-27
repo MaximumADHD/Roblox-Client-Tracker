@@ -364,7 +364,7 @@ PROTO_13:
        10 NAMECALL                         R5 R4 K6 ["getText"]
        12 CALL                             R5 3 1
        13 GETIMPORT                        R6 K9 [Vector2.new]
-       15 LOADK                            R7 K10 [∞]
+       15 LOADK                            R7 K10 [Infinity]
        16 GETTABLEKS                       R8 R3 K11 ["button"]
        18 GETTABLEKS                       R8 R8 K12 ["height"]
        20 CALL                             R6 2 1

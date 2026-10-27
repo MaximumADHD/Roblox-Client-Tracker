@@ -626,7 +626,7 @@ PROTO_10:
       728 LOADK                            R42 K131 ["UISizeConstraint"]
       729 DUPTABLE                         R43 K133 [{"MaxSize"}]
       730 GETIMPORT                        R44 K4 [Vector2.new]
-      732 LOADK                            R45 K134 [∞]
+      732 LOADK                            R45 K134 [Infinity]
       733 LOADN                            R46 50
       734 CALL                             R44 2 1
       735 SETTABLEKS                       R44 R43 K132 ["MaxSize"]

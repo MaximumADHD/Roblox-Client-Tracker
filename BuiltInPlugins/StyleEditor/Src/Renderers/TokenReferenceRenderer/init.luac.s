@@ -329,7 +329,7 @@ PROTO_11:
       127 GETTABLEKS                       R17 R17 K3 ["ItemCount"]
       129 LOADN                            R18 0
       130 JUMPIFNOTLT                      R18 R17 ; [+3]
-      132 LOADK                            R16 K12 [∞]
+      132 LOADK                            R16 K12 [Infinity]
       133 JUMP                             ; [+1]
       134 MOVE                             R16 R3
       135 GETUPVAL                         R17 7

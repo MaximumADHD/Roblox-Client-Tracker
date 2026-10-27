@@ -527,7 +527,7 @@ PROTO_10:
       204 RETURN                           R3 2
 
 PROTO_11:
-        0 LOADK                            R1 K0 [-∞]
+        0 LOADK                            R1 K0 [-Infinity]
         1 LENGTH                           R4 R0
         2 LOADN                            R5 0
         3 JUMPIFLT                         R5 R4 ; [+2]
@@ -677,7 +677,7 @@ PROTO_13:
        12 CALL                             R4 2 0
        13 GETTABLEKS                       R4 R3 K4 ["ViewportSize"]
        15 GETTABLEKS                       R7 R3 K7 ["FieldOfView"]
-       17 MULK                             R6 R7 K6 [3.14159265358979]
+       17 MULK                             R6 R7 K6 [3.141592653589793]
        18 DIVK                             R5 R6 K5 [180]
        19 GETTABLEKS                       R10 R4 K9 ["X"]
        21 GETTABLEKS                       R11 R4 K10 ["Y"]
@@ -729,7 +729,7 @@ PROTO_13:
        82 MUL                              R9 R10 R11
        83 GETIMPORT                        R10 K22 [CFrame.Angles]
        85 LOADN                            R11 0
-       86 LOADK                            R12 K6 [3.14159265358979]
+       86 LOADK                            R12 K6 [3.141592653589793]
        87 LOADN                            R13 0
        88 CALL                             R10 3 1
        89 MUL                              R8 R9 R10
@@ -742,11 +742,11 @@ PROTO_13:
       100 FASTCALL2                        MATH_ATAN2 R10 R11 ; [+3]
       102 GETIMPORT                        R9 K25 [math.atan2]
       104 CALL                             R9 2 1
-      105 DIVK                             R12 R9 K26 [1.5707963267949]
+      105 DIVK                             R12 R9 K26 [1.5707963267948966]
       106 FASTCALL1                        MATH_ROUND R12 ; [+2]
       107 GETIMPORT                        R11 K28 [math.round]
       109 CALL                             R11 1 1
-      110 MULK                             R10 R11 K6 [3.14159265358979]
+      110 MULK                             R10 R11 K6 [3.141592653589793]
       111 DIVK                             R9 R10 K8 [2]
       112 GETIMPORT                        R10 K19 [CFrame.new]
       114 GETTABLEKS                       R11 R8 K29 ["Position"]

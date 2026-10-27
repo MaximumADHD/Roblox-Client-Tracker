@@ -29,8 +29,8 @@ PROTO_0:
        38 RETURN                           R6 1
 
 PROTO_1:
-        0 LOADK                            R1 K0 [{∞, ∞, ∞}]
-        1 LOADK                            R2 K1 [{-∞, -∞, -∞}]
+        0 LOADK                            R1 K0 [{Infinity, Infinity, Infinity}]
+        1 LOADK                            R2 K1 [{-Infinity, -Infinity, -Infinity}]
         2 MOVE                             R3 R0
         3 LOADNIL                          R4
         4 LOADNIL                          R5

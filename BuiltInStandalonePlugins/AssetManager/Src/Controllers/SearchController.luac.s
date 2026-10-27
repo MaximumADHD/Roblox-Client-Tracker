@@ -382,78 +382,66 @@ PROTO_16:
        29 RETURN                           R0 0
        30 NAMECALL                         R1 R0 K2 ["_isOmnisearchEnabled"]
        32 CALL                             R1 1 1
-       33 JUMPIFNOT                        R1 ; [+57]
-       34 GETTABLEKS                       R1 R0 K8 ["_searchSessionId"]
-       36 JUMPIFNOTEQKS                    R1 K1 [""] ; [+67]
-       38 GETTABLEKS                       R1 R0 K9 ["_explorerController"]
-       40 GETTABLEKS                       R3 R0 K10 ["_pluginController"]
-       42 NAMECALL                         R3 R3 K11 ["getCurrentScope"]
-       44 CALL                             R3 1 -1
-       45 NAMECALL                         R1 R1 K12 ["getScopeRoot"]
-       47 CALL                             R1 -1 1
-       48 JUMPIF                           R1 ; [+5]
-       49 GETTABLEKS                       R1 R0 K10 ["_pluginController"]
-       51 NAMECALL                         R1 R1 K13 ["getUser"]
-       53 CALL                             R1 1 1
-       54 MOVE                             R5 R1
-       55 NAMECALL                         R3 R0 K14 ["canSearchInScope"]
-       57 CALL                             R3 2 1
-       58 JUMPIFNOT                        R3 ; [+2]
-       59 MOVE                             R2 R1
-       60 JUMP                             ; [+5]
-       61 GETTABLEKS                       R2 R0 K10 ["_pluginController"]
-       63 NAMECALL                         R2 R2 K13 ["getUser"]
-       65 CALL                             R2 1 1
-       66 GETTABLEKS                       R3 R0 K15 ["_searchOptions"]
-       68 SETTABLEKS                       R2 R3 K16 ["ScopeInfo"]
-       70 GETTABLEKS                       R3 R0 K10 ["_pluginController"]
-       72 NAMECALL                         R3 R3 K11 ["getCurrentScope"]
-       74 CALL                             R3 1 1
-       75 GETTABLEKS                       R4 R3 K17 ["Uid"]
-       77 GETTABLEKS                       R5 R2 K17 ["Uid"]
-       79 JUMPIFEQ                         R4 R5 ; [+7]
-       81 GETTABLEKS                       R4 R0 K10 ["_pluginController"]
-       83 MOVE                             R6 R2
-       84 NAMECALL                         R4 R4 K18 ["setCurrentScope"]
-       86 CALL                             R4 2 0
-       87 NAMECALL                         R4 R0 K19 ["_startSearchSession"]
-       89 CALL                             R4 1 0
-       90 JUMP                             ; [+13]
-       91 GETTABLEKS                       R1 R0 K4 ["_isDefaultSearchState"]
-       93 JUMPIFNOT                        R1 ; [+10]
-       94 LOADB                            R1 0
-       95 SETTABLEKS                       R1 R0 K4 ["_isDefaultSearchState"]
-       97 GETTABLEKS                       R1 R0 K5 ["OnIsDefaultSearchStateChanged"]
-       99 GETTABLEKS                       R3 R0 K4 ["_isDefaultSearchState"]
-      101 NAMECALL                         R1 R1 K6 ["Fire"]
-      103 CALL                             R1 2 0
-      104 GETTABLEKS                       R3 R0 K0 ["_pendingSearchTerm"]
-      106 NAMECALL                         R1 R0 K7 ["_setActiveSearchTerm"]
-      108 CALL                             R1 2 0
-      109 GETTABLEKS                       R1 R0 K20 ["OnSearchRequested"]
-      111 NAMECALL                         R1 R1 K6 ["Fire"]
-      113 CALL                             R1 1 0
-      114 NAMECALL                         R1 R0 K2 ["_isOmnisearchEnabled"]
-      116 CALL                             R1 1 1
-      117 JUMPIFNOT                        R1 ; [+12]
-      118 GETTABLEKS                       R1 R0 K9 ["_explorerController"]
-      120 DUPTABLE                         R3 K22 [{"SearchState"}]
-      121 NAMECALL                         R4 R0 K23 ["_getSearchState"]
-      123 CALL                             R4 1 1
-      124 SETTABLEKS                       R4 R3 K21 ["SearchState"]
-      126 NAMECALL                         R1 R1 K24 ["addToHistory"]
-      128 CALL                             R1 2 0
-      129 JUMP                             ; [+11]
-      130 GETTABLEKS                       R1 R0 K9 ["_explorerController"]
-      132 DUPTABLE                         R3 K22 [{"SearchState"}]
-      133 NAMECALL                         R4 R0 K23 ["_getSearchState"]
-      135 CALL                             R4 1 1
-      136 SETTABLEKS                       R4 R3 K21 ["SearchState"]
-      138 NAMECALL                         R1 R1 K25 ["updateCurrentHistoryItem"]
-      140 CALL                             R1 2 0
-      141 NAMECALL                         R1 R0 K26 ["_pushSearchHistoryItem"]
-      143 CALL                             R1 1 0
-      144 RETURN                           R0 0
+       33 JUMPIFNOT                        R1 ; [+38]
+       34 NAMECALL                         R1 R0 K8 ["_getSearchScopeForRequest"]
+       36 CALL                             R1 1 1
+       37 MOVE                             R4 R1
+       38 NAMECALL                         R2 R0 K9 ["canSearchInScope"]
+       40 CALL                             R2 2 1
+       41 JUMPIF                           R2 ; [+1]
+       42 RETURN                           R0 0
+       43 GETTABLEKS                       R2 R0 K10 ["_searchSessionId"]
+       45 JUMPIFNOTEQKS                    R2 K1 [""] ; [+39]
+       47 GETTABLEKS                       R2 R0 K11 ["_searchOptions"]
+       49 SETTABLEKS                       R1 R2 K12 ["ScopeInfo"]
+       51 GETTABLEKS                       R2 R0 K13 ["_pluginController"]
+       53 NAMECALL                         R2 R2 K14 ["getCurrentScope"]
+       55 CALL                             R2 1 1
+       56 GETTABLEKS                       R3 R2 K15 ["Uid"]
+       58 GETTABLEKS                       R4 R1 K15 ["Uid"]
+       60 JUMPIFEQ                         R3 R4 ; [+7]
+       62 GETTABLEKS                       R3 R0 K13 ["_pluginController"]
+       64 MOVE                             R5 R1
+       65 NAMECALL                         R3 R3 K16 ["setCurrentScope"]
+       67 CALL                             R3 2 0
+       68 NAMECALL                         R3 R0 K17 ["_startSearchSession"]
+       70 CALL                             R3 1 0
+       71 JUMP                             ; [+13]
+       72 GETTABLEKS                       R1 R0 K4 ["_isDefaultSearchState"]
+       74 JUMPIFNOT                        R1 ; [+10]
+       75 LOADB                            R1 0
+       76 SETTABLEKS                       R1 R0 K4 ["_isDefaultSearchState"]
+       78 GETTABLEKS                       R1 R0 K5 ["OnIsDefaultSearchStateChanged"]
+       80 GETTABLEKS                       R3 R0 K4 ["_isDefaultSearchState"]
+       82 NAMECALL                         R1 R1 K6 ["Fire"]
+       84 CALL                             R1 2 0
+       85 GETTABLEKS                       R3 R0 K0 ["_pendingSearchTerm"]
+       87 NAMECALL                         R1 R0 K7 ["_setActiveSearchTerm"]
+       89 CALL                             R1 2 0
+       90 GETTABLEKS                       R1 R0 K18 ["OnSearchRequested"]
+       92 NAMECALL                         R1 R1 K6 ["Fire"]
+       94 CALL                             R1 1 0
+       95 NAMECALL                         R1 R0 K2 ["_isOmnisearchEnabled"]
+       97 CALL                             R1 1 1
+       98 JUMPIFNOT                        R1 ; [+12]
+       99 GETTABLEKS                       R1 R0 K19 ["_explorerController"]
+      101 DUPTABLE                         R3 K21 [{"SearchState"}]
+      102 NAMECALL                         R4 R0 K22 ["_getSearchState"]
+      104 CALL                             R4 1 1
+      105 SETTABLEKS                       R4 R3 K20 ["SearchState"]
+      107 NAMECALL                         R1 R1 K23 ["addToHistory"]
+      109 CALL                             R1 2 0
+      110 JUMP                             ; [+11]
+      111 GETTABLEKS                       R1 R0 K19 ["_explorerController"]
+      113 DUPTABLE                         R3 K21 [{"SearchState"}]
+      114 NAMECALL                         R4 R0 K22 ["_getSearchState"]
+      116 CALL                             R4 1 1
+      117 SETTABLEKS                       R4 R3 K20 ["SearchState"]
+      119 NAMECALL                         R1 R1 K24 ["updateCurrentHistoryItem"]
+      121 CALL                             R1 2 0
+      122 NAMECALL                         R1 R0 K25 ["_pushSearchHistoryItem"]
+      124 CALL                             R1 1 0
+      125 RETURN                           R0 0
 
 PROTO_17:
         0 GETIMPORT                        R1 K2 [table.clone]
@@ -476,6 +464,41 @@ PROTO_18:
        15 RETURN                           R3 1
 
 PROTO_19:
+        0 GETTABLEKS                       R3 R0 K0 ["_explorerController"]
+        2 MOVE                             R5 R1
+        3 NAMECALL                         R3 R3 K1 ["getScopeRoot"]
+        5 CALL                             R3 2 1
+        6 OR                               R2 R3 R1
+        7 GETTABLEKS                       R3 R2 K2 ["Type"]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["ScopeType"]
+       12 GETTABLEKS                       R4 R4 K4 ["ProjectPlaces"]
+       14 JUMPIFNOTEQ                      R3 R4 ; [+3]
+       16 LOADB                            R3 1
+       17 RETURN                           R3 1
+       18 GETTABLEKS                       R4 R0 K0 ["_explorerController"]
+       20 MOVE                             R6 R2
+       21 NAMECALL                         R4 R4 K5 ["getFolderReadinessStatus"]
+       23 CALL                             R4 2 1
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K6 ["InventoryFolderStatus"]
+       27 GETTABLEKS                       R5 R5 K7 ["FoldersReady"]
+       29 JUMPIFEQ                         R4 R5 ; [+2]
+       31 LOADB                            R3 0 +1
+       32 LOADB                            R3 1
+       33 RETURN                           R3 1
+
+PROTO_20:
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["rootScopeTypeIsSearchable"]
+        3 CALL                             R2 2 1
+        4 JUMPIFNOT                        R2 ; [+4]
+        5 MOVE                             R4 R1
+        6 NAMECALL                         R2 R0 K1 ["rootScopeIsBackfilledForSearch"]
+        8 CALL                             R2 2 1
+        9 RETURN                           R2 1
+
+PROTO_21:
         0 GETTABLEKS                       R2 R0 K0 ["_searchOptions"]
         2 GETTABLEKS                       R2 R2 K1 ["ScopeInfo"]
         4 GETTABLEKS                       R2 R2 K2 ["Uid"]
@@ -524,10 +547,10 @@ PROTO_19:
        74 CALL                             R3 2 0
        75 RETURN                           R0 0
 
-PROTO_20:
+PROTO_22:
         0 MOVE                             R2 R1
         1 MOVE                             R5 R1
-        2 NAMECALL                         R3 R0 K0 ["canSearchInScope"]
+        2 NAMECALL                         R3 R0 K0 ["rootScopeTypeIsSearchable"]
         4 CALL                             R3 2 1
         5 JUMPIF                           R3 ; [+7]
         6 GETTABLEKS                       R3 R0 K1 ["_pluginController"]
@@ -555,7 +578,34 @@ PROTO_20:
        40 MOVE                             R2 R3
        41 RETURN                           R2 1
 
-PROTO_21:
+PROTO_23:
+        0 GETTABLEKS                       R1 R0 K0 ["_searchSessionId"]
+        2 JUMPIFEQKS                       R1 K1 [""] ; [+6]
+        4 GETTABLEKS                       R1 R0 K2 ["_searchOptions"]
+        6 GETTABLEKS                       R1 R1 K3 ["ScopeInfo"]
+        8 RETURN                           R1 1
+        9 GETTABLEKS                       R1 R0 K4 ["_explorerController"]
+       11 GETTABLEKS                       R3 R0 K5 ["_pluginController"]
+       13 NAMECALL                         R3 R3 K6 ["getCurrentScope"]
+       15 CALL                             R3 1 -1
+       16 NAMECALL                         R1 R1 K7 ["getScopeRoot"]
+       18 CALL                             R1 -1 1
+       19 JUMPIF                           R1 ; [+5]
+       20 GETTABLEKS                       R1 R0 K5 ["_pluginController"]
+       22 NAMECALL                         R1 R1 K8 ["getUser"]
+       24 CALL                             R1 1 1
+       25 MOVE                             R5 R1
+       26 NAMECALL                         R3 R0 K9 ["rootScopeTypeIsSearchable"]
+       28 CALL                             R3 2 1
+       29 JUMPIFNOT                        R3 ; [+2]
+       30 MOVE                             R2 R1
+       31 RETURN                           R2 1
+       32 GETTABLEKS                       R2 R0 K5 ["_pluginController"]
+       34 NAMECALL                         R2 R2 K8 ["getUser"]
+       36 CALL                             R2 1 1
+       37 RETURN                           R2 1
+
+PROTO_24:
         0 GETTABLEKS                       R2 R0 K0 ["_searchOptions"]
         2 GETTABLEKS                       R2 R2 K1 ["AssetType"]
         4 JUMPIFNOTEQ                      R1 R2 ; [+2]
@@ -567,7 +617,7 @@ PROTO_21:
        15 CALL                             R2 2 0
        16 RETURN                           R0 0
 
-PROTO_22:
+PROTO_25:
         0 SETTABLEKS                       R1 R0 K0 ["_searchOptions"]
         2 GETTABLEKS                       R2 R0 K1 ["OnSearchOptionsChanged"]
         4 GETIMPORT                        R4 K4 [table.clone]
@@ -579,29 +629,29 @@ PROTO_22:
        14 CALL                             R2 1 0
        15 RETURN                           R0 0
 
-PROTO_23:
+PROTO_26:
         0 GETTABLEKS                       R1 R0 K0 ["_isDefaultSearchState"]
         2 RETURN                           R1 1
 
-PROTO_24:
+PROTO_27:
         0 GETTABLEKS                       R1 R0 K0 ["_isSearchInitiated"]
         2 RETURN                           R1 1
 
-PROTO_25:
+PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["_activeSearchTerm"]
         2 JUMPIFNOTEQKS                    R2 K1 [""] ; [+2]
         4 LOADB                            R1 0 +1
         5 LOADB                            R1 1
         6 RETURN                           R1 1
 
-PROTO_26:
+PROTO_29:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["GenerateGUID"]
         3 CALL                             R1 1 1
         4 SETTABLEKS                       R1 R0 K1 ["_searchSessionId"]
         6 RETURN                           R0 0
 
-PROTO_27:
+PROTO_30:
         0 GETTABLEKS                       R1 R0 K0 ["_isSearchInitiated"]
         2 JUMPIFNOTEQKB                    R1 TRUE ; [+2]
         4 RETURN                           R0 0
@@ -650,7 +700,7 @@ PROTO_27:
        70 CALL                             R1 2 0
        71 RETURN                           R0 0
 
-PROTO_28:
+PROTO_31:
         0 GETTABLEKS                       R1 R0 K0 ["_isSearchInitiated"]
         2 JUMPIFEQKB                       R1 FALSE ; [+109]
         4 LOADB                            R1 0
@@ -726,11 +776,11 @@ PROTO_28:
       110 SETTABLEKS                       R3 R0 K29 ["_searchSessionId"]
       112 RETURN                           R0 0
 
-PROTO_29:
+PROTO_32:
         0 GETTABLEKS                       R1 R0 K0 ["_searchSessionId"]
         2 RETURN                           R1 1
 
-PROTO_30:
+PROTO_33:
         0 DUPTABLE                         R1 K3 [{"SearchTerm", "SearchOptions", "SearchSessionId"}]
         1 GETTABLEKS                       R2 R0 K4 ["_activeSearchTerm"]
         3 SETTABLEKS                       R2 R1 K0 ["SearchTerm"]
@@ -742,7 +792,7 @@ PROTO_30:
        14 SETTABLEKS                       R2 R1 K2 ["SearchSessionId"]
        16 RETURN                           R1 1
 
-PROTO_31:
+PROTO_34:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+8]
         2 GETTABLEKS                       R2 R0 K0 ["SearchTerm"]
@@ -766,7 +816,7 @@ PROTO_31:
        29 LOADB                            R1 1
        30 RETURN                           R1 1
 
-PROTO_32:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["_activeSearchTerm"]
         2 LOADK                            R5 K1 ["^%s*(.-)%s*$"]
         3 NAMECALL                         R3 R1 K2 ["match"]
@@ -824,7 +874,7 @@ PROTO_32:
        82 CALL                             R5 2 0
        83 RETURN                           R0 0
 
-PROTO_33:
+PROTO_36:
         0 GETTABLEKS                       R1 R0 K0 ["_searchHistory"]
         2 RETURN                           R1 1
 
@@ -919,39 +969,46 @@ MAIN:
       133 SETTABLEKS                       R13 R10 K52 ["getSearchOptions"]
       135 DUPCLOSURE                       R13 K53 [PROTO_18]
       136 CAPTURE                          VAL R11
-      137 SETTABLEKS                       R13 R10 K54 ["canSearchInScope"]
+      137 SETTABLEKS                       R13 R10 K54 ["rootScopeTypeIsSearchable"]
       139 DUPCLOSURE                       R13 K55 [PROTO_19]
       140 CAPTURE                          VAL R8
-      141 SETTABLEKS                       R13 R10 K56 ["setScope"]
+      141 SETTABLEKS                       R13 R10 K56 ["rootScopeIsBackfilledForSearch"]
       143 DUPCLOSURE                       R13 K57 [PROTO_20]
-      144 CAPTURE                          VAL R8
-      145 SETTABLEKS                       R13 R10 K58 ["_getValidScope"]
-      147 DUPCLOSURE                       R13 K59 [PROTO_21]
-      148 SETTABLEKS                       R13 R10 K60 ["setAssetTypeFilter"]
+      144 SETTABLEKS                       R13 R10 K58 ["canSearchInScope"]
+      146 DUPCLOSURE                       R13 K59 [PROTO_21]
+      147 CAPTURE                          VAL R8
+      148 SETTABLEKS                       R13 R10 K60 ["setScope"]
       150 DUPCLOSURE                       R13 K61 [PROTO_22]
-      151 SETTABLEKS                       R13 R10 K62 ["setSearchOptions"]
-      153 DUPCLOSURE                       R13 K63 [PROTO_23]
-      154 SETTABLEKS                       R13 R10 K64 ["getIsDefaultSearchState"]
-      156 DUPCLOSURE                       R13 K65 [PROTO_24]
-      157 SETTABLEKS                       R13 R10 K66 ["getIsSearchInitiated"]
-      159 DUPCLOSURE                       R13 K67 [PROTO_25]
-      160 SETTABLEKS                       R13 R10 K68 ["getIsSearchRequested"]
-      162 DUPCLOSURE                       R13 K69 [PROTO_26]
-      163 CAPTURE                          VAL R0
-      164 SETTABLEKS                       R13 R10 K70 ["_startSearchSession"]
+      151 CAPTURE                          VAL R8
+      152 SETTABLEKS                       R13 R10 K62 ["_getValidScope"]
+      154 DUPCLOSURE                       R13 K63 [PROTO_23]
+      155 SETTABLEKS                       R13 R10 K64 ["_getSearchScopeForRequest"]
+      157 DUPCLOSURE                       R13 K65 [PROTO_24]
+      158 SETTABLEKS                       R13 R10 K66 ["setAssetTypeFilter"]
+      160 DUPCLOSURE                       R13 K67 [PROTO_25]
+      161 SETTABLEKS                       R13 R10 K68 ["setSearchOptions"]
+      163 DUPCLOSURE                       R13 K69 [PROTO_26]
+      164 SETTABLEKS                       R13 R10 K70 ["getIsDefaultSearchState"]
       166 DUPCLOSURE                       R13 K71 [PROTO_27]
-      167 SETTABLEKS                       R13 R10 K72 ["initiateSearch"]
+      167 SETTABLEKS                       R13 R10 K72 ["getIsSearchInitiated"]
       169 DUPCLOSURE                       R13 K73 [PROTO_28]
-      170 CAPTURE                          VAL R8
-      171 CAPTURE                          VAL R9
-      172 SETTABLEKS                       R13 R10 K74 ["endSearchSession"]
-      174 DUPCLOSURE                       R13 K75 [PROTO_29]
-      175 SETTABLEKS                       R13 R10 K76 ["getSearchId"]
-      177 DUPCLOSURE                       R13 K77 [PROTO_30]
-      178 SETTABLEKS                       R13 R10 K78 ["_getSearchState"]
-      180 DUPCLOSURE                       R13 K79 [PROTO_32]
-      181 CAPTURE                          VAL R3
-      182 SETTABLEKS                       R13 R10 K80 ["_pushSearchHistoryItem"]
-      184 DUPCLOSURE                       R13 K81 [PROTO_33]
-      185 SETTABLEKS                       R13 R10 K82 ["getSearchHistory"]
-      187 RETURN                           R10 1
+      170 SETTABLEKS                       R13 R10 K74 ["getIsSearchRequested"]
+      172 DUPCLOSURE                       R13 K75 [PROTO_29]
+      173 CAPTURE                          VAL R0
+      174 SETTABLEKS                       R13 R10 K76 ["_startSearchSession"]
+      176 DUPCLOSURE                       R13 K77 [PROTO_30]
+      177 SETTABLEKS                       R13 R10 K78 ["initiateSearch"]
+      179 DUPCLOSURE                       R13 K79 [PROTO_31]
+      180 CAPTURE                          VAL R8
+      181 CAPTURE                          VAL R9
+      182 SETTABLEKS                       R13 R10 K80 ["endSearchSession"]
+      184 DUPCLOSURE                       R13 K81 [PROTO_32]
+      185 SETTABLEKS                       R13 R10 K82 ["getSearchId"]
+      187 DUPCLOSURE                       R13 K83 [PROTO_33]
+      188 SETTABLEKS                       R13 R10 K84 ["_getSearchState"]
+      190 DUPCLOSURE                       R13 K85 [PROTO_35]
+      191 CAPTURE                          VAL R3
+      192 SETTABLEKS                       R13 R10 K86 ["_pushSearchHistoryItem"]
+      194 DUPCLOSURE                       R13 K87 [PROTO_36]
+      195 SETTABLEKS                       R13 R10 K88 ["getSearchHistory"]
+      197 RETURN                           R10 1

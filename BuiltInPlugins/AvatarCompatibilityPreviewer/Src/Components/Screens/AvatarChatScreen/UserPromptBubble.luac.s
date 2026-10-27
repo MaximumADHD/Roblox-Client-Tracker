@@ -2,7 +2,7 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K4 [{["tag"] = "row align-x-right size-full-0 auto-y", ["LayoutOrder"]}]
+        4 DUPTABLE                         R3 K4 [{["tag"] = "row align-x-right size-full-0 auto-y padding-bottom-large padding-left-large", ["LayoutOrder"]}]
         5 GETTABLEKS                       R4 R0 K3 ["LayoutOrder"]
         7 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
         9 DUPTABLE                         R4 K6 [{"Bubble"}]
@@ -13,7 +13,7 @@ PROTO_0:
        15 DUPTABLE                         R8 K11 [{"MaxSize"}]
        16 GETIMPORT                        R9 K14 [Vector2.new]
        18 LOADN                            R10 280
-       19 LOADK                            R11 K15 [∞]
+       19 LOADK                            R11 K15 [Infinity]
        20 CALL                             R9 2 1
        21 SETTABLEKS                       R9 R8 K10 ["MaxSize"]
        23 SETTABLEKS                       R8 R7 K8 ["sizeConstraint"]
@@ -21,7 +21,7 @@ PROTO_0:
        26 GETUPVAL                         R9 0
        27 GETTABLEKS                       R9 R9 K0 ["createElement"]
        29 GETUPVAL                         R10 2
-       30 DUPTABLE                         R11 K20 [{["Text"], ["tag"] = "auto-xy text-body-medium text-wrap text-align-x-left content-default"}]
+       30 DUPTABLE                         R11 K20 [{["Text"], ["tag"] = "auto-xy text-body-small text-wrap text-align-x-left content-emphasis"}]
        31 GETTABLEKS                       R12 R0 K21 ["promptText"]
        33 SETTABLEKS                       R12 R11 K18 ["Text"]
        35 CALL                             R9 2 1

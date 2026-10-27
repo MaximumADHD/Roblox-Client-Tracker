@@ -421,7 +421,7 @@ MAIN:
       105 LOADK                            R14 K51 ["LabeledElementList"]
       106 NAMECALL                         R12 R12 K21 ["extend"]
       108 CALL                             R12 2 1
-      109 DUPTABLE                         R13 K57 [{["Collapsible"] = False, ["Items"], ["MaximumLabelWidth"] = ∞, ["LayoutOrder"] = 1}]
+      109 DUPTABLE                         R13 K57 [{["Collapsible"] = False, ["Items"], ["MaximumLabelWidth"] = Infinity, ["LayoutOrder"] = 1}]
       110 NEWTABLE                         R14 0 0
       112 SETTABLEKS                       R14 R13 K54 ["Items"]
       114 SETTABLEKS                       R13 R12 K46 ["defaultProps"]

@@ -16,17 +16,17 @@ PROTO_0:
        25 LOADB                            R1 1
        26 RETURN                           R1 1
        27 GETTABLEKS                       R1 R0 K3 ["X"]
-       29 JUMPIFEQKN                       R1 K6 [∞] ; [+21]
+       29 JUMPIFEQKN                       R1 K6 [Infinity] ; [+21]
        31 GETTABLEKS                       R1 R0 K3 ["X"]
-       33 JUMPIFEQKN                       R1 K7 [-∞] ; [+17]
+       33 JUMPIFEQKN                       R1 K7 [-Infinity] ; [+17]
        35 GETTABLEKS                       R1 R0 K4 ["Y"]
-       37 JUMPIFEQKN                       R1 K6 [∞] ; [+13]
+       37 JUMPIFEQKN                       R1 K6 [Infinity] ; [+13]
        39 GETTABLEKS                       R1 R0 K4 ["Y"]
-       41 JUMPIFEQKN                       R1 K7 [-∞] ; [+9]
+       41 JUMPIFEQKN                       R1 K7 [-Infinity] ; [+9]
        43 GETTABLEKS                       R1 R0 K5 ["Z"]
-       45 JUMPIFEQKN                       R1 K6 [∞] ; [+5]
+       45 JUMPIFEQKN                       R1 K6 [Infinity] ; [+5]
        47 GETTABLEKS                       R1 R0 K5 ["Z"]
-       49 JUMPIFNOTEQKN                    R1 K7 [-∞] ; [+43]
+       49 JUMPIFNOTEQKN                    R1 K7 [-Infinity] ; [+43]
        51 LOADB                            R1 1
        52 RETURN                           R1 1
        53 JUMP                             ; [+39]
@@ -44,13 +44,13 @@ PROTO_0:
        73 LOADB                            R1 1
        74 RETURN                           R1 1
        75 GETTABLEKS                       R1 R0 K3 ["X"]
-       77 JUMPIFEQKN                       R1 K6 [∞] ; [+13]
+       77 JUMPIFEQKN                       R1 K6 [Infinity] ; [+13]
        79 GETTABLEKS                       R1 R0 K3 ["X"]
-       81 JUMPIFEQKN                       R1 K7 [-∞] ; [+9]
+       81 JUMPIFEQKN                       R1 K7 [-Infinity] ; [+9]
        83 GETTABLEKS                       R1 R0 K4 ["Y"]
-       85 JUMPIFEQKN                       R1 K6 [∞] ; [+5]
+       85 JUMPIFEQKN                       R1 K6 [Infinity] ; [+5]
        87 GETTABLEKS                       R1 R0 K4 ["Y"]
-       89 JUMPIFNOTEQKN                    R1 K7 [-∞] ; [+3]
+       89 JUMPIFNOTEQKN                    R1 K7 [-Infinity] ; [+3]
        91 LOADB                            R1 1
        92 RETURN                           R1 1
        93 LOADB                            R1 0

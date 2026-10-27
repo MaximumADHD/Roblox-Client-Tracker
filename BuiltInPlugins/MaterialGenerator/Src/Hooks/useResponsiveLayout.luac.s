@@ -7,7 +7,7 @@ PROTO_0:
         7 LOADB                            R1 0
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R4 R0 K3 ["maxWidth"]
-       11 ORK                              R3 R4 K2 [∞]
+       11 ORK                              R3 R4 K2 [Infinity]
        12 JUMPIFNOTLE                      R2 R3 ; [+16]
        14 LOADB                            R1 0
        15 GETUPVAL                         R2 1
@@ -16,7 +16,7 @@ PROTO_0:
        19 JUMPIFNOTLE                      R3 R2 ; [+9]
        21 GETUPVAL                         R2 1
        22 GETTABLEKS                       R4 R0 K5 ["maxHeight"]
-       24 ORK                              R3 R4 K2 [∞]
+       24 ORK                              R3 R4 K2 [Infinity]
        25 JUMPIFLE                         R2 R3 ; [+2]
        27 LOADB                            R1 0 +1
        28 LOADB                            R1 1

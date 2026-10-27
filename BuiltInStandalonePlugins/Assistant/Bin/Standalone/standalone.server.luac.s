@@ -175,7 +175,7 @@ MAIN:
       247 MOVE                             R21 R15
       248 MOVE                             R22 R7
       249 CALL                             R18 4 1
-      250 GETTABLEKS                       R19 R12 K70 ["FFlagAssistantEval"]
+      250 GETTABLEKS                       R19 R12 K70 ["FFlagDebugAssistantEval"]
       252 JUMPIFNOT                        R19 ; [+26]
       253 GETTABLEKS                       R19 R9 K71 ["Guest"]
       255 GETTABLEKS                       R19 R19 K72 ["Environment"]

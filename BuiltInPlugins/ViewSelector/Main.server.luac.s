@@ -271,15 +271,15 @@ PROTO_2:
       314 FORNLOOP                         R5
       315 GETUPVAL                         R5 20
       316 GETIMPORT                        R6 K70 [CFrame.fromEulerAnglesYXZ]
-      318 LOADK                            R7 K71 [-1.5707963267949]
-      319 LOADK                            R8 K72 [3.14159265358979]
+      318 LOADK                            R7 K71 [-1.5707963267948966]
+      319 LOADK                            R8 K72 [3.141592653589793]
       320 LOADN                            R9 0
       321 CALL                             R6 3 1
       322 SETTABLEKS                       R6 R5 K73 ["0p0"]
       324 GETUPVAL                         R5 20
       325 GETIMPORT                        R6 K75 [CFrame.fromEulerAnglesXYZ]
-      327 LOADK                            R7 K71 [-1.5707963267949]
-      328 LOADK                            R8 K72 [3.14159265358979]
+      327 LOADK                            R7 K71 [-1.5707963267948966]
+      328 LOADK                            R8 K72 [3.141592653589793]
       329 LOADN                            R9 0
       330 CALL                             R6 3 1
       331 SETTABLEKS                       R6 R5 K76 ["0n0"]
@@ -1310,7 +1310,7 @@ PROTO_31:
        15 ADD                              R2 R3 R4
        16 GETIMPORT                        R3 K6 [CFrame.fromAxisAngle]
        18 MOVE                             R4 R2
-       19 LOADK                            R5 K7 [1.5707963267949]
+       19 LOADK                            R5 K7 [1.5707963267948966]
        20 CALL                             R3 2 1
        21 GETUPVAL                         R5 0
        22 GETTABLEKS                       R5 R5 K8 ["LookVector"]
@@ -1525,7 +1525,7 @@ PROTO_39:
         9 LOADN                            R5 96
        10 FASTCALL2K                       MATH_POW R1 K5 ; [+5]
        12 MOVE                             R7 R1
-       13 LOADK                            R8 K5 [0.454545454545455]
+       13 LOADK                            R8 K5 [0.45454545454545453]
        14 GETIMPORT                        R6 K7 [math.pow]
        16 CALL                             R6 2 1
        17 FASTCALL                         MATH_LERP ; [+2]
@@ -1604,7 +1604,7 @@ PROTO_41:
        37 LOADN                            R9 96
        38 FASTCALL2K                       MATH_POW R5 K19 ; [+5]
        40 MOVE                             R11 R5
-       41 LOADK                            R12 K19 [0.454545454545455]
+       41 LOADK                            R12 K19 [0.45454545454545453]
        42 GETIMPORT                        R10 K21 [math.pow]
        44 CALL                             R10 2 1
        45 FASTCALL                         MATH_LERP ; [+2]
@@ -1755,7 +1755,7 @@ PROTO_49:
        22 LOADN                            R7 96
        23 FASTCALL2K                       MATH_POW R3 K13 ; [+5]
        25 MOVE                             R9 R3
-       26 LOADK                            R10 K13 [0.454545454545455]
+       26 LOADK                            R10 K13 [0.45454545454545453]
        27 GETIMPORT                        R8 K15 [math.pow]
        29 CALL                             R8 2 1
        30 FASTCALL                         MATH_LERP ; [+2]

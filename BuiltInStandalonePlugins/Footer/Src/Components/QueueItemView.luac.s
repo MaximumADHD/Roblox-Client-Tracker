@@ -122,7 +122,7 @@ PROTO_1:
       165 GETUPVAL                         R13 3
       166 GETUPVAL                         R14 1
       167 GETTABLEKS                       R14 R14 K37 ["View"]
-      169 DUPTABLE                         R15 K50 [{["tag"] = "row auto-xy items-center gap-small", ["LayoutOrder"]}]
+      169 DUPTABLE                         R15 K50 [{["tag"] = "row items-center gap-small auto-xy", ["LayoutOrder"]}]
       170 MOVE                             R16 R1
       171 CALL                             R16 0 1
       172 SETTABLEKS                       R16 R15 K12 ["LayoutOrder"]

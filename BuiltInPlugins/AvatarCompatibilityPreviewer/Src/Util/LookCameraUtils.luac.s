@@ -108,8 +108,8 @@ PROTO_2:
        99 RETURN                           R0 2
 
 PROTO_3:
-        0 LOADK                            R2 K0 [{∞, ∞, ∞}]
-        1 LOADK                            R3 K1 [{-∞, -∞, -∞}]
+        0 LOADK                            R2 K0 [{Infinity, Infinity, Infinity}]
+        1 LOADK                            R3 K1 [{-Infinity, -Infinity, -Infinity}]
         2 NAMECALL                         R4 R0 K2 ["Inverse"]
         4 CALL                             R4 1 1
         5 MOVE                             R5 R1
@@ -223,9 +223,9 @@ PROTO_4:
       124 GETIMPORT                        R20 K28 [math.max]
       126 CALL                             R20 2 1
       127 MULK                             R22 R19 K30 [1.1]
-      128 DIVK                             R21 R22 K29 [0.531709431661479]
+      128 DIVK                             R21 R22 K29 [0.5317094316614788]
       129 MULK                             R23 R20 K30 [1.1]
-      130 DIVK                             R22 R23 K29 [0.531709431661479]
+      130 DIVK                             R22 R23 K29 [0.5317094316614788]
       131 MOVE                             R23 R21
       132 GETTABLEKS                       R25 R6 K17 ["Y"]
       134 LOADK                            R26 K31 [-0.6]
@@ -284,7 +284,7 @@ PROTO_5:
        29 CALL                             R4 3 1
        30 DIVK                             R3 R4 K5 [2]
        31 MULK                             R5 R3 K14 [1.6]
-       32 DIVK                             R4 R5 K13 [0.176326980708465]
+       32 DIVK                             R4 R5 K13 [0.17632698070846498]
        33 GETTABLEKS                       R6 R1 K15 ["Position"]
        35 GETTABLEKS                       R8 R2 K16 ["LookVector"]
        37 MUL                              R7 R8 R4

@@ -96,12 +96,12 @@ PROTO_6:
        16 GETUPVAL                         R2 3
        17 GETTABLEKS                       R2 R2 K5 ["invoke"]
        19 MOVE                             R3 R1
-       20 LOADK                            R4 K6 ["EvalDriverPlaySoloServerDM.runEvalServer"]
+       20 LOADK                            R4 K6 ["runEvalServer"]
        21 CALL                             R2 2 1
        22 GETUPVAL                         R3 3
        23 GETTABLEKS                       R3 R3 K5 ["invoke"]
        25 MOVE                             R4 R1
-       26 LOADK                            R5 K7 ["EvalDriverPlaySoloServerDM.runEvalCheckGame"]
+       26 LOADK                            R5 K7 ["runEvalCheckGame"]
        27 CALL                             R3 2 1
        28 GETUPVAL                         R4 1
        29 DUPCLOSURE                       R8 K8 [PROTO_2]
@@ -123,15 +123,15 @@ PROTO_6:
        50 LOADK                            R4 K12 ["EvalDriverPlaySoloServerDM requires networking"]
        51 GETIMPORT                        R2 K3 [assert]
        53 CALL                             R2 2 0
-       54 LOADK                            R4 K13 ["runEvalServer"]
-       55 DUPCLOSURE                       R5 K14 [PROTO_4]
+       54 LOADK                            R4 K6 ["runEvalServer"]
+       55 DUPCLOSURE                       R5 K13 [PROTO_4]
        56 CAPTURE                          UPVAL U4
-       57 NAMECALL                         R2 R0 K15 ["OnHostInvokeAsync"]
+       57 NAMECALL                         R2 R0 K14 ["OnHostInvokeAsync"]
        59 CALL                             R2 3 0
-       60 LOADK                            R4 K16 ["runEvalCheckGame"]
-       61 DUPCLOSURE                       R5 K17 [PROTO_5]
+       60 LOADK                            R4 K7 ["runEvalCheckGame"]
+       61 DUPCLOSURE                       R5 K15 [PROTO_5]
        62 CAPTURE                          UPVAL U4
-       63 NAMECALL                         R2 R0 K15 ["OnHostInvokeAsync"]
+       63 NAMECALL                         R2 R0 K14 ["OnHostInvokeAsync"]
        65 CALL                             R2 3 0
        66 RETURN                           R0 0
 
@@ -143,54 +143,59 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["installLoadedCode"]
-        3 CALL                             R3 0 0
-        4 GETUPVAL                         R3 1
-        5 MOVE                             R4 R1
-        6 MOVE                             R5 R2
-        7 CALL                             R3 2 0
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R3 R3 K1 ["FFlagAssistantUseNewDMNetworking"]
-       11 JUMPIFNOT                        R3 ; [+34]
-       12 FASTCALL2K                       ASSERT R2 K2 ; [+5]
-       14 MOVE                             R4 R2
-       15 LOADK                            R5 K2 ["EvalDriverPlaySoloServerDM requires the new networking when FFlagAssistantUseNewDMNetworking is on"]
-       16 GETIMPORT                        R3 K4 [assert]
-       18 CALL                             R3 2 0
-       19 GETUPVAL                         R3 3
-       20 GETTABLEKS                       R3 R3 K5 ["event"]
-       22 MOVE                             R4 R2
-       23 LOADK                            R5 K6 ["EvalDriverPlaySoloServerDM.DataModelStarted"]
-       24 CALL                             R3 2 1
-       25 GETUPVAL                         R6 4
-       26 GETTABLEKS                       R6 R6 K7 ["Identity"]
-       28 GETTABLEKS                       R6 R6 K8 ["Standalone"]
-       30 GETUPVAL                         R7 5
-       31 GETTABLEKS                       R7 R7 K9 ["Types"]
-       33 GETTABLEKS                       R7 R7 K10 ["Server"]
-       35 NAMECALL                         R4 R3 K11 ["Fire"]
-       37 CALL                             R4 3 0
-       38 GETTABLEKS                       R4 R0 K12 ["Unloading"]
-       40 NEWCLOSURE                       R6 P0
-       41 CAPTURE                          UPVAL U6
-       42 NAMECALL                         R4 R4 K13 ["Once"]
-       44 CALL                             R4 2 0
-       45 RETURN                           R0 0
-       46 FASTCALL2K                       ASSERT R1 K14 ; [+5]
-       48 MOVE                             R4 R1
-       49 LOADK                            R5 K14 ["EvalDriverPlaySoloServerDM requires networking"]
-       50 GETIMPORT                        R3 K4 [assert]
-       52 CALL                             R3 2 0
-       53 LOADK                            R5 K15 ["DataModelStarted"]
-       54 GETUPVAL                         R6 5
-       55 GETTABLEKS                       R6 R6 K9 ["Types"]
-       57 GETTABLEKS                       R6 R6 K8 ["Standalone"]
-       59 GETUPVAL                         R7 5
-       60 GETTABLEKS                       R7 R7 K9 ["Types"]
-       62 GETTABLEKS                       R7 R7 K10 ["Server"]
-       64 NAMECALL                         R3 R1 K16 ["FireGuest"]
-       66 CALL                             R3 4 0
-       67 RETURN                           R0 0
+        1 GETTABLEKS                       R3 R3 K0 ["hasAssistantEvalFolder"]
+        3 CALL                             R3 0 1
+        4 JUMPIF                           R3 ; [+1]
+        5 RETURN                           R0 0
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K1 ["installLoadedCode"]
+        9 CALL                             R3 0 0
+       10 GETUPVAL                         R3 1
+       11 MOVE                             R4 R1
+       12 MOVE                             R5 R2
+       13 CALL                             R3 2 0
+       14 GETUPVAL                         R3 2
+       15 GETTABLEKS                       R3 R3 K2 ["FFlagAssistantUseNewDMNetworking"]
+       17 JUMPIFNOT                        R3 ; [+34]
+       18 FASTCALL2K                       ASSERT R2 K3 ; [+5]
+       20 MOVE                             R4 R2
+       21 LOADK                            R5 K3 ["EvalDriverPlaySoloServerDM requires the new networking when FFlagAssistantUseNewDMNetworking is on"]
+       22 GETIMPORT                        R3 K5 [assert]
+       24 CALL                             R3 2 0
+       25 GETUPVAL                         R3 3
+       26 GETTABLEKS                       R3 R3 K6 ["event"]
+       28 MOVE                             R4 R2
+       29 LOADK                            R5 K7 ["DataModelStarted"]
+       30 CALL                             R3 2 1
+       31 GETUPVAL                         R6 4
+       32 GETTABLEKS                       R6 R6 K8 ["Identity"]
+       34 GETTABLEKS                       R6 R6 K9 ["Standalone"]
+       36 GETUPVAL                         R7 5
+       37 GETTABLEKS                       R7 R7 K10 ["Types"]
+       39 GETTABLEKS                       R7 R7 K11 ["Server"]
+       41 NAMECALL                         R4 R3 K12 ["Fire"]
+       43 CALL                             R4 3 0
+       44 GETTABLEKS                       R4 R0 K13 ["Unloading"]
+       46 NEWCLOSURE                       R6 P0
+       47 CAPTURE                          UPVAL U6
+       48 NAMECALL                         R4 R4 K14 ["Once"]
+       50 CALL                             R4 2 0
+       51 RETURN                           R0 0
+       52 FASTCALL2K                       ASSERT R1 K15 ; [+5]
+       54 MOVE                             R4 R1
+       55 LOADK                            R5 K15 ["EvalDriverPlaySoloServerDM requires networking"]
+       56 GETIMPORT                        R3 K5 [assert]
+       58 CALL                             R3 2 0
+       59 LOADK                            R5 K7 ["DataModelStarted"]
+       60 GETUPVAL                         R6 5
+       61 GETTABLEKS                       R6 R6 K10 ["Types"]
+       63 GETTABLEKS                       R6 R6 K9 ["Standalone"]
+       65 GETUPVAL                         R7 5
+       66 GETTABLEKS                       R7 R7 K10 ["Types"]
+       68 GETTABLEKS                       R7 R7 K11 ["Server"]
+       70 NAMECALL                         R3 R1 K16 ["FireGuest"]
+       72 CALL                             R3 4 0
+       73 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0

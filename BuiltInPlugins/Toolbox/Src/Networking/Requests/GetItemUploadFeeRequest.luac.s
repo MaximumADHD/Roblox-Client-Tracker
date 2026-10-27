@@ -21,13 +21,29 @@ PROTO_0:
        29 LOADK                            R3 K7 ["Unexpected getItemUploadFee response body:"]
        30 MOVE                             R4 R1
        31 CALL                             R2 2 0
-       32 GETUPVAL                         R2 0
-       33 GETUPVAL                         R4 1
-       34 LOADB                            R5 0
-       35 CALL                             R4 1 -1
-       36 NAMECALL                         R2 R2 K3 ["dispatch"]
-       38 CALL                             R2 -1 0
-       39 RETURN                           R0 0
+       32 GETUPVAL                         R2 3
+       33 CALL                             R2 0 1
+       34 JUMPIFNOT                        R2 ; [+15]
+       35 GETUPVAL                         R2 0
+       36 GETUPVAL                         R4 4
+       37 LOADK                            R5 K8 ["Unexpected getItemUploadFee response"]
+       38 CALL                             R4 1 -1
+       39 NAMECALL                         R2 R2 K3 ["dispatch"]
+       41 CALL                             R2 -1 0
+       42 GETUPVAL                         R2 0
+       43 GETUPVAL                         R4 5
+       44 LOADB                            R5 0
+       45 CALL                             R4 1 -1
+       46 NAMECALL                         R2 R2 K3 ["dispatch"]
+       48 CALL                             R2 -1 0
+       49 RETURN                           R0 0
+       50 GETUPVAL                         R2 0
+       51 GETUPVAL                         R4 1
+       52 LOADB                            R5 0
+       53 CALL                             R4 1 -1
+       54 NAMECALL                         R2 R2 K3 ["dispatch"]
+       56 CALL                             R2 -1 0
+       57 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -49,22 +65,25 @@ PROTO_2:
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          UPVAL U1
-        4 NEWCLOSURE                       R2 P1
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          UPVAL U3
-        8 GETUPVAL                         R3 4
-        9 GETUPVAL                         R5 5
-       10 GETTABLEKS                       R5 R5 K0 ["Name"]
-       12 GETUPVAL                         R6 6
-       13 GETUPVAL                         R7 7
-       14 NAMECALL                         R3 R3 K1 ["getItemUploadFee"]
-       16 CALL                             R3 4 1
-       17 MOVE                             R5 R1
-       18 MOVE                             R6 R2
-       19 NAMECALL                         R3 R3 K2 ["andThen"]
-       21 CALL                             R3 3 0
-       22 RETURN                           R0 0
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 CAPTURE                          UPVAL U4
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U3
+       10 CAPTURE                          UPVAL U4
+       11 GETUPVAL                         R3 5
+       12 GETUPVAL                         R5 6
+       13 GETTABLEKS                       R5 R5 K0 ["Name"]
+       15 GETUPVAL                         R6 7
+       16 GETUPVAL                         R7 8
+       17 NAMECALL                         R3 R3 K1 ["getItemUploadFee"]
+       19 CALL                             R3 4 1
+       20 MOVE                             R5 R1
+       21 MOVE                             R6 R2
+       22 NAMECALL                         R3 R3 K2 ["andThen"]
+       24 CALL                             R3 3 0
+       25 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R4 P0
@@ -72,11 +91,12 @@ PROTO_3:
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          VAL R1
-        7 CAPTURE                          VAL R2
-        8 CAPTURE                          VAL R3
-        9 RETURN                           R4 1
+        5 CAPTURE                          UPVAL U4
+        6 CAPTURE                          VAL R0
+        7 CAPTURE                          VAL R1
+        8 CAPTURE                          VAL R2
+        9 CAPTURE                          VAL R3
+       10 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -107,9 +127,15 @@ MAIN:
        43 GETIMPORT                        R6 K5 [require]
        45 GETTABLEKS                       R7 R4 K13 ["AssetConfigConstants"]
        47 CALL                             R6 1 1
-       48 DUPCLOSURE                       R7 K14 [PROTO_3]
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R2
-       52 CAPTURE                          VAL R3
-       53 RETURN                           R7 1
+       48 GETIMPORT                        R7 K5 [require]
+       50 GETTABLEKS                       R8 R0 K6 ["Src"]
+       52 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       54 GETTABLEKS                       R8 R8 K15 ["getFFlagToolboxRemoveLegacyCatalogUpload"]
+       56 CALL                             R7 1 1
+       57 DUPCLOSURE                       R8 K16 [PROTO_3]
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R5
+       60 CAPTURE                          VAL R7
+       61 CAPTURE                          VAL R2
+       62 CAPTURE                          VAL R3
+       63 RETURN                           R8 1

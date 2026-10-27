@@ -74,7 +74,7 @@ MAIN:
       109 GETTABLEKS                       R21 R4 K23 ["getFFlagVRFooterFitContent"]
       111 CALL                             R21 0 1
       112 JUMPIFNOT                        R21 ; [+2]
-      113 LOADK                            R20 K51 [∞]
+      113 LOADK                            R20 K51 [Infinity]
       114 JUMP                             ; [+1]
       115 LOADN                            R20 1
       116 CALL                             R18 2 1

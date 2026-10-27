@@ -4,7 +4,7 @@ PROTO_0:
         3 CALL                             R0 1 1
         4 LOADN                            R1 1
         5 SETTABLEKS                       R1 R0 K4 ["BackgroundTransparency"]
-        7 LOADK                            R1 K5 [∞]
+        7 LOADK                            R1 K5 [Infinity]
         8 SETTABLEKS                       R1 R0 K6 ["ZIndex"]
        10 GETIMPORT                        R1 K2 [Instance.new]
        12 LOADK                            R2 K7 ["UIStroke"]
@@ -238,7 +238,7 @@ PROTO_11:
        31 CALL                             R4 1 1
        32 LOADN                            R5 1
        33 SETTABLEKS                       R5 R4 K12 ["BackgroundTransparency"]
-       35 LOADK                            R5 K13 [∞]
+       35 LOADK                            R5 K13 [Infinity]
        36 SETTABLEKS                       R5 R4 K14 ["ZIndex"]
        38 GETIMPORT                        R5 K10 [Instance.new]
        40 LOADK                            R6 K15 ["UIStroke"]
@@ -836,7 +836,7 @@ MAIN:
        64 CALL                             R14 1 1
        65 LOADN                            R15 1
        66 SETTABLEKS                       R15 R14 K31 ["BackgroundTransparency"]
-       68 LOADK                            R15 K32 [∞]
+       68 LOADK                            R15 K32 [Infinity]
        69 SETTABLEKS                       R15 R14 K33 ["ZIndex"]
        71 GETIMPORT                        R15 K29 [Instance.new]
        73 LOADK                            R16 K34 ["UIStroke"]

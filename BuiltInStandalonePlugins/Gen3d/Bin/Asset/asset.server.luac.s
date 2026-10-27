@@ -22,12 +22,17 @@ PROTO_0:
        23 GETTABLEKS                       R0 R0 K2 ["destroy"]
        25 CALL                             R0 0 0
        26 GETUPVAL                         R0 4
-       27 GETTABLEKS                       R0 R0 K2 ["destroy"]
-       29 CALL                             R0 0 0
-       30 GETUPVAL                         R0 5
-       31 GETTABLEKS                       R0 R0 K2 ["destroy"]
-       33 CALL                             R0 0 0
-       34 RETURN                           R0 0
+       27 JUMPIFNOT                        R0 ; [+4]
+       28 GETUPVAL                         R0 4
+       29 GETTABLEKS                       R0 R0 K2 ["destroy"]
+       31 CALL                             R0 0 0
+       32 GETUPVAL                         R0 5
+       33 GETTABLEKS                       R0 R0 K2 ["destroy"]
+       35 CALL                             R0 0 0
+       36 GETUPVAL                         R0 6
+       37 GETTABLEKS                       R0 R0 K2 ["destroy"]
+       39 CALL                             R0 0 0
+       40 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -104,103 +109,128 @@ MAIN:
       112 GETTABLEKS                       R9 R9 K31 ["createGenerationHost"]
       114 CALL                             R8 1 1
       115 GETIMPORT                        R9 K7 [require]
-      117 GETTABLEKS                       R10 R0 K8 ["Packages"]
-      119 GETTABLEKS                       R10 R10 K32 ["LoadingSkeleton3D"]
-      121 CALL                             R9 1 1
-      122 LOADB                            R12 0
-      123 NAMECALL                         R10 R4 K33 ["GenerateGUID"]
-      125 CALL                             R10 2 1
-      126 GETIMPORT                        R11 K7 [require]
-      128 GETTABLEKS                       R12 R0 K8 ["Packages"]
-      130 GETTABLEKS                       R12 R12 K34 ["React"]
-      132 CALL                             R11 1 1
-      133 GETIMPORT                        R12 K7 [require]
-      135 GETTABLEKS                       R13 R0 K8 ["Packages"]
-      137 GETTABLEKS                       R13 R13 K35 ["ReactRoblox"]
-      139 CALL                             R12 1 1
-      140 GETIMPORT                        R13 K7 [require]
-      142 GETTABLEKS                       R14 R0 K11 ["Src"]
-      144 GETTABLEKS                       R14 R14 K36 ["CoreGuiRoot"]
-      146 CALL                             R13 1 1
-      147 GETTABLEKS                       R14 R2 K37 ["getFFlagDebugLogAssistantUI"]
-      149 CALL                             R14 0 1
-      150 JUMPIFNOT                        R14 ; [+8]
-      151 GETIMPORT                        R14 K39 [print]
-      153 LOADK                            R15 K40 ["[Gen3d][asset.legacy] Edit DM entry running editSessionId=%*"]
-      154 MOVE                             R17 R10
-      155 NAMECALL                         R15 R15 K41 ["format"]
-      157 CALL                             R15 2 1
-      158 CALL                             R14 1 0
-      159 GETTABLEKS                       R14 R5 K42 ["create"]
-      161 DUPTABLE                         R15 K48 [{[1], ["isGuest"] = False, ["isHost"] = True, ["useSuspendOverride"] = True}]
-      162 GETIMPORT                        R16 K1 [plugin]
-      164 SETTABLEKS                       R16 R15 K0 ["plugin"]
-      166 CALL                             R14 1 1
-      167 MOVE                             R15 R7
-      168 GETIMPORT                        R16 K1 [plugin]
-      170 CALL                             R15 1 2
-      171 MOVE                             R17 R6
-      172 MOVE                             R18 R14
-      173 GETTABLEKS                       R19 R16 K49 ["registerInstance"]
-      175 MOVE                             R20 R10
-      176 CALL                             R17 3 1
-      177 GETTABLEKS                       R18 R9 K50 ["destroyAll"]
-      179 CALL                             R18 0 0
-      180 MOVE                             R18 R8
-      181 MOVE                             R19 R14
-      182 MOVE                             R20 R15
-      183 MOVE                             R21 R16
-      184 MOVE                             R22 R17
-      185 GETIMPORT                        R23 K1 [plugin]
-      187 CALL                             R18 5 1
-      188 GETIMPORT                        R19 K53 [Instance.new]
-      190 LOADK                            R20 K54 ["Folder"]
-      191 CALL                             R19 1 1
-      192 LOADK                            R20 K4 ["Gen3d"]
-      193 SETTABLEKS                       R20 R19 K24 ["Name"]
-      195 GETIMPORT                        R20 K18 [game]
-      197 LOADK                            R22 K22 ["CoreGui"]
-      198 NAMECALL                         R20 R20 K20 ["GetService"]
-      200 CALL                             R20 2 1
-      201 SETTABLEKS                       R20 R19 K55 ["Parent"]
-      203 GETIMPORT                        R20 K53 [Instance.new]
-      205 LOADK                            R21 K56 ["ScreenGui"]
-      206 CALL                             R20 1 1
-      207 LOADK                            R21 K57 ["Gen3dGui"]
-      208 SETTABLEKS                       R21 R20 K24 ["Name"]
-      210 GETIMPORT                        R21 K61 [Enum.ZIndexBehavior.Sibling]
-      212 SETTABLEKS                       R21 R20 K59 ["ZIndexBehavior"]
-      214 LOADN                            R21 1000
-      215 SETTABLEKS                       R21 R20 K62 ["DisplayOrder"]
-      217 SETTABLEKS                       R19 R20 K55 ["Parent"]
-      219 GETTABLEKS                       R21 R12 K63 ["createRoot"]
-      221 MOVE                             R22 R20
-      222 CALL                             R21 1 1
-      223 GETTABLEKS                       R24 R11 K64 ["createElement"]
-      225 MOVE                             R25 R13
-      226 DUPTABLE                         R26 K67 [{"Plugin", "EditSessionId"}]
-      227 GETIMPORT                        R27 K1 [plugin]
-      229 SETTABLEKS                       R27 R26 K65 ["Plugin"]
-      231 SETTABLEKS                       R10 R26 K66 ["EditSessionId"]
-      233 CALL                             R24 2 -1
-      234 NAMECALL                         R22 R21 K68 ["render"]
-      236 CALL                             R22 -1 0
-      237 GETTABLEKS                       R22 R2 K37 ["getFFlagDebugLogAssistantUI"]
-      239 CALL                             R22 0 1
-      240 JUMPIFNOT                        R22 ; [+4]
-      241 GETIMPORT                        R22 K39 [print]
-      243 LOADK                            R23 K69 ["[Gen3d][asset.legacy] CoreGuiRoot mounted into CoreGui.Gen3d.Gen3dGui"]
-      244 CALL                             R22 1 0
-      245 GETIMPORT                        R22 K1 [plugin]
-      247 GETTABLEKS                       R22 R22 K70 ["Unloading"]
-      249 NEWCLOSURE                       R24 P0
-      250 CAPTURE                          REF R21
-      251 CAPTURE                          REF R19
-      252 CAPTURE                          VAL R18
-      253 CAPTURE                          VAL R16
-      254 CAPTURE                          VAL R17
-      255 CAPTURE                          VAL R5
-      256 NAMECALL                         R22 R22 K71 ["Connect"]
-      258 CALL                             R22 2 0
-      259 CLOSEUPVALS                      R19
-      260 RETURN                           R0 0
+      117 GETTABLEKS                       R10 R0 K11 ["Src"]
+      119 GETTABLEKS                       R10 R10 K28 ["Host"]
+      121 GETTABLEKS                       R10 R10 K32 ["createSceneGenHost"]
+      123 CALL                             R9 1 1
+      124 GETIMPORT                        R10 K7 [require]
+      126 GETTABLEKS                       R11 R0 K11 ["Src"]
+      128 GETTABLEKS                       R11 R11 K28 ["Host"]
+      130 GETTABLEKS                       R11 R11 K33 ["Services"]
+      132 GETTABLEKS                       R11 R11 K34 ["createLayoutGenServices"]
+      134 CALL                             R10 1 1
+      135 GETIMPORT                        R11 K7 [require]
+      137 GETTABLEKS                       R12 R0 K8 ["Packages"]
+      139 GETTABLEKS                       R12 R12 K35 ["LoadingSkeleton3D"]
+      141 CALL                             R11 1 1
+      142 LOADB                            R14 0
+      143 NAMECALL                         R12 R4 K36 ["GenerateGUID"]
+      145 CALL                             R12 2 1
+      146 GETIMPORT                        R13 K7 [require]
+      148 GETTABLEKS                       R14 R0 K8 ["Packages"]
+      150 GETTABLEKS                       R14 R14 K37 ["React"]
+      152 CALL                             R13 1 1
+      153 GETIMPORT                        R14 K7 [require]
+      155 GETTABLEKS                       R15 R0 K8 ["Packages"]
+      157 GETTABLEKS                       R15 R15 K38 ["ReactRoblox"]
+      159 CALL                             R14 1 1
+      160 GETIMPORT                        R15 K7 [require]
+      162 GETTABLEKS                       R16 R0 K11 ["Src"]
+      164 GETTABLEKS                       R16 R16 K39 ["CoreGuiRoot"]
+      166 CALL                             R15 1 1
+      167 GETTABLEKS                       R16 R2 K40 ["getFFlagDebugLogAssistantUI"]
+      169 CALL                             R16 0 1
+      170 JUMPIFNOT                        R16 ; [+8]
+      171 GETIMPORT                        R16 K42 [print]
+      173 LOADK                            R17 K43 ["[Gen3d][asset.legacy] Edit DM entry running editSessionId=%*"]
+      174 MOVE                             R19 R12
+      175 NAMECALL                         R17 R17 K44 ["format"]
+      177 CALL                             R17 2 1
+      178 CALL                             R16 1 0
+      179 GETTABLEKS                       R16 R5 K45 ["create"]
+      181 DUPTABLE                         R17 K51 [{[1], ["isGuest"] = False, ["isHost"] = True, ["useSuspendOverride"] = True}]
+      182 GETIMPORT                        R18 K1 [plugin]
+      184 SETTABLEKS                       R18 R17 K0 ["plugin"]
+      186 CALL                             R16 1 1
+      187 MOVE                             R17 R7
+      188 GETIMPORT                        R18 K1 [plugin]
+      190 CALL                             R17 1 2
+      191 MOVE                             R19 R6
+      192 MOVE                             R20 R16
+      193 GETTABLEKS                       R21 R18 K52 ["registerInstance"]
+      195 MOVE                             R22 R12
+      196 CALL                             R19 3 1
+      197 GETTABLEKS                       R20 R11 K53 ["destroyAll"]
+      199 CALL                             R20 0 0
+      200 MOVE                             R20 R8
+      201 MOVE                             R21 R16
+      202 MOVE                             R22 R17
+      203 MOVE                             R23 R18
+      204 MOVE                             R24 R19
+      205 GETIMPORT                        R25 K1 [plugin]
+      207 CALL                             R20 5 1
+      208 GETTABLEKS                       R22 R2 K54 ["getFFlagGen3dSceneGenSurface"]
+      210 CALL                             R22 0 1
+      211 JUMPIFNOT                        R22 ; [+11]
+      212 MOVE                             R21 R9
+      213 MOVE                             R22 R16
+      214 GETIMPORT                        R23 K1 [plugin]
+      216 MOVE                             R24 R12
+      217 MOVE                             R25 R10
+      218 GETIMPORT                        R26 K1 [plugin]
+      220 CALL                             R25 1 -1
+      221 CALL                             R21 -1 1
+      222 JUMP                             ; [+1]
+      223 LOADNIL                          R21
+      224 GETIMPORT                        R22 K57 [Instance.new]
+      226 LOADK                            R23 K58 ["Folder"]
+      227 CALL                             R22 1 1
+      228 LOADK                            R23 K4 ["Gen3d"]
+      229 SETTABLEKS                       R23 R22 K24 ["Name"]
+      231 GETIMPORT                        R23 K18 [game]
+      233 LOADK                            R25 K22 ["CoreGui"]
+      234 NAMECALL                         R23 R23 K20 ["GetService"]
+      236 CALL                             R23 2 1
+      237 SETTABLEKS                       R23 R22 K59 ["Parent"]
+      239 GETIMPORT                        R23 K57 [Instance.new]
+      241 LOADK                            R24 K60 ["ScreenGui"]
+      242 CALL                             R23 1 1
+      243 LOADK                            R24 K61 ["Gen3dGui"]
+      244 SETTABLEKS                       R24 R23 K24 ["Name"]
+      246 GETIMPORT                        R24 K65 [Enum.ZIndexBehavior.Sibling]
+      248 SETTABLEKS                       R24 R23 K63 ["ZIndexBehavior"]
+      250 LOADN                            R24 1000
+      251 SETTABLEKS                       R24 R23 K66 ["DisplayOrder"]
+      253 SETTABLEKS                       R22 R23 K59 ["Parent"]
+      255 GETTABLEKS                       R24 R14 K67 ["createRoot"]
+      257 MOVE                             R25 R23
+      258 CALL                             R24 1 1
+      259 GETTABLEKS                       R27 R13 K68 ["createElement"]
+      261 MOVE                             R28 R15
+      262 DUPTABLE                         R29 K71 [{"Plugin", "EditSessionId"}]
+      263 GETIMPORT                        R30 K1 [plugin]
+      265 SETTABLEKS                       R30 R29 K69 ["Plugin"]
+      267 SETTABLEKS                       R12 R29 K70 ["EditSessionId"]
+      269 CALL                             R27 2 -1
+      270 NAMECALL                         R25 R24 K72 ["render"]
+      272 CALL                             R25 -1 0
+      273 GETTABLEKS                       R25 R2 K40 ["getFFlagDebugLogAssistantUI"]
+      275 CALL                             R25 0 1
+      276 JUMPIFNOT                        R25 ; [+4]
+      277 GETIMPORT                        R25 K42 [print]
+      279 LOADK                            R26 K73 ["[Gen3d][asset.legacy] CoreGuiRoot mounted into CoreGui.Gen3d.Gen3dGui"]
+      280 CALL                             R25 1 0
+      281 GETIMPORT                        R25 K1 [plugin]
+      283 GETTABLEKS                       R25 R25 K74 ["Unloading"]
+      285 NEWCLOSURE                       R27 P0
+      286 CAPTURE                          REF R24
+      287 CAPTURE                          REF R22
+      288 CAPTURE                          VAL R20
+      289 CAPTURE                          VAL R21
+      290 CAPTURE                          VAL R18
+      291 CAPTURE                          VAL R19
+      292 CAPTURE                          VAL R5
+      293 NAMECALL                         R25 R25 K75 ["Connect"]
+      295 CALL                             R25 2 0
+      296 CLOSEUPVALS                      R22
+      297 RETURN                           R0 0

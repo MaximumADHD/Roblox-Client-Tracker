@@ -11,7 +11,7 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K16 [{["children"], ["id"] = "foo", ["hrpCFrame"], ["name"] = "Parraing", ["timestamp"] = 7.2416670541279}]
+       14 DUPTABLE                         R2 K16 [{["children"], ["id"] = "foo", ["hrpCFrame"], ["name"] = "Parraing", ["timestamp"] = 7.241667054127902}]
        15 NEWTABLE                         R3 0 1
        17 DUPTABLE                         R4 K25 [{["children"], ["className"] = "HeadRotate", ["id"] = "{0fd9dd90-1937-4662-85de-fa87000f549e}", ["name"] = "Head Rotation", ["props"], ["state"], ["weight"] = 1}]
        18 NEWTABLE                         R5 0 1
@@ -20,13 +20,13 @@ MAIN:
        23 DUPTABLE                         R8 K33 [{["children"], ["className"] = "ClipLayer", ["id"] = "{91a192be-2369-41cb-801a-26bd4fc053d2}", ["name"] = "Tool None", ["props"], ["state"], ["weight"] = 1}]
        24 NEWTABLE                         R9 0 0
        26 SETTABLEKS                       R9 R8 K8 ["children"]
-       28 DUPTABLE                         R9 K49 [{["animationId"] = "rbxassetid://507768375", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+       28 DUPTABLE                         R9 K49 [{["animationId"] = "rbxassetid://507768375", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
        29 NEWTABLE                         R10 0 0
        31 SETTABLEKS                       R10 R9 K42 ["markerEvents"]
        33 NEWTABLE                         R10 0 0
        35 SETTABLEKS                       R10 R9 K48 ["timePositionEvents"]
        37 SETTABLEKS                       R9 R8 K21 ["props"]
-       39 DUPTABLE                         R9 K60 [{["currentAnimationId"] = "rbxassetid://507768375", ["length"] = 0.0416666679084301, ["loadingState"] = "Loaded", ["markerEvents"], ["prevTimePosition"] = 0.0333335059694946, ["timePosition"] = 0.0333335059694946, ["timePositionEvents"], ["timePositionNormalized"] = 0.800004119425889}]
+       39 DUPTABLE                         R9 K60 [{["currentAnimationId"] = "rbxassetid://507768375", ["length"] = 0.0416666679084301, ["loadingState"] = "Loaded", ["markerEvents"], ["prevTimePosition"] = 0.03333350596949458, ["timePosition"] = 0.03333350596949458, ["timePositionEvents"], ["timePositionNormalized"] = 0.8000041194258892}]
        40 NEWTABLE                         R10 0 0
        42 SETTABLEKS                       R10 R9 K42 ["markerEvents"]
        44 NEWTABLE                         R10 0 0
@@ -62,7 +62,7 @@ MAIN:
        89 CALL                             R14 2 1
        90 SETTABLEKS                       R14 R13 K74 ["position"]
        92 SETTABLEKS                       R13 R12 K66 ["linkData"]
-       94 DUPTABLE                         R13 K87 [{["animationId"] = "rbxassetid://10847107747", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+       94 DUPTABLE                         R13 K87 [{["animationId"] = "rbxassetid://10847107747", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
        95 NEWTABLE                         R14 0 0
        97 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
        99 NEWTABLE                         R14 0 0
@@ -85,7 +85,7 @@ MAIN:
       127 CALL                             R14 2 1
       128 SETTABLEKS                       R14 R13 K74 ["position"]
       130 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      132 DUPTABLE                         R13 K95 [{["animationId"] = "rbxassetid://10847291554", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      132 DUPTABLE                         R13 K95 [{["animationId"] = "rbxassetid://10847291554", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       133 NEWTABLE                         R14 0 0
       135 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       137 NEWTABLE                         R14 0 0
@@ -108,7 +108,7 @@ MAIN:
       165 CALL                             R14 2 1
       166 SETTABLEKS                       R14 R13 K74 ["position"]
       168 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      170 DUPTABLE                         R13 K102 [{["animationId"] = "rbxassetid://10382771806", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      170 DUPTABLE                         R13 K102 [{["animationId"] = "rbxassetid://10382771806", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       171 NEWTABLE                         R14 0 0
       173 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       175 NEWTABLE                         R14 0 0
@@ -131,7 +131,7 @@ MAIN:
       203 CALL                             R14 2 1
       204 SETTABLEKS                       R14 R13 K74 ["position"]
       206 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      208 DUPTABLE                         R13 K109 [{["animationId"] = "rbxassetid://10847298457", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      208 DUPTABLE                         R13 K109 [{["animationId"] = "rbxassetid://10847298457", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       209 NEWTABLE                         R14 0 0
       211 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       213 NEWTABLE                         R14 0 0
@@ -154,7 +154,7 @@ MAIN:
       241 CALL                             R14 2 1
       242 SETTABLEKS                       R14 R13 K74 ["position"]
       244 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      246 DUPTABLE                         R13 K116 [{["animationId"] = "rbxassetid://10358505520", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      246 DUPTABLE                         R13 K116 [{["animationId"] = "rbxassetid://10358505520", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       247 NEWTABLE                         R14 0 0
       249 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       251 NEWTABLE                         R14 0 0
@@ -177,7 +177,7 @@ MAIN:
       279 CALL                             R14 2 1
       280 SETTABLEKS                       R14 R13 K74 ["position"]
       282 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      284 DUPTABLE                         R13 K123 [{["animationId"] = "rbxassetid://10358526981", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      284 DUPTABLE                         R13 K123 [{["animationId"] = "rbxassetid://10358526981", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       285 NEWTABLE                         R14 0 0
       287 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       289 NEWTABLE                         R14 0 0
@@ -200,7 +200,7 @@ MAIN:
       317 CALL                             R14 2 1
       318 SETTABLEKS                       R14 R13 K74 ["position"]
       320 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      322 DUPTABLE                         R13 K102 [{["animationId"] = "rbxassetid://10382771806", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      322 DUPTABLE                         R13 K102 [{["animationId"] = "rbxassetid://10382771806", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       323 NEWTABLE                         R14 0 0
       325 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       327 NEWTABLE                         R14 0 0
@@ -223,7 +223,7 @@ MAIN:
       355 CALL                             R14 2 1
       356 SETTABLEKS                       R14 R13 K74 ["position"]
       358 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      360 DUPTABLE                         R13 K136 [{["animationId"] = "rbxassetid://10382635795", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      360 DUPTABLE                         R13 K136 [{["animationId"] = "rbxassetid://10382635795", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       361 NEWTABLE                         R14 0 0
       363 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       365 NEWTABLE                         R14 0 0
@@ -246,7 +246,7 @@ MAIN:
       393 CALL                             R14 2 1
       394 SETTABLEKS                       R14 R13 K74 ["position"]
       396 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      398 DUPTABLE                         R13 K144 [{["animationId"] = "rbxassetid://10382960556", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      398 DUPTABLE                         R13 K144 [{["animationId"] = "rbxassetid://10382960556", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       399 NEWTABLE                         R14 0 0
       401 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       403 NEWTABLE                         R14 0 0
@@ -269,7 +269,7 @@ MAIN:
       431 CALL                             R14 2 1
       432 SETTABLEKS                       R14 R13 K74 ["position"]
       434 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      436 DUPTABLE                         R13 K152 [{["animationId"] = "rbxassetid://10382949241", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      436 DUPTABLE                         R13 K152 [{["animationId"] = "rbxassetid://10382949241", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       437 NEWTABLE                         R14 0 0
       439 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       441 NEWTABLE                         R14 0 0
@@ -304,13 +304,13 @@ MAIN:
       488 LOADK                            R12 K163 ["Climbing"]
       489 SETTABLEN                        R12 R11 1
       490 SETTABLEKS                       R11 R10 K66 ["linkData"]
-      492 DUPTABLE                         R11 K166 [{["animationId"] = "rbxassetid://507765644", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 0, ["startTime"] = 0, ["timePositionEvents"]}]
+      492 DUPTABLE                         R11 K166 [{["animationId"] = "rbxassetid://507765644", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 0, ["startTime"] = 0, ["timePositionEvents"]}]
       493 NEWTABLE                         R12 0 0
       495 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
       497 NEWTABLE                         R12 0 0
       499 SETTABLEKS                       R12 R11 K48 ["timePositionEvents"]
       501 SETTABLEKS                       R11 R10 K21 ["props"]
-      503 DUPTABLE                         R11 K168 [{["currentAnimationId"] = "rbxassetid://507765644", ["length"] = 1.04167497158051, ["loadingState"] = "Loaded", ["markerEvents"], ["timePosition"] = 0, ["timePositionEvents"], ["timePositionNormalized"] = 0}]
+      503 DUPTABLE                         R11 K168 [{["currentAnimationId"] = "rbxassetid://507765644", ["length"] = 1.0416749715805054, ["loadingState"] = "Loaded", ["markerEvents"], ["timePosition"] = 0, ["timePositionEvents"], ["timePositionNormalized"] = 0}]
       504 NEWTABLE                         R12 0 0
       506 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
       508 NEWTABLE                         R12 0 0
@@ -324,7 +324,7 @@ MAIN:
       522 LOADK                            R12 K170 ["Emote"]
       523 SETTABLEN                        R12 R11 1
       524 SETTABLEKS                       R11 R10 K66 ["linkData"]
-      526 DUPTABLE                         R11 K172 [{["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      526 DUPTABLE                         R11 K172 [{["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       527 NEWTABLE                         R12 0 0
       529 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
       531 NEWTABLE                         R12 0 1
@@ -348,7 +348,7 @@ MAIN:
       561 LOADK                            R12 K181 ["Falling"]
       562 SETTABLEN                        R12 R11 1
       563 SETTABLEKS                       R11 R10 K66 ["linkData"]
-      565 DUPTABLE                         R11 K184 [{["animationId"] = "rbxassetid://10921262864", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      565 DUPTABLE                         R11 K184 [{["animationId"] = "rbxassetid://10921262864", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       566 NEWTABLE                         R12 0 0
       568 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
       570 NEWTABLE                         R12 0 0
@@ -388,7 +388,7 @@ MAIN:
       623 CALL                             R14 2 1
       624 SETTABLEKS                       R14 R13 K74 ["position"]
       626 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      628 DUPTABLE                         R13 K196 [{["animationId"] = "rbxassetid://14045085169", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      628 DUPTABLE                         R13 K196 [{["animationId"] = "rbxassetid://14045085169", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       629 DUPTABLE                         R14 K198 [{["Footstep"] = "Footstep"}]
       630 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       632 NEWTABLE                         R14 0 0
@@ -411,7 +411,7 @@ MAIN:
       660 CALL                             R14 2 1
       661 SETTABLEKS                       R14 R13 K74 ["position"]
       663 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      665 DUPTABLE                         R13 K205 [{["animationId"] = "rbxassetid://10899968825", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      665 DUPTABLE                         R13 K205 [{["animationId"] = "rbxassetid://10899968825", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       666 NEWTABLE                         R14 0 0
       668 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       670 NEWTABLE                         R14 0 0
@@ -434,7 +434,7 @@ MAIN:
       698 CALL                             R14 2 1
       699 SETTABLEKS                       R14 R13 K74 ["position"]
       701 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      703 DUPTABLE                         R13 K210 [{["animationId"] = "rbxassetid://10404404615", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      703 DUPTABLE                         R13 K210 [{["animationId"] = "rbxassetid://10404404615", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       704 NEWTABLE                         R14 0 0
       706 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       708 NEWTABLE                         R14 0 0
@@ -457,7 +457,7 @@ MAIN:
       736 CALL                             R14 2 1
       737 SETTABLEKS                       R14 R13 K74 ["position"]
       739 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      741 DUPTABLE                         R13 K215 [{["animationId"] = "rbxassetid://10404627994", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      741 DUPTABLE                         R13 K215 [{["animationId"] = "rbxassetid://10404627994", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       742 NEWTABLE                         R14 0 0
       744 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       746 NEWTABLE                         R14 0 0
@@ -480,7 +480,7 @@ MAIN:
       774 CALL                             R14 2 1
       775 SETTABLEKS                       R14 R13 K74 ["position"]
       777 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      779 DUPTABLE                         R13 K220 [{["animationId"] = "rbxassetid://10404377900", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      779 DUPTABLE                         R13 K220 [{["animationId"] = "rbxassetid://10404377900", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       780 NEWTABLE                         R14 0 0
       782 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       784 NEWTABLE                         R14 0 0
@@ -503,7 +503,7 @@ MAIN:
       812 CALL                             R14 2 1
       813 SETTABLEKS                       R14 R13 K74 ["position"]
       815 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      817 DUPTABLE                         R13 K225 [{["animationId"] = "rbxassetid://10404604071", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      817 DUPTABLE                         R13 K225 [{["animationId"] = "rbxassetid://10404604071", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       818 NEWTABLE                         R14 0 0
       820 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       822 NEWTABLE                         R14 0 0
@@ -526,7 +526,7 @@ MAIN:
       850 CALL                             R14 2 1
       851 SETTABLEKS                       R14 R13 K74 ["position"]
       853 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      855 DUPTABLE                         R13 K231 [{["animationId"] = "rbxassetid://10404269576", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      855 DUPTABLE                         R13 K231 [{["animationId"] = "rbxassetid://10404269576", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       856 NEWTABLE                         R14 0 0
       858 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       860 NEWTABLE                         R14 0 0
@@ -549,7 +549,7 @@ MAIN:
       888 CALL                             R14 2 1
       889 SETTABLEKS                       R14 R13 K74 ["position"]
       891 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      893 DUPTABLE                         R13 K237 [{["animationId"] = "rbxassetid://10404251500", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      893 DUPTABLE                         R13 K237 [{["animationId"] = "rbxassetid://10404251500", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       894 NEWTABLE                         R14 0 0
       896 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       898 NEWTABLE                         R14 0 0
@@ -572,7 +572,7 @@ MAIN:
       926 CALL                             R14 2 1
       927 SETTABLEKS                       R14 R13 K74 ["position"]
       929 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      931 DUPTABLE                         R13 K243 [{["animationId"] = "rbxassetid://10319882993", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      931 DUPTABLE                         R13 K243 [{["animationId"] = "rbxassetid://10319882993", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       932 NEWTABLE                         R14 0 0
       934 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       936 NEWTABLE                         R14 0 0
@@ -595,7 +595,7 @@ MAIN:
       964 CALL                             R14 2 1
       965 SETTABLEKS                       R14 R13 K74 ["position"]
       967 SETTABLEKS                       R13 R12 K66 ["linkData"]
-      969 DUPTABLE                         R13 K249 [{["animationId"] = "rbxassetid://10319903622", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+      969 DUPTABLE                         R13 K249 [{["animationId"] = "rbxassetid://10319903622", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
       970 NEWTABLE                         R14 0 0
       972 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
       974 NEWTABLE                         R14 0 0
@@ -630,13 +630,13 @@ MAIN:
      1021 LOADK                            R12 K253 ["Idle"]
      1022 SETTABLEN                        R12 R11 1
      1023 SETTABLEKS                       R11 R10 K66 ["linkData"]
-     1025 DUPTABLE                         R11 K257 [{["animationId"] = "rbxassetid://10921258489", ["didLoopEventName"] = "IdleDidLoop", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+     1025 DUPTABLE                         R11 K257 [{["animationId"] = "rbxassetid://10921258489", ["didLoopEventName"] = "IdleDidLoop", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
      1026 NEWTABLE                         R12 0 0
      1028 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
      1030 NEWTABLE                         R12 0 0
      1032 SETTABLEKS                       R12 R11 K48 ["timePositionEvents"]
      1034 SETTABLEKS                       R11 R10 K21 ["props"]
-     1036 DUPTABLE                         R11 K259 [{["currentAnimationId"] = "rbxassetid://10921258489", ["length"] = 10, ["loadingState"] = "Loaded", ["markerEvents"], ["prevTimePosition"] = 7.2416670541279, ["timePosition"] = 7.2416670541279, ["timePositionEvents"], ["timePositionNormalized"] = 0.72416670541279}]
+     1036 DUPTABLE                         R11 K259 [{["currentAnimationId"] = "rbxassetid://10921258489", ["length"] = 10, ["loadingState"] = "Loaded", ["markerEvents"], ["prevTimePosition"] = 7.241667054127902, ["timePosition"] = 7.241667054127902, ["timePositionEvents"], ["timePositionNormalized"] = 0.7241667054127902}]
      1037 NEWTABLE                         R12 0 0
      1039 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
      1041 NEWTABLE                         R12 0 0
@@ -650,13 +650,13 @@ MAIN:
      1054 SETTABLEKS                       R13 R12 K8 ["children"]
      1056 NEWTABLE                         R13 0 0
      1058 SETTABLEKS                       R13 R12 K66 ["linkData"]
-     1060 DUPTABLE                         R13 K267 [{["animationId"] = "rbxassetid://10921263860", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+     1060 DUPTABLE                         R13 K267 [{["animationId"] = "rbxassetid://10921263860", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
      1061 NEWTABLE                         R14 0 0
      1063 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
      1065 NEWTABLE                         R14 0 0
      1067 SETTABLEKS                       R14 R13 K48 ["timePositionEvents"]
      1069 SETTABLEKS                       R13 R12 K21 ["props"]
-     1071 DUPTABLE                         R13 K269 [{["currentAnimationId"] = "rbxassetid://10921263860", ["length"] = 1.04200005531311, ["loadingState"] = "Loaded", ["markerEvents"], ["timePosition"] = 0, ["timePositionEvents"], ["timePositionNormalized"] = 0}]
+     1071 DUPTABLE                         R13 K269 [{["currentAnimationId"] = "rbxassetid://10921263860", ["length"] = 1.0420000553131104, ["loadingState"] = "Loaded", ["markerEvents"], ["timePosition"] = 0, ["timePositionEvents"], ["timePositionNormalized"] = 0}]
      1072 NEWTABLE                         R14 0 0
      1074 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
      1076 NEWTABLE                         R14 0 0
@@ -668,7 +668,7 @@ MAIN:
      1086 SETTABLEKS                       R13 R12 K8 ["children"]
      1088 NEWTABLE                         R13 0 0
      1090 SETTABLEKS                       R13 R12 K66 ["linkData"]
-     1092 DUPTABLE                         R13 K184 [{["animationId"] = "rbxassetid://10921262864", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+     1092 DUPTABLE                         R13 K184 [{["animationId"] = "rbxassetid://10921262864", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
      1093 NEWTABLE                         R14 0 0
      1095 SETTABLEKS                       R14 R13 K42 ["markerEvents"]
      1097 NEWTABLE                         R14 0 0
@@ -698,13 +698,13 @@ MAIN:
      1138 LOADK                            R12 K278 ["Sitting"]
      1139 SETTABLEN                        R12 R11 1
      1140 SETTABLEKS                       R11 R10 K66 ["linkData"]
-     1142 DUPTABLE                         R11 K281 [{["animationId"] = "rbxassetid://2506281703", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+     1142 DUPTABLE                         R11 K281 [{["animationId"] = "rbxassetid://2506281703", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
      1143 NEWTABLE                         R12 0 0
      1145 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
      1147 NEWTABLE                         R12 0 0
      1149 SETTABLEKS                       R12 R11 K48 ["timePositionEvents"]
      1151 SETTABLEKS                       R11 R10 K21 ["props"]
-     1153 DUPTABLE                         R11 K283 [{["currentAnimationId"] = "rbxassetid://2506281703", ["length"] = 0.916999995708466, ["loadingState"] = "Loaded", ["markerEvents"], ["timePosition"] = 0, ["timePositionEvents"], ["timePositionNormalized"] = 0}]
+     1153 DUPTABLE                         R11 K283 [{["currentAnimationId"] = "rbxassetid://2506281703", ["length"] = 0.9169999957084656, ["loadingState"] = "Loaded", ["markerEvents"], ["timePosition"] = 0, ["timePositionEvents"], ["timePositionNormalized"] = 0}]
      1154 NEWTABLE                         R12 0 0
      1156 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
      1158 NEWTABLE                         R12 0 0
@@ -718,7 +718,7 @@ MAIN:
      1172 LOADK                            R12 K285 ["Swimming"]
      1173 SETTABLEN                        R12 R11 1
      1174 SETTABLEKS                       R11 R10 K66 ["linkData"]
-     1176 DUPTABLE                         R11 K288 [{["animationId"] = "rbxassetid://10921264784", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 0, ["startTime"] = 0, ["timePositionEvents"]}]
+     1176 DUPTABLE                         R11 K288 [{["animationId"] = "rbxassetid://10921264784", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 0, ["startTime"] = 0, ["timePositionEvents"]}]
      1177 NEWTABLE                         R12 0 0
      1179 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
      1181 NEWTABLE                         R12 0 0
@@ -738,7 +738,7 @@ MAIN:
      1206 LOADK                            R12 K294 ["SwimmingIdle"]
      1207 SETTABLEN                        R12 R11 1
      1208 SETTABLEKS                       R11 R10 K66 ["linkData"]
-     1210 DUPTABLE                         R11 K296 [{["animationId"] = "rbxassetid://10921265698", ["didLoopEventName"] = "", ["endTime"] = ∞, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
+     1210 DUPTABLE                         R11 K296 [{["animationId"] = "rbxassetid://10921265698", ["didLoopEventName"] = "", ["endTime"] = Infinity, ["looping"] = -1, ["markerEvents"], ["preload"] = True, ["speed"] = 1, ["startTime"] = 0, ["timePositionEvents"]}]
      1211 NEWTABLE                         R12 0 0
      1213 SETTABLEKS                       R12 R11 K42 ["markerEvents"]
      1215 NEWTABLE                         R12 0 0

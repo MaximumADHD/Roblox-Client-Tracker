@@ -460,7 +460,7 @@ PROTO_13:
        52 CALL                             R3 2 1
        53 JUMP                             ; [+5]
        54 GETIMPORT                        R3 K21 [UDim2.fromScale]
-       56 LOADK                            R4 K25 [0.333333333333333]
+       56 LOADK                            R4 K25 [0.3333333333333333]
        57 LOADK                            R5 K23 [0.5]
        58 CALL                             R3 2 1
        59 SETTABLEKS                       R3 R2 K26 ["Position"]
@@ -704,7 +704,7 @@ PROTO_15:
       131 NAMECALL                         R5 R1 K1 ["FindFirstChild"]
       133 CALL                             R5 2 1
       134 GETIMPORT                        R6 K20 [UDim2.fromScale]
-      136 LOADK                            R7 K28 [0.333333333333333]
+      136 LOADK                            R7 K28 [0.3333333333333333]
       137 LOADK                            R8 K21 [0.5]
       138 CALL                             R6 2 1
       139 SETTABLEKS                       R6 R5 K22 ["Position"]

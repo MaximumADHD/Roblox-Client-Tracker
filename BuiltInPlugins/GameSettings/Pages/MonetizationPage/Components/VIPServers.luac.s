@@ -153,7 +153,7 @@ PROTO_2:
       183 GETTABLEKS                       R33 R3 K31 ["robuxFeeBase"]
       185 GETTABLEKS                       R33 R33 K45 ["subText"]
       187 GETTABLEKS                       R33 R33 K46 ["width"]
-      189 LOADK                            R34 K47 [∞]
+      189 LOADK                            R34 K47 [Infinity]
       190 CALL                             R32 2 -1
       191 CALL                             R28 -1 1
       192 NOT                              R29 R12

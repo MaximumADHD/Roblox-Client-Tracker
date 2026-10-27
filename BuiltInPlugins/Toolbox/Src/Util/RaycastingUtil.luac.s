@@ -15,7 +15,7 @@ PROTO_0:
        15 FASTCALL1                        MATH_ACOS R7 ; [+2]
        16 GETIMPORT                        R6 K5 [math.acos]
        18 CALL                             R6 1 1
-       19 LOADK                            R8 K6 [3.88322207745093]
+       19 LOADK                            R8 K6 [3.8832220774509327]
        20 MUL                              R7 R8 R5
        21 FASTCALL1                        MATH_SIN R6 ; [+3]
        22 MOVE                             R10 R6

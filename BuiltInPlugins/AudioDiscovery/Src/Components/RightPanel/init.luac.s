@@ -10,11 +10,11 @@ PROTO_1:
         0 DUPTABLE                         R1 K1 [{"sizes"}]
         1 NEWTABLE                         R2 0 2
         3 GETIMPORT                        R3 K4 [UDim.new]
-        5 LOADK                            R4 K5 [0.333333333333333]
+        5 LOADK                            R4 K5 [0.3333333333333333]
         6 LOADN                            R5 0
         7 CALL                             R3 2 1
         8 GETIMPORT                        R4 K4 [UDim.new]
-       10 LOADK                            R5 K6 [0.666666666666667]
+       10 LOADK                            R5 K6 [0.6666666666666666]
        11 LOADN                            R6 0
        12 CALL                             R4 2 -1
        13 SETLIST                          R2 R3 -1 [1]

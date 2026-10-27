@@ -438,7 +438,7 @@ PROTO_7:
         9 CALL                             R3 2 1
        10 GETIMPORT                        R4 K4 [Vector2.new]
        12 LOADN                            R7 0
-       13 LOADK                            R8 K5 [∞]
+       13 LOADK                            R8 K5 [Infinity]
        14 FASTCALL3                        MATH_CLAMP R2 R7 R8
        16 MOVE                             R6 R2
        17 GETIMPORT                        R5 K8 [math.clamp]

@@ -305,6 +305,51 @@ PROTO_13:
        39 RETURN                           R0 0
 
 PROTO_14:
+        0 DUPTABLE                         R1 K12 [{[1] = "GeneratingTexture", ["requestId"], ["prompt"], ["model"], ["autoSelectView"], ["keepExistingUv"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
+        1 GETUPVAL                         R2 0
+        2 SETTABLEKS                       R2 R1 K2 ["requestId"]
+        4 GETTABLEKS                       R2 R0 K3 ["prompt"]
+        6 SETTABLEKS                       R2 R1 K3 ["prompt"]
+        8 GETTABLEKS                       R2 R0 K4 ["model"]
+       10 SETTABLEKS                       R2 R1 K4 ["model"]
+       12 GETTABLEKS                       R2 R0 K5 ["autoSelectView"]
+       14 SETTABLEKS                       R2 R1 K5 ["autoSelectView"]
+       16 GETTABLEKS                       R2 R0 K6 ["keepExistingUv"]
+       18 SETTABLEKS                       R2 R1 K6 ["keepExistingUv"]
+       20 NEWTABLE                         R2 0 0
+       22 SETTABLEKS                       R2 R1 K7 ["slots"]
+       24 RETURN                           R1 1
+
+PROTO_15:
+        0 FASTCALL1                        TYPEOF R1 ; [+3]
+        1 MOVE                             R3 R1
+        2 GETIMPORT                        R2 K1 [typeof]
+        4 CALL                             R2 1 1
+        5 JUMPIFNOTEQKS                    R2 K2 ["table"] ; [+17]
+        7 GETTABLEKS                       R3 R1 K3 ["requestId"]
+        9 FASTCALL1                        TYPEOF R3 ; [+2]
+       10 GETIMPORT                        R2 K1 [typeof]
+       12 CALL                             R2 1 1
+       13 JUMPIFNOTEQKS                    R2 K4 ["string"] ; [+9]
+       15 GETTABLEKS                       R3 R1 K5 ["selectedUniqueId"]
+       17 FASTCALL1                        TYPEOF R3 ; [+2]
+       18 GETIMPORT                        R2 K1 [typeof]
+       20 CALL                             R2 1 1
+       21 JUMPIFEQKS                       R2 K4 ["string"] ; [+2]
+       23 RETURN                           R0 0
+       24 GETTABLEKS                       R2 R1 K3 ["requestId"]
+       26 GETTABLEKS                       R3 R1 K5 ["selectedUniqueId"]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K6 ["current"]
+       31 SETTABLE                         R3 R4 R2
+       32 GETUPVAL                         R4 1
+       33 MOVE                             R5 R3
+       34 NEWCLOSURE                       R6 P0
+       35 CAPTURE                          VAL R2
+       36 CALL                             R4 2 0
+       37 RETURN                           R0 0
+
+PROTO_16:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+2]
         2 GETUPVAL                         R0 0
@@ -313,9 +358,13 @@ PROTO_14:
         5 JUMPIFNOT                        R0 ; [+2]
         6 GETUPVAL                         R0 1
         7 CALL                             R0 0 0
-        8 RETURN                           R0 0
+        8 GETUPVAL                         R0 2
+        9 JUMPIFNOT                        R0 ; [+2]
+       10 GETUPVAL                         R0 2
+       11 CALL                             R0 0 0
+       12 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
@@ -340,12 +389,21 @@ PROTO_15:
        24 CAPTURE                          UPVAL U4
        25 NAMECALL                         R2 R2 K1 ["OnGuestEvent"]
        27 CALL                             R2 3 2
-       28 NEWCLOSURE                       R4 P2
-       29 CAPTURE                          VAL R1
-       30 CAPTURE                          VAL R3
-       31 RETURN                           R4 1
+       28 GETUPVAL                         R4 0
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R6 R6 K3 ["TextureUpgradeStarted"]
+       32 NEWCLOSURE                       R7 P2
+       33 CAPTURE                          UPVAL U2
+       34 CAPTURE                          UPVAL U4
+       35 NAMECALL                         R4 R4 K1 ["OnGuestEvent"]
+       37 CALL                             R4 3 2
+       38 NEWCLOSURE                       R6 P3
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R3
+       41 CAPTURE                          VAL R5
+       42 RETURN                           R6 1
 
-PROTO_16:
+PROTO_18:
         0 DUPTABLE                         R0 K12 [{[1] = "GeneratingImages", ["requestId"], ["prompt"], ["model"], ["autoSelectView"], ["keepExistingUv"], ["slots"], ["pickedSlotIndex"] = , ["errorMessage"] = , ["failureReason"] = }]
         1 GETUPVAL                         R1 0
         2 SETTABLEKS                       R1 R0 K2 ["requestId"]
@@ -362,7 +420,7 @@ PROTO_16:
        18 SETTABLEKS                       R1 R0 K7 ["slots"]
        20 RETURN                           R0 1
 
-PROTO_17:
+PROTO_19:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["PrepareGeneration"]
@@ -372,7 +430,7 @@ PROTO_17:
         8 CALL                             R0 4 -1
         9 RETURN                           R0 -1
 
-PROTO_18:
+PROTO_20:
         0 DUPTABLE                         R1 K11 [{[1] = "Failed", ["requestId"], ["prompt"], ["model"], ["autoSelectView"], ["keepExistingUv"], ["slots"], ["pickedSlotIndex"], ["errorMessage"], ["failureReason"]}]
         1 GETTABLEKS                       R2 R0 K2 ["requestId"]
         3 SETTABLEKS                       R2 R1 K2 ["requestId"]
@@ -398,7 +456,7 @@ PROTO_18:
        39 SETTABLEKS                       R2 R1 K10 ["failureReason"]
        41 RETURN                           R1 1
 
-PROTO_19:
+PROTO_21:
         0 DUPTABLE                         R1 K12 [{[1] = "Failed", ["requestId"], ["prompt"], ["model"], ["autoSelectView"], ["keepExistingUv"], ["slots"], ["pickedSlotIndex"], ["errorMessage"] = "Host PrepareGeneration response missing fields", ["failureReason"]}]
         1 GETTABLEKS                       R2 R0 K2 ["requestId"]
         3 SETTABLEKS                       R2 R1 K2 ["requestId"]
@@ -422,7 +480,7 @@ PROTO_19:
        36 SETTABLEKS                       R2 R1 K11 ["failureReason"]
        38 RETURN                           R1 1
 
-PROTO_20:
+PROTO_22:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R0 R2
         2 JUMPIFNOT                        R1 ; [+5]
@@ -440,7 +498,7 @@ PROTO_20:
        17 SETTABLE                         R1 R2 R3
        18 RETURN                           R2 1
 
-PROTO_21:
+PROTO_23:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 GETTABLEKS                       R2 R0 K3 ["slots"]
         4 CALL                             R1 1 1
@@ -475,7 +533,7 @@ PROTO_21:
        55 SETTABLEKS                       R4 R3 K16 ["failureReason"]
        57 RETURN                           R3 1
 
-PROTO_22:
+PROTO_24:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 1
@@ -538,7 +596,7 @@ PROTO_22:
        70 CALL                             R6 4 0
        71 RETURN                           R0 0
 
-PROTO_23:
+PROTO_25:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -594,7 +652,7 @@ PROTO_23:
        66 CALL                             R4 1 1
        67 JUMPIFEQKS                       R4 K13 ["string"] ; [+17]
        69 GETUPVAL                         R4 3
-       70 DUPCLOSURE                       R5 K14 [PROTO_19]
+       70 DUPCLOSURE                       R5 K14 [PROTO_21]
        71 CAPTURE                          UPVAL U4
        72 GETUPVAL                         R7 5
        73 GETTABLEKS                       R7 R7 K10 ["current"]
@@ -763,7 +821,7 @@ PROTO_23:
       283 CLOSEUPVALS                      R11
       284 RETURN                           R0 0
 
-PROTO_24:
+PROTO_26:
         0 MOVE                             R5 R1
         1 JUMPIF                           R5 ; [+1]
         2 GETUPVAL                         R5 0
@@ -840,7 +898,7 @@ PROTO_24:
        87 CALL                             R12 1 0
        88 RETURN                           R0 0
 
-PROTO_25:
+PROTO_27:
         0 DUPTABLE                         R0 K12 [{[1] = "GeneratingTexture", ["requestId"], ["prompt"], ["model"], ["autoSelectView"], ["keepExistingUv"], ["slots"], ["pickedSlotIndex"], ["errorMessage"] = , ["failureReason"] = }]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K2 ["requestId"]
@@ -864,7 +922,7 @@ PROTO_25:
        32 SETTABLEKS                       R1 R0 K8 ["pickedSlotIndex"]
        34 RETURN                           R0 1
 
-PROTO_26:
+PROTO_28:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
@@ -944,7 +1002,7 @@ PROTO_26:
       117 CALL                             R5 4 0
       118 RETURN                           R0 0
 
-PROTO_27:
+PROTO_29:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 GETTABLEKS                       R2 R0 K0 ["prompt"]
@@ -957,7 +1015,7 @@ PROTO_27:
        16 SETTABLEKS                       R2 R1 K3 ["keepExistingUv"]
        18 RETURN                           R1 1
 
-PROTO_28:
+PROTO_30:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIFNOTEQKS                    R0 K1 [""] ; [+2]
@@ -1013,12 +1071,12 @@ PROTO_28:
        70 CALL                             R3 4 0
        71 GETUPVAL                         R3 8
        72 MOVE                             R4 R0
-       73 DUPCLOSURE                       R5 K10 [PROTO_27]
+       73 DUPCLOSURE                       R5 K10 [PROTO_29]
        74 CAPTURE                          UPVAL U9
        75 CALL                             R3 2 0
        76 RETURN                           R0 0
 
-PROTO_29:
+PROTO_31:
         0 GETTABLEKS                       R1 R0 K0 ["stage"]
         2 JUMPIFEQKS                       R1 K1 ["Idle"] ; [+6]
         4 GETTABLEKS                       R1 R0 K0 ["stage"]
@@ -1031,7 +1089,7 @@ PROTO_29:
        14 SETTABLEKS                       R2 R1 K6 ["prompt"]
        16 RETURN                           R1 1
 
-PROTO_30:
+PROTO_32:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["current"]
@@ -1040,7 +1098,7 @@ PROTO_30:
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
-PROTO_31:
+PROTO_33:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagTextureGenComposerRevamp"]
         3 CALL                             R1 0 1
@@ -1065,7 +1123,7 @@ PROTO_31:
        31 SETTABLEKS                       R3 R2 K9 ["model"]
        33 RETURN                           R2 1
 
-PROTO_32:
+PROTO_34:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["current"]
@@ -1075,7 +1133,7 @@ PROTO_32:
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
-PROTO_33:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["stage"]
         2 JUMPIFEQKS                       R1 K1 ["Idle"] ; [+6]
         4 GETTABLEKS                       R1 R0 K0 ["stage"]
@@ -1088,7 +1146,7 @@ PROTO_33:
        14 SETTABLEKS                       R2 R1 K6 ["autoSelectView"]
        16 RETURN                           R1 1
 
-PROTO_34:
+PROTO_36:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["current"]
@@ -1097,7 +1155,7 @@ PROTO_34:
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
-PROTO_35:
+PROTO_37:
         0 GETTABLEKS                       R1 R0 K0 ["stage"]
         2 JUMPIFEQKS                       R1 K1 ["Idle"] ; [+6]
         4 GETTABLEKS                       R1 R0 K0 ["stage"]
@@ -1110,7 +1168,7 @@ PROTO_35:
        14 SETTABLEKS                       R2 R1 K6 ["keepExistingUv"]
        16 RETURN                           R1 1
 
-PROTO_36:
+PROTO_38:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["current"]
@@ -1119,7 +1177,7 @@ PROTO_36:
         6 CALL                             R1 2 0
         7 RETURN                           R0 0
 
-PROTO_37:
+PROTO_39:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -1133,7 +1191,7 @@ PROTO_37:
        15 FORGLOOP                         R2 2 ; [-10]
        17 RETURN                           R1 1
 
-PROTO_38:
+PROTO_40:
         0 NEWTABLE                         R0 0 0
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K0 ["current"]
@@ -1148,11 +1206,11 @@ PROTO_38:
        17 SETTABLE                         R6 R0 R4
        18 FORGLOOP                         R1 2 ; [-11]
        20 GETUPVAL                         R1 1
-       21 DUPCLOSURE                       R2 K4 [PROTO_37]
+       21 DUPCLOSURE                       R2 K4 [PROTO_39]
        22 CALL                             R1 1 0
        23 RETURN                           R0 1
 
-PROTO_39:
+PROTO_41:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["useContext"]
         3 GETUPVAL                         R3 1
@@ -1383,7 +1441,7 @@ MAIN:
       106 DUPCLOSURE                       R17 K35 [PROTO_3]
       107 DUPCLOSURE                       R18 K36 [PROTO_4]
       108 CAPTURE                          VAL R10
-      109 DUPCLOSURE                       R19 K37 [PROTO_39]
+      109 DUPCLOSURE                       R19 K37 [PROTO_41]
       110 CAPTURE                          VAL R1
       111 CAPTURE                          VAL R5
       112 CAPTURE                          VAL R8

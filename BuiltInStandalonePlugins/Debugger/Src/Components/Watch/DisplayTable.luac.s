@@ -634,7 +634,7 @@ PROTO_19:
        36 NEWTABLE                         R2 0 0
        38 MOVE                             R4 R2
        39 GETIMPORT                        R5 K7 [UDim.new]
-       41 LOADK                            R6 K12 [0.333333333333333]
+       41 LOADK                            R6 K12 [0.3333333333333333]
        42 LOADN                            R7 0
        43 CALL                             R5 2 -1
        44 FASTCALL                         TABLE_INSERT ; [+2]
@@ -642,7 +642,7 @@ PROTO_19:
        47 CALL                             R3 -1 0
        48 MOVE                             R4 R2
        49 GETIMPORT                        R5 K7 [UDim.new]
-       51 LOADK                            R6 K12 [0.333333333333333]
+       51 LOADK                            R6 K12 [0.3333333333333333]
        52 LOADN                            R7 0
        53 CALL                             R5 2 -1
        54 FASTCALL                         TABLE_INSERT ; [+2]
@@ -650,7 +650,7 @@ PROTO_19:
        57 CALL                             R3 -1 0
        58 MOVE                             R4 R2
        59 GETIMPORT                        R5 K7 [UDim.new]
-       61 LOADK                            R6 K12 [0.333333333333333]
+       61 LOADK                            R6 K12 [0.3333333333333333]
        62 LOADN                            R7 0
        63 CALL                             R5 2 -1
        64 FASTCALL                         TABLE_INSERT ; [+2]

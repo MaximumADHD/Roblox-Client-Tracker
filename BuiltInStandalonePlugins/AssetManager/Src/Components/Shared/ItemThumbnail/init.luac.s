@@ -12,6 +12,12 @@ PROTO_1:
         6 RETURN                           R1 1
 
 PROTO_2:
+        0 GETTABLEKS                       R1 R0 K0 ["Color"]
+        2 GETTABLEKS                       R1 R1 K1 ["Content"]
+        4 GETTABLEKS                       R1 R1 K2 ["Default"]
+        6 RETURN                           R1 1
+
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 2
         2 GETUPVAL                         R3 1
@@ -55,13 +61,13 @@ PROTO_2:
        62 CALL                             R5 3 -1
        63 RETURN                           R5 -1
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
         2 CALL                             R2 1 0
         3 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["AssetId"]
@@ -73,7 +79,7 @@ PROTO_4:
        11 CALL                             R0 4 0
        12 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R3 R0 K0 ["AssetType"]
         3 GETTABLE                         R1 R2 R3
@@ -234,43 +240,61 @@ MAIN:
        80 GETTABLEKS                       R11 R11 K20 ["Flags"]
        82 GETTABLEKS                       R11 R11 K21 ["getFFlagAmrEnableTextDocuments"]
        84 CALL                             R10 1 1
-       85 NEWTABLE                         R11 1 0
-       87 GETTABLEKS                       R12 R4 K22 ["AssetType"]
-       89 GETTABLEKS                       R12 R12 K23 ["Folder"]
-       91 DUPTABLE                         R13 K28 [{["Icon"], ["TestId"] = "folder-thumbnail-content", ["getStyle"]}]
-       92 GETTABLEKS                       R14 R3 K29 ["Enums"]
-       94 GETTABLEKS                       R14 R14 K30 ["IconName"]
-       96 GETTABLEKS                       R14 R14 K23 ["Folder"]
-       98 SETTABLEKS                       R14 R13 K24 ["Icon"]
-      100 DUPCLOSURE                       R14 K31 [PROTO_0]
-      101 SETTABLEKS                       R14 R13 K27 ["getStyle"]
-      103 SETTABLE                         R13 R11 R12
-      104 MOVE                             R12 R10
-      105 CALL                             R12 0 1
-      106 JUMPIFNOT                        R12 ; [+17]
-      107 GETTABLEKS                       R12 R4 K22 ["AssetType"]
-      109 GETTABLEKS                       R12 R12 K32 ["TextDocument"]
-      111 DUPTABLE                         R13 K34 [{["Icon"], ["TestId"] = "text-document-thumbnail-content", ["getStyle"]}]
-      112 GETTABLEKS                       R14 R3 K29 ["Enums"]
-      114 GETTABLEKS                       R14 R14 K30 ["IconName"]
-      116 GETTABLEKS                       R14 R14 K35 ["Page"]
-      118 SETTABLEKS                       R14 R13 K24 ["Icon"]
-      120 DUPCLOSURE                       R14 K36 [PROTO_1]
-      121 SETTABLEKS                       R14 R13 K27 ["getStyle"]
-      123 SETTABLE                         R13 R11 R12
-      124 DUPCLOSURE                       R12 K37 [PROTO_2]
-      125 CAPTURE                          VAL R6
-      126 CAPTURE                          VAL R3
-      127 CAPTURE                          VAL R2
-      128 DUPCLOSURE                       R13 K38 [PROTO_5]
-      129 CAPTURE                          VAL R11
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R12
-      132 CAPTURE                          VAL R1
-      133 CAPTURE                          VAL R5
-      134 CAPTURE                          VAL R3
-      135 CAPTURE                          VAL R4
-      136 CAPTURE                          VAL R9
-      137 CAPTURE                          VAL R8
-      138 CAPTURE                          VAL R7
-      139 RETURN                           R13 1
+       85 GETIMPORT                        R11 K5 [require]
+       87 GETTABLEKS                       R12 R0 K10 ["Src"]
+       89 GETTABLEKS                       R12 R12 K20 ["Flags"]
+       91 GETTABLEKS                       R12 R12 K22 ["getFFlagAmrEnableAnimatedImage"]
+       93 CALL                             R11 1 1
+       94 NEWTABLE                         R12 1 0
+       96 GETTABLEKS                       R13 R4 K23 ["AssetType"]
+       98 GETTABLEKS                       R13 R13 K24 ["Folder"]
+      100 DUPTABLE                         R14 K29 [{["Icon"], ["TestId"] = "folder-thumbnail-content", ["getStyle"]}]
+      101 GETTABLEKS                       R15 R3 K30 ["Enums"]
+      103 GETTABLEKS                       R15 R15 K31 ["IconName"]
+      105 GETTABLEKS                       R15 R15 K24 ["Folder"]
+      107 SETTABLEKS                       R15 R14 K25 ["Icon"]
+      109 DUPCLOSURE                       R15 K32 [PROTO_0]
+      110 SETTABLEKS                       R15 R14 K28 ["getStyle"]
+      112 SETTABLE                         R14 R12 R13
+      113 MOVE                             R13 R10
+      114 CALL                             R13 0 1
+      115 JUMPIFNOT                        R13 ; [+17]
+      116 GETTABLEKS                       R13 R4 K23 ["AssetType"]
+      118 GETTABLEKS                       R13 R13 K33 ["TextDocument"]
+      120 DUPTABLE                         R14 K35 [{["Icon"], ["TestId"] = "text-document-thumbnail-content", ["getStyle"]}]
+      121 GETTABLEKS                       R15 R3 K30 ["Enums"]
+      123 GETTABLEKS                       R15 R15 K31 ["IconName"]
+      125 GETTABLEKS                       R15 R15 K36 ["Page"]
+      127 SETTABLEKS                       R15 R14 K25 ["Icon"]
+      129 DUPCLOSURE                       R15 K37 [PROTO_1]
+      130 SETTABLEKS                       R15 R14 K28 ["getStyle"]
+      132 SETTABLE                         R14 R12 R13
+      133 MOVE                             R13 R11
+      134 CALL                             R13 0 1
+      135 JUMPIFNOT                        R13 ; [+17]
+      136 GETTABLEKS                       R13 R4 K23 ["AssetType"]
+      138 GETTABLEKS                       R13 R13 K38 ["AnimatedImage"]
+      140 DUPTABLE                         R14 K40 [{["Icon"], ["TestId"] = "animated-image-thumbnail-content", ["getStyle"]}]
+      141 GETTABLEKS                       R15 R3 K30 ["Enums"]
+      143 GETTABLEKS                       R15 R15 K31 ["IconName"]
+      145 GETTABLEKS                       R15 R15 K41 ["ImageStacked"]
+      147 SETTABLEKS                       R15 R14 K25 ["Icon"]
+      149 DUPCLOSURE                       R15 K42 [PROTO_2]
+      150 SETTABLEKS                       R15 R14 K28 ["getStyle"]
+      152 SETTABLE                         R14 R12 R13
+      153 DUPCLOSURE                       R13 K43 [PROTO_3]
+      154 CAPTURE                          VAL R6
+      155 CAPTURE                          VAL R3
+      156 CAPTURE                          VAL R2
+      157 DUPCLOSURE                       R14 K44 [PROTO_6]
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R2
+      160 CAPTURE                          VAL R13
+      161 CAPTURE                          VAL R1
+      162 CAPTURE                          VAL R5
+      163 CAPTURE                          VAL R3
+      164 CAPTURE                          VAL R4
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          VAL R8
+      167 CAPTURE                          VAL R7
+      168 RETURN                           R14 1

@@ -38,7 +38,7 @@ PROTO_0:
        48 GETIMPORT                        R4 K9 [assert]
        50 CALL                             R4 2 0
        51 LOADNIL                          R4
-       52 LOADK                            R5 K10 [∞]
+       52 LOADK                            R5 K10 [Infinity]
        53 LOADN                            R6 0
        54 GETTABLEKS                       R7 R0 K11 ["points"]
        56 LOADNIL                          R8

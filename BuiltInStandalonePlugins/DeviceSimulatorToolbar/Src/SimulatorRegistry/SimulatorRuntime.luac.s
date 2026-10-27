@@ -138,17 +138,17 @@ PROTO_3:
        23 POW                              R3 R4 R2
        24 MUL                              R4 R0 R3
        25 MUL                              R5 R1 R3
-       26 JUMPIFEQKN                       R3 K3 [∞] ; [+15]
+       26 JUMPIFEQKN                       R3 K3 [Infinity] ; [+15]
        28 FASTCALL1                        MATH_ABS R4 ; [+3]
        29 MOVE                             R7 R4
        30 GETIMPORT                        R6 K6 [math.abs]
        32 CALL                             R6 1 1
-       33 JUMPIFEQKN                       R6 K3 [∞] ; [+8]
+       33 JUMPIFEQKN                       R6 K3 [Infinity] ; [+8]
        35 FASTCALL1                        MATH_ABS R5 ; [+3]
        36 MOVE                             R7 R5
        37 GETIMPORT                        R6 K6 [math.abs]
        39 CALL                             R6 1 1
-       40 JUMPIFNOTEQKN                    R6 K3 [∞] ; [+3]
+       40 JUMPIFNOTEQKN                    R6 K3 [Infinity] ; [+3]
        42 LOADB                            R6 0
        43 RETURN                           R6 1
        44 FASTCALL1                        MATH_ROUND R4 ; [+3]

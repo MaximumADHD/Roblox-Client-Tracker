@@ -273,7 +273,7 @@ PROTO_6:
        46 SETTABLE                         R12 R3 R11
        47 NEWTABLE                         R12 0 0
        49 SETTABLE                         R12 R4 R11
-       50 LOADK                            R12 K7 [-∞]
+       50 LOADK                            R12 K7 [-Infinity]
        51 JUMPIFNOTEQ                      R11 R6 ; [+4]
        53 GETTABLEKS                       R13 R0 K8 ["gapTrailingScore"]
        55 JUMPIF                           R13 ; [+2]
@@ -288,7 +288,7 @@ PROTO_6:
        66 FORNPREP                         R15
        67 GETTABLE                         R18 R8 R17
        68 JUMPIFNOTEQ                      R14 R18 ; [+48]
-       70 LOADK                            R18 K7 [-∞]
+       70 LOADK                            R18 K7 [-Infinity]
        71 JUMPIFNOTEQKN                    R11 K10 [1] ; [+8]
        73 SUBK                             R20 R17 K10 [1]
        74 GETTABLEKS                       R21 R0 K11 ["gapLeadingScore"]
@@ -328,7 +328,7 @@ PROTO_6:
       115 SETTABLE                         R12 R19 R17
       116 JUMP                             ; [+6]
       117 GETTABLE                         R18 R3 R11
-      118 LOADK                            R19 K7 [-∞]
+      118 LOADK                            R19 K7 [-Infinity]
       119 SETTABLE                         R19 R18 R17
       120 ADD                              R12 R12 R13
       121 GETTABLE                         R18 R4 R11
@@ -369,7 +369,7 @@ PROTO_8:
        14 GETTABLEKS                       R5 R0 K4 ["maxMatchLength"]
        16 JUMPIFLT                         R5 R4 ; [+3]
        18 JUMPIFNOTLT                      R4 R3 ; [+3]
-       20 LOADK                            R5 K5 [-∞]
+       20 LOADK                            R5 K5 [-Infinity]
        21 RETURN                           R5 1
        22 GETUPVAL                         R5 0
        23 GETTABLEKS                       R5 R5 K6 ["isPerfectMatch"]
@@ -378,7 +378,7 @@ PROTO_8:
        27 MOVE                             R8 R2
        28 CALL                             R5 3 1
        29 JUMPIFNOT                        R5 ; [+2]
-       30 LOADK                            R5 K7 [∞]
+       30 LOADK                            R5 K7 [Infinity]
        31 RETURN                           R5 1
        32 NEWTABLE                         R5 0 0
        34 NEWTABLE                         R6 0 0
@@ -408,7 +408,7 @@ PROTO_9:
        16 JUMPIFLT                         R5 R4 ; [+3]
        18 JUMPIFNOTLT                      R4 R3 ; [+5]
        20 NEWTABLE                         R5 0 0
-       22 LOADK                            R6 K5 [-∞]
+       22 LOADK                            R6 K5 [-Infinity]
        23 RETURN                           R5 2
        24 GETUPVAL                         R5 0
        25 GETTABLEKS                       R5 R5 K6 ["isPerfectMatch"]
@@ -425,7 +425,7 @@ PROTO_9:
        38 SETTABLE                         R8 R5 R8
        39 FORNLOOP                         R6
        40 MOVE                             R6 R5
-       41 LOADK                            R7 K7 [∞]
+       41 LOADK                            R7 K7 [Infinity]
        42 RETURN                           R6 2
        43 NEWTABLE                         R5 0 0
        45 NEWTABLE                         R6 0 0
@@ -447,7 +447,7 @@ PROTO_9:
        63 JUMPIFNOTLE                      R13 R9 ; [+37]
        65 GETTABLE                         R14 R5 R12
        66 GETTABLE                         R13 R14 R9
-       67 JUMPIFEQKN                       R13 K5 [-∞] ; [+31]
+       67 JUMPIFEQKN                       R13 K5 [-Infinity] ; [+31]
        69 JUMPIF                           R8 ; [+6]
        70 GETTABLE                         R14 R5 R12
        71 GETTABLE                         R13 R14 R9
@@ -513,11 +513,11 @@ PROTO_10:
        37 RETURN                           R3 1
 
 PROTO_11:
-        0 LOADK                            R0 K0 [-∞]
+        0 LOADK                            R0 K0 [-Infinity]
         1 RETURN                           R0 1
 
 PROTO_12:
-        0 LOADK                            R0 K0 [∞]
+        0 LOADK                            R0 K0 [Infinity]
         1 RETURN                           R0 1
 
 PROTO_13:

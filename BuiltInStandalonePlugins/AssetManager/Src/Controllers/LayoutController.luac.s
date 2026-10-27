@@ -425,7 +425,7 @@ PROTO_14:
        42 JUMPIFNOTLT                      R4 R2 ; [+3]
        44 MOVE                             R3 R2
        45 JUMP                             ; [+1]
-       46 LOADK                            R3 K10 [∞]
+       46 LOADK                            R3 K10 [Infinity]
        47 GETTABLEKS                       R5 R1 K2 ["SidebarWidth"]
        49 LOADN                            R6 150
        50 FASTCALL3                        MATH_CLAMP R5 R6 R3
@@ -1782,7 +1782,7 @@ PROTO_81:
         2 RETURN                           R1 1
 
 PROTO_82:
-        0 DUPTABLE                         R1 K5 [{[1], ["MinWidth"] = 250, ["MaxWidth"] = ∞}]
+        0 DUPTABLE                         R1 K5 [{[1], ["MinWidth"] = 250, ["MaxWidth"] = Infinity}]
         1 GETIMPORT                        R2 K8 [UDim2.new]
         3 LOADN                            R3 1
         4 GETTABLEKS                       R5 R0 K9 ["_drawerDesiredWidth"]

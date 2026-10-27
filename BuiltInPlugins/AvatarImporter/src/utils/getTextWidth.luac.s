@@ -16,8 +16,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K6 [Vector2.new]
-        9 LOADK                            R2 K7 [∞]
-       10 LOADK                            R3 K7 [∞]
+        9 LOADK                            R2 K7 [Infinity]
+       10 LOADK                            R3 K7 [Infinity]
        11 CALL                             R1 2 1
        12 DUPCLOSURE                       R2 K8 [PROTO_0]
        13 CAPTURE                          VAL R0

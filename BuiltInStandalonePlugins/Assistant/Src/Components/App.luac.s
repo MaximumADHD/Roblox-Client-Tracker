@@ -1,4 +1,42 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["signal"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["showIntegrations"]
+        6 NAMECALL                         R0 R0 K2 ["Connect"]
+        8 CALL                             R0 2 1
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 RETURN                           R1 1
+
+PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        3 LOADK                            R3 K0 ["useSettingsDialog is required to open MCP settings"]
+        4 GETIMPORT                        R1 K2 [assert]
+        6 CALL                             R1 2 0
+        7 GETUPVAL                         R1 0
+        8 CALL                             R1 0 1
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K3 ["useEffect"]
+       12 NEWCLOSURE                       R3 P0
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R1
+       15 NEWTABLE                         R4 0 2
+       17 GETTABLEKS                       R5 R0 K4 ["signal"]
+       19 GETTABLEKS                       R6 R1 K5 ["showIntegrations"]
+       21 SETLIST                          R4 R5 2 [1]
+       23 CALL                             R2 2 0
+       24 GETTABLEKS                       R2 R1 K6 ["root"]
+       26 RETURN                           R2 1
+
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["ModelQuality"]
@@ -31,7 +69,7 @@ PROTO_0:
        37 CALL                             R1 1 0
        38 RETURN                           R0 0
 
-PROTO_1:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["FFlagAssistantQualityChangeWidgetTitle"]
         3 JUMPIFNOT                        R1 ; [+34]
@@ -59,20 +97,34 @@ PROTO_1:
        34 MOVE                             R7 R2
        35 SETLIST                          R6 R7 1 [1]
        37 CALL                             R4 2 0
-       38 DUPTABLE                         R1 K9 [{"MainView"}]
-       39 GETUPVAL                         R2 4
-       40 GETUPVAL                         R3 5
-       41 GETTABLEKS                       R3 R3 K10 ["WidgetTrackingMainView"]
-       43 DUPTABLE                         R4 K13 [{"textBoxRef", "externalInterfaceRef"}]
-       44 GETTABLEKS                       R5 R0 K11 ["textBoxRef"]
-       46 SETTABLEKS                       R5 R4 K11 ["textBoxRef"]
-       48 GETTABLEKS                       R5 R0 K12 ["externalInterfaceRef"]
-       50 SETTABLEKS                       R5 R4 K12 ["externalInterfaceRef"]
-       52 CALL                             R2 2 1
-       53 SETTABLEKS                       R2 R1 K8 ["MainView"]
-       55 RETURN                           R1 1
+       38 DUPTABLE                         R1 K10 [{"McpSettingsAction", "MainView"}]
+       39 GETUPVAL                         R3 0
+       40 GETTABLEKS                       R3 R3 K11 ["FFlagMCPClientCountAsASetting"]
+       42 JUMPIFNOT                        R3 ; [+12]
+       43 GETTABLEKS                       R3 R0 K12 ["openMcpSettingsSignal"]
+       45 JUMPIFNOT                        R3 ; [+9]
+       46 GETUPVAL                         R2 4
+       47 GETUPVAL                         R3 5
+       48 DUPTABLE                         R4 K14 [{"signal"}]
+       49 GETTABLEKS                       R5 R0 K12 ["openMcpSettingsSignal"]
+       51 SETTABLEKS                       R5 R4 K13 ["signal"]
+       53 CALL                             R2 2 1
+       54 JUMP                             ; [+1]
+       55 LOADNIL                          R2
+       56 SETTABLEKS                       R2 R1 K8 ["McpSettingsAction"]
+       58 GETUPVAL                         R2 4
+       59 GETUPVAL                         R3 6
+       60 GETTABLEKS                       R3 R3 K15 ["WidgetTrackingMainView"]
+       62 DUPTABLE                         R4 K18 [{"textBoxRef", "externalInterfaceRef"}]
+       63 GETTABLEKS                       R5 R0 K16 ["textBoxRef"]
+       65 SETTABLEKS                       R5 R4 K16 ["textBoxRef"]
+       67 GETTABLEKS                       R5 R0 K17 ["externalInterfaceRef"]
+       69 SETTABLEKS                       R5 R4 K17 ["externalInterfaceRef"]
+       71 CALL                             R2 2 1
+       72 SETTABLEKS                       R2 R1 K9 ["MainView"]
+       74 RETURN                           R1 1
 
-PROTO_2:
+PROTO_5:
         0 NEWTABLE                         R1 0 5
         2 GETUPVAL                         R2 0
         3 GETUPVAL                         R3 1
@@ -135,7 +187,7 @@ PROTO_2:
        79 GETIMPORT                        R2 K10 [table.insert]
        81 CALL                             R2 -1 0
        82 GETUPVAL                         R2 8
-       83 GETTABLEKS                       R2 R2 K12 ["FFlagAssistantEval"]
+       83 GETTABLEKS                       R2 R2 K12 ["FFlagDebugAssistantEval"]
        85 JUMPIFNOT                        R2 ; [+14]
        86 MOVE                             R3 R1
        87 GETUPVAL                         R4 0
@@ -466,39 +518,46 @@ MAIN:
       235 GETTABLEKS                       R31 R2 K17 ["Components"]
       237 GETTABLEKS                       R31 R31 K45 ["Hooks"]
       239 GETTABLEKS                       R31 R31 K46 ["useBridges"]
-      241 GETTABLEKS                       R32 R5 K47 ["createElement"]
-      243 DUPCLOSURE                       R33 K48 [PROTO_1]
-      244 CAPTURE                          VAL R9
-      245 CAPTURE                          VAL R5
-      246 CAPTURE                          VAL R25
-      247 CAPTURE                          VAL R29
-      248 CAPTURE                          VAL R32
-      249 CAPTURE                          VAL R21
-      250 DUPCLOSURE                       R34 K49 [PROTO_2]
-      251 CAPTURE                          VAL R32
-      252 CAPTURE                          VAL R2
-      253 CAPTURE                          VAL R18
-      254 CAPTURE                          VAL R24
-      255 CAPTURE                          VAL R27
-      256 CAPTURE                          VAL R11
-      257 CAPTURE                          VAL R15
-      258 CAPTURE                          VAL R28
-      259 CAPTURE                          VAL R9
-      260 CAPTURE                          VAL R30
-      261 CAPTURE                          VAL R10
-      262 CAPTURE                          VAL R14
-      263 CAPTURE                          VAL R12
-      264 CAPTURE                          VAL R16
-      265 CAPTURE                          VAL R13
-      266 CAPTURE                          VAL R20
-      267 CAPTURE                          VAL R19
-      268 CAPTURE                          VAL R25
-      269 CAPTURE                          VAL R17
-      270 CAPTURE                          VAL R23
-      271 CAPTURE                          VAL R26
-      272 CAPTURE                          VAL R31
-      273 CAPTURE                          VAL R4
-      274 CAPTURE                          VAL R22
-      275 CAPTURE                          VAL R6
-      276 CAPTURE                          VAL R33
-      277 RETURN                           R34 1
+      241 GETTABLEKS                       R32 R2 K17 ["Components"]
+      243 GETTABLEKS                       R32 R32 K45 ["Hooks"]
+      245 GETTABLEKS                       R32 R32 K47 ["useSettingsDialog"]
+      247 GETTABLEKS                       R33 R5 K48 ["createElement"]
+      249 DUPCLOSURE                       R34 K49 [PROTO_2]
+      250 CAPTURE                          VAL R32
+      251 CAPTURE                          VAL R5
+      252 DUPCLOSURE                       R35 K50 [PROTO_4]
+      253 CAPTURE                          VAL R9
+      254 CAPTURE                          VAL R5
+      255 CAPTURE                          VAL R25
+      256 CAPTURE                          VAL R29
+      257 CAPTURE                          VAL R33
+      258 CAPTURE                          VAL R34
+      259 CAPTURE                          VAL R21
+      260 DUPCLOSURE                       R36 K51 [PROTO_5]
+      261 CAPTURE                          VAL R33
+      262 CAPTURE                          VAL R2
+      263 CAPTURE                          VAL R18
+      264 CAPTURE                          VAL R24
+      265 CAPTURE                          VAL R27
+      266 CAPTURE                          VAL R11
+      267 CAPTURE                          VAL R15
+      268 CAPTURE                          VAL R28
+      269 CAPTURE                          VAL R9
+      270 CAPTURE                          VAL R30
+      271 CAPTURE                          VAL R10
+      272 CAPTURE                          VAL R14
+      273 CAPTURE                          VAL R12
+      274 CAPTURE                          VAL R16
+      275 CAPTURE                          VAL R13
+      276 CAPTURE                          VAL R20
+      277 CAPTURE                          VAL R19
+      278 CAPTURE                          VAL R25
+      279 CAPTURE                          VAL R17
+      280 CAPTURE                          VAL R23
+      281 CAPTURE                          VAL R26
+      282 CAPTURE                          VAL R31
+      283 CAPTURE                          VAL R4
+      284 CAPTURE                          VAL R22
+      285 CAPTURE                          VAL R6
+      286 CAPTURE                          VAL R35
+      287 RETURN                           R36 1

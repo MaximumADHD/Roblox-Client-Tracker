@@ -74,7 +74,7 @@ PROTO_6:
         1 LOADN                            R2 0
         2 DIVK                             R5 R0 K2 [180]
         3 SUBRK                            R4 K1 [0.5] R5
-        4 MULK                             R3 R4 K0 [3.14159265358979]
+        4 MULK                             R3 R4 K0 [3.141592653589793]
         5 GETIMPORT                        R4 K4 [workspace]
         7 GETTABLEKS                       R4 R4 K5 ["GlobalWind"]
         9 GETIMPORT                        R6 K4 [workspace]
@@ -121,8 +121,8 @@ PROTO_7:
         1 LOADN                            R5 180
         2 ADD                              R4 R5 R0
         3 DIVK                             R3 R4 K1 [180]
-        4 MULK                             R2 R3 K0 [3.14159265358979]
-        5 LOADK                            R3 K2 [-1.5707963267949]
+        4 MULK                             R2 R3 K0 [3.141592653589793]
+        5 LOADK                            R3 K2 [-1.5707963267948966]
         6 GETIMPORT                        R4 K4 [workspace]
         8 GETTABLEKS                       R4 R4 K5 ["GlobalWind"]
        10 GETIMPORT                        R6 K4 [workspace]
@@ -140,7 +140,7 @@ PROTO_7:
        32 GETTABLEKS                       R6 R4 K9 ["z"]
        34 LOADN                            R7 0
        35 JUMPIFNOTLT                      R6 R7 ; [+3]
-       37 LOADK                            R5 K0 [3.14159265358979]
+       37 LOADK                            R5 K0 [3.141592653589793]
        38 JUMP                             ; [+1]
        39 LOADN                            R5 0
        40 GETTABLEKS                       R6 R4 K9 ["z"]
@@ -156,9 +156,9 @@ PROTO_7:
        55 GETTABLEKS                       R6 R4 K11 ["x"]
        57 LOADN                            R7 0
        58 JUMPIFNOTLT                      R7 R6 ; [+3]
-       60 ADDK                             R3 R5 K15 [1.5707963267949]
+       60 ADDK                             R3 R5 K15 [1.5707963267948966]
        61 JUMP                             ; [+1]
-       62 SUBK                             R3 R5 K15 [1.5707963267949]
+       62 SUBK                             R3 R5 K15 [1.5707963267948966]
        63 GETIMPORT                        R5 K18 [CFrame.fromEulerAnglesYXZ]
        65 LOADN                            R6 0
        66 MOVE                             R7 R3
@@ -197,7 +197,7 @@ PROTO_8:
        25 NAMECALL                         R6 R6 K5 ["Angle"]
        27 CALL                             R6 3 1
        28 MUL                              R4 R5 R6
-       29 DIVK                             R3 R4 K3 [3.14159265358979]
+       29 DIVK                             R3 R4 K3 [3.141592653589793]
        30 ADD                              R1 R2 R3
        31 FASTCALL1                        MATH_ROUND R1 ; [+2]
        32 GETIMPORT                        R0 K8 [math.round]
@@ -232,7 +232,7 @@ PROTO_9:
        27 NAMECALL                         R8 R0 K8 ["Angle"]
        29 CALL                             R8 3 1
        30 MUL                              R6 R7 R8
-       31 DIVK                             R5 R6 K5 [3.14159265358979]
+       31 DIVK                             R5 R6 K5 [3.141592653589793]
        32 ADD                              R3 R4 R5
        33 FASTCALL1                        MATH_ROUND R3 ; [+2]
        34 GETIMPORT                        R2 K11 [math.round]

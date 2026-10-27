@@ -31,7 +31,7 @@ PROTO_1:
 
 PROTO_2:
         0 MINUS                            R5 R0
-        1 MULK                             R4 R5 K1 [0.00277777777777778]
+        1 MULK                             R4 R5 K1 [0.002777777777777778]
         2 FASTCALL1                        MATH_CEIL R4 ; [+2]
         3 GETIMPORT                        R3 K4 [math.ceil]
         5 CALL                             R3 1 1
@@ -44,7 +44,7 @@ PROTO_3:
         2 MOVE                             R3 R1
         3 CALL                             R2 1 1
         4 ADDK                             R7 R2 K4 [22.5]
-        5 MULK                             R6 R7 K3 [0.0222222222222222]
+        5 MULK                             R6 R7 K3 [0.022222222222222223]
         6 FASTCALL1                        MATH_FLOOR R6 ; [+2]
         7 GETIMPORT                        R5 K7 [math.floor]
         9 CALL                             R5 1 1

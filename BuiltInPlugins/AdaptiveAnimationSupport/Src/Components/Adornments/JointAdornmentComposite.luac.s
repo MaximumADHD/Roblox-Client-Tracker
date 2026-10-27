@@ -783,7 +783,7 @@ PROTO_17:
         9 JUMPIFNOTEQKN                    R0 K1 [1] ; [+33]
        11 GETIMPORT                        R0 K3 [workspace]
        13 GETTABLEKS                       R0 R0 K4 ["CurrentCamera"]
-       15 LOADK                            R1 K5 [∞]
+       15 LOADK                            R1 K5 [Infinity]
        16 JUMPIFNOT                        R0 ; [+14]
        17 GETUPVAL                         R2 1
        18 GETTABLEKS                       R2 R2 K6 ["getGlobalCoordinateFrame"]

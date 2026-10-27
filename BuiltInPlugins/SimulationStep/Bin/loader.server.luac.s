@@ -98,7 +98,7 @@ PROTO_4:
         3 CALL                             R0 1 1
         4 JUMPIF                           R0 ; [+6]
         5 GETIMPORT                        R0 K2 [workspace]
-        7 LOADK                            R2 K3 [0.0166666666666667]
+        7 LOADK                            R2 K3 [0.016666666666666666]
         8 NAMECALL                         R0 R0 K4 ["StepPhysics"]
        10 CALL                             R0 2 0
        11 RETURN                           R0 0

@@ -45,7 +45,7 @@ PROTO_1:
         8 GETIMPORT                        R5 K3 [math.rad]
        10 CALL                             R5 1 1
        11 MULK                             R11 R5 K7 [2]
-       12 ADDK                             R10 R11 K6 [3.14159265358979]
+       12 ADDK                             R10 R11 K6 [3.141592653589793]
        13 FASTCALL1                        MATH_COS R10 ; [+2]
        14 GETIMPORT                        R9 K9 [math.cos]
        16 CALL                             R9 1 1

@@ -752,7 +752,7 @@ MAIN:
        43 LOADK                            R9 K17 ["TimeTextBox"]
        44 NAMECALL                         R7 R7 K18 ["extend"]
        46 CALL                             R7 2 1
-       47 DUPTABLE                         R8 K24 [{["defaultValue"] = 0, ["max"] = ∞, ["min"] = 0}]
+       47 DUPTABLE                         R8 K24 [{["defaultValue"] = 0, ["max"] = Infinity, ["min"] = 0}]
        48 SETTABLEKS                       R8 R7 K25 ["defaultProps"]
        50 DUPCLOSURE                       R8 K26 [PROTO_0]
        51 DUPCLOSURE                       R9 K27 [PROTO_1]

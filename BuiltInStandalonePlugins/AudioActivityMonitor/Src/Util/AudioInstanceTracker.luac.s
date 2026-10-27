@@ -186,312 +186,366 @@ PROTO_9:
         9 RETURN                           R1 1
 
 PROTO_10:
-        0 GETTABLEKS                       R2 R1 K0 ["Active"]
-        2 GETTABLEKS                       R3 R0 K1 ["Name"]
-        4 SETTABLEKS                       R3 R1 K1 ["Name"]
-        6 GETTABLEKS                       R3 R0 K2 ["ClassName"]
-        8 SETTABLEKS                       R3 R1 K2 ["ClassName"]
-       10 GETUPVAL                         R3 0
-       11 MOVE                             R4 R0
-       12 CALL                             R3 1 1
-       13 SETTABLEKS                       R3 R1 K3 ["Path"]
-       15 LOADB                            R3 1
-       16 SETTABLEKS                       R3 R1 K0 ["Active"]
-       18 LOADNIL                          R3
-       19 SETTABLEKS                       R3 R1 K4 ["Asset"]
-       21 LOADNIL                          R3
-       22 SETTABLEKS                       R3 R1 K5 ["PlaybackState"]
-       24 LOADNIL                          R3
-       25 SETTABLEKS                       R3 R1 K6 ["Volume"]
-       27 LOADNIL                          R3
-       28 SETTABLEKS                       R3 R1 K7 ["Is3D"]
-       30 LOADNIL                          R3
-       31 SETTABLEKS                       R3 R1 K8 ["Distance"]
-       33 LOADNIL                          R3
-       34 SETTABLEKS                       R3 R1 K9 ["AttenuationFactor"]
-       36 LOADN                            R3 -1
-       37 SETTABLEKS                       R3 R1 K10 ["PotentialAudibility"]
-       39 LOADNIL                          R3
-       40 SETTABLEKS                       R3 R1 K11 ["Metering"]
-       42 LOADNIL                          R3
-       43 SETTABLEKS                       R3 R1 K12 ["Targets"]
-       45 LOADNIL                          R3
-       46 SETTABLEKS                       R3 R1 K13 ["ShouldBeTargeted"]
-       48 LOADB                            R3 0
-       49 LOADB                            R4 0
-       50 LOADK                            R7 K14 ["Sound"]
-       51 NAMECALL                         R5 R0 K15 ["IsA"]
-       53 CALL                             R5 2 1
-       54 JUMPIFNOT                        R5 ; [+48]
-       55 GETTABLEKS                       R5 R0 K16 ["Playing"]
-       57 SETTABLEKS                       R5 R1 K0 ["Active"]
-       59 GETTABLEKS                       R5 R0 K17 ["SoundId"]
-       61 SETTABLEKS                       R5 R1 K4 ["Asset"]
-       63 GETTABLEKS                       R5 R0 K6 ["Volume"]
-       65 SETTABLEKS                       R5 R1 K6 ["Volume"]
-       67 GETUPVAL                         R5 1
-       68 GETTABLEKS                       R5 R5 K18 ["getAttenuationForSound"]
-       70 MOVE                             R6 R0
-       71 CALL                             R5 1 3
-       72 SETTABLEKS                       R5 R1 K7 ["Is3D"]
-       74 SETTABLEKS                       R6 R1 K8 ["Distance"]
-       76 SETTABLEKS                       R7 R1 K9 ["AttenuationFactor"]
-       78 GETUPVAL                         R5 1
-       79 GETTABLEKS                       R5 R5 K19 ["getAudibilityForSound"]
-       81 MOVE                             R6 R0
-       82 GETTABLEKS                       R7 R1 K0 ["Active"]
-       84 GETTABLEKS                       R8 R1 K6 ["Volume"]
-       86 CALL                             R5 3 1
-       87 SETTABLEKS                       R5 R1 K10 ["PotentialAudibility"]
-       89 GETTABLEKS                       R6 R0 K21 ["PlaybackLoudness"]
-       91 DIVK                             R5 R6 K20 [1000]
-       92 SETTABLEKS                       R5 R1 K11 ["Metering"]
-       94 GETIMPORT                        R5 K23 [pcall]
-       96 NEWCLOSURE                       R6 P0
-       97 CAPTURE                          VAL R0
-       98 CALL                             R5 1 2
-       99 JUMPIFNOT                        R5 ; [+233]
-      100 SETTABLEKS                       R6 R1 K5 ["PlaybackState"]
-      102 JUMP                             ; [+230]
-      103 LOADK                            R7 K24 ["VideoFrame"]
-      104 NAMECALL                         R5 R0 K15 ["IsA"]
-      106 CALL                             R5 2 1
-      107 JUMPIFNOT                        R5 ; [+38]
-      108 GETTABLEKS                       R5 R0 K16 ["Playing"]
-      110 SETTABLEKS                       R5 R1 K0 ["Active"]
-      112 GETTABLEKS                       R5 R0 K25 ["Video"]
-      114 SETTABLEKS                       R5 R1 K4 ["Asset"]
-      116 GETTABLEKS                       R5 R0 K6 ["Volume"]
-      118 SETTABLEKS                       R5 R1 K6 ["Volume"]
-      120 GETUPVAL                         R5 1
-      121 GETTABLEKS                       R5 R5 K26 ["getAttenuationForVideoFrame"]
-      123 MOVE                             R6 R0
-      124 CALL                             R5 1 3
-      125 SETTABLEKS                       R5 R1 K7 ["Is3D"]
-      127 SETTABLEKS                       R6 R1 K8 ["Distance"]
-      129 SETTABLEKS                       R7 R1 K9 ["AttenuationFactor"]
-      131 GETUPVAL                         R5 1
-      132 GETTABLEKS                       R5 R5 K27 ["getAudibilityForVideoFrame"]
-      134 MOVE                             R6 R0
-      135 GETTABLEKS                       R7 R1 K0 ["Active"]
-      137 GETTABLEKS                       R8 R1 K6 ["Volume"]
-      139 CALL                             R5 3 1
-      140 SETTABLEKS                       R5 R1 K10 ["PotentialAudibility"]
-      142 LOADN                            R5 0
-      143 SETTABLEKS                       R5 R1 K11 ["Metering"]
-      145 JUMP                             ; [+187]
-      146 LOADK                            R7 K28 ["AudioPlayer"]
-      147 NAMECALL                         R5 R0 K15 ["IsA"]
-      149 CALL                             R5 2 1
-      150 JUMPIFNOT                        R5 ; [+23]
-      151 GETTABLEKS                       R5 R0 K29 ["IsPlaying"]
-      153 SETTABLEKS                       R5 R1 K0 ["Active"]
-      155 GETTABLEKS                       R5 R0 K4 ["Asset"]
-      157 SETTABLEKS                       R5 R1 K4 ["Asset"]
-      159 GETTABLEKS                       R5 R0 K6 ["Volume"]
-      161 SETTABLEKS                       R5 R1 K6 ["Volume"]
-      163 LOADB                            R3 1
-      164 LOADB                            R4 1
-      165 GETIMPORT                        R5 K23 [pcall]
-      167 NEWCLOSURE                       R6 P1
-      168 CAPTURE                          VAL R0
-      169 CALL                             R5 1 2
-      170 JUMPIFNOT                        R5 ; [+162]
-      171 SETTABLEKS                       R6 R1 K5 ["PlaybackState"]
-      173 JUMP                             ; [+159]
-      174 LOADK                            R7 K30 ["AudioDeviceInput"]
-      175 NAMECALL                         R5 R0 K15 ["IsA"]
-      177 CALL                             R5 2 1
-      178 JUMPIFNOT                        R5 ; [+30]
-      179 GETTABLEKS                       R5 R0 K31 ["IsReady"]
-      181 JUMPIFNOT                        R5 ; [+7]
-      182 GETTABLEKS                       R6 R0 K32 ["Muted"]
-      184 NOT                              R5 R6
-      185 JUMPIFNOT                        R5 ; [+3]
-      186 GETTABLEKS                       R6 R0 K33 ["MutedByLocalUser"]
-      188 NOT                              R5 R6
-      189 SETTABLEKS                       R5 R1 K0 ["Active"]
-      191 GETTABLEKS                       R6 R0 K34 ["Player"]
-      193 JUMPIFNOT                        R6 ; [+5]
-      194 GETTABLEKS                       R5 R0 K34 ["Player"]
-      196 GETTABLEKS                       R5 R5 K1 ["Name"]
-      198 JUMP                             ; [+1]
-      199 LOADK                            R5 K35 [""]
-      200 SETTABLEKS                       R5 R1 K4 ["Asset"]
-      202 GETTABLEKS                       R5 R0 K6 ["Volume"]
-      204 SETTABLEKS                       R5 R1 K6 ["Volume"]
-      206 LOADB                            R3 1
-      207 LOADB                            R4 1
-      208 JUMP                             ; [+124]
-      209 LOADK                            R7 K36 ["AudioListener"]
-      210 NAMECALL                         R5 R0 K15 ["IsA"]
-      212 CALL                             R5 2 1
-      213 JUMPIFNOT                        R5 ; [+14]
-      214 NAMECALL                         R7 R0 K37 ["GetInteractingEmitters"]
-      216 CALL                             R7 1 1
-      217 LENGTH                           R6 R7
-      218 LOADN                            R7 0
-      219 JUMPIFLT                         R7 R6 ; [+2]
-      221 LOADB                            R5 0 +1
-      222 LOADB                            R5 1
-      223 SETTABLEKS                       R5 R1 K0 ["Active"]
-      225 LOADB                            R3 1
-      226 LOADB                            R4 1
-      227 JUMP                             ; [+105]
-      228 LOADK                            R7 K38 ["AudioTextToSpeech"]
-      229 NAMECALL                         R5 R0 K15 ["IsA"]
-      231 CALL                             R5 2 1
-      232 JUMPIFNOT                        R5 ; [+18]
-      233 GETTABLEKS                       R5 R0 K29 ["IsPlaying"]
-      235 SETTABLEKS                       R5 R1 K0 ["Active"]
-      237 LOADK                            R6 K39 ["\""]
-      238 GETTABLEKS                       R7 R0 K40 ["Text"]
-      240 LOADK                            R8 K39 ["\""]
-      241 CONCAT                           R5 R6 R8
-      242 SETTABLEKS                       R5 R1 K4 ["Asset"]
-      244 GETTABLEKS                       R5 R0 K6 ["Volume"]
-      246 SETTABLEKS                       R5 R1 K6 ["Volume"]
-      248 LOADB                            R3 1
-      249 LOADB                            R4 1
-      250 JUMP                             ; [+82]
-      251 LOADK                            R7 K41 ["VideoPlayer"]
-      252 NAMECALL                         R5 R0 K15 ["IsA"]
-      254 CALL                             R5 2 1
-      255 JUMPIFNOT                        R5 ; [+18]
-      256 GETTABLEKS                       R5 R0 K29 ["IsPlaying"]
-      258 SETTABLEKS                       R5 R1 K0 ["Active"]
-      260 GETTABLEKS                       R6 R0 K42 ["VideoContent"]
-      262 GETTABLEKS                       R6 R6 K43 ["Uri"]
-      264 ORK                              R5 R6 K35 [""]
-      265 SETTABLEKS                       R5 R1 K4 ["Asset"]
-      267 GETTABLEKS                       R5 R0 K6 ["Volume"]
-      269 SETTABLEKS                       R5 R1 K6 ["Volume"]
-      271 LOADB                            R3 1
-      272 LOADB                            R4 1
-      273 JUMP                             ; [+59]
-      274 LOADK                            R7 K44 ["AudioDeviceOutput"]
-      275 NAMECALL                         R5 R0 K15 ["IsA"]
-      277 CALL                             R5 2 1
-      278 JUMPIFNOT                        R5 ; [+14]
-      279 LOADB                            R5 1
-      280 SETTABLEKS                       R5 R1 K13 ["ShouldBeTargeted"]
-      282 LOADB                            R5 0
-      283 LOADN                            R6 0
-      284 LOADN                            R7 1
-      285 SETTABLEKS                       R5 R1 K7 ["Is3D"]
-      287 SETTABLEKS                       R6 R1 K8 ["Distance"]
-      289 SETTABLEKS                       R7 R1 K9 ["AttenuationFactor"]
-      291 LOADB                            R3 1
-      292 JUMP                             ; [+40]
-      293 LOADK                            R7 K45 ["AudioEmitter"]
-      294 NAMECALL                         R5 R0 K15 ["IsA"]
-      296 CALL                             R5 2 1
-      297 JUMPIFNOT                        R5 ; [+16]
-      298 GETUPVAL                         R5 1
-      299 GETTABLEKS                       R5 R5 K46 ["getAttenuationForEmitter"]
-      301 MOVE                             R6 R0
-      302 CALL                             R5 1 3
-      303 SETTABLEKS                       R5 R1 K7 ["Is3D"]
-      305 SETTABLEKS                       R6 R1 K8 ["Distance"]
-      307 SETTABLEKS                       R7 R1 K9 ["AttenuationFactor"]
-      309 LOADB                            R5 1
-      310 SETTABLEKS                       R5 R1 K13 ["ShouldBeTargeted"]
-      312 LOADB                            R3 1
-      313 JUMP                             ; [+19]
-      314 LOADK                            R7 K47 ["AudioAnalyzer"]
-      315 NAMECALL                         R5 R0 K15 ["IsA"]
-      317 CALL                             R5 2 1
-      318 JUMPIF                           R5 ; [+10]
-      319 LOADK                            R7 K48 ["AudioRecorder"]
-      320 NAMECALL                         R5 R0 K15 ["IsA"]
-      322 CALL                             R5 2 1
-      323 JUMPIF                           R5 ; [+5]
-      324 LOADK                            R7 K49 ["AudioSpeechToText"]
-      325 NAMECALL                         R5 R0 K15 ["IsA"]
-      327 CALL                             R5 2 1
-      328 JUMPIFNOT                        R5 ; [+4]
-      329 LOADB                            R5 1
-      330 SETTABLEKS                       R5 R1 K13 ["ShouldBeTargeted"]
-      332 LOADB                            R3 1
-      333 JUMPIFNOT                        R3 ; [+19]
-      334 GETTABLEKS                       R5 R1 K0 ["Active"]
-      336 JUMPIFNOT                        R5 ; [+7]
-      337 GETUPVAL                         R5 1
-      338 GETTABLEKS                       R5 R5 K50 ["getAudibilityForWirable"]
-      340 MOVE                             R6 R0
-      341 CALL                             R5 1 1
-      342 SETTABLEKS                       R5 R1 K10 ["PotentialAudibility"]
-      344 GETUPVAL                         R5 2
-      345 GETTABLEKS                       R5 R5 K51 ["_getMetering"]
-      347 MOVE                             R6 R0
-      348 GETTABLEKS                       R7 R1 K0 ["Active"]
-      350 CALL                             R5 2 1
-      351 SETTABLEKS                       R5 R1 K11 ["Metering"]
-      353 JUMPIFNOT                        R4 ; [+9]
-      354 GETUPVAL                         R5 1
-      355 GETTABLEKS                       R5 R5 K52 ["getTargetsForWirable"]
-      357 MOVE                             R6 R0
-      358 NEWCLOSURE                       R7 P2
-      359 CAPTURE                          UPVAL U3
-      360 CALL                             R5 2 1
-      361 SETTABLEKS                       R5 R1 K12 ["Targets"]
-      363 GETTABLEKS                       R5 R1 K0 ["Active"]
-      365 JUMPIFNOT                        R5 ; [+6]
-      366 JUMPIF                           R2 ; [+5]
-      367 GETIMPORT                        R5 K55 [os.clock]
-      369 CALL                             R5 0 1
-      370 SETTABLEKS                       R5 R1 K56 ["TimeBecameActive"]
-      372 RETURN                           R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["Name"]
+        2 SETTABLEKS                       R2 R1 K0 ["Name"]
+        4 GETTABLEKS                       R2 R0 K1 ["ClassName"]
+        6 SETTABLEKS                       R2 R1 K1 ["ClassName"]
+        8 GETUPVAL                         R2 0
+        9 MOVE                             R3 R0
+       10 CALL                             R2 1 1
+       11 SETTABLEKS                       R2 R1 K2 ["Path"]
+       13 LOADNIL                          R2
+       14 SETTABLEKS                       R2 R1 K3 ["Asset"]
+       16 LOADNIL                          R2
+       17 SETTABLEKS                       R2 R1 K4 ["PlaybackState"]
+       19 LOADNIL                          R2
+       20 SETTABLEKS                       R2 R1 K5 ["Volume"]
+       22 LOADNIL                          R2
+       23 SETTABLEKS                       R2 R1 K6 ["Is3D"]
+       25 LOADNIL                          R2
+       26 SETTABLEKS                       R2 R1 K7 ["Distance"]
+       28 LOADNIL                          R2
+       29 SETTABLEKS                       R2 R1 K8 ["AttenuationFactor"]
+       31 LOADN                            R2 -1
+       32 SETTABLEKS                       R2 R1 K9 ["PotentialAudibility"]
+       34 LOADNIL                          R2
+       35 SETTABLEKS                       R2 R1 K10 ["Metering"]
+       37 LOADNIL                          R2
+       38 SETTABLEKS                       R2 R1 K11 ["Targets"]
+       40 LOADNIL                          R2
+       41 SETTABLEKS                       R2 R1 K12 ["ShouldBeTargeted"]
+       43 LOADB                            R2 0
+       44 LOADK                            R5 K13 ["Sound"]
+       45 NAMECALL                         R3 R0 K14 ["IsA"]
+       47 CALL                             R3 2 1
+       48 JUMPIFNOT                        R3 ; [+51]
+       49 GETUPVAL                         R3 1
+       50 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+       52 MOVE                             R4 R1
+       53 GETTABLEKS                       R5 R0 K16 ["Playing"]
+       55 CALL                             R3 2 0
+       56 GETTABLEKS                       R3 R0 K17 ["SoundId"]
+       58 SETTABLEKS                       R3 R1 K3 ["Asset"]
+       60 GETTABLEKS                       R3 R0 K5 ["Volume"]
+       62 SETTABLEKS                       R3 R1 K5 ["Volume"]
+       64 GETUPVAL                         R3 2
+       65 GETTABLEKS                       R3 R3 K18 ["getAttenuationForSound"]
+       67 MOVE                             R4 R0
+       68 CALL                             R3 1 3
+       69 SETTABLEKS                       R3 R1 K6 ["Is3D"]
+       71 SETTABLEKS                       R4 R1 K7 ["Distance"]
+       73 SETTABLEKS                       R5 R1 K8 ["AttenuationFactor"]
+       75 GETUPVAL                         R3 2
+       76 GETTABLEKS                       R3 R3 K19 ["getAudibilityForSound"]
+       78 MOVE                             R4 R0
+       79 GETTABLEKS                       R5 R1 K20 ["Active"]
+       81 GETTABLEKS                       R6 R1 K5 ["Volume"]
+       83 CALL                             R3 3 1
+       84 SETTABLEKS                       R3 R1 K9 ["PotentialAudibility"]
+       86 GETTABLEKS                       R4 R0 K22 ["PlaybackLoudness"]
+       88 DIVK                             R3 R4 K21 [1000]
+       89 SETTABLEKS                       R3 R1 K10 ["Metering"]
+       91 GETIMPORT                        R3 K24 [pcall]
+       93 NEWCLOSURE                       R4 P0
+       94 CAPTURE                          VAL R0
+       95 CALL                             R3 1 2
+       96 JUMPIFNOT                        R3 ; [+246]
+       97 SETTABLEKS                       R4 R1 K4 ["PlaybackState"]
+       99 JUMP                             ; [+243]
+      100 LOADK                            R5 K25 ["VideoFrame"]
+      101 NAMECALL                         R3 R0 K14 ["IsA"]
+      103 CALL                             R3 2 1
+      104 JUMPIFNOT                        R3 ; [+41]
+      105 GETUPVAL                         R3 1
+      106 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+      108 MOVE                             R4 R1
+      109 GETTABLEKS                       R5 R0 K16 ["Playing"]
+      111 CALL                             R3 2 0
+      112 GETTABLEKS                       R3 R0 K26 ["Video"]
+      114 SETTABLEKS                       R3 R1 K3 ["Asset"]
+      116 GETTABLEKS                       R3 R0 K5 ["Volume"]
+      118 SETTABLEKS                       R3 R1 K5 ["Volume"]
+      120 GETUPVAL                         R3 2
+      121 GETTABLEKS                       R3 R3 K27 ["getAttenuationForVideoFrame"]
+      123 MOVE                             R4 R0
+      124 CALL                             R3 1 3
+      125 SETTABLEKS                       R3 R1 K6 ["Is3D"]
+      127 SETTABLEKS                       R4 R1 K7 ["Distance"]
+      129 SETTABLEKS                       R5 R1 K8 ["AttenuationFactor"]
+      131 GETUPVAL                         R3 2
+      132 GETTABLEKS                       R3 R3 K28 ["getAudibilityForVideoFrame"]
+      134 MOVE                             R4 R0
+      135 GETTABLEKS                       R5 R1 K20 ["Active"]
+      137 GETTABLEKS                       R6 R1 K5 ["Volume"]
+      139 CALL                             R3 3 1
+      140 SETTABLEKS                       R3 R1 K9 ["PotentialAudibility"]
+      142 LOADN                            R3 0
+      143 SETTABLEKS                       R3 R1 K10 ["Metering"]
+      145 JUMP                             ; [+197]
+      146 LOADK                            R5 K29 ["AudioPlayer"]
+      147 NAMECALL                         R3 R0 K14 ["IsA"]
+      149 CALL                             R3 2 1
+      150 JUMPIFNOT                        R3 ; [+25]
+      151 GETUPVAL                         R3 1
+      152 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+      154 MOVE                             R4 R1
+      155 GETTABLEKS                       R5 R0 K30 ["IsPlaying"]
+      157 CALL                             R3 2 0
+      158 GETTABLEKS                       R3 R0 K3 ["Asset"]
+      160 SETTABLEKS                       R3 R1 K3 ["Asset"]
+      162 GETTABLEKS                       R3 R0 K5 ["Volume"]
+      164 SETTABLEKS                       R3 R1 K5 ["Volume"]
+      166 LOADB                            R2 1
+      167 GETIMPORT                        R3 K24 [pcall]
+      169 NEWCLOSURE                       R4 P1
+      170 CAPTURE                          VAL R0
+      171 CALL                             R3 1 2
+      172 JUMPIFNOT                        R3 ; [+170]
+      173 SETTABLEKS                       R4 R1 K4 ["PlaybackState"]
+      175 JUMP                             ; [+167]
+      176 LOADK                            R5 K31 ["AudioDeviceInput"]
+      177 NAMECALL                         R3 R0 K14 ["IsA"]
+      179 CALL                             R3 2 1
+      180 JUMPIFNOT                        R3 ; [+32]
+      181 GETUPVAL                         R3 1
+      182 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+      184 MOVE                             R4 R1
+      185 GETTABLEKS                       R5 R0 K32 ["IsReady"]
+      187 JUMPIFNOT                        R5 ; [+7]
+      188 GETTABLEKS                       R6 R0 K33 ["Muted"]
+      190 NOT                              R5 R6
+      191 JUMPIFNOT                        R5 ; [+3]
+      192 GETTABLEKS                       R6 R0 K34 ["MutedByLocalUser"]
+      194 NOT                              R5 R6
+      195 CALL                             R3 2 0
+      196 GETTABLEKS                       R4 R0 K35 ["Player"]
+      198 JUMPIFNOT                        R4 ; [+5]
+      199 GETTABLEKS                       R3 R0 K35 ["Player"]
+      201 GETTABLEKS                       R3 R3 K0 ["Name"]
+      203 JUMP                             ; [+1]
+      204 LOADK                            R3 K36 [""]
+      205 SETTABLEKS                       R3 R1 K3 ["Asset"]
+      207 GETTABLEKS                       R3 R0 K5 ["Volume"]
+      209 SETTABLEKS                       R3 R1 K5 ["Volume"]
+      211 LOADB                            R2 1
+      212 JUMP                             ; [+130]
+      213 LOADK                            R5 K37 ["AudioListener"]
+      214 NAMECALL                         R3 R0 K14 ["IsA"]
+      216 CALL                             R3 2 1
+      217 JUMPIFNOT                        R3 ; [+16]
+      218 GETUPVAL                         R3 1
+      219 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+      221 MOVE                             R4 R1
+      222 NAMECALL                         R7 R0 K38 ["GetInteractingEmitters"]
+      224 CALL                             R7 1 1
+      225 LENGTH                           R6 R7
+      226 LOADN                            R7 0
+      227 JUMPIFLT                         R7 R6 ; [+2]
+      229 LOADB                            R5 0 +1
+      230 LOADB                            R5 1
+      231 CALL                             R3 2 0
+      232 LOADB                            R2 1
+      233 JUMP                             ; [+109]
+      234 LOADK                            R5 K39 ["AudioTextToSpeech"]
+      235 NAMECALL                         R3 R0 K14 ["IsA"]
+      237 CALL                             R3 2 1
+      238 JUMPIFNOT                        R3 ; [+20]
+      239 GETUPVAL                         R3 1
+      240 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+      242 MOVE                             R4 R1
+      243 GETTABLEKS                       R5 R0 K30 ["IsPlaying"]
+      245 CALL                             R3 2 0
+      246 LOADK                            R4 K40 ["\""]
+      247 GETTABLEKS                       R5 R0 K41 ["Text"]
+      249 LOADK                            R6 K40 ["\""]
+      250 CONCAT                           R3 R4 R6
+      251 SETTABLEKS                       R3 R1 K3 ["Asset"]
+      253 GETTABLEKS                       R3 R0 K5 ["Volume"]
+      255 SETTABLEKS                       R3 R1 K5 ["Volume"]
+      257 LOADB                            R2 1
+      258 JUMP                             ; [+84]
+      259 LOADK                            R5 K42 ["VideoPlayer"]
+      260 NAMECALL                         R3 R0 K14 ["IsA"]
+      262 CALL                             R3 2 1
+      263 JUMPIFNOT                        R3 ; [+20]
+      264 GETUPVAL                         R3 1
+      265 GETTABLEKS                       R3 R3 K15 ["_setDataActive"]
+      267 MOVE                             R4 R1
+      268 GETTABLEKS                       R5 R0 K30 ["IsPlaying"]
+      270 CALL                             R3 2 0
+      271 GETTABLEKS                       R4 R0 K43 ["VideoContent"]
+      273 GETTABLEKS                       R4 R4 K44 ["Uri"]
+      275 ORK                              R3 R4 K36 [""]
+      276 SETTABLEKS                       R3 R1 K3 ["Asset"]
+      278 GETTABLEKS                       R3 R0 K5 ["Volume"]
+      280 SETTABLEKS                       R3 R1 K5 ["Volume"]
+      282 LOADB                            R2 1
+      283 JUMP                             ; [+59]
+      284 LOADK                            R5 K45 ["AudioDeviceOutput"]
+      285 NAMECALL                         R3 R0 K14 ["IsA"]
+      287 CALL                             R3 2 1
+      288 JUMPIFNOT                        R3 ; [+14]
+      289 LOADB                            R3 1
+      290 SETTABLEKS                       R3 R1 K12 ["ShouldBeTargeted"]
+      292 LOADB                            R3 0
+      293 LOADN                            R4 0
+      294 LOADN                            R5 1
+      295 SETTABLEKS                       R3 R1 K6 ["Is3D"]
+      297 SETTABLEKS                       R4 R1 K7 ["Distance"]
+      299 SETTABLEKS                       R5 R1 K8 ["AttenuationFactor"]
+      301 LOADB                            R2 1
+      302 JUMP                             ; [+40]
+      303 LOADK                            R5 K46 ["AudioEmitter"]
+      304 NAMECALL                         R3 R0 K14 ["IsA"]
+      306 CALL                             R3 2 1
+      307 JUMPIFNOT                        R3 ; [+16]
+      308 LOADB                            R3 1
+      309 SETTABLEKS                       R3 R1 K12 ["ShouldBeTargeted"]
+      311 GETUPVAL                         R3 2
+      312 GETTABLEKS                       R3 R3 K47 ["getAttenuationForEmitter"]
+      314 MOVE                             R4 R0
+      315 CALL                             R3 1 3
+      316 SETTABLEKS                       R3 R1 K6 ["Is3D"]
+      318 SETTABLEKS                       R4 R1 K7 ["Distance"]
+      320 SETTABLEKS                       R5 R1 K8 ["AttenuationFactor"]
+      322 LOADB                            R2 1
+      323 JUMP                             ; [+19]
+      324 LOADK                            R5 K48 ["AudioAnalyzer"]
+      325 NAMECALL                         R3 R0 K14 ["IsA"]
+      327 CALL                             R3 2 1
+      328 JUMPIF                           R3 ; [+10]
+      329 LOADK                            R5 K49 ["AudioRecorder"]
+      330 NAMECALL                         R3 R0 K14 ["IsA"]
+      332 CALL                             R3 2 1
+      333 JUMPIF                           R3 ; [+5]
+      334 LOADK                            R5 K50 ["AudioSpeechToText"]
+      335 NAMECALL                         R3 R0 K14 ["IsA"]
+      337 CALL                             R3 2 1
+      338 JUMPIFNOT                        R3 ; [+4]
+      339 LOADB                            R3 1
+      340 SETTABLEKS                       R3 R1 K12 ["ShouldBeTargeted"]
+      342 LOADB                            R2 1
+      343 JUMPIFNOT                        R2 ; [+18]
+      344 GETTABLEKS                       R3 R1 K12 ["ShouldBeTargeted"]
+      346 JUMPIF                           R3 ; [+15]
+      347 GETUPVAL                         R3 1
+      348 GETTABLEKS                       R3 R3 K51 ["_updateActivityDependentWirableData"]
+      350 MOVE                             R4 R0
+      351 MOVE                             R5 R1
+      352 CALL                             R3 2 0
+      353 GETUPVAL                         R3 2
+      354 GETTABLEKS                       R3 R3 K52 ["getTargetsForWirable"]
+      356 MOVE                             R4 R0
+      357 NEWCLOSURE                       R5 P2
+      358 CAPTURE                          UPVAL U3
+      359 CALL                             R3 2 1
+      360 SETTABLEKS                       R3 R1 K11 ["Targets"]
+      362 RETURN                           R0 0
 
 PROTO_11:
+        0 JUMPIFNOT                        R1 ; [+8]
+        1 GETTABLEKS                       R2 R0 K0 ["Active"]
+        3 JUMPIF                           R2 ; [+5]
+        4 GETIMPORT                        R2 K3 [os.clock]
+        6 CALL                             R2 0 1
+        7 SETTABLEKS                       R2 R0 K4 ["TimeBecameActive"]
+        9 SETTABLEKS                       R1 R0 K0 ["Active"]
+       11 RETURN                           R0 0
+
+PROTO_12:
+        0 GETTABLEKS                       R3 R1 K0 ["Active"]
+        2 JUMPIFNOT                        R3 ; [+6]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K1 ["getAudibilityForWirable"]
+        6 MOVE                             R3 R0
+        7 CALL                             R2 1 1
+        8 JUMP                             ; [+1]
+        9 LOADN                            R2 -1
+       10 SETTABLEKS                       R2 R1 K2 ["PotentialAudibility"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K3 ["_getMetering"]
+       15 MOVE                             R3 R0
+       16 GETTABLEKS                       R4 R1 K0 ["Active"]
+       18 CALL                             R2 2 1
+       19 SETTABLEKS                       R2 R1 K4 ["Metering"]
+       21 RETURN                           R0 0
+
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetPeakLevel"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_12:
-        0 GETUPVAL                         R0 0
-        1 LOADNIL                          R1
-        2 LOADNIL                          R2
-        3 FORGPREP                         R0
-        4 GETUPVAL                         R5 1
-        5 GETTABLEKS                       R5 R5 K0 ["_updateInstanceData"]
-        7 MOVE                             R6 R3
-        8 GETUPVAL                         R8 0
-        9 GETTABLE                         R7 R8 R3
-       10 CALL                             R5 2 0
-       11 FORGLOOP                         R0 2 ; [-8]
-       13 NEWTABLE                         R0 0 0
-       15 GETUPVAL                         R1 0
-       16 LOADNIL                          R2
-       17 LOADNIL                          R3
-       18 FORGPREP                         R1
-       19 GETTABLEKS                       R6 R5 K1 ["Active"]
-       21 JUMPIFNOT                        R6 ; [+3]
-       22 GETTABLEKS                       R6 R5 K2 ["Id"]
-       24 SETTABLE                         R5 R0 R6
-       25 FORGLOOP                         R1 2 ; [-7]
-       27 GETUPVAL                         R1 1
-       28 GETTABLEKS                       R1 R1 K3 ["_updateDetachedPlaybacks"]
-       30 CALL                             R1 0 0
-       31 GETUPVAL                         R1 2
-       32 LOADNIL                          R2
-       33 LOADNIL                          R3
-       34 FORGPREP                         R1
-       35 GETTABLEKS                       R6 R5 K2 ["Id"]
-       37 SETTABLE                         R5 R0 R6
-       38 FORGLOOP                         R1 2 ; [-4]
-       40 GETIMPORT                        R1 K5 [pcall]
-       42 DUPCLOSURE                       R2 K6 [PROTO_11]
-       43 CAPTURE                          UPVAL U3
-       44 CALL                             R1 1 2
-       45 JUMPIF                           R1 ; [+1]
-       46 LOADN                            R2 0
-       47 MOVE                             R3 R0
-       48 MOVE                             R4 R2
-       49 RETURN                           R3 2
+PROTO_14:
+        0 NEWTABLE                         R0 0 0
+        2 GETUPVAL                         R1 0
+        3 LOADNIL                          R2
+        4 LOADNIL                          R3
+        5 FORGPREP                         R1
+        6 GETUPVAL                         R6 1
+        7 GETTABLEKS                       R6 R6 K0 ["_updateInstanceData"]
+        9 MOVE                             R7 R4
+       10 MOVE                             R8 R5
+       11 CALL                             R6 2 0
+       12 GETTABLEKS                       R6 R5 K1 ["Active"]
+       14 JUMPIFNOT                        R6 ; [+12]
+       15 GETTABLEKS                       R6 R5 K2 ["Targets"]
+       17 JUMPIFNOT                        R6 ; [+9]
+       18 GETTABLEKS                       R6 R5 K2 ["Targets"]
+       20 LOADNIL                          R7
+       21 LOADNIL                          R8
+       22 FORGPREP                         R6
+       23 LOADB                            R11 1
+       24 SETTABLE                         R11 R0 R9
+       25 FORGLOOP                         R6 2 ; [-3]
+       27 FORGLOOP                         R1 2 ; [-22]
+       29 NEWTABLE                         R1 0 0
+       31 GETUPVAL                         R2 0
+       32 LOADNIL                          R3
+       33 LOADNIL                          R4
+       34 FORGPREP                         R2
+       35 GETTABLEKS                       R7 R6 K3 ["ShouldBeTargeted"]
+       37 JUMPIFNOT                        R7 ; [+18]
+       38 GETUPVAL                         R7 1
+       39 GETTABLEKS                       R7 R7 K4 ["_setDataActive"]
+       41 MOVE                             R8 R6
+       42 GETTABLEKS                       R11 R6 K5 ["Id"]
+       44 GETTABLE                         R10 R0 R11
+       45 JUMPIFEQKB                       R10 TRUE ; [+2]
+       47 LOADB                            R9 0 +1
+       48 LOADB                            R9 1
+       49 CALL                             R7 2 0
+       50 GETUPVAL                         R7 1
+       51 GETTABLEKS                       R7 R7 K6 ["_updateActivityDependentWirableData"]
+       53 MOVE                             R8 R5
+       54 MOVE                             R9 R6
+       55 CALL                             R7 2 0
+       56 GETTABLEKS                       R7 R6 K1 ["Active"]
+       58 JUMPIFNOT                        R7 ; [+3]
+       59 GETTABLEKS                       R7 R6 K5 ["Id"]
+       61 SETTABLE                         R6 R1 R7
+       62 FORGLOOP                         R2 2 ; [-28]
+       64 GETUPVAL                         R2 1
+       65 GETTABLEKS                       R2 R2 K7 ["_updateDetachedPlaybacks"]
+       67 CALL                             R2 0 0
+       68 GETUPVAL                         R2 2
+       69 LOADNIL                          R3
+       70 LOADNIL                          R4
+       71 FORGPREP                         R2
+       72 GETTABLEKS                       R7 R6 K5 ["Id"]
+       74 SETTABLE                         R6 R1 R7
+       75 FORGLOOP                         R2 2 ; [-4]
+       77 GETIMPORT                        R2 K9 [pcall]
+       79 DUPCLOSURE                       R3 K10 [PROTO_13]
+       80 CAPTURE                          UPVAL U3
+       81 CALL                             R2 1 2
+       82 JUMPIF                           R2 ; [+1]
+       83 LOADN                            R3 0
+       84 MOVE                             R4 R1
+       85 MOVE                             R5 R3
+       86 RETURN                           R4 2
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIF                           R1 ; [+1]
@@ -511,7 +565,7 @@ PROTO_13:
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
         2 JUMPIFNOT                        R2 ; [+1]
@@ -564,7 +618,7 @@ PROTO_14:
        70 SETTABLE                         R2 R3 R0
        71 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETTABLEKS                       R2 R0 K0 ["Instance"]
         2 JUMPIFNOT                        R2 ; [+38]
         3 GETUPVAL                         R2 0
@@ -609,15 +663,15 @@ PROTO_15:
        64 SETTABLEKS                       R2 R1 K8 ["Metering"]
        66 RETURN                           R0 0
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetDetachedPlaybackData"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_17:
+PROTO_19:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 DUPCLOSURE                       R1 K2 [PROTO_16]
+        2 DUPCLOSURE                       R1 K2 [PROTO_18]
         3 CAPTURE                          UPVAL U0
         4 CALL                             R0 1 2
         5 JUMPIF                           R0 ; [+1]
@@ -654,7 +708,7 @@ PROTO_17:
        40 FORGLOOP                         R2 2 ; [-17]
        42 RETURN                           R0 0
 
-PROTO_18:
+PROTO_20:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIF                           R1 ; [+1]
@@ -683,7 +737,7 @@ PROTO_18:
        27 SETTABLE                         R4 R3 R0
        28 RETURN                           R0 0
 
-PROTO_19:
+PROTO_21:
         0 SETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+4]
         2 GETUPVAL                         R1 1
@@ -691,7 +745,7 @@ PROTO_19:
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
 
-PROTO_20:
+PROTO_22:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetOutputPins"]
         3 CALL                             R0 1 1
@@ -704,7 +758,7 @@ PROTO_20:
        11 LOADB                            R1 1
        12 RETURN                           R1 1
 
-PROTO_21:
+PROTO_23:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetInputPins"]
         3 CALL                             R0 1 1
@@ -717,7 +771,7 @@ PROTO_21:
        11 LOADB                            R1 1
        12 RETURN                           R1 1
 
-PROTO_22:
+PROTO_24:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_teardownMetering"]
         3 GETUPVAL                         R1 1
@@ -728,7 +782,7 @@ PROTO_22:
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
-PROTO_23:
+PROTO_25:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOTEQKNIL                  R1 ; [+12]
         3 GETIMPORT                        R1 K2 [Instance.new]
@@ -807,7 +861,7 @@ PROTO_23:
       104 SETTABLE                         R7 R6 R0
       105 RETURN                           R0 0
 
-PROTO_24:
+PROTO_26:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+2]
         2 LOADNIL                          R2
@@ -845,7 +899,7 @@ PROTO_24:
        42 LOADNIL                          R2
        43 RETURN                           R2 1
 
-PROTO_25:
+PROTO_27:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIFNOTEQKNIL                  R1 ; [+2]
@@ -869,7 +923,7 @@ PROTO_25:
        23 SETTABLE                         R3 R2 R0
        24 RETURN                           R0 0
 
-PROTO_26:
+PROTO_28:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -892,14 +946,14 @@ PROTO_26:
        25 SETUPVAL                         R1 3
        26 RETURN                           R0 0
 
-PROTO_27:
+PROTO_29:
         0 NEWTABLE                         R1 0 1
         2 GETUPVAL                         R3 0
         3 GETTABLE                         R2 R3 R0
         4 SETLIST                          R1 R2 1 [1]
         6 RETURN                           R1 1
 
-PROTO_28:
+PROTO_30:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -988,7 +1042,7 @@ MAIN:
        74 NEWTABLE                         R17 0 0
        76 NEWTABLE                         R18 0 0
        78 LOADB                            R19 0
-       79 NEWTABLE                         R20 16 0
+       79 NEWTABLE                         R20 32 0
        81 NEWCLOSURE                       R21 P4
        82 CAPTURE                          REF R12
        83 CAPTURE                          REF R13
@@ -1008,73 +1062,79 @@ MAIN:
        98 SETTABLEKS                       R21 R20 K55 ["addInstance"]
       100 NEWCLOSURE                       R21 P6
       101 CAPTURE                          VAL R11
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R20
+      102 CAPTURE                          VAL R20
+      103 CAPTURE                          VAL R2
       104 CAPTURE                          REF R12
       105 SETTABLEKS                       R21 R20 K56 ["_updateInstanceData"]
-      107 NEWCLOSURE                       R21 P7
-      108 CAPTURE                          REF R12
-      109 CAPTURE                          VAL R20
-      110 CAPTURE                          REF R14
-      111 CAPTURE                          VAL R4
-      112 SETTABLEKS                       R21 R20 K57 ["updateInstances"]
-      114 NEWCLOSURE                       R21 P8
-      115 CAPTURE                          REF R12
-      116 CAPTURE                          REF R13
+      107 DUPCLOSURE                       R21 K57 [PROTO_11]
+      108 SETTABLEKS                       R21 R20 K58 ["_setDataActive"]
+      110 DUPCLOSURE                       R21 K59 [PROTO_12]
+      111 CAPTURE                          VAL R2
+      112 CAPTURE                          VAL R20
+      113 SETTABLEKS                       R21 R20 K60 ["_updateActivityDependentWirableData"]
+      115 NEWCLOSURE                       R21 P9
+      116 CAPTURE                          REF R12
       117 CAPTURE                          VAL R20
-      118 SETTABLEKS                       R21 R20 K58 ["removeInstance"]
-      120 NEWCLOSURE                       R21 P9
-      121 CAPTURE                          REF R14
-      122 CAPTURE                          VAL R5
-      123 CAPTURE                          REF R7
-      124 SETTABLEKS                       R21 R20 K59 ["_addDetachedPlayback"]
-      126 NEWCLOSURE                       R21 P10
-      127 CAPTURE                          REF R13
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          REF R15
-      130 SETTABLEKS                       R21 R20 K60 ["_updateDetachedData"]
-      132 NEWCLOSURE                       R21 P11
-      133 CAPTURE                          VAL R4
-      134 CAPTURE                          REF R14
-      135 CAPTURE                          VAL R20
-      136 SETTABLEKS                       R21 R20 K61 ["_updateDetachedPlaybacks"]
-      138 NEWCLOSURE                       R21 P12
-      139 CAPTURE                          REF R14
-      140 CAPTURE                          REF R13
-      141 CAPTURE                          REF R15
-      142 SETTABLEKS                       R21 R20 K62 ["_removeDetachedPlayback"]
-      144 NEWCLOSURE                       R21 P13
-      145 CAPTURE                          REF R19
-      146 CAPTURE                          VAL R20
-      147 SETTABLEKS                       R21 R20 K63 ["setMeteringEnabled"]
-      149 NEWCLOSURE                       R21 P14
-      150 CAPTURE                          REF R16
-      151 CAPTURE                          VAL R3
-      152 CAPTURE                          REF R17
-      153 CAPTURE                          REF R18
+      118 CAPTURE                          REF R14
+      119 CAPTURE                          VAL R4
+      120 SETTABLEKS                       R21 R20 K61 ["updateInstances"]
+      122 NEWCLOSURE                       R21 P10
+      123 CAPTURE                          REF R12
+      124 CAPTURE                          REF R13
+      125 CAPTURE                          VAL R20
+      126 SETTABLEKS                       R21 R20 K62 ["removeInstance"]
+      128 NEWCLOSURE                       R21 P11
+      129 CAPTURE                          REF R14
+      130 CAPTURE                          VAL R5
+      131 CAPTURE                          REF R7
+      132 SETTABLEKS                       R21 R20 K63 ["_addDetachedPlayback"]
+      134 NEWCLOSURE                       R21 P12
+      135 CAPTURE                          REF R13
+      136 CAPTURE                          VAL R11
+      137 CAPTURE                          REF R15
+      138 SETTABLEKS                       R21 R20 K64 ["_updateDetachedData"]
+      140 NEWCLOSURE                       R21 P13
+      141 CAPTURE                          VAL R4
+      142 CAPTURE                          REF R14
+      143 CAPTURE                          VAL R20
+      144 SETTABLEKS                       R21 R20 K65 ["_updateDetachedPlaybacks"]
+      146 NEWCLOSURE                       R21 P14
+      147 CAPTURE                          REF R14
+      148 CAPTURE                          REF R13
+      149 CAPTURE                          REF R15
+      150 SETTABLEKS                       R21 R20 K66 ["_removeDetachedPlayback"]
+      152 NEWCLOSURE                       R21 P15
+      153 CAPTURE                          REF R19
       154 CAPTURE                          VAL R20
-      155 SETTABLEKS                       R21 R20 K64 ["_setUpMetering"]
-      157 NEWCLOSURE                       R21 P15
-      158 CAPTURE                          REF R19
-      159 CAPTURE                          REF R17
-      160 CAPTURE                          VAL R20
-      161 SETTABLEKS                       R21 R20 K65 ["_getMetering"]
-      163 NEWCLOSURE                       R21 P16
-      164 CAPTURE                          REF R17
-      165 CAPTURE                          REF R18
-      166 SETTABLEKS                       R21 R20 K66 ["_teardownMetering"]
-      168 NEWCLOSURE                       R21 P17
-      169 CAPTURE                          REF R18
-      170 CAPTURE                          VAL R3
-      171 CAPTURE                          REF R17
-      172 CAPTURE                          REF R16
-      173 SETTABLEKS                       R21 R20 K67 ["_teardownAllMetering"]
-      175 NEWCLOSURE                       R21 P18
-      176 CAPTURE                          REF R13
-      177 SETTABLEKS                       R21 R20 K68 ["getInstancesToSelectForId"]
-      179 NEWCLOSURE                       R21 P19
-      180 CAPTURE                          REF R12
-      181 CAPTURE                          REF R15
-      182 SETTABLEKS                       R21 R20 K69 ["getIdsToSelectForInstances"]
-      184 CLOSEUPVALS                      R7
-      185 RETURN                           R20 1
+      155 SETTABLEKS                       R21 R20 K67 ["setMeteringEnabled"]
+      157 NEWCLOSURE                       R21 P16
+      158 CAPTURE                          REF R16
+      159 CAPTURE                          VAL R3
+      160 CAPTURE                          REF R17
+      161 CAPTURE                          REF R18
+      162 CAPTURE                          VAL R20
+      163 SETTABLEKS                       R21 R20 K68 ["_setUpMetering"]
+      165 NEWCLOSURE                       R21 P17
+      166 CAPTURE                          REF R19
+      167 CAPTURE                          REF R17
+      168 CAPTURE                          VAL R20
+      169 SETTABLEKS                       R21 R20 K69 ["_getMetering"]
+      171 NEWCLOSURE                       R21 P18
+      172 CAPTURE                          REF R17
+      173 CAPTURE                          REF R18
+      174 SETTABLEKS                       R21 R20 K70 ["_teardownMetering"]
+      176 NEWCLOSURE                       R21 P19
+      177 CAPTURE                          REF R18
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          REF R17
+      180 CAPTURE                          REF R16
+      181 SETTABLEKS                       R21 R20 K71 ["_teardownAllMetering"]
+      183 NEWCLOSURE                       R21 P20
+      184 CAPTURE                          REF R13
+      185 SETTABLEKS                       R21 R20 K72 ["getInstancesToSelectForId"]
+      187 NEWCLOSURE                       R21 P21
+      188 CAPTURE                          REF R12
+      189 CAPTURE                          REF R15
+      190 SETTABLEKS                       R21 R20 K73 ["getIdsToSelectForInstances"]
+      192 CLOSEUPVALS                      R7
+      193 RETURN                           R20 1

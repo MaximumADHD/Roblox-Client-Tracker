@@ -19,6 +19,150 @@ PROTO_1:
         4 JUMPIF                           R1 ; [+2]
         5 LOADNIL                          R1
         6 RETURN                           R1 1
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K1 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+       10 CALL                             R1 0 1
+       11 JUMPIF                           R1 ; [+2]
+       12 LOADNIL                          R1
+       13 RETURN                           R1 1
+       14 FASTCALL1                        TYPE R0 ; [+3]
+       15 MOVE                             R2 R0
+       16 GETIMPORT                        R1 K3 [type]
+       18 CALL                             R1 1 1
+       19 JUMPIFEQKS                       R1 K4 ["table"] ; [+3]
+       21 LOADNIL                          R1
+       22 RETURN                           R1 1
+       23 NEWTABLE                         R1 0 0
+       25 NEWTABLE                         R2 0 0
+       27 MOVE                             R3 R0
+       28 LOADNIL                          R4
+       29 LOADNIL                          R5
+       30 FORGPREP                         R3
+       31 FASTCALL1                        TYPE R7 ; [+3]
+       32 MOVE                             R9 R7
+       33 GETIMPORT                        R8 K3 [type]
+       35 CALL                             R8 1 1
+       36 JUMPIFNOTEQKS                    R8 K4 ["table"] ; [+21]
+       38 GETTABLEKS                       R9 R7 K5 ["ControlId"]
+       40 FASTCALL1                        TYPE R9 ; [+2]
+       41 GETIMPORT                        R8 K3 [type]
+       43 CALL                             R8 1 1
+       44 JUMPIFNOTEQKS                    R8 K6 ["string"] ; [+13]
+       46 GETTABLEKS                       R9 R7 K5 ["ControlId"]
+       48 GETTABLE                         R8 R2 R9
+       49 JUMPIF                           R8 ; [+8]
+       50 GETTABLEKS                       R9 R7 K7 ["IsDisabled"]
+       52 FASTCALL1                        TYPE R9 ; [+2]
+       53 GETIMPORT                        R8 K3 [type]
+       55 CALL                             R8 1 1
+       56 JUMPIFEQKS                       R8 K8 ["boolean"] ; [+3]
+       58 LOADNIL                          R8
+       59 RETURN                           R8 1
+       60 LOADNIL                          R8
+       61 GETTABLEKS                       R9 R7 K9 ["Options"]
+       63 JUMPIFEQKNIL                     R9 ; [+37]
+       65 GETTABLEKS                       R10 R7 K9 ["Options"]
+       67 FASTCALL1                        TYPE R10 ; [+2]
+       68 GETIMPORT                        R9 K3 [type]
+       70 CALL                             R9 1 1
+       71 JUMPIFEQKS                       R9 K4 ["table"] ; [+3]
+       73 LOADNIL                          R9
+       74 RETURN                           R9 1
+       75 NEWTABLE                         R9 0 0
+       77 GETTABLEKS                       R10 R7 K9 ["Options"]
+       79 LOADNIL                          R11
+       80 LOADNIL                          R12
+       81 FORGPREP                         R10
+       82 FASTCALL1                        TYPE R14 ; [+3]
+       83 MOVE                             R16 R14
+       84 GETIMPORT                        R15 K3 [type]
+       86 CALL                             R15 1 1
+       87 JUMPIFEQKS                       R15 K6 ["string"] ; [+3]
+       89 LOADNIL                          R15
+       90 RETURN                           R15 1
+       91 FASTCALL2                        TABLE_INSERT R9 R14 ; [+5]
+       93 MOVE                             R16 R9
+       94 MOVE                             R17 R14
+       95 GETIMPORT                        R15 K11 [table.insert]
+       97 CALL                             R15 2 0
+       98 FORGLOOP                         R10 2 ; [-17]
+      100 MOVE                             R8 R9
+      101 GETTABLEKS                       R9 R7 K5 ["ControlId"]
+      103 LOADB                            R10 1
+      104 SETTABLE                         R10 R2 R9
+      105 DUPTABLE                         R11 K12 [{"ControlId", "IsDisabled", "Options"}]
+      106 GETTABLEKS                       R12 R7 K5 ["ControlId"]
+      108 SETTABLEKS                       R12 R11 K5 ["ControlId"]
+      110 GETTABLEKS                       R12 R7 K7 ["IsDisabled"]
+      112 SETTABLEKS                       R12 R11 K7 ["IsDisabled"]
+      114 SETTABLEKS                       R8 R11 K9 ["Options"]
+      116 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
+      118 MOVE                             R10 R1
+      119 GETIMPORT                        R9 K11 [table.insert]
+      121 CALL                             R9 2 0
+      122 FORGLOOP                         R3 2 ; [-92]
+      124 RETURN                           R1 1
+
+PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
+        3 CALL                             R2 0 1
+        4 JUMPIF                           R2 ; [+2]
+        5 LOADB                            R2 1
+        6 RETURN                           R2 1
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K1 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+       10 CALL                             R2 0 1
+       11 JUMPIF                           R2 ; [+2]
+       12 LOADB                            R2 1
+       13 RETURN                           R2 1
+       14 MOVE                             R2 R0
+       15 JUMPIF                           R2 ; [+2]
+       16 NEWTABLE                         R2 0 0
+       18 MOVE                             R3 R1
+       19 JUMPIF                           R3 ; [+2]
+       20 NEWTABLE                         R3 0 0
+       22 LENGTH                           R4 R2
+       23 LENGTH                           R5 R3
+       24 JUMPIFEQ                         R4 R5 ; [+3]
+       26 LOADB                            R4 0
+       27 RETURN                           R4 1
+       28 NEWTABLE                         R4 0 0
+       30 MOVE                             R5 R2
+       31 LOADNIL                          R6
+       32 LOADNIL                          R7
+       33 FORGPREP                         R5
+       34 GETTABLEKS                       R10 R9 K2 ["ControlId"]
+       36 SETTABLE                         R9 R4 R10
+       37 FORGLOOP                         R5 2 ; [-4]
+       39 MOVE                             R5 R3
+       40 LOADNIL                          R6
+       41 LOADNIL                          R7
+       42 FORGPREP                         R5
+       43 GETTABLEKS                       R11 R9 K2 ["ControlId"]
+       45 GETTABLE                         R10 R4 R11
+       46 JUMPIFEQKNIL                     R10 ; [+14]
+       48 GETTABLEKS                       R11 R10 K3 ["IsDisabled"]
+       50 GETTABLEKS                       R12 R9 K3 ["IsDisabled"]
+       52 JUMPIFNOTEQ                      R11 R12 ; [+8]
+       54 GETUPVAL                         R11 1
+       55 GETTABLEKS                       R12 R10 K4 ["Options"]
+       57 GETTABLEKS                       R13 R9 K4 ["Options"]
+       59 CALL                             R11 2 1
+       60 JUMPIF                           R11 ; [+2]
+       61 LOADB                            R11 0
+       62 RETURN                           R11 1
+       63 FORGLOOP                         R5 2 ; [-21]
+       65 LOADB                            R5 1
+       66 RETURN                           R5 1
+
+PROTO_3:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+2]
+        5 LOADNIL                          R1
+        6 RETURN                           R1 1
         7 FASTCALL1                        TYPE R0 ; [+3]
         8 MOVE                             R2 R0
         9 GETIMPORT                        R1 K2 [type]
@@ -96,15 +240,30 @@ PROTO_1:
       115 CALL                             R9 2 0
       116 FORGLOOP                         R4 2 ; [-59]
       118 MOVE                             R1 R2
-      119 DUPTABLE                         R2 K15 [{"Icon", "Label", "Values"}]
-      120 GETTABLEKS                       R3 R0 K4 ["Icon"]
-      122 SETTABLEKS                       R3 R2 K4 ["Icon"]
-      124 GETTABLEKS                       R3 R0 K6 ["Label"]
-      126 SETTABLEKS                       R3 R2 K6 ["Label"]
-      128 SETTABLEKS                       R1 R2 K7 ["Values"]
-      130 RETURN                           R2 1
+      119 LOADNIL                          R2
+      120 GETUPVAL                         R3 0
+      121 GETTABLEKS                       R3 R3 K15 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+      123 CALL                             R3 0 1
+      124 JUMPIFNOT                        R3 ; [+13]
+      125 GETTABLEKS                       R3 R0 K16 ["ControlPresentations"]
+      127 JUMPIFEQKNIL                     R3 ; [+10]
+      129 GETUPVAL                         R3 1
+      130 GETTABLEKS                       R4 R0 K16 ["ControlPresentations"]
+      132 CALL                             R3 1 1
+      133 MOVE                             R2 R3
+      134 JUMPIFNOTEQKNIL                  R2 ; [+3]
+      136 LOADNIL                          R3
+      137 RETURN                           R3 1
+      138 DUPTABLE                         R3 K17 [{"Icon", "Label", "Values", "ControlPresentations"}]
+      139 GETTABLEKS                       R4 R0 K4 ["Icon"]
+      141 SETTABLEKS                       R4 R3 K4 ["Icon"]
+      143 GETTABLEKS                       R4 R0 K6 ["Label"]
+      145 SETTABLEKS                       R4 R3 K6 ["Label"]
+      147 SETTABLEKS                       R1 R3 K7 ["Values"]
+      149 SETTABLEKS                       R2 R3 K16 ["ControlPresentations"]
+      151 RETURN                           R3 1
 
-PROTO_2:
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R2 0 1
@@ -151,10 +310,13 @@ PROTO_2:
        63 LOADB                            R10 0
        64 RETURN                           R10 1
        65 FORGLOOP                         R5 2 ; [-10]
-       67 LOADB                            R5 1
-       68 RETURN                           R5 1
+       67 GETUPVAL                         R5 1
+       68 GETTABLEKS                       R6 R0 K6 ["ControlPresentations"]
+       70 GETTABLEKS                       R7 R1 K6 ["ControlPresentations"]
+       72 CALL                             R5 2 1
+       73 RETURN                           R5 1
 
-PROTO_3:
+PROTO_5:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R2 0 1
@@ -189,7 +351,7 @@ PROTO_3:
        39 LOADB                            R2 1
        40 RETURN                           R2 1
 
-PROTO_4:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -229,33 +391,33 @@ PROTO_4:
        48 FORGLOOP                         R3 2 ; [-13]
        50 RETURN                           R2 1
 
-PROTO_5:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["_refreshRegistry"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_6:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["_onHeartbeat"]
         4 CALL                             R1 2 0
         5 RETURN                           R0 0
 
-PROTO_7:
+PROTO_9:
         0 GETIMPORT                        R1 K1 [game]
         2 MOVE                             R3 R0
         3 NAMECALL                         R1 R1 K2 ["BindToClose"]
         5 CALL                             R1 2 0
         6 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Destroy"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_9:
+PROTO_11:
         0 NEWTABLE                         R3 32 0
         2 GETUPVAL                         R4 0
         3 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
@@ -316,7 +478,7 @@ PROTO_9:
        93 JUMPIFNOT                        R4 ; [+10]
        94 GETTABLEKS                       R4 R1 K29 ["bindToClose"]
        96 JUMPIF                           R4 ; [+1]
-       97 DUPCLOSURE                       R4 K30 [PROTO_7]
+       97 DUPCLOSURE                       R4 K30 [PROTO_9]
        98 GETIMPORT                        R5 K32 [pcall]
       100 MOVE                             R6 R4
       101 NEWCLOSURE                       R7 P3
@@ -326,21 +488,21 @@ PROTO_9:
       106 CALL                             R4 1 0
       107 RETURN                           R2 1
 
-PROTO_10:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_service"]
         3 NAMECALL                         R0 R0 K1 ["GetRegisteredSimulatorsAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_onRegistryChanged"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_12:
+PROTO_14:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -410,7 +572,7 @@ PROTO_12:
        89 CALL                             R2 1 0
        90 RETURN                           R0 0
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -440,7 +602,7 @@ PROTO_13:
        36 CALL                             R2 1 0
        37 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R2 0 1
@@ -463,7 +625,7 @@ PROTO_14:
        28 CALL                             R2 1 0
        29 RETURN                           R0 0
 
-PROTO_15:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_service"]
         3 GETUPVAL                         R2 1
@@ -475,7 +637,7 @@ PROTO_15:
        11 CALL                             R0 3 -1
        12 RETURN                           R0 -1
 
-PROTO_16:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_onDynamicStateChanged"]
         3 GETUPVAL                         R1 1
@@ -485,7 +647,7 @@ PROTO_16:
         8 CALL                             R0 3 0
         9 RETURN                           R0 0
 
-PROTO_17:
+PROTO_19:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -598,7 +760,7 @@ PROTO_17:
       146 CALL                             R0 1 0
       147 RETURN                           R0 0
 
-PROTO_18:
+PROTO_20:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -629,7 +791,7 @@ PROTO_18:
        36 CALL                             R3 1 0
        37 RETURN                           R0 0
 
-PROTO_19:
+PROTO_21:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R3 0 1
@@ -662,7 +824,7 @@ PROTO_19:
        38 CALL                             R3 1 0
        39 RETURN                           R0 0
 
-PROTO_20:
+PROTO_22:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -680,7 +842,7 @@ PROTO_20:
        20 CALL                             R1 1 0
        21 RETURN                           R0 0
 
-PROTO_21:
+PROTO_23:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getFFlagEnableDeviceSimulatorRegistry"]
         3 CALL                             R1 0 1
@@ -690,7 +852,7 @@ PROTO_21:
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
 
-PROTO_22:
+PROTO_24:
         0 GETTABLEKS                       R1 R0 K0 ["_destroyed"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
@@ -718,65 +880,78 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R2 R2 K7 ["Common"]
-       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K10 [game]
-       18 LOADK                            R4 K11 ["RunService"]
-       19 NAMECALL                         R2 R2 K12 ["GetService"]
-       21 CALL                             R2 2 1
-       22 GETIMPORT                        R3 K5 [require]
-       24 GETIMPORT                        R4 K1 [script]
-       26 GETTABLEKS                       R4 R4 K13 ["Parent"]
-       28 GETTABLEKS                       R4 R4 K14 ["dispatch"]
-       30 CALL                             R3 1 1
-       31 GETIMPORT                        R4 K5 [require]
-       33 GETIMPORT                        R5 K1 [script]
-       35 GETTABLEKS                       R5 R5 K13 ["Parent"]
-       37 GETTABLEKS                       R5 R5 K15 ["Types"]
-       39 CALL                             R4 1 1
-       40 NEWTABLE                         R5 16 0
-       42 SETTABLEKS                       R5 R5 K16 ["__index"]
-       44 DUPCLOSURE                       R6 K17 [PROTO_0]
-       45 DUPCLOSURE                       R7 K18 [PROTO_1]
-       46 CAPTURE                          VAL R1
-       47 DUPCLOSURE                       R8 K19 [PROTO_2]
-       48 CAPTURE                          VAL R1
-       49 DUPCLOSURE                       R9 K20 [PROTO_3]
-       50 CAPTURE                          VAL R1
-       51 DUPCLOSURE                       R10 K21 [PROTO_4]
-       52 CAPTURE                          VAL R1
-       53 DUPCLOSURE                       R11 K22 [PROTO_9]
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R1
-       58 SETTABLEKS                       R11 R5 K23 ["new"]
-       60 DUPCLOSURE                       R11 K24 [PROTO_13]
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R3
-       63 SETTABLEKS                       R11 R5 K25 ["_refreshRegistry"]
-       65 DUPCLOSURE                       R11 K26 [PROTO_14]
-       66 CAPTURE                          VAL R1
-       67 SETTABLEKS                       R11 R5 K27 ["_onHeartbeat"]
-       69 DUPCLOSURE                       R11 K28 [PROTO_18]
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R10
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R3
-       74 CAPTURE                          VAL R8
-       75 SETTABLEKS                       R11 R5 K29 ["_poll"]
-       77 DUPCLOSURE                       R11 K30 [PROTO_19]
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R9
-       80 SETTABLEKS                       R11 R5 K31 ["SetStagedValues"]
-       82 DUPCLOSURE                       R11 K32 [PROTO_20]
-       83 CAPTURE                          VAL R1
-       84 SETTABLEKS                       R11 R5 K33 ["RefreshDynamicState"]
-       86 DUPCLOSURE                       R11 K34 [PROTO_21]
-       87 CAPTURE                          VAL R1
-       88 SETTABLEKS                       R11 R5 K35 ["RefreshRegistry"]
-       90 DUPCLOSURE                       R11 K36 [PROTO_22]
-       91 SETTABLEKS                       R11 R5 K37 ["Destroy"]
-       93 RETURN                           R5 1
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Bin"]
+       18 GETTABLEKS                       R3 R3 K9 ["Common"]
+       20 GETTABLEKS                       R3 R3 K10 ["defineLuaFlags"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K12 [game]
+       25 LOADK                            R5 K13 ["RunService"]
+       26 NAMECALL                         R3 R3 K14 ["GetService"]
+       28 CALL                             R3 2 1
+       29 GETIMPORT                        R4 K5 [require]
+       31 GETIMPORT                        R5 K1 [script]
+       33 GETTABLEKS                       R5 R5 K15 ["Parent"]
+       35 GETTABLEKS                       R5 R5 K16 ["dispatch"]
+       37 CALL                             R4 1 1
+       38 GETIMPORT                        R5 K5 [require]
+       40 GETIMPORT                        R6 K1 [script]
+       42 GETTABLEKS                       R6 R6 K15 ["Parent"]
+       44 GETTABLEKS                       R6 R6 K17 ["Types"]
+       46 CALL                             R5 1 1
+       47 NEWTABLE                         R6 16 0
+       49 SETTABLEKS                       R6 R6 K18 ["__index"]
+       51 DUPCLOSURE                       R7 K19 [PROTO_0]
+       52 DUPCLOSURE                       R8 K20 [PROTO_1]
+       53 CAPTURE                          VAL R2
+       54 GETTABLEKS                       R9 R1 K21 ["Util"]
+       56 GETTABLEKS                       R9 R9 K22 ["deepEqual"]
+       58 DUPCLOSURE                       R10 K23 [PROTO_2]
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R9
+       61 DUPCLOSURE                       R11 K24 [PROTO_3]
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R8
+       64 DUPCLOSURE                       R12 K25 [PROTO_4]
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          VAL R10
+       67 DUPCLOSURE                       R13 K26 [PROTO_5]
+       68 CAPTURE                          VAL R2
+       69 DUPCLOSURE                       R14 K27 [PROTO_6]
+       70 CAPTURE                          VAL R2
+       71 DUPCLOSURE                       R15 K28 [PROTO_11]
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R4
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R2
+       76 SETTABLEKS                       R15 R6 K29 ["new"]
+       78 DUPCLOSURE                       R15 K30 [PROTO_15]
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R4
+       81 SETTABLEKS                       R15 R6 K31 ["_refreshRegistry"]
+       83 DUPCLOSURE                       R15 K32 [PROTO_16]
+       84 CAPTURE                          VAL R2
+       85 SETTABLEKS                       R15 R6 K33 ["_onHeartbeat"]
+       87 DUPCLOSURE                       R15 K34 [PROTO_20]
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R14
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R4
+       92 CAPTURE                          VAL R12
+       93 SETTABLEKS                       R15 R6 K35 ["_poll"]
+       95 DUPCLOSURE                       R15 K36 [PROTO_21]
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R13
+       98 SETTABLEKS                       R15 R6 K37 ["SetStagedValues"]
+      100 DUPCLOSURE                       R15 K38 [PROTO_22]
+      101 CAPTURE                          VAL R2
+      102 SETTABLEKS                       R15 R6 K39 ["RefreshDynamicState"]
+      104 DUPCLOSURE                       R15 K40 [PROTO_23]
+      105 CAPTURE                          VAL R2
+      106 SETTABLEKS                       R15 R6 K41 ["RefreshRegistry"]
+      108 DUPCLOSURE                       R15 K42 [PROTO_24]
+      109 SETTABLEKS                       R15 R6 K43 ["Destroy"]
+      111 RETURN                           R6 1

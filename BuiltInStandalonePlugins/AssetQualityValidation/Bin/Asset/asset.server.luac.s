@@ -407,41 +407,59 @@ PROTO_11:
        10 LOADNIL                          R3
        11 LOADNIL                          R4
        12 FORGPREP                         R2
-       13 DUPTABLE                         R9 K3 [{"Name", "ClassName"}]
+       13 DUPTABLE                         R9 K4 [{"Name", "ClassName", "IsLayered"}]
        14 GETTABLEKS                       R10 R6 K1 ["Name"]
        16 SETTABLEKS                       R10 R9 K1 ["Name"]
        18 GETTABLEKS                       R10 R6 K2 ["ClassName"]
        20 SETTABLEKS                       R10 R9 K2 ["ClassName"]
-       22 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       24 MOVE                             R8 R1
-       25 GETIMPORT                        R7 K6 [table.insert]
-       27 CALL                             R7 2 0
-       28 FORGLOOP                         R2 2 ; [-16]
-       30 GETIMPORT                        R2 K8 [plugin]
-       32 LOADK                            R4 K9 ["SetStateAndRefresh"]
-       33 NEWTABLE                         R5 4 0
-       35 GETUPVAL                         R8 0
-       36 GETTABLEN                        R7 R8 1
-       37 JUMPIFNOT                        R7 ; [+5]
-       38 GETUPVAL                         R7 0
-       39 GETTABLEN                        R6 R7 1
-       40 GETTABLEKS                       R6 R6 K2 ["ClassName"]
-       42 JUMPIF                           R6 ; [+1]
-       43 LOADNIL                          R6
-       44 SETTABLEKS                       R6 R5 K2 ["ClassName"]
-       46 GETUPVAL                         R8 0
-       47 GETTABLEN                        R7 R8 1
-       48 JUMPIFNOT                        R7 ; [+5]
-       49 GETUPVAL                         R7 0
-       50 GETTABLEN                        R6 R7 1
-       51 GETTABLEKS                       R6 R6 K1 ["Name"]
-       53 JUMPIF                           R6 ; [+1]
-       54 LOADNIL                          R6
-       55 SETTABLEKS                       R6 R5 K1 ["Name"]
-       57 SETTABLEKS                       R1 R5 K10 ["selectedModels"]
-       59 NAMECALL                         R2 R2 K11 ["Invoke"]
-       61 CALL                             R2 3 0
-       62 RETURN                           R0 0
+       22 GETUPVAL                         R11 3
+       23 GETTABLEKS                       R11 R11 K5 ["getFFlagAQVFollowup"]
+       25 CALL                             R11 0 1
+       26 JUMPIFNOT                        R11 ; [+15]
+       27 LOADK                            R13 K6 ["Accessory"]
+       28 NAMECALL                         R11 R6 K7 ["IsA"]
+       30 CALL                             R11 2 1
+       31 JUMPIFNOT                        R11 ; [+10]
+       32 LOADK                            R13 K8 ["WrapLayer"]
+       33 LOADB                            R14 1
+       34 NAMECALL                         R11 R6 K9 ["FindFirstChildWhichIsA"]
+       36 CALL                             R11 3 1
+       37 JUMPIFNOTEQKNIL                  R11 ; [+2]
+       39 LOADB                            R10 0 +1
+       40 LOADB                            R10 1
+       41 JUMP                             ; [+1]
+       42 LOADNIL                          R10
+       43 SETTABLEKS                       R10 R9 K3 ["IsLayered"]
+       45 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       47 MOVE                             R8 R1
+       48 GETIMPORT                        R7 K12 [table.insert]
+       50 CALL                             R7 2 0
+       51 FORGLOOP                         R2 2 ; [-39]
+       53 GETIMPORT                        R2 K14 [plugin]
+       55 LOADK                            R4 K15 ["SetStateAndRefresh"]
+       56 NEWTABLE                         R5 4 0
+       58 GETUPVAL                         R8 0
+       59 GETTABLEN                        R7 R8 1
+       60 JUMPIFNOT                        R7 ; [+5]
+       61 GETUPVAL                         R7 0
+       62 GETTABLEN                        R6 R7 1
+       63 GETTABLEKS                       R6 R6 K2 ["ClassName"]
+       65 JUMPIF                           R6 ; [+1]
+       66 LOADNIL                          R6
+       67 SETTABLEKS                       R6 R5 K2 ["ClassName"]
+       69 GETUPVAL                         R8 0
+       70 GETTABLEN                        R7 R8 1
+       71 JUMPIFNOT                        R7 ; [+5]
+       72 GETUPVAL                         R7 0
+       73 GETTABLEN                        R6 R7 1
+       74 GETTABLEKS                       R6 R6 K1 ["Name"]
+       76 JUMPIF                           R6 ; [+1]
+       77 LOADNIL                          R6
+       78 SETTABLEKS                       R6 R5 K1 ["Name"]
+       80 SETTABLEKS                       R1 R5 K16 ["selectedModels"]
+       82 NAMECALL                         R2 R2 K17 ["Invoke"]
+       84 CALL                             R2 3 0
+       85 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -1016,107 +1034,108 @@ PROTO_19:
         6 CAPTURE                          UPVAL U1
         7 CAPTURE                          UPVAL U2
         8 CAPTURE                          UPVAL U3
-        9 MOVE                             R1 R0
-       10 CALL                             R1 0 0
-       11 GETUPVAL                         R1 2
-       12 GETTABLEKS                       R1 R1 K0 ["SelectionChanged"]
-       14 MOVE                             R3 R0
-       15 NAMECALL                         R1 R1 K1 ["Connect"]
-       17 CALL                             R1 2 1
-       18 GETUPVAL                         R3 4
-       19 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
-       21 MOVE                             R4 R1
-       22 GETIMPORT                        R2 K4 [table.insert]
-       24 CALL                             R2 2 0
-       25 GETIMPORT                        R2 K6 [plugin]
-       27 LOADK                            R4 K7 ["RunValidation"]
-       28 NEWCLOSURE                       R5 P1
-       29 CAPTURE                          UPVAL U5
+        9 CAPTURE                          UPVAL U4
+       10 MOVE                             R1 R0
+       11 CALL                             R1 0 0
+       12 GETUPVAL                         R1 2
+       13 GETTABLEKS                       R1 R1 K0 ["SelectionChanged"]
+       15 MOVE                             R3 R0
+       16 NAMECALL                         R1 R1 K1 ["Connect"]
+       18 CALL                             R1 2 1
+       19 GETUPVAL                         R3 5
+       20 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+       22 MOVE                             R4 R1
+       23 GETIMPORT                        R2 K4 [table.insert]
+       25 CALL                             R2 2 0
+       26 GETIMPORT                        R2 K6 [plugin]
+       28 LOADK                            R4 K7 ["RunValidation"]
+       29 NEWCLOSURE                       R5 P1
        30 CAPTURE                          UPVAL U6
        31 CAPTURE                          UPVAL U7
-       32 CAPTURE                          UPVAL U3
-       33 CAPTURE                          UPVAL U8
-       34 CAPTURE                          UPVAL U9
-       35 CAPTURE                          UPVAL U10
-       36 CAPTURE                          UPVAL U11
-       37 CAPTURE                          UPVAL U12
-       38 CAPTURE                          UPVAL U13
-       39 CAPTURE                          UPVAL U14
-       40 CAPTURE                          UPVAL U15
-       41 CAPTURE                          UPVAL U16
-       42 CAPTURE                          UPVAL U17
-       43 NAMECALL                         R2 R2 K8 ["OnInvoke"]
-       45 CALL                             R2 3 1
-       46 JUMPIFNOT                        R2 ; [+10]
-       47 LOADK                            R3 K9 ["runValidationConnection"]
-       48 SETTABLEKS                       R3 R2 K10 ["Name"]
-       50 GETUPVAL                         R4 4
-       51 FASTCALL2                        TABLE_INSERT R4 R2 ; [+4]
-       53 MOVE                             R5 R2
-       54 GETIMPORT                        R3 K4 [table.insert]
-       56 CALL                             R3 2 0
-       57 GETIMPORT                        R3 K6 [plugin]
-       59 LOADK                            R5 K11 ["CancelValidation"]
-       60 NEWCLOSURE                       R6 P2
-       61 CAPTURE                          UPVAL U5
+       32 CAPTURE                          UPVAL U4
+       33 CAPTURE                          UPVAL U3
+       34 CAPTURE                          UPVAL U8
+       35 CAPTURE                          UPVAL U9
+       36 CAPTURE                          UPVAL U10
+       37 CAPTURE                          UPVAL U11
+       38 CAPTURE                          UPVAL U12
+       39 CAPTURE                          UPVAL U13
+       40 CAPTURE                          UPVAL U14
+       41 CAPTURE                          UPVAL U15
+       42 CAPTURE                          UPVAL U16
+       43 CAPTURE                          UPVAL U17
+       44 NAMECALL                         R2 R2 K8 ["OnInvoke"]
+       46 CALL                             R2 3 1
+       47 JUMPIFNOT                        R2 ; [+10]
+       48 LOADK                            R3 K9 ["runValidationConnection"]
+       49 SETTABLEKS                       R3 R2 K10 ["Name"]
+       51 GETUPVAL                         R4 5
+       52 FASTCALL2                        TABLE_INSERT R4 R2 ; [+4]
+       54 MOVE                             R5 R2
+       55 GETIMPORT                        R3 K4 [table.insert]
+       57 CALL                             R3 2 0
+       58 GETIMPORT                        R3 K6 [plugin]
+       60 LOADK                            R5 K11 ["CancelValidation"]
+       61 NEWCLOSURE                       R6 P2
        62 CAPTURE                          UPVAL U6
-       63 NAMECALL                         R3 R3 K8 ["OnInvoke"]
-       65 CALL                             R3 3 1
-       66 JUMPIFNOT                        R3 ; [+10]
-       67 LOADK                            R4 K12 ["cancelValidationConnection"]
-       68 SETTABLEKS                       R4 R3 K10 ["Name"]
-       70 GETUPVAL                         R5 4
-       71 FASTCALL2                        TABLE_INSERT R5 R3 ; [+4]
-       73 MOVE                             R6 R3
-       74 GETIMPORT                        R4 K4 [table.insert]
-       76 CALL                             R4 2 0
-       77 GETIMPORT                        R4 K6 [plugin]
-       79 LOADK                            R6 K13 ["ShowMesh"]
-       80 DUPCLOSURE                       R7 K14 [PROTO_16]
-       81 CAPTURE                          UPVAL U14
-       82 CAPTURE                          UPVAL U18
-       83 CAPTURE                          UPVAL U13
-       84 CAPTURE                          UPVAL U19
-       85 NAMECALL                         R4 R4 K8 ["OnInvoke"]
-       87 CALL                             R4 3 1
-       88 JUMPIFNOT                        R4 ; [+10]
-       89 LOADK                            R5 K15 ["showMeshConnection"]
-       90 SETTABLEKS                       R5 R4 K10 ["Name"]
-       92 GETUPVAL                         R6 4
-       93 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
-       95 MOVE                             R7 R4
-       96 GETIMPORT                        R5 K4 [table.insert]
-       98 CALL                             R5 2 0
-       99 GETIMPORT                        R5 K6 [plugin]
-      101 LOADK                            R7 K16 ["ExplorerSelect"]
-      102 DUPCLOSURE                       R8 K17 [PROTO_17]
-      103 CAPTURE                          UPVAL U18
-      104 CAPTURE                          UPVAL U19
-      105 NAMECALL                         R5 R5 K8 ["OnInvoke"]
-      107 CALL                             R5 3 1
-      108 JUMPIFNOT                        R5 ; [+10]
-      109 LOADK                            R6 K18 ["explorerSelectConnection"]
-      110 SETTABLEKS                       R6 R5 K10 ["Name"]
-      112 GETUPVAL                         R7 4
-      113 FASTCALL2                        TABLE_INSERT R7 R5 ; [+4]
-      115 MOVE                             R8 R5
-      116 GETIMPORT                        R6 K4 [table.insert]
-      118 CALL                             R6 2 0
-      119 GETIMPORT                        R6 K6 [plugin]
-      121 LOADK                            R8 K19 ["HideMesh"]
-      122 DUPCLOSURE                       R9 K20 [PROTO_18]
-      123 CAPTURE                          UPVAL U18
-      124 NAMECALL                         R6 R6 K8 ["OnInvoke"]
-      126 CALL                             R6 3 1
-      127 JUMPIFNOT                        R6 ; [+10]
-      128 LOADK                            R7 K21 ["hideMeshConnection"]
-      129 SETTABLEKS                       R7 R6 K10 ["Name"]
-      131 GETUPVAL                         R8 4
-      132 FASTCALL2                        TABLE_INSERT R8 R6 ; [+4]
-      134 MOVE                             R9 R6
-      135 GETIMPORT                        R7 K4 [table.insert]
-      137 CALL                             R7 2 0
-      138 RETURN                           R0 0
+       63 CAPTURE                          UPVAL U7
+       64 NAMECALL                         R3 R3 K8 ["OnInvoke"]
+       66 CALL                             R3 3 1
+       67 JUMPIFNOT                        R3 ; [+10]
+       68 LOADK                            R4 K12 ["cancelValidationConnection"]
+       69 SETTABLEKS                       R4 R3 K10 ["Name"]
+       71 GETUPVAL                         R5 5
+       72 FASTCALL2                        TABLE_INSERT R5 R3 ; [+4]
+       74 MOVE                             R6 R3
+       75 GETIMPORT                        R4 K4 [table.insert]
+       77 CALL                             R4 2 0
+       78 GETIMPORT                        R4 K6 [plugin]
+       80 LOADK                            R6 K13 ["ShowMesh"]
+       81 DUPCLOSURE                       R7 K14 [PROTO_16]
+       82 CAPTURE                          UPVAL U14
+       83 CAPTURE                          UPVAL U18
+       84 CAPTURE                          UPVAL U13
+       85 CAPTURE                          UPVAL U19
+       86 NAMECALL                         R4 R4 K8 ["OnInvoke"]
+       88 CALL                             R4 3 1
+       89 JUMPIFNOT                        R4 ; [+10]
+       90 LOADK                            R5 K15 ["showMeshConnection"]
+       91 SETTABLEKS                       R5 R4 K10 ["Name"]
+       93 GETUPVAL                         R6 5
+       94 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
+       96 MOVE                             R7 R4
+       97 GETIMPORT                        R5 K4 [table.insert]
+       99 CALL                             R5 2 0
+      100 GETIMPORT                        R5 K6 [plugin]
+      102 LOADK                            R7 K16 ["ExplorerSelect"]
+      103 DUPCLOSURE                       R8 K17 [PROTO_17]
+      104 CAPTURE                          UPVAL U18
+      105 CAPTURE                          UPVAL U19
+      106 NAMECALL                         R5 R5 K8 ["OnInvoke"]
+      108 CALL                             R5 3 1
+      109 JUMPIFNOT                        R5 ; [+10]
+      110 LOADK                            R6 K18 ["explorerSelectConnection"]
+      111 SETTABLEKS                       R6 R5 K10 ["Name"]
+      113 GETUPVAL                         R7 5
+      114 FASTCALL2                        TABLE_INSERT R7 R5 ; [+4]
+      116 MOVE                             R8 R5
+      117 GETIMPORT                        R6 K4 [table.insert]
+      119 CALL                             R6 2 0
+      120 GETIMPORT                        R6 K6 [plugin]
+      122 LOADK                            R8 K19 ["HideMesh"]
+      123 DUPCLOSURE                       R9 K20 [PROTO_18]
+      124 CAPTURE                          UPVAL U18
+      125 NAMECALL                         R6 R6 K8 ["OnInvoke"]
+      127 CALL                             R6 3 1
+      128 JUMPIFNOT                        R6 ; [+10]
+      129 LOADK                            R7 K21 ["hideMeshConnection"]
+      130 SETTABLEKS                       R7 R6 K10 ["Name"]
+      132 GETUPVAL                         R8 5
+      133 FASTCALL2                        TABLE_INSERT R8 R6 ; [+4]
+      135 MOVE                             R9 R6
+      136 GETIMPORT                        R7 K4 [table.insert]
+      138 CALL                             R7 2 0
+      139 RETURN                           R0 0
 
 PROTO_20:
         0 GETUPVAL                         R0 0
@@ -1322,10 +1341,10 @@ MAIN:
       192 CAPTURE                          REF R11
       193 CAPTURE                          VAL R1
       194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R10
-      196 CAPTURE                          REF R20
-      197 CAPTURE                          REF R21
-      198 CAPTURE                          VAL R8
+      195 CAPTURE                          VAL R8
+      196 CAPTURE                          VAL R10
+      197 CAPTURE                          REF R20
+      198 CAPTURE                          REF R21
       199 CAPTURE                          VAL R3
       200 CAPTURE                          VAL R29
       201 CAPTURE                          REF R18

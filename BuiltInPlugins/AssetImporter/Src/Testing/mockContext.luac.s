@@ -10,18 +10,32 @@ PROTO_0:
        11 LOADK                            R4 K3 ["Expected children to be a table"]
        12 GETIMPORT                        R2 K5 [assert]
        14 CALL                             R2 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K6 ["provideMockContext"]
-       18 MOVE                             R3 R1
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R4 R4 K7 ["createElement"]
-       22 GETUPVAL                         R5 2
-       23 GETTABLEKS                       R5 R5 K8 ["FoundationProvider"]
-       25 DUPTABLE                         R6 K13 [{["theme"] = "Dark", ["device"] = "Desktop"}]
-       26 MOVE                             R7 R0
-       27 CALL                             R4 3 -1
-       28 CALL                             R2 -1 -1
-       29 RETURN                           R2 -1
+       15 MOVE                             R2 R1
+       16 JUMPIF                           R2 ; [+2]
+       17 NEWTABLE                         R2 0 0
+       19 NEWTABLE                         R3 0 0
+       21 MOVE                             R4 R2
+       22 LOADNIL                          R5
+       23 LOADNIL                          R6
+       24 FORGPREP                         R4
+       25 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
+       27 MOVE                             R10 R3
+       28 MOVE                             R11 R8
+       29 GETIMPORT                        R9 K7 [table.insert]
+       31 CALL                             R9 2 0
+       32 FORGLOOP                         R4 2 ; [-8]
+       34 GETUPVAL                         R4 0
+       35 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       37 GETUPVAL                         R5 1
+       38 GETTABLEKS                       R5 R5 K9 ["FoundationProvider"]
+       40 DUPTABLE                         R6 K14 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       41 GETUPVAL                         R7 2
+       42 GETTABLEKS                       R7 R7 K15 ["provideMockContext"]
+       44 MOVE                             R8 R3
+       45 MOVE                             R9 R0
+       46 CALL                             R7 2 -1
+       47 CALL                             R4 -1 -1
+       48 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -43,7 +57,7 @@ MAIN:
        27 GETTABLEKS                       R5 R5 K10 ["Foundation"]
        29 CALL                             R4 1 1
        30 DUPCLOSURE                       R5 K11 [PROTO_0]
-       31 CAPTURE                          VAL R3
-       32 CAPTURE                          VAL R1
-       33 CAPTURE                          VAL R4
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          VAL R4
+       33 CAPTURE                          VAL R3
        34 RETURN                           R5 1

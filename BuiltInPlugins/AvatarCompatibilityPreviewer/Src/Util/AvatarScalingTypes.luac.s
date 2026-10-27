@@ -153,7 +153,7 @@ MAIN:
        40 DUPTABLE                         R8 K24 [{["BodyTypeScale"] = 1, ["BodyProportionScale"] = 1, ["GuessMaxHeight"] = 5.625}]
        41 MOVE                             R7 R8
        42 SETTABLEKS                       R7 R6 K13 ["ProportionsSlender"]
-       44 DUPTABLE                         R8 K26 [{["BodyTypeScale"] = 1, ["BodyProportionScale"] = 0, ["GuessMaxHeight"] = ∞}]
+       44 DUPTABLE                         R8 K26 [{["BodyTypeScale"] = 1, ["BodyProportionScale"] = 0, ["GuessMaxHeight"] = Infinity}]
        45 MOVE                             R7 R8
        46 SETTABLEKS                       R7 R6 K14 ["ProportionsNormal"]
        48 SETTABLEKS                       R6 R4 K27 ["types"]

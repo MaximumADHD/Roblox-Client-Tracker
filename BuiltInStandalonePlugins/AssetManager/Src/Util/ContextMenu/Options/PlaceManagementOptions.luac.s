@@ -34,29 +34,19 @@ PROTO_1:
        19 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+20]
-        3 GETTABLEKS                       R3 R1 K0 ["PluginController"]
-        5 NAMECALL                         R3 R3 K1 ["getGameInfo"]
-        7 CALL                             R3 1 1
-        8 GETTABLEKS                       R3 R3 K2 ["Id"]
-       10 GETUPVAL                         R4 1
-       11 MOVE                             R5 R3
-       12 DUPTABLE                         R6 K5 [{"Networking", "ItemsController"}]
-       13 GETTABLEKS                       R7 R1 K3 ["Networking"]
-       15 SETTABLEKS                       R7 R6 K3 ["Networking"]
-       17 GETTABLEKS                       R7 R1 K4 ["ItemsController"]
-       19 SETTABLEKS                       R7 R6 K4 ["ItemsController"]
-       21 CALL                             R4 2 0
-       22 RETURN                           R0 0
-       23 GETTABLEKS                       R3 R1 K0 ["PluginController"]
-       25 NAMECALL                         R3 R3 K6 ["getPlugin"]
-       27 CALL                             R3 1 1
-       28 LOADK                            R5 K7 ["OnAddPlace"]
-       29 NAMECALL                         R3 R3 K8 ["Invoke"]
-       31 CALL                             R3 2 0
-       32 RETURN                           R0 0
+        0 GETTABLEKS                       R3 R1 K0 ["PluginController"]
+        2 NAMECALL                         R3 R3 K1 ["getGameInfo"]
+        4 CALL                             R3 1 1
+        5 GETTABLEKS                       R3 R3 K2 ["Id"]
+        7 GETUPVAL                         R4 0
+        8 MOVE                             R5 R3
+        9 DUPTABLE                         R6 K5 [{"Networking", "ItemsController"}]
+       10 GETTABLEKS                       R7 R1 K3 ["Networking"]
+       12 SETTABLEKS                       R7 R6 K3 ["Networking"]
+       14 GETTABLEKS                       R7 R1 K4 ["ItemsController"]
+       16 SETTABLEKS                       R7 R6 K4 ["ItemsController"]
+       18 CALL                             R4 2 0
+       19 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
@@ -276,58 +266,52 @@ MAIN:
        40 GETTABLEKS                       R5 R5 K13 ["PlaceManagement"]
        42 GETTABLEKS                       R5 R5 K14 ["addNewPlace"]
        44 CALL                             R4 1 1
-       45 GETIMPORT                        R5 K5 [require]
-       47 GETTABLEKS                       R6 R0 K6 ["Src"]
-       49 GETTABLEKS                       R6 R6 K15 ["Flags"]
-       51 GETTABLEKS                       R6 R6 K16 ["getFFlagAmrRemoveAssetManagerServiceDependency"]
-       53 CALL                             R5 1 1
-       54 DUPCLOSURE                       R6 K17 [PROTO_0]
-       55 CAPTURE                          VAL R2
-       56 DUPCLOSURE                       R7 K18 [PROTO_1]
-       57 CAPTURE                          VAL R1
-       58 DUPTABLE                         R8 K25 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "AddNewPlace", ["OnItemClicked"], ["ShouldRender"]}]
-       59 DUPCLOSURE                       R9 K26 [PROTO_2]
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R4
-       62 SETTABLEKS                       R9 R8 K23 ["OnItemClicked"]
-       64 DUPCLOSURE                       R9 K27 [PROTO_3]
-       65 CAPTURE                          VAL R1
-       66 SETTABLEKS                       R9 R8 K24 ["ShouldRender"]
-       68 DUPTABLE                         R9 K29 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "OpenFolder", ["OnItemClicked"], ["ShouldRender"]}]
-       69 DUPCLOSURE                       R10 K30 [PROTO_4]
-       70 CAPTURE                          VAL R1
-       71 SETTABLEKS                       R10 R9 K23 ["OnItemClicked"]
-       73 DUPCLOSURE                       R10 K31 [PROTO_5]
-       74 CAPTURE                          VAL R1
-       75 SETTABLEKS                       R10 R9 K24 ["ShouldRender"]
-       77 DUPTABLE                         R10 K33 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Rename", ["OnItemClicked"], ["ShouldRender"]}]
-       78 DUPCLOSURE                       R11 K34 [PROTO_6]
-       79 CAPTURE                          VAL R1
-       80 SETTABLEKS                       R11 R10 K23 ["OnItemClicked"]
-       82 DUPCLOSURE                       R11 K35 [PROTO_7]
+       45 DUPCLOSURE                       R5 K15 [PROTO_0]
+       46 CAPTURE                          VAL R2
+       47 DUPCLOSURE                       R6 K16 [PROTO_1]
+       48 CAPTURE                          VAL R1
+       49 DUPTABLE                         R7 K23 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "AddNewPlace", ["OnItemClicked"], ["ShouldRender"]}]
+       50 DUPCLOSURE                       R8 K24 [PROTO_2]
+       51 CAPTURE                          VAL R4
+       52 SETTABLEKS                       R8 R7 K21 ["OnItemClicked"]
+       54 DUPCLOSURE                       R8 K25 [PROTO_3]
+       55 CAPTURE                          VAL R1
+       56 SETTABLEKS                       R8 R7 K22 ["ShouldRender"]
+       58 DUPTABLE                         R8 K27 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "OpenFolder", ["OnItemClicked"], ["ShouldRender"]}]
+       59 DUPCLOSURE                       R9 K28 [PROTO_4]
+       60 CAPTURE                          VAL R1
+       61 SETTABLEKS                       R9 R8 K21 ["OnItemClicked"]
+       63 DUPCLOSURE                       R9 K29 [PROTO_5]
+       64 CAPTURE                          VAL R1
+       65 SETTABLEKS                       R9 R8 K22 ["ShouldRender"]
+       67 DUPTABLE                         R9 K31 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Rename", ["OnItemClicked"], ["ShouldRender"]}]
+       68 DUPCLOSURE                       R10 K32 [PROTO_6]
+       69 CAPTURE                          VAL R1
+       70 SETTABLEKS                       R10 R9 K21 ["OnItemClicked"]
+       72 DUPCLOSURE                       R10 K33 [PROTO_7]
+       73 CAPTURE                          VAL R1
+       74 SETTABLEKS                       R10 R9 K22 ["ShouldRender"]
+       76 DUPTABLE                         R10 K35 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "ViewPlaceHistory", ["OnItemClicked"], ["ShouldRender"]}]
+       77 DUPCLOSURE                       R11 K36 [PROTO_8]
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R5
+       80 SETTABLEKS                       R11 R10 K21 ["OnItemClicked"]
+       82 DUPCLOSURE                       R11 K37 [PROTO_9]
        83 CAPTURE                          VAL R1
-       84 SETTABLEKS                       R11 R10 K24 ["ShouldRender"]
-       86 DUPTABLE                         R11 K37 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "ViewPlaceHistory", ["OnItemClicked"], ["ShouldRender"]}]
-       87 DUPCLOSURE                       R12 K38 [PROTO_8]
+       84 SETTABLEKS                       R11 R10 K22 ["ShouldRender"]
+       86 DUPTABLE                         R11 K39 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "RemoveFromExperience", ["OnItemClicked"], ["ShouldRender"]}]
+       87 DUPCLOSURE                       R12 K40 [PROTO_10]
        88 CAPTURE                          VAL R1
-       89 CAPTURE                          VAL R6
-       90 SETTABLEKS                       R12 R11 K23 ["OnItemClicked"]
-       92 DUPCLOSURE                       R12 K39 [PROTO_9]
+       89 CAPTURE                          VAL R3
+       90 SETTABLEKS                       R12 R11 K21 ["OnItemClicked"]
+       92 DUPCLOSURE                       R12 K41 [PROTO_11]
        93 CAPTURE                          VAL R1
-       94 SETTABLEKS                       R12 R11 K24 ["ShouldRender"]
-       96 DUPTABLE                         R12 K41 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "RemoveFromExperience", ["OnItemClicked"], ["ShouldRender"]}]
-       97 DUPCLOSURE                       R13 K42 [PROTO_10]
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R3
-      100 SETTABLEKS                       R13 R12 K23 ["OnItemClicked"]
-      102 DUPCLOSURE                       R13 K43 [PROTO_11]
-      103 CAPTURE                          VAL R1
-      104 SETTABLEKS                       R13 R12 K24 ["ShouldRender"]
-      106 NEWTABLE                         R13 0 5
-      108 MOVE                             R14 R9
-      109 MOVE                             R15 R10
-      110 MOVE                             R16 R11
-      111 MOVE                             R17 R12
-      112 MOVE                             R18 R8
-      113 SETLIST                          R13 R14 5 [1]
-      115 RETURN                           R13 1
+       94 SETTABLEKS                       R12 R11 K22 ["ShouldRender"]
+       96 NEWTABLE                         R12 0 5
+       98 MOVE                             R13 R8
+       99 MOVE                             R14 R9
+      100 MOVE                             R15 R10
+      101 MOVE                             R16 R11
+      102 MOVE                             R17 R7
+      103 SETLIST                          R12 R13 5 [1]
+      105 RETURN                           R12 1

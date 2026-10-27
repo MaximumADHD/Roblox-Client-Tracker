@@ -1147,7 +1147,7 @@ MAIN:
      1714 GETTABLEKS                       R26 R1 K100 ["Dictionary"]
      1716 GETTABLEKS                       R26 R26 K101 ["join"]
      1718 MOVE                             R27 R12
-     1719 DUPTABLE                         R28 K486 [{["MaxHeight"] = ∞}]
+     1719 DUPTABLE                         R28 K486 [{["MaxHeight"] = Infinity}]
      1720 CALL                             R26 2 1
      1721 SETTABLE                         R26 R23 R25
      1722 GETTABLEKS                       R25 R8 K31 ["SelectInput"]
@@ -1158,7 +1158,7 @@ MAIN:
      1730 GETTABLEKS                       R29 R1 K100 ["Dictionary"]
      1732 GETTABLEKS                       R29 R29 K101 ["join"]
      1734 GETTABLEKS                       R30 R17 K26 ["DropdownMenu"]
-     1736 DUPTABLE                         R31 K486 [{["MaxHeight"] = ∞}]
+     1736 DUPTABLE                         R31 K486 [{["MaxHeight"] = Infinity}]
      1737 CALL                             R29 2 1
      1738 SETTABLEKS                       R29 R28 K26 ["DropdownMenu"]
      1740 CALL                             R26 2 1

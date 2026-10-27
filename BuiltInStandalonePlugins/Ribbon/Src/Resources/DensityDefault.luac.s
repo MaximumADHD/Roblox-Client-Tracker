@@ -157,7 +157,7 @@ MAIN:
       223 SETTABLEKS                       R5 R4 K75 ["TooltipContentSpacing"]
       225 GETIMPORT                        R5 K24 [Vector2.new]
       227 LOADN                            R6 150
-      228 LOADK                            R7 K76 [∞]
+      228 LOADK                            R7 K76 [Infinity]
       229 CALL                             R5 2 1
       230 SETTABLEKS                       R5 R4 K77 ["TooltipMaxSize"]
       232 LOADK                            R5 K47 ["$GlobalSpace25"]

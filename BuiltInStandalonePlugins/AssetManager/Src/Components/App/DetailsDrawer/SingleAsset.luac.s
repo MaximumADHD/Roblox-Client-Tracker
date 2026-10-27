@@ -73,71 +73,104 @@ PROTO_1:
        71 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R4 R4 K0 ["createRowList"]
-        3 CALL                             R4 0 3
-        4 MOVE                             R7 R5
-        5 GETUPVAL                         R8 1
-        6 GETTABLEKS                       R8 R8 K1 ["Owner"]
-        8 LOADK                            R11 K2 ["AssetProperty"]
-        9 GETUPVAL                         R12 1
-       10 GETTABLEKS                       R12 R12 K1 ["Owner"]
-       12 NAMECALL                         R9 R3 K3 ["getText"]
-       14 CALL                             R9 3 1
-       15 MOVE                             R10 R0
-       16 CALL                             R7 3 0
-       17 JUMPIFNOT                        R2 ; [+15]
-       18 GETUPVAL                         R7 2
-       19 GETTABLEKS                       R7 R7 K4 ["createElement"]
-       21 GETUPVAL                         R8 0
-       22 GETTABLEKS                       R8 R8 K5 ["LoadingRows"]
-       24 DUPTABLE                         R9 K9 [{["LayoutOrder"], ["RowCount"] = 2}]
-       25 MOVE                             R10 R6
-       26 CALL                             R10 0 1
-       27 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-       29 CALL                             R7 2 1
-       30 SETTABLEKS                       R7 R4 K10 ["AccessPolicyLoading"]
-       32 RETURN                           R4 1
-       33 MOVE                             R7 R5
-       34 GETUPVAL                         R8 1
-       35 GETTABLEKS                       R8 R8 K11 ["AccessControl"]
-       37 LOADK                            R11 K12 ["AssetPermission"]
-       38 GETUPVAL                         R12 1
-       39 GETTABLEKS                       R12 R12 K11 ["AccessControl"]
-       41 NAMECALL                         R9 R3 K3 ["getText"]
-       43 CALL                             R9 3 1
-       44 JUMPIFNOT                        R1 ; [+7]
-       45 LOADK                            R12 K12 ["AssetPermission"]
-       46 GETTABLEKS                       R13 R1 K13 ["Privacy"]
-       48 NAMECALL                         R10 R3 K3 ["getText"]
-       50 CALL                             R10 3 1
-       51 JUMP                             ; [+3]
-       52 GETUPVAL                         R10 3
-       53 GETTABLEKS                       R10 R10 K14 ["PlaceholderText"]
-       55 CALL                             R7 3 0
-       56 JUMPIFNOT                        R1 ; [+3]
-       57 GETTABLEKS                       R7 R1 K15 ["SharedWith"]
-       59 JUMP                             ; [+2]
-       60 NEWTABLE                         R7 0 0
-       62 JUMPIFNOT                        R1 ; [+6]
-       63 LENGTH                           R9 R7
-       64 FASTCALL1                        TOSTRING R9 ; [+2]
-       65 GETIMPORT                        R8 K17 [tostring]
-       67 CALL                             R8 1 1
-       68 JUMP                             ; [+3]
-       69 GETUPVAL                         R8 3
-       70 GETTABLEKS                       R8 R8 K14 ["PlaceholderText"]
-       72 MOVE                             R9 R5
-       73 GETUPVAL                         R10 1
-       74 GETTABLEKS                       R10 R10 K15 ["SharedWith"]
-       76 LOADK                            R13 K12 ["AssetPermission"]
-       77 GETUPVAL                         R14 1
-       78 GETTABLEKS                       R14 R14 K15 ["SharedWith"]
-       80 NAMECALL                         R11 R3 K3 ["getText"]
-       82 CALL                             R11 3 1
-       83 MOVE                             R12 R8
-       84 CALL                             R9 3 0
-       85 RETURN                           R4 1
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["createRowList"]
+        3 CALL                             R5 0 3
+        4 MOVE                             R8 R6
+        5 GETUPVAL                         R9 1
+        6 GETTABLEKS                       R9 R9 K1 ["Owner"]
+        8 LOADK                            R12 K2 ["AssetProperty"]
+        9 LOADK                            R13 K3 ["Creator"]
+       10 NAMECALL                         R10 R4 K4 ["getText"]
+       12 CALL                             R10 3 1
+       13 MOVE                             R11 R0
+       14 CALL                             R8 3 0
+       15 JUMPIFNOT                        R2 ; [+15]
+       16 GETUPVAL                         R8 2
+       17 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       19 GETUPVAL                         R9 0
+       20 GETTABLEKS                       R9 R9 K6 ["LoadingRows"]
+       22 DUPTABLE                         R10 K10 [{["LayoutOrder"], ["RowCount"] = 2}]
+       23 MOVE                             R11 R7
+       24 CALL                             R11 0 1
+       25 SETTABLEKS                       R11 R10 K7 ["LayoutOrder"]
+       27 CALL                             R8 2 1
+       28 SETTABLEKS                       R8 R5 K11 ["AccessPolicyLoading"]
+       30 JUMP                             ; [+52]
+       31 MOVE                             R8 R6
+       32 GETUPVAL                         R9 1
+       33 GETTABLEKS                       R9 R9 K12 ["AccessControl"]
+       35 LOADK                            R12 K13 ["AssetPermission"]
+       36 GETUPVAL                         R13 1
+       37 GETTABLEKS                       R13 R13 K12 ["AccessControl"]
+       39 NAMECALL                         R10 R4 K4 ["getText"]
+       41 CALL                             R10 3 1
+       42 JUMPIFNOT                        R1 ; [+7]
+       43 LOADK                            R13 K13 ["AssetPermission"]
+       44 GETTABLEKS                       R14 R1 K14 ["Privacy"]
+       46 NAMECALL                         R11 R4 K4 ["getText"]
+       48 CALL                             R11 3 1
+       49 JUMP                             ; [+3]
+       50 GETUPVAL                         R11 3
+       51 GETTABLEKS                       R11 R11 K15 ["PlaceholderText"]
+       53 CALL                             R8 3 0
+       54 JUMPIFNOT                        R1 ; [+3]
+       55 GETTABLEKS                       R8 R1 K16 ["SharedWith"]
+       57 JUMP                             ; [+2]
+       58 NEWTABLE                         R8 0 0
+       60 JUMPIFNOT                        R1 ; [+6]
+       61 LENGTH                           R10 R8
+       62 FASTCALL1                        TOSTRING R10 ; [+2]
+       63 GETIMPORT                        R9 K18 [tostring]
+       65 CALL                             R9 1 1
+       66 JUMP                             ; [+3]
+       67 GETUPVAL                         R9 3
+       68 GETTABLEKS                       R9 R9 K15 ["PlaceholderText"]
+       70 MOVE                             R10 R6
+       71 GETUPVAL                         R11 1
+       72 GETTABLEKS                       R11 R11 K16 ["SharedWith"]
+       74 LOADK                            R14 K13 ["AssetPermission"]
+       75 GETUPVAL                         R15 1
+       76 GETTABLEKS                       R15 R15 K16 ["SharedWith"]
+       78 NAMECALL                         R12 R4 K4 ["getText"]
+       80 CALL                             R12 3 1
+       81 MOVE                             R13 R9
+       82 CALL                             R10 3 0
+       83 GETUPVAL                         R8 2
+       84 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       86 GETUPVAL                         R9 4
+       87 GETTABLEKS                       R9 R9 K19 ["View"]
+       89 DUPTABLE                         R10 K22 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y padding-left-xxlarge padding-top-small padding-bottom-medium"}]
+       90 MOVE                             R11 R7
+       91 CALL                             R11 0 1
+       92 SETTABLEKS                       R11 R10 K7 ["LayoutOrder"]
+       94 DUPTABLE                         R11 K24 [{"Button"}]
+       95 GETUPVAL                         R12 2
+       96 GETTABLEKS                       R12 R12 K5 ["createElement"]
+       98 GETUPVAL                         R13 4
+       99 GETTABLEKS                       R13 R13 K23 ["Button"]
+      101 DUPTABLE                         R14 K31 [{["text"], ["variant"], ["size"], ["onActivated"], ["testId"] = "details-drawer-manage-sharing"}]
+      102 LOADK                            R17 K13 ["AssetPermission"]
+      103 LOADK                            R18 K32 ["ManageSharing"]
+      104 NAMECALL                         R15 R4 K4 ["getText"]
+      106 CALL                             R15 3 1
+      107 SETTABLEKS                       R15 R14 K25 ["text"]
+      109 GETUPVAL                         R15 4
+      110 GETTABLEKS                       R15 R15 K33 ["Enums"]
+      112 GETTABLEKS                       R15 R15 K34 ["ButtonVariant"]
+      114 GETTABLEKS                       R15 R15 K35 ["Standard"]
+      116 SETTABLEKS                       R15 R14 K26 ["variant"]
+      118 GETUPVAL                         R15 4
+      119 GETTABLEKS                       R15 R15 K33 ["Enums"]
+      121 GETTABLEKS                       R15 R15 K36 ["InputSize"]
+      123 GETTABLEKS                       R15 R15 K37 ["XSmall"]
+      125 SETTABLEKS                       R15 R14 K27 ["size"]
+      127 SETTABLEKS                       R3 R14 K28 ["onActivated"]
+      129 CALL                             R12 2 1
+      130 SETTABLEKS                       R12 R11 K23 ["Button"]
+      132 CALL                             R8 3 1
+      133 SETTABLEKS                       R8 R5 K32 ["ManageSharing"]
+      135 RETURN                           R5 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -183,221 +216,226 @@ PROTO_3:
        61 GETTABLEKS                       R8 R3 K4 ["AssetType"]
        63 GETTABLEKS                       R9 R3 K15 ["ModerationStatus"]
        65 CALL                             R7 2 1
-       66 JUMPIFNOT                        R7 ; [+11]
+       66 JUMPIFNOT                        R7 ; [+17]
        67 GETUPVAL                         R6 2
        68 GETTABLEKS                       R6 R6 K6 ["createElement"]
        70 GETUPVAL                         R7 7
-       71 DUPTABLE                         R8 K8 [{"AssetId"}]
+       71 DUPTABLE                         R8 K17 [{"AssetId", "Duration"}]
        72 GETTABLEKS                       R9 R3 K7 ["AssetId"]
        74 SETTABLEKS                       R9 R8 K7 ["AssetId"]
-       76 CALL                             R6 2 1
-       77 JUMP                             ; [+1]
-       78 LOADNIL                          R6
-       79 GETUPVAL                         R7 2
-       80 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       82 GETUPVAL                         R8 8
-       83 DUPTABLE                         R9 K16 [{"Asset"}]
-       84 SETTABLEKS                       R3 R9 K2 ["Asset"]
-       86 CALL                             R7 2 1
-       87 GETTABLEKS                       R8 R0 K17 ["IsLoadingTechnicalDetails"]
-       89 JUMPIFNOT                        R8 ; [+27]
-       90 GETUPVAL                         R8 2
-       91 GETTABLEKS                       R8 R8 K6 ["createElement"]
-       93 GETUPVAL                         R9 4
-       94 GETTABLEKS                       R9 R9 K18 ["DrawerBody"]
-       96 DUPTABLE                         R10 K22 [{"LayoutOrder", "Thumbnail", "MediaPreview", "AssetHeader"}]
-       97 SETTABLEKS                       R2 R10 K1 ["LayoutOrder"]
-       99 SETTABLEKS                       R5 R10 K19 ["Thumbnail"]
-      101 SETTABLEKS                       R6 R10 K20 ["MediaPreview"]
-      103 SETTABLEKS                       R7 R10 K21 ["AssetHeader"]
-      105 DUPTABLE                         R11 K24 [{"Loading"}]
-      106 GETUPVAL                         R12 2
-      107 GETTABLEKS                       R12 R12 K6 ["createElement"]
-      109 GETUPVAL                         R13 4
-      110 GETTABLEKS                       R13 R13 K25 ["LoadingRows"]
-      112 CALL                             R12 1 1
-      113 SETTABLEKS                       R12 R11 K23 ["Loading"]
-      115 CALL                             R8 3 -1
-      116 RETURN                           R8 -1
-      117 GETUPVAL                         R8 4
-      118 GETTABLEKS                       R8 R8 K26 ["createRowList"]
-      120 CALL                             R8 0 2
-      121 MOVE                             R10 R9
-      122 GETUPVAL                         R11 9
-      123 GETTABLEKS                       R11 R11 K4 ["AssetType"]
-      125 LOADK                            R14 K27 ["AssetProperty"]
-      126 GETUPVAL                         R15 9
-      127 GETTABLEKS                       R15 R15 K4 ["AssetType"]
-      129 NAMECALL                         R12 R1 K28 ["getText"]
-      131 CALL                             R12 3 1
-      132 LOADK                            R15 K4 ["AssetType"]
-      133 GETTABLEKS                       R16 R3 K4 ["AssetType"]
-      135 NAMECALL                         R13 R1 K28 ["getText"]
-      137 CALL                             R13 3 -1
-      138 CALL                             R10 -1 0
-      139 GETTABLEKS                       R11 R3 K29 ["Creator"]
-      141 GETTABLEKS                       R11 R11 K30 ["Name"]
-      143 JUMPIFEQKS                       R11 K31 [""] ; [+6]
-      145 GETTABLEKS                       R10 R3 K29 ["Creator"]
-      147 GETTABLEKS                       R10 R10 K30 ["Name"]
-      149 JUMP                             ; [+3]
-      150 GETUPVAL                         R10 10
-      151 GETTABLEKS                       R10 R10 K32 ["PlaceholderText"]
-      153 MOVE                             R11 R9
-      154 GETUPVAL                         R12 9
-      155 GETTABLEKS                       R12 R12 K29 ["Creator"]
-      157 LOADK                            R15 K27 ["AssetProperty"]
-      158 GETUPVAL                         R16 9
-      159 GETTABLEKS                       R16 R16 K29 ["Creator"]
-      161 NAMECALL                         R13 R1 K28 ["getText"]
-      163 CALL                             R13 3 1
-      164 MOVE                             R14 R10
-      165 CALL                             R11 3 0
-      166 MOVE                             R11 R9
-      167 GETUPVAL                         R12 9
-      168 GETTABLEKS                       R12 R12 K7 ["AssetId"]
-      170 LOADK                            R15 K27 ["AssetProperty"]
-      171 GETUPVAL                         R16 9
-      172 GETTABLEKS                       R16 R16 K7 ["AssetId"]
-      174 NAMECALL                         R13 R1 K28 ["getText"]
-      176 CALL                             R13 3 1
-      177 GETTABLEKS                       R15 R3 K7 ["AssetId"]
-      179 FASTCALL1                        TOSTRING R15 ; [+2]
-      180 GETIMPORT                        R14 K34 [tostring]
-      182 CALL                             R14 1 1
-      183 CALL                             R11 3 0
-      184 MOVE                             R11 R9
-      185 GETUPVAL                         R12 9
-      186 GETTABLEKS                       R12 R12 K35 ["Created"]
-      188 LOADK                            R15 K27 ["AssetProperty"]
-      189 GETUPVAL                         R16 9
-      190 GETTABLEKS                       R16 R16 K35 ["Created"]
-      192 NAMECALL                         R13 R1 K28 ["getText"]
-      194 CALL                             R13 3 1
-      195 GETUPVAL                         R14 11
-      196 GETUPVAL                         R15 4
-      197 GETTABLEKS                       R15 R15 K36 ["toDateTime"]
-      199 GETTABLEKS                       R16 R3 K35 ["Created"]
-      201 CALL                             R15 1 -1
-      202 CALL                             R14 -1 -1
-      203 CALL                             R11 -1 0
-      204 MOVE                             R11 R9
-      205 GETUPVAL                         R12 9
-      206 GETTABLEKS                       R12 R12 K37 ["Modified"]
-      208 LOADK                            R15 K27 ["AssetProperty"]
-      209 GETUPVAL                         R16 9
-      210 GETTABLEKS                       R16 R16 K37 ["Modified"]
-      212 NAMECALL                         R13 R1 K28 ["getText"]
-      214 CALL                             R13 3 1
-      215 GETUPVAL                         R14 11
-      216 GETUPVAL                         R15 4
-      217 GETTABLEKS                       R15 R15 K36 ["toDateTime"]
-      219 GETTABLEKS                       R16 R3 K37 ["Modified"]
-      221 CALL                             R15 1 -1
-      222 CALL                             R14 -1 -1
-      223 CALL                             R11 -1 0
-      224 MOVE                             R11 R9
-      225 GETUPVAL                         R12 9
-      226 GETTABLEKS                       R12 R12 K38 ["Source"]
-      228 LOADK                            R15 K27 ["AssetProperty"]
-      229 GETUPVAL                         R16 9
-      230 GETTABLEKS                       R16 R16 K38 ["Source"]
-      232 NAMECALL                         R13 R1 K28 ["getText"]
-      234 CALL                             R13 3 1
-      235 LOADK                            R16 K39 ["AssetSource"]
-      236 GETTABLEKS                       R17 R3 K38 ["Source"]
-      238 NAMECALL                         R14 R1 K28 ["getText"]
-      240 CALL                             R14 3 -1
-      241 CALL                             R11 -1 0
-      242 JUMPIFNOT                        R4 ; [+5]
-      243 GETUPVAL                         R11 12
-      244 MOVE                             R12 R9
-      245 MOVE                             R13 R4
-      246 MOVE                             R14 R1
-      247 CALL                             R11 3 0
-      248 GETUPVAL                         R11 13
-      249 GETTABLEKS                       R11 R11 K40 ["new"]
-      251 CALL                             R11 0 1
-      252 DUPTABLE                         R12 K42 [{"Details"}]
-      253 GETUPVAL                         R13 2
-      254 GETTABLEKS                       R13 R13 K6 ["createElement"]
-      256 GETUPVAL                         R14 4
-      257 GETTABLEKS                       R14 R14 K43 ["Section"]
-      259 DUPTABLE                         R15 K47 [{["LayoutOrder"], ["Title"], ["TestId"] = "details-drawer-details"}]
-      260 NAMECALL                         R16 R11 K48 ["getNextOrder"]
-      262 CALL                             R16 1 1
-      263 SETTABLEKS                       R16 R15 K1 ["LayoutOrder"]
-      265 LOADK                            R18 K27 ["AssetProperty"]
-      266 LOADK                            R19 K41 ["Details"]
-      267 NAMECALL                         R16 R1 K28 ["getText"]
-      269 CALL                             R16 3 1
-      270 SETTABLEKS                       R16 R15 K44 ["Title"]
-      272 MOVE                             R16 R8
-      273 CALL                             R13 3 1
-      274 SETTABLEKS                       R13 R12 K41 ["Details"]
-      276 GETTABLEKS                       R13 R0 K49 ["ShowAccessPolicy"]
-      278 JUMPIFNOT                        R13 ; [+30]
-      279 GETUPVAL                         R13 2
-      280 GETTABLEKS                       R13 R13 K6 ["createElement"]
-      282 GETUPVAL                         R14 4
-      283 GETTABLEKS                       R14 R14 K43 ["Section"]
-      285 DUPTABLE                         R15 K51 [{["LayoutOrder"], ["Title"], ["TestId"] = "details-drawer-access-policy"}]
-      286 NAMECALL                         R16 R11 K48 ["getNextOrder"]
-      288 CALL                             R16 1 1
-      289 SETTABLEKS                       R16 R15 K1 ["LayoutOrder"]
-      291 LOADK                            R18 K52 ["AssetPermission"]
-      292 LOADK                            R19 K53 ["AccessPolicy"]
-      293 NAMECALL                         R16 R1 K28 ["getText"]
-      295 CALL                             R16 3 1
-      296 SETTABLEKS                       R16 R15 K44 ["Title"]
-      298 GETUPVAL                         R16 14
-      299 MOVE                             R17 R10
-      300 GETTABLEKS                       R18 R0 K54 ["Sharing"]
-      302 GETTABLEKS                       R19 R0 K55 ["IsLoadingSharing"]
-      304 MOVE                             R20 R1
-      305 CALL                             R16 4 1
-      306 CALL                             R13 3 1
-      307 SETTABLEKS                       R13 R12 K53 ["AccessPolicy"]
-      309 MOVE                             R13 R4
-      310 JUMPIFNOT                        R13 ; [+2]
-      311 GETTABLEKS                       R13 R4 K56 ["Description"]
-      313 JUMPIFNOT                        R13 ; [+35]
-      314 GETUPVAL                         R14 2
-      315 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      317 GETUPVAL                         R15 4
-      318 GETTABLEKS                       R15 R15 K43 ["Section"]
-      320 DUPTABLE                         R16 K58 [{["LayoutOrder"], ["Title"], ["TestId"] = "details-drawer-description"}]
-      321 NAMECALL                         R17 R11 K48 ["getNextOrder"]
-      323 CALL                             R17 1 1
-      324 SETTABLEKS                       R17 R16 K1 ["LayoutOrder"]
-      326 LOADK                            R19 K27 ["AssetProperty"]
-      327 LOADK                            R20 K56 ["Description"]
-      328 NAMECALL                         R17 R1 K28 ["getText"]
-      330 CALL                             R17 3 1
-      331 SETTABLEKS                       R17 R16 K44 ["Title"]
-      333 DUPTABLE                         R17 K60 [{"Text"}]
-      334 GETUPVAL                         R18 2
-      335 GETTABLEKS                       R18 R18 K6 ["createElement"]
-      337 GETUPVAL                         R19 15
-      338 GETTABLEKS                       R19 R19 K59 ["Text"]
-      340 DUPTABLE                         R20 K63 [{["Text"], ["tag"] = "size-full-0 auto-y padding-y-xsmall padding-left-xxlarge padding-right-medium text-body-small text-wrap text-align-x-left content-default"}]
-      341 SETTABLEKS                       R13 R20 K59 ["Text"]
-      343 CALL                             R18 2 1
-      344 SETTABLEKS                       R18 R17 K59 ["Text"]
-      346 CALL                             R14 3 1
-      347 SETTABLEKS                       R14 R12 K56 ["Description"]
-      349 GETUPVAL                         R14 2
-      350 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      352 GETUPVAL                         R15 4
-      353 GETTABLEKS                       R15 R15 K18 ["DrawerBody"]
-      355 DUPTABLE                         R16 K22 [{"LayoutOrder", "Thumbnail", "MediaPreview", "AssetHeader"}]
-      356 SETTABLEKS                       R2 R16 K1 ["LayoutOrder"]
-      358 SETTABLEKS                       R5 R16 K19 ["Thumbnail"]
-      360 SETTABLEKS                       R6 R16 K20 ["MediaPreview"]
-      362 SETTABLEKS                       R7 R16 K21 ["AssetHeader"]
-      364 MOVE                             R17 R12
-      365 CALL                             R14 3 -1
-      366 RETURN                           R14 -1
+       76 MOVE                             R9 R4
+       77 JUMPIFNOT                        R9 ; [+2]
+       78 GETTABLEKS                       R9 R4 K16 ["Duration"]
+       80 SETTABLEKS                       R9 R8 K16 ["Duration"]
+       82 CALL                             R6 2 1
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R6
+       85 GETUPVAL                         R7 2
+       86 GETTABLEKS                       R7 R7 K6 ["createElement"]
+       88 GETUPVAL                         R8 8
+       89 DUPTABLE                         R9 K18 [{"Asset"}]
+       90 SETTABLEKS                       R3 R9 K2 ["Asset"]
+       92 CALL                             R7 2 1
+       93 GETTABLEKS                       R8 R0 K19 ["IsLoadingTechnicalDetails"]
+       95 JUMPIFNOT                        R8 ; [+27]
+       96 GETUPVAL                         R8 2
+       97 GETTABLEKS                       R8 R8 K6 ["createElement"]
+       99 GETUPVAL                         R9 4
+      100 GETTABLEKS                       R9 R9 K20 ["DrawerBody"]
+      102 DUPTABLE                         R10 K24 [{"LayoutOrder", "Thumbnail", "MediaPreview", "AssetHeader"}]
+      103 SETTABLEKS                       R2 R10 K1 ["LayoutOrder"]
+      105 SETTABLEKS                       R5 R10 K21 ["Thumbnail"]
+      107 SETTABLEKS                       R6 R10 K22 ["MediaPreview"]
+      109 SETTABLEKS                       R7 R10 K23 ["AssetHeader"]
+      111 DUPTABLE                         R11 K26 [{"Loading"}]
+      112 GETUPVAL                         R12 2
+      113 GETTABLEKS                       R12 R12 K6 ["createElement"]
+      115 GETUPVAL                         R13 4
+      116 GETTABLEKS                       R13 R13 K27 ["LoadingRows"]
+      118 CALL                             R12 1 1
+      119 SETTABLEKS                       R12 R11 K25 ["Loading"]
+      121 CALL                             R8 3 -1
+      122 RETURN                           R8 -1
+      123 GETUPVAL                         R8 4
+      124 GETTABLEKS                       R8 R8 K28 ["createRowList"]
+      126 CALL                             R8 0 2
+      127 MOVE                             R10 R9
+      128 GETUPVAL                         R11 9
+      129 GETTABLEKS                       R11 R11 K4 ["AssetType"]
+      131 LOADK                            R14 K29 ["AssetProperty"]
+      132 GETUPVAL                         R15 9
+      133 GETTABLEKS                       R15 R15 K4 ["AssetType"]
+      135 NAMECALL                         R12 R1 K30 ["getText"]
+      137 CALL                             R12 3 1
+      138 LOADK                            R15 K4 ["AssetType"]
+      139 GETTABLEKS                       R16 R3 K4 ["AssetType"]
+      141 NAMECALL                         R13 R1 K30 ["getText"]
+      143 CALL                             R13 3 -1
+      144 CALL                             R10 -1 0
+      145 GETTABLEKS                       R11 R3 K31 ["Creator"]
+      147 GETTABLEKS                       R11 R11 K32 ["Name"]
+      149 JUMPIFEQKS                       R11 K33 [""] ; [+6]
+      151 GETTABLEKS                       R10 R3 K31 ["Creator"]
+      153 GETTABLEKS                       R10 R10 K32 ["Name"]
+      155 JUMP                             ; [+3]
+      156 GETUPVAL                         R10 10
+      157 GETTABLEKS                       R10 R10 K34 ["PlaceholderText"]
+      159 MOVE                             R11 R9
+      160 GETUPVAL                         R12 9
+      161 GETTABLEKS                       R12 R12 K31 ["Creator"]
+      163 LOADK                            R15 K29 ["AssetProperty"]
+      164 GETUPVAL                         R16 9
+      165 GETTABLEKS                       R16 R16 K31 ["Creator"]
+      167 NAMECALL                         R13 R1 K30 ["getText"]
+      169 CALL                             R13 3 1
+      170 MOVE                             R14 R10
+      171 CALL                             R11 3 0
+      172 MOVE                             R11 R9
+      173 GETUPVAL                         R12 9
+      174 GETTABLEKS                       R12 R12 K7 ["AssetId"]
+      176 LOADK                            R15 K29 ["AssetProperty"]
+      177 GETUPVAL                         R16 9
+      178 GETTABLEKS                       R16 R16 K7 ["AssetId"]
+      180 NAMECALL                         R13 R1 K30 ["getText"]
+      182 CALL                             R13 3 1
+      183 GETTABLEKS                       R15 R3 K7 ["AssetId"]
+      185 FASTCALL1                        TOSTRING R15 ; [+2]
+      186 GETIMPORT                        R14 K36 [tostring]
+      188 CALL                             R14 1 1
+      189 CALL                             R11 3 0
+      190 MOVE                             R11 R9
+      191 GETUPVAL                         R12 9
+      192 GETTABLEKS                       R12 R12 K37 ["Created"]
+      194 LOADK                            R15 K29 ["AssetProperty"]
+      195 GETUPVAL                         R16 9
+      196 GETTABLEKS                       R16 R16 K37 ["Created"]
+      198 NAMECALL                         R13 R1 K30 ["getText"]
+      200 CALL                             R13 3 1
+      201 GETUPVAL                         R14 11
+      202 GETUPVAL                         R15 4
+      203 GETTABLEKS                       R15 R15 K38 ["toDateTime"]
+      205 GETTABLEKS                       R16 R3 K37 ["Created"]
+      207 CALL                             R15 1 -1
+      208 CALL                             R14 -1 -1
+      209 CALL                             R11 -1 0
+      210 MOVE                             R11 R9
+      211 GETUPVAL                         R12 9
+      212 GETTABLEKS                       R12 R12 K39 ["Modified"]
+      214 LOADK                            R15 K29 ["AssetProperty"]
+      215 GETUPVAL                         R16 9
+      216 GETTABLEKS                       R16 R16 K39 ["Modified"]
+      218 NAMECALL                         R13 R1 K30 ["getText"]
+      220 CALL                             R13 3 1
+      221 GETUPVAL                         R14 11
+      222 GETUPVAL                         R15 4
+      223 GETTABLEKS                       R15 R15 K38 ["toDateTime"]
+      225 GETTABLEKS                       R16 R3 K39 ["Modified"]
+      227 CALL                             R15 1 -1
+      228 CALL                             R14 -1 -1
+      229 CALL                             R11 -1 0
+      230 MOVE                             R11 R9
+      231 GETUPVAL                         R12 9
+      232 GETTABLEKS                       R12 R12 K40 ["Source"]
+      234 LOADK                            R15 K29 ["AssetProperty"]
+      235 GETUPVAL                         R16 9
+      236 GETTABLEKS                       R16 R16 K40 ["Source"]
+      238 NAMECALL                         R13 R1 K30 ["getText"]
+      240 CALL                             R13 3 1
+      241 LOADK                            R16 K41 ["AssetSource"]
+      242 GETTABLEKS                       R17 R3 K40 ["Source"]
+      244 NAMECALL                         R14 R1 K30 ["getText"]
+      246 CALL                             R14 3 -1
+      247 CALL                             R11 -1 0
+      248 JUMPIFNOT                        R4 ; [+5]
+      249 GETUPVAL                         R11 12
+      250 MOVE                             R12 R9
+      251 MOVE                             R13 R4
+      252 MOVE                             R14 R1
+      253 CALL                             R11 3 0
+      254 GETUPVAL                         R11 13
+      255 GETTABLEKS                       R11 R11 K42 ["new"]
+      257 CALL                             R11 0 1
+      258 DUPTABLE                         R12 K44 [{"Details"}]
+      259 GETUPVAL                         R13 2
+      260 GETTABLEKS                       R13 R13 K6 ["createElement"]
+      262 GETUPVAL                         R14 4
+      263 GETTABLEKS                       R14 R14 K45 ["Section"]
+      265 DUPTABLE                         R15 K49 [{["LayoutOrder"], ["Title"], ["TestId"] = "details-drawer-details"}]
+      266 NAMECALL                         R16 R11 K50 ["getNextOrder"]
+      268 CALL                             R16 1 1
+      269 SETTABLEKS                       R16 R15 K1 ["LayoutOrder"]
+      271 LOADK                            R18 K29 ["AssetProperty"]
+      272 LOADK                            R19 K43 ["Details"]
+      273 NAMECALL                         R16 R1 K30 ["getText"]
+      275 CALL                             R16 3 1
+      276 SETTABLEKS                       R16 R15 K46 ["Title"]
+      278 MOVE                             R16 R8
+      279 CALL                             R13 3 1
+      280 SETTABLEKS                       R13 R12 K43 ["Details"]
+      282 GETTABLEKS                       R13 R0 K51 ["ShowAccessPolicy"]
+      284 JUMPIFNOT                        R13 ; [+32]
+      285 GETUPVAL                         R13 2
+      286 GETTABLEKS                       R13 R13 K6 ["createElement"]
+      288 GETUPVAL                         R14 4
+      289 GETTABLEKS                       R14 R14 K45 ["Section"]
+      291 DUPTABLE                         R15 K53 [{["LayoutOrder"], ["Title"], ["TestId"] = "details-drawer-access-policy"}]
+      292 NAMECALL                         R16 R11 K50 ["getNextOrder"]
+      294 CALL                             R16 1 1
+      295 SETTABLEKS                       R16 R15 K1 ["LayoutOrder"]
+      297 LOADK                            R18 K54 ["AssetPermission"]
+      298 LOADK                            R19 K55 ["AccessPolicy"]
+      299 NAMECALL                         R16 R1 K30 ["getText"]
+      301 CALL                             R16 3 1
+      302 SETTABLEKS                       R16 R15 K46 ["Title"]
+      304 GETUPVAL                         R16 14
+      305 MOVE                             R17 R10
+      306 GETTABLEKS                       R18 R0 K56 ["Sharing"]
+      308 GETTABLEKS                       R19 R0 K57 ["IsLoadingSharing"]
+      310 GETTABLEKS                       R20 R0 K58 ["OnManageSharing"]
+      312 MOVE                             R21 R1
+      313 CALL                             R16 5 1
+      314 CALL                             R13 3 1
+      315 SETTABLEKS                       R13 R12 K55 ["AccessPolicy"]
+      317 MOVE                             R13 R4
+      318 JUMPIFNOT                        R13 ; [+2]
+      319 GETTABLEKS                       R13 R4 K59 ["Description"]
+      321 JUMPIFNOT                        R13 ; [+35]
+      322 GETUPVAL                         R14 2
+      323 GETTABLEKS                       R14 R14 K6 ["createElement"]
+      325 GETUPVAL                         R15 4
+      326 GETTABLEKS                       R15 R15 K45 ["Section"]
+      328 DUPTABLE                         R16 K61 [{["LayoutOrder"], ["Title"], ["TestId"] = "details-drawer-description"}]
+      329 NAMECALL                         R17 R11 K50 ["getNextOrder"]
+      331 CALL                             R17 1 1
+      332 SETTABLEKS                       R17 R16 K1 ["LayoutOrder"]
+      334 LOADK                            R19 K29 ["AssetProperty"]
+      335 LOADK                            R20 K59 ["Description"]
+      336 NAMECALL                         R17 R1 K30 ["getText"]
+      338 CALL                             R17 3 1
+      339 SETTABLEKS                       R17 R16 K46 ["Title"]
+      341 DUPTABLE                         R17 K63 [{"Text"}]
+      342 GETUPVAL                         R18 2
+      343 GETTABLEKS                       R18 R18 K6 ["createElement"]
+      345 GETUPVAL                         R19 15
+      346 GETTABLEKS                       R19 R19 K62 ["Text"]
+      348 DUPTABLE                         R20 K66 [{["Text"], ["tag"] = "size-full-0 auto-y padding-y-xsmall padding-left-xxlarge padding-right-medium text-body-small text-wrap text-align-x-left content-default"}]
+      349 SETTABLEKS                       R13 R20 K62 ["Text"]
+      351 CALL                             R18 2 1
+      352 SETTABLEKS                       R18 R17 K62 ["Text"]
+      354 CALL                             R14 3 1
+      355 SETTABLEKS                       R14 R12 K59 ["Description"]
+      357 GETUPVAL                         R14 2
+      358 GETTABLEKS                       R14 R14 K6 ["createElement"]
+      360 GETUPVAL                         R15 4
+      361 GETTABLEKS                       R15 R15 K20 ["DrawerBody"]
+      363 DUPTABLE                         R16 K24 [{"LayoutOrder", "Thumbnail", "MediaPreview", "AssetHeader"}]
+      364 SETTABLEKS                       R2 R16 K1 ["LayoutOrder"]
+      366 SETTABLEKS                       R5 R16 K21 ["Thumbnail"]
+      368 SETTABLEKS                       R6 R16 K22 ["MediaPreview"]
+      370 SETTABLEKS                       R7 R16 K23 ["AssetHeader"]
+      372 MOVE                             R17 R12
+      373 CALL                             R14 3 -1
+      374 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -498,21 +536,22 @@ MAIN:
       165 CAPTURE                          VAL R17
       166 CAPTURE                          VAL R1
       167 CAPTURE                          VAL R7
-      168 DUPCLOSURE                       R22 K42 [PROTO_3]
-      169 CAPTURE                          VAL R5
-      170 CAPTURE                          VAL R9
-      171 CAPTURE                          VAL R1
-      172 CAPTURE                          VAL R19
-      173 CAPTURE                          VAL R14
-      174 CAPTURE                          VAL R6
-      175 CAPTURE                          VAL R11
-      176 CAPTURE                          VAL R13
-      177 CAPTURE                          VAL R12
-      178 CAPTURE                          VAL R16
-      179 CAPTURE                          VAL R7
-      180 CAPTURE                          VAL R10
-      181 CAPTURE                          VAL R20
-      182 CAPTURE                          VAL R15
-      183 CAPTURE                          VAL R21
-      184 CAPTURE                          VAL R2
-      185 RETURN                           R22 1
+      168 CAPTURE                          VAL R2
+      169 DUPCLOSURE                       R22 K42 [PROTO_3]
+      170 CAPTURE                          VAL R5
+      171 CAPTURE                          VAL R9
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          VAL R19
+      174 CAPTURE                          VAL R14
+      175 CAPTURE                          VAL R6
+      176 CAPTURE                          VAL R11
+      177 CAPTURE                          VAL R13
+      178 CAPTURE                          VAL R12
+      179 CAPTURE                          VAL R16
+      180 CAPTURE                          VAL R7
+      181 CAPTURE                          VAL R10
+      182 CAPTURE                          VAL R20
+      183 CAPTURE                          VAL R15
+      184 CAPTURE                          VAL R21
+      185 CAPTURE                          VAL R2
+      186 RETURN                           R22 1

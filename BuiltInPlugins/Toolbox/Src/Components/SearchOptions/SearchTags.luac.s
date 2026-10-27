@@ -216,9 +216,9 @@ PROTO_4:
        47 LOADB                            R10 0 +1
        48 LOADB                            R10 1
        49 JUMPIFNOT                        R10 ; [+2]
-       50 LOADK                            R11 K17 [0.666666666666667]
+       50 LOADK                            R11 K17 [0.6666666666666666]
        51 JUMP                             ; [+1]
-       52 LOADK                            R11 K18 [0.333333333333333]
+       52 LOADK                            R11 K18 [0.3333333333333333]
        53 GETUPVAL                         R12 3
        54 GETTABLEKS                       R12 R12 K19 ["createElement"]
        56 LOADK                            R13 K20 ["Frame"]

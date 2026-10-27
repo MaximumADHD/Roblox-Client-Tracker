@@ -430,74 +430,72 @@ PROTO_9:
       428 SETTABLEKS                       R23 R22 K82 ["Selector"]
       430 CALL                             R19 3 1
       431 SETTABLEKS                       R19 R18 K48 ["HitAndTouchTitleFrame"]
-      433 MOVE                             R19 R13
-      434 JUMPIFNOT                        R19 ; [+87]
-      435 MOVE                             R19 R14
-      436 JUMPIFNOT                        R19 ; [+85]
-      437 GETUPVAL                         R19 10
-      438 GETUPVAL                         R20 17
-      439 NEWTABLE                         R21 4 0
-      441 GETUPVAL                         R22 3
-      442 GETTABLEKS                       R22 R22 K119 ["Tag"]
-      444 LOADK                            R23 K120 ["X-ColumnS X-Left"]
-      445 SETTABLE                         R23 R21 R22
-      446 GETIMPORT                        R22 K122 [UDim2.fromScale]
-      448 LOADN                            R23 1
-      449 LOADN                            R24 0
-      450 CALL                             R22 2 1
-      451 SETTABLEKS                       R22 R21 K123 ["Size"]
-      453 GETIMPORT                        R22 K81 [Enum.AutomaticSize.Y]
-      455 SETTABLEKS                       R22 R21 K79 ["AutomaticSize"]
-      457 MOVE                             R22 R3
-      458 CALL                             R22 0 1
-      459 SETTABLEKS                       R22 R21 K84 ["LayoutOrder"]
-      461 DUPTABLE                         R22 K125 [{"Checkbox", "Description"}]
-      462 GETUPVAL                         R23 10
-      463 GETUPVAL                         R24 18
-      464 NEWTABLE                         R25 8 0
-      466 GETUPVAL                         R26 3
-      467 GETTABLEKS                       R26 R26 K119 ["Tag"]
-      469 LOADK                            R27 K126 ["X-Fit X-Left X-Middle X-RowS IconOnly Compact AvatarSettings-DeathCollisionCheckbox"]
-      470 SETTABLE                         R27 R25 R26
-      471 LOADN                            R26 1
-      472 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
-      474 GETTABLEKS                       R26 R14 K31 ["value"]
-      476 SETTABLEKS                       R26 R25 K127 ["Checked"]
-      478 LOADK                            R28 K17 ["MovementSettings"]
-      479 LOADK                            R29 K128 ["CollisionSectionBodyPartsCollidableOnDeath"]
-      480 NAMECALL                         R26 R1 K19 ["getText"]
-      482 CALL                             R26 3 1
-      483 SETTABLEKS                       R26 R25 K97 ["Text"]
-      485 NEWCLOSURE                       R26 P4
-      486 CAPTURE                          VAL R14
-      487 SETTABLEKS                       R26 R25 K90 ["OnClick"]
-      489 CALL                             R23 2 1
-      490 SETTABLEKS                       R23 R22 K124 ["Checkbox"]
-      492 GETUPVAL                         R23 10
-      493 LOADK                            R24 K129 ["TextLabel"]
-      494 NEWTABLE                         R25 4 0
-      496 GETUPVAL                         R26 3
-      497 GETTABLEKS                       R26 R26 K119 ["Tag"]
-      499 LOADK                            R27 K130 ["Component-TextLabel AvatarSettings-DeathCollisionDescription"]
-      500 SETTABLE                         R27 R25 R26
-      501 LOADN                            R26 2
-      502 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
-      504 GETIMPORT                        R26 K122 [UDim2.fromScale]
-      506 LOADN                            R27 1
-      507 LOADN                            R28 0
-      508 CALL                             R26 2 1
-      509 SETTABLEKS                       R26 R25 K123 ["Size"]
-      511 LOADK                            R28 K17 ["MovementSettings"]
-      512 LOADK                            R29 K131 ["CollisionSectionDeathCollisionDescription"]
-      513 NAMECALL                         R26 R1 K19 ["getText"]
-      515 CALL                             R26 3 1
-      516 SETTABLEKS                       R26 R25 K97 ["Text"]
-      518 CALL                             R23 2 1
-      519 SETTABLEKS                       R23 R22 K98 ["Description"]
-      521 CALL                             R19 3 1
-      522 SETTABLEKS                       R19 R18 K49 ["BodyPartsCollidableOnDeath"]
-      524 CALL                             R15 3 -1
-      525 RETURN                           R15 -1
+      433 MOVE                             R19 R14
+      434 JUMPIFNOT                        R19 ; [+85]
+      435 GETUPVAL                         R19 10
+      436 GETUPVAL                         R20 17
+      437 NEWTABLE                         R21 4 0
+      439 GETUPVAL                         R22 3
+      440 GETTABLEKS                       R22 R22 K119 ["Tag"]
+      442 LOADK                            R23 K120 ["X-ColumnS X-Left"]
+      443 SETTABLE                         R23 R21 R22
+      444 GETIMPORT                        R22 K122 [UDim2.fromScale]
+      446 LOADN                            R23 1
+      447 LOADN                            R24 0
+      448 CALL                             R22 2 1
+      449 SETTABLEKS                       R22 R21 K123 ["Size"]
+      451 GETIMPORT                        R22 K81 [Enum.AutomaticSize.Y]
+      453 SETTABLEKS                       R22 R21 K79 ["AutomaticSize"]
+      455 MOVE                             R22 R3
+      456 CALL                             R22 0 1
+      457 SETTABLEKS                       R22 R21 K84 ["LayoutOrder"]
+      459 DUPTABLE                         R22 K125 [{"Checkbox", "Description"}]
+      460 GETUPVAL                         R23 10
+      461 GETUPVAL                         R24 18
+      462 NEWTABLE                         R25 8 0
+      464 GETUPVAL                         R26 3
+      465 GETTABLEKS                       R26 R26 K119 ["Tag"]
+      467 LOADK                            R27 K126 ["X-Fit X-Left X-Middle X-RowS IconOnly Compact AvatarSettings-DeathCollisionCheckbox"]
+      468 SETTABLE                         R27 R25 R26
+      469 LOADN                            R26 1
+      470 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
+      472 GETTABLEKS                       R26 R14 K31 ["value"]
+      474 SETTABLEKS                       R26 R25 K127 ["Checked"]
+      476 LOADK                            R28 K17 ["MovementSettings"]
+      477 LOADK                            R29 K128 ["CollisionSectionBodyPartsCollidableOnDeath"]
+      478 NAMECALL                         R26 R1 K19 ["getText"]
+      480 CALL                             R26 3 1
+      481 SETTABLEKS                       R26 R25 K97 ["Text"]
+      483 NEWCLOSURE                       R26 P4
+      484 CAPTURE                          VAL R14
+      485 SETTABLEKS                       R26 R25 K90 ["OnClick"]
+      487 CALL                             R23 2 1
+      488 SETTABLEKS                       R23 R22 K124 ["Checkbox"]
+      490 GETUPVAL                         R23 10
+      491 LOADK                            R24 K129 ["TextLabel"]
+      492 NEWTABLE                         R25 4 0
+      494 GETUPVAL                         R26 3
+      495 GETTABLEKS                       R26 R26 K119 ["Tag"]
+      497 LOADK                            R27 K130 ["Component-TextLabel AvatarSettings-DeathCollisionDescription"]
+      498 SETTABLE                         R27 R25 R26
+      499 LOADN                            R26 2
+      500 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
+      502 GETIMPORT                        R26 K122 [UDim2.fromScale]
+      504 LOADN                            R27 1
+      505 LOADN                            R28 0
+      506 CALL                             R26 2 1
+      507 SETTABLEKS                       R26 R25 K123 ["Size"]
+      509 LOADK                            R28 K17 ["MovementSettings"]
+      510 LOADK                            R29 K131 ["CollisionSectionDeathCollisionDescription"]
+      511 NAMECALL                         R26 R1 K19 ["getText"]
+      513 CALL                             R26 3 1
+      514 SETTABLEKS                       R26 R25 K97 ["Text"]
+      516 CALL                             R23 2 1
+      517 SETTABLEKS                       R23 R22 K98 ["Description"]
+      519 CALL                             R19 3 1
+      520 SETTABLEKS                       R19 R18 K49 ["BodyPartsCollidableOnDeath"]
+      522 CALL                             R15 3 -1
+      523 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

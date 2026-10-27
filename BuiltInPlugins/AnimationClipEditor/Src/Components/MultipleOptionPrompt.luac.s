@@ -1508,11 +1508,11 @@ MAIN:
        71 CALL                             R8 2 1
        72 NEWTABLE                         R9 0 6
        74 DUPTABLE                         R10 K18 [{["Text"] = "Stud", ["Factor"] = 1}]
-       75 DUPTABLE                         R11 K21 [{["Text"] = "Meter", ["Factor"] = 3.57142857142857}]
-       76 DUPTABLE                         R12 K24 [{["Text"] = "Centimeter", ["Factor"] = 0.0357142857142857}]
-       77 DUPTABLE                         R13 K27 [{["Text"] = "Millimeter", ["Factor"] = 0.00357142857142857}]
-       78 DUPTABLE                         R14 K30 [{["Text"] = "Foot", ["Factor"] = 1.08857142857143}]
-       79 DUPTABLE                         R15 K33 [{["Text"] = "Inch", ["Factor"] = 0.0907142857142857}]
+       75 DUPTABLE                         R11 K21 [{["Text"] = "Meter", ["Factor"] = 3.5714285714285716}]
+       76 DUPTABLE                         R12 K24 [{["Text"] = "Centimeter", ["Factor"] = 0.03571428571428571}]
+       77 DUPTABLE                         R13 K27 [{["Text"] = "Millimeter", ["Factor"] = 0.0035714285714285713}]
+       78 DUPTABLE                         R14 K30 [{["Text"] = "Foot", ["Factor"] = 1.0885714285714285}]
+       79 DUPTABLE                         R15 K33 [{["Text"] = "Inch", ["Factor"] = 0.09071428571428572}]
        80 SETLIST                          R9 R10 6 [1]
        82 MOVE                             R11 R1
        83 CALL                             R11 0 1

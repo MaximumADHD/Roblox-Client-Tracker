@@ -53,7 +53,7 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K9 [{[1] = ∞, ["max"] = -∞, ["size"] = , ["frameBufferSize"] = 0, ["timespan"] = 0}]
+        0 DUPTABLE                         R1 K9 [{[1] = Infinity, ["max"] = -Infinity, ["size"] = , ["frameBufferSize"] = 0, ["timespan"] = 0}]
         1 SETTABLEKS                       R1 R0 K10 ["state"]
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          VAL R0
@@ -158,8 +158,8 @@ PROTO_5:
         2 LOADNIL                          R3
         3 LOADNIL                          R4
         4 JUMPIFNOT                        R1 ; [+3]
-        5 LOADK                            R3 K1 [∞]
-        6 LOADK                            R4 K2 [-∞]
+        5 LOADK                            R3 K1 [Infinity]
+        6 LOADK                            R4 K2 [-Infinity]
         7 JUMP                             ; [+4]
         8 GETTABLEKS                       R3 R2 K3 ["min"]
        10 GETTABLEKS                       R4 R2 K4 ["max"]
@@ -328,7 +328,7 @@ PROTO_11:
        58 SETTABLE                         R10 R3 R9
        59 FORNLOOP                         R5
        60 GETTABLEKS                       R5 R1 K21 ["min"]
-       62 JUMPIFEQKN                       R5 K22 [∞] ; [+184]
+       62 JUMPIFEQKN                       R5 K22 [Infinity] ; [+184]
        64 GETTABLEKS                       R6 R1 K23 ["max"]
        66 GETTABLEKS                       R7 R1 K21 ["min"]
        68 SUB                              R5 R6 R7
@@ -528,7 +528,7 @@ PROTO_14:
         6 GETTABLEKS                       R4 R1 K2 ["max"]
         8 GETTABLEKS                       R5 R1 K3 ["size"]
        10 JUMPIFNOT                        R5 ; [+132]
-       11 JUMPIFEQKN                       R3 K4 [∞] ; [+131]
+       11 JUMPIFEQKN                       R3 K4 [Infinity] ; [+131]
        13 GETTABLEKS                       R6 R1 K5 ["timespan"]
        15 NAMECALL                         R7 R0 K6 ["getLastTimestamp"]
        17 CALL                             R7 1 1

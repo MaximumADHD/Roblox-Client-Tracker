@@ -71,53 +71,50 @@ PROTO_0:
        89 RETURN                           R4 1
 
 PROTO_1:
-        0 FASTCALL1                        TYPE R0 ; [+3]
-        1 MOVE                             R5 R0
-        2 GETIMPORT                        R4 K1 [type]
-        4 CALL                             R4 1 1
-        5 JUMPIFEQKS                       R4 K2 ["function"] ; [+2]
-        7 LOADB                            R3 0 +1
-        8 LOADB                            R3 1
-        9 FASTCALL2K                       ASSERT R3 K3 ; [+4]
-       11 LOADK                            R4 K3 ["Expected a reducer to test"]
-       12 GETIMPORT                        R2 K5 [assert]
-       14 CALL                             R2 2 0
-       15 FASTCALL1                        TYPE R1 ; [+3]
-       16 MOVE                             R5 R1
-       17 GETIMPORT                        R4 K1 [type]
-       19 CALL                             R4 1 1
-       20 JUMPIFEQKS                       R4 K6 ["table"] ; [+2]
-       22 LOADB                            R3 0 +1
-       23 LOADB                            R3 1
-       24 FASTCALL2K                       ASSERT R3 K7 ; [+4]
-       26 LOADK                            R4 K7 ["Expected an action to test"]
-       27 GETIMPORT                        R2 K5 [assert]
-       29 CALL                             R2 2 0
-       30 MOVE                             R2 R0
-       31 LOADNIL                          R3
-       32 DUPTABLE                         R4 K9 [{[1] = "__nil__"}]
-       33 CALL                             R2 2 1
-       34 GETUPVAL                         R3 0
-       35 MOVE                             R4 R2
-       36 NEWTABLE                         R5 0 0
-       38 CALL                             R3 2 1
-       39 GETUPVAL                         R5 1
-       40 MOVE                             R6 R2
-       41 MOVE                             R7 R3
-       42 CALL                             R5 2 1
-       43 FASTCALL2K                       ASSERT R5 K10 ; [+4]
-       45 LOADK                            R6 K10 ["deepJoin mutates fields"]
-       46 GETIMPORT                        R4 K5 [assert]
-       48 CALL                             R4 2 0
-       49 MOVE                             R4 R0
-       50 MOVE                             R5 R2
-       51 MOVE                             R6 R1
-       52 CALL                             R4 2 0
-       53 GETUPVAL                         R4 1
-       54 MOVE                             R5 R2
-       55 MOVE                             R6 R3
-       56 CALL                             R4 2 -1
-       57 RETURN                           R4 -1
+        0 GETUPVAL                         R2 0
+        1 FASTCALL1                        TYPE R0 ; [+3]
+        2 MOVE                             R4 R0
+        3 GETIMPORT                        R3 K1 [type]
+        5 CALL                             R3 1 1
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R2 R2 K2 ["toBe"]
+        9 LOADK                            R3 K3 ["function"]
+       10 CALL                             R2 1 0
+       11 GETUPVAL                         R2 0
+       12 FASTCALL1                        TYPE R1 ; [+3]
+       13 MOVE                             R4 R1
+       14 GETIMPORT                        R3 K1 [type]
+       16 CALL                             R3 1 1
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R2 R2 K2 ["toBe"]
+       20 LOADK                            R3 K4 ["table"]
+       21 CALL                             R2 1 0
+       22 MOVE                             R2 R0
+       23 LOADNIL                          R3
+       24 DUPTABLE                         R4 K6 [{[1] = "__nil__"}]
+       25 CALL                             R2 2 1
+       26 GETUPVAL                         R3 1
+       27 MOVE                             R4 R2
+       28 NEWTABLE                         R5 0 0
+       30 CALL                             R3 2 1
+       31 GETUPVAL                         R4 0
+       32 GETUPVAL                         R5 2
+       33 MOVE                             R6 R2
+       34 MOVE                             R7 R3
+       35 CALL                             R5 2 -1
+       36 CALL                             R4 -1 1
+       37 GETTABLEKS                       R4 R4 K2 ["toBe"]
+       39 LOADB                            R5 1
+       40 CALL                             R4 1 0
+       41 MOVE                             R4 R0
+       42 MOVE                             R5 R2
+       43 MOVE                             R6 R1
+       44 CALL                             R4 2 0
+       45 GETUPVAL                         R4 2
+       46 MOVE                             R5 R2
+       47 MOVE                             R6 R3
+       48 CALL                             R4 2 -1
+       49 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -127,13 +124,20 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
        11 GETTABLEKS                       R2 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R2 K6 ["Framework"]
-       15 CALL                             R1 1 1
-       16 GETTABLEKS                       R1 R1 K7 ["Util"]
-       18 GETTABLEKS                       R1 R1 K8 ["deepJoin"]
-       20 DUPCLOSURE                       R2 K9 [PROTO_0]
-       21 CAPTURE                          VAL R2
-       22 DUPCLOSURE                       R3 K10 [PROTO_1]
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          VAL R2
-       25 RETURN                           R3 1
+       13 GETTABLEKS                       R2 R2 K6 ["Dev"]
+       15 GETTABLEKS                       R2 R2 K7 ["JestGlobals"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R2 R1 K8 ["expect"]
+       20 GETIMPORT                        R3 K4 [require]
+       22 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K9 ["Framework"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R3 R3 K10 ["Util"]
+       29 GETTABLEKS                       R3 R3 K11 ["deepJoin"]
+       31 DUPCLOSURE                       R4 K12 [PROTO_0]
+       32 CAPTURE                          VAL R4
+       33 DUPCLOSURE                       R5 K13 [PROTO_1]
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R3
+       36 CAPTURE                          VAL R4
+       37 RETURN                           R5 1

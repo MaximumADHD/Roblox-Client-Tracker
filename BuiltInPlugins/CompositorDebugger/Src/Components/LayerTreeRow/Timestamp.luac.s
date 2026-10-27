@@ -1,8 +1,8 @@
 PROTO_0:
-        0 JUMPIFNOTEQKN                    R0 K0 [-∞] ; [+3]
+        0 JUMPIFNOTEQKN                    R0 K0 [-Infinity] ; [+3]
         2 LOADK                            R1 K1 ["-inf"]
         3 RETURN                           R1 1
-        4 JUMPIFNOTEQKN                    R0 K2 [∞] ; [+3]
+        4 JUMPIFNOTEQKN                    R0 K2 [Infinity] ; [+3]
         6 LOADK                            R1 K3 ["inf"]
         7 RETURN                           R1 1
         8 GETIMPORT                        R1 K6 [string.format]

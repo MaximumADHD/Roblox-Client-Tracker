@@ -79,7 +79,7 @@ PROTO_2:
        33 GETTABLEKS                       R20 R10 K12 ["font"]
        35 GETIMPORT                        R21 K15 [Vector2.new]
        37 MOVE                             R22 R5
-       38 LOADK                            R23 K16 [∞]
+       38 LOADK                            R23 K16 [Infinity]
        39 CALL                             R21 2 -1
        40 NAMECALL                         R16 R16 K17 ["GetTextSize"]
        42 CALL                             R16 -1 1
@@ -273,7 +273,7 @@ MAIN:
        68 LOADK                            R15 K28 ["SearchList"]
        69 NAMECALL                         R13 R13 K29 ["extend"]
        71 CALL                             R13 2 1
-       72 DUPTABLE                         R14 K35 [{["ItemMinWidth"] = 0, ["MaxRowCount"] = ∞, ["Size"]}]
+       72 DUPTABLE                         R14 K35 [{["ItemMinWidth"] = 0, ["MaxRowCount"] = Infinity, ["Size"]}]
        73 GETIMPORT                        R15 K38 [UDim2.new]
        75 LOADN                            R16 1
        76 LOADN                            R17 0

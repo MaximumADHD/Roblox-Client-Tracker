@@ -146,7 +146,7 @@ PROTO_8:
 
 PROTO_9:
         0 LOADNIL                          R1
-        1 LOADK                            R2 K0 [∞]
+        1 LOADK                            R2 K0 [Infinity]
         2 MOVE                             R3 R0
         3 LOADNIL                          R4
         4 LOADNIL                          R5
@@ -288,7 +288,7 @@ PROTO_15:
         4 GETUPVAL                         R1 1
         5 GETTABLEKS                       R1 R1 K0 ["current"]
         7 LOADNIL                          R2
-        8 LOADK                            R3 K1 [∞]
+        8 LOADK                            R3 K1 [Infinity]
         9 MOVE                             R4 R1
        10 LOADNIL                          R5
        11 LOADNIL                          R6
@@ -311,7 +311,7 @@ PROTO_16:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 LOADNIL                          R2
-        4 LOADK                            R3 K1 [∞]
+        4 LOADK                            R3 K1 [Infinity]
         5 MOVE                             R4 R1
         6 LOADNIL                          R5
         7 LOADNIL                          R6

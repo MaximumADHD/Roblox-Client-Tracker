@@ -209,20 +209,6 @@ PROTO_13:
        10 RETURN                           R0 0
 
 PROTO_14:
-        0 GETTABLEKS                       R3 R0 K0 ["_impl"]
-        2 GETTABLEKS                       R3 R3 K1 ["grantUniverseUseAssetsPermissions"]
-        4 MOVE                             R4 R1
-        5 MOVE                             R5 R2
-        6 CALL                             R3 2 2
-        7 GETUPVAL                         R5 0
-        8 CALL                             R5 0 1
-        9 JUMPIFNOT                        R5 ; [+5]
-       10 GETTABLEKS                       R5 R0 K2 ["OnAssetPermissionsChanged"]
-       12 NAMECALL                         R5 R5 K3 ["Fire"]
-       14 CALL                             R5 1 0
-       15 RETURN                           R3 2
-
-PROTO_15:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+6]
@@ -236,7 +222,7 @@ PROTO_15:
        12 CALL                             R2 2 0
        13 RETURN                           R0 0
 
-PROTO_16:
+PROTO_15:
         0 GETTABLEKS                       R7 R0 K0 ["_impl"]
         2 GETTABLEKS                       R7 R7 K1 ["grantAssetsPermissionsAsync"]
         4 MOVE                             R8 R1
@@ -251,7 +237,7 @@ PROTO_16:
        13 CALL                             R7 6 0
        14 RETURN                           R0 0
 
-PROTO_17:
+PROTO_16:
         0 GETTABLEKS                       R6 R0 K0 ["_impl"]
         2 GETTABLEKS                       R6 R6 K1 ["checkAssetsPermissionsAsync"]
         4 MOVE                             R7 R1
@@ -262,14 +248,14 @@ PROTO_17:
         9 CALL                             R6 5 0
        10 RETURN                           R0 0
 
-PROTO_18:
+PROTO_17:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["getThumbnailUriForScope"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_19:
+PROTO_18:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["getThumbnailForScopeAsync"]
         4 MOVE                             R4 R1
@@ -277,7 +263,7 @@ PROTO_19:
         6 CALL                             R3 2 0
         7 RETURN                           R0 0
 
-PROTO_20:
+PROTO_19:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["getThumbnailForItem"]
         4 MOVE                             R4 R1
@@ -285,7 +271,7 @@ PROTO_20:
         6 CALL                             R3 2 -1
         7 RETURN                           R3 -1
 
-PROTO_21:
+PROTO_20:
         0 GETTABLEKS                       R4 R0 K0 ["_impl"]
         2 GETTABLEKS                       R4 R4 K1 ["getThumbnailForItemAsync"]
         4 MOVE                             R5 R1
@@ -294,14 +280,14 @@ PROTO_21:
         7 CALL                             R4 3 -1
         8 RETURN                           R4 -1
 
-PROTO_22:
+PROTO_21:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["getFontFamilyThumbnail"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_23:
+PROTO_22:
         0 GETTABLEKS                       R4 R0 K0 ["_impl"]
         2 GETTABLEKS                       R4 R4 K1 ["fetchPluginInfoAsync"]
         4 MOVE                             R5 R1
@@ -310,7 +296,7 @@ PROTO_23:
         7 CALL                             R4 3 0
         8 RETURN                           R0 0
 
-PROTO_24:
+PROTO_23:
         0 GETTABLEKS                       R2 R0 K0 ["_scopesOngoingFetches"]
         2 GETTABLEKS                       R3 R1 K1 ["Uid"]
         4 LOADB                            R4 1
@@ -323,7 +309,7 @@ PROTO_24:
        15 CALL                             R2 -1 0
        16 RETURN                           R0 0
 
-PROTO_25:
+PROTO_24:
         0 GETTABLEKS                       R2 R0 K0 ["_scopesOngoingFetches"]
         2 GETTABLEKS                       R3 R1 K1 ["Uid"]
         4 LOADNIL                          R4
@@ -336,11 +322,11 @@ PROTO_25:
        15 CALL                             R2 -1 0
        16 RETURN                           R0 0
 
-PROTO_26:
+PROTO_25:
         0 GETTABLEKS                       R1 R0 K0 ["_scopesOngoingFetches"]
         2 RETURN                           R1 1
 
-PROTO_27:
+PROTO_26:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["_impl"]
         3 GETTABLEKS                       R2 R2 K1 ["fetchFoldersAsync"]
@@ -350,7 +336,7 @@ PROTO_27:
         8 CALL                             R2 3 0
         9 RETURN                           R0 0
 
-PROTO_28:
+PROTO_27:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
         2 NAMECALL                         R1 R1 K0 ["_removeOngoingScopeFetch"]
@@ -360,7 +346,7 @@ PROTO_28:
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
 
-PROTO_29:
+PROTO_28:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
         2 NAMECALL                         R1 R1 K0 ["_removeOngoingScopeFetch"]
@@ -371,7 +357,7 @@ PROTO_29:
         8 CALL                             R1 2 0
         9 RETURN                           R0 0
 
-PROTO_30:
+PROTO_29:
         0 GETTABLEKS                       R4 R1 K0 ["Scopes"]
         2 GETTABLEKS                       R5 R1 K1 ["Roots"]
         4 MOVE                             R6 R4
@@ -409,14 +395,14 @@ PROTO_30:
        44 FORGLOOP                         R6 2 ; [-37]
        46 RETURN                           R0 0
 
-PROTO_31:
+PROTO_30:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["createFolderAsync"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_32:
+PROTO_31:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["deleteFolderAsync"]
         4 MOVE                             R4 R1
@@ -424,7 +410,7 @@ PROTO_32:
         6 CALL                             R3 2 -1
         7 RETURN                           R3 -1
 
-PROTO_33:
+PROTO_32:
         0 GETTABLEKS                       R4 R0 K0 ["_impl"]
         2 GETTABLEKS                       R4 R4 K1 ["updateFolderMetadataAsync"]
         4 MOVE                             R5 R1
@@ -433,7 +419,7 @@ PROTO_33:
         7 CALL                             R4 3 -1
         8 RETURN                           R4 -1
 
-PROTO_34:
+PROTO_33:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["getItemParentsAsync"]
         4 MOVE                             R4 R1
@@ -441,21 +427,21 @@ PROTO_34:
         6 CALL                             R3 2 -1
         7 RETURN                           R3 -1
 
-PROTO_35:
+PROTO_34:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["getFolderMetadataAsync"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_36:
+PROTO_35:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["createPlaceAsync"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_37:
+PROTO_36:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["removePlaceAsync"]
         4 MOVE                             R4 R1
@@ -463,7 +449,7 @@ PROTO_37:
         6 CALL                             R3 2 -1
         7 RETURN                           R3 -1
 
-PROTO_38:
+PROTO_37:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["renamePlaceAsync"]
         4 MOVE                             R4 R1
@@ -471,21 +457,21 @@ PROTO_38:
         6 CALL                             R3 2 -1
         7 RETURN                           R3 -1
 
-PROTO_39:
+PROTO_38:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["moveItemsAsync"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_40:
+PROTO_39:
         0 GETTABLEKS                       R2 R0 K0 ["_impl"]
         2 GETTABLEKS                       R2 R2 K1 ["fetchToolboxTechnicalDetailsAsync"]
         4 MOVE                             R3 R1
         5 CALL                             R2 1 -1
         6 RETURN                           R2 -1
 
-PROTO_41:
+PROTO_40:
         0 GETTABLEKS                       R3 R0 K0 ["_impl"]
         2 GETTABLEKS                       R3 R3 K1 ["fetchAssetPermissionsAsync"]
         4 MOVE                             R4 R1
@@ -589,56 +575,53 @@ MAIN:
       144 SETTABLEKS                       R17 R15 K47 ["searchAssetsAsync"]
       146 DUPCLOSURE                       R17 K48 [PROTO_13]
       147 SETTABLEKS                       R17 R15 K49 ["fetchAssetInfoAsync"]
-      149 DUPCLOSURE                       R17 K50 [PROTO_14]
+      149 DUPCLOSURE                       R17 K50 [PROTO_15]
       150 CAPTURE                          VAL R12
-      151 SETTABLEKS                       R17 R15 K51 ["grantUniverseUseAssetsPermissions"]
+      151 SETTABLEKS                       R17 R15 K51 ["grantAssetsPermissionsAsync"]
       153 DUPCLOSURE                       R17 K52 [PROTO_16]
-      154 CAPTURE                          VAL R12
-      155 SETTABLEKS                       R17 R15 K53 ["grantAssetsPermissionsAsync"]
-      157 DUPCLOSURE                       R17 K54 [PROTO_17]
-      158 SETTABLEKS                       R17 R15 K55 ["checkAssetsPermissionsAsync"]
-      160 DUPCLOSURE                       R17 K56 [PROTO_18]
-      161 SETTABLEKS                       R17 R15 K57 ["getThumbnailUriForScope"]
-      163 DUPCLOSURE                       R17 K58 [PROTO_19]
-      164 SETTABLEKS                       R17 R15 K59 ["getThumbnailForScopeAsync"]
-      166 DUPCLOSURE                       R17 K60 [PROTO_20]
-      167 SETTABLEKS                       R17 R15 K61 ["getThumbnailForItem"]
-      169 DUPCLOSURE                       R17 K62 [PROTO_21]
-      170 SETTABLEKS                       R17 R15 K63 ["getThumbnailForItemAsync"]
-      172 DUPCLOSURE                       R17 K64 [PROTO_22]
-      173 SETTABLEKS                       R17 R15 K65 ["getFontFamilyThumbnail"]
-      175 DUPCLOSURE                       R17 K66 [PROTO_23]
-      176 SETTABLEKS                       R17 R15 K67 ["fetchPluginInfoAsync"]
-      178 DUPCLOSURE                       R17 K68 [PROTO_24]
-      179 SETTABLEKS                       R17 R15 K69 ["_addOngoingScopeFetch"]
-      181 DUPCLOSURE                       R17 K70 [PROTO_25]
-      182 SETTABLEKS                       R17 R15 K71 ["_removeOngoingScopeFetch"]
-      184 DUPCLOSURE                       R17 K72 [PROTO_26]
-      185 SETTABLEKS                       R17 R15 K73 ["getScopesOngoingFetches"]
-      187 DUPCLOSURE                       R17 K74 [PROTO_30]
-      188 CAPTURE                          VAL R11
-      189 CAPTURE                          VAL R4
-      190 SETTABLEKS                       R17 R15 K75 ["fetchFoldersAsync"]
-      192 DUPCLOSURE                       R17 K76 [PROTO_31]
-      193 SETTABLEKS                       R17 R15 K77 ["createFolderAsync"]
-      195 DUPCLOSURE                       R17 K78 [PROTO_32]
-      196 SETTABLEKS                       R17 R15 K79 ["deleteFolderAsync"]
-      198 DUPCLOSURE                       R17 K80 [PROTO_33]
-      199 SETTABLEKS                       R17 R15 K81 ["updateFolderMetadataAsync"]
-      201 DUPCLOSURE                       R17 K82 [PROTO_34]
-      202 SETTABLEKS                       R17 R15 K83 ["getItemParentsAsync"]
-      204 DUPCLOSURE                       R17 K84 [PROTO_35]
-      205 SETTABLEKS                       R17 R15 K85 ["getFolderMetadataAsync"]
-      207 DUPCLOSURE                       R17 K86 [PROTO_36]
-      208 SETTABLEKS                       R17 R15 K87 ["createPlaceAsync"]
-      210 DUPCLOSURE                       R17 K88 [PROTO_37]
-      211 SETTABLEKS                       R17 R15 K89 ["removePlaceAsync"]
-      213 DUPCLOSURE                       R17 K90 [PROTO_38]
-      214 SETTABLEKS                       R17 R15 K91 ["renamePlaceAsync"]
-      216 DUPCLOSURE                       R17 K92 [PROTO_39]
-      217 SETTABLEKS                       R17 R15 K93 ["moveItemsAsync"]
-      219 DUPCLOSURE                       R17 K94 [PROTO_40]
-      220 SETTABLEKS                       R17 R15 K95 ["fetchToolboxTechnicalDetailsAsync"]
-      222 DUPCLOSURE                       R17 K96 [PROTO_41]
-      223 SETTABLEKS                       R17 R15 K97 ["fetchAssetPermissionsAsync"]
-      225 RETURN                           R15 1
+      154 SETTABLEKS                       R17 R15 K53 ["checkAssetsPermissionsAsync"]
+      156 DUPCLOSURE                       R17 K54 [PROTO_17]
+      157 SETTABLEKS                       R17 R15 K55 ["getThumbnailUriForScope"]
+      159 DUPCLOSURE                       R17 K56 [PROTO_18]
+      160 SETTABLEKS                       R17 R15 K57 ["getThumbnailForScopeAsync"]
+      162 DUPCLOSURE                       R17 K58 [PROTO_19]
+      163 SETTABLEKS                       R17 R15 K59 ["getThumbnailForItem"]
+      165 DUPCLOSURE                       R17 K60 [PROTO_20]
+      166 SETTABLEKS                       R17 R15 K61 ["getThumbnailForItemAsync"]
+      168 DUPCLOSURE                       R17 K62 [PROTO_21]
+      169 SETTABLEKS                       R17 R15 K63 ["getFontFamilyThumbnail"]
+      171 DUPCLOSURE                       R17 K64 [PROTO_22]
+      172 SETTABLEKS                       R17 R15 K65 ["fetchPluginInfoAsync"]
+      174 DUPCLOSURE                       R17 K66 [PROTO_23]
+      175 SETTABLEKS                       R17 R15 K67 ["_addOngoingScopeFetch"]
+      177 DUPCLOSURE                       R17 K68 [PROTO_24]
+      178 SETTABLEKS                       R17 R15 K69 ["_removeOngoingScopeFetch"]
+      180 DUPCLOSURE                       R17 K70 [PROTO_25]
+      181 SETTABLEKS                       R17 R15 K71 ["getScopesOngoingFetches"]
+      183 DUPCLOSURE                       R17 K72 [PROTO_29]
+      184 CAPTURE                          VAL R11
+      185 CAPTURE                          VAL R4
+      186 SETTABLEKS                       R17 R15 K73 ["fetchFoldersAsync"]
+      188 DUPCLOSURE                       R17 K74 [PROTO_30]
+      189 SETTABLEKS                       R17 R15 K75 ["createFolderAsync"]
+      191 DUPCLOSURE                       R17 K76 [PROTO_31]
+      192 SETTABLEKS                       R17 R15 K77 ["deleteFolderAsync"]
+      194 DUPCLOSURE                       R17 K78 [PROTO_32]
+      195 SETTABLEKS                       R17 R15 K79 ["updateFolderMetadataAsync"]
+      197 DUPCLOSURE                       R17 K80 [PROTO_33]
+      198 SETTABLEKS                       R17 R15 K81 ["getItemParentsAsync"]
+      200 DUPCLOSURE                       R17 K82 [PROTO_34]
+      201 SETTABLEKS                       R17 R15 K83 ["getFolderMetadataAsync"]
+      203 DUPCLOSURE                       R17 K84 [PROTO_35]
+      204 SETTABLEKS                       R17 R15 K85 ["createPlaceAsync"]
+      206 DUPCLOSURE                       R17 K86 [PROTO_36]
+      207 SETTABLEKS                       R17 R15 K87 ["removePlaceAsync"]
+      209 DUPCLOSURE                       R17 K88 [PROTO_37]
+      210 SETTABLEKS                       R17 R15 K89 ["renamePlaceAsync"]
+      212 DUPCLOSURE                       R17 K90 [PROTO_38]
+      213 SETTABLEKS                       R17 R15 K91 ["moveItemsAsync"]
+      215 DUPCLOSURE                       R17 K92 [PROTO_39]
+      216 SETTABLEKS                       R17 R15 K93 ["fetchToolboxTechnicalDetailsAsync"]
+      218 DUPCLOSURE                       R17 K94 [PROTO_40]
+      219 SETTABLEKS                       R17 R15 K95 ["fetchAssetPermissionsAsync"]
+      221 RETURN                           R15 1

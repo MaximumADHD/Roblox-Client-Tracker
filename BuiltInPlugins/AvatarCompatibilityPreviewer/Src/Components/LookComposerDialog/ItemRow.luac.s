@@ -297,7 +297,7 @@ PROTO_2:
       382 DUPTABLE                         R31 K126 [{"MaxSize"}]
       383 GETIMPORT                        R32 K128 [Vector2.new]
       385 LOADN                            R33 320
-      386 LOADK                            R34 K129 [∞]
+      386 LOADK                            R34 K129 [Infinity]
       387 CALL                             R32 2 1
       388 SETTABLEKS                       R32 R31 K125 ["MaxSize"]
       390 SETTABLEKS                       R31 R30 K123 ["sizeConstraint"]

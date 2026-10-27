@@ -45,46 +45,67 @@ PROTO_0:
        71 SETTABLEKS                       R6 R5 K10 ["Anchor"]
        73 CALL                             R2 3 -1
        74 RETURN                           R2 -1
-       75 GETTABLEKS                       R2 R0 K32 ["cellType"]
-       77 JUMPIFNOTEQKS                    R2 K33 ["Instance"] ; [+34]
-       79 GETUPVAL                         R2 1
-       80 GETTABLEKS                       R2 R2 K7 ["createElement"]
-       82 GETUPVAL                         R3 5
-       83 DUPTABLE                         R4 K38 [{["Image"], ["imageRectOffset"], ["imageRectSize"], ["LayoutOrder"], ["ScaleType"], ["tag"] = "icon"}]
-       84 GETTABLEKS                       R5 R0 K39 ["buttonIcon"]
-       86 GETTABLEKS                       R5 R5 K34 ["Image"]
-       88 SETTABLEKS                       R5 R4 K34 ["Image"]
-       90 GETTABLEKS                       R5 R0 K39 ["buttonIcon"]
-       92 GETTABLEKS                       R5 R5 K40 ["ImageRectOffset"]
-       94 SETTABLEKS                       R5 R4 K35 ["imageRectOffset"]
-       96 GETTABLEKS                       R5 R0 K39 ["buttonIcon"]
-       98 GETTABLEKS                       R5 R5 K41 ["ImageRectSize"]
-      100 SETTABLEKS                       R5 R4 K36 ["imageRectSize"]
-      102 GETTABLEKS                       R5 R0 K22 ["layoutOrder"]
-      104 SETTABLEKS                       R5 R4 K12 ["LayoutOrder"]
-      106 GETIMPORT                        R5 K43 [Enum.ScaleType.Fit]
-      108 SETTABLEKS                       R5 R4 K37 ["ScaleType"]
-      110 CALL                             R2 2 -1
-      111 RETURN                           R2 -1
-      112 GETTABLEKS                       R2 R0 K44 ["currentIcon"]
-      114 JUMPIFNOT                        R2 ; [+24]
-      115 GETTABLEKS                       R2 R0 K44 ["currentIcon"]
-      117 JUMPIFEQKS                       R2 K45 [""] ; [+21]
-      119 GETUPVAL                         R2 1
-      120 GETTABLEKS                       R2 R2 K7 ["createElement"]
-      122 GETUPVAL                         R3 3
-      123 DUPTABLE                         R4 K46 [{["LayoutOrder"], ["name"], ["size"], ["tag"] = "icon"}]
-      124 GETTABLEKS                       R5 R0 K22 ["layoutOrder"]
-      126 SETTABLEKS                       R5 R4 K12 ["LayoutOrder"]
-      128 GETTABLEKS                       R5 R0 K44 ["currentIcon"]
-      130 SETTABLEKS                       R5 R4 K13 ["name"]
-      132 GETUPVAL                         R5 4
-      133 GETTABLEKS                       R5 R5 K23 ["Small"]
-      135 SETTABLEKS                       R5 R4 K15 ["size"]
-      137 CALL                             R2 2 -1
-      138 RETURN                           R2 -1
-      139 LOADNIL                          R2
-      140 RETURN                           R2 1
+       75 GETUPVAL                         R2 5
+       76 CALL                             R2 0 1
+       77 JUMPIFNOT                        R2 ; [+26]
+       78 GETTABLEKS                       R2 R0 K32 ["displayImage"]
+       80 JUMPIFNOT                        R2 ; [+23]
+       81 GETTABLEKS                       R2 R0 K32 ["displayImage"]
+       83 JUMPIFEQKS                       R2 K33 [""] ; [+20]
+       85 GETUPVAL                         R2 1
+       86 GETTABLEKS                       R2 R2 K7 ["createElement"]
+       88 GETUPVAL                         R3 6
+       89 DUPTABLE                         R4 K37 [{["Image"], ["LayoutOrder"], ["ScaleType"], ["tag"] = "icon", ["testId"] = "display-image"}]
+       90 GETTABLEKS                       R5 R0 K32 ["displayImage"]
+       92 SETTABLEKS                       R5 R4 K34 ["Image"]
+       94 GETTABLEKS                       R5 R0 K22 ["layoutOrder"]
+       96 SETTABLEKS                       R5 R4 K12 ["LayoutOrder"]
+       98 GETIMPORT                        R5 K39 [Enum.ScaleType.Fit]
+      100 SETTABLEKS                       R5 R4 K35 ["ScaleType"]
+      102 CALL                             R2 2 -1
+      103 RETURN                           R2 -1
+      104 GETTABLEKS                       R2 R0 K40 ["cellType"]
+      106 JUMPIFNOTEQKS                    R2 K41 ["Instance"] ; [+37]
+      108 GETTABLEKS                       R2 R0 K42 ["buttonIcon"]
+      110 JUMPIFNOT                        R2 ; [+33]
+      111 GETUPVAL                         R2 1
+      112 GETTABLEKS                       R2 R2 K7 ["createElement"]
+      114 GETUPVAL                         R3 6
+      115 DUPTABLE                         R4 K45 [{["Image"], ["imageRectOffset"], ["imageRectSize"], ["LayoutOrder"], ["ScaleType"], ["tag"] = "icon"}]
+      116 GETTABLEKS                       R5 R0 K42 ["buttonIcon"]
+      118 GETTABLEKS                       R5 R5 K34 ["Image"]
+      120 SETTABLEKS                       R5 R4 K34 ["Image"]
+      122 GETTABLEKS                       R5 R0 K42 ["buttonIcon"]
+      124 GETTABLEKS                       R5 R5 K46 ["ImageRectOffset"]
+      126 SETTABLEKS                       R5 R4 K43 ["imageRectOffset"]
+      128 GETTABLEKS                       R5 R0 K42 ["buttonIcon"]
+      130 GETTABLEKS                       R5 R5 K47 ["ImageRectSize"]
+      132 SETTABLEKS                       R5 R4 K44 ["imageRectSize"]
+      134 GETTABLEKS                       R5 R0 K22 ["layoutOrder"]
+      136 SETTABLEKS                       R5 R4 K12 ["LayoutOrder"]
+      138 GETIMPORT                        R5 K39 [Enum.ScaleType.Fit]
+      140 SETTABLEKS                       R5 R4 K35 ["ScaleType"]
+      142 CALL                             R2 2 -1
+      143 RETURN                           R2 -1
+      144 GETTABLEKS                       R2 R0 K48 ["currentIcon"]
+      146 JUMPIFNOT                        R2 ; [+24]
+      147 GETTABLEKS                       R2 R0 K48 ["currentIcon"]
+      149 JUMPIFEQKS                       R2 K33 [""] ; [+21]
+      151 GETUPVAL                         R2 1
+      152 GETTABLEKS                       R2 R2 K7 ["createElement"]
+      154 GETUPVAL                         R3 3
+      155 DUPTABLE                         R4 K49 [{["LayoutOrder"], ["name"], ["size"], ["tag"] = "icon"}]
+      156 GETTABLEKS                       R5 R0 K22 ["layoutOrder"]
+      158 SETTABLEKS                       R5 R4 K12 ["LayoutOrder"]
+      160 GETTABLEKS                       R5 R0 K48 ["currentIcon"]
+      162 SETTABLEKS                       R5 R4 K13 ["name"]
+      164 GETUPVAL                         R5 4
+      165 GETTABLEKS                       R5 R5 K23 ["Small"]
+      167 SETTABLEKS                       R5 R4 K15 ["size"]
+      169 CALL                             R2 2 -1
+      170 RETURN                           R2 -1
+      171 LOADNIL                          R2
+      172 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -107,15 +128,21 @@ MAIN:
        29 GETTABLEKS                       R6 R2 K13 ["Tooltip"]
        31 GETTABLEKS                       R7 R2 K14 ["Enums"]
        33 GETTABLEKS                       R7 R7 K15 ["IconSize"]
-       35 GETIMPORT                        R8 K5 [require]
-       37 GETTABLEKS                       R9 R0 K16 ["Src"]
-       39 GETTABLEKS                       R9 R9 K17 ["Types"]
-       41 CALL                             R8 1 1
-       42 DUPCLOSURE                       R9 K18 [PROTO_0]
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R6
-       46 CAPTURE                          VAL R4
-       47 CAPTURE                          VAL R7
-       48 CAPTURE                          VAL R5
-       49 RETURN                           R9 1
+       35 GETTABLEKS                       R8 R0 K16 ["Src"]
+       37 GETTABLEKS                       R8 R8 K17 ["Flags"]
+       39 GETIMPORT                        R9 K5 [require]
+       41 GETTABLEKS                       R10 R8 K18 ["getFFlagIAMUseDisplayImageName"]
+       43 CALL                             R9 1 1
+       44 GETIMPORT                        R10 K5 [require]
+       46 GETTABLEKS                       R11 R0 K16 ["Src"]
+       48 GETTABLEKS                       R11 R11 K19 ["Types"]
+       50 CALL                             R10 1 1
+       51 DUPCLOSURE                       R11 K20 [PROTO_0]
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R9
+       58 CAPTURE                          VAL R5
+       59 RETURN                           R11 1

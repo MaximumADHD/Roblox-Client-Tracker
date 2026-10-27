@@ -13,7 +13,7 @@ PROTO_0:
        15 FASTCALL1                        MATH_LOG R4 ; [+2]
        16 GETIMPORT                        R3 K9 [math.log]
        18 CALL                             R3 1 1
-       19 DIVK                             R2 R3 K4 [2.30258509299405]
+       19 DIVK                             R2 R3 K4 [2.302585092994046]
        20 RETURN                           R2 1
 
 PROTO_1:
@@ -40,7 +40,7 @@ PROTO_2:
        16 FASTCALL1                        MATH_LOG R4 ; [+2]
        17 GETIMPORT                        R3 K9 [math.log]
        19 CALL                             R3 1 1
-       20 DIVK                             R1 R3 K4 [2.30258509299405]
+       20 DIVK                             R1 R3 K4 [2.302585092994046]
        21 RETURN                           R1 1
 
 PROTO_3:
@@ -68,7 +68,7 @@ PROTO_4:
        17 FASTCALL1                        MATH_LOG R5 ; [+2]
        18 GETIMPORT                        R4 K10 [math.log]
        20 CALL                             R4 1 1
-       21 DIVK                             R1 R4 K5 [2.30258509299405]
+       21 DIVK                             R1 R4 K5 [2.302585092994046]
        22 RETURN                           R1 1
 
 PROTO_5:
@@ -97,7 +97,7 @@ PROTO_6:
        17 FASTCALL1                        MATH_LOG R5 ; [+2]
        18 GETIMPORT                        R4 K10 [math.log]
        20 CALL                             R4 1 1
-       21 DIVK                             R1 R4 K5 [2.30258509299405]
+       21 DIVK                             R1 R4 K5 [2.302585092994046]
        22 RETURN                           R1 1
 
 PROTO_7:

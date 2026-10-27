@@ -239,7 +239,7 @@ PROTO_4:
        79 CALL                             R9 2 1
        80 GETTABLEKS                       R11 R0 K0 ["TransformedWorldCFrame"]
        82 GETIMPORT                        R12 K15 [CFrame.fromEulerAngles]
-       84 LOADK                            R13 K16 [1.5707963267949]
+       84 LOADK                            R13 K16 [1.5707963267948966]
        85 LOADN                            R14 0
        86 LOADN                            R15 0
        87 CALL                             R12 3 1
@@ -480,7 +480,7 @@ PROTO_8:
 
 PROTO_9:
         0 LOADNIL                          R1
-        1 LOADK                            R2 K0 [∞]
+        1 LOADK                            R2 K0 [Infinity]
         2 GETIMPORT                        R3 K2 [game]
         4 GETTABLEKS                       R3 R3 K3 ["Workspace"]
         6 GETUPVAL                         R5 0

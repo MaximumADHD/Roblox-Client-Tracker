@@ -46,12 +46,9 @@ PROTO_2:
         6 GETTABLEKS                       R3 R0 K0 ["ItemsController"]
         8 GETUPVAL                         R4 0
         9 MOVE                             R5 R3
-       10 NAMECALL                         R6 R3 K2 ["getCurrentShownScope"]
-       12 CALL                             R6 1 1
-       13 GETTABLEKS                       R7 R0 K3 ["Networking"]
-       15 MOVE                             R8 R2
-       16 CALL                             R4 4 0
-       17 RETURN                           R0 0
+       10 MOVE                             R6 R2
+       11 CALL                             R4 2 0
+       12 RETURN                           R0 0
 
 PROTO_3:
         0 DUPTABLE                         R3 K2 [{[1] = True}]
@@ -62,12 +59,9 @@ PROTO_3:
         7 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
         9 GETUPVAL                         R5 0
        10 MOVE                             R6 R4
-       11 NAMECALL                         R7 R4 K6 ["getCurrentShownScope"]
-       13 CALL                             R7 1 1
-       14 GETTABLEKS                       R8 R1 K7 ["Networking"]
-       16 MOVE                             R9 R3
-       17 CALL                             R5 4 0
-       18 RETURN                           R0 0
+       11 MOVE                             R7 R3
+       12 CALL                             R5 2 0
+       13 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R5 R1 K0 ["ItemsController"]
@@ -104,12 +98,9 @@ PROTO_5:
         7 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
         9 GETUPVAL                         R5 0
        10 MOVE                             R6 R4
-       11 NAMECALL                         R7 R4 K6 ["getCurrentShownScope"]
-       13 CALL                             R7 1 1
-       14 GETTABLEKS                       R8 R1 K7 ["Networking"]
-       16 MOVE                             R9 R3
-       17 CALL                             R5 4 0
-       18 RETURN                           R0 0
+       11 MOVE                             R7 R3
+       12 CALL                             R5 2 0
+       13 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R5 R1 K0 ["ItemsController"]
@@ -145,12 +136,9 @@ PROTO_7:
         6 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
         8 GETUPVAL                         R4 0
         9 MOVE                             R5 R3
-       10 NAMECALL                         R6 R3 K3 ["getCurrentShownScope"]
-       12 CALL                             R6 1 1
-       13 GETTABLEKS                       R7 R1 K4 ["Networking"]
-       15 LOADNIL                          R8
-       16 CALL                             R4 4 0
-       17 RETURN                           R0 0
+       10 LOADNIL                          R6
+       11 CALL                             R4 2 0
+       12 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R6 R1 K0 ["ItemsController"]
@@ -188,12 +176,9 @@ PROTO_9:
         7 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
         9 GETUPVAL                         R5 0
        10 MOVE                             R6 R4
-       11 NAMECALL                         R7 R4 K6 ["getCurrentShownScope"]
-       13 CALL                             R7 1 1
-       14 GETTABLEKS                       R8 R1 K7 ["Networking"]
-       16 MOVE                             R9 R3
-       17 CALL                             R5 4 0
-       18 RETURN                           R0 0
+       11 MOVE                             R7 R3
+       12 CALL                             R5 2 0
+       13 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R6 R1 K0 ["ItemsController"]

@@ -1705,10 +1705,10 @@ PROTO_70:
        11 LOADK                            R3 K3 ["Bad argument #1 to Promise.delay, must be a number."]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 LOADK                            R1 K6 [0.0166666666666667]
+       15 LOADK                            R1 K6 [0.016666666666666666]
        16 JUMPIFNOTLE                      R1 R0 ; [+3]
-       18 JUMPIFNOTEQKN                    R0 K7 [∞] ; [+2]
-       20 LOADK                            R0 K6 [0.0166666666666667]
+       18 JUMPIFNOTEQKN                    R0 K7 [Infinity] ; [+2]
+       20 LOADK                            R0 K6 [0.016666666666666666]
        21 GETUPVAL                         R1 0
        22 GETTABLEKS                       R1 R1 K8 ["_new"]
        24 GETIMPORT                        R2 K11 [debug.traceback]

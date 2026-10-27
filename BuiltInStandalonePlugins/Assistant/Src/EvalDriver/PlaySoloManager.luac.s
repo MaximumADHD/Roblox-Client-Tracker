@@ -108,7 +108,7 @@ PROTO_6:
        22 GETUPVAL                         R3 8
        23 GETTABLEKS                       R3 R3 K5 ["event"]
        25 MOVE                             R4 R1
-       26 LOADK                            R5 K6 ["PlaySoloManager.DataModelStarted"]
+       26 LOADK                            R5 K6 ["DataModelStarted"]
        27 CALL                             R3 2 1
        28 GETUPVAL                         R4 6
        29 MOVE                             R8 R2
@@ -122,9 +122,9 @@ PROTO_6:
        40 LOADK                            R5 K9 ["PlaySoloManager requires networking"]
        41 GETIMPORT                        R3 K3 [assert]
        43 CALL                             R3 2 0
-       44 LOADK                            R5 K10 ["DataModelStarted"]
+       44 LOADK                            R5 K6 ["DataModelStarted"]
        45 MOVE                             R6 R2
-       46 NAMECALL                         R3 R0 K11 ["OnGuestEvent"]
+       46 NAMECALL                         R3 R0 K10 ["OnGuestEvent"]
        48 CALL                             R3 3 0
        49 RETURN                           R0 0
 

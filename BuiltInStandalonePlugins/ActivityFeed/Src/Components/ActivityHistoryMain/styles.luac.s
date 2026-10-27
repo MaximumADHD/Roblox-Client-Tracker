@@ -52,7 +52,7 @@ MAIN:
        76 LOADN                            R17 1
        77 LOADN                            R18 0
        78 LOADN                            R19 1
-       79 LOADK                            R20 K33 [0]
+       79 LOADK                            R20 K33 [-0]
        80 CALL                             R16 4 1
        81 SETTABLEKS                       R16 R15 K23 ["Size"]
        83 NEWTABLE                         R16 0 5

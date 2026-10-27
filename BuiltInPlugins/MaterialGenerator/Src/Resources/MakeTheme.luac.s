@@ -178,7 +178,7 @@ MAIN:
       243 CALL                             R17 2 1
       244 SETTABLEKS                       R17 R16 K85 ["CloseButtonSize"]
       246 SETTABLEKS                       R16 R15 K89 ["ErrorBox"]
-      248 DUPTABLE                         R16 K94 [{["ErrorPadding"] = 8, ["ErrorInnerPadding"] = 12, ["ErrorMaxWidth"] = ∞}]
+      248 DUPTABLE                         R16 K94 [{["ErrorPadding"] = 8, ["ErrorInnerPadding"] = 12, ["ErrorMaxWidth"] = Infinity}]
       249 SETTABLEKS                       R16 R15 K95 ["MainView"]
       251 DUPTABLE                         R16 K108 [{["LabelWidth"] = 100, ["Padding"] = 8, ["PreviewHeight"] = 192, ["PreviewTileSize"], ["PrimarySettingsGroupBackgroundColor"], ["SaveAndApplyButtonSize"], ["ApplyButtonSize"], ["SettingsGroupPadding"], ["SettingsGroupSpacing"] = 10, ["SettingSpacing"] = 6, ["StudsPerTileSettingSize"], ["VerticalSpacing"] = 6}]
       252 GETIMPORT                        R17 K59 [UDim2.new]

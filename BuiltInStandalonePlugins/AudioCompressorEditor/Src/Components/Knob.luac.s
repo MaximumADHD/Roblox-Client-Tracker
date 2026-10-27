@@ -7,13 +7,13 @@ PROTO_0:
         7 MULK                             R2 R3 K3 [0.5]
         8 GETIMPORT                        R3 K2 [Vector2.new]
        10 GETTABLEKS                       R7 R0 K7 ["X"]
-       12 MULK                             R6 R7 K6 [3.14159265358979]
+       12 MULK                             R6 R7 K6 [3.141592653589793]
        13 DIVK                             R5 R6 K5 [180]
        14 FASTCALL1                        MATH_SIN R5 ; [+2]
        15 GETIMPORT                        R4 K10 [math.sin]
        17 CALL                             R4 1 1
        18 GETTABLEKS                       R9 R0 K7 ["X"]
-       20 MULK                             R8 R9 K6 [3.14159265358979]
+       20 MULK                             R8 R9 K6 [3.141592653589793]
        21 DIVK                             R7 R8 K5 [180]
        22 FASTCALL1                        MATH_COS R7 ; [+2]
        23 GETIMPORT                        R6 K12 [math.cos]
@@ -71,13 +71,13 @@ PROTO_2:
        17 MULK                             R10 R11 K3 [0.5]
        18 GETIMPORT                        R11 K2 [Vector2.new]
        20 GETTABLEKS                       R15 R8 K7 ["X"]
-       22 MULK                             R14 R15 K6 [3.14159265358979]
+       22 MULK                             R14 R15 K6 [3.141592653589793]
        23 DIVK                             R13 R14 K5 [180]
        24 FASTCALL1                        MATH_SIN R13 ; [+2]
        25 GETIMPORT                        R12 K10 [math.sin]
        27 CALL                             R12 1 1
        28 GETTABLEKS                       R17 R8 K7 ["X"]
-       30 MULK                             R16 R17 K6 [3.14159265358979]
+       30 MULK                             R16 R17 K6 [3.141592653589793]
        31 DIVK                             R15 R16 K5 [180]
        32 FASTCALL1                        MATH_COS R15 ; [+2]
        33 GETIMPORT                        R14 K12 [math.cos]
@@ -130,13 +130,13 @@ PROTO_2:
        92 MULK                             R12 R13 K3 [0.5]
        93 GETIMPORT                        R13 K2 [Vector2.new]
        95 GETTABLEKS                       R17 R10 K7 ["X"]
-       97 MULK                             R16 R17 K6 [3.14159265358979]
+       97 MULK                             R16 R17 K6 [3.141592653589793]
        98 DIVK                             R15 R16 K5 [180]
        99 FASTCALL1                        MATH_SIN R15 ; [+2]
       100 GETIMPORT                        R14 K10 [math.sin]
       102 CALL                             R14 1 1
       103 GETTABLEKS                       R19 R10 K7 ["X"]
-      105 MULK                             R18 R19 K6 [3.14159265358979]
+      105 MULK                             R18 R19 K6 [3.141592653589793]
       106 DIVK                             R17 R18 K5 [180]
       107 FASTCALL1                        MATH_COS R17 ; [+2]
       108 GETIMPORT                        R16 K12 [math.cos]
@@ -154,13 +154,13 @@ PROTO_2:
       123 MULK                             R12 R13 K3 [0.5]
       124 GETIMPORT                        R13 K2 [Vector2.new]
       126 GETTABLEKS                       R17 R8 K7 ["X"]
-      128 MULK                             R16 R17 K6 [3.14159265358979]
+      128 MULK                             R16 R17 K6 [3.141592653589793]
       129 DIVK                             R15 R16 K5 [180]
       130 FASTCALL1                        MATH_SIN R15 ; [+2]
       131 GETIMPORT                        R14 K10 [math.sin]
       133 CALL                             R14 1 1
       134 GETTABLEKS                       R19 R8 K7 ["X"]
-      136 MULK                             R18 R19 K6 [3.14159265358979]
+      136 MULK                             R18 R19 K6 [3.141592653589793]
       137 DIVK                             R17 R18 K5 [180]
       138 FASTCALL1                        MATH_COS R17 ; [+2]
       139 GETIMPORT                        R16 K12 [math.cos]
@@ -186,13 +186,13 @@ PROTO_2:
       163 MULK                             R18 R19 K3 [0.5]
       164 GETIMPORT                        R19 K2 [Vector2.new]
       166 GETTABLEKS                       R23 R16 K7 ["X"]
-      168 MULK                             R22 R23 K6 [3.14159265358979]
+      168 MULK                             R22 R23 K6 [3.141592653589793]
       169 DIVK                             R21 R22 K5 [180]
       170 FASTCALL1                        MATH_SIN R21 ; [+2]
       171 GETIMPORT                        R20 K10 [math.sin]
       173 CALL                             R20 1 1
       174 GETTABLEKS                       R25 R16 K7 ["X"]
-      176 MULK                             R24 R25 K6 [3.14159265358979]
+      176 MULK                             R24 R25 K6 [3.141592653589793]
       177 DIVK                             R23 R24 K5 [180]
       178 FASTCALL1                        MATH_COS R23 ; [+2]
       179 GETIMPORT                        R22 K12 [math.cos]
@@ -214,13 +214,13 @@ PROTO_2:
       199 MULK                             R19 R20 K3 [0.5]
       200 GETIMPORT                        R20 K2 [Vector2.new]
       202 GETTABLEKS                       R24 R17 K7 ["X"]
-      204 MULK                             R23 R24 K6 [3.14159265358979]
+      204 MULK                             R23 R24 K6 [3.141592653589793]
       205 DIVK                             R22 R23 K5 [180]
       206 FASTCALL1                        MATH_SIN R22 ; [+2]
       207 GETIMPORT                        R21 K10 [math.sin]
       209 CALL                             R21 1 1
       210 GETTABLEKS                       R26 R17 K7 ["X"]
-      212 MULK                             R25 R26 K6 [3.14159265358979]
+      212 MULK                             R25 R26 K6 [3.141592653589793]
       213 DIVK                             R24 R25 K5 [180]
       214 FASTCALL1                        MATH_COS R24 ; [+2]
       215 GETIMPORT                        R23 K12 [math.cos]
@@ -233,7 +233,7 @@ PROTO_2:
       223 GETTABLEKS                       R15 R15 K20 ["Unit"]
       225 GETTABLEKS                       R19 R12 K22 ["Magnitude"]
       227 MUL                              R18 R14 R19
-      228 MULK                             R17 R18 K21 [1.33333333333333]
+      228 MULK                             R17 R18 K21 [1.3333333333333333]
       229 GETTABLEKS                       R24 R8 K7 ["X"]
       231 GETTABLEKS                       R25 R6 K7 ["X"]
       233 SUB                              R23 R24 R25
@@ -242,14 +242,14 @@ PROTO_2:
       237 CALL                             R22 1 1
       238 DIVRK                            R21 K23 [360] R22
       239 MULK                             R20 R21 K18 [2]
-      240 DIVRK                            R19 K6 [3.14159265358979] R20
+      240 DIVRK                            R19 K6 [3.141592653589793] R20
       241 FASTCALL1                        MATH_TAN R19 ; [+2]
       242 GETIMPORT                        R18 K27 [math.tan]
       244 CALL                             R18 1 1
       245 MUL                              R16 R17 R18
       246 GETTABLEKS                       R20 R13 K22 ["Magnitude"]
       248 MUL                              R19 R15 R20
-      249 MULK                             R18 R19 K21 [1.33333333333333]
+      249 MULK                             R18 R19 K21 [1.3333333333333333]
       250 GETTABLEKS                       R25 R8 K7 ["X"]
       252 GETTABLEKS                       R26 R6 K7 ["X"]
       254 SUB                              R24 R25 R26
@@ -258,7 +258,7 @@ PROTO_2:
       258 CALL                             R23 1 1
       259 DIVRK                            R22 K23 [360] R23
       260 MULK                             R21 R22 K18 [2]
-      261 DIVRK                            R20 K6 [3.14159265358979] R21
+      261 DIVRK                            R20 K6 [3.141592653589793] R21
       262 FASTCALL1                        MATH_TAN R20 ; [+2]
       263 GETIMPORT                        R19 K27 [math.tan]
       265 CALL                             R19 1 1

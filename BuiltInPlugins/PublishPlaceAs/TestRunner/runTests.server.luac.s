@@ -8,5 +8,4 @@ MAIN:
        10 GETIMPORT                        R0 K3 [script]
        12 GETTABLEKS                       R0 R0 K4 ["Parent"]
        14 GETTABLEKS                       R0 R0 K4 ["Parent"]
-       16 GETTABLEKS                       R1 R0 K6 ["Src"]
-       18 RETURN                           R0 0
+       16 RETURN                           R0 0

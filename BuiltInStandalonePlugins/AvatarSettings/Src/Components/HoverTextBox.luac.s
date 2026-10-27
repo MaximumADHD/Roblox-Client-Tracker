@@ -19,7 +19,7 @@ PROTO_0:
        24 JUMP                             ; [+3]
        25 GETUPVAL                         R9 2
        26 GETTABLEKS                       R9 R9 K14 ["DEFAULT_HOVERTEXTBOX_MAX_WIDTH"]
-       28 LOADK                            R10 K15 [∞]
+       28 LOADK                            R10 K15 [Infinity]
        29 CALL                             R8 2 1
        30 SETTABLEKS                       R8 R7 K8 ["MaxSize"]
        32 CALL                             R5 2 1

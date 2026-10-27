@@ -66,7 +66,7 @@ PROTO_4:
         4 SETTABLEKS                       R1 R0 K1 ["detectorRef"]
         6 DUPTABLE                         R1 K4 [{["show"] = False}]
         7 SETTABLEKS                       R1 R0 K5 ["state"]
-        9 LOADK                            R1 K6 [∞]
+        9 LOADK                            R1 K6 [Infinity]
        10 SETTABLEKS                       R1 R0 K7 ["targetTime"]
        12 NEWCLOSURE                       R1 P0
        13 CAPTURE                          VAL R0

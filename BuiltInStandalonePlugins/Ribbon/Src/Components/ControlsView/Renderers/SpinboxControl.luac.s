@@ -94,7 +94,7 @@ PROTO_1:
       121 GETTABLEKS                       R10 R0 K22 ["LayoutOrder"]
       123 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
       125 GETTABLEKS                       R11 R4 K23 ["Maximum"]
-      127 ORK                              R10 R11 K33 [∞]
+      127 ORK                              R10 R11 K33 [Infinity]
       128 SETTABLEKS                       R10 R9 K23 ["Maximum"]
       130 GETTABLEKS                       R11 R4 K24 ["Minimum"]
       132 ORK                              R10 R11 K34 [0]

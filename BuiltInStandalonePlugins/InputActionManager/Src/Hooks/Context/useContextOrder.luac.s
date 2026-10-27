@@ -1,41 +1,25 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+13]
-        3 GETUPVAL                         R0 1
-        4 GETUPVAL                         R1 2
-        5 GETTABLEKS                       R1 R1 K0 ["getContextOrder"]
-        7 CALL                             R1 0 1
-        8 JUMPIF                           R1 ; [+2]
-        9 NEWTABLE                         R1 0 0
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R2 R2 K1 ["getContext"]
-       14 CALL                             R0 2 -1
-       15 RETURN                           R0 -1
-       16 GETUPVAL                         R0 2
-       17 GETTABLEKS                       R0 R0 K0 ["getContextOrder"]
-       19 CALL                             R0 0 1
-       20 JUMPIF                           R0 ; [+2]
-       21 NEWTABLE                         R0 0 0
-       23 RETURN                           R0 1
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["getContextOrder"]
+        4 CALL                             R1 0 1
+        5 JUMPIF                           R1 ; [+2]
+        6 NEWTABLE                         R1 0 0
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K1 ["getContext"]
+       11 CALL                             R0 2 -1
+       12 RETURN                           R0 -1
 
 PROTO_1:
-        0 JUMPIFNOT                        R0 ; [+15]
+        0 JUMPIFNOT                        R0 ; [+8]
         1 GETUPVAL                         R1 0
-        2 CALL                             R1 0 1
-        3 JUMPIFNOT                        R1 ; [+9]
-        4 GETUPVAL                         R1 1
-        5 GETUPVAL                         R2 2
-        6 MOVE                             R3 R0
-        7 GETUPVAL                         R4 3
-        8 GETTABLEKS                       R4 R4 K0 ["getContext"]
-       10 CALL                             R2 2 -1
-       11 CALL                             R1 -1 0
-       12 RETURN                           R0 0
-       13 GETUPVAL                         R1 1
-       14 MOVE                             R2 R0
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
+        2 GETUPVAL                         R2 1
+        3 MOVE                             R3 R0
+        4 GETUPVAL                         R4 2
+        5 GETTABLEKS                       R4 R4 K0 ["getContext"]
+        7 CALL                             R2 2 -1
+        8 CALL                             R1 -1 0
+        9 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -43,10 +27,9 @@ PROTO_2:
         3 NEWCLOSURE                       R1 P0
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          UPVAL U0
-        8 CALL                             R0 1 -1
-        9 RETURN                           R0 -1
+        6 CAPTURE                          UPVAL U0
+        7 CALL                             R0 1 -1
+        8 RETURN                           R0 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -102,37 +85,32 @@ PROTO_6:
         8 GETTABLEKS                       R1 R1 K2 ["useState"]
        10 NEWCLOSURE                       R2 P0
        11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          UPVAL U3
-       13 CAPTURE                          VAL R0
-       14 CALL                             R1 1 2
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R3 R3 K3 ["useEffect"]
-       18 NEWCLOSURE                       R4 P1
-       19 CAPTURE                          VAL R0
+       12 CAPTURE                          VAL R0
+       13 CALL                             R1 1 2
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K3 ["useEffect"]
+       17 NEWCLOSURE                       R4 P1
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          VAL R2
        20 CAPTURE                          UPVAL U2
-       21 CAPTURE                          VAL R2
-       22 CAPTURE                          UPVAL U3
-       23 NEWTABLE                         R5 0 2
-       25 GETTABLEKS                       R6 R0 K4 ["onContextOrderChanged"]
-       27 GETTABLEKS                       R7 R0 K5 ["getContext"]
-       29 SETLIST                          R5 R6 2 [1]
-       31 CALL                             R3 2 0
-       32 GETUPVAL                         R3 2
-       33 CALL                             R3 0 1
-       34 JUMPIFNOT                        R3 ; [+15]
-       35 GETUPVAL                         R3 0
-       36 GETTABLEKS                       R3 R3 K3 ["useEffect"]
-       38 NEWCLOSURE                       R4 P2
-       39 CAPTURE                          VAL R1
-       40 CAPTURE                          VAL R0
-       41 CAPTURE                          VAL R2
-       42 CAPTURE                          UPVAL U3
-       43 NEWTABLE                         R5 0 2
-       45 MOVE                             R6 R1
-       46 MOVE                             R7 R0
-       47 SETLIST                          R5 R6 2 [1]
-       49 CALL                             R3 2 0
-       50 RETURN                           R1 1
+       21 NEWTABLE                         R5 0 2
+       23 GETTABLEKS                       R6 R0 K4 ["onContextOrderChanged"]
+       25 GETTABLEKS                       R7 R0 K5 ["getContext"]
+       27 SETLIST                          R5 R6 2 [1]
+       29 CALL                             R3 2 0
+       30 GETUPVAL                         R3 0
+       31 GETTABLEKS                       R3 R3 K3 ["useEffect"]
+       33 NEWCLOSURE                       R4 P2
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          VAL R2
+       37 CAPTURE                          UPVAL U2
+       38 NEWTABLE                         R5 0 2
+       40 MOVE                             R6 R1
+       41 MOVE                             R7 R0
+       42 SETLIST                          R5 R6 2 [1]
+       44 CALL                             R3 2 0
+       45 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -158,14 +136,8 @@ MAIN:
        34 GETTABLEKS                       R5 R5 K12 ["Util"]
        36 GETTABLEKS                       R5 R5 K13 ["sortContextOrder"]
        38 CALL                             R4 1 1
-       39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R6 R0 K8 ["Src"]
-       43 GETTABLEKS                       R6 R6 K14 ["Flags"]
-       45 GETTABLEKS                       R6 R6 K15 ["getFFlagIAMNodePropertyMenu"]
-       47 CALL                             R5 1 1
-       48 DUPCLOSURE                       R6 K16 [PROTO_6]
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R4
-       53 RETURN                           R6 1
+       39 DUPCLOSURE                       R5 K14 [PROTO_6]
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R4
+       43 RETURN                           R5 1

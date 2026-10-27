@@ -44,30 +44,19 @@ MAIN:
        32 GETIMPORT                        R5 K1 [script]
        34 GETTABLEKS                       R5 R5 K12 ["IntroTutorial"]
        36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K8 ["Src"]
-       41 GETTABLEKS                       R6 R6 K13 ["Flags"]
-       43 GETTABLEKS                       R6 R6 K14 ["getFFlagAmrEnableIntroTutorial"]
-       45 CALL                             R5 1 1
-       46 NEWTABLE                         R6 0 0
-       48 MOVE                             R7 R5
-       49 CALL                             R7 0 1
-       50 JUMPIFNOT                        R7 ; [+7]
-       51 FASTCALL2                        TABLE_INSERT R6 R4 ; [+5]
-       53 MOVE                             R8 R6
-       54 MOVE                             R9 R4
-       55 GETIMPORT                        R7 K17 [table.insert]
-       57 CALL                             R7 2 0
-       58 GETTABLEKS                       R7 R1 K18 ["Utils"]
-       60 GETTABLEKS                       R7 R7 K19 ["deepFreeze"]
-       62 MOVE                             R8 R6
-       63 CALL                             R7 1 0
-       64 DUPCLOSURE                       R7 K20 [PROTO_0]
-       65 CAPTURE                          VAL R6
-       66 DUPCLOSURE                       R8 K21 [PROTO_1]
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R3
-       69 DUPTABLE                         R9 K24 [{"getTutorials", "getTutorial"}]
-       70 SETTABLEKS                       R7 R9 K22 ["getTutorials"]
-       72 SETTABLEKS                       R8 R9 K23 ["getTutorial"]
-       74 RETURN                           R9 1
+       37 NEWTABLE                         R5 0 1
+       39 MOVE                             R6 R4
+       40 SETLIST                          R5 R6 1 [1]
+       42 GETTABLEKS                       R6 R1 K13 ["Utils"]
+       44 GETTABLEKS                       R6 R6 K14 ["deepFreeze"]
+       46 MOVE                             R7 R5
+       47 CALL                             R6 1 0
+       48 DUPCLOSURE                       R6 K15 [PROTO_0]
+       49 CAPTURE                          VAL R5
+       50 DUPCLOSURE                       R7 K16 [PROTO_1]
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R3
+       53 DUPTABLE                         R8 K19 [{"getTutorials", "getTutorial"}]
+       54 SETTABLEKS                       R6 R8 K17 ["getTutorials"]
+       56 SETTABLEKS                       R7 R8 K18 ["getTutorial"]
+       58 RETURN                           R8 1

@@ -150,14 +150,14 @@ PROTO_3:
        71 GETIMPORT                        R5 K21 [CFrame.fromEulerAngles]
        73 LOADN                            R6 0
        74 LOADN                            R7 0
-       75 LOADK                            R8 K22 [2.96705972839036]
+       75 LOADK                            R8 K22 [2.9670597283903604]
        76 GETIMPORT                        R9 K26 [Enum.RotationOrder.XYZ]
        78 CALL                             R5 4 1
        79 SETTABLEN                        R5 R4 100
        80 GETIMPORT                        R5 K21 [CFrame.fromEulerAngles]
        82 LOADN                            R6 0
        83 LOADN                            R7 0
-       84 LOADK                            R8 K27 [-2.96705972839036]
+       84 LOADK                            R8 K27 [-2.9670597283903604]
        85 GETIMPORT                        R9 K26 [Enum.RotationOrder.XYZ]
        87 CALL                             R5 4 1
        88 SETTABLEN                        R5 R4 200

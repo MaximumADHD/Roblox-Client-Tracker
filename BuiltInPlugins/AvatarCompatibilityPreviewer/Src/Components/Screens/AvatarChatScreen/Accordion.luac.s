@@ -69,30 +69,39 @@ PROTO_3:
        37 NEWTABLE                         R8 0 0
        39 DUPTABLE                         R9 K13 [{"ExpandIcon"}]
        40 GETTABLEKS                       R11 R0 K8 ["isDisabled"]
-       42 JUMPIFNOT                        R11 ; [+2]
-       43 LOADNIL                          R10
-       44 JUMP                             ; [+26]
-       45 GETUPVAL                         R10 1
-       46 GETTABLEKS                       R10 R10 K1 ["createElement"]
-       48 GETUPVAL                         R11 5
-       49 DUPTABLE                         R12 K19 [{["name"], ["size"] = 12, ["style"], ["LayoutOrder"] = -1}]
-       50 GETTABLEKS                       R14 R2 K20 ["expanded"]
-       52 JUMPIFNOT                        R14 ; [+4]
-       53 GETUPVAL                         R13 6
-       54 GETTABLEKS                       R13 R13 K21 ["ChevronSmallDown"]
-       56 JUMP                             ; [+3]
-       57 GETUPVAL                         R13 6
-       58 GETTABLEKS                       R13 R13 K22 ["ChevronSmallRight"]
-       60 SETTABLEKS                       R13 R12 K14 ["name"]
-       62 GETTABLEKS                       R13 R1 K23 ["Color"]
-       64 GETTABLEKS                       R13 R13 K24 ["Content"]
-       66 GETTABLEKS                       R13 R13 K25 ["Emphasis"]
-       68 SETTABLEKS                       R13 R12 K17 ["style"]
-       70 CALL                             R10 2 1
-       71 SETTABLEKS                       R10 R9 K12 ["ExpandIcon"]
-       73 CALL                             R6 3 -1
-       74 CALL                             R3 -1 -1
-       75 RETURN                           R3 -1
+       42 JUMPIFNOT                        R11 ; [+14]
+       43 GETUPVAL                         R10 1
+       44 GETTABLEKS                       R10 R10 K1 ["createElement"]
+       46 GETUPVAL                         R11 3
+       47 DUPTABLE                         R12 K16 [{["Size"], ["LayoutOrder"] = -1}]
+       48 GETIMPORT                        R13 K19 [UDim2.fromOffset]
+       50 LOADN                            R14 12
+       51 LOADN                            R15 12
+       52 CALL                             R13 2 1
+       53 SETTABLEKS                       R13 R12 K14 ["Size"]
+       55 CALL                             R10 2 1
+       56 JUMP                             ; [+26]
+       57 GETUPVAL                         R10 1
+       58 GETTABLEKS                       R10 R10 K1 ["createElement"]
+       60 GETUPVAL                         R11 5
+       61 DUPTABLE                         R12 K24 [{["name"], ["size"] = 12, ["style"], ["LayoutOrder"] = -1}]
+       62 GETTABLEKS                       R14 R2 K25 ["expanded"]
+       64 JUMPIFNOT                        R14 ; [+4]
+       65 GETUPVAL                         R13 6
+       66 GETTABLEKS                       R13 R13 K26 ["ChevronSmallDown"]
+       68 JUMP                             ; [+3]
+       69 GETUPVAL                         R13 6
+       70 GETTABLEKS                       R13 R13 K27 ["ChevronSmallRight"]
+       72 SETTABLEKS                       R13 R12 K20 ["name"]
+       74 GETTABLEKS                       R13 R1 K28 ["Color"]
+       76 GETTABLEKS                       R13 R13 K29 ["Content"]
+       78 GETTABLEKS                       R13 R13 K30 ["Emphasis"]
+       80 SETTABLEKS                       R13 R12 K23 ["style"]
+       82 CALL                             R10 2 1
+       83 SETTABLEKS                       R10 R9 K12 ["ExpandIcon"]
+       85 CALL                             R6 3 -1
+       86 CALL                             R3 -1 -1
+       87 RETURN                           R3 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0

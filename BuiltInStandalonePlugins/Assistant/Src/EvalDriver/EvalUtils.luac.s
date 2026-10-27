@@ -47,11 +47,19 @@ PROTO_3:
        10 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R0 R0 K0 ["RunBoundCodeAsync"]
-        4 CALL                             R0 2 -1
-        5 RETURN                           R0 -1
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+7]
+        2 GETUPVAL                         R1 1
+        3 GETUPVAL                         R3 2
+        4 MOVE                             R4 R0
+        5 NAMECALL                         R1 R1 K0 ["RunCodeAsync"]
+        7 CALL                             R1 3 -1
+        8 RETURN                           R1 -1
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 NAMECALL                         R1 R1 K1 ["RunBoundCodeAsync"]
+       13 CALL                             R1 2 -1
+       14 RETURN                           R1 -1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -61,10 +69,18 @@ PROTO_5:
         5 MOVE                             R4 R0
         6 NAMECALL                         R2 R1 K2 ["BindCodeAsync"]
         8 CALL                             R2 2 1
-        9 NEWCLOSURE                       R3 P0
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          VAL R2
-       12 RETURN                           R2 2
+        9 GETUPVAL                         R4 1
+       10 GETTABLEKS                       R4 R4 K3 ["EngineFeatureAssistantExecuteLuauArguments"]
+       12 JUMPIFEQKB                       R4 TRUE ; [+2]
+       14 LOADB                            R3 0 +1
+       15 LOADB                            R3 1
+       16 NEWCLOSURE                       R4 P0
+       17 CAPTURE                          VAL R3
+       18 CAPTURE                          VAL R1
+       19 CAPTURE                          VAL R2
+       20 MOVE                             R5 R2
+       21 MOVE                             R6 R4
+       22 RETURN                           R5 2
 
 PROTO_6:
         0 SETUPVAL                         R0 0
@@ -318,6 +334,19 @@ PROTO_19:
        13 RETURN                           R0 0
 
 PROTO_20:
+        0 GETIMPORT                        R1 K1 [game]
+        2 LOADK                            R3 K2 ["ReplicatedStorage"]
+        3 NAMECALL                         R1 R1 K3 ["GetService"]
+        5 CALL                             R1 2 1
+        6 LOADK                            R3 K4 ["AssistantEval"]
+        7 NAMECALL                         R1 R1 K5 ["FindFirstChild"]
+        9 CALL                             R1 2 1
+       10 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       12 LOADB                            R0 0 +1
+       13 LOADB                            R0 1
+       14 RETURN                           R0 1
+
+PROTO_21:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["ReplicatedStorage"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
@@ -341,11 +370,11 @@ PROTO_20:
        29 SETTABLEKS                       R1 R0 K12 ["Parent"]
        31 RETURN                           R0 1
 
-PROTO_21:
+PROTO_22:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 GETUPVAL                         R0 0
         1 RETURN                           R0 1
 
@@ -356,116 +385,123 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["ModelContextProtocol"]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["StudioFoundation"]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["ModelContextProtocol"]
        20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["Util"]
-       23 GETTABLEKS                       R3 R3 K10 ["StudioUri"]
-       25 LOADNIL                          R4
-       26 LOADNIL                          R5
-       27 LOADNIL                          R6
-       28 DUPTABLE                         R7 K19 [{["Test"] = 0, ["TestHere"] = 1, ["Run"] = 2, ["ServerAndClients"] = 4}]
-       29 DUPTABLE                         R8 K24 [{"CleanupServerAndClients", "Stop", "LaunchTestMode", "PlaceManagementSaveToFile"}]
-       30 GETTABLEKS                       R9 R3 K25 ["fromAction"]
-       32 LOADK                            R10 K26 ["RunTools"]
-       33 LOADK                            R11 K20 ["CleanupServerAndClients"]
-       34 CALL                             R9 2 1
-       35 SETTABLEKS                       R9 R8 K20 ["CleanupServerAndClients"]
-       37 GETTABLEKS                       R9 R3 K25 ["fromAction"]
-       39 LOADK                            R10 K26 ["RunTools"]
-       40 LOADK                            R11 K21 ["Stop"]
-       41 CALL                             R9 2 1
-       42 SETTABLEKS                       R9 R8 K21 ["Stop"]
-       44 GETTABLEKS                       R9 R3 K25 ["fromAction"]
-       46 LOADK                            R10 K26 ["RunTools"]
-       47 LOADK                            R11 K22 ["LaunchTestMode"]
-       48 CALL                             R9 2 1
-       49 SETTABLEKS                       R9 R8 K22 ["LaunchTestMode"]
-       51 GETTABLEKS                       R9 R3 K25 ["fromAction"]
-       53 LOADK                            R10 K27 ["PlaceManagement"]
-       54 LOADK                            R11 K28 ["SaveToFile"]
-       55 CALL                             R9 2 1
-       56 SETTABLEKS                       R9 R8 K23 ["PlaceManagementSaveToFile"]
-       58 NEWCLOSURE                       R9 P0
-       59 CAPTURE                          REF R5
-       60 NEWCLOSURE                       R10 P1
-       61 CAPTURE                          REF R5
-       62 NEWCLOSURE                       R11 P2
-       63 CAPTURE                          REF R4
-       64 NEWCLOSURE                       R12 P3
-       65 CAPTURE                          REF R4
-       66 NEWCLOSURE                       R13 P4
-       67 CAPTURE                          REF R4
-       68 NEWCLOSURE                       R14 P5
-       69 CAPTURE                          REF R4
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["StudioFoundation"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R3 K11 ["Util"]
+       30 GETTABLEKS                       R4 R4 K12 ["StudioUri"]
+       32 LOADNIL                          R5
+       33 LOADNIL                          R6
+       34 LOADNIL                          R7
+       35 DUPTABLE                         R8 K21 [{["Test"] = 0, ["TestHere"] = 1, ["Run"] = 2, ["ServerAndClients"] = 4}]
+       36 DUPTABLE                         R9 K26 [{"CleanupServerAndClients", "Stop", "LaunchTestMode", "PlaceManagementSaveToFile"}]
+       37 GETTABLEKS                       R10 R4 K27 ["fromAction"]
+       39 LOADK                            R11 K28 ["RunTools"]
+       40 LOADK                            R12 K22 ["CleanupServerAndClients"]
+       41 CALL                             R10 2 1
+       42 SETTABLEKS                       R10 R9 K22 ["CleanupServerAndClients"]
+       44 GETTABLEKS                       R10 R4 K27 ["fromAction"]
+       46 LOADK                            R11 K28 ["RunTools"]
+       47 LOADK                            R12 K23 ["Stop"]
+       48 CALL                             R10 2 1
+       49 SETTABLEKS                       R10 R9 K23 ["Stop"]
+       51 GETTABLEKS                       R10 R4 K27 ["fromAction"]
+       53 LOADK                            R11 K28 ["RunTools"]
+       54 LOADK                            R12 K24 ["LaunchTestMode"]
+       55 CALL                             R10 2 1
+       56 SETTABLEKS                       R10 R9 K24 ["LaunchTestMode"]
+       58 GETTABLEKS                       R10 R4 K27 ["fromAction"]
+       60 LOADK                            R11 K29 ["PlaceManagement"]
+       61 LOADK                            R12 K30 ["SaveToFile"]
+       62 CALL                             R10 2 1
+       63 SETTABLEKS                       R10 R9 K25 ["PlaceManagementSaveToFile"]
+       65 NEWCLOSURE                       R10 P0
+       66 CAPTURE                          REF R6
+       67 NEWCLOSURE                       R11 P1
+       68 CAPTURE                          REF R6
+       69 NEWCLOSURE                       R12 P2
        70 CAPTURE                          REF R5
-       71 NEWCLOSURE                       R15 P6
-       72 CAPTURE                          VAL R3
-       73 CAPTURE                          REF R4
-       74 NEWCLOSURE                       R16 P7
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          REF R4
-       77 NEWCLOSURE                       R17 P8
-       78 CAPTURE                          VAL R8
-       79 CAPTURE                          VAL R10
-       80 CAPTURE                          REF R5
-       81 NEWCLOSURE                       R18 P9
-       82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R10
+       71 NEWCLOSURE                       R13 P3
+       72 CAPTURE                          REF R5
+       73 NEWCLOSURE                       R14 P4
+       74 CAPTURE                          REF R5
+       75 CAPTURE                          VAL R1
+       76 NEWCLOSURE                       R15 P5
+       77 CAPTURE                          REF R5
+       78 CAPTURE                          REF R6
+       79 NEWCLOSURE                       R16 P6
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          REF R5
+       82 NEWCLOSURE                       R17 P7
+       83 CAPTURE                          VAL R4
        84 CAPTURE                          REF R5
-       85 NEWCLOSURE                       R19 P10
-       86 CAPTURE                          VAL R8
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          REF R5
-       89 NEWCLOSURE                       R20 P11
-       90 CAPTURE                          VAL R7
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          REF R4
-       93 CAPTURE                          VAL R8
-       94 CAPTURE                          VAL R10
-       95 CAPTURE                          REF R5
-       96 NEWCLOSURE                       R21 P12
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          REF R5
-       99 NEWCLOSURE                       R22 P13
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          REF R5
-      102 DUPCLOSURE                       R23 K29 [PROTO_15]
-      103 NEWCLOSURE                       R24 P15
-      104 CAPTURE                          VAL R8
-      105 CAPTURE                          VAL R10
-      106 CAPTURE                          REF R5
-      107 DUPCLOSURE                       R25 K30 [PROTO_17]
-      108 DUPCLOSURE                       R26 K31 [PROTO_18]
-      109 NEWCLOSURE                       R27 P18
-      110 CAPTURE                          REF R4
-      111 DUPCLOSURE                       R28 K32 [PROTO_20]
-      112 NEWCLOSURE                       R29 P20
-      113 CAPTURE                          REF R6
-      114 NEWCLOSURE                       R30 P21
-      115 CAPTURE                          REF R6
-      116 DUPTABLE                         R31 K51 [{"RunModeEnum", "init", "getUserSettingsAsync", "setUserSettingsAsync", "loadCode", "runWithMode", "stopPlay", "cleanupServerAndClients", "waitForLocalPlayerReady", "installLoadedCode", "openPlaceFile", "savePlace", "getInstanceByPath", "getAssistantEvalBridge", "setMcpClient", "getMcpClient", "isCleanupServerAndClientsAvailable", "getStopMultiPlayerTestStateChangedSignal"}]
-      117 SETTABLEKS                       R7 R31 K33 ["RunModeEnum"]
-      119 SETTABLEKS                       R14 R31 K34 ["init"]
-      121 SETTABLEKS                       R11 R31 K35 ["getUserSettingsAsync"]
-      123 SETTABLEKS                       R12 R31 K36 ["setUserSettingsAsync"]
-      125 SETTABLEKS                       R13 R31 K37 ["loadCode"]
-      127 SETTABLEKS                       R20 R31 K38 ["runWithMode"]
-      129 SETTABLEKS                       R18 R31 K39 ["stopPlay"]
-      131 SETTABLEKS                       R19 R31 K40 ["cleanupServerAndClients"]
-      133 SETTABLEKS                       R23 R31 K41 ["waitForLocalPlayerReady"]
-      135 SETTABLEKS                       R25 R31 K42 ["installLoadedCode"]
-      137 SETTABLEKS                       R27 R31 K43 ["openPlaceFile"]
-      139 SETTABLEKS                       R24 R31 K44 ["savePlace"]
-      141 SETTABLEKS                       R26 R31 K45 ["getInstanceByPath"]
-      143 SETTABLEKS                       R28 R31 K46 ["getAssistantEvalBridge"]
-      145 SETTABLEKS                       R29 R31 K47 ["setMcpClient"]
-      147 SETTABLEKS                       R30 R31 K48 ["getMcpClient"]
-      149 SETTABLEKS                       R21 R31 K49 ["isCleanupServerAndClientsAvailable"]
-      151 SETTABLEKS                       R22 R31 K50 ["getStopMultiPlayerTestStateChangedSignal"]
-      153 CLOSEUPVALS                      R4
-      154 RETURN                           R31 1
+       85 NEWCLOSURE                       R18 P8
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          VAL R11
+       88 CAPTURE                          REF R6
+       89 NEWCLOSURE                       R19 P9
+       90 CAPTURE                          VAL R9
+       91 CAPTURE                          VAL R11
+       92 CAPTURE                          REF R6
+       93 NEWCLOSURE                       R20 P10
+       94 CAPTURE                          VAL R9
+       95 CAPTURE                          VAL R11
+       96 CAPTURE                          REF R6
+       97 NEWCLOSURE                       R21 P11
+       98 CAPTURE                          VAL R8
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          REF R5
+      101 CAPTURE                          VAL R9
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          REF R6
+      104 NEWCLOSURE                       R22 P12
+      105 CAPTURE                          VAL R9
+      106 CAPTURE                          REF R6
+      107 NEWCLOSURE                       R23 P13
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          REF R6
+      110 DUPCLOSURE                       R24 K31 [PROTO_15]
+      111 NEWCLOSURE                       R25 P15
+      112 CAPTURE                          VAL R9
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          REF R6
+      115 DUPCLOSURE                       R26 K32 [PROTO_17]
+      116 DUPCLOSURE                       R27 K33 [PROTO_18]
+      117 NEWCLOSURE                       R28 P18
+      118 CAPTURE                          REF R5
+      119 DUPCLOSURE                       R29 K34 [PROTO_20]
+      120 DUPCLOSURE                       R30 K35 [PROTO_21]
+      121 NEWCLOSURE                       R31 P21
+      122 CAPTURE                          REF R7
+      123 NEWCLOSURE                       R32 P22
+      124 CAPTURE                          REF R7
+      125 DUPTABLE                         R33 K55 [{"RunModeEnum", "init", "getUserSettingsAsync", "setUserSettingsAsync", "loadCode", "runWithMode", "stopPlay", "cleanupServerAndClients", "waitForLocalPlayerReady", "installLoadedCode", "openPlaceFile", "savePlace", "getInstanceByPath", "getAssistantEvalBridge", "hasAssistantEvalFolder", "setMcpClient", "getMcpClient", "isCleanupServerAndClientsAvailable", "getStopMultiPlayerTestStateChangedSignal"}]
+      126 SETTABLEKS                       R8 R33 K36 ["RunModeEnum"]
+      128 SETTABLEKS                       R15 R33 K37 ["init"]
+      130 SETTABLEKS                       R12 R33 K38 ["getUserSettingsAsync"]
+      132 SETTABLEKS                       R13 R33 K39 ["setUserSettingsAsync"]
+      134 SETTABLEKS                       R14 R33 K40 ["loadCode"]
+      136 SETTABLEKS                       R21 R33 K41 ["runWithMode"]
+      138 SETTABLEKS                       R19 R33 K42 ["stopPlay"]
+      140 SETTABLEKS                       R20 R33 K43 ["cleanupServerAndClients"]
+      142 SETTABLEKS                       R24 R33 K44 ["waitForLocalPlayerReady"]
+      144 SETTABLEKS                       R26 R33 K45 ["installLoadedCode"]
+      146 SETTABLEKS                       R28 R33 K46 ["openPlaceFile"]
+      148 SETTABLEKS                       R25 R33 K47 ["savePlace"]
+      150 SETTABLEKS                       R27 R33 K48 ["getInstanceByPath"]
+      152 SETTABLEKS                       R30 R33 K49 ["getAssistantEvalBridge"]
+      154 SETTABLEKS                       R29 R33 K50 ["hasAssistantEvalFolder"]
+      156 SETTABLEKS                       R31 R33 K51 ["setMcpClient"]
+      158 SETTABLEKS                       R32 R33 K52 ["getMcpClient"]
+      160 SETTABLEKS                       R22 R33 K53 ["isCleanupServerAndClientsAvailable"]
+      162 SETTABLEKS                       R23 R33 K54 ["getStopMultiPlayerTestStateChangedSignal"]
+      164 CLOSEUPVALS                      R5
+      165 RETURN                           R33 1

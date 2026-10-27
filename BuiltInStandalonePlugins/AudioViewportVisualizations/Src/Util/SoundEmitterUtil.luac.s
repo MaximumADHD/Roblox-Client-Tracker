@@ -6,8 +6,8 @@ PROTO_0:
         8 RETURN                           R1 1
         9 NAMECALL                         R1 R0 K5 ["GetDistanceAttenuation"]
        11 CALL                             R1 1 1
-       12 LOADK                            R2 K6 [∞]
-       13 LOADK                            R3 K7 [-∞]
+       12 LOADK                            R2 K6 [Infinity]
+       13 LOADK                            R3 K7 [-Infinity]
        14 GETIMPORT                        R4 K9 [pairs]
        16 MOVE                             R5 R1
        17 CALL                             R4 1 3
@@ -25,7 +25,7 @@ PROTO_0:
        33 CALL                             R9 2 1
        34 MOVE                             R3 R9
        35 FORGLOOP                         R4 1 ; [-17]
-       37 JUMPIFNOTEQKN                    R2 K6 [∞] ; [+31]
+       37 JUMPIFNOTEQKN                    R2 K6 [Infinity] ; [+31]
        39 GETIMPORT                        R5 K16 [game]
        41 LOADK                            R7 K17 ["AudioEmitterPannerMinDistanceNumerator"]
        42 NAMECALL                         R5 R5 K18 ["GetFastInt"]

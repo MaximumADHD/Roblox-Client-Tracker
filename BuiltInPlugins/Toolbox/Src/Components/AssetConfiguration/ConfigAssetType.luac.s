@@ -680,12 +680,12 @@ PROTO_30:
         2 GETUPVAL                         R4 0
         3 GETTABLEKS                       R5 R0 K4 ["type"]
         5 CALL                             R3 2 1
-        6 ORK                              R2 R3 K0 [∞]
+        6 ORK                              R2 R3 K0 [Infinity]
         7 GETIMPORT                        R4 K3 [table.find]
         9 GETUPVAL                         R5 0
        10 GETTABLEKS                       R6 R1 K4 ["type"]
        12 CALL                             R4 2 1
-       13 ORK                              R3 R4 K0 [∞]
+       13 ORK                              R3 R4 K0 [Infinity]
        14 JUMPIFLT                         R2 R3 ; [+2]
        16 LOADB                            R4 0 +1
        17 LOADB                            R4 1

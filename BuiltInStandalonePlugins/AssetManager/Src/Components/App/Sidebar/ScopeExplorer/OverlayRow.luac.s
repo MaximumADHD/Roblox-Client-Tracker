@@ -159,54 +159,72 @@ PROTO_5:
         8 GETUPVAL                         R5 3
         9 MOVE                             R6 R1
        10 CALL                             R5 1 1
-       11 GETTABLEKS                       R7 R1 K1 ["Uid"]
-       13 GETTABLE                         R6 R3 R7
-       14 GETTABLEKS                       R8 R2 K1 ["Uid"]
-       16 GETTABLEKS                       R9 R1 K1 ["Uid"]
-       18 JUMPIFEQ                         R8 R9 ; [+2]
-       20 LOADB                            R7 0 +1
-       21 LOADB                            R7 1
-       22 GETUPVAL                         R8 4
-       23 GETTABLEKS                       R9 R0 K2 ["Position"]
-       25 GETTABLEKS                       R9 R9 K3 ["Y"]
-       27 GETTABLEKS                       R9 R9 K4 ["Offset"]
-       29 CALL                             R8 1 1
-       30 GETTABLEKS                       R10 R1 K1 ["Uid"]
-       32 GETTABLE                         R9 R4 R10
-       33 JUMPIF                           R9 ; [+4]
-       34 JUMPIFEQKNIL                     R5 ; [+2]
-       36 LOADB                            R9 0 +1
-       37 LOADB                            R9 1
-       38 JUMPIF                           R9 ; [+10]
-       39 JUMPIF                           R6 ; [+9]
-       40 GETUPVAL                         R10 5
-       41 GETTABLEKS                       R10 R10 K5 ["InventoryFolderStatus"]
-       43 GETTABLEKS                       R10 R10 K6 ["FoldersReady"]
-       45 JUMPIFNOTEQ                      R5 R10 ; [+3]
-       47 LOADNIL                          R10
-       48 RETURN                           R10 1
-       49 JUMPIFNOT                        R9 ; [+2]
-       50 LOADK                            R10 K7 ["Spinner"]
-       51 JUMP                             ; [+4]
-       52 JUMPIFNOT                        R6 ; [+2]
-       53 LOADK                            R10 K8 ["Notification"]
-       54 JUMP                             ; [+1]
-       55 LOADK                            R10 K9 ["Warning"]
-       56 GETUPVAL                         R11 6
-       57 GETTABLEKS                       R11 R11 K10 ["createElement"]
-       59 GETUPVAL                         R12 7
-       60 DUPTABLE                         R13 K16 [{"Index", "Position", "IconType", "ScopeUid", "IsSelected", "IsHovered"}]
-       61 GETTABLEKS                       R14 R0 K11 ["Index"]
-       63 SETTABLEKS                       R14 R13 K11 ["Index"]
-       65 GETTABLEKS                       R14 R0 K2 ["Position"]
-       67 SETTABLEKS                       R14 R13 K2 ["Position"]
-       69 SETTABLEKS                       R10 R13 K12 ["IconType"]
-       71 GETTABLEKS                       R14 R1 K1 ["Uid"]
-       73 SETTABLEKS                       R14 R13 K13 ["ScopeUid"]
-       75 SETTABLEKS                       R7 R13 K14 ["IsSelected"]
-       77 SETTABLEKS                       R8 R13 K15 ["IsHovered"]
-       79 CALL                             R11 2 -1
-       80 RETURN                           R11 -1
+       11 GETUPVAL                         R7 4
+       12 GETUPVAL                         R8 5
+       13 GETTABLEKS                       R8 R8 K1 ["IxpVariable"]
+       15 GETTABLEKS                       R8 R8 K2 ["Omnisearch"]
+       17 CALL                             R7 1 1
+       18 GETUPVAL                         R8 5
+       19 GETTABLEKS                       R8 R8 K3 ["IxpValue"]
+       21 GETTABLEKS                       R8 R8 K4 ["Experiment"]
+       23 JUMPIFEQ                         R7 R8 ; [+2]
+       25 LOADB                            R6 0 +1
+       26 LOADB                            R6 1
+       27 GETTABLEKS                       R8 R1 K5 ["Uid"]
+       29 GETTABLE                         R7 R3 R8
+       30 GETTABLEKS                       R9 R2 K5 ["Uid"]
+       32 GETTABLEKS                       R10 R1 K5 ["Uid"]
+       34 JUMPIFEQ                         R9 R10 ; [+2]
+       36 LOADB                            R8 0 +1
+       37 LOADB                            R8 1
+       38 GETUPVAL                         R9 6
+       39 GETTABLEKS                       R10 R0 K6 ["Position"]
+       41 GETTABLEKS                       R10 R10 K7 ["Y"]
+       43 GETTABLEKS                       R10 R10 K8 ["Offset"]
+       45 CALL                             R9 1 1
+       46 GETTABLEKS                       R11 R1 K5 ["Uid"]
+       48 GETTABLE                         R10 R4 R11
+       49 JUMPIFEQKNIL                     R5 ; [+2]
+       51 LOADB                            R11 0 +1
+       52 LOADB                            R11 1
+       53 GETUPVAL                         R13 5
+       54 GETTABLEKS                       R13 R13 K9 ["InventoryFolderStatus"]
+       56 GETTABLEKS                       R13 R13 K10 ["FoldersNotReady"]
+       58 JUMPIFEQ                         R5 R13 ; [+2]
+       60 LOADB                            R12 0 +1
+       61 LOADB                            R12 1
+       62 NOT                              R13 R6
+       63 MOVE                             R14 R10
+       64 JUMPIF                           R14 ; [+1]
+       65 AND                              R14 R13 R11
+       66 AND                              R15 R13 R12
+       67 JUMPIF                           R14 ; [+4]
+       68 JUMPIF                           R7 ; [+3]
+       69 JUMPIF                           R15 ; [+2]
+       70 LOADNIL                          R16
+       71 RETURN                           R16 1
+       72 JUMPIFNOT                        R14 ; [+2]
+       73 LOADK                            R16 K11 ["Spinner"]
+       74 JUMP                             ; [+4]
+       75 JUMPIFNOT                        R7 ; [+2]
+       76 LOADK                            R16 K12 ["Notification"]
+       77 JUMP                             ; [+1]
+       78 LOADK                            R16 K13 ["Warning"]
+       79 GETUPVAL                         R17 7
+       80 GETTABLEKS                       R17 R17 K14 ["createElement"]
+       82 GETUPVAL                         R18 8
+       83 DUPTABLE                         R19 K20 [{"Index", "Position", "IconType", "ScopeUid", "IsSelected", "IsHovered"}]
+       84 GETTABLEKS                       R20 R0 K15 ["Index"]
+       86 SETTABLEKS                       R20 R19 K15 ["Index"]
+       88 GETTABLEKS                       R20 R0 K6 ["Position"]
+       90 SETTABLEKS                       R20 R19 K6 ["Position"]
+       92 SETTABLEKS                       R16 R19 K16 ["IconType"]
+       94 GETTABLEKS                       R20 R1 K5 ["Uid"]
+       96 SETTABLEKS                       R20 R19 K17 ["ScopeUid"]
+       98 SETTABLEKS                       R8 R19 K18 ["IsSelected"]
+      100 SETTABLEKS                       R9 R19 K19 ["IsHovered"]
+      102 CALL                             R17 2 -1
+      103 RETURN                           R17 -1
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["Item"]
@@ -287,42 +305,48 @@ MAIN:
        93 GETIMPORT                        R13 K5 [require]
        95 GETTABLEKS                       R14 R0 K10 ["Src"]
        97 GETTABLEKS                       R14 R14 K20 ["Hooks"]
-       99 GETTABLEKS                       R14 R14 K24 ["useScopeNotifications"]
+       99 GETTABLEKS                       R14 R14 K24 ["useIxpValue"]
       101 CALL                             R13 1 1
       102 GETIMPORT                        R14 K5 [require]
       104 GETTABLEKS                       R15 R0 K10 ["Src"]
       106 GETTABLEKS                       R15 R15 K20 ["Hooks"]
-      108 GETTABLEKS                       R15 R15 K25 ["useSidebarScopeHovered"]
+      108 GETTABLEKS                       R15 R15 K25 ["useScopeNotifications"]
       110 CALL                             R14 1 1
-      111 DUPCLOSURE                       R15 K26 [PROTO_0]
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R4
-      115 DUPCLOSURE                       R16 K27 [PROTO_1]
-      116 CAPTURE                          VAL R3
-      117 CAPTURE                          VAL R1
-      118 DUPCLOSURE                       R17 K28 [PROTO_3]
-      119 CAPTURE                          VAL R9
-      120 CAPTURE                          VAL R7
+      111 GETIMPORT                        R15 K5 [require]
+      113 GETTABLEKS                       R16 R0 K10 ["Src"]
+      115 GETTABLEKS                       R16 R16 K20 ["Hooks"]
+      117 GETTABLEKS                       R16 R16 K26 ["useSidebarScopeHovered"]
+      119 CALL                             R15 1 1
+      120 DUPCLOSURE                       R16 K27 [PROTO_0]
       121 CAPTURE                          VAL R3
       122 CAPTURE                          VAL R1
-      123 DUPCLOSURE                       R18 K29 [PROTO_4]
-      124 CAPTURE                          VAL R3
-      125 CAPTURE                          VAL R15
-      126 CAPTURE                          VAL R16
-      127 CAPTURE                          VAL R17
-      128 CAPTURE                          VAL R1
-      129 DUPCLOSURE                       R19 K30 [PROTO_5]
-      130 CAPTURE                          VAL R10
-      131 CAPTURE                          VAL R13
-      132 CAPTURE                          VAL R11
-      133 CAPTURE                          VAL R12
-      134 CAPTURE                          VAL R14
-      135 CAPTURE                          VAL R5
-      136 CAPTURE                          VAL R3
-      137 CAPTURE                          VAL R18
-      138 DUPCLOSURE                       R20 K31 [PROTO_6]
-      139 CAPTURE                          VAL R5
-      140 CAPTURE                          VAL R3
-      141 CAPTURE                          VAL R19
-      142 RETURN                           R20 1
+      123 CAPTURE                          VAL R4
+      124 DUPCLOSURE                       R17 K28 [PROTO_1]
+      125 CAPTURE                          VAL R3
+      126 CAPTURE                          VAL R1
+      127 DUPCLOSURE                       R18 K29 [PROTO_3]
+      128 CAPTURE                          VAL R9
+      129 CAPTURE                          VAL R7
+      130 CAPTURE                          VAL R3
+      131 CAPTURE                          VAL R1
+      132 DUPCLOSURE                       R19 K30 [PROTO_4]
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R16
+      135 CAPTURE                          VAL R17
+      136 CAPTURE                          VAL R18
+      137 CAPTURE                          VAL R1
+      138 DUPCLOSURE                       R20 K31 [PROTO_5]
+      139 CAPTURE                          VAL R10
+      140 CAPTURE                          VAL R14
+      141 CAPTURE                          VAL R11
+      142 CAPTURE                          VAL R12
+      143 CAPTURE                          VAL R13
+      144 CAPTURE                          VAL R5
+      145 CAPTURE                          VAL R15
+      146 CAPTURE                          VAL R3
+      147 CAPTURE                          VAL R19
+      148 DUPCLOSURE                       R21 K32 [PROTO_6]
+      149 CAPTURE                          VAL R5
+      150 CAPTURE                          VAL R3
+      151 CAPTURE                          VAL R20
+      152 RETURN                           R21 1

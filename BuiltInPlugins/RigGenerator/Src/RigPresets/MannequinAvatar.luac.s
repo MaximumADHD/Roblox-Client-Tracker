@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 LOADK                            R2 K0 [4.99063724733126E+15]
+        1 LOADK                            R2 K0 [4990637247331259]
         2 CALL                             R1 1 -1
         3 RETURN                           R1 -1
 

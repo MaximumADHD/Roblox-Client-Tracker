@@ -62,7 +62,7 @@ PROTO_1:
        68 GETIMPORT                        R5 K22 [CFrame.Angles]
        70 LOADN                            R6 0
        71 LOADN                            R7 0
-       72 LOADK                            R8 K23 [1.5707963267949]
+       72 LOADK                            R8 K23 [1.5707963267948966]
        73 CALL                             R5 3 1
        74 MUL                              R3 R4 R5
        75 SETTABLEKS                       R3 R2 K19 ["CFrame"]
@@ -88,7 +88,7 @@ PROTO_1:
       107 CALL                             R5 3 1
       108 GETIMPORT                        R6 K22 [CFrame.Angles]
       110 LOADN                            R7 0
-      111 LOADK                            R8 K23 [1.5707963267949]
+      111 LOADK                            R8 K23 [1.5707963267948966]
       112 LOADN                            R9 0
       113 CALL                             R6 3 1
       114 MUL                              R4 R5 R6
