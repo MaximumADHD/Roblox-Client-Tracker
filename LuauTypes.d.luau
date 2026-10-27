@@ -659,6 +659,16 @@ type AudioMemoryResult = {
     Children: { { Name: string, Size: number, AssetId: string?, Owners: { { Name: string, ClassName: string } }?, Children: { any }? } },
 }
 
+type CollisionGeometryMemoryResult = {
+    Name: string,
+    Size: number,
+    Children: { {
+        Name: string,
+        Size: number,
+        Owners: { Instance },
+    } },
+}
+
 type VirtualInputPointerAction = {
     Wheel: number?,
     Pan: Vector2?,
@@ -690,6 +700,14 @@ type AnimatedImageFrameEntry = {
     FrameName: string,
     Duration: number
 }
+
+type PlayerDeviceTrustMeasures = {
+    IsPlatformVersionSecure: boolean,
+    IsPlatformBootSecure: boolean,
+    IsAppSecure: boolean
+}
+
+type PlayerDeviceTrustResult = { Action: Enum.PlayerDeviceTrustDecision, Message: string?, ExcludeFromSessionAnalytics: boolean? }
 
 
 -- SECTION END: Reflection Adjacent

@@ -24,6 +24,10 @@ The `size` property scales the text along the body typography ramp, with values 
 
 The `hasUnderline` property controls whether the underline is persistent. It defaults to `false`, so the underline appears only while the link is hovered or focused; set it to `true` to keep the link underlined at rest.
 
+### Text overflow
+
+The `textOverflow` property controls what happens when the link text is longer than the space it sits in, with values defined in [[TextOverflow]]. `None` is the default: the link stays on one line and sizes to its text. Set it to `Wrap` and the link fills its container's width and its text wraps onto as many lines as needed, keeping the underline on every line.
+
 ### Examples
 
 ```luau

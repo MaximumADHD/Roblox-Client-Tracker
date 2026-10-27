@@ -9586,7 +9586,6 @@
         <string name="ClassCategory">Animations</string>
         <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">53</string>
-        <bool name="FFlag">HumanoidRigDescriptionEnabled</bool>
         <string name="PreferredParent">Model</string>
         <string name="PreferredParents">Model</string>
         <string name="PreferredParents">Animator</string>
@@ -11551,6 +11550,12 @@
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">CornerWedge</string>
+        </Properties>
+      </Item>
+      <Item class="ReflectionMetadataEnumItem">
+        <Properties>
+          <string name="Name">Capsule</string>
+          <bool name="FFlag">PartTypeCapsuleEnabled</bool>
         </Properties>
       </Item>
     </Item>

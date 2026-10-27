@@ -1,6 +1,6 @@
 [package]
 name = "ServiceContractsProto"
-version = "1.0.3055+20261015"
+version = "1.0.3172+20261022"
 readme = "README.md"
 content_root = "protos/gen/luau"
 files = [
@@ -30,6 +30,8 @@ files = [
     "roblox/apppageplatform/charts/v1beta1/*",
     "roblox/apppageplatform/devstore/v1beta1/**/*",
     "roblox/apppageplatform/devstore/v1beta1/*",
+    "roblox/apppageplatform/buyrobux/v1beta1/**/*",
+    "roblox/apppageplatform/buyrobux/v1beta1/*",
     "roblox/apppageplatform/experienceleaderboard/v1beta1/**/*",
     "roblox/apppageplatform/experienceleaderboard/v1beta1/*",
     "roblox/apppageplatform/home/v1beta1/**/*",
@@ -44,6 +46,8 @@ files = [
     "roblox/apppageplatform/templates/v1beta1/*",
     "roblox/apppageplatform/settings/v1beta1/**/*",
     "roblox/apppageplatform/settings/v1beta1/*",
+    "roblox/apppageplatform/userlibrary/v1beta1/**/*",
+    "roblox/apppageplatform/userlibrary/v1beta1/*",
     "roblox/apppageplatform/*",
     "roblox/posts/postasset/v1/**/*",
     "roblox/posts/postasset/v1/*",

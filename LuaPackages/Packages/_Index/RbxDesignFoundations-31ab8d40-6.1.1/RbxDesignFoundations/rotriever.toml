@@ -1,12 +1,9 @@
 [package]
 name = "RbxDesignFoundations"
-version = "3.0.5"
+version = "6.1.1"
 readme = "README.md"
-content_root = "src"
-files = [
-    "*",
-    "!*.test.lua",
-]
+content_root = "lib"
+files = ["*"]
 publish = true
 authors = ["Roblox"]
 [dev_dependencies.Jest]

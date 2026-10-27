@@ -94,6 +94,24 @@
                                     "$properties": {
                                         "KeyCode": "Thumbstick1"
                                     }
+                                },
+                                "DynamicThumbstickScriptableBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Type": "Scriptable"
+                                    }
+                                },
+                                "ClassicThumbstickScriptableBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Type": "Scriptable"
+                                    }
+                                },
+                                "ClickToMoveScriptableBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Type": "Scriptable"
+                                    }
                                 }
                             },
                             "JumpAction": {
@@ -114,6 +132,12 @@
                                 "TouchBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {}
+                                },
+                                "ClickToMoveScriptableBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Type": "Scriptable"
+                                    }
                                 }
                             },
                             "AbilityAction1": {
@@ -361,7 +385,13 @@
                                 }
                             },                            
                             "RotationAction": {
-                                "$className": "InputAction"
+                                "$className": "InputAction",
+                                "RotationScriptableBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Type": "Scriptable"
+                                    }
+                                }
                             }
                         },
                         "CameraContext": {
@@ -535,6 +565,12 @@
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction3D"
+                                },
+                                "CameraScriptableBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Type": "Scriptable"
+                                    }
                                 }
                             }
                         },
