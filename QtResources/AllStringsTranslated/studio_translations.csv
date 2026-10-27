@@ -674,7 +674,7 @@ Studio.App.InsertServiceDialog.InsertService,,,Insert Service,Insert Service
 Studio.App.InstanceSelectionEditor.ClearValue,,,Clear Value,Clear Value
 Studio.App.InstanceSelectionEditor.SelectValue,,,Select Value,Select Value
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,,Closing down all open places...,Closing down all open places...
-Studio.App.LoginManager.LogOut,,,Log Out,Log Out
+Studio.App.LoginManager.LogOut,,,Sign out,Sign out
 Studio.App.LoginManager.LoggedOut,,,Logged Out,Logged Out
 Studio.App.MainWindow.32BitParens,,, (32bit), (32bit)
 Studio.App.MainWindow.64BitParens,,, (64bit), (64bit)
@@ -733,7 +733,7 @@ Studio.App.MainWindow.OpenRecentGameRoblox,,,Open a recent Game from Roblox,Open
 Studio.App.MainWindow.OpenRobloxFile,,,Open Roblox File,Open Roblox File
 Studio.App.MainWindow.PluginManagement,,,Plugin Management,Plugin Management
 Studio.App.MainWindow.QTVersionSpace,,,Qt Version: ,Qt Version: 
-Studio.App.MainWindow.Reconnect,,,Reconnect,Reconnect
+Studio.App.MainWindow.Reconnect,,,Try connecting,Try connecting
 Studio.App.MainWindow.RemovedAsTeamCreateContributor,,,You have been removed as a Team Create contributor.,You have been removed as a Team Create contributor.
 Studio.App.MainWindow.RobloxStudio,,,Roblox Studio,Roblox Studio
 Studio.App.MainWindow.RobloxStudioSpace,,,Roblox Studio ,Roblox Studio 
@@ -1376,7 +1376,7 @@ Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables,,,Watch the highl
 Studio.App.RobloxRibbonMainWindow.Wedge,,,Wedge,Wedge
 Studio.App.RobloxRibbonMainWindow.Weld,,,Weld,Weld
 Studio.App.RobloxRibbonMainWindow.WoodPlanks,,,Wood Planks,Wood Planks
-Studio.App.RobloxSettingsDialog.ResetAllSettings,,,Reset All Settings,Reset All Settings
+Studio.App.RobloxSettingsDialog.ResetAllSettings,,,Reset all settings,Reset all settings
 Studio.App.RobloxSettingsDialog.RestartForSettingsChanges,,,Some of these setting changes will not take effect until you restart Studio,Some of these setting changes will not take effect until you restart Studio
 Studio.App.RobloxSettingsDialog.SaveChanges,,,Save Changes,Save Changes
 Studio.App.RobloxTeamCreateWidget.DeleteUser,,,Delete User,Delete User
@@ -2668,7 +2668,7 @@ Studio.App.ManageEmulationDeviceDialog.NewDevicePrefix,,,newDevice,newDevice
 Studio.App.Merge.AllConflictsResolved,,,All conflicts resolved,All conflicts resolved
 Studio.App.Merge.Done,,,Merge All,Merge All
 Studio.App.PluginPermissionsDialog.Allow,,,Allow,Allow
-Studio.App.PluginPermissionsDialog.Deny,,,Deny,Deny
+Studio.App.PluginPermissionsDialog.Deny,,,Don't allow,Don't allow
 Studio.App.PluginPermissionsDialog.HttpDomainPermission,,,Allow plugin %1 to access %2?,Allow plugin %1 to access %2?
 Studio.App.PluginPermissionsDialog.Warning,,,You can always revoke this permission from Plugins > Plugin Management.,You can always revoke this permission from Plugins > Plugin Management.
 Studio.App.Property.PluginDebuggingEnabled,,,Plugin Debugging Enabled,Plugin Debugging Enabled
@@ -5866,6 +5866,10 @@ Studio.App.RBXMainWindow.PublishStatusTooltip,,,Choose and manage the audience o
 Studio.App.AssetAccess.RequestAccessOutputMessageAllAssets,,,You do not have access to use certain assets. Click to request access,You do not have access to use certain assets. Click to request access
 Studio.App.AssetPrivacyPublishDialog.GrantPermissionsAndPublishButton,,,Grant Permissions and Publish,Grant Permissions and Publish
 Studio.App.AssetPrivacyPublishDialog.AssetsNeedPermissionDescription,,,"This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted.","This place uses assets that the destination experience does not have permission to use. These permissions must be granted for the assets to load in the destination experience, otherwise they will be missing after publishing. Publishing continues as soon as the permissions are granted."
+Studio.App.LocalSaveHelper.AutoSaveDataModelBusy,,,Failed to auto-save because Studio has been busy for too long. A script or plugin may be stuck.,Failed to auto-save because Studio has been busy for too long. A script or plugin may be stuck.
+Studio.App.Actions.UIBlur,,,UIBlur,UIBlur
+Studio.App.EmulatorMainWidget.AverageMacbook,,,Average Macbook,Average Macbook
+Studio.App.EmulatorMainWidget.AverageWindows,,,Average Windows,Average Windows
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8410,6 +8414,11 @@ Studio.Toolbox.AssetConfig.AvatarItemDialogHeadingDraftPublishInProgress,,,Prepa
 Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionDraftPublishSingular,,,An asset used by this item is a draft. It must be published and made open use before you can upload this item.,An asset used by this item is a draft. It must be published and made open use before you can upload this item.
 Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionPublishFailed,,,Some assets couldn't be published. See Output window for details.,Some assets couldn't be published. See Output window for details.
 Studio.Toolbox.AssetConfig.AvatarItemDialogDescriptionOpenUseFailed,,,Some assets couldn't be made open use. See Output window for details.,Some assets couldn't be made open use. See Output window for details.
+Studio.Toolbox.AssetConfigVersions.VersionRestricted,,,This version has been restricted due to policy violations,This version has been restricted due to policy violations
+Studio.Toolbox.AssetConfigVersions.RestrictedBannerTitle,,,Version {version} has been restricted due to policy violations,Version {version} has been restricted due to policy violations
+Studio.Toolbox.AssetConfigVersions.RestrictedBannerDescription,,,Import a new version or appeal to keep it visible.,Import a new version or appeal to keep it visible.
+Studio.Toolbox.AssetConfigVersions.Appeal,,,Appeal,Appeal
+Studio.Toolbox.AssetConfigVersions.ImportNewVersion,,,Import New Version,Import New Version
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9873,6 +9882,9 @@ Studio.AssetManager.AssetProperty.Description,,,Description,Description
 Studio.AssetManager.AssetProperty.AssetTypeDetails,,,{assetType} Details,{assetType} Details
 Studio.AssetManager.ContextMenu.CopyUris,,,Copy URIs,Copy URIs
 Studio.AssetManager.Toast.ShowInFolderFailed,,,Could not open the folder for this item.,Could not open the folder for this item.
+Studio.AssetManager.ContextMenu.View,,,View,View
+Studio.AssetManager.ContextMenu.Create2DAnimation,,,Create 2D Animation,Create 2D Animation
+Studio.AssetManager.AssetPermission.Restricted,,,Restricted,Restricted
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10800,6 +10812,7 @@ Studio.AssetImporter.Snackbar.VersionImportError,,,Error importing the new versi
 Studio.AssetImporter.ImportQueue.StartImport,,,Start Import,Start Import
 Studio.AssetImporter.ImportQueue.StatusReady,,,Ready to Import,Ready to Import
 Studio.AssetImporter.ImportQueue.StatusComplete,,,Import Complete,Import Complete
+Studio.AssetImporter.Properties.DestinationFolderId,,,Folder,Folder
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -11426,6 +11439,7 @@ Studio.ManageCollaborators.Action.Verify,,,Verify,Verify
 Studio.ManageCollaborators.SearchBar.CantInviteLabel,,,Can't invite,Can't invite
 Studio.ManageCollaborators.SearchBar.CantInviteTooltip,,,Not everyone can be an early tester,Not everyone can be an early tester
 Studio.ManageCollaborators.Label.EarlyTesterRoleCopy,,,Early testers for {experienceName} ({universeId}),Early testers for {experienceName} ({universeId})
+Studio.ManageCollaborators.AudienceTabs.GroupPlayTesterLimit,,,Add up to {maxNumPlayTesters:int} members to preview your game.,Add up to {maxNumPlayTesters:int} members to preview your game.
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -13098,6 +13112,9 @@ Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StagesRunning,,,{count} run
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StagesWaiting,,,{count} waiting,{count} waiting
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.StagesCompleted,,,{count} completed,{count} completed
 Studio.AvatarCompatibilityPreviewer.AvatarChatScreen.OtherStages,,,(+{count} more),(+{count} more)
+Studio.AvatarCompatibilityPreviewer.PromptToAvatarSurvey.Title,,,Rate Prompt-to-Avatar Results,Rate Prompt-to-Avatar Results
+Studio.AvatarCompatibilityPreviewer.PromptToAvatarSurvey.PleaseRateYourExperience,,,Please rate your experience with the Prompt-to-Avatar results.,Please rate your experience with the Prompt-to-Avatar results.
+Studio.AvatarCompatibilityPreviewer.AvatarSettings.RunValidation,,,Run validation,Run validation
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13190,7 +13207,7 @@ Studio.Tutorials.Plugin.Description,,,Toggles the Template plugin window.,Toggle
 Studio.Tutorials.Plugin.Welcome,,,"Welcome to Roblox Studio, %s!","Welcome to Roblox Studio, %s!"
 Studio.Tutorials.Plugin.Title,,,Want to learn the basics? Start the tour to make your first experience.,Want to learn the basics? Start the tour to make your first experience.
 Studio.Tutorials.Plugin.Start,,,Start,Start
-Studio.Tutorials.Plugin.Next,,,Next,Next
+Studio.Tutorials.Plugin.Next,,,Continue,Continue
 Studio.Tutorials.Completed.Title,,,You completed the %s!,You completed the %s!
 Studio.Tutorials.Completed.Description,,,Continue building here or visit the Dashboard to choose a different template place.,Continue building here or visit the Dashboard to choose a different template place.
 Studio.Tutorials.Completed.Back,,,Dashboard,Dashboard
@@ -14444,14 +14461,14 @@ Studio.ModerationDialog.AbuseType.Swearing,,,Swearing,Swearing
 Studio.ModerationDialog.ReviewedNote.ModeratorNote1,,,Moderator Note: {note},Moderator Note: {note}
 Studio.ModerationDialog.AbuseType.ThreatsOrAbuseOfRobloxEmployeesOrAffiliates,,,Threats or Abuse of Roblox Employees or Affiliates,Threats or Abuse of Roblox Employees or Affiliates
 Studio.ModerationDialog.Reason.Reason1,,,Reason: {reason},Reason: {reason}
-Studio.ModerationDialog.Buttons.LogOut,,,Log out,Log out
+Studio.ModerationDialog.Buttons.LogOut,,,Sign out,Sign out
 Studio.ModerationDialog.AbuseType.Scamming,,,Scamming,Scamming
 Studio.ModerationDialog.Reason.OffensiveItem1,,,Offensive Item: {offensiveItem},Offensive Item: {offensiveItem}
 Studio.ModerationDialog.Reason.AssetId1,,,Asset ID: {assetId},Asset ID: {assetId}
 Studio.ModerationDialog.Agreement.GuidelinesAndToU,,,Please abide by the Roblox Community Guideline so that Roblox can be fun for users of all ages. You may re-activate your account by agreeing to our Terms of Use.,Please abide by the Roblox Community Guideline so that Roblox can be fun for users of all ages. You may re-activate your account by agreeing to our Terms of Use.
 Studio.ModerationDialog.Agreement.IAgree,,,I agree,I agree
 Studio.ModerationDialog.Buttons.TermsOfUse,,,Terms of Use,Terms of Use
-Studio.ModerationDialog.Buttons.Reactivate,,,Re-activate my account,Re-activate my account
+Studio.ModerationDialog.Buttons.Reactivate,,,Agree and reactivate,Agree and reactivate
 Studio.ModerationDialog.AbuseType.Other,,,Other,Other
 Studio.ModerationDialog.AbuseType.ChildEndangerment,,,Child Endangerment,Child Endangerment
 Studio.ModerationDialog.AbuseType.Harassment,,,Harassment,Harassment
@@ -14487,7 +14504,7 @@ Studio.ModerationDialog.BanHeader.Ban1YearHeader,,,Banned for 1 Year,Banned for 
 Studio.ModerationDialog.WarningHeader.WarningLink,,,Our content monitors determined that your behavior violated our [link1].,Our content monitors determined that your behavior violated our [link1].
 Studio.ModerationDialog.AccountDisabled.Guidelines,,,Please review the [link1].,Please review the [link1].
 Studio.ModerationDialog.AccountDisabled.Appeal,,,"If you wish to appeal, please contact us via the [link1].","If you wish to appeal, please contact us via the [link1]."
-Studio.ModerationDialog.Agreement.TermsOfUse,,,You may re-activate your account by agreeing to our [link1].,You may re-activate your account by agreeing to our [link1].
+Studio.ModerationDialog.Agreement.TermsOfUse,,,You may reactivate your account by agreeing to our [link1].,You may reactivate your account by agreeing to our [link1].
 Studio.ModerationDialog.Links.AppealPortal,,,Appeals Portal,Appeals Portal
 Studio.ModerationDialog.Links.GuidelinesLink,,,Roblox Community Standards,Roblox Community Standards
 Studio.ModerationDialog.Links.ToULink,,,Terms of Use,Terms of Use
@@ -14644,7 +14661,7 @@ Studio.StartPage.Plugin.PrivacyType.Private,,,Private,Private
 Studio.StartPage.Plugin.TypePill,,,Type: {type},Type: {type}
 Studio.StartPage.Plugin.HomePage.Templates.Description,,,"See what's possible on Roblox in popular genres with our ready-made experiences, or start from scratch.","See what's possible on Roblox in popular genres with our ready-made experiences, or start from scratch."
 Studio.StartPage.Plugin.ArchivePage.Group,,,Group Experiences,Group Experiences
-Studio.StartPage.Plugin.SeeAll,,,See All,See All
+Studio.StartPage.Plugin.SeeAll,,,View all,View all
 Studio.StartPage.Plugin.HomePage.DiscoverStudio.Heading,,,Discover Studio,Discover Studio
 Studio.StartPage.DiscoverStudioPlaceholder.Tutorials.Desc,,,Get to grips with the fundamentals of Studio and learn how to create complete experiences.,Get to grips with the fundamentals of Studio and learn how to create complete experiences.
 Studio.StartPage.Plugin.HomePage.DiscoverStudio.Description,,,"Level up fast with our tutorials and resources, and learn the skills to bring your ideas to life.","Level up fast with our tutorials and resources, and learn the skills to bring your ideas to life."
@@ -15637,6 +15654,7 @@ Studio.Assistant.Permissions.CapNetwork,,,Send HTTP requests and communicate acr
 Studio.Assistant.Permissions.ScopeUniverseRead,,,Read experience configuration and metadata.,Read experience configuration and metadata.
 Studio.Assistant.Permissions.ScopePlaceRead,,,Read place configuration and metadata.,Read place configuration and metadata.
 Studio.Assistant.Permissions.ScopeGamePassRead,,,View game passes.,View game passes.
+Studio.Assistant.Scope.MemoryHashMapRead,,,Read and list items in a memory store hash map.,Read and list items in a memory store hash map.
 Studio.Assistant.Permissions.ScopeGamePassWrite,,,Create and modify game passes.,Create and modify game passes.
 Studio.Assistant.Permissions.ScopeDataStoreRead,,,Read data store entries.,Read data store entries.
 Studio.Assistant.Permissions.ScopeDataStoreUpdate,,,Create and update data store entries.,Create and update data store entries.
@@ -15670,10 +15688,12 @@ Studio.Assistant.Permissions.ScopeUserRestrictionRead,,,Read user restrictions (
 Studio.Assistant.Permissions.ScopeUserRestrictionWrite,,,Create and update user restrictions (bans) for a universe or place.,Create and update user restrictions (bans) for a universe or place.
 Studio.Assistant.Permissions.ScopeAssetRead,,,"Read asset metadata, versions, and quotas.","Read asset metadata, versions, and quotas."
 Studio.Assistant.Permissions.ScopeAssetWrite,,,"Upload, update, archive, restore, and roll back assets.","Upload, update, archive, restore, and roll back assets."
+Studio.Assistant.Preset.BalancedDescription,,,"Low and moderate-risk permissions, such as reading and listing data.","Low and moderate-risk permissions, such as reading and listing data."
 Studio.Assistant.Permissions.ScopeAssetPermissionsWrite,,,Modify permissions on an asset.,Modify permissions on an asset.
 Studio.Assistant.Permissions.ScopeStoreProductRead,,,Read Creator Store product listings and search the toolbox.,Read Creator Store product listings and search the toolbox.
 Studio.Assistant.Permissions.ScopeStoreProductWrite,,,Create and update Creator Store products.,Create and update Creator Store products.
 Studio.Assistant.Permissions.ScopeStoreSaveRead,,,Read a user's Creator Store saved items.,Read a user's Creator Store saved items.
+Studio.Assistant.Scope.MemoryHashMapWrite,,,"Create, update, and delete memory store hash map items.","Create, update, and delete memory store hash map items."
 Studio.Assistant.Permissions.ScopeStoreSaveWrite,,,Create and delete a user's Creator Store saved items.,Create and delete a user's Creator Store saved items.
 Studio.Assistant.Permissions.ScopeGroupWrite,,,"Manage group memberships, role assignments, and join requests.","Manage group memberships, role assignments, and join requests."
 Studio.Assistant.Permissions.ScopeGroupForumRead,,,"Read group forum categories, posts, and comments.","Read group forum categories, posts, and comments."
@@ -15689,6 +15709,105 @@ Studio.Assistant.Permissions.ScopeAnalyticsRead,,,Query universe analytics metri
 Studio.Assistant.Permissions.ScopeAdCampaignRead,,,"Read ad campaigns, creatives, and campaign options.","Read ad campaigns, creatives, and campaign options."
 Studio.Assistant.Permissions.ScopeAdCampaignWrite,,,Create and update ad campaigns.,Create and update ad campaigns.
 Studio.Assistant.Permissions.ScopeAdBillingRead,,,Read ad billing account information.,Read ad billing account information.
+Studio.Assistant.Cap.Network,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Assistant.Category.AssetsDescription,,,Create or update assets and manage existing ones.,Create or update assets and manage existing ones.
+Studio.Assistant.Category.AssetsName,,,Publish & manage assets,Publish & manage assets
+Studio.Assistant.Category.DataDescription,,,Access data stores and memory stores.,Access data stores and memory stores.
+Studio.Assistant.Category.DataName,,,Save & load data,Save & load data
+Studio.Assistant.Category.EditGameDescription,,,"Build and modify parts, scripts, UI, audio, and the environment.","Build and modify parts, scripts, UI, audio, and the environment."
+Studio.Assistant.Category.EditGameName,,,Edit your game,Edit your game
+Studio.Assistant.Category.EnforcementDescription,,,Take enforcement actions against players.,Take enforcement actions against players.
+Studio.Assistant.Category.EnforcementName,,,Player consequences,Player consequences
+Studio.Assistant.Category.InternetDescription,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Assistant.Category.InternetName,,,Connect to the internet,Connect to the internet
+Studio.Assistant.Category.LookAtGameDescription,,,"Inspect the place, read scripts, and check logs. Nothing is changed.","Inspect the place, read scripts, and check logs. Nothing is changed."
+Studio.Assistant.Category.LookAtGameName,,,Look at your game,Look at your game
+Studio.Assistant.Category.MonetizationDescription,,,Configure monetization and spend Robux-backed actions.,Configure monetization and spend Robux-backed actions.
+Studio.Assistant.Category.MonetizationName,,,Money & monetization,Money & monetization
+Studio.Assistant.Category.SecurityDescription,,,"Manage credentials, secrets, sandboxes, and execute Studio actions.","Manage credentials, secrets, sandboxes, and execute Studio actions."
+Studio.Assistant.Category.SecurityName,,,Security & credentials,Security & credentials
+Studio.Assistant.Category.SocialDescription,,,"Work with players, notifications, groups, avatars, and messaging.","Work with players, notifications, groups, avatars, and messaging."
+Studio.Assistant.Category.SocialName,,,Players & social,Players & social
+Studio.Assistant.Scope.StoreSaveWrite,,,Create and delete a user's Creator Store saved items.,Create and delete a user's Creator Store saved items.
+Studio.Assistant.Preset.BalancedName,,,Balanced,Balanced
+Studio.Assistant.Preset.CustomDescription,,,Manual selections per permission.,Manual selections per permission.
+Studio.Assistant.Scope.DataStoreDelete,,,Delete data store entries.,Delete data store entries.
+Studio.Assistant.Preset.CustomName,,,Custom,Custom
+Studio.Assistant.Preset.FullAccessDescription,,,"Every supported permission, including high-risk writes and network access.","Every supported permission, including high-risk writes and network access."
+Studio.Assistant.Preset.FullAccessName,,,Full access,Full access
+Studio.Assistant.Preset.SafeDescription,,,Only the lowest-risk permissions.,Only the lowest-risk permissions.
+Studio.Assistant.Preset.SafeName,,,Safe,Safe
+Studio.Assistant.Scope.AdBillingRead,,,Read ad billing account information.,Read ad billing account information.
+Studio.Assistant.Scope.AdCampaignRead,,,"Read ad campaigns, creatives, and campaign options.","Read ad campaigns, creatives, and campaign options."
+Studio.Assistant.Scope.AdCampaignWrite,,,Create and update ad campaigns.,Create and update ad campaigns.
+Studio.Assistant.Scope.AnalyticsRead,,,Query universe analytics metrics and dimension values.,Query universe analytics metrics and dimension values.
+Studio.Assistant.Scope.AssetPermissionsWrite,,,Modify permissions on an asset.,Modify permissions on an asset.
+Studio.Assistant.Scope.AssetRead,,,"Read asset metadata, versions, and quotas.","Read asset metadata, versions, and quotas."
+Studio.Assistant.Scope.AssetWrite,,,"Upload, update, archive, restore, and roll back assets.","Upload, update, archive, restore, and roll back assets."
+Studio.Assistant.Scope.DataStoreList,,,List data store entries.,List data store entries.
+Studio.Assistant.Scope.DataStoreRead,,,Read data store entries.,Read data store entries.
+Studio.Assistant.Scope.DataStoreUpdate,,,Create and update data store entries.,Create and update data store entries.
+Studio.Assistant.Scope.DataStoreVersionList,,,List data store entry versions.,List data store entry versions.
+Studio.Assistant.Scope.DevProductRead,,,Read developer product definitions and metadata for a universe.,Read developer product definitions and metadata for a universe.
+Studio.Assistant.Scope.DevProductWrite,,,Create and update developer products for a universe.,Create and update developer products for a universe.
+Studio.Assistant.Scope.EventRead,,,Read game events (virtual events) for a universe.,Read game events (virtual events) for a universe.
+Studio.Assistant.Scope.EventWrite,,,"Create, update, and delete game events (virtual events).","Create, update, and delete game events (virtual events)."
+Studio.Assistant.Scope.GamePassRead,,,View game passes.,View game passes.
+Studio.Assistant.Scope.GamePassWrite,,,Create and modify game passes.,Create and modify game passes.
+Studio.Assistant.Scope.GroupForumRead,,,"Read group forum categories, posts, and comments.","Read group forum categories, posts, and comments."
+Studio.Assistant.Scope.GroupRead,,,"Read group roles, membership details, and join requests.","Read group roles, membership details, and join requests."
+Studio.Assistant.Scope.GroupWrite,,,"Manage group memberships, role assignments, and join requests.","Manage group memberships, role assignments, and join requests."
+Studio.Assistant.Scope.InstanceRead,,,Read instances (data model objects) within a place.,Read instances (data model objects) within a place.
+Studio.Assistant.Scope.InstanceWrite,,,Update instances (data model objects) within a place.,Update instances (data model objects) within a place.
+Studio.Assistant.Scope.LuauExecutionRead,,,Read Luau execution session task status and logs.,Read Luau execution session task status and logs.
+Studio.Assistant.Scope.LuauExecutionWrite,,,Create and run Luau execution session tasks.,Create and run Luau execution session tasks.
+Studio.Assistant.Scope.MemoryQueueAdd,,,Add items to a memory store queue.,Add items to a memory store queue.
+Studio.Assistant.Scope.MemoryQueueDequeue,,,Read and dequeue items from a memory store queue.,Read and dequeue items from a memory store queue.
+Studio.Assistant.Scope.MemoryQueueDiscard,,,Discard items from a memory store queue.,Discard items from a memory store queue.
+Studio.Assistant.Scope.MemorySortedMapRead,,,Read items from a memory store sorted map.,Read items from a memory store sorted map.
+Studio.Assistant.Scope.MemorySortedMapWrite,,,"Create, update, and delete memory store sorted map items.","Create, update, and delete memory store sorted map items."
+Studio.Assistant.Scope.MemoryStoreFlush,,,Flush all memory store data for a universe.,Flush all memory store data for a universe.
+Studio.Assistant.Scope.MemoryStoreGet,,,Read the status of a memory store operation.,Read the status of a memory store operation.
+Studio.Assistant.Scope.MessagingPublish,,,Publish messages to cross-server messaging topics in a universe.,Publish messages to cross-server messaging topics in a universe.
+Studio.Assistant.Scope.OrderedDataStoreRead,,,Read entries from an ordered data store scope.,Read entries from an ordered data store scope.
+Studio.Assistant.Scope.OrderedDataStoreWrite,,,"Create, update, delete, and increment ordered data store entries.","Create, update, delete, and increment ordered data store entries."
+Studio.Assistant.Scope.PlacePublish,,,Publish new place versions.,Publish new place versions.
+Studio.Assistant.Scope.PlaceRead,,,Read place configuration and metadata.,Read place configuration and metadata.
+Studio.Assistant.Scope.PlaceWrite,,,Update place configuration and add version notes.,Update place configuration and add version notes.
+Studio.Assistant.Scope.SecretRead,,,Read universe secret metadata and the encryption public key.,Read universe secret metadata and the encryption public key.
+Studio.Assistant.Scope.SecretWrite,,,"Create, update, and delete universe secrets.","Create, update, and delete universe secrets."
+Studio.Assistant.Scope.StoreProductRead,,,Read Creator Store product listings and search the toolbox.,Read Creator Store product listings and search the toolbox.
+Studio.Assistant.Scope.StoreProductWrite,,,Create and update Creator Store products.,Create and update Creator Store products.
+Studio.Assistant.Scope.StoreSaveRead,,,Read a user's Creator Store saved items.,Read a user's Creator Store saved items.
+Studio.Assistant.Scope.SubscriptionRead,,,Read a user's subscription to a universe subscription product.,Read a user's subscription to a universe subscription product.
+Studio.Assistant.Scope.ThumbnailRead,,,Read universe thumbnails and personalization settings.,Read universe thumbnails and personalization settings.
+Studio.Assistant.Scope.ThumbnailWrite,,,"Upload, delete, and personalize universe thumbnails.","Upload, delete, and personalize universe thumbnails."
+Studio.Assistant.Scope.UniverseRead,,,Read experience configuration and metadata.,Read experience configuration and metadata.
+Studio.Assistant.Scope.UniverseWrite,,,"Modify universe-level data: configs, experiments, publishing, server restarts, metadata.","Modify universe-level data: configs, experiments, publishing, server restarts, metadata."
+Studio.Assistant.Scope.UserAdvancedRead,,,Read advanced user profile fields.,Read advanced user profile fields.
+Studio.Assistant.Scope.UserInventoryRead,,,Read items in a user's inventory.,Read items in a user's inventory.
+Studio.Assistant.Scope.UserNotificationWrite,,,Send notifications to a user.,Send notifications to a user.
+Studio.Assistant.Scope.UserRestrictionRead,,,Read user restrictions (bans) and restriction logs for a universe or place.,Read user restrictions (bans) and restriction logs for a universe or place.
+Studio.Assistant.Scope.UserRestrictionWrite,,,Create and update user restrictions (bans) for a universe or place.,Create and update user restrictions (bans) for a universe or place.
+Studio.Assistant.Scope.UserSocialRead,,,Read a user's social profile information.,Read a user's social profile information.
+Studio.Assistant.Permissions.UnpublishedNotice,,,Save to Roblox to manage MCP permissions.,Save to Roblox to manage MCP permissions.
+Studio.Assistant.McpSettings.ActiveClientCountTitle,,,MCP Clients,MCP Clients
+Studio.Assistant.McpSettings.ActiveClientCountTooltip,,,Number of active MCP clients.,Number of active MCP clients.
+Studio.Assistant.Permissions.UploadDirectoriesHeader,,,Open Cloud upload directories,Open Cloud upload directories
+Studio.Assistant.Permissions.UploadDirectoriesDescription,,,MCP tools can only upload local files to Open Cloud from these directories.,MCP tools can only upload local files to Open Cloud from these directories.
+Studio.Assistant.Permissions.NoUploadDirectories,,,No directories allowed.,No directories allowed.
+Studio.Assistant.Permissions.AddUploadDirectory,,,Add directory,Add directory
+Studio.Assistant.Permissions.UploadDirectoryDialogTitle,,,Select a directory to allow for Open Cloud uploads,Select a directory to allow for Open Cloud uploads
+Studio.Assistant.McpSettings.StatusTitleOff,,,MCP off,MCP off
+Studio.Assistant.McpSettings.StatusTooltipOff,,,Enable MCP to connect a client.,Enable MCP to connect a client.
+Studio.Assistant.McpSettings.StatusTitleIndeterminate,,,MCP starting,MCP starting
+Studio.Assistant.McpSettings.StatusTooltipIndeterminate,,,Starting MCP...,Starting MCP...
+Studio.Assistant.McpSettings.StatusTitleReady,,,MCP Ready,MCP Ready
+Studio.Assistant.McpSettings.StatusTooltipReady,,,MCP is enabled and accepting connections. No clients connected.,MCP is enabled and accepting connections. No clients connected.
+Studio.Assistant.McpSettings.StatusTitleConnected,,,MCP · {count:int},MCP · {count:int}
+Studio.Assistant.McpSettings.StatusTooltipConnected,,,{count:int} client(s) connected.,{count:int} client(s) connected.
+Studio.Assistant.McpSettings.StatusTitleError,,,MCP Error,MCP Error
+Studio.Assistant.McpSettings.StatusTooltipError,,,Unable to connect. Try restarting MCP,Unable to connect. Try restarting MCP
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -16470,6 +16589,10 @@ Studio.BetaFeatures.PluginKeyboardNavigationTitle,,,Keyboard Navigation,Keyboard
 Studio.BetaFeatures.PluginKeyboardNavigationDescription,,,"Enables studio ui keyboard navigation with Tab and Shift + Tab. This is a breaking change for plugins, as Tab is now sunk within widgets.","Enables studio ui keyboard navigation with Tab and Shift + Tab. This is a breaking change for plugins, as Tab is now sunk within widgets."
 Studio.BetaFeatures.PrimalSolverTitle,,,Primal Physics Solver,Primal Physics Solver
 Studio.BetaFeatures.PrimalSolverDescription,,,A new physics solver (Primal) offering improved constraint stability and convergence.,A new physics solver (Primal) offering improved constraint stability and convergence.
+Studio.BetaFeatures.AvatarCreationTitle,,,Prompt-to-Avatar,Prompt-to-Avatar
+Studio.BetaFeatures.AvatarCreationDescription,,,Generates an avatar from a text prompt.,Generates an avatar from a text prompt.
+Studio.BetaFeatures.NextGenerationPhysicsSolverDescription,,,A new physics solver offering improved constraint stability and convergence.,A new physics solver offering improved constraint stability and convergence.
+Studio.BetaFeatures.NextGenerationPhysicsSolverTitle,,,Next Generation Physics Solver,Next Generation Physics Solver
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -17020,7 +17143,7 @@ Studio.MaxInstanceCount.WarningDialogCloseInstanceButton,,,Close,Close
 Studio.MaxInstanceCount.WarningDialogDetailedText,,,"If you proceed, you may experience reduced performance.<br><a href='%1'>Learn More</a>","If you proceed, you may experience reduced performance.<br><a href='%1'>Learn More</a>"
 Studio.MaxInstanceCount.CriticalDialogText,,,Can’t open Studio window,Can’t open Studio window
 Studio.MaxInstanceCount.DialogTitle,,,Roblox Studio,Roblox Studio
-Studio.MaxInstanceCount.WarningDialogDismissButton,,,Proceed,Proceed
+Studio.MaxInstanceCount.WarningDialogDismissButton,,,Continue,Continue
 Studio.MaxInstanceCount.WarningDialogText,,,Low System Resources,Low System Resources
 Studio.CommandBar.Label.RunCommandInStandaloneDM,,,Run command in Standalone DataModel,Run command in Standalone DataModel
 Studio.CommandBar.Label.Standalone,,,Standalone,Standalone
@@ -17669,6 +17792,7 @@ Studio.InputActionManager.Menu.Priority,,,Priority,Priority
 Studio.InputActionManager.Menu.Scriptable,,,Scriptable Binding,Scriptable Binding
 Studio.InputActionManager.Filter.PlayerScripts,,,PlayerScripts,PlayerScripts
 Studio.InputActionManager.Header.ShowAll,,,Show All,Show All
+Studio.InputActionManager.Menu.ShowInExplorer,,,Show in Explorer,Show in Explorer
 Studio.AdPlacementManager.Label.AdPlacementManagerTitle,,,Ad Placement Manager,Ad Placement Manager
 Studio.AdPlacementManager.Label.AdPlacementManagerTooltip,,,View Ad Placement Manager,View Ad Placement Manager
 Studio.AdPlacementManager.Plugin.Description,,,Manage ad placements in your experience.,Manage ad placements in your experience.
@@ -17761,6 +17885,13 @@ Studio.DeviceSimulatorToolbar.SavePreset.Replace,,,Replace,Replace
 Studio.DeviceSimulatorToolbar.SavePreset.NamePlaceholder,,,Preset name,Preset name
 Studio.DeviceSimulatorToolbar.SavePreset.SaveAndApply,,,Save & Apply,Save & Apply
 Studio.DeviceSimulatorToolbar.SavePreset.ReplaceAndApply,,,Replace & Apply,Replace & Apply
+Studio.DeviceSimulatorToolbar.Performance.Name,,,Performance,Performance
+Studio.DeviceSimulatorToolbar.PerformanceMode.SelectedDevice,,,Selected device,Selected device
+Studio.DeviceSimulatorToolbar.PerformanceMode.Manual,,,Manual,Manual
+Studio.DeviceSimulatorToolbar.PerformanceMode.NotSimulated,,,Not simulated,Not simulated
+Studio.DeviceSimulatorToolbar.PerformanceBackground.Low,,,Low,Low
+Studio.DeviceSimulatorToolbar.PerformanceBackground.Mid,,,Mid,Mid
+Studio.DeviceSimulatorToolbar.PerformanceBackground.High,,,High,High
 Studio.AutoRecovery.FileFoundDialog.Title,,,Auto Recovery File Found,Auto Recovery File Found
 Studio.AutoRecovery.FileFoundDialog.Body,,,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?,An automatic recovery file was found for this place. It may contain more recent work than what is currently open. Would you like to review it?
 Studio.AutoRecovery.FileFoundDialog.Review,,,Review,Review
@@ -17797,6 +17928,13 @@ Studio.DeviceSimulator.NetworkPreset.WiredBroadband,,,Wired Broadband,Wired Broa
 Studio.DeviceSimulator.NetworkPreset.HomeWifi,,,Home Wi-Fi,Home Wi-Fi
 Studio.DeviceSimulator.NetworkPreset.StandardMobile,,,Standard Mobile (4G/LTE),Standard Mobile (4G/LTE)
 Studio.DeviceSimulator.NetworkPreset.BadConnection,,,Bad Connection (3G),Bad Connection (3G)
+Studio.DeviceSimulator.PerformanceControl.Graphics,,,Graphics,Graphics
+Studio.DeviceSimulator.PerformanceControl.Memory,,,Memory,Memory
+Studio.DeviceSimulator.PerformanceControl.Mode,,,Mode,Mode
+Studio.DeviceSimulator.PerformanceControl.QualityLevel,,,Quality level,Quality level
+Studio.DeviceSimulator.PerformanceControl.DeviceRAM,,,Device RAM,Device RAM
+Studio.DeviceSimulator.PerformanceControl.Background,,,Background,Background
+Studio.DeviceSimulator.Performance.Off,,,Off,Off
 Studio.SurfaceAppearancePropertyItem.SurfaceSlot.All,,,All,All
 Studio.SurfaceAppearancePropertyItem.SurfaceSlot.Invalid,,,"This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All.","This SurfaceAppearance is assigned to a SurfaceSlot that does not exist on the parent MeshPart, so it will not be applied. Choose a SurfaceSlot from the list, or All."
 Studio.CollectionDebugger.Plugin.Name,,,Collection Debugger,Collection Debugger
@@ -17875,6 +18013,86 @@ Studio.ViewSelector2.ModeSwitch.Manual,,,Manual,Manual
 Studio.ViewSelector2.FirstPerson.Title,,,FPS Mode,FPS Mode
 Studio.ViewSelector2.Orbit.Title,,,Orbit Mode,Orbit Mode
 Studio.ViewSelector2.Orbit.Body,,,Rotate around a central point of focus.,Rotate around a central point of focus.
+Studio.ProjectView.RelativeTime.WeeksAgoMany,,,{count} weeks ago,{count} weeks ago
+Studio.ProjectView.Inspector.InstanceCountOne,,,{count} instance,{count} instance
+Studio.ProjectView.RelativeTime.WeeksAgoOne,,,{count} week ago,{count} week ago
+Studio.ProjectView.Dialog.MaterialCountMany,,,{count} materials,{count} materials
+Studio.ProjectView.Inspector.LabelLastChange,,,Last Change,Last Change
+Studio.ProjectView.Plugin.Button,,,Project,Project
+Studio.ProjectView.RelativeTime.DaysAgoMany,,,{count} days ago,{count} days ago
+Studio.ProjectView.Plugin.Description,,,Browse and manage your place's project content,Browse and manage your place's project content
+Studio.ProjectView.Plugin.Name,,,Project,Project
+Studio.ProjectView.Search.Placeholder,,,Search,Search
+Studio.ProjectView.Menu.Upload,,,Upload from computer,Upload from computer
+Studio.ProjectView.Menu.Rename,,,Rename,Rename
+Studio.ProjectView.Menu.Delete,,,Delete,Delete
+Studio.ProjectView.Menu.Duplicate,,,Duplicate,Duplicate
+Studio.ProjectView.VersionPicker.OnlyVersion,,,Only version,Only version
+Studio.ProjectView.Menu.Insert,,,Insert,Insert
+Studio.ProjectView.Menu.CopyPath,,,Copy Path,Copy Path
+Studio.ProjectView.Menu.UpdateToLatest,,,Update to Latest Version,Update to Latest Version
+Studio.ProjectView.Menu.AddFromComputer,,,Add from computer,Add from computer
+Studio.ProjectView.Menu.AddFolder,,,New Folder,New Folder
+Studio.ProjectView.Inspector.LabelAssetId,,,Asset ID,Asset ID
+Studio.ProjectView.Inspector.LabelContents,,,Contents,Contents
+Studio.ProjectView.Inspector.LabelType,,,Type,Type
+Studio.ProjectView.Inspector.LabelUsedInPlace,,,Used in place,Used in place
+Studio.ProjectView.Inspector.ValueFolder,,,Folder,Folder
+Studio.ProjectView.Dialog.ImportFailedBody,,,This image couldn't be imported. Please try again.,This image couldn't be imported. Please try again.
+Studio.ProjectView.Inspector.ValueEmpty,,,Empty,Empty
+Studio.ProjectView.Inspector.ItemCountOne,,,{count} item,{count} item
+Studio.ProjectView.Inspector.ItemCountMany,,,{count} items,{count} items
+Studio.ProjectView.Inspector.InstanceCountMany,,,{count} instances,{count} instances
+Studio.ProjectView.Inspector.UpdateToLatest,,,Update to latest,Update to latest
+Studio.ProjectView.Inspector.TypeImage,,,Image,Image
+Studio.ProjectView.Inspector.TypeMesh,,,Mesh,Mesh
+Studio.ProjectView.Inspector.LinkedAssetTitle,,,Linked asset,Linked asset
+Studio.ProjectView.Inspector.LinkedAssetBody,,,Upload or drag and drop an asset from Asset Manager to add a new version.,Upload or drag and drop an asset from Asset Manager to add a new version.
+Studio.ProjectView.Inspector.UnusedInPlace,,,Unused in place,Unused in place
+Studio.ProjectView.Inspector.AddFromComputer,,,Add from computer,Add from computer
+Studio.ProjectView.VersionPicker.VersionLabel,,,v{number},v{number}
+Studio.ProjectView.VersionPicker.Latest,,,Latest,Latest
+Studio.ProjectView.VersionPicker.LoadingVersions,,,Loading versions,Loading versions
+Studio.ProjectView.VersionPicker.LoadError,,,Couldn't load versions.,Couldn't load versions.
+Studio.ProjectView.VersionPicker.Today,,,today,today
+Studio.ProjectView.VersionPicker.Yesterday,,,yesterday,yesterday
+Studio.ProjectView.Tree.VersionLabel,,,v{number},v{number}
+Studio.ProjectView.RelativeTime.JustNow,,,just now,just now
+Studio.ProjectView.RelativeTime.MinutesAgoOne,,,{count} minute ago,{count} minute ago
+Studio.ProjectView.RelativeTime.MinutesAgoMany,,,{count} minutes ago,{count} minutes ago
+Studio.ProjectView.RelativeTime.HoursAgoOne,,,{count} hour ago,{count} hour ago
+Studio.ProjectView.RelativeTime.HoursAgoMany,,,{count} hours ago,{count} hours ago
+Studio.ProjectView.Dialog.MeshCountMany,,,{count} meshes,{count} meshes
+Studio.ProjectView.RelativeTime.DaysAgoOne,,,{count} day ago,{count} day ago
+Studio.ProjectView.RelativeTime.MonthsAgoOne,,,{count} month ago,{count} month ago
+Studio.ProjectView.RelativeTime.MonthsAgoMany,,,{count} months ago,{count} months ago
+Studio.ProjectView.RelativeTime.YearsAgoOne,,,{count} year ago,{count} year ago
+Studio.ProjectView.RelativeTime.YearsAgoMany,,,{count} years ago,{count} years ago
+Studio.ProjectView.Inspector.SubmitAppeal,,,Submit appeal,Submit appeal
+Studio.ProjectView.Moderation.TooltipTitle,,,Moderated,Moderated
+Studio.ProjectView.Moderation.TooltipMessage,,,This version was moderated for violating Roblox community standards. Update the asset or submit an appeal.,This version was moderated for violating Roblox community standards. Update the asset or submit an appeal.
+Studio.ProjectView.VersionPicker.Moderated,,,Moderated,Moderated
+Studio.ProjectView.VersionPicker.TriggerTooltipLatest,,,On latest · v{number},On latest · v{number}
+Studio.ProjectView.VersionPicker.TriggerTooltipBehind,,,Latest is v{number},Latest is v{number}
+Studio.ProjectView.RecycleBin.Empty,,,Empty trash,Empty trash
+Studio.ProjectView.RecycleBin.EmptyState,,,Trash is empty,Trash is empty
+Studio.ProjectView.RecycleBin.WasIn,,,was in {folder},was in {folder}
+Studio.ProjectView.Dialog.Reading3DFile,,,Reading {name}...,Reading {name}...
+Studio.ProjectView.Dialog.CreatingContent,,,Creating content...,Creating content...
+Studio.ProjectView.Dialog.AddingToWorkspace,,,Adding {name} to Workspace...,Adding {name} to Workspace...
+Studio.ProjectView.Dialog.UpdatingProjectContent,,,Updating project content...,Updating project content...
+Studio.ProjectView.Dialog.ContentSummary,,,"{meshes}, {materials}","{meshes}, {materials}"
+Studio.ProjectView.Dialog.MeshCountOne,,,{count} mesh,{count} mesh
+Studio.ProjectView.Dialog.MaterialCountOne,,,{count} material,{count} material
+Studio.ProjectView.Dialog.Import3DFailedTitle,,,Couldn't import 3D file,Couldn't import 3D file
+Studio.ProjectView.Dialog.Import3DFailedBody,,,Couldn't import {name}: {reason},Couldn't import {name}: {reason}
+Studio.ProjectView.Dialog.ImportFailedTitle,,,Import Failed,Import Failed
+Studio.ProjectView.Dialog.ImportOutOfMemoryBody,,,There isn't enough memory to import this image into the project. Remove some content and try again.,There isn't enough memory to import this image into the project. Remove some content and try again.
+Studio.ProjectView.Action.Ok,,,OK,OK
+Studio.ProjectView.Dialog.AddAssetFailedTitle,,,Couldn't add asset,Couldn't add asset
+Studio.ProjectView.Dialog.AddAssetFailedBody,,,Couldn't add to the project: {names},Couldn't add to the project: {names}
+Studio.ProjectView.Dialog.AddVersionFailedTitle,,,Couldn't add new version,Couldn't add new version
+Studio.ProjectView.Dialog.AddVersionFailedBody,,,{name} couldn't be added as a new version of this entry.,{name} couldn't be added as a new version of this entry.
 Studio.SdfTerrainEditor.BrushSettings.Strength,,,Strength,Strength
 Studio.SdfTerrainEditor.SplineToolbar.LockDescription,,,Locked tangents rotate and resize together.,Locked tangents rotate and resize together.
 Studio.SdfTerrainEditor.Category.TransformSettings,,,Transform Settings,Transform Settings
@@ -18148,3 +18366,93 @@ Studio.SdfTerrainEditor.TransformSettings.MergeEmpty,,,Merge Empty,Merge Empty
 Studio.SdfTerrainEditor.MaterialSettings.Material,,,Material,Material
 Studio.SdfTerrainEditor.MaterialSettings.From,,,From,From
 Studio.SdfTerrainEditor.MaterialSettings.To,,,To,To
+Studio.Permissions.Scope.AssetWrite,,,"Upload, update, archive, restore, and roll back assets.","Upload, update, archive, restore, and roll back assets."
+Studio.Permissions.Category.AssetsName,,,Publish & manage assets,Publish & manage assets
+Studio.Permissions.Scope.StoreProductRead,,,Read Creator Store product listings and search the toolbox.,Read Creator Store product listings and search the toolbox.
+Studio.Permissions.Scope.MemoryQueueDiscard,,,Discard items from a memory store queue.,Discard items from a memory store queue.
+Studio.Permissions.Cap.Network,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Permissions.Category.AssetsDescription,,,Create or update assets and manage existing ones.,Create or update assets and manage existing ones.
+Studio.Permissions.Category.DataDescription,,,Access data stores and memory stores.,Access data stores and memory stores.
+Studio.Permissions.Category.DataName,,,Save & load data,Save & load data
+Studio.Permissions.Category.EditGameDescription,,,"Build and modify parts, scripts, UI, audio, and the environment.","Build and modify parts, scripts, UI, audio, and the environment."
+Studio.Permissions.Category.EditGameName,,,Edit your game,Edit your game
+Studio.Permissions.Category.EnforcementDescription,,,Take enforcement actions against players.,Take enforcement actions against players.
+Studio.Permissions.Category.EnforcementName,,,Player consequences,Player consequences
+Studio.Permissions.Category.InternetDescription,,,Send HTTP requests and communicate across servers.,Send HTTP requests and communicate across servers.
+Studio.Permissions.Category.InternetName,,,Connect to the internet,Connect to the internet
+Studio.Permissions.Category.LookAtGameDescription,,,"Inspect the place, read scripts, and check logs. Nothing is changed.","Inspect the place, read scripts, and check logs. Nothing is changed."
+Studio.Permissions.Category.LookAtGameName,,,Look at your game,Look at your game
+Studio.Permissions.Category.MonetizationDescription,,,Configure monetization and spend Robux-backed actions.,Configure monetization and spend Robux-backed actions.
+Studio.Permissions.Category.MonetizationName,,,Money & monetization,Money & monetization
+Studio.Permissions.Category.SecurityDescription,,,"Manage credentials, secrets, sandboxes, and execute Studio actions.","Manage credentials, secrets, sandboxes, and execute Studio actions."
+Studio.Permissions.Category.SecurityName,,,Security & credentials,Security & credentials
+Studio.Permissions.Category.SocialDescription,,,"Work with players, notifications, groups, avatars, and messaging.","Work with players, notifications, groups, avatars, and messaging."
+Studio.Permissions.Category.SocialName,,,Players & social,Players & social
+Studio.Permissions.Preset.BalancedDescription,,,"Low and moderate-risk permissions, such as reading and listing data.","Low and moderate-risk permissions, such as reading and listing data."
+Studio.Permissions.Preset.BalancedName,,,Balanced,Balanced
+Studio.Permissions.Preset.CustomDescription,,,Manual selections per permission.,Manual selections per permission.
+Studio.Permissions.Preset.CustomName,,,Custom,Custom
+Studio.Permissions.Preset.FullAccessDescription,,,"Every supported permission, including high-risk writes and network access.","Every supported permission, including high-risk writes and network access."
+Studio.Permissions.Preset.FullAccessName,,,Full access,Full access
+Studio.Permissions.Preset.SafeDescription,,,Only the lowest-risk permissions.,Only the lowest-risk permissions.
+Studio.Permissions.Scope.UserNotificationWrite,,,Send notifications to a user.,Send notifications to a user.
+Studio.Permissions.Preset.SafeName,,,Safe,Safe
+Studio.Permissions.Scope.AdBillingRead,,,Read ad billing account information.,Read ad billing account information.
+Studio.Permissions.Scope.AdCampaignRead,,,"Read ad campaigns, creatives, and campaign options.","Read ad campaigns, creatives, and campaign options."
+Studio.Permissions.Scope.AdCampaignWrite,,,Create and update ad campaigns.,Create and update ad campaigns.
+Studio.Permissions.Scope.AnalyticsRead,,,Query universe analytics metrics and dimension values.,Query universe analytics metrics and dimension values.
+Studio.Permissions.Scope.AssetPermissionsWrite,,,Modify permissions on an asset.,Modify permissions on an asset.
+Studio.Permissions.Scope.AssetRead,,,"Read asset metadata, versions, and quotas.","Read asset metadata, versions, and quotas."
+Studio.Permissions.Scope.DataStoreDelete,,,Delete data store entries.,Delete data store entries.
+Studio.Permissions.Scope.DataStoreList,,,List data store entries.,List data store entries.
+Studio.Permissions.Scope.DataStoreRead,,,Read data store entries.,Read data store entries.
+Studio.Permissions.Scope.DataStoreUpdate,,,Create and update data store entries.,Create and update data store entries.
+Studio.Permissions.Scope.DataStoreVersionList,,,List data store entry versions.,List data store entry versions.
+Studio.Permissions.Scope.DevProductRead,,,Read developer product definitions and metadata for a universe.,Read developer product definitions and metadata for a universe.
+Studio.Permissions.Scope.DevProductWrite,,,Create and update developer products for a universe.,Create and update developer products for a universe.
+Studio.Permissions.Scope.EventRead,,,Read game events (virtual events) for a universe.,Read game events (virtual events) for a universe.
+Studio.Permissions.Scope.EventWrite,,,"Create, update, and delete game events (virtual events).","Create, update, and delete game events (virtual events)."
+Studio.Permissions.Scope.GamePassRead,,,View game passes.,View game passes.
+Studio.Permissions.Scope.GamePassWrite,,,Create and modify game passes.,Create and modify game passes.
+Studio.Permissions.Scope.GroupForumRead,,,"Read group forum categories, posts, and comments.","Read group forum categories, posts, and comments."
+Studio.Permissions.Scope.GroupRead,,,"Read group roles, membership details, and join requests.","Read group roles, membership details, and join requests."
+Studio.Permissions.Scope.GroupWrite,,,"Manage group memberships, role assignments, and join requests.","Manage group memberships, role assignments, and join requests."
+Studio.Permissions.Scope.InstanceRead,,,Read instances (data model objects) within a place.,Read instances (data model objects) within a place.
+Studio.Permissions.Scope.InstanceWrite,,,Update instances (data model objects) within a place.,Update instances (data model objects) within a place.
+Studio.Permissions.Scope.LuauExecutionRead,,,Read Luau execution session task status and logs.,Read Luau execution session task status and logs.
+Studio.Permissions.Scope.LuauExecutionWrite,,,Create and run Luau execution session tasks.,Create and run Luau execution session tasks.
+Studio.Permissions.Scope.MemoryHashMapRead,,,Read and list items in a memory store hash map.,Read and list items in a memory store hash map.
+Studio.Permissions.Scope.MemoryHashMapWrite,,,"Create, update, and delete memory store hash map items.","Create, update, and delete memory store hash map items."
+Studio.Permissions.Scope.MemoryQueueAdd,,,Add items to a memory store queue.,Add items to a memory store queue.
+Studio.Permissions.Scope.MemoryQueueDequeue,,,Read and dequeue items from a memory store queue.,Read and dequeue items from a memory store queue.
+Studio.Permissions.Scope.MemorySortedMapRead,,,Read items from a memory store sorted map.,Read items from a memory store sorted map.
+Studio.Permissions.Scope.MemorySortedMapWrite,,,"Create, update, and delete memory store sorted map items.","Create, update, and delete memory store sorted map items."
+Studio.Permissions.Scope.MemoryStoreFlush,,,Flush all memory store data for a universe.,Flush all memory store data for a universe.
+Studio.Permissions.Scope.MemoryStoreGet,,,Read the status of a memory store operation.,Read the status of a memory store operation.
+Studio.Permissions.Scope.MessagingPublish,,,Publish messages to cross-server messaging topics in a universe.,Publish messages to cross-server messaging topics in a universe.
+Studio.Permissions.Scope.OrderedDataStoreRead,,,Read entries from an ordered data store scope.,Read entries from an ordered data store scope.
+Studio.Permissions.Scope.OrderedDataStoreWrite,,,"Create, update, delete, and increment ordered data store entries.","Create, update, delete, and increment ordered data store entries."
+Studio.Permissions.Scope.PlacePublish,,,Publish new place versions.,Publish new place versions.
+Studio.Permissions.Scope.PlaceRead,,,Read place configuration and metadata.,Read place configuration and metadata.
+Studio.Permissions.Scope.PlaceWrite,,,Update place configuration and add version notes.,Update place configuration and add version notes.
+Studio.Permissions.Scope.SecretRead,,,Read universe secret metadata and the encryption public key.,Read universe secret metadata and the encryption public key.
+Studio.Permissions.Scope.SecretWrite,,,"Create, update, and delete universe secrets.","Create, update, and delete universe secrets."
+Studio.Permissions.Scope.StoreProductWrite,,,Create and update Creator Store products.,Create and update Creator Store products.
+Studio.Permissions.Scope.StoreSaveRead,,,Read a user's Creator Store saved items.,Read a user's Creator Store saved items.
+Studio.Permissions.Scope.StoreSaveWrite,,,Create and delete a user's Creator Store saved items.,Create and delete a user's Creator Store saved items.
+Studio.Permissions.Scope.SubscriptionRead,,,Read a user's subscription to a universe subscription product.,Read a user's subscription to a universe subscription product.
+Studio.Permissions.Scope.ThumbnailRead,,,Read universe thumbnails and personalization settings.,Read universe thumbnails and personalization settings.
+Studio.Permissions.Scope.ThumbnailWrite,,,"Upload, delete, and personalize universe thumbnails.","Upload, delete, and personalize universe thumbnails."
+Studio.Permissions.Scope.UniverseRead,,,Read experience configuration and metadata.,Read experience configuration and metadata.
+Studio.Permissions.Scope.UniverseWrite,,,"Modify universe-level data: configs, experiments, publishing, server restarts, metadata.","Modify universe-level data: configs, experiments, publishing, server restarts, metadata."
+Studio.Permissions.Scope.UserAdvancedRead,,,Read advanced user profile fields.,Read advanced user profile fields.
+Studio.Permissions.Scope.UserInventoryRead,,,Read items in a user's inventory.,Read items in a user's inventory.
+Studio.Permissions.Scope.UserRestrictionRead,,,Read user restrictions (bans) and restriction logs for a universe or place.,Read user restrictions (bans) and restriction logs for a universe or place.
+Studio.Permissions.Scope.UserRestrictionWrite,,,Create and update user restrictions (bans) for a universe or place.,Create and update user restrictions (bans) for a universe or place.
+Studio.Permissions.Scope.UserSocialRead,,,Read a user's social profile information.,Read a user's social profile information.
+Studio.Output.Sources.ClientNumber,,,Client %1,Client %1
+Studio.Output.Sources.Heading,,,Sources,Sources
+Studio.Output.Sources.ThisStudio,,,This Studio,This Studio
+Studio.Output.Sources.Departed,,,%1 - Left,%1 - Left
+Studio.Output.Sources.ShowingOutputFrom,,,Showing output from %1,Showing output from %1
+Studio.Shortcuts.ResetDefaults,,,Reset defaults,Reset defaults
