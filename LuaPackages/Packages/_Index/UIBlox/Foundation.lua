@@ -102,6 +102,7 @@ export type StatusBadgeVariant = Package.StatusBadgeVariant
 export type StatusIndicatorShape = Package.StatusIndicatorShape
 export type StatusIndicatorSize = Package.StatusIndicatorSize
 export type StatusIndicatorVariant = Package.StatusIndicatorVariant
+export type TextOverflow = Package.TextOverflow
 export type Theme = Package.Theme
 export type ThemeName = Package.ThemeName
 export type ThumbnailSize = Package.ThumbnailSize

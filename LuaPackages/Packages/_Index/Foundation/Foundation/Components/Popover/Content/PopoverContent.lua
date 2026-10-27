@@ -51,9 +51,13 @@ export type PopoverContentProps = {
 	onPressedOutside: () -> ()?,
 	-- Selection behavior
 	selection: Selection?,
+	-- Gamepad selection group configuration for the popover surface. Defaults to trap focus.
 	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
+	-- Fill color of the popover surface.
 	backgroundStyle: Types.ColorStyle?,
+	-- Corner radius of the popover surface. Defaults to `Radius.Medium`.
 	radius: (typeof(Radius.Small) | typeof(Radius.Medium) | typeof(Radius.Circle))?,
+	-- Content shown inside the popover.
 	children: React.ReactNode,
 }
 
@@ -186,27 +190,38 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 					testId = `{popoverContext.testId}--backdrop`,
 				})
 				else nil,
-			Shadow = React.createElement(Image, {
-				AnchorPoint = anchorPoint,
-				Image = SHADOW_IMAGE,
-				Size = contentSize:map(function(value: UDim2)
-					return value + UDim2.fromOffset(SHADOW_SIZE, SHADOW_SIZE)
-				end),
-				Position = React.joinBindings({ position, anchorPoint }):map(function(values: { Vector2 })
-					local xShift = if values[2].X == 0 then -1 else 1
-					local yShift = if values[2].Y == 0 then -1 else 1
-					return UDim2.fromOffset(
-						values[1].X + SHADOW_SIZE / 2 * xShift,
-						values[1].Y + SHADOW_SIZE / 2 * yShift + SHADOW_VERTICAL_OFFSET
-					)
-				end),
-				ZIndex = 2,
-				slice = {
-					center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
-				},
-				imageStyle = tokens.Color.Extended.Black.Black_20,
-				testId = `{popoverContext.testId}--shadow`,
-			}),
+			Shadow = if Flags.FoundationPopoverOverlayShadow
+				then React.createElement(View, {
+					AnchorPoint = anchorPoint,
+					Size = contentSize,
+					Position = position:map(function(value: Vector2)
+						return UDim2.fromOffset(value.X, value.Y)
+					end),
+					ZIndex = 2,
+					tag = `shadow-overlay-300 {radiusToTag[props.radius]}`,
+					testId = `{popoverContext.testId}--shadow`,
+				})
+				else React.createElement(Image, {
+					AnchorPoint = anchorPoint,
+					Image = SHADOW_IMAGE,
+					Size = contentSize:map(function(value: UDim2)
+						return value + UDim2.fromOffset(SHADOW_SIZE, SHADOW_SIZE)
+					end),
+					Position = React.joinBindings({ position, anchorPoint }):map(function(values: { Vector2 })
+						local xShift = if values[2].X == 0 then -1 else 1
+						local yShift = if values[2].Y == 0 then -1 else 1
+						return UDim2.fromOffset(
+							values[1].X + SHADOW_SIZE / 2 * xShift,
+							values[1].Y + SHADOW_SIZE / 2 * yShift + SHADOW_VERTICAL_OFFSET
+						)
+					end),
+					ZIndex = 2,
+					slice = {
+						center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
+					},
+					imageStyle = tokens.Color.Extended.Black.Black_20,
+					testId = `{popoverContext.testId}--shadow`,
+				}),
 			Arrow = if hasArrow
 				then React.createElement(View, {
 					Size = UDim2.fromOffset(arrowSide, arrowSide),

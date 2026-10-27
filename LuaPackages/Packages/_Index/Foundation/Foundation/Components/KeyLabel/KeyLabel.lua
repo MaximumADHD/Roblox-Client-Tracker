@@ -36,8 +36,11 @@ type HoldBehavior = {
 
 -- **DEPRECATED**: KeyLabel is deprecated. Use Shortcut instead.
 export type KeyLabelProps = {
+	-- Key whose glyph or icon is shown.
 	keyCode: Enum.KeyCode,
+	-- Optional hold-to-activate progress behavior.
 	holdBehavior: HoldBehavior?,
+	-- **Engine**: Size of the key label.
 	Size: Bindable<UDim2>?,
 } & Types.CommonProps
 

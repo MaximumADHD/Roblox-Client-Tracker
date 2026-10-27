@@ -26,10 +26,15 @@ local alignTags = {
 }
 
 export type GridProps = {
+	-- Cross-axis alignment of grid items. Defaults to `Enum.ItemLineAlignment.Start`.
 	align: Enum.ItemLineAlignment?,
+	-- **Engine**: Child sort order on the grid layout. Defaults to `Enum.SortOrder.LayoutOrder`.
 	SortOrder: Bindable<Enum.SortOrder>?,
+	-- When true, items wrap onto extra rows and use horizontal flex spacing. When false, items stay on one row with gutter padding. Defaults to `true`.
 	Wraps: Bindable<boolean>?,
+	-- Style tags applied to the grid container.
 	tag: string?,
+	-- Grid.Cell children laid out in the grid.
 	children: React.ReactNode,
 } & Types.CommonProps
 

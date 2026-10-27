@@ -106,6 +106,9 @@ type _Messages =
 		MarketplaceOfferModalInputData: _MarketplaceOfferModalInputDataMessage,
 		MarketplaceItemMediaHeaderInputData: _MarketplaceItemMediaHeaderInputDataMessage,
 		MarketplaceItemMediaHeaderInputData_BundleItem: _MarketplaceItemMediaHeaderInputData_BundleItemMessage,
+		MarketplaceItemInfoTableInputData: _MarketplaceItemInfoTableInputDataMessage,
+		MarketplaceItemExperiencesLinkInputData: _MarketplaceItemExperiencesLinkInputDataMessage,
+		MarketplaceItemOwnershipInputData: _MarketplaceItemOwnershipInputDataMessage,
 		CatalogItemGridInputData: _CatalogItemGridInputDataMessage,
 		CatalogItemGridInputData_CatalogItem: _CatalogItemGridInputData_CatalogItemMessage,
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
@@ -151,10 +154,37 @@ type _Messages =
 		ItemWithLayout: _ItemWithLayoutMessage,
 		ContentPool: _ContentPoolMessage,
 		ItemLayout: _ItemLayoutMessage,
+		GroupOverviewPaneInputData: _GroupOverviewPaneInputDataMessage,
 		CommunityAnnouncementInputData: _CommunityAnnouncementInputDataMessage,
 		ReactionInputData: _ReactionInputDataMessage,
 		GroupAnnouncementInputData: _GroupAnnouncementInputDataMessage,
+		BuyRobuxPageInputData: _BuyRobuxPageInputDataMessage,
+		BuyRobuxPageInputData_SectionMapEntry: _BuyRobuxPageInputData_SectionMapEntryMessage,
+		BuyRobuxPageAnalyticsData: _BuyRobuxPageAnalyticsDataMessage,
+		BuyRobuxFaqInputData: _BuyRobuxFaqInputDataMessage,
+		BuyRobuxFaqItemInputData: _BuyRobuxFaqItemInputDataMessage,
+		BuyRobuxSectionInputData: _BuyRobuxSectionInputDataMessage,
+		BuyRobuxPageProductSummaryInputData: _BuyRobuxPageProductSummaryInputDataMessage,
+		BuyRobuxProductItemInputData: _BuyRobuxProductItemInputDataMessage,
+		BuyRobuxProductCollectionInputData: _BuyRobuxProductCollectionInputDataMessage,
+		BuyRobuxProductsListSectionInputData: _BuyRobuxProductsListSectionInputDataMessage,
+		BuyRobuxPersonalizedBonusSectionInputData: _BuyRobuxPersonalizedBonusSectionInputDataMessage,
+		BuyRobuxGiftSectionInputData: _BuyRobuxGiftSectionInputDataMessage,
+		BuyRobuxGiftCardSectionInputData: _BuyRobuxGiftCardSectionInputDataMessage,
+		BuyRobuxTransfersInputData: _BuyRobuxTransfersInputDataMessage,
+		BuyRobuxSubscriptionSectionInputData: _BuyRobuxSubscriptionSectionInputDataMessage,
+		BuyRobuxLimitedTimeBonusSectionInputData: _BuyRobuxLimitedTimeBonusSectionInputDataMessage,
+		BuyRobuxLimitedTimeBonusCardInputData: _BuyRobuxLimitedTimeBonusCardInputDataMessage,
+		GroupForumsDiscoveryInputData: _GroupForumsDiscoveryInputDataMessage,
+		GroupForumsDiscoveryInputData_PostPreview: _GroupForumsDiscoveryInputData_PostPreviewMessage,
+		UserLibraryTargetRow: _UserLibraryTargetRowMessage,
+		UserLibraryCollectionRow: _UserLibraryCollectionRowMessage,
+		UserLibraryOverviewInputData: _UserLibraryOverviewInputDataMessage,
+		UserLibraryListInputData: _UserLibraryListInputDataMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
+		BuyRobuxSectionDisplayState: _BuyRobuxSectionDisplayStateMessage,
+		UserLibraryTargetType: _UserLibraryTargetTypeMessage,
+		UserLibraryCollectionKind: _UserLibraryCollectionKindMessage,
 	}
 local messages: _Messages = {} :: _Messages
 
@@ -344,6 +374,9 @@ type _PageEntryInputDataFields = {
 		| { type: "catalog_item_grid", value: CatalogItemGridInputData }
 		| { type: "marketplace_offer_modal", value: MarketplaceOfferModalInputData }
 		| { type: "marketplace_item_media_header", value: MarketplaceItemMediaHeaderInputData }
+		| { type: "marketplace_item_ownership", value: MarketplaceItemOwnershipInputData }
+		| { type: "marketplace_item_info_table", value: MarketplaceItemInfoTableInputData }
+		| { type: "marketplace_item_experiences_link", value: MarketplaceItemExperiencesLinkInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
@@ -356,8 +389,14 @@ type _PageEntryInputDataFields = {
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
 		| { type: "group_announcement", value: GroupAnnouncementInputData }
+		| { type: "group_forums_discovery", value: GroupForumsDiscoveryInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
+		| { type: "group_overview_pane", value: GroupOverviewPaneInputData }
+		| { type: "buy_robux_page", value: BuyRobuxPageInputData }
+		| { type: "buy_robux_section", value: BuyRobuxSectionInputData }
+		| { type: "user_library_overview", value: UserLibraryOverviewInputData }
+		| { type: "user_library_list", value: UserLibraryListInputData }
 	)?,
 }
 
@@ -430,6 +469,9 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "catalog_item_grid", value: CatalogItemGridInputData }
 		| { type: "marketplace_offer_modal", value: MarketplaceOfferModalInputData }
 		| { type: "marketplace_item_media_header", value: MarketplaceItemMediaHeaderInputData }
+		| { type: "marketplace_item_ownership", value: MarketplaceItemOwnershipInputData }
+		| { type: "marketplace_item_info_table", value: MarketplaceItemInfoTableInputData }
+		| { type: "marketplace_item_experiences_link", value: MarketplaceItemExperiencesLinkInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
@@ -442,8 +484,14 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "pre_auth_landing_sticky_header", value: PreAuthLandingStickyHeaderInputData }
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
 		| { type: "group_announcement", value: GroupAnnouncementInputData }
+		| { type: "group_forums_discovery", value: GroupForumsDiscoveryInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
+		| { type: "group_overview_pane", value: GroupOverviewPaneInputData }
+		| { type: "buy_robux_page", value: BuyRobuxPageInputData }
+		| { type: "buy_robux_section", value: BuyRobuxSectionInputData }
+		| { type: "user_library_overview", value: UserLibraryOverviewInputData }
+		| { type: "user_library_list", value: UserLibraryListInputData }
 	)?,
 }
 
@@ -873,10 +921,12 @@ type _ExperienceDetailsStickyHeaderInputDataImpl = {
 
 type _ExperienceDetailsStickyHeaderInputDataFields = {
 	universe_id: string,
+	title: string?,
 }
 
 type _ExperienceDetailsStickyHeaderInputDataPartialFields = {
 	universe_id: string?,
+	title: string?,
 }
 
 export type ExperienceDetailsStickyHeaderInputData = typeof(setmetatable(
@@ -901,11 +951,13 @@ type _ExperienceAttributionRowInputDataImpl = {
 type _ExperienceAttributionRowInputDataFields = {
 	universe_id: string,
 	creator_key: string,
+	title: string?,
 }
 
 type _ExperienceAttributionRowInputDataPartialFields = {
 	universe_id: string?,
 	creator_key: string?,
+	title: string?,
 }
 
 export type ExperienceAttributionRowInputData = typeof(setmetatable(
@@ -3316,6 +3368,7 @@ type _MarketplaceItemMediaHeaderInputDataFields = {
 	prefer_three_dimensional: boolean,
 	bundle_type: string?,
 	bundle_items: { MarketplaceItemMediaHeaderInputData_BundleItem },
+	try_on_available: boolean,
 }
 
 type _MarketplaceItemMediaHeaderInputDataPartialFields = {
@@ -3324,6 +3377,7 @@ type _MarketplaceItemMediaHeaderInputDataPartialFields = {
 	prefer_three_dimensional: boolean?,
 	bundle_type: string?,
 	bundle_items: { MarketplaceItemMediaHeaderInputData_BundleItem }?,
+	try_on_available: boolean?,
 }
 
 export type MarketplaceItemMediaHeaderInputData = typeof(setmetatable(
@@ -3364,6 +3418,105 @@ export type MarketplaceItemMediaHeaderInputData_BundleItem = typeof(setmetatable
 type _MarketplaceItemMediaHeaderInputData_BundleItemMessage = proto.Message<
 	MarketplaceItemMediaHeaderInputData_BundleItem,
 	_MarketplaceItemMediaHeaderInputData_BundleItemPartialFields
+>
+
+type _MarketplaceItemInfoTableInputDataImpl = {
+	__index: _MarketplaceItemInfoTableInputDataImpl,
+	new: (fields: _MarketplaceItemInfoTableInputDataPartialFields?) -> MarketplaceItemInfoTableInputData,
+	encode: (self: MarketplaceItemInfoTableInputData) -> buffer,
+	decode: (input: buffer) -> MarketplaceItemInfoTableInputData,
+	jsonEncode: (self: MarketplaceItemInfoTableInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> MarketplaceItemInfoTableInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _MarketplaceItemInfoTableInputDataFields = {
+	item_id: string,
+	item_type: string,
+	user_can_purchase_from_stock: boolean,
+	resale_listings_available: boolean,
+	creating_experience_available: boolean,
+}
+
+type _MarketplaceItemInfoTableInputDataPartialFields = {
+	item_id: string?,
+	item_type: string?,
+	user_can_purchase_from_stock: boolean?,
+	resale_listings_available: boolean?,
+	creating_experience_available: boolean?,
+}
+
+export type MarketplaceItemInfoTableInputData = typeof(setmetatable(
+	{} :: _MarketplaceItemInfoTableInputDataFields,
+	{} :: _MarketplaceItemInfoTableInputDataImpl
+))
+type _MarketplaceItemInfoTableInputDataMessage = proto.Message<
+	MarketplaceItemInfoTableInputData,
+	_MarketplaceItemInfoTableInputDataPartialFields
+>
+
+type _MarketplaceItemExperiencesLinkInputDataImpl = {
+	__index: _MarketplaceItemExperiencesLinkInputDataImpl,
+	new: (fields: _MarketplaceItemExperiencesLinkInputDataPartialFields?) -> MarketplaceItemExperiencesLinkInputData,
+	encode: (self: MarketplaceItemExperiencesLinkInputData) -> buffer,
+	decode: (input: buffer) -> MarketplaceItemExperiencesLinkInputData,
+	jsonEncode: (self: MarketplaceItemExperiencesLinkInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> MarketplaceItemExperiencesLinkInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _MarketplaceItemExperiencesLinkInputDataFields = {
+	item_id: string,
+	item_type: string,
+	experience_count: number,
+	experience_name: string?,
+}
+
+type _MarketplaceItemExperiencesLinkInputDataPartialFields = {
+	item_id: string?,
+	item_type: string?,
+	experience_count: number?,
+	experience_name: string?,
+}
+
+export type MarketplaceItemExperiencesLinkInputData = typeof(setmetatable(
+	{} :: _MarketplaceItemExperiencesLinkInputDataFields,
+	{} :: _MarketplaceItemExperiencesLinkInputDataImpl
+))
+type _MarketplaceItemExperiencesLinkInputDataMessage = proto.Message<
+	MarketplaceItemExperiencesLinkInputData,
+	_MarketplaceItemExperiencesLinkInputDataPartialFields
+>
+
+type _MarketplaceItemOwnershipInputDataImpl = {
+	__index: _MarketplaceItemOwnershipInputDataImpl,
+	new: (fields: _MarketplaceItemOwnershipInputDataPartialFields?) -> MarketplaceItemOwnershipInputData,
+	encode: (self: MarketplaceItemOwnershipInputData) -> buffer,
+	decode: (input: buffer) -> MarketplaceItemOwnershipInputData,
+	jsonEncode: (self: MarketplaceItemOwnershipInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> MarketplaceItemOwnershipInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _MarketplaceItemOwnershipInputDataFields = {
+	item_id: string,
+	item_type: string,
+	user_owns_resellable_copy: boolean,
+}
+
+type _MarketplaceItemOwnershipInputDataPartialFields = {
+	item_id: string?,
+	item_type: string?,
+	user_owns_resellable_copy: boolean?,
+}
+
+export type MarketplaceItemOwnershipInputData = typeof(setmetatable(
+	{} :: _MarketplaceItemOwnershipInputDataFields,
+	{} :: _MarketplaceItemOwnershipInputDataImpl
+))
+type _MarketplaceItemOwnershipInputDataMessage = proto.Message<
+	MarketplaceItemOwnershipInputData,
+	_MarketplaceItemOwnershipInputDataPartialFields
 >
 
 type _CatalogItemGridInputDataImpl = {
@@ -4717,6 +4870,33 @@ type _ItemLayoutPartialFields = {
 export type ItemLayout = typeof(setmetatable({} :: _ItemLayoutFields, {} :: _ItemLayoutImpl))
 type _ItemLayoutMessage = proto.Message<ItemLayout, _ItemLayoutPartialFields>
 
+type _GroupOverviewPaneInputDataImpl = {
+	__index: _GroupOverviewPaneInputDataImpl,
+	new: (fields: _GroupOverviewPaneInputDataPartialFields?) -> GroupOverviewPaneInputData,
+	encode: (self: GroupOverviewPaneInputData) -> buffer,
+	decode: (input: buffer) -> GroupOverviewPaneInputData,
+	jsonEncode: (self: GroupOverviewPaneInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupOverviewPaneInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupOverviewPaneInputDataFields = {
+	group_id: string?,
+}
+
+type _GroupOverviewPaneInputDataPartialFields = {
+	group_id: string?,
+}
+
+export type GroupOverviewPaneInputData = typeof(setmetatable(
+	{} :: _GroupOverviewPaneInputDataFields,
+	{} :: _GroupOverviewPaneInputDataImpl
+))
+type _GroupOverviewPaneInputDataMessage = proto.Message<
+	GroupOverviewPaneInputData,
+	_GroupOverviewPaneInputDataPartialFields
+>
+
 type _CommunityAnnouncementInputDataImpl = {
 	__index: _CommunityAnnouncementInputDataImpl,
 	new: (fields: _CommunityAnnouncementInputDataPartialFields?) -> CommunityAnnouncementInputData,
@@ -4836,8 +5016,828 @@ type _GroupAnnouncementInputDataMessage = proto.Message<
 	_GroupAnnouncementInputDataPartialFields
 >
 
+type _BuyRobuxPageInputDataImpl = {
+	__index: _BuyRobuxPageInputDataImpl,
+	new: (fields: _BuyRobuxPageInputDataPartialFields?) -> BuyRobuxPageInputData,
+	encode: (self: BuyRobuxPageInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxPageInputData,
+	jsonEncode: (self: BuyRobuxPageInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxPageInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxPageInputDataFields = {
+	section_map: { [string]: FeedEntry },
+	section_order: { string },
+	terms_url_path: string?,
+	payment_session_id: string?,
+	purchase_flow_id: string?,
+	login_redirect_pathname: string?,
+	use_promotional_platform_messaging: boolean,
+	transfers: BuyRobuxTransfersInputData?,
+	system_banner: TextInputData?,
+	faq: BuyRobuxFaqInputData?,
+	analytics: BuyRobuxPageAnalyticsData?,
+}
+
+type _BuyRobuxPageInputDataPartialFields = {
+	section_map: { [string]: FeedEntry }?,
+	section_order: { string }?,
+	terms_url_path: string?,
+	payment_session_id: string?,
+	purchase_flow_id: string?,
+	login_redirect_pathname: string?,
+	use_promotional_platform_messaging: boolean?,
+	transfers: BuyRobuxTransfersInputData?,
+	system_banner: TextInputData?,
+	faq: BuyRobuxFaqInputData?,
+	analytics: BuyRobuxPageAnalyticsData?,
+}
+
+export type BuyRobuxPageInputData = typeof(setmetatable(
+	{} :: _BuyRobuxPageInputDataFields,
+	{} :: _BuyRobuxPageInputDataImpl
+))
+type _BuyRobuxPageInputDataMessage = proto.Message<BuyRobuxPageInputData, _BuyRobuxPageInputDataPartialFields>
+
+type _BuyRobuxPageInputData_SectionMapEntryImpl = {
+	__index: _BuyRobuxPageInputData_SectionMapEntryImpl,
+	new: (fields: _BuyRobuxPageInputData_SectionMapEntryPartialFields?) -> BuyRobuxPageInputData_SectionMapEntry,
+	encode: (self: BuyRobuxPageInputData_SectionMapEntry) -> buffer,
+	decode: (input: buffer) -> BuyRobuxPageInputData_SectionMapEntry,
+	jsonEncode: (self: BuyRobuxPageInputData_SectionMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxPageInputData_SectionMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxPageInputData_SectionMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _BuyRobuxPageInputData_SectionMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type BuyRobuxPageInputData_SectionMapEntry = typeof(setmetatable(
+	{} :: _BuyRobuxPageInputData_SectionMapEntryFields,
+	{} :: _BuyRobuxPageInputData_SectionMapEntryImpl
+))
+type _BuyRobuxPageInputData_SectionMapEntryMessage = proto.Message<
+	BuyRobuxPageInputData_SectionMapEntry,
+	_BuyRobuxPageInputData_SectionMapEntryPartialFields
+>
+
+type _BuyRobuxPageAnalyticsDataImpl = {
+	__index: _BuyRobuxPageAnalyticsDataImpl,
+	new: (fields: _BuyRobuxPageAnalyticsDataPartialFields?) -> BuyRobuxPageAnalyticsData,
+	encode: (self: BuyRobuxPageAnalyticsData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxPageAnalyticsData,
+	jsonEncode: (self: BuyRobuxPageAnalyticsData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxPageAnalyticsData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxPageAnalyticsDataFields = {
+	section_names: string,
+	robux_package_ids: string,
+	subscription_product_ids: string,
+	limited_time_bonus_item_ids: string,
+	personalized_bonus_item: string,
+}
+
+type _BuyRobuxPageAnalyticsDataPartialFields = {
+	section_names: string?,
+	robux_package_ids: string?,
+	subscription_product_ids: string?,
+	limited_time_bonus_item_ids: string?,
+	personalized_bonus_item: string?,
+}
+
+export type BuyRobuxPageAnalyticsData = typeof(setmetatable(
+	{} :: _BuyRobuxPageAnalyticsDataFields,
+	{} :: _BuyRobuxPageAnalyticsDataImpl
+))
+type _BuyRobuxPageAnalyticsDataMessage = proto.Message<
+	BuyRobuxPageAnalyticsData,
+	_BuyRobuxPageAnalyticsDataPartialFields
+>
+
+type _BuyRobuxFaqInputDataImpl = {
+	__index: _BuyRobuxFaqInputDataImpl,
+	new: (fields: _BuyRobuxFaqInputDataPartialFields?) -> BuyRobuxFaqInputData,
+	encode: (self: BuyRobuxFaqInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxFaqInputData,
+	jsonEncode: (self: BuyRobuxFaqInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxFaqInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxFaqInputDataFields = {
+	title: string,
+	items: { BuyRobuxFaqItemInputData },
+}
+
+type _BuyRobuxFaqInputDataPartialFields = {
+	title: string?,
+	items: { BuyRobuxFaqItemInputData }?,
+}
+
+export type BuyRobuxFaqInputData = typeof(setmetatable(
+	{} :: _BuyRobuxFaqInputDataFields,
+	{} :: _BuyRobuxFaqInputDataImpl
+))
+type _BuyRobuxFaqInputDataMessage = proto.Message<BuyRobuxFaqInputData, _BuyRobuxFaqInputDataPartialFields>
+
+type _BuyRobuxFaqItemInputDataImpl = {
+	__index: _BuyRobuxFaqItemInputDataImpl,
+	new: (fields: _BuyRobuxFaqItemInputDataPartialFields?) -> BuyRobuxFaqItemInputData,
+	encode: (self: BuyRobuxFaqItemInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxFaqItemInputData,
+	jsonEncode: (self: BuyRobuxFaqItemInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxFaqItemInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxFaqItemInputDataFields = {
+	question: string,
+	answer: TextInputData?,
+}
+
+type _BuyRobuxFaqItemInputDataPartialFields = {
+	question: string?,
+	answer: TextInputData?,
+}
+
+export type BuyRobuxFaqItemInputData = typeof(setmetatable(
+	{} :: _BuyRobuxFaqItemInputDataFields,
+	{} :: _BuyRobuxFaqItemInputDataImpl
+))
+type _BuyRobuxFaqItemInputDataMessage = proto.Message<BuyRobuxFaqItemInputData, _BuyRobuxFaqItemInputDataPartialFields>
+
+type _BuyRobuxSectionInputDataImpl = {
+	__index: _BuyRobuxSectionInputDataImpl,
+	new: (fields: _BuyRobuxSectionInputDataPartialFields?) -> BuyRobuxSectionInputData,
+	encode: (self: BuyRobuxSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxSectionInputData,
+	jsonEncode: (self: BuyRobuxSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxSectionInputDataFields = {
+	is_primary: boolean,
+	title: string,
+	subtitle: string?,
+	section: (
+		{ type: "products_list", value: BuyRobuxProductsListSectionInputData }
+		| { type: "personalized_bonus", value: BuyRobuxPersonalizedBonusSectionInputData }
+		| { type: "robux_gift", value: BuyRobuxGiftSectionInputData }
+		| { type: "gift_card", value: BuyRobuxGiftCardSectionInputData }
+		| { type: "recommended", value: BuyRobuxProductsListSectionInputData }
+		| { type: "redirect", value: BuyRobuxProductsListSectionInputData }
+		| { type: "subscription", value: BuyRobuxSubscriptionSectionInputData }
+		| { type: "limited_time_bonus", value: BuyRobuxLimitedTimeBonusSectionInputData }
+	)?,
+}
+
+type _BuyRobuxSectionInputDataPartialFields = {
+	is_primary: boolean?,
+	title: string?,
+	subtitle: string?,
+	section: (
+		{ type: "products_list", value: BuyRobuxProductsListSectionInputData }
+		| { type: "personalized_bonus", value: BuyRobuxPersonalizedBonusSectionInputData }
+		| { type: "robux_gift", value: BuyRobuxGiftSectionInputData }
+		| { type: "gift_card", value: BuyRobuxGiftCardSectionInputData }
+		| { type: "recommended", value: BuyRobuxProductsListSectionInputData }
+		| { type: "redirect", value: BuyRobuxProductsListSectionInputData }
+		| { type: "subscription", value: BuyRobuxSubscriptionSectionInputData }
+		| { type: "limited_time_bonus", value: BuyRobuxLimitedTimeBonusSectionInputData }
+	)?,
+}
+
+export type BuyRobuxSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxSectionInputDataFields,
+	{} :: _BuyRobuxSectionInputDataImpl
+))
+type _BuyRobuxSectionInputDataMessage = proto.Message<BuyRobuxSectionInputData, _BuyRobuxSectionInputDataPartialFields>
+
+type _BuyRobuxPageProductSummaryInputDataImpl = {
+	__index: _BuyRobuxPageProductSummaryInputDataImpl,
+	new: (fields: _BuyRobuxPageProductSummaryInputDataPartialFields?) -> BuyRobuxPageProductSummaryInputData,
+	encode: (self: BuyRobuxPageProductSummaryInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxPageProductSummaryInputData,
+	jsonEncode: (self: BuyRobuxPageProductSummaryInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxPageProductSummaryInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxPageProductSummaryInputDataFields = {
+	has_inline_badges: boolean,
+	has_bonus_robux: boolean,
+}
+
+type _BuyRobuxPageProductSummaryInputDataPartialFields = {
+	has_inline_badges: boolean?,
+	has_bonus_robux: boolean?,
+}
+
+export type BuyRobuxPageProductSummaryInputData = typeof(setmetatable(
+	{} :: _BuyRobuxPageProductSummaryInputDataFields,
+	{} :: _BuyRobuxPageProductSummaryInputDataImpl
+))
+type _BuyRobuxPageProductSummaryInputDataMessage = proto.Message<
+	BuyRobuxPageProductSummaryInputData,
+	_BuyRobuxPageProductSummaryInputDataPartialFields
+>
+
+type _BuyRobuxProductItemInputDataImpl = {
+	__index: _BuyRobuxProductItemInputDataImpl,
+	new: (fields: _BuyRobuxProductItemInputDataPartialFields?) -> BuyRobuxProductItemInputData,
+	encode: (self: BuyRobuxProductItemInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxProductItemInputData,
+	jsonEncode: (self: BuyRobuxProductItemInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxProductItemInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxProductItemInputDataFields = {
+	product_id: string,
+	roblox_component: string,
+	is_emphasized: boolean,
+}
+
+type _BuyRobuxProductItemInputDataPartialFields = {
+	product_id: string?,
+	roblox_component: string?,
+	is_emphasized: boolean?,
+}
+
+export type BuyRobuxProductItemInputData = typeof(setmetatable(
+	{} :: _BuyRobuxProductItemInputDataFields,
+	{} :: _BuyRobuxProductItemInputDataImpl
+))
+type _BuyRobuxProductItemInputDataMessage = proto.Message<
+	BuyRobuxProductItemInputData,
+	_BuyRobuxProductItemInputDataPartialFields
+>
+
+type _BuyRobuxProductCollectionInputDataImpl = {
+	__index: _BuyRobuxProductCollectionInputDataImpl,
+	new: (fields: _BuyRobuxProductCollectionInputDataPartialFields?) -> BuyRobuxProductCollectionInputData,
+	encode: (self: BuyRobuxProductCollectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxProductCollectionInputData,
+	jsonEncode: (self: BuyRobuxProductCollectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxProductCollectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxProductCollectionInputDataFields = {
+	always_visible_products: { BuyRobuxProductItemInputData },
+	collapsible_products: { BuyRobuxProductItemInputData },
+	display_state: BuyRobuxSectionDisplayState,
+	promotion_expiration_text: string?,
+	is_redirect: boolean,
+	page_product_summary: BuyRobuxPageProductSummaryInputData?,
+	show_more_text: string,
+	show_less_text: string,
+}
+
+type _BuyRobuxProductCollectionInputDataPartialFields = {
+	always_visible_products: { BuyRobuxProductItemInputData }?,
+	collapsible_products: { BuyRobuxProductItemInputData }?,
+	display_state: BuyRobuxSectionDisplayState?,
+	promotion_expiration_text: string?,
+	is_redirect: boolean?,
+	page_product_summary: BuyRobuxPageProductSummaryInputData?,
+	show_more_text: string?,
+	show_less_text: string?,
+}
+
+export type BuyRobuxProductCollectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxProductCollectionInputDataFields,
+	{} :: _BuyRobuxProductCollectionInputDataImpl
+))
+type _BuyRobuxProductCollectionInputDataMessage = proto.Message<
+	BuyRobuxProductCollectionInputData,
+	_BuyRobuxProductCollectionInputDataPartialFields
+>
+
+type _BuyRobuxProductsListSectionInputDataImpl = {
+	__index: _BuyRobuxProductsListSectionInputDataImpl,
+	new: (fields: _BuyRobuxProductsListSectionInputDataPartialFields?) -> BuyRobuxProductsListSectionInputData,
+	encode: (self: BuyRobuxProductsListSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxProductsListSectionInputData,
+	jsonEncode: (self: BuyRobuxProductsListSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxProductsListSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxProductsListSectionInputDataFields = {
+	products: BuyRobuxProductCollectionInputData?,
+}
+
+type _BuyRobuxProductsListSectionInputDataPartialFields = {
+	products: BuyRobuxProductCollectionInputData?,
+}
+
+export type BuyRobuxProductsListSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxProductsListSectionInputDataFields,
+	{} :: _BuyRobuxProductsListSectionInputDataImpl
+))
+type _BuyRobuxProductsListSectionInputDataMessage = proto.Message<
+	BuyRobuxProductsListSectionInputData,
+	_BuyRobuxProductsListSectionInputDataPartialFields
+>
+
+type _BuyRobuxPersonalizedBonusSectionInputDataImpl = {
+	__index: _BuyRobuxPersonalizedBonusSectionInputDataImpl,
+	new: (
+		fields: _BuyRobuxPersonalizedBonusSectionInputDataPartialFields?
+	) -> BuyRobuxPersonalizedBonusSectionInputData,
+	encode: (self: BuyRobuxPersonalizedBonusSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxPersonalizedBonusSectionInputData,
+	jsonEncode: (self: BuyRobuxPersonalizedBonusSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxPersonalizedBonusSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxPersonalizedBonusSectionInputDataFields = {
+	products: BuyRobuxProductCollectionInputData?,
+	bonus_ids: { string },
+}
+
+type _BuyRobuxPersonalizedBonusSectionInputDataPartialFields = {
+	products: BuyRobuxProductCollectionInputData?,
+	bonus_ids: { string }?,
+}
+
+export type BuyRobuxPersonalizedBonusSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxPersonalizedBonusSectionInputDataFields,
+	{} :: _BuyRobuxPersonalizedBonusSectionInputDataImpl
+))
+type _BuyRobuxPersonalizedBonusSectionInputDataMessage = proto.Message<
+	BuyRobuxPersonalizedBonusSectionInputData,
+	_BuyRobuxPersonalizedBonusSectionInputDataPartialFields
+>
+
+type _BuyRobuxGiftSectionInputDataImpl = {
+	__index: _BuyRobuxGiftSectionInputDataImpl,
+	new: (fields: _BuyRobuxGiftSectionInputDataPartialFields?) -> BuyRobuxGiftSectionInputData,
+	encode: (self: BuyRobuxGiftSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxGiftSectionInputData,
+	jsonEncode: (self: BuyRobuxGiftSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxGiftSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxGiftSectionInputDataFields = {
+	gifting_url: string,
+	button_text: string,
+}
+
+type _BuyRobuxGiftSectionInputDataPartialFields = {
+	gifting_url: string?,
+	button_text: string?,
+}
+
+export type BuyRobuxGiftSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxGiftSectionInputDataFields,
+	{} :: _BuyRobuxGiftSectionInputDataImpl
+))
+type _BuyRobuxGiftSectionInputDataMessage = proto.Message<
+	BuyRobuxGiftSectionInputData,
+	_BuyRobuxGiftSectionInputDataPartialFields
+>
+
+type _BuyRobuxGiftCardSectionInputDataImpl = {
+	__index: _BuyRobuxGiftCardSectionInputDataImpl,
+	new: (fields: _BuyRobuxGiftCardSectionInputDataPartialFields?) -> BuyRobuxGiftCardSectionInputData,
+	encode: (self: BuyRobuxGiftCardSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxGiftCardSectionInputData,
+	jsonEncode: (self: BuyRobuxGiftCardSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxGiftCardSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxGiftCardSectionInputDataFields = {
+	redirect_url: string,
+	button_text: string,
+	title: string,
+}
+
+type _BuyRobuxGiftCardSectionInputDataPartialFields = {
+	redirect_url: string?,
+	button_text: string?,
+	title: string?,
+}
+
+export type BuyRobuxGiftCardSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxGiftCardSectionInputDataFields,
+	{} :: _BuyRobuxGiftCardSectionInputDataImpl
+))
+type _BuyRobuxGiftCardSectionInputDataMessage = proto.Message<
+	BuyRobuxGiftCardSectionInputData,
+	_BuyRobuxGiftCardSectionInputDataPartialFields
+>
+
+type _BuyRobuxTransfersInputDataImpl = {
+	__index: _BuyRobuxTransfersInputDataImpl,
+	new: (fields: _BuyRobuxTransfersInputDataPartialFields?) -> BuyRobuxTransfersInputData,
+	encode: (self: BuyRobuxTransfersInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxTransfersInputData,
+	jsonEncode: (self: BuyRobuxTransfersInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxTransfersInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxTransfersInputDataFields = {
+	pending_transfer_ids: { string },
+	robux_gift: BuyRobuxGiftSectionInputData?,
+	send_button_text: string,
+	pending_transfers_text: string,
+	accept_transfers_text: string,
+}
+
+type _BuyRobuxTransfersInputDataPartialFields = {
+	pending_transfer_ids: { string }?,
+	robux_gift: BuyRobuxGiftSectionInputData?,
+	send_button_text: string?,
+	pending_transfers_text: string?,
+	accept_transfers_text: string?,
+}
+
+export type BuyRobuxTransfersInputData = typeof(setmetatable(
+	{} :: _BuyRobuxTransfersInputDataFields,
+	{} :: _BuyRobuxTransfersInputDataImpl
+))
+type _BuyRobuxTransfersInputDataMessage = proto.Message<
+	BuyRobuxTransfersInputData,
+	_BuyRobuxTransfersInputDataPartialFields
+>
+
+type _BuyRobuxSubscriptionSectionInputDataImpl = {
+	__index: _BuyRobuxSubscriptionSectionInputDataImpl,
+	new: (fields: _BuyRobuxSubscriptionSectionInputDataPartialFields?) -> BuyRobuxSubscriptionSectionInputData,
+	encode: (self: BuyRobuxSubscriptionSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxSubscriptionSectionInputData,
+	jsonEncode: (self: BuyRobuxSubscriptionSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxSubscriptionSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxSubscriptionSectionInputDataFields = {
+	products: BuyRobuxProductCollectionInputData?,
+	learn_more_text: string,
+}
+
+type _BuyRobuxSubscriptionSectionInputDataPartialFields = {
+	products: BuyRobuxProductCollectionInputData?,
+	learn_more_text: string?,
+}
+
+export type BuyRobuxSubscriptionSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxSubscriptionSectionInputDataFields,
+	{} :: _BuyRobuxSubscriptionSectionInputDataImpl
+))
+type _BuyRobuxSubscriptionSectionInputDataMessage = proto.Message<
+	BuyRobuxSubscriptionSectionInputData,
+	_BuyRobuxSubscriptionSectionInputDataPartialFields
+>
+
+type _BuyRobuxLimitedTimeBonusSectionInputDataImpl = {
+	__index: _BuyRobuxLimitedTimeBonusSectionInputDataImpl,
+	new: (fields: _BuyRobuxLimitedTimeBonusSectionInputDataPartialFields?) -> BuyRobuxLimitedTimeBonusSectionInputData,
+	encode: (self: BuyRobuxLimitedTimeBonusSectionInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxLimitedTimeBonusSectionInputData,
+	jsonEncode: (self: BuyRobuxLimitedTimeBonusSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxLimitedTimeBonusSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxLimitedTimeBonusSectionInputDataFields = {
+	cards: { BuyRobuxLimitedTimeBonusCardInputData },
+	promotion_expiration_text: string?,
+}
+
+type _BuyRobuxLimitedTimeBonusSectionInputDataPartialFields = {
+	cards: { BuyRobuxLimitedTimeBonusCardInputData }?,
+	promotion_expiration_text: string?,
+}
+
+export type BuyRobuxLimitedTimeBonusSectionInputData = typeof(setmetatable(
+	{} :: _BuyRobuxLimitedTimeBonusSectionInputDataFields,
+	{} :: _BuyRobuxLimitedTimeBonusSectionInputDataImpl
+))
+type _BuyRobuxLimitedTimeBonusSectionInputDataMessage = proto.Message<
+	BuyRobuxLimitedTimeBonusSectionInputData,
+	_BuyRobuxLimitedTimeBonusSectionInputDataPartialFields
+>
+
+type _BuyRobuxLimitedTimeBonusCardInputDataImpl = {
+	__index: _BuyRobuxLimitedTimeBonusCardInputDataImpl,
+	new: (fields: _BuyRobuxLimitedTimeBonusCardInputDataPartialFields?) -> BuyRobuxLimitedTimeBonusCardInputData,
+	encode: (self: BuyRobuxLimitedTimeBonusCardInputData) -> buffer,
+	decode: (input: buffer) -> BuyRobuxLimitedTimeBonusCardInputData,
+	jsonEncode: (self: BuyRobuxLimitedTimeBonusCardInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BuyRobuxLimitedTimeBonusCardInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _BuyRobuxLimitedTimeBonusCardInputDataFields = {
+	bonus_id: string,
+	products: BuyRobuxProductCollectionInputData?,
+}
+
+type _BuyRobuxLimitedTimeBonusCardInputDataPartialFields = {
+	bonus_id: string?,
+	products: BuyRobuxProductCollectionInputData?,
+}
+
+export type BuyRobuxLimitedTimeBonusCardInputData = typeof(setmetatable(
+	{} :: _BuyRobuxLimitedTimeBonusCardInputDataFields,
+	{} :: _BuyRobuxLimitedTimeBonusCardInputDataImpl
+))
+type _BuyRobuxLimitedTimeBonusCardInputDataMessage = proto.Message<
+	BuyRobuxLimitedTimeBonusCardInputData,
+	_BuyRobuxLimitedTimeBonusCardInputDataPartialFields
+>
+
+type _GroupForumsDiscoveryInputDataImpl = {
+	__index: _GroupForumsDiscoveryInputDataImpl,
+	new: (fields: _GroupForumsDiscoveryInputDataPartialFields?) -> GroupForumsDiscoveryInputData,
+	encode: (self: GroupForumsDiscoveryInputData) -> buffer,
+	decode: (input: buffer) -> GroupForumsDiscoveryInputData,
+	jsonEncode: (self: GroupForumsDiscoveryInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupForumsDiscoveryInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupForumsDiscoveryInputDataFields = {
+	group_id: string,
+	see_all_url: string,
+	posts: { GroupForumsDiscoveryInputData_PostPreview },
+}
+
+type _GroupForumsDiscoveryInputDataPartialFields = {
+	group_id: string?,
+	see_all_url: string?,
+	posts: { GroupForumsDiscoveryInputData_PostPreview }?,
+}
+
+export type GroupForumsDiscoveryInputData = typeof(setmetatable(
+	{} :: _GroupForumsDiscoveryInputDataFields,
+	{} :: _GroupForumsDiscoveryInputDataImpl
+))
+type _GroupForumsDiscoveryInputDataMessage = proto.Message<
+	GroupForumsDiscoveryInputData,
+	_GroupForumsDiscoveryInputDataPartialFields
+>
+
+type _GroupForumsDiscoveryInputData_PostPreviewImpl = {
+	__index: _GroupForumsDiscoveryInputData_PostPreviewImpl,
+	new: (
+		fields: _GroupForumsDiscoveryInputData_PostPreviewPartialFields?
+	) -> GroupForumsDiscoveryInputData_PostPreview,
+	encode: (self: GroupForumsDiscoveryInputData_PostPreview) -> buffer,
+	decode: (input: buffer) -> GroupForumsDiscoveryInputData_PostPreview,
+	jsonEncode: (self: GroupForumsDiscoveryInputData_PostPreview) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupForumsDiscoveryInputData_PostPreview,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupForumsDiscoveryInputData_PostPreviewFields = {
+	post_id: string,
+	post_short_id: string,
+	category_id: string,
+	category_short_id: string,
+	category_name: string,
+	title: string,
+	body: string,
+	creator_key: string,
+	creator_user_id: string,
+	creator_role_name: string?,
+	reply_count: number,
+	post_url: string,
+}
+
+type _GroupForumsDiscoveryInputData_PostPreviewPartialFields = {
+	post_id: string?,
+	post_short_id: string?,
+	category_id: string?,
+	category_short_id: string?,
+	category_name: string?,
+	title: string?,
+	body: string?,
+	creator_key: string?,
+	creator_user_id: string?,
+	creator_role_name: string?,
+	reply_count: number?,
+	post_url: string?,
+}
+
+export type GroupForumsDiscoveryInputData_PostPreview = typeof(setmetatable(
+	{} :: _GroupForumsDiscoveryInputData_PostPreviewFields,
+	{} :: _GroupForumsDiscoveryInputData_PostPreviewImpl
+))
+type _GroupForumsDiscoveryInputData_PostPreviewMessage = proto.Message<
+	GroupForumsDiscoveryInputData_PostPreview,
+	_GroupForumsDiscoveryInputData_PostPreviewPartialFields
+>
+
+type _UserLibraryTargetRowImpl = {
+	__index: _UserLibraryTargetRowImpl,
+	new: (fields: _UserLibraryTargetRowPartialFields?) -> UserLibraryTargetRow,
+	encode: (self: UserLibraryTargetRow) -> buffer,
+	decode: (input: buffer) -> UserLibraryTargetRow,
+	jsonEncode: (self: UserLibraryTargetRow) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserLibraryTargetRow,
+	descriptor: proto.Descriptor,
+}
+
+type _UserLibraryTargetRowFields = {
+	target_type: UserLibraryTargetType,
+	target_id: string,
+	universe_id: string?,
+	place_id: string?,
+	song_id: string?,
+	item_name: string?,
+	price: number?,
+	thumbnail: string?,
+	details_url: string?,
+	collection_id: string?,
+	saved_id: string?,
+	asset_type_name: string?,
+	look_abuse_vector: string?,
+	look_asset_ids: { string },
+	album_art_asset_id: string?,
+	target_key: string,
+}
+
+type _UserLibraryTargetRowPartialFields = {
+	target_type: UserLibraryTargetType?,
+	target_id: string?,
+	universe_id: string?,
+	place_id: string?,
+	song_id: string?,
+	item_name: string?,
+	price: number?,
+	thumbnail: string?,
+	details_url: string?,
+	collection_id: string?,
+	saved_id: string?,
+	asset_type_name: string?,
+	look_abuse_vector: string?,
+	look_asset_ids: { string }?,
+	album_art_asset_id: string?,
+	target_key: string?,
+}
+
+export type UserLibraryTargetRow = typeof(setmetatable(
+	{} :: _UserLibraryTargetRowFields,
+	{} :: _UserLibraryTargetRowImpl
+))
+type _UserLibraryTargetRowMessage = proto.Message<UserLibraryTargetRow, _UserLibraryTargetRowPartialFields>
+
+type _UserLibraryCollectionRowImpl = {
+	__index: _UserLibraryCollectionRowImpl,
+	new: (fields: _UserLibraryCollectionRowPartialFields?) -> UserLibraryCollectionRow,
+	encode: (self: UserLibraryCollectionRow) -> buffer,
+	decode: (input: buffer) -> UserLibraryCollectionRow,
+	jsonEncode: (self: UserLibraryCollectionRow) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserLibraryCollectionRow,
+	descriptor: proto.Descriptor,
+}
+
+type _UserLibraryCollectionRowFields = {
+	collection_id: string,
+	collection_name: string,
+	collection_kind: UserLibraryCollectionKind,
+	visibility_label: string,
+	visibility_icon: string?,
+	placeholder_icon: string?,
+	thumb_1: string?,
+	thumb_2: string?,
+	thumb_3: string?,
+	thumb_4: string?,
+}
+
+type _UserLibraryCollectionRowPartialFields = {
+	collection_id: string?,
+	collection_name: string?,
+	collection_kind: UserLibraryCollectionKind?,
+	visibility_label: string?,
+	visibility_icon: string?,
+	placeholder_icon: string?,
+	thumb_1: string?,
+	thumb_2: string?,
+	thumb_3: string?,
+	thumb_4: string?,
+}
+
+export type UserLibraryCollectionRow = typeof(setmetatable(
+	{} :: _UserLibraryCollectionRowFields,
+	{} :: _UserLibraryCollectionRowImpl
+))
+type _UserLibraryCollectionRowMessage = proto.Message<UserLibraryCollectionRow, _UserLibraryCollectionRowPartialFields>
+
+type _UserLibraryOverviewInputDataImpl = {
+	__index: _UserLibraryOverviewInputDataImpl,
+	new: (fields: _UserLibraryOverviewInputDataPartialFields?) -> UserLibraryOverviewInputData,
+	encode: (self: UserLibraryOverviewInputData) -> buffer,
+	decode: (input: buffer) -> UserLibraryOverviewInputData,
+	jsonEncode: (self: UserLibraryOverviewInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserLibraryOverviewInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UserLibraryOverviewInputDataFields = {
+	collections: { UserLibraryCollectionRow },
+	games: { UserLibraryTargetRow },
+	avatars: { UserLibraryTargetRow },
+	avatar_items: { UserLibraryTargetRow },
+	songs: { UserLibraryTargetRow },
+}
+
+type _UserLibraryOverviewInputDataPartialFields = {
+	collections: { UserLibraryCollectionRow }?,
+	games: { UserLibraryTargetRow }?,
+	avatars: { UserLibraryTargetRow }?,
+	avatar_items: { UserLibraryTargetRow }?,
+	songs: { UserLibraryTargetRow }?,
+}
+
+export type UserLibraryOverviewInputData = typeof(setmetatable(
+	{} :: _UserLibraryOverviewInputDataFields,
+	{} :: _UserLibraryOverviewInputDataImpl
+))
+type _UserLibraryOverviewInputDataMessage = proto.Message<
+	UserLibraryOverviewInputData,
+	_UserLibraryOverviewInputDataPartialFields
+>
+
+type _UserLibraryListInputDataImpl = {
+	__index: _UserLibraryListInputDataImpl,
+	new: (fields: _UserLibraryListInputDataPartialFields?) -> UserLibraryListInputData,
+	encode: (self: UserLibraryListInputData) -> buffer,
+	decode: (input: buffer) -> UserLibraryListInputData,
+	jsonEncode: (self: UserLibraryListInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserLibraryListInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UserLibraryListInputDataFields = {
+	targets: { UserLibraryTargetRow },
+	collections: { UserLibraryCollectionRow },
+	next_cursor: string,
+	config_key: string,
+	surface_key: string,
+}
+
+type _UserLibraryListInputDataPartialFields = {
+	targets: { UserLibraryTargetRow }?,
+	collections: { UserLibraryCollectionRow }?,
+	next_cursor: string?,
+	config_key: string?,
+	surface_key: string?,
+}
+
+export type UserLibraryListInputData = typeof(setmetatable(
+	{} :: _UserLibraryListInputDataFields,
+	{} :: _UserLibraryListInputDataImpl
+))
+type _UserLibraryListInputDataMessage = proto.Message<UserLibraryListInputData, _UserLibraryListInputDataPartialFields>
+
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
 export type PageEntryFormat = "PAGE_ENTRY_FORMAT_INVALID" | "PAGE_ENTRY_FORMAT_UNIVERSAL" | number -- Unknown
+
+type _BuyRobuxSectionDisplayStateMessage = proto.Enum<BuyRobuxSectionDisplayState>
+export type BuyRobuxSectionDisplayState =
+	"BUY_ROBUX_SECTION_DISPLAY_STATE_INVALID"
+	| "BUY_ROBUX_SECTION_DISPLAY_STATE_DEFAULT"
+	| "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_EXPANDED"
+	| "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_COLLAPSED"
+	| number -- Unknown
+
+type _UserLibraryTargetTypeMessage = proto.Enum<UserLibraryTargetType>
+export type UserLibraryTargetType =
+	"USER_LIBRARY_TARGET_TYPE_INVALID"
+	| "USER_LIBRARY_TARGET_TYPE_EXPERIENCE"
+	| "USER_LIBRARY_TARGET_TYPE_LOOK"
+	| "USER_LIBRARY_TARGET_TYPE_ASSET"
+	| "USER_LIBRARY_TARGET_TYPE_BUNDLE"
+	| "USER_LIBRARY_TARGET_TYPE_SONG"
+	| number -- Unknown
+
+type _UserLibraryCollectionKindMessage = proto.Enum<UserLibraryCollectionKind>
+export type UserLibraryCollectionKind =
+	"USER_LIBRARY_COLLECTION_KIND_INVALID"
+	| "USER_LIBRARY_COLLECTION_KIND_WISHLIST"
+	| "USER_LIBRARY_COLLECTION_KIND_FAVORITE"
+	| "USER_LIBRARY_COLLECTION_KIND_CUSTOM"
+	| number -- Unknown
 
 do
 	local _UniversalPageEntryImpl = {}
@@ -5657,6 +6657,18 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 907, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_item_ownership" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 908, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_item_info_table" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 909, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_item_experiences_link" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 910, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "search_results_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1000, proto.wireTypes.lengthDelimited)
@@ -5705,6 +6717,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1401, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "group_forums_discovery" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1402, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "settings_row" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1500, proto.wireTypes.lengthDelimited)
@@ -5712,6 +6728,26 @@ do
 			elseif self.kind.type == "settings_toggle" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1501, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "group_overview_pane" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1601, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "buy_robux_page" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1700, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "buy_robux_section" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1701, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "user_library_overview" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1800, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "user_library_list" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1801, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -6144,6 +7180,30 @@ do
 						value = messages.MarketplaceItemMediaHeaderInputData.decode(value),
 					}
 					continue
+				elseif field == 908 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_item_ownership",
+						value = messages.MarketplaceItemOwnershipInputData.decode(value),
+					}
+					continue
+				elseif field == 909 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_item_info_table",
+						value = messages.MarketplaceItemInfoTableInputData.decode(value),
+					}
+					continue
+				elseif field == 910 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_item_experiences_link",
+						value = messages.MarketplaceItemExperiencesLinkInputData.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -6229,6 +7289,14 @@ do
 					self.kind =
 						{ type = "group_announcement", value = messages.GroupAnnouncementInputData.decode(value) }
 					continue
+				elseif field == 1402 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "group_forums_discovery",
+						value = messages.GroupForumsDiscoveryInputData.decode(value),
+					}
+					continue
 				elseif field == 1500 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -6238,6 +7306,33 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "settings_toggle", value = messages.SettingsToggleInputData.decode(value) }
+					continue
+				elseif field == 1601 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "group_overview_pane", value = messages.GroupOverviewPaneInputData.decode(value) }
+					continue
+				elseif field == 1700 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "buy_robux_page", value = messages.BuyRobuxPageInputData.decode(value) }
+					continue
+				elseif field == 1701 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "buy_robux_section", value = messages.BuyRobuxSectionInputData.decode(value) }
+					continue
+				elseif field == 1800 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "user_library_overview", value = messages.UserLibraryOverviewInputData.decode(value) }
+					continue
+				elseif field == 1801 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "user_library_list", value = messages.UserLibraryListInputData.decode(value) }
 					continue
 				end
 
@@ -6395,6 +7490,12 @@ do
 				output.marketplaceOfferModal = self.kind.value:jsonEncode()
 			elseif self.kind.type == "marketplace_item_media_header" then
 				output.marketplaceItemMediaHeader = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_item_ownership" then
+				output.marketplaceItemOwnership = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_item_info_table" then
+				output.marketplaceItemInfoTable = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_item_experiences_link" then
+				output.marketplaceItemExperiencesLink = self.kind.value:jsonEncode()
 			elseif self.kind.type == "search_results_feed" then
 				output.searchResultsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "power_search_ai_overview" then
@@ -6419,10 +7520,22 @@ do
 				output.communityAnnouncement = self.kind.value:jsonEncode()
 			elseif self.kind.type == "group_announcement" then
 				output.groupAnnouncement = self.kind.value:jsonEncode()
+			elseif self.kind.type == "group_forums_discovery" then
+				output.groupForumsDiscovery = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_row" then
 				output.settingsRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_toggle" then
 				output.settingsToggle = self.kind.value:jsonEncode()
+			elseif self.kind.type == "group_overview_pane" then
+				output.groupOverviewPane = self.kind.value:jsonEncode()
+			elseif self.kind.type == "buy_robux_page" then
+				output.buyRobuxPage = self.kind.value:jsonEncode()
+			elseif self.kind.type == "buy_robux_section" then
+				output.buyRobuxSection = self.kind.value:jsonEncode()
+			elseif self.kind.type == "user_library_overview" then
+				output.userLibraryOverview = self.kind.value:jsonEncode()
+			elseif self.kind.type == "user_library_list" then
+				output.userLibraryList = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -7212,6 +8325,52 @@ do
 			}
 		end
 
+		if input.marketplace_item_ownership ~= nil then
+			self.kind = {
+				type = "marketplace_item_ownership",
+				value = messages.MarketplaceItemOwnershipInputData.jsonDecode(input.marketplace_item_ownership),
+			}
+		end
+
+		if input.marketplaceItemOwnership ~= nil then
+			self.kind = {
+				type = "marketplace_item_ownership",
+				value = messages.MarketplaceItemOwnershipInputData.jsonDecode(input.marketplaceItemOwnership),
+			}
+		end
+
+		if input.marketplace_item_info_table ~= nil then
+			self.kind = {
+				type = "marketplace_item_info_table",
+				value = messages.MarketplaceItemInfoTableInputData.jsonDecode(input.marketplace_item_info_table),
+			}
+		end
+
+		if input.marketplaceItemInfoTable ~= nil then
+			self.kind = {
+				type = "marketplace_item_info_table",
+				value = messages.MarketplaceItemInfoTableInputData.jsonDecode(input.marketplaceItemInfoTable),
+			}
+		end
+
+		if input.marketplace_item_experiences_link ~= nil then
+			self.kind = {
+				type = "marketplace_item_experiences_link",
+				value = messages.MarketplaceItemExperiencesLinkInputData.jsonDecode(
+					input.marketplace_item_experiences_link
+				),
+			}
+		end
+
+		if input.marketplaceItemExperiencesLink ~= nil then
+			self.kind = {
+				type = "marketplace_item_experiences_link",
+				value = messages.MarketplaceItemExperiencesLinkInputData.jsonDecode(
+					input.marketplaceItemExperiencesLink
+				),
+			}
+		end
+
 		if input.search_results_feed ~= nil then
 			self.kind = {
 				type = "search_results_feed",
@@ -7374,6 +8533,20 @@ do
 			}
 		end
 
+		if input.group_forums_discovery ~= nil then
+			self.kind = {
+				type = "group_forums_discovery",
+				value = messages.GroupForumsDiscoveryInputData.jsonDecode(input.group_forums_discovery),
+			}
+		end
+
+		if input.groupForumsDiscovery ~= nil then
+			self.kind = {
+				type = "group_forums_discovery",
+				value = messages.GroupForumsDiscoveryInputData.jsonDecode(input.groupForumsDiscovery),
+			}
+		end
+
 		if input.settings_row ~= nil then
 			self.kind = { type = "settings_row", value = messages.SettingsRowInputData.jsonDecode(input.settings_row) }
 		end
@@ -7390,6 +8563,72 @@ do
 		if input.settingsToggle ~= nil then
 			self.kind =
 				{ type = "settings_toggle", value = messages.SettingsToggleInputData.jsonDecode(input.settingsToggle) }
+		end
+
+		if input.group_overview_pane ~= nil then
+			self.kind = {
+				type = "group_overview_pane",
+				value = messages.GroupOverviewPaneInputData.jsonDecode(input.group_overview_pane),
+			}
+		end
+
+		if input.groupOverviewPane ~= nil then
+			self.kind = {
+				type = "group_overview_pane",
+				value = messages.GroupOverviewPaneInputData.jsonDecode(input.groupOverviewPane),
+			}
+		end
+
+		if input.buy_robux_page ~= nil then
+			self.kind =
+				{ type = "buy_robux_page", value = messages.BuyRobuxPageInputData.jsonDecode(input.buy_robux_page) }
+		end
+
+		if input.buyRobuxPage ~= nil then
+			self.kind =
+				{ type = "buy_robux_page", value = messages.BuyRobuxPageInputData.jsonDecode(input.buyRobuxPage) }
+		end
+
+		if input.buy_robux_section ~= nil then
+			self.kind = {
+				type = "buy_robux_section",
+				value = messages.BuyRobuxSectionInputData.jsonDecode(input.buy_robux_section),
+			}
+		end
+
+		if input.buyRobuxSection ~= nil then
+			self.kind = {
+				type = "buy_robux_section",
+				value = messages.BuyRobuxSectionInputData.jsonDecode(input.buyRobuxSection),
+			}
+		end
+
+		if input.user_library_overview ~= nil then
+			self.kind = {
+				type = "user_library_overview",
+				value = messages.UserLibraryOverviewInputData.jsonDecode(input.user_library_overview),
+			}
+		end
+
+		if input.userLibraryOverview ~= nil then
+			self.kind = {
+				type = "user_library_overview",
+				value = messages.UserLibraryOverviewInputData.jsonDecode(input.userLibraryOverview),
+			}
+		end
+
+		if input.user_library_list ~= nil then
+			self.kind = {
+				type = "user_library_list",
+				value = messages.UserLibraryListInputData.jsonDecode(input.user_library_list),
+			}
+		end
+
+		if input.userLibraryList ~= nil then
+			self.kind = {
+				type = "user_library_list",
+				value = messages.UserLibraryListInputData.jsonDecode(input.userLibraryList),
+			}
 		end
 
 		return self
@@ -9521,6 +10760,7 @@ do
 	): ExperienceDetailsStickyHeaderInputData
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			title = if data == nil or data.title == nil then nil else data.title,
 		}, _ExperienceDetailsStickyHeaderInputDataImpl :: _ExperienceDetailsStickyHeaderInputDataImpl)
 	end
 
@@ -9531,6 +10771,11 @@ do
 		if self.universe_id ~= nil and self.universe_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9556,6 +10801,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
 					continue
 				end
 
@@ -9588,6 +10838,10 @@ do
 			output.universeId = self.universe_id
 		end
 
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
 		return output
 	end
 
@@ -9602,6 +10856,10 @@ do
 
 		if input.universeId ~= nil then
 			self.universe_id = input.universeId
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
 		end
 
 		return self
@@ -9627,6 +10885,7 @@ do
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			title = if data == nil or data.title == nil then nil else data.title,
 		}, _ExperienceAttributionRowInputDataImpl :: _ExperienceAttributionRowInputDataImpl)
 	end
 
@@ -9642,6 +10901,11 @@ do
 		if self.creator_key ~= nil and self.creator_key ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9672,6 +10936,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.creator_key = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
 					continue
 				end
 
@@ -9708,6 +10977,10 @@ do
 			output.creatorKey = self.creator_key
 		end
 
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
 		return output
 	end
 
@@ -9730,6 +11003,10 @@ do
 
 		if input.creatorKey ~= nil then
 			self.creator_key = input.creatorKey
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
 		end
 
 		return self
@@ -23155,6 +24432,7 @@ do
 				else data.prefer_three_dimensional,
 			bundle_type = if data == nil or data.bundle_type == nil then nil else data.bundle_type,
 			bundle_items = if data == nil or data.bundle_items == nil then {} else data.bundle_items,
+			try_on_available = if data == nil or data.try_on_available == nil then false else data.try_on_available,
 		}, _MarketplaceItemMediaHeaderInputDataImpl :: _MarketplaceItemMediaHeaderInputDataImpl)
 	end
 
@@ -23190,6 +24468,11 @@ do
 			end
 		end
 
+		if self.try_on_available then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.try_on_available then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -23208,6 +24491,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.prefer_three_dimensional = value ~= 0
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.try_on_available = value ~= 0
 					continue
 				end
 
@@ -23288,6 +24576,10 @@ do
 			output.bundleItems = newOutput
 		end
 
+		if self.try_on_available then
+			output.tryOnAvailable = self.try_on_available
+		end
+
 		return output
 	end
 
@@ -23344,6 +24636,14 @@ do
 			end
 
 			self.bundle_items = newOutput
+		end
+
+		if input.try_on_available ~= nil then
+			self.try_on_available = input.try_on_available
+		end
+
+		if input.tryOnAvailable ~= nil then
+			self.try_on_available = input.tryOnAvailable
 		end
 
 		return self
@@ -23483,6 +24783,536 @@ do
 	messages.MarketplaceItemMediaHeaderInputData_BundleItem = _MarketplaceItemMediaHeaderInputData_BundleItemImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.MarketplaceItemMediaHeaderInputData_BundleItem)
+end
+
+do
+	local _MarketplaceItemInfoTableInputDataImpl = {}
+	_MarketplaceItemInfoTableInputDataImpl.__index = _MarketplaceItemInfoTableInputDataImpl
+
+	function _MarketplaceItemInfoTableInputDataImpl.new(
+		data: _MarketplaceItemInfoTableInputDataPartialFields?
+	): MarketplaceItemInfoTableInputData
+		return setmetatable({
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
+			user_can_purchase_from_stock = if data == nil or data.user_can_purchase_from_stock == nil
+				then false
+				else data.user_can_purchase_from_stock,
+			resale_listings_available = if data == nil or data.resale_listings_available == nil
+				then false
+				else data.resale_listings_available,
+			creating_experience_available = if data == nil or data.creating_experience_available == nil
+				then false
+				else data.creating_experience_available,
+		}, _MarketplaceItemInfoTableInputDataImpl :: _MarketplaceItemInfoTableInputDataImpl)
+	end
+
+	function _MarketplaceItemInfoTableInputDataImpl.encode(self: MarketplaceItemInfoTableInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_type)
+		end
+
+		if self.user_can_purchase_from_stock then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.user_can_purchase_from_stock then 1 else 0)
+		end
+
+		if self.resale_listings_available then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.resale_listings_available then 1 else 0)
+		end
+
+		if self.creating_experience_available then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.creating_experience_available then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _MarketplaceItemInfoTableInputDataImpl.decode(input: buffer): MarketplaceItemInfoTableInputData
+		local self = _MarketplaceItemInfoTableInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.user_can_purchase_from_stock = value ~= 0
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.resale_listings_available = value ~= 0
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.creating_experience_available = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _MarketplaceItemInfoTableInputDataImpl.jsonEncode(self: MarketplaceItemInfoTableInputData): any
+		local output = {}
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output.itemType = self.item_type
+		end
+
+		if self.user_can_purchase_from_stock then
+			output.userCanPurchaseFromStock = self.user_can_purchase_from_stock
+		end
+
+		if self.resale_listings_available then
+			output.resaleListingsAvailable = self.resale_listings_available
+		end
+
+		if self.creating_experience_available then
+			output.creatingExperienceAvailable = self.creating_experience_available
+		end
+
+		return output
+	end
+
+	function _MarketplaceItemInfoTableInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): MarketplaceItemInfoTableInputData
+		local self = _MarketplaceItemInfoTableInputDataImpl.new()
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.item_type ~= nil then
+			self.item_type = input.item_type
+		end
+
+		if input.itemType ~= nil then
+			self.item_type = input.itemType
+		end
+
+		if input.user_can_purchase_from_stock ~= nil then
+			self.user_can_purchase_from_stock = input.user_can_purchase_from_stock
+		end
+
+		if input.userCanPurchaseFromStock ~= nil then
+			self.user_can_purchase_from_stock = input.userCanPurchaseFromStock
+		end
+
+		if input.resale_listings_available ~= nil then
+			self.resale_listings_available = input.resale_listings_available
+		end
+
+		if input.resaleListingsAvailable ~= nil then
+			self.resale_listings_available = input.resaleListingsAvailable
+		end
+
+		if input.creating_experience_available ~= nil then
+			self.creating_experience_available = input.creating_experience_available
+		end
+
+		if input.creatingExperienceAvailable ~= nil then
+			self.creating_experience_available = input.creatingExperienceAvailable
+		end
+
+		return self
+	end
+
+	_MarketplaceItemInfoTableInputDataImpl.descriptor = {
+		name = "MarketplaceItemInfoTableInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceItemInfoTableInputData",
+	}
+
+	messages.MarketplaceItemInfoTableInputData = _MarketplaceItemInfoTableInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.MarketplaceItemInfoTableInputData)
+end
+
+do
+	local _MarketplaceItemExperiencesLinkInputDataImpl = {}
+	_MarketplaceItemExperiencesLinkInputDataImpl.__index = _MarketplaceItemExperiencesLinkInputDataImpl
+
+	function _MarketplaceItemExperiencesLinkInputDataImpl.new(
+		data: _MarketplaceItemExperiencesLinkInputDataPartialFields?
+	): MarketplaceItemExperiencesLinkInputData
+		return setmetatable({
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
+			experience_count = if data == nil or data.experience_count == nil then 0 else data.experience_count,
+			experience_name = if data == nil or data.experience_name == nil then nil else data.experience_name,
+		}, _MarketplaceItemExperiencesLinkInputDataImpl :: _MarketplaceItemExperiencesLinkInputDataImpl)
+	end
+
+	function _MarketplaceItemExperiencesLinkInputDataImpl.encode(self: MarketplaceItemExperiencesLinkInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_type)
+		end
+
+		if self.experience_count ~= nil and self.experience_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.experience_count)
+		end
+
+		if self.experience_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.experience_name)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _MarketplaceItemExperiencesLinkInputDataImpl.decode(input: buffer): MarketplaceItemExperiencesLinkInputData
+		local self = _MarketplaceItemExperiencesLinkInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.experience_count = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_type = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _MarketplaceItemExperiencesLinkInputDataImpl.jsonEncode(self: MarketplaceItemExperiencesLinkInputData): any
+		local output = {}
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output.itemType = self.item_type
+		end
+
+		if self.experience_count ~= nil and self.experience_count ~= 0 then
+			output.experienceCount = self.experience_count
+		end
+
+		if self.experience_name ~= nil then
+			output.experienceName = self.experience_name
+		end
+
+		return output
+	end
+
+	function _MarketplaceItemExperiencesLinkInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): MarketplaceItemExperiencesLinkInputData
+		local self = _MarketplaceItemExperiencesLinkInputDataImpl.new()
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.item_type ~= nil then
+			self.item_type = input.item_type
+		end
+
+		if input.itemType ~= nil then
+			self.item_type = input.itemType
+		end
+
+		if input.experience_count ~= nil then
+			self.experience_count = input.experience_count
+		end
+
+		if input.experienceCount ~= nil then
+			self.experience_count = input.experienceCount
+		end
+
+		if input.experience_name ~= nil then
+			self.experience_name = input.experience_name
+		end
+
+		if input.experienceName ~= nil then
+			self.experience_name = input.experienceName
+		end
+
+		return self
+	end
+
+	_MarketplaceItemExperiencesLinkInputDataImpl.descriptor = {
+		name = "MarketplaceItemExperiencesLinkInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceItemExperiencesLinkInputData",
+	}
+
+	messages.MarketplaceItemExperiencesLinkInputData = _MarketplaceItemExperiencesLinkInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.MarketplaceItemExperiencesLinkInputData)
+end
+
+do
+	local _MarketplaceItemOwnershipInputDataImpl = {}
+	_MarketplaceItemOwnershipInputDataImpl.__index = _MarketplaceItemOwnershipInputDataImpl
+
+	function _MarketplaceItemOwnershipInputDataImpl.new(
+		data: _MarketplaceItemOwnershipInputDataPartialFields?
+	): MarketplaceItemOwnershipInputData
+		return setmetatable({
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
+			user_owns_resellable_copy = if data == nil or data.user_owns_resellable_copy == nil
+				then false
+				else data.user_owns_resellable_copy,
+		}, _MarketplaceItemOwnershipInputDataImpl :: _MarketplaceItemOwnershipInputDataImpl)
+	end
+
+	function _MarketplaceItemOwnershipInputDataImpl.encode(self: MarketplaceItemOwnershipInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_type)
+		end
+
+		if self.user_owns_resellable_copy then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.user_owns_resellable_copy then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _MarketplaceItemOwnershipInputDataImpl.decode(input: buffer): MarketplaceItemOwnershipInputData
+		local self = _MarketplaceItemOwnershipInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.user_owns_resellable_copy = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _MarketplaceItemOwnershipInputDataImpl.jsonEncode(self: MarketplaceItemOwnershipInputData): any
+		local output = {}
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output.itemType = self.item_type
+		end
+
+		if self.user_owns_resellable_copy then
+			output.userOwnsResellableCopy = self.user_owns_resellable_copy
+		end
+
+		return output
+	end
+
+	function _MarketplaceItemOwnershipInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): MarketplaceItemOwnershipInputData
+		local self = _MarketplaceItemOwnershipInputDataImpl.new()
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.item_type ~= nil then
+			self.item_type = input.item_type
+		end
+
+		if input.itemType ~= nil then
+			self.item_type = input.itemType
+		end
+
+		if input.user_owns_resellable_copy ~= nil then
+			self.user_owns_resellable_copy = input.user_owns_resellable_copy
+		end
+
+		if input.userOwnsResellableCopy ~= nil then
+			self.user_owns_resellable_copy = input.userOwnsResellableCopy
+		end
+
+		return self
+	end
+
+	_MarketplaceItemOwnershipInputDataImpl.descriptor = {
+		name = "MarketplaceItemOwnershipInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceItemOwnershipInputData",
+	}
+
+	messages.MarketplaceItemOwnershipInputData = _MarketplaceItemOwnershipInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.MarketplaceItemOwnershipInputData)
 end
 
 do
@@ -31206,6 +33036,109 @@ do
 end
 
 do
+	local _GroupOverviewPaneInputDataImpl = {}
+	_GroupOverviewPaneInputDataImpl.__index = _GroupOverviewPaneInputDataImpl
+
+	function _GroupOverviewPaneInputDataImpl.new(
+		data: _GroupOverviewPaneInputDataPartialFields?
+	): GroupOverviewPaneInputData
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then nil else data.group_id,
+		}, _GroupOverviewPaneInputDataImpl :: _GroupOverviewPaneInputDataImpl)
+	end
+
+	function _GroupOverviewPaneInputDataImpl.encode(self: GroupOverviewPaneInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupOverviewPaneInputDataImpl.decode(input: buffer): GroupOverviewPaneInputData
+		local self = _GroupOverviewPaneInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupOverviewPaneInputDataImpl.jsonEncode(self: GroupOverviewPaneInputData): any
+		local output = {}
+
+		if self.group_id ~= nil then
+			output.groupId = self.group_id
+		end
+
+		return output
+	end
+
+	function _GroupOverviewPaneInputDataImpl.jsonDecode(input: { [string]: any }): GroupOverviewPaneInputData
+		local self = _GroupOverviewPaneInputDataImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = input.group_id
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = input.groupId
+		end
+
+		return self
+	end
+
+	_GroupOverviewPaneInputDataImpl.descriptor = {
+		name = "GroupOverviewPaneInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupOverviewPaneInputData",
+	}
+
+	messages.GroupOverviewPaneInputData = _GroupOverviewPaneInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupOverviewPaneInputData)
+end
+
+do
 	local _CommunityAnnouncementInputDataImpl = {}
 	_CommunityAnnouncementInputDataImpl.__index = _CommunityAnnouncementInputDataImpl
 
@@ -32020,6 +33953,4794 @@ do
 	typeRegistry.default:register(messages.GroupAnnouncementInputData)
 end
 
+do
+	local _BuyRobuxPageInputDataImpl = {}
+	_BuyRobuxPageInputDataImpl.__index = _BuyRobuxPageInputDataImpl
+
+	function _BuyRobuxPageInputDataImpl.new(data: _BuyRobuxPageInputDataPartialFields?): BuyRobuxPageInputData
+		return setmetatable({
+			section_map = if data == nil or data.section_map == nil then {} else data.section_map,
+			section_order = if data == nil or data.section_order == nil then {} else data.section_order,
+			terms_url_path = if data == nil or data.terms_url_path == nil then nil else data.terms_url_path,
+			payment_session_id = if data == nil or data.payment_session_id == nil then nil else data.payment_session_id,
+			purchase_flow_id = if data == nil or data.purchase_flow_id == nil then nil else data.purchase_flow_id,
+			login_redirect_pathname = if data == nil or data.login_redirect_pathname == nil
+				then nil
+				else data.login_redirect_pathname,
+			use_promotional_platform_messaging = if data == nil
+					or data.use_promotional_platform_messaging == nil
+				then false
+				else data.use_promotional_platform_messaging,
+			transfers = if data == nil or data.transfers == nil then nil else data.transfers,
+			system_banner = if data == nil or data.system_banner == nil then nil else data.system_banner,
+			faq = if data == nil or data.faq == nil then nil else data.faq,
+			analytics = if data == nil or data.analytics == nil then nil else data.analytics,
+		}, _BuyRobuxPageInputDataImpl :: _BuyRobuxPageInputDataImpl)
+	end
+
+	function _BuyRobuxPageInputDataImpl.encode(self: BuyRobuxPageInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.section_map ~= nil and next(self.section_map) ~= nil then
+			for key, value in self.section_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.section_order ~= nil and #self.section_order > 0 then
+			for _, value in self.section_order do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.terms_url_path ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.terms_url_path)
+		end
+
+		if self.payment_session_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.payment_session_id)
+		end
+
+		if self.purchase_flow_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.purchase_flow_id)
+		end
+
+		if self.login_redirect_pathname ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.login_redirect_pathname)
+		end
+
+		if self.use_promotional_platform_messaging then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.use_promotional_platform_messaging then 1 else 0)
+		end
+
+		if self.transfers ~= nil then
+			local encoded = self.transfers:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.system_banner ~= nil then
+			local encoded = self.system_banner:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.faq ~= nil then
+			local encoded = self.faq:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.analytics ~= nil then
+			local encoded = self.analytics:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxPageInputDataImpl.decode(input: buffer): BuyRobuxPageInputData
+		local self = _BuyRobuxPageInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 7 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.use_promotional_platform_messaging = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.BuyRobuxPageInputData_SectionMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.section_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.section_order, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.terms_url_path = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.payment_session_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.purchase_flow_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.login_redirect_pathname = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.transfers = messages.BuyRobuxTransfersInputData.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.system_banner = messages.TextInputData.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.faq = messages.BuyRobuxFaqInputData.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.analytics = messages.BuyRobuxPageAnalyticsData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxPageInputDataImpl.jsonEncode(self: BuyRobuxPageInputData): any
+		local output = {}
+
+		if self.section_map ~= nil and next(self.section_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.section_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.sectionMap = newOutput
+		end
+
+		if self.section_order ~= nil and #self.section_order > 0 then
+			local newOutput = {}
+			for _, value in self.section_order do
+				table.insert(newOutput, value)
+			end
+			output.sectionOrder = newOutput
+		end
+
+		if self.terms_url_path ~= nil then
+			output.termsUrlPath = self.terms_url_path
+		end
+
+		if self.payment_session_id ~= nil then
+			output.paymentSessionId = self.payment_session_id
+		end
+
+		if self.purchase_flow_id ~= nil then
+			output.purchaseFlowId = self.purchase_flow_id
+		end
+
+		if self.login_redirect_pathname ~= nil then
+			output.loginRedirectPathname = self.login_redirect_pathname
+		end
+
+		if self.use_promotional_platform_messaging then
+			output.usePromotionalPlatformMessaging = self.use_promotional_platform_messaging
+		end
+
+		if self.transfers ~= nil then
+			output.transfers = self.transfers:jsonEncode()
+		end
+
+		if self.system_banner ~= nil then
+			output.systemBanner = self.system_banner:jsonEncode()
+		end
+
+		if self.faq ~= nil then
+			output.faq = self.faq:jsonEncode()
+		end
+
+		if self.analytics ~= nil then
+			output.analytics = self.analytics:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BuyRobuxPageInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxPageInputData
+		local self = _BuyRobuxPageInputDataImpl.new()
+
+		if input.section_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.section_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.section_map = newOutput
+		end
+
+		if input.sectionMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.sectionMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.section_map = newOutput
+		end
+
+		if input.section_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.section_order do
+				table.insert(newOutput, value)
+			end
+
+			self.section_order = newOutput
+		end
+
+		if input.sectionOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.sectionOrder do
+				table.insert(newOutput, value)
+			end
+
+			self.section_order = newOutput
+		end
+
+		if input.terms_url_path ~= nil then
+			self.terms_url_path = input.terms_url_path
+		end
+
+		if input.termsUrlPath ~= nil then
+			self.terms_url_path = input.termsUrlPath
+		end
+
+		if input.payment_session_id ~= nil then
+			self.payment_session_id = input.payment_session_id
+		end
+
+		if input.paymentSessionId ~= nil then
+			self.payment_session_id = input.paymentSessionId
+		end
+
+		if input.purchase_flow_id ~= nil then
+			self.purchase_flow_id = input.purchase_flow_id
+		end
+
+		if input.purchaseFlowId ~= nil then
+			self.purchase_flow_id = input.purchaseFlowId
+		end
+
+		if input.login_redirect_pathname ~= nil then
+			self.login_redirect_pathname = input.login_redirect_pathname
+		end
+
+		if input.loginRedirectPathname ~= nil then
+			self.login_redirect_pathname = input.loginRedirectPathname
+		end
+
+		if input.use_promotional_platform_messaging ~= nil then
+			self.use_promotional_platform_messaging = input.use_promotional_platform_messaging
+		end
+
+		if input.usePromotionalPlatformMessaging ~= nil then
+			self.use_promotional_platform_messaging = input.usePromotionalPlatformMessaging
+		end
+
+		if input.transfers ~= nil then
+			self.transfers = messages.BuyRobuxTransfersInputData.jsonDecode(input.transfers)
+		end
+
+		if input.system_banner ~= nil then
+			self.system_banner = messages.TextInputData.jsonDecode(input.system_banner)
+		end
+
+		if input.systemBanner ~= nil then
+			self.system_banner = messages.TextInputData.jsonDecode(input.systemBanner)
+		end
+
+		if input.faq ~= nil then
+			self.faq = messages.BuyRobuxFaqInputData.jsonDecode(input.faq)
+		end
+
+		if input.analytics ~= nil then
+			self.analytics = messages.BuyRobuxPageAnalyticsData.jsonDecode(input.analytics)
+		end
+
+		return self
+	end
+
+	_BuyRobuxPageInputDataImpl.descriptor = {
+		name = "BuyRobuxPageInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxPageInputData",
+	}
+
+	messages.BuyRobuxPageInputData = _BuyRobuxPageInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxPageInputData)
+end
+
+do
+	local _BuyRobuxPageInputData_SectionMapEntryImpl = {}
+	_BuyRobuxPageInputData_SectionMapEntryImpl.__index = _BuyRobuxPageInputData_SectionMapEntryImpl
+
+	function _BuyRobuxPageInputData_SectionMapEntryImpl.new(
+		data: _BuyRobuxPageInputData_SectionMapEntryPartialFields?
+	): BuyRobuxPageInputData_SectionMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _BuyRobuxPageInputData_SectionMapEntryImpl :: _BuyRobuxPageInputData_SectionMapEntryImpl)
+	end
+
+	function _BuyRobuxPageInputData_SectionMapEntryImpl.encode(self: BuyRobuxPageInputData_SectionMapEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxPageInputData_SectionMapEntryImpl.decode(input: buffer): BuyRobuxPageInputData_SectionMapEntry
+		local self = _BuyRobuxPageInputData_SectionMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxPageInputData_SectionMapEntryImpl.jsonEncode(self: BuyRobuxPageInputData_SectionMapEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BuyRobuxPageInputData_SectionMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxPageInputData_SectionMapEntry
+		local self = _BuyRobuxPageInputData_SectionMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_BuyRobuxPageInputData_SectionMapEntryImpl.descriptor = {
+		name = "BuyRobuxPageInputData_SectionMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SectionMapEntry",
+	}
+
+	messages.BuyRobuxPageInputData_SectionMapEntry = _BuyRobuxPageInputData_SectionMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxPageInputData_SectionMapEntry)
+end
+
+do
+	local _BuyRobuxPageAnalyticsDataImpl = {}
+	_BuyRobuxPageAnalyticsDataImpl.__index = _BuyRobuxPageAnalyticsDataImpl
+
+	function _BuyRobuxPageAnalyticsDataImpl.new(
+		data: _BuyRobuxPageAnalyticsDataPartialFields?
+	): BuyRobuxPageAnalyticsData
+		return setmetatable({
+			section_names = if data == nil or data.section_names == nil then "" else data.section_names,
+			robux_package_ids = if data == nil or data.robux_package_ids == nil then "" else data.robux_package_ids,
+			subscription_product_ids = if data == nil or data.subscription_product_ids == nil
+				then ""
+				else data.subscription_product_ids,
+			limited_time_bonus_item_ids = if data == nil or data.limited_time_bonus_item_ids == nil
+				then ""
+				else data.limited_time_bonus_item_ids,
+			personalized_bonus_item = if data == nil or data.personalized_bonus_item == nil
+				then ""
+				else data.personalized_bonus_item,
+		}, _BuyRobuxPageAnalyticsDataImpl :: _BuyRobuxPageAnalyticsDataImpl)
+	end
+
+	function _BuyRobuxPageAnalyticsDataImpl.encode(self: BuyRobuxPageAnalyticsData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.section_names ~= nil and self.section_names ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.section_names)
+		end
+
+		if self.robux_package_ids ~= nil and self.robux_package_ids ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.robux_package_ids)
+		end
+
+		if self.subscription_product_ids ~= nil and self.subscription_product_ids ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subscription_product_ids)
+		end
+
+		if self.limited_time_bonus_item_ids ~= nil and self.limited_time_bonus_item_ids ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.limited_time_bonus_item_ids)
+		end
+
+		if self.personalized_bonus_item ~= nil and self.personalized_bonus_item ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.personalized_bonus_item)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxPageAnalyticsDataImpl.decode(input: buffer): BuyRobuxPageAnalyticsData
+		local self = _BuyRobuxPageAnalyticsDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section_names = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.robux_package_ids = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_product_ids = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.limited_time_bonus_item_ids = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.personalized_bonus_item = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxPageAnalyticsDataImpl.jsonEncode(self: BuyRobuxPageAnalyticsData): any
+		local output = {}
+
+		if self.section_names ~= nil and self.section_names ~= "" then
+			output.sectionNames = self.section_names
+		end
+
+		if self.robux_package_ids ~= nil and self.robux_package_ids ~= "" then
+			output.robuxPackageIds = self.robux_package_ids
+		end
+
+		if self.subscription_product_ids ~= nil and self.subscription_product_ids ~= "" then
+			output.subscriptionProductIds = self.subscription_product_ids
+		end
+
+		if self.limited_time_bonus_item_ids ~= nil and self.limited_time_bonus_item_ids ~= "" then
+			output.limitedTimeBonusItemIds = self.limited_time_bonus_item_ids
+		end
+
+		if self.personalized_bonus_item ~= nil and self.personalized_bonus_item ~= "" then
+			output.personalizedBonusItem = self.personalized_bonus_item
+		end
+
+		return output
+	end
+
+	function _BuyRobuxPageAnalyticsDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxPageAnalyticsData
+		local self = _BuyRobuxPageAnalyticsDataImpl.new()
+
+		if input.section_names ~= nil then
+			self.section_names = input.section_names
+		end
+
+		if input.sectionNames ~= nil then
+			self.section_names = input.sectionNames
+		end
+
+		if input.robux_package_ids ~= nil then
+			self.robux_package_ids = input.robux_package_ids
+		end
+
+		if input.robuxPackageIds ~= nil then
+			self.robux_package_ids = input.robuxPackageIds
+		end
+
+		if input.subscription_product_ids ~= nil then
+			self.subscription_product_ids = input.subscription_product_ids
+		end
+
+		if input.subscriptionProductIds ~= nil then
+			self.subscription_product_ids = input.subscriptionProductIds
+		end
+
+		if input.limited_time_bonus_item_ids ~= nil then
+			self.limited_time_bonus_item_ids = input.limited_time_bonus_item_ids
+		end
+
+		if input.limitedTimeBonusItemIds ~= nil then
+			self.limited_time_bonus_item_ids = input.limitedTimeBonusItemIds
+		end
+
+		if input.personalized_bonus_item ~= nil then
+			self.personalized_bonus_item = input.personalized_bonus_item
+		end
+
+		if input.personalizedBonusItem ~= nil then
+			self.personalized_bonus_item = input.personalizedBonusItem
+		end
+
+		return self
+	end
+
+	_BuyRobuxPageAnalyticsDataImpl.descriptor = {
+		name = "BuyRobuxPageAnalyticsData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxPageAnalyticsData",
+	}
+
+	messages.BuyRobuxPageAnalyticsData = _BuyRobuxPageAnalyticsDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxPageAnalyticsData)
+end
+
+do
+	local _BuyRobuxFaqInputDataImpl = {}
+	_BuyRobuxFaqInputDataImpl.__index = _BuyRobuxFaqInputDataImpl
+
+	function _BuyRobuxFaqInputDataImpl.new(data: _BuyRobuxFaqInputDataPartialFields?): BuyRobuxFaqInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then "" else data.title,
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _BuyRobuxFaqInputDataImpl :: _BuyRobuxFaqInputDataImpl)
+	end
+
+	function _BuyRobuxFaqInputDataImpl.encode(self: BuyRobuxFaqInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxFaqInputDataImpl.decode(input: buffer): BuyRobuxFaqInputData
+		local self = _BuyRobuxFaqInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, messages.BuyRobuxFaqItemInputData.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxFaqInputDataImpl.jsonEncode(self: BuyRobuxFaqInputData): any
+		local output = {}
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _BuyRobuxFaqInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxFaqInputData
+		local self = _BuyRobuxFaqInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.items ~= nil then
+			local newOutput: { BuyRobuxFaqItemInputData } = {}
+			for _, value in input.items do
+				table.insert(newOutput, messages.BuyRobuxFaqItemInputData.jsonDecode(value))
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_BuyRobuxFaqInputDataImpl.descriptor = {
+		name = "BuyRobuxFaqInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxFaqInputData",
+	}
+
+	messages.BuyRobuxFaqInputData = _BuyRobuxFaqInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxFaqInputData)
+end
+
+do
+	local _BuyRobuxFaqItemInputDataImpl = {}
+	_BuyRobuxFaqItemInputDataImpl.__index = _BuyRobuxFaqItemInputDataImpl
+
+	function _BuyRobuxFaqItemInputDataImpl.new(data: _BuyRobuxFaqItemInputDataPartialFields?): BuyRobuxFaqItemInputData
+		return setmetatable({
+			question = if data == nil or data.question == nil then "" else data.question,
+			answer = if data == nil or data.answer == nil then nil else data.answer,
+		}, _BuyRobuxFaqItemInputDataImpl :: _BuyRobuxFaqItemInputDataImpl)
+	end
+
+	function _BuyRobuxFaqItemInputDataImpl.encode(self: BuyRobuxFaqItemInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.question ~= nil and self.question ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.question)
+		end
+
+		if self.answer ~= nil then
+			local encoded = self.answer:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxFaqItemInputDataImpl.decode(input: buffer): BuyRobuxFaqItemInputData
+		local self = _BuyRobuxFaqItemInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.question = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.answer = messages.TextInputData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxFaqItemInputDataImpl.jsonEncode(self: BuyRobuxFaqItemInputData): any
+		local output = {}
+
+		if self.question ~= nil and self.question ~= "" then
+			output.question = self.question
+		end
+
+		if self.answer ~= nil then
+			output.answer = self.answer:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BuyRobuxFaqItemInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxFaqItemInputData
+		local self = _BuyRobuxFaqItemInputDataImpl.new()
+
+		if input.question ~= nil then
+			self.question = input.question
+		end
+
+		if input.answer ~= nil then
+			self.answer = messages.TextInputData.jsonDecode(input.answer)
+		end
+
+		return self
+	end
+
+	_BuyRobuxFaqItemInputDataImpl.descriptor = {
+		name = "BuyRobuxFaqItemInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxFaqItemInputData",
+	}
+
+	messages.BuyRobuxFaqItemInputData = _BuyRobuxFaqItemInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxFaqItemInputData)
+end
+
+do
+	local _BuyRobuxSectionInputDataImpl = {}
+	_BuyRobuxSectionInputDataImpl.__index = _BuyRobuxSectionInputDataImpl
+
+	function _BuyRobuxSectionInputDataImpl.new(data: _BuyRobuxSectionInputDataPartialFields?): BuyRobuxSectionInputData
+		return setmetatable({
+			is_primary = if data == nil or data.is_primary == nil then false else data.is_primary,
+			title = if data == nil or data.title == nil then "" else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			section = if data == nil or data.section == nil then nil else data.section,
+		}, _BuyRobuxSectionInputDataImpl :: _BuyRobuxSectionInputDataImpl)
+	end
+
+	function _BuyRobuxSectionInputDataImpl.encode(self: BuyRobuxSectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.is_primary then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_primary then 1 else 0)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.subtitle ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.section ~= nil then
+			if self.section.type == "products_list" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "personalized_bonus" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "robux_gift" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "gift_card" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "recommended" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "redirect" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "subscription" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.section.type == "limited_time_bonus" then
+				local encoded = self.section.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxSectionInputDataImpl.decode(input: buffer): BuyRobuxSectionInputData
+		local self = _BuyRobuxSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_primary = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section =
+						{ type = "products_list", value = messages.BuyRobuxProductsListSectionInputData.decode(value) }
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section = {
+						type = "personalized_bonus",
+						value = messages.BuyRobuxPersonalizedBonusSectionInputData.decode(value),
+					}
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section = { type = "robux_gift", value = messages.BuyRobuxGiftSectionInputData.decode(value) }
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section =
+						{ type = "gift_card", value = messages.BuyRobuxGiftCardSectionInputData.decode(value) }
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section =
+						{ type = "recommended", value = messages.BuyRobuxProductsListSectionInputData.decode(value) }
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section =
+						{ type = "redirect", value = messages.BuyRobuxProductsListSectionInputData.decode(value) }
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section =
+						{ type = "subscription", value = messages.BuyRobuxSubscriptionSectionInputData.decode(value) }
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.section = {
+						type = "limited_time_bonus",
+						value = messages.BuyRobuxLimitedTimeBonusSectionInputData.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxSectionInputDataImpl.jsonEncode(self: BuyRobuxSectionInputData): any
+		local output = {}
+
+		if self.is_primary then
+			output.isPrimary = self.is_primary
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle
+		end
+
+		if self.section ~= nil then
+			if self.section.type == "products_list" then
+				output.productsList = self.section.value:jsonEncode()
+			elseif self.section.type == "personalized_bonus" then
+				output.personalizedBonus = self.section.value:jsonEncode()
+			elseif self.section.type == "robux_gift" then
+				output.robuxGift = self.section.value:jsonEncode()
+			elseif self.section.type == "gift_card" then
+				output.giftCard = self.section.value:jsonEncode()
+			elseif self.section.type == "recommended" then
+				output.recommended = self.section.value:jsonEncode()
+			elseif self.section.type == "redirect" then
+				output.redirect = self.section.value:jsonEncode()
+			elseif self.section.type == "subscription" then
+				output.subscription = self.section.value:jsonEncode()
+			elseif self.section.type == "limited_time_bonus" then
+				output.limitedTimeBonus = self.section.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _BuyRobuxSectionInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxSectionInputData
+		local self = _BuyRobuxSectionInputDataImpl.new()
+
+		if input.is_primary ~= nil then
+			self.is_primary = input.is_primary
+		end
+
+		if input.isPrimary ~= nil then
+			self.is_primary = input.isPrimary
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.products_list ~= nil then
+			self.section = {
+				type = "products_list",
+				value = messages.BuyRobuxProductsListSectionInputData.jsonDecode(input.products_list),
+			}
+		end
+
+		if input.productsList ~= nil then
+			self.section = {
+				type = "products_list",
+				value = messages.BuyRobuxProductsListSectionInputData.jsonDecode(input.productsList),
+			}
+		end
+
+		if input.personalized_bonus ~= nil then
+			self.section = {
+				type = "personalized_bonus",
+				value = messages.BuyRobuxPersonalizedBonusSectionInputData.jsonDecode(input.personalized_bonus),
+			}
+		end
+
+		if input.personalizedBonus ~= nil then
+			self.section = {
+				type = "personalized_bonus",
+				value = messages.BuyRobuxPersonalizedBonusSectionInputData.jsonDecode(input.personalizedBonus),
+			}
+		end
+
+		if input.robux_gift ~= nil then
+			self.section =
+				{ type = "robux_gift", value = messages.BuyRobuxGiftSectionInputData.jsonDecode(input.robux_gift) }
+		end
+
+		if input.robuxGift ~= nil then
+			self.section =
+				{ type = "robux_gift", value = messages.BuyRobuxGiftSectionInputData.jsonDecode(input.robuxGift) }
+		end
+
+		if input.gift_card ~= nil then
+			self.section =
+				{ type = "gift_card", value = messages.BuyRobuxGiftCardSectionInputData.jsonDecode(input.gift_card) }
+		end
+
+		if input.giftCard ~= nil then
+			self.section =
+				{ type = "gift_card", value = messages.BuyRobuxGiftCardSectionInputData.jsonDecode(input.giftCard) }
+		end
+
+		if input.recommended ~= nil then
+			self.section = {
+				type = "recommended",
+				value = messages.BuyRobuxProductsListSectionInputData.jsonDecode(input.recommended),
+			}
+		end
+
+		if input.redirect ~= nil then
+			self.section =
+				{ type = "redirect", value = messages.BuyRobuxProductsListSectionInputData.jsonDecode(input.redirect) }
+		end
+
+		if input.subscription ~= nil then
+			self.section = {
+				type = "subscription",
+				value = messages.BuyRobuxSubscriptionSectionInputData.jsonDecode(input.subscription),
+			}
+		end
+
+		if input.limited_time_bonus ~= nil then
+			self.section = {
+				type = "limited_time_bonus",
+				value = messages.BuyRobuxLimitedTimeBonusSectionInputData.jsonDecode(input.limited_time_bonus),
+			}
+		end
+
+		if input.limitedTimeBonus ~= nil then
+			self.section = {
+				type = "limited_time_bonus",
+				value = messages.BuyRobuxLimitedTimeBonusSectionInputData.jsonDecode(input.limitedTimeBonus),
+			}
+		end
+
+		return self
+	end
+
+	_BuyRobuxSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxSectionInputData",
+	}
+
+	messages.BuyRobuxSectionInputData = _BuyRobuxSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxSectionInputData)
+end
+
+do
+	local _BuyRobuxPageProductSummaryInputDataImpl = {}
+	_BuyRobuxPageProductSummaryInputDataImpl.__index = _BuyRobuxPageProductSummaryInputDataImpl
+
+	function _BuyRobuxPageProductSummaryInputDataImpl.new(
+		data: _BuyRobuxPageProductSummaryInputDataPartialFields?
+	): BuyRobuxPageProductSummaryInputData
+		return setmetatable({
+			has_inline_badges = if data == nil or data.has_inline_badges == nil then false else data.has_inline_badges,
+			has_bonus_robux = if data == nil or data.has_bonus_robux == nil then false else data.has_bonus_robux,
+		}, _BuyRobuxPageProductSummaryInputDataImpl :: _BuyRobuxPageProductSummaryInputDataImpl)
+	end
+
+	function _BuyRobuxPageProductSummaryInputDataImpl.encode(self: BuyRobuxPageProductSummaryInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.has_inline_badges then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_inline_badges then 1 else 0)
+		end
+
+		if self.has_bonus_robux then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_bonus_robux then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxPageProductSummaryInputDataImpl.decode(input: buffer): BuyRobuxPageProductSummaryInputData
+		local self = _BuyRobuxPageProductSummaryInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_inline_badges = value ~= 0
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_bonus_robux = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxPageProductSummaryInputDataImpl.jsonEncode(self: BuyRobuxPageProductSummaryInputData): any
+		local output = {}
+
+		if self.has_inline_badges then
+			output.hasInlineBadges = self.has_inline_badges
+		end
+
+		if self.has_bonus_robux then
+			output.hasBonusRobux = self.has_bonus_robux
+		end
+
+		return output
+	end
+
+	function _BuyRobuxPageProductSummaryInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxPageProductSummaryInputData
+		local self = _BuyRobuxPageProductSummaryInputDataImpl.new()
+
+		if input.has_inline_badges ~= nil then
+			self.has_inline_badges = input.has_inline_badges
+		end
+
+		if input.hasInlineBadges ~= nil then
+			self.has_inline_badges = input.hasInlineBadges
+		end
+
+		if input.has_bonus_robux ~= nil then
+			self.has_bonus_robux = input.has_bonus_robux
+		end
+
+		if input.hasBonusRobux ~= nil then
+			self.has_bonus_robux = input.hasBonusRobux
+		end
+
+		return self
+	end
+
+	_BuyRobuxPageProductSummaryInputDataImpl.descriptor = {
+		name = "BuyRobuxPageProductSummaryInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxPageProductSummaryInputData",
+	}
+
+	messages.BuyRobuxPageProductSummaryInputData = _BuyRobuxPageProductSummaryInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxPageProductSummaryInputData)
+end
+
+do
+	local _BuyRobuxProductItemInputDataImpl = {}
+	_BuyRobuxProductItemInputDataImpl.__index = _BuyRobuxProductItemInputDataImpl
+
+	function _BuyRobuxProductItemInputDataImpl.new(
+		data: _BuyRobuxProductItemInputDataPartialFields?
+	): BuyRobuxProductItemInputData
+		return setmetatable({
+			product_id = if data == nil or data.product_id == nil then "" else data.product_id,
+			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
+			is_emphasized = if data == nil or data.is_emphasized == nil then false else data.is_emphasized,
+		}, _BuyRobuxProductItemInputDataImpl :: _BuyRobuxProductItemInputDataImpl)
+	end
+
+	function _BuyRobuxProductItemInputDataImpl.encode(self: BuyRobuxProductItemInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.product_id ~= nil and self.product_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.product_id)
+		end
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		if self.is_emphasized then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_emphasized then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxProductItemInputDataImpl.decode(input: buffer): BuyRobuxProductItemInputData
+		local self = _BuyRobuxProductItemInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_emphasized = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxProductItemInputDataImpl.jsonEncode(self: BuyRobuxProductItemInputData): any
+		local output = {}
+
+		if self.product_id ~= nil and self.product_id ~= "" then
+			output.productId = self.product_id
+		end
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
+		end
+
+		if self.is_emphasized then
+			output.isEmphasized = self.is_emphasized
+		end
+
+		return output
+	end
+
+	function _BuyRobuxProductItemInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxProductItemInputData
+		local self = _BuyRobuxProductItemInputDataImpl.new()
+
+		if input.product_id ~= nil then
+			self.product_id = input.product_id
+		end
+
+		if input.productId ~= nil then
+			self.product_id = input.productId
+		end
+
+		if input.roblox_component ~= nil then
+			self.roblox_component = input.roblox_component
+		end
+
+		if input.robloxComponent ~= nil then
+			self.roblox_component = input.robloxComponent
+		end
+
+		if input.is_emphasized ~= nil then
+			self.is_emphasized = input.is_emphasized
+		end
+
+		if input.isEmphasized ~= nil then
+			self.is_emphasized = input.isEmphasized
+		end
+
+		return self
+	end
+
+	_BuyRobuxProductItemInputDataImpl.descriptor = {
+		name = "BuyRobuxProductItemInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxProductItemInputData",
+	}
+
+	messages.BuyRobuxProductItemInputData = _BuyRobuxProductItemInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxProductItemInputData)
+end
+
+do
+	local _BuyRobuxProductCollectionInputDataImpl = {}
+	_BuyRobuxProductCollectionInputDataImpl.__index = _BuyRobuxProductCollectionInputDataImpl
+
+	function _BuyRobuxProductCollectionInputDataImpl.new(
+		data: _BuyRobuxProductCollectionInputDataPartialFields?
+	): BuyRobuxProductCollectionInputData
+		return setmetatable({
+			always_visible_products = if data == nil or data.always_visible_products == nil
+				then {}
+				else data.always_visible_products,
+			collapsible_products = if data == nil or data.collapsible_products == nil
+				then {}
+				else data.collapsible_products,
+			display_state = if data == nil or data.display_state == nil
+				then assert(messages.BuyRobuxSectionDisplayState.fromNumber(0), "Enum has no 0 default")
+				else data.display_state,
+			promotion_expiration_text = if data == nil or data.promotion_expiration_text == nil
+				then nil
+				else data.promotion_expiration_text,
+			is_redirect = if data == nil or data.is_redirect == nil then false else data.is_redirect,
+			page_product_summary = if data == nil or data.page_product_summary == nil
+				then nil
+				else data.page_product_summary,
+			show_more_text = if data == nil or data.show_more_text == nil then "" else data.show_more_text,
+			show_less_text = if data == nil or data.show_less_text == nil then "" else data.show_less_text,
+		}, _BuyRobuxProductCollectionInputDataImpl :: _BuyRobuxProductCollectionInputDataImpl)
+	end
+
+	function _BuyRobuxProductCollectionInputDataImpl.encode(self: BuyRobuxProductCollectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.always_visible_products ~= nil and #self.always_visible_products > 0 then
+			for _, value in self.always_visible_products do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.collapsible_products ~= nil and #self.collapsible_products > 0 then
+			for _, value in self.collapsible_products do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if
+			self.display_state ~= nil
+			and (
+				self.display_state ~= nil and self.display_state ~= 0
+				or self.display_state ~= messages.BuyRobuxSectionDisplayState.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(
+				output,
+				cursor,
+				messages.BuyRobuxSectionDisplayState.toNumber(self.display_state :: any)
+			)
+		end
+
+		if self.promotion_expiration_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.promotion_expiration_text)
+		end
+
+		if self.is_redirect then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_redirect then 1 else 0)
+		end
+
+		if self.page_product_summary ~= nil then
+			local encoded = self.page_product_summary:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.show_more_text ~= nil and self.show_more_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.show_more_text)
+		end
+
+		if self.show_less_text ~= nil and self.show_less_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.show_less_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxProductCollectionInputDataImpl.decode(input: buffer): BuyRobuxProductCollectionInputData
+		local self = _BuyRobuxProductCollectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.display_state = (messages.BuyRobuxSectionDisplayState.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_redirect = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.always_visible_products, messages.BuyRobuxProductItemInputData.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.collapsible_products, messages.BuyRobuxProductItemInputData.decode(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.promotion_expiration_text = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.page_product_summary = messages.BuyRobuxPageProductSummaryInputData.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.show_more_text = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.show_less_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxProductCollectionInputDataImpl.jsonEncode(self: BuyRobuxProductCollectionInputData): any
+		local output = {}
+
+		if self.always_visible_products ~= nil and #self.always_visible_products > 0 then
+			local newOutput = {}
+			for _, value in self.always_visible_products do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.alwaysVisibleProducts = newOutput
+		end
+
+		if self.collapsible_products ~= nil and #self.collapsible_products > 0 then
+			local newOutput = {}
+			for _, value in self.collapsible_products do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.collapsibleProducts = newOutput
+		end
+
+		if
+			self.display_state ~= nil
+			and (
+				self.display_state ~= nil and self.display_state ~= 0
+				or self.display_state ~= messages.BuyRobuxSectionDisplayState.fromNumber(0)
+			)
+		then
+			output.displayState = if typeof(self.display_state) == "number"
+				then self.display_state
+				else messages.BuyRobuxSectionDisplayState.toNumber(self.display_state :: any)
+		end
+
+		if self.promotion_expiration_text ~= nil then
+			output.promotionExpirationText = self.promotion_expiration_text
+		end
+
+		if self.is_redirect then
+			output.isRedirect = self.is_redirect
+		end
+
+		if self.page_product_summary ~= nil then
+			output.pageProductSummary = self.page_product_summary:jsonEncode()
+		end
+
+		if self.show_more_text ~= nil and self.show_more_text ~= "" then
+			output.showMoreText = self.show_more_text
+		end
+
+		if self.show_less_text ~= nil and self.show_less_text ~= "" then
+			output.showLessText = self.show_less_text
+		end
+
+		return output
+	end
+
+	function _BuyRobuxProductCollectionInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxProductCollectionInputData
+		local self = _BuyRobuxProductCollectionInputDataImpl.new()
+
+		if input.always_visible_products ~= nil then
+			local newOutput: { BuyRobuxProductItemInputData } = {}
+			for _, value in input.always_visible_products do
+				table.insert(newOutput, messages.BuyRobuxProductItemInputData.jsonDecode(value))
+			end
+
+			self.always_visible_products = newOutput
+		end
+
+		if input.alwaysVisibleProducts ~= nil then
+			local newOutput: { BuyRobuxProductItemInputData } = {}
+			for _, value in input.alwaysVisibleProducts do
+				table.insert(newOutput, messages.BuyRobuxProductItemInputData.jsonDecode(value))
+			end
+
+			self.always_visible_products = newOutput
+		end
+
+		if input.collapsible_products ~= nil then
+			local newOutput: { BuyRobuxProductItemInputData } = {}
+			for _, value in input.collapsible_products do
+				table.insert(newOutput, messages.BuyRobuxProductItemInputData.jsonDecode(value))
+			end
+
+			self.collapsible_products = newOutput
+		end
+
+		if input.collapsibleProducts ~= nil then
+			local newOutput: { BuyRobuxProductItemInputData } = {}
+			for _, value in input.collapsibleProducts do
+				table.insert(newOutput, messages.BuyRobuxProductItemInputData.jsonDecode(value))
+			end
+
+			self.collapsible_products = newOutput
+		end
+
+		if input.display_state ~= nil then
+			self.display_state = if typeof(input.display_state) == "number"
+				then (messages.BuyRobuxSectionDisplayState.fromNumber(input.display_state) or input.display_state)
+				else (messages.BuyRobuxSectionDisplayState.fromName(input.display_state) or input.display_state)
+		end
+
+		if input.displayState ~= nil then
+			self.display_state = if typeof(input.displayState) == "number"
+				then (messages.BuyRobuxSectionDisplayState.fromNumber(input.displayState) or input.displayState)
+				else (messages.BuyRobuxSectionDisplayState.fromName(input.displayState) or input.displayState)
+		end
+
+		if input.promotion_expiration_text ~= nil then
+			self.promotion_expiration_text = input.promotion_expiration_text
+		end
+
+		if input.promotionExpirationText ~= nil then
+			self.promotion_expiration_text = input.promotionExpirationText
+		end
+
+		if input.is_redirect ~= nil then
+			self.is_redirect = input.is_redirect
+		end
+
+		if input.isRedirect ~= nil then
+			self.is_redirect = input.isRedirect
+		end
+
+		if input.page_product_summary ~= nil then
+			self.page_product_summary =
+				messages.BuyRobuxPageProductSummaryInputData.jsonDecode(input.page_product_summary)
+		end
+
+		if input.pageProductSummary ~= nil then
+			self.page_product_summary =
+				messages.BuyRobuxPageProductSummaryInputData.jsonDecode(input.pageProductSummary)
+		end
+
+		if input.show_more_text ~= nil then
+			self.show_more_text = input.show_more_text
+		end
+
+		if input.showMoreText ~= nil then
+			self.show_more_text = input.showMoreText
+		end
+
+		if input.show_less_text ~= nil then
+			self.show_less_text = input.show_less_text
+		end
+
+		if input.showLessText ~= nil then
+			self.show_less_text = input.showLessText
+		end
+
+		return self
+	end
+
+	_BuyRobuxProductCollectionInputDataImpl.descriptor = {
+		name = "BuyRobuxProductCollectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxProductCollectionInputData",
+	}
+
+	messages.BuyRobuxProductCollectionInputData = _BuyRobuxProductCollectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxProductCollectionInputData)
+end
+
+do
+	local _BuyRobuxProductsListSectionInputDataImpl = {}
+	_BuyRobuxProductsListSectionInputDataImpl.__index = _BuyRobuxProductsListSectionInputDataImpl
+
+	function _BuyRobuxProductsListSectionInputDataImpl.new(
+		data: _BuyRobuxProductsListSectionInputDataPartialFields?
+	): BuyRobuxProductsListSectionInputData
+		return setmetatable({
+			products = if data == nil or data.products == nil then nil else data.products,
+		}, _BuyRobuxProductsListSectionInputDataImpl :: _BuyRobuxProductsListSectionInputDataImpl)
+	end
+
+	function _BuyRobuxProductsListSectionInputDataImpl.encode(self: BuyRobuxProductsListSectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.products ~= nil then
+			local encoded = self.products:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxProductsListSectionInputDataImpl.decode(input: buffer): BuyRobuxProductsListSectionInputData
+		local self = _BuyRobuxProductsListSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.products = messages.BuyRobuxProductCollectionInputData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxProductsListSectionInputDataImpl.jsonEncode(self: BuyRobuxProductsListSectionInputData): any
+		local output = {}
+
+		if self.products ~= nil then
+			output.products = self.products:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BuyRobuxProductsListSectionInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxProductsListSectionInputData
+		local self = _BuyRobuxProductsListSectionInputDataImpl.new()
+
+		if input.products ~= nil then
+			self.products = messages.BuyRobuxProductCollectionInputData.jsonDecode(input.products)
+		end
+
+		return self
+	end
+
+	_BuyRobuxProductsListSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxProductsListSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxProductsListSectionInputData",
+	}
+
+	messages.BuyRobuxProductsListSectionInputData = _BuyRobuxProductsListSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxProductsListSectionInputData)
+end
+
+do
+	local _BuyRobuxPersonalizedBonusSectionInputDataImpl = {}
+	_BuyRobuxPersonalizedBonusSectionInputDataImpl.__index = _BuyRobuxPersonalizedBonusSectionInputDataImpl
+
+	function _BuyRobuxPersonalizedBonusSectionInputDataImpl.new(
+		data: _BuyRobuxPersonalizedBonusSectionInputDataPartialFields?
+	): BuyRobuxPersonalizedBonusSectionInputData
+		return setmetatable({
+			products = if data == nil or data.products == nil then nil else data.products,
+			bonus_ids = if data == nil or data.bonus_ids == nil then {} else data.bonus_ids,
+		}, _BuyRobuxPersonalizedBonusSectionInputDataImpl :: _BuyRobuxPersonalizedBonusSectionInputDataImpl)
+	end
+
+	function _BuyRobuxPersonalizedBonusSectionInputDataImpl.encode(
+		self: BuyRobuxPersonalizedBonusSectionInputData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.products ~= nil then
+			local encoded = self.products:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.bonus_ids ~= nil and #self.bonus_ids > 0 then
+			for _, value in self.bonus_ids do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxPersonalizedBonusSectionInputDataImpl.decode(
+		input: buffer
+	): BuyRobuxPersonalizedBonusSectionInputData
+		local self = _BuyRobuxPersonalizedBonusSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.products = messages.BuyRobuxProductCollectionInputData.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.bonus_ids, buffer.tostring(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxPersonalizedBonusSectionInputDataImpl.jsonEncode(
+		self: BuyRobuxPersonalizedBonusSectionInputData
+	): any
+		local output = {}
+
+		if self.products ~= nil then
+			output.products = self.products:jsonEncode()
+		end
+
+		if self.bonus_ids ~= nil and #self.bonus_ids > 0 then
+			local newOutput = {}
+			for _, value in self.bonus_ids do
+				table.insert(newOutput, value)
+			end
+			output.bonusIds = newOutput
+		end
+
+		return output
+	end
+
+	function _BuyRobuxPersonalizedBonusSectionInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxPersonalizedBonusSectionInputData
+		local self = _BuyRobuxPersonalizedBonusSectionInputDataImpl.new()
+
+		if input.products ~= nil then
+			self.products = messages.BuyRobuxProductCollectionInputData.jsonDecode(input.products)
+		end
+
+		if input.bonus_ids ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.bonus_ids do
+				table.insert(newOutput, value)
+			end
+
+			self.bonus_ids = newOutput
+		end
+
+		if input.bonusIds ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.bonusIds do
+				table.insert(newOutput, value)
+			end
+
+			self.bonus_ids = newOutput
+		end
+
+		return self
+	end
+
+	_BuyRobuxPersonalizedBonusSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxPersonalizedBonusSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxPersonalizedBonusSectionInputData",
+	}
+
+	messages.BuyRobuxPersonalizedBonusSectionInputData = _BuyRobuxPersonalizedBonusSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxPersonalizedBonusSectionInputData)
+end
+
+do
+	local _BuyRobuxGiftSectionInputDataImpl = {}
+	_BuyRobuxGiftSectionInputDataImpl.__index = _BuyRobuxGiftSectionInputDataImpl
+
+	function _BuyRobuxGiftSectionInputDataImpl.new(
+		data: _BuyRobuxGiftSectionInputDataPartialFields?
+	): BuyRobuxGiftSectionInputData
+		return setmetatable({
+			gifting_url = if data == nil or data.gifting_url == nil then "" else data.gifting_url,
+			button_text = if data == nil or data.button_text == nil then "" else data.button_text,
+		}, _BuyRobuxGiftSectionInputDataImpl :: _BuyRobuxGiftSectionInputDataImpl)
+	end
+
+	function _BuyRobuxGiftSectionInputDataImpl.encode(self: BuyRobuxGiftSectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.gifting_url ~= nil and self.gifting_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.gifting_url)
+		end
+
+		if self.button_text ~= nil and self.button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.button_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxGiftSectionInputDataImpl.decode(input: buffer): BuyRobuxGiftSectionInputData
+		local self = _BuyRobuxGiftSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gifting_url = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.button_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxGiftSectionInputDataImpl.jsonEncode(self: BuyRobuxGiftSectionInputData): any
+		local output = {}
+
+		if self.gifting_url ~= nil and self.gifting_url ~= "" then
+			output.giftingUrl = self.gifting_url
+		end
+
+		if self.button_text ~= nil and self.button_text ~= "" then
+			output.buttonText = self.button_text
+		end
+
+		return output
+	end
+
+	function _BuyRobuxGiftSectionInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxGiftSectionInputData
+		local self = _BuyRobuxGiftSectionInputDataImpl.new()
+
+		if input.gifting_url ~= nil then
+			self.gifting_url = input.gifting_url
+		end
+
+		if input.giftingUrl ~= nil then
+			self.gifting_url = input.giftingUrl
+		end
+
+		if input.button_text ~= nil then
+			self.button_text = input.button_text
+		end
+
+		if input.buttonText ~= nil then
+			self.button_text = input.buttonText
+		end
+
+		return self
+	end
+
+	_BuyRobuxGiftSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxGiftSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxGiftSectionInputData",
+	}
+
+	messages.BuyRobuxGiftSectionInputData = _BuyRobuxGiftSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxGiftSectionInputData)
+end
+
+do
+	local _BuyRobuxGiftCardSectionInputDataImpl = {}
+	_BuyRobuxGiftCardSectionInputDataImpl.__index = _BuyRobuxGiftCardSectionInputDataImpl
+
+	function _BuyRobuxGiftCardSectionInputDataImpl.new(
+		data: _BuyRobuxGiftCardSectionInputDataPartialFields?
+	): BuyRobuxGiftCardSectionInputData
+		return setmetatable({
+			redirect_url = if data == nil or data.redirect_url == nil then "" else data.redirect_url,
+			button_text = if data == nil or data.button_text == nil then "" else data.button_text,
+			title = if data == nil or data.title == nil then "" else data.title,
+		}, _BuyRobuxGiftCardSectionInputDataImpl :: _BuyRobuxGiftCardSectionInputDataImpl)
+	end
+
+	function _BuyRobuxGiftCardSectionInputDataImpl.encode(self: BuyRobuxGiftCardSectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.redirect_url ~= nil and self.redirect_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.redirect_url)
+		end
+
+		if self.button_text ~= nil and self.button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.button_text)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxGiftCardSectionInputDataImpl.decode(input: buffer): BuyRobuxGiftCardSectionInputData
+		local self = _BuyRobuxGiftCardSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.redirect_url = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.button_text = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxGiftCardSectionInputDataImpl.jsonEncode(self: BuyRobuxGiftCardSectionInputData): any
+		local output = {}
+
+		if self.redirect_url ~= nil and self.redirect_url ~= "" then
+			output.redirectUrl = self.redirect_url
+		end
+
+		if self.button_text ~= nil and self.button_text ~= "" then
+			output.buttonText = self.button_text
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		return output
+	end
+
+	function _BuyRobuxGiftCardSectionInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxGiftCardSectionInputData
+		local self = _BuyRobuxGiftCardSectionInputDataImpl.new()
+
+		if input.redirect_url ~= nil then
+			self.redirect_url = input.redirect_url
+		end
+
+		if input.redirectUrl ~= nil then
+			self.redirect_url = input.redirectUrl
+		end
+
+		if input.button_text ~= nil then
+			self.button_text = input.button_text
+		end
+
+		if input.buttonText ~= nil then
+			self.button_text = input.buttonText
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		return self
+	end
+
+	_BuyRobuxGiftCardSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxGiftCardSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxGiftCardSectionInputData",
+	}
+
+	messages.BuyRobuxGiftCardSectionInputData = _BuyRobuxGiftCardSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxGiftCardSectionInputData)
+end
+
+do
+	local _BuyRobuxTransfersInputDataImpl = {}
+	_BuyRobuxTransfersInputDataImpl.__index = _BuyRobuxTransfersInputDataImpl
+
+	function _BuyRobuxTransfersInputDataImpl.new(
+		data: _BuyRobuxTransfersInputDataPartialFields?
+	): BuyRobuxTransfersInputData
+		return setmetatable({
+			pending_transfer_ids = if data == nil or data.pending_transfer_ids == nil
+				then {}
+				else data.pending_transfer_ids,
+			robux_gift = if data == nil or data.robux_gift == nil then nil else data.robux_gift,
+			send_button_text = if data == nil or data.send_button_text == nil then "" else data.send_button_text,
+			pending_transfers_text = if data == nil or data.pending_transfers_text == nil
+				then ""
+				else data.pending_transfers_text,
+			accept_transfers_text = if data == nil or data.accept_transfers_text == nil
+				then ""
+				else data.accept_transfers_text,
+		}, _BuyRobuxTransfersInputDataImpl :: _BuyRobuxTransfersInputDataImpl)
+	end
+
+	function _BuyRobuxTransfersInputDataImpl.encode(self: BuyRobuxTransfersInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.pending_transfer_ids ~= nil and #self.pending_transfer_ids > 0 then
+			for _, value in self.pending_transfer_ids do
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.robux_gift ~= nil then
+			local encoded = self.robux_gift:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.send_button_text ~= nil and self.send_button_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.send_button_text)
+		end
+
+		if self.pending_transfers_text ~= nil and self.pending_transfers_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.pending_transfers_text)
+		end
+
+		if self.accept_transfers_text ~= nil and self.accept_transfers_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.accept_transfers_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxTransfersInputDataImpl.decode(input: buffer): BuyRobuxTransfersInputData
+		local self = _BuyRobuxTransfersInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.pending_transfer_ids, buffer.tostring(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.robux_gift = messages.BuyRobuxGiftSectionInputData.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.send_button_text = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pending_transfers_text = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.accept_transfers_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxTransfersInputDataImpl.jsonEncode(self: BuyRobuxTransfersInputData): any
+		local output = {}
+
+		if self.pending_transfer_ids ~= nil and #self.pending_transfer_ids > 0 then
+			local newOutput = {}
+			for _, value in self.pending_transfer_ids do
+				table.insert(newOutput, value)
+			end
+			output.pendingTransferIds = newOutput
+		end
+
+		if self.robux_gift ~= nil then
+			output.robuxGift = self.robux_gift:jsonEncode()
+		end
+
+		if self.send_button_text ~= nil and self.send_button_text ~= "" then
+			output.sendButtonText = self.send_button_text
+		end
+
+		if self.pending_transfers_text ~= nil and self.pending_transfers_text ~= "" then
+			output.pendingTransfersText = self.pending_transfers_text
+		end
+
+		if self.accept_transfers_text ~= nil and self.accept_transfers_text ~= "" then
+			output.acceptTransfersText = self.accept_transfers_text
+		end
+
+		return output
+	end
+
+	function _BuyRobuxTransfersInputDataImpl.jsonDecode(input: { [string]: any }): BuyRobuxTransfersInputData
+		local self = _BuyRobuxTransfersInputDataImpl.new()
+
+		if input.pending_transfer_ids ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.pending_transfer_ids do
+				table.insert(newOutput, value)
+			end
+
+			self.pending_transfer_ids = newOutput
+		end
+
+		if input.pendingTransferIds ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.pendingTransferIds do
+				table.insert(newOutput, value)
+			end
+
+			self.pending_transfer_ids = newOutput
+		end
+
+		if input.robux_gift ~= nil then
+			self.robux_gift = messages.BuyRobuxGiftSectionInputData.jsonDecode(input.robux_gift)
+		end
+
+		if input.robuxGift ~= nil then
+			self.robux_gift = messages.BuyRobuxGiftSectionInputData.jsonDecode(input.robuxGift)
+		end
+
+		if input.send_button_text ~= nil then
+			self.send_button_text = input.send_button_text
+		end
+
+		if input.sendButtonText ~= nil then
+			self.send_button_text = input.sendButtonText
+		end
+
+		if input.pending_transfers_text ~= nil then
+			self.pending_transfers_text = input.pending_transfers_text
+		end
+
+		if input.pendingTransfersText ~= nil then
+			self.pending_transfers_text = input.pendingTransfersText
+		end
+
+		if input.accept_transfers_text ~= nil then
+			self.accept_transfers_text = input.accept_transfers_text
+		end
+
+		if input.acceptTransfersText ~= nil then
+			self.accept_transfers_text = input.acceptTransfersText
+		end
+
+		return self
+	end
+
+	_BuyRobuxTransfersInputDataImpl.descriptor = {
+		name = "BuyRobuxTransfersInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxTransfersInputData",
+	}
+
+	messages.BuyRobuxTransfersInputData = _BuyRobuxTransfersInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxTransfersInputData)
+end
+
+do
+	local _BuyRobuxSubscriptionSectionInputDataImpl = {}
+	_BuyRobuxSubscriptionSectionInputDataImpl.__index = _BuyRobuxSubscriptionSectionInputDataImpl
+
+	function _BuyRobuxSubscriptionSectionInputDataImpl.new(
+		data: _BuyRobuxSubscriptionSectionInputDataPartialFields?
+	): BuyRobuxSubscriptionSectionInputData
+		return setmetatable({
+			products = if data == nil or data.products == nil then nil else data.products,
+			learn_more_text = if data == nil or data.learn_more_text == nil then "" else data.learn_more_text,
+		}, _BuyRobuxSubscriptionSectionInputDataImpl :: _BuyRobuxSubscriptionSectionInputDataImpl)
+	end
+
+	function _BuyRobuxSubscriptionSectionInputDataImpl.encode(self: BuyRobuxSubscriptionSectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.products ~= nil then
+			local encoded = self.products:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.learn_more_text ~= nil and self.learn_more_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.learn_more_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxSubscriptionSectionInputDataImpl.decode(input: buffer): BuyRobuxSubscriptionSectionInputData
+		local self = _BuyRobuxSubscriptionSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.products = messages.BuyRobuxProductCollectionInputData.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.learn_more_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxSubscriptionSectionInputDataImpl.jsonEncode(self: BuyRobuxSubscriptionSectionInputData): any
+		local output = {}
+
+		if self.products ~= nil then
+			output.products = self.products:jsonEncode()
+		end
+
+		if self.learn_more_text ~= nil and self.learn_more_text ~= "" then
+			output.learnMoreText = self.learn_more_text
+		end
+
+		return output
+	end
+
+	function _BuyRobuxSubscriptionSectionInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxSubscriptionSectionInputData
+		local self = _BuyRobuxSubscriptionSectionInputDataImpl.new()
+
+		if input.products ~= nil then
+			self.products = messages.BuyRobuxProductCollectionInputData.jsonDecode(input.products)
+		end
+
+		if input.learn_more_text ~= nil then
+			self.learn_more_text = input.learn_more_text
+		end
+
+		if input.learnMoreText ~= nil then
+			self.learn_more_text = input.learnMoreText
+		end
+
+		return self
+	end
+
+	_BuyRobuxSubscriptionSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxSubscriptionSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxSubscriptionSectionInputData",
+	}
+
+	messages.BuyRobuxSubscriptionSectionInputData = _BuyRobuxSubscriptionSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxSubscriptionSectionInputData)
+end
+
+do
+	local _BuyRobuxLimitedTimeBonusSectionInputDataImpl = {}
+	_BuyRobuxLimitedTimeBonusSectionInputDataImpl.__index = _BuyRobuxLimitedTimeBonusSectionInputDataImpl
+
+	function _BuyRobuxLimitedTimeBonusSectionInputDataImpl.new(
+		data: _BuyRobuxLimitedTimeBonusSectionInputDataPartialFields?
+	): BuyRobuxLimitedTimeBonusSectionInputData
+		return setmetatable({
+			cards = if data == nil or data.cards == nil then {} else data.cards,
+			promotion_expiration_text = if data == nil or data.promotion_expiration_text == nil
+				then nil
+				else data.promotion_expiration_text,
+		}, _BuyRobuxLimitedTimeBonusSectionInputDataImpl :: _BuyRobuxLimitedTimeBonusSectionInputDataImpl)
+	end
+
+	function _BuyRobuxLimitedTimeBonusSectionInputDataImpl.encode(
+		self: BuyRobuxLimitedTimeBonusSectionInputData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.cards ~= nil and #self.cards > 0 then
+			for _, value in self.cards do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.promotion_expiration_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.promotion_expiration_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxLimitedTimeBonusSectionInputDataImpl.decode(
+		input: buffer
+	): BuyRobuxLimitedTimeBonusSectionInputData
+		local self = _BuyRobuxLimitedTimeBonusSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.cards, messages.BuyRobuxLimitedTimeBonusCardInputData.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.promotion_expiration_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxLimitedTimeBonusSectionInputDataImpl.jsonEncode(
+		self: BuyRobuxLimitedTimeBonusSectionInputData
+	): any
+		local output = {}
+
+		if self.cards ~= nil and #self.cards > 0 then
+			local newOutput = {}
+			for _, value in self.cards do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.cards = newOutput
+		end
+
+		if self.promotion_expiration_text ~= nil then
+			output.promotionExpirationText = self.promotion_expiration_text
+		end
+
+		return output
+	end
+
+	function _BuyRobuxLimitedTimeBonusSectionInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxLimitedTimeBonusSectionInputData
+		local self = _BuyRobuxLimitedTimeBonusSectionInputDataImpl.new()
+
+		if input.cards ~= nil then
+			local newOutput: { BuyRobuxLimitedTimeBonusCardInputData } = {}
+			for _, value in input.cards do
+				table.insert(newOutput, messages.BuyRobuxLimitedTimeBonusCardInputData.jsonDecode(value))
+			end
+
+			self.cards = newOutput
+		end
+
+		if input.promotion_expiration_text ~= nil then
+			self.promotion_expiration_text = input.promotion_expiration_text
+		end
+
+		if input.promotionExpirationText ~= nil then
+			self.promotion_expiration_text = input.promotionExpirationText
+		end
+
+		return self
+	end
+
+	_BuyRobuxLimitedTimeBonusSectionInputDataImpl.descriptor = {
+		name = "BuyRobuxLimitedTimeBonusSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxLimitedTimeBonusSectionInputData",
+	}
+
+	messages.BuyRobuxLimitedTimeBonusSectionInputData = _BuyRobuxLimitedTimeBonusSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxLimitedTimeBonusSectionInputData)
+end
+
+do
+	local _BuyRobuxLimitedTimeBonusCardInputDataImpl = {}
+	_BuyRobuxLimitedTimeBonusCardInputDataImpl.__index = _BuyRobuxLimitedTimeBonusCardInputDataImpl
+
+	function _BuyRobuxLimitedTimeBonusCardInputDataImpl.new(
+		data: _BuyRobuxLimitedTimeBonusCardInputDataPartialFields?
+	): BuyRobuxLimitedTimeBonusCardInputData
+		return setmetatable({
+			bonus_id = if data == nil or data.bonus_id == nil then "" else data.bonus_id,
+			products = if data == nil or data.products == nil then nil else data.products,
+		}, _BuyRobuxLimitedTimeBonusCardInputDataImpl :: _BuyRobuxLimitedTimeBonusCardInputDataImpl)
+	end
+
+	function _BuyRobuxLimitedTimeBonusCardInputDataImpl.encode(self: BuyRobuxLimitedTimeBonusCardInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.bonus_id ~= nil and self.bonus_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.bonus_id)
+		end
+
+		if self.products ~= nil then
+			local encoded = self.products:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BuyRobuxLimitedTimeBonusCardInputDataImpl.decode(input: buffer): BuyRobuxLimitedTimeBonusCardInputData
+		local self = _BuyRobuxLimitedTimeBonusCardInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.bonus_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.products = messages.BuyRobuxProductCollectionInputData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BuyRobuxLimitedTimeBonusCardInputDataImpl.jsonEncode(self: BuyRobuxLimitedTimeBonusCardInputData): any
+		local output = {}
+
+		if self.bonus_id ~= nil and self.bonus_id ~= "" then
+			output.bonusId = self.bonus_id
+		end
+
+		if self.products ~= nil then
+			output.products = self.products:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _BuyRobuxLimitedTimeBonusCardInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BuyRobuxLimitedTimeBonusCardInputData
+		local self = _BuyRobuxLimitedTimeBonusCardInputDataImpl.new()
+
+		if input.bonus_id ~= nil then
+			self.bonus_id = input.bonus_id
+		end
+
+		if input.bonusId ~= nil then
+			self.bonus_id = input.bonusId
+		end
+
+		if input.products ~= nil then
+			self.products = messages.BuyRobuxProductCollectionInputData.jsonDecode(input.products)
+		end
+
+		return self
+	end
+
+	_BuyRobuxLimitedTimeBonusCardInputDataImpl.descriptor = {
+		name = "BuyRobuxLimitedTimeBonusCardInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxLimitedTimeBonusCardInputData",
+	}
+
+	messages.BuyRobuxLimitedTimeBonusCardInputData = _BuyRobuxLimitedTimeBonusCardInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BuyRobuxLimitedTimeBonusCardInputData)
+end
+
+do
+	local _GroupForumsDiscoveryInputDataImpl = {}
+	_GroupForumsDiscoveryInputDataImpl.__index = _GroupForumsDiscoveryInputDataImpl
+
+	function _GroupForumsDiscoveryInputDataImpl.new(
+		data: _GroupForumsDiscoveryInputDataPartialFields?
+	): GroupForumsDiscoveryInputData
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then "" else data.group_id,
+			see_all_url = if data == nil or data.see_all_url == nil then "" else data.see_all_url,
+			posts = if data == nil or data.posts == nil then {} else data.posts,
+		}, _GroupForumsDiscoveryInputDataImpl :: _GroupForumsDiscoveryInputDataImpl)
+	end
+
+	function _GroupForumsDiscoveryInputDataImpl.encode(self: GroupForumsDiscoveryInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		if self.see_all_url ~= nil and self.see_all_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.see_all_url)
+		end
+
+		if self.posts ~= nil and #self.posts > 0 then
+			for _, value in self.posts do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupForumsDiscoveryInputDataImpl.decode(input: buffer): GroupForumsDiscoveryInputData
+		local self = _GroupForumsDiscoveryInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.see_all_url = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.posts, messages.GroupForumsDiscoveryInputData_PostPreview.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupForumsDiscoveryInputDataImpl.jsonEncode(self: GroupForumsDiscoveryInputData): any
+		local output = {}
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output.groupId = self.group_id
+		end
+
+		if self.see_all_url ~= nil and self.see_all_url ~= "" then
+			output.seeAllUrl = self.see_all_url
+		end
+
+		if self.posts ~= nil and #self.posts > 0 then
+			local newOutput = {}
+			for _, value in self.posts do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.posts = newOutput
+		end
+
+		return output
+	end
+
+	function _GroupForumsDiscoveryInputDataImpl.jsonDecode(input: { [string]: any }): GroupForumsDiscoveryInputData
+		local self = _GroupForumsDiscoveryInputDataImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = input.group_id
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = input.groupId
+		end
+
+		if input.see_all_url ~= nil then
+			self.see_all_url = input.see_all_url
+		end
+
+		if input.seeAllUrl ~= nil then
+			self.see_all_url = input.seeAllUrl
+		end
+
+		if input.posts ~= nil then
+			local newOutput: { GroupForumsDiscoveryInputData_PostPreview } = {}
+			for _, value in input.posts do
+				table.insert(newOutput, messages.GroupForumsDiscoveryInputData_PostPreview.jsonDecode(value))
+			end
+
+			self.posts = newOutput
+		end
+
+		return self
+	end
+
+	_GroupForumsDiscoveryInputDataImpl.descriptor = {
+		name = "GroupForumsDiscoveryInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupForumsDiscoveryInputData",
+	}
+
+	messages.GroupForumsDiscoveryInputData = _GroupForumsDiscoveryInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupForumsDiscoveryInputData)
+end
+
+do
+	local _GroupForumsDiscoveryInputData_PostPreviewImpl = {}
+	_GroupForumsDiscoveryInputData_PostPreviewImpl.__index = _GroupForumsDiscoveryInputData_PostPreviewImpl
+
+	function _GroupForumsDiscoveryInputData_PostPreviewImpl.new(
+		data: _GroupForumsDiscoveryInputData_PostPreviewPartialFields?
+	): GroupForumsDiscoveryInputData_PostPreview
+		return setmetatable({
+			post_id = if data == nil or data.post_id == nil then "" else data.post_id,
+			post_short_id = if data == nil or data.post_short_id == nil then "" else data.post_short_id,
+			category_id = if data == nil or data.category_id == nil then "" else data.category_id,
+			category_short_id = if data == nil or data.category_short_id == nil then "" else data.category_short_id,
+			category_name = if data == nil or data.category_name == nil then "" else data.category_name,
+			title = if data == nil or data.title == nil then "" else data.title,
+			body = if data == nil or data.body == nil then "" else data.body,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			creator_user_id = if data == nil or data.creator_user_id == nil then "" else data.creator_user_id,
+			creator_role_name = if data == nil or data.creator_role_name == nil then nil else data.creator_role_name,
+			reply_count = if data == nil or data.reply_count == nil then 0 else data.reply_count,
+			post_url = if data == nil or data.post_url == nil then "" else data.post_url,
+		}, _GroupForumsDiscoveryInputData_PostPreviewImpl :: _GroupForumsDiscoveryInputData_PostPreviewImpl)
+	end
+
+	function _GroupForumsDiscoveryInputData_PostPreviewImpl.encode(
+		self: GroupForumsDiscoveryInputData_PostPreview
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.post_id ~= nil and self.post_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.post_id)
+		end
+
+		if self.post_short_id ~= nil and self.post_short_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.post_short_id)
+		end
+
+		if self.category_id ~= nil and self.category_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.category_id)
+		end
+
+		if self.category_short_id ~= nil and self.category_short_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.category_short_id)
+		end
+
+		if self.category_name ~= nil and self.category_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.category_name)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.body ~= nil and self.body ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.body)
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		if self.creator_user_id ~= nil and self.creator_user_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_user_id)
+		end
+
+		if self.creator_role_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_role_name)
+		end
+
+		if self.reply_count ~= nil and self.reply_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.reply_count)
+		end
+
+		if self.post_url ~= nil and self.post_url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.post_url)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupForumsDiscoveryInputData_PostPreviewImpl.decode(
+		input: buffer
+	): GroupForumsDiscoveryInputData_PostPreview
+		local self = _GroupForumsDiscoveryInputData_PostPreviewImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 11 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.reply_count = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.post_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.post_short_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_short_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_name = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.body = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_key = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_user_id = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_role_name = buffer.tostring(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.post_url = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupForumsDiscoveryInputData_PostPreviewImpl.jsonEncode(
+		self: GroupForumsDiscoveryInputData_PostPreview
+	): any
+		local output = {}
+
+		if self.post_id ~= nil and self.post_id ~= "" then
+			output.postId = self.post_id
+		end
+
+		if self.post_short_id ~= nil and self.post_short_id ~= "" then
+			output.postShortId = self.post_short_id
+		end
+
+		if self.category_id ~= nil and self.category_id ~= "" then
+			output.categoryId = self.category_id
+		end
+
+		if self.category_short_id ~= nil and self.category_short_id ~= "" then
+			output.categoryShortId = self.category_short_id
+		end
+
+		if self.category_name ~= nil and self.category_name ~= "" then
+			output.categoryName = self.category_name
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.body ~= nil and self.body ~= "" then
+			output.body = self.body
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
+		if self.creator_user_id ~= nil and self.creator_user_id ~= "" then
+			output.creatorUserId = self.creator_user_id
+		end
+
+		if self.creator_role_name ~= nil then
+			output.creatorRoleName = self.creator_role_name
+		end
+
+		if self.reply_count ~= nil and self.reply_count ~= 0 then
+			output.replyCount = self.reply_count
+		end
+
+		if self.post_url ~= nil and self.post_url ~= "" then
+			output.postUrl = self.post_url
+		end
+
+		return output
+	end
+
+	function _GroupForumsDiscoveryInputData_PostPreviewImpl.jsonDecode(
+		input: { [string]: any }
+	): GroupForumsDiscoveryInputData_PostPreview
+		local self = _GroupForumsDiscoveryInputData_PostPreviewImpl.new()
+
+		if input.post_id ~= nil then
+			self.post_id = input.post_id
+		end
+
+		if input.postId ~= nil then
+			self.post_id = input.postId
+		end
+
+		if input.post_short_id ~= nil then
+			self.post_short_id = input.post_short_id
+		end
+
+		if input.postShortId ~= nil then
+			self.post_short_id = input.postShortId
+		end
+
+		if input.category_id ~= nil then
+			self.category_id = input.category_id
+		end
+
+		if input.categoryId ~= nil then
+			self.category_id = input.categoryId
+		end
+
+		if input.category_short_id ~= nil then
+			self.category_short_id = input.category_short_id
+		end
+
+		if input.categoryShortId ~= nil then
+			self.category_short_id = input.categoryShortId
+		end
+
+		if input.category_name ~= nil then
+			self.category_name = input.category_name
+		end
+
+		if input.categoryName ~= nil then
+			self.category_name = input.categoryName
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.body ~= nil then
+			self.body = input.body
+		end
+
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
+		end
+
+		if input.creator_user_id ~= nil then
+			self.creator_user_id = input.creator_user_id
+		end
+
+		if input.creatorUserId ~= nil then
+			self.creator_user_id = input.creatorUserId
+		end
+
+		if input.creator_role_name ~= nil then
+			self.creator_role_name = input.creator_role_name
+		end
+
+		if input.creatorRoleName ~= nil then
+			self.creator_role_name = input.creatorRoleName
+		end
+
+		if input.reply_count ~= nil then
+			self.reply_count = input.reply_count
+		end
+
+		if input.replyCount ~= nil then
+			self.reply_count = input.replyCount
+		end
+
+		if input.post_url ~= nil then
+			self.post_url = input.post_url
+		end
+
+		if input.postUrl ~= nil then
+			self.post_url = input.postUrl
+		end
+
+		return self
+	end
+
+	_GroupForumsDiscoveryInputData_PostPreviewImpl.descriptor = {
+		name = "GroupForumsDiscoveryInputData_PostPreview",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PostPreview",
+	}
+
+	messages.GroupForumsDiscoveryInputData_PostPreview = _GroupForumsDiscoveryInputData_PostPreviewImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupForumsDiscoveryInputData_PostPreview)
+end
+
+do
+	local _UserLibraryTargetRowImpl = {}
+	_UserLibraryTargetRowImpl.__index = _UserLibraryTargetRowImpl
+
+	function _UserLibraryTargetRowImpl.new(data: _UserLibraryTargetRowPartialFields?): UserLibraryTargetRow
+		return setmetatable({
+			target_type = if data == nil or data.target_type == nil
+				then assert(messages.UserLibraryTargetType.fromNumber(0), "Enum has no 0 default")
+				else data.target_type,
+			target_id = if data == nil or data.target_id == nil then "" else data.target_id,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			song_id = if data == nil or data.song_id == nil then nil else data.song_id,
+			item_name = if data == nil or data.item_name == nil then nil else data.item_name,
+			price = if data == nil or data.price == nil then nil else data.price,
+			thumbnail = if data == nil or data.thumbnail == nil then nil else data.thumbnail,
+			details_url = if data == nil or data.details_url == nil then nil else data.details_url,
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+			saved_id = if data == nil or data.saved_id == nil then nil else data.saved_id,
+			asset_type_name = if data == nil or data.asset_type_name == nil then nil else data.asset_type_name,
+			look_abuse_vector = if data == nil or data.look_abuse_vector == nil then nil else data.look_abuse_vector,
+			look_asset_ids = if data == nil or data.look_asset_ids == nil then {} else data.look_asset_ids,
+			album_art_asset_id = if data == nil or data.album_art_asset_id == nil then nil else data.album_art_asset_id,
+			target_key = if data == nil or data.target_key == nil then "" else data.target_key,
+		}, _UserLibraryTargetRowImpl :: _UserLibraryTargetRowImpl)
+	end
+
+	function _UserLibraryTargetRowImpl.encode(self: UserLibraryTargetRow): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.target_type ~= nil
+			and (
+				self.target_type ~= nil and self.target_type ~= 0
+				or self.target_type ~= messages.UserLibraryTargetType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor =
+				proto.writeVarInt(output, cursor, messages.UserLibraryTargetType.toNumber(self.target_type :: any))
+		end
+
+		if self.target_id ~= nil and self.target_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.target_id)
+		end
+
+		if self.universe_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.place_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.place_id)
+		end
+
+		if self.song_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.song_id)
+		end
+
+		if self.item_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_name)
+		end
+
+		if self.price ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.price)
+		end
+
+		if self.thumbnail ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumbnail)
+		end
+
+		if self.details_url ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.details_url)
+		end
+
+		if self.collection_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_id)
+		end
+
+		if self.saved_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.saved_id)
+		end
+
+		if self.asset_type_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.asset_type_name)
+		end
+
+		if self.look_abuse_vector ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.look_abuse_vector)
+		end
+
+		if self.look_asset_ids ~= nil and #self.look_asset_ids > 0 then
+			for _, value in self.look_asset_ids do
+				output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.album_art_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.album_art_asset_id)
+		end
+
+		if self.target_key ~= nil and self.target_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.target_key)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserLibraryTargetRowImpl.decode(input: buffer): UserLibraryTargetRow
+		local self = _UserLibraryTargetRowImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.target_type = (messages.UserLibraryTargetType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.price = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.song_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_name = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.details_url = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = buffer.tostring(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.saved_id = buffer.tostring(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_type_name = buffer.tostring(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.look_abuse_vector = buffer.tostring(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.look_asset_ids, buffer.tostring(value))
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.album_art_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_key = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserLibraryTargetRowImpl.jsonEncode(self: UserLibraryTargetRow): any
+		local output = {}
+
+		if
+			self.target_type ~= nil
+			and (
+				self.target_type ~= nil and self.target_type ~= 0
+				or self.target_type ~= messages.UserLibraryTargetType.fromNumber(0)
+			)
+		then
+			output.targetType = if typeof(self.target_type) == "number"
+				then self.target_type
+				else messages.UserLibraryTargetType.toNumber(self.target_type :: any)
+		end
+
+		if self.target_id ~= nil and self.target_id ~= "" then
+			output.targetId = self.target_id
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id
+		end
+
+		if self.song_id ~= nil then
+			output.songId = self.song_id
+		end
+
+		if self.item_name ~= nil then
+			output.itemName = self.item_name
+		end
+
+		if self.price ~= nil then
+			output.price = self.price
+		end
+
+		if self.thumbnail ~= nil then
+			output.thumbnail = self.thumbnail
+		end
+
+		if self.details_url ~= nil then
+			output.detailsUrl = self.details_url
+		end
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id
+		end
+
+		if self.saved_id ~= nil then
+			output.savedId = self.saved_id
+		end
+
+		if self.asset_type_name ~= nil then
+			output.assetTypeName = self.asset_type_name
+		end
+
+		if self.look_abuse_vector ~= nil then
+			output.lookAbuseVector = self.look_abuse_vector
+		end
+
+		if self.look_asset_ids ~= nil and #self.look_asset_ids > 0 then
+			local newOutput = {}
+			for _, value in self.look_asset_ids do
+				table.insert(newOutput, value)
+			end
+			output.lookAssetIds = newOutput
+		end
+
+		if self.album_art_asset_id ~= nil then
+			output.albumArtAssetId = self.album_art_asset_id
+		end
+
+		if self.target_key ~= nil and self.target_key ~= "" then
+			output.targetKey = self.target_key
+		end
+
+		return output
+	end
+
+	function _UserLibraryTargetRowImpl.jsonDecode(input: { [string]: any }): UserLibraryTargetRow
+		local self = _UserLibraryTargetRowImpl.new()
+
+		if input.target_type ~= nil then
+			self.target_type = if typeof(input.target_type) == "number"
+				then (messages.UserLibraryTargetType.fromNumber(input.target_type) or input.target_type)
+				else (messages.UserLibraryTargetType.fromName(input.target_type) or input.target_type)
+		end
+
+		if input.targetType ~= nil then
+			self.target_type = if typeof(input.targetType) == "number"
+				then (messages.UserLibraryTargetType.fromNumber(input.targetType) or input.targetType)
+				else (messages.UserLibraryTargetType.fromName(input.targetType) or input.targetType)
+		end
+
+		if input.target_id ~= nil then
+			self.target_id = input.target_id
+		end
+
+		if input.targetId ~= nil then
+			self.target_id = input.targetId
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = input.place_id
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = input.placeId
+		end
+
+		if input.song_id ~= nil then
+			self.song_id = input.song_id
+		end
+
+		if input.songId ~= nil then
+			self.song_id = input.songId
+		end
+
+		if input.item_name ~= nil then
+			self.item_name = input.item_name
+		end
+
+		if input.itemName ~= nil then
+			self.item_name = input.itemName
+		end
+
+		if input.price ~= nil then
+			self.price = input.price
+		end
+
+		if input.thumbnail ~= nil then
+			self.thumbnail = input.thumbnail
+		end
+
+		if input.details_url ~= nil then
+			self.details_url = input.details_url
+		end
+
+		if input.detailsUrl ~= nil then
+			self.details_url = input.detailsUrl
+		end
+
+		if input.collection_id ~= nil then
+			self.collection_id = input.collection_id
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id = input.collectionId
+		end
+
+		if input.saved_id ~= nil then
+			self.saved_id = input.saved_id
+		end
+
+		if input.savedId ~= nil then
+			self.saved_id = input.savedId
+		end
+
+		if input.asset_type_name ~= nil then
+			self.asset_type_name = input.asset_type_name
+		end
+
+		if input.assetTypeName ~= nil then
+			self.asset_type_name = input.assetTypeName
+		end
+
+		if input.look_abuse_vector ~= nil then
+			self.look_abuse_vector = input.look_abuse_vector
+		end
+
+		if input.lookAbuseVector ~= nil then
+			self.look_abuse_vector = input.lookAbuseVector
+		end
+
+		if input.look_asset_ids ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.look_asset_ids do
+				table.insert(newOutput, value)
+			end
+
+			self.look_asset_ids = newOutput
+		end
+
+		if input.lookAssetIds ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.lookAssetIds do
+				table.insert(newOutput, value)
+			end
+
+			self.look_asset_ids = newOutput
+		end
+
+		if input.album_art_asset_id ~= nil then
+			self.album_art_asset_id = input.album_art_asset_id
+		end
+
+		if input.albumArtAssetId ~= nil then
+			self.album_art_asset_id = input.albumArtAssetId
+		end
+
+		if input.target_key ~= nil then
+			self.target_key = input.target_key
+		end
+
+		if input.targetKey ~= nil then
+			self.target_key = input.targetKey
+		end
+
+		return self
+	end
+
+	_UserLibraryTargetRowImpl.descriptor = {
+		name = "UserLibraryTargetRow",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserLibraryTargetRow",
+	}
+
+	messages.UserLibraryTargetRow = _UserLibraryTargetRowImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserLibraryTargetRow)
+end
+
+do
+	local _UserLibraryCollectionRowImpl = {}
+	_UserLibraryCollectionRowImpl.__index = _UserLibraryCollectionRowImpl
+
+	function _UserLibraryCollectionRowImpl.new(data: _UserLibraryCollectionRowPartialFields?): UserLibraryCollectionRow
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then "" else data.collection_id,
+			collection_name = if data == nil or data.collection_name == nil then "" else data.collection_name,
+			collection_kind = if data == nil or data.collection_kind == nil
+				then assert(messages.UserLibraryCollectionKind.fromNumber(0), "Enum has no 0 default")
+				else data.collection_kind,
+			visibility_label = if data == nil or data.visibility_label == nil then "" else data.visibility_label,
+			visibility_icon = if data == nil or data.visibility_icon == nil then nil else data.visibility_icon,
+			placeholder_icon = if data == nil or data.placeholder_icon == nil then nil else data.placeholder_icon,
+			thumb_1 = if data == nil or data.thumb_1 == nil then nil else data.thumb_1,
+			thumb_2 = if data == nil or data.thumb_2 == nil then nil else data.thumb_2,
+			thumb_3 = if data == nil or data.thumb_3 == nil then nil else data.thumb_3,
+			thumb_4 = if data == nil or data.thumb_4 == nil then nil else data.thumb_4,
+		}, _UserLibraryCollectionRowImpl :: _UserLibraryCollectionRowImpl)
+	end
+
+	function _UserLibraryCollectionRowImpl.encode(self: UserLibraryCollectionRow): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil and self.collection_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_id)
+		end
+
+		if self.collection_name ~= nil and self.collection_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_name)
+		end
+
+		if
+			self.collection_kind ~= nil
+			and (
+				self.collection_kind ~= nil and self.collection_kind ~= 0
+				or self.collection_kind ~= messages.UserLibraryCollectionKind.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(
+				output,
+				cursor,
+				messages.UserLibraryCollectionKind.toNumber(self.collection_kind :: any)
+			)
+		end
+
+		if self.visibility_label ~= nil and self.visibility_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.visibility_label)
+		end
+
+		if self.visibility_icon ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.visibility_icon)
+		end
+
+		if self.placeholder_icon ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.placeholder_icon)
+		end
+
+		if self.thumb_1 ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumb_1)
+		end
+
+		if self.thumb_2 ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumb_2)
+		end
+
+		if self.thumb_3 ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumb_3)
+		end
+
+		if self.thumb_4 ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumb_4)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserLibraryCollectionRowImpl.decode(input: buffer): UserLibraryCollectionRow
+		local self = _UserLibraryCollectionRowImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 11 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.collection_kind = (messages.UserLibraryCollectionKind.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_name = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visibility_label = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visibility_icon = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.placeholder_icon = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumb_1 = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumb_2 = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumb_3 = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumb_4 = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserLibraryCollectionRowImpl.jsonEncode(self: UserLibraryCollectionRow): any
+		local output = {}
+
+		if self.collection_id ~= nil and self.collection_id ~= "" then
+			output.collectionId = self.collection_id
+		end
+
+		if self.collection_name ~= nil and self.collection_name ~= "" then
+			output.collectionName = self.collection_name
+		end
+
+		if
+			self.collection_kind ~= nil
+			and (
+				self.collection_kind ~= nil and self.collection_kind ~= 0
+				or self.collection_kind ~= messages.UserLibraryCollectionKind.fromNumber(0)
+			)
+		then
+			output.collectionKind = if typeof(self.collection_kind) == "number"
+				then self.collection_kind
+				else messages.UserLibraryCollectionKind.toNumber(self.collection_kind :: any)
+		end
+
+		if self.visibility_label ~= nil and self.visibility_label ~= "" then
+			output.visibilityLabel = self.visibility_label
+		end
+
+		if self.visibility_icon ~= nil then
+			output.visibilityIcon = self.visibility_icon
+		end
+
+		if self.placeholder_icon ~= nil then
+			output.placeholderIcon = self.placeholder_icon
+		end
+
+		if self.thumb_1 ~= nil then
+			output.thumb1 = self.thumb_1
+		end
+
+		if self.thumb_2 ~= nil then
+			output.thumb2 = self.thumb_2
+		end
+
+		if self.thumb_3 ~= nil then
+			output.thumb3 = self.thumb_3
+		end
+
+		if self.thumb_4 ~= nil then
+			output.thumb4 = self.thumb_4
+		end
+
+		return output
+	end
+
+	function _UserLibraryCollectionRowImpl.jsonDecode(input: { [string]: any }): UserLibraryCollectionRow
+		local self = _UserLibraryCollectionRowImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id = input.collection_id
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id = input.collectionId
+		end
+
+		if input.collection_name ~= nil then
+			self.collection_name = input.collection_name
+		end
+
+		if input.collectionName ~= nil then
+			self.collection_name = input.collectionName
+		end
+
+		if input.collection_kind ~= nil then
+			self.collection_kind = if typeof(input.collection_kind) == "number"
+				then (messages.UserLibraryCollectionKind.fromNumber(input.collection_kind) or input.collection_kind)
+				else (messages.UserLibraryCollectionKind.fromName(input.collection_kind) or input.collection_kind)
+		end
+
+		if input.collectionKind ~= nil then
+			self.collection_kind = if typeof(input.collectionKind) == "number"
+				then (messages.UserLibraryCollectionKind.fromNumber(input.collectionKind) or input.collectionKind)
+				else (messages.UserLibraryCollectionKind.fromName(input.collectionKind) or input.collectionKind)
+		end
+
+		if input.visibility_label ~= nil then
+			self.visibility_label = input.visibility_label
+		end
+
+		if input.visibilityLabel ~= nil then
+			self.visibility_label = input.visibilityLabel
+		end
+
+		if input.visibility_icon ~= nil then
+			self.visibility_icon = input.visibility_icon
+		end
+
+		if input.visibilityIcon ~= nil then
+			self.visibility_icon = input.visibilityIcon
+		end
+
+		if input.placeholder_icon ~= nil then
+			self.placeholder_icon = input.placeholder_icon
+		end
+
+		if input.placeholderIcon ~= nil then
+			self.placeholder_icon = input.placeholderIcon
+		end
+
+		if input.thumb_1 ~= nil then
+			self.thumb_1 = input.thumb_1
+		end
+
+		if input.thumb1 ~= nil then
+			self.thumb_1 = input.thumb1
+		end
+
+		if input.thumb_2 ~= nil then
+			self.thumb_2 = input.thumb_2
+		end
+
+		if input.thumb2 ~= nil then
+			self.thumb_2 = input.thumb2
+		end
+
+		if input.thumb_3 ~= nil then
+			self.thumb_3 = input.thumb_3
+		end
+
+		if input.thumb3 ~= nil then
+			self.thumb_3 = input.thumb3
+		end
+
+		if input.thumb_4 ~= nil then
+			self.thumb_4 = input.thumb_4
+		end
+
+		if input.thumb4 ~= nil then
+			self.thumb_4 = input.thumb4
+		end
+
+		return self
+	end
+
+	_UserLibraryCollectionRowImpl.descriptor = {
+		name = "UserLibraryCollectionRow",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserLibraryCollectionRow",
+	}
+
+	messages.UserLibraryCollectionRow = _UserLibraryCollectionRowImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserLibraryCollectionRow)
+end
+
+do
+	local _UserLibraryOverviewInputDataImpl = {}
+	_UserLibraryOverviewInputDataImpl.__index = _UserLibraryOverviewInputDataImpl
+
+	function _UserLibraryOverviewInputDataImpl.new(
+		data: _UserLibraryOverviewInputDataPartialFields?
+	): UserLibraryOverviewInputData
+		return setmetatable({
+			collections = if data == nil or data.collections == nil then {} else data.collections,
+			games = if data == nil or data.games == nil then {} else data.games,
+			avatars = if data == nil or data.avatars == nil then {} else data.avatars,
+			avatar_items = if data == nil or data.avatar_items == nil then {} else data.avatar_items,
+			songs = if data == nil or data.songs == nil then {} else data.songs,
+		}, _UserLibraryOverviewInputDataImpl :: _UserLibraryOverviewInputDataImpl)
+	end
+
+	function _UserLibraryOverviewInputDataImpl.encode(self: UserLibraryOverviewInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collections ~= nil and #self.collections > 0 then
+			for _, value in self.collections do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.games ~= nil and #self.games > 0 then
+			for _, value in self.games do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.avatars ~= nil and #self.avatars > 0 then
+			for _, value in self.avatars do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.avatar_items ~= nil and #self.avatar_items > 0 then
+			for _, value in self.avatar_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.songs ~= nil and #self.songs > 0 then
+			for _, value in self.songs do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserLibraryOverviewInputDataImpl.decode(input: buffer): UserLibraryOverviewInputData
+		local self = _UserLibraryOverviewInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.collections, messages.UserLibraryCollectionRow.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.games, messages.UserLibraryTargetRow.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.avatars, messages.UserLibraryTargetRow.decode(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.avatar_items, messages.UserLibraryTargetRow.decode(value))
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.songs, messages.UserLibraryTargetRow.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserLibraryOverviewInputDataImpl.jsonEncode(self: UserLibraryOverviewInputData): any
+		local output = {}
+
+		if self.collections ~= nil and #self.collections > 0 then
+			local newOutput = {}
+			for _, value in self.collections do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.collections = newOutput
+		end
+
+		if self.games ~= nil and #self.games > 0 then
+			local newOutput = {}
+			for _, value in self.games do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.games = newOutput
+		end
+
+		if self.avatars ~= nil and #self.avatars > 0 then
+			local newOutput = {}
+			for _, value in self.avatars do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.avatars = newOutput
+		end
+
+		if self.avatar_items ~= nil and #self.avatar_items > 0 then
+			local newOutput = {}
+			for _, value in self.avatar_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.avatarItems = newOutput
+		end
+
+		if self.songs ~= nil and #self.songs > 0 then
+			local newOutput = {}
+			for _, value in self.songs do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.songs = newOutput
+		end
+
+		return output
+	end
+
+	function _UserLibraryOverviewInputDataImpl.jsonDecode(input: { [string]: any }): UserLibraryOverviewInputData
+		local self = _UserLibraryOverviewInputDataImpl.new()
+
+		if input.collections ~= nil then
+			local newOutput: { UserLibraryCollectionRow } = {}
+			for _, value in input.collections do
+				table.insert(newOutput, messages.UserLibraryCollectionRow.jsonDecode(value))
+			end
+
+			self.collections = newOutput
+		end
+
+		if input.games ~= nil then
+			local newOutput: { UserLibraryTargetRow } = {}
+			for _, value in input.games do
+				table.insert(newOutput, messages.UserLibraryTargetRow.jsonDecode(value))
+			end
+
+			self.games = newOutput
+		end
+
+		if input.avatars ~= nil then
+			local newOutput: { UserLibraryTargetRow } = {}
+			for _, value in input.avatars do
+				table.insert(newOutput, messages.UserLibraryTargetRow.jsonDecode(value))
+			end
+
+			self.avatars = newOutput
+		end
+
+		if input.avatar_items ~= nil then
+			local newOutput: { UserLibraryTargetRow } = {}
+			for _, value in input.avatar_items do
+				table.insert(newOutput, messages.UserLibraryTargetRow.jsonDecode(value))
+			end
+
+			self.avatar_items = newOutput
+		end
+
+		if input.avatarItems ~= nil then
+			local newOutput: { UserLibraryTargetRow } = {}
+			for _, value in input.avatarItems do
+				table.insert(newOutput, messages.UserLibraryTargetRow.jsonDecode(value))
+			end
+
+			self.avatar_items = newOutput
+		end
+
+		if input.songs ~= nil then
+			local newOutput: { UserLibraryTargetRow } = {}
+			for _, value in input.songs do
+				table.insert(newOutput, messages.UserLibraryTargetRow.jsonDecode(value))
+			end
+
+			self.songs = newOutput
+		end
+
+		return self
+	end
+
+	_UserLibraryOverviewInputDataImpl.descriptor = {
+		name = "UserLibraryOverviewInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserLibraryOverviewInputData",
+	}
+
+	messages.UserLibraryOverviewInputData = _UserLibraryOverviewInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserLibraryOverviewInputData)
+end
+
+do
+	local _UserLibraryListInputDataImpl = {}
+	_UserLibraryListInputDataImpl.__index = _UserLibraryListInputDataImpl
+
+	function _UserLibraryListInputDataImpl.new(data: _UserLibraryListInputDataPartialFields?): UserLibraryListInputData
+		return setmetatable({
+			targets = if data == nil or data.targets == nil then {} else data.targets,
+			collections = if data == nil or data.collections == nil then {} else data.collections,
+			next_cursor = if data == nil or data.next_cursor == nil then "" else data.next_cursor,
+			config_key = if data == nil or data.config_key == nil then "" else data.config_key,
+			surface_key = if data == nil or data.surface_key == nil then "" else data.surface_key,
+		}, _UserLibraryListInputDataImpl :: _UserLibraryListInputDataImpl)
+	end
+
+	function _UserLibraryListInputDataImpl.encode(self: UserLibraryListInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.targets ~= nil and #self.targets > 0 then
+			for _, value in self.targets do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.collections ~= nil and #self.collections > 0 then
+			for _, value in self.collections do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.next_cursor ~= nil and self.next_cursor ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.next_cursor)
+		end
+
+		if self.config_key ~= nil and self.config_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.config_key)
+		end
+
+		if self.surface_key ~= nil and self.surface_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.surface_key)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserLibraryListInputDataImpl.decode(input: buffer): UserLibraryListInputData
+		local self = _UserLibraryListInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.targets, messages.UserLibraryTargetRow.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.collections, messages.UserLibraryCollectionRow.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.next_cursor = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config_key = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface_key = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserLibraryListInputDataImpl.jsonEncode(self: UserLibraryListInputData): any
+		local output = {}
+
+		if self.targets ~= nil and #self.targets > 0 then
+			local newOutput = {}
+			for _, value in self.targets do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.targets = newOutput
+		end
+
+		if self.collections ~= nil and #self.collections > 0 then
+			local newOutput = {}
+			for _, value in self.collections do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.collections = newOutput
+		end
+
+		if self.next_cursor ~= nil and self.next_cursor ~= "" then
+			output.nextCursor = self.next_cursor
+		end
+
+		if self.config_key ~= nil and self.config_key ~= "" then
+			output.configKey = self.config_key
+		end
+
+		if self.surface_key ~= nil and self.surface_key ~= "" then
+			output.surfaceKey = self.surface_key
+		end
+
+		return output
+	end
+
+	function _UserLibraryListInputDataImpl.jsonDecode(input: { [string]: any }): UserLibraryListInputData
+		local self = _UserLibraryListInputDataImpl.new()
+
+		if input.targets ~= nil then
+			local newOutput: { UserLibraryTargetRow } = {}
+			for _, value in input.targets do
+				table.insert(newOutput, messages.UserLibraryTargetRow.jsonDecode(value))
+			end
+
+			self.targets = newOutput
+		end
+
+		if input.collections ~= nil then
+			local newOutput: { UserLibraryCollectionRow } = {}
+			for _, value in input.collections do
+				table.insert(newOutput, messages.UserLibraryCollectionRow.jsonDecode(value))
+			end
+
+			self.collections = newOutput
+		end
+
+		if input.next_cursor ~= nil then
+			self.next_cursor = input.next_cursor
+		end
+
+		if input.nextCursor ~= nil then
+			self.next_cursor = input.nextCursor
+		end
+
+		if input.config_key ~= nil then
+			self.config_key = input.config_key
+		end
+
+		if input.configKey ~= nil then
+			self.config_key = input.configKey
+		end
+
+		if input.surface_key ~= nil then
+			self.surface_key = input.surface_key
+		end
+
+		if input.surfaceKey ~= nil then
+			self.surface_key = input.surfaceKey
+		end
+
+		return self
+	end
+
+	_UserLibraryListInputDataImpl.descriptor = {
+		name = "UserLibraryListInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserLibraryListInputData",
+	}
+
+	messages.UserLibraryListInputData = _UserLibraryListInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserLibraryListInputData)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -32046,6 +38767,150 @@ messages.PageEntryFormat = {
 			return "PAGE_ENTRY_FORMAT_INVALID"
 		elseif name == "PAGE_ENTRY_FORMAT_UNIVERSAL" then
 			return "PAGE_ENTRY_FORMAT_UNIVERSAL"
+		else
+			return nil
+		end
+	end,
+}
+
+messages.BuyRobuxSectionDisplayState = {
+	fromNumber = function(value: number): BuyRobuxSectionDisplayState?
+		if value == 0 then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_INVALID"
+		elseif value == 1 then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_DEFAULT"
+		elseif value == 2 then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_EXPANDED"
+		elseif value == 3 then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_COLLAPSED"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: BuyRobuxSectionDisplayState): number
+		if self == "BUY_ROBUX_SECTION_DISPLAY_STATE_INVALID" then
+			return 0
+		elseif self == "BUY_ROBUX_SECTION_DISPLAY_STATE_DEFAULT" then
+			return 1
+		elseif self == "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_EXPANDED" then
+			return 2
+		elseif self == "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_COLLAPSED" then
+			return 3
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): BuyRobuxSectionDisplayState?
+		if name == "BUY_ROBUX_SECTION_DISPLAY_STATE_INVALID" then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_INVALID"
+		elseif name == "BUY_ROBUX_SECTION_DISPLAY_STATE_DEFAULT" then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_DEFAULT"
+		elseif name == "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_EXPANDED" then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_EXPANDED"
+		elseif name == "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_COLLAPSED" then
+			return "BUY_ROBUX_SECTION_DISPLAY_STATE_INITIALLY_COLLAPSED"
+		else
+			return nil
+		end
+	end,
+}
+
+messages.UserLibraryTargetType = {
+	fromNumber = function(value: number): UserLibraryTargetType?
+		if value == 0 then
+			return "USER_LIBRARY_TARGET_TYPE_INVALID"
+		elseif value == 1 then
+			return "USER_LIBRARY_TARGET_TYPE_EXPERIENCE"
+		elseif value == 2 then
+			return "USER_LIBRARY_TARGET_TYPE_LOOK"
+		elseif value == 3 then
+			return "USER_LIBRARY_TARGET_TYPE_ASSET"
+		elseif value == 4 then
+			return "USER_LIBRARY_TARGET_TYPE_BUNDLE"
+		elseif value == 5 then
+			return "USER_LIBRARY_TARGET_TYPE_SONG"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: UserLibraryTargetType): number
+		if self == "USER_LIBRARY_TARGET_TYPE_INVALID" then
+			return 0
+		elseif self == "USER_LIBRARY_TARGET_TYPE_EXPERIENCE" then
+			return 1
+		elseif self == "USER_LIBRARY_TARGET_TYPE_LOOK" then
+			return 2
+		elseif self == "USER_LIBRARY_TARGET_TYPE_ASSET" then
+			return 3
+		elseif self == "USER_LIBRARY_TARGET_TYPE_BUNDLE" then
+			return 4
+		elseif self == "USER_LIBRARY_TARGET_TYPE_SONG" then
+			return 5
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): UserLibraryTargetType?
+		if name == "USER_LIBRARY_TARGET_TYPE_INVALID" then
+			return "USER_LIBRARY_TARGET_TYPE_INVALID"
+		elseif name == "USER_LIBRARY_TARGET_TYPE_EXPERIENCE" then
+			return "USER_LIBRARY_TARGET_TYPE_EXPERIENCE"
+		elseif name == "USER_LIBRARY_TARGET_TYPE_LOOK" then
+			return "USER_LIBRARY_TARGET_TYPE_LOOK"
+		elseif name == "USER_LIBRARY_TARGET_TYPE_ASSET" then
+			return "USER_LIBRARY_TARGET_TYPE_ASSET"
+		elseif name == "USER_LIBRARY_TARGET_TYPE_BUNDLE" then
+			return "USER_LIBRARY_TARGET_TYPE_BUNDLE"
+		elseif name == "USER_LIBRARY_TARGET_TYPE_SONG" then
+			return "USER_LIBRARY_TARGET_TYPE_SONG"
+		else
+			return nil
+		end
+	end,
+}
+
+messages.UserLibraryCollectionKind = {
+	fromNumber = function(value: number): UserLibraryCollectionKind?
+		if value == 0 then
+			return "USER_LIBRARY_COLLECTION_KIND_INVALID"
+		elseif value == 1 then
+			return "USER_LIBRARY_COLLECTION_KIND_WISHLIST"
+		elseif value == 2 then
+			return "USER_LIBRARY_COLLECTION_KIND_FAVORITE"
+		elseif value == 3 then
+			return "USER_LIBRARY_COLLECTION_KIND_CUSTOM"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: UserLibraryCollectionKind): number
+		if self == "USER_LIBRARY_COLLECTION_KIND_INVALID" then
+			return 0
+		elseif self == "USER_LIBRARY_COLLECTION_KIND_WISHLIST" then
+			return 1
+		elseif self == "USER_LIBRARY_COLLECTION_KIND_FAVORITE" then
+			return 2
+		elseif self == "USER_LIBRARY_COLLECTION_KIND_CUSTOM" then
+			return 3
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): UserLibraryCollectionKind?
+		if name == "USER_LIBRARY_COLLECTION_KIND_INVALID" then
+			return "USER_LIBRARY_COLLECTION_KIND_INVALID"
+		elseif name == "USER_LIBRARY_COLLECTION_KIND_WISHLIST" then
+			return "USER_LIBRARY_COLLECTION_KIND_WISHLIST"
+		elseif name == "USER_LIBRARY_COLLECTION_KIND_FAVORITE" then
+			return "USER_LIBRARY_COLLECTION_KIND_FAVORITE"
+		elseif name == "USER_LIBRARY_COLLECTION_KIND_CUSTOM" then
+			return "USER_LIBRARY_COLLECTION_KIND_CUSTOM"
 		else
 			return nil
 		end
@@ -32145,6 +39010,9 @@ return {
 	MarketplaceOfferModalInputData = messages.MarketplaceOfferModalInputData,
 	MarketplaceItemMediaHeaderInputData = messages.MarketplaceItemMediaHeaderInputData,
 	MarketplaceItemMediaHeaderInputData_BundleItem = messages.MarketplaceItemMediaHeaderInputData_BundleItem,
+	MarketplaceItemInfoTableInputData = messages.MarketplaceItemInfoTableInputData,
+	MarketplaceItemExperiencesLinkInputData = messages.MarketplaceItemExperiencesLinkInputData,
+	MarketplaceItemOwnershipInputData = messages.MarketplaceItemOwnershipInputData,
 	CatalogItemGridInputData = messages.CatalogItemGridInputData,
 	CatalogItemGridInputData_CatalogItem = messages.CatalogItemGridInputData_CatalogItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
@@ -32185,8 +39053,34 @@ return {
 	ItemWithLayout = messages.ItemWithLayout,
 	ContentPool = messages.ContentPool,
 	ItemLayout = messages.ItemLayout,
+	GroupOverviewPaneInputData = messages.GroupOverviewPaneInputData,
 	CommunityAnnouncementInputData = messages.CommunityAnnouncementInputData,
 	ReactionInputData = messages.ReactionInputData,
 	GroupAnnouncementInputData = messages.GroupAnnouncementInputData,
+	BuyRobuxPageInputData = messages.BuyRobuxPageInputData,
+	BuyRobuxPageAnalyticsData = messages.BuyRobuxPageAnalyticsData,
+	BuyRobuxFaqInputData = messages.BuyRobuxFaqInputData,
+	BuyRobuxFaqItemInputData = messages.BuyRobuxFaqItemInputData,
+	BuyRobuxSectionInputData = messages.BuyRobuxSectionInputData,
+	BuyRobuxPageProductSummaryInputData = messages.BuyRobuxPageProductSummaryInputData,
+	BuyRobuxProductItemInputData = messages.BuyRobuxProductItemInputData,
+	BuyRobuxProductCollectionInputData = messages.BuyRobuxProductCollectionInputData,
+	BuyRobuxProductsListSectionInputData = messages.BuyRobuxProductsListSectionInputData,
+	BuyRobuxPersonalizedBonusSectionInputData = messages.BuyRobuxPersonalizedBonusSectionInputData,
+	BuyRobuxGiftSectionInputData = messages.BuyRobuxGiftSectionInputData,
+	BuyRobuxGiftCardSectionInputData = messages.BuyRobuxGiftCardSectionInputData,
+	BuyRobuxTransfersInputData = messages.BuyRobuxTransfersInputData,
+	BuyRobuxSubscriptionSectionInputData = messages.BuyRobuxSubscriptionSectionInputData,
+	BuyRobuxLimitedTimeBonusSectionInputData = messages.BuyRobuxLimitedTimeBonusSectionInputData,
+	BuyRobuxLimitedTimeBonusCardInputData = messages.BuyRobuxLimitedTimeBonusCardInputData,
+	GroupForumsDiscoveryInputData = messages.GroupForumsDiscoveryInputData,
+	GroupForumsDiscoveryInputData_PostPreview = messages.GroupForumsDiscoveryInputData_PostPreview,
+	UserLibraryTargetRow = messages.UserLibraryTargetRow,
+	UserLibraryCollectionRow = messages.UserLibraryCollectionRow,
+	UserLibraryOverviewInputData = messages.UserLibraryOverviewInputData,
+	UserLibraryListInputData = messages.UserLibraryListInputData,
 	PageEntryFormat = messages.PageEntryFormat,
+	BuyRobuxSectionDisplayState = messages.BuyRobuxSectionDisplayState,
+	UserLibraryTargetType = messages.UserLibraryTargetType,
+	UserLibraryCollectionKind = messages.UserLibraryCollectionKind,
 }

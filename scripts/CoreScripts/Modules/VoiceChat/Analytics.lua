@@ -1,4 +1,5 @@
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local TelemetryService = game:GetService("TelemetryService")
 
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUsePointsV2", false)
@@ -52,7 +53,10 @@ export type AnalyticsService = {
 	ReportInfluxSeries: InfluxFn,
 }
 
-type AnalyticsWrapper = typeof(setmetatable({} :: { _impl: AnalyticsService }, {} :: AnalyticsWrapperMeta))
+type AnalyticsWrapper = typeof(setmetatable(
+	{} :: { _impl: AnalyticsService, _telemetryService: any },
+	{} :: AnalyticsWrapperMeta
+))
 
 type AnalyticsWrapperMeta = {
 	__index: AnalyticsWrapperMeta,
@@ -88,6 +92,8 @@ type AnalyticsWrapperMeta = {
 	reportInExpConsent: (AnalyticsWrapper, string, string, number, number, string) -> (),
 	reportDevicePermissionsModalEvent: (AnalyticsWrapper, string, string, number, number, string) -> (),
 	reportConnectDisconnectEvents: (AnalyticsWrapper, string, { [string]: any }) -> (),
+	reportVoiceRewarmShown: (AnalyticsWrapper, boolean) -> (),
+	reportVoiceRewarmClicked: (AnalyticsWrapper, boolean, string?) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -111,6 +117,23 @@ local InExpConsentEventName = "inExpConsentModalEvent"
 type DevicePermissionsModalEventType = "Shown" | "OpenedSettings" | "Acknowledged" | "Denied"
 local DevicePermissionsModalEventName = "devicePermissionsModalEvent"
 
+local RewarmCounters = {
+	Shown = {
+		eventName = "VoiceRewarmShown",
+		backends = { "RobloxTelemetryCounter" },
+		lastUpdated = { 2026, 10, 21 },
+		description = [[The voice rewarm join-voice icon became available in the Chrome top bar, at most once per session. Rewarm clicks from VR or the settings menu have no matching Shown. customFields: rearmed (true when the user had already consumed a rewarm and FIntVoiceRewarmReArmCount re-armed it).]],
+		links = "",
+	},
+	Clicked = {
+		eventName = "VoiceRewarmClicked",
+		backends = { "RobloxTelemetryCounter" },
+		lastUpdated = { 2026, 10, 21 },
+		description = [[The user clicked the voice rewarm join-voice icon, consuming the rewarm. customFields: rearmed, consequence (what JoinVoice did, e.g. FirstJoinSession, FaeUpsell, ConsentModal, or none).]],
+		links = "",
+	},
+}
+
 function Analytics.new(impl: AnalyticsService?)
 	if not impl then
 		impl = (RbxAnalyticsService :: any) :: AnalyticsService
@@ -119,6 +142,7 @@ function Analytics.new(impl: AnalyticsService?)
 
 	local analytics = {
 		_impl = impl,
+		_telemetryService = TelemetryService,
 	}
 
 	return setmetatable(analytics, Analytics)
@@ -346,6 +370,18 @@ end
 
 function Analytics:reportConnectDisconnectEvents(eventName, metrics)
 	self._impl:SendEventDeferred("client", "voiceChat", eventName, metrics)
+end
+
+function Analytics:reportVoiceRewarmShown(rearmed: boolean)
+	self._telemetryService:LogCounter(RewarmCounters.Shown, { customFields = { rearmed = tostring(rearmed) } }, 1.0)
+end
+
+function Analytics:reportVoiceRewarmClicked(rearmed: boolean, consequence: string?)
+	self._telemetryService:LogCounter(
+		RewarmCounters.Clicked,
+		{ customFields = { rearmed = tostring(rearmed), consequence = consequence or "none" } },
+		1.0
+	)
 end
 
 return Analytics

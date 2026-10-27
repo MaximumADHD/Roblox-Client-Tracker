@@ -35,10 +35,15 @@ export type ListAccessory = IconAccessoryConfig | AvatarAccessoryConfig
 type Config = string | ListAccessory
 
 export type ListAccessoryProps<Config = Config> = {
+	-- Accessory config: a BuilderIcons name, icon config, or avatar config.
 	config: Config,
+	-- Size of the accessory, cascaded from the list item.
 	size: InputSize,
+	-- When true, the accessory renders in a disabled appearance.
 	isDisabled: boolean?,
+	-- Identifier for the accessory instance.
 	testId: string,
+	-- **Engine**: Order of this accessory among list item siblings.
 	LayoutOrder: number?,
 }
 

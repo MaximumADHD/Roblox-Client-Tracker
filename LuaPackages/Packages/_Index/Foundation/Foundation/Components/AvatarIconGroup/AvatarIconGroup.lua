@@ -18,10 +18,15 @@ type AvatarGroupType = AvatarGroupType.AvatarGroupType
 local useAvatarIconVariants = require(Foundation.Components.AvatarIcon.useAvatarIconVariants)
 
 export type AvatarIconGroupProps = {
+	-- Layout style of the overlapping avatar icons.
 	type: AvatarGroupType?,
+	-- Maximum avatars shown before overflow.
 	max: number?,
+	-- Size of each avatar icon.
 	size: AvatarIconSize?,
+	-- Color of the circular backplate under each avatar icon.
 	backplateStyle: Types.ColorStyle?,
+	-- User ids to render as avatar icons.
 	avatars: { Types.Bindable<number> },
 } & Types.CommonProps
 

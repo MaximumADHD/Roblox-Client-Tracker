@@ -28,10 +28,15 @@ type Bindable<T> = Types.Bindable<T>
 type ColorStyle = Types.ColorStyle
 
 export type IconProps = {
+	-- BuilderIcons name or asset path of the icon to render.
 	name: string,
+	-- Foreground color of the icon. Defaults to the theme content color.
 	style: ColorStyle?,
+	-- Size of the icon. Defaults to `IconSize.Medium`.
 	size: IconSize | Bindable<number>?,
+	-- BuilderIcons weight. Defaults to `IconVariant.Regular`.
 	variant: IconVariant?,
+	-- **Engine**: Rotation in degrees applied to the icon.
 	Rotation: Bindable<number>?,
 	-- **DEPRECATED**: Icon does not support children. Still accepted.
 	children: React.ReactNode?,

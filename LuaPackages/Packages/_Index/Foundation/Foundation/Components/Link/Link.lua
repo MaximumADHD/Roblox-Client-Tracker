@@ -13,6 +13,8 @@ local LinkVariant = require(Foundation.Enums.LinkVariant)
 type LinkVariant = LinkVariant.LinkVariant
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local TextOverflow = require(Foundation.Enums.TextOverflow)
+type TextOverflow = TextOverflow.TextOverflow
 
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -35,24 +37,31 @@ local EMPHASIZED_STATES: { [string]: boolean } = {
 }
 
 export type LinkProps = {
+	-- Label shown for the link.
 	text: string,
+	-- Called when the link is activated.
 	onActivated: () -> (),
+	-- Visual style of the link. Defaults to `LinkVariant.Standard`.
 	variant: LinkVariant?,
+	-- Size of the link text. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- When true, the label is always underlined. Defaults to `false`.
 	hasUnderline: boolean?,
+	textOverflow: TextOverflow?,
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	variant = LinkVariant.Standard,
 	size = InputSize.Medium,
 	hasUnderline = false,
+	textOverflow = TextOverflow.None,
 	testId = "--foundation-link",
 }
 
 local function Link(linkProps: LinkProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(linkProps, defaultProps)
 	local tokens = useTokens()
-	local variantProps = useLinkVariants(tokens, props.size, props.variant)
+	local variantProps = useLinkVariants(tokens, props.size, props.variant, props.textOverflow)
 
 	local contentStyle = variantProps.content.style
 

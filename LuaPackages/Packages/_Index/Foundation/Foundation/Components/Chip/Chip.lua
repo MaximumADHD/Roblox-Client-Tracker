@@ -44,17 +44,24 @@ type Icon = {
 }
 
 export type ChipProps = {
-	-- Make required
+	-- Label shown on the chip.
 	text: string?,
+	-- Accessory rendered before the label: a BuilderIcons name or an accessory config.
 	leading: string? | Accessory,
+	-- Accessory rendered after the label: a BuilderIcons name or an accessory config.
 	trailing: string? | Accessory,
+	-- Called when the chip is activated.
 	onActivated: () -> (),
+	-- When true, the chip renders in its selected appearance. Defaults to `false`.
 	isChecked: boolean?,
+	-- Size of the chip. Defaults to `ChipSize.Medium`.
 	size: ChipSize?,
+	-- Visual style of the chip. Defaults to `ChipVariant.Standard`.
 	variant: ChipVariant?,
 
 	-- **DEPRECATED**: Chip content is driven by `text` and accessories. Still accepted but ignored.
 	children: React.ReactNode?,
+	-- When true, the chip does not accept input. Defaults to `false`.
 	isDisabled: boolean?,
 	-- **DEPRECATED**: Leading accessories use `leading`. Use `leading` instead. Still accepted.
 	icon: (string | Icon)?,

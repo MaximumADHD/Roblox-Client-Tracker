@@ -52,7 +52,9 @@ export type ToggleProps = {
 	label: string,
 	-- A secondary description displayed below the label.
 	hint: string?,
+	-- Size of the toggle control. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- Side of the label where the toggle sits. Defaults to `InputPlacement.Start`.
 	placement: InputPlacement?,
 } & Types.SelectionProps & Types.CommonProps
 

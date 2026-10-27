@@ -27,7 +27,7 @@ local Constants = require(Foundation.Constants)
 
 type StatusIndicatorVariantProps = {
 	container: { tag: string, backgroundStyle: ColorStyleValue?, size: UDim2? }, -- only populated if bg tag is non-compliant },
-	content: { tag: string, style: ColorStyleValue?, font: Font, typography: { FontSize: number, LineHeight: number }? },
+	content: { tag: string, style: ColorStyleValue?, font: Font, typography: { FontSize: number, LineHeight: number } },
 	ring: { tag: string, size: UDim2? }?,
 	stroke: Types.Stroke?,
 }
@@ -41,6 +41,7 @@ function variantsFactory(tokens: Tokens)
 			tag = "auto-xy text-align-x-left",
 			-- To-Do: Use tag for font when BuilderSansSemiBold is supported as token / tag
 			font = BuilderSansSemiBold,
+			typography = tokens.Typography.LabelSmall,
 		},
 		stroke = if Flags.FoundationStatusIndicatorDesignUpdate then { Thickness = tokens.Stroke.Thicker } else nil,
 	}
@@ -170,7 +171,6 @@ function variantsFactory(tokens: Tokens)
 
 	local numericDefault = {
 		container = { size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400) },
-		content = { typography = tokens.Typography.LabelSmall },
 	}
 	local numericLarge = {
 		container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },

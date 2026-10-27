@@ -10,6 +10,7 @@ local constants = require(Foundation.Components.HeaderBar.constants)
 local useHeaderBarContext = require(Foundation.Components.HeaderBar.useHeaderBarContext)
 
 export type HeaderBarLeadingProps = {
+	-- Leading slot content of the header bar.
 	children: React.ReactNode?,
 }
 

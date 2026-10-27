@@ -23,16 +23,22 @@ type StepperSize = typeof(InputSize.XSmall) | typeof(InputSize.Small) | typeof(I
 type ItemId = Types.ItemId
 
 export type Step = {
+	-- Stable identifier for this step.
 	id: ItemId,
+	-- Label shown on the step.
 	label: string,
+	-- Optional supporting text under the label.
 	description: string?,
 }
 
 export type StepperProps = {
+	-- Ordered steps to display.
 	steps: { Step },
+	-- Id of the currently active step.
 	activeStepId: ItemId?,
+	-- Size of each step. Defaults to `InputSize.Medium`.
 	size: StepperSize?,
-	-- Whether steps fill the whole width growing to the equal size (Fill) or take minimum space (Fit)
+	-- Whether steps fill the whole width growing to the equal size (Fill) or take minimum space (Fit). Defaults to `FillBehavior.Fill`.
 	fillBehavior: FillBehavior?,
 } & Types.CommonProps
 

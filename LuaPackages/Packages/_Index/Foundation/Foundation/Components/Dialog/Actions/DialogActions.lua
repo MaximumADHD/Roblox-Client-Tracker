@@ -23,18 +23,28 @@ type ButtonGroupItem = ButtonGroup.ButtonGroupItem
 
 -- TODO: replace with ButtonGroupItem in Foundation v2
 export type DialogAction = {
+	-- Visual style of the action button.
 	variant: ButtonVariant?,
+	-- BuilderIcons name rendered beside the label, or alone when `text` is omitted.
 	icon: string?,
+	-- Label shown on the action button.
 	text: string?,
+	-- Called when the action is activated.
 	onActivated: () -> (),
+	-- Delay in seconds before the button is enabled.
 	inputDelay: number?,
+	-- Forwarded to the action button instance.
 	ref: React.Ref<GuiObject>?,
 }
 
 export type DialogActionsProps = {
+	-- Action buttons shown in the dialog footer.
 	actions: { DialogAction }?,
+	-- Optional label above the actions.
 	label: Bindable<string>?,
+	-- Layout direction of the action buttons.
 	orientation: Orientation?,
+	-- **Engine**: Order of the actions row among dialog content siblings.
 	LayoutOrder: Bindable<number>?,
 }
 

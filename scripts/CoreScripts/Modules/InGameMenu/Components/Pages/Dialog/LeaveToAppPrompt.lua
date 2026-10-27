@@ -1,7 +1,9 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 
-local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
+local LinkingProtocolPackage = require(CorePackages.Workspace.Packages.LinkingProtocol)
+local DeepLinkSource = LinkingProtocolPackage.Enums.DeepLinkSource
+local LinkingProtocol = LinkingProtocolPackage.LinkingProtocol
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -46,9 +48,17 @@ function LeaveToAppPrompt:init()
 
 		-- Shutting down the game DM on mobile can take a little bit,
 		-- and without this it would look as if the app just froze for a few seconds instead of actually processing the tap.
-		RunService.Heartbeat:Wait()
-
-		self.props.linkingProtocol:detectURL("roblox://navigation/home")
+		if self.props.linkingProtocol:isInternalDlicEnabled() then
+			local deeplinkId = self.props.linkingProtocol:createInternalDlic(
+				"roblox://navigation/home",
+				DeepLinkSource.LuaInternal
+			)
+			RunService.Heartbeat:Wait()
+			self.props.linkingProtocol:detectDeeplinkIntent(deeplinkId)
+		else
+			RunService.Heartbeat:Wait()
+			self.props.linkingProtocol:detectURL("roblox://navigation/home")
+		end
 
 		game:Shutdown()
 	end

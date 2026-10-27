@@ -12,7 +12,9 @@ local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local View = require(Foundation.Components.View)
 
 export type SheetHeaderProps = {
+	-- When true, shows a close affordance in the header.
 	hasCloseAffordance: boolean?,
+	-- Header content such as title text.
 	children: React.ReactNode,
 }
 

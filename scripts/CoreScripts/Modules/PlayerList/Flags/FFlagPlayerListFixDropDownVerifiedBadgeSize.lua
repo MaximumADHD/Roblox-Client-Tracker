@@ -1,0 +1,3 @@
+local FFlagPlayerListFixDropDownVerifiedBadgeSize = game:DefineFastFlag("PlayerListFixDropDownVerifiedBadgeSize", false)
+
+return FFlagPlayerListFixDropDownVerifiedBadgeSize

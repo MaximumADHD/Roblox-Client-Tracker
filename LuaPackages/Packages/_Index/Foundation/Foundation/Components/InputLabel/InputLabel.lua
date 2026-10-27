@@ -34,9 +34,9 @@ export type InputLabelProps = {
 	-- Callback for when the input label is hovered over.
 	-- This should trigger the hover state of the associated input button.
 	onHover: (boolean) -> ()?,
-	-- Whether the input label should be rich text or not
+	-- **Engine**: When true, interprets the label text as rich text markup.
 	RichText: boolean?,
-	-- Determines the string rendered by the UI element
+	-- Label text. Foundation appends a required marker or localized optional suffix based on `isRequired`.
 	Text: string,
 } & Types.CommonProps
 

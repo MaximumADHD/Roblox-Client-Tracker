@@ -36,6 +36,7 @@ local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlay
 local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
 local FFlagUserControlModuleEnabledAPI = FlagUtil.getUserFlag("UserControlModuleEnabledAPI")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
+local FFlagUserServerAuthorityDontSetAutoRotate = FlagUtil.getUserFlag("UserServerAuthorityDontSetAutoRotate")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 }
@@ -131,6 +132,8 @@ function ControlModule.new() -- TODO ControlModule should be static
 
 	self.inputMoveVector = Vector3.new(0,0,0)
 
+	self.renderedRotationOverride = nil
+
 	self.vehicleController = VehicleController.new()
 
 	Players.LocalPlayer.CharacterAdded:Connect(function(char) self:OnCharacterAdded(char) end)
@@ -212,6 +215,42 @@ local function _fireCustomInputs(player:Player)
 	end
 end
 
+function ControlModule:restoreSimulatedRotation()
+	local override = self.renderedRotationOverride
+	if override == nil then
+		return
+	end
+	if override.rootPart.Parent ~= nil then
+		override.rootPart.CFrame = CFrame.new(override.rootPart.CFrame.Position) * override.simulatedRotation
+	end
+	self.renderedRotationOverride = nil
+end
+
+function ControlModule:applyRenderedRotation()
+	local camera = Workspace.CurrentCamera
+	local humanoid = self.humanoid
+	local rootPart = humanoid and humanoid.RootPart
+	if camera == nil or rootPart == nil or humanoid.Sit or humanoid.SeatPart ~= nil
+		or rootPart:IsGrounded() or humanoid:GetState() == Enum.HumanoidStateType.Swimming then
+		return
+	end
+	local lookVector = camera.CFrame.LookVector
+	local facingDirection = Vector3.new(lookVector.X, 0, lookVector.Z)
+	if facingDirection.Magnitude < 0.001 then
+		return
+	end
+
+	if self.renderedRotationOverride ~= nil and self.renderedRotationOverride.rootPart ~= rootPart then
+		self:restoreSimulatedRotation()
+	end
+	
+	if self.renderedRotationOverride == nil then
+		self.renderedRotationOverride = { rootPart = rootPart, simulatedRotation = rootPart.CFrame.Rotation }
+	end
+	local position = rootPart.CFrame.Position
+	rootPart.CFrame = CFrame.lookAt(position, position + facingDirection)
+end
+
 -- remove with FFlagUserPlayerScriptsCCLIntegrationD
 local function _cloneInputs(player:Player)
 	local newInput = StarterPlayer.PlayerModule.InputContexts:Clone()
@@ -267,6 +306,13 @@ function ControlModule:InitializeServerAuthority()
 		if FFlagUserPlayerScriptsPlayerControlState then
 			InputReplication.watchForPlayerControlState(Players.LocalPlayer)
 		end
+
+		if FFlagUserServerAuthorityDontSetAutoRotate then
+			RunService.PreAnimation:Connect(function()
+				self:restoreSimulatedRotation()
+			end)
+		end
+
 		-- Fire Custom Inputs
 		RunService:BindToRenderStep("CameraInput", Enum.RenderPriority.Last.Value, function()
 			if FFlagUserPlayerScriptsPlayerControlState then
@@ -275,6 +321,10 @@ function ControlModule:InitializeServerAuthority()
 				InputReplication.FireCustomInputs(Players.LocalPlayer)
 			else
 				_fireCustomInputs(Players.LocalPlayer)
+			end
+			if FFlagUserServerAuthorityDontSetAutoRotate and UserGameSettings.RotationType == Enum.RotationType.CameraRelative
+				and not (FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled()) then
+				self:applyRenderedRotation()
 			end
 		end)
 		-- Client processes local player input only
@@ -368,7 +418,7 @@ function ControlModule:UpdateAbilitiesControllers()
 	local shouldShowTouchAbilities = shouldShowTouchControls and avatarAbilitiesInterface:isEnabled()
 	if shouldShowTouchJump then
 		if not self.controllers[TouchJump] then
-			self.controllers[TouchJump] = TouchJump.new(self.data, self.playerData)
+			self.controllers[TouchJump] = TouchJump.new(self.data)
 		end
 
 		self.touchJumpController = self.controllers[TouchJump]
@@ -428,7 +478,7 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 				)
 			then
 				if not self.controllers[TouchJump] then
-					self.controllers[TouchJump] = TouchJump.new(self.data, self.playerData)
+					self.controllers[TouchJump] = TouchJump.new(self.data)
 				end
 				self.touchJumpController = self.controllers[TouchJump]
 				self.touchJumpController:Enable(true, self.touchControlFrame)
@@ -619,57 +669,56 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 end
 
 -- This function should be used to set up necessary connections. DO NOT STORE STATE
-function ControlModule:initialize(data, playerData)
+function ControlModule:initialize(data)
 	self.data = data
-	self.playerData = playerData -- DO NOT DO THIS, THIS IS A CONVERSION STEP. MODULES SHOULD NOT SAVE STATE
 
 	self:UpdateMovementMode()
 
-	ActionController.initializeActions(self.data, self.playerData)
+	ActionController.initializeActions(self.data)
 	if FFlagUserPlayerScriptsCCLIntegrationD then
-		InputSlots.setupSlotActions(self.playerData.player, self.data.isServerAuthority)
+		InputSlots.setupSlotActions(self.data.player, self.data.isServerAuthority)
 	end
 end
 
-function ControlModule:Update(data, playerData, dt)
-	assert(playerData.player)
-	assert(playerData.character)
+function ControlModule:Update(data, dt)
+	assert(data.player)
+	assert(data.character)
 
 	if FFlagUserControlModuleEnabledAPI then
 		if not self.humanoid then return end
 
-		local controlAPI = playerData.playerModule.ControlModule
+		local controlAPI = data.playerModule.ControlModule
 
 		if not controlAPI.Enabled then
-			playerData.isJumping = false
-			playerData.moveVector = Vector2.new()
-			playerData.worldMoveVector = Vector3.new()
-			ActionController.update(playerData)
+			data.isJumping = false
+			data.moveVector = Vector2.new()
+			data.worldMoveVector = Vector3.new()
+			ActionController.update(data)
 			self.inputMoveVector = Vector3.new()
 			if self.vehicleController then
 				self.vehicleController:Update(Vector3.new(), true)
 			end
-			self:characterMove(data, playerData)
+			self:characterMove(data)
 			return
 		end
 	end
 
 	-- We may need to wait for actions to come from the server so we initialize again
-	ActionController.initializeActions(data, playerData)
+	ActionController.initializeActions(data)
 	if not FFlagUserControlModuleEnabledAPI then
-		if not playerData.actions["MoveAction"] or not playerData.actions["JumpAction"] then
+		if not data.actions["MoveAction"] or not data.actions["JumpAction"] then
 			return
 		end
 	end
 
 	if self.activeController and self.activeController.enabled and self.humanoid then
-		ActionController.update(playerData)
+		ActionController.update(data)
 		
 		local clickToMoveController = self:GetClickToMoveController()
-		clickToMoveController:Update(playerData, dt)
+		clickToMoveController:Update(data, dt)
 
 		-- Now retrieve info from the controller
-		local moveVector = Vector3.new(playerData.moveVector.X, 0, -playerData.moveVector.Y)
+		local moveVector = Vector3.new(data.moveVector.X, 0, -data.moveVector.Y)
 
 		-- Are we driving a vehicle ?
 		if self.vehicleController then
@@ -688,8 +737,8 @@ function ControlModule:Update(data, playerData, dt)
 		end
 
 		if FFlagUserControlModuleEnabledAPI then
-			playerData.worldMoveVector = moveVector
-			self:characterMove(data, playerData)
+			data.worldMoveVector = moveVector
+			self:characterMove(data)
 		else
 			if FFlagUserPlayerScriptsPlayerControlState then
 				if not data.isServerAuthority then
@@ -697,7 +746,7 @@ function ControlModule:Update(data, playerData, dt)
 						InputReplication.writeInputToPCS(Players.LocalPlayer, self, false)
 					else
 						self.moveFunction(Players.LocalPlayer, moveVector, false)
-						self.humanoid.Jump = playerData.isJumping
+						self.humanoid.Jump = data.isJumping
 					end
 				end
 			else
@@ -705,29 +754,29 @@ function ControlModule:Update(data, playerData, dt)
 					and (not FFlagUserPlayerScriptsCCLIntegrationD or not avatarAbilitiesInterface:isEnabled()) then
 					self.moveFunction(Players.LocalPlayer, moveVector, false)
 					-- And make them jump if needed
-					self.humanoid.Jump = playerData.isJumping
+					self.humanoid.Jump = data.isJumping
 				end
 			end
 		end
 	end
 end
 
-function ControlModule:characterMove(data, playerData)
+function ControlModule:characterMove(data)
 	if FFlagUserPlayerScriptsPlayerControlState then
 		if not data.isServerAuthority then
 			if FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled() then
 				InputReplication.writeInputToPCS(Players.LocalPlayer, self, false)
 			else
-				self.moveFunction(Players.LocalPlayer, playerData.worldMoveVector, false)
-				self.humanoid.Jump = playerData.isJumping
+				self.moveFunction(Players.LocalPlayer, data.worldMoveVector, false)
+				self.humanoid.Jump = data.isJumping
 			end
 		end
 	else
 		if (not FFlagUserPlayerScriptsFixSAuthRenderStepMove or not data.isServerAuthority)
 			and (not FFlagUserPlayerScriptsCCLIntegrationD or not avatarAbilitiesInterface:isEnabled()) then
-			self.moveFunction(Players.LocalPlayer, playerData.worldMoveVector, false)
+			self.moveFunction(Players.LocalPlayer, data.worldMoveVector, false)
 			-- And make them jump if needed
-			self.humanoid.Jump = playerData.isJumping
+			self.humanoid.Jump = data.isJumping
 		end
 	end
 end
@@ -844,7 +893,7 @@ function ControlModule:SwitchToController(controlModule)
 
 	-- first time switching to this control module, should instantiate it
 	if not self.controllers[controlModule] then
-		self.controllers[controlModule] = controlModule.new(self.playerData)
+		self.controllers[controlModule] = controlModule.new(self.data)
 	end
 
 	-- switch to the new controlModule

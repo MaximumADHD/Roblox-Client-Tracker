@@ -58,6 +58,12 @@ local FFlagTopBarDeprecateGameInfoRodux = require(script.Flags.FFlagTopBarDeprec
 local FFlagTopBarDeprecateGamepadNavigationDialogRodux =
 	require(script.Flags.FFlagTopBarDeprecateGamepadNavigationDialogRodux)
 
+local CoreScriptsErrorBoundaryPackage = require(CorePackages.Workspace.Packages.CoreScriptsErrorBoundary)
+local CoreScriptsErrorBoundary = CoreScriptsErrorBoundaryPackage.CoreScriptsErrorBoundary
+local CoreScriptsErrorBoundarySurfaces = CoreScriptsErrorBoundaryPackage.Surfaces
+local FFlagCoreScriptsReactTreeCrashCounter =
+	CoreScriptsErrorBoundaryPackage.Flags.FFlagCoreScriptsReactTreeCrashCounter
+
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
@@ -304,6 +310,12 @@ function TopBar.new()
 	self.root = Roact.createElement("Folder", {
 		Name = "TopBarApp",
 	}, self.root)
+
+	if FFlagCoreScriptsReactTreeCrashCounter then
+		self.root = Roact.createElement(CoreScriptsErrorBoundary, {
+			surface = CoreScriptsErrorBoundarySurfaces.TopBar,
+		}, self.root)
+	end
 
 	if not require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer() then
 		self.element = Roact.mount(self.root, CoreGui, "TopBar")

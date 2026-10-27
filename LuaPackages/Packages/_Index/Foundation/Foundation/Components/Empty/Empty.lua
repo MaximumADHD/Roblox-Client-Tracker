@@ -20,14 +20,22 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 export type EmptyProps = {
+	-- Leading status icon. Defaults to the empty-state graphic at `IconSize.Large`.
 	icon: {
+		-- Icon name. Defaults to the empty-state graphic.
 		name: string?,
+		-- Icon size. Defaults to `IconSize.Large`.
 		size: IconSize?,
 	}?,
+	-- Message shown below the icon. Defaults to a localized "no results" string.
 	text: string?,
+	-- Optional action button under the message. Shown only when `button.onActivated` is set; `text` and `icon` then default to the localized Refresh label and spin icon.
 	button: {
+		-- Button label. Defaults to the localized Refresh label when `onActivated` is set.
 		text: string?,
+		-- Button icon. Defaults to the spin icon when `onActivated` is set.
 		icon: string?,
+		-- Called when the button is activated. Omit to hide the button.
 		onActivated: () -> ()?,
 	}?,
 } & Types.CommonProps

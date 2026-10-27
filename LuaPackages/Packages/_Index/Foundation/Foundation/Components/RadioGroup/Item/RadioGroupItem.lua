@@ -37,6 +37,7 @@ export type RadioGroupItemProps = {
 	hint: string?,
 	-- Size of the radio item
 	size: InputSize?,
+	-- Side of the label where the radio sits. Defaults from the parent group.
 	placement: InputPlacement?,
 } & Types.CommonProps
 

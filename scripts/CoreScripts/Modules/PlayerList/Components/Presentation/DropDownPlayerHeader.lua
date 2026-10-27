@@ -15,6 +15,8 @@ local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
+local FFlagPlayerListFixDropDownVerifiedBadgeSize =
+	require(Components.Parent.Flags.FFlagPlayerListFixDropDownVerifiedBadgeSize)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge
 
@@ -86,6 +88,11 @@ function DropDownPlayerHeader:render()
 			local emojiFontStyle = if FFlagFoundationFontFaceMigration
 				then Cryo.Dictionary.join(style.Font.Header2, {
 					Font = style.Tokens.Typography.TitleLarge.Font,
+					-- EmojiTextLabel scales RelativeSize by UIBlox's BaseSize, but the Foundation mapper stores pixels in it.
+					RelativeSize = if FFlagPlayerListFixDropDownVerifiedBadgeSize
+							and FFlagCoreUiMigrateUIBloxToFoundation
+						then Cryo.None
+						else nil,
 				})
 				elseif FFlagCoreUiMigrateUIBloxToFoundation and style.Font.Header2.FontSize then {
 					Font = style.Font.Header2.Font,

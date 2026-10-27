@@ -40,9 +40,6 @@ local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local FFlagEnableUIManagerPackgify = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUIManagerPackgify
-local GetFFlagEnableVrVoiceParity = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceParity
-local GetFFlagEnableVrVoiceConnectDisconnect = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceConnectDisconnect
-local FFlagEnableJoinVoiceVrTelemetry = game:DefineFastFlag("EnableJoinVoiceVrTelemetry", false)
 
 local PanelType
 local registerRoactPanel
@@ -433,14 +430,12 @@ local JoinVoice = {
 	onActivated = function()
 		VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
 		VoiceChatServiceManager:JoinVoice()
-		if FFlagEnableJoinVoiceVrTelemetry then
-			local isToggleOn = VoiceChatServiceManager:ShouldShowJoinVoice()
-			VRBottomBarAnalytics.sendEventToTelemetryV2({
-				integrationId = VRBottomBarType.ButtomName.JoinVoice,
-				isToggleOn = isToggleOn,
-				source = VRBottomBarType.Source.VRBottomBar
-			})
-		end
+		local isToggleOn = VoiceChatServiceManager:ShouldShowJoinVoice()
+		VRBottomBarAnalytics.sendEventToTelemetryV2({
+			integrationId = VRBottomBarType.ButtomName.JoinVoice,
+			isToggleOn = isToggleOn,
+			source = VRBottomBarType.Source.VRBottomBar
+		})
 	end,
 }
 
@@ -779,9 +774,9 @@ function VRBottomBar:updateItems()
 		table.insert(enabledItems, Chat)
 	end
 
-	if GetFFlagEnableVrVoiceConnectDisconnect() and VoiceChatServiceManager:ShouldShowJoinVoiceOnDisconnect() then
+	if VoiceChatServiceManager:ShouldShowJoinVoiceOnDisconnect() then
 		table.insert(enabledItems, JoinVoice)
-	elseif GetFFlagEnableVrVoiceParity() and VoiceChatServiceManager:ShouldShowJoinVoice() then
+	elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
 		table.insert(enabledItems, JoinVoice)
 	end
 

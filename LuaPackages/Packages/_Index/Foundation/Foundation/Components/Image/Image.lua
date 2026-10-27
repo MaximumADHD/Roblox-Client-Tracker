@@ -32,19 +32,29 @@ type StateChangedCallback = Types.StateChangedCallback
 type Bindable<T> = Types.Bindable<T>
 
 export type ImageRect = {
+	-- Sub-rectangle offset. Replaced when `Image` resolves to a Foundation image set.
 	offset: Bindable<Vector2>?,
+	-- Sub-rectangle size. Replaced when `Image` resolves to a Foundation image set.
 	size: Bindable<Vector2>?,
 }
 
 export type ImageProps = {
+	-- Nine-slice configuration for scalable image borders.
 	slice: Slice?,
+	-- Sub-rectangle of the image to draw.
 	imageRect: ImageRect?,
+	-- Tint applied to the image.
 	imageStyle: ColorStyle?,
 
+	-- Asset id or Foundation image key. Foundation image and cloud-asset keys are resolved before they reach the engine. Prefer `ImageContent` for Content values.
 	Image: Bindable<string>?,
+	-- Image content. URI strings are converted with `Content.fromUri`; Content values are passed through.
 	ImageContent: Bindable<string | Content>?,
+	-- **Engine**: Resampling mode for the image.
 	ResampleMode: Bindable<Enum.ResamplerMode>?,
+	-- How the image scales within its bounds. Forced to `Enum.ScaleType.Slice` when `slice` is set.
 	ScaleType: Bindable<Enum.ScaleType>?,
+	-- **Engine**: Tile size when `ScaleType` is Tile.
 	TileSize: Bindable<UDim2>?,
 
 	-- Callback for when the image asset is finished fetching. Status can be one of Success, Failure, or TimedOut.

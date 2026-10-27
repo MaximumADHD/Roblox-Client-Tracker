@@ -80,7 +80,6 @@ local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settin
 local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Flags.FFlagUpdatePeopleNamesSettingCopy)
 local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
 local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
-local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
 local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
 local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
@@ -4469,7 +4468,7 @@ local function Initialize()
 	local crossExperienceVoiceJoinedListener = nil
 	local crossExperienceVoiceLeftListener = nil
 	local teardownCrossExperienceVoiceListeners = nil
-	if game:GetEngineFeature("VoiceChatSupported") and (GetFFlagEnableVrVoiceConnectDisconnect() or (if isInExperienceUIVREnabled then not isSpatial() else true)) then
+	if game:GetEngineFeature("VoiceChatSupported") then
 		spawn(function()
 			if GetFFlagEnableVoiceUxUpdates()
 				and ((not FFlagHideVoiceChatSelectorForFae and VoiceChatServiceManager:EligibleForFaeUpsell())

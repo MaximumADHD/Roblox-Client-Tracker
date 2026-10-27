@@ -30,8 +30,9 @@ export type TabsProps = {
 	onActivated: ((id: Types.ItemId) -> ())?,
 	-- List of tabs to display
 	tabs: { TabItem },
+	-- Size of each tab. Defaults to `InputSize.Medium`.
 	size: InputSize?,
-	-- Whether tabs fill the whole width growing to the equal size (Fill) or take minmum space (Fit)
+	-- Whether tabs fill the whole width growing to the equal size (Fill) or take minmum space (Fit). Defaults to `FillBehavior.Fill`.
 	fillBehavior: FillBehavior?,
 } & Types.CommonProps
 

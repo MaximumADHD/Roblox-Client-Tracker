@@ -46,10 +46,15 @@ type Icon = {
 }
 
 export type BadgeProps = {
+	-- Label shown inside the badge. Omit for an icon-only badge.
 	text: string?,
+	-- BuilderIcons name or icon config rendered with the label.
 	icon: (string | Icon)?,
+	-- Color treatment of the badge. Defaults to `BadgeVariant.Contrast`.
 	variant: BadgeVariant?,
+	-- Outline shape of the badge. Defaults to `BadgeShape.Pill`.
 	shape: BadgeShape?,
+	-- Size of the badge. Defaults to `BadgeSize.Small`.
 	size: BadgeSize?,
 	-- **DEPRECATED**: Badges are not interactive. Still accepted but ignored.
 	isDisabled: boolean?,

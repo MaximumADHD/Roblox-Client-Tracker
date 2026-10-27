@@ -32,12 +32,17 @@ type Segment = Segment.Segment
 local Flags = require(Foundation.Utility.Flags)
 
 export type SegmentedControlProps = {
+	-- Segments shown in the control.
 	segments: { Segment },
 	-- The current selected segment.
 	value: Types.ItemId,
+	-- Called when a segment is activated with that segment's id.
 	onActivated: (id: Types.ItemId) -> (),
+	-- Size of the control. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- Visual style of the control. Defaults to `SegmentedControlVariant.Filled`.
 	variant: SegmentedControlVariant?,
+	-- How segments size along the main axis. Defaults to `FillBehavior.Fit`.
 	fillBehavior: FillBehavior?,
 	-- When true, the container and segments use a fully circular radius
 	isCircular: boolean?,

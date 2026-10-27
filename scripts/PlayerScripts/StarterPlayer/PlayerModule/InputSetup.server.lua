@@ -11,7 +11,6 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
-local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
 local FFlagUserPlayerScriptsSupportTVRemoteKeycodes = FlagUtil.getUserFlag("UserPlayerScriptsSupportTVRemoteKeycodes")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
@@ -29,75 +28,6 @@ local CONNECTIONS = {
 }
 
 --[[ Input Setup ]]
-if FFlagUserPlayerScriptsUseScriptableBindings then
-	local characterContext = StarterPlayer.PlayerModule.InputContexts.CharacterContext
-	local cameraContext = StarterPlayer.PlayerModule.InputContexts.CameraContext
-	local moveAction = characterContext:FindFirstChild("MoveAction")
-	local jumpAction = characterContext:FindFirstChild("JumpAction")
-	local cameraAction = cameraContext:FindFirstChild("CameraAction")
-	local rotationAction = characterContext:FindFirstChild("RotationAction")
-
-	if moveAction and not moveAction:FindFirstChild("DynamicThumbstickScriptableBinding") then
-		local dynamicThumbstickBinding = Instance.new("InputBinding")
-		dynamicThumbstickBinding.Name = "DynamicThumbstickScriptableBinding"
-		dynamicThumbstickBinding.Type = Enum.InputBindingType.Scriptable
-		dynamicThumbstickBinding.Parent = moveAction
-	elseif moveAction then
-		local existingBinding = moveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
-		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
-	end
-
-	if moveAction and not moveAction:FindFirstChild("ClassicThumbstickScriptableBinding") then
-		local classicThumbstickBinding = Instance.new("InputBinding")
-		classicThumbstickBinding.Name = "ClassicThumbstickScriptableBinding"
-		classicThumbstickBinding.Type = Enum.InputBindingType.Scriptable
-		classicThumbstickBinding.Parent = moveAction
-	elseif moveAction then
-		local existingBinding = moveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
-		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
-	end
-
-	if moveAction and not moveAction:FindFirstChild("ClickToMoveScriptableBinding") then
-		local clickToMoveBinding = Instance.new("InputBinding")
-		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
-		clickToMoveBinding.Type = Enum.InputBindingType.Scriptable
-		clickToMoveBinding.Parent = moveAction
-	elseif moveAction then
-		local existingBinding = moveAction:FindFirstChild("ClickToMoveScriptableBinding")
-		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
-	end
-
-	if jumpAction and not jumpAction:FindFirstChild("ClickToMoveScriptableBinding") then
-		local clickToMoveBinding = Instance.new("InputBinding")
-		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
-		clickToMoveBinding.Type = Enum.InputBindingType.Scriptable
-		clickToMoveBinding.Parent = jumpAction
-	elseif jumpAction then
-		local existingBinding = jumpAction:FindFirstChild("ClickToMoveScriptableBinding")
-		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
-	end
-
-	if cameraAction and not cameraAction:FindFirstChild("CameraScriptableBinding") then
-		local cameraScriptableBinding = Instance.new("InputBinding")
-		cameraScriptableBinding.Name = "CameraScriptableBinding"
-		cameraScriptableBinding.Type = Enum.InputBindingType.Scriptable
-		cameraScriptableBinding.Parent = cameraAction
-	elseif cameraAction then
-		local existingBinding = cameraAction:FindFirstChild("CameraScriptableBinding")
-		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
-	end
-
-	if rotationAction and not rotationAction:FindFirstChild("RotationScriptableBinding") then
-		local rotationScriptableBinding = Instance.new("InputBinding")
-		rotationScriptableBinding.Name = "RotationScriptableBinding"
-		rotationScriptableBinding.Type = Enum.InputBindingType.Scriptable
-		rotationScriptableBinding.Parent = rotationAction
-	elseif rotationAction then
-		local existingBinding = rotationAction:FindFirstChild("RotationScriptableBinding")
-		if existingBinding and existingBinding:IsA("InputBinding") then existingBinding.Type = Enum.InputBindingType.Scriptable end
-	end
-end
-
 if not FFlagUserPlayerScriptsPlayerControlState then
 	local function attemptCreateActionsIfAbsent(player: Player)
 		local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
@@ -111,12 +41,10 @@ if not FFlagUserPlayerScriptsPlayerControlState then
 
 			local action = Instance.new("InputAction")
 			action.Name = abilityName .. "Action"
-			if FFlagUserPlayerScriptsUseScriptableBindings then
-				local scriptableBinding = Instance.new("InputBinding")
-				scriptableBinding.Name = "ScriptableBinding"
-				scriptableBinding.Type = Enum.InputBindingType.Scriptable
-				scriptableBinding.Parent = action
-			end
+			local scriptableBinding = Instance.new("InputBinding")
+			scriptableBinding.Name = "ScriptableBinding"
+			scriptableBinding.Type = Enum.InputBindingType.Scriptable
+			scriptableBinding.Parent = action
 			action.Parent = characterContext
 		end
 

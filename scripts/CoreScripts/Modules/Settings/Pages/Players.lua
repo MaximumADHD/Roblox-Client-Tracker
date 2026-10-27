@@ -66,7 +66,6 @@ local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
 local FFlagHidePeoplePageInviteFriends = SharedFlags.FFlagHidePeoplePageInviteFriends
 local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegration
 
@@ -219,9 +218,7 @@ local function Initialize()
 			friendLabel.TextColor3 = Color3.new(1, 1, 1)
 			friendLabel.SelectionImageObject = fakeSelection
 			if status == Enum.FriendStatus.Friend then
-				friendLabel.Text = if FFlagConnectionsToFriendsRename
-					then LocalizationStrings[localeId]:Format(Constants.FriendLocalizedKey)
-					else LocalizationStrings[localeId]:Format(Constants.ConnectionLocalizedKey)
+				friendLabel.Text = LocalizationStrings[localeId]:Format(Constants.FriendLocalizedKey)
 			else
 				friendLabel.Text = "Request Sent"
 			end
@@ -235,9 +232,7 @@ local function Initialize()
 					friendLabel.ImageTransparency = 1
 					friendLabelText.Text = ""
 					if GetFFlagDefaultFriendingLabelTextNonEmpty() then
-						friendLabelText.Text = if FFlagConnectionsToFriendsRename
-							then LocalizationStrings[localeId]:Format(Constants.AddFriendLocalizedKey)
-							else LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey)
+						friendLabelText.Text = LocalizationStrings[localeId]:Format(Constants.AddFriendLocalizedKey)
 					end
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
@@ -256,9 +251,7 @@ local function Initialize()
 
 			friendLabel, friendLabelText = utility:MakeStyledButton(
 				"FriendStatus",
-				if FFlagConnectionsToFriendsRename
-					then LocalizationStrings[localeId]:Format(Constants.AddFriendLocalizedKey)
-					else LocalizationStrings[localeId]:Format(Constants.AddConnectionLocalizedKey),
+				LocalizationStrings[localeId]:Format(Constants.AddFriendLocalizedKey),
 				UDim2.new(0, 182, 0, Theme.ButtonHeight),
 				addFriendFunc
 			)
@@ -1079,7 +1072,7 @@ local function Initialize()
 
 		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
-		textLabel.Text = LocalizationStrings[localeId]:Format(if FFlagConnectionsToFriendsRename then Constants.InviteFriendsLocalizedKey else Constants.InviteConnectionsLocalizedKey)
+		textLabel.Text = LocalizationStrings[localeId]:Format(Constants.InviteFriendsLocalizedKey)
 
 		icon.AnchorPoint = Vector2.new(0, 0.5)
 		icon.Position = UDim2.new(0, 18, 0.5, 0)

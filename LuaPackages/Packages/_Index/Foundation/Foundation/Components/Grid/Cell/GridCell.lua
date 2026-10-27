@@ -15,6 +15,7 @@ type ResponsiveValue<T> = Types.ResponsiveValue<T>
 type GridCellViewProps = GuiObjectProps & CommonProps
 
 export type GridCellProps = {
+	-- Column span for this cell, optionally responsive by breakpoint. Defaults to `1`.
 	size: number | ResponsiveValue<number>,
 } & GridCellViewProps
 

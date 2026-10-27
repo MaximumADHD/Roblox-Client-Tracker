@@ -36,8 +36,11 @@ local function DebugCol(props: GridDebugColProps)
 end
 
 export type GridDebugProps = {
+	-- Cross-axis alignment of the debug columns.
 	align: Enum.ItemLineAlignment?,
+	-- Transparency of the debug column overlays. Defaults to `0.7`.
 	debugTransparency: number?,
+	-- Content laid out over the debug grid.
 	children: React.ReactNode?,
 }
 

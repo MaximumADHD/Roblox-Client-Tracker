@@ -20,6 +20,10 @@ type _Messages = {
 	FloatProp: _FloatPropMessage,
 	FloatProp_ConditionalOption: _FloatProp_ConditionalOptionMessage,
 	FloatProp_ConditionalOptions: _FloatProp_ConditionalOptionsMessage,
+	ArrayOfFloatProp: _ArrayOfFloatPropMessage,
+	ArrayOfFloatProp_ConditionalOption: _ArrayOfFloatProp_ConditionalOptionMessage,
+	ArrayOfFloatProp_ConditionalOptions: _ArrayOfFloatProp_ConditionalOptionsMessage,
+	ArrayOfFloatProp_ArrayOfFloats: _ArrayOfFloatProp_ArrayOfFloatsMessage,
 	DoubleProp: _DoublePropMessage,
 	DoubleProp_ConditionalOption: _DoubleProp_ConditionalOptionMessage,
 	DoubleProp_ConditionalOptions: _DoubleProp_ConditionalOptionsMessage,
@@ -480,6 +484,118 @@ export type FloatProp_ConditionalOptions = typeof(setmetatable(
 type _FloatProp_ConditionalOptionsMessage = proto.Message<
 	FloatProp_ConditionalOptions,
 	_FloatProp_ConditionalOptionsPartialFields
+>
+
+type _ArrayOfFloatPropImpl = {
+	__index: _ArrayOfFloatPropImpl,
+	new: (fields: _ArrayOfFloatPropPartialFields?) -> ArrayOfFloatProp,
+	encode: (self: ArrayOfFloatProp) -> buffer,
+	decode: (input: buffer) -> ArrayOfFloatProp,
+	jsonEncode: (self: ArrayOfFloatProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfFloatProp,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfFloatPropFields = {
+	kind: (
+		{ type: "literal", value: ArrayOfFloatProp_ArrayOfFloats }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ArrayOfFloatProp_ConditionalOptions }
+	)?,
+}
+
+type _ArrayOfFloatPropPartialFields = {
+	kind: (
+		{ type: "literal", value: ArrayOfFloatProp_ArrayOfFloats }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ArrayOfFloatProp_ConditionalOptions }
+	)?,
+}
+
+export type ArrayOfFloatProp = typeof(setmetatable({} :: _ArrayOfFloatPropFields, {} :: _ArrayOfFloatPropImpl))
+type _ArrayOfFloatPropMessage = proto.Message<ArrayOfFloatProp, _ArrayOfFloatPropPartialFields>
+
+type _ArrayOfFloatProp_ConditionalOptionImpl = {
+	__index: _ArrayOfFloatProp_ConditionalOptionImpl,
+	new: (fields: _ArrayOfFloatProp_ConditionalOptionPartialFields?) -> ArrayOfFloatProp_ConditionalOption,
+	encode: (self: ArrayOfFloatProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> ArrayOfFloatProp_ConditionalOption,
+	jsonEncode: (self: ArrayOfFloatProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfFloatProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfFloatProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ArrayOfFloatProp_ArrayOfFloats } | { type: "binding_path", value: string })?,
+}
+
+type _ArrayOfFloatProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ArrayOfFloatProp_ArrayOfFloats } | { type: "binding_path", value: string })?,
+}
+
+export type ArrayOfFloatProp_ConditionalOption = typeof(setmetatable(
+	{} :: _ArrayOfFloatProp_ConditionalOptionFields,
+	{} :: _ArrayOfFloatProp_ConditionalOptionImpl
+))
+type _ArrayOfFloatProp_ConditionalOptionMessage = proto.Message<
+	ArrayOfFloatProp_ConditionalOption,
+	_ArrayOfFloatProp_ConditionalOptionPartialFields
+>
+
+type _ArrayOfFloatProp_ConditionalOptionsImpl = {
+	__index: _ArrayOfFloatProp_ConditionalOptionsImpl,
+	new: (fields: _ArrayOfFloatProp_ConditionalOptionsPartialFields?) -> ArrayOfFloatProp_ConditionalOptions,
+	encode: (self: ArrayOfFloatProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> ArrayOfFloatProp_ConditionalOptions,
+	jsonEncode: (self: ArrayOfFloatProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfFloatProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfFloatProp_ConditionalOptionsFields = {
+	options: { ArrayOfFloatProp_ConditionalOption },
+}
+
+type _ArrayOfFloatProp_ConditionalOptionsPartialFields = {
+	options: { ArrayOfFloatProp_ConditionalOption }?,
+}
+
+export type ArrayOfFloatProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _ArrayOfFloatProp_ConditionalOptionsFields,
+	{} :: _ArrayOfFloatProp_ConditionalOptionsImpl
+))
+type _ArrayOfFloatProp_ConditionalOptionsMessage = proto.Message<
+	ArrayOfFloatProp_ConditionalOptions,
+	_ArrayOfFloatProp_ConditionalOptionsPartialFields
+>
+
+type _ArrayOfFloatProp_ArrayOfFloatsImpl = {
+	__index: _ArrayOfFloatProp_ArrayOfFloatsImpl,
+	new: (fields: _ArrayOfFloatProp_ArrayOfFloatsPartialFields?) -> ArrayOfFloatProp_ArrayOfFloats,
+	encode: (self: ArrayOfFloatProp_ArrayOfFloats) -> buffer,
+	decode: (input: buffer) -> ArrayOfFloatProp_ArrayOfFloats,
+	jsonEncode: (self: ArrayOfFloatProp_ArrayOfFloats) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfFloatProp_ArrayOfFloats,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfFloatProp_ArrayOfFloatsFields = {
+	array: { FloatProp },
+}
+
+type _ArrayOfFloatProp_ArrayOfFloatsPartialFields = {
+	array: { FloatProp }?,
+}
+
+export type ArrayOfFloatProp_ArrayOfFloats = typeof(setmetatable(
+	{} :: _ArrayOfFloatProp_ArrayOfFloatsFields,
+	{} :: _ArrayOfFloatProp_ArrayOfFloatsImpl
+))
+type _ArrayOfFloatProp_ArrayOfFloatsMessage = proto.Message<
+	ArrayOfFloatProp_ArrayOfFloats,
+	_ArrayOfFloatProp_ArrayOfFloatsPartialFields
 >
 
 type _DoublePropImpl = {
@@ -4928,6 +5044,514 @@ do
 	messages.FloatProp_ConditionalOptions = _FloatProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.FloatProp_ConditionalOptions)
+end
+
+do
+	local _ArrayOfFloatPropImpl = {}
+	_ArrayOfFloatPropImpl.__index = _ArrayOfFloatPropImpl
+
+	function _ArrayOfFloatPropImpl.new(data: _ArrayOfFloatPropPartialFields?): ArrayOfFloatProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ArrayOfFloatPropImpl :: _ArrayOfFloatPropImpl)
+	end
+
+	function _ArrayOfFloatPropImpl.encode(self: ArrayOfFloatProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfFloatPropImpl.decode(input: buffer): ArrayOfFloatProp
+		local self = _ArrayOfFloatPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.ArrayOfFloatProp_ArrayOfFloats.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.ArrayOfFloatProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfFloatPropImpl.jsonEncode(self: ArrayOfFloatProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ArrayOfFloatPropImpl.jsonDecode(input: { [string]: any }): ArrayOfFloatProp
+		local self = _ArrayOfFloatPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.ArrayOfFloatProp_ArrayOfFloats.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.ArrayOfFloatProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_ArrayOfFloatPropImpl.descriptor = {
+		name = "ArrayOfFloatProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayOfFloatProp",
+	}
+
+	messages.ArrayOfFloatProp = _ArrayOfFloatPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfFloatProp)
+end
+
+do
+	local _ArrayOfFloatProp_ConditionalOptionImpl = {}
+	_ArrayOfFloatProp_ConditionalOptionImpl.__index = _ArrayOfFloatProp_ConditionalOptionImpl
+
+	function _ArrayOfFloatProp_ConditionalOptionImpl.new(
+		data: _ArrayOfFloatProp_ConditionalOptionPartialFields?
+	): ArrayOfFloatProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ArrayOfFloatProp_ConditionalOptionImpl :: _ArrayOfFloatProp_ConditionalOptionImpl)
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionImpl.encode(self: ArrayOfFloatProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionImpl.decode(input: buffer): ArrayOfFloatProp_ConditionalOption
+		local self = _ArrayOfFloatProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.ArrayOfFloatProp_ArrayOfFloats.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionImpl.jsonEncode(self: ArrayOfFloatProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfFloatProp_ConditionalOption
+		local self = _ArrayOfFloatProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.ArrayOfFloatProp_ArrayOfFloats.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_ArrayOfFloatProp_ConditionalOptionImpl.descriptor = {
+		name = "ArrayOfFloatProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.ArrayOfFloatProp_ConditionalOption = _ArrayOfFloatProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfFloatProp_ConditionalOption)
+end
+
+do
+	local _ArrayOfFloatProp_ConditionalOptionsImpl = {}
+	_ArrayOfFloatProp_ConditionalOptionsImpl.__index = _ArrayOfFloatProp_ConditionalOptionsImpl
+
+	function _ArrayOfFloatProp_ConditionalOptionsImpl.new(
+		data: _ArrayOfFloatProp_ConditionalOptionsPartialFields?
+	): ArrayOfFloatProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _ArrayOfFloatProp_ConditionalOptionsImpl :: _ArrayOfFloatProp_ConditionalOptionsImpl)
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionsImpl.encode(self: ArrayOfFloatProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionsImpl.decode(input: buffer): ArrayOfFloatProp_ConditionalOptions
+		local self = _ArrayOfFloatProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.ArrayOfFloatProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionsImpl.jsonEncode(self: ArrayOfFloatProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfFloatProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfFloatProp_ConditionalOptions
+		local self = _ArrayOfFloatProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { ArrayOfFloatProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.ArrayOfFloatProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfFloatProp_ConditionalOptionsImpl.descriptor = {
+		name = "ArrayOfFloatProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.ArrayOfFloatProp_ConditionalOptions = _ArrayOfFloatProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfFloatProp_ConditionalOptions)
+end
+
+do
+	local _ArrayOfFloatProp_ArrayOfFloatsImpl = {}
+	_ArrayOfFloatProp_ArrayOfFloatsImpl.__index = _ArrayOfFloatProp_ArrayOfFloatsImpl
+
+	function _ArrayOfFloatProp_ArrayOfFloatsImpl.new(
+		data: _ArrayOfFloatProp_ArrayOfFloatsPartialFields?
+	): ArrayOfFloatProp_ArrayOfFloats
+		return setmetatable({
+			array = if data == nil or data.array == nil then {} else data.array,
+		}, _ArrayOfFloatProp_ArrayOfFloatsImpl :: _ArrayOfFloatProp_ArrayOfFloatsImpl)
+	end
+
+	function _ArrayOfFloatProp_ArrayOfFloatsImpl.encode(self: ArrayOfFloatProp_ArrayOfFloats): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.array ~= nil and #self.array > 0 then
+			for _, value in self.array do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfFloatProp_ArrayOfFloatsImpl.decode(input: buffer): ArrayOfFloatProp_ArrayOfFloats
+		local self = _ArrayOfFloatProp_ArrayOfFloatsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.array, messages.FloatProp.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfFloatProp_ArrayOfFloatsImpl.jsonEncode(self: ArrayOfFloatProp_ArrayOfFloats): any
+		local output = {}
+
+		if self.array ~= nil and #self.array > 0 then
+			local newOutput = {}
+			for _, value in self.array do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.array = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfFloatProp_ArrayOfFloatsImpl.jsonDecode(input: { [string]: any }): ArrayOfFloatProp_ArrayOfFloats
+		local self = _ArrayOfFloatProp_ArrayOfFloatsImpl.new()
+
+		if input.array ~= nil then
+			local newOutput: { FloatProp } = {}
+			for _, value in input.array do
+				table.insert(newOutput, messages.FloatProp.jsonDecode(value))
+			end
+
+			self.array = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfFloatProp_ArrayOfFloatsImpl.descriptor = {
+		name = "ArrayOfFloatProp_ArrayOfFloats",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayOfFloats",
+	}
+
+	messages.ArrayOfFloatProp_ArrayOfFloats = _ArrayOfFloatProp_ArrayOfFloatsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfFloatProp_ArrayOfFloats)
 end
 
 do
@@ -17467,6 +18091,10 @@ return {
 	FloatProp = messages.FloatProp,
 	FloatProp_ConditionalOption = messages.FloatProp_ConditionalOption,
 	FloatProp_ConditionalOptions = messages.FloatProp_ConditionalOptions,
+	ArrayOfFloatProp = messages.ArrayOfFloatProp,
+	ArrayOfFloatProp_ConditionalOption = messages.ArrayOfFloatProp_ConditionalOption,
+	ArrayOfFloatProp_ConditionalOptions = messages.ArrayOfFloatProp_ConditionalOptions,
+	ArrayOfFloatProp_ArrayOfFloats = messages.ArrayOfFloatProp_ArrayOfFloats,
 	DoubleProp = messages.DoubleProp,
 	DoubleProp_ConditionalOption = messages.DoubleProp_ConditionalOption,
 	DoubleProp_ConditionalOptions = messages.DoubleProp_ConditionalOptions,

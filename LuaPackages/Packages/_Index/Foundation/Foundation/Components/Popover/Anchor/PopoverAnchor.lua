@@ -15,6 +15,7 @@ export type PopoverAnchorProps = {
 	-- What to anchor the popover to: a ref to the target element, or a Studio
 	-- widget URI (Studio plugin contexts only). If provided, children will not be rendered.
 	anchorRef: (React.Ref<PopoverAnchor> | StudioUri)?,
+	-- Anchor content rendered when `anchorRef` is unset.
 	children: React.ReactNode?,
 } & Types.CommonProps
 

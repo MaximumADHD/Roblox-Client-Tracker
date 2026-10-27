@@ -28,11 +28,17 @@ local ValidNumericVariants = require(script.Parent.ValidNumericVariants)
 type Bindable<T> = Types.Bindable<T>
 
 type StatusIndicatorEmpty = {
+	-- Color treatment of the empty indicator. Defaults to `StatusIndicatorVariant.Standard`.
 	variant: StatusIndicatorVariant?,
+	-- Outline shape of the empty indicator. Defaults to `StatusIndicatorShape.Circle`.
 	shape: StatusIndicatorShape?,
+	-- Size of the indicator. Defaults to `StatusIndicatorSize.Small`.
 	size: StatusIndicatorSize?,
+	-- Optional mask color overlaid on the indicator.
 	mask: Types.ColorStyle?,
+	-- Discriminant: omit for the empty (non-numeric) indicator.
 	max: nil, -- discriminant union mechanism to avoid type errors
+	-- Discriminant: omit for the empty (non-numeric) indicator.
 	value: nil, -- discriminant union mechanism to avoid type errors
 } & Types.CommonProps
 
@@ -43,11 +49,17 @@ export type StatusIndicatorNumericVariant =
 	| typeof(StatusIndicatorVariant.Contrast_Experiment) -- Remove with FoundationStatusIndicatorVariantExperiment
 
 type StatusIndicatorNumeric = {
+	-- Color treatment of the numeric indicator. Defaults to `StatusIndicatorVariant.Standard`.
 	variant: StatusIndicatorNumericVariant?,
+	-- Numeric value shown inside the indicator.
 	value: Bindable<number>,
+	-- Size of the indicator. Defaults to `StatusIndicatorSize.Small`.
 	size: StatusIndicatorSize?,
+	-- Cap used for overflow display (e.g. `99+`). Defaults to unlimited.
 	max: number?,
+	-- Optional mask color overlaid on the indicator.
 	mask: Types.ColorStyle?,
+	-- Discriminant: numeric indicators always use a circle.
 	shape: nil,
 }
 
@@ -111,7 +123,7 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 						then (props.value :: React.Binding<number>):map(formatValue)
 						else formatValue(props.value :: number),
 					textStyle = variantProps.content.style,
-					fontStyle = if Flags.FoundationStatusIndicatorDesignUpdate and variantProps.content.typography
+					fontStyle = if Flags.FoundationStatusIndicatorDesignUpdate
 						then {
 							Font = variantProps.content.font,
 							FontSize = variantProps.content.typography.FontSize,

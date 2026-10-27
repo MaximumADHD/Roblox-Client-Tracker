@@ -30,7 +30,9 @@ type CardVariant = CardVariant.CardVariant
 
 -- A string is an end image at the default width.
 export type CardMedia = string | {
+	-- Image asset or Foundation image key.
 	image: string,
+	-- Where the media sits. Defaults to end.
 	placement: CardMediaPlacement?,
 	-- End only. Defaults to 136.
 	width: number?,
@@ -55,7 +57,9 @@ export type CardProps = {
 	eyebrow: string?,
 	-- Icon beside the title. Renders only when title is set.
 	icon: Types.IconConfig?,
+	-- Primary heading shown in the card header.
 	title: string?,
+	-- Supporting copy shown below the title.
 	description: string?,
 	-- Caps description wrapping, for example `{ description = 2 }`. Omit for no limit.
 	lineClamp: CardLineClamp?,

@@ -29,6 +29,7 @@ export type AccordionProps = {
 	isContained: boolean?,
 	-- side of each item where the collapse chevron is displayed
 	chevronPosition: InputPlacement?,
+	-- Accordion.Item children that make up the expandable sections.
 	children: React.ReactNode,
 } & Types.CommonProps
 

@@ -28,25 +28,25 @@ function ActionController.new()
 	return self
 end
 
-function ActionController.initializeActions(data, playerData)
+function ActionController.initializeActions(data)
 	data.connectionUtil:trackConnection(CONNECTIONS.SERVER_AUTHORITY_CHANGED,
 		data.eventBus:subscribe(CONNECTIONS.SERVER_AUTHORITY_CHANGED):Connect(function()
-			playerData.actions = {}
+			data.actions = {}
 		end)
 	)
 
-	if playerData.actions.MoveAction and playerData.actions.JumpAction then return end
-	if not playerData.player then return end
+	if data.actions.MoveAction and data.actions.JumpAction then return end
+	if not data.player then return end
 
 	-- may fail because the player's InputContexts may not be immediately available when the player is added
 	pcall(function()
 		local contextFolder = script.Parent.Parent.InputContexts
 		if data.isServerAuthority then
-			contextFolder = playerData.player.InputContexts
+			contextFolder = data.player.InputContexts
 		end
 		local characterContext = contextFolder.CharacterContext
 
-		playerData.actions = {
+		data.actions = {
 			MoveAction = characterContext.MoveAction,
 			JumpAction = characterContext.JumpAction,
 		}
@@ -55,20 +55,20 @@ function ActionController.initializeActions(data, playerData)
 	end)
 end
 
-function ActionController.update(playerData)
+function ActionController.update(data)
 	if FFlagUserControlModuleEnabledAPI then
-		if not playerData.actions["MoveAction"] or not playerData.actions["JumpAction"] then
+		if not data.actions["MoveAction"] or not data.actions["JumpAction"] then
 			return
 		end
 
-		local controlAPI = playerData.playerModule.ControlModule
+		local controlAPI = data.playerModule.ControlModule
 
-		playerData.actions["MoveAction"].Enabled = controlAPI.Enabled
-		playerData.actions["JumpAction"].Enabled = controlAPI.Enabled
+		data.actions["MoveAction"].Enabled = controlAPI.Enabled
+		data.actions["JumpAction"].Enabled = controlAPI.Enabled
 	end
 
-	playerData.moveVector = playerData.actions.MoveAction:GetState()
-	playerData.isJumping = playerData.actions.JumpAction:GetState()
+	data.moveVector = data.actions.MoveAction:GetState()
+	data.isJumping = data.actions.JumpAction:GetState()
 end
 
 function ActionController:Enable(enable: boolean)

@@ -28,11 +28,14 @@ local function getMaxCanvasPositionY(rbx: ScrollingFrame): number
 end
 
 export type SheetContentProps = {
+	-- When true, content extends edge-to-edge without horizontal inset.
 	isContentFullBleed: boolean?,
 	-- Anchors content to the bottom edge, like a chat log: content starts scrolled to the end and follows new content while scrolled to the end.
 	-- In a bottom sheet with multiple snap points, lower snap points hide the top of the content instead of the bottom.
 	isReversed: boolean?,
+	-- Ref forwarded to the inner ScrollingFrame.
 	scrollingFrameRef: React.Ref<ScrollingFrame>?,
+	-- Body content of the sheet.
 	children: React.ReactNode,
 } & Types.SelectionProps
 

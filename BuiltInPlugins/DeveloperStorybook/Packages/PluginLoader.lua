@@ -8,6 +8,7 @@ local Package = require(PackageIndex["PluginLoader"]["PluginLoader"])
 export type Args = Package.Args
 export type PluginLoaderContext = Package.PluginLoaderContext
 export type ButtonInfo = Package.ButtonInfo
+export type PreinitHandoff = Package.PreinitHandoff
 
 
 return Package

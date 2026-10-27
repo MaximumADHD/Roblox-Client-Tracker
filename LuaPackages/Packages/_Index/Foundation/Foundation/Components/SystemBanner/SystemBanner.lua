@@ -40,11 +40,17 @@ type AlertAction = AlertActions.AlertAction
 local SEVERITY_TO_ICON: { [AlertSeverity]: string } = AlertConstants.SEVERITY_TO_ICON
 
 export type SystemBannerProps = {
+	-- Visual style of the banner. Defaults to `AlertVariant.Standard`.
 	variant: AlertVariant?,
+	-- Severity that drives the leading icon and emphasis.
 	severity: AlertSeverity,
+	-- Primary heading of the banner.
 	title: string,
+	-- Supporting copy under the title.
 	description: string?,
+	-- Optional action buttons rendered in the banner.
 	actions: { AlertAction }?,
+	-- Called when the close affordance is activated. Omit to hide the close control.
 	onClose: (() -> ())?,
 } & Types.CommonProps
 

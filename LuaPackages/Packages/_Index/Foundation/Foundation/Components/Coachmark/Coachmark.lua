@@ -50,6 +50,7 @@ export type CoachmarkProps = {
 	media: ReactNode?,
 	-- Actions array (up to 2 buttons supported)
 	actions: { ButtonGroupItem }?,
+	-- Whether the coachmark is shown. Defaults to `false`.
 	isOpen: boolean?,
 	-- Close callback (optional) - if provided, displays a close affordance in the header
 	onClose: (() -> ())?,
@@ -57,18 +58,24 @@ export type CoachmarkProps = {
 	onPressedOutside: (() -> ())?,
 	-- Step indicator (optional) - shows "X of Y" above the header
 	steps: {
+		-- Current step, shown as X in "X of Y".
 		current: number,
+		-- Total step count, shown as Y in "X of Y".
 		total: number,
 	}?,
+	-- Alignment of the coachmark relative to its anchor. Defaults to `PopoverAlign.Start`.
 	align: PopoverAlign?,
+	-- Side of the anchor where the coachmark opens. Defaults to `PopoverSide.Right`.
 	side: PopoverSide?,
 	-- Whether the tooltip should have an arrow. Defaults to true.
 	hasArrow: boolean?,
 	-- Reference to the element that will serve as an anchor
 	anchorRef: React.Ref<PopoverAnchor>?,
+	-- Anchor content the coachmark is attached to when `anchorRef` is unset.
 	children: ReactNode?,
 	-- Selection behavior
 	selection: Selection?,
+	-- Gamepad selection group configuration for the coachmark surface.
 	selectionGroup: (Bindable<boolean> | SelectionGroup)?,
 } & Types.CommonProps
 

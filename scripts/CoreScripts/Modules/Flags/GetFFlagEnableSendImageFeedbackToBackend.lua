@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableSendImageFeedbackToBackend2", false)
+game:DefineFastFlag("EnableSendImageFeedbackToBackend3", false)
 
 return function()
-	return game:GetFastFlag("EnableSendImageFeedbackToBackend2")
+	return game:GetFastFlag("EnableSendImageFeedbackToBackend3")
 end

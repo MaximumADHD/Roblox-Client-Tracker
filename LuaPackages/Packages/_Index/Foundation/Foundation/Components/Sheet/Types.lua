@@ -6,6 +6,7 @@ local React = require(Packages.React)
 type DialogSize = DialogSize.DialogSize
 
 export type SheetRef = {
+	-- Closes the sheet.
 	close: () -> (),
 }
 
@@ -28,7 +29,9 @@ export type SheetProps = {
 	defaultSnapPointIndex: number?,
 	-- Callback fired when the bottom sheet changes to a snap point
 	onSnapPointChanged: ((snapPoint: number, index: number) -> ())?,
+	-- Identifier for the sheet root. Defaults to `--foundation-sheet`.
 	testId: string?,
+	-- Sheet subcomponents such as Header, Content, and Actions.
 	children: React.ReactNode,
 }
 

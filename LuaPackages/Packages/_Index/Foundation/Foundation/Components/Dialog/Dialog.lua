@@ -19,6 +19,7 @@ local DialogSize = require(Foundation.Enums.DialogSize)
 local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
+local Flags = require(Foundation.Utility.Flags)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -42,13 +43,17 @@ type DialogSize = DialogSize.DialogSize
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 
 export type DialogProps = {
+	-- Called when the dialog requests to close. Receives an optional close reason.
 	onClose: ((reason: OnCloseCallbackReason?) -> ())?,
+	-- Width tier of the dialog. Defaults to the dialog's responsive size.
 	size: DialogSize?,
 	-- **DEPRECATED**: Dialog should always use the overlay portal. Set `disablePortal` to false. Still accepted.
 	disablePortal: boolean?,
 	-- **DEPRECATED**: Dialog should always render with a backdrop. Set `hasBackdrop` to true. Still accepted.
 	hasBackdrop: boolean?,
+	-- Dialog subcomponents such as Title, Content, and Actions.
 	children: React.ReactNode,
+	-- Identifier for the dialog root. Defaults to `--foundation-dialog`.
 	testId: string?,
 } & Types.NativeCallbackProps
 
@@ -168,18 +173,26 @@ local function Dialog(dialogProps: DialogInternalProps)
 		tag = variants.container.tag,
 		ZIndex = 2,
 	}, {
-		Shadow = React.createElement(Image, {
-			Image = SHADOW_IMAGE,
-			Size = dialogSizeBinding:map(function(size: Vector2): UDim2
-				return UDim2.fromOffset(size.X + SHADOW_SIZE * 2, size.Y + SHADOW_SIZE * 2)
-			end),
-			slice = {
-				center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE),
-				scale = 2,
-			},
-			imageStyle = variants.shadow.imageStyle,
-			testId = `{props.testId}--shadow`,
-		}),
+		Shadow = if Flags.FoundationDialogOverlayShadow
+			then React.createElement(View, {
+				tag = "shadow-overlay-300 radius-large",
+				Size = dialogSizeBinding:map(function(size: Vector2): UDim2
+					return UDim2.fromOffset(size.X, size.Y)
+				end),
+				testId = `{props.testId}--shadow`,
+			})
+			else React.createElement(Image, {
+				Image = SHADOW_IMAGE,
+				Size = dialogSizeBinding:map(function(size: Vector2): UDim2
+					return UDim2.fromOffset(size.X + SHADOW_SIZE * 2, size.Y + SHADOW_SIZE * 2)
+				end),
+				slice = {
+					center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE),
+					scale = 2,
+				},
+				imageStyle = variants.shadow.imageStyle,
+				testId = `{props.testId}--shadow`,
+			}),
 	})
 
 	local DialogNode = React.createElement(View, {
@@ -275,20 +288,38 @@ local function Dialog(dialogProps: DialogInternalProps)
 					end)
 					else nil,
 				sizeConstraint = if not reducedMotion
-					then { MaxSize = Vector2.new(maxWidth + SHADOW_SIZE * 2, math.huge) }
+					then {
+						MaxSize = Vector2.new(
+							maxWidth
+								+ (
+									if Flags.FoundationDialogOverlayShadow
+										then tokens.Size.Size_1400 * 2
+										else SHADOW_SIZE * 2
+								),
+							math.huge
+						),
+					}
 					else nil,
+				testId = `{props.testId}--content-wrapper`,
 				tag = {
 					["anchor-center-center size-full"] = not reducedMotion,
 					["size-full"] = reducedMotion,
 				},
 				ZIndex = 2,
-				GroupTransparency = if not reducedMotion
-						and animating
-						and bottomPosition
-					then bottomPosition:map(function(value: number)
-						return value / animationOffset
-					end)
-					else nil,
+				-- Swapping CanvasGroup for Frame remounts the overlay shadow, which reads as a flicker.
+				GroupTransparency = if Flags.FoundationDialogOverlayShadow
+					then if not reducedMotion and bottomPosition
+						then bottomPosition:map(function(value: number)
+							return value / animationOffset
+						end)
+						else nil
+					else if not reducedMotion
+							and animating
+							and bottomPosition
+						then bottomPosition:map(function(value: number)
+							return value / animationOffset
+						end)
+						else nil,
 			},
 			if reducedMotion
 				then {

@@ -64,10 +64,10 @@ local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local DynamicThumbstick = setmetatable({}, ActionController)
 DynamicThumbstick.__index = DynamicThumbstick
 
-function DynamicThumbstick.new(playerData)
+function DynamicThumbstick.new(data)
 	local self = setmetatable(ActionController.new() :: any, DynamicThumbstick)
 
-	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	self.data = data -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 	self.enabled = false
 
 	self.isTouchActive = false
@@ -193,7 +193,7 @@ end
 -- Was called OnMoveTouchEnded in previous version
 function DynamicThumbstick:OnInputEnded()
 	self.isTouchActive = false
-	local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+	local binding = self.data.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 	if binding then
 		binding:Fire(Vector2.zero)
 	end
@@ -319,7 +319,7 @@ function DynamicThumbstick:DoMove(direction: Vector2)
 	end
 
 	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-	local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+	local binding = self.data.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 	if binding then
 		binding:Fire(currentMoveVector)
 	end

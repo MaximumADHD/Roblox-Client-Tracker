@@ -38,11 +38,18 @@ local useAccordionItemVariants = require(script.Parent.Parent.useAccordionItemVa
 export type AccordionItemProps = {
 	-- **DEPRECATED**: BuilderIcon displayed opposite the collapse chevron. Use `icon` instead. Still accepted.
 	leadingIcon: string? | {
+		-- BuilderIcons name.
 		name: string,
+		-- BuilderIcons weight.
 		variant: IconVariant,
 	}?,
 	-- BuilderIcon displayed opposite the collapse chevron
-	icon: string? | { name: string, variant: IconVariant }?,
+	icon: string? | {
+		-- BuilderIcons name.
+		name: string,
+		-- BuilderIcons weight.
+		variant: IconVariant,
+	}?,
 	-- Text to display in the AccordionItem header
 	text: string,
 	-- Optional supplementary text displayed below the title
@@ -55,6 +62,7 @@ export type AccordionItemProps = {
 	id: ItemId,
 	-- isExpanded to control expansion
 	isExpanded: boolean?,
+	-- Content revealed when the item is expanded.
 	children: React.ReactNode,
 } & Types.CommonProps
 

@@ -66,31 +66,49 @@ local MAX_DIRECTIONAL_INPUT_DRAG_DELTA = 0.01
 type Bindable<T> = Types.Bindable<T>
 
 type CommonSliderProps = {
+	-- Minimum and maximum values of the slider. Defaults to `0`–`1`.
 	range: NumberRange?,
 
+	-- Size of the slider. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- Width of the slider track. Defaults to fill (`UDim.new(1, 0)`).
 	width: UDim?,
+	-- Layout direction of the slider. Defaults to `Orientation.Horizontal`.
 	orientation: Orientation?,
+	-- Visual style of the slider. Defaults to `SliderVariant.Standard`.
 	variant: SliderVariant?,
+	-- When true, the slider does not accept input. Defaults to `false`.
 	isDisabled: boolean?,
+	-- When true, draws a contained track treatment. Defaults to `false`.
 	isContained: boolean?,
+	-- When the knob is shown. Defaults to `Visibility.Auto`.
 	knobVisibility: Visibility?,
+	-- Custom knob element. Omit to use the default knob.
 	knob: React.ReactElement?,
+	-- Step size for value changes.
 	step: number?,
 
+	-- Called when a drag interaction starts.
 	onDragStarted: (() -> ())?,
+	-- Called when a drag interaction ends.
 	onDragEnded: (() -> ())?,
 } & Types.CommonProps
 
 export type SingleSliderProps = {
+	-- Discriminator for a single-thumb slider. Defaults to `SliderType.Single`.
 	type: typeof(SliderType.Single)?,
+	-- Current value of the slider.
 	value: Bindable<number>,
+	-- Called when the value changes.
 	onValueChanged: ((newValue: number) -> ())?,
 } & CommonSliderProps
 
 export type RangeSliderProps = {
+	-- Discriminator for a dual-thumb range slider.
 	type: typeof(SliderType.Range),
+	-- Current min/max value of the range slider.
 	value: Bindable<NumberRange>,
+	-- Called when the range value changes.
 	onValueChanged: ((newValue: NumberRange) -> ())?,
 } & CommonSliderProps
 

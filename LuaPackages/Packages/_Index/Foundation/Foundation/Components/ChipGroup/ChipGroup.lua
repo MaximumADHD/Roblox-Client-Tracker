@@ -55,11 +55,17 @@ local END_GRADIENT = NumberSequence.new({
 })
 
 export type ChipGroupItem = {
+	-- Label shown on the chip.
 	text: string?,
+	-- Accessory rendered before the label.
 	leading: (string | Accessory)?,
+	-- Accessory rendered after the label.
 	trailing: (string | Accessory)?,
+	-- Called when the chip is activated.
 	onActivated: () -> (),
+	-- When true, the chip renders in its selected appearance.
 	isChecked: boolean?,
+	-- Visual style of the chip.
 	variant: ChipVariant?,
 }
 

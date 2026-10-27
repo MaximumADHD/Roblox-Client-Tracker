@@ -25,9 +25,13 @@ type ButtonVariant = ButtonVariant.ButtonVariant
 type FillBehavior = FillBehavior.FillBehavior
 
 export type ToastProps = {
+	-- Primary heading of the toast.
 	title: string?,
+	-- Supporting body copy under the title.
 	text: string?,
+	-- Leading image asset (FoundationImages key or asset URI). Not a BuilderIcons name.
 	icon: string?,
+	-- Up to two action buttons rendered under the body.
 	actions: { Types.ActionProps }?,
 
 	-- Width of the toast. If not defined, toast will be `400px` wide on desktop.

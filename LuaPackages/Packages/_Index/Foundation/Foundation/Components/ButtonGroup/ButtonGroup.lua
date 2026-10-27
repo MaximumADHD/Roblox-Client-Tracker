@@ -22,14 +22,23 @@ export type ButtonGroupSize = typeof(InputSize.XSmall) | typeof(InputSize.Small)
 type Orientation = Orientation.Orientation
 
 export type ButtonGroupItem = {
+	-- Label shown on the button. Omit for an icon-only button.
 	text: string?,
+	-- Called when the button is activated.
 	onActivated: () -> (),
+	-- Visual style of the button.
 	variant: ButtonVariant?,
+	-- When true, the button does not accept input.
 	isDisabled: boolean?,
+	-- When true, shows a spinner and blocks activation.
 	isLoading: boolean?,
+	-- BuilderIcons name rendered beside the label, or alone when `text` is omitted.
 	icon: string?,
+	-- Delay in seconds before the button is enabled.
 	inputDelay: number?,
+	-- Forwarded to the button instance.
 	ref: React.Ref<GuiObject>?,
+	-- Identifier for this button. Defaults from the group testId plus index.
 	testId: string?,
 }
 

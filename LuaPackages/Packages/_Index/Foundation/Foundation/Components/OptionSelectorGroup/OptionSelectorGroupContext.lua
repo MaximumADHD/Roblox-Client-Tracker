@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local FillBehavior = require(Foundation.Enums.FillBehavior)
-local Flags = require(Foundation.Utility.Flags)
 type FillBehavior = FillBehavior.FillBehavior
 local OptionSelectorGroupSize = require(Foundation.Enums.OptionSelectorGroupSize)
 local Orientation = require(Foundation.Enums.Orientation)
@@ -28,8 +27,6 @@ return React.createContext({
 	orientation = Orientation.Vertical,
 	Selectable = true,
 	testId = "",
-	size = if Flags.FoundationOptionSelectorGroupBeta
-		then OptionSelectorGroupSize.Medium
-		else nil :: OptionSelectorGroupSize?,
+	size = OptionSelectorGroupSize.Medium,
 	fillBehavior = nil,
 } :: OptionSelectorGroupContextValue)

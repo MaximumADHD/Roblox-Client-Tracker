@@ -13,15 +13,21 @@ local useHeaderBarContext = require(Foundation.Components.HeaderBar.useHeaderBar
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 export type HeaderBarAction = {
+	-- Stable identifier for this action.
 	id: Types.ItemId,
+	-- IconButton icon for the action.
 	icon: string | {
+		-- BuilderIcons name.
 		name: string,
+		-- BuilderIcons weight.
 		variant: BuilderIcons.IconVariant?,
 	},
+	-- Called when the action is activated.
 	onActivated: () -> (),
 }
 
 export type HeaderBarActionsProps = {
+	-- Icon actions rendered in the current HeaderBar slot.
 	actions: { HeaderBarAction },
 }
 

@@ -16,7 +16,9 @@ type DividerVariant = DividerVariant.DividerVariant
 type Orientation = Orientation.Orientation
 
 export type DividerProps = {
+	-- Visual weight of the divider. Defaults to `DividerVariant.Default`.
 	variant: DividerVariant?,
+	-- Layout direction of the stroke. Defaults to `Orientation.Horizontal`.
 	orientation: Orientation?,
 } & Types.CommonProps
 

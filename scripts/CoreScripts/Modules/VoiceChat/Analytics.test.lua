@@ -63,4 +63,38 @@ describe("Analytics", function()
 		expect((analytics._impl :: AnalyticsServiceMock).ReportInfluxSeries_mock).toHaveBeenCalled()
 		expect((analytics._impl :: AnalyticsServiceMock).ReportCounter_mock).toHaveBeenCalled()
 	end)
+
+	describe("voice rewarm counters", function()
+		local logCounter
+
+		beforeEach(function()
+			logCounter = jest.fn()
+			analytics._telemetryService = { LogCounter = logCounter }
+		end)
+
+		it("SHOULD log VoiceRewarmShown with the rearmed label", function()
+			analytics:reportVoiceRewarmShown(true)
+
+			expect(logCounter).toHaveBeenCalledTimes(1)
+			local _, config, params = table.unpack(logCounter.mock.calls[1])
+			expect(config.eventName).toBe("VoiceRewarmShown")
+			expect(config.backends).toEqual({ "RobloxTelemetryCounter" })
+			expect(params.customFields).toEqual({ rearmed = "true" })
+		end)
+
+		it("SHOULD log VoiceRewarmClicked with the rearmed and consequence labels", function()
+			analytics:reportVoiceRewarmClicked(false, "FirstJoinSession")
+
+			local _, config, params = table.unpack(logCounter.mock.calls[1])
+			expect(config.eventName).toBe("VoiceRewarmClicked")
+			expect(params.customFields).toEqual({ rearmed = "false", consequence = "FirstJoinSession" })
+		end)
+
+		it("SHOULD label a click with no consequence as none", function()
+			analytics:reportVoiceRewarmClicked(true, nil)
+
+			local _, _, params = table.unpack(logCounter.mock.calls[1])
+			expect(params.customFields).toEqual({ rearmed = "true", consequence = "none" })
+		end)
+	end)
 end)

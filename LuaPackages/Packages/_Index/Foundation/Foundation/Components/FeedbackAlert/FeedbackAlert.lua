@@ -31,15 +31,24 @@ type AlertSeverity = AlertSeverity.AlertSeverity
 type AlertAction = AlertActions.AlertAction
 
 export type FeedbackAlertProps = {
+	-- Severity that drives the leading icon and emphasis.
 	severity: AlertSeverity,
+	-- Primary heading of the alert.
 	title: string,
+	-- Secondary line under the title.
 	subtitle: string?,
+	-- Supporting body copy under the subtitle.
 	description: string?,
+	-- Optional inline link under the description.
 	link: {
+		-- Label shown on the link.
 		text: string,
+		-- Called when the link is activated.
 		onActivated: () -> (),
 	}?,
+	-- Optional action buttons rendered in the alert.
 	actions: { AlertAction }?,
+	-- Called when the close affordance is activated. Omit to hide the close control.
 	onClose: (() -> ())?,
 } & Types.CommonProps
 

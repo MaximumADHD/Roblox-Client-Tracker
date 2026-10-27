@@ -24,14 +24,20 @@ local usePaginationAnimatedHighlight = require(script.Parent.Parent.usePaginatio
 local usePaginationNav = require(script.Parent.Parent.usePaginationNav)
 
 export type PaginationCommonProps = {
+	-- Size of the pagination controls. Defaults to `PaginationSize.Medium`.
 	size: PaginationSize?,
 } & FoundationTypes.SelectionProps & FoundationTypes.CommonProps
 
 export type MultiPagePaginationProps = {
+	-- Discriminator for numbered multi-page pagination. Defaults to `MultiPage`.
 	variant: "MultiPage"?,
+	-- Total number of pages.
 	count: number,
+	-- Currently selected page (1-based).
 	page: number,
+	-- Called when a page is activated.
 	onActivated: (page: number) -> (),
+	-- When true, shows first/last page buttons. Defaults to `false`.
 	hasFirstLastButtons: boolean?,
 } & PaginationCommonProps
 

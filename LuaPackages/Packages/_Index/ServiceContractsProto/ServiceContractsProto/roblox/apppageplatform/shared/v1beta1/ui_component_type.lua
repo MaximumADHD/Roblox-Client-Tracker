@@ -31,6 +31,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_SPONSORED_TWO_BY_ONE_TILE"
 	| "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
 	| "UI_COMPONENT_TYPE_USER_SEARCH_TILE"
+	| "UI_COMPONENT_TYPE_INTERACTABLE_TILE_WRAPPER"
 	| "UI_COMPONENT_TYPE_BUTTON"
 	| "UI_COMPONENT_TYPE_IMAGE"
 	| "UI_COMPONENT_TYPE_TEXT"
@@ -113,6 +114,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ROOT"
 	| "UI_COMPONENT_TYPE_SEARCH_AUTOCOMPLETE_SUGGESTION"
 	| "UI_COMPONENT_TYPE_REACTIONS"
+	| "UI_COMPONENT_TYPE_BANNER"
+	| "UI_COMPONENT_TYPE_SHEET"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_EXPERIMENTAL"
@@ -132,6 +135,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 	| "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
 	| "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
+	| "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP"
+	| "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -173,6 +178,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
 		elseif value == 109 then
 			return "UI_COMPONENT_TYPE_USER_SEARCH_TILE"
+		elseif value == 110 then
+			return "UI_COMPONENT_TYPE_INTERACTABLE_TILE_WRAPPER"
 		elseif value == 200 then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif value == 201 then
@@ -337,6 +344,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SEARCH_AUTOCOMPLETE_SUGGESTION"
 		elseif value == 281 then
 			return "UI_COMPONENT_TYPE_REACTIONS"
+		elseif value == 282 then
+			return "UI_COMPONENT_TYPE_BANNER"
+		elseif value == 283 then
+			return "UI_COMPONENT_TYPE_SHEET"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -375,6 +386,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
 		elseif value == 803 then
 			return "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
+		elseif value == 804 then
+			return "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP"
+		elseif value == 900 then
+			return "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -419,6 +434,8 @@ messages.UiComponentType = {
 			return 108
 		elseif self == "UI_COMPONENT_TYPE_USER_SEARCH_TILE" then
 			return 109
+		elseif self == "UI_COMPONENT_TYPE_INTERACTABLE_TILE_WRAPPER" then
+			return 110
 		elseif self == "UI_COMPONENT_TYPE_BUTTON" then
 			return 200
 		elseif self == "UI_COMPONENT_TYPE_IMAGE" then
@@ -583,6 +600,10 @@ messages.UiComponentType = {
 			return 280
 		elseif self == "UI_COMPONENT_TYPE_REACTIONS" then
 			return 281
+		elseif self == "UI_COMPONENT_TYPE_BANNER" then
+			return 282
+		elseif self == "UI_COMPONENT_TYPE_SHEET" then
+			return 283
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -621,6 +642,10 @@ messages.UiComponentType = {
 			return 802
 		elseif self == "UI_COMPONENT_TYPE_PYMK_CAROUSEL" then
 			return 803
+		elseif self == "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP" then
+			return 804
+		elseif self == "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW" then
+			return 900
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -665,6 +690,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SPONSORED_ONE_BY_TWO_TILE"
 		elseif name == "UI_COMPONENT_TYPE_USER_SEARCH_TILE" then
 			return "UI_COMPONENT_TYPE_USER_SEARCH_TILE"
+		elseif name == "UI_COMPONENT_TYPE_INTERACTABLE_TILE_WRAPPER" then
+			return "UI_COMPONENT_TYPE_INTERACTABLE_TILE_WRAPPER"
 		elseif name == "UI_COMPONENT_TYPE_BUTTON" then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_IMAGE" then
@@ -829,6 +856,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SEARCH_AUTOCOMPLETE_SUGGESTION"
 		elseif name == "UI_COMPONENT_TYPE_REACTIONS" then
 			return "UI_COMPONENT_TYPE_REACTIONS"
+		elseif name == "UI_COMPONENT_TYPE_BANNER" then
+			return "UI_COMPONENT_TYPE_BANNER"
+		elseif name == "UI_COMPONENT_TYPE_SHEET" then
+			return "UI_COMPONENT_TYPE_SHEET"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -867,6 +898,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FRIEND_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_PYMK_CAROUSEL" then
 			return "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
+		elseif name == "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP" then
+			return "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP"
+		elseif name == "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW" then
+			return "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

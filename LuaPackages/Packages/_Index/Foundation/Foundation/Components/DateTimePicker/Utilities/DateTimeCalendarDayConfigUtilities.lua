@@ -16,9 +16,7 @@ local NUM_WEEKDAY_HEADERS = DateTimeCalendarConstants.NUM_WEEKDAY_HEADERS
 	Pure day-grid config builders for calendar panes.
 
 	buildCalendarDayConfigs — fixed-height 6-week grid with prev/current/next month
-	days (CalendarGrid). Pure reimplementation of the fill loop in legacy
-	Calendar.lua (search NUM_ELEMENTS_IN_DATES_GRID); remove the legacy copy when
-	the flag is cleaned up.
+	days (CalendarGrid).
 
 	buildTwoMonthPaneCellConfigs — variable-height pane that pads with empty
 	spacers and only completes the final week (TwoMonthCalendarPane).

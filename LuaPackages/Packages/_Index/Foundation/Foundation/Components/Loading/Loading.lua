@@ -16,6 +16,7 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 export type LoadingProps = {
+	-- Size of the loading spinner icon. Defaults to `IconSize.Large`.
 	size: IconSize?,
 } & Types.CommonProps
 

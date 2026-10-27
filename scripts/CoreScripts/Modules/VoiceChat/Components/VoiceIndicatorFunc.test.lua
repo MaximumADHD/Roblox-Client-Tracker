@@ -65,10 +65,9 @@ describe("VoiceIndicator", function()
 	end)
 
 	it("supports multiple concurrent instances with partial unmount", function()
-		-- Regression guard for the BindToRenderStep name-collision bug fixed
-		-- under FFlagVoiceIndicatorPerformanceOptimizationsV2: mounting and
-		-- unmounting indicators in any order must not error or interfere with
-		-- other indicators' render-step bindings.
+		-- Regression guard for the BindToRenderStep name-collision bug:
+		-- mounting and unmounting indicators in any order must not error or
+		-- interfere with other indicators' render-step bindings.
 		local r1 = mount({ userId = LOCAL_USER_ID, iconStyle = "MicLight" })
 		local r2 = mount({ userId = LOCAL_USER_ID, iconStyle = "MicLight" })
 		local r3 = mount({ userId = LOCAL_USER_ID, iconStyle = "MicLight" })

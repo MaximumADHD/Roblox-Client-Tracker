@@ -34,7 +34,8 @@ export type SliderThumbProps = {
 	isVertical: boolean,
 	isDisabled: boolean,
 	isDragEnabled: boolean?,
-	knobAppearance: KnobAppearance,
+	-- Required unless `knob` supplies the thumb's visual.
+	knobAppearance: KnobAppearance?,
 	knob: React.ReactElement?,
 	isContained: boolean?,
 	onSeek: (fraction: number) -> (),
@@ -84,13 +85,15 @@ local function SliderThumb(props: SliderThumbProps)
 		end)
 		else Vector2.new(0.5, 0.5)
 
-	local knobElement = React.createElement(Knob, {
-		size = props.knobAppearance.size,
-		style = props.knobAppearance.style,
-		stroke = props.knobAppearance.stroke,
-		hasShadow = props.knobAppearance.hasShadow,
-		testId = `{props.testId}--knob`,
-	})
+	local knobElement = if props.knobAppearance
+		then React.createElement(Knob, {
+			size = props.knobAppearance.size,
+			style = props.knobAppearance.style,
+			stroke = props.knobAppearance.stroke,
+			hasShadow = props.knobAppearance.hasShadow,
+			testId = `{props.testId}--knob`,
+		})
+		else nil
 
 	local commonProps: Types.CommonProps = {
 		AnchorPoint = props.AnchorPoint or anchorPoint,

@@ -47,7 +47,9 @@ end
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Packages.Roact)
-local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
+local LinkingProtocolPackage = require(CorePackages.Workspace.Packages.LinkingProtocol)
+local DeepLinkSource = LinkingProtocolPackage.Enums.DeepLinkSource
+local LinkingProtocol = LinkingProtocolPackage.LinkingProtocol
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
@@ -104,7 +106,15 @@ local function Initialize()
 			source = if isUsingGamepad then "Gamepad" else "Button",
 		})
 
-		LinkingProtocol.default:detectURL("roblox://navigation/home")
+		if LinkingProtocol.default:isInternalDlicEnabled() then
+			local deeplinkId = LinkingProtocol.default:createInternalDlic(
+				"roblox://navigation/home",
+				DeepLinkSource.LuaInternal
+			)
+			LinkingProtocol.default:detectDeeplinkIntent(deeplinkId)
+		else
+			LinkingProtocol.default:detectURL("roblox://navigation/home")
+		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button

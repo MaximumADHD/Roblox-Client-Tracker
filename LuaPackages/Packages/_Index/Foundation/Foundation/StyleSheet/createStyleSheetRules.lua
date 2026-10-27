@@ -27,18 +27,13 @@ local function insertRule(ruleNodes: { React.ReactNode }, rule: StyleRuleNoTag, 
 	local modifier = if rule.modifier ~= nil then ":" .. rule.modifier else ""
 	local pseudo = if rule.pseudo ~= nil then " ::" .. rule.pseudo else ""
 	local selector = tagSelector .. modifier .. pseudo
-
-	if Flags.FoundationStyleRulePseudoName then
-		if rule.pseudoName ~= nil then
-			selector = selector .. " #" .. rule.pseudoName
-		end
-		-- A named pseudo-instance (e.g. `::UIShadow #layer1`) targets a distinct
-		-- phantom instance, so stacked layers must not fall back to the `>` child
-		-- combinator, which would merge every layer onto the same real child.
-		if rule.pseudo ~= nil and rule.pseudoName == nil then
-			selector = selector .. ", " .. tagSelector .. modifier .. " > " .. rule.pseudo
-		end
-	elseif rule.pseudo ~= nil then
+	if rule.pseudoName ~= nil then
+		selector = selector .. " #" .. rule.pseudoName
+	end
+	-- A named pseudo-instance (e.g. `::UIShadow #layer1`) targets a distinct
+	-- phantom instance, so stacked layers must not fall back to the `>` child
+	-- combinator, which would merge every layer onto the same real child.
+	if rule.pseudo ~= nil and rule.pseudoName == nil then
 		selector = selector .. ", " .. tagSelector .. modifier .. " > " .. rule.pseudo
 	end
 
@@ -89,12 +84,6 @@ local function createStyleSheetRules(
 
 		if rule == nil then
 			continue
-		end
-		if not Flags.FoundationStyleRulePseudoName then
-			-- Generated tables bake named-pseudo rules unconditionally; skip them until the flag is on.
-			if rule.pseudoName ~= nil then
-				continue
-			end
 		end
 
 		if sheet and attributesCache then

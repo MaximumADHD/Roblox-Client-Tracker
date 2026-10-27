@@ -48,8 +48,6 @@ local FFlagNotificationsRenameFriendRequestToConnection =
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local FFlagFixOnBadgeAwardedError = game:DefineFastFlag("FixOnBadgeAwardedError", false)
 
-local FFlagConnectionsToFriendsRename = require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionsToFriendsRename
-
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 
@@ -117,12 +115,8 @@ local MAX_GET_FRIEND_IMAGE_YIELD_TIME = 5
 local FRIEND_REQUEST_NOTIFICATION_THROTTLE = 5
 
 local FRIEND_REQUEST_NOTIFICATION_LOCALIZATION_KEYS = {
-	ACCEPTED = if FFlagConnectionsToFriendsRename 
-		then "InGame.NotificationScript2.Message.FriendRequestEvent.Accepted"
-		else "InGame.NotificationScript2.Message.ConnectionRequestEvent.Accepted",
-	SENT = if FFlagConnectionsToFriendsRename
-		then "InGame.NotificationScript2.Message.FriendRequestEvent.Sent"
-		else "InGame.NotificationScript2.Message.ConnectionRequestEvent.Sent",
+	ACCEPTED = "InGame.NotificationScript2.Message.FriendRequestEvent.Accepted",
+	SENT = "InGame.NotificationScript2.Message.FriendRequestEvent.Sent",
 }
 
 -- The new, supported way to translate strings in the client.

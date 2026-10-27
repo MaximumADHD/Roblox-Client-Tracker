@@ -48,8 +48,11 @@ local DESCRIPTION_GAP_TAG: { [InputSize]: string } = {
 -- `Chevron`/`None` are not valid config-object `type`s: a chevron is a static icon and `None` renders
 -- nothing, so `isChecked`/`onActivated` would be dead. Pass them as the string shorthands instead.
 export type ListItemInput = "Chevron" | "None" | {
+	-- Interactive control rendered in the trailing slot.
 	type: "Checkbox" | "Toggle" | "Radio",
+	-- Checked state of the control.
 	isChecked: boolean?,
+	-- Called with the next checked value when the control is activated.
 	onActivated: ((boolean) -> ())?,
 }
 
@@ -60,7 +63,9 @@ export type ListItemProps = {
 	trailing: React.ReactNode?,
 	-- Row title: a plain string, or `{ title, metadata }` to render secondary metadata next to the title.
 	title: string? | {
+		-- Primary title text.
 		title: string?,
+		-- Secondary metadata shown beside the title.
 		metadata: string?,
 	},
 	-- Secondary description line shown under the title.
@@ -75,8 +80,11 @@ export type ListItemProps = {
 	-- **DEPRECATED**: The config-object form `{ onActivated, inputType, isChecked }` is the legacy coupled
 	-- API that also selected the input. Prefer a plain function together with the `input` prop. Still accepted.
 	onActivated: (() -> () | {
+		-- Called when the row is activated.
 		onActivated: () -> (),
+		-- **DEPRECATED**: Trailing input selected by this object. Prefer the `input` prop. Still accepted.
 		inputType: ListItemInputType?,
+		-- **DEPRECATED**: Checked state of the trailing input. Prefer `input.isChecked`. Still accepted.
 		isChecked: boolean?,
 	})?,
 	-- Trailing input accessory, chosen independently of whether the row is tappable. Either the `"Chevron"`/

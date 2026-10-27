@@ -420,6 +420,10 @@ local function PopoverContentPlugin(
 						else popoverSize,
 					testId = `{popoverContext.testId}--container`,
 				}, {
+					-- The plugin window padding is 16px, or 4px when FoundationPluginShadowSize is on.
+					-- shadow-overlay-300, shadow-overlay-100, and shadow-raised-100 all draw past that edge.
+					-- A larger window would also move the panel, arrow, and click-outside region, so this path
+					-- keeps PopoverShadow until product approves that layout change.
 					Shadow = React.createElement(PopoverShadow, {
 						contentSize = contentSize,
 						position = UDim2.fromOffset(

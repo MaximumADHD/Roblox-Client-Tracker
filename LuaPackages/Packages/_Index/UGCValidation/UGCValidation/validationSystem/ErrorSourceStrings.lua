@@ -308,6 +308,21 @@ ErrorSourceStrings.Keys = {
 	MeshSize_LoadFailed = "Common.UGCValidation.ErrorLabel.MeshSize_LoadFailed",
 	MeshSize_Mismatch = "Common.UGCValidation.ErrorLabel.MeshSize_Mismatch",
 	FacsJointCountBounded = "Common.UGCValidation.ErrorLabel.FacsJointCountBounded",
+
+	-- Dynamic head ML hybrid check (Measure_Dynamic_Head_ML_Hybrid)
+	-- Its FACS deformation stage (step2b) reuses the legacy DynamicHead*NotClose / *NotShown keys above,
+	-- or the FacsDeformation_* keys below when FFlagUGCValidateAQDynamicHeadMLHybridNewFacsMessages is on.
+	FacialFeaturePresence_EyesMissing = "Common.UGCValidation.ErrorLabel.FacialFeaturePresence_EyesMissing",
+	FacialFeaturePresence_MouthMissing = "Common.UGCValidation.ErrorLabel.FacialFeaturePresence_MouthMissing",
+	DynamicHeadCageMisalignedLeftEye = "Common.UGCValidation.ErrorLabel.DynamicHeadCageMisalignedLeftEye",
+	DynamicHeadCageMisalignedRightEye = "Common.UGCValidation.ErrorLabel.DynamicHeadCageMisalignedRightEye",
+	DynamicHeadCageMisalignedMouth = "Common.UGCValidation.ErrorLabel.DynamicHeadCageMisalignedMouth",
+	RenderedAnimation_RequiredExpressionsMissing = "Common.UGCValidation.ErrorLabel.RenderedAnimation_RequiredExpressionsMissing",
+	FacsDeformation_LeftEyeNotClose = "Common.UGCValidation.ErrorLabel.FacsDeformation_LeftEyeNotClose",
+	FacsDeformation_RightEyeNotClose = "Common.UGCValidation.ErrorLabel.FacsDeformation_RightEyeNotClose",
+	FacsDeformation_MouthNotOpen = "Common.UGCValidation.ErrorLabel.FacsDeformation_MouthNotOpen",
+	FacsDeformation_HappyNotShown = "Common.UGCValidation.ErrorLabel.FacsDeformation_HappyNotShown",
+	FacsDeformation_SadNotShown = "Common.UGCValidation.ErrorLabel.FacsDeformation_SadNotShown",
 }
 
 ErrorSourceStrings.Values = {
@@ -608,6 +623,21 @@ ErrorSourceStrings.Values = {
 	AQSFail_CagePartPlacement = "Cage part placement violation in {cageName}: {upperPart} is not correctly positioned relative to {lowerPart}.",
 	AQSFail_CagePartVertexCount = "Cage part {partName} in {cageName} has {actualCount} vertices, expected approximately {expectedCount}. This may indicate missing or duplicated geometry in that cage region.",
 	FacsJointCountBounded = "Dynamic heads can have at most {maxFacsJointCount} FACS joints, but this head has {actualJointCount}. Please reduce the number of FACS joints and try again.",
+
+	-- Dynamic head ML hybrid check (Measure_Dynamic_Head_ML_Hybrid)
+	-- Its FACS deformation stage (step2b) reuses the legacy DynamicHead*NotClose / *NotShown keys above,
+	-- or the FacsDeformation_* keys below when FFlagUGCValidateAQDynamicHeadMLHybridNewFacsMessages is on.
+	FacialFeaturePresence_EyesMissing = "Base face is missing required eye features. Add eyes to the base face and try again.",
+	FacialFeaturePresence_MouthMissing = "Base face is missing a required mouth. Add a mouth to the base face and try again.",
+	DynamicHeadCageMisalignedLeftEye = "Dynamic Head cage left eye landmarks are misaligned with the mesh. Adjust the eye cage so the left eye mesh is within the projected cage area.",
+	DynamicHeadCageMisalignedRightEye = "Dynamic Head cage right eye landmarks are misaligned with the mesh. Adjust the eye cage so the right eye mesh is within the projected cage area.",
+	DynamicHeadCageMisalignedMouth = "Dynamic Head cage mouth landmarks are misaligned with the mesh. Adjust the mouth cage so the mouth mesh is within the projected cage area.",
+	RenderedAnimation_RequiredExpressionsMissing = "Rendered animation is missing one or more required facial expressions (eye close, mouth open, happy, sad).",
+	FacsDeformation_LeftEyeNotClose = "Cannot detect left eye close expression. Adjust the left eye cage or left eye-close FACS so the projected eye mesh deforms as expected.",
+	FacsDeformation_RightEyeNotClose = "Cannot detect right eye close expression. Adjust the right eye cage or right eye-close FACS so the projected eye mesh deforms as expected.",
+	FacsDeformation_MouthNotOpen = "Cannot detect mouth open expression. Adjust the mouth cage or mouth-open FACS so the projected mouth mesh deforms as expected.",
+	FacsDeformation_HappyNotShown = "Cannot detect happiness expression. Adjust the mouth cage or happy expression FACS so the projected mouth mesh deforms as expected.",
+	FacsDeformation_SadNotShown = "Cannot detect sadness expression. Adjust the mouth cage or sad expression FACS so the projected mouth mesh deforms as expected.",
 }
 
 return ErrorSourceStrings

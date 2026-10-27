@@ -19,20 +19,11 @@ local Images = UIBlox.App.ImageSet.Images
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
-local FFlagConnectionsToFriendsRename =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionsToFriendsRename
-
 local LocalPlayer = Players.LocalPlayer
 
 local LOCALIZATION_TEXT = {
-	unfriend = if FFlagConnectionsToFriendsRename then "Feature.Friends.Action.Unfriend" else nil :: never,
-	friendRequest = if FFlagConnectionsToFriendsRename then "Feature.Friends.Label.FriendRequest" else nil :: never,
-	removeConnection = if FFlagConnectionsToFriendsRename
-		then nil :: never
-		else "CommonUI.Features.Label.RemoveConnection",
-	connectionRequest = if FFlagConnectionsToFriendsRename
-		then nil :: never
-		else "InGame.PlayerDropDown.Action.ConnectionRequest",
+	unfriend = "Feature.Friends.Action.Unfriend",
+	friendRequest = "Feature.Friends.Label.FriendRequest",
 }
 local FriendDropDownButton = Roact.PureComponent:extend("FriendDropDownButton")
 
@@ -59,23 +50,15 @@ local function getFriendTextAndIcon(friendStatus)
 	local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 	if friendStatus == Enum.FriendStatus.Friend then
-		return locales:Format(
-			if FFlagConnectionsToFriendsRename then LOCALIZATION_TEXT.unfriend else LOCALIZATION_TEXT.removeConnection
-		),
-			unfriendIcon
+		return locales:Format(LOCALIZATION_TEXT.unfriend), unfriendIcon
 	elseif friendStatus == Enum.FriendStatus.Unknown or friendStatus == Enum.FriendStatus.NotFriend then
-		return locales:Format(
-			if FFlagConnectionsToFriendsRename
-				then LOCALIZATION_TEXT.friendRequest
-				else LOCALIZATION_TEXT.connectionRequest
-		),
-			addFriendIcon
+		return locales:Format(LOCALIZATION_TEXT.friendRequest), addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestSent then
 		return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.CancelRequest"), addFriendIcon
 	elseif friendStatus == Enum.FriendStatus.FriendRequestReceived then
 		return RobloxTranslator:FormatByKey("InGame.PlayerDropDown.Accept"), addFriendIcon
 	end
-	return locales:Format(LOCALIZATION_TEXT.connectionRequest), addFriendIcon
+	return locales:Format(LOCALIZATION_TEXT.friendRequest), addFriendIcon
 end
 
 function FriendDropDownButton:init()

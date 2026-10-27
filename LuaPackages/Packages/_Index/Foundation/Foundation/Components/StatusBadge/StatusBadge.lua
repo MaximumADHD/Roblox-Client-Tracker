@@ -22,9 +22,13 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 local MAX_CONTENT_WIDTH = 200
 
 export type StatusBadgeProps = {
+	-- Label shown inside the status badge.
 	text: string,
+	-- Color treatment of the badge. Defaults to `StatusBadgeVariant.Standard`.
 	variant: StatusBadgeVariant?,
+	-- Outline shape of the badge. Defaults to `StatusBadgeShape.Utility`.
 	shape: StatusBadgeShape?,
+	-- Size of the badge. Defaults to `StatusBadgeSize.Small`.
 	size: StatusBadgeSize?,
 } & Types.CommonProps
 

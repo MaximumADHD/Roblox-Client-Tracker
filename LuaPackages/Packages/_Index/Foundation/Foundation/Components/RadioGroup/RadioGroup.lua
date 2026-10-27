@@ -19,7 +19,9 @@ export type RadioGroupProps = {
 	-- The value of the currently checked radio item.
 	-- If `nil`, the radio group will be considered uncontrolled.
 	value: string?,
+	-- Called when the selected radio value changes.
 	onValueChanged: (newValue: string) -> (),
+	-- RadioGroup.Item children that make up the options.
 	children: React.ReactNode?,
 } & Types.SelectionProps & Types.CommonProps & Types.InternalInputGroupProps
 

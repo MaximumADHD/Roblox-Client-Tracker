@@ -35,10 +35,13 @@ export type TooltipProps = {
 	text: string?,
 	-- Shortcut associated with the action owning the tooltip
 	shortcut: { Enum.KeyCode }?,
+	-- Alignment of the tooltip relative to its anchor. Defaults to `PopoverAlign.Start`.
 	align: PopoverAlign?,
+	-- Side of the anchor where the tooltip opens. Defaults to `PopoverSide.Right`.
 	side: PopoverSide?,
 	-- Whether the tooltip should have an arrow. Defaults to true.
 	hasArrow: boolean?,
+	-- Anchor content the tooltip is attached to.
 	children: ReactNode?,
 } & Types.CommonProps
 

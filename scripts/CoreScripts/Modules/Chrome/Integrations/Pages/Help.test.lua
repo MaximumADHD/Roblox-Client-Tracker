@@ -22,6 +22,10 @@ local jest = JestGlobals.jest
 local SideSheetPlacement = require(CorePackages.Workspace.Packages.Chrome).Enums.SideSheetPlacement
 
 local lastRegisterProps: any = nil
+local lastIconName: string? = nil
+local mockSharedFlags = {
+	FFlagRenameHelpToControls = false,
+}
 
 jest.mock(Chrome.Service, function()
 	return {
@@ -36,9 +40,14 @@ jest.mock(Chrome.Service, function()
 end)
 
 jest.mock(Chrome.Integrations.CommonIcon, function()
-	return function()
+	return function(iconName)
+		lastIconName = iconName
 		return nil
 	end
+end)
+
+jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
+	return mockSharedFlags
 end)
 
 jest.mock(Chrome.Integrations.Pages.InGameMenuIntegrationUtils, function()
@@ -66,8 +75,10 @@ jest.mock(CorePackages.Workspace.Packages.PioneerUtils, function()
 	}
 end)
 
-local function loadIntegration(isPioneer: boolean)
+local function loadIntegration(isPioneer: boolean, renameHelpToControls: boolean)
 	mockIsPioneerLaunch = isPioneer
+	mockSharedFlags.FFlagRenameHelpToControls = renameHelpToControls
+	lastIconName = nil
 
 	jest.isolateModules(function()
 		require(script.Parent.Help)
@@ -78,14 +89,32 @@ end
 
 describe("Help integration", function()
 	it("SHOULD place Help above the fold WHEN the launch is Pioneer", function()
-		local props = loadIntegration(true)
+		local props = loadIntegration(true, false)
 
 		expect(props.sideSheetPlacement).toBe(SideSheetPlacement.AboveFold)
 	end)
 
 	it("SHOULD place Help below the fold WHEN the launch is not Pioneer", function()
-		local props = loadIntegration(false)
+		local props = loadIntegration(false, false)
 
 		expect(props.sideSheetPlacement).toBe(SideSheetPlacement.BelowFold)
+	end)
+
+	it("SHOULD retain the Help label and icon WHEN the rename flag is disabled", function()
+		local props = loadIntegration(false, false)
+
+		props.components.Icon()
+
+		expect(props.label).toBe("CoreScripts.Feedback.Help.MainHeader")
+		expect(lastIconName).toBe("CircleQuestion")
+	end)
+
+	it("SHOULD use the Controls label and icon WHEN the rename flag is enabled", function()
+		local props = loadIntegration(false, true)
+
+		props.components.Icon()
+
+		expect(props.label).toBe("CoreScripts.InGameMenu.Controls.ControlsPage")
+		expect(lastIconName).toBe("Controller")
 	end)
 end)

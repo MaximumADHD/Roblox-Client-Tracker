@@ -27,10 +27,10 @@ local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local ClassicThumbstick = setmetatable({}, ActionController)
 ClassicThumbstick.__index = ClassicThumbstick
 
-function ClassicThumbstick.new(playerData)
+function ClassicThumbstick.new(data)
 	local self = setmetatable(ActionController.new() :: any, ClassicThumbstick)
 
-	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	self.data = data -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 	self.enabled = false
 
 	self.isTouchActive = false
@@ -114,7 +114,7 @@ function ClassicThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+	local binding = self.data.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
 	if binding then
 		binding:Fire(Vector2.zero)
 	end
@@ -237,7 +237,7 @@ function ClassicThumbstick:Create(parentFrame)
 		end
 
 		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+		local binding = self.data.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
 		if binding then
 			binding:Fire(currentMoveVector)
 		end

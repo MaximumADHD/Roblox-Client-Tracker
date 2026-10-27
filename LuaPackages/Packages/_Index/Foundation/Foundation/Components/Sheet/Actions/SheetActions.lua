@@ -13,6 +13,7 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local View = require(Foundation.Components.View)
 
 export type SheetActionsProps = {
+	-- Action controls rendered in the sheet footer.
 	children: React.ReactNode,
 }
 

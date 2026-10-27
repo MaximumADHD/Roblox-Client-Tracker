@@ -16,20 +16,32 @@ export type LeadingAccessory = BaseMenuItem.LeadingAccessory
 export type TrailingAccessory = BaseMenuItem.TrailingAccessory
 
 export type BaseMenuItemGroup<Item> = {
+	-- Optional heading shown above the group.
 	title: string?,
+	-- Items in this group.
 	items: { Item },
 }
 
 export type BaseMenuItem = {
+	-- Stable identifier for this item.
 	id: ItemId,
+	-- Leading icon asset or BuilderIcons name.
 	icon: string?,
+	-- Accessory rendered before the item text.
 	leading: (string | LeadingAccessory)?,
+	-- Accessory rendered after the item text.
 	trailing: TrailingAccessory?,
+	-- When true, the item cannot be activated.
 	isDisabled: boolean?,
+	-- When true, the item renders as selected.
 	isChecked: boolean?,
+	-- Label shown for the item.
 	text: string,
+	-- Called when the item is activated. Prefer the menu-level handler when shared.
 	onActivated: OnItemActivated?,
+	-- Nested items that open a submenu.
 	items: { BaseMenuItem | BaseMenuItemGroup<BaseMenuItem> }?,
+	-- Forwarded to the item instance.
 	ref: React.Ref<GuiObject>?,
 }
 

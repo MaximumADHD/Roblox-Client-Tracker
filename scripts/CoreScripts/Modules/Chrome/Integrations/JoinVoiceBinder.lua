@@ -25,7 +25,9 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 local FFlagVoiceRewarmTelemetry = require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
-local FFlagProactiveVoiceRestrictionsUFR = require(RobloxGui.Modules.VoiceChat.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagProactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
+local FFlagVoiceRewarmGrafanaMetrics = require(RobloxGui.Modules.VoiceChat.Flags.FFlagVoiceRewarmGrafanaMetrics)
 
 local Once = function(fn)
 	local called = false
@@ -76,6 +78,9 @@ local function JoinVoiceBinder()
 		if not isVoiceFocused then
 			if availability == ChromeService.AvailabilitySignal.Available then
 				sendVoiceJoinUpsellShownEvent()
+				if FFlagVoiceRewarmGrafanaMetrics then
+					VoiceChatServiceManager:reportVoiceRewarmShown()
+				end
 				integration.availability:available()
 			elseif availability == ChromeService.AvailabilitySignal.Unavailable then
 				integration.availability:unavailable()

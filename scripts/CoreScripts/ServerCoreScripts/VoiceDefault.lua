@@ -10,6 +10,8 @@ local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 
 local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", false)
+local FFlagUseAudioDeviceInputAddedSignal =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseAudioDeviceInputAddedSignal
 local FFlagUseAudioInstanceAdded = game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
 local FFlagExpChatDictation = require(CorePackages.Workspace.Packages.SharedFlags).FFlagExpChatDictation
@@ -193,26 +195,26 @@ if (VoiceChatService :: any).UseNewAudioApi then
 	SetUserActive.Name = "SetUserActive"
 	SetUserActive.Parent = RobloxReplicatedStorage
 
-	if FFlagUseAudioInstanceAdded then
+	local function onAudioDeviceInputAdded(device: AudioDeviceInput)
+		if FFlagExpChatDictation and isIgnoredAudioInput(device) then
+			return
+		end
+		device.Active = false
+		trackDevice(device)
+	end
+
+	if FFlagUseAudioDeviceInputAddedSignal then
+		SoundService.AudioDeviceInputAdded:Connect(onAudioDeviceInputAdded)
+	elseif FFlagUseAudioInstanceAdded then
 		SoundService.AudioInstanceAdded:Connect(function(inst)
 			if inst:IsA("AudioDeviceInput") then
-				local device = inst :: AudioDeviceInput
-				if FFlagExpChatDictation and isIgnoredAudioInput(device) then
-					return
-				end
-				device.Active = false
-				trackDevice(device)
+				onAudioDeviceInputAdded(inst)
 			end
 		end)
 	else
 		game.DescendantAdded:Connect(function(inst)
 			if inst:IsA("AudioDeviceInput") then
-				local device = inst :: AudioDeviceInput
-				if FFlagExpChatDictation and isIgnoredAudioInput(device) then
-					return
-				end
-				device.Active = false
-				trackDevice(device)
+				onAudioDeviceInputAdded(inst)
 			end
 		end)
 	end
@@ -240,4 +242,3 @@ if (VoiceChatService :: any).UseNewAudioApi then
 		end
 	end)
 end
-

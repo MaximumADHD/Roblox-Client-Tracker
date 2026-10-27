@@ -32,11 +32,15 @@ type InputSize = InputSize.InputSize
 export type KnobProps = {
 	-- The size variant of the knob
 	size: InputSize?,
+	-- Fill color of the knob.
 	style: Types.ColorStyle?,
+	-- Optional stroke drawn around the knob.
 	stroke: Types.Stroke?,
+	-- When true, draws a drop shadow under the knob. Defaults to `true`.
 	hasShadow: boolean?,
 	-- Optional icon to render instead of the default knob circle
 	icon: { name: string, variant: BuilderIcons.IconVariant }?,
+	-- When true, the knob renders in a disabled appearance. Defaults to `false`.
 	isDisabled: boolean?,
 } & Types.CommonProps
 

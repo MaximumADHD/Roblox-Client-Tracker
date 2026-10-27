@@ -58,10 +58,10 @@ local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local TouchJump = setmetatable({}, ActionController)
 TouchJump.__index = TouchJump
 
-function TouchJump.new(data, playerData)
+function TouchJump.new(data)
 	local self = setmetatable(ActionController.new() :: any, TouchJump)
 
-	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
+	self.data = data -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 	data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
 		self:Create()
 		if FFlagUserPlayerScriptsFixTouchJumpVisibility and self._active then
@@ -245,12 +245,12 @@ function TouchJump:Create()
 
 	self.jumpButton.Parent = self.parentUIFrame
 
-	if not self.playerData.actions.JumpAction then
+	if not self.data.actions.JumpAction then
 		return
 	end
-	self.playerData.actions.JumpAction:WaitForChild("TouchBinding").UIButton = self.jumpButton
+	self.data.actions.JumpAction:WaitForChild("TouchBinding").UIButton = self.jumpButton
 
-	self.playerData.actions.JumpAction.Pressed:Connect(function()
+	self.data.actions.JumpAction.Pressed:Connect(function()
 		if not self.jumpButton then
 			return
 		end
@@ -262,7 +262,7 @@ function TouchJump:Create()
 		end
 	end)
 
-	self.playerData.actions.JumpAction.Released:Connect(function()
+	self.data.actions.JumpAction.Released:Connect(function()
 		if not self.jumpButton then
 			return
 		end

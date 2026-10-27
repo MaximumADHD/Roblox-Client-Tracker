@@ -298,6 +298,7 @@ ValidationEnums.AssetQualityCheck = {
 	Measure_Mesh_Island_ML = "Measure_Mesh_Island_ML",
 	Measure_Animation_Duration = "Measure_Animation_Duration",
 	Measure_Cage_Part_Placement = "Measure_Cage_Part_Placement",
+	Measure_Dynamic_Head_ML_Hybrid = "Measure_Dynamic_Head_ML_Hybrid",
 }
 finalizeEnumTable("AssetQualityCheck")
 

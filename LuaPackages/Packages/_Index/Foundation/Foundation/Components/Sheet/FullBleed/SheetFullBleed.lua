@@ -18,12 +18,19 @@ type AspectRatio = Types.AspectRatio
 type ColorStyle = Types.ColorStyle
 
 export type SheetFullBleedProps = {
+	-- Image asset URI for the full-bleed media.
 	media: Bindable<string>,
+	-- Tint applied to the media image.
 	mediaStyle: ColorStyle?,
+	-- Fill behind the media.
 	backgroundStyle: ColorStyle?,
+	-- Height of the full-bleed region. Defaults to `UDim.new(1, 0)`.
 	height: UDim?,
+	-- Aspect ratio of the media frame.
 	aspectRatio: AspectRatio?,
+	-- When true, the media stays pinned while content scrolls. Defaults to `false`.
 	sticky: boolean?,
+	-- Optional overlay content on the full-bleed media.
 	children: React.ReactNode?,
 }
 

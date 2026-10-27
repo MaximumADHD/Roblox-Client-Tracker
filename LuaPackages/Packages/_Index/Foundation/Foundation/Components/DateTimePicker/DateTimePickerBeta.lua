@@ -25,8 +25,8 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local defaultProps = {
-	testId = "--foundation-date-time-picker",
 	variant = DateTimePickerVariantEnum.Single,
+	testId = "--foundation-date-time-picker",
 }
 
 local function DateTimePickerBeta(dateTimePickerProps: DateTimePickerProps): React.ReactNode

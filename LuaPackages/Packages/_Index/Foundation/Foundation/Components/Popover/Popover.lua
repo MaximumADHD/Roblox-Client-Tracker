@@ -15,6 +15,7 @@ type StudioUri = StudioUri.StudioUri
 export type PopoverProps = {
 	-- Whether the popover is open
 	isOpen: boolean,
+	-- Popover.Anchor and Popover.Content children that compose the popover.
 	children: React.ReactNode,
 }
 

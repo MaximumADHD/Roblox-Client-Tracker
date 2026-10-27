@@ -2,6 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
+local FFlagVoiceChatBanDurationUseServerTime =
+	require(script.Parent.Parent.Parent.VoiceChat.Flags.FFlagVoiceChatBanDurationUseServerTime)
 local InGameMenuPolicy = require(script.Parent.Parent.Parent.InGameMenu.InGameMenuPolicy)
 
 local VoiceChatPromptFrame = require(script.Parent.VoiceChatPromptFrame)
@@ -13,7 +15,12 @@ local VoiceChatPrompt = Roact.PureComponent:extend("VoiceChatPrompt")
 VoiceChatPrompt.validateProps = t.strictInterface({
 	promptSignal = t.optional(t.RBXScriptSignal),
 	errorText = t.optional(t.string),
-	bannedUntil = t.optional(t.string),
+	bannedUntil = t.optional(if FFlagVoiceChatBanDurationUseServerTime
+		then t.interface({
+			minutes = t.number,
+			absoluteSeconds = t.number,
+		})
+		else t.string),
 	onContinueFunc = t.optional(t.callback),
 	onPrimaryActivated = t.optional(t.callback),
 	onSecondaryActivated = t.optional(t.callback),

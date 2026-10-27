@@ -140,34 +140,71 @@ describe("Keyboard support", function()
 end)
 
 describe("Deeplinking", function()
-	it("Issues deeplink to home page when leaving", function()
-		if game:GetEngineFeature("VirtualInputEventsProcessed") then
+	local function triggerLeave(linkingProtocol)
+		local element, store = getMountableTreeAndStore({ linkingProtocol = linkingProtocol })
+
+		act(function()
+			store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+			store:dispatch(SetMenuOpen(true))
+			store:dispatch(SetCurrentPage(Constants.LeaveToAppPromptPageKey))
+			store:flush()
+		end)
+
+		local folder = Instance.new("Folder")
+		local instance = Roact.mount(element, folder)
+
+		act(function()
+			VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
+			VirtualInput.waitForInputEventsProcessed()
+			wait()
+		end)
+
+		Roact.unmount(instance)
+	end
+
+	if game:GetEngineFeature("VirtualInputEventsProcessed") then
+		it("Identifies the home deeplink when leaving with internal DLIC enabled", function()
 			local mockDetectURL = jest.fn()
+			local mockCreateInternalDlic = jest.fn(function()
+				return "deeplink-id"
+			end)
+			local mockDetectDlic = jest.fn()
 			local mockLinkingProtocol = {
 				detectURL = mockDetectURL,
+				isInternalDlicEnabled = function()
+					return true
+				end,
+				createInternalDlic = mockCreateInternalDlic,
+				detectDeeplinkIntent = mockDetectDlic,
 			}
-			local element, store = getMountableTreeAndStore({ linkingProtocol = mockLinkingProtocol })
+			triggerLeave(mockLinkingProtocol)
 
-			act(function()
-				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
-				store:dispatch(SetMenuOpen(true))
-				store:dispatch(SetCurrentPage(Constants.LeaveToAppPromptPageKey))
-				store:flush()
-			end)
+			expect(mockCreateInternalDlic).toHaveBeenCalledWith(
+				expect.anything(),
+				"roblox://navigation/home",
+				"lua_internal"
+			)
+			expect(mockDetectDlic).toHaveBeenCalledWith(expect.anything(), "deeplink-id")
+			expect(mockDetectURL).never.toHaveBeenCalled()
+		end)
 
-			local folder = Instance.new("Folder")
-			local instance = Roact.mount(element, folder)
+		it("Routes the home deeplink directly when leaving with internal DLIC disabled", function()
+			local mockDetectURL = jest.fn()
+			local mockCreateInternalDlic = jest.fn()
+			local mockDetectDlic = jest.fn()
+			local mockLinkingProtocol = {
+				detectURL = mockDetectURL,
+				isInternalDlicEnabled = function()
+					return false
+				end,
+				createInternalDlic = mockCreateInternalDlic,
+				detectDeeplinkIntent = mockDetectDlic,
+			}
+			triggerLeave(mockLinkingProtocol)
 
-			act(function()
-				VirtualInput.Keyboard.hitKey(Enum.KeyCode.Return)
-				VirtualInput.waitForInputEventsProcessed()
-				wait()
-			end)
-
-			expect(mockDetectURL).toHaveBeenCalledTimes(1)
+			expect(mockCreateInternalDlic).never.toHaveBeenCalled()
+			expect(mockDetectDlic).never.toHaveBeenCalled()
 			expect(mockDetectURL).toHaveBeenCalledWith(expect.anything(), "roblox://navigation/home")
-
-			Roact.unmount(instance)
-		end
-	end)
+		end)
+	end
 end)

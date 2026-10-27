@@ -11,6 +11,8 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
+local FFlagFontFaceAX = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFontFaceAX
+	and FFlagFoundationFontFaceMigration
 local AvatarExperienceDeps = require(CorePackages.Packages.AvatarExperienceDeps)
 local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
 
@@ -84,7 +86,9 @@ function ListEntry:render()
 
 				BackgroundTransparency = 1,
 				Text = self.props.text,
-				Font = font,
+				Font = if FFlagFontFaceAX
+					then normalizeFontFace(stylePalette.Tokens.Typography.BodySmall.Font)
+					else font,
 				TextSize = fontSize,
 				TextColor3 = theme.TextDefault.Color,
 				TextTransparency = theme.TextDefault.Transparency,

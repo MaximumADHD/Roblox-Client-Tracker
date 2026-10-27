@@ -23,7 +23,9 @@ local CorePackages = game:GetService("CorePackages")
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
+local LinkingProtocolPackage = require(CorePackages.Workspace.Packages.LinkingProtocol)
+local DeepLinkSource = LinkingProtocolPackage.Enums.DeepLinkSource
+local LinkingProtocol = LinkingProtocolPackage.LinkingProtocol
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
@@ -77,7 +79,15 @@ local function Initialize()
 			)
 		end
 
-		LinkingProtocol.default:detectURL("roblox://navigation/home")
+		if LinkingProtocol.default:isInternalDlicEnabled() then
+			local deeplinkId = LinkingProtocol.default:createInternalDlic(
+				"roblox://navigation/home",
+				DeepLinkSource.LuaInternal
+			)
+			LinkingProtocol.default:detectDeeplinkIntent(deeplinkId)
+		else
+			LinkingProtocol.default:detectURL("roblox://navigation/home")
+		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button

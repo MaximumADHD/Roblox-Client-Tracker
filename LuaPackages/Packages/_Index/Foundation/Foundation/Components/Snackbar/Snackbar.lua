@@ -30,14 +30,20 @@ type Icon = {
 }
 
 export type SnackbarAction = {
+	-- Called when the action is activated.
 	onActivated: () -> nil,
+	-- Label shown on the action.
 	text: string,
 }
 
 export type SnackbarProps = {
+	-- Optional trailing text action.
 	action: SnackbarAction?,
+	-- Leading icon shown before the title.
 	icon: (string | Icon)?,
+	-- Called when the close affordance is activated. Omit to hide the close control.
 	onClose: (() -> ())?,
+	-- Message shown in the snackbar.
 	title: string,
 } & CommonProps
 

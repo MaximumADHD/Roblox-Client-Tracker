@@ -20,12 +20,19 @@ local paginationUtils = require(script.Parent.Parent.paginationUtils)
 local usePaginationNav = require(script.Parent.Parent.usePaginationNav)
 
 export type DirectionalPaginationProps = {
+	-- Discriminator for single-page or no-page directional pagination.
 	variant: "SinglePage" | "NoPage",
+	-- Currently selected page (1-based).
 	page: number,
+	-- Called when a page is activated.
 	onActivated: (page: number) -> (),
+	-- Total number of pages when known.
 	count: number?,
+	-- When false, disables the next control. Inferred from `page`/`count` when omitted.
 	hasNextPage: boolean?,
+	-- When false, disables the previous control. Inferred from `page` when omitted.
 	hasPreviousPage: boolean?,
+	-- When true, shows first/last page buttons when `count` is set.
 	hasFirstLastButtons: boolean?,
 } & MultiPagePaginationModule.PaginationCommonProps
 

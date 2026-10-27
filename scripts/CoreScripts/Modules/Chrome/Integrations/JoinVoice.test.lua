@@ -18,7 +18,8 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-local FFlagProactiveVoiceRestrictionsUFR = require(RobloxGui.Modules.VoiceChat.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagProactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
 
 local events
 local focusObservers

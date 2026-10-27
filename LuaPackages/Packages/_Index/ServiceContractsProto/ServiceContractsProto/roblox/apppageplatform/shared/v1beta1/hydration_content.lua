@@ -39,10 +39,22 @@ type _Messages = {
 	HydrationContent_NotificationBadgeEntry: _HydrationContent_NotificationBadgeEntryMessage,
 	HydrationContent_CollectibleItemEntry: _HydrationContent_CollectibleItemEntryMessage,
 	HydrationContent_LeaderboardStatsEntry: _HydrationContent_LeaderboardStatsEntryMessage,
+	HydrationContent_MarketplaceAssetUserFavoriteEntry: _HydrationContent_MarketplaceAssetUserFavoriteEntryMessage,
+	HydrationContent_MarketplaceBundleUserFavoriteEntry: _HydrationContent_MarketplaceBundleUserFavoriteEntryMessage,
+	HydrationContent_BuyRobuxOneTimeProductEntry: _HydrationContent_BuyRobuxOneTimeProductEntryMessage,
+	HydrationContent_BuyRobuxSubscriptionProductEntry: _HydrationContent_BuyRobuxSubscriptionProductEntryMessage,
+	HydrationContent_BuyRobuxPendingTransferEntry: _HydrationContent_BuyRobuxPendingTransferEntryMessage,
+	HydrationContent_BuyRobuxBonusItemEntry: _HydrationContent_BuyRobuxBonusItemEntryMessage,
+	HydrationContent_UserLibrarySavedStateEntry: _HydrationContent_UserLibrarySavedStateEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_badge_data = require(script.Parent.badge_data)
+local _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data =
+	require(script.Parent.buy_robux_bonus_item_data)
+local _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data =
+	require(script.Parent.buy_robux_pending_transfer_data)
+local _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data = require(script.Parent.buy_robux_product_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_data = require(script.Parent.universe_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data =
 	require(script.Parent.universe_user_favorite_data)
@@ -65,6 +77,8 @@ local _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data =
 local _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data = require(script.Parent.marketplace_asset_data)
 local _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data = require(script.Parent.marketplace_bundle_data)
 local _roblox_apppageplatform_shared_v1beta1_marketplace_look_data = require(script.Parent.marketplace_look_data)
+local _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data =
+	require(script.Parent.marketplace_item_user_favorite_data)
 local _roblox_apppageplatform_shared_v1beta1_catalog_sort_data = require(script.Parent.catalog_sort_data)
 local _roblox_apppageplatform_shared_v1beta1_game_developer_product_data =
 	require(script.Parent.game_developer_product_data)
@@ -82,6 +96,8 @@ local _roblox_apppageplatform_shared_v1beta1_universe_private_server_data =
 	require(script.Parent.universe_private_server_data)
 local _roblox_apppageplatform_shared_v1beta1_collectible_item_data = require(script.Parent.collectible_item_data)
 local _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data = require(script.Parent.leaderboard_stats_data)
+local _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data =
+	require(script.Parent.user_library_saved_state_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -158,6 +174,27 @@ type _HydrationContentFields =
 		leaderboard_stats: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData,
 		},
+		marketplace_asset_user_favorite: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+		},
+		marketplace_bundle_user_favorite: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+		},
+		buy_robux_one_time_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData,
+		},
+		buy_robux_subscription_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData,
+		},
+		buy_robux_pending_transfer: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData,
+		},
+		buy_robux_bonus_item: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData,
+		},
+		user_library_saved_state: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData,
+		},
 	}
 
 type _HydrationContentPartialFields =
@@ -224,6 +261,27 @@ type _HydrationContentPartialFields =
 		collectible_item: { [string]: _roblox_apppageplatform_shared_v1beta1_collectible_item_data.CollectibleItemData }?,
 		leaderboard_stats: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data.LeaderboardStatsData,
+		}?,
+		marketplace_asset_user_favorite: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+		}?,
+		marketplace_bundle_user_favorite: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+		}?,
+		buy_robux_one_time_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData,
+		}?,
+		buy_robux_subscription_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData,
+		}?,
+		buy_robux_pending_transfer: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData,
+		}?,
+		buy_robux_bonus_item: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData,
+		}?,
+		user_library_saved_state: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData,
 		}?,
 	}
 
@@ -1147,6 +1205,221 @@ type _HydrationContent_LeaderboardStatsEntryMessage = proto.Message<
 	_HydrationContent_LeaderboardStatsEntryPartialFields
 >
 
+type _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl = {
+	__index: _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl,
+	new: (
+		fields: _HydrationContent_MarketplaceAssetUserFavoriteEntryPartialFields?
+	) -> HydrationContent_MarketplaceAssetUserFavoriteEntry,
+	encode: (self: HydrationContent_MarketplaceAssetUserFavoriteEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MarketplaceAssetUserFavoriteEntry,
+	jsonEncode: (self: HydrationContent_MarketplaceAssetUserFavoriteEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MarketplaceAssetUserFavoriteEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MarketplaceAssetUserFavoriteEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData?,
+}
+
+type _HydrationContent_MarketplaceAssetUserFavoriteEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData?,
+}
+
+export type HydrationContent_MarketplaceAssetUserFavoriteEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MarketplaceAssetUserFavoriteEntryFields,
+	{} :: _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl
+))
+type _HydrationContent_MarketplaceAssetUserFavoriteEntryMessage = proto.Message<
+	HydrationContent_MarketplaceAssetUserFavoriteEntry,
+	_HydrationContent_MarketplaceAssetUserFavoriteEntryPartialFields
+>
+
+type _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl = {
+	__index: _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl,
+	new: (
+		fields: _HydrationContent_MarketplaceBundleUserFavoriteEntryPartialFields?
+	) -> HydrationContent_MarketplaceBundleUserFavoriteEntry,
+	encode: (self: HydrationContent_MarketplaceBundleUserFavoriteEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_MarketplaceBundleUserFavoriteEntry,
+	jsonEncode: (self: HydrationContent_MarketplaceBundleUserFavoriteEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_MarketplaceBundleUserFavoriteEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_MarketplaceBundleUserFavoriteEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData?,
+}
+
+type _HydrationContent_MarketplaceBundleUserFavoriteEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData?,
+}
+
+export type HydrationContent_MarketplaceBundleUserFavoriteEntry = typeof(setmetatable(
+	{} :: _HydrationContent_MarketplaceBundleUserFavoriteEntryFields,
+	{} :: _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl
+))
+type _HydrationContent_MarketplaceBundleUserFavoriteEntryMessage = proto.Message<
+	HydrationContent_MarketplaceBundleUserFavoriteEntry,
+	_HydrationContent_MarketplaceBundleUserFavoriteEntryPartialFields
+>
+
+type _HydrationContent_BuyRobuxOneTimeProductEntryImpl = {
+	__index: _HydrationContent_BuyRobuxOneTimeProductEntryImpl,
+	new: (
+		fields: _HydrationContent_BuyRobuxOneTimeProductEntryPartialFields?
+	) -> HydrationContent_BuyRobuxOneTimeProductEntry,
+	encode: (self: HydrationContent_BuyRobuxOneTimeProductEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_BuyRobuxOneTimeProductEntry,
+	jsonEncode: (self: HydrationContent_BuyRobuxOneTimeProductEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_BuyRobuxOneTimeProductEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_BuyRobuxOneTimeProductEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData?,
+}
+
+type _HydrationContent_BuyRobuxOneTimeProductEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData?,
+}
+
+export type HydrationContent_BuyRobuxOneTimeProductEntry = typeof(setmetatable(
+	{} :: _HydrationContent_BuyRobuxOneTimeProductEntryFields,
+	{} :: _HydrationContent_BuyRobuxOneTimeProductEntryImpl
+))
+type _HydrationContent_BuyRobuxOneTimeProductEntryMessage = proto.Message<
+	HydrationContent_BuyRobuxOneTimeProductEntry,
+	_HydrationContent_BuyRobuxOneTimeProductEntryPartialFields
+>
+
+type _HydrationContent_BuyRobuxSubscriptionProductEntryImpl = {
+	__index: _HydrationContent_BuyRobuxSubscriptionProductEntryImpl,
+	new: (
+		fields: _HydrationContent_BuyRobuxSubscriptionProductEntryPartialFields?
+	) -> HydrationContent_BuyRobuxSubscriptionProductEntry,
+	encode: (self: HydrationContent_BuyRobuxSubscriptionProductEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_BuyRobuxSubscriptionProductEntry,
+	jsonEncode: (self: HydrationContent_BuyRobuxSubscriptionProductEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_BuyRobuxSubscriptionProductEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_BuyRobuxSubscriptionProductEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData?,
+}
+
+type _HydrationContent_BuyRobuxSubscriptionProductEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData?,
+}
+
+export type HydrationContent_BuyRobuxSubscriptionProductEntry = typeof(setmetatable(
+	{} :: _HydrationContent_BuyRobuxSubscriptionProductEntryFields,
+	{} :: _HydrationContent_BuyRobuxSubscriptionProductEntryImpl
+))
+type _HydrationContent_BuyRobuxSubscriptionProductEntryMessage = proto.Message<
+	HydrationContent_BuyRobuxSubscriptionProductEntry,
+	_HydrationContent_BuyRobuxSubscriptionProductEntryPartialFields
+>
+
+type _HydrationContent_BuyRobuxPendingTransferEntryImpl = {
+	__index: _HydrationContent_BuyRobuxPendingTransferEntryImpl,
+	new: (
+		fields: _HydrationContent_BuyRobuxPendingTransferEntryPartialFields?
+	) -> HydrationContent_BuyRobuxPendingTransferEntry,
+	encode: (self: HydrationContent_BuyRobuxPendingTransferEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_BuyRobuxPendingTransferEntry,
+	jsonEncode: (self: HydrationContent_BuyRobuxPendingTransferEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_BuyRobuxPendingTransferEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_BuyRobuxPendingTransferEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData?,
+}
+
+type _HydrationContent_BuyRobuxPendingTransferEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData?,
+}
+
+export type HydrationContent_BuyRobuxPendingTransferEntry = typeof(setmetatable(
+	{} :: _HydrationContent_BuyRobuxPendingTransferEntryFields,
+	{} :: _HydrationContent_BuyRobuxPendingTransferEntryImpl
+))
+type _HydrationContent_BuyRobuxPendingTransferEntryMessage = proto.Message<
+	HydrationContent_BuyRobuxPendingTransferEntry,
+	_HydrationContent_BuyRobuxPendingTransferEntryPartialFields
+>
+
+type _HydrationContent_BuyRobuxBonusItemEntryImpl = {
+	__index: _HydrationContent_BuyRobuxBonusItemEntryImpl,
+	new: (fields: _HydrationContent_BuyRobuxBonusItemEntryPartialFields?) -> HydrationContent_BuyRobuxBonusItemEntry,
+	encode: (self: HydrationContent_BuyRobuxBonusItemEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_BuyRobuxBonusItemEntry,
+	jsonEncode: (self: HydrationContent_BuyRobuxBonusItemEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_BuyRobuxBonusItemEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_BuyRobuxBonusItemEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData?,
+}
+
+type _HydrationContent_BuyRobuxBonusItemEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData?,
+}
+
+export type HydrationContent_BuyRobuxBonusItemEntry = typeof(setmetatable(
+	{} :: _HydrationContent_BuyRobuxBonusItemEntryFields,
+	{} :: _HydrationContent_BuyRobuxBonusItemEntryImpl
+))
+type _HydrationContent_BuyRobuxBonusItemEntryMessage = proto.Message<
+	HydrationContent_BuyRobuxBonusItemEntry,
+	_HydrationContent_BuyRobuxBonusItemEntryPartialFields
+>
+
+type _HydrationContent_UserLibrarySavedStateEntryImpl = {
+	__index: _HydrationContent_UserLibrarySavedStateEntryImpl,
+	new: (
+		fields: _HydrationContent_UserLibrarySavedStateEntryPartialFields?
+	) -> HydrationContent_UserLibrarySavedStateEntry,
+	encode: (self: HydrationContent_UserLibrarySavedStateEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UserLibrarySavedStateEntry,
+	jsonEncode: (self: HydrationContent_UserLibrarySavedStateEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UserLibrarySavedStateEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UserLibrarySavedStateEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData?,
+}
+
+type _HydrationContent_UserLibrarySavedStateEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData?,
+}
+
+export type HydrationContent_UserLibrarySavedStateEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UserLibrarySavedStateEntryFields,
+	{} :: _HydrationContent_UserLibrarySavedStateEntryImpl
+))
+type _HydrationContent_UserLibrarySavedStateEntryMessage = proto.Message<
+	HydrationContent_UserLibrarySavedStateEntry,
+	_HydrationContent_UserLibrarySavedStateEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -1203,6 +1476,27 @@ do
 			notification_badge = if data == nil or data.notification_badge == nil then {} else data.notification_badge,
 			collectible_item = if data == nil or data.collectible_item == nil then {} else data.collectible_item,
 			leaderboard_stats = if data == nil or data.leaderboard_stats == nil then {} else data.leaderboard_stats,
+			marketplace_asset_user_favorite = if data == nil or data.marketplace_asset_user_favorite == nil
+				then {}
+				else data.marketplace_asset_user_favorite,
+			marketplace_bundle_user_favorite = if data == nil or data.marketplace_bundle_user_favorite == nil
+				then {}
+				else data.marketplace_bundle_user_favorite,
+			buy_robux_one_time_product = if data == nil or data.buy_robux_one_time_product == nil
+				then {}
+				else data.buy_robux_one_time_product,
+			buy_robux_subscription_product = if data == nil or data.buy_robux_subscription_product == nil
+				then {}
+				else data.buy_robux_subscription_product,
+			buy_robux_pending_transfer = if data == nil or data.buy_robux_pending_transfer == nil
+				then {}
+				else data.buy_robux_pending_transfer,
+			buy_robux_bonus_item = if data == nil or data.buy_robux_bonus_item == nil
+				then {}
+				else data.buy_robux_bonus_item,
+			user_library_saved_state = if data == nil or data.user_library_saved_state == nil
+				then {}
+				else data.user_library_saved_state,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1647,6 +1941,104 @@ do
 			end
 		end
 
+		if self.marketplace_asset_user_favorite ~= nil and next(self.marketplace_asset_user_favorite) ~= nil then
+			for key, value in self.marketplace_asset_user_favorite do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.marketplace_bundle_user_favorite ~= nil and next(self.marketplace_bundle_user_favorite) ~= nil then
+			for key, value in self.marketplace_bundle_user_favorite do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.buy_robux_one_time_product ~= nil and next(self.buy_robux_one_time_product) ~= nil then
+			for key, value in self.buy_robux_one_time_product do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.buy_robux_subscription_product ~= nil and next(self.buy_robux_subscription_product) ~= nil then
+			for key, value in self.buy_robux_subscription_product do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 35, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.buy_robux_pending_transfer ~= nil and next(self.buy_robux_pending_transfer) ~= nil then
+			for key, value in self.buy_robux_pending_transfer do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 36, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.buy_robux_bonus_item ~= nil and next(self.buy_robux_bonus_item) ~= nil then
+			for key, value in self.buy_robux_bonus_item do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 37, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.user_library_saved_state ~= nil and next(self.user_library_saved_state) ~= nil then
+			for key, value in self.user_library_saved_state do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 38, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -2057,6 +2449,97 @@ do
 					self.leaderboard_stats[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MarketplaceAssetUserFavoriteEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.new()
+
+					self.marketplace_asset_user_favorite[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_MarketplaceBundleUserFavoriteEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.new()
+
+					self.marketplace_bundle_user_favorite[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 34 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_BuyRobuxOneTimeProductEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData.new()
+
+					self.buy_robux_one_time_product[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 35 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_BuyRobuxSubscriptionProductEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData.new()
+
+					self.buy_robux_subscription_product[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 36 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_BuyRobuxPendingTransferEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData.new()
+
+					self.buy_robux_pending_transfer[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 37 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_BuyRobuxBonusItemEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData.new()
+
+					self.buy_robux_bonus_item[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 38 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UserLibrarySavedStateEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData.new()
+
+					self.user_library_saved_state[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -2333,6 +2816,62 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.leaderboardStats = newOutput
+		end
+
+		if self.marketplace_asset_user_favorite ~= nil and next(self.marketplace_asset_user_favorite) ~= nil then
+			local newOutput = {}
+			for key, value in self.marketplace_asset_user_favorite do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.marketplaceAssetUserFavorite = newOutput
+		end
+
+		if self.marketplace_bundle_user_favorite ~= nil and next(self.marketplace_bundle_user_favorite) ~= nil then
+			local newOutput = {}
+			for key, value in self.marketplace_bundle_user_favorite do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.marketplaceBundleUserFavorite = newOutput
+		end
+
+		if self.buy_robux_one_time_product ~= nil and next(self.buy_robux_one_time_product) ~= nil then
+			local newOutput = {}
+			for key, value in self.buy_robux_one_time_product do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.buyRobuxOneTimeProduct = newOutput
+		end
+
+		if self.buy_robux_subscription_product ~= nil and next(self.buy_robux_subscription_product) ~= nil then
+			local newOutput = {}
+			for key, value in self.buy_robux_subscription_product do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.buyRobuxSubscriptionProduct = newOutput
+		end
+
+		if self.buy_robux_pending_transfer ~= nil and next(self.buy_robux_pending_transfer) ~= nil then
+			local newOutput = {}
+			for key, value in self.buy_robux_pending_transfer do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.buyRobuxPendingTransfer = newOutput
+		end
+
+		if self.buy_robux_bonus_item ~= nil and next(self.buy_robux_bonus_item) ~= nil then
+			local newOutput = {}
+			for key, value in self.buy_robux_bonus_item do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.buyRobuxBonusItem = newOutput
+		end
+
+		if self.user_library_saved_state ~= nil and next(self.user_library_saved_state) ~= nil then
+			local newOutput = {}
+			for key, value in self.user_library_saved_state do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.userLibrarySavedState = newOutput
 		end
 
 		return output
@@ -2974,6 +3513,200 @@ do
 			end
 
 			self.leaderboard_stats = newOutput
+		end
+
+		if input.marketplace_asset_user_favorite ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+			} =
+				{}
+			for key, value in input.marketplace_asset_user_favorite do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_asset_user_favorite = newOutput
+		end
+
+		if input.marketplaceAssetUserFavorite ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+			} =
+				{}
+			for key, value in input.marketplaceAssetUserFavorite do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_asset_user_favorite = newOutput
+		end
+
+		if input.marketplace_bundle_user_favorite ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+			} =
+				{}
+			for key, value in input.marketplace_bundle_user_favorite do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_bundle_user_favorite = newOutput
+		end
+
+		if input.marketplaceBundleUserFavorite ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData,
+			} =
+				{}
+			for key, value in input.marketplaceBundleUserFavorite do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.jsonDecode(
+						value
+					)
+			end
+
+			self.marketplace_bundle_user_favorite = newOutput
+		end
+
+		if input.buy_robux_one_time_product ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData } =
+				{}
+			for key, value in input.buy_robux_one_time_product do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_one_time_product = newOutput
+		end
+
+		if input.buyRobuxOneTimeProduct ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData } =
+				{}
+			for key, value in input.buyRobuxOneTimeProduct do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_one_time_product = newOutput
+		end
+
+		if input.buy_robux_subscription_product ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData } =
+				{}
+			for key, value in input.buy_robux_subscription_product do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_subscription_product = newOutput
+		end
+
+		if input.buyRobuxSubscriptionProduct ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData } =
+				{}
+			for key, value in input.buyRobuxSubscriptionProduct do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_subscription_product = newOutput
+		end
+
+		if input.buy_robux_pending_transfer ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData,
+			} =
+				{}
+			for key, value in input.buy_robux_pending_transfer do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_pending_transfer = newOutput
+		end
+
+		if input.buyRobuxPendingTransfer ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData,
+			} =
+				{}
+			for key, value in input.buyRobuxPendingTransfer do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_pending_transfer = newOutput
+		end
+
+		if input.buy_robux_bonus_item ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData } =
+				{}
+			for key, value in input.buy_robux_bonus_item do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_bonus_item = newOutput
+		end
+
+		if input.buyRobuxBonusItem ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData } =
+				{}
+			for key, value in input.buyRobuxBonusItem do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData.jsonDecode(
+						value
+					)
+			end
+
+			self.buy_robux_bonus_item = newOutput
+		end
+
+		if input.user_library_saved_state ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData } =
+				{}
+			for key, value in input.user_library_saved_state do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData.jsonDecode(
+						value
+					)
+			end
+
+			self.user_library_saved_state = newOutput
+		end
+
+		if input.userLibrarySavedState ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData } =
+				{}
+			for key, value in input.userLibrarySavedState do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData.jsonDecode(
+						value
+					)
+			end
+
+			self.user_library_saved_state = newOutput
 		end
 
 		return self
@@ -6878,6 +7611,946 @@ do
 	messages.HydrationContent_LeaderboardStatsEntry = _HydrationContent_LeaderboardStatsEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_LeaderboardStatsEntry)
+end
+
+do
+	local _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl = {}
+	_HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.__index =
+		_HydrationContent_MarketplaceAssetUserFavoriteEntryImpl
+
+	function _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.new(
+		data: _HydrationContent_MarketplaceAssetUserFavoriteEntryPartialFields?
+	): HydrationContent_MarketplaceAssetUserFavoriteEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_HydrationContent_MarketplaceAssetUserFavoriteEntryImpl :: _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl
+		)
+	end
+
+	function _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.encode(
+		self: HydrationContent_MarketplaceAssetUserFavoriteEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.decode(
+		input: buffer
+	): HydrationContent_MarketplaceAssetUserFavoriteEntry
+		local self = _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.jsonEncode(
+		self: HydrationContent_MarketplaceAssetUserFavoriteEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MarketplaceAssetUserFavoriteEntry
+		local self = _HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MarketplaceAssetUserFavoriteEntryImpl.descriptor = {
+		name = "HydrationContent_MarketplaceAssetUserFavoriteEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceAssetUserFavoriteEntry",
+	}
+
+	messages.HydrationContent_MarketplaceAssetUserFavoriteEntry =
+		_HydrationContent_MarketplaceAssetUserFavoriteEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MarketplaceAssetUserFavoriteEntry)
+end
+
+do
+	local _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl = {}
+	_HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.__index =
+		_HydrationContent_MarketplaceBundleUserFavoriteEntryImpl
+
+	function _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.new(
+		data: _HydrationContent_MarketplaceBundleUserFavoriteEntryPartialFields?
+	): HydrationContent_MarketplaceBundleUserFavoriteEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_HydrationContent_MarketplaceBundleUserFavoriteEntryImpl :: _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl
+		)
+	end
+
+	function _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.encode(
+		self: HydrationContent_MarketplaceBundleUserFavoriteEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.decode(
+		input: buffer
+	): HydrationContent_MarketplaceBundleUserFavoriteEntry
+		local self = _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.jsonEncode(
+		self: HydrationContent_MarketplaceBundleUserFavoriteEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_MarketplaceBundleUserFavoriteEntry
+		local self = _HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_item_user_favorite_data.MarketplaceItemUserFavoriteData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_MarketplaceBundleUserFavoriteEntryImpl.descriptor = {
+		name = "HydrationContent_MarketplaceBundleUserFavoriteEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceBundleUserFavoriteEntry",
+	}
+
+	messages.HydrationContent_MarketplaceBundleUserFavoriteEntry =
+		_HydrationContent_MarketplaceBundleUserFavoriteEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_MarketplaceBundleUserFavoriteEntry)
+end
+
+do
+	local _HydrationContent_BuyRobuxOneTimeProductEntryImpl = {}
+	_HydrationContent_BuyRobuxOneTimeProductEntryImpl.__index = _HydrationContent_BuyRobuxOneTimeProductEntryImpl
+
+	function _HydrationContent_BuyRobuxOneTimeProductEntryImpl.new(
+		data: _HydrationContent_BuyRobuxOneTimeProductEntryPartialFields?
+	): HydrationContent_BuyRobuxOneTimeProductEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_BuyRobuxOneTimeProductEntryImpl :: _HydrationContent_BuyRobuxOneTimeProductEntryImpl)
+	end
+
+	function _HydrationContent_BuyRobuxOneTimeProductEntryImpl.encode(
+		self: HydrationContent_BuyRobuxOneTimeProductEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_BuyRobuxOneTimeProductEntryImpl.decode(
+		input: buffer
+	): HydrationContent_BuyRobuxOneTimeProductEntry
+		local self = _HydrationContent_BuyRobuxOneTimeProductEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_BuyRobuxOneTimeProductEntryImpl.jsonEncode(
+		self: HydrationContent_BuyRobuxOneTimeProductEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_BuyRobuxOneTimeProductEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_BuyRobuxOneTimeProductEntry
+		local self = _HydrationContent_BuyRobuxOneTimeProductEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxOneTimeProductData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_BuyRobuxOneTimeProductEntryImpl.descriptor = {
+		name = "HydrationContent_BuyRobuxOneTimeProductEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxOneTimeProductEntry",
+	}
+
+	messages.HydrationContent_BuyRobuxOneTimeProductEntry = _HydrationContent_BuyRobuxOneTimeProductEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_BuyRobuxOneTimeProductEntry)
+end
+
+do
+	local _HydrationContent_BuyRobuxSubscriptionProductEntryImpl = {}
+	_HydrationContent_BuyRobuxSubscriptionProductEntryImpl.__index =
+		_HydrationContent_BuyRobuxSubscriptionProductEntryImpl
+
+	function _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.new(
+		data: _HydrationContent_BuyRobuxSubscriptionProductEntryPartialFields?
+	): HydrationContent_BuyRobuxSubscriptionProductEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_HydrationContent_BuyRobuxSubscriptionProductEntryImpl :: _HydrationContent_BuyRobuxSubscriptionProductEntryImpl
+		)
+	end
+
+	function _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.encode(
+		self: HydrationContent_BuyRobuxSubscriptionProductEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.decode(
+		input: buffer
+	): HydrationContent_BuyRobuxSubscriptionProductEntry
+		local self = _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.jsonEncode(
+		self: HydrationContent_BuyRobuxSubscriptionProductEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_BuyRobuxSubscriptionProductEntry
+		local self = _HydrationContent_BuyRobuxSubscriptionProductEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_buy_robux_product_data.BuyRobuxSubscriptionProductData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_BuyRobuxSubscriptionProductEntryImpl.descriptor = {
+		name = "HydrationContent_BuyRobuxSubscriptionProductEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxSubscriptionProductEntry",
+	}
+
+	messages.HydrationContent_BuyRobuxSubscriptionProductEntry =
+		_HydrationContent_BuyRobuxSubscriptionProductEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_BuyRobuxSubscriptionProductEntry)
+end
+
+do
+	local _HydrationContent_BuyRobuxPendingTransferEntryImpl = {}
+	_HydrationContent_BuyRobuxPendingTransferEntryImpl.__index = _HydrationContent_BuyRobuxPendingTransferEntryImpl
+
+	function _HydrationContent_BuyRobuxPendingTransferEntryImpl.new(
+		data: _HydrationContent_BuyRobuxPendingTransferEntryPartialFields?
+	): HydrationContent_BuyRobuxPendingTransferEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_BuyRobuxPendingTransferEntryImpl :: _HydrationContent_BuyRobuxPendingTransferEntryImpl)
+	end
+
+	function _HydrationContent_BuyRobuxPendingTransferEntryImpl.encode(
+		self: HydrationContent_BuyRobuxPendingTransferEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_BuyRobuxPendingTransferEntryImpl.decode(
+		input: buffer
+	): HydrationContent_BuyRobuxPendingTransferEntry
+		local self = _HydrationContent_BuyRobuxPendingTransferEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_BuyRobuxPendingTransferEntryImpl.jsonEncode(
+		self: HydrationContent_BuyRobuxPendingTransferEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_BuyRobuxPendingTransferEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_BuyRobuxPendingTransferEntry
+		local self = _HydrationContent_BuyRobuxPendingTransferEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_buy_robux_pending_transfer_data.BuyRobuxPendingTransferData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_BuyRobuxPendingTransferEntryImpl.descriptor = {
+		name = "HydrationContent_BuyRobuxPendingTransferEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxPendingTransferEntry",
+	}
+
+	messages.HydrationContent_BuyRobuxPendingTransferEntry = _HydrationContent_BuyRobuxPendingTransferEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_BuyRobuxPendingTransferEntry)
+end
+
+do
+	local _HydrationContent_BuyRobuxBonusItemEntryImpl = {}
+	_HydrationContent_BuyRobuxBonusItemEntryImpl.__index = _HydrationContent_BuyRobuxBonusItemEntryImpl
+
+	function _HydrationContent_BuyRobuxBonusItemEntryImpl.new(
+		data: _HydrationContent_BuyRobuxBonusItemEntryPartialFields?
+	): HydrationContent_BuyRobuxBonusItemEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_BuyRobuxBonusItemEntryImpl :: _HydrationContent_BuyRobuxBonusItemEntryImpl)
+	end
+
+	function _HydrationContent_BuyRobuxBonusItemEntryImpl.encode(self: HydrationContent_BuyRobuxBonusItemEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_BuyRobuxBonusItemEntryImpl.decode(input: buffer): HydrationContent_BuyRobuxBonusItemEntry
+		local self = _HydrationContent_BuyRobuxBonusItemEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_BuyRobuxBonusItemEntryImpl.jsonEncode(self: HydrationContent_BuyRobuxBonusItemEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_BuyRobuxBonusItemEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_BuyRobuxBonusItemEntry
+		local self = _HydrationContent_BuyRobuxBonusItemEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_buy_robux_bonus_item_data.BuyRobuxBonusItemData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_BuyRobuxBonusItemEntryImpl.descriptor = {
+		name = "HydrationContent_BuyRobuxBonusItemEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.BuyRobuxBonusItemEntry",
+	}
+
+	messages.HydrationContent_BuyRobuxBonusItemEntry = _HydrationContent_BuyRobuxBonusItemEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_BuyRobuxBonusItemEntry)
+end
+
+do
+	local _HydrationContent_UserLibrarySavedStateEntryImpl = {}
+	_HydrationContent_UserLibrarySavedStateEntryImpl.__index = _HydrationContent_UserLibrarySavedStateEntryImpl
+
+	function _HydrationContent_UserLibrarySavedStateEntryImpl.new(
+		data: _HydrationContent_UserLibrarySavedStateEntryPartialFields?
+	): HydrationContent_UserLibrarySavedStateEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_UserLibrarySavedStateEntryImpl :: _HydrationContent_UserLibrarySavedStateEntryImpl)
+	end
+
+	function _HydrationContent_UserLibrarySavedStateEntryImpl.encode(
+		self: HydrationContent_UserLibrarySavedStateEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UserLibrarySavedStateEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UserLibrarySavedStateEntry
+		local self = _HydrationContent_UserLibrarySavedStateEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UserLibrarySavedStateEntryImpl.jsonEncode(
+		self: HydrationContent_UserLibrarySavedStateEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UserLibrarySavedStateEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UserLibrarySavedStateEntry
+		local self = _HydrationContent_UserLibrarySavedStateEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UserLibrarySavedStateEntryImpl.descriptor = {
+		name = "HydrationContent_UserLibrarySavedStateEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserLibrarySavedStateEntry",
+	}
+
+	messages.HydrationContent_UserLibrarySavedStateEntry = _HydrationContent_UserLibrarySavedStateEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UserLibrarySavedStateEntry)
 end
 
 return {

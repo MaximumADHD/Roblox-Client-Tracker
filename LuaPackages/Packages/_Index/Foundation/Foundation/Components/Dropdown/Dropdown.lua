@@ -30,12 +30,19 @@ type BaseMenuItemGroup<Item> = BaseMenu.BaseMenuItemGroup<Item>
 export type LeadingAccessory = BaseMenu.LeadingAccessory
 export type TrailingAccessory = BaseMenu.TrailingAccessory
 export type DropdownItem = {
+	-- Stable identifier for this item.
 	id: ItemId,
+	-- Leading icon asset or BuilderIcons name.
 	icon: string?,
+	-- Accessory rendered before the item text.
 	leading: (string | LeadingAccessory)?,
+	-- Accessory rendered after the item text.
 	trailing: TrailingAccessory?,
+	-- When true, the item cannot be selected.
 	isDisabled: boolean?,
+	-- When true, the item renders as selected.
 	isChecked: boolean?,
+	-- Label shown for the item.
 	text: string,
 }
 export type DropdownItemGroup = BaseMenuItemGroup<DropdownItem>
@@ -45,8 +52,11 @@ export type DropdownProps = {
 	-- The value of the currently selected dropdown item.
 	-- If `nil`, the dropdown will be considered uncontrolled.
 	value: Types.ItemId?,
+	-- Text shown in the control when no value is selected.
 	placeholder: string?,
+	-- Menu items offered by the dropdown.
 	items: DropdownItems,
+	-- Called when the selected item changes.
 	onItemChanged: OnItemActivated,
 	-- Whether the dropdown is in an error state
 	hasError: boolean?,
@@ -58,7 +68,9 @@ export type DropdownProps = {
 	width: UDim?,
 	-- A label for the dropdown. To omit, set it to an empty string.
 	label: string,
+	-- Hint text below the control.
 	hint: string?,
+	-- Size of the dropdown control. Defaults to `InputSize.Medium`.
 	size: InputSize?,
 	-- Maximum height after which the menu starts scrolling
 	maxHeight: number?,
@@ -67,6 +79,7 @@ export type DropdownProps = {
 	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 	-- Selection behavior applied to the open menu's popover surface (focus trap configuration).
 	selection: Types.Selection?,
+	-- Gamepad selection group configuration for the open menu.
 	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
 } & Types.SelectionProps & Types.CommonProps
 

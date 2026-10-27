@@ -33,9 +33,13 @@ type Bindable<T> = Types.Bindable<T>
 export type AvatarProps = {
 	-- Roblox user id
 	userId: Bindable<number>,
+	-- Fill behind the headshot when the image has transparency.
 	backgroundStyle: Types.ColorStyle?,
+	-- Color of the circular backplate under the avatar.
 	backplateStyle: Types.ColorStyle?,
+	-- Diameter of the avatar. Defaults to `AvatarSize.Medium`.
 	size: AvatarSize?,
+	-- Presence indicator overlaid on the avatar. Defaults to `UserPresence.None`.
 	userPresence: UserPresence?,
 	-- When true, requests the thumbnail service to composite the user's
 	-- equipped profile frame into the headshot server-side.

@@ -2,6 +2,8 @@
 local CorePackages = game:GetService("CorePackages")
 local PlayersService = game:GetService("Players")
 local VoiceChatService = game:GetService("VoiceChatService")
+local Workspace = game:GetService("Workspace")
+local LocalizationService = game:GetService("LocalizationService")
 local Promise = require(CorePackages.Packages.Promise)
 local Roact = require(CorePackages.Packages.Roact)
 local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
@@ -11,7 +13,6 @@ local runService = game:GetService("RunService")
 local SoundService = game:GetService("SoundService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local NotificationService = game:GetService("NotificationService")
-local LocalizationService = game:GetService("LocalizationService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local AppStorageService = game:GetService("AppStorageService")
 local SocialUpsell = require(CorePackages.Workspace.Packages.SocialUpsell)
@@ -26,9 +27,11 @@ local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local GlobalVoiceManager = VoiceChat.GlobalVoiceManager.default
 local createVoiceRestrictionController = require(CorePackages.Workspace.Packages.VoiceChat.createVoiceRestrictionController)
-local showProactiveVoiceRestriction = require(script.Parent.Helpers.showProactiveVoiceRestriction)
+local showLegacyVoiceRestriction = require(script.Parent.Helpers.showLegacyVoiceRestriction)
 
-local FFlagProactiveVoiceRestrictionsUFR = require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagVoiceChatBanDurationUseServerTime = require(script.Parent.Flags.FFlagVoiceChatBanDurationUseServerTime)
+local FFlagProactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
 local FFlagProactiveVoiceRestrictionsUFRIXPExposure =
 	require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFRIXPExposure)
 
@@ -97,6 +100,8 @@ local GetFFlagShowDevicePermissionsModal =
 local FFlagEnableRetryForLinkingProtocolFetch =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableRetryForLinkingProtocolFetch
 local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV3", false)
+local FFlagEnableVoiceRewarmReArm = game:DefineFastFlag("EnableVoiceRewarmReArmV2", false)
+local FFlagVoiceRewarmGrafanaMetrics = require(script.Parent.Flags.FFlagVoiceRewarmGrafanaMetrics)
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 local FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast = 
@@ -152,7 +157,6 @@ local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagDisconnectToastClientRewrite =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
-local GetFFlagEnableVrVoiceParity = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVrVoiceParity
 
 local Analytics = VoiceChatCore.Analytics
 
@@ -306,6 +310,7 @@ local VoiceChatServiceManager = {
 	deniedMicPermissions = nil,
 	isInitialJoin = false,
 	joinVoiceButtonContext = nil,
+	hasReportedRewarmShown = false,
 	pendingConnectionSource = nil,
 	joinVoiceButtonConsequence = nil,
 	CaptureService = CaptureService,
@@ -443,13 +448,13 @@ function VoiceChatServiceManager.new(
 				local result = GetInformedOfBan(bind(self, "GetRequest"))
 				return if result then result.informedOfBan else nil
 			end,
-			showRestriction = function(settings, origin, isCurrent)
+			showLegacyRestriction = function(settings, trigger, isCurrent)
 				self.bannedUntil = settings.bannedUntil
 				self.banReason = settings.banReason
-				showProactiveVoiceRestriction({
+				showLegacyVoiceRestriction({
 					manager = self,
 					settings = settings,
-					origin = origin,
+					trigger = trigger,
 					isCurrent = isCurrent,
 				})
 			end,
@@ -611,6 +616,17 @@ function VoiceChatServiceManager.new(
 			end
 		end
 
+		-- Any join (auto-connect included) spends the rewarm, so a re-arm only reaches users who were
+		-- disconnected when FIntVoiceRewarmReArmCount was bumped.
+		if
+			FFlagShowJoinVoiceWhenDisconnected
+			and FFlagEnableVoiceRewarmReArm
+			and newState == (Enum :: any).VoiceChatState.Joined
+			and self:ShouldRewarmUser()
+		then
+			self:ConsumeVoiceRewarm()
+		end
+
 		if
 			newState == (Enum :: any).VoiceChatState.Joined
 			and self:GetVoiceJoinProgress() == VOICE_JOIN_PROGRESS.Idle
@@ -685,10 +701,10 @@ function VoiceChatServiceManager.new(
 			IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
 		end
 		if FFlagProactiveVoiceRestrictionsUFR then
-			showProactiveVoiceRestriction({
+			showLegacyVoiceRestriction({
 				manager = self,
 				settings = nil,
-				origin = "realtime",
+				trigger = "toxicityModal",
 				isCurrent = function()
 					return true
 				end,
@@ -1054,7 +1070,7 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 			IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
 		end
 		if FFlagProactiveVoiceRestrictionsUFR then
-			self.voiceRestrictionController.refresh("gameJoin", userSettings)
+			self.voiceRestrictionController.check("gameJoin", userSettings)
 			return
 		end
 
@@ -1218,6 +1234,14 @@ function VoiceChatServiceManager:SetVoiceRewarmCookie(value: string)
 	self.coreVoiceManager:SetVoiceRewarmCookie(value)
 end
 
+function VoiceChatServiceManager:ShouldRewarmUser(): boolean
+	return self.coreVoiceManager:ShouldRewarmUser()
+end
+
+function VoiceChatServiceManager:ConsumeVoiceRewarm()
+	self.coreVoiceManager:ConsumeVoiceRewarm()
+end
+
 function VoiceChatServiceManager:SetNewUserFTUXCookieValue(value: boolean): boolean
 	return self.coreVoiceManager:SetNewUserFTUXCookieValue(value)
 end
@@ -1227,7 +1251,7 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boole
 		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
 	end
 	if FFlagProactiveVoiceRestrictionsUFR then
-		self.voiceRestrictionController.refresh(if informedOfBan == nil then "realtime" else "gameJoin")
+		self.voiceRestrictionController.check("removedFromVoice")
 		return
 	end
 
@@ -1264,7 +1288,7 @@ function VoiceChatServiceManager:GetVoiceRestrictionState(scope)
 end
 
 function VoiceChatServiceManager:ShowVoiceRestriction()
-	self.voiceRestrictionController.refresh("mic")
+	self.voiceRestrictionController.check("micTap")
 end
 
 function VoiceChatServiceManager:CheckCallState()
@@ -1325,6 +1349,15 @@ function VoiceChatServiceManager:calculateBanDuration(startTimestamp: number, en
 	return math.ceil((endTimestamp - startTimestamp) / 60)
 end
 
+-- Return both the remaining minutes and the ban end timestamp in seconds.
+-- VoiceChatPromptFrame uses them to choose a countdown or format an end date.
+function VoiceChatServiceManager:getBanEnd(now: number, bannedUntilSeconds: number)
+	return {
+		minutes = self:calculateBanDuration(now, bannedUntilSeconds),
+		absoluteSeconds = bannedUntilSeconds,
+	}
+end
+
 function VoiceChatServiceManager:ShowVoiceUI()
 	self.voiceUIVisible = true
 	self.showVoiceUI:Fire()
@@ -1358,11 +1391,11 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 	if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() then 
 		isUpdatedBanModalB = isUpdatedBanModalB or promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryBV2 
 	end
-	local banEnd = ""
+	local banEnd = if FFlagVoiceChatBanDurationUseServerTime then nil else ""
 	if self.bannedUntil ~= nil then
-		if isUpdatedBanModalB then
-			-- We receive the date/time of the ban's end. For the updated Nudge v3 modal we need to show number of minutes the user is banned aka
-			-- the difference between the ban's end and the current time
+		if FFlagVoiceChatBanDurationUseServerTime then
+			banEnd = self:getBanEnd(Workspace:GetServerTimeNow(), self.bannedUntil.Seconds)
+		elseif isUpdatedBanModalB then
 			local banDuration = self:calculateBanDuration(DateTime.now().UnixTimestamp, self.bannedUntil.Seconds)
 			banEnd = tostring(banDuration)
 		else
@@ -1709,6 +1742,15 @@ function VoiceChatServiceManager:reportJoinVoiceUpsellEvent(eventType: "Shown" |
 	end
 end
 
+-- Called where the join voice icon becomes available
+function VoiceChatServiceManager:reportVoiceRewarmShown()
+	if self.joinVoiceButtonContext ~= JOIN_VOICE_BUTTON_CONTEXT.REWARM or self.hasReportedRewarmShown then
+		return
+	end
+	self.hasReportedRewarmShown = true
+	self.Analytics:reportVoiceRewarmShown(self:GetVoiceRewarmCookie() ~= "")
+end
+
 function VoiceChatServiceManager:SetAndSyncActive(device: AudioDeviceInput, newActive: boolean)
 	self.coreVoiceManager:SetAndSyncActive(device, newActive)
 end
@@ -1861,7 +1903,12 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		buttonContext = self.joinVoiceButtonContext
 		self.joinVoiceButtonContext = nil
 	end
-	if FFlagShowJoinVoiceWhenDisconnected then
+	-- Read before this click, or the join it triggers, consumes the cookie
+	local rewarmClickWasRearmed = nil
+	if FFlagVoiceRewarmGrafanaMetrics and buttonContext == JOIN_VOICE_BUTTON_CONTEXT.REWARM then
+		rewarmClickWasRearmed = self:GetVoiceRewarmCookie() ~= ""
+	end
+	if FFlagShowJoinVoiceWhenDisconnected and not FFlagEnableVoiceRewarmReArm then
 		log:debug("Consuming voice re-warm cookie on JoinVoice")
 		self:SetVoiceRewarmCookie("true")
 	end
@@ -1899,12 +1946,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.MIC_PERMISSION_PROMPT
 		end
-		-- M3: Mic permissions previously denied
-		if GetFFlagEnableVrVoiceParity() then
-			self:CheckAndShowPermissionPrompt()
-		else
-			self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
-		end
+		self:CheckAndShowPermissionPrompt()
 	elseif self:UserVoiceEnabled() then
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FIRST_JOIN_SESSION
@@ -1989,6 +2031,10 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self:reportJoinVoiceUpsellEvent("Click", buttonContext, buttonConsequence)
 	end
 
+	if FFlagVoiceRewarmGrafanaMetrics and rewarmClickWasRearmed ~= nil then
+		self.Analytics:reportVoiceRewarmClicked(rewarmClickWasRearmed, buttonConsequence)
+	end
+
 	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
 		task.spawn(function()
 			self.coreVoiceManager:PostUserVoiceConnectionStatus(true)
@@ -2027,7 +2073,7 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 			-- so we only need the connect cookie to confirm a prior voice session.
 			if
 				FFlagShowJoinVoiceWhenDisconnected
-				and self:GetVoiceRewarmCookie() == ""
+				and (if FFlagEnableVoiceRewarmReArm then self:ShouldRewarmUser() else self:GetVoiceRewarmCookie() == "")
 				and self:GetVoiceConnectCookie() == "false"
 				and self:UserVoiceEnabled()
 			then
@@ -2041,7 +2087,13 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 					self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
 					and (self:GetVoiceConnectCookie() == "")
 				)
-				or (FFlagShowJoinVoiceWhenDisconnected and self:GetVoiceRewarmCookie() == "" and self:VoiceChatEnded())
+				or (
+					FFlagShowJoinVoiceWhenDisconnected
+					and (if FFlagEnableVoiceRewarmReArm
+						then self:ShouldRewarmUser()
+						else self:GetVoiceRewarmCookie() == "")
+					and self:VoiceChatEnded()
+				)
 			then
 				return true
 			end
@@ -2349,11 +2401,6 @@ VoiceChatServiceManager.default = VoiceChatServiceManager.new(
 	PermissionsProtocol.default,
 	BlockingUtility:GetAfterBlockedStatusChangedEvent()
 )
-
-if game:DefineFastFlag("VoiceVolumeControlsEnablePerUserVolumeInteractionTelemetry", false) then
-	local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
-	PeopleService.getService("PerUserVoiceVolumeSessionLifecycle").ensureStarted()
-end
 
 export type VoiceChatServiceManager = typeof(VoiceChatServiceManager.default)
 

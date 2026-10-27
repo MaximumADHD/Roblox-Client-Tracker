@@ -23,7 +23,9 @@ local SIZE_TAG_BY_BREAKPOINT: { [Breakpoint]: string } = {
 }
 
 export type HeaderBarProps = {
+	-- When true, paints the header bar surface. Defaults to `true`.
 	hasBackground: boolean?,
+	-- HeaderBar.Leading, Content, Trailing, and Actions children.
 	children: React.ReactNode,
 } & Types.CommonProps
 

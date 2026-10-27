@@ -191,9 +191,9 @@ end
 
 -- very bloated right now and not final but get ControlModule values to send to server
 function InputReplication.writeInputToPCS(player: Player, controlModule, isServerAuthority: boolean)
-	local playerData
+	local data
 	if FFlagUserControlModuleEnabledAPI then
-		playerData = controlModule.playerData
+		data = controlModule.data
 	end
 
 	local character = player.Character
@@ -215,8 +215,8 @@ function InputReplication.writeInputToPCS(player: Player, controlModule, isServe
 	local worldMove 
 
 	if FFlagUserControlModuleEnabledAPI then
-		jumpBool = playerData.isJumping
-		worldMove = playerData.worldMoveVector
+		jumpBool = data.isJumping
+		worldMove = data.worldMoveVector
 	else
 		local characterContext = input and input:FindFirstChild("CharacterContext")
 		if not characterContext then return end

@@ -32,7 +32,9 @@ type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 local useTabVariants = require(script.Parent.useTabItemVariants)
 
 export type TabItemIcon = {
+	-- BuilderIcons name or asset path.
 	name: string,
+	-- BuilderIcons weight.
 	variant: IconVariant?,
 }
 
@@ -44,10 +46,15 @@ type TabItemIndicator = {
 }
 
 export type TabItem = {
+	-- Stable identifier for this tab.
 	id: Types.ItemId,
+	-- Label shown on the tab.
 	text: string,
+	-- Optional leading icon for the tab.
 	icon: (string | TabItemIcon)?,
+	-- Optional status indicator overlaid on the tab.
 	indicator: TabItemIndicator?,
+	-- When true, the tab cannot be activated.
 	isDisabled: boolean?,
 	-- Could be defined in the Tabs, since it's needed only there, but intersection types are hell with curent solver.
 	content: React.ReactNode?,
@@ -56,10 +63,15 @@ export type TabItem = {
 }
 
 export type TabItemProps = TabItem & {
+	-- Whether this tab is the selected tab.
 	isActive: boolean,
+	-- Called with this tab's id when it is activated.
 	onActivated: (id: Types.ItemId) -> (),
+	-- Size of the tab, inherited from Tabs.
 	size: InputSize,
+	-- Whether the tab grows to fill the bar, inherited from Tabs.
 	fillBehavior: FillBehavior,
+	-- Test id for this tab.
 	testId: string?,
 }
 

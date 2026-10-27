@@ -20,14 +20,15 @@ export type DateTimePickerProps = {
 	label: string,
 	-- On input text change. dateTimes are nil if not valid DateTimes. endDateTime is the end date if variant is Dual
 	onChanged: (startDateTime: DateTime?, endDateTime: DateTime?) -> (),
-	-- Placeholder shown when the input is empty. Beta only; ignored when FoundationDateTimePickerBetaUpdate is off.
+	-- Placeholder shown when the input is empty.
 	placeholder: string?,
-	-- Month/year the calendar opens to when nothing is selected. Beta only.
+	-- Month/year the calendar opens to when nothing is selected.
 	referenceDate: DateTime?,
 	-- Selectable date range (inclusive). Note, these dates will be rounded to the start of the day for date-only comparison
 	selectableDateRange: DateTimeUtilities.DateRange?,
-	-- Selection behavior
+	-- Gamepad focus configuration between the picker surface and neighboring UI elements.
 	selection: Types.Selection?,
+	-- Gamepad focus grouping and directional navigation between the picker and its neighbors.
 	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
 	-- Variant of the date time picker
 	variant: DateTimePickerVariantEnum.DateTimePickerVariant?,

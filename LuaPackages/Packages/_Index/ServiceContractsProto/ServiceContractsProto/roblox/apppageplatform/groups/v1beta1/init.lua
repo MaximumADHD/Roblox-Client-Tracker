@@ -6,12 +6,16 @@ export type Message<T, Fields> = proto.Package<T, Fields>
 export type CustomJson<T, Json> = proto.CustomJson<T, Json>
 export type TypeRegistry = proto.TypeRegistry
 
+local group_overview_page = require(script.group_overview_page)
 local group_peek_page = require(script.group_peek_page)
 
 -- Exported types
+export type GroupOverviewPageRequest = group_overview_page.GroupOverviewPageRequest
+export type GroupOverviewPageResponse = group_overview_page.GroupOverviewPageResponse
 export type GroupPeekPageRequest = group_peek_page.GroupPeekPageRequest
 export type GroupPeekPageResponse = group_peek_page.GroupPeekPageResponse
 
 return {
+	group_overview_page = group_overview_page,
 	group_peek_page = group_peek_page,
 }

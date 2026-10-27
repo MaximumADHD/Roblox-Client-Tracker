@@ -13,6 +13,7 @@ local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDia
 local useDialog = require(script.Parent.Parent.useDialog)
 
 export type DialogContentProps = {
+	-- Body content of the dialog.
 	children: React.ReactNode,
 } & Types.CommonProps & Types.SelectionProps
 

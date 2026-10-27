@@ -17,9 +17,13 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 export type InputChipProps = {
+	-- Label shown on the chip.
 	text: string,
+	-- Called when the close affordance is activated.
 	onClose: () -> (),
+	-- Size of the chip. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- When true, the chip does not accept input. Defaults to `false`.
 	isDisabled: boolean?,
 } & Types.CommonProps
 

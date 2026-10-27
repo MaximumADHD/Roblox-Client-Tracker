@@ -21,11 +21,17 @@ type ColorStyle = Types.ColorStyle
 type ScaleType = Bindable<Enum.ScaleType>
 
 export type DialogHeroMediaProps = {
+	-- Image asset URI for the hero media.
 	media: Bindable<string>,
+	-- Tint applied to the media image.
 	mediaStyle: ColorStyle?,
+	-- Fill behind the media.
 	backgroundStyle: ColorStyle?,
+	-- Height of the hero media. Defaults to `UDim.new(1, 0)`.
 	height: UDim?,
+	-- Aspect ratio of the hero media frame.
 	aspectRatio: AspectRatio?,
+	-- How the media scales within its bounds.
 	scaleType: ScaleType?,
 }
 

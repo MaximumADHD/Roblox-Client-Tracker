@@ -50,19 +50,25 @@ local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 
 export type IconButtonProps = {
+	-- Called when the icon button is activated.
 	onActivated: () -> (),
+	-- When true, the button does not accept input. Defaults to `false`.
 	isDisabled: boolean?,
+	-- When true, the hit target is circular. Defaults to `false`.
 	isCircular: boolean?,
-	-- Size of IconButton. `IconSize` is deprecated - use `InputSize`.
-	-- `Large` and `XLarge` `IconSize`s map to `InputSize.Large` and are not supported.
+	-- Size of IconButton. Prefer `InputSize`; `IconSize` is deprecated (`Large`/`XLarge` map to `InputSize.Large`). Defaults to `InputSize.Medium`.
 	size: (InputSize | IconSize)?,
 	-- **DEPRECATED**: Sets a custom width. Prefer wrapping in a fixed-width container and using `fillBehavior = Fill` instead. Still accepted.
 	width: UDim?,
 	-- **DEPRECATED**: Controls how the IconButton fills space in a layout. Prefer wrapping in a fixed-width container instead. Still accepted.
 	fillBehavior: FillBehavior?,
+	-- Visual style of the button. Defaults to `ButtonVariant.Utility`.
 	variant: SupportedIconButtonVariant?,
+	-- BuilderIcons name or icon config rendered in the button.
 	icon: string | {
+		-- BuilderIcons name.
 		name: string,
+		-- BuilderIcons weight.
 		variant: BuilderIcons.IconVariant?,
 	},
 } & Types.SelectionProps & Types.CommonProps

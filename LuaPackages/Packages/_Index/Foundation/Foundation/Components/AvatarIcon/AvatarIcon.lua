@@ -23,9 +23,13 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 type Bindable<T> = Types.Bindable<T>
 
 export type AvatarIconProps = {
+	-- Roblox user id
 	userId: Bindable<number>,
+	-- Fill behind the headshot when the image has transparency.
 	backgroundStyle: Types.ColorStyle?,
+	-- Color of the circular backplate under the avatar icon.
 	backplateStyle: Types.ColorStyle?,
+	-- Diameter of the avatar icon. Defaults to `AvatarIconSize.Medium`.
 	size: AvatarIconSize?,
 } & Types.CommonProps
 

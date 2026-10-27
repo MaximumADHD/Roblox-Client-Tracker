@@ -28,11 +28,10 @@ type PlayerModuleInternalType = {
 	-- stop the camera and controls
 	stop: (PlayerModuleInternalType) -> (),
 
-	-- holds player specific data controlled by this module, not the data for all players
 	data : PlayerModuleInternalData,
 }
 
-export type PlayerData = {
+export type PlayerModuleInternalData = {
 	-- the public API for this player's controls
 	playerModule : PlayerModule.PlayerModule,
 
@@ -49,12 +48,6 @@ export type PlayerData = {
 	player : Player?,
 	-- reference to the player's character, if it exists
 	character : Model?,
-}
-
-export type PlayerModuleInternalData = {
-	-- data for players currently being controlled by this module, not all players in the game.
-	-- TODO : this should hold more than one Player (the LocalPlayer)
-	playerData : { [Player] : PlayerData },
 
 	-- holds the connects to major Roblox services
 	connectionUtil: any, -- ConnectionUtil.ConnectionUtilType
@@ -70,7 +63,13 @@ PlayerModuleInternal.__index = PlayerModuleInternal
 function PlayerModuleInternal.new()
 	local self = setmetatable({
 		data = {
-			playerData = {},
+			playerModule = PlayerModule,
+			isJumping = false,
+			moveVector = Vector2.new(),
+			worldMoveVector = Vector3.new(),
+			actions = {},
+			player = nil,
+			character = nil,
 			connectionUtil = ConnectionUtil.new(),
 			eventBus = EventBus.new(),
 			isServerAuthority = false
@@ -83,30 +82,19 @@ end
 function PlayerModuleInternal:start()
 	-- actually start when the localplayer is valid
 	self.data.connectionUtil:trackConnection(CONNECTIONS.ONLOCALPLAYER, CharacterUtil.onLocalPlayer(function(player)
-		-- initialize playerData
-		self.data.playerData[player] = {
-			playerModule = PlayerModule,
-			isJumping = false,
-			moveVector = Vector2.new(),
-			worldMoveVector = Vector3.new(),
-			actions = {},
-			player = player,
-			character = nil,
-		}
+		self.data.player = player
 
 		ServerAuthority.initialize(self.data)
-		ControlModule:initialize(self.data, self.data.playerData[player])
+		ControlModule:initialize(self.data)
 
 		-- connect controlModule to update loop
 		RunService:BindToRenderStep(CONNECTIONS.RENDERSTEPPED_INPUT, Enum.RenderPriority.Input.Value, function(dt)
-			for _, playerData in pairs(self.data.playerData) do
-				playerData.character = CharacterUtil.getCharacter() -- this is only valid in the local client world
-				if not playerData.character then
-					return
-				end
-
-				ControlModule:Update(self.data, playerData, dt)
+			self.data.character = CharacterUtil.getCharacter() -- this is only valid in the local client world
+			if not self.data.character then
+				return
 			end
+
+			ControlModule:Update(self.data, dt)
 		end)
 		self.data.connectionUtil:trackBoundFunction(CONNECTIONS.RENDERSTEPPED_INPUT, function()
 			RunService:UnbindFromRenderStep(CONNECTIONS.RENDERSTEPPED_INPUT)
@@ -114,9 +102,7 @@ function PlayerModuleInternal:start()
 
 		-- connect cameraModule to update loop
 		RunService:BindToRenderStep(CONNECTIONS.RENDERSTEPPED_CAMERA, Enum.RenderPriority.Camera.Value, function(dt)
-			for _, playerData in pairs(self.data.playerData) do
-				CameraModule:Update(playerData, dt)
-			end
+			CameraModule:Update(self.data, dt)
 		end)
 		self.data.connectionUtil:trackBoundFunction(CONNECTIONS.RENDERSTEPPED_CAMERA, function()
 			RunService:UnbindFromRenderStep(CONNECTIONS.RENDERSTEPPED_CAMERA)

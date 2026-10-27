@@ -5,8 +5,7 @@ local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local CallPip = require(CorePackages.Workspace.Packages.FriendsCalling.CallPip)
 local CallPipDisplayOrder = require(CorePackages.Workspace.Packages.FriendsCalling.CallPipDisplayOrder)
-local FFlagFriendsCallingCallPip =
-	require(CorePackages.Workspace.Packages.FriendsCalling.FFlagFriendsCallingCallPip)
+local FFlagFriendsCallingCallPip = require(CorePackages.Workspace.Packages.FriendsCalling.FFlagFriendsCallingCallPip)
 local VoiceCallReceivedEventReceiver =
 	require(CorePackages.Workspace.Packages.FriendsCalling.VoiceCallReceivedEventReceiver)
 
@@ -23,10 +22,25 @@ local IN_EXPERIENCE_HOST = {
 	screenInsets = Enum.ScreenInsets.None,
 }
 
+-- Placeholder for now, the real call data is tracked in https://roblox.atlassian.net/browse/COEXP-3588.
+local PLACEHOLDER_PARTICIPANT = {
+	userId = 0,
+	name = "Name",
+	statusText = "Ringing",
+	isMuted = false,
+	isSpeaking = false,
+	isDimmed = true,
+	showStatusAnimation = true,
+}
+
 local root = ReactRoblox.createRoot(folder)
 root:render(React.createElement(React.Fragment, nil, {
 	CallPip = if FFlagFriendsCallingCallPip
-		then React.createElement(CallPip, { host = IN_EXPERIENCE_HOST })
+		then React.createElement(CallPip, {
+			host = IN_EXPERIENCE_HOST,
+			participant = PLACEHOLDER_PARTICIPANT,
+			isMicrophoneMuted = false,
+		})
 		else nil,
 	VoiceCallReceivedEventReceiver = React.createElement(VoiceCallReceivedEventReceiver),
 }))

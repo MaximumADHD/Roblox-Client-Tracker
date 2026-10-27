@@ -26,16 +26,26 @@ type Bindable<T> = Types.Bindable<T>
 local FontScales = require(script.Parent.FontScales)
 
 export type TextProps = {
+	-- Foreground color of the text.
 	textStyle: ColorStyle?,
+	-- Font face and size configuration.
 	fontStyle: FontStyle?,
 
+	-- **Engine**: When true, interprets `Text` as rich text markup.
 	RichText: Bindable<boolean>?,
+	-- **Engine**: String content to display.
 	Text: Bindable<string>?,
+	-- **Engine**: Preferred reading direction for the text.
 	TextDirection: Bindable<Enum.TextDirection>?,
+	-- **Engine**: When true, scales text to fit the bounds.
 	TextScaled: Bindable<boolean>?,
+	-- **Engine**: Truncation mode when text overflows.
 	TextTruncate: Bindable<Enum.TextTruncate>?,
+	-- **Engine**: When true, wraps text onto multiple lines.
 	TextWrapped: Bindable<boolean>?,
+	-- **Engine**: Horizontal alignment within the text bounds.
 	TextXAlignment: Bindable<Enum.TextXAlignment>?,
+	-- **Engine**: Vertical alignment within the text bounds.
 	TextYAlignment: Bindable<Enum.TextYAlignment>?,
 } & Types.GuiObjectProps & Types.CommonProps
 

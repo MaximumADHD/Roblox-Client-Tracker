@@ -10,7 +10,9 @@ local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDia
 local useDialog = require(script.Parent.Parent.useDialog)
 
 export type DialogTextProps = {
+	-- Body text. Drawn with dialog content typography, and rich text is always enabled.
 	Text: Types.Bindable<string>?,
+	-- **Engine**: Order of this text among dialog content siblings.
 	LayoutOrder: Types.Bindable<number>?,
 }
 

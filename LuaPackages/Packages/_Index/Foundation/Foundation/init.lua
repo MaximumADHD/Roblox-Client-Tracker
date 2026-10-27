@@ -112,6 +112,7 @@ local StatusBadgeVariant = require(script.Enums.StatusBadgeVariant)
 local StatusIndicatorShape = require(script.Enums.StatusIndicatorShape)
 local StatusIndicatorSize = require(script.Enums.StatusIndicatorSize)
 local StatusIndicatorVariant = require(script.Enums.StatusIndicatorVariant)
+local TextOverflow = require(script.Enums.TextOverflow)
 -- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 local Theme = require(script.Enums.Theme)
 local ThemeName = require(script.Enums.ThemeName)
@@ -194,6 +195,7 @@ export type StatusBadgeVariant = StatusBadgeVariant.StatusBadgeVariant
 export type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
 export type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 export type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
+export type TextOverflow = TextOverflow.TextOverflow
 -- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 export type Theme = Theme.Theme
 export type ThemeName = ThemeName.ThemeName
@@ -649,6 +651,7 @@ local Foundation = strict({
 		StatusIndicatorShape = StatusIndicatorShape,
 		StatusIndicatorSize = StatusIndicatorSize,
 		StatusIndicatorVariant = StatusIndicatorVariant,
+		TextOverflow = TextOverflow,
 		-- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 		Theme = Theme,
 		ThemeName = ThemeName,

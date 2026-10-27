@@ -22,15 +22,22 @@ local getAvatarSize = require(Foundation.Components.Avatar.getAvatarSize)
 
 type Bindable<T> = Types.Bindable<T>
 export type AvatarGroupItem = {
+	-- Roblox user id for this avatar.
 	userId: Bindable<number>,
+	-- Presence indicator for this avatar.
 	userPresence: UserPresence?,
 }
 
 export type AvatarGroupProps = {
+	-- Layout style of the overlapping avatars. Defaults to `AvatarGroupType.Spread`.
 	type: AvatarGroupType?,
+	-- Maximum avatars shown before overflow. Defaults to unlimited.
 	max: number?,
+	-- Size of each avatar. Defaults to `InputSize.Medium`.
 	size: InputSize?,
+	-- Color of the circular backplate under each avatar.
 	backplateStyle: Types.ColorStyle?,
+	-- Avatars to render, as items or bare user ids.
 	avatars: { AvatarGroupItem | number },
 } & Types.CommonProps
 

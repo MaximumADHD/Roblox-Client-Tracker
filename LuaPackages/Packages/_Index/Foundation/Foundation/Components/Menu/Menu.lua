@@ -53,6 +53,7 @@ export type MenuProps = {
 	children: React.ReactNode?,
 	-- Selection behavior
 	selection: Types.Selection?,
+	-- Gamepad selection group configuration for the menu surface.
 	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
 } & Types.CommonProps
 

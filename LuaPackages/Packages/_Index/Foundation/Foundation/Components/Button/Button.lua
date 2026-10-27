@@ -71,19 +71,26 @@ local function getTransparency(
 end
 
 export type ButtonProps = {
+	-- Label shown on the button. Omit for an icon-only button.
 	text: string?,
+	-- BuilderIcons name rendered beside the label, or alone when `text` is omitted.
 	icon: string?,
+	-- Called when the button is activated.
 	onActivated: () -> (),
+	-- When true, the button does not accept input. Defaults to `false`.
 	isDisabled: boolean?,
+	-- When true, shows a spinner and blocks activation. Defaults to `false`.
 	isLoading: boolean?,
-	-- Officially supported variants are `Standard`, `Emphasis`, `SoftEmphasis`, `Alert` and `Utility`
+	-- Officially supported variants are `Standard`, `Emphasis`, `SoftEmphasis`, `Alert` and `Utility`. Defaults to `ButtonVariant.Standard`.
 	variant: SupportedButtonVariant?,
+	-- Size of the button. Defaults to `InputSize.Medium`.
 	size: InputSize?,
 	-- Width of the button. `fillBehavior` is preferred and works better with flex layouts. Intended for cross-directional scaled sizing.
 	width: UDim?,
+	-- How the button sizes along its parent's main axis in a flex layout.
 	fillBehavior: FillBehavior?,
 	-- The delay in seconds before the button is enabled.
-	-- This will only visually show on buttons whose variants use a filled background.
+	-- This will only visually show on buttons whose variants use a filled background. Defaults to `0`.
 	inputDelay: number?,
 } & Types.SelectionProps & Types.CommonProps
 

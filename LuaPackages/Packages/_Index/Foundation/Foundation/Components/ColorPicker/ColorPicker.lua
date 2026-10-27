@@ -20,14 +20,22 @@ type CommonProps = Types.CommonProps
 type PartialColorHSV = Types.PartialColorHSV
 
 export type ColorPickerProps = {
+	-- Starting color as Color3 or partial HSV.
 	initialColor: Color3? | PartialColorHSV?,
+	-- Starting alpha in `0`–`1`. Defaults to `1`.
 	initialAlpha: number?,
+	-- Called whenever the selected color changes.
 	onColorChanged: (newColor: Color3, brickColor: BrickColor?) -> (),
+	-- Called whenever the alpha slider changes. Omit to hide alpha controls.
 	onAlphaChanged: ((newAlpha: number) -> ())?,
+	-- Called when a drag interaction on a picker surface starts.
 	onDragStarted: (() -> ())?,
+	-- Called when a drag interaction on a picker surface ends.
 	onDragEnded: (() -> ())?,
+	-- Input modes offered in the mode switcher.
 	availableModes: { ColorInputMode }?,
 
+	-- Initially selected input mode. Defaults to `ColorInputMode.RGB`.
 	initialMode: ColorInputMode?,
 } & CommonProps
 

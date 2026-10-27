@@ -33,6 +33,7 @@ local SetFeedbackReason = require(FeedbackModule.Actions.SetFeedbackReason)
 local TextEntryField = require(FeedbackModule.Components.TextEntryField)
 local ModalDialog = require(FeedbackModule.Components.ModalDialog)
 local ThemedTextLabel = require(FeedbackModule.Components.PortedComponents.ThemedTextLabel)
+local buildImageFeedbackFields = require(FeedbackModule.Components.buildImageFeedbackFields)
 
 -- Localizations
 local withLocalization = require(CorePackages.Workspace.Packages.Localization).withLocalization
@@ -239,20 +240,24 @@ function FeedbackReportDialog:init()
 		local feedbackIdentifier = self.state.feedbackIdentifier
 
 		if GetFFlagEnableSendImageFeedbackToBackend() and self.state.shouldDisplayFeedbackImage then
-			local assetId = string.match(self.state.feedbackImageUri, "rbxassetid://(%d+)")
+			-- identifier = "universeId#sourceAssetId#sourceVersion", source = "sourceAssetId#sourceVersion",
+			-- translation = "translatedAssetId#translatedVersion" (engine-populated Localized*Content); versions "" when bare.
+			local fields = buildImageFeedbackFields(
+				game.GameId,
+				self.state.feedbackImageUri,
+				self.state.feedbackTranslatedImageUri
+			)
 
-			if not assetId then
+			if not fields then
 				self.props.setFeedbackFlowState(Constants.State.Default)
 				self.resetLocalState()
 				return
 			end
 
-			feedbackOriginalText = assetId -- feedbackOriginalText is set to the assetId of the source image
+			feedbackOriginalText = fields.source
 			contentType = Constants.ContentType.Image
-			-- Parity with Creator Hub: identify the target as "gameId:sourceAssetId" and report the
-			-- translated asset the player actually saw (from the engine-populated Localized*Content).
-			feedbackIdentifier = game.GameId .. ":" .. assetId
-			feedbackContent = string.match(self.state.feedbackTranslatedImageUri or "", "rbxassetid://(%d+)") or ""
+			feedbackIdentifier = fields.identifier
+			feedbackContent = fields.translation
 		end
 
 		self.props.sendFeedback(

@@ -24,10 +24,15 @@ type ChipSize = ChipSize.ChipSize
 type RatingValue = RatingValue.RatingValue
 
 export type RatingProps = {
+	-- Prompt or question shown beside the thumbs.
 	text: string,
+	-- Size of the rating control. Defaults to `ChipSize.Medium`.
 	size: ChipSize?,
+	-- Current selection. Defaults to `RatingValue.None`.
 	value: RatingValue,
+	-- Called when the thumbs-up control is activated.
 	onThumbUp: () -> (),
+	-- Called when the thumbs-down control is activated.
 	onThumbDown: () -> (),
 } & Types.SelectionProps & Types.CommonProps
 

@@ -36,12 +36,14 @@ type _MarketplaceItemDetailsPageRequestFields = {
 	item_id: string,
 	item_type: string,
 	screen_size: string,
+	entry_context: string?,
 }
 
 type _MarketplaceItemDetailsPageRequestPartialFields = {
 	item_id: string?,
 	item_type: string?,
 	screen_size: string?,
+	entry_context: string?,
 }
 
 export type MarketplaceItemDetailsPageRequest = typeof(setmetatable(
@@ -159,6 +161,7 @@ do
 			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
 			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
 			screen_size = if data == nil or data.screen_size == nil then "" else data.screen_size,
+			entry_context = if data == nil or data.entry_context == nil then nil else data.entry_context,
 		}, _MarketplaceItemDetailsPageRequestImpl :: _MarketplaceItemDetailsPageRequestImpl)
 	end
 
@@ -179,6 +182,11 @@ do
 		if self.screen_size ~= nil and self.screen_size ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.screen_size)
+		end
+
+		if self.entry_context ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.entry_context)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -214,6 +222,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.screen_size = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entry_context = buffer.tostring(value)
 					continue
 				end
 
@@ -254,6 +267,10 @@ do
 			output.screenSize = self.screen_size
 		end
 
+		if self.entry_context ~= nil then
+			output.entryContext = self.entry_context
+		end
+
 		return output
 	end
 
@@ -284,6 +301,14 @@ do
 
 		if input.screenSize ~= nil then
 			self.screen_size = input.screenSize
+		end
+
+		if input.entry_context ~= nil then
+			self.entry_context = input.entry_context
+		end
+
+		if input.entryContext ~= nil then
+			self.entry_context = input.entryContext
 		end
 
 		return self

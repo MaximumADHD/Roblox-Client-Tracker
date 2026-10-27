@@ -28,35 +28,53 @@ export type BannerThumbnail = Thumbnail.BannerThumbnail
 
 -- End image. A string uses the default width. A table can set width.
 export type BannerMedia = string | {
+	-- Image asset or Foundation image key.
 	image: string,
+	-- End-image width in pixels. Defaults to the card end width (136) when omitted.
 	width: number?,
 }
 
 type BannerSharedProps = {
+	-- Padding density of the banner card. Defaults to `CardDensity.Default`.
 	density: BannerDensity?,
+	-- Primary heading of the banner.
 	title: string?,
+	-- Supporting copy under the title.
 	description: string?,
 } & Types.CommonProps
 
 export type MediumBannerProps = BannerSharedProps & {
+	-- Medium banner size. Defaults to `BannerSize.Medium`.
 	size: typeof(BannerSize.Medium)?,
+	-- End media image for the medium banner.
 	media: BannerMedia?,
+	-- Optional primary and secondary actions.
 	actions: {
+		-- Primary action. Activates the banner.
 		primary: {
+			-- Called when the primary action is activated.
 			onActivated: () -> (),
 		}?,
+		-- Optional secondary button.
 		secondary: {
+			-- Label shown on the secondary button.
 			text: string,
+			-- Called when the secondary action is activated.
 			onActivated: () -> (),
 		}?,
 	}?,
 }
 
 export type SmallBannerProps = BannerSharedProps & {
+	-- Discriminator for the small banner size.
 	size: typeof(BannerSize.Small),
+	-- Leading thumbnail for the small banner.
 	thumbnail: BannerThumbnail?,
+	-- Optional primary action.
 	actions: {
+		-- Primary action. Activates the banner.
 		primary: {
+			-- Called when the primary action is activated.
 			onActivated: () -> (),
 		}?,
 	}?,

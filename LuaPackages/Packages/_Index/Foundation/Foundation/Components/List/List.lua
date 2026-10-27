@@ -19,7 +19,9 @@ export type ListProps = {
 	hasDivider: (boolean | { hasDivider: true, isInset: boolean })?,
 	-- Whether the list should have a border, default is false. Can also be an object to specify margin.
 	isContained: (boolean | { isContained: false, hasMargin: boolean? })?,
+	-- Size cascaded to list items. Defaults to unset so items use their own size.
 	size: InputSize?,
+	-- List.Item children that make up the rows.
 	children: React.ReactNode?,
 } & Types.CommonProps
 

@@ -6,12 +6,12 @@ export type Message<T, Fields> = proto.Package<T, Fields>
 export type CustomJson<T, Json> = proto.CustomJson<T, Json>
 export type TypeRegistry = proto.TypeRegistry
 
-local experience_leaderboard_see_all = require(script.experience_leaderboard_see_all)
+local see_all = require(script.see_all)
 
 -- Exported types
-export type ExperienceLeaderboardSeeAllRequest = experience_leaderboard_see_all.ExperienceLeaderboardSeeAllRequest
-export type ExperienceLeaderboardSeeAllResponse = experience_leaderboard_see_all.ExperienceLeaderboardSeeAllResponse
+export type ExperienceLeaderboardSeeAllRequest = see_all.ExperienceLeaderboardSeeAllRequest
+export type ExperienceLeaderboardSeeAllResponse = see_all.ExperienceLeaderboardSeeAllResponse
 
 return {
-	experience_leaderboard_see_all = experience_leaderboard_see_all,
+	see_all = see_all,
 }

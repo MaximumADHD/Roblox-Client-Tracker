@@ -6,7 +6,6 @@ local ReactUtils = require(Packages.ReactUtils)
 local useClock = ReactUtils.useClock
 
 local Components = Foundation.Components
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Components.Types)
 local View = require(Components.View)
 type Bindable<T> = Types.Bindable<T>
@@ -27,7 +26,9 @@ local GRADIENT_OFFSET = 3
 local ANIMATION_SPEED = 2
 
 export type SkeletonProps = {
+	-- Corner radius of the placeholder block. Defaults to `Radius.None`.
 	radius: Radius?,
+	-- **Engine**: Size of the placeholder. Defaults to fill its parent (`UDim2.fromScale(1, 1)`).
 	Size: Bindable<UDim2>?,
 } & Types.CommonProps
 
@@ -45,9 +46,7 @@ local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?
 	local preferences = usePreferences()
 
 	local cornerRadius = if props.radius ~= Radius.None then UDim.new(0, tokens.Radius[props.radius]) else nil
-	local shimmer = if Flags.FoundationSkeletonCommonShimmerToken
-		then tokens.Color.Common.Shimmer
-		else tokens.Color.Shift.Shift_300
+	local shimmer = tokens.Color.Common.Shimmer
 
 	return React.createElement(
 		View,
@@ -55,9 +54,7 @@ local function Skeleton(skeletonProps: SkeletonProps, ref: React.Ref<GuiObject>?
 			cornerRadius = cornerRadius,
 			backgroundStyle = if preferences.reducedMotion
 				then pulseBinding:map(function(alpha: number)
-					local pulseTransparency = if Flags.FoundationSkeletonCommonShimmerToken
-						then shimmer.Transparency
-						else tokens.Color.Extended.White.White_10.Transparency
+					local pulseTransparency = shimmer.Transparency
 					return {
 						Color3 = shimmer.Color3,
 						Transparency = lerp(pulseTransparency, pulseTransparency - TRANSPARENCY_DELTA, alpha),

@@ -20,7 +20,8 @@ local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).Core
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local MockAvatarChatService = require(RobloxGui.Modules.VoiceChat.Mocks.MockAvatarChatService)
 local MockAppStorageService = require(RobloxGui.Modules.VoiceChat.Mocks.MockAppStorageService)
-local act = require(CorePackages.Packages.Roact).act
+local Roact = require(CorePackages.Packages.Roact)
+local act = Roact.act
 local VoiceChatServiceStub = require(CorePackages.Workspace.Packages.MockEngineServices).MockVoiceChatService
 local makeMockUser = VoiceChatServiceStub.makeMockUser
 
@@ -39,7 +40,9 @@ local CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatC
 local GetFFlagFixGetPlayerByUserIdStringCast =
 	require(CorePackages.Workspace.Packages.VoiceChatCore).Flags.GetFFlagFixGetPlayerByUserIdStringCast
 
-local FFlagProactiveVoiceRestrictionsUFR = require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagVoiceChatBanDurationUseServerTime = require(script.Parent.Flags.FFlagVoiceChatBanDurationUseServerTime)
+local FFlagProactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
 
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 =
 	require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
@@ -100,9 +103,9 @@ log:addSink({
 	log = function(self, message, context) end,
 })
 
-local showProactiveVoiceRestriction = jest.fn()
-jest.mock(script.Parent.Helpers.showProactiveVoiceRestriction, function()
-	return showProactiveVoiceRestriction
+local showLegacyVoiceRestriction = jest.fn()
+jest.mock(script.Parent.Helpers.showLegacyVoiceRestriction, function()
+	return showLegacyVoiceRestriction
 end)
 
 local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
@@ -1131,8 +1134,63 @@ describe("Voice Chat Service Manager", function()
 	end)
 end)
 
+describe("VoiceChatServiceManager ban duration flag", function()
+	local NOW = 1700000000
+	local capturedBanEnd
+	local originalMount
+	local originalGetBanEnd
+	local getBanEndMock
+
+	beforeEach(function()
+		capturedBanEnd = nil
+		originalMount = Roact.mount
+		originalGetBanEnd = VoiceChatServiceManagerKlass.getBanEnd
+		Roact.mount = function(element)
+			capturedBanEnd = element.props.bannedUntil
+			return nil
+		end
+		local getBanEndFn
+		getBanEndMock, getBanEndFn = jest.fn(originalGetBanEnd)
+		VoiceChatServiceManagerKlass.getBanEnd = getBanEndFn
+		jest.setSystemTime(NOW)
+	end)
+
+	afterEach(function()
+		Roact.mount = originalMount
+		VoiceChatServiceManagerKlass.getBanEnd = originalGetBanEnd
+		getBanEndMock.mockReset()
+	end)
+
+	if FFlagVoiceChatBanDurationUseServerTime then
+		it("passes server-derived ban facts to the prompt despite a skewed client clock", function()
+			jest.setSystemTime(0)
+			local bannedUntilSeconds = NOW + 30 * 60
+			local banFacts = { minutes = 30, absoluteSeconds = bannedUntilSeconds }
+			getBanEndMock.mockReturnValue(banFacts)
+			VoiceChatServiceManager.bannedUntil = { Seconds = bannedUntilSeconds }
+			VoiceChatServiceManager:createPromptInstance(noop, VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+
+			expect(getBanEndMock).toHaveBeenCalledWith(
+				VoiceChatServiceManager,
+				expect.any("number"),
+				bannedUntilSeconds
+			)
+			local serverNow = getBanEndMock.mock.calls[1][2]
+			expect(serverNow).toBeGreaterThan(0)
+			expect(capturedBanEnd).toBe(banFacts)
+		end)
+	else
+		it("preserves client-clock minute strings for B modals when the flag is off", function()
+			VoiceChatServiceManager.bannedUntil = { Seconds = NOW + 30 * 60 }
+			VoiceChatServiceManager:createPromptInstance(noop, VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+			expect(capturedBanEnd).toBe("30")
+			expect(getBanEndMock).never.toHaveBeenCalled()
+		end)
+	end
+end)
+
 if FFlagProactiveVoiceRestrictionsUFR then
-	describe("VoiceChatServiceManager proactive UFR routing", function()
+	describe("VoiceChatServiceManager legacy restriction routing", function()
 		local settings
 		local informed
 		local requests
@@ -1158,18 +1216,18 @@ if FFlagProactiveVoiceRestrictionsUFR then
 				end
 				error("Unexpected voice restriction request: " .. url)
 			end
-			showProactiveVoiceRestriction:mockClear()
+			showLegacyVoiceRestriction:mockClear()
 		end)
 
 		it("routes a join-time ban without a reason through direct UFR and existing informed status", function()
 			settings.banReason = 0
-			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
 			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
-			refreshSpy.mock.results[1].value:await()
+			checkSpy.mock.results[1].value:await()
 			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
-			expect(showProactiveVoiceRestriction).toHaveBeenCalledTimes(1)
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].settings).toBe(settings)
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("gameJoin")
+			expect(showLegacyVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].settings).toBe(settings)
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].trigger).toBe("gameJoin")
 			expect(requests).toHaveLength(1)
 			expect(requests[1]).toContain("/v1/moderation/informed-of-ban")
 			expect(showPrompt).never.toHaveBeenCalled()
@@ -1177,30 +1235,30 @@ if FFlagProactiveVoiceRestrictionsUFR then
 
 		it("keeps an informed join passive and resurfaces it on mic activation", function()
 			informed = true
-			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
 			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
-			refreshSpy.mock.results[1].value:await()
+			checkSpy.mock.results[1].value:await()
 			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
-			expect(showProactiveVoiceRestriction).never.toHaveBeenCalled()
+			expect(showLegacyVoiceRestriction).never.toHaveBeenCalled()
 			VoiceChatServiceManager:ShowVoiceRestriction()
-			refreshSpy.mock.results[2].value:await()
+			checkSpy.mock.results[2].value:await()
 			expect(requests).toHaveLength(2)
 			expect(requests[2]).toContain("/v1/settings/")
-			expect(showProactiveVoiceRestriction).toHaveBeenCalledTimes(1)
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("mic")
+			expect(showLegacyVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].trigger).toBe("micTap")
 			expect(showPrompt).never.toHaveBeenCalled()
 		end)
 
-		it("uses settings for realtime moderation without fetching informed status", function()
-			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+		it("uses settings after a removal from voice without fetching informed status", function()
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
 			VoiceChatServiceManager:ShowPlayerModeratedMessage()
-			refreshSpy.mock.results[1].value:await()
+			checkSpy.mock.results[1].value:await()
 			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
 			expect(requests).toHaveLength(1)
 			expect(requests[1]).toContain("/v1/settings/")
-			expect(showProactiveVoiceRestriction).toHaveBeenCalledTimes(1)
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].settings).toEqual(settings)
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("realtime")
+			expect(showLegacyVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].settings).toEqual(settings)
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].trigger).toBe("removedFromVoice")
 			expect(showPrompt).never.toHaveBeenCalled()
 		end)
 
@@ -1220,9 +1278,9 @@ if FFlagProactiveVoiceRestrictionsUFR then
 
 			showPrompt:mockClear()
 			settings.bannedUntil = nil
-			local refreshSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "refresh")
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
 			VoiceChatServiceManager:ShowPlayerModeratedMessage()
-			refreshSpy.mock.results[1].value:await()
+			checkSpy.mock.results[1].value:await()
 			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
 			VoiceChatServiceManager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joined, VoiceChatState.Ended)
 			expect(shownPrompts()).never.toContain(VoiceChatPromptType.LeaveVoice)
@@ -1230,8 +1288,8 @@ if FFlagProactiveVoiceRestrictionsUFR then
 
 		it("migrates modal nudges while keeping toxicity toasts and live voice presentation", function()
 			VoiceChatServiceManager.coreVoiceManager:emit("OnVoiceToxicityModal")
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].settings).toBeNil()
-			expect(showProactiveVoiceRestriction.mock.calls[1][1].origin).toBe("realtime")
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].settings).toBeNil()
+			expect(showLegacyVoiceRestriction.mock.calls[1][1].trigger).toBe("toxicityModal")
 			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("normal")
 			expect(requests).toHaveLength(0)
 			VoiceChatServiceManager.coreVoiceManager:emit("OnVoiceToxicityToast")
@@ -1240,6 +1298,42 @@ if FFlagProactiveVoiceRestrictionsUFR then
 			expect(
 				prompt == VoiceChatPromptType.VoiceToxicityToast or prompt == VoiceChatPromptType.VoiceToxicityToastV2
 			).toBe(true)
+		end)
+	end)
+
+	describe("ban duration display", function()
+		local NOW = 1700000000
+
+		it("rounds up to the nearest minute remaining", function()
+			expect(VoiceChatServiceManager:calculateBanDuration(1000, 1000 + 90)).toBe(2)
+		end)
+
+		it("returns a negative number when the clock passed as now is after the ban end", function()
+			-- Reproduces the original bug: if the caller's "now" is ahead of the ban end (e.g. a skewed
+			-- client clock), the duration goes negative instead of staying at/above zero.
+			expect(VoiceChatServiceManager:calculateBanDuration(1000 + 5 * 60, 1000)).toBe(-5)
+		end)
+
+		-- getBanEnd just supplies both raw facts (computed against server time, not the client clock,
+		-- which can be skewed); deciding which one to actually display is the Frame's job. Those cases
+		-- (in-range, negative, >60 minutes, non-B modal, BV2) are pending a follow-up PR that ports
+		-- them into VoiceChatPromptFrame.test.lua once its Jest3 migration lands.
+		it("returns both the minute count and the absolute ban-end timestamp", function()
+			local minutesUntilBanEnds = 30
+			local bannedUntilSeconds = NOW + minutesUntilBanEnds * 60
+			expect(VoiceChatServiceManager:getBanEnd(NOW, bannedUntilSeconds)).toEqual({
+				minutes = minutesUntilBanEnds,
+				absoluteSeconds = bannedUntilSeconds,
+			})
+		end)
+
+		it("does not clamp or otherwise interpret an out-of-range minute count", function()
+			local minutesUntilBanEnds = -5
+			local bannedUntilSeconds = NOW + minutesUntilBanEnds * 60
+			expect(VoiceChatServiceManager:getBanEnd(NOW, bannedUntilSeconds)).toEqual({
+				minutes = minutesUntilBanEnds,
+				absoluteSeconds = bannedUntilSeconds,
+			})
 		end)
 	end)
 end
@@ -1369,4 +1463,279 @@ describe("VoiceChatServiceManager SignalR watcher", function()
 			expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(0)
 		end)
 	end)
+end)
+
+local REWARM_KEY = require(CorePackages.Workspace.Packages.VoiceChatCore).Constants.VOICE_REWARM_KEY
+
+-- The flag matrix can't produce every combination these tests need, so they set flags directly and
+-- re-require the manager. Returns a context with helpers that build a manager isolated to the rewarm path.
+local function setUpFreshRewarmManager(flags: { [string]: boolean })
+	local context = {}
+	local previousFlags = {}
+	local previousReArmCount
+	local FreshVoiceChatServiceManagerKlass
+	local FreshCoreVoiceManagerKlass
+
+	beforeAll(function()
+		for name, value in flags do
+			previousFlags[name] = game:SetFastFlagForTesting(name, value)
+		end
+		jest.resetModules()
+		-- The reset drops the UIBlox instance the suite's setup file initialized.
+		require(CorePackages.Packages.UIBlox).init(require(CorePackages.Workspace.Packages.RobloxAppUIBloxConfig))
+		FreshVoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
+		FreshCoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
+	end)
+
+	afterAll(function()
+		for name, value in previousFlags do
+			game:SetFastFlagForTesting(name, value)
+		end
+		jest.resetModules()
+	end)
+
+	beforeEach(function()
+		previousReArmCount = game:SetFastIntForTesting("VoiceRewarmReArmCount", 0)
+	end)
+
+	afterEach(function()
+		game:SetFastIntForTesting("VoiceRewarmReArmCount", previousReArmCount)
+	end)
+
+	function context.createManager(rewarmCookie: string?)
+		context.storage = MockAppStorageService.new({ [REWARM_KEY] = rewarmCookie })
+		local coreManager = FreshCoreVoiceManagerKlass.new(
+			nil,
+			nil,
+			HTTPServiceStub,
+			VoiceChatServiceStub,
+			nil,
+			nil,
+			AvatarChatServiceStub,
+			context.storage
+		)
+		local manager = FreshVoiceChatServiceManagerKlass.new(coreManager, VoiceChatServiceStub, HTTPServiceStub)
+		-- These fields live on the shared class table, so reset them between tests.
+		manager.joinVoiceButtonContext = nil
+		manager.hasReportedRewarmShown = false
+		manager.Analytics = {
+			reportJoinVoiceButtonEvent = jest.fn(),
+			reportVoiceRewarmShown = jest.fn(),
+			reportVoiceRewarmClicked = jest.fn(),
+			reportConnectDisconnectEvents = jest.fn(),
+		}
+		-- Isolate the rewarm check: every other ShouldShowJoinVoice / JoinVoice branch is off.
+		manager.EligibleForFaeUpsell = stub(false)
+		manager.HasSeamlessVoiceFeature = stub(false)
+		manager.GetVoiceConnectCookie = stub("false")
+		manager.UserVoiceEnabled = stub(true)
+		manager.VoiceChatEnded = stub(true)
+		context.manager = manager
+		return manager
+	end
+
+	function context.joinVoiceWithNoOtherBranches()
+		local manager = context.manager
+		manager.FetchAgeVerificationOverlay = stub({})
+		manager.UserVoiceEnabled = stub(false)
+		manager.UserOnlyEligibleForVoice = stub(false)
+		manager.UserOnlyEligibleForVoiceViaOverlay = stub(false)
+		manager.EligibleForAgeCheckToast = stub(false)
+		manager.FetchPhoneVerificationUpsell = stub(nil)
+		manager.IsSeamlessVoice = stub(false)
+		manager.reportJoinVoiceUpsellEvent = jest.fn()
+		manager:JoinVoice()
+	end
+
+	return context
+end
+
+describe("VoiceChatServiceManager voice rewarm re-arm", function()
+	-- The allOn sweep can't force re-arm off, so that half only runs in the default sweep.
+	local reArmStates = if game:GetFastFlag("EnableVoiceRewarmReArmV2") then { true } else { false, true }
+	for _, reArmEnabled in reArmStates do
+		describe("WHEN EnableVoiceRewarmReArmV2 is " .. tostring(reArmEnabled), function()
+			local context = setUpFreshRewarmManager({
+				ShowJoinVoiceWhenDisconnectedV3 = true,
+				EnableVoiceUxUpdates5_AEGIS2 = true,
+				EnableVoiceRewarmReArmV2 = reArmEnabled,
+			})
+			local VoiceChatState = (Enum :: any).VoiceChatState
+
+			it("SHOULD show the rewarm WHEN the cookie was never set", function()
+				local manager = context.createManager(nil)
+
+				expect(manager:ShouldShowJoinVoice()).toBe(true)
+			end)
+
+			it("SHOULD NOT show the rewarm WHEN it was consumed and the re-arm count is unchanged", function()
+				local manager = context.createManager("true")
+
+				expect(manager:ShouldShowJoinVoice()).toBe(false)
+			end)
+
+			if reArmEnabled then
+				it("SHOULD show the rewarm again to legacy-consumed users WHEN the re-arm count is bumped", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+
+					expect(manager:ShouldShowJoinVoice()).toBe(true)
+				end)
+
+				it("SHOULD NOT show a re-armed rewarm WHEN the user joined voice after the bump", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joining, VoiceChatState.Joined)
+
+					expect(context.storage:GetItem(REWARM_KEY)).toBe("1")
+					expect(manager:ShouldShowJoinVoice()).toBe(false)
+				end)
+
+				it("SHOULD NOT spend the rewarm WHEN voice is still joining", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Idle, VoiceChatState.Joining)
+
+					expect(context.storage:GetItem(REWARM_KEY)).toBe("true")
+					expect(manager:ShouldShowJoinVoice()).toBe(true)
+				end)
+
+				it("SHOULD NOT rewrite the cookie WHEN the rewarm is already spent", function()
+					local manager = context.createManager("1")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+					local setItemSpy = jest.spyOn(context.storage, "SetItem")
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joining, VoiceChatState.Joined)
+
+					expect(setItemSpy).never.toHaveBeenCalledWith(context.storage, REWARM_KEY, expect.anything())
+				end)
+
+				it("SHOULD NOT spend the rewarm on JoinVoice before voice joins", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+
+					context.joinVoiceWithNoOtherBranches()
+
+					expect(context.storage:GetItem(REWARM_KEY)).toBe("true")
+					manager.UserVoiceEnabled = stub(true)
+					expect(manager:ShouldShowJoinVoice()).toBe(true)
+				end)
+			else
+				it("SHOULD ignore the re-arm count WHEN re-arm is disabled", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+
+					expect(manager:ShouldShowJoinVoice()).toBe(false)
+				end)
+
+				it("SHOULD consume the rewarm with the legacy value on JoinVoice", function()
+					context.createManager(nil)
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 2)
+
+					context.joinVoiceWithNoOtherBranches()
+
+					expect(context.storage:GetItem(REWARM_KEY)).toBe("true")
+				end)
+
+				it("SHOULD NOT spend the rewarm WHEN voice joins", function()
+					local manager = context.createManager(nil)
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joining, VoiceChatState.Joined)
+
+					expect(context.storage:GetItem(REWARM_KEY)).toBeNil()
+					expect(manager:ShouldShowJoinVoice()).toBe(true)
+				end)
+			end
+		end)
+	end
+end)
+
+describe("VoiceChatServiceManager voice rewarm Grafana metrics", function()
+	-- The allOn sweep can't force the metrics flag off, so that half only runs in the default sweep.
+	local metricsStates = if game:GetFastFlag("VoiceRewarmGrafanaMetrics") then { true } else { false, true }
+	for _, metricsEnabled in metricsStates do
+		describe("WHEN VoiceRewarmGrafanaMetrics is " .. tostring(metricsEnabled), function()
+			local context = setUpFreshRewarmManager({
+				ShowJoinVoiceWhenDisconnectedV3 = true,
+				EnableVoiceUxUpdates5_AEGIS2 = true,
+				VoiceRewarmTelemetryV2 = true,
+				EnableVoiceRewarmReArmV2 = true,
+				VoiceRewarmGrafanaMetrics = metricsEnabled,
+			})
+
+			if metricsEnabled then
+				it("SHOULD NOT report the rewarm as shown from the ShouldShowJoinVoice predicate", function()
+					local manager = context.createManager(nil)
+
+					expect(manager:ShouldShowJoinVoice()).toBe(true)
+
+					expect(manager.Analytics.reportVoiceRewarmShown).never.toHaveBeenCalled()
+				end)
+
+				it("SHOULD report the rewarm as shown once per session", function()
+					local manager = context.createManager(nil)
+					manager:ShouldShowJoinVoice()
+
+					manager:reportVoiceRewarmShown()
+					manager:reportVoiceRewarmShown()
+
+					expect(manager.Analytics.reportVoiceRewarmShown).toHaveBeenCalledTimes(1)
+					expect(manager.Analytics.reportVoiceRewarmShown).toHaveBeenCalledWith(manager.Analytics, false)
+				end)
+
+				it("SHOULD mark the shown rewarm as rearmed WHEN the user had already consumed one", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+					manager:ShouldShowJoinVoice()
+
+					manager:reportVoiceRewarmShown()
+
+					expect(manager.Analytics.reportVoiceRewarmShown).toHaveBeenCalledWith(manager.Analytics, true)
+				end)
+
+				it("SHOULD NOT report the rewarm as shown WHEN the join voice button is not the rewarm", function()
+					local manager = context.createManager("true")
+					manager:ShouldShowJoinVoice()
+
+					manager:reportVoiceRewarmShown()
+
+					expect(manager.Analytics.reportVoiceRewarmShown).never.toHaveBeenCalled()
+				end)
+
+				it("SHOULD report a rewarm click with the pre-click rearmed state", function()
+					local manager = context.createManager("true")
+					game:SetFastIntForTesting("VoiceRewarmReArmCount", 1)
+					manager:ShouldShowJoinVoice()
+
+					context.joinVoiceWithNoOtherBranches()
+
+					expect(manager.Analytics.reportVoiceRewarmClicked).toHaveBeenCalledTimes(1)
+					expect(manager.Analytics.reportVoiceRewarmClicked).toHaveBeenCalledWith(
+						manager.Analytics,
+						true,
+						nil
+					)
+				end)
+
+				it("SHOULD NOT report a rewarm click WHEN the join voice button was not the rewarm", function()
+					local manager = context.createManager(nil)
+
+					context.joinVoiceWithNoOtherBranches()
+
+					expect(manager.Analytics.reportVoiceRewarmClicked).never.toHaveBeenCalled()
+				end)
+			else
+				it("SHOULD NOT report a rewarm click", function()
+					local manager = context.createManager(nil)
+
+					manager:ShouldShowJoinVoice()
+					context.joinVoiceWithNoOtherBranches()
+
+					expect(manager.Analytics.reportVoiceRewarmClicked).never.toHaveBeenCalled()
+				end)
+			end
+		end)
+	end
 end)

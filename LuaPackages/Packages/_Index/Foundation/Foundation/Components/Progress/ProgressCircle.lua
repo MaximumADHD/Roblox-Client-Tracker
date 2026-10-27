@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Constants = require(script.Parent.constants)
-local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -289,7 +288,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				IndeterminateContainer = React.createElement(SpinningRing, {
 					size = circleSize,
 					rotation = rotation,
-					hasCaps = Flags.FoundationProgressCircleRoundCaps,
+					hasCaps = true,
 					testId = props.testId,
 				}),
 			}
@@ -307,7 +306,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 					isIndeterminate = isIndeterminate,
 					pulse = pulse,
 					-- Reduced-motion indeterminate pulses a solid ring, so it has no arc ends to round.
-					hasCaps = Flags.FoundationProgressCircleRoundCaps and not isIndeterminate,
+					hasCaps = not isIndeterminate,
 					testId = props.testId,
 				}),
 				ProgressLabel = if variants.circle.labelFont and not isIndeterminate

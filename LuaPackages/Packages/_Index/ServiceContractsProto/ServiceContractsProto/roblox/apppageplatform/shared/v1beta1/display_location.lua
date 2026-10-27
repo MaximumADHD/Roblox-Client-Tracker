@@ -41,6 +41,8 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_SEARCH_AUTOCOMPLETE"
 	| "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL"
 	| "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
+	| "DISPLAY_LOCATION_BUY_ROBUX"
+	| "DISPLAY_LOCATION_USER_LIBRARY"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -101,6 +103,10 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL"
 		elseif value == 27 then
 			return "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
+		elseif value == 28 then
+			return "DISPLAY_LOCATION_BUY_ROBUX"
+		elseif value == 29 then
+			return "DISPLAY_LOCATION_USER_LIBRARY"
 		else
 			return nil
 		end
@@ -163,6 +169,10 @@ messages.DisplayLocation = {
 			return 26
 		elseif self == "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS" then
 			return 27
+		elseif self == "DISPLAY_LOCATION_BUY_ROBUX" then
+			return 28
+		elseif self == "DISPLAY_LOCATION_USER_LIBRARY" then
+			return 29
 		else
 			return self
 		end
@@ -225,6 +235,10 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_EXPERIENCE_LEADERBOARD_SEE_ALL"
 		elseif name == "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS" then
 			return "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
+		elseif name == "DISPLAY_LOCATION_BUY_ROBUX" then
+			return "DISPLAY_LOCATION_BUY_ROBUX"
+		elseif name == "DISPLAY_LOCATION_USER_LIBRARY" then
+			return "DISPLAY_LOCATION_USER_LIBRARY"
 		else
 			return nil
 		end

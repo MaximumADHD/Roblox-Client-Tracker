@@ -9,6 +9,9 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
+local Foundation = require(CorePackages.Packages.Foundation)
+local normalizeFontFace = Foundation.Utility.normalizeFontFace
+local useTokens = Foundation.Hooks.useTokens
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
@@ -18,6 +21,8 @@ local StatEntryContainer = require(PlayerList.Components.Container.StatEntryCont
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
+local FFlagFontFacePlayerList = SharedFlags.FFlagFontFacePlayerList
+	and Foundation.Utility.Flags.FoundationFontFaceMigration
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 local CellExtender = require(Components.Presentation.CellExtender)
@@ -54,6 +59,7 @@ export type TeamEntryViewProps = {
 local function TeamEntryView(props: TeamEntryViewProps)
 	local layoutValues = useLayoutValues()
 	local style = useStyle()
+	local tokens = if FFlagFontFacePlayerList then useTokens() else nil :: never
 
 	local isSmallTouchDevice = props.isSmallTouchDevice or false
 	local isDirectionalPreferred = props.isDirectionalPreferred or false
@@ -61,13 +67,16 @@ local function TeamEntryView(props: TeamEntryViewProps)
 	-- Text styling
 	local textStyle = style.Theme.TextEmphasis
 	local textSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TeamNameTextSize else style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
-	local textFont = style.Font.CaptionHeader.Font
+	local textFont = if FFlagFontFacePlayerList
+		then normalizeFontFace(tokens.Typography.CaptionLarge.Font)
+		else style.Font.CaptionHeader.Font
 	if isDirectionalPreferred then
 		-- Ten-foot styling
 		textStyle = layoutValues.DefaultTextStyle
 		textSize = layoutValues.PlayerNameTextSize
-		textFont = layoutValues.TeamEntryFont
-
+		textFont = if FFlagFontFacePlayerList
+			then normalizeFontFace(layoutValues.TeamEntryFont)
+			else layoutValues.TeamEntryFont
 	end
 
 	-- Background styling
@@ -123,7 +132,8 @@ local function TeamEntryView(props: TeamEntryViewProps)
 		teamEntryChildren.NameFrame = React.createElement("TextLabel", {
 			Size = UDim2.new(0, layoutValues.PlayerNameSizeXMobile, 1, 0),
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = textFont,
+			Font = if FFlagFontFacePlayerList then nil else textFont,
+			FontFace = if FFlagFontFacePlayerList then textFont else nil,
 			TextSize = textSize,
 			LayoutOrder = 0,
 			TextColor3 = textStyle.Color,
@@ -226,7 +236,8 @@ local function TeamEntryView(props: TeamEntryViewProps)
 					Position = UDim2.new(0, 0, 0, 0),
 					Size = UDim2.new(1, 0, 1, 0),
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Font = textFont,
+					Font = if FFlagFontFacePlayerList then nil else textFont,
+					FontFace = if FFlagFontFacePlayerList then textFont else nil,
 					TextSize = textSize,
 					TextColor3 = textStyle.Color,
 					TextStrokeTransparency = textStyle.StrokeTransparency,

@@ -15,6 +15,7 @@ local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDia
 type Bindable<T> = Types.Bindable<T>
 
 export type DialogTitleProps = {
+	-- Title text shown in the dialog header.
 	text: string,
 }
 

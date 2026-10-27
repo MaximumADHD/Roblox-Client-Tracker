@@ -1242,7 +1242,7 @@ function module.setupAnimation(character)
 	end
 
 	------------------------------------------------------------------------------------------------------------
-	--- Finally, bind an update step to the simulation
+	--- Finally, bind an update step to the animation phase
 	------------------------------------------------------------------------------------------------------------
 
 	local function stepAnimate(deltaTime)
@@ -1290,10 +1290,9 @@ function module.setupAnimation(character)
 		end
 	end
 
-	-- Priority 4000 is lower (runs later) than the default 2000.  That is intentional:
-	-- stepAnimate needs to run after all humanoid state changes for this tick have
-	-- been applied, so it reads the finalized state when picking the next animation.
-	RunService:BindToSimulation(function(deltaTime)
+	-- Use BindToAnimation so this callback runs before Animators update.
+	-- Use priority 4000 so this callback runs after other BindToAnimation callbacks (e.g. character control).
+	RunService:BindToAnimation(function(deltaTime)
 		-- This code runs 60 times per second
 		stepAnimate(deltaTime)
 	end, Enum.StepFrequency.Hz60, 4000)

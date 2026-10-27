@@ -24,21 +24,34 @@ type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps
 
 export type Scroll = {
+	-- **Engine**: Which axes of the scrolling frame size to content.
 	AutomaticSize: Bindable<Enum.AutomaticSize>?,
+	-- **Engine**: Which axes the canvas sizes to its content.
 	AutomaticCanvasSize: Bindable<Enum.AutomaticSize>?,
+	-- **Engine**: Size of the scrollable canvas.
 	CanvasSize: Bindable<UDim2>?,
+	-- **Engine**: Axes that can be scrolled.
 	ScrollingDirection: Bindable<Enum.ScrollingDirection>?,
+	-- **Engine**: Whether scrolling accepts input.
 	ScrollingEnabled: Bindable<boolean>?,
+	-- **Engine**: How the vertical scrollbar affects canvas insets.
 	VerticalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
+	-- **Engine**: How the horizontal scrollbar affects canvas insets.
 	HorizontalScrollBarInset: Bindable<Enum.ScrollBarInset>?,
+	-- Scrollbar visibility. `None` hides it, `Always` keeps it shown, and `Auto` shows it while hovered or scrolling. Defaults to `Auto`.
 	scrollBarVisibility: Bindable<Visibility>?,
 }
 
 export type ScrollViewProps = {
+	-- ScrollingFrame configuration such as canvas size and scrollbar visibility.
 	scroll: Scroll?,
+	-- Ref forwarded to the inner ScrollingFrame.
 	scrollingFrameRef: React.Ref<ScrollingFrame>?,
+	-- Called when the canvas position changes.
 	onCanvasPositionChanged: ((instance: ScrollingFrame) -> ())?,
+	-- Called when the absolute canvas size changes.
 	onAbsoluteCanvasSizeChanged: ((instance: ScrollingFrame) -> ())?,
+	-- Called when the absolute window size changes.
 	onAbsoluteWindowSizeChanged: ((instance: ScrollingFrame) -> ())?,
 } & GuiObjectProps & CommonProps
 

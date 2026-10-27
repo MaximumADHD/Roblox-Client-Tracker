@@ -24,7 +24,8 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local rtl = require(CorePackages.Packages.Dev.ReactTestingLibrary)
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-local FFlagProactiveVoiceRestrictionsUFR = require(RobloxGui.Modules.VoiceChat.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagProactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
 local FFlagMicConsumerRegistry = game:DefineFastFlag("MicConsumerRegistry", false)
 
 type FakeMicManager = {

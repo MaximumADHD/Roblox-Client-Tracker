@@ -27,7 +27,9 @@ local LONG_TO_SHORT: { [MediaAspectRatio]: number } = {
 }
 
 export type MediaImage = {
+	-- Discriminator for image media.
 	type: "Image",
+	-- Image asset URI or bindable source.
 	source: Bindable<string>,
 }
 
@@ -38,7 +40,9 @@ export type MediaContent = MediaImage
 export type MediaProps = {
 	-- The content to display, cropped to fill the aspect ratio.
 	content: MediaContent?,
+	-- Aspect ratio of the media frame. Defaults to `MediaAspectRatio.Ratio1x1`.
 	aspectRatio: MediaAspectRatio?,
+	-- Whether the longer side is horizontal or vertical. Defaults to `MediaOrientation.Landscape`.
 	orientation: MediaOrientation?,
 } & Types.CommonProps
 

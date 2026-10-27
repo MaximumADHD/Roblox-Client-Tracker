@@ -667,17 +667,25 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 							}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 						}),
 					}),
-					Shadow = React.createElement(Image, {
-						Image = SHADOW_IMAGE,
-						Size = UDim2.new(1, SHADOW_SIZE * 2, 0, maxSheetHeight + BOTTOM_PADDING + SHADOW_SIZE * 2),
-						Position = UDim2.new(-SHADOW_SIZE, 0, 1, -maxSheetHeight - SHADOW_SIZE),
-						ZIndex = 2,
-						slice = {
-							center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
-							scale = 2,
-						},
-						imageStyle = tokens.Color.Extended.Black.Black_10,
-					}),
+					Shadow = if Flags.FoundationBottomSheetOverlayShadow
+						then React.createElement(View, {
+							tag = "shadow-overlay-300 radius-large",
+							Size = UDim2.new(1, 0, 0, maxSheetHeight + BOTTOM_PADDING),
+							Position = UDim2.new(0, 0, 1, -maxSheetHeight),
+							ZIndex = 2,
+							testId = `{props.testId}--shadow`,
+						})
+						else React.createElement(Image, {
+							Image = SHADOW_IMAGE,
+							Size = UDim2.new(1, SHADOW_SIZE * 2, 0, maxSheetHeight + BOTTOM_PADDING + SHADOW_SIZE * 2),
+							Position = UDim2.new(-SHADOW_SIZE, 0, 1, -maxSheetHeight - SHADOW_SIZE),
+							ZIndex = 2,
+							slice = {
+								center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
+								scale = 2,
+							},
+							imageStyle = tokens.Color.Extended.Black.Black_10,
+						}),
 					Backdrop = React.createElement(View, {
 						Size = UDim2.fromScale(1, 2),
 						Position = UDim2.fromScale(0, -0.5),

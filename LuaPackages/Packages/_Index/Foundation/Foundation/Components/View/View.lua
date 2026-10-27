@@ -25,6 +25,7 @@ type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps
 
 export type ViewProps = {
+	-- Transparency applied to the whole view and its descendants via a CanvasGroup when non-zero.
 	GroupTransparency: Bindable<number>?,
 } & GuiObjectProps & CommonProps
 

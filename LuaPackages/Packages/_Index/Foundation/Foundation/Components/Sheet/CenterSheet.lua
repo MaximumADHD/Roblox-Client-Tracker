@@ -266,20 +266,29 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 		}),
 	})
 
-	local ShadowNode = React.createElement(Image, {
-		Image = SHADOW_IMAGE,
-		Size = sheetHeight:map(function(value: number)
-			return UDim2.new(1, SHADOW_SIZE * 2, 0, value + SHADOW_SIZE * 2)
-		end),
-		Position = UDim2.new(0, -SHADOW_SIZE, 0.5, 0),
-		ZIndex = 1,
-		slice = {
-			center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
-			scale = 2,
-		},
-		imageStyle = tokens.Color.Extended.Black.Black_10,
-		tag = "anchor-center-left",
-	})
+	local ShadowNode = if Flags.FoundationCenterSheetOverlayShadow
+		then React.createElement(View, {
+			tag = "shadow-overlay-300 radius-large",
+			Size = sheetHeight:map(function(value: number)
+				return UDim2.new(1, 0, 0, value)
+			end),
+			ZIndex = 1,
+			testId = `{props.testId}--shadow`,
+		})
+		else React.createElement(Image, {
+			Image = SHADOW_IMAGE,
+			Size = sheetHeight:map(function(value: number)
+				return UDim2.new(1, SHADOW_SIZE * 2, 0, value + SHADOW_SIZE * 2)
+			end),
+			Position = UDim2.new(0, -SHADOW_SIZE, 0.5, 0),
+			ZIndex = 1,
+			slice = {
+				center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE + 1, SHADOW_SIZE + 1),
+				scale = 2,
+			},
+			imageStyle = tokens.Color.Extended.Black.Black_10,
+			tag = "anchor-center-left",
+		})
 
 	return overlay
 		and React.createElement(React.Fragment, nil, {
@@ -289,30 +298,74 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 					tag = "size-full",
 					testId = `{props.testId}--surface`,
 				}, {
-					SheetContainer = React.createElement(View, {
-						ref = sheetContainerRef,
-						ZIndex = 2,
-						sizeConstraint = {
-							MaxSize = Vector2.new(width, maxHeight),
-						},
-						Position = bottomPosition:map(function(value: number)
-							return UDim2.new(0.5, 0, 0.5, value)
-						end),
-						tag = "col align-y-center anchor-center-center size-full padding-medium",
-						testId = `{props.testId}--center-sheet-container`,
-						GroupTransparency = if animating
-							then bottomPosition:map(function(value: number)
+					ShadowHost = if Flags.FoundationCenterSheetOverlayShadow
+						then React.createElement(View, {
+							ZIndex = 2,
+							sizeConstraint = {
+								MaxSize = Vector2.new(
+									width + math.max(0, tokens.Size.Size_1400 - tokens.Padding.Medium) * 2,
+									maxHeight
+										+ math.max(0, tokens.Size.Size_1400 - tokens.Padding.Medium)
+										+ math.max(
+											0,
+											tokens.Size.Size_1400 + tokens.Size.Size_1200 - tokens.Padding.Medium
+										)
+								),
+							},
+							Position = bottomPosition:map(function(value: number)
+								return UDim2.new(0.5, 0, 0.5, value)
+							end),
+							tag = "anchor-center-center size-full",
+							-- The sheet stays at its own size. This larger host keeps the overlay blur inside the CanvasGroup.
+							GroupTransparency = bottomPosition:map(function(value: number)
 								return value / animationOffset
-							end)
-							else nil,
-						onAbsoluteSizeChanged = if Flags.FoundationCenterSheetHeightFix
-								or (props.centerSheetHeight and setMaxAvailableHeight)
-							then function(rbx: GuiObject)
-								local padding = tokens.Margin.Medium * 2
-								setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
-							end
-							else nil,
-					}, nil),
+							end),
+						}, {
+							SheetContainer = React.createElement(View, {
+								ref = sheetContainerRef,
+								ZIndex = 2,
+								sizeConstraint = {
+									MaxSize = Vector2.new(width, maxHeight),
+								},
+								Position = UDim2.fromScale(0.5, 0.5),
+								tag = "col align-y-center anchor-center-center size-full padding-medium",
+								testId = `{props.testId}--center-sheet-container`,
+								onAbsoluteSizeChanged = if Flags.FoundationCenterSheetHeightFix
+										or (props.centerSheetHeight and setMaxAvailableHeight)
+									then function(rbx: GuiObject)
+										local padding = tokens.Margin.Medium * 2
+										setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
+									end
+									else nil,
+							}, nil),
+						})
+						else nil,
+					SheetContainer = if Flags.FoundationCenterSheetOverlayShadow
+						then nil
+						else React.createElement(View, {
+							ref = sheetContainerRef,
+							ZIndex = 2,
+							sizeConstraint = {
+								MaxSize = Vector2.new(width, maxHeight),
+							},
+							Position = bottomPosition:map(function(value: number)
+								return UDim2.new(0.5, 0, 0.5, value)
+							end),
+							tag = "col align-y-center anchor-center-center size-full padding-medium",
+							testId = `{props.testId}--center-sheet-container`,
+							GroupTransparency = if animating
+								then bottomPosition:map(function(value: number)
+									return value / animationOffset
+								end)
+								else nil,
+							onAbsoluteSizeChanged = if Flags.FoundationCenterSheetHeightFix
+									or (props.centerSheetHeight and setMaxAvailableHeight)
+								then function(rbx: GuiObject)
+									local padding = tokens.Margin.Medium * 2
+									setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
+								end
+								else nil,
+						}, nil),
 					Backdrop = React.createElement(View, {
 						Size = UDim2.fromScale(2, 2),
 						Position = UDim2.fromScale(-0.5, -0.5),

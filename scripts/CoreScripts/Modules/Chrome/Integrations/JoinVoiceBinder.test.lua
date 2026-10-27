@@ -20,7 +20,9 @@ local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local rtl = require(CorePackages.Packages.Dev.ReactTestingLibrary)
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-local FFlagProactiveVoiceRestrictionsUFR = require(RobloxGui.Modules.VoiceChat.Flags.FFlagProactiveVoiceRestrictionsUFR)
+local FFlagProactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
+local FFlagVoiceRewarmGrafanaMetrics = require(RobloxGui.Modules.VoiceChat.Flags.FFlagVoiceRewarmGrafanaMetrics)
 
 local events
 local joinVoice
@@ -98,6 +100,7 @@ describe("JoinVoiceBinder", function()
 		manager.showVoiceUI = event()
 		manager.hideVoiceUI = event()
 		manager.reportJoinVoiceUpsellEvent = function() end
+		manager.reportVoiceRewarmShown = jest.fn()
 	end)
 
 	afterEach(function()
@@ -143,5 +146,34 @@ describe("JoinVoiceBinder", function()
 			waitForEvents()
 			expect(joinVoice.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Available)
 		end)
+	end
+
+	if ChromeEnabled() then
+		if FFlagVoiceRewarmGrafanaMetrics then
+			it("reports the rewarm as shown WHEN the join voice icon becomes available", function()
+				renderBinder()
+
+				expect(joinVoice.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Available)
+				expect(manager.reportVoiceRewarmShown).toHaveBeenCalled()
+			end)
+
+			it("does not report the rewarm as shown WHEN the join voice icon stays unavailable", function()
+				manager.ShouldShowJoinVoice = jest.fn(function()
+					return false
+				end)
+
+				renderBinder()
+
+				expect(joinVoice.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
+				expect(manager.reportVoiceRewarmShown).never.toHaveBeenCalled()
+			end)
+		else
+			it("does not report the rewarm as shown", function()
+				renderBinder()
+
+				expect(joinVoice.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Available)
+				expect(manager.reportVoiceRewarmShown).never.toHaveBeenCalled()
+			end)
+		end
 	end
 end)
