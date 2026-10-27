@@ -2,7 +2,7 @@
 <img src="https://github.com/MaximumADHD/Roblox-Client-Tracker/assets/3926900/ff0ba96d-e133-48a8-8541-80fc6ca21f52">
 </p>
 
-<center>A Dataminer's Dumping Ground</center>
+<center>A Datamining Dumping Ground</center>
 
 <hr/>
 
@@ -12,24 +12,28 @@ The **Roblox Client Tracker** is an unofficial change tracker which aims to prov
 
 # Source Code
 
-The backend console application which drives this repository is available to be found here:<br/>
+The core C#/Python code which drives this repository is available to be found here:<br/>
 https://github.com/MaximumADHD/RCT-Source
 
 # Specifications
 
 ## API-Dump.json
-A JSON tree describing Roblox's classes and enums.
-This file is extracted using:<br/>`RobloxStudioBeta.exe -API API-Dump.json`<br/>
+A JSON tree describing Roblox's classes and enums.<br/>
+
+This file is extracted using: `RobloxStudioBeta.exe -API API-Dump.json`<br/>
 It is also available at: `https://setup.rbxcdn.com/{version-$guid}-API-Dump.json`
 
 ## Full-API-Dump.json
 This is a more *"complete"* version of `API-Dump.json`, which doesn't exclude any hidden engine internals.<br/>
 It includes all classes and enums omitted from the normal dump, and includes a few other notable differences and keys, like `Default` values on some properties.<br/>
+
 This file is extracted using: `RobloxStudioBeta.exe -FullAPI Full-API-Dump.json` <br/>
 It is also available at: `https://setup.rbxcdn.com/{version-$guid}-Full-API-Dump.json`
 
 ## API-Dump-2.json
-A newer revision of Roblox's JSON API Dump spec. There are a few [technical problems](https://devforum.roblox.com/t/technical-issues-with-json-api-dump-v2/4759892) with this version, but it is otherwise useable.
+A newer revision of Roblox's JSON API Dump spec.<br/>
+There are a few [technical problems](https://devforum.roblox.com/t/technical-issues-with-json-api-dump-v2/4759892) with this version, but it is otherwise useable.<br/>
+
 This file is extracted using: `RobloxStudioBeta.exe -APIV2 API-Dump-2.json` <br/>
 It is also available at: `https://setup.rbxcdn.com/{version-$guid}-API-Dump-2.json`
 
