@@ -18,7 +18,12 @@ https://github.com/MaximumADHD/RCT-Source
 # Specifications
 
 ## API-Dump.json
-This is a JSON version of Roblox's API Dump. It contains more data than the original API Dump and can be read into a data tree by most programming languages using a JSON parser. This file is extracted using:<br/>`RobloxStudioBeta.exe -API API-Dump.json`
+A JSON tree describing Roblox's classes and enums. This file is extracted using:<br/>`RobloxStudioBeta.exe -API API-Dump.json`
+
+## API-Dump-2.json
+A newer revision of Roblox's JSON API Dump spec.
+There are a few technical problems with this version, but it is otherwise useable:
+https://devforum.roblox.com/t/technical-issues-with-json-api-dump-v2/4759892
 
 ## Full-API-Dump.json
 This is a more *"complete"* version of the normal JSON API Dump. It includes all classes and enums omitted from the normal dump, and includes a few other notable differences and keys, like `Default` values on some properties. This file can be extracted with, similarly to `-API`:<br/>`RobloxStudioBeta.exe -FullAPI Full-API-Dump.json`
