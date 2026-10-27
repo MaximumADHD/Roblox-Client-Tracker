@@ -18,15 +18,20 @@ https://github.com/MaximumADHD/RCT-Source
 # Specifications
 
 ## API-Dump.json
-A JSON tree describing Roblox's classes and enums. This file is extracted using:<br/>`RobloxStudioBeta.exe -API API-Dump.json`
-
-## API-Dump-2.json
-A newer revision of Roblox's JSON API Dump spec.
-There are a few technical problems with this version, but it is otherwise useable:
-https://devforum.roblox.com/t/technical-issues-with-json-api-dump-v2/4759892
+A JSON tree describing Roblox's classes and enums.
+This file is extracted using:<br/>`RobloxStudioBeta.exe -API API-Dump.json`<br/>
+It is also available at: `https://setup.rbxcdn.com/{version-$guid}-API-Dump.json`
 
 ## Full-API-Dump.json
-This is a more *"complete"* version of the normal JSON API Dump. It includes all classes and enums omitted from the normal dump, and includes a few other notable differences and keys, like `Default` values on some properties. This file can be extracted with, similarly to `-API`:<br/>`RobloxStudioBeta.exe -FullAPI Full-API-Dump.json`
+This is a more *"complete"* version of `API-Dump.json`, which doesn't exclude any hidden engine internals.<br/>
+It includes all classes and enums omitted from the normal dump, and includes a few other notable differences and keys, like `Default` values on some properties.<br/>
+This file is extracted using: `RobloxStudioBeta.exe -FullAPI Full-API-Dump.json` <br/>
+It is also available at: `https://setup.rbxcdn.com/{version-$guid}-Full-API-Dump.json`
+
+## API-Dump-2.json
+A newer revision of Roblox's JSON API Dump spec. There are a few [technical problems](https://devforum.roblox.com/t/technical-issues-with-json-api-dump-v2/4759892) with this version, but it is otherwise useable.
+This file is extracted using: `RobloxStudioBeta.exe -APIV2 API-Dump-2.json` <br/>
+It is also available at: `https://setup.rbxcdn.com/{version-$guid}-API-Dump-2.json`
 
 ## API-Dump.txt
 A readable version of Roblox's JSON API Dump. This file is generated from the [Roblox API Dump Tool](https://github.com/MaximumADHD/Roblox-API-Dump-Tool).
