@@ -34,16 +34,23 @@ void main()
     f12.y = f10.y;
     vec4 f13 = f12;
     f13.z = f10.z;
-    vec3 f14 = f13.xyz * VARYING1.w;
+    vec3 f14 = f13.xyz * CB1[3].y;
     vec4 f15 = f13;
     f15.x = f14.x;
     vec4 f16 = f15;
     f16.y = f14.y;
     vec4 f17 = f16;
     f17.z = f14.z;
-    vec4 f18 = f17;
-    f18.w = (VARYING1.w * f8) * CB1[1].y;
-    _entryPointOutput = f18;
+    vec3 f18 = f17.xyz * VARYING1.w;
+    vec4 f19 = f17;
+    f19.x = f18.x;
+    vec4 f20 = f19;
+    f20.y = f18.y;
+    vec4 f21 = f20;
+    f21.z = f18.z;
+    vec4 f22 = f21;
+    f22.w = (VARYING1.w * f8) * CB1[1].y;
+    _entryPointOutput = f22;
 }
 
 //$$texTexture=s0
