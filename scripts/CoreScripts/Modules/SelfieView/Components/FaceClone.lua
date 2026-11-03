@@ -817,8 +817,8 @@ function startRenderStepped(player: Player)
 					end
 
 					for _, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
-						playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
-						for _, trackS in pairs(playingAnims) do
+						local coreScriptPlayingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
+						for _, trackS in pairs(coreScriptPlayingAnims) do
 							if trackS.Animation:IsA("TrackerStreamAnimation") then
 								trackS.Priority = track.Priority
 								trackS:AdjustWeight(track.WeightCurrent, 0)

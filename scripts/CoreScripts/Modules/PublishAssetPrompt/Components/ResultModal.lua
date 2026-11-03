@@ -22,9 +22,6 @@ local Components = script.Parent
 local PublishAssetPromptFolder = Components.Parent
 local CloseResultModal = require(PublishAssetPromptFolder.Thunks.CloseResultModal)
 
-local PublishAssetPrompt = script.Parent.Parent
-local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
-
 local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
 
 -- PromptPublishAssetResult was renamed to PromptCreatePlatformContentResult by the same engine
@@ -88,9 +85,7 @@ function ResultModal:render()
 					buttonType = ButtonType.PrimarySystem,
 					props = {
 						onActivated = self.props.closeResultModal,
-						text = if GetFFlagValidateDescription()
-							then RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.ResultModalOk")
-							else RobloxTranslator:FormatByKey("InGame.CommonUI.Button.Ok"),
+						text = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.ResultModalOk"),
 						inputIcon = self.state.isGamepad and XBOX_A_ICON or nil,
 					},
 				},

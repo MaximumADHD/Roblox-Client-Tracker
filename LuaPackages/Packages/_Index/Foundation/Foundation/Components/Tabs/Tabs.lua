@@ -148,11 +148,13 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 									onAbsoluteSizeChanged = if Flags.FoundationUnifiedScrimScrolling
 										then updateTabListsWidth
 										else nil,
-									tag = {
-										["row flex-y-fill auto-xy"] = true,
-										["gap-large"] = not isFill
-											and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall),
-									},
+									tag = if Flags.FoundationFixTabsFitGap
+										then "row flex-y-fill auto-xy"
+										else {
+											["row flex-y-fill auto-xy"] = true,
+											["gap-large"] = not isFill
+												and (tabsSize == InputSize.Small or tabsSize == InputSize.XSmall),
+										},
 									Size = if isFill then UDim2.fromScale(1, 0) else nil,
 									testId = `{props.testId}--list`,
 								},

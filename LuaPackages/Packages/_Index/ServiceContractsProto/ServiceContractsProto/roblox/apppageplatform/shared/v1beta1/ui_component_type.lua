@@ -116,6 +116,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_REACTIONS"
 	| "UI_COMPONENT_TYPE_BANNER"
 	| "UI_COMPONENT_TYPE_SHEET"
+	| "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_EXPERIMENTAL"
@@ -348,6 +349,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_BANNER"
 		elseif value == 283 then
 			return "UI_COMPONENT_TYPE_SHEET"
+		elseif value == 284 then
+			return "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -604,6 +607,8 @@ messages.UiComponentType = {
 			return 282
 		elseif self == "UI_COMPONENT_TYPE_SHEET" then
 			return 283
+		elseif self == "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM" then
+			return 284
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -860,6 +865,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_BANNER"
 		elseif name == "UI_COMPONENT_TYPE_SHEET" then
 			return "UI_COMPONENT_TYPE_SHEET"
+		elseif name == "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM" then
+			return "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

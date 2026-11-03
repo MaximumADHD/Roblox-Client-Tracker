@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ViewRecyclerReact-31ab8d40-0.6.0"]["ViewRecyclerReact"])
+local Package = require(PackageIndex["ViewRecyclerReact-31ab8d40-0.7.1"]["ViewRecyclerReact"])
 
 export type DataSource<T> = Package.DataSource<T> 
 export type MutableSequence<T> = Package.MutableSequence<T> 
@@ -33,11 +33,9 @@ export type VirtualListProps<T> = Package.VirtualListProps<T>
 export type DeclarativeVirtualListProps<T> = Package.DeclarativeVirtualListProps<T> 
 export type DataSourceVirtualListProps<T> = Package.DataSourceVirtualListProps<T> 
 export type VirtualListHandle = Package.VirtualListHandle
-export type AutoScrollCallback = Package.AutoScrollCallback
-export type AutoScrollResult = Package.AutoScrollResult
+export type VisibleItemsPresentation = Package.VisibleItemsPresentation
 export type Axis = Package.Axis
 export type AutoScrollPolicy = Package.AutoScrollPolicy
-export type AutoScrollTarget = Package.AutoScrollTarget
 export type ScrollAlignment = Package.ScrollAlignment
 export type PinnedPosition = Package.PinnedPosition
 export type IdentityKind = Package.IdentityKind
@@ -48,6 +46,7 @@ export type RecyclableViewSignalProps<T> = Package.RecyclableViewSignalProps<T>
 export type RecyclableViewProps<T> = Package.RecyclableViewProps<T> 
 export type RecyclableViewType<T> = Package.RecyclableViewType<T> 
 export type RecyclableViewOptions = Package.RecyclableViewOptions
+export type RecyclableViewSwitchProps<T> = Package.RecyclableViewSwitchProps<T> 
 export type RecyclableComponentProps<Props> = Package.RecyclableComponentProps<Props> 
 export type VirtualListItemComponentProps<T> = Package.VirtualListItemComponentProps<T> 
 export type VirtualListItemComponent<T> = Package.VirtualListItemComponent<T> 

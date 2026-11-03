@@ -9,10 +9,14 @@ local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
 local GetAvatarPreview = require(InspectAndBuyFolder.Thunks.GetAvatarPreview)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
 
 local CorePackages = game:GetService("CorePackages")
+local Promise = require(CorePackages.Packages.Promise)
 local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
+local AvatarBackground = require(CorePackages.Workspace.Packages.DataHydration.AvatarBackground)
 local FFlagAXInspectAndBuyMakeupSupport = AvatarExperienceFlags.FFlagAXInspectAndBuyMakeupSupport
+local FFlagAXInspectAndBuyAvatarBackground = AvatarExperienceFlags.FFlagAXInspectAndBuyAvatarBackground
 
 local requiredServices = {}
 
@@ -75,16 +79,55 @@ local function getAssetIds(humanoidDescription)
 	return assets
 end
 
+local function withEquippedBackground(store, assets, userId)
+	if userId == nil or userId == "" then
+		return Promise.resolve(assets)
+	end
+	return AvatarBackground.getAvatarBackgroundStore(false)
+		.awaitAvatarBackground(userId)
+		:andThen(function(background)
+			if not background.assetId then
+				return assets
+			end
+			local assetsWithBackground = table.clone(assets)
+			table.insert(assetsWithBackground, AssetInfo.fromHumanoidDescription(background.assetId))
+			return assetsWithBackground
+		end)
+		:catch(function()
+			store:dispatch(SendCounter(Constants.Counters.GetAvatarBackground .. Constants.CounterSuffix.RequestFailed))
+			return assets
+		end)
+end
+
+--[[
+	Requests the avatar preview with the inspected player's equipped background included. With no
+	player id (InspectPlayerFromHumanoidDescription) there's no background to look up, so it resolves
+	right away. getIsMenuOpen is only passed when the lookup can be async, and skips the dispatch if
+	the menu closed before it finished.
+]]
+local function dispatchPreviewWithEquippedBackground(store, assets, getIsMenuOpen)
+	withEquippedBackground(store, assets, store:getState().playerId):andThen(function(previewAssets)
+		if getIsMenuOpen and not getIsMenuOpen() then
+			return
+		end
+		store:dispatch(GetAvatarPreview(previewAssets))
+	end)
+end
+
 --[[
 	Given a humanoid description object, parse through the asset ids and get information for each asset.
     The Avatar Inspect API should return a list of assets and bundles available for purchase based off
     the humanoid description.
 ]]
-local function GetAssetsFromHumanoidDescriptionV2(humanoidDescription, isForLocalPlayer)
+local function GetAssetsFromHumanoidDescriptionV2(humanoidDescription, isForLocalPlayer, getIsMenuOpen)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local assets = getAssetIds(humanoidDescription)
 		if not isForLocalPlayer then
-			store:dispatch(GetAvatarPreview(assets))
+			if FFlagAXInspectAndBuyAvatarBackground then
+				dispatchPreviewWithEquippedBackground(store, assets, getIsMenuOpen)
+			else
+				store:dispatch(GetAvatarPreview(assets))
+			end
 		else
 			store:dispatch(SetEquippedAssets(assets))
 		end

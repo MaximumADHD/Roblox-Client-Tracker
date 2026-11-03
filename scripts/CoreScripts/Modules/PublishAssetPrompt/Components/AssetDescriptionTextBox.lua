@@ -36,11 +36,6 @@ local MIN_CANVAS_HEIGHT = 100
 local SCROLL_FRAME_HEIGHT = 100
 local DEFAULT_TEXTBOX_WIDTH = 100
 local LENGTH_COUNTER_HEIGHT = 15
-local WARNING_TEXT_SIZE = 12
-local WARNING_TEXT_HEIGHT = 15
-
-local PublishAssetPrompt = script.Parent.Parent
-local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 
 local AssetDescriptionTextBox = Roact.PureComponent:extend("AssetDescriptionTextBox")
 
@@ -143,7 +138,7 @@ function AssetDescriptionTextBox:onTextChanged(
 	textFont: { Font: Enum.Font, RelativeSize: number, RelativeMinSize: number }
 )
 	local assetDescription = rbx.Text
-	local isDescriptionValid = if GetFFlagValidateDescription() and assetDescription == "" then false else true
+	local isDescriptionValid = true
 
 	local lastValidDescription = self.state.lastValidDescription
 	if isDescriptionTooLong(assetDescription, MAX_DESCRIPTION_LENGTH) then
@@ -182,7 +177,6 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 	local font = stylePalette.Font
 	local fontType = font.CaptionBody
 	local theme = stylePalette.Theme
-	local showWarningText = if GetFFlagValidateDescription() then not self.state.isDescriptionValid else false
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -274,7 +268,7 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 		-- Only display the description length if it's above a certain amount.
 		LengthDisplay = if self.state.descriptionLength / MAX_DESCRIPTION_LENGTH > 0.9
 			then Roact.createElement("TextLabel", {
-				Size = UDim2.new(GetFFlagValidateDescription() and 0.2 or 1, 0, 0, LENGTH_COUNTER_HEIGHT),
+				Size = UDim2.new(1, 0, 0, LENGTH_COUNTER_HEIGHT),
 				AnchorPoint = Vector2.new(1, 1),
 				Position = UDim2.fromScale(1, 1),
 				Text = self.state.descriptionLength .. "/" .. MAX_DESCRIPTION_LENGTH,
@@ -283,21 +277,6 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 				BackgroundTransparency = 1,
 			})
 			else nil,
-		WarningText = (GetFFlagValidateDescription() and showWarningText) and Roact.createElement("TextLabel", {
-			Position = UDim2.new(0, 0, 1, -WARNING_TEXT_HEIGHT),
-			BackgroundTransparency = 1,
-			Text = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.InvalidDescription"),
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Top,
-			Size = UDim2.new(0.8, 0, 0, 20),
-			TextColor3 = theme.Alert.Color,
-			TextWrapped = true,
-			Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(stylePalette.Tokens.Typography.BodyLarge.Font)
-				else nil,
-			TextSize = WARNING_TEXT_SIZE,
-		}),
 	})
 end
 

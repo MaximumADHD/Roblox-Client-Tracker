@@ -156,8 +156,6 @@ local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExperienceVoiceCaptureMute
 local FFlagPartyVoiceFixCaptureVideoCheck = game:DefineFastFlag("PartyVoiceFixCaptureVideoCheck", false)
 local FIntPartyVoiceUndeafenDelayMS = SharedFlags.FIntPartyVoiceUndeafenDelayMS
-local FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit =
-	game:DefineFastFlag("PartyVoiceExecuteVoiceActionsPostAsyncInit", false)
 local FIntVoiceJoinTimeoutInSeconds = game:DefineFastInt("VoiceJoinTimeoutInSeconds", 15)
 
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
@@ -377,20 +375,12 @@ local onLocalPlayerMuteChanged = function(isMuted)
 	local eventName = if isMuted
 		then CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_MUTED
 		else CrossExperience.Constants.EVENTS.PARTY_VOICE_PARTICIPANT_WAS_UNMUTED
-
-	if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
 		executePostVoiceAsyncInit(function()
 			cevEventManager:notify(eventName, {
 				userId = localUserId,
 				isLocalUser = true,
 			})
 		end)
-	else
-		cevEventManager:notify(eventName, {
-			userId = localUserId,
-			isLocalUser = true,
-		})
-	end
 end
 
 local function onLocalVoiceChangerChanged(isVoiceChangerActive)
@@ -451,8 +441,6 @@ end
 local toggleMutePlayer = function(params)
 	local userId = tonumber(params.userId)
 	local isLocalPlayer = localUserId == userId
-
-	if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
 		executePostVoiceAsyncInit(function()
 			if isLocalPlayer then
 				if FFlagEnableCEVPersistMuteStateForAFM then
@@ -463,13 +451,6 @@ local toggleMutePlayer = function(params)
 				CoreVoiceManager:ToggleMutePlayer(userId)
 			end
 		end)
-	else
-		if isLocalPlayer then
-			CoreVoiceManager:ToggleMic("Squads")
-		else
-			CoreVoiceManager:ToggleMutePlayer(userId)
-		end
-	end
 end
 
 local function setVoicePack(params)
@@ -626,13 +607,9 @@ end
 local function unmuteMicrophoneOnce()
 	CoreVoiceManager.muteChanged.Event:Once(function(muted)
 		if muted ~= nil then
-			if FFlagPartyVoiceExecuteVoiceActionsPostAsyncInit then
 				executePostVoiceAsyncInit(function()
 					CoreVoiceManager:ToggleMic("BackgroundDM")
 				end)
-			else
-				CoreVoiceManager:ToggleMic("BackgroundDM")
-			end
 		end
 	end)
 end

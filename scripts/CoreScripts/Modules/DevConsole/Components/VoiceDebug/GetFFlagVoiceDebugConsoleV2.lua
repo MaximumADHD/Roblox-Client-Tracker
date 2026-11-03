@@ -11,5 +11,5 @@ return function(): boolean
 	if override ~= nil then
 		return override
 	end
-	return game:GetFastFlag("VoiceDebugConsoleV2") or game:GetEngineFeature("VoiceDebugConsoleSubscriptionsPanelEnabled")
+	return game:GetFastFlag("VoiceDebugConsoleV2")
 end

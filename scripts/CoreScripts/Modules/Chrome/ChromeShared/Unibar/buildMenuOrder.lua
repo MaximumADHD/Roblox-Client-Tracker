@@ -10,7 +10,6 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local isTenFootInterface = require(CorePackages.Workspace.Packages.AppCommonLib).isTenFootInterface
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
@@ -41,11 +40,7 @@ end
 -- Build a map of menu items to their placement in the side sheet or nine-dot menu.
 local function buildMenuOrder(): Array<string>
 	local connectDropdownVisible = isConnectDropdownEnabled()
-		and not (
-			FFlagRemoveFriendsChatUnibarEntrypoints
-			and ArgoPartyExperimentation.getIsRenameEnabled()
-			and FFlagExpChatCanShowFriendsTab
-		)
+		and not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab)
 
 	-- TO-DO: Replace GuiService:IsTenFootInterface() once APPEXP-2014 has been merged
 	local isNotVROrConsole = not isSpatial() and not isTenFootInterface()

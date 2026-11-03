@@ -1,6 +1,9 @@
 --!strict
 local Root = script:FindFirstAncestor("Markdown")
 local Types = require(Root.Types)
+local Flags = require(Root.Parent.MarkdownCore).Flags
+local NodeType = require(Root.Enums.NodeType)
+local TableAlignment = require(Root.Enums.TableAlignment)
 
 type Attributes = Types.Attributes
 type Node = Types.Node
@@ -39,15 +42,40 @@ local function trimLeadingWhitespace(children: { Node }, atStart: boolean): { No
 	return trimmed
 end
 
+local function makeContentInline(node: Node, options: ParserOptions)
+	if node.name == "TAG" then
+		node.type = NodeType.InlineSpan
+	elseif node.name == "DIVIDER" then
+		node.name = "BREAK"
+		node.type = getNodeType("BREAK", options)
+	end
+
+	for _, child in node.children do
+		makeContentInline(child, options)
+	end
+end
+
 -- Clean up the AST output: group lists & tables correctly, output paragraphs and rich-text
 function module.postProcessTree(node: Node, options: ParserOptions): { Node }
 	local children = {}
 	local i = 1
 	local nodes = node.children
-	local isNodeInlineTag = node.name == "TAG" and options.inlineTags[node.text :: string]
+	local isNodeInlineTag = node.name == "TAG"
+		and (
+			options.inlineTags[node.text :: string]
+			or (Flags.FFlagMarkdownTagFallbacks and node.type == NodeType.InlineSpan)
+		)
 	local isNodeContainer = CONTAINERS[node.name] and not isNodeInlineTag
+	local isNodeTextual = Flags.FFlagMarkdownTagFallbacks
+		and (node.type == NodeType.TextBlock or node.type == NodeType.InlineSpan)
+
 	while i <= #nodes do
 		local child = nodes[i]
+		if isNodeTextual and child.name == "TAG" then
+			-- Text blocks render inline, which drops block content
+			makeContentInline(child, options)
+		end
+
 		local isChildInlineTag = child.name == "TAG" and child.text and options.inlineTags[child.text]
 		local isChildInline = INLINE_TEXT[child.name] or isChildInlineTag
 		if isChildInline and isNodeContainer then
@@ -149,6 +177,10 @@ function module.buildParagraph(
 			count += 1
 			i += 1
 		elseif isNodeInline then
+			if Flags.FFlagMarkdownTagFallbacks and node.name == "TAG" then
+				makeContentInline(node, options)
+			end
+
 			insert(children, node)
 			count += 1
 			i += 1
@@ -282,37 +314,8 @@ function module.buildQuote(nodes: { Node }, offset: number, options: ParserOptio
 	return count, quoteNode
 end
 
-function module.buildTable(nodes: { Node }, offset: number, options: ParserOptions): (number, Node)
-	local count = 0
-	local rows: { Node } = {}
-	for i = offset, #nodes do
-		local node = nodes[i]
-		if node.name == "TABLE_ROW" then
-			local cells = module.buildTableCells(node, options)
-			-- Drop any rows that just contain dividers
-			if cells then
-				node.children = cells
-				insert(rows, node)
-			elseif #rows > 0 then
-				-- And instead, mark the row above as a header
-				rows[#rows].name = "TABLE_HEADER"
-			end
-			count += 1
-		else
-			break
-		end
-	end
-	return count,
-		{
-			name = "TABLE",
-			children = rows,
-			offset = nodes[offset].offset,
-			type = getNodeType("TABLE", options),
-		}
-end
-
 -- Iterate through the children of a row and group them into cells, splitting on table dividers
-function module.buildTableCells(row: Node, options: ParserOptions): { Node }?
+local function buildTableCellsLegacy(row: Node, options: ParserOptions): { Node }?
 	local cells: { Node } = {}
 	local cellChildren = {}
 	local isDividerRow = true
@@ -342,6 +345,176 @@ function module.buildTableCells(row: Node, options: ParserOptions): { Node }?
 	else
 		return cells
 	end
+end
+
+local function buildTableLegacy(nodes: { Node }, offset: number, options: ParserOptions): (number, Node)
+	local count = 0
+	local rows: { Node } = {}
+	for i = offset, #nodes do
+		local node = nodes[i]
+		if node.name == "TABLE_ROW" then
+			local cells = buildTableCellsLegacy(node, options)
+			-- Drop any rows that just contain dividers
+			if cells then
+				node.children = cells
+				insert(rows, node)
+			elseif #rows > 0 then
+				-- And instead, mark the row above as a header
+				rows[#rows].name = "TABLE_HEADER"
+			end
+			count += 1
+		else
+			break
+		end
+	end
+	return count,
+		{
+			name = "TABLE",
+			children = rows,
+			offset = nodes[offset].offset,
+			type = getNodeType("TABLE", options),
+		}
+end
+
+local function getDelimiterAlignment(cell: Node): TableAlignment.TableAlignment?
+	local text = ""
+	for _, child in cell.children do
+		text ..= child.text or ""
+	end
+
+	local delimiter = string.match(text, "^%s*(.-)%s*$") or ""
+	local alignsLeft = string.sub(delimiter, 1, 1) == ":"
+	local alignsRight = string.sub(delimiter, -1) == ":"
+
+	if alignsLeft and alignsRight then
+		return TableAlignment.Center
+	elseif alignsRight then
+		return TableAlignment.Right
+	elseif alignsLeft then
+		return TableAlignment.Left
+	end
+
+	return nil
+end
+
+function module.buildTable(nodes: { Node }, offset: number, options: ParserOptions): (number, Node)
+	if not Flags.FFlagMarkdownTables then
+		return buildTableLegacy(nodes, offset, options)
+	end
+
+	local count = 0
+	local rows: { Node } = {}
+	local alignments: { [number]: TableAlignment.TableAlignment? } = {}
+
+	for i = offset, #nodes do
+		local node = nodes[i]
+		if node.name ~= "TABLE_ROW" then
+			break
+		end
+
+		local cells, isDividerRow = module.buildTableCells(node, options)
+		local isSecondRow = count == 1
+		if isDividerRow and isSecondRow then
+			rows[1].name = "TABLE_HEADER"
+			for columnIndex, cell in cells do
+				alignments[columnIndex] = getDelimiterAlignment(cell)
+			end
+		else
+			node.children = cells
+			insert(rows, node)
+		end
+
+		count += 1
+	end
+
+	if rows[1] then
+		local columnCount = #rows[1].children
+		for _, row in rows do
+			for _ = #row.children + 1, columnCount do
+				insert(row.children, module.buildTableCell({}, row, options))
+			end
+
+			for _ = columnCount + 1, #row.children do
+				table.remove(row.children)
+			end
+
+			for columnIndex, cell in row.children do
+				local alignment = alignments[columnIndex]
+				if alignment then
+					cell.attributes = { alignment = alignment } :: Attributes
+				end
+			end
+		end
+	end
+
+	return count,
+		{
+			name = "TABLE",
+			children = rows,
+			offset = nodes[offset].offset,
+			type = getNodeType("TABLE", options),
+		}
+end
+
+local function isDividerCell(cell: Node): boolean
+	local text = ""
+	for _, child in cell.children do
+		if child.name ~= "TEXT" then
+			return false
+		end
+		text ..= child.text or ""
+	end
+
+	return text:match("^%s*:?%-+:?%s*$") ~= nil
+end
+
+local function hasContent(nodes: { Node }): boolean
+	for _, node in nodes do
+		if node.name ~= "TEXT" or (node.text and node.text:find("%S")) then
+			return true
+		end
+	end
+
+	return false
+end
+
+function module.buildTableCell(children: { Node }, row: Node, options: ParserOptions): Node
+	local cell = {
+		name = "TABLE_CELL",
+		children = children,
+		offset = if children[1] then children[1].offset else row.offset,
+		type = getNodeType("TABLE_CELL", options),
+	}
+	cell.children = module.postProcessTree(cell, options)
+
+	return cell
+end
+
+-- Iterate through the children of a row and group them into cells, splitting on table dividers
+function module.buildTableCells(row: Node, options: ParserOptions): ({ Node }, boolean)
+	local cells: { Node } = {}
+	local cellChildren = {}
+	local isDividerRow = true
+
+	for i = 1, #row.children do
+		local child = row.children[i]
+		if child.name == "TABLE_DIVIDER" then
+			local cell = module.buildTableCell(cellChildren, row, options)
+			insert(cells, cell)
+			isDividerRow = isDividerRow and isDividerCell(cell)
+			cellChildren = {}
+		else
+			insert(cellChildren, child)
+		end
+	end
+
+	if hasContent(cellChildren) then
+		local cell = module.buildTableCell(cellChildren, row, options)
+		insert(cells, cell)
+		isDividerRow = isDividerRow and isDividerCell(cell)
+	end
+
+	return cells, isDividerRow and #cells > 0
 end
 
 -- Combine text nodes into a single text node

@@ -3,7 +3,11 @@
 	Supports Decals (face/lip/eye makeup) and Accessories (eyebrow/eyelash).
 ]]
 local AssetService = game:GetService("AssetService")
+local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+
+local Thumbnailing = require(CorePackages.Packages.Thumbnailing)
+local FFlagSharedMakeupThumbnailCamera = Thumbnailing.FFlagSharedMakeupThumbnailCamera
 
 local root = script.Parent
 local Constants = require(root.Constants)
@@ -63,6 +67,11 @@ function MakeupPreviewUtils.setupMakeupThumbnailCamera(
 	local head = model:FindFirstChild("Head")
 	if not head or not head:IsA("MeshPart") then
 		return false
+	end
+
+	if FFlagSharedMakeupThumbnailCamera then
+		Thumbnailing.MakeupCameraUtility.SetupCamera(camera, head.CFrame, if assetType then assetType.Value else nil)
+		return true
 	end
 
 	local cameraCFrame: CFrame = DEFAULT_MAKEUP_THUMBNAIL_CAMERA_CFRAME

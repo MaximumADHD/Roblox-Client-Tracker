@@ -1,7 +1,6 @@
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
-local FFlagUserControlModuleEnabledAPI = FlagUtil.getUserFlag("UserControlModuleEnabledAPI")
 local StarterPlayer = game:GetService("StarterPlayer")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local Workspace = game:GetService("Workspace")
@@ -190,11 +189,8 @@ function InputReplication.createPlayerControlState(player: Player)
 end
 
 -- very bloated right now and not final but get ControlModule values to send to server
-function InputReplication.writeInputToPCS(player: Player, controlModule, isServerAuthority: boolean)
-	local data
-	if FFlagUserControlModuleEnabledAPI then
-		data = controlModule.data
-	end
+function InputReplication.writeInputToPCS(player: Player, controlModule)
+	local data = controlModule.data
 
 	local character = player.Character
 	if not character then return end
@@ -207,27 +203,8 @@ function InputReplication.writeInputToPCS(player: Player, controlModule, isServe
 	if not pcs then return end
 	local humanoid = controlModule.humanoid
 	if not humanoid then return end
-	local input = if isServerAuthority then
-		player:FindFirstChild("InputContexts") else
-		script.Parent.Parent:FindFirstChild("InputContexts")
-
-	local jumpBool
-	local worldMove 
-
-	if FFlagUserControlModuleEnabledAPI then
-		jumpBool = data.isJumping
-		worldMove = data.worldMoveVector
-	else
-		local characterContext = input and input:FindFirstChild("CharacterContext")
-		if not characterContext then return end
-		local moveAction = characterContext:FindFirstChild("MoveAction")
-		local jumpAction = characterContext:FindFirstChild("JumpAction")
-
-		local moveVector2D = if moveAction then moveAction:GetState() else Vector2.zero
-		jumpBool = if jumpAction then jumpAction:GetState() else false
-		worldMove = controlModule:calculateRawMoveVector(humanoid,
-			Vector3.new(moveVector2D.X, 0, -moveVector2D.Y))
-	end
+	local jumpBool = data.controlModule.isJumping
+	local worldMove = data.controlModule.worldMoveVector
 
 	local isRelative = UserGameSettings.RotationType == Enum.RotationType.CameraRelative
 	local camLook = Workspace.CurrentCamera and Workspace.CurrentCamera.CFrame.LookVector or Vector3.zAxis

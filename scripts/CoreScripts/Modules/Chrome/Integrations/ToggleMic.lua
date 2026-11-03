@@ -14,8 +14,10 @@ local Foundation = require(CorePackages.Packages.Foundation)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
-local FFlagProactiveVoiceRestrictionsUFR =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
+local showVoiceRestrictionEndedSnackbar = require(RobloxGui.Modules.VoiceChat.Helpers.showVoiceRestrictionEndedSnackbar)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagProactiveVoiceRestrictionsUFR = SharedFlags.FFlagProactiveVoiceRestrictionsUFR
+local FFlagReactiveVoiceRestrictionsUFR = SharedFlags.FFlagReactiveVoiceRestrictionsUFR
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
@@ -60,6 +62,8 @@ local function handleRestrictedActivation(): boolean
 	local restrictionState = VoiceChatServiceManager:GetVoiceRestrictionState(false)
 	if restrictionState == "restricted" then
 		VoiceChatServiceManager:ShowVoiceRestriction()
+	elseif FFlagReactiveVoiceRestrictionsUFR and restrictionState == "hiddenUntilRejoin" then
+		showVoiceRestrictionEndedSnackbar()
 	end
 	return restrictionState ~= "normal"
 end
@@ -185,6 +189,17 @@ muteSelf = ChromeService:register({
 				})
 			end
 
+			-- After a restriction ends, show a plain muted mic until the player rejoins. The player has
+			-- already left voice, so VoiceIndicator would show a loading or error icon instead.
+			if FFlagReactiveVoiceRestrictionsUFR and restrictionState == "hiddenUntilRejoin" then
+				return React.createElement("ImageLabel", {
+					Size = UDim2.new(0, iconSize, 0, iconSize),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					Image = VoiceChatServiceManager:GetIcon("Muted", iconStyle),
+				})
+			end
+
 			if nonVoiceIndicator then
 				return nonVoiceIndicator
 			end
@@ -221,7 +236,12 @@ local function applyRestrictionState(): boolean
 
 	-- Restriction presentation wins over Ended/Failed and unsuccessful asyncInit.
 	muteSelf.activated = handleRestrictedActivation
-	muteSelf.availability:unavailable()
+	if FFlagReactiveVoiceRestrictionsUFR then
+		-- Keep the mic visible so tapping it can explain the restriction, or that a rejoin restores voice.
+		muteSelf.availability:pinned()
+	else
+		muteSelf.availability:unavailable()
+	end
 
 	return true
 end

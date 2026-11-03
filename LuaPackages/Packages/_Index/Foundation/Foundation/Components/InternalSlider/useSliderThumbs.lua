@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local calculateSliderStepValue = require(Foundation.Components.Slider.calculateSliderStepValue)
+local calculateSliderValueFraction = require(Foundation.Components.Slider.calculateSliderValueFraction)
 
 export type InternalSliderThumbConfig = {
 	value: React.Binding<number>,
@@ -30,8 +31,8 @@ export type SliderThumbs = {
 
 local function useSliderThumbs(props: SliderThumbsProps): SliderThumbs
 	local toFraction = React.useCallback(function(value: number): number
-		return math.clamp((value - props.range.Min) / (props.range.Max - props.range.Min), 0, 1)
-	end, { props.range.Min, props.range.Max })
+		return calculateSliderValueFraction(value, props.range)
+	end, { props.range })
 
 	local valueFromFraction = React.useCallback(function(fraction: number): number
 		local rawValue = props.range.Min + fraction * (props.range.Max - props.range.Min)

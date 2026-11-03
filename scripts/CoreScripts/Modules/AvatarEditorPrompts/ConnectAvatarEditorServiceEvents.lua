@@ -13,6 +13,10 @@ local OpenRenameOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenRenameOutf
 local OpenUpdateOutfitPrompt = require(AvatarEditorPrompts.Thunks.OpenUpdateOutfitPrompt)
 
 local AvatarExperienceCommon = require(CorePackages.Workspace.Packages.AvatarExperienceCommon)
+local showSaveAvatarTimeoutFeatureRestriction = require(AvatarEditorPrompts.showSaveAvatarTimeoutFeatureRestriction)
+
+local FFlagAXUseUFRForTimeoutPromptInExperience =
+	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXUseUFRForTimeoutPromptInExperience
 
 local function ConnectAvatarEditorServiceEvents(store)
 	local connections = {}
@@ -23,6 +27,10 @@ local function ConnectAvatarEditorServiceEvents(store)
 			local timeoutStore = AvatarExperienceCommon.Stores.getTimeoutStatusStore()
 			timeoutStore.fetchStatusAsync():andThen(function(status)
 				if status.isTimedOut then
+					if FFlagAXUseUFRForTimeoutPromptInExperience then
+						showSaveAvatarTimeoutFeatureRestriction()
+						return
+					end
 					store:dispatch(OpenPrompt(PromptType.SaveAvatarTimeout, {}))
 				else
 					store:dispatch(OpenSaveAvatarPrompt(humanoidDescription, rigType))

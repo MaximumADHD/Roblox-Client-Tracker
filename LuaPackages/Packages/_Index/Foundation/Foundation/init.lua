@@ -353,6 +353,11 @@ export type MediaProps = Media.MediaProps
 export type MediaContent = Media.MediaContent
 export type MediaImage = Media.MediaImage
 
+local Metadata = require(script.Components.Metadata)
+export type MetadataProps = Metadata.MetadataProps
+export type MetadataAccessory = Metadata.MetadataAccessory
+export type MetadataItem = Metadata.MetadataItem
+
 local Menu = require(script.Components.Menu)
 export type MenuProps = Menu.MenuProps
 export type MenuItem = Menu.MenuItem
@@ -503,6 +508,7 @@ local Foundation = strict({
 	List = List,
 	Loading = Loading,
 	Media = Media,
+	Metadata = Metadata,
 	Menu = Menu,
 	NumberInput = NumberInput,
 	OptionSelectorGroup = OptionSelectorGroup,

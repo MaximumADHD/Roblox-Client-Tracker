@@ -12,6 +12,7 @@ export type JsonLightDescType = LightUtility.JsonLightDescType
 export type LightExtraParamsType = LightUtility.LightExtraParamsType
 
 return {
+	FFlagSharedMakeupThumbnailCamera = game:DefineFastFlag("SharedMakeupThumbnailCamera", false),
 	CameraPresetsUtility = require(script.CameraPresetsUtility),
 	CameraUtility = CameraUtility,
 	CFrameUtility = require(script.CFrameUtility),
@@ -22,4 +23,5 @@ return {
 	CharacterUtility = require(script.CharacterUtility),
 	ParticleUtility = require(script.ParticleUtility),
 	MannequinUtility = require(script.MannequinUtility),
+	MakeupCameraUtility = require(script.MakeupCameraUtility),
 }

@@ -72,6 +72,8 @@ local VoiceDebugFieldDisplayOrder = require(script.Parent.VoiceDebugFieldDisplay
 local getFFlagVoiceDebugConsoleV2 = require(script.Parent.GetFFlagVoiceDebugConsoleV2)
 
 local FreezeToggle = require(script.Parent.FreezeToggle)
+local getFFlagVoiceDebugPartyVoiceToggleEnabled = require(script.Parent.GetFFlagVoiceDebugPartyVoiceToggleEnabled)
+local VoiceSourceToggle = require(script.Parent.VoiceSourceToggle)
 
 local EXTENDED_DISPLAY_ORDER = {
 	"incomingBitrateKbps",
@@ -250,6 +252,19 @@ function MainViewVoiceDebug:init()
 			connectivity = self.props.VoiceDebugData:getConnectivity(),
 			subscriptions = self.props.VoiceDebugData:getSubscriptions(),
 			remoteOperations = self.props.VoiceDebugData:getRemoteOperations(),
+			source = self.props.VoiceDebugData:getSource(),
+		})
+	end
+
+	self.onSourceChanged = function(newSource)
+		self.props.VoiceDebugData:setSource(newSource)
+		self:setState({
+			source = newSource,
+			stats = self.props.VoiceDebugData:getCurrentData(),
+			series = self.state.frozen and self.props.VoiceDebugData:getSeriesSnapshot() or self.props.VoiceDebugData:getSeries(),
+			connectivity = self.props.VoiceDebugData:getConnectivity(),
+			subscriptions = self.props.VoiceDebugData:getSubscriptions(),
+			remoteOperations = self.props.VoiceDebugData:getRemoteOperations(),
 		})
 	end
 
@@ -283,6 +298,7 @@ function MainViewVoiceDebug:init()
 		connectivity = {},
 		subscriptions = {},
 		remoteOperations = {},
+		source = self.props.VoiceDebugData:getSource(),
 		selectedGraphKeyByGroup = {},
 		frozen = false,
 	}
@@ -694,10 +710,15 @@ function MainViewVoiceDebug:render()
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					Padding = UDim.new(0, UTIL_BAR_ITEM_GAP),
 				}),
+				VoiceSourceToggle = getFFlagVoiceDebugPartyVoiceToggleEnabled() and Roact.createElement(VoiceSourceToggle, {
+					source = self.state.source,
+					onSourceChanged = self.onSourceChanged,
+					layoutOrder = 1,
+				}) or nil,
 				FreezeToggle = Roact.createElement(FreezeToggle, {
 					frozen = self.state.frozen,
 					onToggle = self.onFreezeToggled,
-					layoutOrder = 1,
+					layoutOrder = 2,
 				}),
 			}) or nil,
 		}),

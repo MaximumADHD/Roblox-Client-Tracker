@@ -41,6 +41,8 @@ type BannerSharedProps = {
 	title: string?,
 	-- Supporting copy under the title.
 	description: string?,
+	-- Shows a close button. Medium uses Card's close button and keeps it when actions are set. On Small it is vertically centered and ignored when a primary action is set.
+	onClose: (() -> ())?,
 } & Types.CommonProps
 
 export type MediumBannerProps = BannerSharedProps & {
@@ -109,11 +111,15 @@ local function Banner(bannerProps: BannerProps, ref: React.Ref<GuiObject>?)
 				description = props.description,
 				thumbnail = bannerProps.thumbnail,
 				onActivated = if primaryAction then primaryAction.onActivated else nil,
+				onClose = if primaryAction then nil else bannerProps.onClose,
 				testId = props.testId,
 			}),
 		}
 	else
 		local secondaryAction = if bannerProps.actions then bannerProps.actions.secondary else nil
+		if bannerProps.onClose then
+			cardProps.onClose = bannerProps.onClose
+		end
 		cardProps.title = props.title
 		cardProps.description = props.description
 		cardProps.lineClamp = {

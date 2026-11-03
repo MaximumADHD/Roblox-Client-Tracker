@@ -263,3 +263,42 @@ describe("Freeze util bar button (FFlagVoiceDebugConsoleV2)", function()
 		expect(table.find(texts, "Freeze")).never.toBe(nil)
 	end)
 end)
+
+describe("Voice source toggle util bar button (FFlagVoiceDebugPartyVoiceToggleEnabled)", function()
+	it("does not render when the flag is off", function()
+		if not game:GetEngineFeature("VoiceChatDevConsoleTabEnabled") then
+			return
+		end
+		local oldConsoleV2 = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local oldPartyToggle = game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", false)
+		local container = Instance.new("Frame")
+		local instance = mountVoiceDebugWithDirectData(container)
+
+		local texts = allTexts(container)
+		Roact.unmount(instance)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldConsoleV2)
+		game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", oldPartyToggle)
+
+		expect(table.find(texts, "In-experience")).toBe(nil)
+		expect(table.find(texts, "Party voice")).toBe(nil)
+	end)
+
+	it("renders both segments alongside Freeze when the flag is on", function()
+		if not game:GetEngineFeature("VoiceChatDevConsoleTabEnabled") then
+			return
+		end
+		local oldConsoleV2 = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local oldPartyToggle = game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", true)
+		local container = Instance.new("Frame")
+		local instance = mountVoiceDebugWithDirectData(container)
+
+		local texts = allTexts(container)
+		Roact.unmount(instance)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldConsoleV2)
+		game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", oldPartyToggle)
+
+		expect(table.find(texts, "In-experience")).never.toBe(nil)
+		expect(table.find(texts, "Party voice")).never.toBe(nil)
+		expect(table.find(texts, "Freeze")).never.toBe(nil)
+	end)
+end)

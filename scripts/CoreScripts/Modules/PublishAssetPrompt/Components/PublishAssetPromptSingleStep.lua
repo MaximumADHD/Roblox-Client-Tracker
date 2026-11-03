@@ -73,8 +73,7 @@ local LayeredAssetTypes = {
 	[Enum.AssetType.DressSkirtAccessory] = true,
 	[Enum.AssetType.HairAccessory] = true,
 }
-local PublishAssetPrompt = script.Parent.Parent
-local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
+
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
 local EngineFeatureEnableEmotePublish = game:GetEngineFeature("EnableEmotePublish")
 local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
@@ -163,12 +162,6 @@ function PublishAssetPromptSingleStep:init()
 	self.confirmAndUpload = function()
 		if not self.isNameValid then
 			return
-		end
-
-		if GetFFlagValidateDescription() then
-			if not self.isDescriptionValid then
-				return
-			end
 		end
 
 		local metadata = {}

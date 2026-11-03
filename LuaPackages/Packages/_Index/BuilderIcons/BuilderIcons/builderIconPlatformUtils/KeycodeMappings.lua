@@ -77,6 +77,14 @@ return {
 		RightShift = BuilderIcons.KeyShift,
 		Space = BuilderIcons.KeySpace,
 		Tab = BuilderIcons.KeyTab,
+		Thumbstick1Down = BuilderIcons.GenericStickLDown,
+		Thumbstick1Left = BuilderIcons.GenericStickLLeft,
+		Thumbstick1Right = BuilderIcons.GenericStickLRight,
+		Thumbstick1Up = BuilderIcons.GenericStickLUp,
+		Thumbstick2Down = BuilderIcons.GenericStickRDown,
+		Thumbstick2Left = BuilderIcons.GenericStickRLeft,
+		Thumbstick2Right = BuilderIcons.GenericStickRRight,
+		Thumbstick2Up = BuilderIcons.GenericStickRUp,
 	},
 	-- add more keys as icons are added
 }

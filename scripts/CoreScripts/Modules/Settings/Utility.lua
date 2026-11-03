@@ -78,7 +78,8 @@ local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration
 
 ------------------ VARIABLES --------------------
-local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
+local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
 
 local isLastInputModeTap = Signals.createComputed(function(scope)
 	local InputModeStore = Responsive.GetInputModeStore(scope)

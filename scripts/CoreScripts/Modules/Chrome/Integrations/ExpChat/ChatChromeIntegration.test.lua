@@ -375,19 +375,6 @@ jest.mock(CorePackages.Workspace.Packages.SharedExperimentDefinition, function()
 	return mockExperiments
 end)
 
--- Mutable so the entrypoint-reorg (`sideSheetPlacement`) branch can be driven;
--- the integration calls `getIsRenameEnabled` at require time.
-local mockRenameEnabled = false
-jest.mock(CorePackages.Workspace.Packages.SocialExperiments, function()
-	return {
-		ArgoPartyExperimentation = {
-			getIsRenameEnabled = function()
-				return mockRenameEnabled
-			end,
-		},
-	}
-end)
-
 local isSpatialValue = false
 jest.mock(CorePackages.Workspace.Packages.AppCommonLib, function()
 	return {
@@ -551,7 +538,6 @@ describe("ChatChromeIntegration chat-open capability", function()
 		chatWindowVisible = false
 		isSpatialValue = false
 		mockExperiments.isInExperienceUIVREnabled = false
-		mockRenameEnabled = false
 		mockSharedFlags.FFlagEnableConsoleExpControls = false
 		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = false
 		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
@@ -721,11 +707,10 @@ describe("ChatChromeIntegration chat-open capability", function()
 
 	describe("side sheet placement", function()
 		-- The reorg gate follows CanShow, not F: the chat button is only relocated
-		-- to the Unibar once the Friends tab is actually shown. RemoveEntrypoints +
-		-- rename are the arm-constant preconditions; CanShow is what flips placement,
+		-- to the Unibar once the Friends tab is actually shown. RemoveEntrypoints is
+		-- the arm-constant precondition; CanShow is what flips placement,
 		-- so the holdout (F on, CanShow off) keeps the legacy hidden-button layout.
 		it("SHOULD keep the chat button hidden (None) for the holdout WHEN CanShow is off", function()
-			mockRenameEnabled = true
 			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
 			mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
 			loadIntegration(true)
@@ -734,7 +719,6 @@ describe("ChatChromeIntegration chat-open capability", function()
 		end)
 
 		it("SHOULD relocate the chat button to the Unibar WHEN CanShow is on", function()
-			mockRenameEnabled = true
 			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
 			mockSharedFlags.FFlagExpChatCanShowFriendsTab = true
 			loadIntegration(true)

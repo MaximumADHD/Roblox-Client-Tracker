@@ -359,5 +359,6 @@ Constants.Counters = {
 	GetAvatarPreview = "GetAvatarPreview",
 	BatchGetAssets = "BatchGetAssets",
 	BatchGetItemDetails = "BatchGetItemDetails",
+	GetAvatarBackground = "GetAvatarBackground",
 }
 return Constants

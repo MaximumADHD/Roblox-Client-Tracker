@@ -21,6 +21,7 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeWindowSignalConstraintsToggle = SharedFlags.FFlagChromeWindowSignalConstraintsToggle
 local FFlagRemoveAvatarSwitcherIfUnsupported = SharedFlags.FFlagRemoveAvatarSwitcherIfUnsupported
+local FFlagAvatarWorkshopReplacesAvatarSwitcher = SharedFlags.FFlagAvatarWorkshopReplacesAvatarSwitcher
 
 local isActive = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), function()
 	return ChromeService:isWindowOpen(Constants.AVATAR_SWITCHER_ID)
@@ -50,7 +51,9 @@ end
 local integration = ChromeService:register({
 	initialAvailability = getInitialAvailability(),
 	id = Constants.AVATAR_SWITCHER_ID,
-	label = "Feature.AvatarSwitcher.Heading.SwitchAvatar",
+	label = if FFlagAvatarWorkshopReplacesAvatarSwitcher
+		then "CommonUI.Features.Label.Avatar"
+		else "Feature.AvatarSwitcher.Heading.SwitchAvatar",
 	sideSheetPlacement = SideSheetPlacement.AboveFold,
 	activated = function(self)
 		ChromeService:toggleWindow(Constants.AVATAR_SWITCHER_ID)

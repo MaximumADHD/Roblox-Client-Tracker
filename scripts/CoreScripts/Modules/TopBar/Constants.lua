@@ -11,6 +11,7 @@ local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
 
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 
@@ -19,6 +20,9 @@ local StyleTokens = if ChromeEnabled()
 	else nil :: never
 
 local function withUIScale(value: number)
+	if FFlagResponsiveUnitsDeprecateTenFoot then 
+		return value 
+	end
 	local scale = if TenFootInterface:IsEnabled() then 1.5 else 1 -- APPEXP-2377: Replace with Scale token
 	return if ChromeEnabled() then scale * value else value
 end

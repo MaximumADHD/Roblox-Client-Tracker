@@ -37,6 +37,12 @@ local getFStringAppChatInExperienceIXPLayer =
 	require(CorePackages.Workspace.Packages.SharedFlags).getFStringAppChatInExperienceIXPLayer
 local FStringReportMenuIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportMenuIXPLayer
 local FStringReportingIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringReportingIXPLayer
+local FFlagEnableShopExposureLogging =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FFlagEnableShopExposureLogging)
+local FStringExperienceShopLayer1 =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FStringExperienceShopLayer1)
+local FStringExperienceShopLayer2 =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FStringExperienceShopLayer2)
 
 return function()
 	local layers = {
@@ -86,6 +92,11 @@ return function()
 
 	if GetFFlagEnableAppChatInExperience() then
 		table.insert(layers, getFStringAppChatInExperienceIXPLayer())
+	end
+
+	if FFlagEnableShopExposureLogging then
+		table.insert(layers, FStringExperienceShopLayer1)
+		table.insert(layers, FStringExperienceShopLayer2)
 	end
 
 	return layers

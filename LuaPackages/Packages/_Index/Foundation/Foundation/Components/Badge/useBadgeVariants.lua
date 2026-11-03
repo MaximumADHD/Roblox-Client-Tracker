@@ -130,10 +130,10 @@ function variantsFactory(tokens: Tokens)
 			},
 		[BadgeVariant.OverMedia] = {
 			container = {
-				backgroundStyle = if Flags.FoundationBadgeBetaUpdate
+				backgroundStyle = if Flags.FoundationBadgeOverMediaAdaptive
 					then tokens.Color.OverMedia.OverMedia_0
 					else tokens.LightMode.Surface.Surface_100,
-				stroke = if Flags.FoundationBadgeBetaUpdate
+				stroke = if Flags.FoundationBadgeOverMediaAdaptive
 					then nil
 					else {
 						Color = tokens.LightMode.Stroke.Default.Color3,
@@ -141,11 +141,26 @@ function variantsFactory(tokens: Tokens)
 					},
 			},
 			content = {
-				style = if Flags.FoundationBadgeBetaUpdate
+				style = if Flags.FoundationBadgeOverMediaAdaptive
 					then tokens.Inverse.OverMedia.OverMedia_0
 					else tokens.LightMode.Content.Emphasis,
 			},
-			icon = { style = tokens.Inverse.OverMedia.OverMedia_0 },
+			icon = {
+				style = if Flags.FoundationBadgeOverMediaAdaptive
+					then tokens.Inverse.OverMedia.OverMedia_0
+					else tokens.LightMode.Content.Emphasis,
+			},
+		},
+		[BadgeVariant.OverMediaWhite] = {
+			container = {
+				backgroundStyle = tokens.LightMode.Surface.Surface_100,
+				stroke = {
+					Color = tokens.LightMode.Stroke.Default.Color3,
+					Transparency = tokens.LightMode.Stroke.Default.Transparency,
+				},
+			},
+			content = { style = tokens.LightMode.Content.Emphasis },
+			icon = { style = tokens.LightMode.Content.Emphasis },
 		},
 		[BadgeVariant.Emphasis] = {
 			container = {

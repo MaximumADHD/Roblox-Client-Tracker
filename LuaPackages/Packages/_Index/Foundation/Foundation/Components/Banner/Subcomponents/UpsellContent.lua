@@ -4,7 +4,11 @@ local Packages = Foundation.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
 
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local InputSize = require(Foundation.Enums.InputSize)
+
 local Icon = require(Foundation.Components.Icon)
+local IconButton = require(Foundation.Components.IconButton)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
@@ -24,12 +28,14 @@ export type UpsellContentProps = {
 	description: string?,
 	thumbnail: BannerThumbnail?,
 	onActivated: (() -> ())?,
+	onClose: (() -> ())?,
 	testId: string,
 }
 
 local function UpsellContent(props: UpsellContentProps)
 	local tokens = useTokens()
 	local variantProps = useUpsellContentVariants(tokens, props.density)
+	local hasPrimaryAction = props.onActivated ~= nil
 
 	return React.createElement(View, {
 		tag = variantProps.container.tag,
@@ -68,11 +74,22 @@ local function UpsellContent(props: UpsellContentProps)
 				})
 				else nil,
 		}),
-		Chevron = if props.onActivated
+		Chevron = if hasPrimaryAction
 			then React.createElement(Icon, {
 				name = IconName.ChevronSmallRight,
 				LayoutOrder = 3,
 				testId = `{props.testId}--chevron`,
+			})
+			else nil,
+		Close = if props.onClose and not hasPrimaryAction
+			then React.createElement(IconButton, {
+				onActivated = props.onClose,
+				icon = IconName.X,
+				variant = ButtonVariant.Utility,
+				size = InputSize.Small,
+				isCircular = true,
+				LayoutOrder = 4,
+				testId = `{props.testId}--close`,
 			})
 			else nil,
 	})

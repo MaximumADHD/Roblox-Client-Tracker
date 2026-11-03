@@ -24,8 +24,9 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local rtl = require(CorePackages.Packages.Dev.ReactTestingLibrary)
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
-local FFlagProactiveVoiceRestrictionsUFR =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagProactiveVoiceRestrictionsUFR = SharedFlags.FFlagProactiveVoiceRestrictionsUFR
+local FFlagReactiveVoiceRestrictionsUFR = SharedFlags.FFlagReactiveVoiceRestrictionsUFR
 local FFlagMicConsumerRegistry = game:DefineFastFlag("MicConsumerRegistry", false)
 
 type FakeMicManager = {
@@ -46,8 +47,12 @@ local stateChanged
 local initRejected
 local events
 local muteAnalytics = jest.fn()
+local showVoiceRestrictionEndedSnackbar = jest.fn()
 local voiceChatSupported
 
+jest.mock(RobloxGui.Modules.VoiceChat.Helpers.showVoiceRestrictionEndedSnackbar, function()
+	return showVoiceRestrictionEndedSnackbar
+end)
 jest.mock(CorePackages.Packages.Foundation, function()
 	return Foundation
 end)
@@ -156,6 +161,7 @@ describe("ToggleMic", function()
 		initRejected = false
 		voiceChatSupported = true
 		muteAnalytics:mockClear()
+		showVoiceRestrictionEndedSnackbar:mockClear()
 		micManager = nil
 		local getRestriction
 		getRestriction, setRestriction = Signals.createSignal("normal")
@@ -251,16 +257,6 @@ describe("ToggleMic", function()
 			connection:disconnect()
 		end)
 
-		it("hides a restricted mic even when banned startup rejects initialization", function()
-			initRejected = true
-			setRestriction("restricted")
-			local mic = loadMic()
-			expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
-			local isActivated = mic.isActivated
-			assert(typeof(isActivated) == "table", "ToggleMic should register an isActivated signal")
-			expect(isActivated:get()).toBe(false)
-		end)
-
 		it("routes restricted activation to restriction details without muting or mute analytics", function()
 			local mic = loadMic()
 			setRestriction("restricted")
@@ -268,34 +264,7 @@ describe("ToggleMic", function()
 			expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(1)
 			expect(manager.ToggleMic).never.toHaveBeenCalled()
 			expect(muteAnalytics).never.toHaveBeenCalled()
-		end)
-
-		it("keeps restriction activation ahead of ended, failed, and loading voice states", function()
-			local mic = loadMic()
-			setRestriction("restricted")
-			for _, state in { Enum.VoiceChatState.Ended, Enum.VoiceChatState.Failed, Enum.VoiceChatState.Joining } do
-				stateChanged:Fire(nil, state)
-				waitForEvents()
-				expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
-				activate(mic)
-			end
-			expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(3)
-			expect(manager.RejoinPreviousChannel).never.toHaveBeenCalled()
-			expect(manager.ShowVoiceChatLoadingMessage).never.toHaveBeenCalled()
-			expect(manager.ToggleMic).never.toHaveBeenCalled()
-		end)
-
-		it("keeps a cleared restriction hidden without rejoining or unmuting", function()
-			setRestriction("restricted")
-			local mic = loadMic()
-			setRestriction("hiddenUntilRejoin")
-			stateChanged:Fire(nil, Enum.VoiceChatState.Failed)
-			waitForEvents()
-			expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
-			activate(mic)
-			expect(manager.ShowVoiceRestriction).never.toHaveBeenCalled()
-			expect(manager.RejoinPreviousChannel).never.toHaveBeenCalled()
-			expect(manager.ToggleMic).never.toHaveBeenCalled()
+			expect(showVoiceRestrictionEndedSnackbar).never.toHaveBeenCalled()
 		end)
 
 		it("renders the dimmed microphone mute control icon for a restriction", function()
@@ -314,29 +283,89 @@ describe("ToggleMic", function()
 			end)).toBeNil()
 		end)
 
-		if FFlagMicConsumerRegistry then
-			it("keeps restriction availability and activation ahead of a non-voice mic consumer", function()
-				local consumer = useNonVoiceMicConsumer()
+		if FFlagReactiveVoiceRestrictionsUFR then
+			it("keeps a restricted mic pinned when banned startup rejects initialization", function()
+				initRejected = true
 				setRestriction("restricted")
 				local mic = loadMic()
-				consumer.hasConsumersChanged:Fire(1)
-				waitForEvents()
-				expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
-
-				activate(mic)
-				expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(1)
-				expect(consumer.SetMicActiveForAllConsumers).never.toHaveBeenCalled()
+				expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Pinned)
+				local isActivated = mic.isActivated
+				assert(typeof(isActivated) == "table", "ToggleMic should register an isActivated signal")
+				expect(isActivated:get()).toBe(false)
 			end)
 
-			it("renders the restriction icon instead of the non-voice mic consumer indicator", function()
-				useNonVoiceMicConsumer()
+			it("keeps restriction activation ahead of ended, failed, and loading voice states", function()
+				local mic = loadMic()
 				setRestriction("restricted")
-				local result = renderIcon(loadMic())
-				local expectedIcon = FoundationImages.IconImages_DEPRECATED["icons/controls/microphoneMute"]
-				local icon = result.getByText("", { selector = { "ImageLabel" } })
-				expect(icon.Image).toBe(expectedIcon.Image)
-				expect(icon.ImageTransparency).toBe(0.5)
+				for _, state in { Enum.VoiceChatState.Ended, Enum.VoiceChatState.Failed, Enum.VoiceChatState.Joining } do
+					stateChanged:Fire(nil, state)
+					waitForEvents()
+					expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Pinned)
+					activate(mic)
+				end
+				expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(3)
+				expect(manager.RejoinPreviousChannel).never.toHaveBeenCalled()
+				expect(manager.ShowVoiceChatLoadingMessage).never.toHaveBeenCalled()
+				expect(manager.ToggleMic).never.toHaveBeenCalled()
 			end)
+
+			it("shows a rejoin snackbar after expiry without rejoining or unmuting", function()
+				setRestriction("restricted")
+				local mic = loadMic()
+				setRestriction("hiddenUntilRejoin")
+				stateChanged:Fire(nil, Enum.VoiceChatState.Failed)
+				waitForEvents()
+				expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Pinned)
+				activate(mic)
+				expect(showVoiceRestrictionEndedSnackbar).toHaveBeenCalledTimes(1)
+				expect(manager.ShowVoiceRestriction).never.toHaveBeenCalled()
+				expect(manager.RejoinPreviousChannel).never.toHaveBeenCalled()
+				expect(manager.ToggleMic).never.toHaveBeenCalled()
+			end)
+
+			it("renders the muted mic icon after expiry once voice has ended", function()
+				setRestriction("hiddenUntilRejoin")
+				local mic = loadMic()
+				stateChanged:Fire(nil, Enum.VoiceChatState.Ended)
+				waitForEvents()
+				local result = renderIcon(mic)
+				local icon = result.getByText("", { selector = { "ImageLabel" } })
+				expect(icon.Image).toBe("rbxasset://mic/Muted")
+				expect(result.queryAllByText("", { selector = { "ImageButton", "UIGradient" } })).toHaveLength(0)
+			end)
+
+			if FFlagMicConsumerRegistry then
+				it("renders the muted expiry icon instead of the non-voice mic consumer indicator", function()
+					useNonVoiceMicConsumer()
+					setRestriction("hiddenUntilRejoin")
+					local result = renderIcon(loadMic())
+					local icon = result.getByText("", { selector = { "ImageLabel" } })
+					expect(icon.Image).toBe("rbxasset://mic/Muted")
+				end)
+
+				it("keeps restriction availability and activation ahead of a non-voice mic consumer", function()
+					local consumer = useNonVoiceMicConsumer()
+					setRestriction("restricted")
+					local mic = loadMic()
+					consumer.hasConsumersChanged:Fire(1)
+					waitForEvents()
+					expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Pinned)
+
+					activate(mic)
+					expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(1)
+					expect(consumer.SetMicActiveForAllConsumers).never.toHaveBeenCalled()
+				end)
+
+				it("renders the restriction icon instead of the non-voice mic consumer indicator", function()
+					useNonVoiceMicConsumer()
+					setRestriction("restricted")
+					local result = renderIcon(loadMic())
+					local expectedIcon = FoundationImages.IconImages_DEPRECATED["icons/controls/microphoneMute"]
+					local icon = result.getByText("", { selector = { "ImageLabel" } })
+					expect(icon.Image).toBe(expectedIcon.Image)
+					expect(icon.ImageTransparency).toBe(0.5)
+				end)
+			end
 		end
 	else
 		it("retains legacy mute activation", function()
@@ -354,6 +383,95 @@ describe("ToggleMic", function()
 			activate(mic)
 			expect(manager.RejoinPreviousChannel).toHaveBeenCalledTimes(1)
 			expect(manager.ShowVoiceRestriction).never.toHaveBeenCalled()
+		end)
+	end
+
+	-- The flag matrix never produces proactive on with reactive off, and allOn ignores turning reactive off.
+	if not FFlagReactiveVoiceRestrictionsUFR then
+		describe("with proactive restrictions and without reactive restrictions", function()
+			local previousProactive
+
+			beforeEach(function()
+				previousProactive = game:SetFastFlagForTesting("ProactiveVoiceRestrictionsUFR", true)
+			end)
+
+			afterEach(function()
+				game:SetFastFlagForTesting("ProactiveVoiceRestrictionsUFR", previousProactive)
+			end)
+
+			it("hides a restricted mic even when banned startup rejects initialization", function()
+				initRejected = true
+				setRestriction("restricted")
+				local mic = loadMic()
+				expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
+				local isActivated = mic.isActivated
+				assert(typeof(isActivated) == "table", "ToggleMic should register an isActivated signal")
+				expect(isActivated:get()).toBe(false)
+			end)
+
+			it("keeps a hidden restriction ahead of ended, failed, and loading voice states", function()
+				local mic = loadMic()
+				setRestriction("restricted")
+				for _, state in { Enum.VoiceChatState.Ended, Enum.VoiceChatState.Failed, Enum.VoiceChatState.Joining } do
+					stateChanged:Fire(nil, state)
+					waitForEvents()
+					expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
+					activate(mic)
+				end
+				expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(3)
+				expect(manager.RejoinPreviousChannel).never.toHaveBeenCalled()
+				expect(manager.ShowVoiceChatLoadingMessage).never.toHaveBeenCalled()
+				expect(manager.ToggleMic).never.toHaveBeenCalled()
+			end)
+
+			it("keeps a cleared restriction hidden without a snackbar, rejoin, or unmute", function()
+				setRestriction("restricted")
+				local mic = loadMic()
+				setRestriction("hiddenUntilRejoin")
+				stateChanged:Fire(nil, Enum.VoiceChatState.Failed)
+				waitForEvents()
+				expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
+				activate(mic)
+				expect(showVoiceRestrictionEndedSnackbar).never.toHaveBeenCalled()
+				expect(manager.ShowVoiceRestriction).never.toHaveBeenCalled()
+				expect(manager.RejoinPreviousChannel).never.toHaveBeenCalled()
+				expect(manager.ToggleMic).never.toHaveBeenCalled()
+			end)
+
+			describe("with the mic consumer registry", function()
+				local previousMicConsumerRegistry
+
+				beforeEach(function()
+					previousMicConsumerRegistry = game:SetFastFlagForTesting("MicConsumerRegistry", true)
+				end)
+
+				afterEach(function()
+					game:SetFastFlagForTesting("MicConsumerRegistry", previousMicConsumerRegistry)
+				end)
+
+				it("keeps a hidden restriction ahead of a non-voice mic consumer", function()
+					local consumer = useNonVoiceMicConsumer()
+					setRestriction("restricted")
+					local mic = loadMic()
+					consumer.hasConsumersChanged:Fire(1)
+					waitForEvents()
+					expect(mic.availability:get()).toBe(ChromeUtils.AvailabilitySignalState.Unavailable)
+
+					activate(mic)
+					expect(manager.ShowVoiceRestriction).toHaveBeenCalledTimes(1)
+					expect(consumer.SetMicActiveForAllConsumers).never.toHaveBeenCalled()
+				end)
+
+				it("renders the restriction icon instead of the non-voice mic consumer indicator", function()
+					useNonVoiceMicConsumer()
+					setRestriction("restricted")
+					local result = renderIcon(loadMic())
+					local expectedIcon = FoundationImages.IconImages_DEPRECATED["icons/controls/microphoneMute"]
+					local icon = result.getByText("", { selector = { "ImageLabel" } })
+					expect(icon.Image).toBe(expectedIcon.Image)
+					expect(icon.ImageTransparency).toBe(0.5)
+				end)
+			end)
 		end)
 	end
 end)

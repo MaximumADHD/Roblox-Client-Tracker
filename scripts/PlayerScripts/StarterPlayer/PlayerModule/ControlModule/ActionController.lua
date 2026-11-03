@@ -1,9 +1,5 @@
 --!strict
 
-local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
-local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserControlModuleEnabledAPI = FlagUtil.getUserFlag("UserControlModuleEnabledAPI")
-
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 	ACTIONS_RELOADED = "ACTIONS_RELOADED",
@@ -31,11 +27,11 @@ end
 function ActionController.initializeActions(data)
 	data.connectionUtil:trackConnection(CONNECTIONS.SERVER_AUTHORITY_CHANGED,
 		data.eventBus:subscribe(CONNECTIONS.SERVER_AUTHORITY_CHANGED):Connect(function()
-			data.actions = {}
+			data.controlModule.actions = {}
 		end)
 	)
 
-	if data.actions.MoveAction and data.actions.JumpAction then return end
+	if data.controlModule.actions.MoveAction and data.controlModule.actions.JumpAction then return end
 	if not data.player then return end
 
 	-- may fail because the player's InputContexts may not be immediately available when the player is added
@@ -46,7 +42,7 @@ function ActionController.initializeActions(data)
 		end
 		local characterContext = contextFolder.CharacterContext
 
-		data.actions = {
+		data.controlModule.actions = {
 			MoveAction = characterContext.MoveAction,
 			JumpAction = characterContext.JumpAction,
 		}
@@ -56,19 +52,17 @@ function ActionController.initializeActions(data)
 end
 
 function ActionController.update(data)
-	if FFlagUserControlModuleEnabledAPI then
-		if not data.actions["MoveAction"] or not data.actions["JumpAction"] then
-			return
-		end
-
-		local controlAPI = data.playerModule.ControlModule
-
-		data.actions["MoveAction"].Enabled = controlAPI.Enabled
-		data.actions["JumpAction"].Enabled = controlAPI.Enabled
+	if not data.controlModule.actions["MoveAction"] or not data.controlModule.actions["JumpAction"] then
+		return
 	end
 
-	data.moveVector = data.actions.MoveAction:GetState()
-	data.isJumping = data.actions.JumpAction:GetState()
+	local controlAPI = data.playerModule.ControlModule
+
+	data.controlModule.actions["MoveAction"].Enabled = controlAPI.Enabled
+	data.controlModule.actions["JumpAction"].Enabled = controlAPI.Enabled
+
+	data.controlModule.moveVector = data.controlModule.actions.MoveAction:GetState()
+	data.controlModule.isJumping = data.controlModule.actions.JumpAction:GetState()
 end
 
 function ActionController:Enable(enable: boolean)

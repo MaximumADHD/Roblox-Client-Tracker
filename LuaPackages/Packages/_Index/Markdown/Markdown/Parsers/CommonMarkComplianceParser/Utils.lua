@@ -1,5 +1,9 @@
 --!strict
 --[[
+	The rules and definitions below are quoted from "CommonMark Spec" by John MacFarlane, version 0.31.2
+	(2024-01-28), https://spec.commonmark.org/0.31.2/
+	Adapted: quoted in comments. This file is licensed under CC-BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+
 	Utility functions for Markdown parsing, primarily for handling emphasis delimiters
 	according to CommonMark specification.
 

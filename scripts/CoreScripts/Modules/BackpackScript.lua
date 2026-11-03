@@ -127,7 +127,8 @@ local ContextActionService = game:GetService('ContextActionService')
 local VRService = game:GetService("VRService")
 local GamepadService = game:GetService("GamepadService")
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
-local IsTenFootInterface = require(Modules.TenFootInterface):IsEnabled()
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
+local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local GameTranslator = require(Modules.GameTranslator)
 

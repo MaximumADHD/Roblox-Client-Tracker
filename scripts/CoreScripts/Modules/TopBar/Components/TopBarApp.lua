@@ -173,6 +173,7 @@ else
 	GamepadMenu = require(Presentation.GamepadMenu)
 end
 
+local FFlagResponsiveUnitsDeprecateTenFoot = SharedFlags.FFlagResponsiveUnitsDeprecateTenFoot
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local isNewTiltIconEnabled = require(RobloxGui.Modules.isNewTiltIconEnabled)
@@ -1199,7 +1200,7 @@ function TopBarApp:renderWithStyle(style)
 			Visible = isTopBarVisible,
 			Position = topBarFramePosition,
 		}, {
-			LeftFrame = (chromeEnabled or not TenFootInterface:IsEnabled()) and Roact.createElement("Frame", {
+			LeftFrame = (chromeEnabled or not TenFootInterface:IsEnabled() or FFlagResponsiveUnitsDeprecateTenFoot) and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.5, -screenSideOffset, 1, 0),
 				Position = topBarLeftFramePosition,

@@ -27,11 +27,20 @@ local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local GlobalVoiceManager = VoiceChat.GlobalVoiceManager.default
 local createVoiceRestrictionController = require(CorePackages.Workspace.Packages.VoiceChat.createVoiceRestrictionController)
+local createVoiceRestrictionController_DEPRECATED =
+	require(CorePackages.Workspace.Packages.VoiceChat.createVoiceRestrictionController_DEPRECATED)
 local showLegacyVoiceRestriction = require(script.Parent.Helpers.showLegacyVoiceRestriction)
+local showUFRVoiceRestriction = require(script.Parent.Helpers.showUFRVoiceRestriction)
+local getActiveInterventionTimeoutEnd = require(script.Parent.Helpers.getActiveInterventionTimeoutEnd)
+local voiceInterventionReceivedSignal =
+	require(CorePackages.Workspace.Packages.InterventionShared).Signals.voiceInterventionReceivedSignal
+local InterventionConstants = require(CorePackages.Workspace.Packages.InterventionShared).Utils.Constants
 
 local FFlagVoiceChatBanDurationUseServerTime = require(script.Parent.Flags.FFlagVoiceChatBanDurationUseServerTime)
 local FFlagProactiveVoiceRestrictionsUFR =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
+local FFlagReactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagReactiveVoiceRestrictionsUFR
 local FFlagProactiveVoiceRestrictionsUFRIXPExposure =
 	require(script.Parent.Flags.FFlagProactiveVoiceRestrictionsUFRIXPExposure)
 
@@ -64,7 +73,6 @@ local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableCrossExperienceVoiceCaptureMute
 local GetFFlagExpChatUseVoiceParticipantsStore =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
-local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 local DebugShowAudioDeviceInputDebugger =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugShowAudioDeviceInputDebugger()
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 = require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
@@ -78,8 +86,6 @@ local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionSta
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
-local FFlagVoiceChatPermissionPromptUseMicrophoneRoute =
-	game:DefineFastFlag("VoiceChatPermissionPromptUseMicrophoneRoute", false)
 local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
@@ -440,7 +446,10 @@ function VoiceChatServiceManager.new(
 	if FFlagProactiveVoiceRestrictionsUFR then
 		-- rawset bypasses __newindex, which would store this on the shared class table. The controller's callbacks
 		-- are bound to this instance, so sharing it would let each new() overwrite it and dispose() affect all instances.
-		rawset(self, "voiceRestrictionController", createVoiceRestrictionController({
+		local createController = if FFlagReactiveVoiceRestrictionsUFR
+			then createVoiceRestrictionController
+			else createVoiceRestrictionController_DEPRECATED
+		rawset(self, "voiceRestrictionController", createController({
 			getSettings = function()
 				return GetUserSettings(bind(self, "GetRequest")) or nil
 			end,
@@ -461,7 +470,24 @@ function VoiceChatServiceManager.new(
 			onError = function(reason)
 				self:_reportJoinFailed(reason, Analytics.ERROR)
 			end,
+			showUFRRestriction = function(settings, _trigger, onAcknowledgementSuccess)
+				showUFRVoiceRestriction({
+					manager = self,
+					settings = settings,
+					onAcknowledgementSuccess = onAcknowledgementSuccess,
+				})
+			end,
 		}))
+	end
+
+	if FFlagProactiveVoiceRestrictionsUFR and FFlagReactiveVoiceRestrictionsUFR then
+		rawset(
+			self,
+			"voiceInterventionConnection",
+			voiceInterventionReceivedSignal:connect(function(interventionDetail)
+				self:_onUFRInterventionReceived(interventionDetail)
+			end)
+		)
 	end
 
 	for _, v in WATCHED_MESSAGE_TYPES do
@@ -1291,6 +1317,23 @@ function VoiceChatServiceManager:ShowVoiceRestriction()
 	self.voiceRestrictionController.check("micTap")
 end
 
+-- A nudge or an already-expired timeout only shows the dialog; an active timeout also leaves voice.
+function VoiceChatServiceManager:_onUFRInterventionReceived(interventionDetail)
+	-- The signal also fires for nudges, which only get the UFR dialog.
+	if interventionDetail.type ~= InterventionConstants.NotificationDialogType.ChatTimeout then
+		return
+	end
+
+	local isActive, endTimestamp = getActiveInterventionTimeoutEnd(interventionDetail, DateTime.now().UnixTimestamp)
+	if not isActive then
+		return
+	end
+
+	self.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.MODERATED
+	self.voiceRestrictionController.applyUFRTimeout(endTimestamp)
+	self.coreVoiceManager:LeaveVoiceForRestriction()
+end
+
 function VoiceChatServiceManager:CheckCallState()
 	return self.coreVoiceManager:CheckCallState()
 end
@@ -1477,9 +1520,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					and GetFFlagJoinWithoutMicPermissions()
 					and promptType == VoiceChatPromptType.Permission
 				then function()
-					local settingsRoute = if FFlagVoiceChatPermissionPromptUseMicrophoneRoute
-						then SettingsRoute.Microphone
-						else nil
+					local settingsRoute = SettingsRoute.Microphone
 					local settingsAppAvailable =
 						LinkingProtocol:supportsSwitchToSettingsApp(settingsRoute):await()
 					log:debug("Settings app available: {}", settingsAppAvailable)
@@ -2043,8 +2084,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 end
 
 function VoiceChatServiceManager:EligibleForFaeUpsell()
-	return GetFFlagEnableVoiceUxUpdates()
-		and self.coreVoiceManager:EligibleForFaeUpsell()
+	return self.coreVoiceManager:EligibleForFaeUpsell()
 		and self.AvatarChatService:deviceMeetsRequirementsForFeature(Enum.DeviceFeatureType.InExperienceFAE)
 		and (if FFlagTestDeviceForFAEUpsell then deviceMeetsRequirementsForFAE() else true)
 end
@@ -2055,58 +2095,40 @@ end
 
 -- Show join voice button in voice enabled experiences, for voice eligible users who haven't enabled voice and voice enabled users with denied mic permissions
 function VoiceChatServiceManager:ShouldShowJoinVoice()
-	-- M3
-	if GetFFlagEnableVoiceUxUpdates() then
-		if FFlagVoiceRewarmTelemetry then
-			if self:EligibleForFaeUpsell() then
-				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.FAE_UPSELL
-				return true
-			end
-			if
-				self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
-				and (self:GetVoiceConnectCookie() == "")
-			then
-				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.VOICE_FTUX
-				return true
-			end
-			-- Only called when voice join progress is Suspended (see HideOrShowJoinVoiceButton),
-			-- so we only need the connect cookie to confirm a prior voice session.
-			if
-				FFlagShowJoinVoiceWhenDisconnected
-				and (if FFlagEnableVoiceRewarmReArm then self:ShouldRewarmUser() else self:GetVoiceRewarmCookie() == "")
-				and self:GetVoiceConnectCookie() == "false"
-				and self:UserVoiceEnabled()
-			then
-				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.REWARM
-				return true
-			end
-		else
-			if
-				self:EligibleForFaeUpsell()
-				or (
-					self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
-					and (self:GetVoiceConnectCookie() == "")
-				)
-				or (
-					FFlagShowJoinVoiceWhenDisconnected
-					and (if FFlagEnableVoiceRewarmReArm
-						then self:ShouldRewarmUser()
-						else self:GetVoiceRewarmCookie() == "")
-					and self:VoiceChatEnded()
-				)
-			then
-				return true
-			end
+	if FFlagVoiceRewarmTelemetry then
+		if self:EligibleForFaeUpsell() then
+			self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.FAE_UPSELL
+			return true
+		end
+		if
+			self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
+			and (self:GetVoiceConnectCookie() == "")
+		then
+			self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.VOICE_FTUX
+			return true
+		end
+		-- Only called when voice join progress is Suspended (see HideOrShowJoinVoiceButton),
+		-- so we only need the connect cookie to confirm a prior voice session.
+		if
+			FFlagShowJoinVoiceWhenDisconnected
+			and (if FFlagEnableVoiceRewarmReArm then self:ShouldRewarmUser() else self:GetVoiceRewarmCookie() == "")
+			and self:GetVoiceConnectCookie() == "false"
+			and self:UserVoiceEnabled()
+		then
+			self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.REWARM
+			return true
 		end
 	else
-		if GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses() then
-			if self:IsSeamlessVoice() and self:verifyUniverseAndPlaceCanUseVoice() then
-				return not self.voiceUIVisible
-			end
-		else
-			if self:IsSeamlessVoice() then
-				return not self.voiceUIVisible
-			end
+		if
+			self:EligibleForFaeUpsell()
+			or (self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice) and (self:GetVoiceConnectCookie() == ""))
+			or (
+				FFlagShowJoinVoiceWhenDisconnected
+				and (if FFlagEnableVoiceRewarmReArm then self:ShouldRewarmUser() else self:GetVoiceRewarmCookie() == "")
+				and self:VoiceChatEnded()
+			)
+		then
+			return true
 		end
 	end
 
@@ -2278,6 +2300,9 @@ end
 function VoiceChatServiceManager:Disconnect()
 	if FFlagProactiveVoiceRestrictionsUFR then
 		self.voiceRestrictionController.dispose()
+	end
+	if FFlagProactiveVoiceRestrictionsUFR and FFlagReactiveVoiceRestrictionsUFR then
+		self.voiceInterventionConnection:disconnect()
 	end
 	self.coreVoiceManager:Disconnect()
 	self.coreVoiceManager:unsubscribeAll()

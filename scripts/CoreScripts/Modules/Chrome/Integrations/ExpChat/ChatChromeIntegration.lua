@@ -77,8 +77,6 @@ local isInExperienceUIVREnabled =
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 local ExpChatPerfTracker = ExpChat.ExpChatPerfTracker
 
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
-
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
 local chatVisibility: boolean
@@ -266,8 +264,7 @@ chatChromeIntegration = ChromeService:register({
 	id = "chat",
 	label = "CoreScripts.TopBar.Chat",
 	-- Hide ExpChat "Chat" button until Friends chat in experience is launched: https://roblox.atlassian.net/browse/EXPR-3846
-	sideSheetPlacement = if ArgoPartyExperimentation.getIsRenameEnabled()
-			and not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab)
+	sideSheetPlacement = if not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab)
 		then SideSheetPlacement.None
 		else SideSheetPlacement.Unibar,
 	activated = function(self)

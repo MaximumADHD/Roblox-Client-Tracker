@@ -8,6 +8,7 @@ local Package = require(PackageIndex["StudioFoundation"]["StudioFoundation"])
 export type DialogAction = Package.DialogAction
 export type DialogEscapeButtonAction = Package.DialogEscapeButtonAction
 export type DialogProps = Package.DialogProps
+export type DialogTertiaryActionVariant = Package.DialogTertiaryActionVariant
 export type DialogType = Package.DialogType
 export type FoundationProviderAdapterProps = Package.FoundationProviderAdapterProps
 

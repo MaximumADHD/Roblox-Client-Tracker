@@ -43,8 +43,10 @@ local Overlay = require(InspectAndBuyFolder.Components.Overlay)
 local useUnifiedEventListenerInExperience =
 	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).useUnifiedEventListener.useUnifiedEventListenerInExperience
 
+local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local useSignalState = SignalsReact.useSignalState
+local AvatarBackground = require(CorePackages.Workspace.Packages.DataHydration.AvatarBackground)
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local useTokens = Foundation.Hooks.useTokens
@@ -68,6 +70,7 @@ local FFlagEnableAvatarViewportAutoRotation = game:DefineFastFlag("EnableAvatarV
 local FIntViewportCameraFieldOfView = game:DefineFastInt("AXViewportCameraFieldOfView", 68)
 local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
 local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
+local FFlagAXInspectAndBuyAvatarBackground = AvatarExperienceFlags.FFlagAXInspectAndBuyAvatarBackground
 local ItemSelectionStoreContext = AvatarExperienceInspectAndBuy.Contexts.ItemSelectionStoreContext
 local ItemSelectionStoreProvider = ItemSelectionStoreContext.Provider
 local useItemSelectionStore = ItemSelectionStoreContext.useItemSelectionStore
@@ -75,6 +78,7 @@ local useItemSelectionStore = ItemSelectionStoreContext.useItemSelectionStore
 export type InspectAndBuyBaseContainerProps = {
 	localPlayerModel: LocalPlayerModel?,
 	analytics: any, -- Analytics service instance
+	playerId: number?,
 }
 
 local getAssetsMap = function(state: InspectAndBuyState)
@@ -89,6 +93,20 @@ local getBundlesMap = function(state: InspectAndBuyState)
 	return state.bundles
 end
 
+local function useAvatarBackgroundImageUrl(userId: number?): string?
+	local getImageUrl = React.useMemo(function()
+		local result = if userId ~= nil
+			then AvatarBackground.getAvatarBackgroundStore(false).getAndFetchAvatarBackground(userId)
+			else nil
+		return Signals.createComputed(function(scope)
+			local background = result and result.data(scope)
+			local assetId = background and background.assetId
+			return if assetId then AvatarBackground.getAvatarBackgroundImageUrl(assetId) else nil
+		end)
+	end, { userId })
+	return useSignalState(getImageUrl)
+end
+
 local function InspectAndBuyBaseContainer(props)
 	local viewBreakpoints = useViewBreakpoints(TopBarConstants.TopBarHeight)
 	local tokens = useTokens()
@@ -100,6 +118,11 @@ local function InspectAndBuyBaseContainer(props)
 	local assetsMap = useSelector(getAssetsMap, tutils.deepEqual)
 	local collectibleResellableInstances = useSelector(getCollectibleResellableInstances, tutils.deepEqual)
 	local bundlesMap = useSelector(getBundlesMap, tutils.deepEqual)
+
+	local avatarBackgroundImageUrl: string? = nil
+	if FFlagAXInspectAndBuyAvatarBackground then
+		avatarBackgroundImageUrl = useAvatarBackgroundImageUrl(props.playerId)
+	end
 
 	--[[
 		Close and unmount the inspect and buy menu
@@ -286,6 +309,7 @@ local function InspectAndBuyBaseContainer(props)
 		renderTryOnViewport = renderTryOnViewport,
 		localPlayerModel = props.localPlayerModel :: LocalPlayerModel,
 		analytics = props.analytics,
+		avatarBackgroundImageUrl = avatarBackgroundImageUrl,
 	})
 
 	useUnifiedEventListenerInExperience()

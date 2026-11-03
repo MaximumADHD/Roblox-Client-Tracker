@@ -1,3 +1,4 @@
+-- Remove when cleaning up FoundationSliderRebuild
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 

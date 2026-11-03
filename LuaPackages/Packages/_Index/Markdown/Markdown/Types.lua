@@ -14,6 +14,17 @@ export type ParserOptions = {
 			type: NodeType.NodeType,
 		},
 	},
+	isStreaming: boolean?,
+}
+
+export type PartialParserOptions = {
+	inlineTags: { [string]: boolean }?,
+	nodeConfiguration: {
+		[string]: {
+			type: NodeType.NodeType,
+		},
+	}?,
+	isStreaming: boolean?,
 }
 
 export type TokenContext = {
@@ -81,9 +92,11 @@ export type LinkCallbackType = (string) -> ()
 type TextStyles_Internal = {
 	bold: boolean?,
 	italic: boolean?,
+	underline: boolean?,
 	strike: boolean?,
 	selectable: boolean?,
 	viewTags: (string | { [string]: boolean })?,
+	textTags: string?,
 }
 type TextStyles_Public = {
 	font: (Enum.Font | Font)?,
@@ -142,6 +155,12 @@ export type LinkStyles = {
 	linkColor: string?,
 }
 
+export type TableCellPadding = {
+	x: number,
+	y: number,
+	text: number,
+}
+
 export type Context = {
 	textStyles: TextStyles,
 	codeStyles: CodeStyles,
@@ -153,6 +172,10 @@ export type Context = {
 	isInline: boolean,
 	linkCallback: LinkCallbackType,
 	colorScheme: TokenColors?,
+	tableColumnWidths: { number }?,
+	tableCellPadding: TableCellPadding?,
+	tableRowCount: number?,
+	renderers: RenderersType?,
 	processChildren: (node: Node, context: Context) -> { React.ReactElement } | { InlineElement },
 }
 
@@ -167,6 +190,9 @@ export type PartialContext = {
 	isInline: boolean?,
 	linkCallback: LinkCallbackType?,
 	colorScheme: TokenColors?,
+	tableColumnWidths: { number }?,
+	tableCellPadding: TableCellPadding?,
+	tableRowCount: number?,
 	processChildren: ((node: Node, context: Context) -> { React.ReactElement } | { InlineElement })?,
 }
 
@@ -185,6 +211,11 @@ export type RenderersType = {
 	["LIST_ITEM"]: RendererFunction,
 	["DIVIDER"]: RendererFunction,
 	["QUOTE"]: RendererFunction,
+	["TABLE"]: RendererFunction?,
+	["TABLE_ROW"]: RendererFunction?,
+	["TABLE_HEADER"]: RendererFunction?,
+	["TABLE_CELL"]: RendererFunction?,
+	["ACTION"]: RendererFunction?,
 	["IMAGE"]: RendererFunction,
 	["TAG"]: RendererFunction,
 	["BREAK"]: RendererFunction,

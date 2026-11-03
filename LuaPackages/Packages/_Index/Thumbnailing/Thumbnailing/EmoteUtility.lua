@@ -15,6 +15,10 @@ local FFlagEmoteUtilityDefaultMoodFromCharacter = game:DefineFastFlag("EmoteUtil
 local FFlagEmoteUtilityUseIdleAnimationFallback = game:DefineFastFlag("EmoteUtilityUseIdleAnimationFallback", false)
 local FFlagEmoteUtilityReportPoseAnimationDownloadFailure =
 	game:DefineFastFlag("EmoteUtilityReportPoseAnimationDownloadFailure", false)
+local FFlagEmoteUtilityRetargetPoses = game:DefineFastFlag("EmoteUtilityRetargetPoses", false)
+local FStringEmoteUtilityCanonicalR15RigUri =
+	game:DefineFastString("EmoteUtilityCanonicalR15RigUri", "rbxasset://avatar/characterR15.rbxm")
+local FFlagEmoteUtilityCurveRotationOnlyJoints = game:DefineFastFlag("EmoteUtilityCurveRotationOnlyJoints", false)
 
 local module = {}
 
@@ -37,7 +41,16 @@ export type KeyframesForPose = {
 	moodKeyframe: Keyframe?,
 	defaultToolKeyframe: Keyframe?,
 	suggestedKeyframeFromTool: Keyframe?,
+	-- The rig each keyframe above was authored on: the AnimationRigData published inside its clip, or for
+	-- suggestedKeyframeFromTool a child of the ThumbnailPose. Nil means the canonical R15 rig.
+	poseSourceRig: AnimationRigData?,
+	moodSourceRig: AnimationRigData?,
+	defaultToolSourceRig: AnimationRigData?,
+	suggestedToolSourceRig: AnimationRigData?,
 }
+
+-- A keyframe to pose with, and the rig it was authored on (nil for the canonical R15 rig)
+type PoseLayer = { keyframe: Keyframe, sourceRig: AnimationRigData? }
 
 type ConfirmProceedAfterYieldType = (number?, number?) -> boolean
 
@@ -244,7 +257,7 @@ local function getThumbnailKeyframeFromAnimationOrUrl(
 	animationOrUrl: Animation | string,
 	rotationDegrees: number,
 	defaultThumbnailKeyframeNumber: number?
-): Keyframe?
+): (Keyframe?, AnimationRigData?)
 	local thumbnailKeyframeNumber = defaultThumbnailKeyframeNumber
 	local thumbnailTime = nil
 	local animationClip
@@ -260,10 +273,14 @@ local function getThumbnailKeyframeFromAnimationOrUrl(
 		return nil
 	end
 
+	-- The animation editor publishes the rig a clip was authored on inside it
+	local sourceRig = animationClip:FindFirstChildOfClass("AnimationRigData")
 	if animationClip:IsA("KeyframeSequence") then
-		return module.GetThumbnailKeyframe(thumbnailKeyframeNumber, animationClip :: KeyframeSequence, rotationDegrees)
+		return module.GetThumbnailKeyframe(thumbnailKeyframeNumber, animationClip :: KeyframeSequence, rotationDegrees),
+			sourceRig
 	elseif animationClip:IsA("CurveAnimation") then
-		return module.GetThumbnailKeyframeFromCurve(thumbnailTime, animationClip :: CurveAnimation, rotationDegrees)
+		return module.GetThumbnailKeyframeFromCurve(thumbnailTime, animationClip :: CurveAnimation, rotationDegrees),
+			sourceRig
 	else
 		error("Unsupported Animation type:" .. animationClip.ClassName)
 		return nil
@@ -310,6 +327,25 @@ end
 	Subsequent calls to ApplyKeyframe may opt to 'respect blacklist'.  In that case
 	we will not pose any joints that are already in the blacklist.
 ]]
+-- Applies only a keyframe's control folders (FaceControls), leaving its joint poses alone
+local function applyKeyframeControls(character: Model, keyframe: Keyframe?)
+	local function recurApplyControls(parentPose: Instance?, poseObject: Instance)
+		if poseObject:IsA("Folder") then
+			applyControlsFolder(character, parentPose, poseObject)
+		else
+			for _, subPose in poseObject:GetChildren() do
+				recurApplyControls(poseObject, subPose)
+			end
+		end
+	end
+
+	if keyframe then
+		for _, poseObj in keyframe:GetPoses() do
+			recurApplyControls(nil, poseObj)
+		end
+	end
+end
+
 local function applyKeyframeInner(character: Model, poseKeyframe: Keyframe?)
 	local function recurApplyPoses(parentPose: Instance?, poseObject: Instance)
 		if parentPose and poseObject:IsA("Pose") then
@@ -442,6 +478,41 @@ local function attachToolToCharacter(character: Model, humanoid: Humanoid, tool:
 end
 
 --[[
+	The body pose layers for a character holding a tool, highest priority first: a joint posed by an earlier
+	layer is not re-posed by a later one.
+]]
+local function getToolBodyLayersInPriorityOrder(keyframesForPose: KeyframesForPose): { PoseLayer }
+	local layers: { PoseLayer } = {}
+	local function addLayer(keyframe: Keyframe?, sourceRig: AnimationRigData?)
+		if keyframe then
+			table.insert(layers, { keyframe = keyframe, sourceRig = sourceRig })
+		end
+	end
+	if keyframesForPose.suggestedKeyframeFromTool then
+		-- If it's the pose suggested by tool, do not respect blacklist (blacklist shouldn't exist
+		-- anyway).  Tool knows exactly how to pose each joint.
+		addLayer(keyframesForPose.suggestedKeyframeFromTool, keyframesForPose.suggestedToolSourceRig)
+		-- Then apply the user-selected pose.
+		addLayer(keyframesForPose.poseKeyframe, keyframesForPose.poseSourceRig)
+	else
+		-- If it's the pose passed in, selected by user, first do the 'default' tool pose (raising)
+		-- the arm, and generating blacklist: we don't want the selected pose to re-position the joints
+		-- involved in the tool pose.
+		addLayer(keyframesForPose.defaultToolKeyframe, keyframesForPose.defaultToolSourceRig)
+		-- Now apply the user-selected pose.
+		-- Do this iff the user-selected pose was explicitly set with a animationAssetId.
+		-- Note this is the assetId that was passed in, not the asset id that we may have finally
+		-- used to pose (maybe different if original id was nil and we're using some kind of fallback logic).
+		-- If animationAssetId is nil, any pose we have is based on some aritary idle anim, and we don't want to mix that
+		-- with tool-based poses (design decision)
+		if keyframesForPose.originalAnimationAssetId ~= nil then
+			addLayer(keyframesForPose.poseKeyframe, keyframesForPose.poseSourceRig)
+		end
+	end
+	return layers
+end
+
+--[[
 	Final application of pose keyframes in the case where user is holding a tool.
 	Also worries about attaching/welding/equipping the tool.
 ]]
@@ -449,35 +520,329 @@ local function applyR15KeyframeWithTool(
 	character: Model,
 	humanoid: Humanoid,
 	tool: Tool,
-	animationAssetId: number?,
-	poseKeyframe: Keyframe?,
-	defaultToolKeyframe: Keyframe?,
-	suggestedKeyframeFromTool: Keyframe?
+	keyframesForPose: KeyframesForPose
 )
-	if suggestedKeyframeFromTool then
-		-- If it's the pose suggested by tool, do not respect blacklist (blacklist shouldn't exist
-		-- anyway).  Tool knows exactly how to pose each joint.
-		applyKeyframeInner(character, suggestedKeyframeFromTool)
-		-- Then apply the user-selected pose.
-		applyKeyframeInner(character, poseKeyframe)
-	else
-		-- If it's the pose passed in, selected by user, first do the 'default' tool pose (raising)
-		-- the arm, and generating blacklist: we don't want the selected pose to re-position the joints
-		-- involved in the tool pose.
-		applyKeyframeInner(character, defaultToolKeyframe)
-		-- Now apply the user-selected pose.
-		-- Do this iff the user-selected pose was explicitly set with a animationAssetId.
-		-- Note this is the assetId that was passed in, not the asset id that we may have finally
-		-- used to pose (maybe different if original id was nil and we're using some kind of fallback logic).
-		-- If animationAssetId is nil, any pose we have is based on some aritary idle anim, and we don't want to mix that
-		-- with tool-based poses (design decision)
-		if animationAssetId ~= nil then
-			applyKeyframeInner(character, poseKeyframe)
-		end
+	for _, layer in getToolBodyLayersInPriorityOrder(keyframesForPose) do
+		applyKeyframeInner(character, layer.keyframe)
 	end
 
 	-- Sort out attaching the tool to the avatar.
 	attachToolToCharacter(character, humanoid, tool)
+end
+
+--[[
+	Retargeted posing.
+
+	applyKeyframeInner copies each Pose's CFrame straight onto the joint's Transform, which is only right when the
+	character has the rest pose the keyframe was authored on. R15+ bodies are often A- or T-posed at rest, and their
+	torso and clavicle joints are Bones, which applyKeyframeInner doesn't reach. So on RCC we instead play each keyframe
+	through the character's Animator, whose RobustRetargeter maps it from its source rig (the clip's AnimationRigData, or
+	the canonical R15 rig) onto the character, then step the Animator once.
+
+	RobustRetargeter needs a HumanoidRigDescription (HRD) on one of the two rigs, and uses each HRD's T-pose adjustments
+	to relate the rest poses. Many bodies ship without an HRD, so ensureRigDescription estimates one.
+]]
+
+-- The shortest-arc rotation that turns the first direction onto the second
+local function rotationBetween(from: Vector3, to: Vector3): CFrame
+	local axis = from:Cross(to)
+	if axis.Magnitude < 1e-6 then
+		return CFrame.new()
+	end
+	return CFrame.fromAxisAngle(axis.Unit, math.atan2(axis.Magnitude, from:Dot(to)))
+end
+
+-- An AnimationConstraint missing either Attachment doesn't join anything, so it doesn't count as a joint
+local function asAnimatableJoint(instance: Instance?): AnimatableJoint?
+	if instance and instance:IsA("Motor6D") then
+		return instance :: Motor6D
+	end
+	if instance and instance:IsA("AnimationConstraint") then
+		local constraint = instance :: AnimationConstraint
+		if constraint.Attachment0 and constraint.Attachment1 then
+			return constraint
+		end
+	end
+	return nil
+end
+
+local function findJointInPart(model: Model, partName: string, jointName: string): AnimatableJoint?
+	local part = model:FindFirstChild(partName)
+	return asAnimatableJoint(part and part:FindFirstChild(jointName))
+end
+
+--[[
+	The joint or R15+ Bone with the given name in one of the character's body parts. Joints are named like their rig
+	label, and Bones can be nested. Accessories and Tools aren't searched: a rigged accessory can have Bones named like
+	body joints.
+]]
+local function findBodyJoint(model: Model, name: string): Instance?
+	for _, part in model:GetChildren() do
+		if part:IsA("BasePart") then
+			local found = part:FindFirstChild(name, true)
+			if found and (found:IsA("Bone") or asAnimatableJoint(found)) then
+				return found
+			end
+		end
+	end
+	return nil
+end
+
+-- A joint's frame in each of its two parts, at rest: Attachment CFrames (through any R15+ Bones, at their rest CFrames), or
+-- C0/C1 for Motor6D
+local function getJointLocalFrames(joint: AnimatableJoint): (CFrame, CFrame)
+	if joint:IsA("Motor6D") then
+		local motor = joint :: Motor6D
+		return motor.C0, motor.C1
+	end
+	local function inPart(attachment: Attachment): CFrame
+		local cframe = attachment.CFrame
+		local current: Instance? = attachment.Parent
+		while current and current:IsA("Bone") do
+			cframe = (current :: Bone).CFrame * cframe
+			current = (current :: Instance).Parent
+		end
+		return cframe
+	end
+	local constraint = joint :: AnimationConstraint
+	return inPart(constraint.Attachment0 :: Attachment), inPart(constraint.Attachment1 :: Attachment)
+end
+
+type ArmRestGeometry = {
+	shoulderFrame: CFrame,
+	elbowFrame: CFrame,
+	upperDirection: Vector3,
+	lowerDirection: Vector3,
+}
+
+--[[
+	One arm's rest pose in UpperTorso space, from the joint frames alone, so it doesn't depend on where an earlier posing
+	left the parts. Segment directions run from the part's center to its child joint, not joint to joint, because R15
+	shoulder joints sit at the inner corner of the upper arm.
+]]
+local function getArmRestGeometry(model: Model, side: string): ArmRestGeometry?
+	local shoulder = findJointInPart(model, side .. "UpperArm", side .. "Shoulder")
+	local elbow = findJointInPart(model, side .. "LowerArm", side .. "Elbow")
+	local wrist = findJointInPart(model, side .. "Hand", side .. "Wrist")
+	if not (shoulder and elbow and wrist) then
+		return nil
+	end
+	local shoulderInTorso, shoulderInUpperArm = getJointLocalFrames(shoulder)
+	local elbowInUpperArm, elbowInLowerArm = getJointLocalFrames(elbow)
+	local wristInLowerArm = getJointLocalFrames(wrist)
+
+	local upperArm = shoulderInTorso * shoulderInUpperArm:Inverse()
+	local elbowFrame = upperArm * elbowInUpperArm
+	local lowerArm = elbowFrame * elbowInLowerArm:Inverse()
+	local wristFrame = lowerArm * wristInLowerArm
+	return {
+		shoulderFrame = shoulderInTorso,
+		elbowFrame = elbowFrame,
+		upperDirection = (elbowFrame.Position - upperArm.Position).Unit,
+		lowerDirection = (wristFrame.Position - lowerArm.Position).Unit,
+	}
+end
+
+--[[
+	Gives model a HumanoidRigDescription if it has none: its joints by label, and arm T-pose adjustments estimated from
+	the rest pose, rotating each arm segment to point straight out along the torso's X axis (the HRD's T-pose). The
+	torso, neck and legs are taken to already be in T-pose.
+	Returns whether it created one. Must run before the Animator builds its rig: the rig reads the HRD when it's built,
+	so changes to an HRD after that are ignored.
+]]
+local function ensureRigDescription(model: Model): boolean
+	if model:FindFirstChildWhichIsA("HumanoidRigDescription", true) then
+		return false
+	end
+
+	-- Built unparented and parented last, for the same reason as above
+	local hrd = Instance.new("HumanoidRigDescription")
+	-- The body joints an HRD describes, by label: the RigLabels without digits and Invalid
+	local jointNames = hrd:GetJointNames()
+	for _, label in Enum.RigLabel:GetEnumItems() do
+		if table.find(jointNames, label.Name) then
+			local joint = findBodyJoint(model, label.Name)
+			if joint then
+				hrd:SetJoint(label, joint)
+			end
+		end
+	end
+
+	local sides = {
+		{
+			name = "Right",
+			outward = Vector3.xAxis,
+			shoulder = Enum.RigLabel.RightShoulder,
+			elbow = Enum.RigLabel.RightElbow,
+		},
+		{
+			name = "Left",
+			outward = -Vector3.xAxis,
+			shoulder = Enum.RigLabel.LeftShoulder,
+			elbow = Enum.RigLabel.LeftElbow,
+		},
+	}
+	for _, side in sides do
+		local arm = getArmRestGeometry(model, side.name)
+		if arm then
+			hrd:SetTposeAdjustment(
+				side.shoulder,
+				rotationBetween(
+					arm.shoulderFrame:VectorToObjectSpace(arm.upperDirection),
+					arm.shoulderFrame:VectorToObjectSpace(side.outward)
+				)
+			)
+			hrd:SetTposeAdjustment(
+				side.elbow,
+				rotationBetween(
+					arm.elbowFrame:VectorToObjectSpace(arm.lowerDirection),
+					arm.elbowFrame:VectorToObjectSpace(arm.upperDirection)
+				)
+			)
+		end
+	end
+
+	hrd.Parent = model
+	return true
+end
+
+-- Beyond this angle from straight down, an upper arm at rest means an A- or T-posed rig
+local ARMS_DOWN_MAX_DEGREES = 30
+
+--[[
+	Whether model rests with its arms hanging down, as standard R15 does: the rest pose that keyframes without rig data
+	are authored for, and that applyKeyframeInner poses correctly. Arms it can't find count as down.
+]]
+local function restsArmsDown(model: Model): boolean
+	for _, side in { "Right", "Left" } do
+		local arm = getArmRestGeometry(model, side)
+		if arm then
+			local angle = math.deg(math.acos(math.clamp(arm.upperDirection:Dot(-Vector3.yAxis), -1, 1)))
+			if angle > ARMS_DOWN_MAX_DEGREES then
+				return false
+			end
+		end
+	end
+	return true
+end
+
+-- Exposed for tests: the retargeted posing path itself only runs on RCC
+module.RestsArmsDown = restsArmsDown
+module.EnsureRigDescription = ensureRigDescription
+
+-- The rig of the engine's default R15 character, with an estimated HRD: the source rig for keyframes that don't carry
+-- their own, which in practice were authored on R15. Loaded by loadCanonicalR15Rig.
+local canonicalR15Rig: AnimationRigData? = nil
+
+--[[
+	Loads canonicalR15Rig if it isn't loaded yet. A yielding function (GetObjects), so it's called from
+	LoadKeyframesForPose rather than the non-yielding ApplyKeyframesForPose. A failed load is retried next time.
+]]
+local function loadCanonicalR15Rig()
+	if canonicalR15Rig then
+		return
+	end
+	local success, model = pcall(function()
+		return game:GetObjects(FStringEmoteUtilityCanonicalR15RigUri)[1]
+	end)
+	local rig: AnimationRigData? = nil
+	if success and model and model:IsA("Model") then
+		ensureRigDescription(model)
+		local loadedRig = Instance.new("AnimationRigData")
+		if loadedRig:LoadFromModel(model) then
+			rig = loadedRig
+		end
+	end
+	reportCounter("EmoteUtility_GetCanonicalR15Rig", rig ~= nil)
+	canonicalR15Rig = rig
+end
+
+local RETARGETED_LAYER_PRIORITIES = {
+	Enum.AnimationPriority.Action4,
+	Enum.AnimationPriority.Action3,
+	Enum.AnimationPriority.Action2,
+	Enum.AnimationPriority.Action,
+	Enum.AnimationPriority.Movement,
+	Enum.AnimationPriority.Idle,
+}
+
+-- Tracks from the last retargeted posing of each character; each posing of a character replaces its own
+local retargetedTracksByCharacter: { [Model]: { AnimationTrack } } = setmetatable({}, { __mode = "k" }) :: any
+
+local function stopRetargetedTracks(character: Model)
+	local tracks = retargetedTracksByCharacter[character]
+	if not tracks then
+		return
+	end
+	for _, track in tracks do
+		track:Stop(0)
+		track:Destroy()
+	end
+	retargetedTracksByCharacter[character] = nil
+end
+
+--[[
+	Poses character with layers, highest priority first, through its Animator (see "Retargeted posing" above).
+	Only valid where the DataModel isn't running (RCC): it steps the Animator by hand. Returns false, having applied
+	nothing, if a layer has no source rig and the canonical R15 rig isn't loaded; the caller then poses
+	without retargeting.
+	The caller still has to ForceAnimationToStep: this only sets joint Transforms.
+]]
+local function applyKeyframesRetargeted(character: Model, humanoid: Humanoid, layers: { PoseLayer }): boolean
+	local sourceRigs: { AnimationRigData } = {}
+	for i, layer in layers do
+		local rig = layer.sourceRig or canonicalR15Rig
+		if not rig then
+			return false
+		end
+		sourceRigs[i] = rig
+	end
+
+	-- ForceAnimationToStep disables every AnimationConstraint, and the Animator doesn't step disabled ones, so a second
+	-- posing of the same character needs them back on.
+	for _, descendant in character:GetDescendants() do
+		if descendant:IsA("AnimationConstraint") then
+			descendant.Enabled = true
+		end
+	end
+
+	local animator = humanoid:FindFirstChildOfClass("Animator")
+	if ensureRigDescription(character) and animator then
+		-- The existing Animator built its rig without the new HRD
+		animator:Destroy()
+		animator = nil
+	end
+	if not animator then
+		local newAnimator = Instance.new("Animator")
+		newAnimator.Parent = humanoid
+		animator = newAnimator
+	end
+	assert(animator, "animator is non-nil. Silence type checker.")
+
+	stopRetargetedTracks(character)
+	local tracks: { AnimationTrack } = {}
+	retargetedTracksByCharacter[character] = tracks
+	local priority = 1
+	for i, layer in layers do
+		-- Two copies a second apart: a clip needs a length to be evaluated
+		local sequence = Instance.new("KeyframeSequence")
+		for _, time in { 0, 1 } do
+			local copy = layer.keyframe:Clone()
+			copy.Time = time
+			copy.Parent = sequence
+		end
+		sourceRigs[i]:Clone().Parent = sequence
+
+		local animation = Instance.new("Animation")
+		animation.AnimationId = AnimationClipProvider:RegisterActiveAnimationClip(sequence)
+		local track = animator:LoadAnimation(animation)
+		track.Priority = RETARGETED_LAYER_PRIORITIES[math.min(priority, #RETARGETED_LAYER_PRIORITIES)]
+		track:Play(0)
+		table.insert(tracks, track)
+		priority += 1
+	end
+	animator:StepAnimations(1 / 30)
+	return true
 end
 
 --[[
@@ -504,8 +869,9 @@ local function getMainThumbnailKeyframe(
 	animationAssetIdOrUrl: AnimationAssetIdOrUrl?,
 	useRotationInPoseAsset: boolean,
 	useFallbackAnimations: boolean?
-): (Keyframe?, boolean, AnimationAssetIdOrUrl?)
+): (Keyframe?, boolean, AnimationAssetIdOrUrl?, AnimationRigData?)
 	local thumbnailKeyframe: Keyframe?
+	local sourceRig: AnimationRigData?
 	local givenPoseTrumpsToolPose: boolean = false
 	local finalAnimationAssetIdOrUrl: AnimationAssetIdOrUrl? = nil
 
@@ -533,7 +899,7 @@ local function getMainThumbnailKeyframe(
 			rotationDegrees = module.GetNumberValueWithDefault(animation, "ThumbnailCharacterRotation", 0) :: number
 		end
 
-		thumbnailKeyframe = getThumbnailKeyframeFromAnimationOrUrl(animation, rotationDegrees)
+		thumbnailKeyframe, sourceRig = getThumbnailKeyframeFromAnimationOrUrl(animation, rotationDegrees)
 	else
 		if useFallbackAnimations then
 			local poseAnimationOrUrl: Animation | string = module.FALLBACK_KEYFRAME_SEQUENCE_ASSET_URL
@@ -552,7 +918,7 @@ local function getMainThumbnailKeyframe(
 				end
 			end
 
-			thumbnailKeyframe = getThumbnailKeyframeFromAnimationOrUrl(poseAnimationOrUrl, 0, 1)
+			thumbnailKeyframe, sourceRig = getThumbnailKeyframeFromAnimationOrUrl(poseAnimationOrUrl, 0, 1)
 			if typeof(poseAnimationOrUrl) == "string" then
 				finalAnimationAssetIdOrUrl = poseAnimationOrUrl
 			else
@@ -561,13 +927,13 @@ local function getMainThumbnailKeyframe(
 		end
 	end
 
-	return thumbnailKeyframe, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl
+	return thumbnailKeyframe, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl, sourceRig
 end
 
 --[[
 	Get keyframe to pose face based on mood asset id.
 ]]
-local function getMoodThumbnailKeyframe(moodAssetIdOrUrl: AnimationAssetIdOrUrl?): Keyframe?
+local function getMoodThumbnailKeyframe(moodAssetIdOrUrl: AnimationAssetIdOrUrl?): (Keyframe?, AnimationRigData?)
 	if not moodAssetIdOrUrl then
 		return nil
 	end
@@ -599,9 +965,15 @@ end
 
 	This may be a yielding function.
 ]]
-local function getToolKeyframes(character: Model, givenPoseTrumpsToolPose: boolean): (Keyframe?, Keyframe?)
+-- Returns the tool's suggested keyframe and the default tool keyframe, then the rig each was authored on
+local function getToolKeyframes(
+	character: Model,
+	givenPoseTrumpsToolPose: boolean
+): (Keyframe?, Keyframe?, AnimationRigData?, AnimationRigData?)
 	local suggestedKeyframeFromTool: Keyframe?
 	local defaultToolKeyframe
+	local suggestedToolSourceRig: AnimationRigData?
+	local defaultToolSourceRig: AnimationRigData?
 	local tool = character:FindFirstChildOfClass("Tool")
 	if not tool then
 		return nil, nil
@@ -614,6 +986,8 @@ local function getToolKeyframes(character: Model, givenPoseTrumpsToolPose: boole
 		suggestedKeyframeFromTool = tool:FindFirstChild("ThumbnailPose") :: Keyframe
 		if suggestedKeyframeFromTool and suggestedKeyframeFromTool:IsA("Keyframe") then
 			useSuggestedKeyframeFromTool = true
+			-- A gear can say which rig its pose was authored on with an AnimationRigData child of the ThumbnailPose
+			suggestedToolSourceRig = suggestedKeyframeFromTool:FindFirstChildOfClass("AnimationRigData")
 		end
 	end
 
@@ -643,6 +1017,7 @@ local function getToolKeyframes(character: Model, givenPoseTrumpsToolPose: boole
 			assert(toolAnimationClip:IsA("KeyframeSequence"), "ToolNoneAnim must be a KeyframeSequence")
 			local toolKeyframeSequence = toolAnimationClip :: KeyframeSequence
 			defaultToolKeyframe = module.GetThumbnailKeyframe(nil, toolKeyframeSequence, 0)
+			defaultToolSourceRig = toolKeyframeSequence:FindFirstChildOfClass("AnimationRigData")
 
 			-- GetAnimationClip is a yielding function.  Are we still holding this tool?
 			-- If not, things are kind of a mess: just proceed like we don't have a tool,
@@ -655,14 +1030,19 @@ local function getToolKeyframes(character: Model, givenPoseTrumpsToolPose: boole
 		end
 	end
 
-	return suggestedKeyframeFromTool, defaultToolKeyframe
+	return suggestedKeyframeFromTool, defaultToolKeyframe, suggestedToolSourceRig, defaultToolSourceRig
 end
 
 local function getAttachmentCFrame(attachment: Attachment)
 	local cframe = attachment.CFrame
 	local current: Instance? = attachment.Parent
+	-- Includes each Bone's Transform: retargeted posing animates R15+ spine and clavicle bones, which carry the arms and head
 	while current and current:IsA("Bone") do
-		cframe = (current :: Bone).CFrame * cframe
+		if FFlagEmoteUtilityRetargetPoses then
+			cframe = (current :: Bone).CFrame * (current :: Bone).Transform * cframe
+		else
+			cframe = (current :: Bone).CFrame * cframe
+		end
 		current = (current :: Instance).Parent
 	end
 	return cframe
@@ -951,12 +1331,24 @@ module.GetThumbnailKeyframeFromCurve = function(
 
 		local positionCurve = folder:FindFirstChild("Position")
 		local rotationCurve = folder:FindFirstChild("Rotation")
-		if positionCurve and rotationCurve then
-			local skorc = rotationCurve :: SomeKindOfRotationCurve
-			local v3curve = positionCurve :: Vector3Curve
-			local transform = getRotationCFrame(skorc, thumbnailTime)
+		-- A joint folder has only the channels the joint animates; rotation-only joints are the common case
+		local hasTransformCurve = if FFlagEmoteUtilityCurveRotationOnlyJoints
+			then positionCurve or rotationCurve
+			else positionCurve and rotationCurve
+		if hasTransformCurve then
+			local transform = if rotationCurve
+				then getRotationCFrame(rotationCurve :: SomeKindOfRotationCurve, thumbnailTime)
+				else CFrame.new()
+			if not transform and FFlagEmoteUtilityCurveRotationOnlyJoints then
+				-- A RotationCurve with no keys has no value: pose the joint at identity rather than dropping it and its
+				-- child joints
+				transform = CFrame.new()
+			end
 			if transform then
-				transform += Vector3.new(table.unpack(v3curve:GetValueAtTime(thumbnailTime)))
+				if positionCurve then
+					local v3curve = positionCurve :: Vector3Curve
+					transform += Vector3.new(table.unpack(v3curve:GetValueAtTime(thumbnailTime)))
+				end
 
 				local pose = Instance.new("Pose")
 				pose.CFrame = transform
@@ -1090,7 +1482,7 @@ end
 --[[
 	Experimentation suggests that just calling "humanoid:BuildRigFromAttachments()"
 	isn't good enough to get the avatar in neutral t-pose: we also have to go through
-	and clear out each Transform on each Motor6D and AnimationConstraint.
+	and clear out each Transform on each Motor6D and AnimationConstraint (and Bone, which retargeted posing animates).
 ]]
 module.SetPlayerCharacterNeutralPose = function(character: Model)
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -1113,6 +1505,8 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 			motor6D.Transform = CFrame.new()
 		elseif instance:IsA("AnimationConstraint") then
 			instance.Transform = CFrame.new()
+		elseif FFlagEmoteUtilityRetargetPoses and instance:IsA("Bone") then
+			(instance :: Bone).Transform = CFrame.new()
 		end
 
 		local children = instance:GetChildren()
@@ -1162,10 +1556,15 @@ local function loadKeyframesForPoseR15(
 		useFallbackAnimations = true
 	end
 
-	local poseKeyframe, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl =
+	-- The source rig for keyframes without their own, needed if ApplyKeyframesForPose retargets
+	if FFlagEmoteUtilityRetargetPoses and isOnRCC() then
+		loadCanonicalR15Rig()
+	end
+
+	local poseKeyframe, givenPoseTrumpsToolPose, finalAnimationAssetIdOrUrl, poseSourceRig =
 		getMainThumbnailKeyframe(character, animationAssetId, not ignoreRotationInPoseAsset, useFallbackAnimations)
 
-	local suggestedKeyframeFromTool, defaultToolKeyframe
+	local suggestedKeyframeFromTool, defaultToolKeyframe, suggestedToolSourceRig, defaultToolSourceRig
 	-- If there's no pose, don't even bother trying to load tool pose.
 	if not forCloseup and poseKeyframe then
 		-- If user is holding a tool, that may affect how we pose.  Sort that out.
@@ -1177,10 +1576,11 @@ local function loadKeyframesForPoseR15(
 		-- and we know we want to use it.
 		--
 		-- So by running them in sequence I may be able to save us a backend call.
-		suggestedKeyframeFromTool, defaultToolKeyframe = getToolKeyframes(character, givenPoseTrumpsToolPose)
+		suggestedKeyframeFromTool, defaultToolKeyframe, suggestedToolSourceRig, defaultToolSourceRig =
+			getToolKeyframes(character, givenPoseTrumpsToolPose)
 	end
 
-	local moodKeyframe
+	local moodKeyframe, moodSourceRig
 	-- Worry about applying mood asset to pose.
 	-- Overall idea:
 	-- * If there is no mood asset, skip it.
@@ -1200,7 +1600,7 @@ local function loadKeyframesForPoseR15(
 	if shouldApplyMood then
 		if FFlagEmoteUtilityDefaultMoodFromCharacter then
 			if moodAssetId and moodAssetId ~= 0 then
-				moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+				moodKeyframe, moodSourceRig = getMoodThumbnailKeyframe(moodAssetId)
 			end
 
 			-- Fallback to default R15 mood animation
@@ -1210,11 +1610,12 @@ local function loadKeyframesForPoseR15(
 					local moodAnimationClip = getAnimationClipByAssetId(defaultMoodAnimationId)
 					if moodAnimationClip and moodAnimationClip:IsA("KeyframeSequence") then
 						moodKeyframe = module.GetThumbnailKeyframe(nil, moodAnimationClip, 0)
+						moodSourceRig = moodAnimationClip:FindFirstChildOfClass("AnimationRigData")
 					end
 				end
 			end
 		else
-			moodKeyframe = getMoodThumbnailKeyframe(moodAssetId)
+			moodKeyframe, moodSourceRig = getMoodThumbnailKeyframe(moodAssetId)
 		end
 	end
 
@@ -1223,6 +1624,10 @@ local function loadKeyframesForPoseR15(
 	keyframesForPose.defaultToolKeyframe = defaultToolKeyframe
 	keyframesForPose.suggestedKeyframeFromTool = suggestedKeyframeFromTool
 	keyframesForPose.finalAnimationAssetIdOrUrl = finalAnimationAssetIdOrUrl
+	keyframesForPose.poseSourceRig = poseSourceRig
+	keyframesForPose.moodSourceRig = moodSourceRig
+	keyframesForPose.defaultToolSourceRig = defaultToolSourceRig
+	keyframesForPose.suggestedToolSourceRig = suggestedToolSourceRig
 
 	return keyframesForPose
 end
@@ -1311,22 +1716,51 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 
 	-- Apply body pose.
 	local tool = character:FindFirstChildOfClass("Tool")
-	if humanoid.RigType == Enum.HumanoidRigType.R15 then
-		if tool then
-			local originalAnimationAssetId = keyframesForPose.originalAnimationAssetId
-			applyR15KeyframeWithTool(
-				character,
-				humanoid,
-				tool,
-				originalAnimationAssetId,
-				keyframesForPose.poseKeyframe,
-				keyframesForPose.defaultToolKeyframe,
-				keyframesForPose.suggestedKeyframeFromTool
+	local retargeted = false
+	-- Retargeting is limited to the cases posing without it gets wrong: A- or T-posed avatars, and a ThumbnailPose that says
+	-- it was authored on another rig. Standard R15 avatars keep their exact thumbnails, because R15 to R15 retargeting isn't
+	-- the identity (its IK re-solves the limbs for the destination's proportions).
+	local shouldRetarget = FFlagEmoteUtilityRetargetPoses
+		and humanoid.RigType == Enum.HumanoidRigType.R15
+		and isOnRCC()
+		and (
+			not restsArmsDown(character)
+			or (
+				tool ~= nil
+				and keyframesForPose.suggestedKeyframeFromTool ~= nil
+				and keyframesForPose.suggestedToolSourceRig ~= nil
 			)
+		)
+	if shouldRetarget then
+		local layers: { PoseLayer } = if tool then getToolBodyLayersInPriorityOrder(keyframesForPose) else {}
+		if not tool and keyframesForPose.poseKeyframe then
+			table.insert(
+				layers,
+				{ keyframe = keyframesForPose.poseKeyframe, sourceRig = keyframesForPose.poseSourceRig }
+			)
+		end
+		-- The face pose last, so as in applyKeyframeInner it can't re-pose a joint the body pose set. Its face controls
+		-- are applied again below, after the body pose, as applyKeyframeInner would.
+		if keyframesForPose.moodKeyframe then
+			table.insert(
+				layers,
+				{ keyframe = keyframesForPose.moodKeyframe, sourceRig = keyframesForPose.moodSourceRig }
+			)
+		end
+		retargeted = applyKeyframesRetargeted(character, humanoid, layers)
+		if retargeted and tool then
+			attachToolToCharacter(character, humanoid, tool)
+		end
+	end
+
+	-- Retargeted posing has already posed the body and face
+	if humanoid.RigType == Enum.HumanoidRigType.R15 and not retargeted then
+		if tool then
+			applyR15KeyframeWithTool(character, humanoid, tool, keyframesForPose)
 		else
 			applyKeyframeInner(character, keyframesForPose.poseKeyframe)
 		end
-	else
+	elseif humanoid.RigType ~= Enum.HumanoidRigType.R15 then
 		-- Just move the arm for the tool
 		module.AdjustArmOnR6ForTool(character)
 	end
@@ -1334,7 +1768,13 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 	-- Apply face pose.
 	-- No point in even trying for R6, we know it's null.
 	if humanoid.RigType == Enum.HumanoidRigType.R15 then
-		applyKeyframeInner(character, keyframesForPose.moodKeyframe)
+		if retargeted then
+			-- The Animator gave the body pose's face controls priority over the face pose's; give them back to the
+			-- face pose, as applyKeyframeInner does
+			applyKeyframeControls(character, keyframesForPose.moodKeyframe)
+		else
+			applyKeyframeInner(character, keyframesForPose.moodKeyframe)
+		end
 	end
 
 	clearJointBlacklist()

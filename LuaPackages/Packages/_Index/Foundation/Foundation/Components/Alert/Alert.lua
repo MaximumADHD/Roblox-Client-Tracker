@@ -17,8 +17,10 @@ local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
+local Link = require(Foundation.Components.Link)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Text = require(Foundation.Components.Text)
+local TextOverflow = require(Foundation.Enums.TextOverflow)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local escapeRichText = require(Foundation.Utility.escapeRichText)
@@ -159,6 +161,7 @@ local function WrappingRichText(props: {
 	}, children)
 end
 
+-- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationAlertUseLink is cleaned up
 local function Alert(alertProps: AlertProps, ref: React.Ref<Instance>)
 	local props = withDefaults(alertProps, defaultProps)
 	local tokens = useTokens()
@@ -289,8 +292,22 @@ local function Alert(alertProps: AlertProps, ref: React.Ref<Instance>)
 	-- Measuring while stacked feeds the stacked width back into the 40% check.
 	local measureTrailing = if not isStacked then onTrailingAbsoluteSizeChanged else nil
 
-	local trailing: React.ReactNode = if props.link
-		then if isStacked and Flags.FoundationAlertLinkWrap
+	local trailing: React.ReactNode = if props.link and Flags.FoundationAlertUseLink
+		then React.createElement(View, {
+			tag = variantProps.linkContainer.tag,
+			padding = variantProps.link.padding,
+			LayoutOrder = 3,
+			onAbsoluteSizeChanged = measureTrailing,
+		}, {
+			Link = React.createElement(Link, {
+				text = props.link.text,
+				onActivated = props.link.onActivated,
+				hasUnderline = true,
+				textOverflow = if isStacked then TextOverflow.Wrap else TextOverflow.None,
+				testId = `{props.testId}--link`,
+			}),
+		})
+		elseif props.link then if isStacked and Flags.FoundationAlertLinkWrap
 			-- Stacked: the underline wraps full-width, so cap it at the slot.
 			then React.createElement(WrappingRichText, {
 				slot = variantProps.link,

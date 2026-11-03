@@ -1,5 +1,5 @@
 -- Activating the Connect icon opens AppChat. connect_unibar is the unibar chat
--- entry point in the rename-off arm, so it reports ChromeUnibar when the feature is
+-- entry point, so it reports ChromeUnibar when the feature is
 -- on; connect_dropdown keeps the shared ChromeDropdown fallback. Both flag states
 -- are covered by the runner's flag sweep.
 
@@ -100,17 +100,6 @@ jest.mock(CorePackages.Workspace.Packages.Responsive, function()
 		end,
 		Input = {
 			Directional = "Directional",
-		},
-	}
-end)
-
--- Rename-off arm: keeps the label branch off the UniversalAppPolicy terminology path.
-jest.mock(CorePackages.Workspace.Packages.SocialExperiments, function()
-	return {
-		ArgoPartyExperimentation = {
-			getIsRenameEnabled = function()
-				return false
-			end,
 		},
 	}
 end)

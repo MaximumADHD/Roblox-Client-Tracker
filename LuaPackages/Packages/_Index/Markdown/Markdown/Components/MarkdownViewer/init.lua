@@ -13,6 +13,11 @@
 		table ColorScheme: A table of token colors to use for code highlighting
 		any Fallback: A ReactNode that will be displayed if there is an error parsing markdown
 		callback OnError: A callback that will be called when there is an error parsing markdown with the error as a single argument
+		boolean IsStreaming: Whether more Markdown is still arriving, so content left incomplete at the end may still finish
+		string ParserProfile: "RobloxMarkdown" or "CommonMark", the new parser's profile to parse Markdown with, or
+			"Legacy" for CommonMarkComplianceParser. Temporary cutover config, not long-term API: honored only while
+			FFlagMarkdownUseRobloxProfileParser or FFlagMarkdownDefaultRobloxProfile is on. When nil, Markdown is parsed
+			with Parsers.RobloxMarkdown if FFlagMarkdownDefaultRobloxProfile is on, else with CommonMarkComplianceParser
 ]]
 
 local Root = script:FindFirstAncestor("Components").Parent
@@ -27,9 +32,15 @@ local useTokens = Foundation.Hooks.useTokens
 local MarkdownCore = require(Packages.MarkdownCore)
 
 local Parser = require(Root.Parsers.CommonMarkComplianceParser)
+local MarkdownFlags = require(Root.Flags)
 local Types = require(Root.Types)
 local MarkdownRenderer = require(script.MarkdownRenderer)
 local Flags = MarkdownCore.Flags
+
+export type ParserProfile = "RobloxMarkdown" | "CommonMark" | "Legacy"
+
+-- A type only: the profiles share this shape
+type ProfileParser = typeof(require(Root.Parsers.RobloxMarkdown.RendererParser))
 
 export type Props = {
 	Markdown: string?,
@@ -42,7 +53,19 @@ export type Props = {
 	Fallback: React.Node?,
 	OnError: ((error: any) -> ())?,
 	AdditionalFeatureRenderers: Types.AdditionalFeatureRenderersType?,
+	IsStreaming: boolean?,
+	ParserProfile: ParserProfile?,
 }
+
+-- Required on first use, so a viewer loads only the profile it names
+local function profileParser(profile: ParserProfile?): ProfileParser?
+	if profile == "RobloxMarkdown" then
+		return require(Root.Parsers.RobloxMarkdown.RendererParser)
+	elseif profile == "CommonMark" then
+		return require(Root.Parsers.CommonMark.RendererParser)
+	end
+	return nil
+end
 
 local function MarkdownViewer(props: Props)
 	local tokens = useTokens()
@@ -65,6 +88,15 @@ local function MarkdownViewer(props: Props)
 			else { props.Renderers }
 	)
 
+	local parserOptions = if (Flags.FFlagMarkdownTables or Flags.FFlagMarkdownTagFallbacks) and props.IsStreaming
+		then {
+			isStreaming = true,
+		}
+		else nil
+	local parseDependencies = if Flags.FFlagMarkdownTables or Flags.FFlagMarkdownTagFallbacks
+		then { props.Markdown, props.Ast, props.IsStreaming, props.ParserProfile }
+		else { props.Markdown, props.Ast, props.ParserProfile }
+
 	local ok, astOrError = React.useMemo(function()
 		-- We guarded against both being nil at the start of the function,
 		-- but the typechecker still complains about the possibility of both being nil.
@@ -72,7 +104,16 @@ local function MarkdownViewer(props: Props)
 			return true, props.Ast
 		end
 		if props.Markdown then
-			local parseOk, parseResult = Parser.safeParse(props.Markdown)
+			local parseOk, parseResult
+			local defaultsToProfile = MarkdownFlags.FFlagMarkdownDefaultRobloxProfile
+			local profile = if MarkdownFlags.FFlagMarkdownUseRobloxProfileParser or defaultsToProfile
+				then profileParser(props.ParserProfile or if defaultsToProfile then "RobloxMarkdown" else nil)
+				else nil
+			if profile ~= nil then
+				parseOk, parseResult = profile.safeParse(props.Markdown, parserOptions)
+			else
+				parseOk, parseResult = Parser.safeParse(props.Markdown, parserOptions)
+			end
 			if not parseOk then
 				if props.OnError then
 					props.OnError(parseResult)
@@ -83,7 +124,7 @@ local function MarkdownViewer(props: Props)
 			return parseOk, parseResult
 		end
 		return true, nil
-	end, { props.Markdown, props.Ast })
+	end, parseDependencies)
 
 	local children = React.useMemo(
 		function()

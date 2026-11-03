@@ -236,6 +236,32 @@ type _Messages =
 		SubmitCustomFormResponseAction_Params: _SubmitCustomFormResponseAction_ParamsMessage,
 		RefreshCustomFormResultsAction: _RefreshCustomFormResultsActionMessage,
 		RefreshCustomFormResultsAction_Params: _RefreshCustomFormResultsAction_ParamsMessage,
+		OpenUserLibraryCollectionAction: _OpenUserLibraryCollectionActionMessage,
+		OpenUserLibraryCollectionAction_Params: _OpenUserLibraryCollectionAction_ParamsMessage,
+		RemoveFromUserLibraryCollectionAction: _RemoveFromUserLibraryCollectionActionMessage,
+		RemoveFromUserLibraryCollectionAction_Params: _RemoveFromUserLibraryCollectionAction_ParamsMessage,
+		UnsaveUserLibraryItemAction: _UnsaveUserLibraryItemActionMessage,
+		UnsaveUserLibraryItemAction_Params: _UnsaveUserLibraryItemAction_ParamsMessage,
+		AddToUserLibraryCollectionAction: _AddToUserLibraryCollectionActionMessage,
+		AddToUserLibraryCollectionAction_Params: _AddToUserLibraryCollectionAction_ParamsMessage,
+		ReportUserLibraryItemAction: _ReportUserLibraryItemActionMessage,
+		ReportUserLibraryItemAction_Params: _ReportUserLibraryItemAction_ParamsMessage,
+		CreateUserLibraryCollectionAction: _CreateUserLibraryCollectionActionMessage,
+		CreateUserLibraryCollectionAction_Params: _CreateUserLibraryCollectionAction_ParamsMessage,
+		OpenUserLibraryCollectionOptionsAction: _OpenUserLibraryCollectionOptionsActionMessage,
+		OpenUserLibraryCollectionOptionsAction_Params: _OpenUserLibraryCollectionOptionsAction_ParamsMessage,
+		EditUserLibraryCollectionAction: _EditUserLibraryCollectionActionMessage,
+		EditUserLibraryCollectionAction_Params: _EditUserLibraryCollectionAction_ParamsMessage,
+		DeleteUserLibraryCollectionAction: _DeleteUserLibraryCollectionActionMessage,
+		DeleteUserLibraryCollectionAction_Params: _DeleteUserLibraryCollectionAction_ParamsMessage,
+		IncrementMilestoneCountAction: _IncrementMilestoneCountActionMessage,
+		IncrementMilestoneCountAction_Params: _IncrementMilestoneCountAction_ParamsMessage,
+		SetMilestoneCountAction: _SetMilestoneCountActionMessage,
+		SetMilestoneCountAction_Params: _SetMilestoneCountAction_ParamsMessage,
+		ToggleContentReactionAction: _ToggleContentReactionActionMessage,
+		ToggleContentReactionAction_Params: _ToggleContentReactionAction_ParamsMessage,
+		OpenSignUpModalAction: _OpenSignUpModalActionMessage,
+		OpenSignUpModalAction_Params: _OpenSignUpModalAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -393,11 +419,13 @@ type _OpenExternalLinkAction_ParamsImpl = {
 type _OpenExternalLinkAction_ParamsFields = {
 	url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_leave_confirmation: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	on_continue: ActionProp?,
 }
 
 type _OpenExternalLinkAction_ParamsPartialFields = {
 	url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	skip_leave_confirmation: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	on_continue: ActionProp?,
 }
 
 export type OpenExternalLinkAction_Params = typeof(setmetatable(
@@ -2444,6 +2472,7 @@ type _RefreshOmniRecommendationFeedItemAction_ParamsFields = {
 	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	request_intent: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	feed_item_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_omission_expected: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _RefreshOmniRecommendationFeedItemAction_ParamsPartialFields = {
@@ -2451,6 +2480,7 @@ type _RefreshOmniRecommendationFeedItemAction_ParamsPartialFields = {
 	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	request_intent: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	feed_item_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_omission_expected: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type RefreshOmniRecommendationFeedItemAction_Params = typeof(setmetatable(
@@ -6922,6 +6952,742 @@ type _RefreshCustomFormResultsAction_ParamsMessage = proto.Message<
 	_RefreshCustomFormResultsAction_ParamsPartialFields
 >
 
+type _OpenUserLibraryCollectionActionImpl = {
+	__index: _OpenUserLibraryCollectionActionImpl,
+	new: (fields: _OpenUserLibraryCollectionActionPartialFields?) -> OpenUserLibraryCollectionAction,
+	encode: (self: OpenUserLibraryCollectionAction) -> buffer,
+	decode: (input: buffer) -> OpenUserLibraryCollectionAction,
+	jsonEncode: (self: OpenUserLibraryCollectionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenUserLibraryCollectionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenUserLibraryCollectionActionFields = {
+	action_type: ActionType,
+	action_params: OpenUserLibraryCollectionAction_Params?,
+}
+
+type _OpenUserLibraryCollectionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenUserLibraryCollectionAction_Params?,
+}
+
+export type OpenUserLibraryCollectionAction = typeof(setmetatable(
+	{} :: _OpenUserLibraryCollectionActionFields,
+	{} :: _OpenUserLibraryCollectionActionImpl
+))
+type _OpenUserLibraryCollectionActionMessage = proto.Message<
+	OpenUserLibraryCollectionAction,
+	_OpenUserLibraryCollectionActionPartialFields
+>
+
+type _OpenUserLibraryCollectionAction_ParamsImpl = {
+	__index: _OpenUserLibraryCollectionAction_ParamsImpl,
+	new: (fields: _OpenUserLibraryCollectionAction_ParamsPartialFields?) -> OpenUserLibraryCollectionAction_Params,
+	encode: (self: OpenUserLibraryCollectionAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenUserLibraryCollectionAction_Params,
+	jsonEncode: (self: OpenUserLibraryCollectionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenUserLibraryCollectionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenUserLibraryCollectionAction_ParamsFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenUserLibraryCollectionAction_ParamsPartialFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenUserLibraryCollectionAction_Params = typeof(setmetatable(
+	{} :: _OpenUserLibraryCollectionAction_ParamsFields,
+	{} :: _OpenUserLibraryCollectionAction_ParamsImpl
+))
+type _OpenUserLibraryCollectionAction_ParamsMessage = proto.Message<
+	OpenUserLibraryCollectionAction_Params,
+	_OpenUserLibraryCollectionAction_ParamsPartialFields
+>
+
+type _RemoveFromUserLibraryCollectionActionImpl = {
+	__index: _RemoveFromUserLibraryCollectionActionImpl,
+	new: (fields: _RemoveFromUserLibraryCollectionActionPartialFields?) -> RemoveFromUserLibraryCollectionAction,
+	encode: (self: RemoveFromUserLibraryCollectionAction) -> buffer,
+	decode: (input: buffer) -> RemoveFromUserLibraryCollectionAction,
+	jsonEncode: (self: RemoveFromUserLibraryCollectionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RemoveFromUserLibraryCollectionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RemoveFromUserLibraryCollectionActionFields = {
+	action_type: ActionType,
+	action_params: RemoveFromUserLibraryCollectionAction_Params?,
+}
+
+type _RemoveFromUserLibraryCollectionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RemoveFromUserLibraryCollectionAction_Params?,
+}
+
+export type RemoveFromUserLibraryCollectionAction = typeof(setmetatable(
+	{} :: _RemoveFromUserLibraryCollectionActionFields,
+	{} :: _RemoveFromUserLibraryCollectionActionImpl
+))
+type _RemoveFromUserLibraryCollectionActionMessage = proto.Message<
+	RemoveFromUserLibraryCollectionAction,
+	_RemoveFromUserLibraryCollectionActionPartialFields
+>
+
+type _RemoveFromUserLibraryCollectionAction_ParamsImpl = {
+	__index: _RemoveFromUserLibraryCollectionAction_ParamsImpl,
+	new: (
+		fields: _RemoveFromUserLibraryCollectionAction_ParamsPartialFields?
+	) -> RemoveFromUserLibraryCollectionAction_Params,
+	encode: (self: RemoveFromUserLibraryCollectionAction_Params) -> buffer,
+	decode: (input: buffer) -> RemoveFromUserLibraryCollectionAction_Params,
+	jsonEncode: (self: RemoveFromUserLibraryCollectionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RemoveFromUserLibraryCollectionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RemoveFromUserLibraryCollectionAction_ParamsFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	saved_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RemoveFromUserLibraryCollectionAction_ParamsPartialFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	saved_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RemoveFromUserLibraryCollectionAction_Params = typeof(setmetatable(
+	{} :: _RemoveFromUserLibraryCollectionAction_ParamsFields,
+	{} :: _RemoveFromUserLibraryCollectionAction_ParamsImpl
+))
+type _RemoveFromUserLibraryCollectionAction_ParamsMessage = proto.Message<
+	RemoveFromUserLibraryCollectionAction_Params,
+	_RemoveFromUserLibraryCollectionAction_ParamsPartialFields
+>
+
+type _UnsaveUserLibraryItemActionImpl = {
+	__index: _UnsaveUserLibraryItemActionImpl,
+	new: (fields: _UnsaveUserLibraryItemActionPartialFields?) -> UnsaveUserLibraryItemAction,
+	encode: (self: UnsaveUserLibraryItemAction) -> buffer,
+	decode: (input: buffer) -> UnsaveUserLibraryItemAction,
+	jsonEncode: (self: UnsaveUserLibraryItemAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UnsaveUserLibraryItemAction,
+	descriptor: proto.Descriptor,
+}
+
+type _UnsaveUserLibraryItemActionFields = {
+	action_type: ActionType,
+	action_params: UnsaveUserLibraryItemAction_Params?,
+}
+
+type _UnsaveUserLibraryItemActionPartialFields = {
+	action_type: ActionType?,
+	action_params: UnsaveUserLibraryItemAction_Params?,
+}
+
+export type UnsaveUserLibraryItemAction = typeof(setmetatable(
+	{} :: _UnsaveUserLibraryItemActionFields,
+	{} :: _UnsaveUserLibraryItemActionImpl
+))
+type _UnsaveUserLibraryItemActionMessage = proto.Message<
+	UnsaveUserLibraryItemAction,
+	_UnsaveUserLibraryItemActionPartialFields
+>
+
+type _UnsaveUserLibraryItemAction_ParamsImpl = {
+	__index: _UnsaveUserLibraryItemAction_ParamsImpl,
+	new: (fields: _UnsaveUserLibraryItemAction_ParamsPartialFields?) -> UnsaveUserLibraryItemAction_Params,
+	encode: (self: UnsaveUserLibraryItemAction_Params) -> buffer,
+	decode: (input: buffer) -> UnsaveUserLibraryItemAction_Params,
+	jsonEncode: (self: UnsaveUserLibraryItemAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UnsaveUserLibraryItemAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _UnsaveUserLibraryItemAction_ParamsFields = {
+	saved_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _UnsaveUserLibraryItemAction_ParamsPartialFields = {
+	saved_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type UnsaveUserLibraryItemAction_Params = typeof(setmetatable(
+	{} :: _UnsaveUserLibraryItemAction_ParamsFields,
+	{} :: _UnsaveUserLibraryItemAction_ParamsImpl
+))
+type _UnsaveUserLibraryItemAction_ParamsMessage = proto.Message<
+	UnsaveUserLibraryItemAction_Params,
+	_UnsaveUserLibraryItemAction_ParamsPartialFields
+>
+
+type _AddToUserLibraryCollectionActionImpl = {
+	__index: _AddToUserLibraryCollectionActionImpl,
+	new: (fields: _AddToUserLibraryCollectionActionPartialFields?) -> AddToUserLibraryCollectionAction,
+	encode: (self: AddToUserLibraryCollectionAction) -> buffer,
+	decode: (input: buffer) -> AddToUserLibraryCollectionAction,
+	jsonEncode: (self: AddToUserLibraryCollectionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AddToUserLibraryCollectionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _AddToUserLibraryCollectionActionFields = {
+	action_type: ActionType,
+	action_params: AddToUserLibraryCollectionAction_Params?,
+}
+
+type _AddToUserLibraryCollectionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: AddToUserLibraryCollectionAction_Params?,
+}
+
+export type AddToUserLibraryCollectionAction = typeof(setmetatable(
+	{} :: _AddToUserLibraryCollectionActionFields,
+	{} :: _AddToUserLibraryCollectionActionImpl
+))
+type _AddToUserLibraryCollectionActionMessage = proto.Message<
+	AddToUserLibraryCollectionAction,
+	_AddToUserLibraryCollectionActionPartialFields
+>
+
+type _AddToUserLibraryCollectionAction_ParamsImpl = {
+	__index: _AddToUserLibraryCollectionAction_ParamsImpl,
+	new: (fields: _AddToUserLibraryCollectionAction_ParamsPartialFields?) -> AddToUserLibraryCollectionAction_Params,
+	encode: (self: AddToUserLibraryCollectionAction_Params) -> buffer,
+	decode: (input: buffer) -> AddToUserLibraryCollectionAction_Params,
+	jsonEncode: (self: AddToUserLibraryCollectionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AddToUserLibraryCollectionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _AddToUserLibraryCollectionAction_ParamsFields = {
+	saved_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _AddToUserLibraryCollectionAction_ParamsPartialFields = {
+	saved_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type AddToUserLibraryCollectionAction_Params = typeof(setmetatable(
+	{} :: _AddToUserLibraryCollectionAction_ParamsFields,
+	{} :: _AddToUserLibraryCollectionAction_ParamsImpl
+))
+type _AddToUserLibraryCollectionAction_ParamsMessage = proto.Message<
+	AddToUserLibraryCollectionAction_Params,
+	_AddToUserLibraryCollectionAction_ParamsPartialFields
+>
+
+type _ReportUserLibraryItemActionImpl = {
+	__index: _ReportUserLibraryItemActionImpl,
+	new: (fields: _ReportUserLibraryItemActionPartialFields?) -> ReportUserLibraryItemAction,
+	encode: (self: ReportUserLibraryItemAction) -> buffer,
+	decode: (input: buffer) -> ReportUserLibraryItemAction,
+	jsonEncode: (self: ReportUserLibraryItemAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ReportUserLibraryItemAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ReportUserLibraryItemActionFields = {
+	action_type: ActionType,
+	action_params: ReportUserLibraryItemAction_Params?,
+}
+
+type _ReportUserLibraryItemActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ReportUserLibraryItemAction_Params?,
+}
+
+export type ReportUserLibraryItemAction = typeof(setmetatable(
+	{} :: _ReportUserLibraryItemActionFields,
+	{} :: _ReportUserLibraryItemActionImpl
+))
+type _ReportUserLibraryItemActionMessage = proto.Message<
+	ReportUserLibraryItemAction,
+	_ReportUserLibraryItemActionPartialFields
+>
+
+type _ReportUserLibraryItemAction_ParamsImpl = {
+	__index: _ReportUserLibraryItemAction_ParamsImpl,
+	new: (fields: _ReportUserLibraryItemAction_ParamsPartialFields?) -> ReportUserLibraryItemAction_Params,
+	encode: (self: ReportUserLibraryItemAction_Params) -> buffer,
+	decode: (input: buffer) -> ReportUserLibraryItemAction_Params,
+	jsonEncode: (self: ReportUserLibraryItemAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ReportUserLibraryItemAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ReportUserLibraryItemAction_ParamsFields = {
+	target_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	target_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	abuse_vector: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	look_asset_ids: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
+	album_art_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ReportUserLibraryItemAction_ParamsPartialFields = {
+	target_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	target_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	abuse_vector: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	look_asset_ids: _roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp?,
+	album_art_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ReportUserLibraryItemAction_Params = typeof(setmetatable(
+	{} :: _ReportUserLibraryItemAction_ParamsFields,
+	{} :: _ReportUserLibraryItemAction_ParamsImpl
+))
+type _ReportUserLibraryItemAction_ParamsMessage = proto.Message<
+	ReportUserLibraryItemAction_Params,
+	_ReportUserLibraryItemAction_ParamsPartialFields
+>
+
+type _CreateUserLibraryCollectionActionImpl = {
+	__index: _CreateUserLibraryCollectionActionImpl,
+	new: (fields: _CreateUserLibraryCollectionActionPartialFields?) -> CreateUserLibraryCollectionAction,
+	encode: (self: CreateUserLibraryCollectionAction) -> buffer,
+	decode: (input: buffer) -> CreateUserLibraryCollectionAction,
+	jsonEncode: (self: CreateUserLibraryCollectionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CreateUserLibraryCollectionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _CreateUserLibraryCollectionActionFields = {
+	action_type: ActionType,
+	action_params: CreateUserLibraryCollectionAction_Params?,
+}
+
+type _CreateUserLibraryCollectionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: CreateUserLibraryCollectionAction_Params?,
+}
+
+export type CreateUserLibraryCollectionAction = typeof(setmetatable(
+	{} :: _CreateUserLibraryCollectionActionFields,
+	{} :: _CreateUserLibraryCollectionActionImpl
+))
+type _CreateUserLibraryCollectionActionMessage = proto.Message<
+	CreateUserLibraryCollectionAction,
+	_CreateUserLibraryCollectionActionPartialFields
+>
+
+type _CreateUserLibraryCollectionAction_ParamsImpl = {
+	__index: _CreateUserLibraryCollectionAction_ParamsImpl,
+	new: (fields: _CreateUserLibraryCollectionAction_ParamsPartialFields?) -> CreateUserLibraryCollectionAction_Params,
+	encode: (self: CreateUserLibraryCollectionAction_Params) -> buffer,
+	decode: (input: buffer) -> CreateUserLibraryCollectionAction_Params,
+	jsonEncode: (self: CreateUserLibraryCollectionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CreateUserLibraryCollectionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _CreateUserLibraryCollectionAction_ParamsFields = {}
+
+type _CreateUserLibraryCollectionAction_ParamsPartialFields = {}
+
+export type CreateUserLibraryCollectionAction_Params = typeof(setmetatable(
+	{} :: _CreateUserLibraryCollectionAction_ParamsFields,
+	{} :: _CreateUserLibraryCollectionAction_ParamsImpl
+))
+type _CreateUserLibraryCollectionAction_ParamsMessage = proto.Message<
+	CreateUserLibraryCollectionAction_Params,
+	_CreateUserLibraryCollectionAction_ParamsPartialFields
+>
+
+type _OpenUserLibraryCollectionOptionsActionImpl = {
+	__index: _OpenUserLibraryCollectionOptionsActionImpl,
+	new: (fields: _OpenUserLibraryCollectionOptionsActionPartialFields?) -> OpenUserLibraryCollectionOptionsAction,
+	encode: (self: OpenUserLibraryCollectionOptionsAction) -> buffer,
+	decode: (input: buffer) -> OpenUserLibraryCollectionOptionsAction,
+	jsonEncode: (self: OpenUserLibraryCollectionOptionsAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenUserLibraryCollectionOptionsAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenUserLibraryCollectionOptionsActionFields = {
+	action_type: ActionType,
+	action_params: OpenUserLibraryCollectionOptionsAction_Params?,
+}
+
+type _OpenUserLibraryCollectionOptionsActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenUserLibraryCollectionOptionsAction_Params?,
+}
+
+export type OpenUserLibraryCollectionOptionsAction = typeof(setmetatable(
+	{} :: _OpenUserLibraryCollectionOptionsActionFields,
+	{} :: _OpenUserLibraryCollectionOptionsActionImpl
+))
+type _OpenUserLibraryCollectionOptionsActionMessage = proto.Message<
+	OpenUserLibraryCollectionOptionsAction,
+	_OpenUserLibraryCollectionOptionsActionPartialFields
+>
+
+type _OpenUserLibraryCollectionOptionsAction_ParamsImpl = {
+	__index: _OpenUserLibraryCollectionOptionsAction_ParamsImpl,
+	new: (
+		fields: _OpenUserLibraryCollectionOptionsAction_ParamsPartialFields?
+	) -> OpenUserLibraryCollectionOptionsAction_Params,
+	encode: (self: OpenUserLibraryCollectionOptionsAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenUserLibraryCollectionOptionsAction_Params,
+	jsonEncode: (self: OpenUserLibraryCollectionOptionsAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenUserLibraryCollectionOptionsAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenUserLibraryCollectionOptionsAction_ParamsFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenUserLibraryCollectionOptionsAction_ParamsPartialFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenUserLibraryCollectionOptionsAction_Params = typeof(setmetatable(
+	{} :: _OpenUserLibraryCollectionOptionsAction_ParamsFields,
+	{} :: _OpenUserLibraryCollectionOptionsAction_ParamsImpl
+))
+type _OpenUserLibraryCollectionOptionsAction_ParamsMessage = proto.Message<
+	OpenUserLibraryCollectionOptionsAction_Params,
+	_OpenUserLibraryCollectionOptionsAction_ParamsPartialFields
+>
+
+type _EditUserLibraryCollectionActionImpl = {
+	__index: _EditUserLibraryCollectionActionImpl,
+	new: (fields: _EditUserLibraryCollectionActionPartialFields?) -> EditUserLibraryCollectionAction,
+	encode: (self: EditUserLibraryCollectionAction) -> buffer,
+	decode: (input: buffer) -> EditUserLibraryCollectionAction,
+	jsonEncode: (self: EditUserLibraryCollectionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EditUserLibraryCollectionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _EditUserLibraryCollectionActionFields = {
+	action_type: ActionType,
+	action_params: EditUserLibraryCollectionAction_Params?,
+}
+
+type _EditUserLibraryCollectionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: EditUserLibraryCollectionAction_Params?,
+}
+
+export type EditUserLibraryCollectionAction = typeof(setmetatable(
+	{} :: _EditUserLibraryCollectionActionFields,
+	{} :: _EditUserLibraryCollectionActionImpl
+))
+type _EditUserLibraryCollectionActionMessage = proto.Message<
+	EditUserLibraryCollectionAction,
+	_EditUserLibraryCollectionActionPartialFields
+>
+
+type _EditUserLibraryCollectionAction_ParamsImpl = {
+	__index: _EditUserLibraryCollectionAction_ParamsImpl,
+	new: (fields: _EditUserLibraryCollectionAction_ParamsPartialFields?) -> EditUserLibraryCollectionAction_Params,
+	encode: (self: EditUserLibraryCollectionAction_Params) -> buffer,
+	decode: (input: buffer) -> EditUserLibraryCollectionAction_Params,
+	jsonEncode: (self: EditUserLibraryCollectionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EditUserLibraryCollectionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _EditUserLibraryCollectionAction_ParamsFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _EditUserLibraryCollectionAction_ParamsPartialFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type EditUserLibraryCollectionAction_Params = typeof(setmetatable(
+	{} :: _EditUserLibraryCollectionAction_ParamsFields,
+	{} :: _EditUserLibraryCollectionAction_ParamsImpl
+))
+type _EditUserLibraryCollectionAction_ParamsMessage = proto.Message<
+	EditUserLibraryCollectionAction_Params,
+	_EditUserLibraryCollectionAction_ParamsPartialFields
+>
+
+type _DeleteUserLibraryCollectionActionImpl = {
+	__index: _DeleteUserLibraryCollectionActionImpl,
+	new: (fields: _DeleteUserLibraryCollectionActionPartialFields?) -> DeleteUserLibraryCollectionAction,
+	encode: (self: DeleteUserLibraryCollectionAction) -> buffer,
+	decode: (input: buffer) -> DeleteUserLibraryCollectionAction,
+	jsonEncode: (self: DeleteUserLibraryCollectionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DeleteUserLibraryCollectionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _DeleteUserLibraryCollectionActionFields = {
+	action_type: ActionType,
+	action_params: DeleteUserLibraryCollectionAction_Params?,
+}
+
+type _DeleteUserLibraryCollectionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: DeleteUserLibraryCollectionAction_Params?,
+}
+
+export type DeleteUserLibraryCollectionAction = typeof(setmetatable(
+	{} :: _DeleteUserLibraryCollectionActionFields,
+	{} :: _DeleteUserLibraryCollectionActionImpl
+))
+type _DeleteUserLibraryCollectionActionMessage = proto.Message<
+	DeleteUserLibraryCollectionAction,
+	_DeleteUserLibraryCollectionActionPartialFields
+>
+
+type _DeleteUserLibraryCollectionAction_ParamsImpl = {
+	__index: _DeleteUserLibraryCollectionAction_ParamsImpl,
+	new: (fields: _DeleteUserLibraryCollectionAction_ParamsPartialFields?) -> DeleteUserLibraryCollectionAction_Params,
+	encode: (self: DeleteUserLibraryCollectionAction_Params) -> buffer,
+	decode: (input: buffer) -> DeleteUserLibraryCollectionAction_Params,
+	jsonEncode: (self: DeleteUserLibraryCollectionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> DeleteUserLibraryCollectionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _DeleteUserLibraryCollectionAction_ParamsFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _DeleteUserLibraryCollectionAction_ParamsPartialFields = {
+	collection_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type DeleteUserLibraryCollectionAction_Params = typeof(setmetatable(
+	{} :: _DeleteUserLibraryCollectionAction_ParamsFields,
+	{} :: _DeleteUserLibraryCollectionAction_ParamsImpl
+))
+type _DeleteUserLibraryCollectionAction_ParamsMessage = proto.Message<
+	DeleteUserLibraryCollectionAction_Params,
+	_DeleteUserLibraryCollectionAction_ParamsPartialFields
+>
+
+type _IncrementMilestoneCountActionImpl = {
+	__index: _IncrementMilestoneCountActionImpl,
+	new: (fields: _IncrementMilestoneCountActionPartialFields?) -> IncrementMilestoneCountAction,
+	encode: (self: IncrementMilestoneCountAction) -> buffer,
+	decode: (input: buffer) -> IncrementMilestoneCountAction,
+	jsonEncode: (self: IncrementMilestoneCountAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> IncrementMilestoneCountAction,
+	descriptor: proto.Descriptor,
+}
+
+type _IncrementMilestoneCountActionFields = {
+	action_type: ActionType,
+	action_params: IncrementMilestoneCountAction_Params?,
+}
+
+type _IncrementMilestoneCountActionPartialFields = {
+	action_type: ActionType?,
+	action_params: IncrementMilestoneCountAction_Params?,
+}
+
+export type IncrementMilestoneCountAction = typeof(setmetatable(
+	{} :: _IncrementMilestoneCountActionFields,
+	{} :: _IncrementMilestoneCountActionImpl
+))
+type _IncrementMilestoneCountActionMessage = proto.Message<
+	IncrementMilestoneCountAction,
+	_IncrementMilestoneCountActionPartialFields
+>
+
+type _IncrementMilestoneCountAction_ParamsImpl = {
+	__index: _IncrementMilestoneCountAction_ParamsImpl,
+	new: (fields: _IncrementMilestoneCountAction_ParamsPartialFields?) -> IncrementMilestoneCountAction_Params,
+	encode: (self: IncrementMilestoneCountAction_Params) -> buffer,
+	decode: (input: buffer) -> IncrementMilestoneCountAction_Params,
+	jsonEncode: (self: IncrementMilestoneCountAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> IncrementMilestoneCountAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _IncrementMilestoneCountAction_ParamsFields = {
+	milestone_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _IncrementMilestoneCountAction_ParamsPartialFields = {
+	milestone_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type IncrementMilestoneCountAction_Params = typeof(setmetatable(
+	{} :: _IncrementMilestoneCountAction_ParamsFields,
+	{} :: _IncrementMilestoneCountAction_ParamsImpl
+))
+type _IncrementMilestoneCountAction_ParamsMessage = proto.Message<
+	IncrementMilestoneCountAction_Params,
+	_IncrementMilestoneCountAction_ParamsPartialFields
+>
+
+type _SetMilestoneCountActionImpl = {
+	__index: _SetMilestoneCountActionImpl,
+	new: (fields: _SetMilestoneCountActionPartialFields?) -> SetMilestoneCountAction,
+	encode: (self: SetMilestoneCountAction) -> buffer,
+	decode: (input: buffer) -> SetMilestoneCountAction,
+	jsonEncode: (self: SetMilestoneCountAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SetMilestoneCountAction,
+	descriptor: proto.Descriptor,
+}
+
+type _SetMilestoneCountActionFields = {
+	action_type: ActionType,
+	action_params: SetMilestoneCountAction_Params?,
+}
+
+type _SetMilestoneCountActionPartialFields = {
+	action_type: ActionType?,
+	action_params: SetMilestoneCountAction_Params?,
+}
+
+export type SetMilestoneCountAction = typeof(setmetatable(
+	{} :: _SetMilestoneCountActionFields,
+	{} :: _SetMilestoneCountActionImpl
+))
+type _SetMilestoneCountActionMessage = proto.Message<SetMilestoneCountAction, _SetMilestoneCountActionPartialFields>
+
+type _SetMilestoneCountAction_ParamsImpl = {
+	__index: _SetMilestoneCountAction_ParamsImpl,
+	new: (fields: _SetMilestoneCountAction_ParamsPartialFields?) -> SetMilestoneCountAction_Params,
+	encode: (self: SetMilestoneCountAction_Params) -> buffer,
+	decode: (input: buffer) -> SetMilestoneCountAction_Params,
+	jsonEncode: (self: SetMilestoneCountAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SetMilestoneCountAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _SetMilestoneCountAction_ParamsFields = {
+	milestone_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	count: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+type _SetMilestoneCountAction_ParamsPartialFields = {
+	milestone_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	count: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+export type SetMilestoneCountAction_Params = typeof(setmetatable(
+	{} :: _SetMilestoneCountAction_ParamsFields,
+	{} :: _SetMilestoneCountAction_ParamsImpl
+))
+type _SetMilestoneCountAction_ParamsMessage = proto.Message<
+	SetMilestoneCountAction_Params,
+	_SetMilestoneCountAction_ParamsPartialFields
+>
+
+type _ToggleContentReactionActionImpl = {
+	__index: _ToggleContentReactionActionImpl,
+	new: (fields: _ToggleContentReactionActionPartialFields?) -> ToggleContentReactionAction,
+	encode: (self: ToggleContentReactionAction) -> buffer,
+	decode: (input: buffer) -> ToggleContentReactionAction,
+	jsonEncode: (self: ToggleContentReactionAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleContentReactionAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleContentReactionActionFields = {
+	action_type: ActionType,
+	action_params: ToggleContentReactionAction_Params?,
+}
+
+type _ToggleContentReactionActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ToggleContentReactionAction_Params?,
+}
+
+export type ToggleContentReactionAction = typeof(setmetatable(
+	{} :: _ToggleContentReactionActionFields,
+	{} :: _ToggleContentReactionActionImpl
+))
+type _ToggleContentReactionActionMessage = proto.Message<
+	ToggleContentReactionAction,
+	_ToggleContentReactionActionPartialFields
+>
+
+type _ToggleContentReactionAction_ParamsImpl = {
+	__index: _ToggleContentReactionAction_ParamsImpl,
+	new: (fields: _ToggleContentReactionAction_ParamsPartialFields?) -> ToggleContentReactionAction_Params,
+	encode: (self: ToggleContentReactionAction_Params) -> buffer,
+	decode: (input: buffer) -> ToggleContentReactionAction_Params,
+	jsonEncode: (self: ToggleContentReactionAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleContentReactionAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleContentReactionAction_ParamsFields = {
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	vertical: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	emote_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	should_add: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+type _ToggleContentReactionAction_ParamsPartialFields = {
+	entity_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	vertical: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	emote_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	should_add: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+export type ToggleContentReactionAction_Params = typeof(setmetatable(
+	{} :: _ToggleContentReactionAction_ParamsFields,
+	{} :: _ToggleContentReactionAction_ParamsImpl
+))
+type _ToggleContentReactionAction_ParamsMessage = proto.Message<
+	ToggleContentReactionAction_Params,
+	_ToggleContentReactionAction_ParamsPartialFields
+>
+
+type _OpenSignUpModalActionImpl = {
+	__index: _OpenSignUpModalActionImpl,
+	new: (fields: _OpenSignUpModalActionPartialFields?) -> OpenSignUpModalAction,
+	encode: (self: OpenSignUpModalAction) -> buffer,
+	decode: (input: buffer) -> OpenSignUpModalAction,
+	jsonEncode: (self: OpenSignUpModalAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSignUpModalAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSignUpModalActionFields = {
+	action_type: ActionType,
+	action_params: OpenSignUpModalAction_Params?,
+}
+
+type _OpenSignUpModalActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSignUpModalAction_Params?,
+}
+
+export type OpenSignUpModalAction = typeof(setmetatable(
+	{} :: _OpenSignUpModalActionFields,
+	{} :: _OpenSignUpModalActionImpl
+))
+type _OpenSignUpModalActionMessage = proto.Message<OpenSignUpModalAction, _OpenSignUpModalActionPartialFields>
+
+type _OpenSignUpModalAction_ParamsImpl = {
+	__index: _OpenSignUpModalAction_ParamsImpl,
+	new: (fields: _OpenSignUpModalAction_ParamsPartialFields?) -> OpenSignUpModalAction_Params,
+	encode: (self: OpenSignUpModalAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSignUpModalAction_Params,
+	jsonEncode: (self: OpenSignUpModalAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSignUpModalAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSignUpModalAction_ParamsFields = {}
+
+type _OpenSignUpModalAction_ParamsPartialFields = {}
+
+export type OpenSignUpModalAction_Params = typeof(setmetatable(
+	{} :: _OpenSignUpModalAction_ParamsFields,
+	{} :: _OpenSignUpModalAction_ParamsImpl
+))
+type _OpenSignUpModalAction_ParamsMessage = proto.Message<
+	OpenSignUpModalAction_Params,
+	_OpenSignUpModalAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -7045,6 +7811,19 @@ type _ActionFields = {
 		| { type: "open_roblox_plus_sheet_action", value: OpenRobloxPlusSheetAction }
 		| { type: "open_send_robux_action", value: OpenSendRobuxAction }
 		| { type: "review_transfer_action", value: ReviewTransferAction }
+		| { type: "open_user_library_collection_action", value: OpenUserLibraryCollectionAction }
+		| { type: "remove_from_user_library_collection_action", value: RemoveFromUserLibraryCollectionAction }
+		| { type: "unsave_user_library_item_action", value: UnsaveUserLibraryItemAction }
+		| { type: "add_to_user_library_collection_action", value: AddToUserLibraryCollectionAction }
+		| { type: "report_user_library_item_action", value: ReportUserLibraryItemAction }
+		| { type: "create_user_library_collection_action", value: CreateUserLibraryCollectionAction }
+		| { type: "open_user_library_collection_options_action", value: OpenUserLibraryCollectionOptionsAction }
+		| { type: "edit_user_library_collection_action", value: EditUserLibraryCollectionAction }
+		| { type: "delete_user_library_collection_action", value: DeleteUserLibraryCollectionAction }
+		| { type: "toggle_content_reaction_action", value: ToggleContentReactionAction }
+		| { type: "open_sign_up_modal_action", value: OpenSignUpModalAction }
+		| { type: "increment_milestone_count_action", value: IncrementMilestoneCountAction }
+		| { type: "set_milestone_count_action", value: SetMilestoneCountAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -7165,6 +7944,19 @@ type _ActionPartialFields = {
 		| { type: "open_roblox_plus_sheet_action", value: OpenRobloxPlusSheetAction }
 		| { type: "open_send_robux_action", value: OpenSendRobuxAction }
 		| { type: "review_transfer_action", value: ReviewTransferAction }
+		| { type: "open_user_library_collection_action", value: OpenUserLibraryCollectionAction }
+		| { type: "remove_from_user_library_collection_action", value: RemoveFromUserLibraryCollectionAction }
+		| { type: "unsave_user_library_item_action", value: UnsaveUserLibraryItemAction }
+		| { type: "add_to_user_library_collection_action", value: AddToUserLibraryCollectionAction }
+		| { type: "report_user_library_item_action", value: ReportUserLibraryItemAction }
+		| { type: "create_user_library_collection_action", value: CreateUserLibraryCollectionAction }
+		| { type: "open_user_library_collection_options_action", value: OpenUserLibraryCollectionOptionsAction }
+		| { type: "edit_user_library_collection_action", value: EditUserLibraryCollectionAction }
+		| { type: "delete_user_library_collection_action", value: DeleteUserLibraryCollectionAction }
+		| { type: "toggle_content_reaction_action", value: ToggleContentReactionAction }
+		| { type: "open_sign_up_modal_action", value: OpenSignUpModalAction }
+		| { type: "increment_milestone_count_action", value: IncrementMilestoneCountAction }
+		| { type: "set_milestone_count_action", value: SetMilestoneCountAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -7539,6 +8331,19 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_ROBLOX_PLUS_SHEET"
 	| "ACTION_TYPE_OPEN_SEND_ROBUX"
 	| "ACTION_TYPE_REVIEW_TRANSFER"
+	| "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION"
+	| "ACTION_TYPE_REMOVE_FROM_USER_LIBRARY_COLLECTION"
+	| "ACTION_TYPE_UNSAVE_USER_LIBRARY_ITEM"
+	| "ACTION_TYPE_ADD_TO_USER_LIBRARY_COLLECTION"
+	| "ACTION_TYPE_REPORT_USER_LIBRARY_ITEM"
+	| "ACTION_TYPE_CREATE_USER_LIBRARY_COLLECTION"
+	| "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION_OPTIONS"
+	| "ACTION_TYPE_EDIT_USER_LIBRARY_COLLECTION"
+	| "ACTION_TYPE_DELETE_USER_LIBRARY_COLLECTION"
+	| "ACTION_TYPE_TOGGLE_CONTENT_REACTION"
+	| "ACTION_TYPE_OPEN_SIGN_UP_MODAL"
+	| "ACTION_TYPE_INCREMENT_MILESTONE_COUNT"
+	| "ACTION_TYPE_SET_MILESTONE_COUNT"
 	| number -- Unknown
 
 do
@@ -8239,6 +9044,7 @@ do
 			skip_leave_confirmation = if data == nil or data.skip_leave_confirmation == nil
 				then nil
 				else data.skip_leave_confirmation,
+			on_continue = if data == nil or data.on_continue == nil then nil else data.on_continue,
 		}, _OpenExternalLinkAction_ParamsImpl :: _OpenExternalLinkAction_ParamsImpl)
 	end
 
@@ -8255,6 +9061,12 @@ do
 		if self.skip_leave_confirmation ~= nil then
 			local encoded = self.skip_leave_confirmation:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_continue ~= nil then
+			local encoded = self.on_continue:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -8287,6 +9099,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.skip_leave_confirmation =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_continue = messages.ActionProp.decode(value)
 					continue
 				end
 
@@ -8323,6 +9140,10 @@ do
 			output.skipLeaveConfirmation = self.skip_leave_confirmation:jsonEncode()
 		end
 
+		if self.on_continue ~= nil then
+			output.onContinue = self.on_continue:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -8341,6 +9162,14 @@ do
 		if input.skipLeaveConfirmation ~= nil then
 			self.skip_leave_confirmation =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipLeaveConfirmation)
+		end
+
+		if input.on_continue ~= nil then
+			self.on_continue = messages.ActionProp.jsonDecode(input.on_continue)
+		end
+
+		if input.onContinue ~= nil then
+			self.on_continue = messages.ActionProp.jsonDecode(input.onContinue)
 		end
 
 		return self
@@ -19020,6 +19849,9 @@ do
 			selected_option = if data == nil or data.selected_option == nil then nil else data.selected_option,
 			request_intent = if data == nil or data.request_intent == nil then nil else data.request_intent,
 			feed_item_key = if data == nil or data.feed_item_key == nil then nil else data.feed_item_key,
+			is_omission_expected = if data == nil or data.is_omission_expected == nil
+				then nil
+				else data.is_omission_expected,
 		}, _RefreshOmniRecommendationFeedItemAction_ParamsImpl :: _RefreshOmniRecommendationFeedItemAction_ParamsImpl)
 	end
 
@@ -19050,6 +19882,12 @@ do
 		if self.feed_item_key ~= nil then
 			local encoded = self.feed_item_key:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_omission_expected ~= nil then
+			local encoded = self.is_omission_expected:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -19093,6 +19931,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.feed_item_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_omission_expected = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -19139,6 +19982,10 @@ do
 			output.feedItemKey = self.feed_item_key:jsonEncode()
 		end
 
+		if self.is_omission_expected ~= nil then
+			output.isOmissionExpected = self.is_omission_expected:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -19183,6 +20030,16 @@ do
 		if input.feedItemKey ~= nil then
 			self.feed_item_key =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.feedItemKey)
+		end
+
+		if input.is_omission_expected ~= nil then
+			self.is_omission_expected =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_omission_expected)
+		end
+
+		if input.isOmissionExpected ~= nil then
+			self.is_omission_expected =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isOmissionExpected)
 		end
 
 		return self
@@ -41982,6 +42839,3504 @@ do
 end
 
 do
+	local _OpenUserLibraryCollectionActionImpl = {}
+	_OpenUserLibraryCollectionActionImpl.__index = _OpenUserLibraryCollectionActionImpl
+
+	function _OpenUserLibraryCollectionActionImpl.new(
+		data: _OpenUserLibraryCollectionActionPartialFields?
+	): OpenUserLibraryCollectionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenUserLibraryCollectionActionImpl :: _OpenUserLibraryCollectionActionImpl)
+	end
+
+	function _OpenUserLibraryCollectionActionImpl.encode(self: OpenUserLibraryCollectionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenUserLibraryCollectionActionImpl.decode(input: buffer): OpenUserLibraryCollectionAction
+		local self = _OpenUserLibraryCollectionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenUserLibraryCollectionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenUserLibraryCollectionActionImpl.jsonEncode(self: OpenUserLibraryCollectionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenUserLibraryCollectionActionImpl.jsonDecode(input: { [string]: any }): OpenUserLibraryCollectionAction
+		local self = _OpenUserLibraryCollectionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenUserLibraryCollectionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenUserLibraryCollectionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenUserLibraryCollectionActionImpl.descriptor = {
+		name = "OpenUserLibraryCollectionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenUserLibraryCollectionAction",
+	}
+
+	messages.OpenUserLibraryCollectionAction = _OpenUserLibraryCollectionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenUserLibraryCollectionAction)
+end
+
+do
+	local _OpenUserLibraryCollectionAction_ParamsImpl = {}
+	_OpenUserLibraryCollectionAction_ParamsImpl.__index = _OpenUserLibraryCollectionAction_ParamsImpl
+
+	function _OpenUserLibraryCollectionAction_ParamsImpl.new(
+		data: _OpenUserLibraryCollectionAction_ParamsPartialFields?
+	): OpenUserLibraryCollectionAction_Params
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+		}, _OpenUserLibraryCollectionAction_ParamsImpl :: _OpenUserLibraryCollectionAction_ParamsImpl)
+	end
+
+	function _OpenUserLibraryCollectionAction_ParamsImpl.encode(self: OpenUserLibraryCollectionAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenUserLibraryCollectionAction_ParamsImpl.decode(input: buffer): OpenUserLibraryCollectionAction_Params
+		local self = _OpenUserLibraryCollectionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenUserLibraryCollectionAction_ParamsImpl.jsonEncode(self: OpenUserLibraryCollectionAction_Params): any
+		local output = {}
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenUserLibraryCollectionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenUserLibraryCollectionAction_Params
+		local self = _OpenUserLibraryCollectionAction_ParamsImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		return self
+	end
+
+	_OpenUserLibraryCollectionAction_ParamsImpl.descriptor = {
+		name = "OpenUserLibraryCollectionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenUserLibraryCollectionAction_Params = _OpenUserLibraryCollectionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenUserLibraryCollectionAction_Params)
+end
+
+do
+	local _RemoveFromUserLibraryCollectionActionImpl = {}
+	_RemoveFromUserLibraryCollectionActionImpl.__index = _RemoveFromUserLibraryCollectionActionImpl
+
+	function _RemoveFromUserLibraryCollectionActionImpl.new(
+		data: _RemoveFromUserLibraryCollectionActionPartialFields?
+	): RemoveFromUserLibraryCollectionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RemoveFromUserLibraryCollectionActionImpl :: _RemoveFromUserLibraryCollectionActionImpl)
+	end
+
+	function _RemoveFromUserLibraryCollectionActionImpl.encode(self: RemoveFromUserLibraryCollectionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RemoveFromUserLibraryCollectionActionImpl.decode(input: buffer): RemoveFromUserLibraryCollectionAction
+		local self = _RemoveFromUserLibraryCollectionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RemoveFromUserLibraryCollectionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RemoveFromUserLibraryCollectionActionImpl.jsonEncode(self: RemoveFromUserLibraryCollectionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RemoveFromUserLibraryCollectionActionImpl.jsonDecode(
+		input: { [string]: any }
+	): RemoveFromUserLibraryCollectionAction
+		local self = _RemoveFromUserLibraryCollectionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RemoveFromUserLibraryCollectionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RemoveFromUserLibraryCollectionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RemoveFromUserLibraryCollectionActionImpl.descriptor = {
+		name = "RemoveFromUserLibraryCollectionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RemoveFromUserLibraryCollectionAction",
+	}
+
+	messages.RemoveFromUserLibraryCollectionAction = _RemoveFromUserLibraryCollectionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RemoveFromUserLibraryCollectionAction)
+end
+
+do
+	local _RemoveFromUserLibraryCollectionAction_ParamsImpl = {}
+	_RemoveFromUserLibraryCollectionAction_ParamsImpl.__index = _RemoveFromUserLibraryCollectionAction_ParamsImpl
+
+	function _RemoveFromUserLibraryCollectionAction_ParamsImpl.new(
+		data: _RemoveFromUserLibraryCollectionAction_ParamsPartialFields?
+	): RemoveFromUserLibraryCollectionAction_Params
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+			saved_id = if data == nil or data.saved_id == nil then nil else data.saved_id,
+		}, _RemoveFromUserLibraryCollectionAction_ParamsImpl :: _RemoveFromUserLibraryCollectionAction_ParamsImpl)
+	end
+
+	function _RemoveFromUserLibraryCollectionAction_ParamsImpl.encode(
+		self: RemoveFromUserLibraryCollectionAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.saved_id ~= nil then
+			local encoded = self.saved_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RemoveFromUserLibraryCollectionAction_ParamsImpl.decode(
+		input: buffer
+	): RemoveFromUserLibraryCollectionAction_Params
+		local self = _RemoveFromUserLibraryCollectionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RemoveFromUserLibraryCollectionAction_ParamsImpl.jsonEncode(
+		self: RemoveFromUserLibraryCollectionAction_Params
+	): any
+		local output = {}
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		if self.saved_id ~= nil then
+			output.savedId = self.saved_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RemoveFromUserLibraryCollectionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RemoveFromUserLibraryCollectionAction_Params
+		local self = _RemoveFromUserLibraryCollectionAction_ParamsImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		if input.saved_id ~= nil then
+			self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.saved_id)
+		end
+
+		if input.savedId ~= nil then
+			self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.savedId)
+		end
+
+		return self
+	end
+
+	_RemoveFromUserLibraryCollectionAction_ParamsImpl.descriptor = {
+		name = "RemoveFromUserLibraryCollectionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RemoveFromUserLibraryCollectionAction_Params = _RemoveFromUserLibraryCollectionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RemoveFromUserLibraryCollectionAction_Params)
+end
+
+do
+	local _UnsaveUserLibraryItemActionImpl = {}
+	_UnsaveUserLibraryItemActionImpl.__index = _UnsaveUserLibraryItemActionImpl
+
+	function _UnsaveUserLibraryItemActionImpl.new(
+		data: _UnsaveUserLibraryItemActionPartialFields?
+	): UnsaveUserLibraryItemAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _UnsaveUserLibraryItemActionImpl :: _UnsaveUserLibraryItemActionImpl)
+	end
+
+	function _UnsaveUserLibraryItemActionImpl.encode(self: UnsaveUserLibraryItemAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UnsaveUserLibraryItemActionImpl.decode(input: buffer): UnsaveUserLibraryItemAction
+		local self = _UnsaveUserLibraryItemActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.UnsaveUserLibraryItemAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UnsaveUserLibraryItemActionImpl.jsonEncode(self: UnsaveUserLibraryItemAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UnsaveUserLibraryItemActionImpl.jsonDecode(input: { [string]: any }): UnsaveUserLibraryItemAction
+		local self = _UnsaveUserLibraryItemActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.UnsaveUserLibraryItemAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.UnsaveUserLibraryItemAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_UnsaveUserLibraryItemActionImpl.descriptor = {
+		name = "UnsaveUserLibraryItemAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UnsaveUserLibraryItemAction",
+	}
+
+	messages.UnsaveUserLibraryItemAction = _UnsaveUserLibraryItemActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UnsaveUserLibraryItemAction)
+end
+
+do
+	local _UnsaveUserLibraryItemAction_ParamsImpl = {}
+	_UnsaveUserLibraryItemAction_ParamsImpl.__index = _UnsaveUserLibraryItemAction_ParamsImpl
+
+	function _UnsaveUserLibraryItemAction_ParamsImpl.new(
+		data: _UnsaveUserLibraryItemAction_ParamsPartialFields?
+	): UnsaveUserLibraryItemAction_Params
+		return setmetatable({
+			saved_id = if data == nil or data.saved_id == nil then nil else data.saved_id,
+		}, _UnsaveUserLibraryItemAction_ParamsImpl :: _UnsaveUserLibraryItemAction_ParamsImpl)
+	end
+
+	function _UnsaveUserLibraryItemAction_ParamsImpl.encode(self: UnsaveUserLibraryItemAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.saved_id ~= nil then
+			local encoded = self.saved_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UnsaveUserLibraryItemAction_ParamsImpl.decode(input: buffer): UnsaveUserLibraryItemAction_Params
+		local self = _UnsaveUserLibraryItemAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UnsaveUserLibraryItemAction_ParamsImpl.jsonEncode(self: UnsaveUserLibraryItemAction_Params): any
+		local output = {}
+
+		if self.saved_id ~= nil then
+			output.savedId = self.saved_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UnsaveUserLibraryItemAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): UnsaveUserLibraryItemAction_Params
+		local self = _UnsaveUserLibraryItemAction_ParamsImpl.new()
+
+		if input.saved_id ~= nil then
+			self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.saved_id)
+		end
+
+		if input.savedId ~= nil then
+			self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.savedId)
+		end
+
+		return self
+	end
+
+	_UnsaveUserLibraryItemAction_ParamsImpl.descriptor = {
+		name = "UnsaveUserLibraryItemAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.UnsaveUserLibraryItemAction_Params = _UnsaveUserLibraryItemAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UnsaveUserLibraryItemAction_Params)
+end
+
+do
+	local _AddToUserLibraryCollectionActionImpl = {}
+	_AddToUserLibraryCollectionActionImpl.__index = _AddToUserLibraryCollectionActionImpl
+
+	function _AddToUserLibraryCollectionActionImpl.new(
+		data: _AddToUserLibraryCollectionActionPartialFields?
+	): AddToUserLibraryCollectionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _AddToUserLibraryCollectionActionImpl :: _AddToUserLibraryCollectionActionImpl)
+	end
+
+	function _AddToUserLibraryCollectionActionImpl.encode(self: AddToUserLibraryCollectionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AddToUserLibraryCollectionActionImpl.decode(input: buffer): AddToUserLibraryCollectionAction
+		local self = _AddToUserLibraryCollectionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.AddToUserLibraryCollectionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AddToUserLibraryCollectionActionImpl.jsonEncode(self: AddToUserLibraryCollectionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AddToUserLibraryCollectionActionImpl.jsonDecode(
+		input: { [string]: any }
+	): AddToUserLibraryCollectionAction
+		local self = _AddToUserLibraryCollectionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.AddToUserLibraryCollectionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.AddToUserLibraryCollectionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_AddToUserLibraryCollectionActionImpl.descriptor = {
+		name = "AddToUserLibraryCollectionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AddToUserLibraryCollectionAction",
+	}
+
+	messages.AddToUserLibraryCollectionAction = _AddToUserLibraryCollectionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AddToUserLibraryCollectionAction)
+end
+
+do
+	local _AddToUserLibraryCollectionAction_ParamsImpl = {}
+	_AddToUserLibraryCollectionAction_ParamsImpl.__index = _AddToUserLibraryCollectionAction_ParamsImpl
+
+	function _AddToUserLibraryCollectionAction_ParamsImpl.new(
+		data: _AddToUserLibraryCollectionAction_ParamsPartialFields?
+	): AddToUserLibraryCollectionAction_Params
+		return setmetatable({
+			saved_id = if data == nil or data.saved_id == nil then nil else data.saved_id,
+		}, _AddToUserLibraryCollectionAction_ParamsImpl :: _AddToUserLibraryCollectionAction_ParamsImpl)
+	end
+
+	function _AddToUserLibraryCollectionAction_ParamsImpl.encode(self: AddToUserLibraryCollectionAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.saved_id ~= nil then
+			local encoded = self.saved_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AddToUserLibraryCollectionAction_ParamsImpl.decode(input: buffer): AddToUserLibraryCollectionAction_Params
+		local self = _AddToUserLibraryCollectionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AddToUserLibraryCollectionAction_ParamsImpl.jsonEncode(self: AddToUserLibraryCollectionAction_Params): any
+		local output = {}
+
+		if self.saved_id ~= nil then
+			output.savedId = self.saved_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AddToUserLibraryCollectionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): AddToUserLibraryCollectionAction_Params
+		local self = _AddToUserLibraryCollectionAction_ParamsImpl.new()
+
+		if input.saved_id ~= nil then
+			self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.saved_id)
+		end
+
+		if input.savedId ~= nil then
+			self.saved_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.savedId)
+		end
+
+		return self
+	end
+
+	_AddToUserLibraryCollectionAction_ParamsImpl.descriptor = {
+		name = "AddToUserLibraryCollectionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.AddToUserLibraryCollectionAction_Params = _AddToUserLibraryCollectionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AddToUserLibraryCollectionAction_Params)
+end
+
+do
+	local _ReportUserLibraryItemActionImpl = {}
+	_ReportUserLibraryItemActionImpl.__index = _ReportUserLibraryItemActionImpl
+
+	function _ReportUserLibraryItemActionImpl.new(
+		data: _ReportUserLibraryItemActionPartialFields?
+	): ReportUserLibraryItemAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ReportUserLibraryItemActionImpl :: _ReportUserLibraryItemActionImpl)
+	end
+
+	function _ReportUserLibraryItemActionImpl.encode(self: ReportUserLibraryItemAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ReportUserLibraryItemActionImpl.decode(input: buffer): ReportUserLibraryItemAction
+		local self = _ReportUserLibraryItemActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ReportUserLibraryItemAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ReportUserLibraryItemActionImpl.jsonEncode(self: ReportUserLibraryItemAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ReportUserLibraryItemActionImpl.jsonDecode(input: { [string]: any }): ReportUserLibraryItemAction
+		local self = _ReportUserLibraryItemActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ReportUserLibraryItemAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ReportUserLibraryItemAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ReportUserLibraryItemActionImpl.descriptor = {
+		name = "ReportUserLibraryItemAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ReportUserLibraryItemAction",
+	}
+
+	messages.ReportUserLibraryItemAction = _ReportUserLibraryItemActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ReportUserLibraryItemAction)
+end
+
+do
+	local _ReportUserLibraryItemAction_ParamsImpl = {}
+	_ReportUserLibraryItemAction_ParamsImpl.__index = _ReportUserLibraryItemAction_ParamsImpl
+
+	function _ReportUserLibraryItemAction_ParamsImpl.new(
+		data: _ReportUserLibraryItemAction_ParamsPartialFields?
+	): ReportUserLibraryItemAction_Params
+		return setmetatable({
+			target_type = if data == nil or data.target_type == nil then nil else data.target_type,
+			target_id = if data == nil or data.target_id == nil then nil else data.target_id,
+			abuse_vector = if data == nil or data.abuse_vector == nil then nil else data.abuse_vector,
+			look_asset_ids = if data == nil or data.look_asset_ids == nil then nil else data.look_asset_ids,
+			album_art_asset_id = if data == nil or data.album_art_asset_id == nil then nil else data.album_art_asset_id,
+		}, _ReportUserLibraryItemAction_ParamsImpl :: _ReportUserLibraryItemAction_ParamsImpl)
+	end
+
+	function _ReportUserLibraryItemAction_ParamsImpl.encode(self: ReportUserLibraryItemAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.target_type ~= nil then
+			local encoded = self.target_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.target_id ~= nil then
+			local encoded = self.target_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.abuse_vector ~= nil then
+			local encoded = self.abuse_vector:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.look_asset_ids ~= nil then
+			local encoded = self.look_asset_ids:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.album_art_asset_id ~= nil then
+			local encoded = self.album_art_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ReportUserLibraryItemAction_ParamsImpl.decode(input: buffer): ReportUserLibraryItemAction_Params
+		local self = _ReportUserLibraryItemAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.abuse_vector = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.look_asset_ids =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.album_art_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ReportUserLibraryItemAction_ParamsImpl.jsonEncode(self: ReportUserLibraryItemAction_Params): any
+		local output = {}
+
+		if self.target_type ~= nil then
+			output.targetType = self.target_type:jsonEncode()
+		end
+
+		if self.target_id ~= nil then
+			output.targetId = self.target_id:jsonEncode()
+		end
+
+		if self.abuse_vector ~= nil then
+			output.abuseVector = self.abuse_vector:jsonEncode()
+		end
+
+		if self.look_asset_ids ~= nil then
+			output.lookAssetIds = self.look_asset_ids:jsonEncode()
+		end
+
+		if self.album_art_asset_id ~= nil then
+			output.albumArtAssetId = self.album_art_asset_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ReportUserLibraryItemAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ReportUserLibraryItemAction_Params
+		local self = _ReportUserLibraryItemAction_ParamsImpl.new()
+
+		if input.target_type ~= nil then
+			self.target_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.target_type)
+		end
+
+		if input.targetType ~= nil then
+			self.target_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.targetType)
+		end
+
+		if input.target_id ~= nil then
+			self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.target_id)
+		end
+
+		if input.targetId ~= nil then
+			self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.targetId)
+		end
+
+		if input.abuse_vector ~= nil then
+			self.abuse_vector =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.abuse_vector)
+		end
+
+		if input.abuseVector ~= nil then
+			self.abuse_vector =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.abuseVector)
+		end
+
+		if input.look_asset_ids ~= nil then
+			self.look_asset_ids =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.look_asset_ids)
+		end
+
+		if input.lookAssetIds ~= nil then
+			self.look_asset_ids =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringArrayProp.jsonDecode(input.lookAssetIds)
+		end
+
+		if input.album_art_asset_id ~= nil then
+			self.album_art_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.album_art_asset_id)
+		end
+
+		if input.albumArtAssetId ~= nil then
+			self.album_art_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.albumArtAssetId)
+		end
+
+		return self
+	end
+
+	_ReportUserLibraryItemAction_ParamsImpl.descriptor = {
+		name = "ReportUserLibraryItemAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ReportUserLibraryItemAction_Params = _ReportUserLibraryItemAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ReportUserLibraryItemAction_Params)
+end
+
+do
+	local _CreateUserLibraryCollectionActionImpl = {}
+	_CreateUserLibraryCollectionActionImpl.__index = _CreateUserLibraryCollectionActionImpl
+
+	function _CreateUserLibraryCollectionActionImpl.new(
+		data: _CreateUserLibraryCollectionActionPartialFields?
+	): CreateUserLibraryCollectionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _CreateUserLibraryCollectionActionImpl :: _CreateUserLibraryCollectionActionImpl)
+	end
+
+	function _CreateUserLibraryCollectionActionImpl.encode(self: CreateUserLibraryCollectionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CreateUserLibraryCollectionActionImpl.decode(input: buffer): CreateUserLibraryCollectionAction
+		local self = _CreateUserLibraryCollectionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.CreateUserLibraryCollectionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CreateUserLibraryCollectionActionImpl.jsonEncode(self: CreateUserLibraryCollectionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _CreateUserLibraryCollectionActionImpl.jsonDecode(
+		input: { [string]: any }
+	): CreateUserLibraryCollectionAction
+		local self = _CreateUserLibraryCollectionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.CreateUserLibraryCollectionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.CreateUserLibraryCollectionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_CreateUserLibraryCollectionActionImpl.descriptor = {
+		name = "CreateUserLibraryCollectionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CreateUserLibraryCollectionAction",
+	}
+
+	messages.CreateUserLibraryCollectionAction = _CreateUserLibraryCollectionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CreateUserLibraryCollectionAction)
+end
+
+do
+	local _CreateUserLibraryCollectionAction_ParamsImpl = {}
+	_CreateUserLibraryCollectionAction_ParamsImpl.__index = _CreateUserLibraryCollectionAction_ParamsImpl
+
+	function _CreateUserLibraryCollectionAction_ParamsImpl.new(
+		data: _CreateUserLibraryCollectionAction_ParamsPartialFields?
+	): CreateUserLibraryCollectionAction_Params
+		return setmetatable(
+			{},
+			_CreateUserLibraryCollectionAction_ParamsImpl :: _CreateUserLibraryCollectionAction_ParamsImpl
+		)
+	end
+
+	function _CreateUserLibraryCollectionAction_ParamsImpl.encode(
+		self: CreateUserLibraryCollectionAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CreateUserLibraryCollectionAction_ParamsImpl.decode(
+		input: buffer
+	): CreateUserLibraryCollectionAction_Params
+		local self = _CreateUserLibraryCollectionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CreateUserLibraryCollectionAction_ParamsImpl.jsonEncode(
+		self: CreateUserLibraryCollectionAction_Params
+	): any
+		local output = {}
+
+		return output
+	end
+
+	function _CreateUserLibraryCollectionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): CreateUserLibraryCollectionAction_Params
+		local self = _CreateUserLibraryCollectionAction_ParamsImpl.new()
+
+		return self
+	end
+
+	_CreateUserLibraryCollectionAction_ParamsImpl.descriptor = {
+		name = "CreateUserLibraryCollectionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.CreateUserLibraryCollectionAction_Params = _CreateUserLibraryCollectionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CreateUserLibraryCollectionAction_Params)
+end
+
+do
+	local _OpenUserLibraryCollectionOptionsActionImpl = {}
+	_OpenUserLibraryCollectionOptionsActionImpl.__index = _OpenUserLibraryCollectionOptionsActionImpl
+
+	function _OpenUserLibraryCollectionOptionsActionImpl.new(
+		data: _OpenUserLibraryCollectionOptionsActionPartialFields?
+	): OpenUserLibraryCollectionOptionsAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenUserLibraryCollectionOptionsActionImpl :: _OpenUserLibraryCollectionOptionsActionImpl)
+	end
+
+	function _OpenUserLibraryCollectionOptionsActionImpl.encode(self: OpenUserLibraryCollectionOptionsAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenUserLibraryCollectionOptionsActionImpl.decode(input: buffer): OpenUserLibraryCollectionOptionsAction
+		local self = _OpenUserLibraryCollectionOptionsActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenUserLibraryCollectionOptionsAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenUserLibraryCollectionOptionsActionImpl.jsonEncode(self: OpenUserLibraryCollectionOptionsAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenUserLibraryCollectionOptionsActionImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenUserLibraryCollectionOptionsAction
+		local self = _OpenUserLibraryCollectionOptionsActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenUserLibraryCollectionOptionsAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenUserLibraryCollectionOptionsAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenUserLibraryCollectionOptionsActionImpl.descriptor = {
+		name = "OpenUserLibraryCollectionOptionsAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenUserLibraryCollectionOptionsAction",
+	}
+
+	messages.OpenUserLibraryCollectionOptionsAction = _OpenUserLibraryCollectionOptionsActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenUserLibraryCollectionOptionsAction)
+end
+
+do
+	local _OpenUserLibraryCollectionOptionsAction_ParamsImpl = {}
+	_OpenUserLibraryCollectionOptionsAction_ParamsImpl.__index = _OpenUserLibraryCollectionOptionsAction_ParamsImpl
+
+	function _OpenUserLibraryCollectionOptionsAction_ParamsImpl.new(
+		data: _OpenUserLibraryCollectionOptionsAction_ParamsPartialFields?
+	): OpenUserLibraryCollectionOptionsAction_Params
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+		}, _OpenUserLibraryCollectionOptionsAction_ParamsImpl :: _OpenUserLibraryCollectionOptionsAction_ParamsImpl)
+	end
+
+	function _OpenUserLibraryCollectionOptionsAction_ParamsImpl.encode(
+		self: OpenUserLibraryCollectionOptionsAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenUserLibraryCollectionOptionsAction_ParamsImpl.decode(
+		input: buffer
+	): OpenUserLibraryCollectionOptionsAction_Params
+		local self = _OpenUserLibraryCollectionOptionsAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenUserLibraryCollectionOptionsAction_ParamsImpl.jsonEncode(
+		self: OpenUserLibraryCollectionOptionsAction_Params
+	): any
+		local output = {}
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenUserLibraryCollectionOptionsAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenUserLibraryCollectionOptionsAction_Params
+		local self = _OpenUserLibraryCollectionOptionsAction_ParamsImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		return self
+	end
+
+	_OpenUserLibraryCollectionOptionsAction_ParamsImpl.descriptor = {
+		name = "OpenUserLibraryCollectionOptionsAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenUserLibraryCollectionOptionsAction_Params = _OpenUserLibraryCollectionOptionsAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenUserLibraryCollectionOptionsAction_Params)
+end
+
+do
+	local _EditUserLibraryCollectionActionImpl = {}
+	_EditUserLibraryCollectionActionImpl.__index = _EditUserLibraryCollectionActionImpl
+
+	function _EditUserLibraryCollectionActionImpl.new(
+		data: _EditUserLibraryCollectionActionPartialFields?
+	): EditUserLibraryCollectionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _EditUserLibraryCollectionActionImpl :: _EditUserLibraryCollectionActionImpl)
+	end
+
+	function _EditUserLibraryCollectionActionImpl.encode(self: EditUserLibraryCollectionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EditUserLibraryCollectionActionImpl.decode(input: buffer): EditUserLibraryCollectionAction
+		local self = _EditUserLibraryCollectionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.EditUserLibraryCollectionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EditUserLibraryCollectionActionImpl.jsonEncode(self: EditUserLibraryCollectionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _EditUserLibraryCollectionActionImpl.jsonDecode(input: { [string]: any }): EditUserLibraryCollectionAction
+		local self = _EditUserLibraryCollectionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.EditUserLibraryCollectionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.EditUserLibraryCollectionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_EditUserLibraryCollectionActionImpl.descriptor = {
+		name = "EditUserLibraryCollectionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EditUserLibraryCollectionAction",
+	}
+
+	messages.EditUserLibraryCollectionAction = _EditUserLibraryCollectionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EditUserLibraryCollectionAction)
+end
+
+do
+	local _EditUserLibraryCollectionAction_ParamsImpl = {}
+	_EditUserLibraryCollectionAction_ParamsImpl.__index = _EditUserLibraryCollectionAction_ParamsImpl
+
+	function _EditUserLibraryCollectionAction_ParamsImpl.new(
+		data: _EditUserLibraryCollectionAction_ParamsPartialFields?
+	): EditUserLibraryCollectionAction_Params
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+		}, _EditUserLibraryCollectionAction_ParamsImpl :: _EditUserLibraryCollectionAction_ParamsImpl)
+	end
+
+	function _EditUserLibraryCollectionAction_ParamsImpl.encode(self: EditUserLibraryCollectionAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EditUserLibraryCollectionAction_ParamsImpl.decode(input: buffer): EditUserLibraryCollectionAction_Params
+		local self = _EditUserLibraryCollectionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EditUserLibraryCollectionAction_ParamsImpl.jsonEncode(self: EditUserLibraryCollectionAction_Params): any
+		local output = {}
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _EditUserLibraryCollectionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): EditUserLibraryCollectionAction_Params
+		local self = _EditUserLibraryCollectionAction_ParamsImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		return self
+	end
+
+	_EditUserLibraryCollectionAction_ParamsImpl.descriptor = {
+		name = "EditUserLibraryCollectionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.EditUserLibraryCollectionAction_Params = _EditUserLibraryCollectionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EditUserLibraryCollectionAction_Params)
+end
+
+do
+	local _DeleteUserLibraryCollectionActionImpl = {}
+	_DeleteUserLibraryCollectionActionImpl.__index = _DeleteUserLibraryCollectionActionImpl
+
+	function _DeleteUserLibraryCollectionActionImpl.new(
+		data: _DeleteUserLibraryCollectionActionPartialFields?
+	): DeleteUserLibraryCollectionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _DeleteUserLibraryCollectionActionImpl :: _DeleteUserLibraryCollectionActionImpl)
+	end
+
+	function _DeleteUserLibraryCollectionActionImpl.encode(self: DeleteUserLibraryCollectionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _DeleteUserLibraryCollectionActionImpl.decode(input: buffer): DeleteUserLibraryCollectionAction
+		local self = _DeleteUserLibraryCollectionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.DeleteUserLibraryCollectionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DeleteUserLibraryCollectionActionImpl.jsonEncode(self: DeleteUserLibraryCollectionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _DeleteUserLibraryCollectionActionImpl.jsonDecode(
+		input: { [string]: any }
+	): DeleteUserLibraryCollectionAction
+		local self = _DeleteUserLibraryCollectionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.DeleteUserLibraryCollectionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.DeleteUserLibraryCollectionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_DeleteUserLibraryCollectionActionImpl.descriptor = {
+		name = "DeleteUserLibraryCollectionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DeleteUserLibraryCollectionAction",
+	}
+
+	messages.DeleteUserLibraryCollectionAction = _DeleteUserLibraryCollectionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DeleteUserLibraryCollectionAction)
+end
+
+do
+	local _DeleteUserLibraryCollectionAction_ParamsImpl = {}
+	_DeleteUserLibraryCollectionAction_ParamsImpl.__index = _DeleteUserLibraryCollectionAction_ParamsImpl
+
+	function _DeleteUserLibraryCollectionAction_ParamsImpl.new(
+		data: _DeleteUserLibraryCollectionAction_ParamsPartialFields?
+	): DeleteUserLibraryCollectionAction_Params
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+		}, _DeleteUserLibraryCollectionAction_ParamsImpl :: _DeleteUserLibraryCollectionAction_ParamsImpl)
+	end
+
+	function _DeleteUserLibraryCollectionAction_ParamsImpl.encode(
+		self: DeleteUserLibraryCollectionAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil then
+			local encoded = self.collection_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _DeleteUserLibraryCollectionAction_ParamsImpl.decode(
+		input: buffer
+	): DeleteUserLibraryCollectionAction_Params
+		local self = _DeleteUserLibraryCollectionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _DeleteUserLibraryCollectionAction_ParamsImpl.jsonEncode(
+		self: DeleteUserLibraryCollectionAction_Params
+	): any
+		local output = {}
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _DeleteUserLibraryCollectionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): DeleteUserLibraryCollectionAction_Params
+		local self = _DeleteUserLibraryCollectionAction_ParamsImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collection_id)
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.collectionId)
+		end
+
+		return self
+	end
+
+	_DeleteUserLibraryCollectionAction_ParamsImpl.descriptor = {
+		name = "DeleteUserLibraryCollectionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.DeleteUserLibraryCollectionAction_Params = _DeleteUserLibraryCollectionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.DeleteUserLibraryCollectionAction_Params)
+end
+
+do
+	local _IncrementMilestoneCountActionImpl = {}
+	_IncrementMilestoneCountActionImpl.__index = _IncrementMilestoneCountActionImpl
+
+	function _IncrementMilestoneCountActionImpl.new(
+		data: _IncrementMilestoneCountActionPartialFields?
+	): IncrementMilestoneCountAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _IncrementMilestoneCountActionImpl :: _IncrementMilestoneCountActionImpl)
+	end
+
+	function _IncrementMilestoneCountActionImpl.encode(self: IncrementMilestoneCountAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _IncrementMilestoneCountActionImpl.decode(input: buffer): IncrementMilestoneCountAction
+		local self = _IncrementMilestoneCountActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.IncrementMilestoneCountAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _IncrementMilestoneCountActionImpl.jsonEncode(self: IncrementMilestoneCountAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _IncrementMilestoneCountActionImpl.jsonDecode(input: { [string]: any }): IncrementMilestoneCountAction
+		local self = _IncrementMilestoneCountActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.IncrementMilestoneCountAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.IncrementMilestoneCountAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_IncrementMilestoneCountActionImpl.descriptor = {
+		name = "IncrementMilestoneCountAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.IncrementMilestoneCountAction",
+	}
+
+	messages.IncrementMilestoneCountAction = _IncrementMilestoneCountActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.IncrementMilestoneCountAction)
+end
+
+do
+	local _IncrementMilestoneCountAction_ParamsImpl = {}
+	_IncrementMilestoneCountAction_ParamsImpl.__index = _IncrementMilestoneCountAction_ParamsImpl
+
+	function _IncrementMilestoneCountAction_ParamsImpl.new(
+		data: _IncrementMilestoneCountAction_ParamsPartialFields?
+	): IncrementMilestoneCountAction_Params
+		return setmetatable({
+			milestone_id = if data == nil or data.milestone_id == nil then nil else data.milestone_id,
+		}, _IncrementMilestoneCountAction_ParamsImpl :: _IncrementMilestoneCountAction_ParamsImpl)
+	end
+
+	function _IncrementMilestoneCountAction_ParamsImpl.encode(self: IncrementMilestoneCountAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.milestone_id ~= nil then
+			local encoded = self.milestone_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _IncrementMilestoneCountAction_ParamsImpl.decode(input: buffer): IncrementMilestoneCountAction_Params
+		local self = _IncrementMilestoneCountAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.milestone_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _IncrementMilestoneCountAction_ParamsImpl.jsonEncode(self: IncrementMilestoneCountAction_Params): any
+		local output = {}
+
+		if self.milestone_id ~= nil then
+			output.milestoneId = self.milestone_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _IncrementMilestoneCountAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): IncrementMilestoneCountAction_Params
+		local self = _IncrementMilestoneCountAction_ParamsImpl.new()
+
+		if input.milestone_id ~= nil then
+			self.milestone_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.milestone_id)
+		end
+
+		if input.milestoneId ~= nil then
+			self.milestone_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.milestoneId)
+		end
+
+		return self
+	end
+
+	_IncrementMilestoneCountAction_ParamsImpl.descriptor = {
+		name = "IncrementMilestoneCountAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.IncrementMilestoneCountAction_Params = _IncrementMilestoneCountAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.IncrementMilestoneCountAction_Params)
+end
+
+do
+	local _SetMilestoneCountActionImpl = {}
+	_SetMilestoneCountActionImpl.__index = _SetMilestoneCountActionImpl
+
+	function _SetMilestoneCountActionImpl.new(data: _SetMilestoneCountActionPartialFields?): SetMilestoneCountAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _SetMilestoneCountActionImpl :: _SetMilestoneCountActionImpl)
+	end
+
+	function _SetMilestoneCountActionImpl.encode(self: SetMilestoneCountAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SetMilestoneCountActionImpl.decode(input: buffer): SetMilestoneCountAction
+		local self = _SetMilestoneCountActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.SetMilestoneCountAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SetMilestoneCountActionImpl.jsonEncode(self: SetMilestoneCountAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SetMilestoneCountActionImpl.jsonDecode(input: { [string]: any }): SetMilestoneCountAction
+		local self = _SetMilestoneCountActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.SetMilestoneCountAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.SetMilestoneCountAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_SetMilestoneCountActionImpl.descriptor = {
+		name = "SetMilestoneCountAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SetMilestoneCountAction",
+	}
+
+	messages.SetMilestoneCountAction = _SetMilestoneCountActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SetMilestoneCountAction)
+end
+
+do
+	local _SetMilestoneCountAction_ParamsImpl = {}
+	_SetMilestoneCountAction_ParamsImpl.__index = _SetMilestoneCountAction_ParamsImpl
+
+	function _SetMilestoneCountAction_ParamsImpl.new(
+		data: _SetMilestoneCountAction_ParamsPartialFields?
+	): SetMilestoneCountAction_Params
+		return setmetatable({
+			milestone_id = if data == nil or data.milestone_id == nil then nil else data.milestone_id,
+			count = if data == nil or data.count == nil then nil else data.count,
+		}, _SetMilestoneCountAction_ParamsImpl :: _SetMilestoneCountAction_ParamsImpl)
+	end
+
+	function _SetMilestoneCountAction_ParamsImpl.encode(self: SetMilestoneCountAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.milestone_id ~= nil then
+			local encoded = self.milestone_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.count ~= nil then
+			local encoded = self.count:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SetMilestoneCountAction_ParamsImpl.decode(input: buffer): SetMilestoneCountAction_Params
+		local self = _SetMilestoneCountAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.milestone_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.count = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SetMilestoneCountAction_ParamsImpl.jsonEncode(self: SetMilestoneCountAction_Params): any
+		local output = {}
+
+		if self.milestone_id ~= nil then
+			output.milestoneId = self.milestone_id:jsonEncode()
+		end
+
+		if self.count ~= nil then
+			output.count = self.count:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _SetMilestoneCountAction_ParamsImpl.jsonDecode(input: { [string]: any }): SetMilestoneCountAction_Params
+		local self = _SetMilestoneCountAction_ParamsImpl.new()
+
+		if input.milestone_id ~= nil then
+			self.milestone_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.milestone_id)
+		end
+
+		if input.milestoneId ~= nil then
+			self.milestone_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.milestoneId)
+		end
+
+		if input.count ~= nil then
+			self.count = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.count)
+		end
+
+		return self
+	end
+
+	_SetMilestoneCountAction_ParamsImpl.descriptor = {
+		name = "SetMilestoneCountAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.SetMilestoneCountAction_Params = _SetMilestoneCountAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SetMilestoneCountAction_Params)
+end
+
+do
+	local _ToggleContentReactionActionImpl = {}
+	_ToggleContentReactionActionImpl.__index = _ToggleContentReactionActionImpl
+
+	function _ToggleContentReactionActionImpl.new(
+		data: _ToggleContentReactionActionPartialFields?
+	): ToggleContentReactionAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ToggleContentReactionActionImpl :: _ToggleContentReactionActionImpl)
+	end
+
+	function _ToggleContentReactionActionImpl.encode(self: ToggleContentReactionAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleContentReactionActionImpl.decode(input: buffer): ToggleContentReactionAction
+		local self = _ToggleContentReactionActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ToggleContentReactionAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleContentReactionActionImpl.jsonEncode(self: ToggleContentReactionAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleContentReactionActionImpl.jsonDecode(input: { [string]: any }): ToggleContentReactionAction
+		local self = _ToggleContentReactionActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ToggleContentReactionAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ToggleContentReactionAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ToggleContentReactionActionImpl.descriptor = {
+		name = "ToggleContentReactionAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ToggleContentReactionAction",
+	}
+
+	messages.ToggleContentReactionAction = _ToggleContentReactionActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleContentReactionAction)
+end
+
+do
+	local _ToggleContentReactionAction_ParamsImpl = {}
+	_ToggleContentReactionAction_ParamsImpl.__index = _ToggleContentReactionAction_ParamsImpl
+
+	function _ToggleContentReactionAction_ParamsImpl.new(
+		data: _ToggleContentReactionAction_ParamsPartialFields?
+	): ToggleContentReactionAction_Params
+		return setmetatable({
+			entity_id = if data == nil or data.entity_id == nil then nil else data.entity_id,
+			vertical = if data == nil or data.vertical == nil then nil else data.vertical,
+			emote_id = if data == nil or data.emote_id == nil then nil else data.emote_id,
+			should_add = if data == nil or data.should_add == nil then nil else data.should_add,
+		}, _ToggleContentReactionAction_ParamsImpl :: _ToggleContentReactionAction_ParamsImpl)
+	end
+
+	function _ToggleContentReactionAction_ParamsImpl.encode(self: ToggleContentReactionAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entity_id ~= nil then
+			local encoded = self.entity_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.vertical ~= nil then
+			local encoded = self.vertical:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.emote_id ~= nil then
+			local encoded = self.emote_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.should_add ~= nil then
+			local encoded = self.should_add:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleContentReactionAction_ParamsImpl.decode(input: buffer): ToggleContentReactionAction_Params
+		local self = _ToggleContentReactionAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.vertical = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.emote_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.should_add = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleContentReactionAction_ParamsImpl.jsonEncode(self: ToggleContentReactionAction_Params): any
+		local output = {}
+
+		if self.entity_id ~= nil then
+			output.entityId = self.entity_id:jsonEncode()
+		end
+
+		if self.vertical ~= nil then
+			output.vertical = self.vertical:jsonEncode()
+		end
+
+		if self.emote_id ~= nil then
+			output.emoteId = self.emote_id:jsonEncode()
+		end
+
+		if self.should_add ~= nil then
+			output.shouldAdd = self.should_add:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleContentReactionAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ToggleContentReactionAction_Params
+		local self = _ToggleContentReactionAction_ParamsImpl.new()
+
+		if input.entity_id ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entity_id)
+		end
+
+		if input.entityId ~= nil then
+			self.entity_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entityId)
+		end
+
+		if input.vertical ~= nil then
+			self.vertical = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.vertical)
+		end
+
+		if input.emote_id ~= nil then
+			self.emote_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.emote_id)
+		end
+
+		if input.emoteId ~= nil then
+			self.emote_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.emoteId)
+		end
+
+		if input.should_add ~= nil then
+			self.should_add = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.should_add)
+		end
+
+		if input.shouldAdd ~= nil then
+			self.should_add = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.shouldAdd)
+		end
+
+		return self
+	end
+
+	_ToggleContentReactionAction_ParamsImpl.descriptor = {
+		name = "ToggleContentReactionAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ToggleContentReactionAction_Params = _ToggleContentReactionAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleContentReactionAction_Params)
+end
+
+do
+	local _OpenSignUpModalActionImpl = {}
+	_OpenSignUpModalActionImpl.__index = _OpenSignUpModalActionImpl
+
+	function _OpenSignUpModalActionImpl.new(data: _OpenSignUpModalActionPartialFields?): OpenSignUpModalAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSignUpModalActionImpl :: _OpenSignUpModalActionImpl)
+	end
+
+	function _OpenSignUpModalActionImpl.encode(self: OpenSignUpModalAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSignUpModalActionImpl.decode(input: buffer): OpenSignUpModalAction
+		local self = _OpenSignUpModalActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSignUpModalAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSignUpModalActionImpl.jsonEncode(self: OpenSignUpModalAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSignUpModalActionImpl.jsonDecode(input: { [string]: any }): OpenSignUpModalAction
+		local self = _OpenSignUpModalActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSignUpModalAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSignUpModalAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSignUpModalActionImpl.descriptor = {
+		name = "OpenSignUpModalAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSignUpModalAction",
+	}
+
+	messages.OpenSignUpModalAction = _OpenSignUpModalActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSignUpModalAction)
+end
+
+do
+	local _OpenSignUpModalAction_ParamsImpl = {}
+	_OpenSignUpModalAction_ParamsImpl.__index = _OpenSignUpModalAction_ParamsImpl
+
+	function _OpenSignUpModalAction_ParamsImpl.new(
+		data: _OpenSignUpModalAction_ParamsPartialFields?
+	): OpenSignUpModalAction_Params
+		return setmetatable({}, _OpenSignUpModalAction_ParamsImpl :: _OpenSignUpModalAction_ParamsImpl)
+	end
+
+	function _OpenSignUpModalAction_ParamsImpl.encode(self: OpenSignUpModalAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSignUpModalAction_ParamsImpl.decode(input: buffer): OpenSignUpModalAction_Params
+		local self = _OpenSignUpModalAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				-- No fields
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSignUpModalAction_ParamsImpl.jsonEncode(self: OpenSignUpModalAction_Params): any
+		local output = {}
+
+		return output
+	end
+
+	function _OpenSignUpModalAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenSignUpModalAction_Params
+		local self = _OpenSignUpModalAction_ParamsImpl.new()
+
+		return self
+	end
+
+	_OpenSignUpModalAction_ParamsImpl.descriptor = {
+		name = "OpenSignUpModalAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSignUpModalAction_Params = _OpenSignUpModalAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSignUpModalAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -42435,6 +46790,58 @@ do
 			elseif self.kind.type == "review_transfer_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 108, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_user_library_collection_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 109, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "remove_from_user_library_collection_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 110, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "unsave_user_library_item_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 111, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "add_to_user_library_collection_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 112, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "report_user_library_item_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 113, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "create_user_library_collection_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 114, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_user_library_collection_options_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 115, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "edit_user_library_collection_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 116, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "delete_user_library_collection_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 117, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "toggle_content_reaction_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 118, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_sign_up_modal_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 119, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "increment_milestone_count_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 120, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "set_milestone_count_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 121, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -43235,6 +47642,106 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "review_transfer_action", value = messages.ReviewTransferAction.decode(value) }
 					continue
+				elseif field == 109 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_user_library_collection_action",
+						value = messages.OpenUserLibraryCollectionAction.decode(value),
+					}
+					continue
+				elseif field == 110 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "remove_from_user_library_collection_action",
+						value = messages.RemoveFromUserLibraryCollectionAction.decode(value),
+					}
+					continue
+				elseif field == 111 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "unsave_user_library_item_action",
+						value = messages.UnsaveUserLibraryItemAction.decode(value),
+					}
+					continue
+				elseif field == 112 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "add_to_user_library_collection_action",
+						value = messages.AddToUserLibraryCollectionAction.decode(value),
+					}
+					continue
+				elseif field == 113 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "report_user_library_item_action",
+						value = messages.ReportUserLibraryItemAction.decode(value),
+					}
+					continue
+				elseif field == 114 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "create_user_library_collection_action",
+						value = messages.CreateUserLibraryCollectionAction.decode(value),
+					}
+					continue
+				elseif field == 115 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_user_library_collection_options_action",
+						value = messages.OpenUserLibraryCollectionOptionsAction.decode(value),
+					}
+					continue
+				elseif field == 116 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "edit_user_library_collection_action",
+						value = messages.EditUserLibraryCollectionAction.decode(value),
+					}
+					continue
+				elseif field == 117 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "delete_user_library_collection_action",
+						value = messages.DeleteUserLibraryCollectionAction.decode(value),
+					}
+					continue
+				elseif field == 118 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "toggle_content_reaction_action",
+						value = messages.ToggleContentReactionAction.decode(value),
+					}
+					continue
+				elseif field == 119 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "open_sign_up_modal_action", value = messages.OpenSignUpModalAction.decode(value) }
+					continue
+				elseif field == 120 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "increment_milestone_count_action",
+						value = messages.IncrementMilestoneCountAction.decode(value),
+					}
+					continue
+				elseif field == 121 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "set_milestone_count_action", value = messages.SetMilestoneCountAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -43500,6 +48007,32 @@ do
 				output.openSendRobuxAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "review_transfer_action" then
 				output.reviewTransferAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_user_library_collection_action" then
+				output.openUserLibraryCollectionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "remove_from_user_library_collection_action" then
+				output.removeFromUserLibraryCollectionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "unsave_user_library_item_action" then
+				output.unsaveUserLibraryItemAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "add_to_user_library_collection_action" then
+				output.addToUserLibraryCollectionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "report_user_library_item_action" then
+				output.reportUserLibraryItemAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "create_user_library_collection_action" then
+				output.createUserLibraryCollectionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_user_library_collection_options_action" then
+				output.openUserLibraryCollectionOptionsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "edit_user_library_collection_action" then
+				output.editUserLibraryCollectionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "delete_user_library_collection_action" then
+				output.deleteUserLibraryCollectionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "toggle_content_reaction_action" then
+				output.toggleContentReactionAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_sign_up_modal_action" then
+				output.openSignUpModalAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "increment_milestone_count_action" then
+				output.incrementMilestoneCountAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "set_milestone_count_action" then
+				output.setMilestoneCountAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -45079,6 +49612,202 @@ do
 			}
 		end
 
+		if input.open_user_library_collection_action ~= nil then
+			self.kind = {
+				type = "open_user_library_collection_action",
+				value = messages.OpenUserLibraryCollectionAction.jsonDecode(input.open_user_library_collection_action),
+			}
+		end
+
+		if input.openUserLibraryCollectionAction ~= nil then
+			self.kind = {
+				type = "open_user_library_collection_action",
+				value = messages.OpenUserLibraryCollectionAction.jsonDecode(input.openUserLibraryCollectionAction),
+			}
+		end
+
+		if input.remove_from_user_library_collection_action ~= nil then
+			self.kind = {
+				type = "remove_from_user_library_collection_action",
+				value = messages.RemoveFromUserLibraryCollectionAction.jsonDecode(
+					input.remove_from_user_library_collection_action
+				),
+			}
+		end
+
+		if input.removeFromUserLibraryCollectionAction ~= nil then
+			self.kind = {
+				type = "remove_from_user_library_collection_action",
+				value = messages.RemoveFromUserLibraryCollectionAction.jsonDecode(
+					input.removeFromUserLibraryCollectionAction
+				),
+			}
+		end
+
+		if input.unsave_user_library_item_action ~= nil then
+			self.kind = {
+				type = "unsave_user_library_item_action",
+				value = messages.UnsaveUserLibraryItemAction.jsonDecode(input.unsave_user_library_item_action),
+			}
+		end
+
+		if input.unsaveUserLibraryItemAction ~= nil then
+			self.kind = {
+				type = "unsave_user_library_item_action",
+				value = messages.UnsaveUserLibraryItemAction.jsonDecode(input.unsaveUserLibraryItemAction),
+			}
+		end
+
+		if input.add_to_user_library_collection_action ~= nil then
+			self.kind = {
+				type = "add_to_user_library_collection_action",
+				value = messages.AddToUserLibraryCollectionAction.jsonDecode(
+					input.add_to_user_library_collection_action
+				),
+			}
+		end
+
+		if input.addToUserLibraryCollectionAction ~= nil then
+			self.kind = {
+				type = "add_to_user_library_collection_action",
+				value = messages.AddToUserLibraryCollectionAction.jsonDecode(input.addToUserLibraryCollectionAction),
+			}
+		end
+
+		if input.report_user_library_item_action ~= nil then
+			self.kind = {
+				type = "report_user_library_item_action",
+				value = messages.ReportUserLibraryItemAction.jsonDecode(input.report_user_library_item_action),
+			}
+		end
+
+		if input.reportUserLibraryItemAction ~= nil then
+			self.kind = {
+				type = "report_user_library_item_action",
+				value = messages.ReportUserLibraryItemAction.jsonDecode(input.reportUserLibraryItemAction),
+			}
+		end
+
+		if input.create_user_library_collection_action ~= nil then
+			self.kind = {
+				type = "create_user_library_collection_action",
+				value = messages.CreateUserLibraryCollectionAction.jsonDecode(
+					input.create_user_library_collection_action
+				),
+			}
+		end
+
+		if input.createUserLibraryCollectionAction ~= nil then
+			self.kind = {
+				type = "create_user_library_collection_action",
+				value = messages.CreateUserLibraryCollectionAction.jsonDecode(input.createUserLibraryCollectionAction),
+			}
+		end
+
+		if input.open_user_library_collection_options_action ~= nil then
+			self.kind = {
+				type = "open_user_library_collection_options_action",
+				value = messages.OpenUserLibraryCollectionOptionsAction.jsonDecode(
+					input.open_user_library_collection_options_action
+				),
+			}
+		end
+
+		if input.openUserLibraryCollectionOptionsAction ~= nil then
+			self.kind = {
+				type = "open_user_library_collection_options_action",
+				value = messages.OpenUserLibraryCollectionOptionsAction.jsonDecode(
+					input.openUserLibraryCollectionOptionsAction
+				),
+			}
+		end
+
+		if input.edit_user_library_collection_action ~= nil then
+			self.kind = {
+				type = "edit_user_library_collection_action",
+				value = messages.EditUserLibraryCollectionAction.jsonDecode(input.edit_user_library_collection_action),
+			}
+		end
+
+		if input.editUserLibraryCollectionAction ~= nil then
+			self.kind = {
+				type = "edit_user_library_collection_action",
+				value = messages.EditUserLibraryCollectionAction.jsonDecode(input.editUserLibraryCollectionAction),
+			}
+		end
+
+		if input.delete_user_library_collection_action ~= nil then
+			self.kind = {
+				type = "delete_user_library_collection_action",
+				value = messages.DeleteUserLibraryCollectionAction.jsonDecode(
+					input.delete_user_library_collection_action
+				),
+			}
+		end
+
+		if input.deleteUserLibraryCollectionAction ~= nil then
+			self.kind = {
+				type = "delete_user_library_collection_action",
+				value = messages.DeleteUserLibraryCollectionAction.jsonDecode(input.deleteUserLibraryCollectionAction),
+			}
+		end
+
+		if input.toggle_content_reaction_action ~= nil then
+			self.kind = {
+				type = "toggle_content_reaction_action",
+				value = messages.ToggleContentReactionAction.jsonDecode(input.toggle_content_reaction_action),
+			}
+		end
+
+		if input.toggleContentReactionAction ~= nil then
+			self.kind = {
+				type = "toggle_content_reaction_action",
+				value = messages.ToggleContentReactionAction.jsonDecode(input.toggleContentReactionAction),
+			}
+		end
+
+		if input.open_sign_up_modal_action ~= nil then
+			self.kind = {
+				type = "open_sign_up_modal_action",
+				value = messages.OpenSignUpModalAction.jsonDecode(input.open_sign_up_modal_action),
+			}
+		end
+
+		if input.openSignUpModalAction ~= nil then
+			self.kind = {
+				type = "open_sign_up_modal_action",
+				value = messages.OpenSignUpModalAction.jsonDecode(input.openSignUpModalAction),
+			}
+		end
+
+		if input.increment_milestone_count_action ~= nil then
+			self.kind = {
+				type = "increment_milestone_count_action",
+				value = messages.IncrementMilestoneCountAction.jsonDecode(input.increment_milestone_count_action),
+			}
+		end
+
+		if input.incrementMilestoneCountAction ~= nil then
+			self.kind = {
+				type = "increment_milestone_count_action",
+				value = messages.IncrementMilestoneCountAction.jsonDecode(input.incrementMilestoneCountAction),
+			}
+		end
+
+		if input.set_milestone_count_action ~= nil then
+			self.kind = {
+				type = "set_milestone_count_action",
+				value = messages.SetMilestoneCountAction.jsonDecode(input.set_milestone_count_action),
+			}
+		end
+
+		if input.setMilestoneCountAction ~= nil then
+			self.kind = {
+				type = "set_milestone_count_action",
+				value = messages.SetMilestoneCountAction.jsonDecode(input.setMilestoneCountAction),
+			}
+		end
+
 		if input.telemetry_handler ~= nil then
 			self.telemetry_handler =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetry_handler)
@@ -46529,6 +51258,32 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_SEND_ROBUX"
 		elseif value == 108 then
 			return "ACTION_TYPE_REVIEW_TRANSFER"
+		elseif value == 109 then
+			return "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION"
+		elseif value == 110 then
+			return "ACTION_TYPE_REMOVE_FROM_USER_LIBRARY_COLLECTION"
+		elseif value == 111 then
+			return "ACTION_TYPE_UNSAVE_USER_LIBRARY_ITEM"
+		elseif value == 112 then
+			return "ACTION_TYPE_ADD_TO_USER_LIBRARY_COLLECTION"
+		elseif value == 113 then
+			return "ACTION_TYPE_REPORT_USER_LIBRARY_ITEM"
+		elseif value == 114 then
+			return "ACTION_TYPE_CREATE_USER_LIBRARY_COLLECTION"
+		elseif value == 115 then
+			return "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION_OPTIONS"
+		elseif value == 116 then
+			return "ACTION_TYPE_EDIT_USER_LIBRARY_COLLECTION"
+		elseif value == 117 then
+			return "ACTION_TYPE_DELETE_USER_LIBRARY_COLLECTION"
+		elseif value == 118 then
+			return "ACTION_TYPE_TOGGLE_CONTENT_REACTION"
+		elseif value == 119 then
+			return "ACTION_TYPE_OPEN_SIGN_UP_MODAL"
+		elseif value == 120 then
+			return "ACTION_TYPE_INCREMENT_MILESTONE_COUNT"
+		elseif value == 121 then
+			return "ACTION_TYPE_SET_MILESTONE_COUNT"
 		else
 			return nil
 		end
@@ -46753,6 +51508,32 @@ messages.ActionType = {
 			return 107
 		elseif self == "ACTION_TYPE_REVIEW_TRANSFER" then
 			return 108
+		elseif self == "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION" then
+			return 109
+		elseif self == "ACTION_TYPE_REMOVE_FROM_USER_LIBRARY_COLLECTION" then
+			return 110
+		elseif self == "ACTION_TYPE_UNSAVE_USER_LIBRARY_ITEM" then
+			return 111
+		elseif self == "ACTION_TYPE_ADD_TO_USER_LIBRARY_COLLECTION" then
+			return 112
+		elseif self == "ACTION_TYPE_REPORT_USER_LIBRARY_ITEM" then
+			return 113
+		elseif self == "ACTION_TYPE_CREATE_USER_LIBRARY_COLLECTION" then
+			return 114
+		elseif self == "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION_OPTIONS" then
+			return 115
+		elseif self == "ACTION_TYPE_EDIT_USER_LIBRARY_COLLECTION" then
+			return 116
+		elseif self == "ACTION_TYPE_DELETE_USER_LIBRARY_COLLECTION" then
+			return 117
+		elseif self == "ACTION_TYPE_TOGGLE_CONTENT_REACTION" then
+			return 118
+		elseif self == "ACTION_TYPE_OPEN_SIGN_UP_MODAL" then
+			return 119
+		elseif self == "ACTION_TYPE_INCREMENT_MILESTONE_COUNT" then
+			return 120
+		elseif self == "ACTION_TYPE_SET_MILESTONE_COUNT" then
+			return 121
 		else
 			return self
 		end
@@ -46977,6 +51758,32 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_SEND_ROBUX"
 		elseif name == "ACTION_TYPE_REVIEW_TRANSFER" then
 			return "ACTION_TYPE_REVIEW_TRANSFER"
+		elseif name == "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION" then
+			return "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION"
+		elseif name == "ACTION_TYPE_REMOVE_FROM_USER_LIBRARY_COLLECTION" then
+			return "ACTION_TYPE_REMOVE_FROM_USER_LIBRARY_COLLECTION"
+		elseif name == "ACTION_TYPE_UNSAVE_USER_LIBRARY_ITEM" then
+			return "ACTION_TYPE_UNSAVE_USER_LIBRARY_ITEM"
+		elseif name == "ACTION_TYPE_ADD_TO_USER_LIBRARY_COLLECTION" then
+			return "ACTION_TYPE_ADD_TO_USER_LIBRARY_COLLECTION"
+		elseif name == "ACTION_TYPE_REPORT_USER_LIBRARY_ITEM" then
+			return "ACTION_TYPE_REPORT_USER_LIBRARY_ITEM"
+		elseif name == "ACTION_TYPE_CREATE_USER_LIBRARY_COLLECTION" then
+			return "ACTION_TYPE_CREATE_USER_LIBRARY_COLLECTION"
+		elseif name == "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION_OPTIONS" then
+			return "ACTION_TYPE_OPEN_USER_LIBRARY_COLLECTION_OPTIONS"
+		elseif name == "ACTION_TYPE_EDIT_USER_LIBRARY_COLLECTION" then
+			return "ACTION_TYPE_EDIT_USER_LIBRARY_COLLECTION"
+		elseif name == "ACTION_TYPE_DELETE_USER_LIBRARY_COLLECTION" then
+			return "ACTION_TYPE_DELETE_USER_LIBRARY_COLLECTION"
+		elseif name == "ACTION_TYPE_TOGGLE_CONTENT_REACTION" then
+			return "ACTION_TYPE_TOGGLE_CONTENT_REACTION"
+		elseif name == "ACTION_TYPE_OPEN_SIGN_UP_MODAL" then
+			return "ACTION_TYPE_OPEN_SIGN_UP_MODAL"
+		elseif name == "ACTION_TYPE_INCREMENT_MILESTONE_COUNT" then
+			return "ACTION_TYPE_INCREMENT_MILESTONE_COUNT"
+		elseif name == "ACTION_TYPE_SET_MILESTONE_COUNT" then
+			return "ACTION_TYPE_SET_MILESTONE_COUNT"
 		else
 			return nil
 		end
@@ -47211,6 +52018,32 @@ return {
 	SubmitCustomFormResponseAction_Params = messages.SubmitCustomFormResponseAction_Params,
 	RefreshCustomFormResultsAction = messages.RefreshCustomFormResultsAction,
 	RefreshCustomFormResultsAction_Params = messages.RefreshCustomFormResultsAction_Params,
+	OpenUserLibraryCollectionAction = messages.OpenUserLibraryCollectionAction,
+	OpenUserLibraryCollectionAction_Params = messages.OpenUserLibraryCollectionAction_Params,
+	RemoveFromUserLibraryCollectionAction = messages.RemoveFromUserLibraryCollectionAction,
+	RemoveFromUserLibraryCollectionAction_Params = messages.RemoveFromUserLibraryCollectionAction_Params,
+	UnsaveUserLibraryItemAction = messages.UnsaveUserLibraryItemAction,
+	UnsaveUserLibraryItemAction_Params = messages.UnsaveUserLibraryItemAction_Params,
+	AddToUserLibraryCollectionAction = messages.AddToUserLibraryCollectionAction,
+	AddToUserLibraryCollectionAction_Params = messages.AddToUserLibraryCollectionAction_Params,
+	ReportUserLibraryItemAction = messages.ReportUserLibraryItemAction,
+	ReportUserLibraryItemAction_Params = messages.ReportUserLibraryItemAction_Params,
+	CreateUserLibraryCollectionAction = messages.CreateUserLibraryCollectionAction,
+	CreateUserLibraryCollectionAction_Params = messages.CreateUserLibraryCollectionAction_Params,
+	OpenUserLibraryCollectionOptionsAction = messages.OpenUserLibraryCollectionOptionsAction,
+	OpenUserLibraryCollectionOptionsAction_Params = messages.OpenUserLibraryCollectionOptionsAction_Params,
+	EditUserLibraryCollectionAction = messages.EditUserLibraryCollectionAction,
+	EditUserLibraryCollectionAction_Params = messages.EditUserLibraryCollectionAction_Params,
+	DeleteUserLibraryCollectionAction = messages.DeleteUserLibraryCollectionAction,
+	DeleteUserLibraryCollectionAction_Params = messages.DeleteUserLibraryCollectionAction_Params,
+	IncrementMilestoneCountAction = messages.IncrementMilestoneCountAction,
+	IncrementMilestoneCountAction_Params = messages.IncrementMilestoneCountAction_Params,
+	SetMilestoneCountAction = messages.SetMilestoneCountAction,
+	SetMilestoneCountAction_Params = messages.SetMilestoneCountAction_Params,
+	ToggleContentReactionAction = messages.ToggleContentReactionAction,
+	ToggleContentReactionAction_Params = messages.ToggleContentReactionAction_Params,
+	OpenSignUpModalAction = messages.OpenSignUpModalAction,
+	OpenSignUpModalAction_Params = messages.OpenSignUpModalAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

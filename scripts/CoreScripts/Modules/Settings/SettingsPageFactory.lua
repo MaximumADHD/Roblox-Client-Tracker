@@ -23,14 +23,16 @@ local Create = AppCommonLib.Create
 local Signal = AppCommonLib.Signal
 
 ----------- VARIABLES --------------
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local FFlagResponsiveUnitsDeprecateTenFoot = SharedFlags.FFlagResponsiveUnitsDeprecateTenFoot
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
 
 local FFlagFixIGMTabTransitions = require(script.Parent.Flags.GetFFlagFixIGMTabTransitions)
 local FFlagIEMSettingsGroups = require(script.Parent.Flags.FFlagIEMSettingsGroups)
 local FFlagIEMFocusNavSupportNewButtons = require(script.Parent.Flags.FFlagIEMFocusNavSupportNewButtons)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local TEXT_BUTTON_FONT_SIZE_SMALL_TOUCH_SCREEN = 18

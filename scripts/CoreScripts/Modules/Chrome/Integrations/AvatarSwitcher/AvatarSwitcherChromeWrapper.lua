@@ -22,6 +22,13 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local AvatarSwitcher = require(CorePackages.Workspace.Packages.AvatarSwitcher)
 local AvatarSwitcherContainer = AvatarSwitcher.Components.AvatarSwitcherContainer
 
+local FFlagAvatarWorkshopReplacesAvatarSwitcher =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAvatarWorkshopReplacesAvatarSwitcher
+-- Required only with the flag on, so CoreScripts doesn't load the package while it's dark.
+local AvatarWorkshopWindow = if FFlagAvatarWorkshopReplacesAvatarSwitcher
+	then require(CorePackages.Workspace.Packages.AvatarWorkshop).Components.AvatarWorkshopWindow
+	else nil
+
 local VERTICAL_LAYOUT_THRESHOLD = 1.2 -- If the width-to-height ratio is less than this, use vertical layout
 
 local function shouldUseVerticalLayout(size: UDim2)
@@ -72,6 +79,22 @@ local function AvatarSwitcherChromeWrapper(props: Props)
 			windowSizeConnection:disconnect()
 		end
 	end, { onScreenSizeChanged } :: { any })
+
+	if FFlagAvatarWorkshopReplacesAvatarSwitcher and AvatarWorkshopWindow then
+		return React.createElement(Foundation.View, {
+			tag = {
+				["size-full"] = true,
+				["padding-x-large padding-bottom-xlarge padding-top-medium"] = fullScreen,
+			},
+		}, {
+			AvatarWorkshopWindow = React.createElement(AvatarWorkshopWindow, {
+				verticalLayout = verticalLayout,
+				onClose = function()
+					ChromeService:toggleWindow(Constants.AVATAR_SWITCHER_ID)
+				end,
+			}),
+		})
+	end
 
 	return React.createElement(Foundation.View, {
 		tag = `size-full {if fullScreen then "padding-x-large padding-top-medium padding-bottom-xlarge" else ""}`,

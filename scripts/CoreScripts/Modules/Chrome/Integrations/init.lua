@@ -8,7 +8,6 @@ local FFlagAddInviteFriendsIntegration = SharedFlags.FFlagAddInviteFriendsIntegr
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
--- Already composed with FFlagEnableUserOffers at its definition, so this alone gates the trigger.
 local FFlagEnableOffersPrefetch = SharedFlags.FFlagEnableOffersPrefetch
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
@@ -20,18 +19,11 @@ local FFlagEnableSideSheetRobuxWidget = require(script.Parent.Flags.FFlagEnableS
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
 
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
-
 return {
 	OverflowMenu = require(script.OverflowMenu),
 	AssistantBuild = if FFlagAppNavMyStatsTab then require(script.AssistantBuild) else nil,
 	Chat = require(script.ExpChat.ChatChromeIntegration),
-	ConnectUnibar = if ArgoPartyExperimentation.getIsRenameEnabled()
-		then nil
-		else require(script.Connect.ConnectIconUnibar),
-	ConnectDropdown = if FFlagRemoveFriendsChatUnibarEntrypoints
-			and FFlagExpChatCanShowFriendsTab
-			and ArgoPartyExperimentation.getIsRenameEnabled()
+	ConnectDropdown = if FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab
 		then nil
 		else require(script.Connect.ConnectIconDropdown),
 	TrustAndSafety = require(script.TrustAndSafety),
@@ -45,9 +37,7 @@ return {
 		then require(script.AvatarSwitcher.AvatarSwitcherEntrypoint)
 		else nil,
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
-	PartyEntrypoint = if ArgoPartyExperimentation.getIsRenameEnabled()
-		then require(script.Party.PartyEntrypoint)
-		else nil,
+	PartyEntrypoint = require(script.Party.PartyEntrypoint),
 	PartyMic = require(script.Party.PartyMic),
 	VRToggleButton = if isInExperienceUIVREnabled and isSpatial() then require(script.VRToggleButton) else nil :: never,
 	VRSafeBubble = if isInExperienceUIVREnabled and isSpatial() then require(script.VRSafeBubble) else nil :: never,

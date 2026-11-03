@@ -10,8 +10,177 @@ type HeadMatchers = { [string]: { Matcher } }
 local Constants = require(script.Parent.Parent.Constants)
 local PostProcessTokens = require(script.Parent.PostProcessTokens)
 local Utils = require(script.Parent.Utils)
+local Flags = require(Root.Parent.MarkdownCore).Flags
 
 local insert = table.insert
+
+local LITERAL_IN_INLINE_CODE = {
+	ACTION = true,
+	OPEN = true,
+	CLOSE = true,
+	OPEN_CLOSE = true,
+}
+
+-- Utils.isInsideInlineCode rescans the line for every token, which is quadratic on long lines
+local function createInlineCodeTracker(input: string)
+	local lineStart = -1
+	local openLength: number? = nil
+	local runLength = 0
+	local runEnd = -1
+	local closesOnLine: boolean? = nil
+
+	local function finishRun()
+		if runLength == 0 then
+			return
+		end
+
+		if openLength == nil then
+			openLength = runLength
+		elseif openLength == runLength then
+			openLength = nil
+		end
+
+		runLength = 0
+		closesOnLine = nil
+	end
+
+	local function startLine(newLineStart: number)
+		if newLineStart ~= lineStart then
+			lineStart = newLineStart
+			openLength = nil
+			runLength = 0
+			runEnd = -1
+			closesOnLine = nil
+		end
+	end
+
+	return {
+		addBacktick = function(currentLineStart: number, offset: number)
+			startLine(currentLineStart)
+			if offset ~= runEnd + 1 then
+				finishRun()
+			end
+
+			runLength += 1
+			runEnd = offset
+		end,
+
+		isInside = function(currentLineStart: number): boolean
+			startLine(currentLineStart)
+			finishRun()
+
+			return openLength ~= nil
+		end,
+
+		isInsideClosed = function(currentLineStart: number, cursor: number): boolean
+			startLine(currentLineStart)
+			finishRun()
+			if openLength == nil then
+				return false
+			end
+
+			if closesOnLine == nil then
+				closesOnLine = false
+				local lineEnd = string.find(input, "\n", cursor, true) or #input + 1
+				for run in string.gmatch(string.sub(input, cursor, lineEnd - 1), "`+") do
+					if #run == openLength then
+						closesOnLine = true
+						break
+					end
+				end
+			end
+
+			return closesOnLine :: boolean
+		end,
+	}
+end
+
+local TABLE_ROW_MATCHERS: { Matcher } = {
+	{ "TABLE_ROW", "^[ \t]*|?" },
+}
+
+local function getTableRowCells(line: string): { string }
+	local trimmed = string.match(line, "^%s*(.-)%s*$") or ""
+	trimmed = string.gsub(trimmed, "^|", "")
+	trimmed = string.gsub(trimmed, "|$", "")
+	trimmed = string.gsub(trimmed, "\\|", "")
+
+	local cells = {}
+	for cell in string.gmatch(trimmed .. "|", "([^|]*)|") do
+		insert(cells, cell)
+	end
+
+	return cells
+end
+
+local function isDelimiterRow(line: string): boolean
+	if not string.find(line, "|", 1, true) then
+		return false
+	end
+
+	for _, cell in getTableRowCells(line) do
+		if not string.match(cell, "^%s*:?%-+:?%s*$") then
+			return false
+		end
+	end
+
+	return true
+end
+
+local OTHER_BLOCK_PATTERNS = {
+	"^ ? ? ?##?#?#?#?#?[ \t]",
+	"^ ? ? ?##?#?#?#?#?$",
+	"^ ? ? ?%-[ \t]*%-[ \t]*%-[ \t]*[%- \t]*$",
+	"^ ? ? ?%*[ \t]*%*[ \t]*%*[ \t]*[%* \t]*$",
+	"^ ? ? ?_[ \t]*_[ \t]*_[ \t]*[_ \t]*$",
+	"^%s*[%*%-] ",
+	"^%s*```",
+	"^%s*~~~",
+	"^%s*>",
+	"^%s*[0-9]+%.[ \t]",
+	"^%s*[A-Za-z]%.[ \t]",
+}
+
+local function startsOtherBlock(line: string): boolean
+	for _, pattern in OTHER_BLOCK_PATTERNS do
+		if string.find(line, pattern) then
+			return true
+		end
+	end
+
+	return false
+end
+
+local function couldBecomeDelimiterRow(line: string, headerCellCount: number): boolean
+	return string.find(line, "^[%s|:%-]*$") ~= nil and #getTableRowCells(line) <= headerCellCount
+end
+
+local function isTableRow(input: string, lineStart: number, continuesTable: boolean, canStreamHeader: boolean): boolean
+	local lineEnd = string.find(input, "\n", lineStart, true)
+	local line = string.sub(input, lineStart, if lineEnd then lineEnd - 1 else #input)
+
+	if continuesTable then
+		return string.find(line, "%S") ~= nil and (isDelimiterRow(line) or not startsOtherBlock(line))
+	end
+
+	if not string.find(line, "|", 1, true) or startsOtherBlock(line) then
+		return false
+	end
+
+	local mayBeStreamingHeader = canStreamHeader and string.sub(line, 1, 1) == "|"
+	if not lineEnd then
+		return mayBeStreamingHeader
+	end
+
+	local nextLineEnd = string.find(input, "\n", lineEnd + 1, true)
+	local nextLine = string.sub(input, lineEnd + 1, if nextLineEnd then nextLineEnd - 1 else #input)
+	local cellCount = #getTableRowCells(line)
+	if isDelimiterRow(nextLine) and #getTableRowCells(nextLine) == cellCount then
+		return true
+	end
+
+	return mayBeStreamingHeader and not nextLineEnd and couldBecomeDelimiterRow(nextLine, cellCount)
+end
 
 local BACKSLASH_MATCHERS = {
 	{ "BREAK", "^\\\n" }, -- backslash at the end of a line
@@ -104,6 +273,20 @@ local HEAD_MATCHERS: HeadMatchers = {
 local QUOTE_HEAD_MATCHERS: { Matcher } = { { "LINE_BREAK", "^[ \t\r]+\n", 1 } }
 table.move(HEAD_MATCHERS["\n"], 1, #HEAD_MATCHERS["\n"], #QUOTE_HEAD_MATCHERS + 1, QUOTE_HEAD_MATCHERS)
 
+local function withoutTableRow(matchers: { Matcher }): { Matcher }
+	local filtered = {}
+	for _, matcher in matchers do
+		if matcher[1] ~= "TABLE_ROW" then
+			insert(filtered, matcher)
+		end
+	end
+
+	return filtered
+end
+
+local LINE_START_MATCHERS_WITHOUT_TABLE_ROW = withoutTableRow(HEAD_MATCHERS["\n"])
+local QUOTE_HEAD_MATCHERS_WITHOUT_TABLE_ROW = withoutTableRow(QUOTE_HEAD_MATCHERS)
+
 local INLINE_WRAPPER_CONFIG = {
 	["LINK"] = {
 		mapToText = function(token: Token)
@@ -132,16 +315,36 @@ local function tokenizeTextSpan(
 	local tokens: { Token } = {}
 	-- Name of the most recent block token, used to detect when we are inside a block quote
 	local currentBlock: string? = nil
+	local isPreviousLineTableRow = false
+	local allowsStreamingHeader = Flags.FFlagMarkdownTables and options.isStreaming == true
+	local inlineCode = if Flags.FFlagMarkdownTagFallbacks then createInlineCodeTracker(input) else nil
 	-- Move the cursor through the input text one character at a time
 	while cursor <= #input do
 		-- Lookup a newline before the first character to match any "block" tokens after a newline
 		local head = if cursor == 0 and not isInline then "\n" else string.sub(input, cursor, cursor)
+
+		local isLineStart = head == "\n" and not isInline
+		local startsTableRow = Flags.FFlagMarkdownTables
+			and isLineStart
+			and isTableRow(
+				input,
+				cursor + 1,
+				isPreviousLineTableRow,
+				allowsStreamingHeader and (cursor <= 1 or string.sub(input, cursor - 1, cursor - 1) == "\n")
+			)
+		local skipsTableRowMatcher = Flags.FFlagMarkdownTables and isLineStart and not startsTableRow
+
 		-- If the char under the cursor is present in our match table, try to match with a relevant pattern
 		local matchers: { Matcher } = if isInline
 			then (INLINE_HEAD_MATCHERS[head] or {})
-			elseif head == "\n" and currentBlock == "QUOTE" then QUOTE_HEAD_MATCHERS
+			elseif head == "\n" and currentBlock == "QUOTE" then if skipsTableRowMatcher
+				then QUOTE_HEAD_MATCHERS_WITHOUT_TABLE_ROW
+				else QUOTE_HEAD_MATCHERS
+			elseif startsTableRow then TABLE_ROW_MATCHERS
+			elseif skipsTableRowMatcher then LINE_START_MATCHERS_WITHOUT_TABLE_ROW
 			else (HEAD_MATCHERS[head] or DEFAULT_MATCHERS)
 		local found = false
+		local foundToken: string? = nil
 
 		local lookahead = 0
 		if head == "\n" and not isInline then
@@ -170,8 +373,16 @@ local function tokenizeTextSpan(
 				end
 			end
 
-			if token == "ESCAPE" and Utils.isInsideInlineCode(tokens, lineStart) then
+			-- GFM unescapes \| in a table row before parsing its cells, even inside code
+			local isEscapedTablePipe = Flags.FFlagMarkdownTables and currentBlock == "TABLE_ROW" and result == "\\|"
+			if
+				token == "ESCAPE"
+				and not isEscapedTablePipe
+				and if inlineCode then inlineCode.isInside(lineStart) else Utils.isInsideInlineCode(tokens, lineStart)
+			then
 				-- Backslashes are treated as literal text inside of inline code
+				continue
+			elseif inlineCode and LITERAL_IN_INLINE_CODE[token] and inlineCode.isInsideClosed(lineStart, cursor) then
 				continue
 			elseif Constants.STYLED_TEXT[token] then
 				-- Style tokens need context to determine left/right flanking
@@ -206,15 +417,25 @@ local function tokenizeTextSpan(
 				offset = cursor + currentTextOffset,
 				context = context,
 			})
+
+			if inlineCode and token == "INLINE_CODE" then
+				inlineCode.addBacktick(lineStart, cursor)
+			end
+
 			cursor += lookahead + tokenLength
 			textOffset = cursor
 			found = true
+			foundToken = token
 			break
 		end
 
 		if not found then
 			-- If no token is found, increment cursor
 			cursor += 1
+		end
+
+		if Flags.FFlagMarkdownTables and isLineStart then
+			isPreviousLineTableRow = foundToken == "TABLE_ROW"
 		end
 	end
 	-- Insert a text token for any plaintext at the end of the file

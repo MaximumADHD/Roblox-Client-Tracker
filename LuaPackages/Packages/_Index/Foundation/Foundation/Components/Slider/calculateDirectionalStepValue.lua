@@ -1,3 +1,4 @@
+-- Remove when cleaning up FoundationSliderRebuild
 local SliderStepDirection = require(script.Parent.SliderStepDirection)
 type SliderStepDirection = SliderStepDirection.SliderStepDirection
 

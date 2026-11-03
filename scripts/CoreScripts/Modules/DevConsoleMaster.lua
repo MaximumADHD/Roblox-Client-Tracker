@@ -110,10 +110,6 @@ local DEV_TAB_LIST = {
 		tab = LuauHeap,
 		layoutOrder = 12,
 	},
-	-- Always nil here: voiceDevConsoleAvailable starts false and is only known once
-	-- refreshVoiceDevConsoleAvailability()'s async check resolves, which populates this entry for
-	-- real (see its apply() function below).
-	VoiceDebug = nil,
 }
 
 local ADMIN_TAB_LIST = {
@@ -176,6 +172,16 @@ local NEW_ADMIN_TABS = {
 				and game:GetEngineFeature("VoiceChatDevConsoleTabEnabled")
 				and VoiceChatServiceManager ~= nil
 				and VoiceChatServiceManager:canUseService()
+		end,
+	},
+	-- Admin/employee-only, matching VoiceChat above -- not exposed to a game's own developers via
+	-- DEV_TAB_LIST. voiceDevConsoleAvailable is set by refreshVoiceDevConsoleAvailability()'s
+	-- apply() once the async availability check resolves.
+	VoiceDebug = {
+		tab = VoiceDebug,
+		layoutOrder = 14,
+		isEnabled = function()
+			return voiceDevConsoleAvailable
 		end,
 	},
 	RequestOrchestrator = {
@@ -317,11 +323,11 @@ end
 
 function DevConsoleMaster:refreshVoiceDevConsoleAvailability()
 	-- This entire async mechanism (and the VoiceChatServiceManager:asyncInit() call it triggers) only
-	-- exists to drive DEV_TAB_LIST.VoiceDebug, the new tab -- with the flag off, nothing reads
-	-- voiceDevConsoleAvailable, so calling this would just be a pointless new side effect (an extra
-	-- async RPC on every Dev Console open) for every client, not a behavior change worth making
-	-- unconditionally. ADMIN_TAB_LIST.VoiceChat / NEW_ADMIN_TABS.VoiceChat's own availability check
-	-- calls VoiceChatServiceManager:canUseService() directly and is unaffected by this flag.
+	-- exists to drive NEW_ADMIN_TABS.VoiceDebug's isEnabled() check -- with the flag off, nothing
+	-- reads voiceDevConsoleAvailable, so calling this would just be a pointless new side effect (an
+	-- extra async RPC on every Dev Console open) for every client, not a behavior change worth
+	-- making unconditionally. ADMIN_TAB_LIST.VoiceChat / NEW_ADMIN_TABS.VoiceChat's own availability
+	-- check calls VoiceChatServiceManager:canUseService() directly and is unaffected by this flag.
 	if not getFFlagVoiceDebugConsoleV2() then
 		return
 	end
@@ -336,13 +342,6 @@ function DevConsoleMaster:refreshVoiceDevConsoleAvailability()
 			return
 		end
 		voiceDevConsoleAvailable = available
-
-		DEV_TAB_LIST.VoiceDebug = if voiceDevConsoleAvailable
-			then {
-				tab = VoiceDebug,
-				layoutOrder = 13,
-			}
-			else nil
 
 		self:refreshTabList()
 	end

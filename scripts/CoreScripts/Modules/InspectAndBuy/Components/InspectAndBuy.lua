@@ -74,6 +74,7 @@ local FFlagEnableInspectAndBuyV2RootFlag =
 local FFlagAXEnableInspectAndBuyVersionAnalytics =
 	require(InspectAndBuyFolder.Flags.FFlagAXEnableInspectAndBuyVersionAnalytics)
 local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
+local FFlagAXInspectAndBuyAvatarBackground = AvatarExperienceFlags.FFlagAXInspectAndBuyAvatarBackground
 
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 
@@ -302,7 +303,14 @@ function InspectAndBuy:didMount()
 				local humanoidDescription = self.playerModel.Humanoid.HumanoidDescription
 
 				if humanoidDescription then
-					self.state.store:dispatch(GetAssetsFromHumanoidDescription(humanoidDescription, false))
+					local getIsMenuOpen = if FFlagAXInspectAndBuyAvatarBackground
+						then function()
+							return self.isMounted
+						end
+						else nil
+					self.state.store:dispatch(
+						GetAssetsFromHumanoidDescription(humanoidDescription, false, getIsMenuOpen)
+					)
 				end
 
 				self:setState({
@@ -353,6 +361,7 @@ function InspectAndBuy:render()
 							Container = Roact.createElement(InspectAndBuyBaseContainer, {
 								localPlayerModel = localPlayerModel,
 								analytics = self.analytics,
+								playerId = if FFlagAXInspectAndBuyAvatarBackground then self.props.playerId else nil,
 							}),
 						}),
 					}
@@ -366,6 +375,9 @@ function InspectAndBuy:render()
 								Container = Roact.createElement(InspectAndBuyBaseContainer, {
 									localPlayerModel = localPlayerModel,
 									analytics = self.analytics,
+									playerId = if FFlagAXInspectAndBuyAvatarBackground
+										then self.props.playerId
+										else nil,
 								}),
 							}),
 						}),

@@ -23,7 +23,6 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
-local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 local FFlagProactiveVoiceRestrictionsUFR =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
 
@@ -195,14 +194,6 @@ if isVoiceChatSupported() then
 			setAvailability(ChromeService.AvailabilitySignal.Available)
 		end
 		VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(HideOrShowJoinVoiceButton)
-	end
-	if not GetFFlagEnableVoiceUxUpdates() then
-		VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-			setAvailability(ChromeService.AvailabilitySignal.Unavailable)
-		end)
-		VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
-			setAvailability(ChromeService.AvailabilitySignal.Available)
-		end)
 	end
 end
 

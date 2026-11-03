@@ -288,6 +288,7 @@ type _AudioSlotFields = {
 	asset_id: number,
 	trim: TimeRange?,
 	audio_type: AudioType,
+	source_trim: TimeRange?,
 	context: { type: "tts", value: TtsAudioContext }?,
 }
 
@@ -295,6 +296,7 @@ type _AudioSlotPartialFields = {
 	asset_id: number?,
 	trim: TimeRange?,
 	audio_type: AudioType?,
+	source_trim: TimeRange?,
 	context: { type: "tts", value: TtsAudioContext }?,
 }
 
@@ -1952,6 +1954,7 @@ do
 			audio_type = if data == nil or data.audio_type == nil
 				then assert(messages.AudioType.fromNumber(0), "Enum has no 0 default")
 				else data.audio_type,
+			source_trim = if data == nil or data.source_trim == nil then nil else data.source_trim,
 			context = if data == nil or data.context == nil then nil else data.context,
 		}, _AudioSlotImpl :: _AudioSlotImpl)
 	end
@@ -1977,6 +1980,12 @@ do
 		then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, messages.AudioType.toNumber(self.audio_type :: any))
+		end
+
+		if self.source_trim ~= nil then
+			local encoded = self.source_trim:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		if self.context ~= nil then
@@ -2020,6 +2029,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.trim = messages.TimeRange.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source_trim = messages.TimeRange.decode(value)
 					continue
 				elseif field == 10 then
 					local value
@@ -2070,6 +2084,10 @@ do
 				else messages.AudioType.toNumber(self.audio_type :: any)
 		end
 
+		if self.source_trim ~= nil then
+			output.sourceTrim = self.source_trim:jsonEncode()
+		end
+
 		if self.context ~= nil then
 			if self.context.type == "tts" then
 				output.tts = self.context.value:jsonEncode()
@@ -2104,6 +2122,14 @@ do
 			self.audio_type = if typeof(input.audioType) == "number"
 				then (messages.AudioType.fromNumber(input.audioType) or input.audioType)
 				else (messages.AudioType.fromName(input.audioType) or input.audioType)
+		end
+
+		if input.source_trim ~= nil then
+			self.source_trim = messages.TimeRange.jsonDecode(input.source_trim)
+		end
+
+		if input.sourceTrim ~= nil then
+			self.source_trim = messages.TimeRange.jsonDecode(input.sourceTrim)
 		end
 
 		if input.tts ~= nil then

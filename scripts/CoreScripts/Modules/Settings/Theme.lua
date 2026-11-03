@@ -3,7 +3,8 @@ local UserInputService = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local UIBlox = require(CorePackages.Packages.UIBlox)

@@ -15,6 +15,7 @@ local VoiceDebugOperationLabels = require(script.Parent.VoiceDebugOperationLabel
 local ROW_HEIGHT = 22
 local MAX_LIST_HEIGHT = 320
 local EMPTY_LIST_HEIGHT = ROW_HEIGHT * 2
+local FILTER_CHIP_GAP = 4
 
 local CULLING_OPERATION_TYPE = "ClientCullingOperation"
 
@@ -135,7 +136,7 @@ function ClientOperationQueuePanel:render()
 				FillDirection = Enum.FillDirection.Horizontal,
 				Wraps = true,
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 4),
+				Padding = UDim.new(0, FILTER_CHIP_GAP),
 			}),
 			Chips = Roact.createFragment(chips),
 		}),

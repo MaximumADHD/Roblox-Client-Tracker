@@ -16,6 +16,7 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local AvatarSwitcherFtuxTooltip = require(Chrome.Integrations.AvatarSwitcher.AvatarSwitcherFtuxTooltip)
+local RunService = game:GetService("RunService")
 local VRService = game:GetService("VRService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -69,7 +70,6 @@ local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 local FFlagAvatarSwitcherFtuxTooltip = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false)
 local FFlagInExperienceShopFtuxTooltip = game:DefineFastFlag("InExperienceShopFtuxTooltip", false)
 	and SharedFlags.FFlagEnableInExperienceShop
-local FFlagMenuOfferTooltip = SharedFlags.FFlagMenuOfferTooltip
 -- Composed with the Chrome flag that renders the dot at all, so this can't request a
 -- pixel IconHost never draws.
 local FFlagOfferNineDotActivityIndicator = SharedFlags.FFlagOfferNineDotActivityIndicator
@@ -86,15 +86,8 @@ if FFlagInExperienceShopFtuxTooltip then
 	InExperienceShopFtuxTooltip = require(Chrome.Integrations.InExperienceShop.InExperienceShopFtuxTooltip)
 end
 
-local MenuOfferTooltip: any = nil
-if FFlagMenuOfferTooltip then
-	MenuOfferTooltip = require(Chrome.Integrations.InExperienceShop.MenuOfferTooltip)
-end
-
-local usePublishShopAvailability: any = nil
-if FFlagMenuOfferTooltip or FFlagOfferNineDotActivityIndicator then
-	usePublishShopAvailability = require(Chrome.Integrations.InExperienceShop.usePublishShopAvailability)
-end
+local MenuOfferTooltip = require(Chrome.Integrations.InExperienceShop.MenuOfferTooltip)
+local usePublishShopAvailability = require(Chrome.Integrations.InExperienceShop.usePublishShopAvailability)
 
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
@@ -305,23 +298,21 @@ end
 function HamburgerButton(props)
 	local toggleIconTransition = props.toggleTransition
 	local style = useStyle()
-	local hamburgerRef
-
-	if FFlagMenuOfferTooltip then
-		hamburgerRef = React.useRef(nil :: GuiObject?)
-	end
+	local hamburgerRef = React.useRef(nil :: GuiObject?)
 
 	-- The tooltip and the nine-dot indicator are both judged against offer notifications,
 	-- so either one alone needs these running.
 	-- TODO it'd be preferable to have this logic live in the offers package, unfortunately useInExperienceOfferExposure
 	-- depends on Chrome.ChromeShared.Service.LocalStore which is not avaible from a module. Consider moving this if
 	-- LocalStore gets modularized.
-	if FFlagMenuOfferTooltip or FFlagOfferNineDotActivityIndicator then
+	if not RunService:IsStudio() or FFlagOfferNineDotActivityIndicator then
 		-- Tells the offers store whether the shop can be opened, which offer notifications are
 		-- gated on. Ordered ahead of the exposure hook so no exposure is recorded for an offer
 		-- whose notification a closed shop is about to suppress.
+		-- lute-lint-ignore(rulesOfHooks): IsStudio does not change between renders
 		usePublishShopAvailability()
 		-- Handles saving and loading in-experience offer exposure data, used to determine if an offer notification should be shown.
+		-- lute-lint-ignore(rulesOfHooks): IsStudio does not change between renders
 		useInExperienceOfferExposure()
 	end
 
@@ -378,7 +369,7 @@ function HamburgerButton(props)
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 		BorderSizePixel = 0,
-		ref = if FFlagMenuOfferTooltip then hamburgerRef else nil,
+		ref = if not RunService:IsStudio() then hamburgerRef else nil,
 		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
 		BackgroundTransparency = toggleIconTransition:map(function(value): any
 			return 1 - ((1 - style.Theme.BackgroundOnHover.Transparency) * value)
@@ -450,7 +441,7 @@ function HamburgerButton(props)
 				visible = props.visible,
 			})
 			else nil,
-		if FFlagMenuOfferTooltip
+		if not RunService:IsStudio()
 			then React.createElement(MenuOfferTooltip, {
 				anchorRef = hamburgerRef,
 				visible = props.visible,

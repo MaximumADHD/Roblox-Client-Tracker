@@ -29,6 +29,7 @@ type AlertVariantProps = {
 	iconBackplate: { Size: UDim2, Position: UDim2, tag: string, backgroundStyle: ColorStyleValue }?,
 	message: { tag: string, padding: Types.Padding? },
 	link: { tag: string, padding: Types.Padding? },
+	linkContainer: { tag: string },
 	border: { Size: UDim2, backgroundStyle: ColorStyleValue },
 }
 
@@ -155,10 +156,12 @@ local function variantsFactory(tokens: Tokens)
 			message = { tag = "fill auto-y" },
 			-- auto-x sizes to the unwrapped line so we can compare against 40%.
 			link = { tag = "auto-xy" },
+			linkContainer = { tag = "auto-xy" },
 		},
 		[true] = {
 			message = { tag = "size-full-0 auto-y" },
 			link = { tag = "size-full-0 auto-y", padding = stackedLinkPadding },
+			linkContainer = { tag = "size-full-0 auto-y" },
 		},
 	}
 

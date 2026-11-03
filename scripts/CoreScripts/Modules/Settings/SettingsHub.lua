@@ -21,7 +21,9 @@ local LocalizationService = game:GetService("LocalizationService")
 local TelemetryService = game:GetService("TelemetryService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
+local legacyIsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local isTenFootInterface = legacyIsTenFootInterface and not FFlagResponsiveUnitsDeprecateTenFoot
 
 local Roact = require(CorePackages.Packages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -2676,7 +2678,7 @@ local function CreateSettingsHub()
 		end
 	end
 
-	local lastInputUsedToSelectGui = isTenFootInterface
+	local lastInputUsedToSelectGui = legacyIsTenFootInterface
 
 	-- Map indicating if a KeyCode or UserInputType should toggle the lastInputUsedToSelectGui variable.
 	local inputUsedToSelectGui = {
@@ -4094,7 +4096,7 @@ local function CreateSettingsHub()
 		this.LeaveGameToHomePage:SetHub(this)
 	end
 
-	if not isTenFootInterface then
+	if not legacyIsTenFootInterface then
 		local shareGameCorePackages = {
 			"Roact",
 			"Rodux",

@@ -7,7 +7,6 @@ local React = require(CorePackages.Packages.React)
 local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local useMappedSignal = require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
-local usePartyIcon = require(Chrome.Integrations.Party.usePartyIcon)
 
 local MappedSignal = ChromeUtils.MappedSignal
 local useTokens = Foundation.Hooks.useTokens
@@ -24,13 +23,7 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 local FFlagEnableChatIconUnibarDropdownFixEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableChatIconUnibarDropdownFixEnabled
 
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
-
-local AVATAR_SIZE = 24
-
 local visualConfig = getAppChatNavbarItemConfig()
-local ICON_OFF = visualConfig.icon.off
-local ICON_ON = visualConfig.icon.on
 
 export type Props = {
 	integrationId: string,
@@ -106,7 +99,6 @@ local function ConnectIcon(_props: Props): React.ReactElement
 	end)
 
 	local visible = useMappedSignal(visibilitySignal)
-	local icon = usePartyIcon(iconSize, AVATAR_SIZE, if visible then ICON_ON else ICON_OFF)
 
 	local submenuTransition = React.useContext(SubMenuContext)
 	local function getTransparency(transparency: number): any
@@ -133,33 +125,13 @@ local function ConnectIcon(_props: Props): React.ReactElement
 	return React.createElement(Foundation.View, {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 	}, {
-		Icon = if ArgoPartyExperimentation.getIsRenameEnabled()
-			then React.createElement(Foundation.Icon, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				name = visualConfig.icon,
-				variant = if visible then Foundation.Enums.IconVariant.Filled else Foundation.Enums.IconVariant.Regular,
-				style = if FFlagEnableChatIconUnibarDropdownFixEnabled then iconStyle else nil,
-			})
-			else React.createElement(Foundation.Image, {
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				Size = icon.size:map(function(value)
-					return UDim2.fromOffset(value, value)
-				end),
-				backgroundStyle = if icon.image.backgroundColor
-					then {
-						Color3 = icon.image.backgroundColor,
-						Transparency = getTransparency(0),
-					}
-					else tokens.Color.None,
-				cornerRadius = UDim.new(0, tokens.Radius.Circle),
-				Image = icon.image.thumbnail,
-				imageStyle = {
-					Color3 = tokens.Color.Content.Emphasis.Color3,
-					Transparency = getTransparency(tokens.Color.Content.Emphasis.Transparency),
-				},
-			}),
+		Icon = React.createElement(Foundation.Icon, {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			name = visualConfig.icon,
+			variant = if visible then Foundation.Enums.IconVariant.Filled else Foundation.Enums.IconVariant.Regular,
+			style = if FFlagEnableChatIconUnibarDropdownFixEnabled then iconStyle else nil,
+		}),
 		Badge = if shouldShowBadge
 			then React.createElement(Foundation.View, {
 				Position = UDim2.new(1, -tokens.Stroke.Thicker, 0, tokens.Stroke.Thicker),

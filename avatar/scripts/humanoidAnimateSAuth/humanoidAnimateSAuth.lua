@@ -128,6 +128,9 @@ function module.setupAnimation(character)
 	local isR6 = (humanoid.RigType == Enum.HumanoidRigType.R6)
 	local animator = humanoid:FindFirstChildOfClass("Animator")
 	local animateParent = character:WaitForChild("Animate")
+	-- The engine sets PerCharacterAnimationPacks when the rules tree decides animation packs per character. The clip
+	-- folders then already hold this character's clips, so StarterPlayer.AllowCustomAnimations does not apply.
+	local perCharacterAnimationPacks = animateParent:GetAttribute("PerCharacterAnimationPacks") == true
 	if not animator then
 		warn("Animator not found!")
 		return
@@ -645,9 +648,13 @@ function module.setupAnimation(character)
 
 		local allowCustomAnimations = true
 
-		local success, _msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
-		if not success then
+		if perCharacterAnimationPacks then
 			allowCustomAnimations = true
+		else
+			local success, _msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
+			if not success then
+				allowCustomAnimations = true
+			end
 		end
 
 		-- check for config values
@@ -688,6 +695,18 @@ function module.setupAnimation(character)
 				animSet[idx] = entry
 				animSet.count = animSet.count + 1
 				animSet.totalWeight = animSet.totalWeight + anim.weight
+			end
+		end
+
+		-- Per-character packs rewrite clip folders at runtime, so a rebuilt set's clips must stay stoppable.
+		if perCharacterAnimationPacks and not TOOL_ANIM_NAMES[name] then
+			for idx = 1, animSet.count do
+				animTableNontoolIds[extractAnimIdNumber(animSet[idx].anim.AnimationId)] = true
+			end
+			-- The walk/run blend keeps the run clip by this id, so it must follow the rebuilt run set.
+			-- Otherwise the blend keeps the old run track playing and stops the new one.
+			if name == "run" and not isR6 then
+				fixedRunAnimId = extractAnimIdNumber(animSet[1].anim.AnimationId)
 			end
 		end
 

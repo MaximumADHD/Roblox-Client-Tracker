@@ -7,6 +7,7 @@ export type BadgeVariant =
 	| "Standard"
 	| "Contrast"
 	| "OverMedia"
+	| "OverMediaWhite"
 	| "Emphasis"
 	| "Neutral"
 
@@ -17,6 +18,7 @@ local BadgeVariantEnum = {
 	Warning = "Warning" :: "Warning",
 	Standard = "Standard" :: "Standard",
 	OverMedia = "OverMedia" :: "OverMedia",
+	OverMediaWhite = "OverMediaWhite" :: "OverMediaWhite",
 	Emphasis = "Emphasis" :: "Emphasis",
 
 	-- DEPRECATED Scheduled for removal in the next major release (2.0)

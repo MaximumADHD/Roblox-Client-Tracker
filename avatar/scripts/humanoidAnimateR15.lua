@@ -7,6 +7,9 @@ local function getRigScale()
 end
 
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
+-- The engine sets PerCharacterAnimationPacks when the rules tree decides animation packs per character. The clip
+-- folders then already hold this character's clips, so StarterPlayer.AllowCustomAnimations does not apply.
+local perCharacterAnimationPacks = script:GetAttribute("PerCharacterAnimationPacks") == true
 local HumanoidHipHeight = 2
 
 local FFlagUserAnimateRemoveEmoteChatHook
@@ -331,9 +334,13 @@ function configureAnimationSet(name, fileList)
 
 	local allowCustomAnimations = true
 
-	local success, msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
-	if not success then
+	if perCharacterAnimationPacks then
 		allowCustomAnimations = true
+	else
+		local success, msg = pcall(function() allowCustomAnimations = game:GetService("StarterPlayer").AllowCustomAnimations end)
+		if not success then
+			allowCustomAnimations = true
+		end
 	end
 
 	-- check for config values

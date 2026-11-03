@@ -15,6 +15,33 @@ export type MarkdownRendererPropsType = Package.MarkdownRendererPropsType
 export type TextStyles = Package.TextStyles
 export type CodeStyles = Package.CodeStyles
 export type LinkCallbackType = Package.LinkCallbackType
+export type ParserDocument = Package.ParserDocument
+export type ParserNode = Package.ParserNode
+export type Mention = Package.Mention
+export type Underline = Package.Underline
+export type Parser = Package.Parser
+export type ParserConfig = Package.ParserConfig
+export type Extension = Package.Extension
+export type AdapterAsName = Package.AdapterAsName
+export type AdapterAttributes = Package.AdapterAttributes
+export type AdapterBlockName = Package.AdapterBlockName
+export type AdapterBlockRule = Package.AdapterBlockRule
+export type AdapterBuilder = Package.AdapterBuilder
+export type AdapterContext = Package.AdapterContext
+export type AdapterEntryOptions = Package.AdapterEntryOptions
+export type AdapterExtension = Package.AdapterExtension
+export type AdapterFallback = Package.AdapterFallback
+export type AdapterFlattenOptions = Package.AdapterFlattenOptions
+export type AdapterGap = Package.AdapterGap
+export type AdapterGapKind = Package.AdapterGapKind
+export type AdapterHandler = Package.AdapterHandler
+export type AdapterInlineName = Package.AdapterInlineName
+export type AdapterInlineRule = Package.AdapterInlineRule
+export type AdapterListOptions = Package.AdapterListOptions
+export type AdapterPassName = Package.AdapterPassName
+export type AdapterQuoteOptions = Package.AdapterQuoteOptions
+export type AdapterRendererName = Package.AdapterRendererName
+export type AdapterStyle = Package.AdapterStyle
 
 
 return Package

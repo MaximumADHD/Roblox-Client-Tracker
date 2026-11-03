@@ -193,7 +193,7 @@ end
 -- Was called OnMoveTouchEnded in previous version
 function DynamicThumbstick:OnInputEnded()
 	self.isTouchActive = false
-	local binding = self.data.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+	local binding = self.data.controlModule.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 	if binding then
 		binding:Fire(Vector2.zero)
 	end
@@ -319,7 +319,7 @@ function DynamicThumbstick:DoMove(direction: Vector2)
 	end
 
 	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-	local binding = self.data.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+	local binding = self.data.controlModule.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
 	if binding then
 		binding:Fire(currentMoveVector)
 	end

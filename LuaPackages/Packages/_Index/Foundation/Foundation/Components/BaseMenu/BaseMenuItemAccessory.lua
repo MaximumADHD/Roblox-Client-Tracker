@@ -6,9 +6,15 @@ local React = require(Packages.React)
 local Avatar = require(Foundation.Components.Avatar)
 local Badge = require(Foundation.Components.Badge)
 local Icon = require(Foundation.Components.Icon)
+local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+
+local Flags = require(Foundation.Utility.Flags)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
+local normalizeIconName = iconMigrationUtils.normalizeIconName
 
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local Tokens = require(Foundation.Providers.Style.Tokens)
@@ -35,6 +41,7 @@ local SLOT_ALIGN = "align-x-center align-y-center"
 local ICON_PRESENTATION = { colorNamespace = ColorNamespace.Color, isIconSize = true }
 local HINT_TAG = "row align-y-center auto-xy padding-x-xsmall radius-small bg-shift-200"
 local HINT_TEXT_TAG = "auto-xy text-caption-medium content-muted"
+local MEDIA_TAG = "size-full-full radius-xsmall"
 
 export type AccessoryProps = {
 	LayoutOrder: number,
@@ -94,14 +101,35 @@ local function Accessory(props: AccessoryProps): React.ReactNode
 		})
 	end
 
+	if Flags.FoundationBaseMenuAccessorySizing and not isBuilderOrMigratedIcon(accessory.iconName) then
+		return React.createElement(View, {
+			LayoutOrder = props.LayoutOrder,
+			tag = slotTag,
+			testId = props.testId,
+		}, {
+			Media = React.createElement(Image, {
+				Image = accessory.iconName,
+				ScaleType = Enum.ScaleType.Crop,
+				tag = MEDIA_TAG,
+				testId = `{props.testId}--media`,
+			}),
+		})
+	end
+
+	local normalizedIcon = if Flags.FoundationBaseMenuAccessorySizing
+		then normalizeIconName(accessory.iconName)
+		else nil :: never
+
 	return React.createElement(View, {
 		LayoutOrder = props.LayoutOrder,
 		tag = slotTag,
 		testId = props.testId,
 	}, {
 		Icon = React.createElement(Icon, {
-			name = accessory.iconName,
-			variant = accessory.iconVariant,
+			name = if Flags.FoundationBaseMenuAccessorySizing then normalizedIcon.name else accessory.iconName,
+			variant = if Flags.FoundationBaseMenuAccessorySizing
+				then normalizedIcon.variant or accessory.iconVariant
+				else accessory.iconVariant,
 			style = props.iconVariant.style,
 			size = props.iconVariant.size,
 		}),

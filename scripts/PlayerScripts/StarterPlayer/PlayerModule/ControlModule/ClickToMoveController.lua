@@ -947,11 +947,11 @@ function ClickToMove:OnCharacterAdded(character)
 		self.mouse2UpTime = tick()
 		local currPos = self.mouse2DownPos
 
-		if not self.data or not self.data.actions.MoveAction then
+		if not self.data or not self.data.controlModule.actions.MoveAction then
 			return
 		end
 
-		local allowed = ExistingPather or self.data.actions.MoveAction:GetState().Magnitude <= 0
+		local allowed = ExistingPather or self.data.controlModule.actions.MoveAction:GetState().Magnitude <= 0
 		if self.mouse2UpTime - self.mouse2DownTime < 0.25 and allowed then
 			local positions = {currPos}
 			self:OnTap(positions)
@@ -1056,8 +1056,8 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 end
 
 function ClickToMove:Update(data, dt)
-	assert(data.actions.MoveAction)
-	assert(data.actions.JumpAction)
+	assert(data.controlModule.actions.MoveAction)
+	assert(data.controlModule.actions.JumpAction)
 
 	if not self.data then 
 		self.data = data
@@ -1073,36 +1073,36 @@ function ClickToMove:Update(data, dt)
 		-- If we still have the current Pather, fire move / jump actions. Else, reset actions
 		if ExistingPather and ExistingPather == currentPather then
 			local expectedState = calculateLocalMoveVector(currentPather.NextActionMoveDirection)
-			local moveBinding = data.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+			local moveBinding = data.controlModule.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
 			if moveBinding then
 				moveBinding:Fire(expectedState)
 			end
-			data.moveVector = expectedState
+			data.controlModule.moveVector = expectedState
 
 			-- Handle jump request from Pather
 			if currentPather.NextActionJump then
-				if data.actions.JumpAction:GetState() ~= true then
-					local jumpBinding = data.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if data.controlModule.actions.JumpAction:GetState() ~= true then
+					local jumpBinding = data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 					if jumpBinding then
 						jumpBinding:Fire(true)
 					end
 				end
 				self.lastPatherJumped = true
-				data.isJumping = true
+				data.controlModule.isJumping = true
 			elseif self.lastPatherJumped then
-				if data.actions.JumpAction:GetState() == true then
-					local jumpBinding = data.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if data.controlModule.actions.JumpAction:GetState() == true then
+					local jumpBinding = data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 					if jumpBinding then
 						jumpBinding:Fire(false)
 					end
 				end
 				self.lastPatherJumped = false
-				data.isJumping = false
+				data.controlModule.isJumping = false
 			end
 		else
 			if self.lastPatherJumped then
-				if data.actions.JumpAction:GetState() == true then
-					local binding = data.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+				if data.controlModule.actions.JumpAction:GetState() == true then
+					local binding = data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 					if binding then
 						binding:Fire(false)
 					end
@@ -1114,17 +1114,17 @@ function ClickToMove:Update(data, dt)
 
 	if self.shouldCleanupPath then
 		self.shouldCleanupPath = false
-		local moveBinding = data.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
+		local moveBinding = data.controlModule.actions.MoveAction:FindFirstChild("ClickToMoveScriptableBinding")
 		if moveBinding then
 			moveBinding:Fire(Vector2.zero)
 		end
-		data.moveVector = Vector2.zero
+		data.controlModule.moveVector = Vector2.zero
 		self.lastPatherJumped = false
-		local jumpBinding = data.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+		local jumpBinding = data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 		if jumpBinding then
 			jumpBinding:Fire(false)
 		end
-		data.isJumping = false
+		data.controlModule.isJumping = false
 	end
 end
 

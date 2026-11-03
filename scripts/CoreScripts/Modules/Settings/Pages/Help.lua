@@ -38,15 +38,16 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox'] 
 
------------- Variables -------------------
-local PageInstance = nil
-RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
-local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-
 ------------ FFLAGS -------------------
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
+
+------------ Variables -------------------
+local PageInstance = nil
+RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 ------------ Localization -------------------
 local locales = nil

@@ -41,6 +41,14 @@ local function getBaseTextElementEngineTags(props: Types.TextStyles?): { InlineL
 			},
 		})
 	end
+	-- Last, so it wraps the other tags: consumers that set textStyles.underline before Markdown read
+	-- it (SduiMarkdownText) appended their own <u> outermost, and their output must not change.
+	if props.underline then
+		table.insert(engineTags, {
+			name = InlineEngineTag.UNDERLINE,
+			attributes = {},
+		})
+	end
 	return engineTags
 end
 

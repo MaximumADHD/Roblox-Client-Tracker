@@ -245,12 +245,12 @@ function TouchJump:Create()
 
 	self.jumpButton.Parent = self.parentUIFrame
 
-	if not self.data.actions.JumpAction then
+	if not self.data.controlModule.actions.JumpAction then
 		return
 	end
-	self.data.actions.JumpAction:WaitForChild("TouchBinding").UIButton = self.jumpButton
+	self.data.controlModule.actions.JumpAction:WaitForChild("TouchBinding").UIButton = self.jumpButton
 
-	self.data.actions.JumpAction.Pressed:Connect(function()
+	self.data.controlModule.actions.JumpAction.Pressed:Connect(function()
 		if not self.jumpButton then
 			return
 		end
@@ -262,7 +262,7 @@ function TouchJump:Create()
 		end
 	end)
 
-	self.data.actions.JumpAction.Released:Connect(function()
+	self.data.controlModule.actions.JumpAction.Released:Connect(function()
 		if not self.jumpButton then
 			return
 		end

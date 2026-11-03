@@ -1,11 +1,34 @@
 local Root = script:FindFirstAncestor("Markdown")
 local NodeType = require(Root.Enums.NodeType)
+local Flags = require(Root.Parent.MarkdownCore).Flags
 
 local DefaultParserOptions = {
-	inlineTags = {
-		font = true,
-		img = true,
-	},
+	inlineTags = if Flags.FFlagMarkdownTagFallbacks
+		then {
+			font = true,
+			img = true,
+			a = true,
+			abbr = true,
+			b = true,
+			code = true,
+			del = true,
+			em = true,
+			i = true,
+			kbd = true,
+			mark = true,
+			s = true,
+			small = true,
+			span = true,
+			strike = true,
+			strong = true,
+			sub = true,
+			sup = true,
+			u = true,
+		}
+		else {
+			font = true,
+			img = true,
+		},
 	nodeConfiguration = {
 		["ROOT"] = {
 			type = NodeType.Root,

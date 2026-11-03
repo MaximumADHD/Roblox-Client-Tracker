@@ -22,7 +22,6 @@ local VRCameraTeleportDetector = require(script.Parent:WaitForChild("VRCameraTel
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
-local FFlagUserPSVRCameraInputMoveVector = FlagUtil.getUserFlag("UserPSVRCameraInputMoveVector")
 local FFlagUserVRRecenterOnExternalTeleport = FlagUtil.getUserFlag("UserVRRecenterOnExternalTeleport")
 local FFlagUserVRSkipOcclusionInFirstPerson = FlagUtil.getUserFlag("UserVRSkipOcclusionInFirstPerson")
 local FFlagUserFixVRImmersionAutoRotate = FlagUtil.getUserFlag("UserFixVRImmersionAutoRotate")
@@ -319,7 +318,7 @@ function VRCamera:UpdateThirdPersonComfortTransform(timeDelta, newCameraCFrame, 
 	if lastSubjPos ~= nil and self.lastCameraFocus ~= nil then
 		-- compute delta of subject since last update
 		local subjectDelta = lastSubjPos - subjectPosition
-		local moveVector = if FFlagUserPSVRCameraInputMoveVector then self.controlModule.inputMoveVector else self.controlModule:GetMoveVector()
+		local moveVector = self.controlModule.inputMoveVector
 
 		-- is the subject still moving?
 		local isMoving = subjectDelta.magnitude > 0.01 or moveVector.magnitude > 0.01
@@ -410,7 +409,7 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	-- figure out if the player is moving
 	local subjectDelta = lastSubjPos - subjectPosition
 	local controlModule = self.controlModule
-	local moveVector = if FFlagUserPSVRCameraInputMoveVector then controlModule.inputMoveVector else controlModule:GetMoveVector()
+	local moveVector = controlModule.inputMoveVector
 
 	-- while moving, slowly adjust camera so the avatar is in front of your head
 	if subjectDelta.magnitude > 0.01 or moveVector.magnitude > 0 then -- is the subject moving?

@@ -39,15 +39,12 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 -- The legacy Connect entrypoint is only removed once the Friends tab is actually
--- shown (RemoveEntrypoints + party rename + CanShow). Because the reorg gate now
+-- shown (RemoveEntrypoints + CanShow). Because the reorg gate now
 -- follows CanShow rather than F, a holdout (CanShow off) keeps connect_dropdown.
 local function isConnectDropdownRemovalActive(): boolean
-	return FFlagRemoveFriendsChatUnibarEntrypoints
-		and ArgoPartyExperimentation.getIsRenameEnabled()
-		and FFlagExpChatCanShowFriendsTab
+	return FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab
 end
 
 local function buildOrder(): { string }

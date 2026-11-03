@@ -38,9 +38,9 @@ return {
 		local scale = getPlatformScale(deviceType, scaleFactor)
 
 		return {
-			Global = require(tokenGenerators.Global)(scale),
-			Semantic = require(tokenGenerators.Semantic)(scale),
-			Component = require(tokenGenerators.Component)(scale),
+			Global = tokenGenerators.Global(scale),
+			Semantic = tokenGenerators.Semantic(scale),
+			Component = tokenGenerators.Component(scale),
 		} :: Types.BaseTokens
 	end,
 	Types = Types,

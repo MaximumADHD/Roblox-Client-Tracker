@@ -79,13 +79,13 @@ local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentS
 local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Flags.FFlagUpdatePeopleNamesSettingCopy)
 local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
-local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelectorForFae_AEGIS2", false)
 local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
 local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
+local FFlagInGameGraphicsFollowsSavedQuality = game:DefineFastFlag("InGameGraphicsFollowsSavedQuality", false)
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
 local FFlagDeferProgrammaticChange = game:DefineFastFlag("DeferProgrammaticChange", false)
 local FFlagRenameVolumeToMainVolume = require(RobloxGui.Modules.Flags.FFlagRenameVolumeToMainVolume)
@@ -231,8 +231,6 @@ local CAMERA_DEVICE_INFO_KEY = "CameraDeviceInfo"
 
 ------ VOICE CONNECT/DISCONNECT ------
 
-local VOICE_CONNECT_FRAME_KEY = "VoiceConnectFrame"
-local VOICE_DISCONNECT_FRAME_KEY = "VoiceDisconnectFrame"
 local VOICE_CONNECT_DISCONNECT_SELECTOR_KEY = "VoiceConnectDisconnectSelector"
 
 ----------- LAYOUT ORDER ------------
@@ -270,6 +268,7 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local GfxReset = require(script.Parent.Parent.GfxReset)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local throttle = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.ThrottleFunctionCall)
+local SavedQualityFollower = require(RobloxGui.Modules.Settings.Pages.SavedQualityFollower)
 local debounce = require(RobloxGui.Modules.Chrome.ChromeShared.Utility.debounce)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local Signals = require(CorePackages.Packages.Signals)
@@ -660,7 +659,14 @@ local function Initialize()
 		------------------------- Connection Setup ----------------------------
 		settings().Rendering.EnableFRM = true
 
+		local savedQualityFollower = if FFlagInGameGraphicsFollowsSavedQuality
+			then SavedQualityFollower.new(this.GraphicsQualityEnabler, this.GraphicsQualitySlider)
+			else nil
+
 		function SetGraphicsQuality(newValue, automaticSettingAllowed)
+			if FFlagInGameGraphicsFollowsSavedQuality and savedQualityFollower:isShowing() then
+				return
+			end
 			if FFlagIGMEnableGFXReset then
 				local override, overrideValue = GfxReset.TemporaryOverride(newValue)
 				if override then
@@ -710,7 +716,7 @@ local function Initialize()
 		local initializedGfxLvl = false
 		this.GraphicsQualitySlider.ValueChanged:connect(function(newValue)
 			SetGraphicsQuality(newValue)
-			if initializedGfxLvl == true then
+			if initializedGfxLvl == true and not (FFlagInGameGraphicsFollowsSavedQuality and savedQualityFollower:isShowing()) then
 				reportSettingsForAnalytics()
 			end
 			initializedGfxLvl = true
@@ -730,8 +736,10 @@ local function Initialize()
 			elseif newIndex == GFX_MODES.Manual.Value then
 				setGraphicsToManual(this.GraphicsQualitySlider:GetValue())
 			end
-			reportSettingsForAnalytics()
-			reportSettingsChangeForAnalytics("gfx_mode", gfx_mode_old_val, gfx_mode_new_val)
+			if not (FFlagInGameGraphicsFollowsSavedQuality and savedQualityFollower:isShowing()) then
+				reportSettingsForAnalytics()
+				reportSettingsChangeForAnalytics("gfx_mode", gfx_mode_old_val, gfx_mode_new_val)
+			end
 		end)
 
 		game.GraphicsQualityChangeRequest:Connect(function(isIncrease)
@@ -769,6 +777,15 @@ local function Initialize()
 			SetGraphicsQuality(graphicsLevel)
 			spawn(function()
 				this.GraphicsQualitySlider:SetValue(graphicsLevel)
+			end)
+		end
+
+		-- Another writer, such as Studio's Device Simulator, can change the saved quality while the menu exists. Play
+		-- quality is that writer's to set, so the controls only follow. Connected after the setup above, which writes the
+		-- saved quality itself.
+		if FFlagInGameGraphicsFollowsSavedQuality then
+			GameSettings:GetPropertyChangedSignal("SavedQualityLevel"):Connect(function()
+				savedQualityFollower:show(GameSettings.SavedQualityLevel)
 			end)
 		end
 	end -- of createGraphicsOptions
@@ -4167,116 +4184,6 @@ local function Initialize()
 		end)
 	end
 
-	local function createVoiceConnectDisconnect()
-		if VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.isShowingFTUX then
-			local voiceConnectButton, voiceConnectText = nil, nil
-			local voiceDisconnectButton, voiceDisconnectText = nil, nil
-			local frameText = locales:Format("Feature.GameDetails.Label.VoiceChat")
-			local connectButtonText = locales:Format("Feature.SettingsHub.Label.Connect")
-			local disconnectButtonText = locales:Format("Feature.SettingsHub.Label.Disconnect")
-			local debounceDelay = GetFIntDebounceDisconnectButtonDelay()
-			local useDebounce = debounceDelay > 0
-
-			local onJoinVoicePressed = function()
-				if VoiceChatServiceManager:getService() then
-					local stateChangedConnection: RBXScriptConnection
-					stateChangedConnection = VoiceChatServiceManager:getService().StateChanged
-						:Connect(function(oldState, newState)
-							if newState == (Enum :: any).VoiceChatState.Joined then
-								if FFlagVoiceRewarmTelemetry then
-									local universeId, placeId, playSessionId, voiceSessionId = VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
-									VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-										"clicked", universeId, placeId, playSessionId, voiceSessionId, VoiceChatServiceManager.joinVoiceButtonContext
-									)
-								else
-									VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-										"clicked",
-										VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
-									)
-								end
-								stateChangedConnection:Disconnect()
-							end
-						end)
-				else
-					if FFlagVoiceRewarmTelemetry then
-						local universeId, placeId, playSessionId, voiceSessionId = VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(false)
-						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-							"clicked", universeId, placeId, playSessionId, voiceSessionId, VoiceChatServiceManager.joinVoiceButtonContext
-						)
-					else
-						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-							"clicked",
-							VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(false)
-						)
-					end
-				end
-				VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
-				VoiceChatServiceManager:JoinVoice()
-			end
-
-			local onLeaveVoicePressed = function()
-				VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent(
-					"clicked",
-					VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
-				)
-				VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
-				VoiceChatServiceManager:Leave()
-			end
-
-			voiceConnectButton, voiceConnectText, voiceConnectSetRowRef = utility:MakeStyledButton(
-				"VoiceConnectButton",
-				connectButtonText,
-				UDim2.new(1, 0, 1, -20),
-				if useDebounce then throttle(debounceDelay, onJoinVoicePressed) else onJoinVoicePressed,
-				this
-			)
-			voiceDisconnectButton, voiceDisconnectText, voiceDisconnectSetRowRef = utility:MakeStyledButton(
-				"VoiceDisconnectButton",
-				disconnectButtonText,
-				UDim2.new(1, 0, 1, -20),
-				if useDebounce then throttle(debounceDelay, onLeaveVoicePressed) else onLeaveVoicePressed,
-				this
-			)
-			voiceConnectButton.Size = UDim2.new(0.6, 0, 0, 40)
-			voiceConnectButton.Position = UDim2.new(0.4, 0, 0.5, 0)
-			voiceConnectButton.AnchorPoint = Vector2.new(0, 0.5)
-
-			voiceConnectButton.ZIndex = 2
-			voiceConnectButton.Selectable = true
-			voiceConnectText.ZIndex = 2
-
-			voiceDisconnectButton.Size = UDim2.new(0.6, 0, 0, 40)
-			voiceDisconnectButton.Position = UDim2.new(0.4, 0, 0.5, 0)
-			voiceDisconnectButton.AnchorPoint = Vector2.new(0, 0.5)
-
-			voiceDisconnectButton.ZIndex = 2
-			voiceDisconnectButton.Selectable = true
-			voiceDisconnectText.ZIndex = 2
-
-			local voiceConnectRow = utility:AddNewRowObject(this, frameText, voiceConnectButton, nil, true)
-			local voiceDisconnectRow = utility:AddNewRowObject(this, frameText, voiceDisconnectButton, nil, true)
-
-			this[VOICE_CONNECT_FRAME_KEY] = voiceConnectRow
-			this[VOICE_DISCONNECT_FRAME_KEY] = voiceDisconnectRow
-
-			voiceConnectRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[VOICE_CONNECT_FRAME_KEY]
-			voiceDisconnectRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[VOICE_DISCONNECT_FRAME_KEY]
-			voiceConnectSetRowRef(voiceConnectRow)
-			voiceDisconnectSetRowRef(voiceDisconnectRow)
-
-			if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isVoiceFocused() then
-				voiceConnectRow.Visible = false
-				voiceDisconnectRow.Visible = false
-			elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
-				voiceConnectRow.Visible = true
-				voiceDisconnectRow.Visible = false
-			else
-				voiceConnectRow.Visible = false
-				voiceDisconnectRow.Visible = true
-			end
-		end
-	end
-
 	local function createVRComfortSettingOptions()
 		local vrComfortSettingEnumValues = Enum.VRComfortSetting:GetEnumItems()
 		local localizationKeys = {
@@ -4470,8 +4377,7 @@ local function Initialize()
 	local teardownCrossExperienceVoiceListeners = nil
 	if game:GetEngineFeature("VoiceChatSupported") then
 		spawn(function()
-			if GetFFlagEnableVoiceUxUpdates()
-				and ((not FFlagHideVoiceChatSelectorForFae and VoiceChatServiceManager:EligibleForFaeUpsell())
+			if ((not FFlagHideVoiceChatSelectorForFae and VoiceChatServiceManager:EligibleForFaeUpsell())
 					or VoiceChatServiceManager:IsSeamlessVoice())
 				and VoiceChatServiceManager:verifyUniverseAndPlaceCanUseVoice() then
 				createVoiceChatSelector()
@@ -4544,8 +4450,7 @@ local function Initialize()
 					end
 
 					if FFlagVoiceSelectorAvailableAfterFae then
-						if GetFFlagEnableVoiceUxUpdates()
-							and VoiceChatServiceManager:UserVoiceEnabled()
+						if VoiceChatServiceManager:UserVoiceEnabled()
 							and VoiceChatServiceManager:verifyUniverseAndPlaceCanUseVoice()
 						then
 							createVoiceChatSelector()
@@ -4568,24 +4473,10 @@ local function Initialize()
 						end
 					end
 
-					if GetFFlagEnableVoiceUxUpdates() then
-						if FFlagVoiceConnectSelectorDebounce then
-							-- Only sync to connected if the selector isn't already there; under the debounce a
-							-- redundant SetSelectionIndex would replay the connect animation.
-							if this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 2 then
-								if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
-									isProgrammaticChange = true
-
-									this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-
-									task.defer(function()
-										isProgrammaticChange = false
-									end)
-								else
-									this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-								end
-							end
-						else
+					if FFlagVoiceConnectSelectorDebounce then
+						-- Only sync to connected if the selector isn't already there; under the debounce a
+						-- redundant SetSelectionIndex would replay the connect animation.
+						if this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 2 then
 							if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
 								isProgrammaticChange = true
 
@@ -4598,72 +4489,18 @@ local function Initialize()
 								this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
 							end
 						end
-
 					else
-						local isCurrentlyVoiceFocused = false
-						createVoiceConnectDisconnect()
+						if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
+							isProgrammaticChange = true
 
-						if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
-							isCurrentlyVoiceFocused = isVoiceFocused()
+							this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
 
-							observeIsVoiceFocused(function(isFocused)
-								isCurrentlyVoiceFocused = isFocused
-
-								if isFocused then
-									if this[VOICE_CONNECT_FRAME_KEY] then
-										this[VOICE_CONNECT_FRAME_KEY].Visible = false
-									end
-									if this[VOICE_DISCONNECT_FRAME_KEY] then
-										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-									end
-								elseif VoiceChatServiceManager:ShouldShowJoinVoice() then
-									if this[VOICE_CONNECT_FRAME_KEY] then
-										this[VOICE_CONNECT_FRAME_KEY].Visible = true
-									end
-									if this[VOICE_DISCONNECT_FRAME_KEY] then
-										this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-									end
-								end
+							task.defer(function()
+								isProgrammaticChange = false
 							end)
+						else
+							this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
 						end
-
-						if this[VOICE_CONNECT_FRAME_KEY] then
-							this[VOICE_CONNECT_FRAME_KEY].Visible = false
-						end
-						if this[VOICE_DISCONNECT_FRAME_KEY] then
-							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() then
-								this[VOICE_DISCONNECT_FRAME_KEY].Visible = not isCurrentlyVoiceFocused
-							else
-								this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
-							end
-						end
-
-						VoiceChatServiceManager.showVoiceUI.Event:Connect(function()
-							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
-								return
-							end
-							this.VoiceChatOptionsEnabled = true
-							updateInputDeviceVisibility()
-							if this[VOICE_CONNECT_FRAME_KEY] then
-								this[VOICE_CONNECT_FRAME_KEY].Visible = false
-							end
-							if this[VOICE_DISCONNECT_FRAME_KEY] then
-								this[VOICE_DISCONNECT_FRAME_KEY].Visible = true
-							end
-						end)
-						VoiceChatServiceManager.hideVoiceUI.Event:Connect(function()
-							if GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice() and isCurrentlyVoiceFocused then
-								return
-							end
-							this.VoiceChatOptionsEnabled = false
-							updateInputDeviceVisibility()
-							if this[VOICE_CONNECT_FRAME_KEY] then
-								this[VOICE_CONNECT_FRAME_KEY].Visible = true
-							end
-							if this[VOICE_DISCONNECT_FRAME_KEY] then
-								this[VOICE_DISCONNECT_FRAME_KEY].Visible = false
-							end
-						end)
 					end
 				end)
 				:catch(function()

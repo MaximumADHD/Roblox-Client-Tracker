@@ -23,7 +23,6 @@ local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
-local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 local FFlagVoiceRewarmTelemetry = require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 local FFlagProactiveVoiceRestrictionsUFR =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
@@ -127,8 +126,6 @@ local function JoinVoiceBinder()
 			integration.availability:unavailable()
 		elseif state == VOICE_JOIN_PROGRESS.Idle then
 			applyInitialJoinVoiceState()
-		elseif not GetFFlagEnableVoiceUxUpdates() and state == VOICE_JOIN_PROGRESS.Suspended then
-			integration.availability:available()
 		elseif state == VOICE_JOIN_PROGRESS.Joined then
 			integration.availability:unavailable()
 			-- When we enable and join voice through this button, we unmute the user
@@ -143,24 +140,8 @@ local function JoinVoiceBinder()
 		integration.availability:unavailable()
 	end, { integration })
 
-	local onHideVoiceUI = React.useCallback(function()
-		if
-			FFlagProactiveVoiceRestrictionsUFR
-			and VoiceChatServiceManager:GetVoiceRestrictionState(false) ~= "normal"
-		then
-			integration.availability:unavailable()
-			return
-		end
-		if isVoiceActive or isCEVFocused() then
-			integration.availability:unavailable()
-		else
-			integration.availability:available()
-		end
-	end, { integration :: any, isVoiceActive })
-
 	local registerEventListeners = React.useCallback(function()
 		local showVoiceUIConnection
-		local hideVoiceUIConnection
 		local disposeRestrictionEffect
 		if FFlagProactiveVoiceRestrictionsUFR and integration then
 			disposeRestrictionEffect = Signals.createEffect(function(scope)
@@ -171,9 +152,6 @@ local function JoinVoiceBinder()
 		end
 		local connection = VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(hideOrShowJoinVoiceButton)
 		showVoiceUIConnection = VoiceChatServiceManager.showVoiceUI.Event:Connect(onShowVoiceUI)
-		if not GetFFlagEnableVoiceUxUpdates() then
-			hideVoiceUIConnection = VoiceChatServiceManager.hideVoiceUI.Event:Connect(onHideVoiceUI)
-		end
 
 		return function()
 			if disposeRestrictionEffect then
@@ -184,9 +162,6 @@ local function JoinVoiceBinder()
 			end
 			if showVoiceUIConnection then
 				showVoiceUIConnection:Disconnect()
-			end
-			if hideVoiceUIConnection then
-				hideVoiceUIConnection:Disconnect()
 			end
 		end
 	end, {})

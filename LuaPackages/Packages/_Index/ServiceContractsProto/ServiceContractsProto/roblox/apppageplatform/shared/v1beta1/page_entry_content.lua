@@ -114,6 +114,7 @@ type _Messages =
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
 		SearchResultsFeedInputData_EntryMapEntry: _SearchResultsFeedInputData_EntryMapEntryMessage,
 		SearchResultsFeedInputData_ContentPoolsEntry: _SearchResultsFeedInputData_ContentPoolsEntryMessage,
+		SafetyResourceBannerInputData: _SafetyResourceBannerInputDataMessage,
 		SearchAutocompleteInputData: _SearchAutocompleteInputDataMessage,
 		SearchAutocompleteInputData_Suggestion: _SearchAutocompleteInputData_SuggestionMessage,
 		SearchAutocompleteInputData_Suggestion_SuggestionType: _SearchAutocompleteInputData_Suggestion_SuggestionTypeMessage,
@@ -157,6 +158,7 @@ type _Messages =
 		GroupOverviewPaneInputData: _GroupOverviewPaneInputDataMessage,
 		CommunityAnnouncementInputData: _CommunityAnnouncementInputDataMessage,
 		ReactionInputData: _ReactionInputDataMessage,
+		AvailableReactionInputData: _AvailableReactionInputDataMessage,
 		GroupAnnouncementInputData: _GroupAnnouncementInputDataMessage,
 		BuyRobuxPageInputData: _BuyRobuxPageInputDataMessage,
 		BuyRobuxPageInputData_SectionMapEntry: _BuyRobuxPageInputData_SectionMapEntryMessage,
@@ -181,6 +183,7 @@ type _Messages =
 		UserLibraryCollectionRow: _UserLibraryCollectionRowMessage,
 		UserLibraryOverviewInputData: _UserLibraryOverviewInputDataMessage,
 		UserLibraryListInputData: _UserLibraryListInputDataMessage,
+		UserLibraryHeaderInputData: _UserLibraryHeaderInputDataMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 		BuyRobuxSectionDisplayState: _BuyRobuxSectionDisplayStateMessage,
 		UserLibraryTargetType: _UserLibraryTargetTypeMessage,
@@ -381,6 +384,7 @@ type _PageEntryInputDataFields = {
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "search_autocomplete", value: SearchAutocompleteInputData }
+		| { type: "safety_resource_banner", value: SafetyResourceBannerInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 		| { type: "game_items_carousel", value: GameItemsCarouselInputData }
 		| { type: "hero_unit", value: HeroUnitInputData }
@@ -397,6 +401,7 @@ type _PageEntryInputDataFields = {
 		| { type: "buy_robux_section", value: BuyRobuxSectionInputData }
 		| { type: "user_library_overview", value: UserLibraryOverviewInputData }
 		| { type: "user_library_list", value: UserLibraryListInputData }
+		| { type: "user_library_header", value: UserLibraryHeaderInputData }
 	)?,
 }
 
@@ -476,6 +481,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "search_autocomplete", value: SearchAutocompleteInputData }
+		| { type: "safety_resource_banner", value: SafetyResourceBannerInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 		| { type: "game_items_carousel", value: GameItemsCarouselInputData }
 		| { type: "hero_unit", value: HeroUnitInputData }
@@ -492,6 +498,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "buy_robux_section", value: BuyRobuxSectionInputData }
 		| { type: "user_library_overview", value: UserLibraryOverviewInputData }
 		| { type: "user_library_list", value: UserLibraryListInputData }
+		| { type: "user_library_header", value: UserLibraryHeaderInputData }
 	)?,
 }
 
@@ -1116,11 +1123,19 @@ type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl = {
 type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackFields = {
 	asset_id: string,
 	asset_access_context: string,
+	trim_start_time: number,
+	trim_end_time: number,
+	music_asset_id: string,
+	music_start_time: number,
 }
 
 type _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackPartialFields = {
 	asset_id: string?,
 	asset_access_context: string?,
+	trim_start_time: number?,
+	trim_end_time: number?,
+	music_asset_id: string?,
+	music_start_time: number?,
 }
 
 export type ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlayback = typeof(setmetatable(
@@ -1668,11 +1683,19 @@ type _ExperienceCarouselInputData_UniverseItem_MomentVideoPlaybackImpl = {
 type _ExperienceCarouselInputData_UniverseItem_MomentVideoPlaybackFields = {
 	asset_id: string,
 	asset_access_context: string,
+	trim_start_time: number,
+	trim_end_time: number,
+	music_asset_id: string,
+	music_start_time: number,
 }
 
 type _ExperienceCarouselInputData_UniverseItem_MomentVideoPlaybackPartialFields = {
 	asset_id: string?,
 	asset_access_context: string?,
+	trim_start_time: number?,
+	trim_end_time: number?,
+	music_asset_id: string?,
+	music_start_time: number?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem_MomentVideoPlayback = typeof(setmetatable(
@@ -2399,6 +2422,7 @@ type _BannerInputDataFields = {
 	times_seen: number,
 	content: { type: "incoming_transfer_content", value: IncomingTransferContent }?,
 	sort_id: string?,
+	feed_item_key: string,
 }
 
 type _BannerInputDataPartialFields = {
@@ -2411,6 +2435,7 @@ type _BannerInputDataPartialFields = {
 	times_seen: number?,
 	content: { type: "incoming_transfer_content", value: IncomingTransferContent }?,
 	sort_id: string?,
+	feed_item_key: string?,
 }
 
 export type BannerInputData = typeof(setmetatable({} :: _BannerInputDataFields, {} :: _BannerInputDataImpl))
@@ -3669,6 +3694,41 @@ export type SearchResultsFeedInputData_ContentPoolsEntry = typeof(setmetatable(
 type _SearchResultsFeedInputData_ContentPoolsEntryMessage = proto.Message<
 	SearchResultsFeedInputData_ContentPoolsEntry,
 	_SearchResultsFeedInputData_ContentPoolsEntryPartialFields
+>
+
+type _SafetyResourceBannerInputDataImpl = {
+	__index: _SafetyResourceBannerInputDataImpl,
+	new: (fields: _SafetyResourceBannerInputDataPartialFields?) -> SafetyResourceBannerInputData,
+	encode: (self: SafetyResourceBannerInputData) -> buffer,
+	decode: (input: buffer) -> SafetyResourceBannerInputData,
+	jsonEncode: (self: SafetyResourceBannerInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SafetyResourceBannerInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _SafetyResourceBannerInputDataFields = {
+	text: string,
+	url: string,
+	moderation_category: string,
+	surface: string,
+	text_filter_request_id: string,
+}
+
+type _SafetyResourceBannerInputDataPartialFields = {
+	text: string?,
+	url: string?,
+	moderation_category: string?,
+	surface: string?,
+	text_filter_request_id: string?,
+}
+
+export type SafetyResourceBannerInputData = typeof(setmetatable(
+	{} :: _SafetyResourceBannerInputDataFields,
+	{} :: _SafetyResourceBannerInputDataImpl
+))
+type _SafetyResourceBannerInputDataMessage = proto.Message<
+	SafetyResourceBannerInputData,
+	_SafetyResourceBannerInputDataPartialFields
 >
 
 type _SearchAutocompleteInputDataImpl = {
@@ -4967,6 +5027,35 @@ type _ReactionInputDataPartialFields = {
 export type ReactionInputData = typeof(setmetatable({} :: _ReactionInputDataFields, {} :: _ReactionInputDataImpl))
 type _ReactionInputDataMessage = proto.Message<ReactionInputData, _ReactionInputDataPartialFields>
 
+type _AvailableReactionInputDataImpl = {
+	__index: _AvailableReactionInputDataImpl,
+	new: (fields: _AvailableReactionInputDataPartialFields?) -> AvailableReactionInputData,
+	encode: (self: AvailableReactionInputData) -> buffer,
+	decode: (input: buffer) -> AvailableReactionInputData,
+	jsonEncode: (self: AvailableReactionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AvailableReactionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _AvailableReactionInputDataFields = {
+	reaction_type: string,
+	emote_id: string,
+}
+
+type _AvailableReactionInputDataPartialFields = {
+	reaction_type: string?,
+	emote_id: string?,
+}
+
+export type AvailableReactionInputData = typeof(setmetatable(
+	{} :: _AvailableReactionInputDataFields,
+	{} :: _AvailableReactionInputDataImpl
+))
+type _AvailableReactionInputDataMessage = proto.Message<
+	AvailableReactionInputData,
+	_AvailableReactionInputDataPartialFields
+>
+
 type _GroupAnnouncementInputDataImpl = {
 	__index: _GroupAnnouncementInputDataImpl,
 	new: (fields: _GroupAnnouncementInputDataPartialFields?) -> GroupAnnouncementInputData,
@@ -4990,6 +5079,9 @@ type _GroupAnnouncementInputDataFields = {
 	custom_form: _roblox_apppageplatform_shared_v1beta1_custom_form_data.CustomFormData?,
 	reactions: { ReactionInputData },
 	are_reaction_counts_visible: boolean,
+	available_reactions: { AvailableReactionInputData },
+	reaction_entity_id: string,
+	can_react: boolean,
 }
 
 type _GroupAnnouncementInputDataPartialFields = {
@@ -5005,6 +5097,9 @@ type _GroupAnnouncementInputDataPartialFields = {
 	custom_form: _roblox_apppageplatform_shared_v1beta1_custom_form_data.CustomFormData?,
 	reactions: { ReactionInputData }?,
 	are_reaction_counts_visible: boolean?,
+	available_reactions: { AvailableReactionInputData }?,
+	reaction_entity_id: string?,
+	can_react: boolean?,
 }
 
 export type GroupAnnouncementInputData = typeof(setmetatable(
@@ -5809,6 +5904,35 @@ export type UserLibraryListInputData = typeof(setmetatable(
 	{} :: _UserLibraryListInputDataImpl
 ))
 type _UserLibraryListInputDataMessage = proto.Message<UserLibraryListInputData, _UserLibraryListInputDataPartialFields>
+
+type _UserLibraryHeaderInputDataImpl = {
+	__index: _UserLibraryHeaderInputDataImpl,
+	new: (fields: _UserLibraryHeaderInputDataPartialFields?) -> UserLibraryHeaderInputData,
+	encode: (self: UserLibraryHeaderInputData) -> buffer,
+	decode: (input: buffer) -> UserLibraryHeaderInputData,
+	jsonEncode: (self: UserLibraryHeaderInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UserLibraryHeaderInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UserLibraryHeaderInputDataFields = {
+	collection_id: string?,
+	can_manage: boolean,
+}
+
+type _UserLibraryHeaderInputDataPartialFields = {
+	collection_id: string?,
+	can_manage: boolean?,
+}
+
+export type UserLibraryHeaderInputData = typeof(setmetatable(
+	{} :: _UserLibraryHeaderInputDataFields,
+	{} :: _UserLibraryHeaderInputDataImpl
+))
+type _UserLibraryHeaderInputDataMessage = proto.Message<
+	UserLibraryHeaderInputData,
+	_UserLibraryHeaderInputDataPartialFields
+>
 
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
 export type PageEntryFormat = "PAGE_ENTRY_FORMAT_INVALID" | "PAGE_ENTRY_FORMAT_UNIVERSAL" | number -- Unknown
@@ -6685,6 +6809,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1003, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "safety_resource_banner" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1004, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "option_selector_carousel" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1100, proto.wireTypes.lengthDelimited)
@@ -6748,6 +6876,10 @@ do
 			elseif self.kind.type == "user_library_list" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1801, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "user_library_header" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1802, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -7232,6 +7364,14 @@ do
 					self.kind =
 						{ type = "search_autocomplete", value = messages.SearchAutocompleteInputData.decode(value) }
 					continue
+				elseif field == 1004 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "safety_resource_banner",
+						value = messages.SafetyResourceBannerInputData.decode(value),
+					}
+					continue
 				elseif field == 1100 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -7333,6 +7473,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "user_library_list", value = messages.UserLibraryListInputData.decode(value) }
+					continue
+				elseif field == 1802 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "user_library_header", value = messages.UserLibraryHeaderInputData.decode(value) }
 					continue
 				end
 
@@ -7504,6 +7650,8 @@ do
 				output.experienceEmphasisTile = self.kind.value:jsonEncode()
 			elseif self.kind.type == "search_autocomplete" then
 				output.searchAutocomplete = self.kind.value:jsonEncode()
+			elseif self.kind.type == "safety_resource_banner" then
+				output.safetyResourceBanner = self.kind.value:jsonEncode()
 			elseif self.kind.type == "option_selector_carousel" then
 				output.optionSelectorCarousel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "game_items_carousel" then
@@ -7536,6 +7684,8 @@ do
 				output.userLibraryOverview = self.kind.value:jsonEncode()
 			elseif self.kind.type == "user_library_list" then
 				output.userLibraryList = self.kind.value:jsonEncode()
+			elseif self.kind.type == "user_library_header" then
+				output.userLibraryHeader = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -8427,6 +8577,20 @@ do
 			}
 		end
 
+		if input.safety_resource_banner ~= nil then
+			self.kind = {
+				type = "safety_resource_banner",
+				value = messages.SafetyResourceBannerInputData.jsonDecode(input.safety_resource_banner),
+			}
+		end
+
+		if input.safetyResourceBanner ~= nil then
+			self.kind = {
+				type = "safety_resource_banner",
+				value = messages.SafetyResourceBannerInputData.jsonDecode(input.safetyResourceBanner),
+			}
+		end
+
 		if input.option_selector_carousel ~= nil then
 			self.kind = {
 				type = "option_selector_carousel",
@@ -8628,6 +8792,20 @@ do
 			self.kind = {
 				type = "user_library_list",
 				value = messages.UserLibraryListInputData.jsonDecode(input.userLibraryList),
+			}
+		end
+
+		if input.user_library_header ~= nil then
+			self.kind = {
+				type = "user_library_header",
+				value = messages.UserLibraryHeaderInputData.jsonDecode(input.user_library_header),
+			}
+		end
+
+		if input.userLibraryHeader ~= nil then
+			self.kind = {
+				type = "user_library_header",
+				value = messages.UserLibraryHeaderInputData.jsonDecode(input.userLibraryHeader),
 			}
 		end
 
@@ -11756,6 +11934,10 @@ do
 				asset_access_context = if data == nil or data.asset_access_context == nil
 					then ""
 					else data.asset_access_context,
+				trim_start_time = if data == nil or data.trim_start_time == nil then 0 else data.trim_start_time,
+				trim_end_time = if data == nil or data.trim_end_time == nil then 0 else data.trim_end_time,
+				music_asset_id = if data == nil or data.music_asset_id == nil then "" else data.music_asset_id,
+				music_start_time = if data == nil or data.music_start_time == nil then 0 else data.music_start_time,
 			},
 			_ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl :: _ExperienceMediaGalleryInputData_MediaItem_MomentVideoPlaybackImpl
 		)
@@ -11775,6 +11957,26 @@ do
 		if self.asset_access_context ~= nil and self.asset_access_context ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.asset_access_context)
+		end
+
+		if self.trim_start_time ~= nil and self.trim_start_time ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.trim_start_time)
+		end
+
+		if self.trim_end_time ~= nil and self.trim_end_time ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.trim_end_time)
+		end
+
+		if self.music_asset_id ~= nil and self.music_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.music_asset_id)
+		end
+
+		if self.music_start_time ~= nil and self.music_start_time ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.music_start_time)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11808,6 +12010,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.asset_access_context = buffer.tostring(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.music_asset_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -11815,7 +12022,22 @@ do
 
 				cursor += length
 			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
+				if field == 3 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.trim_start_time = value
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.trim_end_time = value
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.music_start_time = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readFixed32(input, cursor)
@@ -11845,6 +12067,22 @@ do
 			output.assetAccessContext = self.asset_access_context
 		end
 
+		if self.trim_start_time ~= nil and self.trim_start_time ~= 0 then
+			output.trimStartTime = proto.json.serializeNumber(self.trim_start_time)
+		end
+
+		if self.trim_end_time ~= nil and self.trim_end_time ~= 0 then
+			output.trimEndTime = proto.json.serializeNumber(self.trim_end_time)
+		end
+
+		if self.music_asset_id ~= nil and self.music_asset_id ~= "" then
+			output.musicAssetId = self.music_asset_id
+		end
+
+		if self.music_start_time ~= nil and self.music_start_time ~= 0 then
+			output.musicStartTime = proto.json.serializeNumber(self.music_start_time)
+		end
+
 		return output
 	end
 
@@ -11867,6 +12105,38 @@ do
 
 		if input.assetAccessContext ~= nil then
 			self.asset_access_context = input.assetAccessContext
+		end
+
+		if input.trim_start_time ~= nil then
+			self.trim_start_time = proto.json.deserializeNumber(input.trim_start_time)
+		end
+
+		if input.trimStartTime ~= nil then
+			self.trim_start_time = proto.json.deserializeNumber(input.trimStartTime)
+		end
+
+		if input.trim_end_time ~= nil then
+			self.trim_end_time = proto.json.deserializeNumber(input.trim_end_time)
+		end
+
+		if input.trimEndTime ~= nil then
+			self.trim_end_time = proto.json.deserializeNumber(input.trimEndTime)
+		end
+
+		if input.music_asset_id ~= nil then
+			self.music_asset_id = input.music_asset_id
+		end
+
+		if input.musicAssetId ~= nil then
+			self.music_asset_id = input.musicAssetId
+		end
+
+		if input.music_start_time ~= nil then
+			self.music_start_time = proto.json.deserializeNumber(input.music_start_time)
+		end
+
+		if input.musicStartTime ~= nil then
+			self.music_start_time = proto.json.deserializeNumber(input.musicStartTime)
 		end
 
 		return self
@@ -15138,6 +15408,10 @@ do
 				asset_access_context = if data == nil or data.asset_access_context == nil
 					then ""
 					else data.asset_access_context,
+				trim_start_time = if data == nil or data.trim_start_time == nil then 0 else data.trim_start_time,
+				trim_end_time = if data == nil or data.trim_end_time == nil then 0 else data.trim_end_time,
+				music_asset_id = if data == nil or data.music_asset_id == nil then "" else data.music_asset_id,
+				music_start_time = if data == nil or data.music_start_time == nil then 0 else data.music_start_time,
 			},
 			_ExperienceCarouselInputData_UniverseItem_MomentVideoPlaybackImpl :: _ExperienceCarouselInputData_UniverseItem_MomentVideoPlaybackImpl
 		)
@@ -15157,6 +15431,26 @@ do
 		if self.asset_access_context ~= nil and self.asset_access_context ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.asset_access_context)
+		end
+
+		if self.trim_start_time ~= nil and self.trim_start_time ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.trim_start_time)
+		end
+
+		if self.trim_end_time ~= nil and self.trim_end_time ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.trim_end_time)
+		end
+
+		if self.music_asset_id ~= nil and self.music_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.music_asset_id)
+		end
+
+		if self.music_start_time ~= nil and self.music_start_time ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.music_start_time)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -15190,6 +15484,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.asset_access_context = buffer.tostring(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.music_asset_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -15197,7 +15496,22 @@ do
 
 				cursor += length
 			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
+				if field == 3 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.trim_start_time = value
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.trim_end_time = value
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.music_start_time = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readFixed32(input, cursor)
@@ -15227,6 +15541,22 @@ do
 			output.assetAccessContext = self.asset_access_context
 		end
 
+		if self.trim_start_time ~= nil and self.trim_start_time ~= 0 then
+			output.trimStartTime = proto.json.serializeNumber(self.trim_start_time)
+		end
+
+		if self.trim_end_time ~= nil and self.trim_end_time ~= 0 then
+			output.trimEndTime = proto.json.serializeNumber(self.trim_end_time)
+		end
+
+		if self.music_asset_id ~= nil and self.music_asset_id ~= "" then
+			output.musicAssetId = self.music_asset_id
+		end
+
+		if self.music_start_time ~= nil and self.music_start_time ~= 0 then
+			output.musicStartTime = proto.json.serializeNumber(self.music_start_time)
+		end
+
 		return output
 	end
 
@@ -15249,6 +15579,38 @@ do
 
 		if input.assetAccessContext ~= nil then
 			self.asset_access_context = input.assetAccessContext
+		end
+
+		if input.trim_start_time ~= nil then
+			self.trim_start_time = proto.json.deserializeNumber(input.trim_start_time)
+		end
+
+		if input.trimStartTime ~= nil then
+			self.trim_start_time = proto.json.deserializeNumber(input.trimStartTime)
+		end
+
+		if input.trim_end_time ~= nil then
+			self.trim_end_time = proto.json.deserializeNumber(input.trim_end_time)
+		end
+
+		if input.trimEndTime ~= nil then
+			self.trim_end_time = proto.json.deserializeNumber(input.trimEndTime)
+		end
+
+		if input.music_asset_id ~= nil then
+			self.music_asset_id = input.music_asset_id
+		end
+
+		if input.musicAssetId ~= nil then
+			self.music_asset_id = input.musicAssetId
+		end
+
+		if input.music_start_time ~= nil then
+			self.music_start_time = proto.json.deserializeNumber(input.music_start_time)
+		end
+
+		if input.musicStartTime ~= nil then
+			self.music_start_time = proto.json.deserializeNumber(input.musicStartTime)
 		end
 
 		return self
@@ -19154,6 +19516,7 @@ do
 			times_seen = if data == nil or data.times_seen == nil then 0 else data.times_seen,
 			content = if data == nil or data.content == nil then nil else data.content,
 			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+			feed_item_key = if data == nil or data.feed_item_key == nil then "" else data.feed_item_key,
 		}, _BannerInputDataImpl :: _BannerInputDataImpl)
 	end
 
@@ -19207,6 +19570,11 @@ do
 		if self.sort_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.feed_item_key ~= nil and self.feed_item_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.feed_item_key)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -19274,6 +19642,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.sort_id = buffer.tostring(value)
 					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.feed_item_key = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -19337,6 +19710,10 @@ do
 
 		if self.sort_id ~= nil then
 			output.sortId = self.sort_id
+		end
+
+		if self.feed_item_key ~= nil and self.feed_item_key ~= "" then
+			output.feedItemKey = self.feed_item_key
 		end
 
 		return output
@@ -19413,6 +19790,14 @@ do
 
 		if input.sortId ~= nil then
 			self.sort_id = input.sortId
+		end
+
+		if input.feed_item_key ~= nil then
+			self.feed_item_key = input.feed_item_key
+		end
+
+		if input.feedItemKey ~= nil then
+			self.feed_item_key = input.feedItemKey
 		end
 
 		return self
@@ -26113,6 +26498,193 @@ do
 	messages.SearchResultsFeedInputData_ContentPoolsEntry = _SearchResultsFeedInputData_ContentPoolsEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.SearchResultsFeedInputData_ContentPoolsEntry)
+end
+
+do
+	local _SafetyResourceBannerInputDataImpl = {}
+	_SafetyResourceBannerInputDataImpl.__index = _SafetyResourceBannerInputDataImpl
+
+	function _SafetyResourceBannerInputDataImpl.new(
+		data: _SafetyResourceBannerInputDataPartialFields?
+	): SafetyResourceBannerInputData
+		return setmetatable({
+			text = if data == nil or data.text == nil then "" else data.text,
+			url = if data == nil or data.url == nil then "" else data.url,
+			moderation_category = if data == nil or data.moderation_category == nil
+				then ""
+				else data.moderation_category,
+			surface = if data == nil or data.surface == nil then "" else data.surface,
+			text_filter_request_id = if data == nil or data.text_filter_request_id == nil
+				then ""
+				else data.text_filter_request_id,
+		}, _SafetyResourceBannerInputDataImpl :: _SafetyResourceBannerInputDataImpl)
+	end
+
+	function _SafetyResourceBannerInputDataImpl.encode(self: SafetyResourceBannerInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.text ~= nil and self.text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.text)
+		end
+
+		if self.url ~= nil and self.url ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.url)
+		end
+
+		if self.moderation_category ~= nil and self.moderation_category ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.moderation_category)
+		end
+
+		if self.surface ~= nil and self.surface ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.surface)
+		end
+
+		if self.text_filter_request_id ~= nil and self.text_filter_request_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.text_filter_request_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SafetyResourceBannerInputDataImpl.decode(input: buffer): SafetyResourceBannerInputData
+		local self = _SafetyResourceBannerInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.url = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.moderation_category = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_filter_request_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SafetyResourceBannerInputDataImpl.jsonEncode(self: SafetyResourceBannerInputData): any
+		local output = {}
+
+		if self.text ~= nil and self.text ~= "" then
+			output.text = self.text
+		end
+
+		if self.url ~= nil and self.url ~= "" then
+			output.url = self.url
+		end
+
+		if self.moderation_category ~= nil and self.moderation_category ~= "" then
+			output.moderationCategory = self.moderation_category
+		end
+
+		if self.surface ~= nil and self.surface ~= "" then
+			output.surface = self.surface
+		end
+
+		if self.text_filter_request_id ~= nil and self.text_filter_request_id ~= "" then
+			output.textFilterRequestId = self.text_filter_request_id
+		end
+
+		return output
+	end
+
+	function _SafetyResourceBannerInputDataImpl.jsonDecode(input: { [string]: any }): SafetyResourceBannerInputData
+		local self = _SafetyResourceBannerInputDataImpl.new()
+
+		if input.text ~= nil then
+			self.text = input.text
+		end
+
+		if input.url ~= nil then
+			self.url = input.url
+		end
+
+		if input.moderation_category ~= nil then
+			self.moderation_category = input.moderation_category
+		end
+
+		if input.moderationCategory ~= nil then
+			self.moderation_category = input.moderationCategory
+		end
+
+		if input.surface ~= nil then
+			self.surface = input.surface
+		end
+
+		if input.text_filter_request_id ~= nil then
+			self.text_filter_request_id = input.text_filter_request_id
+		end
+
+		if input.textFilterRequestId ~= nil then
+			self.text_filter_request_id = input.textFilterRequestId
+		end
+
+		return self
+	end
+
+	_SafetyResourceBannerInputDataImpl.descriptor = {
+		name = "SafetyResourceBannerInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SafetyResourceBannerInputData",
+	}
+
+	messages.SafetyResourceBannerInputData = _SafetyResourceBannerInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SafetyResourceBannerInputData)
 end
 
 do
@@ -33591,6 +34163,132 @@ do
 end
 
 do
+	local _AvailableReactionInputDataImpl = {}
+	_AvailableReactionInputDataImpl.__index = _AvailableReactionInputDataImpl
+
+	function _AvailableReactionInputDataImpl.new(
+		data: _AvailableReactionInputDataPartialFields?
+	): AvailableReactionInputData
+		return setmetatable({
+			reaction_type = if data == nil or data.reaction_type == nil then "" else data.reaction_type,
+			emote_id = if data == nil or data.emote_id == nil then "" else data.emote_id,
+		}, _AvailableReactionInputDataImpl :: _AvailableReactionInputDataImpl)
+	end
+
+	function _AvailableReactionInputDataImpl.encode(self: AvailableReactionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.reaction_type ~= nil and self.reaction_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.reaction_type)
+		end
+
+		if self.emote_id ~= nil and self.emote_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.emote_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AvailableReactionInputDataImpl.decode(input: buffer): AvailableReactionInputData
+		local self = _AvailableReactionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.reaction_type = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.emote_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AvailableReactionInputDataImpl.jsonEncode(self: AvailableReactionInputData): any
+		local output = {}
+
+		if self.reaction_type ~= nil and self.reaction_type ~= "" then
+			output.reactionType = self.reaction_type
+		end
+
+		if self.emote_id ~= nil and self.emote_id ~= "" then
+			output.emoteId = self.emote_id
+		end
+
+		return output
+	end
+
+	function _AvailableReactionInputDataImpl.jsonDecode(input: { [string]: any }): AvailableReactionInputData
+		local self = _AvailableReactionInputDataImpl.new()
+
+		if input.reaction_type ~= nil then
+			self.reaction_type = input.reaction_type
+		end
+
+		if input.reactionType ~= nil then
+			self.reaction_type = input.reactionType
+		end
+
+		if input.emote_id ~= nil then
+			self.emote_id = input.emote_id
+		end
+
+		if input.emoteId ~= nil then
+			self.emote_id = input.emoteId
+		end
+
+		return self
+	end
+
+	_AvailableReactionInputDataImpl.descriptor = {
+		name = "AvailableReactionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AvailableReactionInputData",
+	}
+
+	messages.AvailableReactionInputData = _AvailableReactionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AvailableReactionInputData)
+end
+
+do
 	local _GroupAnnouncementInputDataImpl = {}
 	_GroupAnnouncementInputDataImpl.__index = _GroupAnnouncementInputDataImpl
 
@@ -33612,6 +34310,11 @@ do
 			are_reaction_counts_visible = if data == nil or data.are_reaction_counts_visible == nil
 				then false
 				else data.are_reaction_counts_visible,
+			available_reactions = if data == nil or data.available_reactions == nil
+				then {}
+				else data.available_reactions,
+			reaction_entity_id = if data == nil or data.reaction_entity_id == nil then "" else data.reaction_entity_id,
+			can_react = if data == nil or data.can_react == nil then false else data.can_react,
 		}, _GroupAnnouncementInputDataImpl :: _GroupAnnouncementInputDataImpl)
 	end
 
@@ -33684,6 +34387,24 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.are_reaction_counts_visible then 1 else 0)
 		end
 
+		if self.available_reactions ~= nil and #self.available_reactions > 0 then
+			for _, value in self.available_reactions do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.reaction_entity_id ~= nil and self.reaction_entity_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.reaction_entity_id)
+		end
+
+		if self.can_react then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.can_react then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -33702,6 +34423,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.are_reaction_counts_visible = value ~= 0
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.can_react = value ~= 0
 					continue
 				end
 
@@ -33763,6 +34489,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.reactions, messages.ReactionInputData.decode(value))
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.available_reactions, messages.AvailableReactionInputData.decode(value))
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.reaction_entity_id = buffer.tostring(value)
 					continue
 				end
 
@@ -33841,6 +34577,22 @@ do
 
 		if self.are_reaction_counts_visible then
 			output.areReactionCountsVisible = self.are_reaction_counts_visible
+		end
+
+		if self.available_reactions ~= nil and #self.available_reactions > 0 then
+			local newOutput = {}
+			for _, value in self.available_reactions do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.availableReactions = newOutput
+		end
+
+		if self.reaction_entity_id ~= nil and self.reaction_entity_id ~= "" then
+			output.reactionEntityId = self.reaction_entity_id
+		end
+
+		if self.can_react then
+			output.canReact = self.can_react
 		end
 
 		return output
@@ -33938,6 +34690,40 @@ do
 
 		if input.areReactionCountsVisible ~= nil then
 			self.are_reaction_counts_visible = input.areReactionCountsVisible
+		end
+
+		if input.available_reactions ~= nil then
+			local newOutput: { AvailableReactionInputData } = {}
+			for _, value in input.available_reactions do
+				table.insert(newOutput, messages.AvailableReactionInputData.jsonDecode(value))
+			end
+
+			self.available_reactions = newOutput
+		end
+
+		if input.availableReactions ~= nil then
+			local newOutput: { AvailableReactionInputData } = {}
+			for _, value in input.availableReactions do
+				table.insert(newOutput, messages.AvailableReactionInputData.jsonDecode(value))
+			end
+
+			self.available_reactions = newOutput
+		end
+
+		if input.reaction_entity_id ~= nil then
+			self.reaction_entity_id = input.reaction_entity_id
+		end
+
+		if input.reactionEntityId ~= nil then
+			self.reaction_entity_id = input.reactionEntityId
+		end
+
+		if input.can_react ~= nil then
+			self.can_react = input.can_react
+		end
+
+		if input.canReact ~= nil then
+			self.can_react = input.canReact
 		end
 
 		return self
@@ -38741,6 +39527,132 @@ do
 	typeRegistry.default:register(messages.UserLibraryListInputData)
 end
 
+do
+	local _UserLibraryHeaderInputDataImpl = {}
+	_UserLibraryHeaderInputDataImpl.__index = _UserLibraryHeaderInputDataImpl
+
+	function _UserLibraryHeaderInputDataImpl.new(
+		data: _UserLibraryHeaderInputDataPartialFields?
+	): UserLibraryHeaderInputData
+		return setmetatable({
+			collection_id = if data == nil or data.collection_id == nil then nil else data.collection_id,
+			can_manage = if data == nil or data.can_manage == nil then false else data.can_manage,
+		}, _UserLibraryHeaderInputDataImpl :: _UserLibraryHeaderInputDataImpl)
+	end
+
+	function _UserLibraryHeaderInputDataImpl.encode(self: UserLibraryHeaderInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.collection_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_id)
+		end
+
+		if self.can_manage then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.can_manage then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UserLibraryHeaderInputDataImpl.decode(input: buffer): UserLibraryHeaderInputData
+		local self = _UserLibraryHeaderInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.can_manage = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UserLibraryHeaderInputDataImpl.jsonEncode(self: UserLibraryHeaderInputData): any
+		local output = {}
+
+		if self.collection_id ~= nil then
+			output.collectionId = self.collection_id
+		end
+
+		if self.can_manage then
+			output.canManage = self.can_manage
+		end
+
+		return output
+	end
+
+	function _UserLibraryHeaderInputDataImpl.jsonDecode(input: { [string]: any }): UserLibraryHeaderInputData
+		local self = _UserLibraryHeaderInputDataImpl.new()
+
+		if input.collection_id ~= nil then
+			self.collection_id = input.collection_id
+		end
+
+		if input.collectionId ~= nil then
+			self.collection_id = input.collectionId
+		end
+
+		if input.can_manage ~= nil then
+			self.can_manage = input.can_manage
+		end
+
+		if input.canManage ~= nil then
+			self.can_manage = input.canManage
+		end
+
+		return self
+	end
+
+	_UserLibraryHeaderInputDataImpl.descriptor = {
+		name = "UserLibraryHeaderInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UserLibraryHeaderInputData",
+	}
+
+	messages.UserLibraryHeaderInputData = _UserLibraryHeaderInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UserLibraryHeaderInputData)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -39016,6 +39928,7 @@ return {
 	CatalogItemGridInputData = messages.CatalogItemGridInputData,
 	CatalogItemGridInputData_CatalogItem = messages.CatalogItemGridInputData_CatalogItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
+	SafetyResourceBannerInputData = messages.SafetyResourceBannerInputData,
 	SearchAutocompleteInputData = messages.SearchAutocompleteInputData,
 	SearchAutocompleteInputData_Suggestion = messages.SearchAutocompleteInputData_Suggestion,
 	SearchAutocompleteInputData_Suggestion_SuggestionType = messages.SearchAutocompleteInputData_Suggestion_SuggestionType,
@@ -39056,6 +39969,7 @@ return {
 	GroupOverviewPaneInputData = messages.GroupOverviewPaneInputData,
 	CommunityAnnouncementInputData = messages.CommunityAnnouncementInputData,
 	ReactionInputData = messages.ReactionInputData,
+	AvailableReactionInputData = messages.AvailableReactionInputData,
 	GroupAnnouncementInputData = messages.GroupAnnouncementInputData,
 	BuyRobuxPageInputData = messages.BuyRobuxPageInputData,
 	BuyRobuxPageAnalyticsData = messages.BuyRobuxPageAnalyticsData,
@@ -39079,6 +39993,7 @@ return {
 	UserLibraryCollectionRow = messages.UserLibraryCollectionRow,
 	UserLibraryOverviewInputData = messages.UserLibraryOverviewInputData,
 	UserLibraryListInputData = messages.UserLibraryListInputData,
+	UserLibraryHeaderInputData = messages.UserLibraryHeaderInputData,
 	PageEntryFormat = messages.PageEntryFormat,
 	BuyRobuxSectionDisplayState = messages.BuyRobuxSectionDisplayState,
 	UserLibraryTargetType = messages.UserLibraryTargetType,

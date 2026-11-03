@@ -2,7 +2,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
-local FFlagGetJoinDataRemoteFunctionEnabled = game:DefineFastFlag("GetJoinDataRemoteFunctionEnabled", false)
 
 -- Get server type
 local RemoteFunction_GetServerType = Instance.new("RemoteFunction")
@@ -22,16 +21,3 @@ local function getServerType()
 end
 
 RemoteFunction_GetServerType.OnServerInvoke = getServerType
-
--- Get join data
-if FFlagGetJoinDataRemoteFunctionEnabled then
-    local RemoteFunction_GetJoinData = Instance.new("RemoteFunction")
-    RemoteFunction_GetJoinData.Name = "GetJoinData"
-    RemoteFunction_GetJoinData.Parent = RobloxReplicatedStorage
-
-    local function getJoinData(player)
-        return player:GetJoinData()
-    end
-
-    RemoteFunction_GetJoinData.OnServerInvoke = getJoinData
-end

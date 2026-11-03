@@ -5,6 +5,7 @@ local it = JestGlobals.it
 local expect = JestGlobals.expect
 
 local VoiceDebugData = require(script.Parent.VoiceDebugData)
+local VoiceDebugConsoleV2TestOverride = require(script.Parent.VoiceDebugConsoleV2TestOverride)
 
 it("should create a series entry with min/max seeded from the first value", function()
 	local data = VoiceDebugData.new()
@@ -245,6 +246,76 @@ describe("_computeSubscriptionBitrates", function()
 	)
 end)
 
+describe("_correctPartyAggregateStats", function()
+	it("should leave bitrate nil on the first sample (no previous party sample yet)", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+
+		data:_correctPartyAggregateStats(nil)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._partyStatsData.incomingBitrateKbps).toBe(nil)
+		expect(data._partyStatsData.outgoingBitrateKbps).toBe(nil)
+	end)
+
+	it("should compute kbps from the byte delta on the next sample", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+		data:_correctPartyAggregateStats(nil)
+
+		data._partyStatsData = { incomingBytes = 2000, outgoingBytes = 1500 }
+		data:_correctPartyAggregateStats(1)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._partyStatsData.incomingBitrateKbps).toBe(8)
+		expect(data._partyStatsData.outgoingBitrateKbps).toBe(8)
+	end)
+
+	it("should parse the outgoing codec from the party connectivity store's publish SDP", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = {}
+		data._partyConnectivityData = { sdpPublishOffer = "a=rtpmap:111 opus/48000/2" }
+
+		data:_correctPartyAggregateStats(nil)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._partyStatsData.outgoingCodec).toBe("opus/48000/2")
+	end)
+
+	it("should not let party samples corrupt the in-experience prev-bytes state or vice versa", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._prevIncomingBytes = 10
+		data._prevOutgoingBytes = 20
+
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+		data:_correctPartyAggregateStats(nil)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._prevIncomingBytes).toBe(10)
+		expect(data._prevOutgoingBytes).toBe(20)
+	end)
+
+	it("should do nothing when the flag is off", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", false)
+		local oldV2Override = VoiceDebugConsoleV2TestOverride.setForTesting(false)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+		data:_correctPartyAggregateStats(nil)
+
+		data._partyStatsData = { incomingBytes = 2000, outgoingBytes = 1500 }
+		data:_correctPartyAggregateStats(1)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+		VoiceDebugConsoleV2TestOverride.setForTesting(oldV2Override)
+
+		expect(data._partyStatsData.incomingBitrateKbps).toBe(nil)
+		expect(data._partyStatsData.outgoingBitrateKbps).toBe(nil)
+	end)
+end)
+
 describe("_nativeSecondsToWallClockSeconds", function()
 	it("maps an entry's native timestamp to a real epoch second via the anchor pair", function()
 		expect(VoiceDebugData._nativeSecondsToWallClockSeconds(95, 100, 1000)).toBe(995)
@@ -342,5 +413,200 @@ describe("getRemoteOperations", function()
 		expect(remoteOps.sentCaptureEnabled).toBe(false)
 		expect(remoteOps.receivedCaptureEnabled).toBe(true)
 		expect(remoteOps.opQueueCaptureEnabled).toBe(true)
+	end)
+end)
+
+describe("_computeJitterBufferDelayMs", function()
+	it("should return nil when any input is missing", function()
+		expect(VoiceDebugData._computeJitterBufferDelayMs(nil, 0, 100, 0)).toBe(nil)
+		expect(VoiceDebugData._computeJitterBufferDelayMs(1, nil, 100, 0)).toBe(nil)
+		expect(VoiceDebugData._computeJitterBufferDelayMs(1, 0, nil, 0)).toBe(nil)
+		expect(VoiceDebugData._computeJitterBufferDelayMs(1, 0, 100, nil)).toBe(nil)
+	end)
+
+	it("should return nil when no new samples were emitted this interval", function()
+		expect(VoiceDebugData._computeJitterBufferDelayMs(1, 1, 100, 100)).toBe(nil)
+	end)
+
+	it("should compute average ms per emitted sample from the delta of both cumulative counters", function()
+		expect(VoiceDebugData._computeJitterBufferDelayMs(10.5, 10, 200, 100)).toBe(5)
+	end)
+
+	it("should return nil (not a fabricated/negative rate) when either cumulative counter drops", function()
+		expect(VoiceDebugData._computeJitterBufferDelayMs(5, 10, 200, 100)).toBe(nil)
+		expect(VoiceDebugData._computeJitterBufferDelayMs(10.5, 10, 50, 100)).toBe(nil)
+	end)
+end)
+
+describe("_decorateRemoteOperationsPayload", function()
+	it("should decorate entries and pass through capture-enabled flags", function()
+		local wallClockNow = os.time()
+		local decorated = VoiceDebugData._decorateRemoteOperationsPayload({
+			sent = { { name = "ClientRetryJoinWithConfig", timestampSeconds = 90 } },
+			received = { { name = "JoinedVoice", timestampSeconds = 91 } },
+			operations = { { name = "ClientJoinOperation::Joining", timestampSeconds = 89 } },
+			sentCaptureEnabled = false,
+			receivedCaptureEnabled = true,
+			opQueueCaptureEnabled = true,
+			nativeNowSeconds = 100,
+		})
+
+		expect(#decorated.sent).toBe(1)
+		expect(decorated.sent[1].timestampText).toBe(os.date("%H:%M:%S", wallClockNow - 10))
+		expect(#decorated.received).toBe(1)
+		expect(#decorated.operations).toBe(1)
+		expect(decorated.sentCaptureEnabled).toBe(false)
+		expect(decorated.receivedCaptureEnabled).toBe(true)
+		expect(decorated.opQueueCaptureEnabled).toBe(true)
+	end)
+
+	it("should return an empty-shaped table for a raw payload with no entries", function()
+		local decorated = VoiceDebugData._decorateRemoteOperationsPayload({})
+
+		expect(#decorated.sent).toBe(0)
+		expect(#decorated.received).toBe(0)
+		expect(#decorated.operations).toBe(0)
+		expect(decorated.sentCaptureEnabled).toBe(false)
+	end)
+end)
+
+describe("Voice source toggle", function()
+	it("should default to the in-experience source", function()
+		local data = VoiceDebugData.new()
+		expect(data:getSource()).toBe("inExperience")
+	end)
+
+	it("should read from the in-experience store while that source is selected", function()
+		local data = VoiceDebugData.new()
+		data._statsData = { rttMs = 22 }
+		data._partyStatsData = { rttMs = 999 }
+
+		expect(data:getCurrentData().rttMs).toBe(22)
+	end)
+
+	it("should read from the party store once switched to the party source", function()
+		local data = VoiceDebugData.new()
+		data._statsData = { rttMs = 22 }
+		data._partyStatsData = { rttMs = 999 }
+
+		data:setSource("party")
+
+		expect(data:getSource()).toBe("party")
+		expect(data:getCurrentData().rttMs).toBe(999)
+	end)
+
+	it("should keep series/connectivity source-aware the same way as getCurrentData", function()
+		local data = VoiceDebugData.new()
+		data._series = { rttMs = { max = 1 } }
+		data._partySeries = { rttMs = { max = 2 } }
+		data._connectivityData = { sdpPublishOffer = "in-experience-sdp" }
+		data._partyConnectivityData = { sdpPublishOffer = "party-sdp" }
+
+		expect(data:getSeries().rttMs.max).toBe(1)
+		expect(data:getConnectivity().sdpPublishOffer).toBe("in-experience-sdp")
+
+		data:setSource("party")
+
+		expect(data:getSeries().rttMs.max).toBe(2)
+		expect(data:getConnectivity().sdpPublishOffer).toBe("party-sdp")
+	end)
+
+	it("should fire the update signal with the newly-selected source's current data on switch", function()
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { rttMs = 999 }
+
+		local firedWith = nil
+		data:Signal():Connect(function(newStats)
+			firedWith = newStats
+		end)
+
+		data:setSource("party")
+
+		expect(firedWith).toBeDefined()
+		expect(firedWith.rttMs).toBe(999)
+	end)
+
+	it("should not fire the update signal when re-selecting the already-current source", function()
+		local data = VoiceDebugData.new()
+		local fireCount = 0
+		data:Signal():Connect(function()
+			fireCount += 1
+		end)
+
+		data:setSource("inExperience")
+
+		expect(fireCount).toBe(0)
+	end)
+
+	it("should default isPartyVoiceActive to false before any activity check has run", function()
+		local data = VoiceDebugData.new()
+		expect(data:isPartyVoiceActive()).toBe(false)
+	end)
+
+	it("should read from the party remote operations store once switched to the party source", function()
+		local data = VoiceDebugData.new()
+		data._remoteOperationsData = { sent = { { name = "in-experience" } } }
+		data._partyRemoteOperationsData = { sent = { { name = "party" } }, receivedCaptureEnabled = true }
+
+		data:setSource("party")
+
+		local remoteOps = data:getRemoteOperations()
+		expect((remoteOps.sent :: { any })[1].name).toBe("party")
+		expect(remoteOps.receivedCaptureEnabled).toBe(true)
+	end)
+
+	it("should still return the in-experience remote operations store while that source is selected", function()
+		local data = VoiceDebugData.new()
+		data._remoteOperationsData = { receivedCaptureEnabled = true }
+
+		expect(data:getRemoteOperations().receivedCaptureEnabled).toBe(true)
+	end)
+end)
+
+describe("_correctPartyJitterBufferDelay", function()
+	it("should leave jitterBufferDelayMs nil on the first sample (no previous party sample yet)", function()
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { jitterBufferDelayMs = 40, jitterBufferEmittedCount = 100 }
+
+		data:_correctPartyJitterBufferDelay()
+
+		expect(data._partyStatsData.jitterBufferDelayMs).toBe(nil)
+	end)
+
+	it("should compute a per-interval average ms from the delta of two party samples", function()
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { jitterBufferDelayMs = 40, jitterBufferEmittedCount = 100 }
+		data:_correctPartyJitterBufferDelay()
+
+		data._partyStatsData = { jitterBufferDelayMs = 42, jitterBufferEmittedCount = 200 }
+		data:_correctPartyJitterBufferDelay()
+
+		expect(data._partyStatsData.jitterBufferDelayMs).toBe(20)
+	end)
+
+	it("should not let party samples corrupt the in-experience prev-state or vice versa", function()
+		local data = VoiceDebugData.new()
+		data._prevJitterBufferDelaySeconds = 10
+		data._prevJitterBufferEmittedCount = 50
+
+		data._partyStatsData = { jitterBufferDelayMs = 40, jitterBufferEmittedCount = 100 }
+		data:_correctPartyJitterBufferDelay()
+
+		expect(data._prevJitterBufferDelaySeconds).toBe(10)
+		expect(data._prevJitterBufferEmittedCount).toBe(50)
+	end)
+end)
+
+describe("_updateSeriesValueInto", function()
+	it("should maintain independent series in two different target tables", function()
+		local data = VoiceDebugData.new()
+		local seriesA = {}
+		local seriesB = {}
+
+		data:_updateSeriesValueInto(seriesA, "rttMs", 10, 1)
+		data:_updateSeriesValueInto(seriesB, "rttMs", 20, 1)
+
+		expect(seriesA.rttMs.dataSet:back().value).toBe(10)
+		expect(seriesB.rttMs.dataSet:back().value).toBe(20)
 	end)
 end)

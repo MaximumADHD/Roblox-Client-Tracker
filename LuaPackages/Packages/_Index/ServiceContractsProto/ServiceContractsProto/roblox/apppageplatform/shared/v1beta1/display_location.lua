@@ -43,6 +43,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_CREATOR_EXPERIENCE_SETTINGS"
 	| "DISPLAY_LOCATION_BUY_ROBUX"
 	| "DISPLAY_LOCATION_USER_LIBRARY"
+	| "DISPLAY_LOCATION_PERKS"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -107,6 +108,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_BUY_ROBUX"
 		elseif value == 29 then
 			return "DISPLAY_LOCATION_USER_LIBRARY"
+		elseif value == 30 then
+			return "DISPLAY_LOCATION_PERKS"
 		else
 			return nil
 		end
@@ -173,6 +176,8 @@ messages.DisplayLocation = {
 			return 28
 		elseif self == "DISPLAY_LOCATION_USER_LIBRARY" then
 			return 29
+		elseif self == "DISPLAY_LOCATION_PERKS" then
+			return 30
 		else
 			return self
 		end
@@ -239,6 +244,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_BUY_ROBUX"
 		elseif name == "DISPLAY_LOCATION_USER_LIBRARY" then
 			return "DISPLAY_LOCATION_USER_LIBRARY"
+		elseif name == "DISPLAY_LOCATION_PERKS" then
+			return "DISPLAY_LOCATION_PERKS"
 		else
 			return nil
 		end

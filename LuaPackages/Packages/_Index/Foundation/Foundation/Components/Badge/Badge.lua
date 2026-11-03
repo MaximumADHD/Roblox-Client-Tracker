@@ -150,7 +150,7 @@ local function Badge(badgeProps: BadgeProps, ref: React.Ref<GuiObject>?)
 		View,
 		withCommonProps(props, {
 			backgroundStyle = variantProps.container.backgroundStyle,
-			stroke = if Flags.FoundationBadgeBetaUpdate then nil else variantProps.container.stroke,
+			stroke = variantProps.container.stroke,
 			tag = variantProps.container.tag,
 			ref = ref,
 		}),

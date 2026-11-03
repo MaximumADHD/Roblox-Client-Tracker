@@ -3,11 +3,50 @@ local Packages = Root.Parent
 local Types = require(Root.Types)
 local React = require(Packages.React)
 local Foundation = require(Packages.Foundation)
+local Dash = require(Packages.Dash)
+local Flags = require(Packages.MarkdownCore).Flags
 
 local InlineLayout = require(Packages.InlineLayout)
 local ImageElement = InlineLayout.Components.InlineLayoutElements.ImageElement
 local joinTags = require(Root.Utils.joinTags)
 local mergeContexts = require(Root.Utils.mergeContexts)
+local NodeType = require(Root.Enums.NodeType)
+
+local function bold()
+	return {
+		bold = true,
+	}
+end
+
+local function italic()
+	return {
+		italic = true,
+	}
+end
+
+local function strike()
+	return {
+		strike = true,
+	}
+end
+
+local function code(context: Types.Context)
+	return Dash.joinDeep(context.codeStyles, {
+		selectable = true,
+	})
+end
+
+local HTML_TEXT_STYLES: { [string]: (context: Types.Context) -> any } = {
+	b = bold,
+	strong = bold,
+	i = italic,
+	em = italic,
+	s = strike,
+	del = strike,
+	strike = strike,
+	code = code,
+	kbd = code,
+}
 
 local function renderTag(
 	node: Types.Node,
@@ -73,6 +112,35 @@ local function renderTag(
 	elseif node.text == "font" then
 		local color = if node.attributes and node.attributes.color then node.attributes.color else nil
 		return context.processChildren(node, mergeContexts(context, { textStyles = { color = color } }))
+	elseif Flags.FFlagMarkdownTagFallbacks then
+		local href = node.attributes and node.attributes.href
+
+		if node.text == "a" and href and context.renderers and context.renderers.LINK then
+			return context.renderers.LINK(
+				Dash.join(node, {
+					attributes = Dash.join(node.attributes, {
+						url = href,
+					}),
+				}),
+				context
+			)
+		elseif node.type == NodeType.InlineSpan then
+			local getTextStyles = HTML_TEXT_STYLES[node.text :: string]
+			local textStyles = if getTextStyles then getTextStyles(context) else {}
+
+			return context.processChildren(
+				node,
+				mergeContexts(context, {
+					textStyles = textStyles,
+				})
+			)
+		end
+
+		return React.createElement(Foundation.View, {
+			key = tostring(node.index),
+			tag = "size-full-0 auto-y col",
+			LayoutOrder = node.index,
+		}, context.processChildren(node, context) :: any)
 	else
 		return nil
 	end

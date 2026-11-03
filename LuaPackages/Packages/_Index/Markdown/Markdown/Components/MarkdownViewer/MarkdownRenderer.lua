@@ -23,7 +23,9 @@ local ImageElement = InlineLayout.Components.InlineLayoutElements.ImageElement
 local HardBreakElement = InlineLayout.Components.InlineLayoutElements.HardBreakElement
 local mergeContexts = require(Utils.mergeContexts)
 local processSoftBreaks = require(Utils.processSoftBreaks)
+local shouldUseTopPadding = require(Utils.shouldUseTopPadding)
 local TextStyle = require(Utils.TextStyle)
+local MarkdownTable = require(script.Parent.Parent.NodeRenderers.MarkdownTable)
 local renderInline = require(script.Parent.Parent.NodeRenderers.renderInline)
 local renderTag = require(script.Parent.Parent.NodeRenderers.renderTag)
 local BulletList = MarkdownCore.Components.BulletList
@@ -38,6 +40,7 @@ local getNodeTypeConfig = require(Root.Utils.getNodeTypeConfig)
 local isInlineElement = InlineLayout.Utils.isInlineElement
 local Flags = MarkdownCore.Flags
 local FoundationFlags = Foundation.Utility.Flags
+local usesContextRenderers = Flags.FFlagMarkdownTables or Flags.FFlagMarkdownTagFallbacks
 
 local DEFAULT_TEXT_SIZE = 18
 local DEFAULT_FONT = Enum.Font.BuilderSans
@@ -65,17 +68,16 @@ local function getFontFace(styles: Types.TextStyles, defaultFont: Enum.Font): Fo
 	return Font.fromEnum(defaultFont)
 end
 
-local function shouldUseTopPadding(node: Types.Node)
-	return node.offset ~= 0
-end
-
 -- If an array of elements is returned they are rendered as siblings. Unless you override processChildren
 local function render(node: Types.Node?, context: Types.Context): Types.RenderResult
 	if not node then
 		return nil
 	end
 
-	local renderer: Types.RendererFunction? = MarkdownRenderer.renderers[node.name]
+	local renderers = if usesContextRenderers and context.renderers
+		then context.renderers
+		else MarkdownRenderer.renderers
+	local renderer: Types.RendererFunction? = renderers[node.name]
 	if not renderer then
 		warn(`No renderer found for node: {node.name}`)
 		return nil
@@ -429,6 +431,8 @@ local function renderStyledText(node: Types.Node, context: Types.Context): { Inl
 		styleProps.bold = true
 	elseif style == "ITALIC" or style == "ITALIC_2" then
 		styleProps.italic = true
+	elseif style == "UNDERLINE" then
+		styleProps.underline = true
 	elseif style == "STRIKE" then
 		styleProps.strike = true
 	elseif style == "INLINE_CODE" then
@@ -456,6 +460,7 @@ local function renderText(node: Types.Node, context: Types.Context): InlineEleme
 			Transparency = context.textStyles.transparency,
 		},
 		viewTags = context.textStyles.viewTags,
+		tag = if Flags.FFlagMarkdownTables then context.textStyles.textTags else nil,
 	}
 	if context.textStyles.selectable then
 		return SelectableTextElement.new(textElementProps)
@@ -562,7 +567,17 @@ MarkdownRenderer.defaultRenderers = {
 	["TAG"] = renderTag,
 	["BREAK"] = renderHardBreak,
 	["LINE_BREAK"] = renderHardBreak,
-}
+} :: Types.RenderersType
+
+if Flags.FFlagMarkdownTables then
+	MarkdownRenderer.defaultRenderers.TABLE = MarkdownTable.renderTable
+	MarkdownRenderer.defaultRenderers.TABLE_ROW = MarkdownTable.renderTableRow
+	MarkdownRenderer.defaultRenderers.TABLE_HEADER = MarkdownTable.renderTableRow
+	MarkdownRenderer.defaultRenderers.TABLE_CELL = MarkdownTable.renderTableCell
+end
+if Flags.FFlagMarkdownTagFallbacks then
+	MarkdownRenderer.defaultRenderers.ACTION = renderText
+end
 
 export type Props = {
 	userRenderers: Types.RenderersType,
@@ -645,6 +660,10 @@ function MarkdownRenderer.render(node: Types.Node, props: Props): React.ReactEle
 		colorScheme = props.colorScheme,
 		processChildren = processChildren,
 	}, markdownRendererProps)
+	if usesContextRenderers then
+		-- MarkdownRenderer.renderers is shared by every viewer, and tables render again after this returns
+		initialContext.renderers = props.userRenderers
+	end
 
 	-- Freeze the initialContext table to prevent accidental modification
 	-- (Renderers that want to modify props passed to children should use mergeContext,

@@ -13,13 +13,14 @@ local Foundation = require(CorePackages.Packages.Foundation)
 
 local FFlagCoreUiMigrateUIBloxToFoundation =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
+local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local FrontButtonController = require(RobloxGui.Modules.Settings.FrontButtonController)
 
 local MenuFrontButton = Roact.PureComponent:extend("MenuFrontButton")
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 local FFlagShowTeleportHistoryFrontButton = game:DefineFastFlag("ShowTeleportHistoryFrontButton", false)

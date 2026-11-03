@@ -68,8 +68,6 @@ if isInExperienceUIVREnabled then
 	SubMenuVisibilitySignal = Observable.ObservableValue.new(true)
 end
 
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
-
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
 
@@ -89,10 +87,7 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		end
 
 		if isConnectUnibarEnabled() then
-			table.insert(
-				v4Ordering,
-				if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
-			)
+			table.insert(v4Ordering, "party_entrypoint")
 		end
 
 		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")

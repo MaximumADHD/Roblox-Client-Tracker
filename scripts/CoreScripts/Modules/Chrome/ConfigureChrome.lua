@@ -19,7 +19,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -46,10 +45,7 @@ local function configureUnibar()
 	end
 
 	if isConnectUnibarEnabled() then
-		table.insert(
-			v4Ordering,
-			if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
-		)
+		table.insert(v4Ordering, "party_entrypoint")
 	end
 
 	local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")

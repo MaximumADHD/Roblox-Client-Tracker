@@ -78,15 +78,6 @@ jest.mock(CorePackages.Workspace.Packages.AppChat.getAppChatNavbarItemConfig, fu
 	end
 end)
 
-jest.mock(Chrome.Integrations.Party.usePartyIcon, function()
-	return function()
-		return {
-			image = { thumbnail = "", backgroundColor = nil },
-			size = React.createBinding(0),
-		}
-	end
-end)
-
 local ConnectIcon = require(script.Parent.ConnectIcon)
 
 local function renderConnectIcon()
@@ -101,7 +92,7 @@ local function renderConnectIcon()
 				SubMenuContext.Provider,
 				{ value = transition },
 				React.createElement(ConnectIcon, {
-					integrationId = "connect_unibar",
+					integrationId = "connect_dropdown",
 					isIconVisible = true,
 					shouldShowCustomBadge = false,
 					isSquadIndicatorEnabled = false,

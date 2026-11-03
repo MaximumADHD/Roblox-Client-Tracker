@@ -14,8 +14,30 @@ local DIVIDERS = Constants.DIVIDERS
 local NodeType = require(Root.Enums.NodeType)
 local getNodeType = require(script.Parent.Parent.getNodeType)
 local isNodeBlock = require(script.Parent.Parent.isNodeBlock)
+local Flags = require(Root.Parent.MarkdownCore).Flags
 
 local insert = table.insert
+
+local VOID_TAGS = {
+	area = true,
+	base = true,
+	br = true,
+	col = true,
+	embed = true,
+	hr = true,
+	img = true,
+	input = true,
+	link = true,
+	meta = true,
+	source = true,
+	track = true,
+	wbr = true,
+}
+
+-- Documented without a closing tag in MarkdownViewer.story
+local OPTIONALLY_CLOSED_TAGS = {
+	Button = true,
+}
 
 local module = {}
 
@@ -30,8 +52,143 @@ local function createTextNode(token: Token, options: Types.ParserOptions): Node
 	}
 end
 
+-- A divider can only render where a block can, so inside text it becomes a line break
+local function createHorizontalRuleNode(token: Token, parent: Node, options: Types.ParserOptions): Node
+	local isInBlockContainer = parent.type == NodeType.Root
+		or (parent.type == NodeType.Block and parent.name ~= "TABLE_ROW")
+	local name = if isInBlockContainer then "DIVIDER" else "BREAK"
+
+	return {
+		name = name,
+		children = {},
+		offset = token.offset,
+		type = getNodeType(name, options),
+	}
+end
+
+local function isLineStartAfter(token: Token, wasLineStart: boolean): boolean
+	if token.isBlock then
+		return true
+	elseif token.name ~= "TEXT" then
+		return false
+	end
+
+	local lastLine = string.match(token.text, "\n([^\n]*)$")
+	if lastLine then
+		return string.find(lastLine, "^[ \t]*$") ~= nil
+	end
+
+	return wasLineStart and string.find(token.text, "^[ \t]*$") ~= nil
+end
+
+-- https://spec.commonmark.org/0.31.2/#open-tag
+local function isWellFormedOpenTag(text: string): boolean
+	local rest = string.match(text, "^<%a[%w%-]*(.-)>$")
+
+	while rest and string.find(rest, "%S") do
+		local afterName = string.match(rest, "^%s+[%a_:][%w_%.:%-]*(.*)$")
+		if not afterName then
+			return false
+		end
+
+		rest = string.match(afterName, '^%s*=%s*"[^"]*"(.*)$')
+			or string.match(afterName, "^%s*=%s*'[^']*'(.*)$")
+			or string.match(afterName, "^%s*=%s*[^%s\"'=<>`]+(.*)$")
+			or afterName
+	end
+
+	return rest ~= nil
+end
+
+-- Mid-line text like Array<T> isn't a tag waiting for the rest of the stream
+local function mayCloseLaterInStream(token: Token, startsLine: boolean, options: Types.ParserOptions): boolean
+	local tag = (token.capture :: { string })[1]
+
+	return not OPTIONALLY_CLOSED_TAGS[tag]
+		and (options.inlineTags[tag] == true or startsLine)
+		and isWellFormedOpenTag(token.text)
+end
+
+-- Pairing an inline tag across blocks, or any tag across cells, would swallow the blank line or the cell's pipe
+local function findUnpairedTags(tokens: { Token }, options: Types.ParserOptions): { [Token]: true }
+	local unpaired: { [Token]: true } = {}
+	local openTags: { { token: Token, tag: string, startsLine: boolean } } = {}
+	local isLineStart = true
+	local isInTableRow = false
+	local firstCellTagIndex = 1
+
+	local function closeOpenTagsFrom(index: number)
+		for i = #openTags, index, -1 do
+			unpaired[openTags[i].token] = true
+			openTags[i] = nil
+		end
+	end
+
+	for _, token in tokens do
+		local startsLine = isLineStart
+		isLineStart = isLineStartAfter(token, isLineStart)
+
+		if token.isBlock then
+			if isInTableRow then
+				closeOpenTagsFrom(firstCellTagIndex)
+			end
+
+			for i, openTag in openTags do
+				if options.inlineTags[openTag.tag] then
+					closeOpenTagsFrom(i)
+					break
+				end
+			end
+
+			isInTableRow = token.name == "TABLE_ROW"
+			firstCellTagIndex = if isInTableRow then #openTags + 1 else 1
+		elseif isInTableRow and token.name == "TABLE_DIVIDER" then
+			closeOpenTagsFrom(firstCellTagIndex)
+		end
+
+		if not token.capture then
+			continue
+		end
+
+		local tag = token.capture[1]
+		if token.name == "OPEN" and not VOID_TAGS[tag] then
+			insert(openTags, {
+				token = token,
+				tag = tag,
+				startsLine = startsLine,
+			})
+		elseif token.name == "CLOSE" then
+			local matchIndex = nil
+			for i = #openTags, firstCellTagIndex, -1 do
+				if openTags[i].tag == tag then
+					matchIndex = i
+					break
+				end
+			end
+
+			if matchIndex then
+				closeOpenTagsFrom(matchIndex + 1)
+				openTags[matchIndex] = nil
+			else
+				unpaired[token] = true
+			end
+		end
+	end
+
+	for _, openTag in openTags do
+		if not (options.isStreaming and mayCloseLaterInStream(openTag.token, openTag.startsLine, options)) then
+			unpaired[openTag.token] = true
+		end
+	end
+
+	return unpaired
+end
+
 -- A Parser modeled on the shift-reduce algorithm - https://en.wikipedia.org/wiki/Shift-reduce_parser
 function module.buildTree(tokens: { Token }, options: Types.ParserOptions): Node
+	local unpairedTags: { [Token]: true } = if Flags.FFlagMarkdownTagFallbacks
+		then findUnpairedTags(tokens, options)
+		else {}
 	local root = {
 		name = "ROOT",
 		children = {},
@@ -76,7 +233,23 @@ function module.buildTree(tokens: { Token }, options: Types.ParserOptions): Node
 			module.closeNode(stack, function(n: Node)
 				return n.name == "STYLED_TEXT"
 			end)
-		elseif STYLED_TEXT[token.name] then
+		elseif
+			Flags.FFlagMarkdownTagFallbacks
+			and unpairedTags[token]
+			and token.name == "OPEN"
+			and token.capture
+			and OPTIONALLY_CLOSED_TAGS[token.capture[1]]
+		then
+			local attrs = token.capture[2]
+			insert(node.children, {
+				name = "TAG",
+				text = token.capture[1],
+				attributes = if attrs then module.parseXmlAttributes(attrs) else {},
+				children = {},
+				offset = token.offset,
+				type = NodeType.Block,
+			})
+		elseif STYLED_TEXT[token.name] or (Flags.FFlagMarkdownTagFallbacks and unpairedTags[token]) then
 			-- This should not happen if EmphasisParser worked correctly
 			-- Just treat as text
 			insert(node.children, createTextNode(token, options))
@@ -175,6 +348,8 @@ function module.buildTree(tokens: { Token }, options: Types.ParserOptions): Node
 					offset = token.offset,
 					type = getNodeType("BREAK", options),
 				})
+			elseif Flags.FFlagMarkdownTagFallbacks and tag == "hr" then
+				insert(node.children, createHorizontalRuleNode(token, node, options))
 			else
 				insert(node.children, {
 					name = "TAG",
@@ -196,6 +371,17 @@ function module.buildTree(tokens: { Token }, options: Types.ParserOptions): Node
 					offset = token.offset,
 					type = getNodeType("BREAK", options),
 				})
+			elseif Flags.FFlagMarkdownTagFallbacks and tag == "hr" then
+				insert(node.children, createHorizontalRuleNode(token, node, options))
+			elseif Flags.FFlagMarkdownTagFallbacks and VOID_TAGS[tag] then
+				insert(node.children, {
+					name = "TAG",
+					text = tag,
+					attributes = if attrs then module.parseXmlAttributes(attrs) else {},
+					children = {},
+					offset = token.offset,
+					type = if options.inlineTags[tag] then NodeType.InlineSpan else NodeType.Block,
+				})
 			else
 				-- otherwise push <blah> onto the stack to be closed by a </blah> later on
 				insert(stack, {
@@ -206,6 +392,14 @@ function module.buildTree(tokens: { Token }, options: Types.ParserOptions): Node
 					offset = token.offset,
 					type = if options.inlineTags[tag] then NodeType.InlineSpan else NodeType.Block,
 				})
+			end
+		elseif Flags.FFlagMarkdownTagFallbacks and token.name == "CLOSE" and token.capture then
+			local tag = token.capture[1]
+			local closed = module.closeNode(stack, function(nodeToClose: Node)
+				return nodeToClose.name == "TAG" and nodeToClose.text == tag
+			end)
+			if not closed then
+				insert(node.children, createTextNode(token, options))
 			end
 		elseif token.name == "CLOSE" and token.capture then
 			local tag = token.capture[1]

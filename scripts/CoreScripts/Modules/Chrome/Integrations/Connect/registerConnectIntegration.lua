@@ -32,8 +32,6 @@ local FFlagAppChatDistinctUnibarEntryPoint = SharedFlags.FFlagAppChatDistinctUni
 
 local ChatEntryPointNames = require(CorePackages.Workspace.Packages.SocialCommon).Enums.ChatEntryPointNames
 
-local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
-
 local connectVisibilitySignal = MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
 	return InExperienceAppChatModal:getVisible()
 end)
@@ -50,13 +48,9 @@ return function(id: string, initialAvailability: number)
 	local integration = ChromeService:register({
 		id = id,
 		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.BelowFold,
-		label = if ArgoPartyExperimentation.getIsRenameEnabled()
-			then if UniversalAppPolicy.getAppFeaturePolicies().getCanSeeChatTerminology()
-				then "Feature.Chat.Title.FriendsChat"
-				else "Feature.Squads.Label.Party"
-			else if GetFFlagIsSquadEnabled()
-				then "Feature.Squads.Label.Party" -- translated in some languages
-				else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch
+		label = if UniversalAppPolicy.getAppFeaturePolicies().getCanSeeChatTerminology()
+			then "Feature.Chat.Title.FriendsChat"
+			else "Feature.Squads.Label.Party",
 		activated = function()
 			if InExperienceAppChatModal:getVisible() then
 				InExperienceAppChatModal.default:setVisible(false)

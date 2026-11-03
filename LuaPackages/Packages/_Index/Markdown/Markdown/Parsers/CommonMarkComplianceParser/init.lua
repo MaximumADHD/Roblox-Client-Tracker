@@ -12,10 +12,11 @@ local DefaultParserOptions: ParserOptions = require(script.Parent.DefaultParserO
 
 type Node = Types.Node
 type ParserOptions = Types.ParserOptions
+type PartialParserOptions = Types.PartialParserOptions
 
 local Parser = {}
 
-function Parser.safeParse(input: string, options: ParserOptions?)
+function Parser.safeParse(input: string, options: PartialParserOptions?)
 	local ok, result = xpcall(function()
 		return Parser.parse(input, options)
 	end, function(err)
@@ -24,7 +25,7 @@ function Parser.safeParse(input: string, options: ParserOptions?)
 	return ok, result
 end
 
-function Parser.parse(input: string, incomingOptions: ParserOptions?): Node
+function Parser.parse(input: string, incomingOptions: PartialParserOptions?): Node
 	local options = Dash.joinDeep(DefaultParserOptions, incomingOptions or {})
 	local unindented = unindentTags(input)
 	local tokens = tokenize(unindented, options)

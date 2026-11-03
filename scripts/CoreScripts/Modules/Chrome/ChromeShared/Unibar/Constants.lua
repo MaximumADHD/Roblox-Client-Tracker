@@ -4,6 +4,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
+local FFlagResponsiveUnitsDeprecateTenFoot = SharedFlags.FFlagResponsiveUnitsDeprecateTenFoot
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local TenFootInterface = require(script.Parent.Parent.Parent.Parent.TenFootInterface)
@@ -32,6 +33,9 @@ local toggleSlots = 1
 local nineDotSlots = 1
 
 local function withUIScale(value: number)
+	if FFlagResponsiveUnitsDeprecateTenFoot then
+		return value
+	end
 	local scale = if TenFootInterface:IsEnabled() then 1.5 else 1 -- APPEXP-2377: Replace with Scale token
 	return scale * value
 end

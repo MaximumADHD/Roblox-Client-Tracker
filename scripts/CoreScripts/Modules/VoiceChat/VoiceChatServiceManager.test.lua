@@ -43,6 +43,10 @@ local GetFFlagFixGetPlayerByUserIdStringCast =
 local FFlagVoiceChatBanDurationUseServerTime = require(script.Parent.Flags.FFlagVoiceChatBanDurationUseServerTime)
 local FFlagProactiveVoiceRestrictionsUFR =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagProactiveVoiceRestrictionsUFR
+local FFlagReactiveVoiceRestrictionsUFR =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagReactiveVoiceRestrictionsUFR
+local voiceInterventionReceivedSignal =
+	require(CorePackages.Workspace.Packages.InterventionShared).Signals.voiceInterventionReceivedSignal
 
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 =
 	require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
@@ -106,6 +110,10 @@ log:addSink({
 local showLegacyVoiceRestriction = jest.fn()
 jest.mock(script.Parent.Helpers.showLegacyVoiceRestriction, function()
 	return showLegacyVoiceRestriction
+end)
+local showUFRVoiceRestriction = jest.fn()
+jest.mock(script.Parent.Helpers.showUFRVoiceRestriction, function()
+	return showUFRVoiceRestriction
 end)
 
 local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
@@ -1338,6 +1346,104 @@ if FFlagProactiveVoiceRestrictionsUFR then
 	end)
 end
 
+local function voiceIntervention(type: string, startOffsetSeconds: number, durationSeconds: number)
+	return {
+		type = type,
+		abuseVector = "voice",
+		timeoutStartTime = DateTime.fromUnixTimestamp(DateTime.now().UnixTimestamp + startOffsetSeconds):ToIsoDate(),
+		timeoutDurationSeconds = durationSeconds,
+		decisionEventId = "decision-event-id",
+		acknowledgeable = true,
+	}
+end
+
+if FFlagProactiveVoiceRestrictionsUFR and FFlagReactiveVoiceRestrictionsUFR then
+	describe("VoiceChatServiceManager UFR restriction routing", function()
+		local settings
+		local requests
+		local leaveVoice
+
+		beforeEach(function()
+			settings = { isBanned = true, banReason = 8, bannedUntil = { Seconds = 2000000000 } }
+			requests = {}
+			-- Every live manager receives the signal, so stub the class method to keep the engine's leave path out of tests.
+			leaveVoice = jest.spyOn(getmetatable(VoiceChatServiceManager.coreVoiceManager), "LeaveVoiceForRestriction")
+				.mockImplementation(function() end)
+			VoiceChatServiceManager.coreVoiceManager.HttpRbxApiService = HTTPServiceStub
+			HTTPServiceStub.GetAsyncFullUrlCB = function(url)
+				table.insert(requests, url)
+				if string.find(url, "/v1/settings/", 1, true) then
+					return HttpService:JSONEncode(settings)
+				end
+				error("Unexpected voice restriction request: " .. url)
+			end
+			showLegacyVoiceRestriction:mockClear()
+			showUFRVoiceRestriction:mockClear()
+		end)
+
+		afterEach(function()
+			leaveVoice.mockRestore()
+		end)
+
+		it("restricts and leaves voice for an active UFR timeout push without fetching settings", function()
+			voiceInterventionReceivedSignal:fire(voiceIntervention("timeout", 0, 600))
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
+			expect(leaveVoice).toHaveBeenCalledWith(VoiceChatServiceManager.coreVoiceManager)
+			expect(requests).toHaveLength(0)
+		end)
+
+		it.each({
+			{ name = "a nudge", detail = voiceIntervention("nudge", 0, 0) },
+			{ name = "an expired timeout", detail = voiceIntervention("timeout", -1200, 600) },
+		})("keeps live voice for $name", function(testCase)
+			voiceInterventionReceivedSignal:fire(testCase.detail)
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("normal")
+			expect(leaveVoice).never.toHaveBeenCalled()
+		end)
+
+		it("opens the fetched voice dialog on join without informed-of-ban", function()
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
+			checkSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("restricted")
+			expect(showUFRVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showUFRVoiceRestriction.mock.calls[1][1].onAcknowledgementSuccess).toEqual(
+				expect.any("function")
+			)
+			expect(showLegacyVoiceRestriction).never.toHaveBeenCalled()
+			expect(requests).toHaveLength(0)
+		end)
+
+		it("keeps an acknowledged restriction passive on join and resurfaces it from the mic", function()
+			settings.banReason = 9
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
+			checkSpy.mock.results[1].value:await()
+			expect(showUFRVoiceRestriction).never.toHaveBeenCalled()
+
+			VoiceChatServiceManager:ShowVoiceRestriction()
+			checkSpy.mock.results[2].value:await()
+			expect(showUFRVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showUFRVoiceRestriction.mock.calls[1][1].onAcknowledgementSuccess).toBeNil()
+			expect(requests).toHaveLength(1)
+			expect(requests[1]).toContain("/v1/settings/")
+		end)
+	end)
+else
+	describe("VoiceChatServiceManager without UFR restrictions", function()
+		it("ignores voice intervention pushes", function()
+			local leaveVoice = jest.spyOn(
+				getmetatable(VoiceChatServiceManager.coreVoiceManager),
+				"LeaveVoiceForRestriction"
+			)
+				.mockImplementation(function() end)
+			voiceInterventionReceivedSignal:fire(voiceIntervention("timeout", 0, 600))
+			expect(leaveVoice).never.toHaveBeenCalled()
+			leaveVoice.mockRestore()
+		end)
+	end)
+end
+
 describe("Voice ConnectCookie", function()
 	it("VoiceConnectCookie Get/Set Work Correctly", function()
 		local success = VoiceChatServiceManager:SetVoiceConnectCookieValue(false)
@@ -1518,6 +1624,7 @@ local function setUpFreshRewarmManager(flags: { [string]: boolean })
 		-- These fields live on the shared class table, so reset them between tests.
 		manager.joinVoiceButtonContext = nil
 		manager.hasReportedRewarmShown = false
+		context.realAnalytics = manager.Analytics
 		manager.Analytics = {
 			reportJoinVoiceButtonEvent = jest.fn(),
 			reportVoiceRewarmShown = jest.fn(),
@@ -1557,7 +1664,6 @@ describe("VoiceChatServiceManager voice rewarm re-arm", function()
 		describe("WHEN EnableVoiceRewarmReArmV2 is " .. tostring(reArmEnabled), function()
 			local context = setUpFreshRewarmManager({
 				ShowJoinVoiceWhenDisconnectedV3 = true,
-				EnableVoiceUxUpdates5_AEGIS2 = true,
 				EnableVoiceRewarmReArmV2 = reArmEnabled,
 			})
 			local VoiceChatState = (Enum :: any).VoiceChatState
@@ -1654,18 +1760,24 @@ end)
 
 describe("VoiceChatServiceManager voice rewarm Grafana metrics", function()
 	-- The allOn sweep can't force the metrics flag off, so that half only runs in the default sweep.
-	local metricsStates = if game:GetFastFlag("VoiceRewarmGrafanaMetrics") then { true } else { false, true }
+	local metricsStates = if game:GetFastFlag("VoiceRewarmGrafanaMetricsV2") then { true } else { false, true }
 	for _, metricsEnabled in metricsStates do
-		describe("WHEN VoiceRewarmGrafanaMetrics is " .. tostring(metricsEnabled), function()
+		describe("WHEN VoiceRewarmGrafanaMetricsV2 is " .. tostring(metricsEnabled), function()
 			local context = setUpFreshRewarmManager({
 				ShowJoinVoiceWhenDisconnectedV3 = true,
-				EnableVoiceUxUpdates5_AEGIS2 = true,
 				VoiceRewarmTelemetryV2 = true,
+				VoiceRewarmGrafanaMetricsV2 = metricsEnabled,
 				EnableVoiceRewarmReArmV2 = true,
-				VoiceRewarmGrafanaMetrics = metricsEnabled,
 			})
 
 			if metricsEnabled then
+				it("SHOULD build Analytics that implements the rewarm counters", function()
+					context.createManager(nil)
+
+					expect(context.realAnalytics.reportVoiceRewarmShown).toEqual(expect.any("function"))
+					expect(context.realAnalytics.reportVoiceRewarmClicked).toEqual(expect.any("function"))
+				end)
+
 				it("SHOULD NOT report the rewarm as shown from the ShouldShowJoinVoice predicate", function()
 					local manager = context.createManager(nil)
 

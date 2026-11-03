@@ -14,17 +14,13 @@ local EventConnection = require(script.Parent.EventConnection)
 
 local UserInputServiceConnector = Roact.PureComponent:extend("UserInputServiceConnector")
 
-local FFlagPlayerListFilterInputServiceDispatches = game:DefineFastFlag("PlayerListFilterInputServiceDispatches", false)
-
 function UserInputServiceConnector:render()
 	return Roact.createFragment({
 		InputBeganConnection = Roact.createElement(EventConnection, {
 			event = UserInputService.InputBegan,
 			callback = function(inputObject, isProcessed)
-				if FFlagPlayerListFilterInputServiceDispatches then
-					if not self.props.playerDropdownVisible then
-						return
-					end
+				if not self.props.playerDropdownVisible then
+					return
 				end
 				if isProcessed then
 					return
@@ -41,10 +37,8 @@ function UserInputServiceConnector:render()
 			callback = function(inputType)
 				local isGamepad = inputType.Name:find("Gamepad")
 				local isUsingGamepad = isGamepad ~= nil
-				if FFlagPlayerListFilterInputServiceDispatches then
-					if (isUsingGamepad == self.props.isUsingGamepad) then
-						return
-					end
+				if isUsingGamepad == self.props.isUsingGamepad then
+					return
 				end
 				self.props.setIsUsingGamepad(isUsingGamepad)
 			end,
@@ -71,6 +65,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-local flaggedMapStateToProps = FFlagPlayerListFilterInputServiceDispatches and mapStateToProps or nil
-
-return RoactRodux.connect(flaggedMapStateToProps, mapDispatchToProps)(UserInputServiceConnector)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(UserInputServiceConnector)

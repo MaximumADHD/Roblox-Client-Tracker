@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ViewRecyclerReact-31ab8d40-0.2.6"]["ViewRecyclerReact"])
+local Package = require(PackageIndex["ViewRecyclerReact-31ab8d40-0.2.9"]["ViewRecyclerReact"])
 
 export type DataSource<T> = Package.DataSource<T> 
 export type MutableSequence<T> = Package.MutableSequence<T> 
@@ -49,6 +49,7 @@ export type DataSourceChangeType = Package.DataSourceChangeType
 export type Bindable<T> = Package.Bindable<T> 
 export type RecyclableViewReadiness = Package.RecyclableViewReadiness
 export type RecyclableViewSignalProps<T> = Package.RecyclableViewSignalProps<T> 
+export type RecyclableViewProps<T> = Package.RecyclableViewProps<T> 
 export type RecyclableViewType<T> = Package.RecyclableViewType<T> 
 export type RecyclableViewOptions = Package.RecyclableViewOptions
 export type RecyclableComponentProps<Props> = Package.RecyclableComponentProps<Props> 

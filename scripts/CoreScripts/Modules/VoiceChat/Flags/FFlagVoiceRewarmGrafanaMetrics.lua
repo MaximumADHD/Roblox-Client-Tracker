@@ -1,1 +1,1 @@
-return game:DefineFastFlag("VoiceRewarmGrafanaMetrics", false)
+return game:DefineFastFlag("VoiceRewarmGrafanaMetricsV2", false)
