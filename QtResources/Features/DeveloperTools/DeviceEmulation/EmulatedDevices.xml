@@ -71,6 +71,28 @@
         resolution_scale="1.0"
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
+    <Device name="Average Windows"
+        device_id="average_windows"
+        translation_id = "Studio.App.EmulatorMainWidget.AverageWindows"
+        dpi="96"
+        memoryMB="8192"
+        width="1366"
+        height="768"
+        resolution_scale="1.0"
+        platform="Windows"
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
+        ></Device>
+    <Device name="Average MacBook"
+        device_id="average_macbook"
+        translation_id = "Studio.App.EmulatorMainWidget.AverageMacBook"
+        dpi="96"
+        memoryMB="8192"
+        width="1440"
+        height="900"
+        resolution_scale="1.0"
+        platform="OSX"
+        user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
+        ></Device>
     <Device name="HD 720"
         device_id="hd_720"
         translation_id = "Studio.App.EmulatorMainWidget.HD720"
@@ -79,6 +101,7 @@
         width="1280"
         height="720"
         resolution_scale="1.0"
+        platform="Windows"
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
     <Device name="HD 1080"
@@ -89,6 +112,7 @@
         width="1920"
         height="1080"
         resolution_scale="1.0"
+        platform="Windows"
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
     <Device name="VGA"
@@ -99,6 +123,7 @@
         height="480"
         width="640"
         resolution_scale="1.0"
+        platform="Windows"
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64) AppleWebKit/538.1 (KHTML, like Gecko) RobloxStudio/1.0.0 Safari/538.1 RobloxApp/1.0.0 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
         ></Device>
 
@@ -576,6 +601,7 @@
             translation_id = "Studio.App.EmulatorMainWidget.IPad6thGeneration"
             dpi="264"
             memoryMB="1981"
+            nominal_memoryMB="2048"
             width="1024"
             height="768"
             device_form="tablet"

@@ -215,7 +215,7 @@ type ReflectionParameter = {
 type ReflectedProperty = {
   Name: string,
   Serialized: boolean,
-  Owner: string?,
+  Owner: string,
   -- AliasFor: string?,
 
   Type: ReflectionType,
@@ -227,7 +227,6 @@ type ReflectedProperty = {
   Display: {
     Category: string,
     DeprecationMessage: string?,
-    LayoutOrder: number,
   }?,
   Permits: {
     Read: SecurityCapabilities?,
@@ -247,7 +246,6 @@ type ReflectedMethod = {
   Display: {
     Category: string,
     DeprecationMessage: string?,
-    LayoutOrder: number,
   }?,
   Permits: {
     Call: SecurityCapabilities?,
@@ -263,7 +261,6 @@ type ReflectedEvent = {
   Display: {
     Category: string,
     DeprecationMessage: string?,
-    LayoutOrder: number,
   }?,
   Permits: {
     Listen: SecurityCapabilities?,
@@ -278,7 +275,6 @@ type ReflectedClass = {
   Display: {
     Category: string,
     DeprecationMessage: string?,
-    LayoutOrder: number,
   }?,
   Permits: {
     GetService: SecurityCapabilities?,
@@ -689,7 +685,8 @@ type FeatureMatchingSchema = {
     Channels: { { Name: string, Width: number, Weight: number?, ElementWidth: number?, Offset: number?, Normalize: Enum.FeatureNormalization?, Encoding: Enum.FeatureChannelEncoding? } },
     Fields: { { Name: string, Type: Enum.MetadataFieldType?, Width: number? } }?,
     NormalizationField: string?,
-    BlendSpaces: { [string]: { BlendDim: number, Frames: { any } } }?
+    BlendSpaces: { [string]: { BlendDim: number, Frames: { any }, SyncSequences: boolean? } }?,
+    Sequences: { [string]: { StartRow: number, EndRow: number, SampleInterval: number, Loop: boolean?, SyncPoints: { { Name: string, Time: number } }? } }?
 }
 
 type FeatureMatchingColumns = buffer | { [string]: { number } | buffer }

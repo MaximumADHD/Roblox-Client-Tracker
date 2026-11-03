@@ -50,7 +50,7 @@ dependencies = ["Number Number 1.2.3 registry"]
 
 [[package]]
 name = "BuilderIcons"
-version = "0.1.42"
+version = "0.1.45"
 source = "registry"
 
 [[package]]
@@ -83,6 +83,11 @@ version = "1.1.0"
 source = "registry"
 
 [[package]]
+name = "CommonMark"
+version = "0.1.1"
+source = "registry"
+
+[[package]]
 name = "Console"
 version = "1.2.3"
 source = "registry"
@@ -95,7 +100,7 @@ dependencies = [
     "ApolloClient ApolloClient 0.3.13 registry",
     "ApolloClientTesting ApolloClientTesting 0.3.10 registry",
     "AvatarExperienceDeps AvatarExperienceDeps 0.0.1 registry",
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "DataLoader DataLoader 0.2.0 registry",
@@ -103,7 +108,7 @@ dependencies = [
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.1.0 registry",
     "FocusBehaviors FocusBehaviors 2.2.0 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.6.0 registry",
     "FoundationImages FoundationImages 2.5.3 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.5 registry",
@@ -113,7 +118,7 @@ dependencies = [
     "HMR HMR 0.1.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
     "InGameMenuDependencies InGameMenuDependencies 0.3.0 registry",
-    "InlineLayout InlineLayout 0.0.9 registry",
+    "InlineLayout InlineLayout 0.0.10 registry",
     "InputHandlers InputHandlers 2.2.0 registry",
     "Jest Jest 3.19.0 registry",
     "JestBenchmark JestBenchmark 3.19.0 registry",
@@ -123,8 +128,9 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauUIEcosystemLints LuauUIEcosystemLints 0.8.1 registry",
     "Lumberyak lumberyak 0.1.1 registry",
-    "Markdown Markdown 1.0.0-alpha-9 registry",
+    "Markdown Markdown 1.0.0-alpha-13 registry",
     "Merge Merge 0.3.2 registry",
+    "MomentScenes MomentScenes 0.1.3 registry",
     "MomentsCreationFlow MomentsCreationFlow 0.1.9 registry",
     "Motion Motion 0.0.7 registry",
     "NetworkingFriends NetworkingFriends 2.12.1 registry",
@@ -168,22 +174,22 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.13 registry",
-    "ServiceContractsProto ServiceContractsProto 1.0.3172+20261022 registry",
+    "ServiceContractsProto ServiceContractsProto 1.0.3326+20261029 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
     "SignalsReact SignalsReact 0.6.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
-    "Thumbnailing Thumbnailing 0.6.2 registry",
+    "Thumbnailing Thumbnailing 0.6.4 registry",
     "UGCValidation UGCValidation 1.22.7 registry",
-    "UIBlox UIBlox 0.2.292 registry",
+    "UIBlox UIBlox 0.2.293 registry",
     "UltimateList ultimate-list 0.3.3-roblox.1 registry",
     "UrlBuilder UrlBuilder 1.2.25 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "Util <patched> Util 1.17.5 registry",
-    "ViewRecyclerReact ViewRecyclerReact 0.2.6 registry",
-    "ViewRecyclerReact06 ViewRecyclerReact 0.6.0 registry",
+    "ViewRecyclerReact ViewRecyclerReact 0.2.9 registry",
+    "ViewRecyclerReact06 ViewRecyclerReact 0.7.1 registry",
     "VirtualizedList VirtualizedList 1.6.3 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
@@ -313,10 +319,10 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.119.0"
+version = "1.121.0"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.4.4 registry",
     "FoundationImages FoundationImages 2.5.3 registry",
@@ -351,7 +357,7 @@ name = "FoundationImages"
 version = "2.5.3"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
 ]
 
@@ -360,10 +366,10 @@ name = "FoundationTestingLibrary"
 version = "0.1.5"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "FoundationImages FoundationImages 2.5.3 registry",
     "JestGlobals JestGlobals 3.19.0 registry",
     "React <patched> React 17.3.13 registry",
@@ -453,18 +459,18 @@ dependencies = [
     "Roact RoactCompat 17.3.13 registry",
     "RoactRodux RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.292 registry",
+    "UIBlox UIBlox 0.2.293 registry",
     "t t 1.2.6 registry",
 ]
 
 [[package]]
 name = "InlineLayout"
-version = "0.0.9"
+version = "0.0.10"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.119.0 registry",
-    "MarkdownCore MarkdownCore 0.0.8 registry",
+    "Foundation Foundation 1.121.0 registry",
+    "MarkdownCore MarkdownCore 0.0.10 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
@@ -1075,13 +1081,14 @@ source = "registry"
 
 [[package]]
 name = "Markdown"
-version = "1.0.0-alpha-9"
+version = "1.0.0-alpha-13"
 source = "registry"
 dependencies = [
+    "CommonMark CommonMark 0.1.1 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.119.0 registry",
-    "InlineLayout InlineLayout 0.0.9 registry",
-    "MarkdownCore MarkdownCore 0.0.8 registry",
+    "Foundation Foundation 1.121.0 registry",
+    "InlineLayout InlineLayout 0.0.10 registry",
+    "MarkdownCore MarkdownCore 0.0.10 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
@@ -1089,11 +1096,11 @@ dependencies = [
 
 [[package]]
 name = "MarkdownCore"
-version = "0.0.8"
+version = "0.0.10"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
     "ReactRoblox <patched> ReactRoblox 17.3.13 registry",
@@ -1116,14 +1123,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "MomentScenes"
+version = "0.1.3"
+source = "registry"
+dependencies = ["SafeFlags SafeFlags 0.1.2 registry"]
+
+[[package]]
 name = "MomentsCommon"
 version = "0.1.5"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "Promise Promise 3.5.1 registry",
     "React <patched> React 17.3.13 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -1137,10 +1150,10 @@ name = "MomentsCreationFlow"
 version = "0.1.9"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "MomentsCommon MomentsCommon 0.1.5 registry",
     "Promise Promise 3.5.1 registry",
     "React <patched> React 17.3.13 registry",
@@ -1348,7 +1361,7 @@ source = "registry"
 
 [[package]]
 name = "RbxDesignFoundations"
-version = "1.1.107"
+version = "1.1.108"
 source = "registry"
 dependencies = ["t t 1.2.6 registry"]
 
@@ -1848,7 +1861,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "1.0.3172+20261022"
+version = "1.0.3326+20261029"
 source = "registry"
 
 [[package]]
@@ -1907,7 +1920,7 @@ version = "4.4.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "GenericPagination GenericPagination 0.1.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -1921,7 +1934,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.292 registry",
+    "UIBlox UIBlox 0.2.293 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1998,7 +2011,7 @@ dependencies = [
 
 [[package]]
 name = "Thumbnailing"
-version = "0.6.2"
+version = "0.6.4"
 source = "registry"
 
 [[package]]
@@ -2018,20 +2031,20 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.292"
+version = "0.2.293"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.42 registry",
+    "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.1.0 registry",
-    "Foundation Foundation 1.119.0 registry",
+    "Foundation Foundation 1.121.0 registry",
     "FoundationImages FoundationImages 2.5.3 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.3.7 registry",
     "Promise Promise 3.5.1 registry",
     "RbxDesignFoundations RbxDesignFoundations 6.1.1 registry",
-    "RbxDesignFoundationsV1 RbxDesignFoundations 1.1.107 registry",
+    "RbxDesignFoundationsV1 RbxDesignFoundations 1.1.108 registry",
     "RbxDesignFoundationsV4 RbxDesignFoundations 4.0.11 registry",
     "React <patched> React 17.3.13 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -2082,7 +2095,7 @@ dependencies = [
 
 [[package]]
 name = "ViewRecycler"
-version = "0.2.6"
+version = "0.2.9"
 source = "registry"
 dependencies = [
     "Signal Signal 1.0.0 registry",
@@ -2092,12 +2105,12 @@ dependencies = [
 
 [[package]]
 name = "ViewRecycler"
-version = "0.6.0"
+version = "0.7.1"
 source = "registry"
 
 [[package]]
 name = "ViewRecyclerReact"
-version = "0.2.6"
+version = "0.2.9"
 source = "registry"
 dependencies = [
     "React <patched> React 17.3.13 registry",
@@ -2105,13 +2118,13 @@ dependencies = [
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
     "SignalsReact SignalsReact 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.2.6 registry",
-    "ViewRecyclerRoblox ViewRecyclerRoblox 0.2.6 registry",
+    "ViewRecycler ViewRecycler 0.2.9 registry",
+    "ViewRecyclerRoblox ViewRecyclerRoblox 0.2.9 registry",
 ]
 
 [[package]]
 name = "ViewRecyclerReact"
-version = "0.6.0"
+version = "0.7.1"
 source = "registry"
 dependencies = [
     "React <patched> React 17.3.13 registry",
@@ -2120,28 +2133,28 @@ dependencies = [
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
     "SignalsReact SignalsReact 0.6.0 registry",
     "SignalsScheduler SignalsScheduler 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.6.0 registry",
-    "ViewRecyclerRoblox ViewRecyclerRoblox 0.6.0 registry",
+    "ViewRecycler ViewRecycler 0.7.1 registry",
+    "ViewRecyclerRoblox ViewRecyclerRoblox 0.7.1 registry",
 ]
 
 [[package]]
 name = "ViewRecyclerRoblox"
-version = "0.2.6"
+version = "0.2.9"
 source = "registry"
 dependencies = [
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.2.6 registry",
+    "ViewRecycler ViewRecycler 0.2.9 registry",
 ]
 
 [[package]]
 name = "ViewRecyclerRoblox"
-version = "0.6.0"
+version = "0.7.1"
 source = "registry"
 dependencies = [
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.6.0 registry",
+    "ViewRecycler ViewRecycler 0.7.1 registry",
 ]
 
 [[package]]

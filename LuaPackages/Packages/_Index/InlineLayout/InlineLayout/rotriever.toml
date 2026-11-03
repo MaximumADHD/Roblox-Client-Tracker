@@ -1,6 +1,6 @@
 [package]
 name = "InlineLayout"
-version = "0.0.9"
+version = "0.0.10"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -23,7 +23,7 @@ version = "^1.111.0"
 
 [dependencies.MarkdownCore]
 package = "MarkdownCore"
-version = "^0.0.8"
+version = "^0.0.10"
 
 [dependencies.React]
 version = "^17.3.6"

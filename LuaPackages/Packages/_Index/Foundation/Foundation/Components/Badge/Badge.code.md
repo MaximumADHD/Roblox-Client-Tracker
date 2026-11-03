@@ -6,7 +6,9 @@ category: Actions
 
 `Badge` is a stylized, presentational user interface element. This simple component is used to display notification counts on icons or additional info such as "NEW" or "Sale" on tiles.
 
-There are seven badge variants defined in [[BadgeVariant]]: `Neutral`, `Contrast`, `Alert`, `Warning`, `Success`, `OverMedia`, and `Emphasis`.
+There are eight badge variants defined in [[BadgeVariant]]: `Neutral`, `Contrast`, `Alert`, `Warning`, `Success`, `OverMedia`, `OverMediaWhite`, and `Emphasis`.
+
+Use `OverMediaWhite` for a badge that stays white in every color mode.
 
 There are two badge shapes defined in [[BadgeShape]]: `Pill` (default) and `Box`.
 
