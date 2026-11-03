@@ -86,7 +86,17 @@ PROTO_2:
        83 GETUPVAL                         R7 5
        84 GETTABLEKS                       R7 R7 K26 ["collisionBodyPartsCollidableOnDeathSetting"]
        86 CALL                             R4 3 0
-       87 RETURN                           R0 0
+       87 GETUPVAL                         R4 7
+       88 CALL                             R4 0 1
+       89 JUMPIFNOT                        R4 ; [+9]
+       90 GETUPVAL                         R4 4
+       91 MOVE                             R5 R0
+       92 DUPTABLE                         R6 K28 [{["ruleInstance"], ["property"] = "HitboxSize"}]
+       93 SETTABLEKS                       R1 R6 K11 ["ruleInstance"]
+       95 GETUPVAL                         R7 5
+       96 GETTABLEKS                       R7 R7 K29 ["collisionHitboxSizeSetting"]
+       98 CALL                             R4 3 0
+       99 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -127,25 +137,31 @@ MAIN:
        61 GETIMPORT                        R6 K9 [require]
        63 GETTABLEKS                       R7 R0 K10 ["Src"]
        65 GETTABLEKS                       R7 R7 K17 ["Flags"]
-       67 GETTABLEKS                       R7 R7 K19 ["getFFlagAvatarSettingsRemoveLegacyCollisionMode"]
+       67 GETTABLEKS                       R7 R7 K19 ["getEngineFeatureAvatarSettingsHitbox"]
        69 CALL                             R6 1 1
        70 GETIMPORT                        R7 K9 [require]
        72 GETTABLEKS                       R8 R0 K10 ["Src"]
-       74 GETTABLEKS                       R8 R8 K11 ["Util"]
-       76 GETTABLEKS                       R8 R8 K20 ["InvokeKeys"]
+       74 GETTABLEKS                       R8 R8 K17 ["Flags"]
+       76 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarSettingsRemoveLegacyCollisionMode"]
        78 CALL                             R7 1 1
        79 GETIMPORT                        R8 K9 [require]
        81 GETTABLEKS                       R9 R0 K10 ["Src"]
        83 GETTABLEKS                       R9 R9 K11 ["Util"]
-       85 GETTABLEKS                       R9 R9 K21 ["PluginItemKeys"]
+       85 GETTABLEKS                       R9 R9 K21 ["InvokeKeys"]
        87 CALL                             R8 1 1
-       88 GETTABLEKS                       R9 R2 K22 ["createInvokes"]
-       90 DUPCLOSURE                       R10 K23 [PROTO_2]
-       91 CAPTURE                          VAL R4
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R1
-       94 CAPTURE                          VAL R8
-       95 CAPTURE                          VAL R9
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R5
-       98 RETURN                           R10 1
+       88 GETIMPORT                        R9 K9 [require]
+       90 GETTABLEKS                       R10 R0 K10 ["Src"]
+       92 GETTABLEKS                       R10 R10 K11 ["Util"]
+       94 GETTABLEKS                       R10 R10 K22 ["PluginItemKeys"]
+       96 CALL                             R9 1 1
+       97 GETTABLEKS                       R10 R2 K23 ["createInvokes"]
+       99 DUPCLOSURE                       R11 K24 [PROTO_2]
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R1
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R5
+      107 CAPTURE                          VAL R6
+      108 RETURN                           R11 1

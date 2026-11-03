@@ -31,11 +31,12 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Util"]
-       20 GETTABLEKS                       R3 R3 K9 ["createScopeUid"]
-       22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K10 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          VAL R2
-       26 RETURN                           R3 1
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["AssetManagement"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K10 ["Utils"]
+       23 GETTABLEKS                       R3 R3 K11 ["createScopeUid"]
+       25 DUPCLOSURE                       R4 K12 [PROTO_0]
+       26 CAPTURE                          VAL R1
+       27 CAPTURE                          VAL R3
+       28 RETURN                           R4 1

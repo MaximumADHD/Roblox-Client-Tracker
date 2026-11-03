@@ -40,111 +40,168 @@ PROTO_2:
         2 GETUPVAL                         R2 1
         3 NAMECALL                         R2 R2 K0 ["use"]
         5 CALL                             R2 1 1
-        6 DUPTABLE                         R3 K3 [{"StudioLogo", "NewButton"}]
-        7 GETUPVAL                         R4 2
-        8 GETTABLEKS                       R4 R4 K4 ["createElement"]
-       10 GETUPVAL                         R5 3
-       11 DUPTABLE                         R6 K8 [{["LayoutOrder"] = 1, ["isCollapsed"]}]
-       12 GETTABLEKS                       R7 R0 K7 ["isCollapsed"]
-       14 SETTABLEKS                       R7 R6 K7 ["isCollapsed"]
-       16 CALL                             R4 2 1
-       17 SETTABLEKS                       R4 R3 K1 ["StudioLogo"]
-       19 GETUPVAL                         R4 2
-       20 GETTABLEKS                       R4 R4 K4 ["createElement"]
-       22 GETUPVAL                         R5 4
-       23 DUPTABLE                         R6 K10 [{["LayoutOrder"] = 2, ["isCollapsed"]}]
-       24 GETTABLEKS                       R7 R0 K7 ["isCollapsed"]
-       26 SETTABLEKS                       R7 R6 K7 ["isCollapsed"]
-       28 CALL                             R4 2 1
-       29 SETTABLEKS                       R4 R3 K2 ["NewButton"]
-       31 GETTABLEKS                       R4 R0 K11 ["pages"]
-       33 LOADNIL                          R5
-       34 LOADNIL                          R6
-       35 FORGPREP                         R4
-       36 GETTABLEKS                       R10 R0 K12 ["selectedPage"]
-       38 JUMPIFEQ                         R10 R8 ; [+2]
-       40 LOADB                            R9 0 +1
-       41 LOADB                            R9 1
-       42 MOVE                             R11 R3
-       43 GETUPVAL                         R12 2
-       44 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       46 GETUPVAL                         R13 5
-       47 DUPTABLE                         R14 K17 [{"LayoutOrder", "onActivated", "isActive", "icon", "isCollapsed", "text"}]
-       48 ADDK                             R15 R7 K9 [2]
-       49 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
-       51 NEWCLOSURE                       R15 P0
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          VAL R8
-       54 SETTABLEKS                       R15 R14 K13 ["onActivated"]
-       56 SETTABLEKS                       R9 R14 K14 ["isActive"]
-       58 JUMPIFNOT                        R9 ; [+3]
-       59 GETTABLEKS                       R15 R8 K18 ["ActiveIcon"]
-       61 JUMP                             ; [+2]
-       62 GETTABLEKS                       R15 R8 K19 ["Icon"]
-       64 SETTABLEKS                       R15 R14 K15 ["icon"]
-       66 GETTABLEKS                       R15 R0 K7 ["isCollapsed"]
-       68 SETTABLEKS                       R15 R14 K7 ["isCollapsed"]
-       70 LOADK                            R17 K20 ["Plugin"]
-       71 GETTABLEKS                       R18 R8 K21 ["TextKey"]
-       73 NAMECALL                         R15 R2 K22 ["getText"]
-       75 CALL                             R15 3 1
-       76 SETTABLEKS                       R15 R14 K16 ["text"]
-       78 CALL                             R12 2 -1
-       79 FASTCALL                         TABLE_INSERT ; [+2]
-       80 GETIMPORT                        R10 K25 [table.insert]
-       82 CALL                             R10 -1 0
-       83 FORGLOOP                         R4 2 ; [-48]
-       85 GETUPVAL                         R4 2
-       86 GETTABLEKS                       R4 R4 K4 ["createElement"]
-       88 GETUPVAL                         R5 6
-       89 DUPTABLE                         R6 K29 [{["Size"], ["tag"] = "col flex-x-fill auto-x padding-medium"}]
-       90 GETTABLEKS                       R8 R0 K7 ["isCollapsed"]
-       92 JUMPIFNOT                        R8 ; [+2]
-       93 GETUPVAL                         R7 7
-       94 JUMP                             ; [+1]
-       95 GETUPVAL                         R7 8
-       96 SETTABLEKS                       R7 R6 K26 ["Size"]
-       98 DUPTABLE                         R7 K32 [{"TopGroup", "Collapse"}]
-       99 GETUPVAL                         R8 2
-      100 GETTABLEKS                       R8 R8 K4 ["createElement"]
-      102 GETUPVAL                         R9 6
-      103 DUPTABLE                         R10 K34 [{["LayoutOrder"], ["tag"] = "col flex-x-fill grow gap-small auto-xy"}]
-      104 MOVE                             R11 R1
-      105 CALL                             R11 0 1
-      106 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
-      108 MOVE                             R11 R3
-      109 CALL                             R8 3 1
-      110 SETTABLEKS                       R8 R7 K30 ["TopGroup"]
-      112 GETUPVAL                         R8 2
-      113 GETTABLEKS                       R8 R8 K4 ["createElement"]
-      115 GETUPVAL                         R9 5
-      116 DUPTABLE                         R10 K35 [{"LayoutOrder", "icon", "onActivated", "text", "isCollapsed"}]
-      117 MOVE                             R11 R1
-      118 CALL                             R11 0 1
-      119 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
-      121 GETTABLEKS                       R12 R0 K7 ["isCollapsed"]
-      123 JUMPIFNOT                        R12 ; [+2]
-      124 LOADK                            R11 K36 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarOpen.png"]
-      125 JUMP                             ; [+1]
-      126 LOADK                            R11 K37 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarCollapse.png"]
-      127 SETTABLEKS                       R11 R10 K15 ["icon"]
-      129 GETTABLEKS                       R11 R0 K38 ["toggleIsCollapsed"]
-      131 SETTABLEKS                       R11 R10 K13 ["onActivated"]
-      133 LOADK                            R13 K20 ["Plugin"]
-      134 GETTABLEKS                       R15 R0 K7 ["isCollapsed"]
-      136 JUMPIFNOT                        R15 ; [+2]
-      137 LOADK                            R14 K39 ["PageMenu.Open"]
-      138 JUMP                             ; [+1]
-      139 LOADK                            R14 K40 ["PageMenu.Hide"]
-      140 NAMECALL                         R11 R2 K22 ["getText"]
-      142 CALL                             R11 3 1
-      143 SETTABLEKS                       R11 R10 K16 ["text"]
-      145 GETTABLEKS                       R11 R0 K7 ["isCollapsed"]
-      147 SETTABLEKS                       R11 R10 K7 ["isCollapsed"]
-      149 CALL                             R8 2 1
-      150 SETTABLEKS                       R8 R7 K31 ["Collapse"]
-      152 CALL                             R4 3 -1
-      153 RETURN                           R4 -1
+        6 GETUPVAL                         R3 2
+        7 CALL                             R3 0 1
+        8 GETIMPORT                        R4 K3 [UDim2.new]
+       10 LOADN                            R5 0
+       11 GETUPVAL                         R7 3
+       12 GETTABLEKS                       R7 R7 K4 ["MENU_CONTENT_WIDTH"]
+       14 GETTABLEKS                       R9 R3 K6 ["Padding"]
+       16 GETTABLEKS                       R9 R9 K7 ["Medium"]
+       18 MULK                             R8 R9 K5 [2]
+       19 ADD                              R6 R7 R8
+       20 LOADN                            R7 1
+       21 LOADN                            R8 0
+       22 CALL                             R4 4 1
+       23 DUPTABLE                         R5 K11 [{"StudioLogo", "GroupSelector", "NewButton"}]
+       24 GETUPVAL                         R6 4
+       25 GETTABLEKS                       R6 R6 K12 ["createElement"]
+       27 GETUPVAL                         R7 5
+       28 DUPTABLE                         R8 K16 [{["LayoutOrder"] = 1, ["isCollapsed"]}]
+       29 GETTABLEKS                       R9 R0 K15 ["isCollapsed"]
+       31 SETTABLEKS                       R9 R8 K15 ["isCollapsed"]
+       33 CALL                             R6 2 1
+       34 SETTABLEKS                       R6 R5 K8 ["StudioLogo"]
+       36 GETUPVAL                         R7 6
+       37 JUMPIFNOT                        R7 ; [+11]
+       38 GETUPVAL                         R6 4
+       39 GETTABLEKS                       R6 R6 K12 ["createElement"]
+       41 GETUPVAL                         R7 7
+       42 DUPTABLE                         R8 K17 [{["LayoutOrder"] = 2, ["isCollapsed"]}]
+       43 GETTABLEKS                       R9 R0 K15 ["isCollapsed"]
+       45 SETTABLEKS                       R9 R8 K15 ["isCollapsed"]
+       47 CALL                             R6 2 1
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R6
+       50 SETTABLEKS                       R6 R5 K9 ["GroupSelector"]
+       52 GETUPVAL                         R6 4
+       53 GETTABLEKS                       R6 R6 K12 ["createElement"]
+       55 GETUPVAL                         R7 8
+       56 DUPTABLE                         R8 K18 [{"LayoutOrder", "isCollapsed"}]
+       57 GETUPVAL                         R10 6
+       58 JUMPIFNOT                        R10 ; [+2]
+       59 LOADN                            R9 3
+       60 JUMP                             ; [+1]
+       61 LOADN                            R9 2
+       62 SETTABLEKS                       R9 R8 K13 ["LayoutOrder"]
+       64 GETTABLEKS                       R9 R0 K15 ["isCollapsed"]
+       66 SETTABLEKS                       R9 R8 K15 ["isCollapsed"]
+       68 CALL                             R6 2 1
+       69 SETTABLEKS                       R6 R5 K10 ["NewButton"]
+       71 GETTABLEKS                       R6 R0 K19 ["pages"]
+       73 LOADNIL                          R7
+       74 LOADNIL                          R8
+       75 FORGPREP                         R6
+       76 GETTABLEKS                       R12 R0 K20 ["selectedPage"]
+       78 JUMPIFEQ                         R12 R10 ; [+2]
+       80 LOADB                            R11 0 +1
+       81 LOADB                            R11 1
+       82 MOVE                             R13 R5
+       83 GETUPVAL                         R14 4
+       84 GETTABLEKS                       R14 R14 K12 ["createElement"]
+       86 GETUPVAL                         R15 9
+       87 DUPTABLE                         R16 K25 [{"LayoutOrder", "onActivated", "isActive", "icon", "isCollapsed", "text"}]
+       88 GETUPVAL                         R19 6
+       89 JUMPIFNOT                        R19 ; [+2]
+       90 LOADN                            R18 3
+       91 JUMP                             ; [+1]
+       92 LOADN                            R18 2
+       93 ADD                              R17 R9 R18
+       94 SETTABLEKS                       R17 R16 K13 ["LayoutOrder"]
+       96 NEWCLOSURE                       R17 P0
+       97 CAPTURE                          VAL R0
+       98 CAPTURE                          VAL R10
+       99 SETTABLEKS                       R17 R16 K21 ["onActivated"]
+      101 SETTABLEKS                       R11 R16 K22 ["isActive"]
+      103 JUMPIFNOT                        R11 ; [+3]
+      104 GETTABLEKS                       R17 R10 K26 ["ActiveIcon"]
+      106 JUMP                             ; [+2]
+      107 GETTABLEKS                       R17 R10 K27 ["Icon"]
+      109 SETTABLEKS                       R17 R16 K23 ["icon"]
+      111 GETTABLEKS                       R17 R0 K15 ["isCollapsed"]
+      113 SETTABLEKS                       R17 R16 K15 ["isCollapsed"]
+      115 LOADK                            R19 K28 ["Plugin"]
+      116 GETTABLEKS                       R20 R10 K29 ["TextKey"]
+      118 NAMECALL                         R17 R2 K30 ["getText"]
+      120 CALL                             R17 3 1
+      121 SETTABLEKS                       R17 R16 K24 ["text"]
+      123 CALL                             R14 2 -1
+      124 FASTCALL                         TABLE_INSERT ; [+2]
+      125 GETIMPORT                        R12 K33 [table.insert]
+      127 CALL                             R12 -1 0
+      128 FORGLOOP                         R6 2 ; [-53]
+      130 GETUPVAL                         R6 4
+      131 GETTABLEKS                       R6 R6 K12 ["createElement"]
+      133 GETUPVAL                         R7 10
+      134 DUPTABLE                         R8 K36 [{"Size", "tag"}]
+      135 GETUPVAL                         R10 6
+      136 JUMPIFNOT                        R10 ; [+11]
+      137 GETTABLEKS                       R10 R0 K15 ["isCollapsed"]
+      139 JUMPIFNOT                        R10 ; [+6]
+      140 GETIMPORT                        R9 K38 [UDim2.fromScale]
+      142 LOADN                            R10 0
+      143 LOADN                            R11 1
+      144 CALL                             R9 2 1
+      145 JUMP                             ; [+8]
+      146 MOVE                             R9 R4
+      147 JUMP                             ; [+6]
+      148 GETTABLEKS                       R10 R0 K15 ["isCollapsed"]
+      150 JUMPIFNOT                        R10 ; [+2]
+      151 GETUPVAL                         R9 11
+      152 JUMP                             ; [+1]
+      153 GETUPVAL                         R9 12
+      154 SETTABLEKS                       R9 R8 K34 ["Size"]
+      156 GETUPVAL                         R10 6
+      157 JUMPIFNOT                        R10 ; [+9]
+      158 NEWTABLE                         R9 2 0
+      160 LOADB                            R10 1
+      161 SETTABLEKS                       R10 R9 K39 ["col flex-x-fill padding-medium"]
+      163 LOADB                            R10 1
+      164 SETTABLEKS                       R10 R9 K40 ["auto-x"]
+      166 JUMP                             ; [+1]
+      167 LOADK                            R9 K41 ["col flex-x-fill auto-x padding-medium"]
+      168 SETTABLEKS                       R9 R8 K35 ["tag"]
+      170 DUPTABLE                         R9 K44 [{"TopGroup", "Collapse"}]
+      171 GETUPVAL                         R10 4
+      172 GETTABLEKS                       R10 R10 K12 ["createElement"]
+      174 GETUPVAL                         R11 10
+      175 DUPTABLE                         R12 K46 [{["LayoutOrder"], ["tag"] = "col flex-x-fill grow gap-small auto-xy"}]
+      176 MOVE                             R13 R1
+      177 CALL                             R13 0 1
+      178 SETTABLEKS                       R13 R12 K13 ["LayoutOrder"]
+      180 MOVE                             R13 R5
+      181 CALL                             R10 3 1
+      182 SETTABLEKS                       R10 R9 K42 ["TopGroup"]
+      184 GETUPVAL                         R10 4
+      185 GETTABLEKS                       R10 R10 K12 ["createElement"]
+      187 GETUPVAL                         R11 9
+      188 DUPTABLE                         R12 K47 [{"LayoutOrder", "icon", "onActivated", "text", "isCollapsed"}]
+      189 MOVE                             R13 R1
+      190 CALL                             R13 0 1
+      191 SETTABLEKS                       R13 R12 K13 ["LayoutOrder"]
+      193 GETTABLEKS                       R14 R0 K15 ["isCollapsed"]
+      195 JUMPIFNOT                        R14 ; [+2]
+      196 LOADK                            R13 K48 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarOpen.png"]
+      197 JUMP                             ; [+1]
+      198 LOADK                            R13 K49 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarCollapse.png"]
+      199 SETTABLEKS                       R13 R12 K23 ["icon"]
+      201 GETTABLEKS                       R13 R0 K50 ["toggleIsCollapsed"]
+      203 SETTABLEKS                       R13 R12 K21 ["onActivated"]
+      205 LOADK                            R15 K28 ["Plugin"]
+      206 GETTABLEKS                       R17 R0 K15 ["isCollapsed"]
+      208 JUMPIFNOT                        R17 ; [+2]
+      209 LOADK                            R16 K51 ["PageMenu.Open"]
+      210 JUMP                             ; [+1]
+      211 LOADK                            R16 K52 ["PageMenu.Hide"]
+      212 NAMECALL                         R13 R2 K30 ["getText"]
+      214 CALL                             R13 3 1
+      215 SETTABLEKS                       R13 R12 K24 ["text"]
+      217 GETTABLEKS                       R13 R0 K15 ["isCollapsed"]
+      219 SETTABLEKS                       R13 R12 K15 ["isCollapsed"]
+      221 CALL                             R10 2 1
+      222 SETTABLEKS                       R10 R9 K43 ["Collapse"]
+      224 CALL                             R6 3 -1
+      225 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -171,49 +228,71 @@ MAIN:
        37 CALL                             R5 1 1
        38 GETTABLEKS                       R6 R5 K15 ["View"]
        40 GETTABLEKS                       R7 R5 K16 ["Image"]
-       42 GETIMPORT                        R8 K5 [require]
-       44 GETIMPORT                        R9 K1 [script]
-       46 GETTABLEKS                       R9 R9 K17 ["Parent"]
-       48 GETTABLEKS                       R9 R9 K18 ["NewButton"]
-       50 CALL                             R8 1 1
-       51 GETIMPORT                        R9 K5 [require]
-       53 GETIMPORT                        R10 K1 [script]
-       55 GETTABLEKS                       R10 R10 K17 ["Parent"]
-       57 GETTABLEKS                       R10 R10 K19 ["CollapsibleButton"]
-       59 CALL                             R9 1 1
-       60 GETIMPORT                        R10 K5 [require]
-       62 GETTABLEKS                       R11 R0 K13 ["Src"]
-       64 GETTABLEKS                       R11 R11 K20 ["Types"]
-       66 CALL                             R10 1 1
-       67 GETIMPORT                        R11 K23 [UDim2.new]
-       69 LOADN                            R12 0
-       70 LOADN                            R13 96
-       71 LOADN                            R14 0
-       72 LOADN                            R15 24
-       73 CALL                             R11 4 1
-       74 DUPCLOSURE                       R12 K24 [PROTO_0]
-       75 CAPTURE                          VAL R1
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R7
-       78 CAPTURE                          VAL R11
-       79 GETIMPORT                        R13 K26 [UDim2.fromScale]
-       81 LOADN                            R14 0
-       82 LOADN                            R15 1
-       83 CALL                             R13 2 1
-       84 GETIMPORT                        R14 K23 [UDim2.new]
-       86 LOADN                            R15 0
-       87 LOADN                            R16 200
-       88 LOADN                            R17 1
-       89 LOADN                            R18 0
-       90 CALL                             R14 4 1
-       91 DUPCLOSURE                       R15 K27 [PROTO_2]
-       92 CAPTURE                          VAL R3
-       93 CAPTURE                          VAL R4
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          VAL R12
-       96 CAPTURE                          VAL R8
-       97 CAPTURE                          VAL R9
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          VAL R13
-      100 CAPTURE                          VAL R14
-      101 RETURN                           R15 1
+       42 GETTABLEKS                       R8 R5 K17 ["Hooks"]
+       44 GETTABLEKS                       R8 R8 K18 ["useTokens"]
+       46 GETIMPORT                        R9 K5 [require]
+       48 GETIMPORT                        R10 K1 [script]
+       50 GETTABLEKS                       R10 R10 K19 ["Parent"]
+       52 GETTABLEKS                       R10 R10 K20 ["NewButton"]
+       54 CALL                             R9 1 1
+       55 GETIMPORT                        R10 K5 [require]
+       57 GETIMPORT                        R11 K1 [script]
+       59 GETTABLEKS                       R11 R11 K19 ["Parent"]
+       61 GETTABLEKS                       R11 R11 K21 ["CollapsibleButton"]
+       63 CALL                             R10 1 1
+       64 GETIMPORT                        R11 K5 [require]
+       66 GETIMPORT                        R12 K1 [script]
+       68 GETTABLEKS                       R12 R12 K19 ["Parent"]
+       70 GETTABLEKS                       R12 R12 K22 ["Constants"]
+       72 CALL                             R11 1 1
+       73 GETIMPORT                        R12 K5 [require]
+       75 GETIMPORT                        R13 K1 [script]
+       77 GETTABLEKS                       R13 R13 K19 ["Parent"]
+       79 GETTABLEKS                       R13 R13 K23 ["GroupSelector"]
+       81 CALL                             R12 1 1
+       82 GETIMPORT                        R13 K5 [require]
+       84 GETTABLEKS                       R14 R0 K13 ["Src"]
+       86 GETTABLEKS                       R14 R14 K24 ["SharedFlags"]
+       88 GETTABLEKS                       R14 R14 K25 ["getFFlagLuaStartPageGroupSelector"]
+       90 CALL                             R13 1 1
+       91 CALL                             R13 0 1
+       92 GETIMPORT                        R14 K5 [require]
+       94 GETTABLEKS                       R15 R0 K13 ["Src"]
+       96 GETTABLEKS                       R15 R15 K26 ["Types"]
+       98 CALL                             R14 1 1
+       99 GETIMPORT                        R15 K29 [UDim2.new]
+      101 LOADN                            R16 0
+      102 LOADN                            R17 96
+      103 LOADN                            R18 0
+      104 LOADN                            R19 24
+      105 CALL                             R15 4 1
+      106 GETIMPORT                        R16 K31 [UDim2.fromScale]
+      108 LOADN                            R17 0
+      109 LOADN                            R18 1
+      110 CALL                             R16 2 1
+      111 GETIMPORT                        R17 K29 [UDim2.new]
+      113 LOADN                            R18 0
+      114 LOADN                            R19 200
+      115 LOADN                            R20 1
+      116 LOADN                            R21 0
+      117 CALL                             R17 4 1
+      118 DUPCLOSURE                       R18 K32 [PROTO_0]
+      119 CAPTURE                          VAL R1
+      120 CAPTURE                          VAL R6
+      121 CAPTURE                          VAL R7
+      122 CAPTURE                          VAL R15
+      123 DUPCLOSURE                       R19 K33 [PROTO_2]
+      124 CAPTURE                          VAL R3
+      125 CAPTURE                          VAL R4
+      126 CAPTURE                          VAL R8
+      127 CAPTURE                          VAL R11
+      128 CAPTURE                          VAL R1
+      129 CAPTURE                          VAL R18
+      130 CAPTURE                          VAL R13
+      131 CAPTURE                          VAL R12
+      132 CAPTURE                          VAL R9
+      133 CAPTURE                          VAL R10
+      134 CAPTURE                          VAL R6
+      135 CAPTURE                          VAL R16
+      136 CAPTURE                          VAL R17
+      137 RETURN                           R19 1

@@ -49,26 +49,21 @@ PROTO_0:
        76 CALL                             R7 1 1
        77 SETTABLEKS                       R7 R6 K23 ["HiddenInventories"]
        79 SETTABLEKS                       R6 R5 K8 ["Explorer"]
-       81 GETUPVAL                         R7 2
-       82 CALL                             R7 0 1
-       83 JUMPIFNOT                        R7 ; [+9]
-       84 DUPTABLE                         R6 K28 [{"FinishedTutorials"}]
-       85 GETTABLEKS                       R7 R1 K29 ["TutorialController"]
-       87 NAMECALL                         R7 R7 K30 ["getFinishedTutorials"]
-       89 CALL                             R7 1 1
-       90 SETTABLEKS                       R7 R6 K27 ["FinishedTutorials"]
-       92 JUMP                             ; [+1]
-       93 LOADNIL                          R6
-       94 SETTABLEKS                       R6 R5 K9 ["Tutorial"]
-       96 GETUPVAL                         R6 3
-       97 MOVE                             R8 R5
-       98 NAMECALL                         R6 R6 K31 ["JSONEncode"]
-      100 CALL                             R6 2 1
-      101 LOADK                            R9 K32 ["AssetManager_Settings"]
-      102 MOVE                             R10 R6
-      103 NAMECALL                         R7 R0 K33 ["SetSetting"]
-      105 CALL                             R7 3 0
-      106 RETURN                           R0 0
+       81 DUPTABLE                         R6 K28 [{"FinishedTutorials"}]
+       82 GETTABLEKS                       R7 R1 K29 ["TutorialController"]
+       84 NAMECALL                         R7 R7 K30 ["getFinishedTutorials"]
+       86 CALL                             R7 1 1
+       87 SETTABLEKS                       R7 R6 K27 ["FinishedTutorials"]
+       89 SETTABLEKS                       R6 R5 K9 ["Tutorial"]
+       91 GETUPVAL                         R6 2
+       92 MOVE                             R8 R5
+       93 NAMECALL                         R6 R6 K31 ["JSONEncode"]
+       95 CALL                             R6 2 1
+       96 LOADK                            R9 K32 ["AssetManager_Settings"]
+       97 MOVE                             R10 R6
+       98 NAMECALL                         R7 R0 K33 ["SetSetting"]
+      100 CALL                             R7 3 0
+      101 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -89,14 +84,8 @@ MAIN:
        24 GETTABLEKS                       R4 R4 K12 ["Flags"]
        26 GETTABLEKS                       R4 R4 K13 ["getFFlagAmrFlexPaneSizing"]
        28 CALL                             R3 1 1
-       29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R5 R1 K10 ["Src"]
-       33 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       35 GETTABLEKS                       R5 R5 K14 ["getFFlagAmrEnableTutorials"]
-       37 CALL                             R4 1 1
-       38 DUPCLOSURE                       R5 K15 [PROTO_0]
-       39 CAPTURE                          VAL R2
-       40 CAPTURE                          VAL R3
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R0
-       43 RETURN                           R5 1
+       29 DUPCLOSURE                       R4 K14 [PROTO_0]
+       30 CAPTURE                          VAL R2
+       31 CAPTURE                          VAL R3
+       32 CAPTURE                          VAL R0
+       33 RETURN                           R4 1

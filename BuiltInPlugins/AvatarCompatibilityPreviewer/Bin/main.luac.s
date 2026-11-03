@@ -37,22 +37,19 @@ PROTO_1:
        15 SETTABLEKS                       R3 R2 K3 ["PluginLoaderContext"]
        17 CALL                             R0 2 1
        18 GETUPVAL                         R1 5
-       19 CALL                             R1 0 1
-       20 JUMPIFNOT                        R1 ; [+2]
-       21 GETUPVAL                         R1 6
-       22 CALL                             R1 0 0
-       23 GETUPVAL                         R1 8
-       24 GETTABLEKS                       R1 R1 K5 ["createRoot"]
-       26 GETIMPORT                        R2 K8 [Instance.new]
-       28 LOADK                            R3 K9 ["Frame"]
-       29 CALL                             R2 1 -1
-       30 CALL                             R1 -1 1
-       31 SETUPVAL                         R1 7
-       32 GETUPVAL                         R1 7
-       33 MOVE                             R3 R0
-       34 NAMECALL                         R1 R1 K10 ["render"]
-       36 CALL                             R1 2 0
-       37 RETURN                           R0 0
+       19 CALL                             R1 0 0
+       20 GETUPVAL                         R1 7
+       21 GETTABLEKS                       R1 R1 K5 ["createRoot"]
+       23 GETIMPORT                        R2 K8 [Instance.new]
+       25 LOADK                            R3 K9 ["Frame"]
+       26 CALL                             R2 1 -1
+       27 CALL                             R1 -1 1
+       28 SETUPVAL                         R1 6
+       29 GETUPVAL                         R1 6
+       30 MOVE                             R3 R0
+       31 NAMECALL                         R1 R1 K10 ["render"]
+       33 CALL                             R1 2 0
+       34 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -64,11 +61,8 @@ PROTO_2:
         7 LOADNIL                          R0
         8 SETUPVAL                         R0 0
         9 GETUPVAL                         R0 1
-       10 CALL                             R0 0 1
-       11 JUMPIFNOT                        R0 ; [+2]
-       12 GETUPVAL                         R0 2
-       13 CALL                             R0 0 0
-       14 RETURN                           R0 0
+       10 CALL                             R0 0 0
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 JUMPIF                           R0 ; [+1]
@@ -94,36 +88,29 @@ PROTO_3:
        35 GETTABLEKS                       R7 R7 K11 ["MainPlugin"]
        37 CALL                             R6 1 1
        38 LOADNIL                          R7
-       39 GETIMPORT                        R8 K4 [require]
-       41 GETTABLEKS                       R9 R2 K8 ["Src"]
-       43 GETTABLEKS                       R9 R9 K12 ["Flags"]
-       45 GETTABLEKS                       R9 R9 K13 ["getFFlagAvatarPreviewerEditingTools"]
-       47 CALL                             R8 1 1
-       48 NEWCLOSURE                       R9 P0
-       49 CAPTURE                          VAL R5
-       50 CAPTURE                          UPVAL U0
-       51 CAPTURE                          UPVAL U1
-       52 NEWCLOSURE                       R10 P1
-       53 CAPTURE                          VAL R0
-       54 CAPTURE                          VAL R2
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R6
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R8
-       59 CAPTURE                          VAL R9
-       60 CAPTURE                          REF R7
-       61 CAPTURE                          VAL R4
-       62 GETTABLEKS                       R11 R0 K14 ["Unloading"]
-       64 NEWCLOSURE                       R13 P2
-       65 CAPTURE                          REF R7
-       66 CAPTURE                          VAL R8
-       67 CAPTURE                          VAL R9
-       68 NAMECALL                         R11 R11 K15 ["Connect"]
-       70 CALL                             R11 2 0
-       71 MOVE                             R11 R10
-       72 CALL                             R11 0 0
-       73 CLOSEUPVALS                      R7
-       74 RETURN                           R0 0
+       39 NEWCLOSURE                       R8 P0
+       40 CAPTURE                          VAL R5
+       41 CAPTURE                          UPVAL U0
+       42 CAPTURE                          UPVAL U1
+       43 NEWCLOSURE                       R9 P1
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R8
+       50 CAPTURE                          REF R7
+       51 CAPTURE                          VAL R4
+       52 GETTABLEKS                       R10 R0 K12 ["Unloading"]
+       54 NEWCLOSURE                       R12 P2
+       55 CAPTURE                          REF R7
+       56 CAPTURE                          VAL R8
+       57 NAMECALL                         R10 R10 K13 ["Connect"]
+       59 CALL                             R10 2 0
+       60 MOVE                             R10 R9
+       61 CALL                             R10 0 0
+       62 CLOSEUPVALS                      R7
+       63 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

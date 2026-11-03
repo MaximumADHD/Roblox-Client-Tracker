@@ -1,30 +1,24 @@
 PROTO_0:
-        0 GETUPVAL                         R6 0
-        1 CALL                             R6 0 1
-        2 FASTCALL2K                       ASSERT R6 K0 ; [+4]
-        4 LOADK                            R7 K0 ["FFlagAvatarPreviewerCageEditingTools is not enabled!"]
-        5 GETIMPORT                        R5 K2 [assert]
-        7 CALL                             R5 2 0
-        8 GETTABLE                         R8 R0 R1
-        9 GETTABLE                         R5 R8 R2
-       10 LOADNIL                          R6
-       11 LOADNIL                          R7
-       12 FORGPREP                         R5
-       13 GETTABLEKS                       R10 R9 K3 ["Index"]
-       15 JUMPIFNOTEQ                      R10 R4 ; [+6]
-       17 GETTABLEKS                       R10 R9 K4 ["MeshName"]
-       19 JUMPIFNOTEQ                      R10 R3 ; [+2]
-       21 RETURN                           R0 0
-       22 FORGLOOP                         R5 2 ; [-10]
-       24 GETTABLE                         R7 R0 R1
-       25 GETTABLE                         R6 R7 R2
-       26 DUPTABLE                         R7 K5 [{"Index", "MeshName"}]
-       27 SETTABLEKS                       R4 R7 K3 ["Index"]
-       29 SETTABLEKS                       R3 R7 K4 ["MeshName"]
-       31 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
-       33 GETIMPORT                        R5 K8 [table.insert]
-       35 CALL                             R5 2 0
-       36 RETURN                           R0 0
+        0 GETTABLE                         R8 R0 R1
+        1 GETTABLE                         R5 R8 R2
+        2 LOADNIL                          R6
+        3 LOADNIL                          R7
+        4 FORGPREP                         R5
+        5 GETTABLEKS                       R10 R9 K0 ["Index"]
+        7 JUMPIFNOTEQ                      R10 R4 ; [+6]
+        9 GETTABLEKS                       R10 R9 K1 ["MeshName"]
+       11 JUMPIFNOTEQ                      R10 R3 ; [+2]
+       13 RETURN                           R0 0
+       14 FORGLOOP                         R5 2 ; [-10]
+       16 GETTABLE                         R7 R0 R1
+       17 GETTABLE                         R6 R7 R2
+       18 DUPTABLE                         R7 K2 [{"Index", "MeshName"}]
+       19 SETTABLEKS                       R4 R7 K0 ["Index"]
+       21 SETTABLEKS                       R3 R7 K1 ["MeshName"]
+       23 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
+       25 GETIMPORT                        R5 K5 [table.insert]
+       27 CALL                             R5 2 0
+       28 RETURN                           R0 0
 
 PROTO_1:
         0 NEWTABLE                         R4 0 0
@@ -115,14 +109,14 @@ PROTO_1:
       109 GETTABLE                         R22 R4 R17
       110 GETTABLE                         R21 R22 R18
       111 GETTABLE                         R20 R21 R19
-      112 JUMPIFNOT                        R20 ; [+80]
+      112 JUMPIFNOT                        R20 ; [+48]
       113 MOVE                             R21 R20
       114 LOADNIL                          R22
       115 LOADNIL                          R23
       116 FORGPREP                         R21
       117 JUMPIFNOT                        R5 ; [+3]
-      118 JUMPIFNOT                        R5 ; [+72]
-      119 JUMPIFEQ                         R25 R14 ; [+71]
+      118 JUMPIFNOT                        R5 ; [+40]
+      119 JUMPIFEQ                         R25 R14 ; [+39]
       121 GETTABLE                         R26 R3 R1
       122 JUMPIF                           R26 ; [+3]
       123 NEWTABLE                         R26 0 0
@@ -134,56 +128,32 @@ PROTO_1:
       130 NEWTABLE                         R27 0 0
       132 SETTABLE                         R27 R26 R25
       133 GETUPVAL                         R26 0
-      134 CALL                             R26 0 1
-      135 JUMPIFNOT                        R26 ; [+8]
-      136 GETUPVAL                         R26 1
-      137 MOVE                             R27 R3
-      138 MOVE                             R28 R1
-      139 MOVE                             R29 R25
-      140 MOVE                             R30 R2
-      141 MOVE                             R31 R14
-      142 CALL                             R26 5 0
-      143 JUMP                             ; [+12]
-      144 GETTABLE                         R28 R3 R1
-      145 GETTABLE                         R27 R28 R25
-      146 DUPTABLE                         R28 K16 [{"Index", "MeshName"}]
-      147 SETTABLEKS                       R14 R28 K14 ["Index"]
-      149 SETTABLEKS                       R2 R28 K15 ["MeshName"]
-      151 FASTCALL2                        TABLE_INSERT R27 R28 ; [+3]
-      153 GETIMPORT                        R26 K11 [table.insert]
-      155 CALL                             R26 2 0
-      156 GETTABLE                         R26 R3 R2
-      157 JUMPIF                           R26 ; [+3]
-      158 NEWTABLE                         R26 0 0
-      160 SETTABLE                         R26 R3 R2
-      161 GETTABLE                         R27 R3 R2
-      162 GETTABLE                         R26 R27 R14
-      163 JUMPIF                           R26 ; [+4]
-      164 GETTABLE                         R26 R3 R2
-      165 NEWTABLE                         R27 0 0
-      167 SETTABLE                         R27 R26 R14
-      168 GETUPVAL                         R26 0
-      169 CALL                             R26 0 1
-      170 JUMPIFNOT                        R26 ; [+8]
-      171 GETUPVAL                         R26 1
-      172 MOVE                             R27 R3
-      173 MOVE                             R28 R2
-      174 MOVE                             R29 R14
-      175 MOVE                             R30 R1
-      176 MOVE                             R31 R25
-      177 CALL                             R26 5 0
-      178 JUMP                             ; [+12]
-      179 GETTABLE                         R28 R3 R2
-      180 GETTABLE                         R27 R28 R14
-      181 DUPTABLE                         R28 K16 [{"Index", "MeshName"}]
-      182 SETTABLEKS                       R25 R28 K14 ["Index"]
-      184 SETTABLEKS                       R1 R28 K15 ["MeshName"]
-      186 FASTCALL2                        TABLE_INSERT R27 R28 ; [+3]
-      188 GETIMPORT                        R26 K11 [table.insert]
-      190 CALL                             R26 2 0
-      191 FORGLOOP                         R21 2 ; [-75]
-      193 FORGLOOP                         R11 2 ; [-112]
-      195 RETURN                           R0 0
+      134 MOVE                             R27 R3
+      135 MOVE                             R28 R1
+      136 MOVE                             R29 R25
+      137 MOVE                             R30 R2
+      138 MOVE                             R31 R14
+      139 CALL                             R26 5 0
+      140 GETTABLE                         R26 R3 R2
+      141 JUMPIF                           R26 ; [+3]
+      142 NEWTABLE                         R26 0 0
+      144 SETTABLE                         R26 R3 R2
+      145 GETTABLE                         R27 R3 R2
+      146 GETTABLE                         R26 R27 R14
+      147 JUMPIF                           R26 ; [+4]
+      148 GETTABLE                         R26 R3 R2
+      149 NEWTABLE                         R27 0 0
+      151 SETTABLE                         R27 R26 R14
+      152 GETUPVAL                         R26 0
+      153 MOVE                             R27 R3
+      154 MOVE                             R28 R2
+      155 MOVE                             R29 R14
+      156 MOVE                             R30 R1
+      157 MOVE                             R31 R25
+      158 CALL                             R26 5 0
+      159 FORGLOOP                         R21 2 ; [-43]
+      161 FORGLOOP                         R11 2 ; [-80]
+      163 RETURN                           R0 0
 
 PROTO_2:
         0 NEWTABLE                         R2 0 0
@@ -229,19 +199,9 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["LuaMeshEditingModule"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Flags"]
-       11 GETTABLEKS                       R2 R2 K7 ["getFFlagAvatarPreviewerCageEditingTools"]
-       13 CALL                             R1 1 1
-       14 DUPCLOSURE                       R2 K8 [PROTO_0]
-       15 CAPTURE                          VAL R1
-       16 DUPCLOSURE                       R3 K9 [PROTO_1]
-       17 CAPTURE                          VAL R1
-       18 CAPTURE                          VAL R2
-       19 DUPCLOSURE                       R4 K10 [PROTO_2]
-       20 CAPTURE                          VAL R3
-       21 RETURN                           R4 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 DUPCLOSURE                       R1 K1 [PROTO_1]
+        3 CAPTURE                          VAL R0
+        4 DUPCLOSURE                       R2 K2 [PROTO_2]
+        5 CAPTURE                          VAL R1
+        6 RETURN                           R2 1

@@ -118,7 +118,12 @@ PROTO_3:
        30 JUMPIFNOT                        R2 ; [+4]
        31 GETTABLEKS                       R2 R0 K10 ["BodyPartsCollidableOnDeath"]
        33 SETTABLEKS                       R2 R1 K10 ["BodyPartsCollidableOnDeath"]
-       35 RETURN                           R1 1
+       35 GETUPVAL                         R2 2
+       36 CALL                             R2 0 1
+       37 JUMPIFNOT                        R2 ; [+4]
+       38 GETTABLEKS                       R2 R0 K11 ["HitboxSize"]
+       40 SETTABLEKS                       R2 R1 K11 ["HitboxSize"]
+       42 RETURN                           R1 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -455,46 +460,52 @@ MAIN:
        57 GETIMPORT                        R6 K9 [require]
        59 GETTABLEKS                       R7 R0 K10 ["Src"]
        61 GETTABLEKS                       R7 R7 K17 ["Flags"]
-       63 GETTABLEKS                       R7 R7 K19 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
+       63 GETTABLEKS                       R7 R7 K19 ["getEngineFeatureAvatarSettingsHitbox"]
        65 CALL                             R6 1 1
        66 GETIMPORT                        R7 K9 [require]
        68 GETTABLEKS                       R8 R0 K10 ["Src"]
        70 GETTABLEKS                       R8 R8 K17 ["Flags"]
-       72 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarSettingsReachHold"]
+       72 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
        74 CALL                             R7 1 1
        75 GETIMPORT                        R8 K9 [require]
        77 GETTABLEKS                       R9 R0 K10 ["Src"]
        79 GETTABLEKS                       R9 R9 K17 ["Flags"]
-       81 GETTABLEKS                       R9 R9 K21 ["getFFlagAvatarSettingsTurning"]
+       81 GETTABLEKS                       R9 R9 K21 ["getFFlagAvatarSettingsReachHold"]
        83 CALL                             R8 1 1
-       84 DUPCLOSURE                       R9 K22 [PROTO_0]
-       85 DUPCLOSURE                       R10 K23 [PROTO_1]
-       86 CAPTURE                          VAL R4
-       87 DUPCLOSURE                       R11 K24 [PROTO_2]
-       88 CAPTURE                          VAL R4
-       89 DUPCLOSURE                       R12 K25 [PROTO_3]
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          VAL R5
-       92 DUPCLOSURE                       R13 K26 [PROTO_4]
-       93 CAPTURE                          VAL R4
-       94 CAPTURE                          VAL R6
-       95 CAPTURE                          VAL R7
-       96 CAPTURE                          VAL R8
-       97 DUPCLOSURE                       R14 K27 [PROTO_5]
-       98 CAPTURE                          VAL R4
-       99 DUPCLOSURE                       R15 K28 [PROTO_6]
-      100 CAPTURE                          VAL R4
-      101 DUPCLOSURE                       R16 K29 [PROTO_7]
-      102 CAPTURE                          VAL R4
-      103 DUPCLOSURE                       R17 K30 [PROTO_8]
-      104 CAPTURE                          VAL R1
-      105 DUPCLOSURE                       R18 K31 [PROTO_9]
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R11
-      108 CAPTURE                          VAL R12
-      109 CAPTURE                          VAL R13
-      110 CAPTURE                          VAL R14
-      111 CAPTURE                          VAL R15
-      112 CAPTURE                          VAL R16
-      113 CAPTURE                          VAL R1
-      114 RETURN                           R18 1
+       84 GETIMPORT                        R9 K9 [require]
+       86 GETTABLEKS                       R10 R0 K10 ["Src"]
+       88 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       90 GETTABLEKS                       R10 R10 K22 ["getFFlagAvatarSettingsTurning"]
+       92 CALL                             R9 1 1
+       93 DUPCLOSURE                       R10 K23 [PROTO_0]
+       94 DUPCLOSURE                       R11 K24 [PROTO_1]
+       95 CAPTURE                          VAL R4
+       96 DUPCLOSURE                       R12 K25 [PROTO_2]
+       97 CAPTURE                          VAL R4
+       98 DUPCLOSURE                       R13 K26 [PROTO_3]
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R5
+      101 CAPTURE                          VAL R6
+      102 DUPCLOSURE                       R14 K27 [PROTO_4]
+      103 CAPTURE                          VAL R4
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R9
+      107 DUPCLOSURE                       R15 K28 [PROTO_5]
+      108 CAPTURE                          VAL R4
+      109 DUPCLOSURE                       R16 K29 [PROTO_6]
+      110 CAPTURE                          VAL R4
+      111 DUPCLOSURE                       R17 K30 [PROTO_7]
+      112 CAPTURE                          VAL R4
+      113 DUPCLOSURE                       R18 K31 [PROTO_8]
+      114 CAPTURE                          VAL R1
+      115 DUPCLOSURE                       R19 K32 [PROTO_9]
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R12
+      118 CAPTURE                          VAL R13
+      119 CAPTURE                          VAL R14
+      120 CAPTURE                          VAL R15
+      121 CAPTURE                          VAL R16
+      122 CAPTURE                          VAL R17
+      123 CAPTURE                          VAL R1
+      124 RETURN                           R19 1

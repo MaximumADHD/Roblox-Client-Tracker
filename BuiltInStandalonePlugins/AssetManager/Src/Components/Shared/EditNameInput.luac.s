@@ -105,6 +105,9 @@ PROTO_3:
        72 RETURN                           R0 0
 
 PROTO_4:
+        0 RETURN                           R0 0
+
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
@@ -240,40 +243,42 @@ PROTO_4:
       195 CALL                             R14 3 1
       196 SETTABLEKS                       R14 R13 K17 ["Anchor"]
       198 NOT                              R14 R7
-      199 JUMPIFNOT                        R14 ; [+49]
+      199 JUMPIFNOT                        R14 ; [+52]
       200 GETUPVAL                         R14 2
       201 GETTABLEKS                       R14 R14 K11 ["createElement"]
       203 GETUPVAL                         R15 3
       204 GETTABLEKS                       R15 R15 K12 ["Popover"]
       206 GETTABLEKS                       R15 R15 K18 ["Content"]
-      208 DUPTABLE                         R16 K57 [{["align"], ["radius"], ["backgroundStyle"], ["selectionGroup"] = False}]
+      208 DUPTABLE                         R16 K58 [{["align"], ["radius"], ["backgroundStyle"], ["selectionGroup"] = False, ["onPressedOutside"]}]
       209 GETUPVAL                         R17 3
       210 GETTABLEKS                       R17 R17 K47 ["Enums"]
-      212 GETTABLEKS                       R17 R17 K58 ["PopoverAlign"]
-      214 GETTABLEKS                       R17 R17 K59 ["Start"]
+      212 GETTABLEKS                       R17 R17 K59 ["PopoverAlign"]
+      214 GETTABLEKS                       R17 R17 K60 ["Start"]
       216 SETTABLEKS                       R17 R16 K52 ["align"]
       218 GETUPVAL                         R17 3
       219 GETTABLEKS                       R17 R17 K47 ["Enums"]
-      221 GETTABLEKS                       R17 R17 K60 ["Radius"]
-      223 GETTABLEKS                       R17 R17 K61 ["Small"]
+      221 GETTABLEKS                       R17 R17 K61 ["Radius"]
+      223 GETTABLEKS                       R17 R17 K62 ["Small"]
       225 SETTABLEKS                       R17 R16 K53 ["radius"]
-      227 GETTABLEKS                       R17 R6 K62 ["Inverse"]
-      229 GETTABLEKS                       R17 R17 K63 ["Surface"]
-      231 GETTABLEKS                       R17 R17 K64 ["Surface_0"]
+      227 GETTABLEKS                       R17 R6 K63 ["Inverse"]
+      229 GETTABLEKS                       R17 R17 K64 ["Surface"]
+      231 GETTABLEKS                       R17 R17 K65 ["Surface_0"]
       233 SETTABLEKS                       R17 R16 K54 ["backgroundStyle"]
-      235 DUPTABLE                         R17 K66 [{"HelperText"}]
-      236 GETUPVAL                         R18 2
-      237 GETTABLEKS                       R18 R18 K11 ["createElement"]
-      239 GETUPVAL                         R19 3
-      240 GETTABLEKS                       R19 R19 K67 ["Text"]
-      242 DUPTABLE                         R20 K73 [{["Text"], ["RichText"] = True, ["tag"] = "size-0 auto-xy padding-xsmall text-body-small text-wrap text-align-x-left content-inverse-default", ["testId"] = "edit-name-input-helper-text"}]
-      243 SETTABLEKS                       R8 R20 K67 ["Text"]
-      245 CALL                             R18 2 1
-      246 SETTABLEKS                       R18 R17 K65 ["HelperText"]
-      248 CALL                             R14 3 1
-      249 SETTABLEKS                       R14 R13 K18 ["Content"]
-      251 CALL                             R10 3 -1
-      252 RETURN                           R10 -1
+      235 DUPCLOSURE                       R17 K66 [PROTO_4]
+      236 SETTABLEKS                       R17 R16 K57 ["onPressedOutside"]
+      238 DUPTABLE                         R17 K68 [{"HelperText"}]
+      239 GETUPVAL                         R18 2
+      240 GETTABLEKS                       R18 R18 K11 ["createElement"]
+      242 GETUPVAL                         R19 3
+      243 GETTABLEKS                       R19 R19 K69 ["Text"]
+      245 DUPTABLE                         R20 K75 [{["Text"], ["RichText"] = True, ["tag"] = "size-0 auto-xy padding-xsmall text-body-small text-wrap text-align-x-left content-inverse-default", ["testId"] = "edit-name-input-helper-text"}]
+      246 SETTABLEKS                       R8 R20 K69 ["Text"]
+      248 CALL                             R18 2 1
+      249 SETTABLEKS                       R18 R17 K67 ["HelperText"]
+      251 CALL                             R14 3 1
+      252 SETTABLEKS                       R14 R13 K18 ["Content"]
+      254 CALL                             R10 3 -1
+      255 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -317,7 +322,7 @@ MAIN:
        66 GETTABLEKS                       R9 R9 K15 ["Util"]
        68 GETTABLEKS                       R9 R9 K18 ["validateFolderName"]
        70 CALL                             R8 1 1
-       71 DUPCLOSURE                       R9 K19 [PROTO_4]
+       71 DUPCLOSURE                       R9 K19 [PROTO_5]
        72 CAPTURE                          VAL R5
        73 CAPTURE                          VAL R6
        74 CAPTURE                          VAL R3

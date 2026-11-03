@@ -37,78 +37,94 @@ PROTO_3:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["StudioService"]
+        3 LOADK                            R2 K2 ["Workspace"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 NAMECALL                         R0 R0 K4 ["HasInternalPermission"]
-        9 CALL                             R0 1 1
-       10 JUMPIF                           R0 ; [+1]
-       11 RETURN                           R0 0
-       12 GETIMPORT                        R0 K6 [require]
-       14 GETIMPORT                        R1 K8 [script]
-       16 GETTABLEKS                       R1 R1 K9 ["Parent"]
-       18 GETTABLEKS                       R1 R1 K10 ["defineLuaFlags"]
-       20 CALL                             R0 1 0
-       21 GETIMPORT                        R0 K8 [script]
-       23 GETTABLEKS                       R0 R0 K9 ["Parent"]
-       25 GETTABLEKS                       R0 R0 K9 ["Parent"]
-       27 GETIMPORT                        R1 K6 [require]
-       29 GETTABLEKS                       R2 R0 K11 ["Packages"]
-       31 GETTABLEKS                       R2 R2 K12 ["PluginLoader"]
-       33 CALL                             R1 1 1
-       34 GETTABLEKS                       R2 R1 K13 ["PluginLoaderBuilder"]
-       36 GETTABLEKS                       R3 R0 K14 ["Src"]
-       38 GETTABLEKS                       R3 R3 K15 ["Resources"]
-       40 GETTABLEKS                       R3 R3 K16 ["Localization"]
-       42 GETTABLEKS                       R3 R3 K17 ["SourceStrings"]
-       44 GETTABLEKS                       R4 R0 K14 ["Src"]
-       46 GETTABLEKS                       R4 R4 K15 ["Resources"]
-       48 GETTABLEKS                       R4 R4 K16 ["Localization"]
-       50 GETTABLEKS                       R4 R4 K18 ["LocalizedStrings"]
-       52 DUPTABLE                         R5 K30 [{["plugin"], ["pluginName"] = "EventEmulator", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
-       53 GETIMPORT                        R6 K31 [plugin]
-       55 SETTABLEKS                       R6 R5 K19 ["plugin"]
-       57 SETTABLEKS                       R4 R5 K22 ["translationResourceTable"]
-       59 SETTABLEKS                       R3 R5 K23 ["fallbackResourceTable"]
-       61 DUPCLOSURE                       R6 K32 [PROTO_0]
-       62 SETTABLEKS                       R6 R5 K27 ["getToolbarName"]
-       64 DUPTABLE                         R6 K40 [{["getName"], ["getDescription"], ["icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["text"] = , ["clickableWhenViewportHidden"] = True}]
-       65 DUPCLOSURE                       R7 K41 [PROTO_1]
-       66 SETTABLEKS                       R7 R6 K33 ["getName"]
-       68 DUPCLOSURE                       R7 K42 [PROTO_2]
-       69 SETTABLEKS                       R7 R6 K34 ["getDescription"]
-       71 SETTABLEKS                       R6 R5 K28 ["buttonInfo"]
-       73 DUPTABLE                         R6 K47 [{["id"] = "EventEmulator", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
-       74 GETIMPORT                        R7 K50 [DockWidgetPluginGuiInfo.new]
-       76 GETIMPORT                        R8 K54 [Enum.InitialDockState.Left]
-       78 LOADB                            R9 0
-       79 LOADB                            R10 0
-       80 LOADN                            R11 310
-       81 LOADN                            R12 225
-       82 LOADN                            R13 310
-       83 LOADN                            R14 225
-       84 CALL                             R7 7 1
-       85 SETTABLEKS                       R7 R6 K44 ["dockWidgetPluginGuiInfo"]
-       87 DUPCLOSURE                       R7 K55 [PROTO_3]
-       88 SETTABLEKS                       R7 R6 K45 ["getDockTitle"]
-       90 GETIMPORT                        R7 K58 [Enum.ZIndexBehavior.Sibling]
-       92 SETTABLEKS                       R7 R6 K46 ["zIndexBehavior"]
-       94 SETTABLEKS                       R6 R5 K29 ["dockWidgetInfo"]
-       96 GETTABLEKS                       R6 R2 K59 ["build"]
-       98 MOVE                             R7 R5
-       99 CALL                             R6 1 1
-      100 GETTABLEKS                       R7 R6 K60 ["pluginLoader"]
-      102 NAMECALL                         R7 R7 K61 ["waitForUserInteraction"]
-      104 CALL                             R7 1 1
-      105 JUMPIF                           R7 ; [+1]
-      106 RETURN                           R0 0
-      107 GETIMPORT                        R8 K6 [require]
-      109 GETIMPORT                        R9 K8 [script]
-      111 GETTABLEKS                       R9 R9 K9 ["Parent"]
-      113 GETTABLEKS                       R9 R9 K62 ["main"]
-      115 CALL                             R8 1 1
-      116 MOVE                             R9 R8
-      117 GETIMPORT                        R10 K31 [plugin]
-      119 MOVE                             R11 R6
-      120 CALL                             R9 2 0
-      121 RETURN                           R0 0
+        7 LOADK                            R2 K4 ["EventEmulatorFlags"]
+        8 NAMECALL                         R0 R0 K5 ["FindFirstChild"]
+       10 CALL                             R0 2 1
+       11 MOVE                             R1 R0
+       12 JUMPIFNOT                        R1 ; [+4]
+       13 LOADK                            R3 K6 ["RunningUnderCLI"]
+       14 NAMECALL                         R1 R0 K5 ["FindFirstChild"]
+       16 CALL                             R1 2 1
+       17 JUMPIFNOT                        R1 ; [+4]
+       18 GETTABLEKS                       R2 R1 K7 ["Value"]
+       20 JUMPIFNOT                        R2 ; [+1]
+       21 RETURN                           R0 0
+       22 GETIMPORT                        R2 K1 [game]
+       24 LOADK                            R4 K8 ["StudioService"]
+       25 NAMECALL                         R2 R2 K3 ["GetService"]
+       27 CALL                             R2 2 1
+       28 NAMECALL                         R2 R2 K9 ["HasInternalPermission"]
+       30 CALL                             R2 1 1
+       31 JUMPIF                           R2 ; [+1]
+       32 RETURN                           R0 0
+       33 GETIMPORT                        R2 K11 [require]
+       35 GETIMPORT                        R3 K13 [script]
+       37 GETTABLEKS                       R3 R3 K14 ["Parent"]
+       39 GETTABLEKS                       R3 R3 K15 ["defineLuaFlags"]
+       41 CALL                             R2 1 0
+       42 GETIMPORT                        R2 K13 [script]
+       44 GETTABLEKS                       R2 R2 K14 ["Parent"]
+       46 GETTABLEKS                       R2 R2 K14 ["Parent"]
+       48 GETIMPORT                        R3 K11 [require]
+       50 GETTABLEKS                       R4 R2 K16 ["Packages"]
+       52 GETTABLEKS                       R4 R4 K17 ["PluginLoader"]
+       54 CALL                             R3 1 1
+       55 GETTABLEKS                       R4 R3 K18 ["PluginLoaderBuilder"]
+       57 GETTABLEKS                       R5 R2 K19 ["Src"]
+       59 GETTABLEKS                       R5 R5 K20 ["Resources"]
+       61 GETTABLEKS                       R5 R5 K21 ["Localization"]
+       63 GETTABLEKS                       R5 R5 K22 ["SourceStrings"]
+       65 GETTABLEKS                       R6 R2 K19 ["Src"]
+       67 GETTABLEKS                       R6 R6 K20 ["Resources"]
+       69 GETTABLEKS                       R6 R6 K21 ["Localization"]
+       71 GETTABLEKS                       R6 R6 K23 ["LocalizedStrings"]
+       73 DUPTABLE                         R7 K35 [{["plugin"], ["pluginName"] = "EventEmulator", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
+       74 GETIMPORT                        R8 K36 [plugin]
+       76 SETTABLEKS                       R8 R7 K24 ["plugin"]
+       78 SETTABLEKS                       R6 R7 K27 ["translationResourceTable"]
+       80 SETTABLEKS                       R5 R7 K28 ["fallbackResourceTable"]
+       82 DUPCLOSURE                       R8 K37 [PROTO_0]
+       83 SETTABLEKS                       R8 R7 K32 ["getToolbarName"]
+       85 DUPTABLE                         R8 K45 [{["getName"], ["getDescription"], ["icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["text"] = , ["clickableWhenViewportHidden"] = True}]
+       86 DUPCLOSURE                       R9 K46 [PROTO_1]
+       87 SETTABLEKS                       R9 R8 K38 ["getName"]
+       89 DUPCLOSURE                       R9 K47 [PROTO_2]
+       90 SETTABLEKS                       R9 R8 K39 ["getDescription"]
+       92 SETTABLEKS                       R8 R7 K33 ["buttonInfo"]
+       94 DUPTABLE                         R8 K52 [{["id"] = "EventEmulator", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+       95 GETIMPORT                        R9 K55 [DockWidgetPluginGuiInfo.new]
+       97 GETIMPORT                        R10 K59 [Enum.InitialDockState.Left]
+       99 LOADB                            R11 0
+      100 LOADB                            R12 0
+      101 LOADN                            R13 310
+      102 LOADN                            R14 225
+      103 LOADN                            R15 310
+      104 LOADN                            R16 225
+      105 CALL                             R9 7 1
+      106 SETTABLEKS                       R9 R8 K49 ["dockWidgetPluginGuiInfo"]
+      108 DUPCLOSURE                       R9 K60 [PROTO_3]
+      109 SETTABLEKS                       R9 R8 K50 ["getDockTitle"]
+      111 GETIMPORT                        R9 K63 [Enum.ZIndexBehavior.Sibling]
+      113 SETTABLEKS                       R9 R8 K51 ["zIndexBehavior"]
+      115 SETTABLEKS                       R8 R7 K34 ["dockWidgetInfo"]
+      117 GETTABLEKS                       R8 R4 K64 ["build"]
+      119 MOVE                             R9 R7
+      120 CALL                             R8 1 1
+      121 GETTABLEKS                       R9 R8 K65 ["pluginLoader"]
+      123 NAMECALL                         R9 R9 K66 ["waitForUserInteraction"]
+      125 CALL                             R9 1 1
+      126 JUMPIF                           R9 ; [+1]
+      127 RETURN                           R0 0
+      128 GETIMPORT                        R10 K11 [require]
+      130 GETIMPORT                        R11 K13 [script]
+      132 GETTABLEKS                       R11 R11 K14 ["Parent"]
+      134 GETTABLEKS                       R11 R11 K67 ["main"]
+      136 CALL                             R10 1 1
+      137 MOVE                             R11 R10
+      138 GETIMPORT                        R12 K36 [plugin]
+      140 MOVE                             R13 R8
+      141 CALL                             R11 2 0
+      142 RETURN                           R0 0

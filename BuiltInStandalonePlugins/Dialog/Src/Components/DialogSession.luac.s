@@ -175,69 +175,86 @@ PROTO_5:
       122 JUMP                             ; [+2]
       123 GETTABLEKS                       R15 R0 K12 ["onUserInteracted"]
       125 CALL                             R13 2 1
-      126 GETUPVAL                         R14 2
-      127 GETTABLEKS                       R14 R14 K1 ["useSignalState"]
-      129 GETTABLEKS                       R15 R0 K2 ["signals"]
-      131 GETTABLEKS                       R15 R15 K16 ["getEscapeButtonUri"]
-      133 CALL                             R14 1 1
-      134 GETUPVAL                         R15 3
-      135 GETTABLEKS                       R15 R15 K17 ["useMemo"]
-      137 NEWCLOSURE                       R16 P1
-      138 CAPTURE                          VAL R14
-      139 CAPTURE                          UPVAL U0
-      140 CAPTURE                          REF R10
-      141 CAPTURE                          VAL R0
-      142 NEWTABLE                         R17 0 2
-      144 MOVE                             R18 R14
-      145 GETUPVAL                         R20 0
-      146 CALL                             R20 0 1
-      147 JUMPIFNOT                        R20 ; [+2]
-      148 MOVE                             R19 R10
-      149 JUMP                             ; [+2]
-      150 GETTABLEKS                       R19 R0 K12 ["onUserInteracted"]
-      152 SETLIST                          R17 R18 2 [1]
-      154 CALL                             R15 2 1
-      155 GETUPVAL                         R16 5
-      156 GETUPVAL                         R17 6
-      157 DUPTABLE                         R18 K29 [{"uri", "dmId", "type", "title", "description", "image", "showIndeterminateProgressIndicator", "primaryAction", "secondaryAction", "tertiaryAction", "escapeAction"}]
-      158 GETTABLEKS                       R19 R0 K18 ["uri"]
-      160 SETTABLEKS                       R19 R18 K18 ["uri"]
-      162 GETTABLEKS                       R19 R0 K19 ["dmId"]
-      164 SETTABLEKS                       R19 R18 K19 ["dmId"]
-      166 SETTABLEKS                       R2 R18 K20 ["type"]
-      168 SETTABLEKS                       R3 R18 K21 ["title"]
-      170 SETTABLEKS                       R4 R18 K22 ["description"]
-      172 SETTABLEKS                       R5 R18 K23 ["image"]
-      174 SETTABLEKS                       R6 R18 K24 ["showIndeterminateProgressIndicator"]
-      176 SETTABLEKS                       R11 R18 K25 ["primaryAction"]
-      178 SETTABLEKS                       R12 R18 K26 ["secondaryAction"]
-      180 SETTABLEKS                       R13 R18 K27 ["tertiaryAction"]
-      182 SETTABLEKS                       R15 R18 K28 ["escapeAction"]
-      184 DUPTABLE                         R19 K31 [{"SuppressionCheckbox"}]
-      185 GETUPVAL                         R21 0
-      186 CALL                             R21 0 1
-      187 JUMPIFNOT                        R21 ; [+22]
-      188 JUMPIFNOT                        R7 ; [+21]
-      189 GETUPVAL                         R20 5
-      190 GETUPVAL                         R21 7
-      191 DUPTABLE                         R22 K38 [{["isChecked"], ["label"], ["onActivated"], ["size"], ["testId"] = "--dialog-suppression-checkbox"}]
-      192 SETTABLEKS                       R8 R22 K32 ["isChecked"]
-      194 LOADK                            R25 K39 ["DialogSuppression"]
-      195 LOADK                            R26 K40 ["DontShowAgain"]
-      196 NAMECALL                         R23 R1 K41 ["getText"]
-      198 CALL                             R23 3 1
-      199 SETTABLEKS                       R23 R22 K33 ["label"]
-      201 SETTABLEKS                       R9 R22 K34 ["onActivated"]
-      203 GETUPVAL                         R23 8
-      204 GETTABLEKS                       R23 R23 K42 ["XSmall"]
-      206 SETTABLEKS                       R23 R22 K35 ["size"]
-      208 CALL                             R20 2 1
-      209 JUMP                             ; [+1]
-      210 LOADNIL                          R20
-      211 SETTABLEKS                       R20 R19 K30 ["SuppressionCheckbox"]
-      213 CALL                             R16 3 -1
-      214 CLOSEUPVALS                      R8
-      215 RETURN                           R16 -1
+      126 LOADNIL                          R14
+      127 GETUPVAL                         R15 5
+      128 CALL                             R15 0 1
+      129 JUMPIFNOT                        R15 ; [+9]
+      130 GETUPVAL                         R15 2
+      131 GETTABLEKS                       R15 R15 K1 ["useSignalState"]
+      133 GETTABLEKS                       R16 R0 K2 ["signals"]
+      135 GETTABLEKS                       R16 R16 K16 ["getTertiaryButtonVariant"]
+      137 CALL                             R15 1 1
+      138 MOVE                             R14 R15
+      139 GETUPVAL                         R15 2
+      140 GETTABLEKS                       R15 R15 K1 ["useSignalState"]
+      142 GETTABLEKS                       R16 R0 K2 ["signals"]
+      144 GETTABLEKS                       R16 R16 K17 ["getEscapeButtonUri"]
+      146 CALL                             R15 1 1
+      147 GETUPVAL                         R16 3
+      148 GETTABLEKS                       R16 R16 K18 ["useMemo"]
+      150 NEWCLOSURE                       R17 P1
+      151 CAPTURE                          VAL R15
+      152 CAPTURE                          UPVAL U0
+      153 CAPTURE                          REF R10
+      154 CAPTURE                          VAL R0
+      155 NEWTABLE                         R18 0 2
+      157 MOVE                             R19 R15
+      158 GETUPVAL                         R21 0
+      159 CALL                             R21 0 1
+      160 JUMPIFNOT                        R21 ; [+2]
+      161 MOVE                             R20 R10
+      162 JUMP                             ; [+2]
+      163 GETTABLEKS                       R20 R0 K12 ["onUserInteracted"]
+      165 SETLIST                          R18 R19 2 [1]
+      167 CALL                             R16 2 1
+      168 GETUPVAL                         R17 6
+      169 GETUPVAL                         R18 7
+      170 DUPTABLE                         R19 K31 [{"uri", "dmId", "type", "title", "description", "image", "showIndeterminateProgressIndicator", "primaryAction", "secondaryAction", "tertiaryAction", "tertiaryActionVariant", "escapeAction"}]
+      171 GETTABLEKS                       R20 R0 K19 ["uri"]
+      173 SETTABLEKS                       R20 R19 K19 ["uri"]
+      175 GETTABLEKS                       R20 R0 K20 ["dmId"]
+      177 SETTABLEKS                       R20 R19 K20 ["dmId"]
+      179 SETTABLEKS                       R2 R19 K21 ["type"]
+      181 SETTABLEKS                       R3 R19 K22 ["title"]
+      183 SETTABLEKS                       R4 R19 K23 ["description"]
+      185 SETTABLEKS                       R5 R19 K24 ["image"]
+      187 SETTABLEKS                       R6 R19 K25 ["showIndeterminateProgressIndicator"]
+      189 SETTABLEKS                       R11 R19 K26 ["primaryAction"]
+      191 SETTABLEKS                       R12 R19 K27 ["secondaryAction"]
+      193 SETTABLEKS                       R13 R19 K28 ["tertiaryAction"]
+      195 GETUPVAL                         R21 5
+      196 CALL                             R21 0 1
+      197 JUMPIFNOT                        R21 ; [+2]
+      198 MOVE                             R20 R14
+      199 JUMP                             ; [+1]
+      200 LOADNIL                          R20
+      201 SETTABLEKS                       R20 R19 K29 ["tertiaryActionVariant"]
+      203 SETTABLEKS                       R16 R19 K30 ["escapeAction"]
+      205 DUPTABLE                         R20 K33 [{"SuppressionCheckbox"}]
+      206 GETUPVAL                         R22 0
+      207 CALL                             R22 0 1
+      208 JUMPIFNOT                        R22 ; [+22]
+      209 JUMPIFNOT                        R7 ; [+21]
+      210 GETUPVAL                         R21 6
+      211 GETUPVAL                         R22 8
+      212 DUPTABLE                         R23 K40 [{["isChecked"], ["label"], ["onActivated"], ["size"], ["testId"] = "--dialog-suppression-checkbox"}]
+      213 SETTABLEKS                       R8 R23 K34 ["isChecked"]
+      215 LOADK                            R26 K41 ["DialogSuppression"]
+      216 LOADK                            R27 K42 ["DontShowAgain"]
+      217 NAMECALL                         R24 R1 K43 ["getText"]
+      219 CALL                             R24 3 1
+      220 SETTABLEKS                       R24 R23 K35 ["label"]
+      222 SETTABLEKS                       R9 R23 K36 ["onActivated"]
+      224 GETUPVAL                         R24 9
+      225 GETTABLEKS                       R24 R24 K44 ["XSmall"]
+      227 SETTABLEKS                       R24 R23 K37 ["size"]
+      229 CALL                             R21 2 1
+      230 JUMP                             ; [+1]
+      231 LOADNIL                          R21
+      232 SETTABLEKS                       R21 R20 K32 ["SuppressionCheckbox"]
+      234 CALL                             R17 3 -1
+      235 CLOSEUPVALS                      R8
+      236 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -283,31 +300,37 @@ MAIN:
        69 GETTABLEKS                       R10 R10 K17 ["Flags"]
        71 GETTABLEKS                       R10 R10 K18 ["getFFlagStudioDialogManagerSuppression"]
        73 CALL                             R9 1 1
-       74 GETTABLEKS                       R10 R1 K19 ["Checkbox"]
-       76 GETTABLEKS                       R11 R6 K20 ["Components"]
-       78 GETTABLEKS                       R11 R11 K2 ["Dialog"]
-       80 GETTABLEKS                       R12 R1 K21 ["Enums"]
-       82 GETTABLEKS                       R12 R12 K22 ["InputSize"]
-       84 GETTABLEKS                       R13 R2 K23 ["ContextServices"]
-       86 GETTABLEKS                       R13 R13 K24 ["Localization"]
-       88 GETTABLEKS                       R14 R6 K15 ["Util"]
-       90 GETTABLEKS                       R14 R14 K25 ["StudioUri"]
-       92 GETTABLEKS                       R15 R3 K26 ["createElement"]
-       94 DUPCLOSURE                       R16 K27 [PROTO_1]
-       95 CAPTURE                          VAL R5
-       96 CAPTURE                          VAL R3
-       97 CAPTURE                          VAL R14
-       98 DUPCLOSURE                       R17 K28 [PROTO_5]
-       99 CAPTURE                          VAL R9
-      100 CAPTURE                          VAL R13
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R3
-      103 CAPTURE                          VAL R16
-      104 CAPTURE                          VAL R15
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R10
-      107 CAPTURE                          VAL R12
-      108 GETTABLEKS                       R18 R3 K29 ["memo"]
-      110 MOVE                             R19 R17
-      111 CALL                             R18 1 -1
-      112 RETURN                           R18 -1
+       74 GETIMPORT                        R10 K5 [require]
+       76 GETTABLEKS                       R11 R0 K13 ["Src"]
+       78 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       80 GETTABLEKS                       R11 R11 K19 ["getFFlagStudioDialogManagerTertiaryButtonVariant"]
+       82 CALL                             R10 1 1
+       83 GETTABLEKS                       R11 R1 K20 ["Checkbox"]
+       85 GETTABLEKS                       R12 R6 K21 ["Components"]
+       87 GETTABLEKS                       R12 R12 K2 ["Dialog"]
+       89 GETTABLEKS                       R13 R1 K22 ["Enums"]
+       91 GETTABLEKS                       R13 R13 K23 ["InputSize"]
+       93 GETTABLEKS                       R14 R2 K24 ["ContextServices"]
+       95 GETTABLEKS                       R14 R14 K25 ["Localization"]
+       97 GETTABLEKS                       R15 R6 K15 ["Util"]
+       99 GETTABLEKS                       R15 R15 K26 ["StudioUri"]
+      101 GETTABLEKS                       R16 R3 K27 ["createElement"]
+      103 DUPCLOSURE                       R17 K28 [PROTO_1]
+      104 CAPTURE                          VAL R5
+      105 CAPTURE                          VAL R3
+      106 CAPTURE                          VAL R15
+      107 DUPCLOSURE                       R18 K29 [PROTO_5]
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R17
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R16
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R11
+      117 CAPTURE                          VAL R13
+      118 GETTABLEKS                       R19 R3 K30 ["memo"]
+      120 MOVE                             R20 R18
+      121 CALL                             R19 1 -1
+      122 RETURN                           R19 -1

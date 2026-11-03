@@ -63,17 +63,16 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["PermissionsAction"]
-        3 GETTABLE                         R1 R2 R0
-        4 DUPTABLE                         R2 K3 [{"id", "text"}]
-        5 SETTABLEKS                       R1 R2 K1 ["id"]
-        7 GETUPVAL                         R3 1
-        8 LOADK                            R5 K4 ["AssetPermission"]
-        9 MOVE                             R6 R1
-       10 NAMECALL                         R3 R3 K5 ["getText"]
-       12 CALL                             R3 3 1
-       13 SETTABLEKS                       R3 R2 K2 ["text"]
-       15 RETURN                           R2 1
+        1 GETTABLE                         R1 R2 R0
+        2 DUPTABLE                         R2 K2 [{"id", "text"}]
+        3 SETTABLEKS                       R1 R2 K0 ["id"]
+        5 GETUPVAL                         R3 1
+        6 LOADK                            R5 K3 ["AssetPermission"]
+        7 MOVE                             R6 R1
+        8 NAMECALL                         R3 R3 K4 ["getText"]
+       10 CALL                             R3 3 1
+       11 SETTABLEKS                       R3 R2 K1 ["text"]
+       13 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -93,70 +92,65 @@ PROTO_3:
         6 CAPTURE                          VAL R1
         7 NEWTABLE                         R3 0 2
         9 GETUPVAL                         R5 1
-       10 GETTABLEKS                       R5 R5 K1 ["PermissionsAction"]
-       12 GETTABLEKS                       R5 R5 K2 ["Use"]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R7 R7 K1 ["PermissionsAction"]
-       17 GETTABLE                         R6 R7 R5
-       18 DUPTABLE                         R4 K5 [{"id", "text"}]
-       19 SETTABLEKS                       R6 R4 K3 ["id"]
-       21 LOADK                            R9 K6 ["AssetPermission"]
-       22 MOVE                             R10 R6
-       23 NAMECALL                         R7 R1 K7 ["getText"]
-       25 CALL                             R7 3 1
-       26 SETTABLEKS                       R7 R4 K4 ["text"]
-       28 GETUPVAL                         R6 1
-       29 GETTABLEKS                       R6 R6 K1 ["PermissionsAction"]
-       31 GETTABLEKS                       R6 R6 K8 ["Edit"]
-       33 GETUPVAL                         R8 1
-       34 GETTABLEKS                       R8 R8 K1 ["PermissionsAction"]
-       36 GETTABLE                         R7 R8 R6
-       37 DUPTABLE                         R5 K5 [{"id", "text"}]
-       38 SETTABLEKS                       R7 R5 K3 ["id"]
-       40 LOADK                            R10 K6 ["AssetPermission"]
-       41 MOVE                             R11 R7
-       42 NAMECALL                         R8 R1 K7 ["getText"]
-       44 CALL                             R8 3 1
-       45 SETTABLEKS                       R8 R5 K4 ["text"]
-       47 SETLIST                          R3 R4 2 [1]
-       49 GETUPVAL                         R4 2
-       50 GETTABLEKS                       R4 R4 K9 ["createElement"]
-       52 GETUPVAL                         R5 3
-       53 GETTABLEKS                       R5 R5 K10 ["Dropdown"]
-       55 GETTABLEKS                       R5 R5 K11 ["Root"]
-       57 DUPTABLE                         R6 K22 [{["LayoutOrder"], ["value"], ["onItemChanged"], ["isDisabled"], ["items"], ["label"] = "", ["size"], ["width"], ["maxHeight"]}]
-       58 GETTABLEKS                       R7 R0 K12 ["LayoutOrder"]
-       60 SETTABLEKS                       R7 R6 K12 ["LayoutOrder"]
-       62 GETUPVAL                         R8 1
-       63 GETTABLEKS                       R8 R8 K1 ["PermissionsAction"]
-       65 GETTABLEKS                       R9 R0 K23 ["Item"]
-       67 GETTABLEKS                       R9 R9 K24 ["Action"]
-       69 GETTABLE                         R7 R8 R9
-       70 SETTABLEKS                       R7 R6 K13 ["value"]
-       72 NEWCLOSURE                       R7 P1
-       73 CAPTURE                          VAL R0
-       74 SETTABLEKS                       R7 R6 K14 ["onItemChanged"]
-       76 GETTABLEKS                       R7 R0 K15 ["isDisabled"]
-       78 SETTABLEKS                       R7 R6 K15 ["isDisabled"]
-       80 SETTABLEKS                       R3 R6 K16 ["items"]
-       82 GETUPVAL                         R7 3
-       83 GETTABLEKS                       R7 R7 K25 ["Enums"]
-       85 GETTABLEKS                       R7 R7 K26 ["InputSize"]
-       87 GETTABLEKS                       R7 R7 K27 ["XSmall"]
-       89 SETTABLEKS                       R7 R6 K19 ["size"]
-       91 GETIMPORT                        R7 K30 [UDim.new]
-       93 LOADN                            R8 0
-       94 GETUPVAL                         R9 4
-       95 GETTABLEKS                       R9 R9 K31 ["QuickSharePermissionsDropdownSize"]
-       97 GETTABLEKS                       R9 R9 K32 ["X"]
-       99 CALL                             R7 2 1
-      100 SETTABLEKS                       R7 R6 K20 ["width"]
-      102 GETUPVAL                         R7 4
-      103 GETTABLEKS                       R7 R7 K31 ["QuickSharePermissionsDropdownSize"]
-      105 GETTABLEKS                       R7 R7 K33 ["Y"]
-      107 SETTABLEKS                       R7 R6 K21 ["maxHeight"]
-      109 CALL                             R4 2 -1
-      110 RETURN                           R4 -1
+       10 GETTABLEKS                       R5 R5 K1 ["Use"]
+       12 GETUPVAL                         R7 1
+       13 GETTABLE                         R6 R7 R5
+       14 DUPTABLE                         R4 K4 [{"id", "text"}]
+       15 SETTABLEKS                       R6 R4 K2 ["id"]
+       17 LOADK                            R9 K5 ["AssetPermission"]
+       18 MOVE                             R10 R6
+       19 NAMECALL                         R7 R1 K6 ["getText"]
+       21 CALL                             R7 3 1
+       22 SETTABLEKS                       R7 R4 K3 ["text"]
+       24 GETUPVAL                         R6 1
+       25 GETTABLEKS                       R6 R6 K7 ["Edit"]
+       27 GETUPVAL                         R8 1
+       28 GETTABLE                         R7 R8 R6
+       29 DUPTABLE                         R5 K4 [{"id", "text"}]
+       30 SETTABLEKS                       R7 R5 K2 ["id"]
+       32 LOADK                            R10 K5 ["AssetPermission"]
+       33 MOVE                             R11 R7
+       34 NAMECALL                         R8 R1 K6 ["getText"]
+       36 CALL                             R8 3 1
+       37 SETTABLEKS                       R8 R5 K3 ["text"]
+       39 SETLIST                          R3 R4 2 [1]
+       41 GETUPVAL                         R4 2
+       42 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       44 GETUPVAL                         R5 3
+       45 GETTABLEKS                       R5 R5 K9 ["Dropdown"]
+       47 GETTABLEKS                       R5 R5 K10 ["Root"]
+       49 DUPTABLE                         R6 K21 [{["LayoutOrder"], ["value"], ["onItemChanged"], ["isDisabled"], ["items"], ["label"] = "", ["size"], ["width"], ["maxHeight"]}]
+       50 GETTABLEKS                       R7 R0 K11 ["LayoutOrder"]
+       52 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
+       54 GETUPVAL                         R8 1
+       55 GETTABLEKS                       R9 R0 K22 ["Item"]
+       57 GETTABLEKS                       R9 R9 K23 ["Action"]
+       59 GETTABLE                         R7 R8 R9
+       60 SETTABLEKS                       R7 R6 K12 ["value"]
+       62 NEWCLOSURE                       R7 P1
+       63 CAPTURE                          VAL R0
+       64 SETTABLEKS                       R7 R6 K13 ["onItemChanged"]
+       66 GETTABLEKS                       R7 R0 K14 ["isDisabled"]
+       68 SETTABLEKS                       R7 R6 K14 ["isDisabled"]
+       70 SETTABLEKS                       R3 R6 K15 ["items"]
+       72 GETUPVAL                         R7 3
+       73 GETTABLEKS                       R7 R7 K24 ["Enums"]
+       75 GETTABLEKS                       R7 R7 K25 ["InputSize"]
+       77 GETTABLEKS                       R7 R7 K26 ["XSmall"]
+       79 SETTABLEKS                       R7 R6 K18 ["size"]
+       81 GETIMPORT                        R7 K29 [UDim.new]
+       83 LOADN                            R8 0
+       84 GETUPVAL                         R9 4
+       85 GETTABLEKS                       R9 R9 K30 ["QuickSharePermissionsDropdownSize"]
+       87 GETTABLEKS                       R9 R9 K31 ["X"]
+       89 CALL                             R7 2 1
+       90 SETTABLEKS                       R7 R6 K19 ["width"]
+       92 GETUPVAL                         R7 4
+       93 GETTABLEKS                       R7 R7 K30 ["QuickSharePermissionsDropdownSize"]
+       95 GETTABLEKS                       R7 R7 K32 ["Y"]
+       97 SETTABLEKS                       R7 R6 K20 ["maxHeight"]
+       99 CALL                             R4 2 -1
+      100 RETURN                           R4 -1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -190,61 +184,59 @@ PROTO_7:
 PROTO_8:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["CanAddEditors"]
-        3 JUMPIFNOT                        R2 ; [+11]
+        3 JUMPIFNOT                        R2 ; [+9]
         4 GETTABLEKS                       R3 R0 K1 ["Subject"]
         6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R4 R4 K2 ["PermissionsSubject"]
-        9 GETTABLEKS                       R4 R4 K3 ["User"]
-       11 JUMPIFEQ                         R3 R4 ; [+2]
-       13 LOADB                            R2 0 +1
-       14 LOADB                            R2 1
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R3 R3 K4 ["HasNonEditTypes"]
-       18 JUMPIFNOT                        R3 ; [+11]
-       19 GETTABLEKS                       R4 R0 K5 ["Action"]
-       21 GETUPVAL                         R5 1
-       22 GETTABLEKS                       R5 R5 K6 ["PermissionsAction"]
-       24 GETTABLEKS                       R5 R5 K7 ["Edit"]
-       26 JUMPIFEQ                         R4 R5 ; [+2]
-       28 LOADB                            R3 0 +1
-       29 LOADB                            R3 1
-       30 GETUPVAL                         R4 2
-       31 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       33 GETUPVAL                         R5 3
-       34 DUPTABLE                         R6 K12 [{"Item", "Index", "onItemRemoved"}]
-       35 SETTABLEKS                       R0 R6 K9 ["Item"]
-       37 SETTABLEKS                       R1 R6 K10 ["Index"]
-       39 GETUPVAL                         R7 4
-       40 SETTABLEKS                       R7 R6 K11 ["onItemRemoved"]
-       42 GETUPVAL                         R7 2
-       43 GETTABLEKS                       R7 R7 K8 ["createElement"]
-       45 GETUPVAL                         R8 5
-       46 GETTABLEKS                       R8 R8 K13 ["View"]
-       48 DUPTABLE                         R9 K16 [{["tag"] = "row align-y-center gap-small auto-xy"}]
-       49 DUPTABLE                         R10 K19 [{"WarningIcon", "Dropdown"}]
-       50 JUMPIFNOT                        R3 ; [+7]
-       51 GETUPVAL                         R11 2
-       52 GETTABLEKS                       R11 R11 K8 ["createElement"]
-       54 GETUPVAL                         R12 6
-       55 DUPTABLE                         R13 K22 [{["LayoutOrder"] = 1}]
-       56 CALL                             R11 2 1
-       57 JUMP                             ; [+1]
-       58 LOADNIL                          R11
-       59 SETTABLEKS                       R11 R10 K17 ["WarningIcon"]
-       61 GETUPVAL                         R11 2
-       62 GETTABLEKS                       R11 R11 K8 ["createElement"]
-       64 GETUPVAL                         R12 7
-       65 DUPTABLE                         R13 K26 [{["LayoutOrder"] = 2, ["Item"], ["onItemChanged"], ["isDisabled"]}]
-       66 SETTABLEKS                       R0 R13 K9 ["Item"]
-       68 GETUPVAL                         R14 8
-       69 SETTABLEKS                       R14 R13 K24 ["onItemChanged"]
-       71 NOT                              R14 R2
-       72 SETTABLEKS                       R14 R13 K25 ["isDisabled"]
-       74 CALL                             R11 2 1
-       75 SETTABLEKS                       R11 R10 K18 ["Dropdown"]
-       77 CALL                             R7 3 -1
-       78 CALL                             R4 -1 -1
-       79 RETURN                           R4 -1
+        7 GETTABLEKS                       R4 R4 K2 ["User"]
+        9 JUMPIFEQ                         R3 R4 ; [+2]
+       11 LOADB                            R2 0 +1
+       12 LOADB                            R2 1
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K3 ["HasNonEditTypes"]
+       16 JUMPIFNOT                        R3 ; [+9]
+       17 GETTABLEKS                       R4 R0 K4 ["Action"]
+       19 GETUPVAL                         R5 2
+       20 GETTABLEKS                       R5 R5 K5 ["Edit"]
+       22 JUMPIFEQ                         R4 R5 ; [+2]
+       24 LOADB                            R3 0 +1
+       25 LOADB                            R3 1
+       26 GETUPVAL                         R4 3
+       27 GETTABLEKS                       R4 R4 K6 ["createElement"]
+       29 GETUPVAL                         R5 4
+       30 DUPTABLE                         R6 K10 [{"Item", "Index", "onItemRemoved"}]
+       31 SETTABLEKS                       R0 R6 K7 ["Item"]
+       33 SETTABLEKS                       R1 R6 K8 ["Index"]
+       35 GETUPVAL                         R7 5
+       36 SETTABLEKS                       R7 R6 K9 ["onItemRemoved"]
+       38 GETUPVAL                         R7 3
+       39 GETTABLEKS                       R7 R7 K6 ["createElement"]
+       41 GETUPVAL                         R8 6
+       42 GETTABLEKS                       R8 R8 K11 ["View"]
+       44 DUPTABLE                         R9 K14 [{["tag"] = "row align-y-center gap-small auto-xy"}]
+       45 DUPTABLE                         R10 K17 [{"WarningIcon", "Dropdown"}]
+       46 JUMPIFNOT                        R3 ; [+7]
+       47 GETUPVAL                         R11 3
+       48 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       50 GETUPVAL                         R12 7
+       51 DUPTABLE                         R13 K20 [{["LayoutOrder"] = 1}]
+       52 CALL                             R11 2 1
+       53 JUMP                             ; [+1]
+       54 LOADNIL                          R11
+       55 SETTABLEKS                       R11 R10 K15 ["WarningIcon"]
+       57 GETUPVAL                         R11 3
+       58 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       60 GETUPVAL                         R12 8
+       61 DUPTABLE                         R13 K24 [{["LayoutOrder"] = 2, ["Item"], ["onItemChanged"], ["isDisabled"]}]
+       62 SETTABLEKS                       R0 R13 K7 ["Item"]
+       64 GETUPVAL                         R14 9
+       65 SETTABLEKS                       R14 R13 K22 ["onItemChanged"]
+       67 NOT                              R14 R2
+       68 SETTABLEKS                       R14 R13 K23 ["isDisabled"]
+       70 CALL                             R11 2 1
+       71 SETTABLEKS                       R11 R10 K16 ["Dropdown"]
+       73 CALL                             R7 3 -1
+       74 CALL                             R4 -1 -1
+       75 RETURN                           R4 -1
 
 PROTO_9:
         0 GETUPVAL                         R1 0
@@ -326,19 +318,20 @@ PROTO_9:
       107 MOVE                             R19 R6
       108 NEWCLOSURE                       R20 P4
       109 CAPTURE                          VAL R0
-      110 CAPTURE                          UPVAL U1
-      111 CAPTURE                          UPVAL U4
-      112 CAPTURE                          UPVAL U9
-      113 CAPTURE                          VAL R9
-      114 CAPTURE                          UPVAL U5
-      115 CAPTURE                          UPVAL U10
-      116 CAPTURE                          UPVAL U11
-      117 CAPTURE                          VAL R10
-      118 CALL                             R18 2 -1
-      119 CALL                             R15 -1 1
-      120 SETTABLEKS                       R15 R14 K15 ["SelectionView"]
-      122 CALL                             R11 3 -1
-      123 RETURN                           R11 -1
+      110 CAPTURE                          UPVAL U9
+      111 CAPTURE                          UPVAL U10
+      112 CAPTURE                          UPVAL U4
+      113 CAPTURE                          UPVAL U11
+      114 CAPTURE                          VAL R9
+      115 CAPTURE                          UPVAL U5
+      116 CAPTURE                          UPVAL U12
+      117 CAPTURE                          UPVAL U13
+      118 CAPTURE                          VAL R10
+      119 CALL                             R18 2 -1
+      120 CALL                             R15 -1 1
+      121 SETTABLEKS                       R15 R14 K15 ["SelectionView"]
+      123 CALL                             R11 3 -1
+      124 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -348,77 +341,87 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K9 ["Foundation"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dash"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R5 K10 ["Framework"]
+       32 GETTABLEKS                       R5 R5 K10 ["Foundation"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
-       37 GETTABLEKS                       R6 R5 K12 ["Localization"]
-       39 GETIMPORT                        R7 K5 [require]
-       41 GETTABLEKS                       R8 R0 K13 ["Src"]
-       43 GETTABLEKS                       R8 R8 K14 ["Controllers"]
-       45 GETTABLEKS                       R8 R8 K15 ["PluginController"]
-       47 CALL                             R7 1 1
-       48 GETIMPORT                        R8 K5 [require]
-       50 GETTABLEKS                       R9 R0 K13 ["Src"]
-       52 GETTABLEKS                       R9 R9 K16 ["Util"]
-       54 GETTABLEKS                       R9 R9 K17 ["Dialogs"]
-       56 GETTABLEKS                       R9 R9 K18 ["useQuickShareState"]
-       58 CALL                             R8 1 1
-       59 GETIMPORT                        R9 K5 [require]
-       61 GETIMPORT                        R10 K1 [script]
-       63 GETTABLEKS                       R10 R10 K19 ["CollaboratorsDropdown"]
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K11 ["Framework"]
+       41 CALL                             R5 1 1
+       42 GETTABLEKS                       R6 R5 K12 ["ContextServices"]
+       44 GETTABLEKS                       R7 R6 K13 ["Localization"]
+       46 GETIMPORT                        R8 K5 [require]
+       48 GETTABLEKS                       R9 R0 K14 ["Src"]
+       50 GETTABLEKS                       R9 R9 K15 ["Controllers"]
+       52 GETTABLEKS                       R9 R9 K16 ["PluginController"]
+       54 CALL                             R8 1 1
+       55 GETIMPORT                        R9 K5 [require]
+       57 GETTABLEKS                       R10 R0 K14 ["Src"]
+       59 GETTABLEKS                       R10 R10 K17 ["Util"]
+       61 GETTABLEKS                       R10 R10 K18 ["Dialogs"]
+       63 GETTABLEKS                       R10 R10 K19 ["useQuickShareState"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K5 [require]
        68 GETIMPORT                        R11 K1 [script]
-       70 GETTABLEKS                       R11 R11 K20 ["Parent"]
-       72 GETTABLEKS                       R11 R11 K21 ["SelectedView"]
-       74 CALL                             R10 1 1
-       75 GETIMPORT                        R11 K5 [require]
-       77 GETIMPORT                        R12 K1 [script]
-       79 GETTABLEKS                       R12 R12 K20 ["Parent"]
-       81 GETTABLEKS                       R12 R12 K22 ["SelectedEntry"]
-       83 CALL                             R11 1 1
-       84 GETIMPORT                        R12 K5 [require]
-       86 GETTABLEKS                       R13 R0 K13 ["Src"]
-       88 GETTABLEKS                       R13 R13 K23 ["Types"]
+       70 GETTABLEKS                       R11 R11 K20 ["CollaboratorsDropdown"]
+       72 CALL                             R10 1 1
+       73 GETIMPORT                        R11 K5 [require]
+       75 GETIMPORT                        R12 K1 [script]
+       77 GETTABLEKS                       R12 R12 K21 ["Parent"]
+       79 GETTABLEKS                       R12 R12 K22 ["SelectedView"]
+       81 CALL                             R11 1 1
+       82 GETIMPORT                        R12 K5 [require]
+       84 GETIMPORT                        R13 K1 [script]
+       86 GETTABLEKS                       R13 R13 K21 ["Parent"]
+       88 GETTABLEKS                       R13 R13 K23 ["SelectedEntry"]
        90 CALL                             R12 1 1
        91 GETIMPORT                        R13 K5 [require]
-       93 GETTABLEKS                       R14 R0 K13 ["Src"]
-       95 GETTABLEKS                       R14 R14 K24 ["Resources"]
-       97 GETTABLEKS                       R14 R14 K25 ["StyleConstants"]
-       99 CALL                             R13 1 1
-      100 DUPCLOSURE                       R14 K26 [PROTO_0]
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R3
-      103 CAPTURE                          VAL R1
-      104 DUPCLOSURE                       R15 K27 [PROTO_3]
-      105 CAPTURE                          VAL R6
-      106 CAPTURE                          VAL R12
-      107 CAPTURE                          VAL R1
-      108 CAPTURE                          VAL R3
-      109 CAPTURE                          VAL R13
-      110 DUPCLOSURE                       R16 K28 [PROTO_9]
-      111 CAPTURE                          VAL R7
-      112 CAPTURE                          VAL R12
-      113 CAPTURE                          VAL R6
-      114 CAPTURE                          VAL R8
-      115 CAPTURE                          VAL R1
-      116 CAPTURE                          VAL R3
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R10
-      119 CAPTURE                          VAL R2
-      120 CAPTURE                          VAL R11
-      121 CAPTURE                          VAL R14
-      122 CAPTURE                          VAL R15
-      123 RETURN                           R16 1
+       93 GETTABLEKS                       R14 R0 K14 ["Src"]
+       95 GETTABLEKS                       R14 R14 K24 ["Types"]
+       97 CALL                             R13 1 1
+       98 GETIMPORT                        R14 K5 [require]
+      100 GETTABLEKS                       R15 R0 K14 ["Src"]
+      102 GETTABLEKS                       R15 R15 K25 ["Resources"]
+      104 GETTABLEKS                       R15 R15 K26 ["StyleConstants"]
+      106 CALL                             R14 1 1
+      107 GETTABLEKS                       R15 R1 K27 ["Enums"]
+      109 GETTABLEKS                       R15 R15 K28 ["PermissionsAction"]
+      111 GETTABLEKS                       R16 R1 K27 ["Enums"]
+      113 GETTABLEKS                       R16 R16 K29 ["PermissionsSubject"]
+      115 DUPCLOSURE                       R17 K30 [PROTO_0]
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R4
+      118 CAPTURE                          VAL R2
+      119 DUPCLOSURE                       R18 K31 [PROTO_3]
+      120 CAPTURE                          VAL R7
+      121 CAPTURE                          VAL R15
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R4
+      124 CAPTURE                          VAL R14
+      125 DUPCLOSURE                       R19 K32 [PROTO_9]
+      126 CAPTURE                          VAL R8
+      127 CAPTURE                          VAL R13
+      128 CAPTURE                          VAL R7
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R2
+      131 CAPTURE                          VAL R4
+      132 CAPTURE                          VAL R10
+      133 CAPTURE                          VAL R11
+      134 CAPTURE                          VAL R3
+      135 CAPTURE                          VAL R16
+      136 CAPTURE                          VAL R15
+      137 CAPTURE                          VAL R12
+      138 CAPTURE                          VAL R17
+      139 CAPTURE                          VAL R18
+      140 RETURN                           R19 1

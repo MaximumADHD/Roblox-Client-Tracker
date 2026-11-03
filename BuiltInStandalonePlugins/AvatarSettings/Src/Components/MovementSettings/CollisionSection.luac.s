@@ -229,273 +229,370 @@ PROTO_9:
       142 GETTABLEKS                       R14 R9 K39 ["collisionBodyPartsCollidableOnDeathSetting"]
       144 JUMP                             ; [+1]
       145 LOADNIL                          R14
-      146 GETUPVAL                         R15 10
-      147 GETUPVAL                         R16 11
-      148 DUPTABLE                         R17 K44 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
-      149 LOADK                            R20 K17 ["MovementSettings"]
-      150 LOADK                            R21 K45 ["CollisionSection"]
-      151 NAMECALL                         R18 R1 K19 ["getText"]
-      153 CALL                             R18 3 1
-      154 SETTABLEKS                       R18 R17 K40 ["text"]
-      156 GETTABLEKS                       R18 R0 K41 ["layoutOrder"]
-      158 SETTABLEKS                       R18 R17 K41 ["layoutOrder"]
-      160 DUPTABLE                         R18 K50 [{"CollisionModeSelector", "SizeTitleFrame", "HitAndTouchTitleFrame", "BodyPartsCollidableOnDeath"}]
-      161 GETUPVAL                         R19 10
-      162 GETUPVAL                         R20 12
-      163 DUPTABLE                         R21 K55 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-      164 MOVE                             R22 R3
-      165 CALL                             R22 0 1
-      166 SETTABLEKS                       R22 R21 K41 ["layoutOrder"]
-      168 SETTABLEKS                       R8 R21 K51 ["items"]
-      170 SETTABLEKS                       R10 R21 K52 ["selected"]
-      172 NEWCLOSURE                       R22 P2
-      173 CAPTURE                          VAL R10
-      174 CAPTURE                          VAL R2
-      175 CAPTURE                          VAL R9
-      176 CAPTURE                          UPVAL U6
-      177 SETTABLEKS                       R22 R21 K53 ["onItemActivated"]
-      179 LOADK                            R24 K17 ["MovementSettings"]
-      180 GETIMPORT                        R26 K16 [Enum.AvatarSettingsCollisionMode.Default]
-      182 JUMPIFNOTEQ                      R10 R26 ; [+3]
-      184 LOADK                            R25 K56 ["CollisionSectionDefaultSubText"]
-      185 JUMP                             ; [+7]
-      186 GETIMPORT                        R26 K21 [Enum.AvatarSettingsCollisionMode.SingleCollider]
-      188 JUMPIFNOTEQ                      R10 R26 ; [+3]
-      190 LOADK                            R25 K57 ["CollisionSectionSingleColliderSubText"]
-      191 JUMP                             ; [+1]
-      192 LOADK                            R25 K58 ["CollisionSectionLegacySubText"]
-      193 NAMECALL                         R22 R1 K19 ["getText"]
-      195 CALL                             R22 3 1
-      196 SETTABLEKS                       R22 R21 K54 ["subText"]
-      198 CALL                             R19 2 1
-      199 SETTABLEKS                       R19 R18 K46 ["CollisionModeSelector"]
-      201 MOVE                             R19 R13
-      202 JUMPIFNOT                        R19 ; [+54]
-      203 GETUPVAL                         R19 10
-      204 GETUPVAL                         R20 13
-      205 DUPTABLE                         R21 K63 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
-      206 MOVE                             R22 R3
-      207 CALL                             R22 0 1
-      208 SETTABLEKS                       R22 R21 K41 ["layoutOrder"]
-      210 GETIMPORT                        R22 K34 [UDim.new]
-      212 LOADN                            R23 0
-      213 LOADN                            R24 4
-      214 CALL                             R22 2 1
-      215 SETTABLEKS                       R22 R21 K59 ["separation"]
-      217 SETTABLEKS                       R11 R21 K62 ["minTextLabelWidth"]
-      219 LOADK                            R24 K17 ["MovementSettings"]
-      220 LOADK                            R25 K64 ["CollisionSectionSingleColliderSize"]
-      221 NAMECALL                         R22 R1 K19 ["getText"]
-      223 CALL                             R22 3 1
-      224 SETTABLEKS                       R22 R21 K40 ["text"]
-      226 DUPTABLE                         R22 K66 [{"Input"}]
-      227 GETUPVAL                         R23 10
-      228 GETUPVAL                         R24 14
-      229 DUPTABLE                         R25 K68 [{"value", "setValue", "text", "layoutOrder"}]
-      230 GETTABLEKS                       R26 R9 K69 ["collisionSizeSetting"]
-      232 GETTABLEKS                       R26 R26 K31 ["value"]
-      234 SETTABLEKS                       R26 R25 K31 ["value"]
-      236 GETTABLEKS                       R26 R9 K69 ["collisionSizeSetting"]
-      238 GETTABLEKS                       R26 R26 K70 ["set"]
-      240 SETTABLEKS                       R26 R25 K67 ["setValue"]
-      242 LOADK                            R28 K71 ["General"]
-      243 LOADK                            R29 K72 ["studs"]
-      244 NAMECALL                         R26 R1 K19 ["getText"]
-      246 CALL                             R26 3 1
-      247 SETTABLEKS                       R26 R25 K40 ["text"]
-      249 MOVE                             R26 R3
-      250 CALL                             R26 0 1
-      251 SETTABLEKS                       R26 R25 K41 ["layoutOrder"]
-      253 CALL                             R23 2 1
-      254 SETTABLEKS                       R23 R22 K65 ["Input"]
-      256 CALL                             R19 3 1
-      257 SETTABLEKS                       R19 R18 K47 ["SizeTitleFrame"]
-      259 MOVE                             R19 R13
-      260 JUMPIFNOT                        R19 ; [+170]
-      261 GETUPVAL                         R19 10
-      262 GETUPVAL                         R20 13
-      263 DUPTABLE                         R21 K77 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"], ["contentTags"] = "RadioButtonContainer", ["contentAutomaticSize"], ["contentSize"]}]
-      264 MOVE                             R22 R3
-      265 CALL                             R22 0 1
-      266 SETTABLEKS                       R22 R21 K41 ["layoutOrder"]
-      268 GETIMPORT                        R22 K34 [UDim.new]
-      270 LOADN                            R23 0
-      271 LOADN                            R24 4
-      272 CALL                             R22 2 1
-      273 SETTABLEKS                       R22 R21 K59 ["separation"]
-      275 SETTABLEKS                       R11 R21 K62 ["minTextLabelWidth"]
-      277 LOADK                            R24 K17 ["MovementSettings"]
-      278 LOADK                            R25 K78 ["CollisionSectionSingleColliderHitTouchDetection"]
-      279 NAMECALL                         R22 R1 K19 ["getText"]
-      281 CALL                             R22 3 1
-      282 SETTABLEKS                       R22 R21 K40 ["text"]
-      284 GETIMPORT                        R22 K81 [Enum.AutomaticSize.Y]
-      286 SETTABLEKS                       R22 R21 K75 ["contentAutomaticSize"]
-      288 SETTABLEKS                       R12 R21 K76 ["contentSize"]
-      290 DUPTABLE                         R22 K83 [{"Selector"}]
-      291 GETUPVAL                         R23 10
-      292 GETUPVAL                         R24 15
-      293 DUPTABLE                         R25 K91 [{["LayoutOrder"], ["FillDirection"], ["TextWrapped"] = True, ["AutomaticSize"], ["TextXAlignment"], ["Buttons"], ["CurrentSelectedKey"], ["OnClick"]}]
-      294 MOVE                             R26 R3
-      295 CALL                             R26 0 1
-      296 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
-      298 GETIMPORT                        R26 K93 [Enum.FillDirection.Vertical]
-      300 SETTABLEKS                       R26 R25 K85 ["FillDirection"]
-      302 GETIMPORT                        R26 K81 [Enum.AutomaticSize.Y]
-      304 SETTABLEKS                       R26 R25 K79 ["AutomaticSize"]
-      306 GETIMPORT                        R26 K95 [Enum.TextXAlignment.Left]
-      308 SETTABLEKS                       R26 R25 K87 ["TextXAlignment"]
-      310 NEWTABLE                         R26 2 0
-      312 GETUPVAL                         R28 16
-      313 CALL                             R28 0 1
-      314 JUMPIFNOT                        R28 ; [+2]
-      315 LOADN                            R27 2
-      316 JUMP                             ; [+1]
-      317 LOADN                            R27 1
-      318 DUPTABLE                         R28 K101 [{["Key"], ["Text"], ["Description"], ["Disabled"] = False}]
-      319 GETIMPORT                        R30 K104 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
-      321 FASTCALL1                        TYPEOF R30 ; [+3]
-      322 MOVE                             R32 R30
-      323 GETIMPORT                        R31 K106 [typeof]
-      325 CALL                             R31 1 1
-      326 JUMPIFNOTEQKS                    R31 K107 ["EnumItem"] ; [+10]
-      328 GETTABLEKS                       R31 R30 K108 ["EnumType"]
-      330 GETIMPORT                        R32 K109 [Enum.AvatarSettingsHitAndTouchDetectionMode]
-      332 JUMPIFNOTEQ                      R31 R32 ; [+4]
-      334 GETTABLEKS                       R29 R30 K110 ["Name"]
-      336 JUMP                             ; [+1]
-      337 LOADK                            R29 K111 ["Unknown"]
-      338 SETTABLEKS                       R29 R28 K96 ["Key"]
-      340 LOADK                            R31 K17 ["MovementSettings"]
-      341 LOADK                            R32 K112 ["CollisionSectionSingleColliderHitTouchDetectionUseParts"]
-      342 NAMECALL                         R29 R1 K19 ["getText"]
-      344 CALL                             R29 3 1
-      345 SETTABLEKS                       R29 R28 K97 ["Text"]
-      347 LOADK                            R31 K17 ["MovementSettings"]
-      348 LOADK                            R32 K113 ["CollisionSectionSingleColliderHitTouchDetectionUsePartsDescription"]
-      349 NAMECALL                         R29 R1 K19 ["getText"]
-      351 CALL                             R29 3 1
-      352 SETTABLEKS                       R29 R28 K98 ["Description"]
-      354 SETTABLE                         R28 R26 R27
-      355 GETUPVAL                         R28 16
-      356 CALL                             R28 0 1
-      357 JUMPIFNOT                        R28 ; [+2]
-      358 LOADN                            R27 1
-      359 JUMP                             ; [+1]
-      360 LOADN                            R27 2
-      361 DUPTABLE                         R28 K101 [{["Key"], ["Text"], ["Description"], ["Disabled"] = False}]
-      362 GETIMPORT                        R30 K115 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
-      364 FASTCALL1                        TYPEOF R30 ; [+3]
-      365 MOVE                             R32 R30
-      366 GETIMPORT                        R31 K106 [typeof]
-      368 CALL                             R31 1 1
-      369 JUMPIFNOTEQKS                    R31 K107 ["EnumItem"] ; [+10]
-      371 GETTABLEKS                       R31 R30 K108 ["EnumType"]
-      373 GETIMPORT                        R32 K109 [Enum.AvatarSettingsHitAndTouchDetectionMode]
-      375 JUMPIFNOTEQ                      R31 R32 ; [+4]
-      377 GETTABLEKS                       R29 R30 K110 ["Name"]
-      379 JUMP                             ; [+1]
-      380 LOADK                            R29 K111 ["Unknown"]
-      381 SETTABLEKS                       R29 R28 K96 ["Key"]
-      383 LOADK                            R31 K17 ["MovementSettings"]
-      384 LOADK                            R32 K116 ["CollisionSectionSingleColliderHitTouchDetectionUseColliders"]
-      385 NAMECALL                         R29 R1 K19 ["getText"]
-      387 CALL                             R29 3 1
-      388 SETTABLEKS                       R29 R28 K97 ["Text"]
-      390 LOADK                            R31 K17 ["MovementSettings"]
-      391 LOADK                            R32 K117 ["CollisionSectionSingleColliderHitTouchDetectionUseCollidersDescription"]
-      392 NAMECALL                         R29 R1 K19 ["getText"]
-      394 CALL                             R29 3 1
-      395 SETTABLEKS                       R29 R28 K98 ["Description"]
-      397 SETTABLE                         R28 R26 R27
-      398 SETTABLEKS                       R26 R25 K88 ["Buttons"]
-      400 GETTABLEKS                       R27 R9 K118 ["collisionHitAndTouchDetectionSetting"]
-      402 GETTABLEKS                       R27 R27 K31 ["value"]
-      404 FASTCALL1                        TYPEOF R27 ; [+3]
-      405 MOVE                             R29 R27
-      406 GETIMPORT                        R28 K106 [typeof]
-      408 CALL                             R28 1 1
-      409 JUMPIFNOTEQKS                    R28 K107 ["EnumItem"] ; [+10]
-      411 GETTABLEKS                       R28 R27 K108 ["EnumType"]
-      413 GETIMPORT                        R29 K109 [Enum.AvatarSettingsHitAndTouchDetectionMode]
-      415 JUMPIFNOTEQ                      R28 R29 ; [+4]
-      417 GETTABLEKS                       R26 R27 K110 ["Name"]
-      419 JUMP                             ; [+1]
-      420 LOADK                            R26 K111 ["Unknown"]
-      421 SETTABLEKS                       R26 R25 K89 ["CurrentSelectedKey"]
-      423 NEWCLOSURE                       R26 P3
-      424 CAPTURE                          VAL R9
-      425 SETTABLEKS                       R26 R25 K90 ["OnClick"]
-      427 CALL                             R23 2 1
-      428 SETTABLEKS                       R23 R22 K82 ["Selector"]
-      430 CALL                             R19 3 1
-      431 SETTABLEKS                       R19 R18 K48 ["HitAndTouchTitleFrame"]
-      433 MOVE                             R19 R14
-      434 JUMPIFNOT                        R19 ; [+85]
-      435 GETUPVAL                         R19 10
-      436 GETUPVAL                         R20 17
-      437 NEWTABLE                         R21 4 0
-      439 GETUPVAL                         R22 3
-      440 GETTABLEKS                       R22 R22 K119 ["Tag"]
-      442 LOADK                            R23 K120 ["X-ColumnS X-Left"]
-      443 SETTABLE                         R23 R21 R22
-      444 GETIMPORT                        R22 K122 [UDim2.fromScale]
-      446 LOADN                            R23 1
-      447 LOADN                            R24 0
-      448 CALL                             R22 2 1
-      449 SETTABLEKS                       R22 R21 K123 ["Size"]
-      451 GETIMPORT                        R22 K81 [Enum.AutomaticSize.Y]
-      453 SETTABLEKS                       R22 R21 K79 ["AutomaticSize"]
-      455 MOVE                             R22 R3
-      456 CALL                             R22 0 1
-      457 SETTABLEKS                       R22 R21 K84 ["LayoutOrder"]
-      459 DUPTABLE                         R22 K125 [{"Checkbox", "Description"}]
-      460 GETUPVAL                         R23 10
-      461 GETUPVAL                         R24 18
-      462 NEWTABLE                         R25 8 0
-      464 GETUPVAL                         R26 3
-      465 GETTABLEKS                       R26 R26 K119 ["Tag"]
-      467 LOADK                            R27 K126 ["X-Fit X-Left X-Middle X-RowS IconOnly Compact AvatarSettings-DeathCollisionCheckbox"]
-      468 SETTABLE                         R27 R25 R26
-      469 LOADN                            R26 1
-      470 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
-      472 GETTABLEKS                       R26 R14 K31 ["value"]
-      474 SETTABLEKS                       R26 R25 K127 ["Checked"]
-      476 LOADK                            R28 K17 ["MovementSettings"]
-      477 LOADK                            R29 K128 ["CollisionSectionBodyPartsCollidableOnDeath"]
-      478 NAMECALL                         R26 R1 K19 ["getText"]
-      480 CALL                             R26 3 1
-      481 SETTABLEKS                       R26 R25 K97 ["Text"]
-      483 NEWCLOSURE                       R26 P4
-      484 CAPTURE                          VAL R14
-      485 SETTABLEKS                       R26 R25 K90 ["OnClick"]
-      487 CALL                             R23 2 1
-      488 SETTABLEKS                       R23 R22 K124 ["Checkbox"]
-      490 GETUPVAL                         R23 10
-      491 LOADK                            R24 K129 ["TextLabel"]
-      492 NEWTABLE                         R25 4 0
-      494 GETUPVAL                         R26 3
-      495 GETTABLEKS                       R26 R26 K119 ["Tag"]
-      497 LOADK                            R27 K130 ["Component-TextLabel AvatarSettings-DeathCollisionDescription"]
-      498 SETTABLE                         R27 R25 R26
-      499 LOADN                            R26 2
-      500 SETTABLEKS                       R26 R25 K84 ["LayoutOrder"]
-      502 GETIMPORT                        R26 K122 [UDim2.fromScale]
-      504 LOADN                            R27 1
-      505 LOADN                            R28 0
-      506 CALL                             R26 2 1
-      507 SETTABLEKS                       R26 R25 K123 ["Size"]
-      509 LOADK                            R28 K17 ["MovementSettings"]
-      510 LOADK                            R29 K131 ["CollisionSectionDeathCollisionDescription"]
-      511 NAMECALL                         R26 R1 K19 ["getText"]
-      513 CALL                             R26 3 1
-      514 SETTABLEKS                       R26 R25 K97 ["Text"]
-      516 CALL                             R23 2 1
-      517 SETTABLEKS                       R23 R22 K98 ["Description"]
-      519 CALL                             R19 3 1
-      520 SETTABLEKS                       R19 R18 K49 ["BodyPartsCollidableOnDeath"]
-      522 CALL                             R15 3 -1
-      523 RETURN                           R15 -1
+      146 GETUPVAL                         R16 10
+      147 CALL                             R16 0 1
+      148 JUMPIFNOT                        R16 ; [+3]
+      149 GETTABLEKS                       R15 R9 K40 ["collisionHitboxSizeSetting"]
+      151 JUMP                             ; [+1]
+      152 LOADNIL                          R15
+      153 NEWTABLE                         R16 2 0
+      155 GETUPVAL                         R18 11
+      156 CALL                             R18 0 1
+      157 JUMPIFNOT                        R18 ; [+2]
+      158 LOADN                            R17 2
+      159 JUMP                             ; [+1]
+      160 LOADN                            R17 1
+      161 DUPTABLE                         R18 K46 [{["Key"], ["Text"], ["Description"], ["Disabled"] = False}]
+      162 GETIMPORT                        R20 K49 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
+      164 FASTCALL1                        TYPEOF R20 ; [+3]
+      165 MOVE                             R22 R20
+      166 GETIMPORT                        R21 K51 [typeof]
+      168 CALL                             R21 1 1
+      169 JUMPIFNOTEQKS                    R21 K52 ["EnumItem"] ; [+10]
+      171 GETTABLEKS                       R21 R20 K53 ["EnumType"]
+      173 GETIMPORT                        R22 K54 [Enum.AvatarSettingsHitAndTouchDetectionMode]
+      175 JUMPIFNOTEQ                      R21 R22 ; [+4]
+      177 GETTABLEKS                       R19 R20 K55 ["Name"]
+      179 JUMP                             ; [+1]
+      180 LOADK                            R19 K56 ["Unknown"]
+      181 SETTABLEKS                       R19 R18 K41 ["Key"]
+      183 LOADK                            R21 K17 ["MovementSettings"]
+      184 LOADK                            R22 K57 ["CollisionSectionSingleColliderHitTouchDetectionUseParts"]
+      185 NAMECALL                         R19 R1 K19 ["getText"]
+      187 CALL                             R19 3 1
+      188 SETTABLEKS                       R19 R18 K42 ["Text"]
+      190 LOADK                            R21 K17 ["MovementSettings"]
+      191 JUMPIFNOT                        R15 ; [+2]
+      192 LOADK                            R22 K58 ["HitTouchUsePartsDesc"]
+      193 JUMP                             ; [+1]
+      194 LOADK                            R22 K59 ["CollisionSectionSingleColliderHitTouchDetectionUsePartsDescription"]
+      195 NAMECALL                         R19 R1 K19 ["getText"]
+      197 CALL                             R19 3 1
+      198 SETTABLEKS                       R19 R18 K43 ["Description"]
+      200 SETTABLE                         R18 R16 R17
+      201 GETUPVAL                         R18 11
+      202 CALL                             R18 0 1
+      203 JUMPIFNOT                        R18 ; [+2]
+      204 LOADN                            R17 1
+      205 JUMP                             ; [+1]
+      206 LOADN                            R17 2
+      207 DUPTABLE                         R18 K46 [{["Key"], ["Text"], ["Description"], ["Disabled"] = False}]
+      208 GETIMPORT                        R20 K61 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
+      210 FASTCALL1                        TYPEOF R20 ; [+3]
+      211 MOVE                             R22 R20
+      212 GETIMPORT                        R21 K51 [typeof]
+      214 CALL                             R21 1 1
+      215 JUMPIFNOTEQKS                    R21 K52 ["EnumItem"] ; [+10]
+      217 GETTABLEKS                       R21 R20 K53 ["EnumType"]
+      219 GETIMPORT                        R22 K54 [Enum.AvatarSettingsHitAndTouchDetectionMode]
+      221 JUMPIFNOTEQ                      R21 R22 ; [+4]
+      223 GETTABLEKS                       R19 R20 K55 ["Name"]
+      225 JUMP                             ; [+1]
+      226 LOADK                            R19 K56 ["Unknown"]
+      227 SETTABLEKS                       R19 R18 K41 ["Key"]
+      229 LOADK                            R21 K17 ["MovementSettings"]
+      230 LOADK                            R22 K62 ["CollisionSectionSingleColliderHitTouchDetectionUseColliders"]
+      231 NAMECALL                         R19 R1 K19 ["getText"]
+      233 CALL                             R19 3 1
+      234 SETTABLEKS                       R19 R18 K42 ["Text"]
+      236 LOADK                            R21 K17 ["MovementSettings"]
+      237 JUMPIFNOT                        R15 ; [+2]
+      238 LOADK                            R22 K63 ["HitTouchUseColliderDesc"]
+      239 JUMP                             ; [+1]
+      240 LOADK                            R22 K64 ["CollisionSectionSingleColliderHitTouchDetectionUseCollidersDescription"]
+      241 NAMECALL                         R19 R1 K19 ["getText"]
+      243 CALL                             R19 3 1
+      244 SETTABLEKS                       R19 R18 K43 ["Description"]
+      246 SETTABLE                         R18 R16 R17
+      247 JUMPIFNOT                        R15 ; [+42]
+      248 DUPTABLE                         R19 K46 [{["Key"], ["Text"], ["Description"], ["Disabled"] = False}]
+      249 GETUPVAL                         R21 12
+      250 CALL                             R21 0 1
+      251 FASTCALL1                        TYPEOF R21 ; [+3]
+      252 MOVE                             R23 R21
+      253 GETIMPORT                        R22 K51 [typeof]
+      255 CALL                             R22 1 1
+      256 JUMPIFNOTEQKS                    R22 K52 ["EnumItem"] ; [+10]
+      258 GETTABLEKS                       R22 R21 K53 ["EnumType"]
+      260 GETIMPORT                        R23 K54 [Enum.AvatarSettingsHitAndTouchDetectionMode]
+      262 JUMPIFNOTEQ                      R22 R23 ; [+4]
+      264 GETTABLEKS                       R20 R21 K55 ["Name"]
+      266 JUMP                             ; [+1]
+      267 LOADK                            R20 K56 ["Unknown"]
+      268 SETTABLEKS                       R20 R19 K41 ["Key"]
+      270 LOADK                            R22 K17 ["MovementSettings"]
+      271 LOADK                            R23 K65 ["HitTouchUseHitbox"]
+      272 NAMECALL                         R20 R1 K19 ["getText"]
+      274 CALL                             R20 3 1
+      275 SETTABLEKS                       R20 R19 K42 ["Text"]
+      277 LOADK                            R22 K17 ["MovementSettings"]
+      278 LOADK                            R23 K66 ["HitTouchUseHitboxDesc"]
+      279 NAMECALL                         R20 R1 K19 ["getText"]
+      281 CALL                             R20 3 1
+      282 SETTABLEKS                       R20 R19 K43 ["Description"]
+      284 FASTCALL2                        TABLE_INSERT R16 R19 ; [+4]
+      286 MOVE                             R18 R16
+      287 GETIMPORT                        R17 K28 [table.insert]
+      289 CALL                             R17 2 0
+      290 LOADB                            R17 0
+      291 JUMPIFEQKNIL                     R15 ; [+11]
+      293 GETTABLEKS                       R18 R9 K67 ["collisionHitAndTouchDetectionSetting"]
+      295 GETTABLEKS                       R18 R18 K31 ["value"]
+      297 GETUPVAL                         R19 12
+      298 CALL                             R19 0 1
+      299 JUMPIFEQ                         R18 R19 ; [+2]
+      301 LOADB                            R17 0 +1
+      302 LOADB                            R17 1
+      303 GETUPVAL                         R18 13
+      304 GETUPVAL                         R19 14
+      305 DUPTABLE                         R20 K72 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
+      306 LOADK                            R23 K17 ["MovementSettings"]
+      307 LOADK                            R24 K73 ["CollisionSection"]
+      308 NAMECALL                         R21 R1 K19 ["getText"]
+      310 CALL                             R21 3 1
+      311 SETTABLEKS                       R21 R20 K68 ["text"]
+      313 GETTABLEKS                       R21 R0 K69 ["layoutOrder"]
+      315 SETTABLEKS                       R21 R20 K69 ["layoutOrder"]
+      317 DUPTABLE                         R21 K79 [{"CollisionModeSelector", "SizeTitleFrame", "HitAndTouchTitleFrame", "HitboxSizeTitleFrame", "BodyPartsCollidableOnDeath"}]
+      318 GETUPVAL                         R22 13
+      319 GETUPVAL                         R23 15
+      320 DUPTABLE                         R24 K84 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+      321 MOVE                             R25 R3
+      322 CALL                             R25 0 1
+      323 SETTABLEKS                       R25 R24 K69 ["layoutOrder"]
+      325 SETTABLEKS                       R8 R24 K80 ["items"]
+      327 SETTABLEKS                       R10 R24 K81 ["selected"]
+      329 NEWCLOSURE                       R25 P2
+      330 CAPTURE                          VAL R10
+      331 CAPTURE                          VAL R2
+      332 CAPTURE                          VAL R9
+      333 CAPTURE                          UPVAL U6
+      334 SETTABLEKS                       R25 R24 K82 ["onItemActivated"]
+      336 LOADK                            R27 K17 ["MovementSettings"]
+      337 GETIMPORT                        R29 K16 [Enum.AvatarSettingsCollisionMode.Default]
+      339 JUMPIFNOTEQ                      R10 R29 ; [+3]
+      341 LOADK                            R28 K85 ["CollisionSectionDefaultSubText"]
+      342 JUMP                             ; [+7]
+      343 GETIMPORT                        R29 K21 [Enum.AvatarSettingsCollisionMode.SingleCollider]
+      345 JUMPIFNOTEQ                      R10 R29 ; [+3]
+      347 LOADK                            R28 K86 ["CollisionSectionSingleColliderSubText"]
+      348 JUMP                             ; [+1]
+      349 LOADK                            R28 K87 ["CollisionSectionLegacySubText"]
+      350 NAMECALL                         R25 R1 K19 ["getText"]
+      352 CALL                             R25 3 1
+      353 SETTABLEKS                       R25 R24 K83 ["subText"]
+      355 CALL                             R22 2 1
+      356 SETTABLEKS                       R22 R21 K74 ["CollisionModeSelector"]
+      358 MOVE                             R22 R13
+      359 JUMPIFNOT                        R22 ; [+54]
+      360 GETUPVAL                         R22 13
+      361 GETUPVAL                         R23 16
+      362 DUPTABLE                         R24 K92 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
+      363 MOVE                             R25 R3
+      364 CALL                             R25 0 1
+      365 SETTABLEKS                       R25 R24 K69 ["layoutOrder"]
+      367 GETIMPORT                        R25 K34 [UDim.new]
+      369 LOADN                            R26 0
+      370 LOADN                            R27 4
+      371 CALL                             R25 2 1
+      372 SETTABLEKS                       R25 R24 K88 ["separation"]
+      374 SETTABLEKS                       R11 R24 K91 ["minTextLabelWidth"]
+      376 LOADK                            R27 K17 ["MovementSettings"]
+      377 LOADK                            R28 K93 ["CollisionSectionSingleColliderSize"]
+      378 NAMECALL                         R25 R1 K19 ["getText"]
+      380 CALL                             R25 3 1
+      381 SETTABLEKS                       R25 R24 K68 ["text"]
+      383 DUPTABLE                         R25 K95 [{"Input"}]
+      384 GETUPVAL                         R26 13
+      385 GETUPVAL                         R27 17
+      386 DUPTABLE                         R28 K97 [{"value", "setValue", "text", "layoutOrder"}]
+      387 GETTABLEKS                       R29 R9 K98 ["collisionSizeSetting"]
+      389 GETTABLEKS                       R29 R29 K31 ["value"]
+      391 SETTABLEKS                       R29 R28 K31 ["value"]
+      393 GETTABLEKS                       R29 R9 K98 ["collisionSizeSetting"]
+      395 GETTABLEKS                       R29 R29 K99 ["set"]
+      397 SETTABLEKS                       R29 R28 K96 ["setValue"]
+      399 LOADK                            R31 K100 ["General"]
+      400 LOADK                            R32 K101 ["studs"]
+      401 NAMECALL                         R29 R1 K19 ["getText"]
+      403 CALL                             R29 3 1
+      404 SETTABLEKS                       R29 R28 K68 ["text"]
+      406 MOVE                             R29 R3
+      407 CALL                             R29 0 1
+      408 SETTABLEKS                       R29 R28 K69 ["layoutOrder"]
+      410 CALL                             R26 2 1
+      411 SETTABLEKS                       R26 R25 K94 ["Input"]
+      413 CALL                             R22 3 1
+      414 SETTABLEKS                       R22 R21 K75 ["SizeTitleFrame"]
+      416 MOVE                             R22 R13
+      417 JUMPIFNOT                        R22 ; [+85]
+      418 GETUPVAL                         R22 13
+      419 GETUPVAL                         R23 16
+      420 DUPTABLE                         R24 K106 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"], ["contentTags"] = "RadioButtonContainer", ["contentAutomaticSize"], ["contentSize"]}]
+      421 MOVE                             R25 R3
+      422 CALL                             R25 0 1
+      423 SETTABLEKS                       R25 R24 K69 ["layoutOrder"]
+      425 GETIMPORT                        R25 K34 [UDim.new]
+      427 LOADN                            R26 0
+      428 LOADN                            R27 4
+      429 CALL                             R25 2 1
+      430 SETTABLEKS                       R25 R24 K88 ["separation"]
+      432 SETTABLEKS                       R11 R24 K91 ["minTextLabelWidth"]
+      434 LOADK                            R27 K17 ["MovementSettings"]
+      435 JUMPIFNOT                        R15 ; [+2]
+      436 LOADK                            R28 K107 ["HitTouchDetection"]
+      437 JUMP                             ; [+1]
+      438 LOADK                            R28 K108 ["CollisionSectionSingleColliderHitTouchDetection"]
+      439 NAMECALL                         R25 R1 K19 ["getText"]
+      441 CALL                             R25 3 1
+      442 SETTABLEKS                       R25 R24 K68 ["text"]
+      444 GETIMPORT                        R25 K111 [Enum.AutomaticSize.Y]
+      446 SETTABLEKS                       R25 R24 K104 ["contentAutomaticSize"]
+      448 SETTABLEKS                       R12 R24 K105 ["contentSize"]
+      450 DUPTABLE                         R25 K113 [{"Selector"}]
+      451 GETUPVAL                         R26 13
+      452 GETUPVAL                         R27 18
+      453 DUPTABLE                         R28 K121 [{["LayoutOrder"], ["FillDirection"], ["TextWrapped"] = True, ["AutomaticSize"], ["TextXAlignment"], ["Buttons"], ["CurrentSelectedKey"], ["OnClick"]}]
+      454 MOVE                             R29 R3
+      455 CALL                             R29 0 1
+      456 SETTABLEKS                       R29 R28 K114 ["LayoutOrder"]
+      458 GETIMPORT                        R29 K123 [Enum.FillDirection.Vertical]
+      460 SETTABLEKS                       R29 R28 K115 ["FillDirection"]
+      462 GETIMPORT                        R29 K111 [Enum.AutomaticSize.Y]
+      464 SETTABLEKS                       R29 R28 K109 ["AutomaticSize"]
+      466 GETIMPORT                        R29 K125 [Enum.TextXAlignment.Left]
+      468 SETTABLEKS                       R29 R28 K117 ["TextXAlignment"]
+      470 SETTABLEKS                       R16 R28 K118 ["Buttons"]
+      472 GETTABLEKS                       R30 R9 K67 ["collisionHitAndTouchDetectionSetting"]
+      474 GETTABLEKS                       R30 R30 K31 ["value"]
+      476 FASTCALL1                        TYPEOF R30 ; [+3]
+      477 MOVE                             R32 R30
+      478 GETIMPORT                        R31 K51 [typeof]
+      480 CALL                             R31 1 1
+      481 JUMPIFNOTEQKS                    R31 K52 ["EnumItem"] ; [+10]
+      483 GETTABLEKS                       R31 R30 K53 ["EnumType"]
+      485 GETIMPORT                        R32 K54 [Enum.AvatarSettingsHitAndTouchDetectionMode]
+      487 JUMPIFNOTEQ                      R31 R32 ; [+4]
+      489 GETTABLEKS                       R29 R30 K55 ["Name"]
+      491 JUMP                             ; [+1]
+      492 LOADK                            R29 K56 ["Unknown"]
+      493 SETTABLEKS                       R29 R28 K119 ["CurrentSelectedKey"]
+      495 NEWCLOSURE                       R29 P3
+      496 CAPTURE                          VAL R9
+      497 SETTABLEKS                       R29 R28 K120 ["OnClick"]
+      499 CALL                             R26 2 1
+      500 SETTABLEKS                       R26 R25 K112 ["Selector"]
+      502 CALL                             R22 3 1
+      503 SETTABLEKS                       R22 R21 K76 ["HitAndTouchTitleFrame"]
+      505 MOVE                             R22 R13
+      506 JUMPIFNOT                        R22 ; [+54]
+      507 MOVE                             R22 R17
+      508 JUMPIFNOT                        R22 ; [+52]
+      509 MOVE                             R22 R15
+      510 JUMPIFNOT                        R22 ; [+50]
+      511 GETUPVAL                         R22 13
+      512 GETUPVAL                         R23 16
+      513 DUPTABLE                         R24 K92 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
+      514 MOVE                             R25 R3
+      515 CALL                             R25 0 1
+      516 SETTABLEKS                       R25 R24 K69 ["layoutOrder"]
+      518 GETIMPORT                        R25 K34 [UDim.new]
+      520 LOADN                            R26 0
+      521 LOADN                            R27 4
+      522 CALL                             R25 2 1
+      523 SETTABLEKS                       R25 R24 K88 ["separation"]
+      525 SETTABLEKS                       R11 R24 K91 ["minTextLabelWidth"]
+      527 LOADK                            R27 K17 ["MovementSettings"]
+      528 LOADK                            R28 K126 ["HitboxSize"]
+      529 NAMECALL                         R25 R1 K19 ["getText"]
+      531 CALL                             R25 3 1
+      532 SETTABLEKS                       R25 R24 K68 ["text"]
+      534 DUPTABLE                         R25 K95 [{"Input"}]
+      535 GETUPVAL                         R26 13
+      536 GETUPVAL                         R27 17
+      537 DUPTABLE                         R28 K97 [{"value", "setValue", "text", "layoutOrder"}]
+      538 GETTABLEKS                       R29 R15 K31 ["value"]
+      540 SETTABLEKS                       R29 R28 K31 ["value"]
+      542 GETTABLEKS                       R29 R15 K99 ["set"]
+      544 SETTABLEKS                       R29 R28 K96 ["setValue"]
+      546 LOADK                            R31 K100 ["General"]
+      547 LOADK                            R32 K101 ["studs"]
+      548 NAMECALL                         R29 R1 K19 ["getText"]
+      550 CALL                             R29 3 1
+      551 SETTABLEKS                       R29 R28 K68 ["text"]
+      553 MOVE                             R29 R3
+      554 CALL                             R29 0 1
+      555 SETTABLEKS                       R29 R28 K69 ["layoutOrder"]
+      557 CALL                             R26 2 1
+      558 SETTABLEKS                       R26 R25 K94 ["Input"]
+      560 CALL                             R22 3 1
+      561 SETTABLEKS                       R22 R21 K77 ["HitboxSizeTitleFrame"]
+      563 MOVE                             R22 R14
+      564 JUMPIFNOT                        R22 ; [+85]
+      565 GETUPVAL                         R22 13
+      566 GETUPVAL                         R23 19
+      567 NEWTABLE                         R24 4 0
+      569 GETUPVAL                         R25 3
+      570 GETTABLEKS                       R25 R25 K127 ["Tag"]
+      572 LOADK                            R26 K128 ["X-ColumnS X-Left"]
+      573 SETTABLE                         R26 R24 R25
+      574 GETIMPORT                        R25 K130 [UDim2.fromScale]
+      576 LOADN                            R26 1
+      577 LOADN                            R27 0
+      578 CALL                             R25 2 1
+      579 SETTABLEKS                       R25 R24 K131 ["Size"]
+      581 GETIMPORT                        R25 K111 [Enum.AutomaticSize.Y]
+      583 SETTABLEKS                       R25 R24 K109 ["AutomaticSize"]
+      585 MOVE                             R25 R3
+      586 CALL                             R25 0 1
+      587 SETTABLEKS                       R25 R24 K114 ["LayoutOrder"]
+      589 DUPTABLE                         R25 K133 [{"Checkbox", "Description"}]
+      590 GETUPVAL                         R26 13
+      591 GETUPVAL                         R27 20
+      592 NEWTABLE                         R28 8 0
+      594 GETUPVAL                         R29 3
+      595 GETTABLEKS                       R29 R29 K127 ["Tag"]
+      597 LOADK                            R30 K134 ["X-Fit X-Left X-Middle X-RowS IconOnly Compact AvatarSettings-DeathCollisionCheckbox"]
+      598 SETTABLE                         R30 R28 R29
+      599 LOADN                            R29 1
+      600 SETTABLEKS                       R29 R28 K114 ["LayoutOrder"]
+      602 GETTABLEKS                       R29 R14 K31 ["value"]
+      604 SETTABLEKS                       R29 R28 K135 ["Checked"]
+      606 LOADK                            R31 K17 ["MovementSettings"]
+      607 LOADK                            R32 K136 ["CollisionSectionBodyPartsCollidableOnDeath"]
+      608 NAMECALL                         R29 R1 K19 ["getText"]
+      610 CALL                             R29 3 1
+      611 SETTABLEKS                       R29 R28 K42 ["Text"]
+      613 NEWCLOSURE                       R29 P4
+      614 CAPTURE                          VAL R14
+      615 SETTABLEKS                       R29 R28 K120 ["OnClick"]
+      617 CALL                             R26 2 1
+      618 SETTABLEKS                       R26 R25 K132 ["Checkbox"]
+      620 GETUPVAL                         R26 13
+      621 LOADK                            R27 K137 ["TextLabel"]
+      622 NEWTABLE                         R28 4 0
+      624 GETUPVAL                         R29 3
+      625 GETTABLEKS                       R29 R29 K127 ["Tag"]
+      627 LOADK                            R30 K138 ["Component-TextLabel AvatarSettings-DeathCollisionDescription"]
+      628 SETTABLE                         R30 R28 R29
+      629 LOADN                            R29 2
+      630 SETTABLEKS                       R29 R28 K114 ["LayoutOrder"]
+      632 GETIMPORT                        R29 K130 [UDim2.fromScale]
+      634 LOADN                            R30 1
+      635 LOADN                            R31 0
+      636 CALL                             R29 2 1
+      637 SETTABLEKS                       R29 R28 K131 ["Size"]
+      639 LOADK                            R31 K17 ["MovementSettings"]
+      640 LOADK                            R32 K139 ["CollisionSectionDeathCollisionDescription"]
+      641 NAMECALL                         R29 R1 K19 ["getText"]
+      643 CALL                             R29 3 1
+      644 SETTABLEKS                       R29 R28 K42 ["Text"]
+      646 CALL                             R26 2 1
+      647 SETTABLEKS                       R26 R25 K43 ["Description"]
+      649 CALL                             R22 3 1
+      650 SETTABLEKS                       R22 R21 K78 ["BodyPartsCollidableOnDeath"]
+      652 CALL                             R18 3 -1
+      653 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -554,52 +651,64 @@ MAIN:
        93 GETIMPORT                        R11 K5 [require]
        95 GETTABLEKS                       R12 R0 K6 ["Src"]
        97 GETTABLEKS                       R12 R12 K20 ["Flags"]
-       99 GETTABLEKS                       R12 R12 K22 ["getFFlagAvatarSettingsConsistentGameplayUseCollider"]
+       99 GETTABLEKS                       R12 R12 K22 ["getEngineFeatureAvatarSettingsHitbox"]
       101 CALL                             R11 1 1
       102 GETIMPORT                        R12 K5 [require]
       104 GETTABLEKS                       R13 R0 K6 ["Src"]
       106 GETTABLEKS                       R13 R13 K20 ["Flags"]
-      108 GETTABLEKS                       R13 R13 K23 ["getFFlagAvatarSettingsRemoveLegacyCollisionMode"]
+      108 GETTABLEKS                       R13 R13 K23 ["getFFlagAvatarSettingsConsistentGameplayUseCollider"]
       110 CALL                             R12 1 1
       111 GETIMPORT                        R13 K5 [require]
       113 GETTABLEKS                       R14 R0 K6 ["Src"]
-      115 GETTABLEKS                       R14 R14 K10 ["Util"]
-      117 GETTABLEKS                       R14 R14 K24 ["PluginItemKeys"]
+      115 GETTABLEKS                       R14 R14 K20 ["Flags"]
+      117 GETTABLEKS                       R14 R14 K24 ["getFFlagAvatarSettingsRemoveLegacyCollisionMode"]
       119 CALL                             R13 1 1
-      120 GETTABLEKS                       R14 R4 K25 ["ContextServices"]
-      122 GETTABLEKS                       R15 R14 K26 ["Localization"]
-      124 GETIMPORT                        R16 K5 [require]
-      126 GETTABLEKS                       R17 R0 K6 ["Src"]
-      128 GETTABLEKS                       R17 R17 K10 ["Util"]
-      130 GETTABLEKS                       R17 R17 K27 ["Telemetry"]
-      132 GETTABLEKS                       R17 R17 K28 ["TelemetryContext"]
-      134 CALL                             R16 1 1
-      135 GETTABLEKS                       R17 R4 K29 ["UI"]
-      137 GETTABLEKS                       R18 R17 K30 ["RadioButtonList"]
-      139 GETTABLEKS                       R19 R17 K31 ["Checkbox"]
-      141 GETTABLEKS                       R20 R17 K32 ["Pane"]
-      143 GETTABLEKS                       R21 R7 K33 ["createNextOrder"]
-      145 GETTABLEKS                       R22 R6 K34 ["createElement"]
-      147 DUPCLOSURE                       R23 K35 [PROTO_0]
-      148 DUPCLOSURE                       R24 K36 [PROTO_1]
-      149 DUPCLOSURE                       R25 K37 [PROTO_9]
-      150 CAPTURE                          VAL R15
-      151 CAPTURE                          VAL R16
-      152 CAPTURE                          VAL R21
-      153 CAPTURE                          VAL R6
-      154 CAPTURE                          VAL R1
-      155 CAPTURE                          VAL R14
-      156 CAPTURE                          VAL R12
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R2
-      159 CAPTURE                          VAL R10
-      160 CAPTURE                          VAL R22
-      161 CAPTURE                          VAL R3
-      162 CAPTURE                          VAL R5
-      163 CAPTURE                          VAL R8
-      164 CAPTURE                          VAL R9
-      165 CAPTURE                          VAL R18
-      166 CAPTURE                          VAL R11
-      167 CAPTURE                          VAL R20
-      168 CAPTURE                          VAL R19
-      169 RETURN                           R25 1
+      120 GETIMPORT                        R14 K5 [require]
+      122 GETTABLEKS                       R15 R0 K6 ["Src"]
+      124 GETTABLEKS                       R15 R15 K10 ["Util"]
+      126 GETTABLEKS                       R15 R15 K25 ["getUseHitboxDetectionMode"]
+      128 CALL                             R14 1 1
+      129 GETIMPORT                        R15 K5 [require]
+      131 GETTABLEKS                       R16 R0 K6 ["Src"]
+      133 GETTABLEKS                       R16 R16 K10 ["Util"]
+      135 GETTABLEKS                       R16 R16 K26 ["PluginItemKeys"]
+      137 CALL                             R15 1 1
+      138 GETTABLEKS                       R16 R4 K27 ["ContextServices"]
+      140 GETTABLEKS                       R17 R16 K28 ["Localization"]
+      142 GETIMPORT                        R18 K5 [require]
+      144 GETTABLEKS                       R19 R0 K6 ["Src"]
+      146 GETTABLEKS                       R19 R19 K10 ["Util"]
+      148 GETTABLEKS                       R19 R19 K29 ["Telemetry"]
+      150 GETTABLEKS                       R19 R19 K30 ["TelemetryContext"]
+      152 CALL                             R18 1 1
+      153 GETTABLEKS                       R19 R4 K31 ["UI"]
+      155 GETTABLEKS                       R20 R19 K32 ["RadioButtonList"]
+      157 GETTABLEKS                       R21 R19 K33 ["Checkbox"]
+      159 GETTABLEKS                       R22 R19 K34 ["Pane"]
+      161 GETTABLEKS                       R23 R7 K35 ["createNextOrder"]
+      163 GETTABLEKS                       R24 R6 K36 ["createElement"]
+      165 DUPCLOSURE                       R25 K37 [PROTO_0]
+      166 DUPCLOSURE                       R26 K38 [PROTO_1]
+      167 DUPCLOSURE                       R27 K39 [PROTO_9]
+      168 CAPTURE                          VAL R17
+      169 CAPTURE                          VAL R18
+      170 CAPTURE                          VAL R23
+      171 CAPTURE                          VAL R6
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          VAL R16
+      174 CAPTURE                          VAL R13
+      175 CAPTURE                          VAL R15
+      176 CAPTURE                          VAL R2
+      177 CAPTURE                          VAL R10
+      178 CAPTURE                          VAL R11
+      179 CAPTURE                          VAL R12
+      180 CAPTURE                          VAL R14
+      181 CAPTURE                          VAL R24
+      182 CAPTURE                          VAL R3
+      183 CAPTURE                          VAL R5
+      184 CAPTURE                          VAL R8
+      185 CAPTURE                          VAL R9
+      186 CAPTURE                          VAL R20
+      187 CAPTURE                          VAL R22
+      188 CAPTURE                          VAL R21
+      189 RETURN                           R27 1

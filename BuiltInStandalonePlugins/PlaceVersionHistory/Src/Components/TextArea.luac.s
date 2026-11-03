@@ -65,167 +65,166 @@ PROTO_5:
        10 GETTABLEKS                       R3 R1 K4 ["Color"]
        12 GETTABLEKS                       R3 R3 K5 ["Content"]
        14 GETTABLEKS                       R3 R3 K6 ["Default"]
-       16 GETTABLEKS                       R4 R1 K7 ["Semantic"]
-       18 GETTABLEKS                       R4 R4 K4 ["Color"]
-       20 GETTABLEKS                       R4 R4 K8 ["Common"]
-       22 GETTABLEKS                       R4 R4 K9 ["Placeholder"]
-       24 GETTABLEKS                       R5 R1 K10 ["Size"]
-       26 GETTABLEKS                       R5 R5 K11 ["Size_100"]
-       28 GETUPVAL                         R6 1
-       29 GETTABLEKS                       R6 R6 K12 ["useState"]
-       31 LOADB                            R7 0
-       32 CALL                             R6 1 2
-       33 GETUPVAL                         R8 1
-       34 GETTABLEKS                       R8 R8 K13 ["useCallback"]
-       36 NEWCLOSURE                       R9 P0
-       37 CAPTURE                          VAL R0
-       38 NEWTABLE                         R10 0 1
-       40 GETTABLEKS                       R11 R0 K14 ["isMultiLine"]
-       42 SETLIST                          R10 R11 1 [1]
-       44 CALL                             R8 2 1
-       45 GETUPVAL                         R9 1
-       46 GETTABLEKS                       R9 R9 K13 ["useCallback"]
-       48 NEWCLOSURE                       R10 P1
-       49 CAPTURE                          VAL R7
-       50 NEWTABLE                         R11 0 0
-       52 CALL                             R9 2 1
-       53 GETUPVAL                         R10 1
-       54 GETTABLEKS                       R10 R10 K13 ["useCallback"]
-       56 NEWCLOSURE                       R11 P2
-       57 CAPTURE                          VAL R7
-       58 NEWTABLE                         R12 0 0
-       60 CALL                             R10 2 1
-       61 GETUPVAL                         R11 1
-       62 GETTABLEKS                       R11 R11 K15 ["createElement"]
-       64 GETUPVAL                         R12 0
-       65 GETTABLEKS                       R12 R12 K16 ["View"]
-       67 DUPTABLE                         R13 K19 [{"tag", "LayoutOrder"}]
-       68 NEWTABLE                         R14 8 0
-       70 LOADB                            R15 1
-       71 SETTABLEKS                       R15 R14 K20 ["col padding-small stroke-thick radius-medium clip bg-shift-100"]
-       73 GETTABLEKS                       R15 R0 K14 ["isMultiLine"]
-       75 SETTABLEKS                       R15 R14 K21 ["fill size-full-0"]
-       77 GETTABLEKS                       R16 R0 K14 ["isMultiLine"]
-       79 NOT                              R15 R16
-       80 SETTABLEKS                       R15 R14 K22 ["size-0-0 auto-xy"]
-       82 GETTABLEKS                       R15 R0 K23 ["isError"]
-       84 SETTABLEKS                       R15 R14 K24 ["stroke-system-alert"]
-       86 GETTABLEKS                       R16 R0 K23 ["isError"]
-       88 NOT                              R15 R16
-       89 JUMPIFNOT                        R15 ; [+1]
-       90 NOT                              R15 R6
-       91 SETTABLEKS                       R15 R14 K25 ["stroke-default"]
-       93 GETTABLEKS                       R17 R0 K23 ["isError"]
-       95 NOT                              R16 R17
-       96 AND                              R15 R16 R6
-       97 SETTABLEKS                       R15 R14 K26 ["stroke-action-subtle"]
-       99 SETTABLEKS                       R14 R13 K17 ["tag"]
-      101 GETTABLEKS                       R14 R0 K18 ["LayoutOrder"]
-      103 SETTABLEKS                       R14 R13 K18 ["LayoutOrder"]
-      105 DUPTABLE                         R14 K28 [{"ScrollingFrame"}]
-      106 GETUPVAL                         R15 1
-      107 GETTABLEKS                       R15 R15 K15 ["createElement"]
-      109 LOADK                            R16 K27 ["ScrollingFrame"]
-      110 DUPTABLE                         R17 K39 [{["CanvasSize"], ["AutomaticCanvasSize"], ["ScrollingDirection"], ["VerticalScrollBarInset"], ["ScrollBarImageColor3"], ["ScrollBarThickness"], ["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
-      111 GETUPVAL                         R18 2
-      112 SETTABLEKS                       R18 R17 K29 ["CanvasSize"]
-      114 GETIMPORT                        R18 K43 [Enum.AutomaticSize.Y]
-      116 SETTABLEKS                       R18 R17 K30 ["AutomaticCanvasSize"]
-      118 GETIMPORT                        R18 K44 [Enum.ScrollingDirection.Y]
-      120 SETTABLEKS                       R18 R17 K31 ["ScrollingDirection"]
-      122 GETIMPORT                        R18 K47 [Enum.ScrollBarInset.ScrollBar]
-      124 SETTABLEKS                       R18 R17 K32 ["VerticalScrollBarInset"]
-      126 GETTABLEKS                       R18 R4 K48 ["Color3"]
-      128 SETTABLEKS                       R18 R17 K33 ["ScrollBarImageColor3"]
-      130 SETTABLEKS                       R5 R17 K34 ["ScrollBarThickness"]
-      132 GETTABLEKS                       R19 R0 K14 ["isMultiLine"]
-      134 JUMPIFNOT                        R19 ; [+2]
-      135 GETUPVAL                         R18 3
-      136 JUMP                             ; [+1]
-      137 GETUPVAL                         R18 4
-      138 SETTABLEKS                       R18 R17 K10 ["Size"]
-      140 DUPTABLE                         R18 K51 [{"TextBox", "UIFlexItem"}]
-      141 GETUPVAL                         R19 1
-      142 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      144 LOADK                            R20 K49 ["TextBox"]
-      145 NEWTABLE                         R21 32 0
-      147 GETUPVAL                         R22 5
-      148 SETTABLEKS                       R22 R21 K10 ["Size"]
-      150 GETIMPORT                        R22 K43 [Enum.AutomaticSize.Y]
-      152 SETTABLEKS                       R22 R21 K41 ["AutomaticSize"]
-      154 GETTABLEKS                       R22 R0 K14 ["isMultiLine"]
-      156 SETTABLEKS                       R22 R21 K52 ["MultiLine"]
-      158 GETTABLEKS                       R22 R0 K53 ["text"]
-      160 SETTABLEKS                       R22 R21 K54 ["Text"]
-      162 GETTABLEKS                       R23 R0 K55 ["isDisabled"]
-      164 NOT                              R22 R23
-      165 SETTABLEKS                       R22 R21 K56 ["TextEditable"]
-      167 LOADB                            R22 0
-      168 SETTABLEKS                       R22 R21 K57 ["TextWrapped"]
-      170 GETIMPORT                        R22 K60 [Enum.TextTruncate.None]
-      172 SETTABLEKS                       R22 R21 K58 ["TextTruncate"]
-      174 GETIMPORT                        R22 K63 [Enum.TextXAlignment.Left]
-      176 SETTABLEKS                       R22 R21 K61 ["TextXAlignment"]
-      178 GETIMPORT                        R22 K66 [Enum.TextYAlignment.Top]
-      180 SETTABLEKS                       R22 R21 K64 ["TextYAlignment"]
-      182 LOADB                            R22 0
-      183 SETTABLEKS                       R22 R21 K67 ["ClearTextOnFocus"]
-      185 LOADB                            R22 1
-      186 SETTABLEKS                       R22 R21 K68 ["ClipsDescendants"]
-      188 LOADB                            R22 0
-      189 SETTABLEKS                       R22 R21 K69 ["RichText"]
-      191 LOADB                            R22 1
-      192 SETTABLEKS                       R22 R21 K70 ["Interactable"]
-      194 GETUPVAL                         R23 6
-      195 JUMPIFNOT                        R23 ; [+2]
-      196 LOADNIL                          R22
-      197 JUMP                             ; [+2]
-      198 GETTABLEKS                       R22 R2 K71 ["Font"]
-      200 SETTABLEKS                       R22 R21 K71 ["Font"]
-      202 GETUPVAL                         R23 6
-      203 JUMPIFNOT                        R23 ; [+5]
-      204 GETUPVAL                         R22 7
-      205 GETTABLEKS                       R23 R2 K71 ["Font"]
-      207 CALL                             R22 1 1
-      208 JUMP                             ; [+1]
-      209 LOADNIL                          R22
-      210 SETTABLEKS                       R22 R21 K72 ["FontFace"]
-      212 GETTABLEKS                       R22 R2 K73 ["FontSize"]
-      214 SETTABLEKS                       R22 R21 K74 ["TextSize"]
-      216 GETTABLEKS                       R22 R2 K75 ["LineHeight"]
-      218 SETTABLEKS                       R22 R21 K75 ["LineHeight"]
-      220 GETTABLEKS                       R22 R3 K48 ["Color3"]
-      222 SETTABLEKS                       R22 R21 K76 ["TextColor3"]
-      224 LOADN                            R22 1
-      225 SETTABLEKS                       R22 R21 K35 ["BackgroundTransparency"]
-      227 LOADN                            R22 0
-      228 SETTABLEKS                       R22 R21 K37 ["BorderSizePixel"]
-      230 GETUPVAL                         R22 1
-      231 GETTABLEKS                       R22 R22 K77 ["Change"]
-      233 GETTABLEKS                       R22 R22 K54 ["Text"]
-      235 SETTABLE                         R8 R21 R22
-      236 GETUPVAL                         R22 1
-      237 GETTABLEKS                       R22 R22 K78 ["Event"]
-      239 GETTABLEKS                       R22 R22 K79 ["Focused"]
-      241 SETTABLE                         R9 R21 R22
-      242 GETUPVAL                         R22 1
-      243 GETTABLEKS                       R22 R22 K78 ["Event"]
-      245 GETTABLEKS                       R22 R22 K80 ["FocusLost"]
-      247 SETTABLE                         R10 R21 R22
-      248 CALL                             R19 2 1
-      249 SETTABLEKS                       R19 R18 K49 ["TextBox"]
-      251 GETUPVAL                         R19 1
-      252 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      254 LOADK                            R20 K50 ["UIFlexItem"]
-      255 DUPTABLE                         R21 K82 [{"FlexMode"}]
-      256 GETIMPORT                        R22 K85 [Enum.UIFlexMode.Fill]
-      258 SETTABLEKS                       R22 R21 K81 ["FlexMode"]
-      260 CALL                             R19 2 1
-      261 SETTABLEKS                       R19 R18 K50 ["UIFlexItem"]
-      263 CALL                             R15 3 1
-      264 SETTABLEKS                       R15 R14 K27 ["ScrollingFrame"]
-      266 CALL                             R11 3 -1
-      267 RETURN                           R11 -1
+       16 GETTABLEKS                       R4 R1 K4 ["Color"]
+       18 GETTABLEKS                       R4 R4 K7 ["Common"]
+       20 GETTABLEKS                       R4 R4 K8 ["Shimmer"]
+       22 GETTABLEKS                       R5 R1 K9 ["Size"]
+       24 GETTABLEKS                       R5 R5 K10 ["Size_100"]
+       26 GETUPVAL                         R6 1
+       27 GETTABLEKS                       R6 R6 K11 ["useState"]
+       29 LOADB                            R7 0
+       30 CALL                             R6 1 2
+       31 GETUPVAL                         R8 1
+       32 GETTABLEKS                       R8 R8 K12 ["useCallback"]
+       34 NEWCLOSURE                       R9 P0
+       35 CAPTURE                          VAL R0
+       36 NEWTABLE                         R10 0 1
+       38 GETTABLEKS                       R11 R0 K13 ["isMultiLine"]
+       40 SETLIST                          R10 R11 1 [1]
+       42 CALL                             R8 2 1
+       43 GETUPVAL                         R9 1
+       44 GETTABLEKS                       R9 R9 K12 ["useCallback"]
+       46 NEWCLOSURE                       R10 P1
+       47 CAPTURE                          VAL R7
+       48 NEWTABLE                         R11 0 0
+       50 CALL                             R9 2 1
+       51 GETUPVAL                         R10 1
+       52 GETTABLEKS                       R10 R10 K12 ["useCallback"]
+       54 NEWCLOSURE                       R11 P2
+       55 CAPTURE                          VAL R7
+       56 NEWTABLE                         R12 0 0
+       58 CALL                             R10 2 1
+       59 GETUPVAL                         R11 1
+       60 GETTABLEKS                       R11 R11 K14 ["createElement"]
+       62 GETUPVAL                         R12 0
+       63 GETTABLEKS                       R12 R12 K15 ["View"]
+       65 DUPTABLE                         R13 K18 [{"tag", "LayoutOrder"}]
+       66 NEWTABLE                         R14 8 0
+       68 LOADB                            R15 1
+       69 SETTABLEKS                       R15 R14 K19 ["col padding-small stroke-thick radius-medium clip bg-shift-100"]
+       71 GETTABLEKS                       R15 R0 K13 ["isMultiLine"]
+       73 SETTABLEKS                       R15 R14 K20 ["fill size-full-0"]
+       75 GETTABLEKS                       R16 R0 K13 ["isMultiLine"]
+       77 NOT                              R15 R16
+       78 SETTABLEKS                       R15 R14 K21 ["size-0-0 auto-xy"]
+       80 GETTABLEKS                       R15 R0 K22 ["isError"]
+       82 SETTABLEKS                       R15 R14 K23 ["stroke-system-alert"]
+       84 GETTABLEKS                       R16 R0 K22 ["isError"]
+       86 NOT                              R15 R16
+       87 JUMPIFNOT                        R15 ; [+1]
+       88 NOT                              R15 R6
+       89 SETTABLEKS                       R15 R14 K24 ["stroke-default"]
+       91 GETTABLEKS                       R17 R0 K22 ["isError"]
+       93 NOT                              R16 R17
+       94 AND                              R15 R16 R6
+       95 SETTABLEKS                       R15 R14 K25 ["stroke-action-subtle"]
+       97 SETTABLEKS                       R14 R13 K16 ["tag"]
+       99 GETTABLEKS                       R14 R0 K17 ["LayoutOrder"]
+      101 SETTABLEKS                       R14 R13 K17 ["LayoutOrder"]
+      103 DUPTABLE                         R14 K27 [{"ScrollingFrame"}]
+      104 GETUPVAL                         R15 1
+      105 GETTABLEKS                       R15 R15 K14 ["createElement"]
+      107 LOADK                            R16 K26 ["ScrollingFrame"]
+      108 DUPTABLE                         R17 K38 [{["CanvasSize"], ["AutomaticCanvasSize"], ["ScrollingDirection"], ["VerticalScrollBarInset"], ["ScrollBarImageColor3"], ["ScrollBarThickness"], ["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      109 GETUPVAL                         R18 2
+      110 SETTABLEKS                       R18 R17 K28 ["CanvasSize"]
+      112 GETIMPORT                        R18 K42 [Enum.AutomaticSize.Y]
+      114 SETTABLEKS                       R18 R17 K29 ["AutomaticCanvasSize"]
+      116 GETIMPORT                        R18 K43 [Enum.ScrollingDirection.Y]
+      118 SETTABLEKS                       R18 R17 K30 ["ScrollingDirection"]
+      120 GETIMPORT                        R18 K46 [Enum.ScrollBarInset.ScrollBar]
+      122 SETTABLEKS                       R18 R17 K31 ["VerticalScrollBarInset"]
+      124 GETTABLEKS                       R18 R4 K47 ["Color3"]
+      126 SETTABLEKS                       R18 R17 K32 ["ScrollBarImageColor3"]
+      128 SETTABLEKS                       R5 R17 K33 ["ScrollBarThickness"]
+      130 GETTABLEKS                       R19 R0 K13 ["isMultiLine"]
+      132 JUMPIFNOT                        R19 ; [+2]
+      133 GETUPVAL                         R18 3
+      134 JUMP                             ; [+1]
+      135 GETUPVAL                         R18 4
+      136 SETTABLEKS                       R18 R17 K9 ["Size"]
+      138 DUPTABLE                         R18 K50 [{"TextBox", "UIFlexItem"}]
+      139 GETUPVAL                         R19 1
+      140 GETTABLEKS                       R19 R19 K14 ["createElement"]
+      142 LOADK                            R20 K48 ["TextBox"]
+      143 NEWTABLE                         R21 32 0
+      145 GETUPVAL                         R22 5
+      146 SETTABLEKS                       R22 R21 K9 ["Size"]
+      148 GETIMPORT                        R22 K42 [Enum.AutomaticSize.Y]
+      150 SETTABLEKS                       R22 R21 K40 ["AutomaticSize"]
+      152 GETTABLEKS                       R22 R0 K13 ["isMultiLine"]
+      154 SETTABLEKS                       R22 R21 K51 ["MultiLine"]
+      156 GETTABLEKS                       R22 R0 K52 ["text"]
+      158 SETTABLEKS                       R22 R21 K53 ["Text"]
+      160 GETTABLEKS                       R23 R0 K54 ["isDisabled"]
+      162 NOT                              R22 R23
+      163 SETTABLEKS                       R22 R21 K55 ["TextEditable"]
+      165 LOADB                            R22 0
+      166 SETTABLEKS                       R22 R21 K56 ["TextWrapped"]
+      168 GETIMPORT                        R22 K59 [Enum.TextTruncate.None]
+      170 SETTABLEKS                       R22 R21 K57 ["TextTruncate"]
+      172 GETIMPORT                        R22 K62 [Enum.TextXAlignment.Left]
+      174 SETTABLEKS                       R22 R21 K60 ["TextXAlignment"]
+      176 GETIMPORT                        R22 K65 [Enum.TextYAlignment.Top]
+      178 SETTABLEKS                       R22 R21 K63 ["TextYAlignment"]
+      180 LOADB                            R22 0
+      181 SETTABLEKS                       R22 R21 K66 ["ClearTextOnFocus"]
+      183 LOADB                            R22 1
+      184 SETTABLEKS                       R22 R21 K67 ["ClipsDescendants"]
+      186 LOADB                            R22 0
+      187 SETTABLEKS                       R22 R21 K68 ["RichText"]
+      189 LOADB                            R22 1
+      190 SETTABLEKS                       R22 R21 K69 ["Interactable"]
+      192 GETUPVAL                         R23 6
+      193 JUMPIFNOT                        R23 ; [+2]
+      194 LOADNIL                          R22
+      195 JUMP                             ; [+2]
+      196 GETTABLEKS                       R22 R2 K70 ["Font"]
+      198 SETTABLEKS                       R22 R21 K70 ["Font"]
+      200 GETUPVAL                         R23 6
+      201 JUMPIFNOT                        R23 ; [+5]
+      202 GETUPVAL                         R22 7
+      203 GETTABLEKS                       R23 R2 K70 ["Font"]
+      205 CALL                             R22 1 1
+      206 JUMP                             ; [+1]
+      207 LOADNIL                          R22
+      208 SETTABLEKS                       R22 R21 K71 ["FontFace"]
+      210 GETTABLEKS                       R22 R2 K72 ["FontSize"]
+      212 SETTABLEKS                       R22 R21 K73 ["TextSize"]
+      214 GETTABLEKS                       R22 R2 K74 ["LineHeight"]
+      216 SETTABLEKS                       R22 R21 K74 ["LineHeight"]
+      218 GETTABLEKS                       R22 R3 K47 ["Color3"]
+      220 SETTABLEKS                       R22 R21 K75 ["TextColor3"]
+      222 LOADN                            R22 1
+      223 SETTABLEKS                       R22 R21 K34 ["BackgroundTransparency"]
+      225 LOADN                            R22 0
+      226 SETTABLEKS                       R22 R21 K36 ["BorderSizePixel"]
+      228 GETUPVAL                         R22 1
+      229 GETTABLEKS                       R22 R22 K76 ["Change"]
+      231 GETTABLEKS                       R22 R22 K53 ["Text"]
+      233 SETTABLE                         R8 R21 R22
+      234 GETUPVAL                         R22 1
+      235 GETTABLEKS                       R22 R22 K77 ["Event"]
+      237 GETTABLEKS                       R22 R22 K78 ["Focused"]
+      239 SETTABLE                         R9 R21 R22
+      240 GETUPVAL                         R22 1
+      241 GETTABLEKS                       R22 R22 K77 ["Event"]
+      243 GETTABLEKS                       R22 R22 K79 ["FocusLost"]
+      245 SETTABLE                         R10 R21 R22
+      246 CALL                             R19 2 1
+      247 SETTABLEKS                       R19 R18 K48 ["TextBox"]
+      249 GETUPVAL                         R19 1
+      250 GETTABLEKS                       R19 R19 K14 ["createElement"]
+      252 LOADK                            R20 K49 ["UIFlexItem"]
+      253 DUPTABLE                         R21 K81 [{"FlexMode"}]
+      254 GETIMPORT                        R22 K84 [Enum.UIFlexMode.Fill]
+      256 SETTABLEKS                       R22 R21 K80 ["FlexMode"]
+      258 CALL                             R19 2 1
+      259 SETTABLEKS                       R19 R18 K49 ["UIFlexItem"]
+      261 CALL                             R15 3 1
+      262 SETTABLEKS                       R15 R14 K26 ["ScrollingFrame"]
+      264 CALL                             R11 3 -1
+      265 RETURN                           R11 -1
 
 PROTO_6:
         0 GETUPVAL                         R1 0

@@ -109,30 +109,34 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
+       25 GETTABLEKS                       R4 R4 K9 ["Foundation"]
        27 CALL                             R3 1 1
-       28 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
-       30 GETTABLEKS                       R5 R4 K11 ["Localization"]
-       32 GETIMPORT                        R6 K5 [require]
-       34 GETTABLEKS                       R7 R0 K12 ["Src"]
-       36 GETTABLEKS                       R7 R7 K13 ["Networking"]
-       38 CALL                             R6 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["Framework"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
+       37 GETTABLEKS                       R6 R5 K12 ["Localization"]
        39 GETIMPORT                        R7 K5 [require]
-       41 GETTABLEKS                       R8 R0 K12 ["Src"]
-       43 GETTABLEKS                       R8 R8 K14 ["Types"]
+       41 GETTABLEKS                       R8 R0 K13 ["Src"]
+       43 GETTABLEKS                       R8 R8 K14 ["Networking"]
        45 CALL                             R7 1 1
-       46 DUPCLOSURE                       R8 K15 [PROTO_0]
-       47 CAPTURE                          VAL R5
-       48 CAPTURE                          VAL R6
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R7
-       52 RETURN                           R8 1
+       46 GETIMPORT                        R8 K5 [require]
+       48 GETTABLEKS                       R9 R0 K13 ["Src"]
+       50 GETTABLEKS                       R9 R9 K15 ["Types"]
+       52 CALL                             R8 1 1
+       53 DUPCLOSURE                       R9 K16 [PROTO_0]
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R7
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R3
+       58 CAPTURE                          VAL R8
+       59 RETURN                           R9 1

@@ -616,144 +616,145 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K9 ["Dash"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K10 ["React"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K8 ["Packages"]
-       32 GETTABLEKS                       R5 R5 K11 ["Foundation"]
-       34 CALL                             R4 1 1
-       35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R6 R0 K8 ["Packages"]
-       39 GETTABLEKS                       R6 R6 K12 ["Framework"]
-       41 CALL                             R5 1 1
-       42 GETTABLEKS                       R6 R5 K13 ["Util"]
-       44 GETTABLEKS                       R6 R6 K14 ["LayoutOrderIterator"]
-       46 GETTABLEKS                       R7 R5 K15 ["ContextServices"]
-       48 GETTABLEKS                       R8 R7 K16 ["Localization"]
-       50 GETIMPORT                        R9 K5 [require]
-       52 GETTABLEKS                       R10 R0 K6 ["Src"]
-       54 GETTABLEKS                       R10 R10 K17 ["Components"]
-       56 GETTABLEKS                       R10 R10 K18 ["Shared"]
-       58 GETTABLEKS                       R10 R10 K19 ["ScopeIcon"]
-       60 CALL                             R9 1 1
-       61 GETIMPORT                        R10 K5 [require]
-       63 GETTABLEKS                       R11 R0 K6 ["Src"]
-       65 GETTABLEKS                       R11 R11 K17 ["Components"]
-       67 GETTABLEKS                       R11 R11 K18 ["Shared"]
-       69 GETTABLEKS                       R11 R11 K20 ["TutorialTooltip"]
-       71 CALL                             R10 1 1
-       72 GETIMPORT                        R11 K5 [require]
-       74 GETTABLEKS                       R12 R0 K6 ["Src"]
-       76 GETTABLEKS                       R12 R12 K21 ["Resources"]
-       78 GETTABLEKS                       R12 R12 K22 ["StyleConstants"]
-       80 CALL                             R11 1 1
-       81 GETIMPORT                        R12 K5 [require]
-       83 GETTABLEKS                       R13 R0 K6 ["Src"]
-       85 GETTABLEKS                       R13 R13 K23 ["Controllers"]
-       87 GETTABLEKS                       R13 R13 K24 ["PluginController"]
-       89 CALL                             R12 1 1
-       90 GETIMPORT                        R13 K5 [require]
-       92 GETTABLEKS                       R14 R0 K6 ["Src"]
-       94 GETTABLEKS                       R14 R14 K23 ["Controllers"]
-       96 GETTABLEKS                       R14 R14 K25 ["ExplorerController"]
-       98 CALL                             R13 1 1
-       99 GETIMPORT                        R14 K5 [require]
-      101 GETTABLEKS                       R15 R0 K6 ["Src"]
-      103 GETTABLEKS                       R15 R15 K23 ["Controllers"]
-      105 GETTABLEKS                       R15 R15 K26 ["SearchController"]
-      107 CALL                             R14 1 1
-      108 GETIMPORT                        R15 K5 [require]
-      110 GETTABLEKS                       R16 R0 K6 ["Src"]
-      112 GETTABLEKS                       R16 R16 K27 ["Hooks"]
-      114 GETTABLEKS                       R16 R16 K28 ["useCurrentScope"]
-      116 CALL                             R15 1 1
-      117 GETIMPORT                        R16 K5 [require]
-      119 GETTABLEKS                       R17 R0 K6 ["Src"]
-      121 GETTABLEKS                       R17 R17 K27 ["Hooks"]
-      123 GETTABLEKS                       R17 R17 K29 ["useExplorerInfo"]
-      125 CALL                             R16 1 1
-      126 GETIMPORT                        R17 K5 [require]
-      128 GETTABLEKS                       R18 R0 K6 ["Src"]
-      130 GETTABLEKS                       R18 R18 K27 ["Hooks"]
-      132 GETTABLEKS                       R18 R18 K30 ["useSourceList"]
-      134 CALL                             R17 1 1
-      135 GETIMPORT                        R18 K5 [require]
-      137 GETTABLEKS                       R19 R0 K6 ["Src"]
-      139 GETTABLEKS                       R19 R19 K27 ["Hooks"]
-      141 GETTABLEKS                       R19 R19 K31 ["useIxpValue"]
-      143 CALL                             R18 1 1
-      144 GETIMPORT                        R19 K5 [require]
-      146 GETTABLEKS                       R20 R0 K6 ["Src"]
-      148 GETTABLEKS                       R20 R20 K27 ["Hooks"]
-      150 GETTABLEKS                       R20 R20 K32 ["useSearchInfo"]
-      152 CALL                             R19 1 1
-      153 GETIMPORT                        R20 K5 [require]
-      155 GETTABLEKS                       R21 R0 K6 ["Src"]
-      157 GETTABLEKS                       R21 R21 K27 ["Hooks"]
-      159 GETTABLEKS                       R21 R21 K33 ["usePluginSize"]
-      161 CALL                             R20 1 1
-      162 GETIMPORT                        R21 K5 [require]
-      164 GETTABLEKS                       R22 R0 K6 ["Src"]
-      166 GETTABLEKS                       R22 R22 K27 ["Hooks"]
-      168 GETTABLEKS                       R22 R22 K34 ["useIsCompact"]
-      170 CALL                             R21 1 1
-      171 GETIMPORT                        R22 K5 [require]
-      173 GETTABLEKS                       R23 R0 K6 ["Src"]
-      175 GETTABLEKS                       R23 R23 K13 ["Util"]
-      177 GETTABLEKS                       R23 R23 K35 ["hasMatchingTerm"]
-      179 CALL                             R22 1 1
-      180 GETIMPORT                        R23 K5 [require]
-      182 GETTABLEKS                       R24 R0 K6 ["Src"]
-      184 GETTABLEKS                       R24 R24 K13 ["Util"]
-      186 GETTABLEKS                       R24 R24 K36 ["getLocalizedScopeName"]
-      188 CALL                             R23 1 1
-      189 DUPCLOSURE                       R24 K37 [PROTO_1]
-      190 CAPTURE                          VAL R15
-      191 CAPTURE                          VAL R8
-      192 CAPTURE                          VAL R12
-      193 CAPTURE                          VAL R14
-      194 CAPTURE                          VAL R19
-      195 CAPTURE                          VAL R18
-      196 CAPTURE                          VAL R1
-      197 CAPTURE                          VAL R3
-      198 CAPTURE                          VAL R4
-      199 CAPTURE                          VAL R9
-      200 CAPTURE                          VAL R23
-      201 DUPCLOSURE                       R25 K38 [PROTO_7]
-      202 CAPTURE                          VAL R8
-      203 CAPTURE                          VAL R13
-      204 CAPTURE                          VAL R20
-      205 CAPTURE                          VAL R16
-      206 CAPTURE                          VAL R17
-      207 CAPTURE                          VAL R19
-      208 CAPTURE                          VAL R3
-      209 CAPTURE                          VAL R2
-      210 CAPTURE                          VAL R1
-      211 CAPTURE                          VAL R23
-      212 CAPTURE                          VAL R22
-      213 CAPTURE                          VAL R4
-      214 CAPTURE                          VAL R11
-      215 CAPTURE                          VAL R24
-      216 DUPCLOSURE                       R26 K39 [PROTO_13]
-      217 CAPTURE                          VAL R6
-      218 CAPTURE                          VAL R8
-      219 CAPTURE                          VAL R12
-      220 CAPTURE                          VAL R15
-      221 CAPTURE                          VAL R3
-      222 CAPTURE                          VAL R21
-      223 CAPTURE                          VAL R1
-      224 CAPTURE                          VAL R4
-      225 CAPTURE                          VAL R10
-      226 CAPTURE                          VAL R9
-      227 CAPTURE                          VAL R23
-      228 CAPTURE                          VAL R25
-      229 RETURN                           R26 1
+       14 GETTABLEKS                       R2 R1 K8 ["Utils"]
+       16 GETTABLEKS                       R2 R2 K9 ["hasMatchingTerm"]
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R4 R0 K10 ["Src"]
+       22 GETTABLEKS                       R4 R4 K11 ["Types"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K5 [require]
+       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       29 GETTABLEKS                       R5 R5 K12 ["Dash"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       36 GETTABLEKS                       R6 R6 K13 ["React"]
+       38 CALL                             R5 1 1
+       39 GETIMPORT                        R6 K5 [require]
+       41 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       43 GETTABLEKS                       R7 R7 K14 ["Foundation"]
+       45 CALL                             R6 1 1
+       46 GETIMPORT                        R7 K5 [require]
+       48 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       50 GETTABLEKS                       R8 R8 K15 ["Framework"]
+       52 CALL                             R7 1 1
+       53 GETTABLEKS                       R8 R7 K16 ["Util"]
+       55 GETTABLEKS                       R8 R8 K17 ["LayoutOrderIterator"]
+       57 GETTABLEKS                       R9 R7 K18 ["ContextServices"]
+       59 GETTABLEKS                       R10 R9 K19 ["Localization"]
+       61 GETIMPORT                        R11 K5 [require]
+       63 GETTABLEKS                       R12 R0 K10 ["Src"]
+       65 GETTABLEKS                       R12 R12 K20 ["Components"]
+       67 GETTABLEKS                       R12 R12 K21 ["Shared"]
+       69 GETTABLEKS                       R12 R12 K22 ["ScopeIcon"]
+       71 CALL                             R11 1 1
+       72 GETIMPORT                        R12 K5 [require]
+       74 GETTABLEKS                       R13 R0 K10 ["Src"]
+       76 GETTABLEKS                       R13 R13 K20 ["Components"]
+       78 GETTABLEKS                       R13 R13 K21 ["Shared"]
+       80 GETTABLEKS                       R13 R13 K23 ["TutorialTooltip"]
+       82 CALL                             R12 1 1
+       83 GETIMPORT                        R13 K5 [require]
+       85 GETTABLEKS                       R14 R0 K10 ["Src"]
+       87 GETTABLEKS                       R14 R14 K24 ["Resources"]
+       89 GETTABLEKS                       R14 R14 K25 ["StyleConstants"]
+       91 CALL                             R13 1 1
+       92 GETIMPORT                        R14 K5 [require]
+       94 GETTABLEKS                       R15 R0 K10 ["Src"]
+       96 GETTABLEKS                       R15 R15 K26 ["Controllers"]
+       98 GETTABLEKS                       R15 R15 K27 ["PluginController"]
+      100 CALL                             R14 1 1
+      101 GETIMPORT                        R15 K5 [require]
+      103 GETTABLEKS                       R16 R0 K10 ["Src"]
+      105 GETTABLEKS                       R16 R16 K26 ["Controllers"]
+      107 GETTABLEKS                       R16 R16 K28 ["ExplorerController"]
+      109 CALL                             R15 1 1
+      110 GETIMPORT                        R16 K5 [require]
+      112 GETTABLEKS                       R17 R0 K10 ["Src"]
+      114 GETTABLEKS                       R17 R17 K26 ["Controllers"]
+      116 GETTABLEKS                       R17 R17 K29 ["SearchController"]
+      118 CALL                             R16 1 1
+      119 GETIMPORT                        R17 K5 [require]
+      121 GETTABLEKS                       R18 R0 K10 ["Src"]
+      123 GETTABLEKS                       R18 R18 K30 ["Hooks"]
+      125 GETTABLEKS                       R18 R18 K31 ["useCurrentScope"]
+      127 CALL                             R17 1 1
+      128 GETIMPORT                        R18 K5 [require]
+      130 GETTABLEKS                       R19 R0 K10 ["Src"]
+      132 GETTABLEKS                       R19 R19 K30 ["Hooks"]
+      134 GETTABLEKS                       R19 R19 K32 ["useExplorerInfo"]
+      136 CALL                             R18 1 1
+      137 GETIMPORT                        R19 K5 [require]
+      139 GETTABLEKS                       R20 R0 K10 ["Src"]
+      141 GETTABLEKS                       R20 R20 K30 ["Hooks"]
+      143 GETTABLEKS                       R20 R20 K33 ["useSourceList"]
+      145 CALL                             R19 1 1
+      146 GETIMPORT                        R20 K5 [require]
+      148 GETTABLEKS                       R21 R0 K10 ["Src"]
+      150 GETTABLEKS                       R21 R21 K30 ["Hooks"]
+      152 GETTABLEKS                       R21 R21 K34 ["useIxpValue"]
+      154 CALL                             R20 1 1
+      155 GETIMPORT                        R21 K5 [require]
+      157 GETTABLEKS                       R22 R0 K10 ["Src"]
+      159 GETTABLEKS                       R22 R22 K30 ["Hooks"]
+      161 GETTABLEKS                       R22 R22 K35 ["useSearchInfo"]
+      163 CALL                             R21 1 1
+      164 GETIMPORT                        R22 K5 [require]
+      166 GETTABLEKS                       R23 R0 K10 ["Src"]
+      168 GETTABLEKS                       R23 R23 K30 ["Hooks"]
+      170 GETTABLEKS                       R23 R23 K36 ["usePluginSize"]
+      172 CALL                             R22 1 1
+      173 GETIMPORT                        R23 K5 [require]
+      175 GETTABLEKS                       R24 R0 K10 ["Src"]
+      177 GETTABLEKS                       R24 R24 K30 ["Hooks"]
+      179 GETTABLEKS                       R24 R24 K37 ["useIsCompact"]
+      181 CALL                             R23 1 1
+      182 GETIMPORT                        R24 K5 [require]
+      184 GETTABLEKS                       R25 R0 K10 ["Src"]
+      186 GETTABLEKS                       R25 R25 K16 ["Util"]
+      188 GETTABLEKS                       R25 R25 K38 ["getLocalizedScopeName"]
+      190 CALL                             R24 1 1
+      191 DUPCLOSURE                       R25 K39 [PROTO_1]
+      192 CAPTURE                          VAL R17
+      193 CAPTURE                          VAL R10
+      194 CAPTURE                          VAL R14
+      195 CAPTURE                          VAL R16
+      196 CAPTURE                          VAL R21
+      197 CAPTURE                          VAL R20
+      198 CAPTURE                          VAL R3
+      199 CAPTURE                          VAL R5
+      200 CAPTURE                          VAL R6
+      201 CAPTURE                          VAL R11
+      202 CAPTURE                          VAL R24
+      203 DUPCLOSURE                       R26 K40 [PROTO_7]
+      204 CAPTURE                          VAL R10
+      205 CAPTURE                          VAL R15
+      206 CAPTURE                          VAL R22
+      207 CAPTURE                          VAL R18
+      208 CAPTURE                          VAL R19
+      209 CAPTURE                          VAL R21
+      210 CAPTURE                          VAL R5
+      211 CAPTURE                          VAL R4
+      212 CAPTURE                          VAL R3
+      213 CAPTURE                          VAL R24
+      214 CAPTURE                          VAL R2
+      215 CAPTURE                          VAL R6
+      216 CAPTURE                          VAL R13
+      217 CAPTURE                          VAL R25
+      218 DUPCLOSURE                       R27 K41 [PROTO_13]
+      219 CAPTURE                          VAL R8
+      220 CAPTURE                          VAL R10
+      221 CAPTURE                          VAL R14
+      222 CAPTURE                          VAL R17
+      223 CAPTURE                          VAL R5
+      224 CAPTURE                          VAL R23
+      225 CAPTURE                          VAL R3
+      226 CAPTURE                          VAL R6
+      227 CAPTURE                          VAL R12
+      228 CAPTURE                          VAL R11
+      229 CAPTURE                          VAL R24
+      230 CAPTURE                          VAL R26
+      231 RETURN                           R27 1

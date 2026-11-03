@@ -176,25 +176,27 @@ PROTO_4:
 PROTO_5:
         0 DUPTABLE                         R0 K5 [{[1] = "", ["Name"] = "", ["Subject"], ["Action"]}]
         1 GETUPVAL                         R1 0
-        2 GETTABLEKS                       R1 R1 K6 ["PermissionsSubject"]
-        4 GETTABLEKS                       R1 R1 K7 ["All"]
-        6 SETTABLEKS                       R1 R0 K3 ["Subject"]
-        8 GETUPVAL                         R1 0
-        9 GETTABLEKS                       R1 R1 K8 ["PermissionsAction"]
-       11 GETTABLEKS                       R1 R1 K9 ["Use"]
-       13 SETTABLEKS                       R1 R0 K4 ["Action"]
-       15 GETUPVAL                         R1 1
-       16 GETUPVAL                         R2 2
-       17 GETUPVAL                         R3 3
-       18 NEWTABLE                         R4 0 1
-       20 MOVE                             R5 R0
-       21 SETLIST                          R4 R5 1 [1]
-       23 NEWCLOSURE                       R5 P0
-       24 CAPTURE                          UPVAL U4
-       25 CAPTURE                          VAL R0
-       26 CALL                             R1 4 0
-       27 LOADB                            R1 1
-       28 RETURN                           R1 1
+        2 GETTABLEKS                       R1 R1 K6 ["Enums"]
+        4 GETTABLEKS                       R1 R1 K7 ["PermissionsSubject"]
+        6 GETTABLEKS                       R1 R1 K8 ["All"]
+        8 SETTABLEKS                       R1 R0 K3 ["Subject"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K6 ["Enums"]
+       13 GETTABLEKS                       R1 R1 K9 ["PermissionsAction"]
+       15 GETTABLEKS                       R1 R1 K10 ["Use"]
+       17 SETTABLEKS                       R1 R0 K4 ["Action"]
+       19 GETUPVAL                         R1 1
+       20 GETUPVAL                         R2 2
+       21 GETUPVAL                         R3 3
+       22 NEWTABLE                         R4 0 1
+       24 MOVE                             R5 R0
+       25 SETLIST                          R4 R5 1 [1]
+       27 NEWCLOSURE                       R5 P0
+       28 CAPTURE                          UPVAL U4
+       29 CAPTURE                          VAL R0
+       30 CALL                             R1 4 0
+       31 LOADB                            R1 1
+       32 RETURN                           R1 1
 
 PROTO_6:
         0 NEWTABLE                         R8 0 0
@@ -258,8 +260,8 @@ PROTO_6:
        76 CALL                             R15 0 1
        77 SETTABLEKS                       R15 R14 K18 ["LinkUrl"]
        79 NEWCLOSURE                       R15 P1
-       80 CAPTURE                          UPVAL U0
-       81 CAPTURE                          UPVAL U7
+       80 CAPTURE                          UPVAL U7
+       81 CAPTURE                          UPVAL U8
        82 CAPTURE                          VAL R2
        83 CAPTURE                          VAL R11
        84 CAPTURE                          VAL R12
@@ -277,56 +279,61 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Analytics"]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K10 ["Dash"]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Analytics"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K6 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Resources"]
-       34 GETTABLEKS                       R5 R5 K12 ["StyleConstants"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K6 ["Src"]
-       41 GETTABLEKS                       R6 R6 K13 ["Util"]
-       43 GETTABLEKS                       R6 R6 K14 ["grantPermissionsAsync"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K6 ["Src"]
-       50 GETTABLEKS                       R7 R7 K13 ["Util"]
-       52 GETTABLEKS                       R7 R7 K15 ["Notifications"]
-       54 CALL                             R6 1 1
-       55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R8 R0 K6 ["Src"]
-       59 GETTABLEKS                       R8 R8 K16 ["Flags"]
-       61 GETTABLEKS                       R8 R8 K17 ["getFStringAmrOpenUsePage"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K5 [require]
-       66 GETTABLEKS                       R9 R0 K6 ["Src"]
-       68 GETTABLEKS                       R9 R9 K16 ["Flags"]
-       70 GETTABLEKS                       R9 R9 K18 ["getFFlagAmrStudioToastsIntegration"]
-       72 CALL                             R8 1 1
-       73 DUPCLOSURE                       R9 K19 [PROTO_0]
-       74 CAPTURE                          VAL R8
-       75 CAPTURE                          VAL R6
-       76 DUPCLOSURE                       R10 K20 [PROTO_2]
-       77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R7
-       80 DUPCLOSURE                       R11 K21 [PROTO_6]
-       81 CAPTURE                          VAL R1
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R10
-       84 CAPTURE                          VAL R9
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K11 ["Dash"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K8 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Resources"]
+       41 GETTABLEKS                       R6 R6 K13 ["StyleConstants"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K8 ["Src"]
+       48 GETTABLEKS                       R7 R7 K14 ["Util"]
+       50 GETTABLEKS                       R7 R7 K15 ["grantPermissionsAsync"]
+       52 CALL                             R6 1 1
+       53 GETIMPORT                        R7 K5 [require]
+       55 GETTABLEKS                       R8 R0 K8 ["Src"]
+       57 GETTABLEKS                       R8 R8 K14 ["Util"]
+       59 GETTABLEKS                       R8 R8 K16 ["Notifications"]
+       61 CALL                             R7 1 1
+       62 GETIMPORT                        R8 K5 [require]
+       64 GETTABLEKS                       R9 R0 K8 ["Src"]
+       66 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       68 GETTABLEKS                       R9 R9 K18 ["getFStringAmrOpenUsePage"]
+       70 CALL                             R8 1 1
+       71 GETIMPORT                        R9 K5 [require]
+       73 GETTABLEKS                       R10 R0 K8 ["Src"]
+       75 GETTABLEKS                       R10 R10 K17 ["Flags"]
+       77 GETTABLEKS                       R10 R10 K19 ["getFFlagAmrStudioToastsIntegration"]
+       79 CALL                             R9 1 1
+       80 DUPCLOSURE                       R10 K20 [PROTO_0]
+       81 CAPTURE                          VAL R9
+       82 CAPTURE                          VAL R7
+       83 DUPCLOSURE                       R11 K21 [PROTO_2]
+       84 CAPTURE                          VAL R5
        85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R5
-       89 RETURN                           R11 1
+       86 CAPTURE                          VAL R8
+       87 DUPCLOSURE                       R12 K22 [PROTO_6]
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R10
+       92 CAPTURE                          VAL R3
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R8
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R6
+       97 RETURN                           R12 1

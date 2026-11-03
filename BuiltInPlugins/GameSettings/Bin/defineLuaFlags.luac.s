@@ -21,29 +21,19 @@ MAIN:
        26 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        28 CALL                             R0 3 0
        29 GETIMPORT                        R0 K1 [game]
-       31 LOADK                            R2 K7 ["PaidAccessInFiat"]
-       32 LOADN                            R3 2
-       33 NAMECALL                         R0 R0 K8 ["SetFlagVersion"]
+       31 LOADK                            R2 K7 ["GameSettingsAddCreatorHubLinkToFooter"]
+       32 LOADB                            R3 0
+       33 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        35 CALL                             R0 3 0
        36 GETIMPORT                        R0 K1 [game]
-       38 LOADK                            R2 K7 ["PaidAccessInFiat"]
-       39 LOADB                            R3 0
-       40 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       38 LOADK                            R2 K8 ["GameSettingsCreatorHubManageExperienceLink"]
+       39 LOADK                            R3 K9 ["https://create.roblox.com/dashboard/creations/experiences/{}/configure"]
+       40 NAMECALL                         R0 R0 K10 ["DefineFastString"]
        42 CALL                             R0 3 0
        43 GETIMPORT                        R0 K1 [game]
-       45 LOADK                            R2 K9 ["GameSettingsAddCreatorHubLinkToFooter"]
-       46 LOADB                            R3 0
-       47 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       45 LOADK                            R2 K11 ["StudioGenreOverhaulExplainationLink"]
+       46 LOADK                            R3 K12 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
+       47 NAMECALL                         R0 R0 K10 ["DefineFastString"]
        49 CALL                             R0 3 0
-       50 GETIMPORT                        R0 K1 [game]
-       52 LOADK                            R2 K10 ["GameSettingsCreatorHubManageExperienceLink"]
-       53 LOADK                            R3 K11 ["https://create.roblox.com/dashboard/creations/experiences/{}/configure"]
-       54 NAMECALL                         R0 R0 K12 ["DefineFastString"]
-       56 CALL                             R0 3 0
-       57 GETIMPORT                        R0 K1 [game]
-       59 LOADK                            R2 K13 ["StudioGenreOverhaulExplainationLink"]
-       60 LOADK                            R3 K14 ["https://devforum.roblox.com/t/testing-an-enhanced-discover-page-top-charts-and-new-sorts/2954676#genre-specific-sorts-4"]
-       61 NAMECALL                         R0 R0 K12 ["DefineFastString"]
-       63 CALL                             R0 3 0
-       64 LOADNIL                          R0
-       65 RETURN                           R0 1
+       50 LOADNIL                          R0
+       51 RETURN                           R0 1

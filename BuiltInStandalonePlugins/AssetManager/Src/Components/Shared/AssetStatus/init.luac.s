@@ -46,7 +46,7 @@ PROTO_2:
        46 GETTABLEKS                       R9 R9 K15 ["Filled"]
        48 SETTABLEKS                       R9 R8 K6 ["variant"]
        50 MOVE                             R7 R8
-       51 LOADK                            R6 K16 ["Restricted"]
+       51 LOADK                            R6 K16 ["Violation"]
        52 JUMP                             ; [+26]
        53 GETTABLEKS                       R8 R0 K17 ["IsDraft"]
        55 JUMPIFNOT                        R8 ; [+23]
@@ -64,7 +64,7 @@ PROTO_2:
        75 MOVE                             R7 R8
        76 LOADK                            R6 K20 ["Draft"]
        77 JUMP                             ; [+1]
-       78 LOADK                            R6 K16 ["Restricted"]
+       78 LOADK                            R6 K16 ["Violation"]
        79 GETUPVAL                         R8 5
        80 GETTABLEKS                       R8 R8 K21 ["useState"]
        82 LOADB                            R9 0

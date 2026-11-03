@@ -344,107 +344,110 @@ MAIN:
        86 GETTABLEKS                       R14 R14 K28 ["ToolTypes"]
        88 GETTABLEKS                       R14 R14 K29 ["ToolNames"]
        90 GETTABLEKS                       R15 R1 K30 ["FlagUtils"]
-       92 GETTABLEKS                       R15 R15 K31 ["getIsAssistantUseRemoteService"]
-       94 GETTABLEKS                       R15 R15 K32 ["get"]
-       96 GETTABLEKS                       R16 R3 K33 ["createElement"]
-       98 NEWTABLE                         R17 32 0
-      100 GETTABLEKS                       R18 R14 K34 ["AnimationGen"]
-      102 GETTABLEKS                       R20 R10 K35 ["FFlagAssistantAnimationGenTool"]
-      104 JUMPIFNOT                        R20 ; [+2]
-      105 LOADK                            R19 K34 ["AnimationGen"]
-      106 JUMP                             ; [+1]
-      107 LOADNIL                          R19
-      108 SETTABLE                         R19 R17 R18
-      109 GETTABLEKS                       R18 R14 K36 ["AssetInsert"]
-      111 LOADK                            R19 K36 ["AssetInsert"]
-      112 SETTABLE                         R19 R17 R18
-      113 GETTABLEKS                       R18 R14 K37 ["AssetSearch"]
-      115 LOADK                            R19 K37 ["AssetSearch"]
-      116 SETTABLE                         R19 R17 R18
-      117 GETTABLEKS                       R18 R14 K38 ["AvatarAutoSetup"]
-      119 GETTABLEKS                       R20 R10 K39 ["FFlagAssistantAvatarAutoSetupTool"]
-      121 JUMPIFNOT                        R20 ; [+2]
-      122 LOADK                            R19 K38 ["AvatarAutoSetup"]
-      123 JUMP                             ; [+1]
-      124 LOADNIL                          R19
-      125 SETTABLE                         R19 R17 R18
-      126 GETTABLEKS                       R18 R14 K40 ["AvatarGen"]
-      128 GETTABLEKS                       R20 R10 K41 ["FFlagAssistantAvatarGenTool"]
-      130 JUMPIFNOT                        R20 ; [+2]
-      131 LOADK                            R19 K40 ["AvatarGen"]
-      132 JUMP                             ; [+1]
-      133 LOADNIL                          R19
-      134 SETTABLE                         R19 R17 R18
-      135 GETTABLEKS                       R18 R14 K42 ["CharacterNavigation"]
-      137 LOADK                            R19 K42 ["CharacterNavigation"]
-      138 SETTABLE                         R19 R17 R18
-      139 GETTABLEKS                       R18 R14 K43 ["ExecuteLuau"]
-      141 LOADK                            R19 K43 ["ExecuteLuau"]
-      142 SETTABLE                         R19 R17 R18
-      143 GETTABLEKS                       R18 R14 K44 ["GetConsoleOutput"]
-      145 LOADK                            R19 K44 ["GetConsoleOutput"]
-      146 SETTABLE                         R19 R17 R18
-      147 GETTABLEKS                       R18 R14 K45 ["GetStudioState"]
-      149 LOADK                            R19 K45 ["GetStudioState"]
-      150 SETTABLE                         R19 R17 R18
-      151 GETTABLEKS                       R18 R14 K46 ["MaterialGen"]
-      153 LOADK                            R19 K47 ["GenerateMaterial"]
-      154 SETTABLE                         R19 R17 R18
-      155 GETTABLEKS                       R18 R14 K48 ["MeshGen"]
-      157 LOADK                            R19 K48 ["MeshGen"]
-      158 SETTABLE                         R19 R17 R18
-      159 GETTABLEKS                       R18 R14 K49 ["MultiEdit"]
-      161 LOADK                            R19 K50 ["MultiEditUpdated"]
-      162 SETTABLE                         R19 R17 R18
-      163 GETTABLEKS                       R18 R14 K51 ["PrimitiveGen"]
-      165 LOADK                            R19 K51 ["PrimitiveGen"]
-      166 SETTABLE                         R19 R17 R18
-      167 GETTABLEKS                       R18 R14 K52 ["ScreenCapture"]
-      169 LOADK                            R19 K52 ["ScreenCapture"]
-      170 SETTABLE                         R19 R17 R18
-      171 GETTABLEKS                       R18 R14 K53 ["StartStopPlay"]
-      173 LOADK                            R19 K53 ["StartStopPlay"]
-      174 SETTABLE                         R19 R17 R18
-      175 GETTABLEKS                       R18 R14 K54 ["UploadImage"]
-      177 LOADK                            R19 K54 ["UploadImage"]
-      178 SETTABLE                         R19 R17 R18
-      179 GETTABLEKS                       R18 R14 K55 ["UserKeyboardInput"]
-      181 LOADK                            R19 K55 ["UserKeyboardInput"]
-      182 SETTABLE                         R19 R17 R18
-      183 GETTABLEKS                       R18 R14 K56 ["UserMouseInput"]
-      185 LOADK                            R19 K56 ["UserMouseInput"]
-      186 SETTABLE                         R19 R17 R18
-      187 GETTABLEKS                       R18 R10 K57 ["FFlagAssistantMultiPlayerAgents"]
-      189 JUMPIFNOT                        R18 ; [+16]
-      190 GETTABLEKS                       R18 R14 K58 ["StartMultiPlayerAgents"]
-      192 LOADK                            R19 K58 ["StartMultiPlayerAgents"]
-      193 SETTABLE                         R19 R17 R18
-      194 GETTABLEKS                       R18 R14 K59 ["StopMultiPlayerAgents"]
-      196 LOADK                            R19 K59 ["StopMultiPlayerAgents"]
-      197 SETTABLE                         R19 R17 R18
-      198 GETTABLEKS                       R18 R14 K60 ["MultiPlayerAgentsCommunication"]
-      200 LOADK                            R19 K60 ["MultiPlayerAgentsCommunication"]
-      201 SETTABLE                         R19 R17 R18
-      202 GETTABLEKS                       R18 R14 K61 ["WaitForMultiPlayerAgentsCommunication"]
-      204 LOADK                            R19 K61 ["WaitForMultiPlayerAgentsCommunication"]
-      205 SETTABLE                         R19 R17 R18
-      206 DUPCLOSURE                       R18 K62 [PROTO_2]
-      207 CAPTURE                          VAL R17
-      208 CAPTURE                          VAL R13
-      209 CAPTURE                          VAL R10
-      210 CAPTURE                          VAL R12
-      211 DUPCLOSURE                       R19 K63 [PROTO_10]
-      212 CAPTURE                          VAL R11
-      213 CAPTURE                          VAL R3
-      214 CAPTURE                          VAL R8
-      215 CAPTURE                          VAL R6
-      216 CAPTURE                          VAL R10
-      217 CAPTURE                          VAL R7
-      218 CAPTURE                          VAL R4
-      219 CAPTURE                          VAL R9
-      220 CAPTURE                          VAL R15
-      221 CAPTURE                          VAL R5
-      222 CAPTURE                          VAL R18
-      223 CAPTURE                          VAL R16
-      224 CAPTURE                          VAL R1
-      225 RETURN                           R19 1
+       92 GETTABLEKS                       R15 R15 K31 ["getIsAnimationGenEnabled"]
+       94 GETTABLEKS                       R16 R1 K30 ["FlagUtils"]
+       96 GETTABLEKS                       R16 R16 K32 ["getIsAssistantUseRemoteService"]
+       98 GETTABLEKS                       R16 R16 K33 ["get"]
+      100 GETTABLEKS                       R17 R3 K34 ["createElement"]
+      102 NEWTABLE                         R18 32 0
+      104 GETTABLEKS                       R19 R14 K35 ["AnimationGen"]
+      106 MOVE                             R21 R15
+      107 CALL                             R21 0 1
+      108 JUMPIFNOT                        R21 ; [+2]
+      109 LOADK                            R20 K35 ["AnimationGen"]
+      110 JUMP                             ; [+1]
+      111 LOADNIL                          R20
+      112 SETTABLE                         R20 R18 R19
+      113 GETTABLEKS                       R19 R14 K36 ["AssetInsert"]
+      115 LOADK                            R20 K36 ["AssetInsert"]
+      116 SETTABLE                         R20 R18 R19
+      117 GETTABLEKS                       R19 R14 K37 ["AssetSearch"]
+      119 LOADK                            R20 K37 ["AssetSearch"]
+      120 SETTABLE                         R20 R18 R19
+      121 GETTABLEKS                       R19 R14 K38 ["AvatarAutoSetup"]
+      123 GETTABLEKS                       R21 R10 K39 ["FFlagAssistantAvatarAutoSetupTool"]
+      125 JUMPIFNOT                        R21 ; [+2]
+      126 LOADK                            R20 K38 ["AvatarAutoSetup"]
+      127 JUMP                             ; [+1]
+      128 LOADNIL                          R20
+      129 SETTABLE                         R20 R18 R19
+      130 GETTABLEKS                       R19 R14 K40 ["AvatarGen"]
+      132 GETTABLEKS                       R21 R10 K41 ["FFlagAssistantAvatarGenTool"]
+      134 JUMPIFNOT                        R21 ; [+2]
+      135 LOADK                            R20 K40 ["AvatarGen"]
+      136 JUMP                             ; [+1]
+      137 LOADNIL                          R20
+      138 SETTABLE                         R20 R18 R19
+      139 GETTABLEKS                       R19 R14 K42 ["CharacterNavigation"]
+      141 LOADK                            R20 K42 ["CharacterNavigation"]
+      142 SETTABLE                         R20 R18 R19
+      143 GETTABLEKS                       R19 R14 K43 ["ExecuteLuau"]
+      145 LOADK                            R20 K43 ["ExecuteLuau"]
+      146 SETTABLE                         R20 R18 R19
+      147 GETTABLEKS                       R19 R14 K44 ["GetConsoleOutput"]
+      149 LOADK                            R20 K44 ["GetConsoleOutput"]
+      150 SETTABLE                         R20 R18 R19
+      151 GETTABLEKS                       R19 R14 K45 ["GetStudioState"]
+      153 LOADK                            R20 K45 ["GetStudioState"]
+      154 SETTABLE                         R20 R18 R19
+      155 GETTABLEKS                       R19 R14 K46 ["MaterialGen"]
+      157 LOADK                            R20 K47 ["GenerateMaterial"]
+      158 SETTABLE                         R20 R18 R19
+      159 GETTABLEKS                       R19 R14 K48 ["MeshGen"]
+      161 LOADK                            R20 K48 ["MeshGen"]
+      162 SETTABLE                         R20 R18 R19
+      163 GETTABLEKS                       R19 R14 K49 ["MultiEdit"]
+      165 LOADK                            R20 K50 ["MultiEditUpdated"]
+      166 SETTABLE                         R20 R18 R19
+      167 GETTABLEKS                       R19 R14 K51 ["PrimitiveGen"]
+      169 LOADK                            R20 K51 ["PrimitiveGen"]
+      170 SETTABLE                         R20 R18 R19
+      171 GETTABLEKS                       R19 R14 K52 ["ScreenCapture"]
+      173 LOADK                            R20 K52 ["ScreenCapture"]
+      174 SETTABLE                         R20 R18 R19
+      175 GETTABLEKS                       R19 R14 K53 ["StartStopPlay"]
+      177 LOADK                            R20 K53 ["StartStopPlay"]
+      178 SETTABLE                         R20 R18 R19
+      179 GETTABLEKS                       R19 R14 K54 ["UploadImage"]
+      181 LOADK                            R20 K54 ["UploadImage"]
+      182 SETTABLE                         R20 R18 R19
+      183 GETTABLEKS                       R19 R14 K55 ["UserKeyboardInput"]
+      185 LOADK                            R20 K55 ["UserKeyboardInput"]
+      186 SETTABLE                         R20 R18 R19
+      187 GETTABLEKS                       R19 R14 K56 ["UserMouseInput"]
+      189 LOADK                            R20 K56 ["UserMouseInput"]
+      190 SETTABLE                         R20 R18 R19
+      191 GETTABLEKS                       R19 R10 K57 ["FFlagAssistantMultiPlayerAgents"]
+      193 JUMPIFNOT                        R19 ; [+16]
+      194 GETTABLEKS                       R19 R14 K58 ["StartMultiPlayerAgents"]
+      196 LOADK                            R20 K58 ["StartMultiPlayerAgents"]
+      197 SETTABLE                         R20 R18 R19
+      198 GETTABLEKS                       R19 R14 K59 ["StopMultiPlayerAgents"]
+      200 LOADK                            R20 K59 ["StopMultiPlayerAgents"]
+      201 SETTABLE                         R20 R18 R19
+      202 GETTABLEKS                       R19 R14 K60 ["MultiPlayerAgentsCommunication"]
+      204 LOADK                            R20 K60 ["MultiPlayerAgentsCommunication"]
+      205 SETTABLE                         R20 R18 R19
+      206 GETTABLEKS                       R19 R14 K61 ["WaitForMultiPlayerAgentsCommunication"]
+      208 LOADK                            R20 K61 ["WaitForMultiPlayerAgentsCommunication"]
+      209 SETTABLE                         R20 R18 R19
+      210 DUPCLOSURE                       R19 K62 [PROTO_2]
+      211 CAPTURE                          VAL R18
+      212 CAPTURE                          VAL R13
+      213 CAPTURE                          VAL R10
+      214 CAPTURE                          VAL R12
+      215 DUPCLOSURE                       R20 K63 [PROTO_10]
+      216 CAPTURE                          VAL R11
+      217 CAPTURE                          VAL R3
+      218 CAPTURE                          VAL R8
+      219 CAPTURE                          VAL R6
+      220 CAPTURE                          VAL R10
+      221 CAPTURE                          VAL R7
+      222 CAPTURE                          VAL R4
+      223 CAPTURE                          VAL R9
+      224 CAPTURE                          VAL R16
+      225 CAPTURE                          VAL R5
+      226 CAPTURE                          VAL R19
+      227 CAPTURE                          VAL R17
+      228 CAPTURE                          VAL R1
+      229 RETURN                           R20 1

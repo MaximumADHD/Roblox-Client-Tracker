@@ -355,58 +355,55 @@ PROTO_4:
       445 GETUPVAL                         R25 24
       446 CALL                             R24 1 1
       447 SETTABLEKS                       R24 R15 K74 ["DragInvalidPopover"]
-      449 GETUPVAL                         R24 25
-      450 CALL                             R24 0 1
-      451 JUMPIFNOT                        R24 ; [+63]
-      452 GETUPVAL                         R24 9
-      453 GETTABLEKS                       R24 R24 K5 ["createElement"]
-      455 GETUPVAL                         R25 14
-      456 GETTABLEKS                       R25 R25 K27 ["View"]
-      458 DUPTABLE                         R26 K81 [{["Position"], ["tag"] = "anchor-bottom-left size-0", ["ref"], ["testId"] = "intro-tutorial-anchor"}]
-      459 GETIMPORT                        R27 K82 [UDim2.new]
-      461 LOADN                            R28 0
-      462 LOADN                            R29 8
-      463 LOADN                            R30 1
-      464 LOADN                            R31 -8
-      465 CALL                             R27 4 1
-      466 SETTABLEKS                       R27 R26 K75 ["Position"]
-      468 SETTABLEKS                       R11 R26 K78 ["ref"]
-      470 CALL                             R24 2 1
-      471 SETTABLEKS                       R24 R15 K83 ["IntroTutorialAnchor"]
-      473 GETUPVAL                         R24 9
-      474 GETTABLEKS                       R24 R24 K5 ["createElement"]
-      476 GETUPVAL                         R25 26
-      477 DUPTABLE                         R26 K91 [{["tutorialId"], ["stepId"], ["anchorInstance"], ["side"], ["align"], ["hasArrow"] = False}]
-      478 GETUPVAL                         R27 27
-      479 GETTABLEKS                       R27 R27 K92 ["TutorialId"]
-      481 GETTABLEKS                       R27 R27 K93 ["Intro"]
-      483 SETTABLEKS                       R27 R26 K84 ["tutorialId"]
-      485 GETUPVAL                         R27 27
-      486 GETTABLEKS                       R27 R27 K94 ["TutorialStepId"]
-      488 GETTABLEKS                       R27 R27 K95 ["Welcome"]
-      490 SETTABLEKS                       R27 R26 K85 ["stepId"]
-      492 SETTABLEKS                       R10 R26 K86 ["anchorInstance"]
-      494 GETUPVAL                         R27 14
-      495 GETTABLEKS                       R27 R27 K38 ["Enums"]
-      497 GETTABLEKS                       R27 R27 K96 ["PopoverSide"]
-      499 GETTABLEKS                       R27 R27 K97 ["Top"]
-      501 SETTABLEKS                       R27 R26 K87 ["side"]
-      503 GETUPVAL                         R27 14
-      504 GETTABLEKS                       R27 R27 K38 ["Enums"]
-      506 GETTABLEKS                       R27 R27 K98 ["PopoverAlign"]
-      508 GETTABLEKS                       R27 R27 K99 ["Start"]
-      510 SETTABLEKS                       R27 R26 K88 ["align"]
-      512 CALL                             R24 2 1
-      513 SETTABLEKS                       R24 R15 K100 ["IntroTutorialTooltip"]
-      515 GETUPVAL                         R24 9
-      516 GETTABLEKS                       R24 R24 K5 ["createElement"]
-      518 GETUPVAL                         R25 14
-      519 GETTABLEKS                       R25 R25 K27 ["View"]
-      521 DUPTABLE                         R26 K102 [{["ref"], ["tag"] = "size-full App"}]
-      522 SETTABLEKS                       R9 R26 K78 ["ref"]
-      524 MOVE                             R27 R15
-      525 CALL                             R24 3 -1
-      526 RETURN                           R24 -1
+      449 GETUPVAL                         R24 9
+      450 GETTABLEKS                       R24 R24 K5 ["createElement"]
+      452 GETUPVAL                         R25 14
+      453 GETTABLEKS                       R25 R25 K27 ["View"]
+      455 DUPTABLE                         R26 K81 [{["Position"], ["tag"] = "anchor-bottom-left size-0", ["ref"], ["testId"] = "intro-tutorial-anchor"}]
+      456 GETIMPORT                        R27 K82 [UDim2.new]
+      458 LOADN                            R28 0
+      459 LOADN                            R29 8
+      460 LOADN                            R30 1
+      461 LOADN                            R31 -8
+      462 CALL                             R27 4 1
+      463 SETTABLEKS                       R27 R26 K75 ["Position"]
+      465 SETTABLEKS                       R11 R26 K78 ["ref"]
+      467 CALL                             R24 2 1
+      468 SETTABLEKS                       R24 R15 K83 ["IntroTutorialAnchor"]
+      470 GETUPVAL                         R24 9
+      471 GETTABLEKS                       R24 R24 K5 ["createElement"]
+      473 GETUPVAL                         R25 25
+      474 DUPTABLE                         R26 K91 [{["tutorialId"], ["stepId"], ["anchorInstance"], ["side"], ["align"], ["hasArrow"] = False}]
+      475 GETUPVAL                         R27 26
+      476 GETTABLEKS                       R27 R27 K92 ["TutorialId"]
+      478 GETTABLEKS                       R27 R27 K93 ["Intro"]
+      480 SETTABLEKS                       R27 R26 K84 ["tutorialId"]
+      482 GETUPVAL                         R27 26
+      483 GETTABLEKS                       R27 R27 K94 ["TutorialStepId"]
+      485 GETTABLEKS                       R27 R27 K95 ["Welcome"]
+      487 SETTABLEKS                       R27 R26 K85 ["stepId"]
+      489 SETTABLEKS                       R10 R26 K86 ["anchorInstance"]
+      491 GETUPVAL                         R27 14
+      492 GETTABLEKS                       R27 R27 K38 ["Enums"]
+      494 GETTABLEKS                       R27 R27 K96 ["PopoverSide"]
+      496 GETTABLEKS                       R27 R27 K97 ["Top"]
+      498 SETTABLEKS                       R27 R26 K87 ["side"]
+      500 GETUPVAL                         R27 14
+      501 GETTABLEKS                       R27 R27 K38 ["Enums"]
+      503 GETTABLEKS                       R27 R27 K98 ["PopoverAlign"]
+      505 GETTABLEKS                       R27 R27 K99 ["Start"]
+      507 SETTABLEKS                       R27 R26 K88 ["align"]
+      509 CALL                             R24 2 1
+      510 SETTABLEKS                       R24 R15 K100 ["IntroTutorialTooltip"]
+      512 GETUPVAL                         R24 9
+      513 GETTABLEKS                       R24 R24 K5 ["createElement"]
+      515 GETUPVAL                         R25 14
+      516 GETTABLEKS                       R25 R25 K27 ["View"]
+      518 DUPTABLE                         R26 K102 [{["ref"], ["tag"] = "size-full App"}]
+      519 SETTABLEKS                       R9 R26 K78 ["ref"]
+      521 MOVE                             R27 R15
+      522 CALL                             R24 3 -1
+      523 RETURN                           R24 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -486,94 +483,88 @@ MAIN:
       131 GETIMPORT                        R15 K5 [require]
       133 GETTABLEKS                       R16 R0 K18 ["Src"]
       135 GETTABLEKS                       R16 R16 K25 ["Flags"]
-      137 GETTABLEKS                       R16 R16 K27 ["getFFlagAmrEnableTutorials"]
+      137 GETTABLEKS                       R16 R16 K27 ["getFFlagAmrAssetDetailView"]
       139 CALL                             R15 1 1
-      140 GETIMPORT                        R16 K5 [require]
-      142 GETTABLEKS                       R17 R0 K18 ["Src"]
-      144 GETTABLEKS                       R17 R17 K25 ["Flags"]
-      146 GETTABLEKS                       R17 R17 K28 ["getFFlagAmrAssetDetailView"]
-      148 CALL                             R16 1 1
-      149 MOVE                             R18 R16
-      150 CALL                             R18 0 1
-      151 JUMPIFNOT                        R18 ; [+10]
-      152 GETIMPORT                        R17 K5 [require]
-      154 GETIMPORT                        R18 K1 [script]
-      156 GETTABLEKS                       R18 R18 K9 ["Parent"]
-      158 GETTABLEKS                       R18 R18 K29 ["DetailsDrawer"]
-      160 CALL                             R17 1 1
-      161 JUMP                             ; [+1]
-      162 LOADNIL                          R17
-      163 GETTABLEKS                       R18 R1 K30 ["useCallback"]
-      165 GETTABLEKS                       R19 R1 K31 ["useEffect"]
-      167 GETTABLEKS                       R20 R1 K32 ["useRef"]
+      140 MOVE                             R17 R15
+      141 CALL                             R17 0 1
+      142 JUMPIFNOT                        R17 ; [+10]
+      143 GETIMPORT                        R16 K5 [require]
+      145 GETIMPORT                        R17 K1 [script]
+      147 GETTABLEKS                       R17 R17 K9 ["Parent"]
+      149 GETTABLEKS                       R17 R17 K28 ["DetailsDrawer"]
+      151 CALL                             R16 1 1
+      152 JUMP                             ; [+1]
+      153 LOADNIL                          R16
+      154 GETTABLEKS                       R17 R1 K29 ["useCallback"]
+      156 GETTABLEKS                       R18 R1 K30 ["useEffect"]
+      158 GETTABLEKS                       R19 R1 K31 ["useRef"]
+      160 GETIMPORT                        R20 K5 [require]
+      162 GETTABLEKS                       R21 R0 K18 ["Src"]
+      164 GETTABLEKS                       R21 R21 K32 ["Hooks"]
+      166 GETTABLEKS                       R21 R21 K33 ["useDialogs"]
+      168 CALL                             R20 1 1
       169 GETIMPORT                        R21 K5 [require]
       171 GETTABLEKS                       R22 R0 K18 ["Src"]
-      173 GETTABLEKS                       R22 R22 K33 ["Hooks"]
-      175 GETTABLEKS                       R22 R22 K34 ["useDialogs"]
+      173 GETTABLEKS                       R22 R22 K32 ["Hooks"]
+      175 GETTABLEKS                       R22 R22 K34 ["useIsCompact"]
       177 CALL                             R21 1 1
       178 GETIMPORT                        R22 K5 [require]
       180 GETTABLEKS                       R23 R0 K18 ["Src"]
-      182 GETTABLEKS                       R23 R23 K33 ["Hooks"]
-      184 GETTABLEKS                       R23 R23 K35 ["useIsCompact"]
+      182 GETTABLEKS                       R23 R23 K32 ["Hooks"]
+      184 GETTABLEKS                       R23 R23 K35 ["useLayoutSizing"]
       186 CALL                             R22 1 1
       187 GETIMPORT                        R23 K5 [require]
       189 GETTABLEKS                       R24 R0 K18 ["Src"]
-      191 GETTABLEKS                       R24 R24 K33 ["Hooks"]
-      193 GETTABLEKS                       R24 R24 K36 ["useLayoutSizing"]
+      191 GETTABLEKS                       R24 R24 K32 ["Hooks"]
+      193 GETTABLEKS                       R24 R24 K36 ["useShowSidebar"]
       195 CALL                             R23 1 1
       196 GETIMPORT                        R24 K5 [require]
       198 GETTABLEKS                       R25 R0 K18 ["Src"]
-      200 GETTABLEKS                       R25 R25 K33 ["Hooks"]
-      202 GETTABLEKS                       R25 R25 K37 ["useShowSidebar"]
+      200 GETTABLEKS                       R25 R25 K32 ["Hooks"]
+      202 GETTABLEKS                       R25 R25 K37 ["useExplorerInfo"]
       204 CALL                             R24 1 1
       205 GETIMPORT                        R25 K5 [require]
       207 GETTABLEKS                       R26 R0 K18 ["Src"]
-      209 GETTABLEKS                       R26 R26 K33 ["Hooks"]
-      211 GETTABLEKS                       R26 R26 K38 ["useExplorerInfo"]
+      209 GETTABLEKS                       R26 R26 K32 ["Hooks"]
+      211 GETTABLEKS                       R26 R26 K38 ["useDetailsDrawer"]
       213 CALL                             R25 1 1
       214 GETIMPORT                        R26 K5 [require]
       216 GETTABLEKS                       R27 R0 K18 ["Src"]
-      218 GETTABLEKS                       R27 R27 K33 ["Hooks"]
-      220 GETTABLEKS                       R27 R27 K39 ["useDetailsDrawer"]
+      218 GETTABLEKS                       R27 R27 K32 ["Hooks"]
+      220 GETTABLEKS                       R27 R27 K39 ["useCompactDrawerHeight"]
       222 CALL                             R26 1 1
-      223 GETIMPORT                        R27 K5 [require]
-      225 GETTABLEKS                       R28 R0 K18 ["Src"]
-      227 GETTABLEKS                       R28 R28 K33 ["Hooks"]
-      229 GETTABLEKS                       R28 R28 K40 ["useCompactDrawerHeight"]
-      231 CALL                             R27 1 1
-      232 GETTABLEKS                       R28 R1 K41 ["createElement"]
-      234 LOADK                            R29 K42 ["UIFlexItem"]
-      235 DUPTABLE                         R30 K44 [{"FlexMode"}]
-      236 GETIMPORT                        R31 K48 [Enum.UIFlexMode.Fill]
-      238 SETTABLEKS                       R31 R30 K43 ["FlexMode"]
-      240 CALL                             R28 2 1
-      241 DUPCLOSURE                       R29 K49 [PROTO_4]
-      242 CAPTURE                          VAL R12
-      243 CAPTURE                          VAL R24
-      244 CAPTURE                          VAL R22
-      245 CAPTURE                          VAL R26
-      246 CAPTURE                          VAL R27
-      247 CAPTURE                          VAL R23
-      248 CAPTURE                          VAL R21
-      249 CAPTURE                          VAL R25
-      250 CAPTURE                          VAL R20
-      251 CAPTURE                          VAL R1
-      252 CAPTURE                          VAL R19
-      253 CAPTURE                          VAL R18
-      254 CAPTURE                          VAL R16
-      255 CAPTURE                          VAL R3
-      256 CAPTURE                          VAL R2
-      257 CAPTURE                          VAL R28
-      258 CAPTURE                          VAL R10
-      259 CAPTURE                          VAL R17
-      260 CAPTURE                          VAL R4
-      261 CAPTURE                          VAL R5
-      262 CAPTURE                          VAL R6
-      263 CAPTURE                          VAL R7
-      264 CAPTURE                          VAL R14
-      265 CAPTURE                          VAL R8
-      266 CAPTURE                          VAL R9
-      267 CAPTURE                          VAL R15
-      268 CAPTURE                          VAL R13
-      269 CAPTURE                          VAL R11
-      270 RETURN                           R29 1
+      223 GETTABLEKS                       R27 R1 K40 ["createElement"]
+      225 LOADK                            R28 K41 ["UIFlexItem"]
+      226 DUPTABLE                         R29 K43 [{"FlexMode"}]
+      227 GETIMPORT                        R30 K47 [Enum.UIFlexMode.Fill]
+      229 SETTABLEKS                       R30 R29 K42 ["FlexMode"]
+      231 CALL                             R27 2 1
+      232 DUPCLOSURE                       R28 K48 [PROTO_4]
+      233 CAPTURE                          VAL R12
+      234 CAPTURE                          VAL R23
+      235 CAPTURE                          VAL R21
+      236 CAPTURE                          VAL R25
+      237 CAPTURE                          VAL R26
+      238 CAPTURE                          VAL R22
+      239 CAPTURE                          VAL R20
+      240 CAPTURE                          VAL R24
+      241 CAPTURE                          VAL R19
+      242 CAPTURE                          VAL R1
+      243 CAPTURE                          VAL R18
+      244 CAPTURE                          VAL R17
+      245 CAPTURE                          VAL R15
+      246 CAPTURE                          VAL R3
+      247 CAPTURE                          VAL R2
+      248 CAPTURE                          VAL R27
+      249 CAPTURE                          VAL R10
+      250 CAPTURE                          VAL R16
+      251 CAPTURE                          VAL R4
+      252 CAPTURE                          VAL R5
+      253 CAPTURE                          VAL R6
+      254 CAPTURE                          VAL R7
+      255 CAPTURE                          VAL R14
+      256 CAPTURE                          VAL R8
+      257 CAPTURE                          VAL R9
+      258 CAPTURE                          VAL R13
+      259 CAPTURE                          VAL R11
+      260 RETURN                           R28 1

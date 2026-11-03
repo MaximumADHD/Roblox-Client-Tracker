@@ -58,32 +58,23 @@ PROTO_0:
        79 JUMPIFNOT                        R3 ; [+2]
        80 GETTABLEKS                       R6 R3 K19 ["Name"]
        82 DUPTABLE                         R7 K25 [{["AnalyticsName"], ["AllowDragSelect"] = True, ["AllowFreeformDrag"], ["HandlesList"]}]
-       83 GETUPVAL                         R9 4
-       84 CALL                             R9 0 1
-       85 JUMPIFNOT                        R9 ; [+2]
-       86 MOVE                             R8 R6
-       87 JUMP                             ; [+2]
-       88 GETTABLEKS                       R8 R3 K19 ["Name"]
-       90 SETTABLEKS                       R8 R7 K20 ["AnalyticsName"]
-       92 GETUPVAL                         R8 4
-       93 CALL                             R8 0 1
-       94 JUMPIFNOT                        R8 ; [+4]
-       95 JUMPIFEQKNIL                     R3 ; [+2]
-       97 LOADB                            R8 0 +1
-       98 LOADB                            R8 1
-       99 SETTABLEKS                       R8 R7 K23 ["AllowFreeformDrag"]
-      101 SETTABLEKS                       R5 R7 K24 ["HandlesList"]
-      103 GETUPVAL                         R8 5
-      104 GETTABLEKS                       R8 R8 K26 ["createElement"]
-      106 GETUPVAL                         R9 6
-      107 DUPTABLE                         R10 K30 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
-      108 SETTABLEKS                       R2 R10 K1 ["Mouse"]
-      110 SETTABLEKS                       R4 R10 K27 ["DraggerContext"]
-      112 GETUPVAL                         R11 1
-      113 SETTABLEKS                       R11 R10 K28 ["DraggerSchema"]
-      115 SETTABLEKS                       R7 R10 K29 ["DraggerSettings"]
-      117 CALL                             R8 2 -1
-      118 RETURN                           R8 -1
+       83 SETTABLEKS                       R6 R7 K20 ["AnalyticsName"]
+       85 JUMPIFEQKNIL                     R3 ; [+2]
+       87 LOADB                            R8 0 +1
+       88 LOADB                            R8 1
+       89 SETTABLEKS                       R8 R7 K23 ["AllowFreeformDrag"]
+       91 SETTABLEKS                       R5 R7 K24 ["HandlesList"]
+       93 GETUPVAL                         R8 4
+       94 GETTABLEKS                       R8 R8 K26 ["createElement"]
+       96 GETUPVAL                         R9 5
+       97 DUPTABLE                         R10 K30 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+       98 SETTABLEKS                       R2 R10 K1 ["Mouse"]
+      100 SETTABLEKS                       R4 R10 K27 ["DraggerContext"]
+      102 GETUPVAL                         R11 1
+      103 SETTABLEKS                       R11 R10 K28 ["DraggerSchema"]
+      105 SETTABLEKS                       R7 R10 K29 ["DraggerSettings"]
+      107 CALL                             R8 2 -1
+      108 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -109,21 +100,16 @@ MAIN:
        37 GETTABLEKS                       R9 R0 K13 ["DraggerSchema"]
        39 GETTABLEKS                       R9 R9 K13 ["DraggerSchema"]
        41 CALL                             R8 1 1
-       42 GETIMPORT                        R9 K4 [require]
-       44 GETTABLEKS                       R10 R0 K14 ["Flags"]
-       46 GETTABLEKS                       R10 R10 K15 ["getFFlagAvatarPreviewerCageEditingTools"]
-       48 CALL                             R9 1 1
-       49 GETTABLEKS                       R10 R2 K16 ["PureComponent"]
-       51 LOADK                            R12 K17 ["MeshEditingDragger"]
-       52 NAMECALL                         R10 R10 K18 ["extend"]
-       54 CALL                             R10 2 1
-       55 DUPCLOSURE                       R11 K19 [PROTO_0]
-       56 CAPTURE                          VAL R5
-       57 CAPTURE                          VAL R8
-       58 CAPTURE                          VAL R7
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R9
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R4
-       63 SETTABLEKS                       R11 R10 K20 ["render"]
-       65 RETURN                           R10 1
+       42 GETTABLEKS                       R9 R2 K14 ["PureComponent"]
+       44 LOADK                            R11 K15 ["MeshEditingDragger"]
+       45 NAMECALL                         R9 R9 K16 ["extend"]
+       47 CALL                             R9 2 1
+       48 DUPCLOSURE                       R10 K17 [PROTO_0]
+       49 CAPTURE                          VAL R5
+       50 CAPTURE                          VAL R8
+       51 CAPTURE                          VAL R7
+       52 CAPTURE                          VAL R6
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R4
+       55 SETTABLEKS                       R10 R9 K18 ["render"]
+       57 RETURN                           R9 1

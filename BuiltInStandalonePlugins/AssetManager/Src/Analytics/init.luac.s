@@ -219,6 +219,14 @@ PROTO_12:
         4 CALL                             R2 3 0
         5 RETURN                           R0 0
 
+PROTO_13:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["OpenFromTrigger"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -331,4 +339,7 @@ MAIN:
       160 DUPCLOSURE                       R17 K49 [PROTO_12]
       161 CAPTURE                          VAL R16
       162 SETTABLEKS                       R17 R14 K50 ["sendItemInteractionEvent"]
-      164 RETURN                           R14 1
+      164 DUPCLOSURE                       R17 K51 [PROTO_13]
+      165 CAPTURE                          VAL R16
+      166 SETTABLEKS                       R17 R14 K52 ["sendOpenFromTriggerEvent"]
+      168 RETURN                           R14 1

@@ -128,6 +128,95 @@ PROTO_5:
         4 RETURN                           R1 -1
 
 PROTO_6:
+        0 GETTABLEKS                       R1 R0 K0 ["nominalMemoryMB"]
+        2 FASTCALL1                        TYPE R1 ; [+3]
+        3 MOVE                             R4 R1
+        4 GETIMPORT                        R3 K2 [type]
+        6 CALL                             R3 1 1
+        7 JUMPIFNOTEQKS                    R3 K3 ["number"] ; [+6]
+        9 LOADN                            R3 0
+       10 JUMPIFNOTLT                      R3 R1 ; [+3]
+       12 MOVE                             R2 R1
+       13 RETURN                           R2 1
+       14 LOADNIL                          R2
+       15 RETURN                           R2 1
+
+PROTO_7:
+        0 SETTABLEKS                       R1 R0 K0 ["nominalMemoryMB"]
+        2 RETURN                           R0 0
+
+PROTO_8:
+        0 DIVK                             R1 R0 K0 [1024]
+        1 FASTCALL1                        MATH_FLOOR R1 ; [+3]
+        2 MOVE                             R3 R1
+        3 GETIMPORT                        R2 K3 [math.floor]
+        5 CALL                             R2 1 1
+        6 JUMPIFNOTEQ                      R1 R2 ; [+7]
+        8 LOADK                            R2 K4 ["%* GB"]
+        9 MOVE                             R4 R1
+       10 NAMECALL                         R2 R2 K5 ["format"]
+       12 CALL                             R2 2 1
+       13 RETURN                           R2 1
+       14 GETIMPORT                        R2 K7 [string.format]
+       16 LOADK                            R3 K8 ["%.1f GB"]
+       17 MOVE                             R4 R1
+       18 CALL                             R2 2 -1
+       19 RETURN                           R2 -1
+
+PROTO_9:
+        0 JUMPIFNOTEQKNIL                  R0 ; [+3]
+        2 LOADNIL                          R2
+        3 RETURN                           R2 1
+        4 GETTABLE                         R2 R0 R1
+        5 JUMPIFEQKNIL                     R2 ; [+7]
+        7 LENGTH                           R4 R2
+        8 LOADN                            R5 0
+        9 JUMPIFNOTLT                      R5 R4 ; [+3]
+       11 MOVE                             R3 R2
+       12 RETURN                           R3 1
+       13 LOADNIL                          R3
+       14 RETURN                           R3 1
+
+PROTO_10:
+        0 GETTABLEN                        R2 R0 1
+        1 MOVE                             R3 R0
+        2 LOADNIL                          R4
+        3 LOADNIL                          R5
+        4 FORGPREP                         R3
+        5 SUB                              R9 R7 R1
+        6 FASTCALL1                        MATH_ABS R9 ; [+2]
+        7 GETIMPORT                        R8 K2 [math.abs]
+        9 CALL                             R8 1 1
+       10 SUB                              R10 R2 R1
+       11 FASTCALL1                        MATH_ABS R10 ; [+2]
+       12 GETIMPORT                        R9 K2 [math.abs]
+       14 CALL                             R9 1 1
+       15 JUMPIFLT                         R8 R9 ; [+2]
+       17 LOADB                            R10 0 +1
+       18 LOADB                            R10 1
+       19 LOADB                            R11 0
+       20 JUMPIFNOTEQ                      R8 R9 ; [+5]
+       22 JUMPIFLT                         R7 R2 ; [+2]
+       24 LOADB                            R11 0 +1
+       25 LOADB                            R11 1
+       26 JUMPIF                           R10 ; [+1]
+       27 JUMPIFNOT                        R11 ; [+1]
+       28 MOVE                             R2 R7
+       29 FORGLOOP                         R3 2 ; [-25]
+       31 RETURN                           R2 1
+
+PROTO_11:
+        0 GETUPVAL                         R4 0
+        1 GETTABLE                         R3 R4 R1
+        2 ORK                              R2 R3 K0 [8192]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R3 R3 K1 ["nearestMemoryTier"]
+        6 MOVE                             R4 R0
+        7 MOVE                             R5 R2
+        8 CALL                             R3 2 -1
+        9 RETURN                           R3 -1
+
+PROTO_12:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["tabForForm"]
         3 GETTABLEKS                       R3 R0 K1 ["deviceForm"]
@@ -293,17 +382,26 @@ PROTO_6:
       232 JUMP                             ; [+1]
       233 MOVE                             R6 R8
       234 SETTABLEKS                       R6 R5 K16 ["width"]
-      236 DUPTABLE                         R6 K34 [{["info"], ["draftId"], ["isNew"] = False}]
-      237 SETTABLEKS                       R5 R6 K30 ["info"]
-      239 LOADK                            R7 K35 ["existing:%*:%*"]
-      240 MOVE                             R9 R4
-      241 MOVE                             R10 R1
-      242 NAMECALL                         R7 R7 K36 ["format"]
-      244 CALL                             R7 3 1
-      245 SETTABLEKS                       R7 R6 K31 ["draftId"]
-      247 RETURN                           R6 1
+      236 GETUPVAL                         R6 4
+      237 GETTABLEKS                       R6 R6 K30 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+      239 CALL                             R6 0 1
+      240 JUMPIFNOT                        R6 ; [+7]
+      241 GETUPVAL                         R6 0
+      242 GETTABLEKS                       R6 R6 K31 ["nominalMemoryOf"]
+      244 MOVE                             R7 R0
+      245 CALL                             R6 1 1
+      246 SETTABLEKS                       R6 R5 K32 ["nominalMemoryMB"]
+      248 DUPTABLE                         R6 K37 [{["info"], ["draftId"], ["isNew"] = False}]
+      249 SETTABLEKS                       R5 R6 K33 ["info"]
+      251 LOADK                            R7 K38 ["existing:%*:%*"]
+      252 MOVE                             R9 R4
+      253 MOVE                             R10 R1
+      254 NAMECALL                         R7 R7 K39 ["format"]
+      256 CALL                             R7 3 1
+      257 SETTABLEKS                       R7 R6 K34 ["draftId"]
+      259 RETURN                           R6 1
 
-PROTO_7:
+PROTO_13:
         0 DUPTABLE                         R1 K3 [{"info", "draftId", "isNew"}]
         1 GETTABLEKS                       R3 R0 K0 ["info"]
         3 GETIMPORT                        R4 K6 [table.clone]
@@ -317,7 +415,7 @@ PROTO_7:
        16 SETTABLEKS                       R2 R1 K2 ["isNew"]
        18 RETURN                           R1 1
 
-PROTO_8:
+PROTO_14:
         0 GETTABLEKS                       R2 R0 K0 ["info"]
         2 GETTABLEKS                       R2 R2 K1 ["isCustom"]
         4 GETTABLEKS                       R3 R1 K0 ["info"]
@@ -346,17 +444,17 @@ PROTO_8:
        43 LOADB                            R4 1
        44 RETURN                           R4 1
 
-PROTO_9:
+PROTO_15:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 1
         4 GETIMPORT                        R2 K4 [table.sort]
         6 MOVE                             R3 R1
-        7 DUPCLOSURE                       R4 K5 [PROTO_8]
+        7 DUPCLOSURE                       R4 K5 [PROTO_14]
         8 CALL                             R2 2 0
         9 RETURN                           R1 1
 
-PROTO_10:
+PROTO_16:
         0 MOVE                             R2 R1
         1 JUMPIF                           R2 ; [+2]
         2 GETTABLEKS                       R2 R0 K0 ["activeTab"]
@@ -382,12 +480,12 @@ PROTO_10:
        33 CALL                             R5 1 1
        34 GETIMPORT                        R6 K11 [table.sort]
        36 MOVE                             R7 R5
-       37 DUPCLOSURE                       R8 K12 [PROTO_8]
+       37 DUPCLOSURE                       R8 K12 [PROTO_14]
        38 CALL                             R6 2 0
        39 MOVE                             R4 R5
        40 RETURN                           R4 1
 
-PROTO_11:
+PROTO_17:
         0 GETTABLEKS                       R3 R1 K0 ["info"]
         2 GETTABLEKS                       R3 R3 K1 ["isCustom"]
         4 NOT                              R2 R3
@@ -401,7 +499,7 @@ PROTO_11:
        16 LOADB                            R2 1
        17 RETURN                           R2 1
 
-PROTO_12:
+PROTO_18:
         0 NEWTABLE                         R2 0 0
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K0 ["devicesForTab"]
@@ -429,7 +527,7 @@ PROTO_12:
        34 FORGLOOP                         R3 2 ; [-26]
        36 RETURN                           R2 1
 
-PROTO_13:
+PROTO_19:
         0 NEWTABLE                         R2 0 0
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K0 ["devicesForTab"]
@@ -448,7 +546,7 @@ PROTO_13:
        21 FORGLOOP                         R3 2 ; [-13]
        23 RETURN                           R2 1
 
-PROTO_14:
+PROTO_20:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["getFFlagEnableDeviceSimulatorDeviceVisibility"]
         3 CALL                             R3 0 1
@@ -472,7 +570,7 @@ PROTO_14:
        24 LOADNIL                          R3
        25 RETURN                           R3 1
 
-PROTO_15:
+PROTO_21:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 GETTABLEKS                       R3 R0 K0 ["devices"]
@@ -658,7 +756,7 @@ PROTO_15:
       248 FORGLOOP                         R8 2 ; [-43]
       250 RETURN                           R6 1
 
-PROTO_16:
+PROTO_22:
         0 GETTABLEKS                       R2 R0 K0 ["selectedByTab"]
         2 GETTABLEKS                       R3 R0 K1 ["activeTab"]
         4 GETTABLE                         R1 R2 R3
@@ -673,7 +771,7 @@ PROTO_16:
        17 LOADNIL                          R2
        18 RETURN                           R2 1
 
-PROTO_17:
+PROTO_23:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 MOVE                             R3 R0
         3 CALL                             R2 1 1
@@ -710,7 +808,7 @@ PROTO_17:
        45 SETTABLE                         R4 R3 R1
        46 RETURN                           R2 1
 
-PROTO_18:
+PROTO_24:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 MOVE                             R3 R0
         3 CALL                             R2 1 1
@@ -723,7 +821,7 @@ PROTO_18:
        15 SETTABLE                         R1 R3 R4
        16 RETURN                           R2 1
 
-PROTO_19:
+PROTO_25:
         0 GETTABLEKS                       R4 R0 K0 ["hidden"]
         2 GETTABLE                         R3 R4 R1
         3 JUMPIFEQKB                       R3 TRUE ; [+2]
@@ -731,7 +829,7 @@ PROTO_19:
         6 LOADB                            R2 1
         7 RETURN                           R2 1
 
-PROTO_20:
+PROTO_26:
         0 GETTABLEKS                       R2 R0 K0 ["devices"]
         2 LOADNIL                          R3
         3 LOADNIL                          R4
@@ -743,7 +841,7 @@ PROTO_20:
        12 LOADNIL                          R2
        13 RETURN                           R2 1
 
-PROTO_21:
+PROTO_27:
         0 GETTABLEKS                       R3 R0 K0 ["selectedByTab"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+15]
@@ -797,7 +895,7 @@ PROTO_21:
        66 SETTABLE                         R5 R4 R1
        67 RETURN                           R0 0
 
-PROTO_22:
+PROTO_28:
         0 GETTABLEKS                       R3 R0 K0 ["devices"]
         2 LOADNIL                          R4
         3 LOADNIL                          R5
@@ -888,7 +986,7 @@ PROTO_22:
       122 SETTABLE                         R8 R7 R3
       123 RETURN                           R4 1
 
-PROTO_23:
+PROTO_29:
         0 GETIMPORT                        R4 K2 [table.clone]
         2 MOVE                             R5 R0
         3 CALL                             R4 1 1
@@ -970,7 +1068,7 @@ PROTO_23:
       105 SETTABLE                         R9 R8 R5
       106 RETURN                           R4 1
 
-PROTO_24:
+PROTO_30:
         0 NEWTABLE                         R2 0 0
         2 GETTABLEKS                       R3 R0 K0 ["devices"]
         4 LOADNIL                          R4
@@ -1024,7 +1122,7 @@ PROTO_24:
        62 CALL                             R4 1 0
        63 RETURN                           R0 0
 
-PROTO_25:
+PROTO_31:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 MOVE                             R3 R0
         3 CALL                             R2 1 1
@@ -1050,7 +1148,7 @@ PROTO_25:
        36 SETTABLEKS                       R3 R2 K10 ["nextDraftId"]
        38 RETURN                           R2 1
 
-PROTO_26:
+PROTO_32:
         0 JUMPIFNOT                        R0 ; [+15]
         1 GETUPVAL                         R1 0
         2 LOADK                            R3 K0 ["DeviceNames"]
@@ -1071,45 +1169,61 @@ PROTO_26:
        21 CALL                             R1 3 1
        22 RETURN                           R1 1
 
-PROTO_27:
-        0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R4 R0 K0 ["activeTab"]
-        3 GETTABLE                         R2 R3 R4
-        4 LOADK                            R3 K1 ["new:%*"]
-        5 GETTABLEKS                       R5 R0 K2 ["nextDraftId"]
-        7 NAMECALL                         R3 R3 K3 ["format"]
-        9 CALL                             R3 2 1
-       10 GETUPVAL                         R4 1
-       11 MOVE                             R5 R0
-       12 DUPTABLE                         R6 K8 [{["draftId"], ["isNew"] = True, ["info"]}]
-       13 SETTABLEKS                       R3 R6 K4 ["draftId"]
-       15 DUPTABLE                         R7 K24 [{["deviceForm"], ["deviceId"], ["deviceName"], ["dpi"], ["height"], ["isCustom"] = True, ["landscapeKeyboardHeight"] = 0, ["memoryMB"] = 64000, ["platform"], ["portraitKeyboardHeight"] = 0, ["tier"] = "", ["width"]}]
-       16 GETUPVAL                         R9 2
-       17 GETTABLEKS                       R10 R0 K0 ["activeTab"]
-       19 GETTABLE                         R8 R9 R10
-       20 SETTABLEKS                       R8 R7 K9 ["deviceForm"]
-       22 SETTABLEKS                       R3 R7 K10 ["deviceId"]
-       24 GETUPVAL                         R8 3
-       25 MOVE                             R9 R0
-       26 NEWCLOSURE                       R10 P0
-       27 CAPTURE                          VAL R1
-       28 CALL                             R8 2 1
-       29 SETTABLEKS                       R8 R7 K11 ["deviceName"]
-       31 GETTABLEKS                       R8 R2 K12 ["dpi"]
-       33 SETTABLEKS                       R8 R7 K12 ["dpi"]
-       35 GETTABLEKS                       R8 R2 K13 ["height"]
-       37 SETTABLEKS                       R8 R7 K13 ["height"]
-       39 GETUPVAL                         R9 4
-       40 GETTABLEKS                       R10 R0 K0 ["activeTab"]
-       42 GETTABLE                         R8 R9 R10
-       43 SETTABLEKS                       R8 R7 K19 ["platform"]
-       45 GETTABLEKS                       R8 R2 K23 ["width"]
-       47 SETTABLEKS                       R8 R7 K23 ["width"]
-       49 SETTABLEKS                       R7 R6 K7 ["info"]
-       51 CALL                             R4 2 1
-       52 RETURN                           R4 1
+PROTO_33:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R5 R0 K0 ["activeTab"]
+        3 GETTABLE                         R3 R4 R5
+        4 LOADK                            R4 K1 ["new:%*"]
+        5 GETTABLEKS                       R6 R0 K2 ["nextDraftId"]
+        7 NAMECALL                         R4 R4 K3 ["format"]
+        9 CALL                             R4 2 1
+       10 DUPTABLE                         R5 K20 [{["deviceForm"], ["deviceId"], ["deviceName"], ["dpi"], ["height"], ["isCustom"] = True, ["landscapeKeyboardHeight"] = 0, ["memoryMB"] = 64000, ["platform"], ["portraitKeyboardHeight"] = 0, ["tier"] = "", ["width"]}]
+       11 GETUPVAL                         R7 1
+       12 GETTABLEKS                       R8 R0 K0 ["activeTab"]
+       14 GETTABLE                         R6 R7 R8
+       15 SETTABLEKS                       R6 R5 K4 ["deviceForm"]
+       17 SETTABLEKS                       R4 R5 K5 ["deviceId"]
+       19 GETUPVAL                         R6 2
+       20 MOVE                             R7 R0
+       21 NEWCLOSURE                       R8 P0
+       22 CAPTURE                          VAL R1
+       23 CALL                             R6 2 1
+       24 SETTABLEKS                       R6 R5 K6 ["deviceName"]
+       26 GETTABLEKS                       R6 R3 K7 ["dpi"]
+       28 SETTABLEKS                       R6 R5 K7 ["dpi"]
+       30 GETTABLEKS                       R6 R3 K8 ["height"]
+       32 SETTABLEKS                       R6 R5 K8 ["height"]
+       34 GETUPVAL                         R7 3
+       35 GETTABLEKS                       R8 R0 K0 ["activeTab"]
+       37 GETTABLE                         R6 R7 R8
+       38 SETTABLEKS                       R6 R5 K15 ["platform"]
+       40 GETTABLEKS                       R6 R3 K19 ["width"]
+       42 SETTABLEKS                       R6 R5 K19 ["width"]
+       44 GETUPVAL                         R6 4
+       45 GETTABLEKS                       R6 R6 K21 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       47 CALL                             R6 0 1
+       48 JUMPIFNOT                        R6 ; [+18]
+       49 GETUPVAL                         R6 5
+       50 GETTABLEKS                       R6 R6 K22 ["memoryTiersFor"]
+       52 MOVE                             R7 R2
+       53 GETTABLEKS                       R8 R5 K15 ["platform"]
+       55 CALL                             R6 2 1
+       56 JUMPIFEQKNIL                     R6 ; [+10]
+       58 GETUPVAL                         R7 5
+       59 GETTABLEKS                       R7 R7 K23 ["defaultMemoryTier"]
+       61 MOVE                             R8 R6
+       62 GETTABLEKS                       R9 R5 K15 ["platform"]
+       64 CALL                             R7 2 1
+       65 SETTABLEKS                       R7 R5 K24 ["nominalMemoryMB"]
+       67 GETUPVAL                         R6 6
+       68 MOVE                             R7 R0
+       69 DUPTABLE                         R8 K28 [{["draftId"], ["isNew"] = True, ["info"]}]
+       70 SETTABLEKS                       R4 R8 K25 ["draftId"]
+       72 SETTABLEKS                       R5 R8 K27 ["info"]
+       74 CALL                             R6 2 1
+       75 RETURN                           R6 1
 
-PROTO_28:
+PROTO_34:
         0 JUMPIFNOT                        R0 ; [+22]
         1 GETUPVAL                         R1 0
         2 LOADK                            R3 K0 ["DeviceNames"]
@@ -1139,7 +1253,7 @@ PROTO_28:
        36 CALL                             R1 4 1
        37 RETURN                           R1 1
 
-PROTO_29:
+PROTO_35:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getSelected"]
         3 MOVE                             R3 R0
@@ -1187,7 +1301,7 @@ PROTO_29:
        65 CALL                             R4 2 1
        66 RETURN                           R4 1
 
-PROTO_30:
+PROTO_36:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getSelected"]
         3 MOVE                             R2 R0
@@ -1257,7 +1371,7 @@ PROTO_30:
        97 SETTABLE                         R5 R3 R4
        98 RETURN                           R2 1
 
-PROTO_31:
+PROTO_37:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getSelected"]
         3 MOVE                             R3 R0
@@ -1301,59 +1415,292 @@ PROTO_31:
        60 FORGLOOP                         R4 2 ; [-33]
        62 RETURN                           R3 1
 
-PROTO_32:
-        0 LOADB                            R2 0
-        1 GETTABLEKS                       R3 R0 K0 ["deviceForm"]
-        3 GETTABLEKS                       R4 R1 K0 ["deviceForm"]
-        5 JUMPIFNOTEQ                      R3 R4 ; [+79]
-        7 LOADB                            R2 0
-        8 GETTABLEKS                       R3 R0 K1 ["deviceId"]
-       10 GETTABLEKS                       R4 R1 K1 ["deviceId"]
-       12 JUMPIFNOTEQ                      R3 R4 ; [+72]
-       14 LOADB                            R2 0
-       15 GETTABLEKS                       R3 R0 K2 ["deviceName"]
-       17 GETTABLEKS                       R4 R1 K2 ["deviceName"]
-       19 JUMPIFNOTEQ                      R3 R4 ; [+65]
-       21 LOADB                            R2 0
-       22 GETTABLEKS                       R3 R0 K3 ["dpi"]
-       24 GETTABLEKS                       R4 R1 K3 ["dpi"]
-       26 JUMPIFNOTEQ                      R3 R4 ; [+58]
-       28 LOADB                            R2 0
-       29 GETTABLEKS                       R3 R0 K4 ["height"]
-       31 GETTABLEKS                       R4 R1 K4 ["height"]
-       33 JUMPIFNOTEQ                      R3 R4 ; [+51]
-       35 LOADB                            R2 0
-       36 GETTABLEKS                       R3 R0 K5 ["isCustom"]
-       38 GETTABLEKS                       R4 R1 K5 ["isCustom"]
-       40 JUMPIFNOTEQ                      R3 R4 ; [+44]
-       42 LOADB                            R2 0
-       43 GETTABLEKS                       R3 R0 K6 ["landscapeKeyboardHeight"]
-       45 GETTABLEKS                       R4 R1 K6 ["landscapeKeyboardHeight"]
-       47 JUMPIFNOTEQ                      R3 R4 ; [+37]
-       49 LOADB                            R2 0
-       50 GETTABLEKS                       R3 R0 K7 ["memoryMB"]
-       52 GETTABLEKS                       R4 R1 K7 ["memoryMB"]
-       54 JUMPIFNOTEQ                      R3 R4 ; [+30]
-       56 LOADB                            R2 0
-       57 GETTABLEKS                       R3 R0 K8 ["platform"]
-       59 GETTABLEKS                       R4 R1 K8 ["platform"]
-       61 JUMPIFNOTEQ                      R3 R4 ; [+23]
-       63 LOADB                            R2 0
-       64 GETTABLEKS                       R3 R0 K9 ["portraitKeyboardHeight"]
-       66 GETTABLEKS                       R4 R1 K9 ["portraitKeyboardHeight"]
-       68 JUMPIFNOTEQ                      R3 R4 ; [+16]
-       70 LOADB                            R2 0
-       71 GETTABLEKS                       R3 R0 K10 ["tier"]
-       73 GETTABLEKS                       R4 R1 K10 ["tier"]
-       75 JUMPIFNOTEQ                      R3 R4 ; [+9]
-       77 GETTABLEKS                       R3 R0 K11 ["width"]
-       79 GETTABLEKS                       R4 R1 K11 ["width"]
-       81 JUMPIFEQ                         R3 R4 ; [+2]
-       83 LOADB                            R2 0 +1
-       84 LOADB                            R2 1
-       85 RETURN                           R2 1
+PROTO_38:
+        0 GETTABLEKS                       R2 R0 K0 ["platform"]
+        2 GETUPVAL                         R3 0
+        3 JUMPIFNOTEQ                      R2 R3 ; [+2]
+        5 LOADB                            R1 0 +1
+        6 LOADB                            R1 1
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K1 ["memoryTiersFor"]
+       10 GETUPVAL                         R3 2
+       11 GETTABLEKS                       R4 R0 K0 ["platform"]
+       13 CALL                             R2 2 1
+       14 GETUPVAL                         R3 0
+       15 SETTABLEKS                       R3 R0 K0 ["platform"]
+       17 GETUPVAL                         R3 3
+       18 GETTABLEKS                       R3 R3 K2 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       20 CALL                             R3 0 1
+       21 JUMPIF                           R3 ; [+1]
+       22 RETURN                           R0 0
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K3 ["nominalMemoryOf"]
+       26 MOVE                             R4 R0
+       27 CALL                             R3 1 1
+       28 JUMPIF                           R1 ; [+1]
+       29 RETURN                           R0 0
+       30 GETUPVAL                         R4 1
+       31 GETTABLEKS                       R4 R4 K1 ["memoryTiersFor"]
+       33 GETUPVAL                         R5 2
+       34 GETUPVAL                         R6 0
+       35 CALL                             R4 2 1
+       36 JUMPIFNOTEQKNIL                  R3 ; [+22]
+       38 JUMPIFEQKNIL                     R4 ; [+19]
+       40 JUMPIFNOTEQKNIL                  R2 ; [+17]
+       42 GETTABLEKS                       R6 R0 K4 ["memoryMB"]
+       44 GETUPVAL                         R8 1
+       45 GETTABLEKS                       R8 R8 K6 ["MIN_CUSTOM_MEMORY_GB"]
+       47 MULK                             R7 R8 K5 [1024]
+       48 GETUPVAL                         R9 1
+       49 GETTABLEKS                       R9 R9 K7 ["MAX_CUSTOM_MEMORY_GB"]
+       51 MULK                             R8 R9 K5 [1024]
+       52 FASTCALL                         MATH_CLAMP ; [+2]
+       53 GETIMPORT                        R5 K10 [math.clamp]
+       55 CALL                             R5 3 1
+       56 SETTABLEKS                       R5 R0 K11 ["nominalMemoryMB"]
+       58 RETURN                           R0 0
+       59 GETUPVAL                         R5 2
+       60 JUMPIFEQKNIL                     R5 ; [+9]
+       62 JUMPIFNOTEQKNIL                  R4 ; [+7]
+       64 SETTABLEKS                       R3 R0 K4 ["memoryMB"]
+       66 LOADNIL                          R5
+       67 SETTABLEKS                       R5 R0 K11 ["nominalMemoryMB"]
+       69 RETURN                           R0 0
+       70 JUMPIFEQKNIL                     R4 ; [+10]
+       72 JUMPIFEQKNIL                     R2 ; [+8]
+       74 GETIMPORT                        R5 K14 [table.find]
+       76 MOVE                             R6 R2
+       77 MOVE                             R7 R3
+       78 CALL                             R5 2 1
+       79 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       81 RETURN                           R0 0
+       82 GETIMPORT                        R5 K14 [table.find]
+       84 MOVE                             R6 R4
+       85 MOVE                             R7 R3
+       86 CALL                             R5 2 1
+       87 JUMPIFNOTEQKNIL                  R5 ; [+9]
+       89 GETUPVAL                         R5 1
+       90 GETTABLEKS                       R5 R5 K15 ["nearestMemoryTier"]
+       92 MOVE                             R6 R4
+       93 MOVE                             R7 R3
+       94 CALL                             R5 2 1
+       95 SETTABLEKS                       R5 R0 K11 ["nominalMemoryMB"]
+       97 RETURN                           R0 0
 
-PROTO_33:
+PROTO_39:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["updateSelected"]
+        3 MOVE                             R4 R0
+        4 NEWCLOSURE                       R5 P0
+        5 CAPTURE                          VAL R1
+        6 CAPTURE                          UPVAL U0
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U1
+        9 CALL                             R3 2 -1
+       10 RETURN                           R3 -1
+
+PROTO_40:
+        0 DIVK                             R4 R0 K1 [1024]
+        1 MULK                             R3 R4 K0 [10]
+        2 FASTCALL1                        MATH_ROUND R3 ; [+2]
+        3 GETIMPORT                        R2 K4 [math.round]
+        5 CALL                             R2 1 1
+        6 DIVK                             R1 R2 K0 [10]
+        7 RETURN                           R1 1
+
+PROTO_41:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["nominalMemoryOf"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 JUMPIFEQKNIL                     R1 ; [+10]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K1 ["customMemoryGigabytes"]
+       10 MOVE                             R3 R1
+       11 CALL                             R2 1 1
+       12 GETUPVAL                         R3 1
+       13 JUMPIFNOTEQ                      R2 R3 ; [+2]
+       15 RETURN                           R0 0
+       16 GETUPVAL                         R2 2
+       17 GETTABLEKS                       R2 R2 K2 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       19 CALL                             R2 0 1
+       20 JUMPIFNOT                        R2 ; [+8]
+       21 GETUPVAL                         R4 1
+       22 MULK                             R3 R4 K3 [1024]
+       23 FASTCALL1                        MATH_ROUND R3 ; [+2]
+       24 GETIMPORT                        R2 K6 [math.round]
+       26 CALL                             R2 1 1
+       27 SETTABLEKS                       R2 R0 K7 ["nominalMemoryMB"]
+       29 RETURN                           R0 0
+
+PROTO_42:
+        0 JUMPIFEQ                         R1 R1 ; [+2]
+        2 RETURN                           R0 1
+        3 MULK                             R5 R1 K0 [10]
+        4 FASTCALL1                        MATH_ROUND R5 ; [+2]
+        5 GETIMPORT                        R4 K3 [math.round]
+        7 CALL                             R4 1 1
+        8 DIVK                             R3 R4 K0 [10]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K4 ["MIN_CUSTOM_MEMORY_GB"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K5 ["MAX_CUSTOM_MEMORY_GB"]
+       15 FASTCALL                         MATH_CLAMP ; [+2]
+       16 GETIMPORT                        R2 K7 [math.clamp]
+       18 CALL                             R2 3 1
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K8 ["updateSelected"]
+       22 MOVE                             R4 R0
+       23 NEWCLOSURE                       R5 P0
+       24 CAPTURE                          UPVAL U0
+       25 CAPTURE                          VAL R2
+       26 CAPTURE                          UPVAL U1
+       27 CALL                             R3 2 -1
+       28 RETURN                           R3 -1
+
+PROTO_43:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["customMemoryGigabytes"]
+        3 GETTABLEKS                       R2 R0 K1 ["memoryMB"]
+        5 CALL                             R1 1 1
+        6 GETUPVAL                         R2 1
+        7 JUMPIFNOTEQ                      R1 R2 ; [+2]
+        9 RETURN                           R0 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K2 ["setFreeformMemory"]
+       13 MOVE                             R2 R0
+       14 GETUPVAL                         R5 1
+       15 MULK                             R4 R5 K3 [1024]
+       16 FASTCALL1                        MATH_ROUND R4 ; [+2]
+       17 GETIMPORT                        R3 K6 [math.round]
+       19 CALL                             R3 1 1
+       20 CALL                             R1 2 0
+       21 RETURN                           R0 0
+
+PROTO_44:
+        0 JUMPIFEQ                         R1 R1 ; [+2]
+        2 RETURN                           R0 1
+        3 MULK                             R5 R1 K0 [10]
+        4 FASTCALL1                        MATH_ROUND R5 ; [+2]
+        5 GETIMPORT                        R4 K3 [math.round]
+        7 CALL                             R4 1 1
+        8 DIVK                             R3 R4 K0 [10]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K4 ["MIN_CUSTOM_MEMORY_GB"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K5 ["MAX_CUSTOM_MEMORY_GB"]
+       15 FASTCALL                         MATH_CLAMP ; [+2]
+       16 GETIMPORT                        R2 K7 [math.clamp]
+       18 CALL                             R2 3 1
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K8 ["updateSelected"]
+       22 MOVE                             R4 R0
+       23 NEWCLOSURE                       R5 P0
+       24 CAPTURE                          UPVAL U0
+       25 CAPTURE                          VAL R2
+       26 CALL                             R3 2 -1
+       27 RETURN                           R3 -1
+
+PROTO_45:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+        3 CALL                             R1 0 1
+        4 JUMPIFNOT                        R1 ; [+3]
+        5 GETUPVAL                         R1 1
+        6 SETTABLEKS                       R1 R0 K1 ["nominalMemoryMB"]
+        8 RETURN                           R0 0
+
+PROTO_46:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["updateSelected"]
+        3 MOVE                             R3 R0
+        4 NEWCLOSURE                       R4 P0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          VAL R1
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
+
+PROTO_47:
+        0 GETTABLEKS                       R2 R0 K0 ["memoryMB"]
+        2 JUMPIFNOTEQ                      R2 R1 ; [+2]
+        4 RETURN                           R0 0
+        5 SETTABLEKS                       R1 R0 K0 ["memoryMB"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K1 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       10 CALL                             R2 0 1
+       11 JUMPIFNOT                        R2 ; [+3]
+       12 LOADNIL                          R2
+       13 SETTABLEKS                       R2 R0 K2 ["nominalMemoryMB"]
+       15 RETURN                           R0 0
+
+PROTO_48:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+        3 CALL                             R2 0 1
+        4 JUMPIFNOT                        R2 ; [+14]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K1 ["nominalMemoryOf"]
+        8 MOVE                             R3 R0
+        9 CALL                             R2 1 1
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K1 ["nominalMemoryOf"]
+       13 MOVE                             R4 R1
+       14 CALL                             R3 1 1
+       15 JUMPIFEQ                         R2 R3 ; [+3]
+       17 LOADB                            R2 0
+       18 RETURN                           R2 1
+       19 LOADB                            R2 0
+       20 GETTABLEKS                       R3 R0 K2 ["deviceForm"]
+       22 GETTABLEKS                       R4 R1 K2 ["deviceForm"]
+       24 JUMPIFNOTEQ                      R3 R4 ; [+79]
+       26 LOADB                            R2 0
+       27 GETTABLEKS                       R3 R0 K3 ["deviceId"]
+       29 GETTABLEKS                       R4 R1 K3 ["deviceId"]
+       31 JUMPIFNOTEQ                      R3 R4 ; [+72]
+       33 LOADB                            R2 0
+       34 GETTABLEKS                       R3 R0 K4 ["deviceName"]
+       36 GETTABLEKS                       R4 R1 K4 ["deviceName"]
+       38 JUMPIFNOTEQ                      R3 R4 ; [+65]
+       40 LOADB                            R2 0
+       41 GETTABLEKS                       R3 R0 K5 ["dpi"]
+       43 GETTABLEKS                       R4 R1 K5 ["dpi"]
+       45 JUMPIFNOTEQ                      R3 R4 ; [+58]
+       47 LOADB                            R2 0
+       48 GETTABLEKS                       R3 R0 K6 ["height"]
+       50 GETTABLEKS                       R4 R1 K6 ["height"]
+       52 JUMPIFNOTEQ                      R3 R4 ; [+51]
+       54 LOADB                            R2 0
+       55 GETTABLEKS                       R3 R0 K7 ["isCustom"]
+       57 GETTABLEKS                       R4 R1 K7 ["isCustom"]
+       59 JUMPIFNOTEQ                      R3 R4 ; [+44]
+       61 LOADB                            R2 0
+       62 GETTABLEKS                       R3 R0 K8 ["landscapeKeyboardHeight"]
+       64 GETTABLEKS                       R4 R1 K8 ["landscapeKeyboardHeight"]
+       66 JUMPIFNOTEQ                      R3 R4 ; [+37]
+       68 LOADB                            R2 0
+       69 GETTABLEKS                       R3 R0 K9 ["memoryMB"]
+       71 GETTABLEKS                       R4 R1 K9 ["memoryMB"]
+       73 JUMPIFNOTEQ                      R3 R4 ; [+30]
+       75 LOADB                            R2 0
+       76 GETTABLEKS                       R3 R0 K10 ["platform"]
+       78 GETTABLEKS                       R4 R1 K10 ["platform"]
+       80 JUMPIFNOTEQ                      R3 R4 ; [+23]
+       82 LOADB                            R2 0
+       83 GETTABLEKS                       R3 R0 K11 ["portraitKeyboardHeight"]
+       85 GETTABLEKS                       R4 R1 K11 ["portraitKeyboardHeight"]
+       87 JUMPIFNOTEQ                      R3 R4 ; [+16]
+       89 LOADB                            R2 0
+       90 GETTABLEKS                       R3 R0 K12 ["tier"]
+       92 GETTABLEKS                       R4 R1 K12 ["tier"]
+       94 JUMPIFNOTEQ                      R3 R4 ; [+9]
+       96 GETTABLEKS                       R3 R0 K13 ["width"]
+       98 GETTABLEKS                       R4 R1 K13 ["width"]
+      100 JUMPIFEQ                         R3 R4 ; [+2]
+      102 LOADB                            R2 0 +1
+      103 LOADB                            R2 1
+      104 RETURN                           R2 1
+
+PROTO_49:
         0 MOVE                             R2 R0
         1 LOADNIL                          R3
         2 LOADNIL                          R4
@@ -1375,7 +1722,7 @@ PROTO_33:
        20 LOADB                            R2 1
        21 RETURN                           R2 1
 
-PROTO_34:
+PROTO_50:
         0 GETIMPORT                        R1 K1 [next]
         2 GETTABLEKS                       R2 R0 K2 ["removals"]
         4 CALL                             R1 1 1
@@ -1432,7 +1779,7 @@ PROTO_34:
        68 LOADB                            R1 0
        69 RETURN                           R1 1
 
-PROTO_35:
+PROTO_51:
         0 GETUPVAL                         R4 0
         1 GETTABLE                         R3 R4 R0
         2 JUMPIFNOTEQKNIL                  R3 ; [+5]
@@ -1444,7 +1791,7 @@ PROTO_35:
        10 SETTABLE                         R2 R3 R1
        11 RETURN                           R0 0
 
-PROTO_36:
+PROTO_52:
         0 NEWTABLE                         R2 0 0
         2 NEWTABLE                         R3 0 0
         4 NEWCLOSURE                       R4 P0
@@ -1533,7 +1880,7 @@ PROTO_36:
       121 GETTABLEKS                       R12 R9 K11 ["draftId"]
       123 SETTABLE                         R12 R3 R11
       124 GETTABLEKS                       R12 R10 K23 ["isCustom"]
-      126 JUMPIFNOT                        R12 ; [+234]
+      126 JUMPIFNOT                        R12 ; [+278]
       127 GETTABLEKS                       R12 R10 K24 ["width"]
       129 LOADN                            R13 1
       130 JUMPIFLT                         R12 R13 ; [+6]
@@ -1676,7 +2023,7 @@ PROTO_36:
       330 SETTABLEKS                       R13 R14 K41 ["landscapeKeyboardHeight"]
       332 GETTABLEKS                       R12 R10 K43 ["memoryMB"]
       334 LOADN                            R13 0
-      335 JUMPIFNOTLT                      R12 R13 ; [+25]
+      335 JUMPIFNOTLT                      R12 R13 ; [+26]
       337 GETTABLEKS                       R12 R9 K11 ["draftId"]
       339 LOADK                            R15 K12 ["Validation"]
       340 LOADK                            R16 K44 ["MemoryMinimum"]
@@ -1694,17 +2041,49 @@ PROTO_36:
       357 SETTABLE                         R14 R2 R12
       358 GETTABLE                         R14 R2 R12
       359 SETTABLEKS                       R13 R14 K43 ["memoryMB"]
-      361 FORGLOOP                         R5 2 ; [-351]
-      363 GETIMPORT                        R6 K48 [next]
-      365 MOVE                             R7 R2
-      366 CALL                             R6 1 1
-      367 JUMPIFEQKNIL                     R6 ; [+2]
-      369 LOADB                            R5 0 +1
-      370 LOADB                            R5 1
-      371 MOVE                             R6 R2
-      372 RETURN                           R5 2
+      361 JUMP                             ; [+43]
+      362 GETUPVAL                         R12 0
+      363 GETTABLEKS                       R12 R12 K47 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+      365 CALL                             R12 0 1
+      366 JUMPIFNOT                        R12 ; [+38]
+      367 GETUPVAL                         R13 1
+      368 GETTABLEKS                       R13 R13 K49 ["nominalMemoryOf"]
+      370 MOVE                             R14 R10
+      371 CALL                             R13 1 1
+      372 ORK                              R12 R13 K48 [Infinity]
+      373 GETUPVAL                         R14 1
+      374 GETTABLEKS                       R14 R14 K51 ["MIN_CUSTOM_MEMORY_GB"]
+      376 MULK                             R13 R14 K50 [1024]
+      377 JUMPIFNOTLT                      R12 R13 ; [+27]
+      379 GETTABLEKS                       R12 R9 K11 ["draftId"]
+      381 LOADK                            R15 K12 ["Validation"]
+      382 LOADK                            R16 K44 ["MemoryMinimum"]
+      383 DUPTABLE                         R17 K46 [{"minMemory"}]
+      384 LOADK                            R18 K52 ["%* GB"]
+      385 GETUPVAL                         R20 1
+      386 GETTABLEKS                       R20 R20 K51 ["MIN_CUSTOM_MEMORY_GB"]
+      388 NAMECALL                         R18 R18 K53 ["format"]
+      390 CALL                             R18 2 1
+      391 SETTABLEKS                       R18 R17 K45 ["minMemory"]
+      393 NAMECALL                         R13 R1 K14 ["getText"]
+      395 CALL                             R13 4 1
+      396 GETTABLE                         R14 R2 R12
+      397 JUMPIFNOTEQKNIL                  R14 ; [+4]
+      399 NEWTABLE                         R14 0 0
+      401 SETTABLE                         R14 R2 R12
+      402 GETTABLE                         R14 R2 R12
+      403 SETTABLEKS                       R13 R14 K43 ["memoryMB"]
+      405 FORGLOOP                         R5 2 ; [-395]
+      407 GETIMPORT                        R6 K55 [next]
+      409 MOVE                             R7 R2
+      410 CALL                             R6 1 1
+      411 JUMPIFEQKNIL                     R6 ; [+2]
+      413 LOADB                            R5 0 +1
+      414 LOADB                            R5 1
+      415 MOVE                             R6 R2
+      416 RETURN                           R5 2
 
-PROTO_37:
+PROTO_53:
         0 GETTABLEKS                       R2 R0 K0 ["info"]
         2 GETIMPORT                        R3 K3 [table.clone]
         4 MOVE                             R4 R2
@@ -1718,7 +2097,7 @@ PROTO_37:
        15 SETTABLEKS                       R2 R1 K7 ["deviceId"]
        17 RETURN                           R1 1
 
-PROTO_38:
+PROTO_54:
         0 DUPTABLE                         R1 K4 [{"creates", "updates", "removals", "hiddenDeviceIds"}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["creates"]
@@ -1837,90 +2216,143 @@ MAIN:
        67 SETTABLEKS                       R7 R6 K13 ["console"]
        69 DUPTABLE                         R7 K48 [{["width"] = 1832, ["height"] = 1920, ["dpi"] = 90}]
        70 SETTABLEKS                       R7 R6 K14 ["headset"]
-       72 DUPCLOSURE                       R7 K49 [PROTO_0]
-       73 DUPCLOSURE                       R8 K50 [PROTO_1]
-       74 DUPCLOSURE                       R9 K51 [PROTO_2]
-       75 DUPCLOSURE                       R10 K52 [PROTO_3]
-       76 DUPCLOSURE                       R11 K53 [PROTO_4]
-       77 SETTABLEKS                       R11 R3 K54 ["tabForForm"]
-       79 DUPCLOSURE                       R11 K55 [PROTO_5]
-       80 DUPCLOSURE                       R12 K56 [PROTO_6]
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R6
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R5
-       85 DUPCLOSURE                       R13 K57 [PROTO_7]
-       86 DUPCLOSURE                       R14 K58 [PROTO_9]
-       87 DUPCLOSURE                       R15 K59 [PROTO_10]
-       88 CAPTURE                          VAL R3
-       89 SETTABLEKS                       R15 R3 K60 ["devicesForTab"]
-       91 DUPCLOSURE                       R15 K61 [PROTO_11]
-       92 DUPCLOSURE                       R16 K62 [PROTO_12]
-       93 CAPTURE                          VAL R3
-       94 SETTABLEKS                       R16 R3 K63 ["visibleDevicesForTab"]
-       96 DUPCLOSURE                       R16 K64 [PROTO_13]
-       97 CAPTURE                          VAL R3
-       98 SETTABLEKS                       R16 R3 K65 ["standardDevicesForTab"]
-      100 DUPCLOSURE                       R16 K66 [PROTO_14]
-      101 CAPTURE                          VAL R2
-      102 CAPTURE                          VAL R3
-      103 DUPCLOSURE                       R17 K67 [PROTO_15]
-      104 CAPTURE                          VAL R12
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R3
-      107 SETTABLEKS                       R17 R3 K68 ["createState"]
-      109 DUPCLOSURE                       R17 K69 [PROTO_16]
-      110 SETTABLEKS                       R17 R3 K70 ["getSelected"]
-      112 DUPCLOSURE                       R17 K71 [PROTO_17]
-      113 CAPTURE                          VAL R2
+       72 NEWTABLE                         R7 2 0
+       74 GETIMPORT                        R8 K50 [Enum.Platform.Android]
+       76 LOADN                            R9 4096
+       77 SETTABLE                         R9 R7 R8
+       78 GETIMPORT                        R8 K28 [Enum.Platform.IOS]
+       80 LOADN                            R9 4096
+       81 SETTABLE                         R9 R7 R8
+       82 LOADN                            R8 1024
+       83 SETTABLEKS                       R8 R3 K51 ["MIB_PER_GIB"]
+       85 LOADK                            R8 K52 [0.5]
+       86 SETTABLEKS                       R8 R3 K53 ["MIN_CUSTOM_MEMORY_GB"]
+       88 LOADN                            R8 4096
+       89 SETTABLEKS                       R8 R3 K54 ["MAX_CUSTOM_MEMORY_GB"]
+       91 DUPCLOSURE                       R8 K55 [PROTO_0]
+       92 DUPCLOSURE                       R9 K56 [PROTO_1]
+       93 DUPCLOSURE                       R10 K57 [PROTO_2]
+       94 DUPCLOSURE                       R11 K58 [PROTO_3]
+       95 DUPCLOSURE                       R12 K59 [PROTO_4]
+       96 SETTABLEKS                       R12 R3 K60 ["tabForForm"]
+       98 DUPCLOSURE                       R12 K61 [PROTO_5]
+       99 DUPCLOSURE                       R13 K62 [PROTO_6]
+      100 SETTABLEKS                       R13 R3 K63 ["nominalMemoryOf"]
+      102 DUPCLOSURE                       R13 K64 [PROTO_7]
+      103 DUPCLOSURE                       R14 K65 [PROTO_8]
+      104 SETTABLEKS                       R14 R3 K66 ["formatMemory"]
+      106 DUPCLOSURE                       R14 K67 [PROTO_9]
+      107 SETTABLEKS                       R14 R3 K68 ["memoryTiersFor"]
+      109 DUPCLOSURE                       R14 K69 [PROTO_10]
+      110 SETTABLEKS                       R14 R3 K70 ["nearestMemoryTier"]
+      112 DUPCLOSURE                       R14 K71 [PROTO_11]
+      113 CAPTURE                          VAL R7
       114 CAPTURE                          VAL R3
-      115 SETTABLEKS                       R17 R3 K72 ["selectTab"]
-      117 DUPCLOSURE                       R17 K73 [PROTO_18]
-      118 SETTABLEKS                       R17 R3 K74 ["selectDevice"]
-      120 DUPCLOSURE                       R17 K75 [PROTO_19]
-      121 SETTABLEKS                       R17 R3 K76 ["isHidden"]
-      123 DUPCLOSURE                       R17 K77 [PROTO_20]
-      124 DUPCLOSURE                       R18 K78 [PROTO_21]
-      125 CAPTURE                          VAL R2
+      115 SETTABLEKS                       R14 R3 K72 ["defaultMemoryTier"]
+      117 DUPCLOSURE                       R14 K73 [PROTO_12]
+      118 CAPTURE                          VAL R3
+      119 CAPTURE                          VAL R6
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R5
+      122 CAPTURE                          VAL R2
+      123 DUPCLOSURE                       R15 K74 [PROTO_13]
+      124 DUPCLOSURE                       R16 K75 [PROTO_15]
+      125 DUPCLOSURE                       R17 K76 [PROTO_16]
       126 CAPTURE                          VAL R3
-      127 DUPCLOSURE                       R19 K79 [PROTO_22]
-      128 CAPTURE                          VAL R3
-      129 CAPTURE                          VAL R2
-      130 SETTABLEKS                       R19 R3 K80 ["hideStandard"]
-      132 DUPCLOSURE                       R19 K81 [PROTO_23]
-      133 CAPTURE                          VAL R2
-      134 CAPTURE                          VAL R3
-      135 SETTABLEKS                       R19 R3 K82 ["setStandardVisibility"]
-      137 DUPCLOSURE                       R19 K83 [PROTO_24]
-      138 DUPCLOSURE                       R20 K84 [PROTO_25]
-      139 DUPCLOSURE                       R21 K85 [PROTO_27]
-      140 CAPTURE                          VAL R6
-      141 CAPTURE                          VAL R20
-      142 CAPTURE                          VAL R4
-      143 CAPTURE                          VAL R19
-      144 CAPTURE                          VAL R5
-      145 SETTABLEKS                       R21 R3 K86 ["addDevice"]
-      147 DUPCLOSURE                       R21 K87 [PROTO_29]
-      148 CAPTURE                          VAL R3
-      149 CAPTURE                          VAL R19
-      150 CAPTURE                          VAL R20
-      151 SETTABLEKS                       R21 R3 K88 ["cloneSelected"]
-      153 DUPCLOSURE                       R21 K89 [PROTO_30]
-      154 CAPTURE                          VAL R3
-      155 CAPTURE                          VAL R2
-      156 SETTABLEKS                       R21 R3 K90 ["deleteSelected"]
-      158 DUPCLOSURE                       R21 K91 [PROTO_31]
-      159 CAPTURE                          VAL R3
-      160 SETTABLEKS                       R21 R3 K92 ["updateSelected"]
-      162 DUPCLOSURE                       R21 K93 [PROTO_32]
-      163 DUPCLOSURE                       R22 K94 [PROTO_33]
-      164 DUPCLOSURE                       R23 K95 [PROTO_34]
-      165 CAPTURE                          VAL R21
-      166 SETTABLEKS                       R23 R3 K96 ["isDirty"]
-      168 DUPCLOSURE                       R23 K97 [PROTO_36]
-      169 SETTABLEKS                       R23 R3 K98 ["validate"]
-      171 DUPCLOSURE                       R23 K99 [PROTO_37]
-      172 DUPCLOSURE                       R24 K100 [PROTO_38]
-      173 CAPTURE                          VAL R21
-      174 SETTABLEKS                       R24 R3 K101 ["getOutput"]
-      176 RETURN                           R3 1
+      127 SETTABLEKS                       R17 R3 K77 ["devicesForTab"]
+      129 DUPCLOSURE                       R17 K78 [PROTO_17]
+      130 DUPCLOSURE                       R18 K79 [PROTO_18]
+      131 CAPTURE                          VAL R3
+      132 SETTABLEKS                       R18 R3 K80 ["visibleDevicesForTab"]
+      134 DUPCLOSURE                       R18 K81 [PROTO_19]
+      135 CAPTURE                          VAL R3
+      136 SETTABLEKS                       R18 R3 K82 ["standardDevicesForTab"]
+      138 DUPCLOSURE                       R18 K83 [PROTO_20]
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          VAL R3
+      141 DUPCLOSURE                       R19 K84 [PROTO_21]
+      142 CAPTURE                          VAL R14
+      143 CAPTURE                          VAL R2
+      144 CAPTURE                          VAL R3
+      145 SETTABLEKS                       R19 R3 K85 ["createState"]
+      147 DUPCLOSURE                       R19 K86 [PROTO_22]
+      148 SETTABLEKS                       R19 R3 K87 ["getSelected"]
+      150 DUPCLOSURE                       R19 K88 [PROTO_23]
+      151 CAPTURE                          VAL R2
+      152 CAPTURE                          VAL R3
+      153 SETTABLEKS                       R19 R3 K89 ["selectTab"]
+      155 DUPCLOSURE                       R19 K90 [PROTO_24]
+      156 SETTABLEKS                       R19 R3 K91 ["selectDevice"]
+      158 DUPCLOSURE                       R19 K92 [PROTO_25]
+      159 SETTABLEKS                       R19 R3 K93 ["isHidden"]
+      161 DUPCLOSURE                       R19 K94 [PROTO_26]
+      162 DUPCLOSURE                       R20 K95 [PROTO_27]
+      163 CAPTURE                          VAL R2
+      164 CAPTURE                          VAL R3
+      165 DUPCLOSURE                       R21 K96 [PROTO_28]
+      166 CAPTURE                          VAL R3
+      167 CAPTURE                          VAL R2
+      168 SETTABLEKS                       R21 R3 K97 ["hideStandard"]
+      170 DUPCLOSURE                       R21 K98 [PROTO_29]
+      171 CAPTURE                          VAL R2
+      172 CAPTURE                          VAL R3
+      173 SETTABLEKS                       R21 R3 K99 ["setStandardVisibility"]
+      175 DUPCLOSURE                       R21 K100 [PROTO_30]
+      176 DUPCLOSURE                       R22 K101 [PROTO_31]
+      177 DUPCLOSURE                       R23 K102 [PROTO_33]
+      178 CAPTURE                          VAL R6
+      179 CAPTURE                          VAL R4
+      180 CAPTURE                          VAL R21
+      181 CAPTURE                          VAL R5
+      182 CAPTURE                          VAL R2
+      183 CAPTURE                          VAL R3
+      184 CAPTURE                          VAL R22
+      185 SETTABLEKS                       R23 R3 K103 ["addDevice"]
+      187 DUPCLOSURE                       R23 K104 [PROTO_35]
+      188 CAPTURE                          VAL R3
+      189 CAPTURE                          VAL R21
+      190 CAPTURE                          VAL R22
+      191 SETTABLEKS                       R23 R3 K105 ["cloneSelected"]
+      193 DUPCLOSURE                       R23 K106 [PROTO_36]
+      194 CAPTURE                          VAL R3
+      195 CAPTURE                          VAL R2
+      196 SETTABLEKS                       R23 R3 K107 ["deleteSelected"]
+      198 DUPCLOSURE                       R23 K108 [PROTO_37]
+      199 CAPTURE                          VAL R3
+      200 SETTABLEKS                       R23 R3 K109 ["updateSelected"]
+      202 DUPCLOSURE                       R23 K110 [PROTO_39]
+      203 CAPTURE                          VAL R3
+      204 CAPTURE                          VAL R2
+      205 SETTABLEKS                       R23 R3 K111 ["selectPlatform"]
+      207 DUPCLOSURE                       R23 K112 [PROTO_40]
+      208 SETTABLEKS                       R23 R3 K113 ["customMemoryGigabytes"]
+      210 DUPCLOSURE                       R23 K114 [PROTO_42]
+      211 CAPTURE                          VAL R3
+      212 CAPTURE                          VAL R2
+      213 SETTABLEKS                       R23 R3 K115 ["setCustomMemoryGigabytes"]
+      215 DUPCLOSURE                       R23 K116 [PROTO_44]
+      216 CAPTURE                          VAL R3
+      217 SETTABLEKS                       R23 R3 K117 ["setFreeformMemoryGigabytes"]
+      219 DUPCLOSURE                       R23 K118 [PROTO_46]
+      220 CAPTURE                          VAL R3
+      221 CAPTURE                          VAL R2
+      222 SETTABLEKS                       R23 R3 K119 ["selectMemoryTier"]
+      224 DUPCLOSURE                       R23 K120 [PROTO_47]
+      225 CAPTURE                          VAL R2
+      226 SETTABLEKS                       R23 R3 K121 ["setFreeformMemory"]
+      228 DUPCLOSURE                       R23 K122 [PROTO_48]
+      229 CAPTURE                          VAL R2
+      230 CAPTURE                          VAL R3
+      231 DUPCLOSURE                       R24 K123 [PROTO_49]
+      232 DUPCLOSURE                       R25 K124 [PROTO_50]
+      233 CAPTURE                          VAL R23
+      234 SETTABLEKS                       R25 R3 K125 ["isDirty"]
+      236 DUPCLOSURE                       R25 K126 [PROTO_52]
+      237 CAPTURE                          VAL R2
+      238 CAPTURE                          VAL R3
+      239 SETTABLEKS                       R25 R3 K127 ["validate"]
+      241 DUPCLOSURE                       R25 K128 [PROTO_53]
+      242 DUPCLOSURE                       R26 K129 [PROTO_54]
+      243 CAPTURE                          VAL R23
+      244 SETTABLEKS                       R26 R3 K130 ["getOutput"]
+      246 RETURN                           R3 1

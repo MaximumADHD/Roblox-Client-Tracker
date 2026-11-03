@@ -53,7 +53,7 @@ PROTO_1:
         5 LOADB                            R2 0
         6 RETURN                           R2 1
         7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K1 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+        8 GETTABLEKS                       R2 R2 K1 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
        10 CALL                             R2 0 1
        11 JUMPIF                           R2 ; [+2]
        12 LOADB                            R2 0
@@ -532,7 +532,7 @@ PROTO_13:
        70 LOADB                            R16 0
        71 JUMP                             ; [+19]
        72 GETUPVAL                         R17 0
-       73 GETTABLEKS                       R17 R17 K11 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+       73 GETTABLEKS                       R17 R17 K11 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
        75 CALL                             R17 0 1
        76 JUMPIF                           R17 ; [+2]
        77 LOADB                            R16 0
@@ -657,7 +657,7 @@ PROTO_13:
       245 LOADB                            R17 0
       246 JUMP                             ; [+19]
       247 GETUPVAL                         R18 0
-      248 GETTABLEKS                       R18 R18 K11 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+      248 GETTABLEKS                       R18 R18 K11 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
       250 CALL                             R18 0 1
       251 JUMPIF                           R18 ; [+2]
       252 LOADB                            R17 0
@@ -761,7 +761,7 @@ PROTO_13:
       399 LOADB                            R17 0
       400 JUMP                             ; [+19]
       401 GETUPVAL                         R18 0
-      402 GETTABLEKS                       R18 R18 K11 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+      402 GETTABLEKS                       R18 R18 K11 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
       404 CALL                             R18 0 1
       405 JUMPIF                           R18 ; [+2]
       406 LOADB                            R17 0
@@ -796,7 +796,7 @@ PROTO_13:
       445 LOADB                            R16 0
       446 JUMP                             ; [+19]
       447 GETUPVAL                         R17 0
-      448 GETTABLEKS                       R17 R17 K11 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+      448 GETTABLEKS                       R17 R17 K11 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
       450 CALL                             R17 0 1
       451 JUMPIF                           R17 ; [+2]
       452 LOADB                            R16 0

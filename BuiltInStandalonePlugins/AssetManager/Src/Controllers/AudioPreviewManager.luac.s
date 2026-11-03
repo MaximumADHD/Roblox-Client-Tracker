@@ -49,24 +49,9 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
-        4 GETUPVAL                         R0 0
-        5 LOADN                            R1 0
-        6 SETTABLEKS                       R1 R0 K1 ["_currentSoundId"]
-        8 GETUPVAL                         R0 0
-        9 LOADN                            R1 0
-       10 SETTABLEKS                       R1 R0 K2 ["_totalTime"]
-       12 GETUPVAL                         R0 0
-       13 GETTABLEKS                       R0 R0 K3 ["OnProgressChanged"]
-       15 LOADN                            R2 0
-       16 NAMECALL                         R0 R0 K4 ["Fire"]
-       18 CALL                             R0 2 0
-       19 GETUPVAL                         R0 0
-       20 GETTABLEKS                       R0 R0 K5 ["OnStateChanged"]
-       22 NAMECALL                         R0 R0 K4 ["Fire"]
-       24 CALL                             R0 1 0
-       25 RETURN                           R0 0
+        1 NAMECALL                         R0 R0 K0 ["_onEnded"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_3:
         0 NAMECALL                         R1 R0 K0 ["teardownAudioPlayer"]
@@ -106,6 +91,26 @@ PROTO_3:
        52 RETURN                           R0 0
 
 PROTO_4:
+        0 GETTABLEKS                       R1 R0 K0 ["_isPlaying"]
+        2 JUMPIF                           R1 ; [+1]
+        3 RETURN                           R0 0
+        4 LOADB                            R1 0
+        5 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
+        7 GETTABLEKS                       R1 R0 K1 ["_audioPlayer"]
+        9 JUMPIFNOT                        R1 ; [+5]
+       10 GETTABLEKS                       R1 R0 K1 ["_audioPlayer"]
+       12 LOADN                            R2 0
+       13 SETTABLEKS                       R2 R1 K2 ["TimePosition"]
+       15 GETTABLEKS                       R1 R0 K3 ["OnProgressChanged"]
+       17 LOADN                            R3 0
+       18 NAMECALL                         R1 R1 K4 ["Fire"]
+       20 CALL                             R1 2 0
+       21 GETTABLEKS                       R1 R0 K5 ["OnStateChanged"]
+       23 NAMECALL                         R1 R1 K4 ["Fire"]
+       25 CALL                             R1 1 0
+       26 RETURN                           R0 0
+
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["_connections"]
         3 CALL                             R1 1 0
@@ -120,7 +125,7 @@ PROTO_4:
        17 SETTABLEKS                       R1 R0 K1 ["_audioPlayer"]
        19 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["rbxassetid://%*"]
         2 GETUPVAL                         R4 1
@@ -167,7 +172,7 @@ PROTO_5:
        60 CALL                             R0 1 0
        61 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["_isMock"]
         2 JUMPIFNOT                        R2 ; [+23]
         3 SETTABLEKS                       R1 R0 K1 ["_currentSoundId"]
@@ -213,7 +218,7 @@ PROTO_6:
        62 CALL                             R3 1 0
        63 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
         3 GETTABLEKS                       R1 R0 K1 ["OnStateChanged"]
@@ -226,7 +231,7 @@ PROTO_7:
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["_isPlaying"]
         3 GETTABLEKS                       R1 R0 K1 ["OnStateChanged"]
@@ -239,7 +244,7 @@ PROTO_8:
        15 CALL                             R1 1 0
        16 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 LOADN                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["_currentSoundId"]
         3 LOADB                            R1 0
@@ -257,7 +262,7 @@ PROTO_9:
        22 CALL                             R1 1 0
        23 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETTABLEKS                       R2 R0 K0 ["_totalTime"]
         2 LOADN                            R3 0
         3 JUMPIFNOTLE                      R2 R3 ; [+2]
@@ -281,7 +286,7 @@ PROTO_10:
        30 CALL                             R3 2 0
        31 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["_currentSoundId"]
         2 JUMPIFEQ                         R2 R1 ; [+6]
         4 MOVE                             R4 R1
@@ -297,7 +302,7 @@ PROTO_11:
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 DUPTABLE                         R1 K4 [{"CurrentSoundId", "IsPlaying", "IsLoading", "TotalTime"}]
         1 GETTABLEKS                       R2 R0 K5 ["_currentSoundId"]
         3 SETTABLEKS                       R2 R1 K0 ["CurrentSoundId"]
@@ -345,21 +350,23 @@ MAIN:
        50 CAPTURE                          VAL R1
        51 SETTABLEKS                       R7 R6 K21 ["_setupAudioPlayer"]
        53 DUPCLOSURE                       R7 K22 [PROTO_4]
-       54 CAPTURE                          VAL R5
-       55 SETTABLEKS                       R7 R6 K23 ["teardownAudioPlayer"]
-       57 DUPCLOSURE                       R7 K24 [PROTO_6]
-       58 CAPTURE                          VAL R1
-       59 SETTABLEKS                       R7 R6 K25 ["play"]
-       61 DUPCLOSURE                       R7 K26 [PROTO_7]
-       62 SETTABLEKS                       R7 R6 K27 ["pause"]
+       54 SETTABLEKS                       R7 R6 K23 ["_onEnded"]
+       56 DUPCLOSURE                       R7 K24 [PROTO_5]
+       57 CAPTURE                          VAL R5
+       58 SETTABLEKS                       R7 R6 K25 ["teardownAudioPlayer"]
+       60 DUPCLOSURE                       R7 K26 [PROTO_7]
+       61 CAPTURE                          VAL R1
+       62 SETTABLEKS                       R7 R6 K27 ["play"]
        64 DUPCLOSURE                       R7 K28 [PROTO_8]
-       65 SETTABLEKS                       R7 R6 K29 ["resume"]
+       65 SETTABLEKS                       R7 R6 K29 ["pause"]
        67 DUPCLOSURE                       R7 K30 [PROTO_9]
-       68 SETTABLEKS                       R7 R6 K31 ["stop"]
+       68 SETTABLEKS                       R7 R6 K31 ["resume"]
        70 DUPCLOSURE                       R7 K32 [PROTO_10]
-       71 SETTABLEKS                       R7 R6 K33 ["seek"]
+       71 SETTABLEKS                       R7 R6 K33 ["stop"]
        73 DUPCLOSURE                       R7 K34 [PROTO_11]
-       74 SETTABLEKS                       R7 R6 K35 ["togglePlayback"]
+       74 SETTABLEKS                       R7 R6 K35 ["seek"]
        76 DUPCLOSURE                       R7 K36 [PROTO_12]
-       77 SETTABLEKS                       R7 R6 K37 ["getState"]
-       79 RETURN                           R6 1
+       77 SETTABLEKS                       R7 R6 K37 ["togglePlayback"]
+       79 DUPCLOSURE                       R7 K38 [PROTO_13]
+       80 SETTABLEKS                       R7 R6 K39 ["getState"]
+       82 RETURN                           R6 1

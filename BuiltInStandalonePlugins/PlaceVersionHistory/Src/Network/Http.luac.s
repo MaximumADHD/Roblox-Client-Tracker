@@ -26,13 +26,27 @@ PROTO_0:
        36 CALL                             R3 3 1
        37 CALL                             R2 1 -1
        38 RETURN                           R2 -1
-       39 GETUPVAL                         R2 2
-       40 GETUPVAL                         R3 3
-       41 GETTABLEKS                       R5 R1 K4 ["Body"]
-       43 NAMECALL                         R3 R3 K7 ["JSONDecode"]
-       45 CALL                             R3 2 -1
-       46 CALL                             R2 -1 -1
-       47 RETURN                           R2 -1
+       39 GETUPVAL                         R2 0
+       40 GETTABLEKS                       R2 R2 K7 ["FFlagPVHGenerateNotes204NoContent"]
+       42 JUMPIFNOT                        R2 ; [+17]
+       43 GETTABLEKS                       R2 R1 K0 ["StatusCode"]
+       45 JUMPIFNOTEQKN                    R2 K8 [204] ; [+14]
+       47 GETUPVAL                         R2 1
+       48 LOADK                            R3 K2 ["Http %*: %* %*"]
+       49 GETTABLEKS                       R5 R1 K0 ["StatusCode"]
+       51 GETTABLEKS                       R6 R1 K3 ["StatusMessage"]
+       53 GETTABLEKS                       R7 R1 K4 ["Body"]
+       55 NAMECALL                         R3 R3 K5 ["format"]
+       57 CALL                             R3 4 1
+       58 CALL                             R2 1 -1
+       59 RETURN                           R2 -1
+       60 GETUPVAL                         R2 2
+       61 GETUPVAL                         R3 3
+       62 GETTABLEKS                       R5 R1 K4 ["Body"]
+       64 NAMECALL                         R3 R3 K9 ["JSONDecode"]
+       66 CALL                             R3 2 -1
+       67 CALL                             R2 -1 -1
+       68 RETURN                           R2 -1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

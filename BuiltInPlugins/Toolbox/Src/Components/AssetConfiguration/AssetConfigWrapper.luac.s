@@ -27,36 +27,39 @@ PROTO_3:
         0 DUPTABLE                         R2 K4 [{[1] = , ["owner"] = , ["groupId"]}]
         1 GETUPVAL                         R4 0
         2 CALL                             R4 0 1
-        3 JUMPIFNOT                        R4 ; [+3]
-        4 GETTABLEKS                       R3 R1 K3 ["groupId"]
-        6 JUMP                             ; [+1]
-        7 LOADNIL                          R3
-        8 SETTABLEKS                       R3 R2 K3 ["groupId"]
-       10 SETTABLEKS                       R2 R0 K5 ["state"]
-       12 NEWCLOSURE                       R2 P0
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R2 R0 K6 ["popUpRefFunc"]
-       16 NEWCLOSURE                       R2 P1
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R2 R0 K7 ["onClose"]
-       20 NEWCLOSURE                       R2 P2
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R2 R0 K8 ["setOwner"]
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R2 R2 K9 ["Util"]
-       27 GETTABLEKS                       R2 R2 K10 ["createFoundationDesignBinding"]
-       29 CALL                             R2 0 2
-       30 SETTABLEKS                       R3 R0 K11 ["onFoundationStyleSheetChange"]
-       32 GETUPVAL                         R4 2
-       33 GETTABLEKS                       R5 R1 K12 ["plugin"]
-       35 LOADNIL                          R6
-       36 LOADNIL                          R7
-       37 NEWTABLE                         R8 0 1
-       39 MOVE                             R9 R2
-       40 SETLIST                          R8 R9 1 [1]
-       42 CALL                             R4 4 1
-       43 SETTABLEKS                       R4 R0 K13 ["design"]
-       45 RETURN                           R0 0
+        3 JUMPIFNOT                        R4 ; [+6]
+        4 GETUPVAL                         R4 1
+        5 CALL                             R4 0 1
+        6 JUMPIF                           R4 ; [+3]
+        7 GETTABLEKS                       R3 R1 K3 ["groupId"]
+        9 JUMP                             ; [+1]
+       10 LOADNIL                          R3
+       11 SETTABLEKS                       R3 R2 K3 ["groupId"]
+       13 SETTABLEKS                       R2 R0 K5 ["state"]
+       15 NEWCLOSURE                       R2 P0
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K6 ["popUpRefFunc"]
+       19 NEWCLOSURE                       R2 P1
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R2 R0 K7 ["onClose"]
+       23 NEWCLOSURE                       R2 P2
+       24 CAPTURE                          VAL R0
+       25 SETTABLEKS                       R2 R0 K8 ["setOwner"]
+       27 GETUPVAL                         R2 2
+       28 GETTABLEKS                       R2 R2 K9 ["Util"]
+       30 GETTABLEKS                       R2 R2 K10 ["createFoundationDesignBinding"]
+       32 CALL                             R2 0 2
+       33 SETTABLEKS                       R3 R0 K11 ["onFoundationStyleSheetChange"]
+       35 GETUPVAL                         R4 3
+       36 GETTABLEKS                       R5 R1 K12 ["plugin"]
+       38 LOADNIL                          R6
+       39 LOADNIL                          R7
+       40 NEWTABLE                         R8 0 1
+       42 MOVE                             R9 R2
+       43 SETLIST                          R8 R9 1 [1]
+       45 CALL                             R4 4 1
+       46 SETTABLEKS                       R4 R0 K13 ["design"]
+       48 RETURN                           R0 0
 
 PROTO_4:
         0 DUPTABLE                         R3 K1 [{"popUpGui"}]
@@ -292,30 +295,36 @@ MAIN:
       163 GETTABLEKS                       R26 R26 K40 ["Flags"]
       165 GETTABLEKS                       R26 R26 K41 ["getFFlagToolboxAssetConfigGroupOwnership"]
       167 CALL                             R25 1 1
-      168 DUPCLOSURE                       R26 K42 [PROTO_3]
-      169 CAPTURE                          VAL R25
-      170 CAPTURE                          VAL R7
-      171 CAPTURE                          VAL R21
-      172 SETTABLEKS                       R26 R24 K43 ["init"]
-      174 DUPCLOSURE                       R26 K44 [PROTO_4]
-      175 SETTABLEKS                       R26 R24 K45 ["didMount"]
-      177 DUPCLOSURE                       R26 K46 [PROTO_5]
-      178 CAPTURE                          VAL R5
-      179 CAPTURE                          VAL R9
-      180 CAPTURE                          VAL R12
-      181 CAPTURE                          VAL R23
-      182 CAPTURE                          VAL R2
-      183 CAPTURE                          VAL R14
-      184 CAPTURE                          VAL R16
-      185 CAPTURE                          VAL R17
-      186 CAPTURE                          VAL R13
-      187 CAPTURE                          VAL R11
-      188 CAPTURE                          VAL R18
-      189 CAPTURE                          VAL R19
-      190 CAPTURE                          VAL R20
-      191 CAPTURE                          VAL R15
-      192 CAPTURE                          VAL R4
-      193 CAPTURE                          VAL R22
-      194 CAPTURE                          VAL R10
-      195 SETTABLEKS                       R26 R24 K47 ["render"]
-      197 RETURN                           R24 1
+      168 GETIMPORT                        R26 K11 [require]
+      170 GETTABLEKS                       R27 R0 K3 ["Src"]
+      172 GETTABLEKS                       R27 R27 K40 ["Flags"]
+      174 GETTABLEKS                       R27 R27 K42 ["getFFlagToolboxAssetConfigSaveDefaults"]
+      176 CALL                             R26 1 1
+      177 DUPCLOSURE                       R27 K43 [PROTO_3]
+      178 CAPTURE                          VAL R25
+      179 CAPTURE                          VAL R26
+      180 CAPTURE                          VAL R7
+      181 CAPTURE                          VAL R21
+      182 SETTABLEKS                       R27 R24 K44 ["init"]
+      184 DUPCLOSURE                       R27 K45 [PROTO_4]
+      185 SETTABLEKS                       R27 R24 K46 ["didMount"]
+      187 DUPCLOSURE                       R27 K47 [PROTO_5]
+      188 CAPTURE                          VAL R5
+      189 CAPTURE                          VAL R9
+      190 CAPTURE                          VAL R12
+      191 CAPTURE                          VAL R23
+      192 CAPTURE                          VAL R2
+      193 CAPTURE                          VAL R14
+      194 CAPTURE                          VAL R16
+      195 CAPTURE                          VAL R17
+      196 CAPTURE                          VAL R13
+      197 CAPTURE                          VAL R11
+      198 CAPTURE                          VAL R18
+      199 CAPTURE                          VAL R19
+      200 CAPTURE                          VAL R20
+      201 CAPTURE                          VAL R15
+      202 CAPTURE                          VAL R4
+      203 CAPTURE                          VAL R22
+      204 CAPTURE                          VAL R10
+      205 SETTABLEKS                       R27 R24 K48 ["render"]
+      207 RETURN                           R24 1

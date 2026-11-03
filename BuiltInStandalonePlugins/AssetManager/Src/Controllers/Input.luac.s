@@ -1258,178 +1258,179 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R3 R2 K9 ["ContextItem"]
-       18 GETTABLEKS                       R4 R1 K10 ["Util"]
-       20 GETTABLEKS                       R4 R4 K11 ["DoubleClickDetector"]
-       22 GETTABLEKS                       R5 R1 K10 ["Util"]
-       24 GETTABLEKS                       R5 R5 K12 ["Signal"]
-       26 GETIMPORT                        R6 K5 [require]
-       28 GETTABLEKS                       R7 R0 K13 ["Src"]
-       30 GETTABLEKS                       R7 R7 K10 ["Util"]
-       32 GETTABLEKS                       R7 R7 K14 ["cleanConnections"]
-       34 CALL                             R6 1 1
-       35 GETIMPORT                        R7 K5 [require]
-       37 GETTABLEKS                       R8 R0 K13 ["Src"]
-       39 GETTABLEKS                       R8 R8 K15 ["Resources"]
-       41 GETTABLEKS                       R8 R8 K16 ["Constants"]
-       43 CALL                             R7 1 1
-       44 GETIMPORT                        R8 K5 [require]
-       46 GETTABLEKS                       R9 R0 K13 ["Src"]
-       48 GETTABLEKS                       R9 R9 K10 ["Util"]
-       50 GETTABLEKS                       R9 R9 K17 ["createFolderUid"]
-       52 CALL                             R8 1 1
-       53 GETIMPORT                        R9 K5 [require]
-       55 GETTABLEKS                       R10 R0 K13 ["Src"]
-       57 GETTABLEKS                       R10 R10 K10 ["Util"]
-       59 GETTABLEKS                       R10 R10 K18 ["encodeDragData"]
-       61 CALL                             R9 1 1
-       62 GETIMPORT                        R10 K5 [require]
-       64 GETTABLEKS                       R11 R0 K13 ["Src"]
-       66 GETTABLEKS                       R11 R11 K10 ["Util"]
-       68 GETTABLEKS                       R11 R11 K19 ["getDragInfoIcon"]
-       70 CALL                             R10 1 1
-       71 GETIMPORT                        R11 K5 [require]
-       73 GETTABLEKS                       R12 R0 K13 ["Src"]
-       75 GETTABLEKS                       R12 R12 K10 ["Util"]
-       77 GETTABLEKS                       R12 R12 K20 ["isAudioPreviewable"]
-       79 CALL                             R11 1 1
-       80 GETIMPORT                        R12 K5 [require]
-       82 GETTABLEKS                       R13 R0 K13 ["Src"]
-       84 GETTABLEKS                       R13 R13 K10 ["Util"]
-       86 GETTABLEKS                       R13 R13 K21 ["KeyHoldDetector"]
-       88 CALL                             R12 1 1
-       89 GETIMPORT                        R13 K5 [require]
-       91 GETTABLEKS                       R14 R0 K13 ["Src"]
-       93 GETTABLEKS                       R14 R14 K10 ["Util"]
-       95 GETTABLEKS                       R14 R14 K22 ["logIfDebug"]
-       97 CALL                             R13 1 1
-       98 GETIMPORT                        R14 K5 [require]
-      100 GETTABLEKS                       R15 R0 K13 ["Src"]
-      102 GETTABLEKS                       R15 R15 K15 ["Resources"]
-      104 GETTABLEKS                       R15 R15 K23 ["StyleConstants"]
-      106 CALL                             R14 1 1
-      107 GETIMPORT                        R15 K5 [require]
-      109 GETTABLEKS                       R16 R0 K13 ["Src"]
-      111 GETTABLEKS                       R16 R16 K24 ["Types"]
-      113 CALL                             R15 1 1
-      114 GETIMPORT                        R16 K5 [require]
-      116 GETTABLEKS                       R17 R0 K13 ["Src"]
-      118 GETTABLEKS                       R17 R17 K25 ["Flags"]
-      120 GETTABLEKS                       R17 R17 K26 ["getFFlagAmrAssetDetailView"]
-      122 CALL                             R16 1 1
-      123 GETIMPORT                        R17 K5 [require]
-      125 GETTABLEKS                       R18 R0 K13 ["Src"]
-      127 GETTABLEKS                       R18 R18 K25 ["Flags"]
-      129 GETTABLEKS                       R18 R18 K27 ["getFFlagAmrDragPayloadAssets"]
-      131 CALL                             R17 1 1
-      132 GETIMPORT                        R18 K5 [require]
-      134 GETTABLEKS                       R19 R0 K13 ["Src"]
-      136 GETTABLEKS                       R19 R19 K25 ["Flags"]
-      138 GETTABLEKS                       R19 R19 K28 ["getFFlagAmrUseQWidgetPopovers"]
-      140 CALL                             R18 1 1
-      141 LOADK                            R21 K29 ["Input"]
-      142 NAMECALL                         R19 R3 K30 ["extend"]
-      144 CALL                             R19 2 1
-      145 DUPCLOSURE                       R20 K31 [PROTO_6]
-      146 CAPTURE                          VAL R12
-      147 CAPTURE                          VAL R4
-      148 CAPTURE                          VAL R5
-      149 CAPTURE                          VAL R19
-      150 CAPTURE                          VAL R13
-      151 SETTABLEKS                       R20 R19 K32 ["new"]
-      153 DUPCLOSURE                       R20 K33 [PROTO_7]
-      154 CAPTURE                          VAL R19
-      155 SETTABLEKS                       R20 R19 K34 ["mock"]
-      157 DUPCLOSURE                       R20 K35 [PROTO_8]
-      158 CAPTURE                          VAL R6
-      159 SETTABLEKS                       R20 R19 K36 ["destroy"]
-      161 DUPCLOSURE                       R20 K37 [PROTO_12]
-      162 CAPTURE                          VAL R13
-      163 SETTABLEKS                       R20 R19 K38 ["_connectViewportDragEvents"]
-      165 DUPCLOSURE                       R20 K39 [PROTO_13]
-      166 SETTABLEKS                       R20 R19 K40 ["getPlugin"]
-      168 DUPCLOSURE                       R20 K41 [PROTO_18]
-      169 CAPTURE                          VAL R7
-      170 CAPTURE                          VAL R18
-      171 SETTABLEKS                       R20 R19 K42 ["_registerMouseTrackerAsync"]
-      173 DUPCLOSURE                       R20 K43 [PROTO_20]
-      174 CAPTURE                          VAL R7
-      175 SETTABLEKS                       R20 R19 K44 ["_registerWidgetAsync"]
-      177 DUPCLOSURE                       R20 K45 [PROTO_22]
-      178 CAPTURE                          VAL R7
-      179 SETTABLEKS                       R20 R19 K46 ["_deregisterWidgetAsync"]
-      181 DUPCLOSURE                       R20 K47 [PROTO_23]
-      182 SETTABLEKS                       R20 R19 K48 ["_registerMod"]
-      184 DUPCLOSURE                       R20 K49 [PROTO_24]
-      185 SETTABLEKS                       R20 R19 K50 ["getMousePosition"]
-      187 DUPCLOSURE                       R20 K51 [PROTO_25]
-      188 SETTABLEKS                       R20 R19 K52 ["_isArrowKey"]
-      190 DUPCLOSURE                       R20 K53 [PROTO_26]
-      191 CAPTURE                          VAL R15
-      192 SETTABLEKS                       R20 R19 K54 ["_handleBrowserArrowInput"]
-      194 DUPCLOSURE                       R20 K55 [PROTO_27]
-      195 SETTABLEKS                       R20 R19 K56 ["_toggleDetailsDrawer"]
-      197 DUPCLOSURE                       R20 K57 [PROTO_28]
-      198 CAPTURE                          VAL R11
-      199 SETTABLEKS                       R20 R19 K58 ["_toggleDrawerAudioPlayback"]
-      201 DUPCLOSURE                       R20 K59 [PROTO_29]
-      202 CAPTURE                          VAL R15
-      203 CAPTURE                          VAL R16
-      204 SETTABLEKS                       R20 R19 K60 ["handleKeyDown"]
-      206 DUPCLOSURE                       R20 K61 [PROTO_30]
-      207 SETTABLEKS                       R20 R19 K62 ["handleKeyUp"]
-      209 DUPCLOSURE                       R20 K63 [PROTO_31]
-      210 SETTABLEKS                       R20 R19 K64 ["_checkBrowserDoubleClick"]
-      212 DUPCLOSURE                       R20 K65 [PROTO_32]
-      213 SETTABLEKS                       R20 R19 K66 ["_handleBrowserDoubleClick"]
-      215 DUPCLOSURE                       R20 K67 [PROTO_33]
-      216 SETTABLEKS                       R20 R19 K68 ["_waitForSelectionDoubleClick"]
-      218 DUPCLOSURE                       R20 K69 [PROTO_34]
-      219 CAPTURE                          VAL R15
-      220 SETTABLEKS                       R20 R19 K70 ["handleMouse1Click"]
-      222 DUPCLOSURE                       R20 K71 [PROTO_35]
-      223 CAPTURE                          VAL R15
-      224 SETTABLEKS                       R20 R19 K72 ["handleMouse1Down"]
-      226 DUPCLOSURE                       R20 K73 [PROTO_36]
-      227 CAPTURE                          VAL R15
-      228 SETTABLEKS                       R20 R19 K74 ["handleMouse1Up"]
-      230 DUPCLOSURE                       R20 K75 [PROTO_37]
-      231 CAPTURE                          VAL R15
-      232 SETTABLEKS                       R20 R19 K76 ["handleMouse2Click"]
-      234 DUPCLOSURE                       R20 K77 [PROTO_38]
-      235 SETTABLEKS                       R20 R19 K78 ["isMouse1Down"]
-      237 DUPCLOSURE                       R20 K79 [PROTO_39]
-      238 SETTABLEKS                       R20 R19 K80 ["isDragging"]
-      240 DUPCLOSURE                       R20 K81 [PROTO_40]
-      241 SETTABLEKS                       R20 R19 K82 ["getLastZoneClicked"]
-      243 DUPCLOSURE                       R20 K83 [PROTO_41]
-      244 SETTABLEKS                       R20 R19 K84 ["getDragInfo"]
-      246 DUPCLOSURE                       R20 K85 [PROTO_42]
-      247 SETTABLEKS                       R20 R19 K86 ["_isValidSidebarDrag"]
-      249 DUPCLOSURE                       R20 K87 [PROTO_43]
-      250 CAPTURE                          VAL R15
-      251 CAPTURE                          VAL R8
-      252 SETTABLEKS                       R20 R19 K88 ["_isValidBrowserDrag"]
-      254 DUPCLOSURE                       R20 K89 [PROTO_44]
-      255 CAPTURE                          VAL R8
-      256 CAPTURE                          VAL R15
-      257 CAPTURE                          VAL R13
-      258 SETTABLEKS                       R20 R19 K90 ["isValidDragForTarget"]
-      260 DUPCLOSURE                       R20 K91 [PROTO_45]
-      261 SETTABLEKS                       R20 R19 K92 ["setInvalidDragHoverPosition"]
-      263 DUPCLOSURE                       R20 K93 [PROTO_46]
-      264 SETTABLEKS                       R20 R19 K94 ["getInvalidDragHoverPosition"]
-      266 DUPCLOSURE                       R20 K95 [PROTO_47]
-      267 CAPTURE                          VAL R18
-      268 CAPTURE                          VAL R15
-      269 CAPTURE                          VAL R13
+       14 GETTABLEKS                       R2 R1 K8 ["Utils"]
+       16 GETTABLEKS                       R2 R2 K9 ["createFolderUid"]
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["Framework"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R4 R3 K11 ["ContextServices"]
+       27 GETTABLEKS                       R5 R4 K12 ["ContextItem"]
+       29 GETTABLEKS                       R6 R3 K13 ["Util"]
+       31 GETTABLEKS                       R6 R6 K14 ["DoubleClickDetector"]
+       33 GETTABLEKS                       R7 R3 K13 ["Util"]
+       35 GETTABLEKS                       R7 R7 K15 ["Signal"]
+       37 GETIMPORT                        R8 K5 [require]
+       39 GETTABLEKS                       R9 R0 K16 ["Src"]
+       41 GETTABLEKS                       R9 R9 K13 ["Util"]
+       43 GETTABLEKS                       R9 R9 K17 ["cleanConnections"]
+       45 CALL                             R8 1 1
+       46 GETIMPORT                        R9 K5 [require]
+       48 GETTABLEKS                       R10 R0 K16 ["Src"]
+       50 GETTABLEKS                       R10 R10 K18 ["Resources"]
+       52 GETTABLEKS                       R10 R10 K19 ["Constants"]
+       54 CALL                             R9 1 1
+       55 GETIMPORT                        R10 K5 [require]
+       57 GETTABLEKS                       R11 R0 K16 ["Src"]
+       59 GETTABLEKS                       R11 R11 K13 ["Util"]
+       61 GETTABLEKS                       R11 R11 K20 ["encodeDragData"]
+       63 CALL                             R10 1 1
+       64 GETIMPORT                        R11 K5 [require]
+       66 GETTABLEKS                       R12 R0 K16 ["Src"]
+       68 GETTABLEKS                       R12 R12 K13 ["Util"]
+       70 GETTABLEKS                       R12 R12 K21 ["getDragInfoIcon"]
+       72 CALL                             R11 1 1
+       73 GETIMPORT                        R12 K5 [require]
+       75 GETTABLEKS                       R13 R0 K16 ["Src"]
+       77 GETTABLEKS                       R13 R13 K13 ["Util"]
+       79 GETTABLEKS                       R13 R13 K22 ["isAudioPreviewable"]
+       81 CALL                             R12 1 1
+       82 GETIMPORT                        R13 K5 [require]
+       84 GETTABLEKS                       R14 R0 K16 ["Src"]
+       86 GETTABLEKS                       R14 R14 K13 ["Util"]
+       88 GETTABLEKS                       R14 R14 K23 ["KeyHoldDetector"]
+       90 CALL                             R13 1 1
+       91 GETIMPORT                        R14 K5 [require]
+       93 GETTABLEKS                       R15 R0 K16 ["Src"]
+       95 GETTABLEKS                       R15 R15 K13 ["Util"]
+       97 GETTABLEKS                       R15 R15 K24 ["logIfDebug"]
+       99 CALL                             R14 1 1
+      100 GETIMPORT                        R15 K5 [require]
+      102 GETTABLEKS                       R16 R0 K16 ["Src"]
+      104 GETTABLEKS                       R16 R16 K18 ["Resources"]
+      106 GETTABLEKS                       R16 R16 K25 ["StyleConstants"]
+      108 CALL                             R15 1 1
+      109 GETIMPORT                        R16 K5 [require]
+      111 GETTABLEKS                       R17 R0 K16 ["Src"]
+      113 GETTABLEKS                       R17 R17 K26 ["Types"]
+      115 CALL                             R16 1 1
+      116 GETIMPORT                        R17 K5 [require]
+      118 GETTABLEKS                       R18 R0 K16 ["Src"]
+      120 GETTABLEKS                       R18 R18 K27 ["Flags"]
+      122 GETTABLEKS                       R18 R18 K28 ["getFFlagAmrAssetDetailView"]
+      124 CALL                             R17 1 1
+      125 GETIMPORT                        R18 K5 [require]
+      127 GETTABLEKS                       R19 R0 K16 ["Src"]
+      129 GETTABLEKS                       R19 R19 K27 ["Flags"]
+      131 GETTABLEKS                       R19 R19 K29 ["getFFlagAmrDragPayloadAssets"]
+      133 CALL                             R18 1 1
+      134 GETIMPORT                        R19 K5 [require]
+      136 GETTABLEKS                       R20 R0 K16 ["Src"]
+      138 GETTABLEKS                       R20 R20 K27 ["Flags"]
+      140 GETTABLEKS                       R20 R20 K30 ["getFFlagAmrUseQWidgetPopovers"]
+      142 CALL                             R19 1 1
+      143 LOADK                            R22 K31 ["Input"]
+      144 NAMECALL                         R20 R5 K32 ["extend"]
+      146 CALL                             R20 2 1
+      147 DUPCLOSURE                       R21 K33 [PROTO_6]
+      148 CAPTURE                          VAL R13
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R7
+      151 CAPTURE                          VAL R20
+      152 CAPTURE                          VAL R14
+      153 SETTABLEKS                       R21 R20 K34 ["new"]
+      155 DUPCLOSURE                       R21 K35 [PROTO_7]
+      156 CAPTURE                          VAL R20
+      157 SETTABLEKS                       R21 R20 K36 ["mock"]
+      159 DUPCLOSURE                       R21 K37 [PROTO_8]
+      160 CAPTURE                          VAL R8
+      161 SETTABLEKS                       R21 R20 K38 ["destroy"]
+      163 DUPCLOSURE                       R21 K39 [PROTO_12]
+      164 CAPTURE                          VAL R14
+      165 SETTABLEKS                       R21 R20 K40 ["_connectViewportDragEvents"]
+      167 DUPCLOSURE                       R21 K41 [PROTO_13]
+      168 SETTABLEKS                       R21 R20 K42 ["getPlugin"]
+      170 DUPCLOSURE                       R21 K43 [PROTO_18]
+      171 CAPTURE                          VAL R9
+      172 CAPTURE                          VAL R19
+      173 SETTABLEKS                       R21 R20 K44 ["_registerMouseTrackerAsync"]
+      175 DUPCLOSURE                       R21 K45 [PROTO_20]
+      176 CAPTURE                          VAL R9
+      177 SETTABLEKS                       R21 R20 K46 ["_registerWidgetAsync"]
+      179 DUPCLOSURE                       R21 K47 [PROTO_22]
+      180 CAPTURE                          VAL R9
+      181 SETTABLEKS                       R21 R20 K48 ["_deregisterWidgetAsync"]
+      183 DUPCLOSURE                       R21 K49 [PROTO_23]
+      184 SETTABLEKS                       R21 R20 K50 ["_registerMod"]
+      186 DUPCLOSURE                       R21 K51 [PROTO_24]
+      187 SETTABLEKS                       R21 R20 K52 ["getMousePosition"]
+      189 DUPCLOSURE                       R21 K53 [PROTO_25]
+      190 SETTABLEKS                       R21 R20 K54 ["_isArrowKey"]
+      192 DUPCLOSURE                       R21 K55 [PROTO_26]
+      193 CAPTURE                          VAL R16
+      194 SETTABLEKS                       R21 R20 K56 ["_handleBrowserArrowInput"]
+      196 DUPCLOSURE                       R21 K57 [PROTO_27]
+      197 SETTABLEKS                       R21 R20 K58 ["_toggleDetailsDrawer"]
+      199 DUPCLOSURE                       R21 K59 [PROTO_28]
+      200 CAPTURE                          VAL R12
+      201 SETTABLEKS                       R21 R20 K60 ["_toggleDrawerAudioPlayback"]
+      203 DUPCLOSURE                       R21 K61 [PROTO_29]
+      204 CAPTURE                          VAL R16
+      205 CAPTURE                          VAL R17
+      206 SETTABLEKS                       R21 R20 K62 ["handleKeyDown"]
+      208 DUPCLOSURE                       R21 K63 [PROTO_30]
+      209 SETTABLEKS                       R21 R20 K64 ["handleKeyUp"]
+      211 DUPCLOSURE                       R21 K65 [PROTO_31]
+      212 SETTABLEKS                       R21 R20 K66 ["_checkBrowserDoubleClick"]
+      214 DUPCLOSURE                       R21 K67 [PROTO_32]
+      215 SETTABLEKS                       R21 R20 K68 ["_handleBrowserDoubleClick"]
+      217 DUPCLOSURE                       R21 K69 [PROTO_33]
+      218 SETTABLEKS                       R21 R20 K70 ["_waitForSelectionDoubleClick"]
+      220 DUPCLOSURE                       R21 K71 [PROTO_34]
+      221 CAPTURE                          VAL R16
+      222 SETTABLEKS                       R21 R20 K72 ["handleMouse1Click"]
+      224 DUPCLOSURE                       R21 K73 [PROTO_35]
+      225 CAPTURE                          VAL R16
+      226 SETTABLEKS                       R21 R20 K74 ["handleMouse1Down"]
+      228 DUPCLOSURE                       R21 K75 [PROTO_36]
+      229 CAPTURE                          VAL R16
+      230 SETTABLEKS                       R21 R20 K76 ["handleMouse1Up"]
+      232 DUPCLOSURE                       R21 K77 [PROTO_37]
+      233 CAPTURE                          VAL R16
+      234 SETTABLEKS                       R21 R20 K78 ["handleMouse2Click"]
+      236 DUPCLOSURE                       R21 K79 [PROTO_38]
+      237 SETTABLEKS                       R21 R20 K80 ["isMouse1Down"]
+      239 DUPCLOSURE                       R21 K81 [PROTO_39]
+      240 SETTABLEKS                       R21 R20 K82 ["isDragging"]
+      242 DUPCLOSURE                       R21 K83 [PROTO_40]
+      243 SETTABLEKS                       R21 R20 K84 ["getLastZoneClicked"]
+      245 DUPCLOSURE                       R21 K85 [PROTO_41]
+      246 SETTABLEKS                       R21 R20 K86 ["getDragInfo"]
+      248 DUPCLOSURE                       R21 K87 [PROTO_42]
+      249 SETTABLEKS                       R21 R20 K88 ["_isValidSidebarDrag"]
+      251 DUPCLOSURE                       R21 K89 [PROTO_43]
+      252 CAPTURE                          VAL R16
+      253 CAPTURE                          VAL R2
+      254 SETTABLEKS                       R21 R20 K90 ["_isValidBrowserDrag"]
+      256 DUPCLOSURE                       R21 K91 [PROTO_44]
+      257 CAPTURE                          VAL R2
+      258 CAPTURE                          VAL R16
+      259 CAPTURE                          VAL R14
+      260 SETTABLEKS                       R21 R20 K92 ["isValidDragForTarget"]
+      262 DUPCLOSURE                       R21 K93 [PROTO_45]
+      263 SETTABLEKS                       R21 R20 K94 ["setInvalidDragHoverPosition"]
+      265 DUPCLOSURE                       R21 K95 [PROTO_46]
+      266 SETTABLEKS                       R21 R20 K96 ["getInvalidDragHoverPosition"]
+      268 DUPCLOSURE                       R21 K97 [PROTO_47]
+      269 CAPTURE                          VAL R19
       270 CAPTURE                          VAL R16
-      271 CAPTURE                          VAL R10
+      271 CAPTURE                          VAL R14
       272 CAPTURE                          VAL R17
-      273 CAPTURE                          VAL R9
-      274 CAPTURE                          VAL R14
-      275 SETTABLEKS                       R20 R19 K96 ["_updateDrag"]
-      277 RETURN                           R19 1
+      273 CAPTURE                          VAL R11
+      274 CAPTURE                          VAL R18
+      275 CAPTURE                          VAL R10
+      276 CAPTURE                          VAL R15
+      277 SETTABLEKS                       R21 R20 K98 ["_updateDrag"]
+      279 RETURN                           R20 1

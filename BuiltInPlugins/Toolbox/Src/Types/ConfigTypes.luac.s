@@ -96,6 +96,27 @@ PROTO_9:
         0 GETUPVAL                         R1 0
         1 RETURN                           R1 1
 
+PROTO_10:
+        0 LOADB                            R2 0
+        1 JUMPIFEQKNIL                     R1 ; [+27]
+        3 LOADB                            R2 0
+        4 GETTABLEKS                       R3 R1 K0 ["typeId"]
+        6 JUMPIFEQKNIL                     R3 ; [+22]
+        8 LOADB                            R2 0
+        9 GETTABLEKS                       R3 R1 K0 ["typeId"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K1 ["OWNER_TYPES"]
+       14 GETTABLEKS                       R4 R4 K2 ["User"]
+       16 JUMPIFEQ                         R3 R4 ; [+12]
+       18 GETTABLEKS                       R3 R1 K0 ["typeId"]
+       20 GETUPVAL                         R4 0
+       21 GETTABLEKS                       R4 R4 K1 ["OWNER_TYPES"]
+       23 GETTABLEKS                       R4 R4 K3 ["Group"]
+       25 JUMPIFNOTEQ                      R3 R4 ; [+2]
+       27 LOADB                            R2 0 +1
+       28 LOADB                            R2 1
+       29 RETURN                           R2 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -155,41 +176,46 @@ MAIN:
        94 SETTABLEKS                       R14 R13 K10 ["name"]
        96 GETTABLEKS                       R14 R4 K39 ["PERMISSIONS_SIDE_TAB"]
        98 SETTABLEKS                       R14 R13 K27 ["image"]
-      100 DUPTABLE                         R14 K44 [{["User"] = 1, ["Group"] = 2}]
-      101 SETTABLEKS                       R14 R5 K45 ["OWNER_TYPES"]
-      103 DUPCLOSURE                       R14 K46 [PROTO_0]
-      104 CAPTURE                          VAL R9
-      105 CAPTURE                          VAL R13
-      106 CAPTURE                          VAL R3
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          VAL R11
-      110 SETTABLEKS                       R14 R5 K47 ["getAssetconfigContent"]
-      112 DUPCLOSURE                       R14 K48 [PROTO_1]
-      113 CAPTURE                          VAL R9
-      114 SETTABLEKS                       R14 R5 K49 ["isGeneral"]
-      116 DUPCLOSURE                       R14 K50 [PROTO_2]
-      117 CAPTURE                          VAL R10
-      118 SETTABLEKS                       R14 R5 K51 ["isVersions"]
-      120 DUPCLOSURE                       R14 K52 [PROTO_3]
-      121 CAPTURE                          VAL R11
-      122 SETTABLEKS                       R14 R5 K53 ["isSales"]
-      124 DUPCLOSURE                       R14 K54 [PROTO_4]
-      125 CAPTURE                          VAL R12
-      126 SETTABLEKS                       R14 R5 K55 ["isOverride"]
-      128 DUPCLOSURE                       R14 K56 [PROTO_5]
-      129 CAPTURE                          VAL R13
-      130 SETTABLEKS                       R14 R5 K57 ["isPermissions"]
-      132 DUPCLOSURE                       R14 K58 [PROTO_6]
-      133 CAPTURE                          VAL R12
-      134 SETTABLEKS                       R14 R5 K59 ["getOverrideTab"]
-      136 DUPCLOSURE                       R14 K60 [PROTO_7]
-      137 CAPTURE                          VAL R9
-      138 SETTABLEKS                       R14 R5 K61 ["getGeneralTab"]
-      140 DUPCLOSURE                       R14 K62 [PROTO_8]
-      141 CAPTURE                          VAL R9
-      142 SETTABLEKS                       R14 R5 K63 ["getDefaultTab"]
-      144 DUPCLOSURE                       R14 K64 [PROTO_9]
-      145 CAPTURE                          VAL R10
-      146 SETTABLEKS                       R14 R5 K65 ["getVersionsTab"]
-      148 RETURN                           R5 1
+      100 LOADN                            R14 3
+      101 SETTABLEKS                       R14 R5 K40 ["EXPERIENCE_OWNER_TYPE_ID"]
+      103 DUPTABLE                         R14 K45 [{["User"] = 1, ["Group"] = 2}]
+      104 SETTABLEKS                       R14 R5 K46 ["OWNER_TYPES"]
+      106 DUPCLOSURE                       R14 K47 [PROTO_0]
+      107 CAPTURE                          VAL R9
+      108 CAPTURE                          VAL R13
+      109 CAPTURE                          VAL R3
+      110 CAPTURE                          VAL R10
+      111 CAPTURE                          VAL R5
+      112 CAPTURE                          VAL R11
+      113 SETTABLEKS                       R14 R5 K48 ["getAssetconfigContent"]
+      115 DUPCLOSURE                       R14 K49 [PROTO_1]
+      116 CAPTURE                          VAL R9
+      117 SETTABLEKS                       R14 R5 K50 ["isGeneral"]
+      119 DUPCLOSURE                       R14 K51 [PROTO_2]
+      120 CAPTURE                          VAL R10
+      121 SETTABLEKS                       R14 R5 K52 ["isVersions"]
+      123 DUPCLOSURE                       R14 K53 [PROTO_3]
+      124 CAPTURE                          VAL R11
+      125 SETTABLEKS                       R14 R5 K54 ["isSales"]
+      127 DUPCLOSURE                       R14 K55 [PROTO_4]
+      128 CAPTURE                          VAL R12
+      129 SETTABLEKS                       R14 R5 K56 ["isOverride"]
+      131 DUPCLOSURE                       R14 K57 [PROTO_5]
+      132 CAPTURE                          VAL R13
+      133 SETTABLEKS                       R14 R5 K58 ["isPermissions"]
+      135 DUPCLOSURE                       R14 K59 [PROTO_6]
+      136 CAPTURE                          VAL R12
+      137 SETTABLEKS                       R14 R5 K60 ["getOverrideTab"]
+      139 DUPCLOSURE                       R14 K61 [PROTO_7]
+      140 CAPTURE                          VAL R9
+      141 SETTABLEKS                       R14 R5 K62 ["getGeneralTab"]
+      143 DUPCLOSURE                       R14 K63 [PROTO_8]
+      144 CAPTURE                          VAL R9
+      145 SETTABLEKS                       R14 R5 K64 ["getDefaultTab"]
+      147 DUPCLOSURE                       R14 K65 [PROTO_9]
+      148 CAPTURE                          VAL R10
+      149 SETTABLEKS                       R14 R5 K66 ["getVersionsTab"]
+      151 DUPCLOSURE                       R14 K67 [PROTO_10]
+      152 CAPTURE                          VAL R5
+      153 SETTABLEKS                       R14 R5 K68 ["isUnsupportedOwner"]
+      155 RETURN                           R5 1

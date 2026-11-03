@@ -1094,47 +1094,53 @@ PROTO_54:
        12 LOADB                            R2 1
        13 GETTABLEKS                       R3 R0 K0 ["_browserLayout"]
        15 GETTABLEKS                       R3 R3 K3 ["GridSize"]
-       17 JUMPIFNOT                        R2 ; [+13]
-       18 GETUPVAL                         R6 1
-       19 GETTABLEKS                       R6 R6 K4 ["CellDataHeight"]
-       21 ADD                              R5 R6 R3
-       22 GETUPVAL                         R6 1
-       23 GETTABLEKS                       R6 R6 K5 ["GridCellPadding"]
-       25 GETTABLEKS                       R6 R6 K6 ["Y"]
-       27 GETTABLEKS                       R6 R6 K7 ["Offset"]
-       29 ADD                              R4 R5 R6
-       30 JUMP                             ; [+4]
-       31 GETTABLEKS                       R4 R0 K0 ["_browserLayout"]
-       33 GETTABLEKS                       R4 R4 K8 ["ListRowHeight"]
-       35 JUMPIFNOT                        R2 ; [+8]
-       36 GETUPVAL                         R5 1
-       37 GETTABLEKS                       R5 R5 K5 ["GridCellPadding"]
-       39 GETTABLEKS                       R5 R5 K6 ["Y"]
-       41 GETTABLEKS                       R5 R5 K7 ["Offset"]
-       43 JUMP                             ; [+1]
-       44 LOADN                            R5 0
-       45 JUMPIFNOT                        R2 ; [+11]
-       46 SUBK                             R9 R1 K9 [1]
-       47 NAMECALL                         R10 R0 K10 ["getGridCellsPerRow"]
-       49 CALL                             R10 1 1
-       50 DIV                              R8 R9 R10
-       51 FASTCALL1                        MATH_FLOOR R8 ; [+2]
-       52 GETIMPORT                        R7 K13 [math.floor]
-       54 CALL                             R7 1 1
-       55 ADDK                             R6 R7 K9 [1]
-       56 JUMP                             ; [+1]
-       57 MOVE                             R6 R1
-       58 SUBK                             R9 R6 K9 [1]
-       59 MUL                              R8 R9 R4
-       60 ADD                              R7 R5 R8
-       61 DUPTABLE                         R8 K19 [{"rowHeight", "padding", "rowIndex", "rowTop", "rowBottom"}]
-       62 SETTABLEKS                       R4 R8 K14 ["rowHeight"]
-       64 SETTABLEKS                       R5 R8 K15 ["padding"]
-       66 SETTABLEKS                       R6 R8 K16 ["rowIndex"]
-       68 SETTABLEKS                       R7 R8 K17 ["rowTop"]
-       70 ADD                              R9 R7 R4
-       71 SETTABLEKS                       R9 R8 K18 ["rowBottom"]
-       73 RETURN                           R8 1
+       17 GETUPVAL                         R5 1
+       18 CALL                             R5 0 1
+       19 JUMPIFNOT                        R5 ; [+4]
+       20 GETUPVAL                         R4 2
+       21 GETTABLEKS                       R4 R4 K4 ["CellDataHeightWithTwoLineName"]
+       23 JUMP                             ; [+3]
+       24 GETUPVAL                         R4 2
+       25 GETTABLEKS                       R4 R4 K5 ["CellDataHeight"]
+       27 JUMPIFNOT                        R2 ; [+10]
+       28 ADD                              R6 R4 R3
+       29 GETUPVAL                         R7 2
+       30 GETTABLEKS                       R7 R7 K6 ["GridCellPadding"]
+       32 GETTABLEKS                       R7 R7 K7 ["Y"]
+       34 GETTABLEKS                       R7 R7 K8 ["Offset"]
+       36 ADD                              R5 R6 R7
+       37 JUMP                             ; [+4]
+       38 GETTABLEKS                       R5 R0 K0 ["_browserLayout"]
+       40 GETTABLEKS                       R5 R5 K9 ["ListRowHeight"]
+       42 JUMPIFNOT                        R2 ; [+8]
+       43 GETUPVAL                         R6 2
+       44 GETTABLEKS                       R6 R6 K6 ["GridCellPadding"]
+       46 GETTABLEKS                       R6 R6 K7 ["Y"]
+       48 GETTABLEKS                       R6 R6 K8 ["Offset"]
+       50 JUMP                             ; [+1]
+       51 LOADN                            R6 0
+       52 JUMPIFNOT                        R2 ; [+11]
+       53 SUBK                             R10 R1 K10 [1]
+       54 NAMECALL                         R11 R0 K11 ["getGridCellsPerRow"]
+       56 CALL                             R11 1 1
+       57 DIV                              R9 R10 R11
+       58 FASTCALL1                        MATH_FLOOR R9 ; [+2]
+       59 GETIMPORT                        R8 K14 [math.floor]
+       61 CALL                             R8 1 1
+       62 ADDK                             R7 R8 K10 [1]
+       63 JUMP                             ; [+1]
+       64 MOVE                             R7 R1
+       65 SUBK                             R10 R7 K10 [1]
+       66 MUL                              R9 R10 R5
+       67 ADD                              R8 R6 R9
+       68 DUPTABLE                         R9 K20 [{"rowHeight", "padding", "rowIndex", "rowTop", "rowBottom"}]
+       69 SETTABLEKS                       R5 R9 K15 ["rowHeight"]
+       71 SETTABLEKS                       R6 R9 K16 ["padding"]
+       73 SETTABLEKS                       R7 R9 K17 ["rowIndex"]
+       75 SETTABLEKS                       R8 R9 K18 ["rowTop"]
+       77 ADD                              R10 R8 R5
+       78 SETTABLEKS                       R10 R9 K19 ["rowBottom"]
+       80 RETURN                           R9 1
 
 PROTO_55:
         0 GETTABLEKS                       R3 R0 K0 ["_browserLayout"]
@@ -1842,244 +1848,250 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["Framework"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["ContextServices"]
-       16 GETTABLEKS                       R3 R2 K9 ["ContextItem"]
-       18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R5 K11 ["Types"]
-       24 CALL                             R4 1 1
-       25 GETIMPORT                        R5 K5 [require]
-       27 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R6 R6 K12 ["Dash"]
-       31 CALL                             R5 1 1
-       32 GETIMPORT                        R6 K5 [require]
-       34 GETTABLEKS                       R7 R0 K10 ["Src"]
-       36 GETTABLEKS                       R7 R7 K13 ["Resources"]
-       38 GETTABLEKS                       R7 R7 K14 ["Constants"]
-       40 CALL                             R6 1 1
-       41 GETIMPORT                        R7 K5 [require]
-       43 GETTABLEKS                       R8 R0 K10 ["Src"]
-       45 GETTABLEKS                       R8 R8 K13 ["Resources"]
-       47 GETTABLEKS                       R8 R8 K15 ["StyleConstants"]
-       49 CALL                             R7 1 1
-       50 GETTABLEKS                       R8 R1 K16 ["Util"]
-       52 GETTABLEKS                       R8 R8 K17 ["Signal"]
-       54 GETIMPORT                        R9 K5 [require]
-       56 GETTABLEKS                       R10 R0 K10 ["Src"]
-       58 GETTABLEKS                       R10 R10 K16 ["Util"]
-       60 GETTABLEKS                       R10 R10 K18 ["cleanConnections"]
-       62 CALL                             R9 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R3 K9 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K10 ["getFFlagAmrGridAssetNameTwoLine"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R1 K11 ["ContextServices"]
+       25 GETTABLEKS                       R4 R3 K12 ["ContextItem"]
+       27 GETIMPORT                        R5 K5 [require]
+       29 GETTABLEKS                       R6 R0 K8 ["Src"]
+       31 GETTABLEKS                       R6 R6 K13 ["Resources"]
+       33 GETTABLEKS                       R6 R6 K14 ["Constants"]
+       35 CALL                             R5 1 1
+       36 GETIMPORT                        R6 K5 [require]
+       38 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       40 GETTABLEKS                       R7 R7 K15 ["Dash"]
+       42 CALL                             R6 1 1
+       43 GETIMPORT                        R7 K5 [require]
+       45 GETTABLEKS                       R8 R0 K8 ["Src"]
+       47 GETTABLEKS                       R8 R8 K13 ["Resources"]
+       49 GETTABLEKS                       R8 R8 K16 ["StyleConstants"]
+       51 CALL                             R7 1 1
+       52 GETIMPORT                        R8 K5 [require]
+       54 GETTABLEKS                       R9 R0 K8 ["Src"]
+       56 GETTABLEKS                       R9 R9 K17 ["Types"]
+       58 CALL                             R8 1 1
+       59 GETTABLEKS                       R9 R1 K18 ["Util"]
+       61 GETTABLEKS                       R9 R9 K19 ["Signal"]
        63 GETIMPORT                        R10 K5 [require]
-       65 GETTABLEKS                       R11 R0 K10 ["Src"]
-       67 GETTABLEKS                       R11 R11 K16 ["Util"]
-       69 GETTABLEKS                       R11 R11 K19 ["isPositionInFrame"]
+       65 GETTABLEKS                       R11 R0 K8 ["Src"]
+       67 GETTABLEKS                       R11 R11 K18 ["Util"]
+       69 GETTABLEKS                       R11 R11 K20 ["cleanConnections"]
        71 CALL                             R10 1 1
        72 GETIMPORT                        R11 K5 [require]
-       74 GETTABLEKS                       R12 R0 K10 ["Src"]
-       76 GETTABLEKS                       R12 R12 K20 ["Flags"]
-       78 GETTABLEKS                       R12 R12 K21 ["getFFlagAmrFlexPaneSizing"]
+       74 GETTABLEKS                       R12 R0 K8 ["Src"]
+       76 GETTABLEKS                       R12 R12 K9 ["Flags"]
+       78 GETTABLEKS                       R12 R12 K21 ["getFFlagAmrAssetDetailView"]
        80 CALL                             R11 1 1
        81 GETIMPORT                        R12 K5 [require]
-       83 GETTABLEKS                       R13 R0 K10 ["Src"]
-       85 GETTABLEKS                       R13 R13 K20 ["Flags"]
-       87 GETTABLEKS                       R13 R13 K22 ["getFFlagAmrAssetDetailView"]
+       83 GETTABLEKS                       R13 R0 K8 ["Src"]
+       85 GETTABLEKS                       R13 R13 K9 ["Flags"]
+       87 GETTABLEKS                       R13 R13 K22 ["getFFlagAmrFlexPaneSizing"]
        89 CALL                             R12 1 1
        90 GETIMPORT                        R13 K5 [require]
-       92 GETTABLEKS                       R14 R0 K10 ["Src"]
-       94 GETTABLEKS                       R14 R14 K20 ["Flags"]
-       96 GETTABLEKS                       R14 R14 K23 ["getFFlagAmrEnableVersioning"]
+       92 GETTABLEKS                       R14 R0 K8 ["Src"]
+       94 GETTABLEKS                       R14 R14 K18 ["Util"]
+       96 GETTABLEKS                       R14 R14 K23 ["isPositionInFrame"]
        98 CALL                             R13 1 1
-       99 LOADK                            R16 K24 ["LayoutController"]
-      100 NAMECALL                         R14 R3 K25 ["extend"]
-      102 CALL                             R14 2 1
-      103 GETIMPORT                        R15 K28 [UDim.new]
-      105 LOADN                            R16 0
-      106 LOADN                            R17 150
-      107 CALL                             R15 2 1
-      108 DUPCLOSURE                       R16 K29 [PROTO_0]
-      109 DUPCLOSURE                       R17 K30 [PROTO_3]
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R4
-      112 CAPTURE                          VAL R6
-      113 CAPTURE                          VAL R15
-      114 CAPTURE                          VAL R8
-      115 CAPTURE                          VAL R14
-      116 CAPTURE                          VAL R13
-      117 SETTABLEKS                       R17 R14 K27 ["new"]
-      119 DUPCLOSURE                       R17 K31 [PROTO_4]
+       99 GETIMPORT                        R14 K5 [require]
+      101 GETTABLEKS                       R15 R0 K8 ["Src"]
+      103 GETTABLEKS                       R15 R15 K9 ["Flags"]
+      105 GETTABLEKS                       R15 R15 K24 ["getFFlagAmrEnableVersioning"]
+      107 CALL                             R14 1 1
+      108 LOADK                            R17 K25 ["LayoutController"]
+      109 NAMECALL                         R15 R4 K26 ["extend"]
+      111 CALL                             R15 2 1
+      112 GETIMPORT                        R16 K29 [UDim.new]
+      114 LOADN                            R17 0
+      115 LOADN                            R18 150
+      116 CALL                             R16 2 1
+      117 DUPCLOSURE                       R17 K30 [PROTO_0]
+      118 DUPCLOSURE                       R18 K31 [PROTO_3]
+      119 CAPTURE                          VAL R7
       120 CAPTURE                          VAL R8
-      121 CAPTURE                          VAL R14
-      122 SETTABLEKS                       R17 R14 K32 ["mock"]
-      124 DUPCLOSURE                       R17 K33 [PROTO_5]
-      125 CAPTURE                          VAL R9
-      126 SETTABLEKS                       R17 R14 K34 ["destroy"]
-      128 DUPCLOSURE                       R17 K35 [PROTO_6]
-      129 SETTABLEKS                       R17 R14 K36 ["getPluginGui"]
-      131 DUPCLOSURE                       R17 K37 [PROTO_7]
-      132 SETTABLEKS                       R17 R14 K38 ["isPluginGuiFocused"]
-      134 DUPCLOSURE                       R17 K39 [PROTO_9]
-      135 SETTABLEKS                       R17 R14 K40 ["setPluginFrame"]
-      137 DUPCLOSURE                       R17 K41 [PROTO_10]
-      138 SETTABLEKS                       R17 R14 K42 ["getPluginFrame"]
-      140 DUPCLOSURE                       R17 K43 [PROTO_11]
-      141 SETTABLEKS                       R17 R14 K44 ["getFolderLimit"]
-      143 DUPCLOSURE                       R17 K45 [PROTO_12]
-      144 CAPTURE                          VAL R4
-      145 CAPTURE                          VAL R6
-      146 CAPTURE                          VAL R11
-      147 SETTABLEKS                       R17 R14 K46 ["_updateFolderLimit"]
-      149 DUPCLOSURE                       R17 K47 [PROTO_13]
-      150 SETTABLEKS                       R17 R14 K48 ["_normalizeColumnWidths"]
-      152 DUPCLOSURE                       R17 K49 [PROTO_14]
-      153 CAPTURE                          VAL R11
-      154 CAPTURE                          VAL R4
-      155 SETTABLEKS                       R17 R14 K50 ["populateSavedSettings"]
-      157 DUPCLOSURE                       R17 K51 [PROTO_15]
-      158 SETTABLEKS                       R17 R14 K52 ["getShowSidebar"]
-      160 DUPCLOSURE                       R17 K53 [PROTO_16]
-      161 SETTABLEKS                       R17 R14 K54 ["toggleSidebar"]
-      163 DUPCLOSURE                       R17 K55 [PROTO_17]
-      164 CAPTURE                          VAL R11
-      165 SETTABLEKS                       R17 R14 K56 ["_setShowSidebar"]
-      167 DUPCLOSURE                       R17 K57 [PROTO_18]
-      168 SETTABLEKS                       R17 R14 K58 ["getIsCompact"]
-      170 DUPCLOSURE                       R17 K59 [PROTO_19]
-      171 SETTABLEKS                       R17 R14 K60 ["getPluginWidth"]
-      173 DUPCLOSURE                       R17 K61 [PROTO_20]
-      174 SETTABLEKS                       R17 R14 K62 ["getPluginHeight"]
-      176 DUPCLOSURE                       R17 K63 [PROTO_21]
-      177 CAPTURE                          VAL R11
-      178 SETTABLEKS                       R17 R14 K64 ["_setPluginWidth"]
-      180 DUPCLOSURE                       R17 K65 [PROTO_22]
-      181 CAPTURE                          VAL R11
-      182 SETTABLEKS                       R17 R14 K66 ["_setPluginHeight"]
-      184 DUPCLOSURE                       R17 K67 [PROTO_23]
-      185 SETTABLEKS                       R17 R14 K68 ["setAppSizes"]
-      187 DUPCLOSURE                       R17 K69 [PROTO_24]
-      188 SETTABLEKS                       R17 R14 K70 ["getAppSizes"]
-      190 DUPCLOSURE                       R17 K71 [PROTO_25]
-      191 CAPTURE                          VAL R11
-      192 SETTABLEKS                       R17 R14 K72 ["getSidebarWidth"]
-      194 DUPCLOSURE                       R17 K73 [PROTO_26]
-      195 SETTABLEKS                       R17 R14 K74 ["getSidebarDesiredWidth"]
-      197 DUPCLOSURE                       R17 K75 [PROTO_27]
-      198 CAPTURE                          VAL R11
-      199 SETTABLEKS                       R17 R14 K76 ["adjustSidebarWidth"]
-      201 DUPCLOSURE                       R17 K77 [PROTO_28]
-      202 CAPTURE                          VAL R11
-      203 SETTABLEKS                       R17 R14 K78 ["setSidebarWidth"]
-      205 DUPCLOSURE                       R17 K79 [PROTO_29]
-      206 SETTABLEKS                       R17 R14 K80 ["getSidebarSizing"]
-      208 DUPCLOSURE                       R17 K81 [PROTO_30]
-      209 CAPTURE                          VAL R12
-      210 SETTABLEKS                       R17 R14 K82 ["_getBrowserMinWidth"]
-      212 DUPCLOSURE                       R17 K83 [PROTO_31]
-      213 SETTABLEKS                       R17 R14 K84 ["_getBrowserWidth"]
-      215 DUPCLOSURE                       R17 K85 [PROTO_32]
-      216 CAPTURE                          VAL R12
-      217 SETTABLEKS                       R17 R14 K86 ["getMainViewWidth"]
-      219 DUPCLOSURE                       R17 K87 [PROTO_33]
-      220 CAPTURE                          VAL R12
-      221 SETTABLEKS                       R17 R14 K88 ["getDrawerWidth"]
-      223 DUPCLOSURE                       R17 K89 [PROTO_34]
-      224 SETTABLEKS                       R17 R14 K90 ["getDrawerDesiredWidth"]
-      226 DUPCLOSURE                       R17 K91 [PROTO_35]
-      227 CAPTURE                          VAL R12
-      228 SETTABLEKS                       R17 R14 K92 ["adjustDrawerWidth"]
-      230 DUPCLOSURE                       R17 K93 [PROTO_36]
-      231 CAPTURE                          VAL R12
-      232 SETTABLEKS                       R17 R14 K94 ["adjustCompactDrawerHeight"]
-      234 DUPCLOSURE                       R17 K95 [PROTO_37]
-      235 SETTABLEKS                       R17 R14 K96 ["getAppMinSizes"]
-      237 DUPCLOSURE                       R17 K97 [PROTO_38]
-      238 SETTABLEKS                       R17 R14 K98 ["setBrowserLayout"]
-      240 DUPCLOSURE                       R17 K99 [PROTO_39]
-      241 SETTABLEKS                       R17 R14 K100 ["getBrowserLayout"]
-      243 DUPCLOSURE                       R17 K101 [PROTO_40]
-      244 CAPTURE                          VAL R4
-      245 CAPTURE                          VAL R7
-      246 SETTABLEKS                       R17 R14 K102 ["getBrowserLayoutThumbnailSize"]
-      248 DUPCLOSURE                       R17 K103 [PROTO_41]
-      249 CAPTURE                          VAL R4
-      250 SETTABLEKS                       R17 R14 K104 ["getContentFrame"]
-      252 DUPCLOSURE                       R17 K105 [PROTO_42]
-      253 SETTABLEKS                       R17 R14 K106 ["setColumnWidths"]
-      255 DUPCLOSURE                       R17 K107 [PROTO_43]
-      256 SETTABLEKS                       R17 R14 K108 ["getColumnWidths"]
-      258 DUPCLOSURE                       R17 K109 [PROTO_44]
-      259 SETTABLEKS                       R17 R14 K110 ["_removeColumnWidth"]
-      261 DUPCLOSURE                       R17 K111 [PROTO_45]
-      262 CAPTURE                          VAL R15
-      263 SETTABLEKS                       R17 R14 K112 ["_addColumnWidth"]
-      265 DUPCLOSURE                       R17 K113 [PROTO_46]
-      266 SETTABLEKS                       R17 R14 K114 ["setColumns"]
-      268 DUPCLOSURE                       R17 K115 [PROTO_47]
-      269 SETTABLEKS                       R17 R14 K116 ["getColumns"]
-      271 DUPCLOSURE                       R17 K117 [PROTO_49]
-      272 CAPTURE                          VAL R5
-      273 SETTABLEKS                       R17 R14 K118 ["getColumnIndex"]
-      275 DUPCLOSURE                       R17 K119 [PROTO_50]
-      276 SETTABLEKS                       R17 R14 K120 ["toggleColumn"]
-      278 DUPCLOSURE                       R17 K121 [PROTO_52]
-      279 SETTABLEKS                       R17 R14 K122 ["_bindScroll"]
-      281 DUPCLOSURE                       R17 K123 [PROTO_53]
-      282 SETTABLEKS                       R17 R14 K124 ["_unbindScroll"]
-      284 DUPCLOSURE                       R17 K125 [PROTO_54]
-      285 CAPTURE                          VAL R4
-      286 CAPTURE                          VAL R7
-      287 SETTABLEKS                       R17 R14 K126 ["_getRowGeometry"]
-      289 DUPCLOSURE                       R17 K127 [PROTO_55]
-      290 CAPTURE                          VAL R4
-      291 SETTABLEKS                       R17 R14 K128 ["scrollToItem"]
-      293 DUPCLOSURE                       R17 K129 [PROTO_57]
-      294 SETTABLEKS                       R17 R14 K130 ["scrollToItemWhenReady"]
-      296 DUPCLOSURE                       R17 K131 [PROTO_59]
-      297 CAPTURE                          VAL R4
-      298 SETTABLEKS                       R17 R14 K132 ["_bindScrollReady"]
-      300 DUPCLOSURE                       R17 K133 [PROTO_61]
-      301 SETTABLEKS                       R17 R14 K134 ["_evaluateScrollReady"]
-      303 DUPCLOSURE                       R17 K135 [PROTO_62]
-      304 SETTABLEKS                       R17 R14 K136 ["_cancelPendingScroll"]
-      306 DUPCLOSURE                       R17 K137 [PROTO_63]
-      307 CAPTURE                          VAL R7
-      308 SETTABLEKS                       R17 R14 K138 ["scrollToSidebarItem"]
-      310 DUPCLOSURE                       R17 K139 [PROTO_64]
-      311 SETTABLEKS                       R17 R14 K140 ["setContentList"]
-      313 DUPCLOSURE                       R17 K141 [PROTO_65]
-      314 SETTABLEKS                       R17 R14 K142 ["setListHeaderRow"]
-      316 DUPCLOSURE                       R17 K143 [PROTO_66]
+      121 CAPTURE                          VAL R5
+      122 CAPTURE                          VAL R16
+      123 CAPTURE                          VAL R9
+      124 CAPTURE                          VAL R15
+      125 CAPTURE                          VAL R14
+      126 SETTABLEKS                       R18 R15 K28 ["new"]
+      128 DUPCLOSURE                       R18 K32 [PROTO_4]
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R15
+      131 SETTABLEKS                       R18 R15 K33 ["mock"]
+      133 DUPCLOSURE                       R18 K34 [PROTO_5]
+      134 CAPTURE                          VAL R10
+      135 SETTABLEKS                       R18 R15 K35 ["destroy"]
+      137 DUPCLOSURE                       R18 K36 [PROTO_6]
+      138 SETTABLEKS                       R18 R15 K37 ["getPluginGui"]
+      140 DUPCLOSURE                       R18 K38 [PROTO_7]
+      141 SETTABLEKS                       R18 R15 K39 ["isPluginGuiFocused"]
+      143 DUPCLOSURE                       R18 K40 [PROTO_9]
+      144 SETTABLEKS                       R18 R15 K41 ["setPluginFrame"]
+      146 DUPCLOSURE                       R18 K42 [PROTO_10]
+      147 SETTABLEKS                       R18 R15 K43 ["getPluginFrame"]
+      149 DUPCLOSURE                       R18 K44 [PROTO_11]
+      150 SETTABLEKS                       R18 R15 K45 ["getFolderLimit"]
+      152 DUPCLOSURE                       R18 K46 [PROTO_12]
+      153 CAPTURE                          VAL R8
+      154 CAPTURE                          VAL R5
+      155 CAPTURE                          VAL R12
+      156 SETTABLEKS                       R18 R15 K47 ["_updateFolderLimit"]
+      158 DUPCLOSURE                       R18 K48 [PROTO_13]
+      159 SETTABLEKS                       R18 R15 K49 ["_normalizeColumnWidths"]
+      161 DUPCLOSURE                       R18 K50 [PROTO_14]
+      162 CAPTURE                          VAL R12
+      163 CAPTURE                          VAL R8
+      164 SETTABLEKS                       R18 R15 K51 ["populateSavedSettings"]
+      166 DUPCLOSURE                       R18 K52 [PROTO_15]
+      167 SETTABLEKS                       R18 R15 K53 ["getShowSidebar"]
+      169 DUPCLOSURE                       R18 K54 [PROTO_16]
+      170 SETTABLEKS                       R18 R15 K55 ["toggleSidebar"]
+      172 DUPCLOSURE                       R18 K56 [PROTO_17]
+      173 CAPTURE                          VAL R12
+      174 SETTABLEKS                       R18 R15 K57 ["_setShowSidebar"]
+      176 DUPCLOSURE                       R18 K58 [PROTO_18]
+      177 SETTABLEKS                       R18 R15 K59 ["getIsCompact"]
+      179 DUPCLOSURE                       R18 K60 [PROTO_19]
+      180 SETTABLEKS                       R18 R15 K61 ["getPluginWidth"]
+      182 DUPCLOSURE                       R18 K62 [PROTO_20]
+      183 SETTABLEKS                       R18 R15 K63 ["getPluginHeight"]
+      185 DUPCLOSURE                       R18 K64 [PROTO_21]
+      186 CAPTURE                          VAL R12
+      187 SETTABLEKS                       R18 R15 K65 ["_setPluginWidth"]
+      189 DUPCLOSURE                       R18 K66 [PROTO_22]
+      190 CAPTURE                          VAL R12
+      191 SETTABLEKS                       R18 R15 K67 ["_setPluginHeight"]
+      193 DUPCLOSURE                       R18 K68 [PROTO_23]
+      194 SETTABLEKS                       R18 R15 K69 ["setAppSizes"]
+      196 DUPCLOSURE                       R18 K70 [PROTO_24]
+      197 SETTABLEKS                       R18 R15 K71 ["getAppSizes"]
+      199 DUPCLOSURE                       R18 K72 [PROTO_25]
+      200 CAPTURE                          VAL R12
+      201 SETTABLEKS                       R18 R15 K73 ["getSidebarWidth"]
+      203 DUPCLOSURE                       R18 K74 [PROTO_26]
+      204 SETTABLEKS                       R18 R15 K75 ["getSidebarDesiredWidth"]
+      206 DUPCLOSURE                       R18 K76 [PROTO_27]
+      207 CAPTURE                          VAL R12
+      208 SETTABLEKS                       R18 R15 K77 ["adjustSidebarWidth"]
+      210 DUPCLOSURE                       R18 K78 [PROTO_28]
+      211 CAPTURE                          VAL R12
+      212 SETTABLEKS                       R18 R15 K79 ["setSidebarWidth"]
+      214 DUPCLOSURE                       R18 K80 [PROTO_29]
+      215 SETTABLEKS                       R18 R15 K81 ["getSidebarSizing"]
+      217 DUPCLOSURE                       R18 K82 [PROTO_30]
+      218 CAPTURE                          VAL R11
+      219 SETTABLEKS                       R18 R15 K83 ["_getBrowserMinWidth"]
+      221 DUPCLOSURE                       R18 K84 [PROTO_31]
+      222 SETTABLEKS                       R18 R15 K85 ["_getBrowserWidth"]
+      224 DUPCLOSURE                       R18 K86 [PROTO_32]
+      225 CAPTURE                          VAL R11
+      226 SETTABLEKS                       R18 R15 K87 ["getMainViewWidth"]
+      228 DUPCLOSURE                       R18 K88 [PROTO_33]
+      229 CAPTURE                          VAL R11
+      230 SETTABLEKS                       R18 R15 K89 ["getDrawerWidth"]
+      232 DUPCLOSURE                       R18 K90 [PROTO_34]
+      233 SETTABLEKS                       R18 R15 K91 ["getDrawerDesiredWidth"]
+      235 DUPCLOSURE                       R18 K92 [PROTO_35]
+      236 CAPTURE                          VAL R11
+      237 SETTABLEKS                       R18 R15 K93 ["adjustDrawerWidth"]
+      239 DUPCLOSURE                       R18 K94 [PROTO_36]
+      240 CAPTURE                          VAL R11
+      241 SETTABLEKS                       R18 R15 K95 ["adjustCompactDrawerHeight"]
+      243 DUPCLOSURE                       R18 K96 [PROTO_37]
+      244 SETTABLEKS                       R18 R15 K97 ["getAppMinSizes"]
+      246 DUPCLOSURE                       R18 K98 [PROTO_38]
+      247 SETTABLEKS                       R18 R15 K99 ["setBrowserLayout"]
+      249 DUPCLOSURE                       R18 K100 [PROTO_39]
+      250 SETTABLEKS                       R18 R15 K101 ["getBrowserLayout"]
+      252 DUPCLOSURE                       R18 K102 [PROTO_40]
+      253 CAPTURE                          VAL R8
+      254 CAPTURE                          VAL R7
+      255 SETTABLEKS                       R18 R15 K103 ["getBrowserLayoutThumbnailSize"]
+      257 DUPCLOSURE                       R18 K104 [PROTO_41]
+      258 CAPTURE                          VAL R8
+      259 SETTABLEKS                       R18 R15 K105 ["getContentFrame"]
+      261 DUPCLOSURE                       R18 K106 [PROTO_42]
+      262 SETTABLEKS                       R18 R15 K107 ["setColumnWidths"]
+      264 DUPCLOSURE                       R18 K108 [PROTO_43]
+      265 SETTABLEKS                       R18 R15 K109 ["getColumnWidths"]
+      267 DUPCLOSURE                       R18 K110 [PROTO_44]
+      268 SETTABLEKS                       R18 R15 K111 ["_removeColumnWidth"]
+      270 DUPCLOSURE                       R18 K112 [PROTO_45]
+      271 CAPTURE                          VAL R16
+      272 SETTABLEKS                       R18 R15 K113 ["_addColumnWidth"]
+      274 DUPCLOSURE                       R18 K114 [PROTO_46]
+      275 SETTABLEKS                       R18 R15 K115 ["setColumns"]
+      277 DUPCLOSURE                       R18 K116 [PROTO_47]
+      278 SETTABLEKS                       R18 R15 K117 ["getColumns"]
+      280 DUPCLOSURE                       R18 K118 [PROTO_49]
+      281 CAPTURE                          VAL R6
+      282 SETTABLEKS                       R18 R15 K119 ["getColumnIndex"]
+      284 DUPCLOSURE                       R18 K120 [PROTO_50]
+      285 SETTABLEKS                       R18 R15 K121 ["toggleColumn"]
+      287 DUPCLOSURE                       R18 K122 [PROTO_52]
+      288 SETTABLEKS                       R18 R15 K123 ["_bindScroll"]
+      290 DUPCLOSURE                       R18 K124 [PROTO_53]
+      291 SETTABLEKS                       R18 R15 K125 ["_unbindScroll"]
+      293 DUPCLOSURE                       R18 K126 [PROTO_54]
+      294 CAPTURE                          VAL R8
+      295 CAPTURE                          VAL R2
+      296 CAPTURE                          VAL R7
+      297 SETTABLEKS                       R18 R15 K127 ["_getRowGeometry"]
+      299 DUPCLOSURE                       R18 K128 [PROTO_55]
+      300 CAPTURE                          VAL R8
+      301 SETTABLEKS                       R18 R15 K129 ["scrollToItem"]
+      303 DUPCLOSURE                       R18 K130 [PROTO_57]
+      304 SETTABLEKS                       R18 R15 K131 ["scrollToItemWhenReady"]
+      306 DUPCLOSURE                       R18 K132 [PROTO_59]
+      307 CAPTURE                          VAL R8
+      308 SETTABLEKS                       R18 R15 K133 ["_bindScrollReady"]
+      310 DUPCLOSURE                       R18 K134 [PROTO_61]
+      311 SETTABLEKS                       R18 R15 K135 ["_evaluateScrollReady"]
+      313 DUPCLOSURE                       R18 K136 [PROTO_62]
+      314 SETTABLEKS                       R18 R15 K137 ["_cancelPendingScroll"]
+      316 DUPCLOSURE                       R18 K138 [PROTO_63]
       317 CAPTURE                          VAL R7
-      318 SETTABLEKS                       R17 R14 K144 ["_updateGridState"]
-      320 DUPCLOSURE                       R17 K145 [PROTO_67]
-      321 SETTABLEKS                       R17 R14 K146 ["getGridWidth"]
-      323 DUPCLOSURE                       R17 K147 [PROTO_70]
-      324 SETTABLEKS                       R17 R14 K148 ["setContentGrid"]
-      326 DUPCLOSURE                       R17 K149 [PROTO_72]
-      327 SETTABLEKS                       R17 R14 K150 ["_syncSidebarScroll"]
-      329 DUPCLOSURE                       R17 K151 [PROTO_73]
-      330 SETTABLEKS                       R17 R14 K152 ["isSidebarScrollable"]
-      332 DUPCLOSURE                       R17 K153 [PROTO_75]
-      333 SETTABLEKS                       R17 R14 K154 ["setSidebarScrollFrame"]
-      335 DUPCLOSURE                       R17 K155 [PROTO_76]
-      336 CAPTURE                          VAL R10
-      337 SETTABLEKS                       R17 R14 K156 ["getSidebarHoveredCanvasY"]
-      339 DUPCLOSURE                       R17 K157 [PROTO_77]
-      340 SETTABLEKS                       R17 R14 K158 ["getGridCellsPerRow"]
-      342 DUPCLOSURE                       R17 K159 [PROTO_78]
-      343 CAPTURE                          VAL R7
-      344 SETTABLEKS                       R17 R14 K160 ["getGridCellPadding"]
-      346 DUPCLOSURE                       R17 K161 [PROTO_79]
-      347 SETTABLEKS                       R17 R14 K162 ["openDetailsDrawer"]
-      349 DUPCLOSURE                       R17 K163 [PROTO_80]
-      350 SETTABLEKS                       R17 R14 K164 ["closeDetailsDrawer"]
-      352 DUPCLOSURE                       R17 K165 [PROTO_81]
-      353 SETTABLEKS                       R17 R14 K166 ["getShowDetailsDrawer"]
-      355 DUPCLOSURE                       R17 K167 [PROTO_82]
-      356 SETTABLEKS                       R17 R14 K168 ["getMainViewSizing"]
-      358 DUPCLOSURE                       R17 K169 [PROTO_83]
-      359 SETTABLEKS                       R17 R14 K170 ["setDrawerDesiredWidth"]
-      361 DUPCLOSURE                       R17 K171 [PROTO_84]
-      362 SETTABLEKS                       R17 R14 K172 ["getCompactDrawerHeightScale"]
-      364 DUPCLOSURE                       R17 K173 [PROTO_85]
-      365 SETTABLEKS                       R17 R14 K174 ["setCompactDrawerHeightScale"]
-      367 RETURN                           R14 1
+      318 SETTABLEKS                       R18 R15 K139 ["scrollToSidebarItem"]
+      320 DUPCLOSURE                       R18 K140 [PROTO_64]
+      321 SETTABLEKS                       R18 R15 K141 ["setContentList"]
+      323 DUPCLOSURE                       R18 K142 [PROTO_65]
+      324 SETTABLEKS                       R18 R15 K143 ["setListHeaderRow"]
+      326 DUPCLOSURE                       R18 K144 [PROTO_66]
+      327 CAPTURE                          VAL R7
+      328 SETTABLEKS                       R18 R15 K145 ["_updateGridState"]
+      330 DUPCLOSURE                       R18 K146 [PROTO_67]
+      331 SETTABLEKS                       R18 R15 K147 ["getGridWidth"]
+      333 DUPCLOSURE                       R18 K148 [PROTO_70]
+      334 SETTABLEKS                       R18 R15 K149 ["setContentGrid"]
+      336 DUPCLOSURE                       R18 K150 [PROTO_72]
+      337 SETTABLEKS                       R18 R15 K151 ["_syncSidebarScroll"]
+      339 DUPCLOSURE                       R18 K152 [PROTO_73]
+      340 SETTABLEKS                       R18 R15 K153 ["isSidebarScrollable"]
+      342 DUPCLOSURE                       R18 K154 [PROTO_75]
+      343 SETTABLEKS                       R18 R15 K155 ["setSidebarScrollFrame"]
+      345 DUPCLOSURE                       R18 K156 [PROTO_76]
+      346 CAPTURE                          VAL R13
+      347 SETTABLEKS                       R18 R15 K157 ["getSidebarHoveredCanvasY"]
+      349 DUPCLOSURE                       R18 K158 [PROTO_77]
+      350 SETTABLEKS                       R18 R15 K159 ["getGridCellsPerRow"]
+      352 DUPCLOSURE                       R18 K160 [PROTO_78]
+      353 CAPTURE                          VAL R7
+      354 SETTABLEKS                       R18 R15 K161 ["getGridCellPadding"]
+      356 DUPCLOSURE                       R18 K162 [PROTO_79]
+      357 SETTABLEKS                       R18 R15 K163 ["openDetailsDrawer"]
+      359 DUPCLOSURE                       R18 K164 [PROTO_80]
+      360 SETTABLEKS                       R18 R15 K165 ["closeDetailsDrawer"]
+      362 DUPCLOSURE                       R18 K166 [PROTO_81]
+      363 SETTABLEKS                       R18 R15 K167 ["getShowDetailsDrawer"]
+      365 DUPCLOSURE                       R18 K168 [PROTO_82]
+      366 SETTABLEKS                       R18 R15 K169 ["getMainViewSizing"]
+      368 DUPCLOSURE                       R18 K170 [PROTO_83]
+      369 SETTABLEKS                       R18 R15 K171 ["setDrawerDesiredWidth"]
+      371 DUPCLOSURE                       R18 K172 [PROTO_84]
+      372 SETTABLEKS                       R18 R15 K173 ["getCompactDrawerHeightScale"]
+      374 DUPCLOSURE                       R18 K174 [PROTO_85]
+      375 SETTABLEKS                       R18 R15 K175 ["setCompactDrawerHeightScale"]
+      377 RETURN                           R15 1

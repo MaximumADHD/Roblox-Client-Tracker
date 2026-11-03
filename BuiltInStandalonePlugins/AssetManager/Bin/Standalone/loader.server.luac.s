@@ -24,6 +24,16 @@ PROTO_3:
         5 CALL                             R3 4 -1
         6 RETURN                           R3 -1
 
+PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 GETIMPORT                        R1 K1 [plugin]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 RETURN                           R0 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -97,21 +107,51 @@ MAIN:
       109 GETIMPORT                        R9 K61 [Enum.ZIndexBehavior.Sibling]
       111 SETTABLEKS                       R9 R8 K49 ["zIndexBehavior"]
       113 SETTABLEKS                       R8 R7 K62 ["dockWidgetInfo"]
-      115 GETTABLEKS                       R8 R3 K63 ["build"]
-      117 MOVE                             R9 R7
-      118 CALL                             R8 1 1
-      119 GETTABLEKS                       R9 R8 K64 ["pluginLoader"]
-      121 NAMECALL                         R9 R9 K65 ["waitForUserInteraction"]
-      123 CALL                             R9 1 1
-      124 JUMPIF                           R9 ; [+1]
-      125 RETURN                           R0 0
-      126 GETIMPORT                        R10 K5 [require]
-      128 GETTABLEKS                       R11 R0 K6 ["Bin"]
-      130 GETTABLEKS                       R11 R11 K7 ["Common"]
-      132 GETTABLEKS                       R11 R11 K66 ["main"]
-      134 CALL                             R10 1 1
-      135 MOVE                             R11 R10
-      136 GETIMPORT                        R12 K20 [plugin]
-      138 MOVE                             R13 R8
-      139 CALL                             R11 2 0
-      140 RETURN                           R0 0
+      115 NEWTABLE                         R8 2 0
+      117 GETIMPORT                        R9 K5 [require]
+      119 GETTABLEKS                       R10 R0 K34 ["Src"]
+      121 GETTABLEKS                       R10 R10 K63 ["Util"]
+      123 GETTABLEKS                       R10 R10 K64 ["getOpenFromExternalTriggerSignal"]
+      125 CALL                             R9 1 1
+      126 DUPCLOSURE                       R10 K65 [PROTO_4]
+      127 CAPTURE                          VAL R9
+      128 SETTABLEKS                       R10 R8 K66 ["OpenFromExternalTrigger"]
+      130 GETIMPORT                        R10 K5 [require]
+      132 GETTABLEKS                       R11 R0 K34 ["Src"]
+      134 GETTABLEKS                       R11 R11 K67 ["Flags"]
+      136 GETTABLEKS                       R11 R11 K68 ["getFFlagAssetManagerShowAsset"]
+      138 CALL                             R10 1 1
+      139 MOVE                             R11 R10
+      140 CALL                             R11 0 1
+      141 JUMPIFNOT                        R11 ; [+18]
+      142 GETIMPORT                        R11 K5 [require]
+      144 GETTABLEKS                       R12 R0 K34 ["Src"]
+      146 GETTABLEKS                       R12 R12 K63 ["Util"]
+      148 GETTABLEKS                       R12 R12 K69 ["getShowAssetRequestedSignal"]
+      150 CALL                             R11 1 1
+      151 MOVE                             R12 R11
+      152 GETIMPORT                        R13 K20 [plugin]
+      154 CALL                             R12 1 1
+      155 JUMPIFNOT                        R12 ; [+4]
+      156 DUPCLOSURE                       R13 K70 [PROTO_5]
+      157 CAPTURE                          VAL R12
+      158 SETTABLEKS                       R13 R8 K71 ["ShowAssetRequested"]
+      160 SETTABLEKS                       R8 R7 K72 ["extraTriggers"]
+      162 GETTABLEKS                       R11 R3 K73 ["build"]
+      164 MOVE                             R12 R7
+      165 CALL                             R11 1 1
+      166 GETTABLEKS                       R12 R11 K74 ["pluginLoader"]
+      168 NAMECALL                         R12 R12 K75 ["waitForUserInteraction"]
+      170 CALL                             R12 1 1
+      171 JUMPIF                           R12 ; [+1]
+      172 RETURN                           R0 0
+      173 GETIMPORT                        R13 K5 [require]
+      175 GETTABLEKS                       R14 R0 K6 ["Bin"]
+      177 GETTABLEKS                       R14 R14 K7 ["Common"]
+      179 GETTABLEKS                       R14 R14 K76 ["main"]
+      181 CALL                             R13 1 1
+      182 MOVE                             R14 R13
+      183 GETIMPORT                        R15 K20 [plugin]
+      185 MOVE                             R16 R11
+      186 CALL                             R14 2 0
+      187 RETURN                           R0 0

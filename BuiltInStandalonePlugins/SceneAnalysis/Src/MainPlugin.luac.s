@@ -599,47 +599,65 @@ PROTO_23:
       338 GETUPVAL                         R5 22
       339 JUMPIFNOT                        R5 ; [+25]
       340 GETTABLEKS                       R6 R0 K104 ["categories"]
-      342 LOADN                            R7 4
-      343 DUPTABLE                         R8 K106 [{["id"] = "SceneGeometry", ["text"], ["module"], ["valueFormat"] = "count", ["colorRamp"]}]
-      344 GETTABLEKS                       R9 R0 K41 ["localization"]
-      346 LOADK                            R11 K82 ["Categories"]
-      347 LOADK                            R12 K105 ["SceneGeometry"]
-      348 NAMECALL                         R9 R9 K84 ["getText"]
-      350 CALL                             R9 3 1
-      351 SETTABLEKS                       R9 R8 K76 ["text"]
-      353 GETUPVAL                         R9 23
-      354 SETTABLEKS                       R9 R8 K77 ["module"]
-      356 GETUPVAL                         R9 16
-      357 GETTABLEKS                       R9 R9 K85 ["Default"]
-      359 SETTABLEKS                       R9 R8 K80 ["colorRamp"]
-      361 FASTCALL                         TABLE_INSERT ; [+2]
-      362 GETIMPORT                        R5 K109 [table.insert]
-      364 CALL                             R5 3 0
-      365 GETTABLEKS                       R6 R0 K104 ["categories"]
-      367 GETTABLEN                        R5 R6 4
-      368 GETTABLEKS                       R6 R0 K104 ["categories"]
-      370 LOADNIL                          R7
-      371 LOADNIL                          R8
-      372 FORGPREP                         R6
-      373 GETTABLEKS                       R11 R10 K74 ["id"]
-      375 JUMPIFNOTEQKS                    R11 K96 ["InstanceComposition"] ; [+3]
-      377 MOVE                             R5 R10
-      378 JUMP                             ; [+2]
-      379 FORGLOOP                         R6 2 ; [-7]
-      381 DUPTABLE                         R8 K110 [{"selectedCategory"}]
-      382 SETTABLEKS                       R5 R8 K16 ["selectedCategory"]
-      384 NAMECALL                         R6 R0 K111 ["setState"]
-      386 CALL                             R6 2 0
-      387 GETTABLEKS                       R6 R0 K58 ["selectionManager"]
-      389 GETTABLEKS                       R8 R5 K77 ["module"]
-      391 NAMECALL                         R6 R6 K112 ["setQuery"]
-      393 CALL                             R6 2 0
-      394 GETUPVAL                         R6 24
-      395 JUMPIFNOT                        R6 ; [+4]
-      396 MOVE                             R8 R1
-      397 NAMECALL                         R6 R0 K113 ["setupDataModelPicker"]
-      399 CALL                             R6 2 0
-      400 RETURN                           R0 0
+      342 DUPTABLE                         R7 K106 [{["id"] = "CollisionGeometry", ["text"], ["module"], ["valueFormat"] = "memory", ["colorRamp"]}]
+      343 GETTABLEKS                       R8 R0 K41 ["localization"]
+      345 LOADK                            R10 K82 ["Categories"]
+      346 LOADK                            R11 K107 ["CollisionGeometryMemory"]
+      347 NAMECALL                         R8 R8 K84 ["getText"]
+      349 CALL                             R8 3 1
+      350 SETTABLEKS                       R8 R7 K76 ["text"]
+      352 GETUPVAL                         R8 23
+      353 SETTABLEKS                       R8 R7 K77 ["module"]
+      355 GETUPVAL                         R8 16
+      356 GETTABLEKS                       R8 R8 K90 ["IceBlue"]
+      358 SETTABLEKS                       R8 R7 K80 ["colorRamp"]
+      360 FASTCALL2                        TABLE_INSERT R6 R7 ; [+3]
+      362 GETIMPORT                        R5 K110 [table.insert]
+      364 CALL                             R5 2 0
+      365 GETUPVAL                         R5 24
+      366 JUMPIFNOT                        R5 ; [+25]
+      367 GETTABLEKS                       R6 R0 K104 ["categories"]
+      369 LOADN                            R7 4
+      370 DUPTABLE                         R8 K112 [{["id"] = "SceneGeometry", ["text"], ["module"], ["valueFormat"] = "count", ["colorRamp"]}]
+      371 GETTABLEKS                       R9 R0 K41 ["localization"]
+      373 LOADK                            R11 K82 ["Categories"]
+      374 LOADK                            R12 K111 ["SceneGeometry"]
+      375 NAMECALL                         R9 R9 K84 ["getText"]
+      377 CALL                             R9 3 1
+      378 SETTABLEKS                       R9 R8 K76 ["text"]
+      380 GETUPVAL                         R9 25
+      381 SETTABLEKS                       R9 R8 K77 ["module"]
+      383 GETUPVAL                         R9 16
+      384 GETTABLEKS                       R9 R9 K85 ["Default"]
+      386 SETTABLEKS                       R9 R8 K80 ["colorRamp"]
+      388 FASTCALL                         TABLE_INSERT ; [+2]
+      389 GETIMPORT                        R5 K110 [table.insert]
+      391 CALL                             R5 3 0
+      392 GETTABLEKS                       R6 R0 K104 ["categories"]
+      394 GETTABLEN                        R5 R6 4
+      395 GETTABLEKS                       R6 R0 K104 ["categories"]
+      397 LOADNIL                          R7
+      398 LOADNIL                          R8
+      399 FORGPREP                         R6
+      400 GETTABLEKS                       R11 R10 K74 ["id"]
+      402 JUMPIFNOTEQKS                    R11 K96 ["InstanceComposition"] ; [+3]
+      404 MOVE                             R5 R10
+      405 JUMP                             ; [+2]
+      406 FORGLOOP                         R6 2 ; [-7]
+      408 DUPTABLE                         R8 K113 [{"selectedCategory"}]
+      409 SETTABLEKS                       R5 R8 K16 ["selectedCategory"]
+      411 NAMECALL                         R6 R0 K114 ["setState"]
+      413 CALL                             R6 2 0
+      414 GETTABLEKS                       R6 R0 K58 ["selectionManager"]
+      416 GETTABLEKS                       R8 R5 K77 ["module"]
+      418 NAMECALL                         R6 R6 K115 ["setQuery"]
+      420 CALL                             R6 2 0
+      421 GETUPVAL                         R6 26
+      422 JUMPIFNOT                        R6 ; [+4]
+      423 MOVE                             R8 R1
+      424 NAMECALL                         R6 R0 K116 ["setupDataModelPicker"]
+      426 CALL                             R6 2 0
+      427 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R0 0
@@ -2824,240 +2842,250 @@ MAIN:
        51 CALL                             R7 1 1
        52 GETTABLEKS                       R8 R7 K18 ["getFFlagSceneAnalysisRenderAttribution"]
        54 CALL                             R8 0 1
-       55 GETTABLEKS                       R9 R7 K19 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       55 GETTABLEKS                       R9 R7 K19 ["getFFlagSceneAnalysisCollisionGeometryMemoryEnabled"]
        57 CALL                             R9 0 1
-       58 GETTABLEKS                       R10 R7 K20 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+       58 GETTABLEKS                       R10 R7 K20 ["getFFlagSceneAnalysisBugfixesMay2026"]
        60 CALL                             R10 0 1
-       61 GETIMPORT                        R11 K5 [require]
-       63 GETTABLEKS                       R12 R0 K6 ["Packages"]
-       65 GETTABLEKS                       R12 R12 K21 ["Foundation"]
-       67 CALL                             R11 1 1
-       68 GETTABLEKS                       R12 R11 K22 ["Dropdown"]
-       70 GETTABLEKS                       R13 R11 K23 ["Toggle"]
-       72 GETTABLEKS                       R14 R11 K24 ["TextInput"]
-       74 GETTABLEKS                       R15 R11 K25 ["Icon"]
-       76 GETTABLEKS                       R16 R11 K26 ["IconButton"]
-       78 GETTABLEKS                       R17 R11 K27 ["Enums"]
-       80 GETTABLEKS                       R17 R17 K28 ["InputSize"]
-       82 GETTABLEKS                       R18 R3 K29 ["UI"]
-       84 GETTABLEKS                       R18 R18 K30 ["DockWidget"]
-       86 GETTABLEKS                       R19 R3 K31 ["ContextServices"]
-       88 GETTABLEKS                       R20 R19 K32 ["Plugin"]
-       90 GETTABLEKS                       R21 R19 K33 ["Mouse"]
-       92 GETTABLEKS                       R22 R19 K34 ["Design"]
-       94 GETTABLEKS                       R23 R3 K35 ["Style"]
-       96 GETTABLEKS                       R23 R23 K36 ["Themes"]
-       98 GETTABLEKS                       R23 R23 K37 ["StudioTheme"]
-      100 GETTABLEKS                       R24 R3 K38 ["Styling"]
-      102 GETTABLEKS                       R24 R24 K39 ["registerPluginStyles"]
-      104 GETTABLEKS                       R25 R0 K40 ["Src"]
-      106 GETTABLEKS                       R25 R25 K41 ["Resources"]
-      108 GETTABLEKS                       R25 R25 K42 ["Localization"]
-      110 GETTABLEKS                       R25 R25 K43 ["SourceStrings"]
-      112 GETTABLEKS                       R26 R0 K40 ["Src"]
-      114 GETTABLEKS                       R26 R26 K41 ["Resources"]
-      116 GETTABLEKS                       R26 R26 K42 ["Localization"]
-      118 GETTABLEKS                       R26 R26 K44 ["LocalizedStrings"]
-      120 GETTABLEKS                       R27 R0 K40 ["Src"]
-      122 GETTABLEKS                       R27 R27 K11 ["Components"]
-      124 GETIMPORT                        R28 K5 [require]
-      126 GETTABLEKS                       R29 R27 K45 ["Treemap"]
-      128 CALL                             R28 1 1
-      129 GETIMPORT                        R29 K5 [require]
-      131 GETTABLEKS                       R30 R27 K46 ["ControlledSplitPane"]
-      133 CALL                             R29 1 1
-      134 GETIMPORT                        R30 K5 [require]
-      136 GETTABLEKS                       R31 R27 K47 ["VirtualizedList"]
-      138 CALL                             R30 1 1
-      139 GETIMPORT                        R31 K5 [require]
-      141 GETTABLEKS                       R32 R27 K48 ["SummaryPane"]
-      143 CALL                             R31 1 1
-      144 GETIMPORT                        R32 K5 [require]
-      146 GETTABLEKS                       R33 R0 K40 ["Src"]
-      148 GETTABLEKS                       R33 R33 K13 ["Util"]
-      150 GETTABLEKS                       R33 R33 K49 ["Observable"]
-      152 CALL                             R32 1 1
-      153 GETIMPORT                        R33 K5 [require]
-      155 GETTABLEKS                       R34 R27 K50 ["WidgetRegister"]
-      157 CALL                             R33 1 1
-      158 GETIMPORT                        R34 K5 [require]
-      160 GETTABLEKS                       R35 R0 K40 ["Src"]
-      162 GETTABLEKS                       R35 R35 K51 ["Providers"]
-      164 GETTABLEKS                       R35 R35 K52 ["MouseContextProvider"]
-      166 CALL                             R34 1 1
-      167 GETIMPORT                        R35 K5 [require]
-      169 GETTABLEKS                       R36 R0 K40 ["Src"]
-      171 GETTABLEKS                       R36 R36 K41 ["Resources"]
-      173 GETTABLEKS                       R36 R36 K53 ["ColorRamps"]
-      175 CALL                             R35 1 1
-      176 GETIMPORT                        R36 K5 [require]
-      178 GETTABLEKS                       R37 R0 K6 ["Packages"]
-      180 GETTABLEKS                       R37 R37 K54 ["Dash"]
-      182 CALL                             R36 1 1
-      183 GETIMPORT                        R37 K5 [require]
-      185 GETTABLEKS                       R38 R0 K40 ["Src"]
-      187 GETTABLEKS                       R38 R38 K11 ["Components"]
-      189 GETTABLEKS                       R38 R38 K45 ["Treemap"]
-      191 GETTABLEKS                       R38 R38 K55 ["TreemapMockData"]
-      193 CALL                             R37 1 1
-      194 GETIMPORT                        R38 K5 [require]
-      196 GETTABLEKS                       R39 R0 K40 ["Src"]
-      198 GETTABLEKS                       R39 R39 K11 ["Components"]
-      200 GETTABLEKS                       R39 R39 K45 ["Treemap"]
-      202 GETTABLEKS                       R39 R39 K56 ["TreemapTypes"]
-      204 CALL                             R38 1 1
-      205 DUPCLOSURE                       R39 K57 [PROTO_1]
-      206 GETTABLEKS                       R40 R1 K58 ["PureComponent"]
-      208 LOADK                            R42 K59 ["MainPlugin"]
-      209 NAMECALL                         R40 R40 K60 ["extend"]
-      211 CALL                             R40 2 1
-      212 GETTABLEKS                       R41 R6 K61 ["fromAction"]
-      214 LOADK                            R42 K2 ["SceneAnalysis"]
-      215 LOADK                            R43 K23 ["Toggle"]
-      216 CALL                             R41 2 1
-      217 GETIMPORT                        R42 K5 [require]
-      219 GETTABLEKS                       R43 R0 K40 ["Src"]
-      221 GETTABLEKS                       R43 R43 K13 ["Util"]
-      223 GETTABLEKS                       R43 R43 K62 ["AssetDMBridge"]
-      225 CALL                             R42 1 1
-      226 GETIMPORT                        R43 K5 [require]
-      228 GETTABLEKS                       R44 R0 K40 ["Src"]
-      230 GETTABLEKS                       R44 R44 K13 ["Util"]
-      232 GETTABLEKS                       R44 R44 K63 ["SelectionManager"]
-      234 CALL                             R43 1 1
-      235 GETIMPORT                        R44 K5 [require]
-      237 GETTABLEKS                       R45 R0 K40 ["Src"]
-      239 GETTABLEKS                       R45 R45 K13 ["Util"]
-      241 GETTABLEKS                       R45 R45 K64 ["dataModelTypeLabel"]
-      243 CALL                             R44 1 1
-      244 GETIMPORT                        R45 K5 [require]
-      246 GETTABLEKS                       R46 R0 K40 ["Src"]
-      248 GETTABLEKS                       R46 R46 K65 ["Queries"]
-      250 GETTABLEKS                       R46 R46 K66 ["UnparentedInstancesView"]
-      252 GETTABLEKS                       R46 R46 K67 ["FetchUnparentedInstances"]
-      254 CALL                             R45 1 1
-      255 GETIMPORT                        R46 K5 [require]
-      257 GETTABLEKS                       R47 R0 K40 ["Src"]
-      259 GETTABLEKS                       R47 R47 K65 ["Queries"]
-      261 GETTABLEKS                       R47 R47 K68 ["ScriptMemoryView"]
-      263 GETTABLEKS                       R47 R47 K69 ["FetchAllScriptMemory"]
-      265 CALL                             R46 1 1
-      266 GETIMPORT                        R47 K5 [require]
-      268 GETTABLEKS                       R48 R0 K40 ["Src"]
-      270 GETTABLEKS                       R48 R48 K65 ["Queries"]
-      272 GETTABLEKS                       R48 R48 K70 ["SceneTrianglesView"]
-      274 GETTABLEKS                       R48 R48 K71 ["FetchSceneTriangles"]
-      276 CALL                             R47 1 1
-      277 GETIMPORT                        R48 K5 [require]
-      279 GETTABLEKS                       R49 R0 K40 ["Src"]
-      281 GETTABLEKS                       R49 R49 K65 ["Queries"]
-      283 GETTABLEKS                       R49 R49 K72 ["SceneGeometryView"]
-      285 GETTABLEKS                       R49 R49 K73 ["FetchSceneGeometry"]
-      287 CALL                             R48 1 1
-      288 GETIMPORT                        R49 K5 [require]
-      290 GETTABLEKS                       R50 R0 K40 ["Src"]
-      292 GETTABLEKS                       R50 R50 K65 ["Queries"]
-      294 GETTABLEKS                       R50 R50 K74 ["InstanceCompositionView"]
-      296 GETTABLEKS                       R50 R50 K75 ["FetchInstanceComposition"]
-      298 CALL                             R49 1 1
-      299 GETIMPORT                        R50 K5 [require]
-      301 GETTABLEKS                       R51 R0 K40 ["Src"]
-      303 GETTABLEKS                       R51 R51 K65 ["Queries"]
-      305 GETTABLEKS                       R51 R51 K76 ["AnimationMemoryView"]
-      307 GETTABLEKS                       R51 R51 K77 ["FetchAnimationMemory"]
-      309 CALL                             R50 1 1
-      310 GETIMPORT                        R51 K5 [require]
-      312 GETTABLEKS                       R52 R0 K40 ["Src"]
-      314 GETTABLEKS                       R52 R52 K65 ["Queries"]
-      316 GETTABLEKS                       R52 R52 K78 ["AudioMemoryView"]
-      318 GETTABLEKS                       R52 R52 K79 ["FetchAudioMemory"]
-      320 CALL                             R51 1 1
-      321 GETIMPORT                        R52 K5 [require]
-      323 GETTABLEKS                       R53 R0 K40 ["Src"]
-      325 GETTABLEKS                       R53 R53 K11 ["Components"]
-      327 GETTABLEKS                       R53 R53 K45 ["Treemap"]
-      329 GETTABLEKS                       R53 R53 K80 ["TreemapContext"]
-      331 CALL                             R52 1 1
-      332 DUPCLOSURE                       R53 K81 [PROTO_23]
-      333 CAPTURE                          VAL R41
-      334 CAPTURE                          VAL R9
-      335 CAPTURE                          VAL R19
-      336 CAPTURE                          VAL R25
-      337 CAPTURE                          VAL R26
-      338 CAPTURE                          VAL R1
-      339 CAPTURE                          VAL R32
-      340 CAPTURE                          VAL R43
-      341 CAPTURE                          VAL R36
-      342 CAPTURE                          VAL R42
-      343 CAPTURE                          VAL R3
-      344 CAPTURE                          VAL R52
-      345 CAPTURE                          VAL R23
-      346 CAPTURE                          VAL R4
-      347 CAPTURE                          VAL R24
-      348 CAPTURE                          VAL R45
-      349 CAPTURE                          VAL R35
-      350 CAPTURE                          VAL R46
-      351 CAPTURE                          VAL R47
-      352 CAPTURE                          VAL R49
-      353 CAPTURE                          VAL R51
-      354 CAPTURE                          VAL R50
-      355 CAPTURE                          VAL R8
-      356 CAPTURE                          VAL R48
-      357 CAPTURE                          VAL R10
-      358 SETTABLEKS                       R53 R40 K82 ["init"]
-      360 DUPCLOSURE                       R53 K83 [PROTO_25]
-      361 CAPTURE                          VAL R44
-      362 SETTABLEKS                       R53 R40 K84 ["resolveCurrentDataModelName"]
-      364 DUPCLOSURE                       R53 K85 [PROTO_26]
-      365 CAPTURE                          VAL R44
-      366 SETTABLEKS                       R53 R40 K86 ["dataModelLabel"]
-      368 DUPCLOSURE                       R53 K87 [PROTO_27]
-      369 SETTABLEKS                       R53 R40 K88 ["buildDataModelItems"]
-      371 DUPCLOSURE                       R53 K89 [PROTO_28]
-      372 CAPTURE                          VAL R42
-      373 SETTABLEKS                       R53 R40 K90 ["switchTargetDataModel"]
-      375 DUPCLOSURE                       R53 K91 [PROTO_32]
-      376 CAPTURE                          VAL R42
-      377 SETTABLEKS                       R53 R40 K92 ["setupDataModelPicker"]
-      379 DUPCLOSURE                       R53 K93 [PROTO_33]
-      380 SETTABLEKS                       R53 R40 K94 ["recoverIfTargetGone"]
-      382 DUPCLOSURE                       R53 K95 [PROTO_36]
-      383 SETTABLEKS                       R53 R40 K96 ["rebindFocusFollowing"]
-      385 DUPCLOSURE                       R53 K97 [PROTO_38]
-      386 SETTABLEKS                       R53 R40 K98 ["rebindFocusedSession"]
-      388 DUPCLOSURE                       R53 K99 [PROTO_39]
-      389 SETTABLEKS                       R53 R40 K100 ["unhookHeartbeat"]
-      391 DUPCLOSURE                       R53 K101 [PROTO_45]
-      392 CAPTURE                          VAL R9
-      393 SETTABLEKS                       R53 R40 K102 ["hookHeartbeat"]
-      395 DUPCLOSURE                       R53 K103 [PROTO_46]
-      396 CAPTURE                          VAL R9
-      397 SETTABLEKS                       R53 R40 K104 ["willUnmount"]
-      399 DUPCLOSURE                       R53 K105 [PROTO_58]
-      400 CAPTURE                          VAL R10
-      401 CAPTURE                          VAL R19
-      402 CAPTURE                          VAL R20
-      403 CAPTURE                          VAL R21
-      404 CAPTURE                          VAL R22
-      405 CAPTURE                          VAL R1
-      406 CAPTURE                          VAL R18
-      407 CAPTURE                          VAL R5
-      408 CAPTURE                          VAL R2
-      409 CAPTURE                          VAL R34
-      410 CAPTURE                          VAL R12
-      411 CAPTURE                          VAL R11
-      412 CAPTURE                          VAL R9
-      413 CAPTURE                          VAL R14
-      414 CAPTURE                          VAL R16
-      415 CAPTURE                          VAL R13
-      416 CAPTURE                          VAL R17
-      417 CAPTURE                          VAL R29
-      418 CAPTURE                          VAL R28
-      419 CAPTURE                          VAL R37
-      420 CAPTURE                          VAL R35
-      421 CAPTURE                          VAL R31
-      422 CAPTURE                          VAL R30
-      423 CAPTURE                          VAL R15
-      424 CAPTURE                          VAL R33
-      425 SETTABLEKS                       R53 R40 K106 ["render"]
-      427 RETURN                           R40 1
+       61 GETTABLEKS                       R11 R7 K21 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+       63 CALL                             R11 0 1
+       64 GETIMPORT                        R12 K5 [require]
+       66 GETTABLEKS                       R13 R0 K6 ["Packages"]
+       68 GETTABLEKS                       R13 R13 K22 ["Foundation"]
+       70 CALL                             R12 1 1
+       71 GETTABLEKS                       R13 R12 K23 ["Dropdown"]
+       73 GETTABLEKS                       R14 R12 K24 ["Toggle"]
+       75 GETTABLEKS                       R15 R12 K25 ["TextInput"]
+       77 GETTABLEKS                       R16 R12 K26 ["Icon"]
+       79 GETTABLEKS                       R17 R12 K27 ["IconButton"]
+       81 GETTABLEKS                       R18 R12 K28 ["Enums"]
+       83 GETTABLEKS                       R18 R18 K29 ["InputSize"]
+       85 GETTABLEKS                       R19 R3 K30 ["UI"]
+       87 GETTABLEKS                       R19 R19 K31 ["DockWidget"]
+       89 GETTABLEKS                       R20 R3 K32 ["ContextServices"]
+       91 GETTABLEKS                       R21 R20 K33 ["Plugin"]
+       93 GETTABLEKS                       R22 R20 K34 ["Mouse"]
+       95 GETTABLEKS                       R23 R20 K35 ["Design"]
+       97 GETTABLEKS                       R24 R3 K36 ["Style"]
+       99 GETTABLEKS                       R24 R24 K37 ["Themes"]
+      101 GETTABLEKS                       R24 R24 K38 ["StudioTheme"]
+      103 GETTABLEKS                       R25 R3 K39 ["Styling"]
+      105 GETTABLEKS                       R25 R25 K40 ["registerPluginStyles"]
+      107 GETTABLEKS                       R26 R0 K41 ["Src"]
+      109 GETTABLEKS                       R26 R26 K42 ["Resources"]
+      111 GETTABLEKS                       R26 R26 K43 ["Localization"]
+      113 GETTABLEKS                       R26 R26 K44 ["SourceStrings"]
+      115 GETTABLEKS                       R27 R0 K41 ["Src"]
+      117 GETTABLEKS                       R27 R27 K42 ["Resources"]
+      119 GETTABLEKS                       R27 R27 K43 ["Localization"]
+      121 GETTABLEKS                       R27 R27 K45 ["LocalizedStrings"]
+      123 GETTABLEKS                       R28 R0 K41 ["Src"]
+      125 GETTABLEKS                       R28 R28 K11 ["Components"]
+      127 GETIMPORT                        R29 K5 [require]
+      129 GETTABLEKS                       R30 R28 K46 ["Treemap"]
+      131 CALL                             R29 1 1
+      132 GETIMPORT                        R30 K5 [require]
+      134 GETTABLEKS                       R31 R28 K47 ["ControlledSplitPane"]
+      136 CALL                             R30 1 1
+      137 GETIMPORT                        R31 K5 [require]
+      139 GETTABLEKS                       R32 R28 K48 ["VirtualizedList"]
+      141 CALL                             R31 1 1
+      142 GETIMPORT                        R32 K5 [require]
+      144 GETTABLEKS                       R33 R28 K49 ["SummaryPane"]
+      146 CALL                             R32 1 1
+      147 GETIMPORT                        R33 K5 [require]
+      149 GETTABLEKS                       R34 R0 K41 ["Src"]
+      151 GETTABLEKS                       R34 R34 K13 ["Util"]
+      153 GETTABLEKS                       R34 R34 K50 ["Observable"]
+      155 CALL                             R33 1 1
+      156 GETIMPORT                        R34 K5 [require]
+      158 GETTABLEKS                       R35 R28 K51 ["WidgetRegister"]
+      160 CALL                             R34 1 1
+      161 GETIMPORT                        R35 K5 [require]
+      163 GETTABLEKS                       R36 R0 K41 ["Src"]
+      165 GETTABLEKS                       R36 R36 K52 ["Providers"]
+      167 GETTABLEKS                       R36 R36 K53 ["MouseContextProvider"]
+      169 CALL                             R35 1 1
+      170 GETIMPORT                        R36 K5 [require]
+      172 GETTABLEKS                       R37 R0 K41 ["Src"]
+      174 GETTABLEKS                       R37 R37 K42 ["Resources"]
+      176 GETTABLEKS                       R37 R37 K54 ["ColorRamps"]
+      178 CALL                             R36 1 1
+      179 GETIMPORT                        R37 K5 [require]
+      181 GETTABLEKS                       R38 R0 K6 ["Packages"]
+      183 GETTABLEKS                       R38 R38 K55 ["Dash"]
+      185 CALL                             R37 1 1
+      186 GETIMPORT                        R38 K5 [require]
+      188 GETTABLEKS                       R39 R0 K41 ["Src"]
+      190 GETTABLEKS                       R39 R39 K11 ["Components"]
+      192 GETTABLEKS                       R39 R39 K46 ["Treemap"]
+      194 GETTABLEKS                       R39 R39 K56 ["TreemapMockData"]
+      196 CALL                             R38 1 1
+      197 GETIMPORT                        R39 K5 [require]
+      199 GETTABLEKS                       R40 R0 K41 ["Src"]
+      201 GETTABLEKS                       R40 R40 K11 ["Components"]
+      203 GETTABLEKS                       R40 R40 K46 ["Treemap"]
+      205 GETTABLEKS                       R40 R40 K57 ["TreemapTypes"]
+      207 CALL                             R39 1 1
+      208 DUPCLOSURE                       R40 K58 [PROTO_1]
+      209 GETTABLEKS                       R41 R1 K59 ["PureComponent"]
+      211 LOADK                            R43 K60 ["MainPlugin"]
+      212 NAMECALL                         R41 R41 K61 ["extend"]
+      214 CALL                             R41 2 1
+      215 GETTABLEKS                       R42 R6 K62 ["fromAction"]
+      217 LOADK                            R43 K2 ["SceneAnalysis"]
+      218 LOADK                            R44 K24 ["Toggle"]
+      219 CALL                             R42 2 1
+      220 GETIMPORT                        R43 K5 [require]
+      222 GETTABLEKS                       R44 R0 K41 ["Src"]
+      224 GETTABLEKS                       R44 R44 K13 ["Util"]
+      226 GETTABLEKS                       R44 R44 K63 ["AssetDMBridge"]
+      228 CALL                             R43 1 1
+      229 GETIMPORT                        R44 K5 [require]
+      231 GETTABLEKS                       R45 R0 K41 ["Src"]
+      233 GETTABLEKS                       R45 R45 K13 ["Util"]
+      235 GETTABLEKS                       R45 R45 K64 ["SelectionManager"]
+      237 CALL                             R44 1 1
+      238 GETIMPORT                        R45 K5 [require]
+      240 GETTABLEKS                       R46 R0 K41 ["Src"]
+      242 GETTABLEKS                       R46 R46 K13 ["Util"]
+      244 GETTABLEKS                       R46 R46 K65 ["dataModelTypeLabel"]
+      246 CALL                             R45 1 1
+      247 GETIMPORT                        R46 K5 [require]
+      249 GETTABLEKS                       R47 R0 K41 ["Src"]
+      251 GETTABLEKS                       R47 R47 K66 ["Queries"]
+      253 GETTABLEKS                       R47 R47 K67 ["UnparentedInstancesView"]
+      255 GETTABLEKS                       R47 R47 K68 ["FetchUnparentedInstances"]
+      257 CALL                             R46 1 1
+      258 GETIMPORT                        R47 K5 [require]
+      260 GETTABLEKS                       R48 R0 K41 ["Src"]
+      262 GETTABLEKS                       R48 R48 K66 ["Queries"]
+      264 GETTABLEKS                       R48 R48 K69 ["ScriptMemoryView"]
+      266 GETTABLEKS                       R48 R48 K70 ["FetchAllScriptMemory"]
+      268 CALL                             R47 1 1
+      269 GETIMPORT                        R48 K5 [require]
+      271 GETTABLEKS                       R49 R0 K41 ["Src"]
+      273 GETTABLEKS                       R49 R49 K66 ["Queries"]
+      275 GETTABLEKS                       R49 R49 K71 ["SceneTrianglesView"]
+      277 GETTABLEKS                       R49 R49 K72 ["FetchSceneTriangles"]
+      279 CALL                             R48 1 1
+      280 GETIMPORT                        R49 K5 [require]
+      282 GETTABLEKS                       R50 R0 K41 ["Src"]
+      284 GETTABLEKS                       R50 R50 K66 ["Queries"]
+      286 GETTABLEKS                       R50 R50 K73 ["SceneGeometryView"]
+      288 GETTABLEKS                       R50 R50 K74 ["FetchSceneGeometry"]
+      290 CALL                             R49 1 1
+      291 GETIMPORT                        R50 K5 [require]
+      293 GETTABLEKS                       R51 R0 K41 ["Src"]
+      295 GETTABLEKS                       R51 R51 K66 ["Queries"]
+      297 GETTABLEKS                       R51 R51 K75 ["InstanceCompositionView"]
+      299 GETTABLEKS                       R51 R51 K76 ["FetchInstanceComposition"]
+      301 CALL                             R50 1 1
+      302 GETIMPORT                        R51 K5 [require]
+      304 GETTABLEKS                       R52 R0 K41 ["Src"]
+      306 GETTABLEKS                       R52 R52 K66 ["Queries"]
+      308 GETTABLEKS                       R52 R52 K77 ["AnimationMemoryView"]
+      310 GETTABLEKS                       R52 R52 K78 ["FetchAnimationMemory"]
+      312 CALL                             R51 1 1
+      313 GETIMPORT                        R52 K5 [require]
+      315 GETTABLEKS                       R53 R0 K41 ["Src"]
+      317 GETTABLEKS                       R53 R53 K66 ["Queries"]
+      319 GETTABLEKS                       R53 R53 K79 ["AudioMemoryView"]
+      321 GETTABLEKS                       R53 R53 K80 ["FetchAudioMemory"]
+      323 CALL                             R52 1 1
+      324 GETIMPORT                        R53 K5 [require]
+      326 GETTABLEKS                       R54 R0 K41 ["Src"]
+      328 GETTABLEKS                       R54 R54 K66 ["Queries"]
+      330 GETTABLEKS                       R54 R54 K81 ["CollisionGeometryMemoryView"]
+      332 GETTABLEKS                       R54 R54 K82 ["FetchCollisionGeometryMemory"]
+      334 CALL                             R53 1 1
+      335 GETIMPORT                        R54 K5 [require]
+      337 GETTABLEKS                       R55 R0 K41 ["Src"]
+      339 GETTABLEKS                       R55 R55 K11 ["Components"]
+      341 GETTABLEKS                       R55 R55 K46 ["Treemap"]
+      343 GETTABLEKS                       R55 R55 K83 ["TreemapContext"]
+      345 CALL                             R54 1 1
+      346 DUPCLOSURE                       R55 K84 [PROTO_23]
+      347 CAPTURE                          VAL R42
+      348 CAPTURE                          VAL R10
+      349 CAPTURE                          VAL R20
+      350 CAPTURE                          VAL R26
+      351 CAPTURE                          VAL R27
+      352 CAPTURE                          VAL R1
+      353 CAPTURE                          VAL R33
+      354 CAPTURE                          VAL R44
+      355 CAPTURE                          VAL R37
+      356 CAPTURE                          VAL R43
+      357 CAPTURE                          VAL R3
+      358 CAPTURE                          VAL R54
+      359 CAPTURE                          VAL R24
+      360 CAPTURE                          VAL R4
+      361 CAPTURE                          VAL R25
+      362 CAPTURE                          VAL R46
+      363 CAPTURE                          VAL R36
+      364 CAPTURE                          VAL R47
+      365 CAPTURE                          VAL R48
+      366 CAPTURE                          VAL R50
+      367 CAPTURE                          VAL R52
+      368 CAPTURE                          VAL R51
+      369 CAPTURE                          VAL R9
+      370 CAPTURE                          VAL R53
+      371 CAPTURE                          VAL R8
+      372 CAPTURE                          VAL R49
+      373 CAPTURE                          VAL R11
+      374 SETTABLEKS                       R55 R41 K85 ["init"]
+      376 DUPCLOSURE                       R55 K86 [PROTO_25]
+      377 CAPTURE                          VAL R45
+      378 SETTABLEKS                       R55 R41 K87 ["resolveCurrentDataModelName"]
+      380 DUPCLOSURE                       R55 K88 [PROTO_26]
+      381 CAPTURE                          VAL R45
+      382 SETTABLEKS                       R55 R41 K89 ["dataModelLabel"]
+      384 DUPCLOSURE                       R55 K90 [PROTO_27]
+      385 SETTABLEKS                       R55 R41 K91 ["buildDataModelItems"]
+      387 DUPCLOSURE                       R55 K92 [PROTO_28]
+      388 CAPTURE                          VAL R43
+      389 SETTABLEKS                       R55 R41 K93 ["switchTargetDataModel"]
+      391 DUPCLOSURE                       R55 K94 [PROTO_32]
+      392 CAPTURE                          VAL R43
+      393 SETTABLEKS                       R55 R41 K95 ["setupDataModelPicker"]
+      395 DUPCLOSURE                       R55 K96 [PROTO_33]
+      396 SETTABLEKS                       R55 R41 K97 ["recoverIfTargetGone"]
+      398 DUPCLOSURE                       R55 K98 [PROTO_36]
+      399 SETTABLEKS                       R55 R41 K99 ["rebindFocusFollowing"]
+      401 DUPCLOSURE                       R55 K100 [PROTO_38]
+      402 SETTABLEKS                       R55 R41 K101 ["rebindFocusedSession"]
+      404 DUPCLOSURE                       R55 K102 [PROTO_39]
+      405 SETTABLEKS                       R55 R41 K103 ["unhookHeartbeat"]
+      407 DUPCLOSURE                       R55 K104 [PROTO_45]
+      408 CAPTURE                          VAL R10
+      409 SETTABLEKS                       R55 R41 K105 ["hookHeartbeat"]
+      411 DUPCLOSURE                       R55 K106 [PROTO_46]
+      412 CAPTURE                          VAL R10
+      413 SETTABLEKS                       R55 R41 K107 ["willUnmount"]
+      415 DUPCLOSURE                       R55 K108 [PROTO_58]
+      416 CAPTURE                          VAL R11
+      417 CAPTURE                          VAL R20
+      418 CAPTURE                          VAL R21
+      419 CAPTURE                          VAL R22
+      420 CAPTURE                          VAL R23
+      421 CAPTURE                          VAL R1
+      422 CAPTURE                          VAL R19
+      423 CAPTURE                          VAL R5
+      424 CAPTURE                          VAL R2
+      425 CAPTURE                          VAL R35
+      426 CAPTURE                          VAL R13
+      427 CAPTURE                          VAL R12
+      428 CAPTURE                          VAL R10
+      429 CAPTURE                          VAL R15
+      430 CAPTURE                          VAL R17
+      431 CAPTURE                          VAL R14
+      432 CAPTURE                          VAL R18
+      433 CAPTURE                          VAL R30
+      434 CAPTURE                          VAL R29
+      435 CAPTURE                          VAL R38
+      436 CAPTURE                          VAL R36
+      437 CAPTURE                          VAL R32
+      438 CAPTURE                          VAL R31
+      439 CAPTURE                          VAL R16
+      440 CAPTURE                          VAL R34
+      441 SETTABLEKS                       R55 R41 K109 ["render"]
+      443 RETURN                           R41 1

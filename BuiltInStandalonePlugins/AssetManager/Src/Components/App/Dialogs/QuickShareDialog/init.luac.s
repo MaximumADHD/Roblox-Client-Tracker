@@ -39,28 +39,29 @@ PROTO_1:
         8 GETTABLEKS                       R9 R8 K0 ["value"]
        10 GETTABLEKS                       R9 R9 K1 ["status"]
        12 GETUPVAL                         R10 0
-       13 GETTABLEKS                       R10 R10 K2 ["ApiPermissionStatus"]
-       15 GETTABLEKS                       R10 R10 K3 ["HasPermission"]
-       17 JUMPIFEQ                         R9 R10 ; [+16]
-       19 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
-       21 MOVE                             R10 R2
-       22 MOVE                             R11 R7
-       23 GETIMPORT                        R9 K6 [table.insert]
-       25 CALL                             R9 2 0
-       26 GETUPVAL                         R12 1
-       27 GETTABLE                         R11 R12 R7
-       28 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       30 MOVE                             R10 R3
-       31 GETIMPORT                        R9 K6 [table.insert]
-       33 CALL                             R9 2 0
-       34 FORGLOOP                         R4 2 ; [-27]
-       36 GETUPVAL                         R4 2
-       37 MOVE                             R5 R2
-       38 CALL                             R4 1 0
-       39 GETUPVAL                         R4 3
-       40 MOVE                             R5 R3
-       41 CALL                             R4 1 0
-       42 RETURN                           R0 0
+       13 GETTABLEKS                       R10 R10 K2 ["Enums"]
+       15 GETTABLEKS                       R10 R10 K3 ["ApiPermissionStatus"]
+       17 GETTABLEKS                       R10 R10 K4 ["HasPermission"]
+       19 JUMPIFEQ                         R9 R10 ; [+16]
+       21 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
+       23 MOVE                             R10 R2
+       24 MOVE                             R11 R7
+       25 GETIMPORT                        R9 K7 [table.insert]
+       27 CALL                             R9 2 0
+       28 GETUPVAL                         R12 1
+       29 GETTABLE                         R11 R12 R7
+       30 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       32 MOVE                             R10 R3
+       33 GETIMPORT                        R9 K7 [table.insert]
+       35 CALL                             R9 2 0
+       36 FORGLOOP                         R4 2 ; [-29]
+       38 GETUPVAL                         R4 2
+       39 MOVE                             R5 R2
+       40 CALL                             R4 1 0
+       41 GETUPVAL                         R4 3
+       42 MOVE                             R5 R3
+       43 CALL                             R4 1 0
+       44 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -231,7 +232,7 @@ PROTO_8:
        52 CAPTURE                          UPVAL U6
        53 CAPTURE                          VAL R3
        54 CAPTURE                          VAL R6
-       55 CAPTURE                          UPVAL U5
+       55 CAPTURE                          UPVAL U7
        56 CAPTURE                          VAL R7
        57 CAPTURE                          VAL R9
        58 CAPTURE                          VAL R11
@@ -240,23 +241,23 @@ PROTO_8:
        62 NEWCLOSURE                       R12 P2
        63 CAPTURE                          VAL R1
        64 NEWCLOSURE                       R13 P3
-       65 CAPTURE                          UPVAL U7
+       65 CAPTURE                          UPVAL U8
        66 CAPTURE                          VAL R1
-       67 CAPTURE                          UPVAL U8
-       68 CAPTURE                          UPVAL U9
+       67 CAPTURE                          UPVAL U9
+       68 CAPTURE                          UPVAL U10
        69 CAPTURE                          VAL R9
        70 CAPTURE                          VAL R7
        71 CAPTURE                          VAL R11
        72 CAPTURE                          VAL R5
        73 GETUPVAL                         R14 3
        74 GETTABLEKS                       R14 R14 K6 ["createElement"]
-       76 GETUPVAL                         R15 10
+       76 GETUPVAL                         R15 11
        77 GETTABLEKS                       R15 R15 K7 ["View"]
        79 DUPTABLE                         R16 K10 [{["tag"] = "size-full"}]
        80 JUMPIFNOTEQKN                    R4 K11 [1] ; [+30]
        82 GETUPVAL                         R17 3
        83 GETTABLEKS                       R17 R17 K6 ["createElement"]
-       85 GETUPVAL                         R18 11
+       85 GETUPVAL                         R18 12
        86 DUPTABLE                         R19 K19 [{"AssetIds", "AssetIdPaths", "ErrorAssetIds", "OnViewErrors", "OnDone", "OnClose", "TestExperiences"}]
        87 MOVE                             R20 R6
        88 JUMPIF                           R20 ; [+2]
@@ -275,7 +276,7 @@ PROTO_8:
       110 JUMP                             ; [+34]
       111 GETUPVAL                         R17 3
       112 GETTABLEKS                       R17 R17 K6 ["createElement"]
-      114 GETUPVAL                         R18 12
+      114 GETUPVAL                         R18 13
       115 DUPTABLE                         R19 K24 [{"Title", "Description", "AssetPaths", "CanClose", "OnClose", "OnBack"}]
       116 LOADK                            R22 K25 ["QuickShare"]
       117 LOADK                            R23 K26 ["PermissionErrorTitle"]
@@ -308,79 +309,84 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K9 ["Framework"]
+       25 GETTABLEKS                       R4 R4 K9 ["Dash"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       32 GETTABLEKS                       R5 R5 K10 ["Foundation"]
+       32 GETTABLEKS                       R5 R5 K10 ["Framework"]
        34 CALL                             R4 1 1
-       35 GETTABLEKS                       R5 R3 K11 ["ContextServices"]
-       37 GETTABLEKS                       R6 R5 K12 ["Localization"]
-       39 GETIMPORT                        R7 K5 [require]
-       41 GETTABLEKS                       R8 R0 K13 ["Src"]
-       43 GETTABLEKS                       R8 R8 K14 ["Types"]
-       45 CALL                             R7 1 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       39 GETTABLEKS                       R6 R6 K11 ["Foundation"]
+       41 CALL                             R5 1 1
+       42 GETTABLEKS                       R6 R4 K12 ["ContextServices"]
+       44 GETTABLEKS                       R7 R6 K13 ["Localization"]
        46 GETIMPORT                        R8 K5 [require]
-       48 GETTABLEKS                       R9 R0 K13 ["Src"]
-       50 GETTABLEKS                       R9 R9 K15 ["Networking"]
+       48 GETTABLEKS                       R9 R0 K14 ["Src"]
+       50 GETTABLEKS                       R9 R9 K15 ["Types"]
        52 CALL                             R8 1 1
        53 GETIMPORT                        R9 K5 [require]
-       55 GETTABLEKS                       R10 R0 K13 ["Src"]
-       57 GETTABLEKS                       R10 R10 K16 ["Controllers"]
-       59 GETTABLEKS                       R10 R10 K17 ["PluginController"]
-       61 CALL                             R9 1 1
-       62 GETIMPORT                        R10 K5 [require]
-       64 GETTABLEKS                       R11 R0 K13 ["Src"]
-       66 GETTABLEKS                       R11 R11 K16 ["Controllers"]
-       68 GETTABLEKS                       R11 R11 K18 ["ItemsController"]
-       70 CALL                             R10 1 1
-       71 GETIMPORT                        R11 K5 [require]
-       73 GETIMPORT                        R12 K1 [script]
-       75 GETTABLEKS                       R12 R12 K19 ["ShareView"]
+       55 GETTABLEKS                       R10 R0 K14 ["Src"]
+       57 GETTABLEKS                       R10 R10 K16 ["Networking"]
+       59 CALL                             R9 1 1
+       60 GETIMPORT                        R10 K5 [require]
+       62 GETTABLEKS                       R11 R0 K14 ["Src"]
+       64 GETTABLEKS                       R11 R11 K17 ["Controllers"]
+       66 GETTABLEKS                       R11 R11 K18 ["PluginController"]
+       68 CALL                             R10 1 1
+       69 GETIMPORT                        R11 K5 [require]
+       71 GETTABLEKS                       R12 R0 K14 ["Src"]
+       73 GETTABLEKS                       R12 R12 K17 ["Controllers"]
+       75 GETTABLEKS                       R12 R12 K19 ["ItemsController"]
        77 CALL                             R11 1 1
        78 GETIMPORT                        R12 K5 [require]
-       80 GETTABLEKS                       R13 R0 K13 ["Src"]
-       82 GETTABLEKS                       R13 R13 K20 ["Components"]
-       84 GETTABLEKS                       R13 R13 K21 ["App"]
-       86 GETTABLEKS                       R13 R13 K22 ["Dialogs"]
-       88 GETTABLEKS                       R13 R13 K23 ["AssetErrorDialog"]
-       90 CALL                             R12 1 1
-       91 GETIMPORT                        R13 K5 [require]
-       93 GETTABLEKS                       R14 R0 K13 ["Src"]
-       95 GETTABLEKS                       R14 R14 K24 ["Util"]
-       97 GETTABLEKS                       R14 R14 K25 ["checkPermissionsAsync"]
-       99 CALL                             R13 1 1
-      100 GETIMPORT                        R14 K5 [require]
-      102 GETTABLEKS                       R15 R0 K13 ["Src"]
-      104 GETTABLEKS                       R15 R15 K24 ["Util"]
-      106 GETTABLEKS                       R15 R15 K26 ["Notifications"]
-      108 CALL                             R14 1 1
-      109 GETIMPORT                        R15 K5 [require]
-      111 GETTABLEKS                       R16 R0 K13 ["Src"]
-      113 GETTABLEKS                       R16 R16 K27 ["Flags"]
-      115 GETTABLEKS                       R16 R16 K28 ["getFFlagAmrStudioToastsIntegration"]
-      117 CALL                             R15 1 1
-      118 DUPTABLE                         R16 K35 [{["Main"] = 1, ["Errors"] = 2, ["ErrorsGranting"] = 3}]
-      119 DUPCLOSURE                       R17 K36 [PROTO_8]
-      120 CAPTURE                          VAL R9
-      121 CAPTURE                          VAL R6
-      122 CAPTURE                          VAL R8
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R10
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R13
-      127 CAPTURE                          VAL R2
-      128 CAPTURE                          VAL R15
-      129 CAPTURE                          VAL R14
-      130 CAPTURE                          VAL R4
+       80 GETIMPORT                        R13 K1 [script]
+       82 GETTABLEKS                       R13 R13 K20 ["ShareView"]
+       84 CALL                             R12 1 1
+       85 GETIMPORT                        R13 K5 [require]
+       87 GETTABLEKS                       R14 R0 K14 ["Src"]
+       89 GETTABLEKS                       R14 R14 K21 ["Components"]
+       91 GETTABLEKS                       R14 R14 K22 ["App"]
+       93 GETTABLEKS                       R14 R14 K23 ["Dialogs"]
+       95 GETTABLEKS                       R14 R14 K24 ["AssetErrorDialog"]
+       97 CALL                             R13 1 1
+       98 GETIMPORT                        R14 K5 [require]
+      100 GETTABLEKS                       R15 R0 K14 ["Src"]
+      102 GETTABLEKS                       R15 R15 K25 ["Util"]
+      104 GETTABLEKS                       R15 R15 K26 ["checkPermissionsAsync"]
+      106 CALL                             R14 1 1
+      107 GETIMPORT                        R15 K5 [require]
+      109 GETTABLEKS                       R16 R0 K14 ["Src"]
+      111 GETTABLEKS                       R16 R16 K25 ["Util"]
+      113 GETTABLEKS                       R16 R16 K27 ["Notifications"]
+      115 CALL                             R15 1 1
+      116 GETIMPORT                        R16 K5 [require]
+      118 GETTABLEKS                       R17 R0 K14 ["Src"]
+      120 GETTABLEKS                       R17 R17 K28 ["Flags"]
+      122 GETTABLEKS                       R17 R17 K29 ["getFFlagAmrStudioToastsIntegration"]
+      124 CALL                             R16 1 1
+      125 DUPTABLE                         R17 K36 [{["Main"] = 1, ["Errors"] = 2, ["ErrorsGranting"] = 3}]
+      126 DUPCLOSURE                       R18 K37 [PROTO_8]
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R7
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R2
       131 CAPTURE                          VAL R11
-      132 CAPTURE                          VAL R12
-      133 RETURN                           R17 1
+      132 CAPTURE                          VAL R8
+      133 CAPTURE                          VAL R14
+      134 CAPTURE                          VAL R1
+      135 CAPTURE                          VAL R3
+      136 CAPTURE                          VAL R16
+      137 CAPTURE                          VAL R15
+      138 CAPTURE                          VAL R5
+      139 CAPTURE                          VAL R12
+      140 CAPTURE                          VAL R13
+      141 RETURN                           R18 1

@@ -1343,167 +1343,169 @@ PROTO_18:
      1341 JUMP                             ; [+1]
      1342 LOADNIL                          R75
      1343 SETTABLEKS                       R75 R74 K113 ["SharingDivider"]
-     1345 JUMPIFNOT                        R23 ; [+106]
-     1346 GETUPVAL                         R75 7
-     1347 GETTABLEKS                       R75 R75 K96 ["createElement"]
-     1349 GETUPVAL                         R76 11
-     1350 DUPTABLE                         R77 K293 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
-     1351 GETIMPORT                        R78 K247 [Enum.AutomaticSize.Y]
-     1353 SETTABLEKS                       R78 R77 K169 ["AutomaticSize"]
-     1355 GETIMPORT                        R78 K129 [Enum.FillDirection.Vertical]
-     1357 SETTABLEKS                       R78 R77 K142 ["Layout"]
-     1359 NAMECALL                         R78 R61 K148 ["getNextOrder"]
-     1361 CALL                             R78 1 1
-     1362 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
-     1364 DUPTABLE                         R78 K295 [{["Top"] = 20}]
-     1365 SETTABLEKS                       R78 R77 K97 ["Padding"]
-     1367 DUPTABLE                         R78 K298 [{"CreatorStoreConfigurationText", "CreatorStoreConfigurationLink"}]
-     1368 GETUPVAL                         R79 7
-     1369 GETTABLEKS                       R79 R79 K96 ["createElement"]
-     1371 GETUPVAL                         R80 32
-     1372 DUPTABLE                         R81 K300 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder"}]
-     1373 GETTABLEKS                       R82 R2 K72 ["Localization"]
-     1375 LOADK                            R84 K301 ["AssetUploadResult"]
-     1376 LOADK                            R85 K302 ["CreatorStoreConfigurationMessage"]
-     1377 NAMECALL                         R82 R82 K75 ["getText"]
-     1379 CALL                             R82 3 1
-     1380 SETTABLEKS                       R82 R81 K172 ["Text"]
-     1382 GETTABLEKS                       R82 R1 K303 ["uploadResult"]
-     1384 GETTABLEKS                       R82 R82 K304 ["text"]
-     1386 SETTABLEKS                       R82 R81 K299 ["TextColor"]
-     1388 GETUPVAL                         R82 12
-     1389 GETTABLEKS                       R82 R82 K305 ["FONT_SIZE_LARGE"]
-     1391 SETTABLEKS                       R82 R81 K178 ["TextSize"]
-     1393 GETIMPORT                        R82 K150 [UDim2.new]
-     1395 LOADN                            R83 1
-     1396 LOADN                            R84 0
-     1397 LOADN                            R85 0
-     1398 LOADN                            R86 24
-     1399 CALL                             R82 4 1
-     1400 SETTABLEKS                       R82 R81 K2 ["Size"]
-     1402 NAMECALL                         R82 R61 K148 ["getNextOrder"]
-     1404 CALL                             R82 1 1
-     1405 SETTABLEKS                       R82 R81 K3 ["LayoutOrder"]
-     1407 CALL                             R79 2 1
-     1408 SETTABLEKS                       R79 R78 K296 ["CreatorStoreConfigurationText"]
-     1410 GETUPVAL                         R79 7
-     1411 GETTABLEKS                       R79 R79 K96 ["createElement"]
-     1413 GETUPVAL                         R80 33
-     1414 DUPTABLE                         R81 K307 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder", "OnClick"}]
-     1415 SETTABLEKS                       R24 R81 K172 ["Text"]
-     1417 GETTABLEKS                       R82 R1 K303 ["uploadResult"]
-     1419 GETTABLEKS                       R82 R82 K308 ["link"]
-     1421 SETTABLEKS                       R82 R81 K299 ["TextColor"]
-     1423 GETUPVAL                         R82 12
-     1424 GETTABLEKS                       R82 R82 K305 ["FONT_SIZE_LARGE"]
-     1426 SETTABLEKS                       R82 R81 K178 ["TextSize"]
-     1428 GETIMPORT                        R82 K150 [UDim2.new]
-     1430 LOADN                            R83 1
-     1431 LOADN                            R84 0
-     1432 LOADN                            R85 0
-     1433 LOADN                            R86 24
-     1434 CALL                             R82 4 1
-     1435 SETTABLEKS                       R82 R81 K2 ["Size"]
-     1437 NAMECALL                         R82 R61 K148 ["getNextOrder"]
-     1439 CALL                             R82 1 1
-     1440 SETTABLEKS                       R82 R81 K3 ["LayoutOrder"]
-     1442 NEWCLOSURE                       R82 P4
-     1443 CAPTURE                          UPVAL U34
-     1444 CAPTURE                          VAL R24
-     1445 SETTABLEKS                       R82 R81 K306 ["OnClick"]
-     1447 CALL                             R79 2 1
-     1448 SETTABLEKS                       R79 R78 K297 ["CreatorStoreConfigurationLink"]
-     1450 CALL                             R75 3 1
-     1451 JUMP                             ; [+1]
-     1452 LOADNIL                          R75
-     1453 SETTABLEKS                       R75 R74 K114 ["CreatorStoreConfigurationFrame"]
-     1455 MOVE                             R75 R41
-     1456 JUMPIFNOT                        R75 ; [+24]
-     1457 GETUPVAL                         R75 7
-     1458 GETTABLEKS                       R75 R75 K96 ["createElement"]
-     1460 GETUPVAL                         R76 35
-     1461 DUPTABLE                         R77 K313 [{["Title"], ["TotalHeight"] = 80, ["CommentEnabled"], ["CommentOn"], ["ToggleCallback"], ["LayoutOrder"]}]
-     1462 LOADK                            R80 K88 ["General"]
-     1463 LOADK                            R81 K314 ["Comments"]
-     1464 NAMECALL                         R78 R60 K75 ["getText"]
-     1466 CALL                             R78 3 1
-     1467 SETTABLEKS                       R78 R77 K101 ["Title"]
-     1469 SETTABLEKS                       R11 R77 K310 ["CommentEnabled"]
-     1471 SETTABLEKS                       R12 R77 K311 ["CommentOn"]
-     1473 SETTABLEKS                       R31 R77 K312 ["ToggleCallback"]
-     1475 NAMECALL                         R78 R61 K148 ["getNextOrder"]
-     1477 CALL                             R78 1 1
-     1478 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
-     1480 CALL                             R75 2 1
-     1481 SETTABLEKS                       R75 R74 K115 ["Comment"]
-     1483 MOVE                             R75 R21
-     1484 JUMPIFNOT                        R75 ; [+28]
-     1485 GETUPVAL                         R75 7
-     1486 GETTABLEKS                       R75 R75 K96 ["createElement"]
-     1488 GETUPVAL                         R76 36
-     1489 DUPTABLE                         R77 K315 [{"Title", "TotalHeight", "DeleteLocal", "ToggleCallback", "LayoutOrder"}]
-     1490 LOADK                            R80 K88 ["General"]
-     1491 LOADK                            R81 K116 ["DeleteLocal"]
-     1492 NAMECALL                         R78 R60 K75 ["getText"]
-     1494 CALL                             R78 3 1
-     1495 SETTABLEKS                       R78 R77 K101 ["Title"]
-     1497 JUMPIFNOT                        R21 ; [+2]
-     1498 LOADN                            R78 120
-     1499 JUMP                             ; [+1]
-     1500 LOADN                            R78 80
-     1501 SETTABLEKS                       R78 R77 K190 ["TotalHeight"]
-     1503 SETTABLEKS                       R13 R77 K116 ["DeleteLocal"]
-     1505 SETTABLEKS                       R32 R77 K312 ["ToggleCallback"]
-     1507 NAMECALL                         R78 R61 K148 ["getNextOrder"]
-     1509 CALL                             R78 1 1
-     1510 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
-     1512 CALL                             R75 2 1
-     1513 SETTABLEKS                       R75 R74 K116 ["DeleteLocal"]
-     1515 MOVE                             R75 R22
-     1516 JUMPIFNOT                        R75 ; [+57]
-     1517 GETUPVAL                         R75 20
-     1518 GETTABLEKS                       R75 R75 K96 ["createElement"]
-     1520 GETUPVAL                         R76 19
-     1521 GETTABLEKS                       R76 R76 K224 ["View"]
-     1523 DUPTABLE                         R77 K317 [{["tag"] = "col auto-xy padding-top-xlarge", ["LayoutOrder"]}]
-     1524 NAMECALL                         R78 R61 K148 ["getNextOrder"]
-     1526 CALL                             R78 1 1
-     1527 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
-     1529 DUPTABLE                         R78 K319 [{"Section"}]
-     1530 GETUPVAL                         R79 20
-     1531 GETTABLEKS                       R79 R79 K96 ["createElement"]
-     1533 GETUPVAL                         R80 22
-     1534 DUPTABLE                         R81 K321 [{["LayoutOrder"] = 1, ["Title"], ["AutomaticContentHeight"] = True, ["Size"]}]
-     1535 LOADK                            R84 K88 ["General"]
-     1536 LOADK                            R85 K322 ["AnimationSectionTitle"]
-     1537 NAMECALL                         R82 R60 K75 ["getText"]
-     1539 CALL                             R82 3 1
-     1540 SETTABLEKS                       R82 R81 K101 ["Title"]
-     1542 GETIMPORT                        R82 K150 [UDim2.new]
-     1544 LOADN                            R83 1
-     1545 LOADN                            R84 0
-     1546 LOADN                            R85 0
-     1547 LOADN                            R86 0
-     1548 CALL                             R82 4 1
-     1549 SETTABLEKS                       R82 R81 K2 ["Size"]
-     1551 DUPTABLE                         R82 K324 [{"AnimationCheckboxCol"}]
-     1552 GETUPVAL                         R83 20
-     1553 GETTABLEKS                       R83 R83 K96 ["createElement"]
-     1555 GETUPVAL                         R84 37
-     1556 DUPTABLE                         R85 K327 [{["LayoutOrder"] = 1, ["Localization"], ["OnSelectionChanged"], ["OnSectionValidityChanged"]}]
-     1557 SETTABLEKS                       R60 R85 K72 ["Localization"]
-     1559 GETTABLEKS                       R86 R2 K328 ["onAnimationSelectionChanged"]
-     1561 SETTABLEKS                       R86 R85 K325 ["OnSelectionChanged"]
-     1563 GETTABLEKS                       R86 R2 K329 ["onanimationSectionValidityChanged"]
-     1565 SETTABLEKS                       R86 R85 K326 ["OnSectionValidityChanged"]
-     1567 CALL                             R83 2 1
-     1568 SETTABLEKS                       R83 R82 K323 ["AnimationCheckboxCol"]
-     1570 CALL                             R79 3 1
-     1571 SETTABLEKS                       R79 R78 K318 ["Section"]
-     1573 CALL                             R75 3 1
-     1574 SETTABLEKS                       R75 R74 K117 ["AnimationPackProperties"]
-     1576 CALL                             R71 3 -1
-     1577 RETURN                           R71 -1
+     1345 JUMPIFNOT                        R23 ; [+109]
+     1346 GETTABLEKS                       R76 R2 K293 ["hideCreatorStoreConfiguration"]
+     1348 JUMPIF                           R76 ; [+106]
+     1349 GETUPVAL                         R75 7
+     1350 GETTABLEKS                       R75 R75 K96 ["createElement"]
+     1352 GETUPVAL                         R76 11
+     1353 DUPTABLE                         R77 K294 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
+     1354 GETIMPORT                        R78 K247 [Enum.AutomaticSize.Y]
+     1356 SETTABLEKS                       R78 R77 K169 ["AutomaticSize"]
+     1358 GETIMPORT                        R78 K129 [Enum.FillDirection.Vertical]
+     1360 SETTABLEKS                       R78 R77 K142 ["Layout"]
+     1362 NAMECALL                         R78 R61 K148 ["getNextOrder"]
+     1364 CALL                             R78 1 1
+     1365 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
+     1367 DUPTABLE                         R78 K296 [{["Top"] = 20}]
+     1368 SETTABLEKS                       R78 R77 K97 ["Padding"]
+     1370 DUPTABLE                         R78 K299 [{"CreatorStoreConfigurationText", "CreatorStoreConfigurationLink"}]
+     1371 GETUPVAL                         R79 7
+     1372 GETTABLEKS                       R79 R79 K96 ["createElement"]
+     1374 GETUPVAL                         R80 32
+     1375 DUPTABLE                         R81 K301 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder"}]
+     1376 GETTABLEKS                       R82 R2 K72 ["Localization"]
+     1378 LOADK                            R84 K302 ["AssetUploadResult"]
+     1379 LOADK                            R85 K303 ["CreatorStoreConfigurationMessage"]
+     1380 NAMECALL                         R82 R82 K75 ["getText"]
+     1382 CALL                             R82 3 1
+     1383 SETTABLEKS                       R82 R81 K172 ["Text"]
+     1385 GETTABLEKS                       R82 R1 K304 ["uploadResult"]
+     1387 GETTABLEKS                       R82 R82 K305 ["text"]
+     1389 SETTABLEKS                       R82 R81 K300 ["TextColor"]
+     1391 GETUPVAL                         R82 12
+     1392 GETTABLEKS                       R82 R82 K306 ["FONT_SIZE_LARGE"]
+     1394 SETTABLEKS                       R82 R81 K178 ["TextSize"]
+     1396 GETIMPORT                        R82 K150 [UDim2.new]
+     1398 LOADN                            R83 1
+     1399 LOADN                            R84 0
+     1400 LOADN                            R85 0
+     1401 LOADN                            R86 24
+     1402 CALL                             R82 4 1
+     1403 SETTABLEKS                       R82 R81 K2 ["Size"]
+     1405 NAMECALL                         R82 R61 K148 ["getNextOrder"]
+     1407 CALL                             R82 1 1
+     1408 SETTABLEKS                       R82 R81 K3 ["LayoutOrder"]
+     1410 CALL                             R79 2 1
+     1411 SETTABLEKS                       R79 R78 K297 ["CreatorStoreConfigurationText"]
+     1413 GETUPVAL                         R79 7
+     1414 GETTABLEKS                       R79 R79 K96 ["createElement"]
+     1416 GETUPVAL                         R80 33
+     1417 DUPTABLE                         R81 K308 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder", "OnClick"}]
+     1418 SETTABLEKS                       R24 R81 K172 ["Text"]
+     1420 GETTABLEKS                       R82 R1 K304 ["uploadResult"]
+     1422 GETTABLEKS                       R82 R82 K309 ["link"]
+     1424 SETTABLEKS                       R82 R81 K300 ["TextColor"]
+     1426 GETUPVAL                         R82 12
+     1427 GETTABLEKS                       R82 R82 K306 ["FONT_SIZE_LARGE"]
+     1429 SETTABLEKS                       R82 R81 K178 ["TextSize"]
+     1431 GETIMPORT                        R82 K150 [UDim2.new]
+     1433 LOADN                            R83 1
+     1434 LOADN                            R84 0
+     1435 LOADN                            R85 0
+     1436 LOADN                            R86 24
+     1437 CALL                             R82 4 1
+     1438 SETTABLEKS                       R82 R81 K2 ["Size"]
+     1440 NAMECALL                         R82 R61 K148 ["getNextOrder"]
+     1442 CALL                             R82 1 1
+     1443 SETTABLEKS                       R82 R81 K3 ["LayoutOrder"]
+     1445 NEWCLOSURE                       R82 P4
+     1446 CAPTURE                          UPVAL U34
+     1447 CAPTURE                          VAL R24
+     1448 SETTABLEKS                       R82 R81 K307 ["OnClick"]
+     1450 CALL                             R79 2 1
+     1451 SETTABLEKS                       R79 R78 K298 ["CreatorStoreConfigurationLink"]
+     1453 CALL                             R75 3 1
+     1454 JUMP                             ; [+1]
+     1455 LOADNIL                          R75
+     1456 SETTABLEKS                       R75 R74 K114 ["CreatorStoreConfigurationFrame"]
+     1458 MOVE                             R75 R41
+     1459 JUMPIFNOT                        R75 ; [+24]
+     1460 GETUPVAL                         R75 7
+     1461 GETTABLEKS                       R75 R75 K96 ["createElement"]
+     1463 GETUPVAL                         R76 35
+     1464 DUPTABLE                         R77 K314 [{["Title"], ["TotalHeight"] = 80, ["CommentEnabled"], ["CommentOn"], ["ToggleCallback"], ["LayoutOrder"]}]
+     1465 LOADK                            R80 K88 ["General"]
+     1466 LOADK                            R81 K315 ["Comments"]
+     1467 NAMECALL                         R78 R60 K75 ["getText"]
+     1469 CALL                             R78 3 1
+     1470 SETTABLEKS                       R78 R77 K101 ["Title"]
+     1472 SETTABLEKS                       R11 R77 K311 ["CommentEnabled"]
+     1474 SETTABLEKS                       R12 R77 K312 ["CommentOn"]
+     1476 SETTABLEKS                       R31 R77 K313 ["ToggleCallback"]
+     1478 NAMECALL                         R78 R61 K148 ["getNextOrder"]
+     1480 CALL                             R78 1 1
+     1481 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
+     1483 CALL                             R75 2 1
+     1484 SETTABLEKS                       R75 R74 K115 ["Comment"]
+     1486 MOVE                             R75 R21
+     1487 JUMPIFNOT                        R75 ; [+28]
+     1488 GETUPVAL                         R75 7
+     1489 GETTABLEKS                       R75 R75 K96 ["createElement"]
+     1491 GETUPVAL                         R76 36
+     1492 DUPTABLE                         R77 K316 [{"Title", "TotalHeight", "DeleteLocal", "ToggleCallback", "LayoutOrder"}]
+     1493 LOADK                            R80 K88 ["General"]
+     1494 LOADK                            R81 K116 ["DeleteLocal"]
+     1495 NAMECALL                         R78 R60 K75 ["getText"]
+     1497 CALL                             R78 3 1
+     1498 SETTABLEKS                       R78 R77 K101 ["Title"]
+     1500 JUMPIFNOT                        R21 ; [+2]
+     1501 LOADN                            R78 120
+     1502 JUMP                             ; [+1]
+     1503 LOADN                            R78 80
+     1504 SETTABLEKS                       R78 R77 K190 ["TotalHeight"]
+     1506 SETTABLEKS                       R13 R77 K116 ["DeleteLocal"]
+     1508 SETTABLEKS                       R32 R77 K313 ["ToggleCallback"]
+     1510 NAMECALL                         R78 R61 K148 ["getNextOrder"]
+     1512 CALL                             R78 1 1
+     1513 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
+     1515 CALL                             R75 2 1
+     1516 SETTABLEKS                       R75 R74 K116 ["DeleteLocal"]
+     1518 MOVE                             R75 R22
+     1519 JUMPIFNOT                        R75 ; [+57]
+     1520 GETUPVAL                         R75 20
+     1521 GETTABLEKS                       R75 R75 K96 ["createElement"]
+     1523 GETUPVAL                         R76 19
+     1524 GETTABLEKS                       R76 R76 K224 ["View"]
+     1526 DUPTABLE                         R77 K318 [{["tag"] = "col auto-xy padding-top-xlarge", ["LayoutOrder"]}]
+     1527 NAMECALL                         R78 R61 K148 ["getNextOrder"]
+     1529 CALL                             R78 1 1
+     1530 SETTABLEKS                       R78 R77 K3 ["LayoutOrder"]
+     1532 DUPTABLE                         R78 K320 [{"Section"}]
+     1533 GETUPVAL                         R79 20
+     1534 GETTABLEKS                       R79 R79 K96 ["createElement"]
+     1536 GETUPVAL                         R80 22
+     1537 DUPTABLE                         R81 K322 [{["LayoutOrder"] = 1, ["Title"], ["AutomaticContentHeight"] = True, ["Size"]}]
+     1538 LOADK                            R84 K88 ["General"]
+     1539 LOADK                            R85 K323 ["AnimationSectionTitle"]
+     1540 NAMECALL                         R82 R60 K75 ["getText"]
+     1542 CALL                             R82 3 1
+     1543 SETTABLEKS                       R82 R81 K101 ["Title"]
+     1545 GETIMPORT                        R82 K150 [UDim2.new]
+     1547 LOADN                            R83 1
+     1548 LOADN                            R84 0
+     1549 LOADN                            R85 0
+     1550 LOADN                            R86 0
+     1551 CALL                             R82 4 1
+     1552 SETTABLEKS                       R82 R81 K2 ["Size"]
+     1554 DUPTABLE                         R82 K325 [{"AnimationCheckboxCol"}]
+     1555 GETUPVAL                         R83 20
+     1556 GETTABLEKS                       R83 R83 K96 ["createElement"]
+     1558 GETUPVAL                         R84 37
+     1559 DUPTABLE                         R85 K328 [{["LayoutOrder"] = 1, ["Localization"], ["OnSelectionChanged"], ["OnSectionValidityChanged"]}]
+     1560 SETTABLEKS                       R60 R85 K72 ["Localization"]
+     1562 GETTABLEKS                       R86 R2 K329 ["onAnimationSelectionChanged"]
+     1564 SETTABLEKS                       R86 R85 K326 ["OnSelectionChanged"]
+     1566 GETTABLEKS                       R86 R2 K330 ["onanimationSectionValidityChanged"]
+     1568 SETTABLEKS                       R86 R85 K327 ["OnSectionValidityChanged"]
+     1570 CALL                             R83 2 1
+     1571 SETTABLEKS                       R83 R82 K324 ["AnimationCheckboxCol"]
+     1573 CALL                             R79 3 1
+     1574 SETTABLEKS                       R79 R78 K319 ["Section"]
+     1576 CALL                             R75 3 1
+     1577 SETTABLEKS                       R75 R74 K117 ["AnimationPackProperties"]
+     1579 CALL                             R71 3 -1
+     1580 RETURN                           R71 -1
 
 PROTO_19:
         0 MOVE                             R1 R0

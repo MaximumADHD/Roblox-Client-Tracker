@@ -87,48 +87,42 @@ PROTO_4:
         4 RETURN                           R0 -1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["RepresentEditorStateOnWorldModle required FFlagAvatarPreviewerEditingTools"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R1 R1 K3 ["useContext"]
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R2 R2 K4 ["Context"]
-       14 CALL                             R1 1 1
-       15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R2 R2 K5 ["useEffect"]
-       18 NEWCLOSURE                       R3 P0
-       19 CAPTURE                          VAL R1
-       20 CALL                             R2 1 0
-       21 GETTABLEKS                       R2 R0 K6 ["avatar"]
-       23 GETTABLEKS                       R2 R2 K7 ["WorldModel"]
-       25 GETTABLEKS                       R3 R0 K8 ["includeAccessories"]
-       27 GETUPVAL                         R4 1
-       28 GETTABLEKS                       R4 R4 K5 ["useEffect"]
-       30 NEWCLOSURE                       R5 P1
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          UPVAL U3
-       33 NEWTABLE                         R6 0 2
-       35 MOVE                             R7 R2
-       36 MOVE                             R8 R3
-       37 SETLIST                          R6 R7 2 [1]
-       39 CALL                             R4 2 0
-       40 GETTABLEKS                       R2 R0 K8 ["includeAccessories"]
-       42 JUMPIFNOT                        R2 ; [+13]
-       43 GETUPVAL                         R2 1
-       44 GETTABLEKS                       R2 R2 K9 ["createElement"]
-       46 GETUPVAL                         R3 4
-       47 DUPTABLE                         R4 K11 [{"dummy"}]
-       48 GETTABLEKS                       R5 R0 K6 ["avatar"]
-       50 GETTABLEKS                       R5 R5 K7 ["WorldModel"]
-       52 SETTABLEKS                       R5 R4 K10 ["dummy"]
-       54 CALL                             R2 2 -1
-       55 RETURN                           R2 -1
-       56 LOADNIL                          R2
-       57 RETURN                           R2 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K1 ["Context"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K2 ["useEffect"]
+       10 NEWCLOSURE                       R3 P0
+       11 CAPTURE                          VAL R1
+       12 CALL                             R2 1 0
+       13 GETTABLEKS                       R2 R0 K3 ["avatar"]
+       15 GETTABLEKS                       R2 R2 K4 ["WorldModel"]
+       17 GETTABLEKS                       R3 R0 K5 ["includeAccessories"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K2 ["useEffect"]
+       22 NEWCLOSURE                       R5 P1
+       23 CAPTURE                          VAL R2
+       24 CAPTURE                          UPVAL U2
+       25 NEWTABLE                         R6 0 2
+       27 MOVE                             R7 R2
+       28 MOVE                             R8 R3
+       29 SETLIST                          R6 R7 2 [1]
+       31 CALL                             R4 2 0
+       32 GETTABLEKS                       R2 R0 K5 ["includeAccessories"]
+       34 JUMPIFNOT                        R2 ; [+13]
+       35 GETUPVAL                         R2 0
+       36 GETTABLEKS                       R2 R2 K6 ["createElement"]
+       38 GETUPVAL                         R3 3
+       39 DUPTABLE                         R4 K8 [{"dummy"}]
+       40 GETTABLEKS                       R5 R0 K3 ["avatar"]
+       42 GETTABLEKS                       R5 R5 K4 ["WorldModel"]
+       44 SETTABLEKS                       R5 R4 K7 ["dummy"]
+       46 CALL                             R2 2 -1
+       47 RETURN                           R2 -1
+       48 LOADNIL                          R2
+       49 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -157,23 +151,17 @@ MAIN:
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K6 ["Src"]
-       45 GETTABLEKS                       R6 R6 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAvatarPreviewerEditingTools"]
+       45 GETTABLEKS                       R6 R6 K15 ["Hooks"]
+       47 GETTABLEKS                       R6 R6 K16 ["useClothingFromInstances"]
        49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K6 ["Src"]
-       54 GETTABLEKS                       R7 R7 K17 ["Hooks"]
-       56 GETTABLEKS                       R7 R7 K18 ["useClothingFromInstances"]
-       58 CALL                             R6 1 1
-       59 DUPCLOSURE                       R7 K19 [PROTO_0]
-       60 CAPTURE                          VAL R6
-       61 DUPCLOSURE                       R8 K20 [PROTO_3]
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R1
-       64 DUPCLOSURE                       R9 K21 [PROTO_5]
-       65 CAPTURE                          VAL R5
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R2
-       68 CAPTURE                          VAL R1
-       69 CAPTURE                          VAL R7
-       70 RETURN                           R9 1
+       50 DUPCLOSURE                       R6 K17 [PROTO_0]
+       51 CAPTURE                          VAL R5
+       52 DUPCLOSURE                       R7 K18 [PROTO_3]
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R1
+       55 DUPCLOSURE                       R8 K19 [PROTO_5]
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R6
+       60 RETURN                           R8 1

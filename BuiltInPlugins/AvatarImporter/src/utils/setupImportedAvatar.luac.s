@@ -197,31 +197,35 @@ MAIN:
        50 MOVE                             R8 R5
        51 CALL                             R7 1 1
        52 MOVE                             R3 R7
-       53 GETTABLEKS                       R9 R2 K20 ["plugin"]
-       55 GETTABLEKS                       R10 R2 K21 ["toolbar"]
-       57 NAMECALL                         R7 R3 K22 ["createButtons"]
-       59 CALL                             R7 3 0
-       60 GETIMPORT                        R7 K9 [game]
-       62 LOADK                            R9 K23 ["Workspace"]
-       63 NAMECALL                         R7 R7 K11 ["GetService"]
-       65 CALL                             R7 2 1
-       66 GETIMPORT                        R8 K9 [game]
-       68 LOADK                            R10 K24 ["Selection"]
-       69 NAMECALL                         R8 R8 K11 ["GetService"]
-       71 CALL                             R8 2 1
-       72 DUPCLOSURE                       R9 K25 [PROTO_0]
-       73 CAPTURE                          VAL R7
-       74 DUPCLOSURE                       R10 K26 [PROTO_1]
-       75 CAPTURE                          VAL R1
-       76 DUPCLOSURE                       R11 K27 [PROTO_2]
-       77 DUPCLOSURE                       R12 K28 [PROTO_3]
-       78 CAPTURE                          VAL R1
-       79 NEWCLOSURE                       R13 P4
-       80 CAPTURE                          VAL R9
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R10
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          REF R3
-       86 CLOSEUPVALS                      R3
-       87 RETURN                           R13 1
+       53 GETTABLEKS                       R7 R2 K20 ["plugin"]
+       55 JUMPIFNOT                        R7 ; [+10]
+       56 GETTABLEKS                       R7 R2 K21 ["toolbar"]
+       58 JUMPIFNOT                        R7 ; [+7]
+       59 GETTABLEKS                       R9 R2 K20 ["plugin"]
+       61 GETTABLEKS                       R10 R2 K21 ["toolbar"]
+       63 NAMECALL                         R7 R3 K22 ["createButtons"]
+       65 CALL                             R7 3 0
+       66 GETIMPORT                        R7 K9 [game]
+       68 LOADK                            R9 K23 ["Workspace"]
+       69 NAMECALL                         R7 R7 K11 ["GetService"]
+       71 CALL                             R7 2 1
+       72 GETIMPORT                        R8 K9 [game]
+       74 LOADK                            R10 K24 ["Selection"]
+       75 NAMECALL                         R8 R8 K11 ["GetService"]
+       77 CALL                             R8 2 1
+       78 DUPCLOSURE                       R9 K25 [PROTO_0]
+       79 CAPTURE                          VAL R7
+       80 DUPCLOSURE                       R10 K26 [PROTO_1]
+       81 CAPTURE                          VAL R1
+       82 DUPCLOSURE                       R11 K27 [PROTO_2]
+       83 DUPCLOSURE                       R12 K28 [PROTO_3]
+       84 CAPTURE                          VAL R1
+       85 NEWCLOSURE                       R13 P4
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          VAL R12
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          REF R3
+       92 CLOSEUPVALS                      R3
+       93 RETURN                           R13 1

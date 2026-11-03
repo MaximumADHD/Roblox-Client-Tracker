@@ -264,27 +264,37 @@ PROTO_13:
       112 GETUPVAL                         R12 4
       113 GETTABLEKS                       R12 R12 K11 ["createElement"]
       115 GETUPVAL                         R13 6
-      116 DUPTABLE                         R14 K47 [{"onStyleSheetChange", "plugin"}]
-      117 GETTABLEKS                       R15 R0 K48 ["onFoundationStyleSheetChange"]
+      116 DUPTABLE                         R14 K48 [{["onStyleSheetChange"], ["plugin"] = }]
+      117 GETTABLEKS                       R15 R0 K49 ["onFoundationStyleSheetChange"]
       119 SETTABLEKS                       R15 R14 K45 ["onStyleSheetChange"]
-      121 SETTABLEKS                       R3 R14 K46 ["plugin"]
-      123 NEWTABLE                         R15 0 1
-      125 GETUPVAL                         R16 4
-      126 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      128 GETUPVAL                         R17 7
-      129 GETTABLEKS                       R17 R17 K49 ["Provider"]
-      131 DUPTABLE                         R18 K50 [{"localization"}]
-      132 GETTABLEKS                       R19 R0 K15 ["localization"]
-      134 SETTABLEKS                       R19 R18 K15 ["localization"]
-      136 NEWTABLE                         R19 0 0
-      138 CALL                             R16 3 -1
-      139 SETLIST                          R15 R16 -1 [1]
-      141 CALL                             R12 3 1
-      142 SETTABLEKS                       R12 R11 K43 ["FoundationProvider"]
-      144 CALL                             R8 3 1
-      145 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
-      147 CALL                             R5 2 -1
-      148 RETURN                           R5 -1
+      121 NEWTABLE                         R15 0 1
+      123 GETUPVAL                         R16 4
+      124 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      126 GETUPVAL                         R17 7
+      127 GETTABLEKS                       R17 R17 K50 ["Provider"]
+      129 DUPTABLE                         R18 K51 [{"localization"}]
+      130 GETTABLEKS                       R19 R0 K15 ["localization"]
+      132 SETTABLEKS                       R19 R18 K15 ["localization"]
+      134 DUPTABLE                         R19 K53 [{"MainView"}]
+      135 MOVE                             R20 R4
+      136 JUMPIFNOT                        R20 ; [+12]
+      137 GETUPVAL                         R20 4
+      138 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      140 GETUPVAL                         R21 8
+      141 DUPTABLE                         R22 K54 [{"Widget"}]
+      142 GETTABLEKS                       R23 R1 K35 ["PluginLoaderContext"]
+      144 GETTABLEKS                       R23 R23 K36 ["mainDockWidget"]
+      146 SETTABLEKS                       R23 R22 K37 ["Widget"]
+      148 CALL                             R20 2 1
+      149 SETTABLEKS                       R20 R19 K52 ["MainView"]
+      151 CALL                             R16 3 -1
+      152 SETLIST                          R15 R16 -1 [1]
+      154 CALL                             R12 3 1
+      155 SETTABLEKS                       R12 R11 K43 ["FoundationProvider"]
+      157 CALL                             R8 3 1
+      158 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
+      160 CALL                             R5 2 -1
+      161 RETURN                           R5 -1
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
@@ -342,34 +352,40 @@ MAIN:
        72 GETTABLEKS                       R15 R15 K28 ["Resources"]
        74 GETTABLEKS                       R15 R15 K13 ["Localization"]
        76 GETTABLEKS                       R15 R15 K30 ["LocalizedStrings"]
-       78 GETTABLEKS                       R16 R1 K31 ["PureComponent"]
-       80 LOADK                            R18 K32 ["MainPlugin"]
-       81 NAMECALL                         R16 R16 K33 ["extend"]
-       83 CALL                             R16 2 1
-       84 GETTABLEKS                       R17 R12 K34 ["fromAction"]
-       86 LOADK                            R18 K2 ["AudioActivityMonitor"]
-       87 LOADK                            R19 K35 ["Toggle"]
-       88 CALL                             R17 2 1
-       89 DUPCLOSURE                       R18 K36 [PROTO_12]
-       90 CAPTURE                          VAL R17
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R14
-       93 CAPTURE                          VAL R15
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R11
-       96 CAPTURE                          VAL R3
-       97 CAPTURE                          VAL R13
-       98 SETTABLEKS                       R18 R16 K37 ["init"]
-      100 DUPCLOSURE                       R18 K38 [PROTO_13]
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R8
-      103 CAPTURE                          VAL R9
-      104 CAPTURE                          VAL R10
-      105 CAPTURE                          VAL R1
-      106 CAPTURE                          VAL R6
-      107 CAPTURE                          VAL R4
-      108 CAPTURE                          VAL R5
-      109 SETTABLEKS                       R18 R16 K39 ["render"]
-      111 DUPCLOSURE                       R18 K40 [PROTO_14]
-      112 SETTABLEKS                       R18 R16 K41 ["willUnmount"]
-      114 RETURN                           R16 1
+       78 GETTABLEKS                       R16 R0 K27 ["Src"]
+       80 GETTABLEKS                       R16 R16 K10 ["Components"]
+       82 GETIMPORT                        R17 K5 [require]
+       84 GETTABLEKS                       R18 R16 K31 ["MainView"]
+       86 CALL                             R17 1 1
+       87 GETTABLEKS                       R18 R1 K32 ["PureComponent"]
+       89 LOADK                            R20 K33 ["MainPlugin"]
+       90 NAMECALL                         R18 R18 K34 ["extend"]
+       92 CALL                             R18 2 1
+       93 GETTABLEKS                       R19 R12 K35 ["fromAction"]
+       95 LOADK                            R20 K2 ["AudioActivityMonitor"]
+       96 LOADK                            R21 K36 ["Toggle"]
+       97 CALL                             R19 2 1
+       98 DUPCLOSURE                       R20 K37 [PROTO_12]
+       99 CAPTURE                          VAL R19
+      100 CAPTURE                          VAL R7
+      101 CAPTURE                          VAL R14
+      102 CAPTURE                          VAL R15
+      103 CAPTURE                          VAL R5
+      104 CAPTURE                          VAL R11
+      105 CAPTURE                          VAL R3
+      106 CAPTURE                          VAL R13
+      107 SETTABLEKS                       R20 R18 K38 ["init"]
+      109 DUPCLOSURE                       R20 K39 [PROTO_13]
+      110 CAPTURE                          VAL R7
+      111 CAPTURE                          VAL R8
+      112 CAPTURE                          VAL R9
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R1
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R5
+      118 CAPTURE                          VAL R17
+      119 SETTABLEKS                       R20 R18 K40 ["render"]
+      121 DUPCLOSURE                       R20 K41 [PROTO_14]
+      122 SETTABLEKS                       R20 R18 K42 ["willUnmount"]
+      124 RETURN                           R18 1

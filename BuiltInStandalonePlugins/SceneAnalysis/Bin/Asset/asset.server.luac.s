@@ -242,100 +242,105 @@ MAIN:
        33 GETTABLEKS                       R3 R3 K13 ["Util"]
        35 GETTABLEKS                       R3 R3 K14 ["RpcCallServer"]
        37 CALL                             R2 1 1
-       38 GETIMPORT                        R3 K1 [plugin]
-       40 LOADK                            R5 K15 ["PerformanceToolsBridge"]
-       41 NAMECALL                         R3 R3 K16 ["GetPluginComponent"]
-       43 CALL                             R3 2 1
-       44 GETIMPORT                        R4 K7 [require]
-       46 GETTABLEKS                       R5 R0 K17 ["Bin"]
-       48 GETTABLEKS                       R5 R5 K18 ["Common"]
-       50 GETTABLEKS                       R5 R5 K19 ["defineLuaFlags"]
-       52 CALL                             R4 1 1
-       53 GETTABLEKS                       R5 R4 K20 ["getFFlagEnableRIDE11651"]
-       55 CALL                             R5 0 1
-       56 JUMPIF                           R5 ; [+1]
-       57 RETURN                           R0 0
-       58 LOADNIL                          R5
-       59 LOADNIL                          R6
-       60 DUPCLOSURE                       R7 K21 [PROTO_0]
-       61 NEWCLOSURE                       R8 P1
-       62 CAPTURE                          REF R6
-       63 CAPTURE                          VAL R2
-       64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R0
-       66 LOADB                            R9 0
-       67 NEWCLOSURE                       R10 P2
-       68 CAPTURE                          REF R5
-       69 CAPTURE                          REF R9
-       70 CAPTURE                          REF R6
-       71 CAPTURE                          VAL R2
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R0
-       74 NEWCLOSURE                       R11 P3
+       38 GETIMPORT                        R3 K7 [require]
+       40 GETTABLEKS                       R4 R0 K15 ["Bin"]
+       42 GETTABLEKS                       R4 R4 K16 ["Common"]
+       44 GETTABLEKS                       R4 R4 K17 ["defineLuaFlags"]
+       46 CALL                             R3 1 1
+       47 LOADNIL                          R4
+       48 GETTABLEKS                       R5 R3 K18 ["getFFlagSceneAnalysisRemovePerformanceToolsBridge"]
+       50 CALL                             R5 0 1
+       51 JUMPIF                           R5 ; [+7]
+       52 GETIMPORT                        R5 K1 [plugin]
+       54 LOADK                            R7 K19 ["PerformanceToolsBridge"]
+       55 NAMECALL                         R5 R5 K20 ["GetPluginComponent"]
+       57 CALL                             R5 2 1
+       58 MOVE                             R4 R5
+       59 GETTABLEKS                       R5 R3 K21 ["getFFlagEnableRIDE11651"]
+       61 CALL                             R5 0 1
+       62 JUMPIF                           R5 ; [+1]
+       63 RETURN                           R0 0
+       64 LOADNIL                          R5
+       65 LOADNIL                          R6
+       66 DUPCLOSURE                       R7 K22 [PROTO_0]
+       67 NEWCLOSURE                       R8 P1
+       68 CAPTURE                          REF R6
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R0
+       72 LOADB                            R9 0
+       73 NEWCLOSURE                       R10 P2
+       74 CAPTURE                          REF R5
        75 CAPTURE                          REF R9
-       76 CAPTURE                          REF R5
-       77 CAPTURE                          REF R6
-       78 NEWCLOSURE                       R12 P4
-       79 CAPTURE                          REF R9
-       80 CAPTURE                          REF R5
-       81 CAPTURE                          REF R6
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R0
-       85 GETTABLEKS                       R13 R4 K22 ["getFFlagSceneAnalysisMdiDataModelPicker"]
-       87 CALL                             R13 0 1
-       88 JUMPIFNOT                        R13 ; [+30]
-       89 JUMPIFNOT                        R6 ; [+4]
-       90 NAMECALL                         R13 R6 K23 ["Disconnect"]
-       92 CALL                             R13 1 0
-       93 LOADNIL                          R6
-       94 GETTABLEKS                       R13 R2 K24 ["new"]
-       96 GETIMPORT                        R14 K1 [plugin]
-       98 CALL                             R13 1 1
-       99 MOVE                             R6 R13
-      100 MOVE                             R13 R7
-      101 GETTABLEKS                       R14 R0 K11 ["Src"]
-      103 GETTABLEKS                       R14 R14 K25 ["Queries"]
-      105 MOVE                             R15 R6
-      106 CALL                             R13 2 0
-      107 GETIMPORT                        R13 K1 [plugin]
-      109 GETTABLEKS                       R13 R13 K26 ["Unloading"]
-      111 NEWCLOSURE                       R15 P5
-      112 CAPTURE                          REF R9
-      113 CAPTURE                          REF R5
-      114 CAPTURE                          REF R6
-      115 NAMECALL                         R13 R13 K27 ["Connect"]
-      117 CALL                             R13 2 0
-      118 JUMP                             ; [+8]
-      119 GETIMPORT                        R13 K1 [plugin]
-      121 GETTABLEKS                       R13 R13 K28 ["MultipleDocumentInterfaceInstance"]
-      123 MOVE                             R14 R12
-      124 GETTABLEKS                       R15 R13 K29 ["FocusedDataModelSession"]
-      126 CALL                             R14 1 0
-      127 GETIMPORT                        R13 K7 [require]
-      129 GETTABLEKS                       R14 R0 K17 ["Bin"]
-      131 GETTABLEKS                       R14 R14 K18 ["Common"]
-      133 GETTABLEKS                       R14 R14 K30 ["pluginType"]
-      135 CALL                             R13 1 1
-      136 GETTABLEKS                       R14 R13 K31 ["get"]
-      138 CALL                             R14 0 1
-      139 GETTABLEKS                       R15 R13 K32 ["Asset"]
-      141 JUMPIFEQ                         R14 R15 ; [+3]
-      143 CLOSEUPVALS                      R5
-      144 RETURN                           R0 0
-      145 GETIMPORT                        R14 K7 [require]
-      147 GETTABLEKS                       R15 R0 K17 ["Bin"]
-      149 GETTABLEKS                       R15 R15 K18 ["Common"]
-      151 GETTABLEKS                       R15 R15 K33 ["setup"]
-      153 CALL                             R14 1 1
-      154 GETIMPORT                        R15 K7 [require]
-      156 GETTABLEKS                       R16 R0 K17 ["Bin"]
-      158 GETTABLEKS                       R16 R16 K18 ["Common"]
-      160 GETTABLEKS                       R16 R16 K34 ["setupMain"]
-      162 CALL                             R15 1 1
-      163 MOVE                             R16 R14
-      164 GETIMPORT                        R17 K1 [plugin]
-      166 MOVE                             R18 R15
-      167 CALL                             R16 2 0
-      168 CLOSEUPVALS                      R5
-      169 RETURN                           R0 0
+       76 CAPTURE                          REF R6
+       77 CAPTURE                          VAL R2
+       78 CAPTURE                          VAL R7
+       79 CAPTURE                          VAL R0
+       80 NEWCLOSURE                       R11 P3
+       81 CAPTURE                          REF R9
+       82 CAPTURE                          REF R5
+       83 CAPTURE                          REF R6
+       84 NEWCLOSURE                       R12 P4
+       85 CAPTURE                          REF R9
+       86 CAPTURE                          REF R5
+       87 CAPTURE                          REF R6
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R7
+       90 CAPTURE                          VAL R0
+       91 GETTABLEKS                       R13 R3 K23 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+       93 CALL                             R13 0 1
+       94 JUMPIFNOT                        R13 ; [+30]
+       95 JUMPIFNOT                        R6 ; [+4]
+       96 NAMECALL                         R13 R6 K24 ["Disconnect"]
+       98 CALL                             R13 1 0
+       99 LOADNIL                          R6
+      100 GETTABLEKS                       R13 R2 K25 ["new"]
+      102 GETIMPORT                        R14 K1 [plugin]
+      104 CALL                             R13 1 1
+      105 MOVE                             R6 R13
+      106 MOVE                             R13 R7
+      107 GETTABLEKS                       R14 R0 K11 ["Src"]
+      109 GETTABLEKS                       R14 R14 K26 ["Queries"]
+      111 MOVE                             R15 R6
+      112 CALL                             R13 2 0
+      113 GETIMPORT                        R13 K1 [plugin]
+      115 GETTABLEKS                       R13 R13 K27 ["Unloading"]
+      117 NEWCLOSURE                       R15 P5
+      118 CAPTURE                          REF R9
+      119 CAPTURE                          REF R5
+      120 CAPTURE                          REF R6
+      121 NAMECALL                         R13 R13 K28 ["Connect"]
+      123 CALL                             R13 2 0
+      124 JUMP                             ; [+8]
+      125 GETIMPORT                        R13 K1 [plugin]
+      127 GETTABLEKS                       R13 R13 K29 ["MultipleDocumentInterfaceInstance"]
+      129 MOVE                             R14 R12
+      130 GETTABLEKS                       R15 R13 K30 ["FocusedDataModelSession"]
+      132 CALL                             R14 1 0
+      133 GETIMPORT                        R13 K7 [require]
+      135 GETTABLEKS                       R14 R0 K15 ["Bin"]
+      137 GETTABLEKS                       R14 R14 K16 ["Common"]
+      139 GETTABLEKS                       R14 R14 K31 ["pluginType"]
+      141 CALL                             R13 1 1
+      142 GETTABLEKS                       R14 R13 K32 ["get"]
+      144 CALL                             R14 0 1
+      145 GETTABLEKS                       R15 R13 K33 ["Asset"]
+      147 JUMPIFEQ                         R14 R15 ; [+3]
+      149 CLOSEUPVALS                      R5
+      150 RETURN                           R0 0
+      151 GETIMPORT                        R14 K7 [require]
+      153 GETTABLEKS                       R15 R0 K15 ["Bin"]
+      155 GETTABLEKS                       R15 R15 K16 ["Common"]
+      157 GETTABLEKS                       R15 R15 K34 ["setup"]
+      159 CALL                             R14 1 1
+      160 GETIMPORT                        R15 K7 [require]
+      162 GETTABLEKS                       R16 R0 K15 ["Bin"]
+      164 GETTABLEKS                       R16 R16 K16 ["Common"]
+      166 GETTABLEKS                       R16 R16 K35 ["setupMain"]
+      168 CALL                             R15 1 1
+      169 MOVE                             R16 R14
+      170 GETIMPORT                        R17 K1 [plugin]
+      172 MOVE                             R18 R15
+      173 CALL                             R16 2 0
+      174 CLOSEUPVALS                      R5
+      175 RETURN                           R0 0

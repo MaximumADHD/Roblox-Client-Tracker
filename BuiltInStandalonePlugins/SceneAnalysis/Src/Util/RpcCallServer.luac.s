@@ -1,4 +1,44 @@
 PROTO_0:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["getFFlagSceneAnalysisCollisionGeometryMemoryEnabled"]
+        3 CALL                             R2 0 1
+        4 JUMPIFNOT                        R2 ; [+18]
+        5 FASTCALL1                        TYPEOF R0 ; [+3]
+        6 MOVE                             R3 R0
+        7 GETIMPORT                        R2 K2 [typeof]
+        9 CALL                             R2 1 1
+       10 JUMPIFNOTEQKS                    R2 K3 ["Instance"] ; [+12]
+       12 DUPTABLE                         R2 K6 [{"Name", "ClassName"}]
+       13 NAMECALL                         R3 R0 K7 ["GetFullName"]
+       15 CALL                             R3 1 1
+       16 SETTABLEKS                       R3 R2 K4 ["Name"]
+       18 GETTABLEKS                       R3 R0 K5 ["ClassName"]
+       20 SETTABLEKS                       R3 R2 K5 ["ClassName"]
+       22 RETURN                           R2 1
+       23 FASTCALL1                        TYPE R0 ; [+3]
+       24 MOVE                             R3 R0
+       25 GETIMPORT                        R2 K9 [type]
+       27 CALL                             R2 1 1
+       28 JUMPIFEQKS                       R2 K10 ["table"] ; [+2]
+       30 RETURN                           R0 1
+       31 GETTABLE                         R2 R1 R0
+       32 JUMPIFNOT                        R2 ; [+1]
+       33 RETURN                           R2 1
+       34 NEWTABLE                         R3 0 0
+       36 SETTABLE                         R3 R1 R0
+       37 MOVE                             R4 R0
+       38 LOADNIL                          R5
+       39 LOADNIL                          R6
+       40 FORGPREP                         R4
+       41 GETUPVAL                         R9 1
+       42 MOVE                             R10 R8
+       43 MOVE                             R11 R1
+       44 CALL                             R9 2 1
+       45 SETTABLE                         R9 R3 R7
+       46 FORGLOOP                         R4 2 ; [-6]
+       48 RETURN                           R3 1
+
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["handlers"]
         3 GETUPVAL                         R2 1
@@ -47,29 +87,32 @@ PROTO_0:
        54 GETUPVAL                         R3 4
        55 LOADK                            R5 K9 ["DeliverResponse"]
        56 GETUPVAL                         R6 5
-       57 MOVE                             R7 R1
-       58 NAMECALL                         R3 R3 K10 ["Invoke"]
-       60 CALL                             R3 4 0
-       61 JUMPIFNOT                        R2 ; [+16]
-       62 FASTCALL1                        TYPE R1 ; [+3]
-       63 MOVE                             R4 R1
-       64 GETIMPORT                        R3 K12 [type]
-       66 CALL                             R3 1 1
-       67 JUMPIFNOTEQKS                    R3 K13 ["table"] ; [+18]
-       69 GETTABLEKS                       R3 R1 K4 ["error"]
-       71 JUMPIFNOT                        R3 ; [+14]
-       72 GETIMPORT                        R3 K15 [warn]
-       74 GETTABLEKS                       R4 R1 K4 ["error"]
-       76 CALL                             R3 1 0
-       77 RETURN                           R0 0
-       78 GETTABLEKS                       R3 R1 K4 ["error"]
-       80 JUMPIFNOT                        R3 ; [+5]
-       81 GETIMPORT                        R3 K15 [warn]
-       83 GETTABLEKS                       R4 R1 K4 ["error"]
-       85 CALL                             R3 1 0
-       86 RETURN                           R0 0
+       57 GETUPVAL                         R7 6
+       58 MOVE                             R8 R1
+       59 NEWTABLE                         R9 0 0
+       61 CALL                             R7 2 1
+       62 NAMECALL                         R3 R3 K10 ["Invoke"]
+       64 CALL                             R3 4 0
+       65 JUMPIFNOT                        R2 ; [+16]
+       66 FASTCALL1                        TYPE R1 ; [+3]
+       67 MOVE                             R4 R1
+       68 GETIMPORT                        R3 K12 [type]
+       70 CALL                             R3 1 1
+       71 JUMPIFNOTEQKS                    R3 K13 ["table"] ; [+18]
+       73 GETTABLEKS                       R3 R1 K4 ["error"]
+       75 JUMPIFNOT                        R3 ; [+14]
+       76 GETIMPORT                        R3 K15 [warn]
+       78 GETTABLEKS                       R4 R1 K4 ["error"]
+       80 CALL                             R3 1 0
+       81 RETURN                           R0 0
+       82 GETTABLEKS                       R3 R1 K4 ["error"]
+       84 JUMPIFNOT                        R3 ; [+5]
+       85 GETIMPORT                        R3 K15 [warn]
+       87 GETTABLEKS                       R4 R1 K4 ["error"]
+       89 CALL                             R3 1 0
+       90 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["getFFlagSceneAnalysisMdiDataModelPicker"]
         3 CALL                             R4 0 1
@@ -95,10 +138,11 @@ PROTO_1:
        29 CAPTURE                          VAL R2
        30 CAPTURE                          UPVAL U2
        31 CAPTURE                          VAL R0
-       32 CALL                             R4 1 0
-       33 RETURN                           R0 0
+       32 CAPTURE                          UPVAL U4
+       33 CALL                             R4 1 0
+       34 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["DataModelPresence"]
         2 GETUPVAL                         R4 1
@@ -107,7 +151,7 @@ PROTO_2:
         6 CALL                             R1 4 0
         7 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["DataModelPresence"]
         2 GETUPVAL                         R3 1
@@ -116,7 +160,7 @@ PROTO_3:
         6 CALL                             R0 4 0
         7 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["DataModelPresence"]
         2 GETUPVAL                         R3 1
@@ -125,7 +169,7 @@ PROTO_4:
         6 CALL                             R0 4 0
         7 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 NEWTABLE                         R2 8 0
         2 GETUPVAL                         R3 0
         3 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
@@ -144,42 +188,43 @@ PROTO_5:
        23 CAPTURE                          UPVAL U2
        24 CAPTURE                          VAL R0
        25 CAPTURE                          VAL R1
-       26 NAMECALL                         R2 R0 K7 ["OnInvoke"]
-       28 CALL                             R2 3 1
-       29 SETTABLEKS                       R2 R1 K8 ["connection"]
-       31 GETUPVAL                         R3 1
-       32 GETTABLEKS                       R3 R3 K9 ["getFFlagSceneAnalysisMdiDataModelPicker"]
-       34 CALL                             R3 0 1
-       35 JUMPIFNOT                        R3 ; [+7]
-       36 GETUPVAL                         R2 2
-       37 GETTABLEKS                       R2 R2 K10 ["toName"]
-       39 GETTABLEKS                       R3 R0 K11 ["HostDataModelType"]
-       41 CALL                             R2 1 1
-       42 JUMP                             ; [+1]
-       43 LOADNIL                          R2
-       44 JUMPIFNOT                        R2 ; [+23]
-       45 NEWCLOSURE                       R3 P1
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          VAL R2
-       48 LOADK                            R6 K12 ["DiscoverDataModels"]
-       49 NEWCLOSURE                       R7 P2
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          VAL R2
-       52 NAMECALL                         R4 R0 K7 ["OnInvoke"]
-       54 CALL                             R4 3 1
-       55 SETTABLEKS                       R4 R1 K4 ["discoverConnection"]
-       57 NEWCLOSURE                       R4 P3
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          VAL R2
-       60 SETTABLEKS                       R4 R1 K5 ["announceDeparture"]
-       62 LOADK                            R6 K13 ["DataModelPresence"]
-       63 MOVE                             R7 R2
-       64 LOADB                            R8 1
-       65 NAMECALL                         R4 R0 K14 ["Invoke"]
-       67 CALL                             R4 4 0
-       68 RETURN                           R1 1
+       26 CAPTURE                          UPVAL U3
+       27 NAMECALL                         R2 R0 K7 ["OnInvoke"]
+       29 CALL                             R2 3 1
+       30 SETTABLEKS                       R2 R1 K8 ["connection"]
+       32 GETUPVAL                         R3 1
+       33 GETTABLEKS                       R3 R3 K9 ["getFFlagSceneAnalysisMdiDataModelPicker"]
+       35 CALL                             R3 0 1
+       36 JUMPIFNOT                        R3 ; [+7]
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R2 R2 K10 ["toName"]
+       40 GETTABLEKS                       R3 R0 K11 ["HostDataModelType"]
+       42 CALL                             R2 1 1
+       43 JUMP                             ; [+1]
+       44 LOADNIL                          R2
+       45 JUMPIFNOT                        R2 ; [+23]
+       46 NEWCLOSURE                       R3 P1
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R2
+       49 LOADK                            R6 K12 ["DiscoverDataModels"]
+       50 NEWCLOSURE                       R7 P2
+       51 CAPTURE                          VAL R0
+       52 CAPTURE                          VAL R2
+       53 NAMECALL                         R4 R0 K7 ["OnInvoke"]
+       55 CALL                             R4 3 1
+       56 SETTABLEKS                       R4 R1 K4 ["discoverConnection"]
+       58 NEWCLOSURE                       R4 P3
+       59 CAPTURE                          VAL R0
+       60 CAPTURE                          VAL R2
+       61 SETTABLEKS                       R4 R1 K5 ["announceDeparture"]
+       63 LOADK                            R6 K13 ["DataModelPresence"]
+       64 MOVE                             R7 R2
+       65 LOADB                            R8 1
+       66 NAMECALL                         R4 R0 K14 ["Invoke"]
+       68 CALL                             R4 4 0
+       69 RETURN                           R1 1
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["connection"]
         2 NAMECALL                         R1 R1 K1 ["Disconnect"]
         4 CALL                             R1 1 0
@@ -198,7 +243,7 @@ PROTO_6:
        23 SETTABLEKS                       R1 R0 K3 ["announceDeparture"]
        25 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 FASTCALL1                        TYPE R2 ; [+3]
         1 MOVE                             R6 R2
         2 GETIMPORT                        R5 K1 [type]
@@ -232,13 +277,17 @@ MAIN:
        24 CALL                             R2 1 1
        25 NEWTABLE                         R3 4 0
        27 SETTABLEKS                       R3 R3 K12 ["__index"]
-       29 DUPCLOSURE                       R4 K13 [PROTO_5]
-       30 CAPTURE                          VAL R3
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          VAL R2
-       33 SETTABLEKS                       R4 R3 K14 ["new"]
-       35 DUPCLOSURE                       R4 K15 [PROTO_6]
-       36 SETTABLEKS                       R4 R3 K16 ["Disconnect"]
-       38 DUPCLOSURE                       R4 K17 [PROTO_7]
-       39 SETTABLEKS                       R4 R3 K18 ["Bind"]
-       41 RETURN                           R3 1
+       29 DUPCLOSURE                       R4 K13 [PROTO_0]
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          VAL R4
+       32 DUPCLOSURE                       R5 K14 [PROTO_6]
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R4
+       37 SETTABLEKS                       R5 R3 K15 ["new"]
+       39 DUPCLOSURE                       R5 K16 [PROTO_7]
+       40 SETTABLEKS                       R5 R3 K17 ["Disconnect"]
+       42 DUPCLOSURE                       R5 K18 [PROTO_8]
+       43 SETTABLEKS                       R5 R3 K19 ["Bind"]
+       45 RETURN                           R3 1

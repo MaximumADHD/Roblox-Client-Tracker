@@ -68,7 +68,7 @@ MAIN:
        47 JUMPIFNOT                        R2 ; [+1]
        48 RETURN                           R0 0
        49 GETIMPORT                        R2 K1 [game]
-       51 LOADK                            R4 K19 ["EnableRoduxDevtools"]
+       51 LOADK                            R4 K19 ["DebugEnableRoduxDevtools"]
        52 NAMECALL                         R2 R2 K20 ["GetFastFlag"]
        54 CALL                             R2 2 1
        55 JUMPIF                           R2 ; [+1]

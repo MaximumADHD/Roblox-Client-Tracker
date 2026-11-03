@@ -1,5 +1,26 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["focusGui"]
+        4 JUMPIF                           R1 ; [+11]
+        5 GETIMPORT                        R1 K4 [Instance.new]
+        7 LOADK                            R2 K5 ["ScreenGui"]
+        8 CALL                             R1 1 1
+        9 SETTABLEKS                       R1 R0 K6 ["_focusGui"]
+       11 GETTABLEKS                       R1 R0 K6 ["_focusGui"]
+       13 LOADK                            R2 K7 ["MockFocus"]
+       14 SETTABLEKS                       R2 R1 K8 ["Name"]
+       16 RETURN                           R0 0
+
+PROTO_1:
+        0 GETTABLEKS                       R1 R0 K0 ["_focusGui"]
+        2 JUMPIFNOT                        R1 ; [+5]
+        3 GETTABLEKS                       R1 R0 K0 ["_focusGui"]
+        5 NAMECALL                         R1 R1 K1 ["Destroy"]
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
+
+PROTO_2:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["draftsService"]
         4 JUMPIF                           R1 ; [+10]
         5 GETUPVAL                         R2 0
@@ -45,18 +66,23 @@ PROTO_0:
        63 GETUPVAL                         R7 6
        64 GETTABLEKS                       R7 R7 K12 ["createElement"]
        66 GETUPVAL                         R8 7
-       67 DUPTABLE                         R9 K14 [{"draftsService", "localization", "plugin", "store", "theme"}]
+       67 DUPTABLE                         R9 K15 [{"draftsService", "focusGui", "localization", "plugin", "store", "theme"}]
        68 SETTABLEKS                       R1 R9 K1 ["draftsService"]
-       70 SETTABLEKS                       R2 R9 K5 ["localization"]
-       72 SETTABLEKS                       R3 R9 K7 ["plugin"]
-       74 SETTABLEKS                       R5 R9 K13 ["store"]
-       76 SETTABLEKS                       R6 R9 K11 ["theme"]
-       78 GETTABLEKS                       R11 R0 K0 ["props"]
-       80 GETUPVAL                         R12 6
-       81 GETTABLEKS                       R12 R12 K15 ["Children"]
-       83 GETTABLE                         R10 R11 R12
-       84 CALL                             R7 3 -1
-       85 RETURN                           R7 -1
+       70 GETTABLEKS                       R10 R0 K0 ["props"]
+       72 GETTABLEKS                       R10 R10 K13 ["focusGui"]
+       74 JUMPIF                           R10 ; [+2]
+       75 GETTABLEKS                       R10 R0 K16 ["_focusGui"]
+       77 SETTABLEKS                       R10 R9 K13 ["focusGui"]
+       79 SETTABLEKS                       R2 R9 K5 ["localization"]
+       81 SETTABLEKS                       R3 R9 K7 ["plugin"]
+       83 SETTABLEKS                       R5 R9 K14 ["store"]
+       85 SETTABLEKS                       R6 R9 K11 ["theme"]
+       87 GETTABLEKS                       R11 R0 K0 ["props"]
+       89 GETUPVAL                         R12 6
+       90 GETTABLEKS                       R12 R12 K17 ["Children"]
+       92 GETTABLE                         R10 R11 R12
+       93 CALL                             R7 3 -1
+       94 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -108,13 +134,17 @@ MAIN:
        82 NAMECALL                         R11 R11 K23 ["extend"]
        84 CALL                             R11 2 1
        85 DUPCLOSURE                       R12 K24 [PROTO_0]
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          VAL R6
-       91 CAPTURE                          VAL R9
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          VAL R10
-       94 SETTABLEKS                       R12 R11 K25 ["render"]
-       96 RETURN                           R11 1
+       86 SETTABLEKS                       R12 R11 K25 ["init"]
+       88 DUPCLOSURE                       R12 K26 [PROTO_1]
+       89 SETTABLEKS                       R12 R11 K27 ["willUnmount"]
+       91 DUPCLOSURE                       R12 K28 [PROTO_2]
+       92 CAPTURE                          VAL R7
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R8
+       95 CAPTURE                          VAL R2
+       96 CAPTURE                          VAL R6
+       97 CAPTURE                          VAL R9
+       98 CAPTURE                          VAL R1
+       99 CAPTURE                          VAL R10
+      100 SETTABLEKS                       R12 R11 K29 ["render"]
+      102 RETURN                           R11 1

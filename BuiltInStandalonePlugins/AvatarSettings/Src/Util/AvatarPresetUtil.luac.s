@@ -1,4 +1,14 @@
 PROTO_0:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["collisionHitboxSizeSetting"]
+        3 LOADB                            R2 1
+        4 JUMPIFEQKNIL                     R1 ; [+5]
+        6 JUMPIFEQ                         R0 R1 ; [+2]
+        8 LOADB                            R2 0 +1
+        9 LOADB                            R2 1
+       10 RETURN                           R2 1
+
+PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["settings"]
         2 FASTCALL2K                       ASSERT R1 K1 ; [+5]
         4 MOVE                             R3 R1
@@ -88,43 +98,57 @@ PROTO_0:
       152 GETTABLEKS                       R8 R8 K6 ["value"]
       154 GETUPVAL                         R9 1
       155 GETTABLEKS                       R9 R9 K16 ["bodyScaleSetting"]
-      157 JUMPIFNOTEQ                      R8 R9 ; [+57]
+      157 JUMPIFNOTEQ                      R8 R9 ; [+77]
       159 GETTABLEKS                       R8 R3 K30 ["bodyScaleCustomHeight"]
       161 GETTABLEKS                       R8 R8 K6 ["value"]
       163 GETUPVAL                         R9 1
       164 GETTABLEKS                       R9 R9 K30 ["bodyScaleCustomHeight"]
-      166 JUMPIFNOTEQ                      R8 R9 ; [+48]
+      166 JUMPIFNOTEQ                      R8 R9 ; [+68]
       168 GETTABLEKS                       R8 R3 K17 ["bodyAppearanceSetting"]
       170 GETTABLEKS                       R8 R8 K6 ["value"]
       172 GETUPVAL                         R9 1
       173 GETTABLEKS                       R9 R9 K17 ["bodyAppearanceSetting"]
-      175 JUMPIFNOTEQ                      R8 R9 ; [+39]
+      175 JUMPIFNOTEQ                      R8 R9 ; [+59]
       177 GETTABLEKS                       R8 R3 K18 ["bodyBuildSetting"]
       179 GETTABLEKS                       R8 R8 K6 ["value"]
       181 GETUPVAL                         R9 1
       182 GETTABLEKS                       R9 R9 K18 ["bodyBuildSetting"]
-      184 JUMPIFNOTEQ                      R8 R9 ; [+30]
+      184 JUMPIFNOTEQ                      R8 R9 ; [+50]
       186 GETTABLEKS                       R8 R4 K19 ["collisionSetting"]
       188 GETTABLEKS                       R8 R8 K6 ["value"]
       190 GETUPVAL                         R9 1
       191 GETTABLEKS                       R9 R9 K19 ["collisionSetting"]
-      193 JUMPIFNOTEQ                      R8 R9 ; [+21]
+      193 JUMPIFNOTEQ                      R8 R9 ; [+41]
       195 GETTABLEKS                       R8 R4 K31 ["collisionSizeSetting"]
       197 GETTABLEKS                       R8 R8 K6 ["value"]
       199 GETUPVAL                         R9 1
       200 GETTABLEKS                       R9 R9 K31 ["collisionSizeSetting"]
-      202 JUMPIFNOTEQ                      R8 R9 ; [+12]
+      202 JUMPIFNOTEQ                      R8 R9 ; [+32]
       204 GETTABLEKS                       R8 R4 K32 ["collisionHitAndTouchDetectionSetting"]
       206 GETTABLEKS                       R8 R8 K6 ["value"]
       208 GETUPVAL                         R9 1
       209 GETTABLEKS                       R9 R9 K32 ["collisionHitAndTouchDetectionSetting"]
-      211 JUMPIFNOTEQ                      R8 R9 ; [+3]
-      213 LOADK                            R8 K33 ["ConsistentGameplay"]
-      214 RETURN                           R8 1
-      215 LOADNIL                          R8
-      216 RETURN                           R8 1
+      211 JUMPIFNOTEQ                      R8 R9 ; [+23]
+      213 GETTABLEKS                       R10 R4 K33 ["collisionHitboxSizeSetting"]
+      215 JUMPIFNOT                        R10 ; [+5]
+      216 GETTABLEKS                       R9 R4 K33 ["collisionHitboxSizeSetting"]
+      218 GETTABLEKS                       R9 R9 K6 ["value"]
+      220 JUMP                             ; [+1]
+      221 LOADNIL                          R9
+      222 GETUPVAL                         R10 1
+      223 GETTABLEKS                       R10 R10 K33 ["collisionHitboxSizeSetting"]
+      225 LOADB                            R8 1
+      226 JUMPIFEQKNIL                     R10 ; [+5]
+      228 JUMPIFEQ                         R9 R10 ; [+2]
+      230 LOADB                            R8 0 +1
+      231 LOADB                            R8 1
+      232 JUMPIFNOT                        R8 ; [+2]
+      233 LOADK                            R8 K34 ["ConsistentGameplay"]
+      234 RETURN                           R8 1
+      235 LOADNIL                          R8
+      236 RETURN                           R8 1
 
-PROTO_1:
+PROTO_2:
         0 JUMPIFNOT                        R0 ; [+8]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K0 ["avatarType"]
@@ -211,7 +235,7 @@ PROTO_1:
       125 GETTABLEKS                       R2 R2 K19 ["customClothingSetting"]
       127 CALL                             R1 1 0
       128 RETURN                           R0 0
-      129 JUMPIFNOTEQKS                    R0 K20 ["ConsistentGameplay"] ; [+64]
+      129 JUMPIFNOTEQKS                    R0 K20 ["ConsistentGameplay"] ; [+79]
       131 GETUPVAL                         R1 1
       132 GETTABLEKS                       R1 R1 K7 ["bodyScaleSetting"]
       134 GETTABLEKS                       R1 R1 K1 ["set"]
@@ -254,9 +278,20 @@ PROTO_1:
       190 GETUPVAL                         R2 7
       191 GETTABLEKS                       R2 R2 K23 ["collisionHitAndTouchDetectionSetting"]
       193 CALL                             R1 1 0
-      194 RETURN                           R0 0
+      194 GETUPVAL                         R1 7
+      195 GETTABLEKS                       R1 R1 K24 ["collisionHitboxSizeSetting"]
+      197 JUMPIFNOT                        R1 ; [+11]
+      198 GETUPVAL                         R2 3
+      199 GETTABLEKS                       R2 R2 K24 ["collisionHitboxSizeSetting"]
+      201 JUMPIFNOT                        R2 ; [+7]
+      202 GETUPVAL                         R2 3
+      203 GETTABLEKS                       R2 R2 K24 ["collisionHitboxSizeSetting"]
+      205 GETTABLEKS                       R2 R2 K1 ["set"]
+      207 MOVE                             R3 R1
+      208 CALL                             R2 1 0
+      209 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["settings"]
         2 FASTCALL2K                       ASSERT R1 K1 ; [+5]
         4 MOVE                             R3 R1
@@ -280,7 +315,7 @@ PROTO_2:
        29 CAPTURE                          UPVAL U1
        30 RETURN                           R8 1
 
-PROTO_3:
+PROTO_4:
         0 JUMPIFNOTEQKS                    R6 K0 ["PlayerChoice"] ; [+107]
         2 LOADB                            R7 0
         3 GETTABLEKS                       R8 R0 K1 ["ScaleMode"]
@@ -349,48 +384,60 @@ PROTO_3:
       105 LOADB                            R7 0 +1
       106 LOADB                            R7 1
       107 RETURN                           R7 1
-      108 JUMPIFNOTEQKS                    R6 K27 ["ConsistentGameplay"] ; [+59]
+      108 JUMPIFNOTEQKS                    R6 K27 ["ConsistentGameplay"] ; [+76]
       110 LOADB                            R7 0
       111 GETTABLEKS                       R8 R0 K1 ["ScaleMode"]
       113 GETUPVAL                         R9 1
       114 GETTABLEKS                       R9 R9 K2 ["bodyScaleSetting"]
-      116 JUMPIFNOTEQ                      R8 R9 ; [+50]
+      116 JUMPIFNOTEQ                      R8 R9 ; [+67]
       118 LOADB                            R7 0
       119 GETTABLEKS                       R8 R0 K28 ["CustomHeight"]
       121 GETUPVAL                         R9 1
       122 GETTABLEKS                       R9 R9 K29 ["bodyScaleCustomHeight"]
-      124 JUMPIFNOTEQ                      R8 R9 ; [+42]
+      124 JUMPIFNOTEQ                      R8 R9 ; [+59]
       126 LOADB                            R7 0
       127 GETTABLEKS                       R8 R0 K3 ["AppearanceMode"]
       129 GETUPVAL                         R9 1
       130 GETTABLEKS                       R9 R9 K4 ["bodyAppearanceSetting"]
-      132 JUMPIFNOTEQ                      R8 R9 ; [+34]
+      132 JUMPIFNOTEQ                      R8 R9 ; [+51]
       134 LOADB                            R7 0
       135 GETTABLEKS                       R8 R0 K5 ["BuildMode"]
       137 GETUPVAL                         R9 1
       138 GETTABLEKS                       R9 R9 K6 ["bodyBuildSetting"]
-      140 JUMPIFNOTEQ                      R8 R9 ; [+26]
+      140 JUMPIFNOTEQ                      R8 R9 ; [+43]
       142 LOADB                            R7 0
       143 GETTABLEKS                       R8 R1 K7 ["CollisionMode"]
       145 GETUPVAL                         R9 1
       146 GETTABLEKS                       R9 R9 K8 ["collisionSetting"]
-      148 JUMPIFNOTEQ                      R8 R9 ; [+18]
+      148 JUMPIFNOTEQ                      R8 R9 ; [+35]
       150 LOADB                            R7 0
       151 GETTABLEKS                       R8 R1 K30 ["SingleColliderSize"]
       153 GETUPVAL                         R9 1
       154 GETTABLEKS                       R9 R9 K31 ["collisionSizeSetting"]
-      156 JUMPIFNOTEQ                      R8 R9 ; [+10]
-      158 GETTABLEKS                       R8 R1 K32 ["HitAndTouchDetectionMode"]
-      160 GETUPVAL                         R9 1
-      161 GETTABLEKS                       R9 R9 K33 ["collisionHitAndTouchDetectionSetting"]
-      163 JUMPIFEQ                         R8 R9 ; [+2]
-      165 LOADB                            R7 0 +1
-      166 LOADB                            R7 1
-      167 RETURN                           R7 1
-      168 JUMPIFEQKNIL                     R6 ; [+2]
-      170 LOADB                            R7 0 +1
-      171 LOADB                            R7 1
-      172 RETURN                           R7 1
+      156 JUMPIFNOTEQ                      R8 R9 ; [+27]
+      158 LOADB                            R7 0
+      159 GETTABLEKS                       R8 R1 K32 ["HitAndTouchDetectionMode"]
+      161 GETUPVAL                         R9 1
+      162 GETTABLEKS                       R9 R9 K33 ["collisionHitAndTouchDetectionSetting"]
+      164 JUMPIFNOTEQ                      R8 R9 ; [+19]
+      166 GETUPVAL                         R9 1
+      167 GETTABLEKS                       R9 R9 K34 ["collisionHitboxSizeSetting"]
+      169 JUMPIFNOT                        R9 ; [+3]
+      170 GETTABLEKS                       R8 R1 K35 ["HitboxSize"]
+      172 JUMP                             ; [+1]
+      173 LOADNIL                          R8
+      174 GETUPVAL                         R9 1
+      175 GETTABLEKS                       R9 R9 K34 ["collisionHitboxSizeSetting"]
+      177 LOADB                            R7 1
+      178 JUMPIFEQKNIL                     R9 ; [+5]
+      180 JUMPIFEQ                         R8 R9 ; [+2]
+      182 LOADB                            R7 0 +1
+      183 LOADB                            R7 1
+      184 RETURN                           R7 1
+      185 JUMPIFEQKNIL                     R6 ; [+2]
+      187 LOADB                            R7 0 +1
+      188 LOADB                            R7 1
+      189 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -414,19 +461,28 @@ MAIN:
        31 GETTABLEKS                       R4 R4 K7 ["Util"]
        33 GETTABLEKS                       R4 R4 K12 ["AvatarSettingsProviderTypes"]
        35 CALL                             R3 1 1
-       36 GETTABLEKS                       R4 R1 K13 ["PlayerSettingPresetValues"]
-       38 GETTABLEKS                       R5 R1 K14 ["ConsistentGameplayPresetValues"]
-       40 NEWTABLE                         R6 4 0
-       42 DUPCLOSURE                       R7 K15 [PROTO_0]
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R5
-       45 SETTABLEKS                       R7 R6 K16 ["computeCurrentPresetType"]
-       47 DUPCLOSURE                       R7 K17 [PROTO_2]
-       48 CAPTURE                          VAL R4
-       49 CAPTURE                          VAL R5
-       50 SETTABLEKS                       R7 R6 K18 ["createPresetTypeSetter"]
-       52 DUPCLOSURE                       R7 K19 [PROTO_3]
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R5
-       55 SETTABLEKS                       R7 R6 K20 ["verifyRulesInstancesMatchesPreset"]
-       57 RETURN                           R6 1
+       36 GETIMPORT                        R4 K5 [require]
+       38 GETTABLEKS                       R5 R0 K6 ["Src"]
+       40 GETTABLEKS                       R5 R5 K7 ["Util"]
+       42 GETTABLEKS                       R5 R5 K13 ["BridgingFiles"]
+       44 GETTABLEKS                       R5 R5 K14 ["AssetDmFiles"]
+       46 GETTABLEKS                       R5 R5 K15 ["assetDmTypes"]
+       48 CALL                             R4 1 1
+       49 GETTABLEKS                       R5 R1 K16 ["PlayerSettingPresetValues"]
+       51 GETTABLEKS                       R6 R1 K17 ["ConsistentGameplayPresetValues"]
+       53 DUPCLOSURE                       R7 K18 [PROTO_0]
+       54 CAPTURE                          VAL R6
+       55 NEWTABLE                         R8 4 0
+       57 DUPCLOSURE                       R9 K19 [PROTO_1]
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R6
+       60 SETTABLEKS                       R9 R8 K20 ["computeCurrentPresetType"]
+       62 DUPCLOSURE                       R9 K21 [PROTO_3]
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R6
+       65 SETTABLEKS                       R9 R8 K22 ["createPresetTypeSetter"]
+       67 DUPCLOSURE                       R9 K23 [PROTO_4]
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          VAL R6
+       70 SETTABLEKS                       R9 R8 K24 ["verifyRulesInstancesMatchesPreset"]
+       72 RETURN                           R8 1

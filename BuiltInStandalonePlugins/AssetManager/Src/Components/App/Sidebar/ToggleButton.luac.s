@@ -54,50 +54,52 @@ PROTO_1:
        69 GETTABLEKS                       R11 R11 K2 ["createElement"]
        71 GETUPVAL                         R12 4
        72 GETTABLEKS                       R12 R12 K26 ["Tooltip"]
-       74 DUPTABLE                         R13 K31 [{"title", "side"}]
+       74 DUPTABLE                         R13 K32 [{"title", "shortcut", "side"}]
        75 LOADK                            R16 K26 ["Tooltip"]
-       76 LOADK                            R17 K32 ["ToggleSidebar"]
-       77 NAMECALL                         R14 R1 K33 ["getText"]
+       76 LOADK                            R17 K33 ["ToggleSidebar"]
+       77 NAMECALL                         R14 R1 K34 ["getText"]
        79 CALL                             R14 3 1
        80 SETTABLEKS                       R14 R13 K29 ["title"]
-       82 GETUPVAL                         R14 4
-       83 GETTABLEKS                       R14 R14 K14 ["Enums"]
-       85 GETTABLEKS                       R14 R14 K34 ["PopoverSide"]
-       87 GETTABLEKS                       R14 R14 K35 ["Bottom"]
-       89 SETTABLEKS                       R14 R13 K30 ["side"]
-       91 MOVE                             R14 R6
-       92 CALL                             R11 3 1
-       93 SETTABLEKS                       R11 R10 K26 ["Tooltip"]
-       95 JUMPIF                           R3 ; [+41]
-       96 GETUPVAL                         R11 3
-       97 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       99 GETUPVAL                         R12 5
-      100 DUPTABLE                         R13 K42 [{["tutorialId"], ["stepId"], ["anchorInstance"], ["textKeyOverride"] = "Intro.SidebarClosedText", ["side"], ["align"]}]
-      101 GETUPVAL                         R14 6
-      102 GETTABLEKS                       R14 R14 K43 ["TutorialId"]
-      104 GETTABLEKS                       R14 R14 K44 ["Intro"]
-      106 SETTABLEKS                       R14 R13 K36 ["tutorialId"]
-      108 GETUPVAL                         R14 6
-      109 GETTABLEKS                       R14 R14 K45 ["TutorialStepId"]
-      111 GETTABLEKS                       R14 R14 K18 ["Sidebar"]
-      113 SETTABLEKS                       R14 R13 K37 ["stepId"]
-      115 SETTABLEKS                       R4 R13 K38 ["anchorInstance"]
-      117 GETUPVAL                         R14 4
-      118 GETTABLEKS                       R14 R14 K14 ["Enums"]
-      120 GETTABLEKS                       R14 R14 K34 ["PopoverSide"]
-      122 GETTABLEKS                       R14 R14 K35 ["Bottom"]
-      124 SETTABLEKS                       R14 R13 K30 ["side"]
-      126 GETUPVAL                         R14 4
-      127 GETTABLEKS                       R14 R14 K14 ["Enums"]
-      129 GETTABLEKS                       R14 R14 K46 ["PopoverAlign"]
-      131 GETTABLEKS                       R14 R14 K47 ["Center"]
-      133 SETTABLEKS                       R14 R13 K41 ["align"]
-      135 CALL                             R11 2 1
-      136 JUMP                             ; [+1]
-      137 LOADNIL                          R11
-      138 SETTABLEKS                       R11 R10 K27 ["SidebarTutorialTooltip"]
-      140 CALL                             R7 3 -1
-      141 RETURN                           R7 -1
+       82 GETUPVAL                         R14 5
+       83 SETTABLEKS                       R14 R13 K30 ["shortcut"]
+       85 GETUPVAL                         R14 4
+       86 GETTABLEKS                       R14 R14 K14 ["Enums"]
+       88 GETTABLEKS                       R14 R14 K35 ["PopoverSide"]
+       90 GETTABLEKS                       R14 R14 K36 ["Bottom"]
+       92 SETTABLEKS                       R14 R13 K31 ["side"]
+       94 MOVE                             R14 R6
+       95 CALL                             R11 3 1
+       96 SETTABLEKS                       R11 R10 K26 ["Tooltip"]
+       98 JUMPIF                           R3 ; [+41]
+       99 GETUPVAL                         R11 3
+      100 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      102 GETUPVAL                         R12 6
+      103 DUPTABLE                         R13 K43 [{["tutorialId"], ["stepId"], ["anchorInstance"], ["textKeyOverride"] = "Intro.SidebarClosedText", ["side"], ["align"]}]
+      104 GETUPVAL                         R14 7
+      105 GETTABLEKS                       R14 R14 K44 ["TutorialId"]
+      107 GETTABLEKS                       R14 R14 K45 ["Intro"]
+      109 SETTABLEKS                       R14 R13 K37 ["tutorialId"]
+      111 GETUPVAL                         R14 7
+      112 GETTABLEKS                       R14 R14 K46 ["TutorialStepId"]
+      114 GETTABLEKS                       R14 R14 K18 ["Sidebar"]
+      116 SETTABLEKS                       R14 R13 K38 ["stepId"]
+      118 SETTABLEKS                       R4 R13 K39 ["anchorInstance"]
+      120 GETUPVAL                         R14 4
+      121 GETTABLEKS                       R14 R14 K14 ["Enums"]
+      123 GETTABLEKS                       R14 R14 K35 ["PopoverSide"]
+      125 GETTABLEKS                       R14 R14 K36 ["Bottom"]
+      127 SETTABLEKS                       R14 R13 K31 ["side"]
+      129 GETUPVAL                         R14 4
+      130 GETTABLEKS                       R14 R14 K14 ["Enums"]
+      132 GETTABLEKS                       R14 R14 K47 ["PopoverAlign"]
+      134 GETTABLEKS                       R14 R14 K48 ["Center"]
+      136 SETTABLEKS                       R14 R13 K42 ["align"]
+      138 CALL                             R11 2 1
+      139 JUMP                             ; [+1]
+      140 LOADNIL                          R11
+      141 SETTABLEKS                       R11 R10 K27 ["SidebarTutorialTooltip"]
+      143 CALL                             R7 3 -1
+      144 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -139,12 +141,16 @@ MAIN:
        63 GETTABLEKS                       R10 R10 K19 ["Hooks"]
        65 GETTABLEKS                       R10 R10 K20 ["useShowSidebar"]
        67 CALL                             R9 1 1
-       68 DUPCLOSURE                       R10 K21 [PROTO_1]
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R6
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R1
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          VAL R8
-       75 CAPTURE                          VAL R7
-       76 RETURN                           R10 1
+       68 NEWTABLE                         R10 0 1
+       70 GETIMPORT                        R11 K24 [Enum.KeyCode.Tab]
+       72 SETLIST                          R10 R11 1 [1]
+       74 DUPCLOSURE                       R11 K25 [PROTO_1]
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R9
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R10
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          VAL R7
+       83 RETURN                           R11 1

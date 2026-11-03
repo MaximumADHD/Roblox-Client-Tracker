@@ -93,7 +93,20 @@ PROTO_3:
        51 SETTABLEKS                       R2 R1 K10 ["tier"]
        53 GETTABLEKS                       R2 R0 K11 ["width"]
        55 SETTABLEKS                       R2 R1 K11 ["width"]
-       57 RETURN                           R1 1
+       57 GETUPVAL                         R2 1
+       58 GETTABLEKS                       R2 R2 K15 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       60 CALL                             R2 0 1
+       61 JUMPIFNOT                        R2 ; [+14]
+       62 GETTABLEKS                       R2 R0 K16 ["nominalMemoryMB"]
+       64 FASTCALL1                        TYPE R2 ; [+3]
+       65 MOVE                             R4 R2
+       66 GETIMPORT                        R3 K18 [type]
+       68 CALL                             R3 1 1
+       69 JUMPIFNOTEQKS                    R3 K19 ["number"] ; [+6]
+       71 LOADN                            R3 0
+       72 JUMPIFNOTLT                      R3 R2 ; [+3]
+       74 SETTABLEKS                       R2 R1 K16 ["nominalMemoryMB"]
+       76 RETURN                           R1 1
 
 PROTO_4:
         0 NEWTABLE                         R1 0 0
@@ -114,17 +127,27 @@ PROTO_4:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 8 0
-        3 DUPCLOSURE                       R1 K0 [PROTO_0]
-        4 SETTABLEKS                       R1 R0 K1 ["formValue"]
-        6 DUPCLOSURE                       R1 K2 [PROTO_1]
-        7 SETTABLEKS                       R1 R0 K3 ["deserializeDeviceForm"]
-        9 DUPCLOSURE                       R1 K4 [PROTO_2]
-       10 SETTABLEKS                       R1 R0 K5 ["deserializePlatform"]
-       12 DUPCLOSURE                       R1 K6 [PROTO_3]
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R1 R0 K7 ["deserializeDevice"]
-       16 DUPCLOSURE                       R1 K8 [PROTO_4]
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R1 R0 K9 ["deserializeDevices"]
-       20 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["DeviceSimulatorToolbar"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
+       15 CALL                             R1 1 1
+       16 NEWTABLE                         R2 8 0
+       18 DUPCLOSURE                       R3 K9 [PROTO_0]
+       19 SETTABLEKS                       R3 R2 K10 ["formValue"]
+       21 DUPCLOSURE                       R3 K11 [PROTO_1]
+       22 SETTABLEKS                       R3 R2 K12 ["deserializeDeviceForm"]
+       24 DUPCLOSURE                       R3 K13 [PROTO_2]
+       25 SETTABLEKS                       R3 R2 K14 ["deserializePlatform"]
+       27 DUPCLOSURE                       R3 K15 [PROTO_3]
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          VAL R1
+       30 SETTABLEKS                       R3 R2 K16 ["deserializeDevice"]
+       32 DUPCLOSURE                       R3 K17 [PROTO_4]
+       33 CAPTURE                          VAL R2
+       34 SETTABLEKS                       R3 R2 K18 ["deserializeDevices"]
+       36 RETURN                           R2 1

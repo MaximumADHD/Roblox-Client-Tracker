@@ -48,42 +48,43 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Types"]
-       20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K10 ["AssetInfoField"]
-       23 GETIMPORT                        R4 K5 [require]
-       25 GETTABLEKS                       R5 R0 K8 ["Src"]
-       27 GETTABLEKS                       R5 R5 K11 ["Util"]
-       29 GETTABLEKS                       R5 R5 K12 ["hasMatchingTerm"]
+       14 GETTABLEKS                       R2 R1 K8 ["Utils"]
+       16 GETTABLEKS                       R2 R2 K9 ["hasMatchingTerm"]
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["Dash"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K5 [require]
+       27 GETTABLEKS                       R5 R0 K11 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Types"]
        31 CALL                             R4 1 1
-       32 NEWTABLE                         R5 0 0
-       34 DUPCLOSURE                       R6 K13 [PROTO_0]
-       35 GETTABLEKS                       R7 R3 K14 ["Creator"]
-       37 DUPCLOSURE                       R8 K15 [PROTO_1]
-       38 SETTABLE                         R8 R5 R7
-       39 GETTABLEKS                       R7 R3 K16 ["Archived"]
-       41 DUPCLOSURE                       R8 K17 [PROTO_2]
-       42 CAPTURE                          VAL R1
-       43 SETTABLE                         R8 R5 R7
-       44 GETTABLEKS                       R7 R3 K18 ["IsPackage"]
-       46 DUPCLOSURE                       R8 K19 [PROTO_3]
-       47 CAPTURE                          VAL R1
-       48 SETTABLE                         R8 R5 R7
-       49 GETTABLEKS                       R7 R3 K20 ["DisplayName"]
-       51 DUPCLOSURE                       R8 K21 [PROTO_4]
-       52 CAPTURE                          VAL R4
-       53 SETTABLE                         R8 R5 R7
-       54 GETTABLEKS                       R7 R2 K22 ["asList"]
-       56 MOVE                             R8 R3
-       57 CALL                             R7 1 3
-       58 FORGPREP                         R7
-       59 GETTABLE                         R12 R5 R11
-       60 JUMPIF                           R12 ; [+2]
-       61 DUPCLOSURE                       R12 K23 [PROTO_5]
-       62 SETTABLE                         R12 R5 R11
-       63 FORGLOOP                         R7 2 ; [-5]
-       65 RETURN                           R5 1
+       32 GETTABLEKS                       R5 R4 K13 ["AssetInfoField"]
+       34 NEWTABLE                         R6 0 0
+       36 DUPCLOSURE                       R7 K14 [PROTO_0]
+       37 GETTABLEKS                       R8 R5 K15 ["Creator"]
+       39 DUPCLOSURE                       R9 K16 [PROTO_1]
+       40 SETTABLE                         R9 R6 R8
+       41 GETTABLEKS                       R8 R5 K17 ["Archived"]
+       43 DUPCLOSURE                       R9 K18 [PROTO_2]
+       44 CAPTURE                          VAL R3
+       45 SETTABLE                         R9 R6 R8
+       46 GETTABLEKS                       R8 R5 K19 ["IsPackage"]
+       48 DUPCLOSURE                       R9 K20 [PROTO_3]
+       49 CAPTURE                          VAL R3
+       50 SETTABLE                         R9 R6 R8
+       51 GETTABLEKS                       R8 R5 K21 ["DisplayName"]
+       53 DUPCLOSURE                       R9 K22 [PROTO_4]
+       54 CAPTURE                          VAL R2
+       55 SETTABLE                         R9 R6 R8
+       56 GETTABLEKS                       R8 R4 K23 ["asList"]
+       58 MOVE                             R9 R5
+       59 CALL                             R8 1 3
+       60 FORGPREP                         R8
+       61 GETTABLE                         R13 R6 R12
+       62 JUMPIF                           R13 ; [+2]
+       63 DUPCLOSURE                       R13 K24 [PROTO_5]
+       64 SETTABLE                         R13 R6 R12
+       65 FORGLOOP                         R8 2 ; [-5]
+       67 RETURN                           R6 1

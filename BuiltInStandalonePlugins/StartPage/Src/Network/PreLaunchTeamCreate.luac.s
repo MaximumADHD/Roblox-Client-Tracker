@@ -2,9 +2,11 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["GameJoin"]
         3 GETTABLEKS                       R0 R0 K1 ["postV1TeamCreatePreemptiveAsync"]
-        5 GETUPVAL                         R1 1
-        6 CALL                             R0 1 0
-        7 RETURN                           R0 0
+        5 DUPTABLE                         R1 K3 [{"teamCreateRequest"}]
+        6 GETUPVAL                         R2 1
+        7 SETTABLEKS                       R2 R1 K2 ["teamCreateRequest"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

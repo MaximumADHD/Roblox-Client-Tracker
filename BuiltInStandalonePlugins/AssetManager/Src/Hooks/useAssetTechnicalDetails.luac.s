@@ -86,21 +86,21 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["useState"]
-       16 GETTABLEKS                       R3 R1 K9 ["useEffect"]
-       18 GETIMPORT                        R4 K5 [require]
-       20 GETTABLEKS                       R5 R0 K10 ["Src"]
-       22 GETTABLEKS                       R5 R5 K11 ["Controllers"]
-       24 GETTABLEKS                       R5 R5 K12 ["ItemsController"]
-       26 CALL                             R4 1 1
-       27 GETIMPORT                        R5 K5 [require]
-       29 GETTABLEKS                       R6 R0 K10 ["Src"]
-       31 GETTABLEKS                       R6 R6 K13 ["Types"]
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["useState"]
+       23 GETTABLEKS                       R4 R2 K10 ["useEffect"]
+       25 GETIMPORT                        R5 K5 [require]
+       27 GETTABLEKS                       R6 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Controllers"]
+       31 GETTABLEKS                       R6 R6 K13 ["ItemsController"]
        33 CALL                             R5 1 1
        34 DUPCLOSURE                       R6 K14 [PROTO_3]
-       35 CAPTURE                          VAL R4
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R3
+       35 CAPTURE                          VAL R5
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R4
        38 RETURN                           R6 1

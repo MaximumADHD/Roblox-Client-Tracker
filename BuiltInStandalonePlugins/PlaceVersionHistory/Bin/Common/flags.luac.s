@@ -40,50 +40,70 @@ MAIN:
        53 LOADB                            R3 0
        54 NAMECALL                         R0 R0 K11 ["DefineFastFlag"]
        56 CALL                             R0 3 0
-       57 DUPTABLE                         R0 K21 [{"FIntPVHMaxTitleChars", "FIntPVHMaxDescriptionChars", "FIntPVHMaxDescriptionLines", "FIntPVHMaxContributors", "FIntPVHMaxPlaces", "FIntPVHFirstPageDelayMs", "FIntPVHGenerateNotesTimeoutSeconds", "EngineFeaturePVHGenerateNotes", "FFlagPVHGenerateNotesQuotaMessage"}]
-       58 GETIMPORT                        R1 K1 [game]
-       60 LOADK                            R3 K2 ["PVHMaxTitleChars"]
-       61 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       63 CALL                             R1 2 1
-       64 SETTABLEKS                       R1 R0 K12 ["FIntPVHMaxTitleChars"]
-       66 GETIMPORT                        R1 K1 [game]
-       68 LOADK                            R3 K4 ["PVHMaxDescriptionChars"]
-       69 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       71 CALL                             R1 2 1
-       72 SETTABLEKS                       R1 R0 K13 ["FIntPVHMaxDescriptionChars"]
-       74 GETIMPORT                        R1 K1 [game]
-       76 LOADK                            R3 K5 ["PVHMaxDescriptionLines"]
-       77 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       79 CALL                             R1 2 1
-       80 SETTABLEKS                       R1 R0 K14 ["FIntPVHMaxDescriptionLines"]
-       82 GETIMPORT                        R1 K1 [game]
-       84 LOADK                            R3 K6 ["PVHMaxContributors"]
-       85 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       87 CALL                             R1 2 1
-       88 SETTABLEKS                       R1 R0 K15 ["FIntPVHMaxContributors"]
-       90 GETIMPORT                        R1 K1 [game]
-       92 LOADK                            R3 K7 ["PVHMaxPlaces"]
-       93 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-       95 CALL                             R1 2 1
-       96 SETTABLEKS                       R1 R0 K16 ["FIntPVHMaxPlaces"]
-       98 GETIMPORT                        R1 K1 [game]
-      100 LOADK                            R3 K8 ["PVHFirstPageDelayMs"]
-      101 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-      103 CALL                             R1 2 1
-      104 SETTABLEKS                       R1 R0 K17 ["FIntPVHFirstPageDelayMs"]
-      106 GETIMPORT                        R1 K1 [game]
-      108 LOADK                            R3 K9 ["PVHGenerateNotesTimeoutSeconds"]
-      109 NAMECALL                         R1 R1 K22 ["GetFastInt"]
-      111 CALL                             R1 2 1
-      112 SETTABLEKS                       R1 R0 K18 ["FIntPVHGenerateNotesTimeoutSeconds"]
-      114 GETIMPORT                        R1 K1 [game]
-      116 LOADK                            R3 K23 ["PVHGenerateNotes"]
-      117 NAMECALL                         R1 R1 K24 ["GetEngineFeature"]
-      119 CALL                             R1 2 1
-      120 SETTABLEKS                       R1 R0 K19 ["EngineFeaturePVHGenerateNotes"]
-      122 GETIMPORT                        R1 K1 [game]
-      124 LOADK                            R3 K10 ["PVHGenerateNotesQuotaMessage"]
-      125 NAMECALL                         R1 R1 K25 ["GetFastFlag"]
-      127 CALL                             R1 2 1
-      128 SETTABLEKS                       R1 R0 K20 ["FFlagPVHGenerateNotesQuotaMessage"]
-      130 RETURN                           R0 1
+       57 GETIMPORT                        R0 K1 [game]
+       59 LOADK                            R2 K12 ["PVHGenerateNotes204NoContent"]
+       60 LOADB                            R3 0
+       61 NAMECALL                         R0 R0 K11 ["DefineFastFlag"]
+       63 CALL                             R0 3 0
+       64 GETIMPORT                        R0 K1 [game]
+       66 LOADK                            R2 K13 ["PVHGenerateNotesDeprecate404"]
+       67 LOADB                            R3 0
+       68 NAMECALL                         R0 R0 K11 ["DefineFastFlag"]
+       70 CALL                             R0 3 0
+       71 DUPTABLE                         R0 K25 [{"FIntPVHMaxTitleChars", "FIntPVHMaxDescriptionChars", "FIntPVHMaxDescriptionLines", "FIntPVHMaxContributors", "FIntPVHMaxPlaces", "FIntPVHFirstPageDelayMs", "FIntPVHGenerateNotesTimeoutSeconds", "EngineFeaturePVHGenerateNotes", "FFlagPVHGenerateNotesQuotaMessage", "FFlagPVHGenerateNotes204NoContent", "FFlagPVHGenerateNotesDeprecate404"}]
+       72 GETIMPORT                        R1 K1 [game]
+       74 LOADK                            R3 K2 ["PVHMaxTitleChars"]
+       75 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+       77 CALL                             R1 2 1
+       78 SETTABLEKS                       R1 R0 K14 ["FIntPVHMaxTitleChars"]
+       80 GETIMPORT                        R1 K1 [game]
+       82 LOADK                            R3 K4 ["PVHMaxDescriptionChars"]
+       83 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+       85 CALL                             R1 2 1
+       86 SETTABLEKS                       R1 R0 K15 ["FIntPVHMaxDescriptionChars"]
+       88 GETIMPORT                        R1 K1 [game]
+       90 LOADK                            R3 K5 ["PVHMaxDescriptionLines"]
+       91 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+       93 CALL                             R1 2 1
+       94 SETTABLEKS                       R1 R0 K16 ["FIntPVHMaxDescriptionLines"]
+       96 GETIMPORT                        R1 K1 [game]
+       98 LOADK                            R3 K6 ["PVHMaxContributors"]
+       99 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+      101 CALL                             R1 2 1
+      102 SETTABLEKS                       R1 R0 K17 ["FIntPVHMaxContributors"]
+      104 GETIMPORT                        R1 K1 [game]
+      106 LOADK                            R3 K7 ["PVHMaxPlaces"]
+      107 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+      109 CALL                             R1 2 1
+      110 SETTABLEKS                       R1 R0 K18 ["FIntPVHMaxPlaces"]
+      112 GETIMPORT                        R1 K1 [game]
+      114 LOADK                            R3 K8 ["PVHFirstPageDelayMs"]
+      115 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+      117 CALL                             R1 2 1
+      118 SETTABLEKS                       R1 R0 K19 ["FIntPVHFirstPageDelayMs"]
+      120 GETIMPORT                        R1 K1 [game]
+      122 LOADK                            R3 K9 ["PVHGenerateNotesTimeoutSeconds"]
+      123 NAMECALL                         R1 R1 K26 ["GetFastInt"]
+      125 CALL                             R1 2 1
+      126 SETTABLEKS                       R1 R0 K20 ["FIntPVHGenerateNotesTimeoutSeconds"]
+      128 GETIMPORT                        R1 K1 [game]
+      130 LOADK                            R3 K27 ["PVHGenerateNotes"]
+      131 NAMECALL                         R1 R1 K28 ["GetEngineFeature"]
+      133 CALL                             R1 2 1
+      134 SETTABLEKS                       R1 R0 K21 ["EngineFeaturePVHGenerateNotes"]
+      136 GETIMPORT                        R1 K1 [game]
+      138 LOADK                            R3 K10 ["PVHGenerateNotesQuotaMessage"]
+      139 NAMECALL                         R1 R1 K29 ["GetFastFlag"]
+      141 CALL                             R1 2 1
+      142 SETTABLEKS                       R1 R0 K22 ["FFlagPVHGenerateNotesQuotaMessage"]
+      144 GETIMPORT                        R1 K1 [game]
+      146 LOADK                            R3 K12 ["PVHGenerateNotes204NoContent"]
+      147 NAMECALL                         R1 R1 K29 ["GetFastFlag"]
+      149 CALL                             R1 2 1
+      150 SETTABLEKS                       R1 R0 K23 ["FFlagPVHGenerateNotes204NoContent"]
+      152 GETIMPORT                        R1 K1 [game]
+      154 LOADK                            R3 K13 ["PVHGenerateNotesDeprecate404"]
+      155 NAMECALL                         R1 R1 K29 ["GetFastFlag"]
+      157 CALL                             R1 2 1
+      158 SETTABLEKS                       R1 R0 K24 ["FFlagPVHGenerateNotesDeprecate404"]
+      160 RETURN                           R0 1

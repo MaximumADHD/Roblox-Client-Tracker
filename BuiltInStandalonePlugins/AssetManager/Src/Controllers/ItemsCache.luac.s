@@ -1165,145 +1165,146 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Types"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       25 GETTABLEKS                       R4 R4 K10 ["Dash"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K8 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Util"]
-       34 GETTABLEKS                       R5 R5 K12 ["compareItemField"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K8 ["Src"]
-       41 GETTABLEKS                       R6 R6 K11 ["Util"]
-       43 GETTABLEKS                       R6 R6 K13 ["filterItemField"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K8 ["Src"]
-       50 GETTABLEKS                       R7 R7 K11 ["Util"]
-       52 GETTABLEKS                       R7 R7 K14 ["hasMatchingTerm"]
-       54 CALL                             R6 1 1
-       55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R8 R0 K8 ["Src"]
-       59 GETTABLEKS                       R8 R8 K11 ["Util"]
-       61 GETTABLEKS                       R8 R8 K15 ["logIfDebug"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K5 [require]
-       66 GETTABLEKS                       R9 R0 K8 ["Src"]
-       68 GETTABLEKS                       R9 R9 K11 ["Util"]
-       70 GETTABLEKS                       R9 R9 K16 ["binaryInsert"]
-       72 CALL                             R8 1 1
-       73 GETTABLEKS                       R9 R1 K11 ["Util"]
-       75 GETTABLEKS                       R10 R9 K17 ["Signal"]
-       77 GETIMPORT                        R11 K5 [require]
-       79 GETTABLEKS                       R12 R0 K8 ["Src"]
-       81 GETTABLEKS                       R12 R12 K18 ["Resources"]
-       83 GETTABLEKS                       R12 R12 K19 ["Constants"]
-       85 CALL                             R11 1 1
-       86 GETIMPORT                        R12 K5 [require]
-       88 GETTABLEKS                       R13 R0 K8 ["Src"]
-       90 GETTABLEKS                       R13 R13 K20 ["Flags"]
-       92 GETTABLEKS                       R13 R13 K21 ["getFFlagAmrEnableDraftStatus"]
-       94 CALL                             R12 1 1
-       95 NEWTABLE                         R13 32 0
-       97 SETTABLEKS                       R13 R13 K22 ["__index"]
-       99 DUPCLOSURE                       R14 K23 [PROTO_0]
-      100 DUPCLOSURE                       R15 K24 [PROTO_1]
-      101 CAPTURE                          VAL R2
-      102 DUPCLOSURE                       R16 K25 [PROTO_2]
-      103 CAPTURE                          VAL R13
-      104 CAPTURE                          VAL R11
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R10
-      107 SETTABLEKS                       R16 R13 K26 ["new"]
-      109 DUPCLOSURE                       R16 K27 [PROTO_3]
-      110 CAPTURE                          VAL R11
-      111 CAPTURE                          VAL R2
-      112 SETTABLEKS                       R16 R13 K28 ["reset"]
-      114 DUPCLOSURE                       R16 K29 [PROTO_4]
-      115 SETTABLEKS                       R16 R13 K30 ["updateItemField"]
-      117 DUPCLOSURE                       R16 K31 [PROTO_5]
-      118 SETTABLEKS                       R16 R13 K32 ["getTotalItemCount"]
-      120 DUPCLOSURE                       R16 K33 [PROTO_6]
-      121 SETTABLEKS                       R16 R13 K34 ["getMaxItems"]
-      123 DUPCLOSURE                       R16 K35 [PROTO_7]
-      124 CAPTURE                          VAL R3
-      125 SETTABLEKS                       R16 R13 K36 ["getScopeItemCount"]
-      127 DUPCLOSURE                       R16 K37 [PROTO_8]
-      128 SETTABLEKS                       R16 R13 K38 ["scopeHasFieldValue"]
-      130 DUPCLOSURE                       R16 K39 [PROTO_9]
-      131 CAPTURE                          VAL R11
-      132 SETTABLEKS                       R16 R13 K40 ["getScopeCacheFetchProgress"]
-      134 DUPCLOSURE                       R16 K41 [PROTO_10]
-      135 CAPTURE                          VAL R3
-      136 SETTABLEKS                       R16 R13 K42 ["getItemField"]
-      138 DUPCLOSURE                       R16 K43 [PROTO_11]
-      139 SETTABLEKS                       R16 R13 K44 ["moveItem"]
-      141 DUPCLOSURE                       R16 K45 [PROTO_12]
-      142 CAPTURE                          VAL R2
-      143 CAPTURE                          VAL R3
-      144 SETTABLEKS                       R16 R13 K46 ["_getItemAtIndex"]
-      146 DUPCLOSURE                       R16 K47 [PROTO_13]
-      147 SETTABLEKS                       R16 R13 K48 ["_hasItem"]
-      149 DUPCLOSURE                       R16 K49 [PROTO_14]
-      150 SETTABLEKS                       R16 R13 K50 ["getData"]
-      152 DUPCLOSURE                       R16 K51 [PROTO_15]
-      153 SETTABLEKS                       R16 R13 K52 ["_getItemIndex"]
-      155 DUPCLOSURE                       R16 K53 [PROTO_16]
-      156 SETTABLEKS                       R16 R13 K54 ["getItem"]
-      158 DUPCLOSURE                       R16 K55 [PROTO_17]
-      159 CAPTURE                          VAL R2
-      160 CAPTURE                          VAL R3
-      161 SETTABLEKS                       R16 R13 K56 ["_updateItem"]
-      163 DUPCLOSURE                       R16 K57 [PROTO_18]
-      164 CAPTURE                          VAL R7
-      165 CAPTURE                          VAL R3
-      166 CAPTURE                          VAL R12
-      167 SETTABLEKS                       R16 R13 K58 ["addItem"]
-      169 DUPCLOSURE                       R16 K59 [PROTO_19]
-      170 CAPTURE                          VAL R7
-      171 SETTABLEKS                       R16 R13 K60 ["_swapAndPop"]
-      173 DUPCLOSURE                       R16 K61 [PROTO_20]
-      174 CAPTURE                          VAL R7
-      175 SETTABLEKS                       R16 R13 K62 ["removeItem"]
-      177 DUPCLOSURE                       R16 K63 [PROTO_21]
-      178 SETTABLEKS                       R16 R13 K64 ["hasScope"]
-      180 DUPCLOSURE                       R16 K65 [PROTO_22]
-      181 SETTABLEKS                       R16 R13 K66 ["getScope"]
-      183 DUPCLOSURE                       R16 K67 [PROTO_23]
-      184 CAPTURE                          VAL R11
-      185 CAPTURE                          VAL R7
-      186 SETTABLEKS                       R16 R13 K68 ["addRecent"]
-      188 DUPCLOSURE                       R16 K69 [PROTO_24]
-      189 CAPTURE                          VAL R11
-      190 SETTABLEKS                       R16 R13 K70 ["clearRecent"]
-      192 DUPCLOSURE                       R16 K71 [PROTO_25]
-      193 SETTABLEKS                       R16 R13 K72 ["addScope"]
-      195 DUPCLOSURE                       R16 K73 [PROTO_26]
-      196 SETTABLEKS                       R16 R13 K74 ["removeScope"]
-      198 DUPCLOSURE                       R16 K75 [PROTO_27]
-      199 CAPTURE                          VAL R5
-      200 SETTABLEKS                       R16 R13 K76 ["_passesFilters"]
-      202 DUPCLOSURE                       R16 K77 [PROTO_28]
-      203 CAPTURE                          VAL R3
-      204 CAPTURE                          VAL R4
-      205 SETTABLEKS                       R16 R13 K78 ["_compareItemPaths"]
-      207 DUPCLOSURE                       R16 K79 [PROTO_30]
-      208 CAPTURE                          VAL R3
-      209 SETTABLEKS                       R16 R13 K80 ["getSortedFilteredPaths"]
-      211 DUPCLOSURE                       R16 K81 [PROTO_34]
-      212 CAPTURE                          VAL R2
-      213 CAPTURE                          VAL R3
-      214 CAPTURE                          VAL R6
-      215 SETTABLEKS                       R16 R13 K82 ["getSortedFilteredPathsForSearch"]
-      217 DUPCLOSURE                       R16 K83 [PROTO_36]
-      218 CAPTURE                          VAL R8
-      219 SETTABLEKS                       R16 R13 K84 ["updateSortedFilteredPaths"]
-      221 RETURN                           R13 1
+       14 GETTABLEKS                       R2 R1 K8 ["Utils"]
+       16 GETTABLEKS                       R2 R2 K9 ["hasMatchingTerm"]
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R4 R4 K10 ["Framework"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K5 [require]
+       27 GETTABLEKS                       R5 R0 K11 ["Src"]
+       29 GETTABLEKS                       R5 R5 K12 ["Types"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       36 GETTABLEKS                       R6 R6 K13 ["Dash"]
+       38 CALL                             R5 1 1
+       39 GETIMPORT                        R6 K5 [require]
+       41 GETTABLEKS                       R7 R0 K11 ["Src"]
+       43 GETTABLEKS                       R7 R7 K14 ["Util"]
+       45 GETTABLEKS                       R7 R7 K15 ["compareItemField"]
+       47 CALL                             R6 1 1
+       48 GETIMPORT                        R7 K5 [require]
+       50 GETTABLEKS                       R8 R0 K11 ["Src"]
+       52 GETTABLEKS                       R8 R8 K14 ["Util"]
+       54 GETTABLEKS                       R8 R8 K16 ["filterItemField"]
+       56 CALL                             R7 1 1
+       57 GETIMPORT                        R8 K5 [require]
+       59 GETTABLEKS                       R9 R0 K11 ["Src"]
+       61 GETTABLEKS                       R9 R9 K14 ["Util"]
+       63 GETTABLEKS                       R9 R9 K17 ["logIfDebug"]
+       65 CALL                             R8 1 1
+       66 GETIMPORT                        R9 K5 [require]
+       68 GETTABLEKS                       R10 R0 K11 ["Src"]
+       70 GETTABLEKS                       R10 R10 K14 ["Util"]
+       72 GETTABLEKS                       R10 R10 K18 ["binaryInsert"]
+       74 CALL                             R9 1 1
+       75 GETTABLEKS                       R10 R3 K14 ["Util"]
+       77 GETTABLEKS                       R11 R10 K19 ["Signal"]
+       79 GETIMPORT                        R12 K5 [require]
+       81 GETTABLEKS                       R13 R0 K11 ["Src"]
+       83 GETTABLEKS                       R13 R13 K20 ["Resources"]
+       85 GETTABLEKS                       R13 R13 K21 ["Constants"]
+       87 CALL                             R12 1 1
+       88 GETIMPORT                        R13 K5 [require]
+       90 GETTABLEKS                       R14 R0 K11 ["Src"]
+       92 GETTABLEKS                       R14 R14 K22 ["Flags"]
+       94 GETTABLEKS                       R14 R14 K23 ["getFFlagAmrEnableDraftStatus"]
+       96 CALL                             R13 1 1
+       97 NEWTABLE                         R14 32 0
+       99 SETTABLEKS                       R14 R14 K24 ["__index"]
+      101 DUPCLOSURE                       R15 K25 [PROTO_0]
+      102 DUPCLOSURE                       R16 K26 [PROTO_1]
+      103 CAPTURE                          VAL R4
+      104 DUPCLOSURE                       R17 K27 [PROTO_2]
+      105 CAPTURE                          VAL R14
+      106 CAPTURE                          VAL R12
+      107 CAPTURE                          VAL R4
+      108 CAPTURE                          VAL R11
+      109 SETTABLEKS                       R17 R14 K28 ["new"]
+      111 DUPCLOSURE                       R17 K29 [PROTO_3]
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R4
+      114 SETTABLEKS                       R17 R14 K30 ["reset"]
+      116 DUPCLOSURE                       R17 K31 [PROTO_4]
+      117 SETTABLEKS                       R17 R14 K32 ["updateItemField"]
+      119 DUPCLOSURE                       R17 K33 [PROTO_5]
+      120 SETTABLEKS                       R17 R14 K34 ["getTotalItemCount"]
+      122 DUPCLOSURE                       R17 K35 [PROTO_6]
+      123 SETTABLEKS                       R17 R14 K36 ["getMaxItems"]
+      125 DUPCLOSURE                       R17 K37 [PROTO_7]
+      126 CAPTURE                          VAL R5
+      127 SETTABLEKS                       R17 R14 K38 ["getScopeItemCount"]
+      129 DUPCLOSURE                       R17 K39 [PROTO_8]
+      130 SETTABLEKS                       R17 R14 K40 ["scopeHasFieldValue"]
+      132 DUPCLOSURE                       R17 K41 [PROTO_9]
+      133 CAPTURE                          VAL R12
+      134 SETTABLEKS                       R17 R14 K42 ["getScopeCacheFetchProgress"]
+      136 DUPCLOSURE                       R17 K43 [PROTO_10]
+      137 CAPTURE                          VAL R5
+      138 SETTABLEKS                       R17 R14 K44 ["getItemField"]
+      140 DUPCLOSURE                       R17 K45 [PROTO_11]
+      141 SETTABLEKS                       R17 R14 K46 ["moveItem"]
+      143 DUPCLOSURE                       R17 K47 [PROTO_12]
+      144 CAPTURE                          VAL R4
+      145 CAPTURE                          VAL R5
+      146 SETTABLEKS                       R17 R14 K48 ["_getItemAtIndex"]
+      148 DUPCLOSURE                       R17 K49 [PROTO_13]
+      149 SETTABLEKS                       R17 R14 K50 ["_hasItem"]
+      151 DUPCLOSURE                       R17 K51 [PROTO_14]
+      152 SETTABLEKS                       R17 R14 K52 ["getData"]
+      154 DUPCLOSURE                       R17 K53 [PROTO_15]
+      155 SETTABLEKS                       R17 R14 K54 ["_getItemIndex"]
+      157 DUPCLOSURE                       R17 K55 [PROTO_16]
+      158 SETTABLEKS                       R17 R14 K56 ["getItem"]
+      160 DUPCLOSURE                       R17 K57 [PROTO_17]
+      161 CAPTURE                          VAL R4
+      162 CAPTURE                          VAL R5
+      163 SETTABLEKS                       R17 R14 K58 ["_updateItem"]
+      165 DUPCLOSURE                       R17 K59 [PROTO_18]
+      166 CAPTURE                          VAL R8
+      167 CAPTURE                          VAL R5
+      168 CAPTURE                          VAL R13
+      169 SETTABLEKS                       R17 R14 K60 ["addItem"]
+      171 DUPCLOSURE                       R17 K61 [PROTO_19]
+      172 CAPTURE                          VAL R8
+      173 SETTABLEKS                       R17 R14 K62 ["_swapAndPop"]
+      175 DUPCLOSURE                       R17 K63 [PROTO_20]
+      176 CAPTURE                          VAL R8
+      177 SETTABLEKS                       R17 R14 K64 ["removeItem"]
+      179 DUPCLOSURE                       R17 K65 [PROTO_21]
+      180 SETTABLEKS                       R17 R14 K66 ["hasScope"]
+      182 DUPCLOSURE                       R17 K67 [PROTO_22]
+      183 SETTABLEKS                       R17 R14 K68 ["getScope"]
+      185 DUPCLOSURE                       R17 K69 [PROTO_23]
+      186 CAPTURE                          VAL R12
+      187 CAPTURE                          VAL R8
+      188 SETTABLEKS                       R17 R14 K70 ["addRecent"]
+      190 DUPCLOSURE                       R17 K71 [PROTO_24]
+      191 CAPTURE                          VAL R12
+      192 SETTABLEKS                       R17 R14 K72 ["clearRecent"]
+      194 DUPCLOSURE                       R17 K73 [PROTO_25]
+      195 SETTABLEKS                       R17 R14 K74 ["addScope"]
+      197 DUPCLOSURE                       R17 K75 [PROTO_26]
+      198 SETTABLEKS                       R17 R14 K76 ["removeScope"]
+      200 DUPCLOSURE                       R17 K77 [PROTO_27]
+      201 CAPTURE                          VAL R7
+      202 SETTABLEKS                       R17 R14 K78 ["_passesFilters"]
+      204 DUPCLOSURE                       R17 K79 [PROTO_28]
+      205 CAPTURE                          VAL R5
+      206 CAPTURE                          VAL R6
+      207 SETTABLEKS                       R17 R14 K80 ["_compareItemPaths"]
+      209 DUPCLOSURE                       R17 K81 [PROTO_30]
+      210 CAPTURE                          VAL R5
+      211 SETTABLEKS                       R17 R14 K82 ["getSortedFilteredPaths"]
+      213 DUPCLOSURE                       R17 K83 [PROTO_34]
+      214 CAPTURE                          VAL R4
+      215 CAPTURE                          VAL R5
+      216 CAPTURE                          VAL R2
+      217 SETTABLEKS                       R17 R14 K84 ["getSortedFilteredPathsForSearch"]
+      219 DUPCLOSURE                       R17 K85 [PROTO_36]
+      220 CAPTURE                          VAL R9
+      221 SETTABLEKS                       R17 R14 K86 ["updateSortedFilteredPaths"]
+      223 RETURN                           R14 1

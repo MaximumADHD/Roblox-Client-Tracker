@@ -19,61 +19,83 @@ PROTO_0:
        21 RETURN                           R3 -1
 
 PROTO_1:
-        0 FASTCALL1                        TYPE R0 ; [+3]
-        1 MOVE                             R2 R0
-        2 GETIMPORT                        R1 K1 [type]
-        4 CALL                             R1 1 1
-        5 JUMPIFNOTEQKS                    R1 K2 ["string"] ; [+24]
-        7 GETIMPORT                        R1 K4 [string.match]
-        9 MOVE                             R2 R0
-       10 LOADK                            R3 K5 ["^Http (%d+):"]
-       11 CALL                             R1 2 1
-       12 JUMPIFNOTEQKS                    R1 K6 ["404"] ; [+17]
-       14 GETIMPORT                        R1 K8 [string.find]
-       16 MOVE                             R2 R0
-       17 LOADK                            R3 K9 ["No version notes were found to summarize."]
-       18 LOADN                            R4 1
-       19 LOADB                            R5 1
-       20 CALL                             R1 4 1
-       21 JUMPIFNOT                        R1 ; [+8]
-       22 GETUPVAL                         R1 0
-       23 GETTABLEKS                       R1 R1 K10 ["reject"]
-       25 GETUPVAL                         R2 1
-       26 GETTABLEKS                       R2 R2 K11 ["NoSaveNotes"]
-       28 CALL                             R1 1 -1
-       29 RETURN                           R1 -1
-       30 GETUPVAL                         R1 2
-       31 GETTABLEKS                       R1 R1 K12 ["FFlagPVHGenerateNotesQuotaMessage"]
-       33 JUMPIFNOT                        R1 ; [+30]
-       34 FASTCALL1                        TYPE R0 ; [+3]
-       35 MOVE                             R2 R0
-       36 GETIMPORT                        R1 K1 [type]
-       38 CALL                             R1 1 1
-       39 JUMPIFNOTEQKS                    R1 K2 ["string"] ; [+24]
-       41 GETIMPORT                        R1 K4 [string.match]
-       43 MOVE                             R2 R0
-       44 LOADK                            R3 K5 ["^Http (%d+):"]
-       45 CALL                             R1 2 1
-       46 JUMPIFNOTEQKS                    R1 K13 ["429"] ; [+17]
-       48 GETIMPORT                        R1 K8 [string.find]
-       50 MOVE                             R2 R0
-       51 LOADK                            R3 K14 ["Daily summary quota exceeded."]
-       52 LOADN                            R4 1
-       53 LOADB                            R5 1
-       54 CALL                             R1 4 1
-       55 JUMPIFNOT                        R1 ; [+8]
-       56 GETUPVAL                         R1 0
-       57 GETTABLEKS                       R1 R1 K10 ["reject"]
-       59 GETUPVAL                         R2 1
-       60 GETTABLEKS                       R2 R2 K15 ["QuotaExceeded"]
-       62 CALL                             R1 1 -1
-       63 RETURN                           R1 -1
-       64 GETUPVAL                         R1 0
-       65 GETTABLEKS                       R1 R1 K10 ["reject"]
-       67 GETUPVAL                         R2 1
-       68 GETTABLEKS                       R2 R2 K16 ["Unavailable"]
-       70 CALL                             R1 1 -1
-       71 RETURN                           R1 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["FFlagPVHGenerateNotesDeprecate404"]
+        3 JUMPIF                           R1 ; [+30]
+        4 FASTCALL1                        TYPE R0 ; [+3]
+        5 MOVE                             R2 R0
+        6 GETIMPORT                        R1 K2 [type]
+        8 CALL                             R1 1 1
+        9 JUMPIFNOTEQKS                    R1 K3 ["string"] ; [+24]
+       11 GETIMPORT                        R1 K5 [string.match]
+       13 MOVE                             R2 R0
+       14 LOADK                            R3 K6 ["^Http (%d+):"]
+       15 CALL                             R1 2 1
+       16 JUMPIFNOTEQKS                    R1 K7 ["404"] ; [+17]
+       18 GETIMPORT                        R1 K9 [string.find]
+       20 MOVE                             R2 R0
+       21 LOADK                            R3 K10 ["No version notes were found to summarize."]
+       22 LOADN                            R4 1
+       23 LOADB                            R5 1
+       24 CALL                             R1 4 1
+       25 JUMPIFNOT                        R1 ; [+8]
+       26 GETUPVAL                         R1 1
+       27 GETTABLEKS                       R1 R1 K11 ["reject"]
+       29 GETUPVAL                         R2 2
+       30 GETTABLEKS                       R2 R2 K12 ["NoSaveNotes"]
+       32 CALL                             R1 1 -1
+       33 RETURN                           R1 -1
+       34 GETUPVAL                         R1 0
+       35 GETTABLEKS                       R1 R1 K13 ["FFlagPVHGenerateNotes204NoContent"]
+       37 JUMPIFNOT                        R1 ; [+22]
+       38 FASTCALL1                        TYPE R0 ; [+3]
+       39 MOVE                             R2 R0
+       40 GETIMPORT                        R1 K2 [type]
+       42 CALL                             R1 1 1
+       43 JUMPIFNOTEQKS                    R1 K3 ["string"] ; [+16]
+       45 GETIMPORT                        R1 K5 [string.match]
+       47 MOVE                             R2 R0
+       48 LOADK                            R3 K6 ["^Http (%d+):"]
+       49 CALL                             R1 2 1
+       50 JUMPIFNOTEQKS                    R1 K14 ["204"] ; [+9]
+       52 GETUPVAL                         R1 1
+       53 GETTABLEKS                       R1 R1 K11 ["reject"]
+       55 GETUPVAL                         R2 2
+       56 GETTABLEKS                       R2 R2 K12 ["NoSaveNotes"]
+       58 CALL                             R1 1 -1
+       59 RETURN                           R1 -1
+       60 GETUPVAL                         R1 0
+       61 GETTABLEKS                       R1 R1 K15 ["FFlagPVHGenerateNotesQuotaMessage"]
+       63 JUMPIFNOT                        R1 ; [+30]
+       64 FASTCALL1                        TYPE R0 ; [+3]
+       65 MOVE                             R2 R0
+       66 GETIMPORT                        R1 K2 [type]
+       68 CALL                             R1 1 1
+       69 JUMPIFNOTEQKS                    R1 K3 ["string"] ; [+24]
+       71 GETIMPORT                        R1 K5 [string.match]
+       73 MOVE                             R2 R0
+       74 LOADK                            R3 K6 ["^Http (%d+):"]
+       75 CALL                             R1 2 1
+       76 JUMPIFNOTEQKS                    R1 K16 ["429"] ; [+17]
+       78 GETIMPORT                        R1 K9 [string.find]
+       80 MOVE                             R2 R0
+       81 LOADK                            R3 K17 ["Daily summary quota exceeded."]
+       82 LOADN                            R4 1
+       83 LOADB                            R5 1
+       84 CALL                             R1 4 1
+       85 JUMPIFNOT                        R1 ; [+8]
+       86 GETUPVAL                         R1 1
+       87 GETTABLEKS                       R1 R1 K11 ["reject"]
+       89 GETUPVAL                         R2 2
+       90 GETTABLEKS                       R2 R2 K18 ["QuotaExceeded"]
+       92 CALL                             R1 1 -1
+       93 RETURN                           R1 -1
+       94 GETUPVAL                         R1 1
+       95 GETTABLEKS                       R1 R1 K11 ["reject"]
+       97 GETUPVAL                         R2 2
+       98 GETTABLEKS                       R2 R2 K19 ["Unavailable"]
+      100 CALL                             R1 1 -1
+      101 RETURN                           R1 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K5 [{[1] = "POST", ["Url"], ["Body"], ["Headers"]}]
@@ -114,8 +136,8 @@ PROTO_2:
        47 NAMECALL                         R3 R3 K18 ["andThen"]
        49 CALL                             R3 2 1
        50 DUPCLOSURE                       R5 K19 [PROTO_1]
-       51 CAPTURE                          UPVAL U4
-       52 CAPTURE                          UPVAL U6
+       51 CAPTURE                          UPVAL U6
+       52 CAPTURE                          UPVAL U4
        53 CAPTURE                          UPVAL U7
        54 NAMECALL                         R3 R3 K20 ["catch"]
        56 CALL                             R3 2 -1
@@ -173,6 +195,6 @@ MAIN:
        78 CAPTURE                          VAL R9
        79 CAPTURE                          VAL R3
        80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R11
-       82 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R11
        83 RETURN                           R13 1

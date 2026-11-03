@@ -160,7 +160,7 @@ PROTO_14:
        31 MOVE                             R11 R5
        32 NAMECALL                         R8 R8 K29 ["format"]
        34 CALL                             R8 3 1
-       35 LOADK                            R9 K31 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&creatorType=Group&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0&needsAssetOptions=true&needsReachStatus=true"]
+       35 LOADK                            R9 K31 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&sortParam=LastUpdated&pageSize=30&creatorType=Group&surface=StudioStartPage&PageIndex=0&needsAssetOptions=true&needsReachStatus=true"]
        36 MOVE                             R11 R4
        37 MOVE                             R12 R5
        38 NAMECALL                         R9 R9 K29 ["format"]

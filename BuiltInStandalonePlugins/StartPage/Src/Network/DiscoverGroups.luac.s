@@ -4,11 +4,14 @@ PROTO_0:
         3 SETTABLEKS                       R3 R2 K0 ["DropdownLabel"]
         5 GETTABLEKS                       R3 R1 K5 ["id"]
         7 SETTABLEKS                       R3 R2 K1 ["Key"]
-        9 DUPTABLE                         R3 K7 [{"creatorTargetId"}]
-       10 GETTABLEKS                       R4 R1 K5 ["id"]
-       12 SETTABLEKS                       R4 R3 K6 ["creatorTargetId"]
-       14 SETTABLEKS                       R3 R2 K2 ["Query"]
-       16 RETURN                           R2 1
+        9 DUPTABLE                         R3 K8 [{"creatorType", "creatorTargetId"}]
+       10 GETIMPORT                        R4 K12 [Enum.CreatorType.Group]
+       12 GETTABLEKS                       R4 R4 K13 ["Name"]
+       14 SETTABLEKS                       R4 R3 K6 ["creatorType"]
+       16 GETTABLEKS                       R4 R1 K5 ["id"]
+       18 SETTABLEKS                       R4 R3 K7 ["creatorTargetId"]
+       20 SETTABLEKS                       R3 R2 K2 ["Query"]
+       22 RETURN                           R2 1
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["DropdownLabel"]

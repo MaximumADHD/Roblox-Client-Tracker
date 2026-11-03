@@ -65,10 +65,11 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Util"]
-       13 GETTABLEKS                       R2 R2 K8 ["hasMatchingTerm"]
-       15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R2 1
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["Utils"]
+       16 GETTABLEKS                       R2 R2 K9 ["hasMatchingTerm"]
+       18 DUPCLOSURE                       R3 K10 [PROTO_0]
+       19 CAPTURE                          VAL R2
+       20 RETURN                           R3 1

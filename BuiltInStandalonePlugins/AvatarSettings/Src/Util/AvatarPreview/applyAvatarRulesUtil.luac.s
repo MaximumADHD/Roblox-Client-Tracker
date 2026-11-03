@@ -69,7 +69,45 @@ PROTO_2:
        64 GETTABLEKS                       R10 R10 K19 ["CollisionBoxInvisibleColor"]
        66 SETTABLEKS                       R10 R9 K20 ["Color"]
        68 FORGLOOP                         R4 2 ; [-38]
-       70 RETURN                           R0 0
+       70 GETUPVAL                         R4 3
+       71 CALL                             R4 0 1
+       72 JUMPIFNOT                        R4 ; [+50]
+       73 LOADNIL                          R4
+       74 NAMECALL                         R5 R2 K21 ["GetChildren"]
+       76 CALL                             R5 1 3
+       77 FORGPREP                         R5
+       78 GETTABLEKS                       R10 R9 K22 ["Name"]
+       80 GETUPVAL                         R11 2
+       81 GETTABLEKS                       R11 R11 K23 ["HitboxPartName"]
+       83 JUMPIFNOTEQ                      R10 R11 ; [+16]
+       85 LOADK                            R12 K24 ["BasePart"]
+       86 NAMECALL                         R10 R9 K11 ["IsA"]
+       88 CALL                             R10 2 1
+       89 JUMPIFNOT                        R10 ; [+10]
+       90 GETUPVAL                         R12 2
+       91 GETTABLEKS                       R12 R12 K25 ["HitboxMarkerAttribute"]
+       93 NAMECALL                         R10 R9 K26 ["GetAttribute"]
+       95 CALL                             R10 2 1
+       96 JUMPIFNOTEQKB                    R10 TRUE ; [+3]
+       98 MOVE                             R4 R9
+       99 JUMP                             ; [+2]
+      100 FORGLOOP                         R5 2 ; [-23]
+      102 JUMPIFNOT                        R4 ; [+20]
+      103 JUMPIFNOT                        R3 ; [+4]
+      104 GETUPVAL                         R5 2
+      105 GETTABLEKS                       R5 R5 K15 ["CollisionBoxVisibleTransparency"]
+      107 JUMP                             ; [+3]
+      108 GETUPVAL                         R5 2
+      109 GETTABLEKS                       R5 R5 K16 ["CollisionBoxInvisibleTransparency"]
+      111 SETTABLEKS                       R5 R4 K17 ["Transparency"]
+      113 JUMPIFNOT                        R3 ; [+4]
+      114 GETUPVAL                         R5 2
+      115 GETTABLEKS                       R5 R5 K27 ["HitboxVisibleColor"]
+      117 JUMP                             ; [+3]
+      118 GETUPVAL                         R5 2
+      119 GETTABLEKS                       R5 R5 K19 ["CollisionBoxInvisibleColor"]
+      121 SETTABLEKS                       R5 R4 K20 ["Color"]
+      123 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["Parent"]
@@ -163,41 +201,47 @@ MAIN:
        58 GETIMPORT                        R6 K5 [require]
        60 GETTABLEKS                       R7 R0 K6 ["Src"]
        62 GETTABLEKS                       R7 R7 K17 ["Flags"]
-       64 GETTABLEKS                       R7 R7 K18 ["getFFlagAvatarSettingsPreviewStandardWalkAnimation"]
+       64 GETTABLEKS                       R7 R7 K18 ["getEngineFeatureAvatarSettingsHitbox"]
        66 CALL                             R6 1 1
        67 GETIMPORT                        R7 K5 [require]
        69 GETTABLEKS                       R8 R0 K6 ["Src"]
-       71 GETTABLEKS                       R8 R8 K7 ["Util"]
-       73 GETTABLEKS                       R8 R8 K8 ["AvatarPreview"]
-       75 GETTABLEKS                       R8 R8 K19 ["horizontalAligner"]
-       77 CALL                             R7 1 1
-       78 GETIMPORT                        R8 K5 [require]
-       80 GETTABLEKS                       R9 R0 K6 ["Src"]
-       82 GETTABLEKS                       R9 R9 K7 ["Util"]
-       84 GETTABLEKS                       R9 R9 K8 ["AvatarPreview"]
-       86 GETTABLEKS                       R9 R9 K20 ["previewAnimationManager"]
-       88 CALL                             R8 1 1
-       89 NEWTABLE                         R9 4 0
-       91 LOADNIL                          R10
-       92 NEWCLOSURE                       R11 P0
-       93 CAPTURE                          REF R10
-       94 SETTABLEKS                       R11 R9 K21 ["getCurrentSettingsPage"]
-       96 NEWCLOSURE                       R11 P1
-       97 CAPTURE                          REF R10
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          VAL R8
-      100 SETTABLEKS                       R11 R9 K22 ["setCurrentSettingsPage"]
-      102 NEWCLOSURE                       R11 P2
-      103 CAPTURE                          VAL R5
-      104 CAPTURE                          REF R10
-      105 CAPTURE                          VAL R1
-      106 SETTABLEKS                       R11 R9 K23 ["setCollisionBoxTransparency"]
-      108 DUPCLOSURE                       R11 K24 [PROTO_4]
-      109 CAPTURE                          VAL R3
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R4
-      112 CAPTURE                          VAL R9
-      113 CAPTURE                          VAL R8
-      114 SETTABLEKS                       R11 R9 K25 ["applyAvatarRules"]
-      116 CLOSEUPVALS                      R10
-      117 RETURN                           R9 1
+       71 GETTABLEKS                       R8 R8 K17 ["Flags"]
+       73 GETTABLEKS                       R8 R8 K19 ["getFFlagAvatarSettingsPreviewStandardWalkAnimation"]
+       75 CALL                             R7 1 1
+       76 GETIMPORT                        R8 K5 [require]
+       78 GETTABLEKS                       R9 R0 K6 ["Src"]
+       80 GETTABLEKS                       R9 R9 K7 ["Util"]
+       82 GETTABLEKS                       R9 R9 K8 ["AvatarPreview"]
+       84 GETTABLEKS                       R9 R9 K20 ["horizontalAligner"]
+       86 CALL                             R8 1 1
+       87 GETIMPORT                        R9 K5 [require]
+       89 GETTABLEKS                       R10 R0 K6 ["Src"]
+       91 GETTABLEKS                       R10 R10 K7 ["Util"]
+       93 GETTABLEKS                       R10 R10 K8 ["AvatarPreview"]
+       95 GETTABLEKS                       R10 R10 K21 ["previewAnimationManager"]
+       97 CALL                             R9 1 1
+       98 NEWTABLE                         R10 4 0
+      100 LOADNIL                          R11
+      101 NEWCLOSURE                       R12 P0
+      102 CAPTURE                          REF R11
+      103 SETTABLEKS                       R12 R10 K22 ["getCurrentSettingsPage"]
+      105 NEWCLOSURE                       R12 P1
+      106 CAPTURE                          REF R11
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R9
+      109 SETTABLEKS                       R12 R10 K23 ["setCurrentSettingsPage"]
+      111 NEWCLOSURE                       R12 P2
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          REF R11
+      114 CAPTURE                          VAL R1
+      115 CAPTURE                          VAL R6
+      116 SETTABLEKS                       R12 R10 K24 ["setCollisionBoxTransparency"]
+      118 DUPCLOSURE                       R12 K25 [PROTO_4]
+      119 CAPTURE                          VAL R3
+      120 CAPTURE                          VAL R8
+      121 CAPTURE                          VAL R4
+      122 CAPTURE                          VAL R10
+      123 CAPTURE                          VAL R9
+      124 SETTABLEKS                       R12 R10 K26 ["applyAvatarRules"]
+      126 CLOSEUPVALS                      R11
+      127 RETURN                           R10 1

@@ -19,7 +19,7 @@ PROTO_0:
        26 GETTABLEKS                       R1 R1 K0 ["ScopeType"]
        28 GETTABLEKS                       R1 R1 K6 ["ProjectPlaces"]
        30 JUMPIFNOTEQ                      R0 R1 ; [+3]
-       32 LOADK                            R1 K7 ["universe"]
+       32 LOADK                            R1 K7 ["universes"]
        33 RETURN                           R1 1
        34 LOADK                            R1 K8 [""]
        35 RETURN                           R1 1

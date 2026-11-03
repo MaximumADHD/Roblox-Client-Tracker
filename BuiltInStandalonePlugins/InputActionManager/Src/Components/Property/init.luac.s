@@ -74,111 +74,132 @@ PROTO_1:
        52 GETTABLE                         R8 R4 R9
        53 SETLIST                          R7 R8 1 [1]
        55 CALL                             R5 2 2
-       56 GETUPVAL                         R7 5
-       57 CALL                             R7 0 1
-       58 GETUPVAL                         R8 4
-       59 GETTABLEKS                       R8 R8 K12 ["useEventCallback"]
-       61 NEWCLOSURE                       R9 P0
-       62 CAPTURE                          VAL R0
-       63 CAPTURE                          VAL R3
-       64 CAPTURE                          VAL R5
-       65 CAPTURE                          VAL R1
-       66 CALL                             R8 1 1
-       67 GETTABLEKS                       R9 R3 K13 ["editor"]
-       69 GETUPVAL                         R10 4
-       70 GETTABLEKS                       R10 R10 K14 ["createNextOrder"]
-       72 CALL                             R10 0 1
-       73 GETUPVAL                         R11 0
-       74 GETTABLEKS                       R11 R11 K15 ["createElement"]
-       76 GETUPVAL                         R12 6
-       77 GETTABLEKS                       R12 R12 K16 ["Root"]
-       79 DUPTABLE                         R13 K18 [{"isOpen"}]
-       80 GETTABLEKS                       R15 R0 K2 ["menuOption"]
-       82 JUMPIFNOTEQKNIL                  R15 ; [+2]
-       84 LOADB                            R14 0 +1
-       85 LOADB                            R14 1
-       86 SETTABLEKS                       R14 R13 K17 ["isOpen"]
-       88 DUPTABLE                         R14 K21 [{"Anchor", "Editor"}]
-       89 GETUPVAL                         R15 0
-       90 GETTABLEKS                       R15 R15 K15 ["createElement"]
-       92 GETUPVAL                         R16 6
-       93 GETTABLEKS                       R16 R16 K19 ["Anchor"]
-       95 DUPTABLE                         R17 K23 [{"anchorRef"}]
-       96 GETTABLEKS                       R18 R0 K22 ["anchorRef"]
-       98 SETTABLEKS                       R18 R17 K22 ["anchorRef"]
-      100 CALL                             R15 2 1
-      101 SETTABLEKS                       R15 R14 K19 ["Anchor"]
-      103 GETUPVAL                         R15 0
-      104 GETTABLEKS                       R15 R15 K15 ["createElement"]
-      106 GETUPVAL                         R16 6
-      107 GETTABLEKS                       R16 R16 K24 ["Content"]
-      109 DUPTABLE                         R17 K34 [{["align"], ["backgroundStyle"], ["hasArrow"] = False, ["isFocusable"] = True, ["onPressedOutside"], ["radius"], ["side"]}]
-      110 GETUPVAL                         R18 7
-      111 GETTABLEKS                       R18 R18 K35 ["Start"]
-      113 SETTABLEKS                       R18 R17 K25 ["align"]
-      115 GETTABLEKS                       R18 R7 K36 ["Color"]
-      117 GETTABLEKS                       R18 R18 K37 ["Surface"]
-      119 GETTABLEKS                       R18 R18 K38 ["Surface_200"]
-      121 SETTABLEKS                       R18 R17 K26 ["backgroundStyle"]
-      123 SETTABLEKS                       R8 R17 K31 ["onPressedOutside"]
-      125 GETUPVAL                         R18 8
-      126 GETTABLEKS                       R18 R18 K39 ["Medium"]
-      128 SETTABLEKS                       R18 R17 K32 ["radius"]
-      130 DUPTABLE                         R18 K42 [{"position", "offset"}]
-      131 GETUPVAL                         R19 9
-      132 GETTABLEKS                       R19 R19 K43 ["Right"]
-      134 SETTABLEKS                       R19 R18 K40 ["position"]
-      136 GETTABLEKS                       R19 R7 K44 ["Padding"]
-      138 GETTABLEKS                       R19 R19 K45 ["Small"]
-      140 SETTABLEKS                       R19 R18 K41 ["offset"]
-      142 SETTABLEKS                       R18 R17 K33 ["side"]
-      144 DUPTABLE                         R18 K46 [{"Content"}]
-      145 GETUPVAL                         R19 0
-      146 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      148 GETUPVAL                         R20 10
-      149 DUPTABLE                         R21 K50 [{["tag"] = "col gap-small padding-small auto-xy stroke-standard stroke-default radius-medium", ["testId"]}]
-      150 LOADK                            R22 K51 ["%*-property-editor"]
-      151 GETTABLEKS                       R24 R0 K2 ["menuOption"]
-      153 NAMECALL                         R22 R22 K4 ["format"]
-      155 CALL                             R22 2 1
-      156 SETTABLEKS                       R22 R21 K49 ["testId"]
-      158 DUPTABLE                         R22 K53 [{"Label", "Editor"}]
-      159 GETUPVAL                         R23 0
-      160 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      162 GETUPVAL                         R24 11
-      163 DUPTABLE                         R25 K57 [{["LayoutOrder"], ["tag"] = "auto-xy text-label-medium", ["Text"]}]
-      164 MOVE                             R26 R10
-      165 CALL                             R26 0 1
-      166 SETTABLEKS                       R26 R25 K54 ["LayoutOrder"]
-      168 LOADK                            R28 K58 ["Menu"]
-      169 GETTABLEKS                       R29 R3 K59 ["localization"]
-      171 NAMECALL                         R26 R2 K60 ["getText"]
-      173 CALL                             R26 3 1
-      174 SETTABLEKS                       R26 R25 K56 ["Text"]
-      176 CALL                             R23 2 1
-      177 SETTABLEKS                       R23 R22 K52 ["Label"]
-      179 MOVE                             R23 R9
-      180 JUMPIFNOT                        R23 ; [+20]
-      181 GETUPVAL                         R23 0
-      182 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      184 MOVE                             R24 R9
-      185 DUPTABLE                         R25 K64 [{"LayoutOrder", "menuOption", "onChanged", "onCommit", "value"}]
-      186 MOVE                             R26 R10
-      187 CALL                             R26 0 1
-      188 SETTABLEKS                       R26 R25 K54 ["LayoutOrder"]
-      190 GETTABLEKS                       R26 R0 K2 ["menuOption"]
-      192 SETTABLEKS                       R26 R25 K2 ["menuOption"]
-      194 SETTABLEKS                       R6 R25 K61 ["onChanged"]
-      196 SETTABLEKS                       R8 R25 K62 ["onCommit"]
-      198 SETTABLEKS                       R5 R25 K63 ["value"]
-      200 CALL                             R23 2 1
-      201 SETTABLEKS                       R23 R22 K20 ["Editor"]
-      203 CALL                             R19 3 1
-      204 SETTABLEKS                       R19 R18 K24 ["Content"]
-      206 CALL                             R15 3 1
-      207 SETTABLEKS                       R15 R14 K20 ["Editor"]
-      209 CALL                             R11 3 -1
-      210 RETURN                           R11 -1
+       56 LOADNIL                          R7
+       57 GETUPVAL                         R8 5
+       58 CALL                             R8 0 1
+       59 JUMPIFNOT                        R8 ; [+20]
+       60 GETTABLEKS                       R8 R0 K2 ["menuOption"]
+       62 GETUPVAL                         R9 6
+       63 GETTABLEKS                       R9 R9 K12 ["BINDING_RELEASED_THRESHOLD"]
+       65 JUMPIFNOTEQ                      R8 R9 ; [+14]
+       67 GETTABLEKS                       R8 R0 K8 ["binding"]
+       69 JUMPIFNOT                        R8 ; [+10]
+       70 GETTABLEKS                       R8 R0 K8 ["binding"]
+       72 GETTABLEKS                       R8 R8 K13 ["pressedThreshold"]
+       74 JUMPIFNOTLT                      R8 R5 ; [+5]
+       76 GETTABLEKS                       R8 R0 K8 ["binding"]
+       78 GETTABLEKS                       R7 R8 K13 ["pressedThreshold"]
+       80 GETUPVAL                         R8 7
+       81 CALL                             R8 0 1
+       82 GETUPVAL                         R9 4
+       83 GETTABLEKS                       R9 R9 K14 ["useEventCallback"]
+       85 NEWCLOSURE                       R10 P0
+       86 CAPTURE                          VAL R0
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R5
+       89 CAPTURE                          VAL R1
+       90 CALL                             R9 1 1
+       91 GETTABLEKS                       R10 R3 K15 ["editor"]
+       93 GETUPVAL                         R11 4
+       94 GETTABLEKS                       R11 R11 K16 ["createNextOrder"]
+       96 CALL                             R11 0 1
+       97 GETUPVAL                         R12 0
+       98 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      100 GETUPVAL                         R13 8
+      101 GETTABLEKS                       R13 R13 K18 ["Root"]
+      103 DUPTABLE                         R14 K20 [{"isOpen"}]
+      104 GETTABLEKS                       R16 R0 K2 ["menuOption"]
+      106 JUMPIFNOTEQKNIL                  R16 ; [+2]
+      108 LOADB                            R15 0 +1
+      109 LOADB                            R15 1
+      110 SETTABLEKS                       R15 R14 K19 ["isOpen"]
+      112 DUPTABLE                         R15 K23 [{"Anchor", "Editor"}]
+      113 GETUPVAL                         R16 0
+      114 GETTABLEKS                       R16 R16 K17 ["createElement"]
+      116 GETUPVAL                         R17 8
+      117 GETTABLEKS                       R17 R17 K21 ["Anchor"]
+      119 DUPTABLE                         R18 K25 [{"anchorRef"}]
+      120 GETTABLEKS                       R19 R0 K24 ["anchorRef"]
+      122 SETTABLEKS                       R19 R18 K24 ["anchorRef"]
+      124 CALL                             R16 2 1
+      125 SETTABLEKS                       R16 R15 K21 ["Anchor"]
+      127 GETUPVAL                         R16 0
+      128 GETTABLEKS                       R16 R16 K17 ["createElement"]
+      130 GETUPVAL                         R17 8
+      131 GETTABLEKS                       R17 R17 K26 ["Content"]
+      133 DUPTABLE                         R18 K36 [{["align"], ["backgroundStyle"], ["hasArrow"] = False, ["isFocusable"] = True, ["onPressedOutside"], ["radius"], ["side"]}]
+      134 GETUPVAL                         R19 9
+      135 GETTABLEKS                       R19 R19 K37 ["Start"]
+      137 SETTABLEKS                       R19 R18 K27 ["align"]
+      139 GETTABLEKS                       R19 R8 K38 ["Color"]
+      141 GETTABLEKS                       R19 R19 K39 ["Surface"]
+      143 GETTABLEKS                       R19 R19 K40 ["Surface_200"]
+      145 SETTABLEKS                       R19 R18 K28 ["backgroundStyle"]
+      147 SETTABLEKS                       R9 R18 K33 ["onPressedOutside"]
+      149 GETUPVAL                         R19 10
+      150 GETTABLEKS                       R19 R19 K41 ["Medium"]
+      152 SETTABLEKS                       R19 R18 K34 ["radius"]
+      154 DUPTABLE                         R19 K44 [{"position", "offset"}]
+      155 GETUPVAL                         R20 11
+      156 GETTABLEKS                       R20 R20 K45 ["Right"]
+      158 SETTABLEKS                       R20 R19 K42 ["position"]
+      160 GETTABLEKS                       R20 R8 K46 ["Padding"]
+      162 GETTABLEKS                       R20 R20 K47 ["Small"]
+      164 SETTABLEKS                       R20 R19 K43 ["offset"]
+      166 SETTABLEKS                       R19 R18 K35 ["side"]
+      168 DUPTABLE                         R19 K48 [{"Content"}]
+      169 GETUPVAL                         R20 0
+      170 GETTABLEKS                       R20 R20 K17 ["createElement"]
+      172 GETUPVAL                         R21 12
+      173 DUPTABLE                         R22 K52 [{["tag"] = "col gap-small padding-small auto-xy stroke-standard stroke-default radius-medium", ["testId"]}]
+      174 LOADK                            R23 K53 ["%*-property-editor"]
+      175 GETTABLEKS                       R25 R0 K2 ["menuOption"]
+      177 NAMECALL                         R23 R23 K4 ["format"]
+      179 CALL                             R23 2 1
+      180 SETTABLEKS                       R23 R22 K51 ["testId"]
+      182 DUPTABLE                         R23 K55 [{"Label", "Editor"}]
+      183 GETUPVAL                         R24 0
+      184 GETTABLEKS                       R24 R24 K17 ["createElement"]
+      186 GETUPVAL                         R25 13
+      187 DUPTABLE                         R26 K59 [{["LayoutOrder"], ["tag"] = "auto-xy text-label-medium", ["Text"]}]
+      188 MOVE                             R27 R11
+      189 CALL                             R27 0 1
+      190 SETTABLEKS                       R27 R26 K56 ["LayoutOrder"]
+      192 LOADK                            R29 K60 ["Menu"]
+      193 GETTABLEKS                       R30 R3 K61 ["localization"]
+      195 NAMECALL                         R27 R2 K62 ["getText"]
+      197 CALL                             R27 3 1
+      198 SETTABLEKS                       R27 R26 K58 ["Text"]
+      200 CALL                             R24 2 1
+      201 SETTABLEKS                       R24 R23 K54 ["Label"]
+      203 MOVE                             R24 R10
+      204 JUMPIFNOT                        R24 ; [+26]
+      205 GETUPVAL                         R24 0
+      206 GETTABLEKS                       R24 R24 K17 ["createElement"]
+      208 MOVE                             R25 R10
+      209 DUPTABLE                         R26 K66 [{"LayoutOrder", "menuOption", "onChanged", "onCommit", "value"}]
+      210 MOVE                             R27 R11
+      211 CALL                             R27 0 1
+      212 SETTABLEKS                       R27 R26 K56 ["LayoutOrder"]
+      214 GETTABLEKS                       R27 R0 K2 ["menuOption"]
+      216 SETTABLEKS                       R27 R26 K2 ["menuOption"]
+      218 SETTABLEKS                       R6 R26 K63 ["onChanged"]
+      220 SETTABLEKS                       R9 R26 K64 ["onCommit"]
+      222 GETUPVAL                         R28 5
+      223 CALL                             R28 0 1
+      224 JUMPIFNOT                        R28 ; [+2]
+      225 OR                               R27 R7 R5
+      226 JUMP                             ; [+1]
+      227 MOVE                             R27 R5
+      228 SETTABLEKS                       R27 R26 K65 ["value"]
+      230 CALL                             R24 2 1
+      231 SETTABLEKS                       R24 R23 K22 ["Editor"]
+      233 CALL                             R20 3 1
+      234 SETTABLEKS                       R20 R19 K26 ["Content"]
+      236 CALL                             R16 3 1
+      237 SETTABLEKS                       R16 R15 K22 ["Editor"]
+      239 CALL                             R12 3 -1
+      240 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -258,62 +279,69 @@ MAIN:
       131 GETTABLEKS                       R21 R1 K32 ["Hooks"]
       133 GETTABLEKS                       R21 R21 K33 ["useTokens"]
       135 GETTABLEKS                       R22 R1 K34 ["View"]
-      137 NEWTABLE                         R23 16 0
-      139 GETTABLEKS                       R24 R8 K35 ["BINDING_PRESSED_THRESHOLD"]
-      141 DUPTABLE                         R25 K41 [{["property"] = "pressedThreshold", ["localization"] = "PressedThreshold", ["editor"]}]
-      142 SETTABLEKS                       R13 R25 K40 ["editor"]
-      144 SETTABLE                         R25 R23 R24
-      145 GETTABLEKS                       R24 R8 K42 ["BINDING_RELEASED_THRESHOLD"]
-      147 DUPTABLE                         R25 K45 [{["property"] = "releasedThreshold", ["localization"] = "ReleasedThreshold", ["editor"]}]
-      148 SETTABLEKS                       R13 R25 K40 ["editor"]
-      150 SETTABLE                         R25 R23 R24
-      151 GETTABLEKS                       R24 R8 K46 ["BINDING_CLAMP_MAGNITUDE_TO_ONE"]
-      153 DUPTABLE                         R25 K49 [{["property"] = "clampMagnitudeToOne", ["localization"] = "ClampMagnitudeToOne", ["editor"]}]
-      154 SETTABLEKS                       R12 R25 K40 ["editor"]
-      156 SETTABLE                         R25 R23 R24
-      157 GETTABLEKS                       R24 R8 K50 ["BINDING_DISPLAY_NAME"]
-      159 DUPTABLE                         R25 K53 [{["property"] = "displayName", ["localization"] = "DisplayName", ["editor"]}]
-      160 SETTABLEKS                       R11 R25 K40 ["editor"]
-      162 SETTABLE                         R25 R23 R24
-      163 GETTABLEKS                       R24 R8 K54 ["BINDING_DISPLAY_IMAGE"]
-      165 DUPTABLE                         R25 K57 [{["property"] = "displayImage", ["localization"] = "DisplayImage", ["editor"]}]
-      166 SETTABLEKS                       R10 R25 K40 ["editor"]
-      168 SETTABLE                         R25 R23 R24
-      169 GETTABLEKS                       R24 R8 K58 ["BINDING_RESPONSE_CURVE"]
-      171 DUPTABLE                         R25 K61 [{["property"] = "responseCurve", ["localization"] = "ResponseCurve", ["editor"]}]
-      172 SETTABLEKS                       R9 R25 K40 ["editor"]
-      174 SETTABLE                         R25 R23 R24
-      175 GETTABLEKS                       R24 R8 K62 ["BINDING_SCALE"]
-      177 DUPTABLE                         R25 K65 [{["property"] = "scale", ["localization"] = "Scale", ["editor"]}]
-      178 SETTABLEKS                       R12 R25 K40 ["editor"]
-      180 SETTABLE                         R25 R23 R24
-      181 GETTABLEKS                       R24 R8 K66 ["BINDING_VECTOR2_SCALE"]
-      183 DUPTABLE                         R25 K69 [{["property"] = "vector2Scale", ["localization"] = "Vector2Scale", ["editor"]}]
-      184 SETTABLEKS                       R14 R25 K40 ["editor"]
-      186 SETTABLE                         R25 R23 R24
-      187 GETTABLEKS                       R24 R8 K70 ["BINDING_VECTOR3_SCALE"]
-      189 DUPTABLE                         R25 K73 [{["property"] = "vector3Scale", ["localization"] = "Vector3Scale", ["editor"]}]
-      190 SETTABLEKS                       R15 R25 K40 ["editor"]
-      192 SETTABLE                         R25 R23 R24
-      193 GETTABLEKS                       R24 R8 K74 ["PRIORITY"]
-      195 DUPTABLE                         R25 K77 [{["property"] = "priority", ["localization"] = "Priority", ["editor"]}]
-      196 SETTABLEKS                       R12 R25 K40 ["editor"]
-      198 SETTABLE                         R25 R23 R24
-      199 GETTABLEKS                       R24 R8 K78 ["SCRIPTABLE_RENAME"]
-      201 DUPTABLE                         R25 K81 [{["property"] = "name", ["localization"] = "Name", ["editor"]}]
-      202 SETTABLEKS                       R11 R25 K40 ["editor"]
-      204 SETTABLE                         R25 R23 R24
-      205 DUPCLOSURE                       R24 K82 [PROTO_1]
-      206 CAPTURE                          VAL R2
-      207 CAPTURE                          VAL R6
-      208 CAPTURE                          VAL R5
-      209 CAPTURE                          VAL R23
-      210 CAPTURE                          VAL R3
-      211 CAPTURE                          VAL R21
-      212 CAPTURE                          VAL R16
-      213 CAPTURE                          VAL R17
-      214 CAPTURE                          VAL R19
-      215 CAPTURE                          VAL R18
-      216 CAPTURE                          VAL R22
-      217 CAPTURE                          VAL R20
-      218 RETURN                           R24 1
+      137 GETIMPORT                        R23 K5 [require]
+      139 GETTABLEKS                       R24 R0 K13 ["Src"]
+      141 GETTABLEKS                       R24 R24 K35 ["Flags"]
+      143 GETTABLEKS                       R24 R24 K36 ["getFFlagIAMResetPropertyEditorsOnPropertyChange"]
+      145 CALL                             R23 1 1
+      146 NEWTABLE                         R24 16 0
+      148 GETTABLEKS                       R25 R8 K37 ["BINDING_PRESSED_THRESHOLD"]
+      150 DUPTABLE                         R26 K43 [{["property"] = "pressedThreshold", ["localization"] = "PressedThreshold", ["editor"]}]
+      151 SETTABLEKS                       R13 R26 K42 ["editor"]
+      153 SETTABLE                         R26 R24 R25
+      154 GETTABLEKS                       R25 R8 K44 ["BINDING_RELEASED_THRESHOLD"]
+      156 DUPTABLE                         R26 K47 [{["property"] = "releasedThreshold", ["localization"] = "ReleasedThreshold", ["editor"]}]
+      157 SETTABLEKS                       R13 R26 K42 ["editor"]
+      159 SETTABLE                         R26 R24 R25
+      160 GETTABLEKS                       R25 R8 K48 ["BINDING_CLAMP_MAGNITUDE_TO_ONE"]
+      162 DUPTABLE                         R26 K51 [{["property"] = "clampMagnitudeToOne", ["localization"] = "ClampMagnitudeToOne", ["editor"]}]
+      163 SETTABLEKS                       R12 R26 K42 ["editor"]
+      165 SETTABLE                         R26 R24 R25
+      166 GETTABLEKS                       R25 R8 K52 ["BINDING_DISPLAY_NAME"]
+      168 DUPTABLE                         R26 K55 [{["property"] = "displayName", ["localization"] = "DisplayName", ["editor"]}]
+      169 SETTABLEKS                       R11 R26 K42 ["editor"]
+      171 SETTABLE                         R26 R24 R25
+      172 GETTABLEKS                       R25 R8 K56 ["BINDING_DISPLAY_IMAGE"]
+      174 DUPTABLE                         R26 K59 [{["property"] = "displayImage", ["localization"] = "DisplayImage", ["editor"]}]
+      175 SETTABLEKS                       R10 R26 K42 ["editor"]
+      177 SETTABLE                         R26 R24 R25
+      178 GETTABLEKS                       R25 R8 K60 ["BINDING_RESPONSE_CURVE"]
+      180 DUPTABLE                         R26 K63 [{["property"] = "responseCurve", ["localization"] = "ResponseCurve", ["editor"]}]
+      181 SETTABLEKS                       R9 R26 K42 ["editor"]
+      183 SETTABLE                         R26 R24 R25
+      184 GETTABLEKS                       R25 R8 K64 ["BINDING_SCALE"]
+      186 DUPTABLE                         R26 K67 [{["property"] = "scale", ["localization"] = "Scale", ["editor"]}]
+      187 SETTABLEKS                       R12 R26 K42 ["editor"]
+      189 SETTABLE                         R26 R24 R25
+      190 GETTABLEKS                       R25 R8 K68 ["BINDING_VECTOR2_SCALE"]
+      192 DUPTABLE                         R26 K71 [{["property"] = "vector2Scale", ["localization"] = "Vector2Scale", ["editor"]}]
+      193 SETTABLEKS                       R14 R26 K42 ["editor"]
+      195 SETTABLE                         R26 R24 R25
+      196 GETTABLEKS                       R25 R8 K72 ["BINDING_VECTOR3_SCALE"]
+      198 DUPTABLE                         R26 K75 [{["property"] = "vector3Scale", ["localization"] = "Vector3Scale", ["editor"]}]
+      199 SETTABLEKS                       R15 R26 K42 ["editor"]
+      201 SETTABLE                         R26 R24 R25
+      202 GETTABLEKS                       R25 R8 K76 ["PRIORITY"]
+      204 DUPTABLE                         R26 K79 [{["property"] = "priority", ["localization"] = "Priority", ["editor"]}]
+      205 SETTABLEKS                       R12 R26 K42 ["editor"]
+      207 SETTABLE                         R26 R24 R25
+      208 GETTABLEKS                       R25 R8 K80 ["SCRIPTABLE_RENAME"]
+      210 DUPTABLE                         R26 K83 [{["property"] = "name", ["localization"] = "Name", ["editor"]}]
+      211 SETTABLEKS                       R11 R26 K42 ["editor"]
+      213 SETTABLE                         R26 R24 R25
+      214 DUPCLOSURE                       R25 K84 [PROTO_1]
+      215 CAPTURE                          VAL R2
+      216 CAPTURE                          VAL R6
+      217 CAPTURE                          VAL R5
+      218 CAPTURE                          VAL R24
+      219 CAPTURE                          VAL R3
+      220 CAPTURE                          VAL R23
+      221 CAPTURE                          VAL R8
+      222 CAPTURE                          VAL R21
+      223 CAPTURE                          VAL R16
+      224 CAPTURE                          VAL R17
+      225 CAPTURE                          VAL R19
+      226 CAPTURE                          VAL R18
+      227 CAPTURE                          VAL R22
+      228 CAPTURE                          VAL R20
+      229 RETURN                           R25 1

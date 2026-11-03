@@ -178,7 +178,7 @@ PROTO_4:
       177 NAMECALL                         R6 R6 K2 ["dispatch"]
       179 CALL                             R6 -1 0
       180 GETTABLEKS                       R6 R0 K24 ["_telemetry"]
-      182 LENGTH                           R8 R2
+      182 MOVE                             R8 R2
       183 NAMECALL                         R6 R6 K25 ["logFilesAdded"]
       185 CALL                             R6 2 0
       186 CLOSEUPVALS                      R2

@@ -81,16 +81,6 @@ PROTO_7:
        11 RETURN                           R1 1
 
 PROTO_8:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["Design"]
-        3 GETTABLEKS                       R0 R0 K1 ["new"]
-        5 GETIMPORT                        R1 K3 [Instance.new]
-        7 LOADK                            R2 K4 ["StyleSheet"]
-        8 CALL                             R1 1 -1
-        9 CALL                             R0 -1 -1
-       10 RETURN                           R0 -1
-
-PROTO_9:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 GETIMPORT                        R3 K2 [pcall]
@@ -128,74 +118,79 @@ PROTO_9:
        45 NEWTABLE                         R9 0 0
        47 CALL                             R7 2 0
        48 GETUPVAL                         R7 0
-       49 GETTABLEKS                       R7 R7 K8 ["useMemo"]
-       51 DUPCLOSURE                       R8 K9 [PROTO_8]
-       52 CAPTURE                          UPVAL U2
-       53 NEWTABLE                         R9 0 0
-       55 CALL                             R7 2 1
-       56 GETUPVAL                         R8 2
-       57 GETTABLEKS                       R8 R8 K10 ["provide"]
-       59 NEWTABLE                         R9 0 2
-       61 GETUPVAL                         R10 3
-       62 GETTABLEKS                       R10 R10 K11 ["new"]
-       64 GETTABLEKS                       R11 R0 K12 ["plugin"]
-       66 CALL                             R10 1 1
-       67 MOVE                             R11 R7
-       68 SETLIST                          R9 R10 2 [1]
-       70 DUPTABLE                         R10 K14 [{"FoundationProvider"}]
-       71 GETUPVAL                         R11 0
-       72 GETTABLEKS                       R11 R11 K15 ["createElement"]
-       74 GETUPVAL                         R12 4
-       75 DUPTABLE                         R13 K17 [{"colorMode", "plugin"}]
-       76 SETTABLEKS                       R1 R13 K16 ["colorMode"]
-       78 GETTABLEKS                       R14 R0 K12 ["plugin"]
-       80 SETTABLEKS                       R14 R13 K12 ["plugin"]
-       82 DUPTABLE                         R14 K20 [{"FlagEditor", "SavedNotice"}]
-       83 GETUPVAL                         R15 0
-       84 GETTABLEKS                       R15 R15 K15 ["createElement"]
-       86 GETUPVAL                         R16 5
-       87 DUPTABLE                         R17 K23 [{"Size", "onSaved"}]
-       88 GETIMPORT                        R18 K26 [UDim2.fromScale]
-       90 LOADN                            R19 1
-       91 LOADN                            R20 1
-       92 CALL                             R18 2 1
-       93 SETTABLEKS                       R18 R17 K21 ["Size"]
-       95 SETTABLEKS                       R6 R17 K22 ["onSaved"]
-       97 CALL                             R15 2 1
-       98 SETTABLEKS                       R15 R14 K18 ["FlagEditor"]
-      100 JUMPIFNOT                        R3 ; [+36]
-      101 GETUPVAL                         R15 0
-      102 GETTABLEKS                       R15 R15 K15 ["createElement"]
-      104 GETUPVAL                         R16 6
-      105 DUPTABLE                         R17 K36 [{["uri"], ["type"] = "Default", ["title"] = "Overrides saved", ["description"] = "Restart Studio for these changes to take effect.", ["primaryAction"], ["escapeAction"]}]
-      106 GETUPVAL                         R18 7
-      107 SETTABLEKS                       R18 R17 K27 ["uri"]
-      109 DUPTABLE                         R18 K40 [{["uri"], ["text"] = "Done", ["onActivated"]}]
-      110 GETUPVAL                         R19 8
-      111 GETTABLEKS                       R19 R19 K41 ["child"]
-      113 GETUPVAL                         R20 7
-      114 LOADK                            R21 K38 ["Done"]
-      115 CALL                             R19 2 1
-      116 SETTABLEKS                       R19 R18 K27 ["uri"]
-      118 SETTABLEKS                       R5 R18 K39 ["onActivated"]
-      120 SETTABLEKS                       R18 R17 K34 ["primaryAction"]
-      122 DUPTABLE                         R18 K43 [{"uri", "onClose"}]
-      123 GETUPVAL                         R19 8
-      124 GETTABLEKS                       R19 R19 K41 ["child"]
-      126 GETUPVAL                         R20 7
-      127 LOADK                            R21 K44 ["Close"]
-      128 CALL                             R19 2 1
-      129 SETTABLEKS                       R19 R18 K27 ["uri"]
-      131 SETTABLEKS                       R5 R18 K42 ["onClose"]
-      133 SETTABLEKS                       R18 R17 K35 ["escapeAction"]
-      135 CALL                             R15 2 1
-      136 JUMP                             ; [+1]
-      137 LOADNIL                          R15
-      138 SETTABLEKS                       R15 R14 K19 ["SavedNotice"]
-      140 CALL                             R11 3 1
-      141 SETTABLEKS                       R11 R10 K13 ["FoundationProvider"]
-      143 CALL                             R8 2 -1
-      144 RETURN                           R8 -1
+       49 GETTABLEKS                       R7 R7 K8 ["createElement"]
+       51 GETUPVAL                         R8 2
+       52 DUPTABLE                         R9 K11 [{"colorMode", "plugin"}]
+       53 SETTABLEKS                       R1 R9 K9 ["colorMode"]
+       55 GETTABLEKS                       R10 R0 K10 ["plugin"]
+       57 SETTABLEKS                       R10 R9 K10 ["plugin"]
+       59 DUPTABLE                         R10 K14 [{"FlagEditor", "SavedNotice"}]
+       60 GETUPVAL                         R11 0
+       61 GETTABLEKS                       R11 R11 K8 ["createElement"]
+       63 GETUPVAL                         R12 3
+       64 DUPTABLE                         R13 K17 [{"Size", "onSaved"}]
+       65 GETIMPORT                        R14 K20 [UDim2.fromScale]
+       67 LOADN                            R15 1
+       68 LOADN                            R16 1
+       69 CALL                             R14 2 1
+       70 SETTABLEKS                       R14 R13 K15 ["Size"]
+       72 SETTABLEKS                       R6 R13 K16 ["onSaved"]
+       74 CALL                             R11 2 1
+       75 SETTABLEKS                       R11 R10 K12 ["FlagEditor"]
+       77 JUMPIFNOT                        R3 ; [+72]
+       78 GETUPVAL                         R11 0
+       79 GETTABLEKS                       R11 R11 K8 ["createElement"]
+       81 GETUPVAL                         R12 4
+       82 GETTABLEKS                       R12 R12 K21 ["Root"]
+       84 DUPTABLE                         R13 K29 [{["disablePortal"] = True, ["hasBackdrop"] = True, ["onClose"], ["size"], ["testId"] = "flag-editor-overrides-saved"}]
+       85 SETTABLEKS                       R5 R13 K25 ["onClose"]
+       87 GETUPVAL                         R14 5
+       88 GETTABLEKS                       R14 R14 K30 ["Small"]
+       90 SETTABLEKS                       R14 R13 K26 ["size"]
+       92 DUPTABLE                         R14 K34 [{"Title", "Content", "Actions"}]
+       93 GETUPVAL                         R15 0
+       94 GETTABLEKS                       R15 R15 K8 ["createElement"]
+       96 GETUPVAL                         R16 4
+       97 GETTABLEKS                       R16 R16 K31 ["Title"]
+       99 DUPTABLE                         R17 K37 [{["text"] = "Overrides saved"}]
+      100 CALL                             R15 2 1
+      101 SETTABLEKS                       R15 R14 K31 ["Title"]
+      103 GETUPVAL                         R15 0
+      104 GETTABLEKS                       R15 R15 K8 ["createElement"]
+      106 GETUPVAL                         R16 4
+      107 GETTABLEKS                       R16 R16 K32 ["Content"]
+      109 DUPTABLE                         R17 K40 [{["LayoutOrder"] = 1}]
+      110 DUPTABLE                         R18 K42 [{"Body"}]
+      111 GETUPVAL                         R19 0
+      112 GETTABLEKS                       R19 R19 K8 ["createElement"]
+      114 GETUPVAL                         R20 4
+      115 GETTABLEKS                       R20 R20 K43 ["Text"]
+      117 DUPTABLE                         R21 K45 [{["Text"] = "Restart Studio for these changes to take effect."}]
+      118 CALL                             R19 2 1
+      119 SETTABLEKS                       R19 R18 K41 ["Body"]
+      121 CALL                             R15 3 1
+      122 SETTABLEKS                       R15 R14 K32 ["Content"]
+      124 GETUPVAL                         R15 0
+      125 GETTABLEKS                       R15 R15 K8 ["createElement"]
+      127 GETUPVAL                         R16 4
+      128 GETTABLEKS                       R16 R16 K33 ["Actions"]
+      130 DUPTABLE                         R17 K48 [{["LayoutOrder"] = 2, ["actions"]}]
+      131 NEWTABLE                         R18 0 1
+      133 DUPTABLE                         R19 K56 [{["icon"] = , ["inputDelay"] = , ["ref"] = , ["text"] = "Done", ["variant"], ["onActivated"]}]
+      134 GETUPVAL                         R20 6
+      135 GETTABLEKS                       R20 R20 K57 ["Emphasis"]
+      137 SETTABLEKS                       R20 R19 K54 ["variant"]
+      139 SETTABLEKS                       R5 R19 K55 ["onActivated"]
+      141 SETLIST                          R18 R19 1 [1]
+      143 SETTABLEKS                       R18 R17 K47 ["actions"]
+      145 CALL                             R15 2 1
+      146 SETTABLEKS                       R15 R14 K33 ["Actions"]
+      148 CALL                             R11 3 1
+      149 JUMP                             ; [+1]
+      150 LOADNIL                          R11
+      151 SETTABLEKS                       R11 R10 K13 ["SavedNotice"]
+      153 CALL                             R7 3 -1
+      154 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -213,35 +208,22 @@ MAIN:
        19 GETIMPORT                        R4 K6 [require]
        21 GETTABLEKS                       R5 R1 K2 ["FlagEditor"]
        23 CALL                             R4 1 1
-       24 GETIMPORT                        R5 K6 [require]
-       26 GETTABLEKS                       R6 R1 K9 ["Framework"]
-       28 CALL                             R5 1 1
-       29 GETIMPORT                        R6 K6 [require]
-       31 GETTABLEKS                       R7 R1 K10 ["StudioFoundation"]
-       33 CALL                             R6 1 1
-       34 GETTABLEKS                       R7 R5 K11 ["ContextServices"]
-       36 GETTABLEKS                       R8 R6 K12 ["Components"]
-       38 GETTABLEKS                       R8 R8 K13 ["Dialog"]
-       40 GETTABLEKS                       R9 R3 K14 ["FoundationProvider"]
-       42 GETTABLEKS                       R10 R3 K15 ["Enums"]
-       44 GETTABLEKS                       R10 R10 K16 ["ColorMode"]
-       46 GETTABLEKS                       R11 R7 K17 ["Plugin"]
-       48 GETTABLEKS                       R12 R6 K18 ["Util"]
-       50 GETTABLEKS                       R12 R12 K19 ["StudioUri"]
-       52 GETTABLEKS                       R13 R12 K20 ["fromWidget"]
-       54 LOADK                            R14 K2 ["FlagEditor"]
-       55 LOADK                            R15 K21 ["OverridesSaved"]
-       56 CALL                             R13 2 1
-       57 DUPCLOSURE                       R14 K22 [PROTO_1]
-       58 CAPTURE                          VAL R10
-       59 DUPCLOSURE                       R15 K23 [PROTO_9]
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          VAL R10
-       62 CAPTURE                          VAL R7
-       63 CAPTURE                          VAL R11
-       64 CAPTURE                          VAL R9
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R8
-       67 CAPTURE                          VAL R13
-       68 CAPTURE                          VAL R12
-       69 RETURN                           R15 1
+       24 GETTABLEKS                       R5 R3 K9 ["Enums"]
+       26 GETTABLEKS                       R5 R5 K10 ["ButtonVariant"]
+       28 GETTABLEKS                       R6 R3 K9 ["Enums"]
+       30 GETTABLEKS                       R6 R6 K11 ["ColorMode"]
+       32 GETTABLEKS                       R7 R3 K12 ["Dialog"]
+       34 GETTABLEKS                       R8 R3 K9 ["Enums"]
+       36 GETTABLEKS                       R8 R8 K13 ["DialogSize"]
+       38 GETTABLEKS                       R9 R3 K14 ["FoundationProvider"]
+       40 DUPCLOSURE                       R10 K15 [PROTO_1]
+       41 CAPTURE                          VAL R6
+       42 DUPCLOSURE                       R11 K16 [PROTO_8]
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R6
+       45 CAPTURE                          VAL R9
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R7
+       48 CAPTURE                          VAL R8
+       49 CAPTURE                          VAL R5
+       50 RETURN                           R11 1

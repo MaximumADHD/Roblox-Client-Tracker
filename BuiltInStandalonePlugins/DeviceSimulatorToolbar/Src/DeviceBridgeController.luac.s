@@ -453,7 +453,7 @@ PROTO_23:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
         3 GETUPVAL                         R2 1
-        4 NAMECALL                         R0 R0 K1 ["SetDeviceAndPersistAsync"]
+        4 NAMECALL                         R0 R0 K1 ["GetPerformanceSimulationMemoryTiersAsync"]
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
@@ -469,22 +469,24 @@ PROTO_24:
 PROTO_25:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
-        3 NAMECALL                         R0 R0 K1 ["MockBackButtonPressedAsync"]
-        5 CALL                             R0 1 -1
-        6 RETURN                           R0 -1
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R0 R0 K1 ["SetDeviceAndPersistAsync"]
+        6 CALL                             R0 2 -1
+        7 RETURN                           R0 -1
 
 PROTO_26:
-        0 GETTABLEKS                       R3 R0 K0 ["_focusedSessionId"]
-        2 NEWCLOSURE                       R4 P0
+        0 GETTABLEKS                       R4 R0 K0 ["_focusedSessionId"]
+        2 NEWCLOSURE                       R5 P0
         3 CAPTURE                          VAL R0
-        4 NAMECALL                         R1 R0 K1 ["_Call"]
-        6 CALL                             R1 3 -1
-        7 RETURN                           R1 -1
+        4 CAPTURE                          VAL R1
+        5 NAMECALL                         R2 R0 K1 ["_Call"]
+        7 CALL                             R2 3 -1
+        8 RETURN                           R2 -1
 
 PROTO_27:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
-        3 NAMECALL                         R0 R0 K1 ["RotateDeviceToNextPosAsync"]
+        3 NAMECALL                         R0 R0 K1 ["MockBackButtonPressedAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
@@ -499,7 +501,7 @@ PROTO_28:
 PROTO_29:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
-        3 NAMECALL                         R0 R0 K1 ["GetScalingModeAsync"]
+        3 NAMECALL                         R0 R0 K1 ["RotateDeviceToNextPosAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
@@ -514,12 +516,27 @@ PROTO_30:
 PROTO_31:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
+        3 NAMECALL                         R0 R0 K1 ["GetScalingModeAsync"]
+        5 CALL                             R0 1 -1
+        6 RETURN                           R0 -1
+
+PROTO_32:
+        0 GETTABLEKS                       R3 R0 K0 ["_focusedSessionId"]
+        2 NEWCLOSURE                       R4 P0
+        3 CAPTURE                          VAL R0
+        4 NAMECALL                         R1 R0 K1 ["_Call"]
+        6 CALL                             R1 3 -1
+        7 RETURN                           R1 -1
+
+PROTO_33:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
         3 GETUPVAL                         R2 1
         4 NAMECALL                         R0 R0 K1 ["SetScalingModeAndPersistAsync"]
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_32:
+PROTO_34:
         0 GETTABLEKS                       R4 R0 K0 ["_focusedSessionId"]
         2 NEWCLOSURE                       R5 P0
         3 CAPTURE                          VAL R0
@@ -528,14 +545,14 @@ PROTO_32:
         7 CALL                             R2 3 -1
         8 RETURN                           R2 -1
 
-PROTO_33:
+PROTO_35:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
         3 NAMECALL                         R0 R0 K1 ["GetCalibratedScreenDpiAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
-PROTO_34:
+PROTO_36:
         0 GETTABLEKS                       R3 R0 K0 ["_focusedSessionId"]
         2 NEWCLOSURE                       R4 P0
         3 CAPTURE                          VAL R0
@@ -543,7 +560,7 @@ PROTO_34:
         6 CALL                             R1 3 -1
         7 RETURN                           R1 -1
 
-PROTO_35:
+PROTO_37:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
         3 GETUPVAL                         R2 1
@@ -551,7 +568,7 @@ PROTO_35:
         6 CALL                             R0 2 -1
         7 RETURN                           R0 -1
 
-PROTO_36:
+PROTO_38:
         0 GETTABLEKS                       R4 R0 K0 ["_focusedSessionId"]
         2 NEWCLOSURE                       R5 P0
         3 CAPTURE                          VAL R0
@@ -560,25 +577,10 @@ PROTO_36:
         7 CALL                             R2 3 -1
         8 RETURN                           R2 -1
 
-PROTO_37:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
-        3 NAMECALL                         R0 R0 K1 ["AutoCalibrateScreenDpiAsync"]
-        5 CALL                             R0 1 -1
-        6 RETURN                           R0 -1
-
-PROTO_38:
-        0 GETTABLEKS                       R3 R0 K0 ["_focusedSessionId"]
-        2 NEWCLOSURE                       R4 P0
-        3 CAPTURE                          VAL R0
-        4 NAMECALL                         R1 R0 K1 ["_Call"]
-        6 CALL                             R1 3 -1
-        7 RETURN                           R1 -1
-
 PROTO_39:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
-        3 NAMECALL                         R0 R0 K1 ["DisableAutoDetectScreenDpiAsync"]
+        3 NAMECALL                         R0 R0 K1 ["AutoCalibrateScreenDpiAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
@@ -593,7 +595,7 @@ PROTO_40:
 PROTO_41:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
-        3 NAMECALL                         R0 R0 K1 ["IsScreenDpiAutoDetectEnabledAsync"]
+        3 NAMECALL                         R0 R0 K1 ["DisableAutoDetectScreenDpiAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
 
@@ -606,6 +608,21 @@ PROTO_42:
         7 RETURN                           R1 -1
 
 PROTO_43:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["_deviceBridge"]
+        3 NAMECALL                         R0 R0 K1 ["IsScreenDpiAutoDetectEnabledAsync"]
+        5 CALL                             R0 1 -1
+        6 RETURN                           R0 -1
+
+PROTO_44:
+        0 GETTABLEKS                       R3 R0 K0 ["_focusedSessionId"]
+        2 NEWCLOSURE                       R4 P0
+        3 CAPTURE                          VAL R0
+        4 NAMECALL                         R1 R0 K1 ["_Call"]
+        6 CALL                             R1 3 -1
+        7 RETURN                           R1 -1
+
+PROTO_45:
         0 GETTABLEKS                       R1 R0 K0 ["_registryBridge"]
         2 GETTABLEKS                       R2 R0 K1 ["_registryEnabled"]
         4 JUMPIFNOT                        R2 ; [+2]
@@ -616,7 +633,7 @@ PROTO_43:
        12 CALL                             R2 1 -1
        13 RETURN                           R2 -1
 
-PROTO_44:
+PROTO_46:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -624,7 +641,7 @@ PROTO_44:
         5 CALL                             R0 3 -1
         6 RETURN                           R0 -1
 
-PROTO_45:
+PROTO_47:
         0 GETTABLEKS                       R3 R0 K0 ["_registryBridge"]
         2 GETTABLEKS                       R4 R0 K1 ["_registryEnabled"]
         4 JUMPIFNOT                        R4 ; [+2]
@@ -669,7 +686,7 @@ PROTO_45:
        56 CALL                             R6 2 -1
        57 RETURN                           R6 -1
 
-PROTO_46:
+PROTO_48:
         0 GETTABLEKS                       R5 R0 K0 ["_registryEnabled"]
         2 JUMPIF                           R5 ; [+2]
         3 LOADNIL                          R5
@@ -687,7 +704,7 @@ PROTO_46:
        19 CALL                             R6 5 -1
        20 RETURN                           R6 -1
 
-PROTO_47:
+PROTO_49:
         0 GETTABLEKS                       R1 R0 K0 ["_destroyed"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
@@ -769,31 +786,33 @@ MAIN:
        50 DUPCLOSURE                       R3 K27 [PROTO_22]
        51 SETTABLEKS                       R3 R2 K28 ["UpdateDevicesAsync"]
        53 DUPCLOSURE                       R3 K29 [PROTO_24]
-       54 SETTABLEKS                       R3 R2 K30 ["SetDeviceAndPersistAsync"]
+       54 SETTABLEKS                       R3 R2 K30 ["GetPerformanceSimulationMemoryTiersAsync"]
        56 DUPCLOSURE                       R3 K31 [PROTO_26]
-       57 SETTABLEKS                       R3 R2 K32 ["MockBackButtonPressedAsync"]
+       57 SETTABLEKS                       R3 R2 K32 ["SetDeviceAndPersistAsync"]
        59 DUPCLOSURE                       R3 K33 [PROTO_28]
-       60 SETTABLEKS                       R3 R2 K34 ["RotateDeviceToNextPosAsync"]
+       60 SETTABLEKS                       R3 R2 K34 ["MockBackButtonPressedAsync"]
        62 DUPCLOSURE                       R3 K35 [PROTO_30]
-       63 SETTABLEKS                       R3 R2 K36 ["GetScalingModeAsync"]
+       63 SETTABLEKS                       R3 R2 K36 ["RotateDeviceToNextPosAsync"]
        65 DUPCLOSURE                       R3 K37 [PROTO_32]
-       66 SETTABLEKS                       R3 R2 K38 ["SetScalingModeAndPersistAsync"]
+       66 SETTABLEKS                       R3 R2 K38 ["GetScalingModeAsync"]
        68 DUPCLOSURE                       R3 K39 [PROTO_34]
-       69 SETTABLEKS                       R3 R2 K40 ["GetCalibratedScreenDpiAsync"]
+       69 SETTABLEKS                       R3 R2 K40 ["SetScalingModeAndPersistAsync"]
        71 DUPCLOSURE                       R3 K41 [PROTO_36]
-       72 SETTABLEKS                       R3 R2 K42 ["SetCalibratedScreenDpiAsync"]
+       72 SETTABLEKS                       R3 R2 K42 ["GetCalibratedScreenDpiAsync"]
        74 DUPCLOSURE                       R3 K43 [PROTO_38]
-       75 SETTABLEKS                       R3 R2 K44 ["AutoCalibrateScreenDpiAsync"]
+       75 SETTABLEKS                       R3 R2 K44 ["SetCalibratedScreenDpiAsync"]
        77 DUPCLOSURE                       R3 K45 [PROTO_40]
-       78 SETTABLEKS                       R3 R2 K46 ["DisableAutoDetectScreenDpiAsync"]
+       78 SETTABLEKS                       R3 R2 K46 ["AutoCalibrateScreenDpiAsync"]
        80 DUPCLOSURE                       R3 K47 [PROTO_42]
-       81 SETTABLEKS                       R3 R2 K48 ["IsScreenDpiAutoDetectEnabledAsync"]
-       83 DUPCLOSURE                       R3 K49 [PROTO_43]
-       84 SETTABLEKS                       R3 R2 K50 ["GetRegisteredSimulatorsAsync"]
+       81 SETTABLEKS                       R3 R2 K48 ["DisableAutoDetectScreenDpiAsync"]
+       83 DUPCLOSURE                       R3 K49 [PROTO_44]
+       84 SETTABLEKS                       R3 R2 K50 ["IsScreenDpiAutoDetectEnabledAsync"]
        86 DUPCLOSURE                       R3 K51 [PROTO_45]
-       87 SETTABLEKS                       R3 R2 K52 ["GetSimulatorDynamicStateAsync"]
-       89 DUPCLOSURE                       R3 K53 [PROTO_46]
-       90 SETTABLEKS                       R3 R2 K54 ["NotifyControlChangedAsync"]
-       92 DUPCLOSURE                       R3 K55 [PROTO_47]
-       93 SETTABLEKS                       R3 R2 K56 ["Destroy"]
-       95 RETURN                           R2 1
+       87 SETTABLEKS                       R3 R2 K52 ["GetRegisteredSimulatorsAsync"]
+       89 DUPCLOSURE                       R3 K53 [PROTO_47]
+       90 SETTABLEKS                       R3 R2 K54 ["GetSimulatorDynamicStateAsync"]
+       92 DUPCLOSURE                       R3 K55 [PROTO_48]
+       93 SETTABLEKS                       R3 R2 K56 ["NotifyControlChangedAsync"]
+       95 DUPCLOSURE                       R3 K57 [PROTO_49]
+       96 SETTABLEKS                       R3 R2 K58 ["Destroy"]
+       98 RETURN                           R2 1

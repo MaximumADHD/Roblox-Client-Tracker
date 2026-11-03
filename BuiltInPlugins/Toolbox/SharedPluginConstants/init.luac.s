@@ -1,28 +1,28 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K22 [{[1] = "ShowToolboxPlugins", ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"] = "OpenToolboxModelTabAndSearch", ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"] = "ShowMaterialManagerPlugin", ["SHOW_MATERIAL_GENERATOR_PLUGIN_EVENT"] = "ShowMaterialGeneratorPlugin", ["LOAD_MATERIAL_GENERATOR"] = "LoadMaterialGenerator", ["MATERIAL_GENERATOR_READY"] = "MaterialGeneratorReady", ["MATERIAL_GENERATOR_ENABLED"] = "MaterialGeneratorEnabled", ["MATERIAL_MANAGER_ENABLED"] = "MaterialManagerEnabled", ["DEFAULT_STUDIO_THEME_NAME"] = "Dark", ["REIMPORT"], ["ASSET_MANAGER"], ["TERRAIN"], ["CONTENT_EDIT"]}]
-        2 GETIMPORT                        R1 K24 [require]
-        4 GETIMPORT                        R2 K26 [script]
-        6 GETTABLEKS                       R2 R2 K27 ["plugins"]
-        8 GETTABLEKS                       R2 R2 K28 ["Reimport"]
-       10 CALL                             R1 1 1
-       11 SETTABLEKS                       R1 R0 K18 ["REIMPORT"]
-       13 GETIMPORT                        R1 K24 [require]
-       15 GETIMPORT                        R2 K26 [script]
-       17 GETTABLEKS                       R2 R2 K27 ["plugins"]
-       19 GETTABLEKS                       R2 R2 K29 ["AssetManager"]
-       21 CALL                             R1 1 1
-       22 SETTABLEKS                       R1 R0 K19 ["ASSET_MANAGER"]
-       24 GETIMPORT                        R1 K24 [require]
-       26 GETIMPORT                        R2 K26 [script]
-       28 GETTABLEKS                       R2 R2 K27 ["plugins"]
-       30 GETTABLEKS                       R2 R2 K30 ["Terrain"]
-       32 CALL                             R1 1 1
-       33 SETTABLEKS                       R1 R0 K20 ["TERRAIN"]
-       35 GETIMPORT                        R1 K24 [require]
-       37 GETIMPORT                        R2 K26 [script]
-       39 GETTABLEKS                       R2 R2 K27 ["plugins"]
-       41 GETTABLEKS                       R2 R2 K31 ["ContentEdit"]
-       43 CALL                             R1 1 1
-       44 SETTABLEKS                       R1 R0 K21 ["CONTENT_EDIT"]
-       46 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["plugins"]
+        7 GETTABLEKS                       R1 R1 K5 ["AssetManager"]
+        9 CALL                             R0 1 1
+       10 DUPTABLE                         R1 K28 [{["SHOW_TOOLBOX_PLUGINS_EVENT"] = "ShowToolboxPlugins", ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"] = "OpenToolboxModelTabAndSearch", ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"] = "ShowMaterialManagerPlugin", ["SHOW_MATERIAL_GENERATOR_PLUGIN_EVENT"] = "ShowMaterialGeneratorPlugin", ["LOAD_MATERIAL_GENERATOR"] = "LoadMaterialGenerator", ["MATERIAL_GENERATOR_READY"] = "MaterialGeneratorReady", ["MATERIAL_GENERATOR_ENABLED"] = "MaterialGeneratorEnabled", ["MATERIAL_MANAGER_ENABLED"] = "MaterialManagerEnabled", ["DEFAULT_STUDIO_THEME_NAME"] = "Dark", ["REIMPORT"], ["ASSET_MANAGER"], ["TERRAIN"], ["CONTENT_EDIT"]}]
+       11 GETIMPORT                        R2 K1 [require]
+       13 GETIMPORT                        R3 K3 [script]
+       15 GETTABLEKS                       R3 R3 K4 ["plugins"]
+       17 GETTABLEKS                       R3 R3 K29 ["Reimport"]
+       19 CALL                             R2 1 1
+       20 SETTABLEKS                       R2 R1 K24 ["REIMPORT"]
+       22 SETTABLEKS                       R0 R1 K25 ["ASSET_MANAGER"]
+       24 GETIMPORT                        R2 K1 [require]
+       26 GETIMPORT                        R3 K3 [script]
+       28 GETTABLEKS                       R3 R3 K4 ["plugins"]
+       30 GETTABLEKS                       R3 R3 K30 ["Terrain"]
+       32 CALL                             R2 1 1
+       33 SETTABLEKS                       R2 R1 K26 ["TERRAIN"]
+       35 GETIMPORT                        R2 K1 [require]
+       37 GETIMPORT                        R3 K3 [script]
+       39 GETTABLEKS                       R3 R3 K4 ["plugins"]
+       41 GETTABLEKS                       R3 R3 K31 ["ContentEdit"]
+       43 CALL                             R2 1 1
+       44 SETTABLEKS                       R2 R1 K27 ["CONTENT_EDIT"]
+       46 RETURN                           R1 1

@@ -64,18 +64,19 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K6 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Util"]
-       27 GETTABLEKS                       R4 R4 K11 ["createScopeUid"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K6 ["Src"]
-       34 GETTABLEKS                       R5 R5 K10 ["Util"]
-       36 GETTABLEKS                       R5 R5 K12 ["logIfDebug"]
-       38 CALL                             R4 1 1
-       39 DUPCLOSURE                       R5 K13 [PROTO_0]
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          VAL R3
-       44 RETURN                           R5 1
+       23 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K10 ["AssetManagement"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R3 K11 ["Utils"]
+       30 GETTABLEKS                       R4 R4 K12 ["createScopeUid"]
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETTABLEKS                       R6 R0 K6 ["Src"]
+       36 GETTABLEKS                       R6 R6 K13 ["Util"]
+       38 GETTABLEKS                       R6 R6 K14 ["logIfDebug"]
+       40 CALL                             R5 1 1
+       41 DUPCLOSURE                       R6 K15 [PROTO_0]
+       42 CAPTURE                          VAL R2
+       43 CAPTURE                          VAL R1
+       44 CAPTURE                          VAL R5
+       45 CAPTURE                          VAL R4
+       46 RETURN                           R6 1

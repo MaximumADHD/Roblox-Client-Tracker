@@ -20,7 +20,7 @@ PROTO_1:
         5 LOADNIL                          R1
         6 RETURN                           R1 1
         7 GETUPVAL                         R1 0
-        8 GETTABLEKS                       R1 R1 K1 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+        8 GETTABLEKS                       R1 R1 K1 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
        10 CALL                             R1 0 1
        11 JUMPIF                           R1 ; [+2]
        12 LOADNIL                          R1
@@ -111,7 +111,7 @@ PROTO_2:
         5 LOADB                            R2 1
         6 RETURN                           R2 1
         7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K1 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+        8 GETTABLEKS                       R2 R2 K1 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
        10 CALL                             R2 0 1
        11 JUMPIF                           R2 ; [+2]
        12 LOADB                            R2 1
@@ -242,7 +242,7 @@ PROTO_3:
       118 MOVE                             R1 R2
       119 LOADNIL                          R2
       120 GETUPVAL                         R3 0
-      121 GETTABLEKS                       R3 R3 K15 ["getFFlagStudioDeviceSimulatorDynamicControlPresentation"]
+      121 GETTABLEKS                       R3 R3 K15 ["getEngineFeatureStudioDeviceSimulatorDynamicControlPresentation"]
       123 CALL                             R3 0 1
       124 JUMPIFNOT                        R3 ; [+13]
       125 GETTABLEKS                       R3 R0 K16 ["ControlPresentations"]

@@ -407,30 +407,37 @@ PROTO_7:
       155 RETURN                           R0 0
       156 GETUPVAL                         R13 6
       157 CALL                             R13 0 1
-      158 JUMPIFNOT                        R13 ; [+4]
+      158 JUMPIFNOT                        R13 ; [+13]
       159 GETUPVAL                         R13 7
       160 MOVE                             R14 R9
       161 MOVE                             R15 R0
-      162 CALL                             R13 2 0
-      163 GETUPVAL                         R13 4
-      164 CALL                             R13 0 1
-      165 JUMPIFNOT                        R13 ; [+9]
-      166 GETUPVAL                         R13 8
-      167 GETTABLEKS                       R13 R13 K28 ["acquireLock"]
-      169 GETTABLEKS                       R14 R8 K5 ["filepath"]
-      171 GETTABLEKS                       R15 R8 K21 ["creatorId"]
-      173 CALL                             R13 2 1
-      174 MOVE                             R11 R13
-      175 NAMECALL                         R13 R9 K29 ["Upload"]
-      177 CALL                             R13 1 0
-      178 ADDK                             R4 R4 K16 [0.1]
-      179 MULK                             R14 R5 K8 [0.6]
-      180 ADD                              R13 R4 R14
-      181 GETTABLEKS                       R14 R1 K9 ["progress"]
-      183 MOVE                             R15 R13
-      184 CALL                             R14 1 0
-      185 CLOSEUPVALS                      R4
-      186 RETURN                           R0 0
+      162 GETTABLEKS                       R16 R8 K21 ["creatorId"]
+      164 CALL                             R13 3 2
+      165 JUMPIF                           R13 ; [+6]
+      166 GETTABLEKS                       R15 R1 K2 ["error"]
+      168 MOVE                             R16 R14
+      169 CALL                             R15 1 0
+      170 CLOSEUPVALS                      R4
+      171 RETURN                           R0 0
+      172 GETUPVAL                         R13 4
+      173 CALL                             R13 0 1
+      174 JUMPIFNOT                        R13 ; [+9]
+      175 GETUPVAL                         R13 8
+      176 GETTABLEKS                       R13 R13 K28 ["acquireLock"]
+      178 GETTABLEKS                       R14 R8 K5 ["filepath"]
+      180 GETTABLEKS                       R15 R8 K21 ["creatorId"]
+      182 CALL                             R13 2 1
+      183 MOVE                             R11 R13
+      184 NAMECALL                         R13 R9 K29 ["Upload"]
+      186 CALL                             R13 1 0
+      187 ADDK                             R4 R4 K16 [0.1]
+      188 MULK                             R14 R5 K8 [0.6]
+      189 ADD                              R13 R4 R14
+      190 GETTABLEKS                       R14 R1 K9 ["progress"]
+      192 MOVE                             R15 R13
+      193 CALL                             R14 1 0
+      194 CLOSEUPVALS                      R4
+      195 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

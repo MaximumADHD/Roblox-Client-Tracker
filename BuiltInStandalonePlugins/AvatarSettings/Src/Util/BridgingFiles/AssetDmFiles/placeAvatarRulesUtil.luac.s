@@ -68,7 +68,25 @@ PROTO_2:
        38 JUMPIFNOT                        R2 ; [+3]
        39 JUMPIFNOT                        R3 ; [+2]
        40 SETTABLEKS                       R3 R2 K4 ["AvatarType"]
-       42 RETURN                           R0 0
+       42 LOADK                            R6 K5 ["AvatarCollisionRules"]
+       43 NAMECALL                         R4 R0 K1 ["FindFirstChildWhichIsA"]
+       45 CALL                             R4 2 1
+       46 GETTABLEKS                       R5 R1 K5 ["AvatarCollisionRules"]
+       48 JUMPIFNOT                        R5 ; [+4]
+       49 GETTABLEKS                       R5 R1 K5 ["AvatarCollisionRules"]
+       51 GETTABLEKS                       R5 R5 K6 ["HitAndTouchDetectionMode"]
+       53 JUMPIFNOT                        R4 ; [+13]
+       54 JUMPIFNOT                        R5 ; [+12]
+       55 GETUPVAL                         R6 1
+       56 GETTABLEKS                       R6 R6 K7 ["isSupported"]
+       58 CALL                             R6 0 1
+       59 JUMPIFNOT                        R6 ; [+7]
+       60 GETUPVAL                         R6 1
+       61 GETTABLEKS                       R6 R6 K8 ["fromLegacy"]
+       63 MOVE                             R7 R5
+       64 CALL                             R6 1 1
+       65 SETTABLEKS                       R6 R4 K9 ["TouchAndQueryDetectionMode"]
+       67 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["AvatarBodyRules"]
@@ -210,49 +228,55 @@ MAIN:
        25 GETIMPORT                        R4 K11 [require]
        27 GETTABLEKS                       R5 R0 K12 ["Src"]
        29 GETTABLEKS                       R5 R5 K13 ["Util"]
-       31 GETTABLEKS                       R5 R5 K14 ["BridgingFiles"]
-       33 GETTABLEKS                       R5 R5 K15 ["AssetDmFiles"]
-       35 GETTABLEKS                       R5 R5 K16 ["assetDmOverrideAdapter"]
-       37 CALL                             R4 1 1
-       38 GETIMPORT                        R5 K11 [require]
-       40 GETTABLEKS                       R6 R0 K12 ["Src"]
-       42 GETTABLEKS                       R6 R6 K13 ["Util"]
-       44 GETTABLEKS                       R6 R6 K14 ["BridgingFiles"]
-       46 GETTABLEKS                       R6 R6 K15 ["AssetDmFiles"]
-       48 GETTABLEKS                       R6 R6 K17 ["assetDmOverrideRulesSchema"]
-       50 CALL                             R5 1 1
-       51 GETIMPORT                        R6 K11 [require]
-       53 GETTABLEKS                       R7 R0 K12 ["Src"]
-       55 GETTABLEKS                       R7 R7 K13 ["Util"]
-       57 GETTABLEKS                       R7 R7 K14 ["BridgingFiles"]
-       59 GETTABLEKS                       R7 R7 K15 ["AssetDmFiles"]
-       61 GETTABLEKS                       R7 R7 K18 ["assetDmTypes"]
-       63 CALL                             R6 1 1
-       64 GETIMPORT                        R7 K11 [require]
-       66 GETTABLEKS                       R8 R0 K12 ["Src"]
-       68 GETTABLEKS                       R8 R8 K19 ["Flags"]
-       70 GETTABLEKS                       R8 R8 K20 ["getFFlagAvatarSettingsWriteOverrides"]
+       31 GETTABLEKS                       R5 R5 K14 ["TouchAndQueryDetectionMode"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K11 [require]
+       36 GETTABLEKS                       R6 R0 K12 ["Src"]
+       38 GETTABLEKS                       R6 R6 K13 ["Util"]
+       40 GETTABLEKS                       R6 R6 K15 ["BridgingFiles"]
+       42 GETTABLEKS                       R6 R6 K16 ["AssetDmFiles"]
+       44 GETTABLEKS                       R6 R6 K17 ["assetDmOverrideAdapter"]
+       46 CALL                             R5 1 1
+       47 GETIMPORT                        R6 K11 [require]
+       49 GETTABLEKS                       R7 R0 K12 ["Src"]
+       51 GETTABLEKS                       R7 R7 K13 ["Util"]
+       53 GETTABLEKS                       R7 R7 K15 ["BridgingFiles"]
+       55 GETTABLEKS                       R7 R7 K16 ["AssetDmFiles"]
+       57 GETTABLEKS                       R7 R7 K18 ["assetDmOverrideRulesSchema"]
+       59 CALL                             R6 1 1
+       60 GETIMPORT                        R7 K11 [require]
+       62 GETTABLEKS                       R8 R0 K12 ["Src"]
+       64 GETTABLEKS                       R8 R8 K13 ["Util"]
+       66 GETTABLEKS                       R8 R8 K15 ["BridgingFiles"]
+       68 GETTABLEKS                       R8 R8 K16 ["AssetDmFiles"]
+       70 GETTABLEKS                       R8 R8 K19 ["assetDmTypes"]
        72 CALL                             R7 1 1
-       73 DUPTABLE                         R8 K23 [{["AvatarSettingsLegacyCollisionMode"] = "LegacyCollisionMode"}]
-       74 NEWTABLE                         R9 4 0
-       76 DUPCLOSURE                       R10 K24 [PROTO_0]
-       77 CAPTURE                          VAL R3
-       78 SETTABLEKS                       R10 R9 K25 ["findExisting"]
-       80 DUPCLOSURE                       R10 K26 [PROTO_1]
-       81 CAPTURE                          VAL R8
-       82 DUPCLOSURE                       R11 K27 [PROTO_2]
-       83 CAPTURE                          VAL R4
-       84 DUPCLOSURE                       R12 K28 [PROTO_3]
-       85 DUPCLOSURE                       R13 K29 [PROTO_4]
-       86 CAPTURE                          VAL R10
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R11
-       90 SETTABLEKS                       R13 R9 K30 ["buildSubtree"]
-       92 DUPCLOSURE                       R13 K31 [PROTO_5]
-       93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          VAL R3
-       96 CAPTURE                          VAL R1
-       97 SETTABLEKS                       R13 R9 K32 ["create"]
-       99 RETURN                           R9 1
+       73 GETIMPORT                        R8 K11 [require]
+       75 GETTABLEKS                       R9 R0 K12 ["Src"]
+       77 GETTABLEKS                       R9 R9 K20 ["Flags"]
+       79 GETTABLEKS                       R9 R9 K21 ["getFFlagAvatarSettingsWriteOverrides"]
+       81 CALL                             R8 1 1
+       82 DUPTABLE                         R9 K24 [{["AvatarSettingsLegacyCollisionMode"] = "LegacyCollisionMode"}]
+       83 NEWTABLE                         R10 4 0
+       85 DUPCLOSURE                       R11 K25 [PROTO_0]
+       86 CAPTURE                          VAL R3
+       87 SETTABLEKS                       R11 R10 K26 ["findExisting"]
+       89 DUPCLOSURE                       R11 K27 [PROTO_1]
+       90 CAPTURE                          VAL R9
+       91 DUPCLOSURE                       R12 K28 [PROTO_2]
+       92 CAPTURE                          VAL R5
+       93 CAPTURE                          VAL R4
+       94 DUPCLOSURE                       R13 K29 [PROTO_3]
+       95 DUPCLOSURE                       R14 K30 [PROTO_4]
+       96 CAPTURE                          VAL R11
+       97 CAPTURE                          VAL R8
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R12
+      100 SETTABLEKS                       R14 R10 K31 ["buildSubtree"]
+      102 DUPCLOSURE                       R14 K32 [PROTO_5]
+      103 CAPTURE                          VAL R10
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R3
+      106 CAPTURE                          VAL R1
+      107 SETTABLEKS                       R14 R10 K33 ["create"]
+      109 RETURN                           R10 1

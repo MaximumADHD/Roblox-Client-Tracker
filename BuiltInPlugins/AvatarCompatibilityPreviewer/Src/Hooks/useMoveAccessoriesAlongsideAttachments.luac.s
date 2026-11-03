@@ -110,38 +110,32 @@ PROTO_4:
         3 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["FFlagAvatarPreviewerEditingTools not enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R1 R1 K3 ["useCallback"]
-       11 NEWCLOSURE                       R2 P0
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          UPVAL U2
-       14 CAPTURE                          UPVAL U3
-       15 NEWTABLE                         R3 0 1
-       17 MOVE                             R4 R0
-       18 SETLIST                          R3 R4 1 [1]
-       20 CALL                             R1 2 1
-       21 GETUPVAL                         R2 1
-       22 GETTABLEKS                       R2 R2 K4 ["useEffect"]
-       24 NEWCLOSURE                       R3 P1
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          VAL R1
-       28 NEWTABLE                         R4 0 2
-       30 MOVE                             R5 R0
-       31 MOVE                             R6 R1
-       32 SETLIST                          R4 R5 2 [1]
-       34 CALL                             R2 2 0
-       35 DUPTABLE                         R2 K6 [{"update"}]
-       36 NEWCLOSURE                       R3 P2
-       37 CAPTURE                          VAL R1
-       38 SETTABLEKS                       R3 R2 K5 ["update"]
-       40 RETURN                           R2 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useCallback"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 NEWTABLE                         R3 0 1
+        9 MOVE                             R4 R0
+       10 SETLIST                          R3 R4 1 [1]
+       12 CALL                             R1 2 1
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K1 ["useEffect"]
+       16 NEWCLOSURE                       R3 P1
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U3
+       19 CAPTURE                          VAL R1
+       20 NEWTABLE                         R4 0 2
+       22 MOVE                             R5 R0
+       23 MOVE                             R6 R1
+       24 SETLIST                          R4 R5 2 [1]
+       26 CALL                             R2 2 0
+       27 DUPTABLE                         R2 K3 [{"update"}]
+       28 NEWCLOSURE                       R3 P2
+       29 CAPTURE                          VAL R1
+       30 SETTABLEKS                       R3 R2 K2 ["update"]
+       32 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -172,15 +166,9 @@ MAIN:
        43 GETTABLEKS                       R6 R6 K13 ["Flags"]
        45 GETTABLEKS                       R6 R6 K14 ["getFFlagAvatarPreviewerBoneNestedAttachmentFix"]
        47 CALL                             R5 1 1
-       48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R7 R0 K8 ["Src"]
-       52 GETTABLEKS                       R7 R7 K13 ["Flags"]
-       54 GETTABLEKS                       R7 R7 K15 ["getFFlagAvatarPreviewerCageEditingTools"]
-       56 CALL                             R6 1 1
-       57 DUPCLOSURE                       R7 K16 [PROTO_5]
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R2
-       63 RETURN                           R7 1
+       48 DUPCLOSURE                       R6 K15 [PROTO_5]
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R2
+       53 RETURN                           R6 1

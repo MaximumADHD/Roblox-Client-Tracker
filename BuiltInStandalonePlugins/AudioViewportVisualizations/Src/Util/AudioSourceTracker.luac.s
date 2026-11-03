@@ -313,7 +313,11 @@ PROTO_12:
         4 GETUPVAL                         R1 0
         5 LOADNIL                          R2
         6 SETTABLE                         R2 R1 R0
-        7 RETURN                           R0 0
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K0 ["remove"]
+       10 MOVE                             R2 R0
+       11 CALL                             R1 1 0
+       12 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R5 0
@@ -326,33 +330,45 @@ PROTO_13:
         7 GETUPVAL                         R1 1
         8 GETUPVAL                         R5 2
         9 GETTABLE                         R4 R5 R0
-       10 GETUPVAL                         R6 3
-       11 GETTABLE                         R5 R6 R0
-       12 JUMPIF                           R4 ; [+38]
-       13 MOVE                             R7 R1
-       14 LOADB                            R6 1
-       15 GETTABLEKS                       R8 R5 K0 ["ClassName"]
-       17 GETTABLEKS                       R9 R7 K0 ["ClassName"]
-       19 JUMPIFNOTEQ                      R8 R9 ; [+30]
-       21 LOADB                            R6 1
-       22 GETTABLEKS                       R8 R5 K1 ["Path"]
-       24 GETTABLEKS                       R9 R7 K1 ["Path"]
-       26 JUMPIFNOTEQ                      R8 R9 ; [+23]
-       28 LOADB                            R6 1
-       29 GETTABLEKS                       R8 R5 K2 ["MaxRadius"]
-       31 GETTABLEKS                       R9 R7 K2 ["MaxRadius"]
-       33 JUMPIFNOTEQ                      R8 R9 ; [+16]
-       35 LOADB                            R6 1
-       36 GETTABLEKS                       R8 R5 K3 ["MinRadius"]
-       38 GETTABLEKS                       R9 R7 K3 ["MinRadius"]
-       40 JUMPIFNOTEQ                      R8 R9 ; [+9]
-       42 GETTABLEKS                       R8 R5 K4 ["Source"]
-       44 GETTABLEKS                       R9 R7 K4 ["Source"]
-       46 JUMPIFNOTEQ                      R8 R9 ; [+2]
-       48 LOADB                            R6 0 +1
-       49 LOADB                            R6 1
-       50 JUMPIFNOT                        R6 ; [0]
-       51 RETURN                           R0 0
+       10 MOVE                             R6 R1
+       11 LOADB                            R5 1
+       12 GETTABLEKS                       R7 R4 K0 ["ClassName"]
+       14 GETTABLEKS                       R8 R6 K0 ["ClassName"]
+       16 JUMPIFNOTEQ                      R7 R8 ; [+30]
+       18 LOADB                            R5 1
+       19 GETTABLEKS                       R7 R4 K1 ["Path"]
+       21 GETTABLEKS                       R8 R6 K1 ["Path"]
+       23 JUMPIFNOTEQ                      R7 R8 ; [+23]
+       25 LOADB                            R5 1
+       26 GETTABLEKS                       R7 R4 K2 ["MaxRadius"]
+       28 GETTABLEKS                       R8 R6 K2 ["MaxRadius"]
+       30 JUMPIFNOTEQ                      R7 R8 ; [+16]
+       32 LOADB                            R5 1
+       33 GETTABLEKS                       R7 R4 K3 ["MinRadius"]
+       35 GETTABLEKS                       R8 R6 K3 ["MinRadius"]
+       37 JUMPIFNOTEQ                      R7 R8 ; [+9]
+       39 GETTABLEKS                       R7 R4 K4 ["Source"]
+       41 GETTABLEKS                       R8 R6 K4 ["Source"]
+       43 JUMPIFNOTEQ                      R7 R8 ; [+2]
+       45 LOADB                            R5 0 +1
+       46 LOADB                            R5 1
+       47 GETUPVAL                         R7 3
+       48 GETTABLE                         R6 R7 R0
+       49 JUMPIFNOT                        R6 ; [+14]
+       50 JUMPIFNOT                        R2 ; [+8]
+       51 GETUPVAL                         R6 4
+       52 GETTABLEKS                       R6 R6 K5 ["update"]
+       54 MOVE                             R7 R0
+       55 MOVE                             R8 R4
+       56 MOVE                             R9 R5
+       57 CALL                             R6 3 0
+       58 JUMP                             ; [+5]
+       59 GETUPVAL                         R6 4
+       60 GETTABLEKS                       R6 R6 K6 ["remove"]
+       62 MOVE                             R7 R0
+       63 CALL                             R6 1 0
+       64 JUMPIFNOT                        R5 ; [0]
+       65 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R2 0
@@ -399,63 +415,34 @@ PROTO_15:
        45 SETTABLE                         R6 R0 R5
        46 GETUPVAL                         R9 3
        47 GETTABLE                         R8 R9 R5
-       48 JUMPIFNOT                        R8 ; [+9]
+       48 JUMPIFNOT                        R8 ; [+14]
        49 ADDK                             R1 R1 K6 [1]
-       50 JUMP                             ; [+7]
+       50 JUMP                             ; [+12]
        51 GETUPVAL                         R9 4
        52 GETTABLE                         R8 R9 R5
        53 JUMPIF                           R8 ; [+1]
-       54 JUMP                             ; [+3]
+       54 JUMP                             ; [+8]
        55 GETUPVAL                         R8 4
        56 LOADNIL                          R9
        57 SETTABLE                         R9 R8 R5
-       58 FORGLOOP                         R2 2 ; [-52]
-       60 MOVE                             R2 R0
-       61 LOADNIL                          R3
-       62 LOADNIL                          R4
-       63 FORGPREP                         R2
-       64 MOVE                             R7 R6
-       65 JUMPIFEQKN                       R1 K6 [1] ; [+2]
-       67 LOADB                            R8 0 +1
-       68 LOADB                            R8 1
-       69 GETUPVAL                         R11 4
-       70 GETTABLE                         R10 R11 R5
-       71 NOT                              R9 R10
-       72 GETUPVAL                         R10 4
-       73 LOADB                            R11 1
-       74 SETTABLE                         R11 R10 R5
-       75 JUMPIFNOT                        R9 ; [+1]
-       76 GETUPVAL                         R7 5
-       77 GETUPVAL                         R11 3
-       78 GETTABLE                         R10 R11 R5
-       79 GETUPVAL                         R12 0
-       80 GETTABLE                         R11 R12 R5
-       81 JUMPIF                           R10 ; [+38]
-       82 MOVE                             R13 R7
-       83 LOADB                            R12 1
-       84 GETTABLEKS                       R14 R11 K7 ["ClassName"]
-       86 GETTABLEKS                       R15 R13 K7 ["ClassName"]
-       88 JUMPIFNOTEQ                      R14 R15 ; [+30]
-       90 LOADB                            R12 1
-       91 GETTABLEKS                       R14 R11 K8 ["Path"]
-       93 GETTABLEKS                       R15 R13 K8 ["Path"]
-       95 JUMPIFNOTEQ                      R14 R15 ; [+23]
-       97 LOADB                            R12 1
-       98 GETTABLEKS                       R14 R11 K9 ["MaxRadius"]
-      100 GETTABLEKS                       R15 R13 K9 ["MaxRadius"]
-      102 JUMPIFNOTEQ                      R14 R15 ; [+16]
-      104 LOADB                            R12 1
-      105 GETTABLEKS                       R14 R11 K10 ["MinRadius"]
-      107 GETTABLEKS                       R15 R13 K10 ["MinRadius"]
-      109 JUMPIFNOTEQ                      R14 R15 ; [+9]
-      111 GETTABLEKS                       R14 R11 K0 ["Source"]
-      113 GETTABLEKS                       R15 R13 K0 ["Source"]
-      115 JUMPIFNOTEQ                      R14 R15 ; [+2]
-      117 LOADB                            R12 0 +1
-      118 LOADB                            R12 1
-      119 JUMPIFNOT                        R12 ; [0]
-      120 FORGLOOP                         R2 2 ; [-57]
-      122 RETURN                           R0 0
+       58 GETUPVAL                         R8 5
+       59 GETTABLEKS                       R8 R8 K7 ["remove"]
+       61 MOVE                             R9 R5
+       62 CALL                             R8 1 0
+       63 FORGLOOP                         R2 2 ; [-57]
+       65 MOVE                             R2 R0
+       66 LOADNIL                          R3
+       67 LOADNIL                          R4
+       68 FORGPREP                         R2
+       69 GETUPVAL                         R7 6
+       70 MOVE                             R8 R5
+       71 MOVE                             R9 R6
+       72 JUMPIFEQKN                       R1 K6 [1] ; [+2]
+       74 LOADB                            R10 0 +1
+       75 LOADB                            R10 1
+       76 CALL                             R7 3 0
+       77 FORGLOOP                         R2 2 ; [-9]
+       79 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R2 0
@@ -465,7 +452,7 @@ PROTO_16:
         4 GETUPVAL                         R2 1
         5 GETTABLE                         R1 R2 R0
         6 JUMPIF                           R1 ; [+1]
-        7 JUMP                             ; [+3]
+        7 JUMP                             ; [+8]
         8 GETUPVAL                         R1 1
         9 LOADNIL                          R2
        10 SETTABLE                         R2 R1 R0
@@ -474,12 +461,16 @@ PROTO_16:
        14 MOVE                             R2 R0
        15 CALL                             R1 1 0
        16 GETUPVAL                         R1 3
-       17 MOVE                             R2 R0
-       18 CALL                             R1 1 0
-       19 GETUPVAL                         R1 0
-       20 LOADNIL                          R2
-       21 SETTABLE                         R2 R1 R0
-       22 RETURN                           R0 0
+       17 GETTABLEKS                       R1 R1 K0 ["remove"]
+       19 MOVE                             R2 R0
+       20 CALL                             R1 1 0
+       21 GETUPVAL                         R1 4
+       22 MOVE                             R2 R0
+       23 CALL                             R1 1 0
+       24 GETUPVAL                         R1 0
+       25 LOADNIL                          R2
+       26 SETTABLE                         R2 R1 R0
+       27 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R2 0
@@ -583,9 +574,13 @@ PROTO_19:
        60 LOADNIL                          R5
        61 FORGPREP                         R3
        62 GETTABLE                         R8 R1 R6
-       63 JUMPIF                           R8 ; [0]
-       64 FORGLOOP                         R3 1 ; [-3]
-       66 RETURN                           R0 0
+       63 JUMPIF                           R8 ; [+5]
+       64 GETUPVAL                         R8 3
+       65 GETTABLEKS                       R8 R8 K4 ["remove"]
+       67 MOVE                             R9 R6
+       68 CALL                             R8 1 0
+       69 FORGLOOP                         R3 1 ; [-8]
+       71 RETURN                           R0 0
 
 PROTO_20:
         0 NEWTABLE                         R0 0 0
@@ -649,67 +644,70 @@ PROTO_22:
         9 GETUPVAL                         R0 2
        10 GETTABLEKS                       R0 R0 K1 ["onOpenView"]
        12 CALL                             R0 0 0
-       13 NEWTABLE                         R0 0 1
-       15 GETUPVAL                         R1 4
-       16 GETTABLEKS                       R1 R1 K2 ["SelectionChanged"]
-       18 GETUPVAL                         R3 5
-       19 NAMECALL                         R1 R1 K3 ["Connect"]
-       21 CALL                             R1 2 -1
-       22 SETLIST                          R0 R1 -1 [1]
-       24 SETUPVAL                         R0 3
-       25 NEWTABLE                         R0 0 3
-       27 GETIMPORT                        R1 K5 [game]
-       29 GETTABLEKS                       R1 R1 K6 ["DescendantAdded"]
-       31 GETUPVAL                         R3 7
-       32 NAMECALL                         R1 R1 K3 ["Connect"]
-       34 CALL                             R1 2 1
-       35 GETIMPORT                        R2 K5 [game]
-       37 GETTABLEKS                       R2 R2 K7 ["DescendantRemoving"]
-       39 GETUPVAL                         R4 8
-       40 NAMECALL                         R2 R2 K3 ["Connect"]
-       42 CALL                             R2 2 1
-       43 GETUPVAL                         R3 9
-       44 GETTABLEKS                       R3 R3 K8 ["Heartbeat"]
-       46 GETUPVAL                         R5 1
-       47 GETTABLEKS                       R5 R5 K9 ["updateInstances"]
-       49 NAMECALL                         R3 R3 K3 ["Connect"]
-       51 CALL                             R3 2 -1
-       52 SETLIST                          R0 R1 -1 [1]
-       54 SETUPVAL                         R0 6
-       55 GETIMPORT                        R0 K5 [game]
-       57 NAMECALL                         R0 R0 K10 ["GetDescendants"]
-       59 CALL                             R0 1 3
-       60 FORGPREP                         R0
-       61 GETUPVAL                         R6 10
-       62 GETTABLE                         R5 R6 R4
-       63 JUMPIF                           R5 ; [+26]
-       64 GETUPVAL                         R6 11
-       65 GETTABLEKS                       R6 R6 K11 ["SupportedTypes"]
-       67 LOADNIL                          R7
-       68 LOADNIL                          R8
-       69 FORGPREP                         R6
-       70 MOVE                             R13 R10
-       71 NAMECALL                         R11 R4 K12 ["IsA"]
-       73 CALL                             R11 2 1
-       74 JUMPIFNOT                        R11 ; [+2]
-       75 LOADB                            R5 1
-       76 JUMP                             ; [+3]
-       77 FORGLOOP                         R6 2 ; [-8]
-       79 LOADB                            R5 0
-       80 JUMPIF                           R5 ; [+1]
-       81 JUMP                             ; [+8]
-       82 GETUPVAL                         R5 12
-       83 MOVE                             R6 R4
-       84 CALL                             R5 1 0
-       85 GETUPVAL                         R5 10
-       86 GETUPVAL                         R6 13
-       87 MOVE                             R7 R4
-       88 CALL                             R6 1 1
-       89 SETTABLE                         R6 R5 R4
-       90 FORGLOOP                         R0 2 ; [-30]
-       92 GETUPVAL                         R0 5
-       93 CALL                             R0 0 0
-       94 RETURN                           R0 0
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K1 ["onOpenView"]
+       16 CALL                             R0 0 0
+       17 NEWTABLE                         R0 0 1
+       19 GETUPVAL                         R1 5
+       20 GETTABLEKS                       R1 R1 K2 ["SelectionChanged"]
+       22 GETUPVAL                         R3 6
+       23 NAMECALL                         R1 R1 K3 ["Connect"]
+       25 CALL                             R1 2 -1
+       26 SETLIST                          R0 R1 -1 [1]
+       28 SETUPVAL                         R0 4
+       29 NEWTABLE                         R0 0 3
+       31 GETIMPORT                        R1 K5 [game]
+       33 GETTABLEKS                       R1 R1 K6 ["DescendantAdded"]
+       35 GETUPVAL                         R3 8
+       36 NAMECALL                         R1 R1 K3 ["Connect"]
+       38 CALL                             R1 2 1
+       39 GETIMPORT                        R2 K5 [game]
+       41 GETTABLEKS                       R2 R2 K7 ["DescendantRemoving"]
+       43 GETUPVAL                         R4 9
+       44 NAMECALL                         R2 R2 K3 ["Connect"]
+       46 CALL                             R2 2 1
+       47 GETUPVAL                         R3 10
+       48 GETTABLEKS                       R3 R3 K8 ["Heartbeat"]
+       50 GETUPVAL                         R5 1
+       51 GETTABLEKS                       R5 R5 K9 ["updateInstances"]
+       53 NAMECALL                         R3 R3 K3 ["Connect"]
+       55 CALL                             R3 2 -1
+       56 SETLIST                          R0 R1 -1 [1]
+       58 SETUPVAL                         R0 7
+       59 GETIMPORT                        R0 K5 [game]
+       61 NAMECALL                         R0 R0 K10 ["GetDescendants"]
+       63 CALL                             R0 1 3
+       64 FORGPREP                         R0
+       65 GETUPVAL                         R6 11
+       66 GETTABLE                         R5 R6 R4
+       67 JUMPIF                           R5 ; [+26]
+       68 GETUPVAL                         R6 12
+       69 GETTABLEKS                       R6 R6 K11 ["SupportedTypes"]
+       71 LOADNIL                          R7
+       72 LOADNIL                          R8
+       73 FORGPREP                         R6
+       74 MOVE                             R13 R10
+       75 NAMECALL                         R11 R4 K12 ["IsA"]
+       77 CALL                             R11 2 1
+       78 JUMPIFNOT                        R11 ; [+2]
+       79 LOADB                            R5 1
+       80 JUMP                             ; [+3]
+       81 FORGLOOP                         R6 2 ; [-8]
+       83 LOADB                            R5 0
+       84 JUMPIF                           R5 ; [+1]
+       85 JUMP                             ; [+8]
+       86 GETUPVAL                         R5 13
+       87 MOVE                             R6 R4
+       88 CALL                             R5 1 0
+       89 GETUPVAL                         R5 11
+       90 GETUPVAL                         R6 14
+       91 MOVE                             R7 R4
+       92 CALL                             R6 1 1
+       93 SETTABLE                         R6 R5 R4
+       94 FORGLOOP                         R0 2 ; [-30]
+       96 GETUPVAL                         R0 6
+       97 CALL                             R0 0 0
+       98 RETURN                           R0 0
 
 PROTO_23:
         0 LOADB                            R0 0
@@ -743,7 +741,10 @@ PROTO_23:
        37 GETUPVAL                         R0 7
        38 GETTABLEKS                       R0 R0 K1 ["onCloseView"]
        40 CALL                             R0 0 0
-       41 RETURN                           R0 0
+       41 GETUPVAL                         R0 8
+       42 GETTABLEKS                       R0 R0 K1 ["onCloseView"]
+       44 CALL                             R0 0 0
+       45 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R1 0
@@ -773,133 +774,145 @@ MAIN:
        23 GETIMPORT                        R3 K5 [require]
        25 GETTABLEKS                       R4 R0 K6 ["Src"]
        27 GETTABLEKS                       R4 R4 K8 ["Util"]
-       29 GETTABLEKS                       R4 R4 K10 ["MeteringUtil"]
+       29 GETTABLEKS                       R4 R4 K10 ["RolloffSpheresUtil"]
        31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K12 [game]
-       34 LOADK                            R6 K13 ["RunService"]
-       35 NAMECALL                         R4 R4 K14 ["GetService"]
-       37 CALL                             R4 2 1
-       38 GETIMPORT                        R5 K12 [game]
-       40 LOADK                            R7 K15 ["Selection"]
-       41 NAMECALL                         R5 R5 K14 ["GetService"]
-       43 CALL                             R5 2 1
-       44 DUPTABLE                         R6 K25 [{["ClassName"] = "", ["Path"] = "", ["MaxRadius"] = -1, ["MinRadius"] = -1, ["Metering"] = , ["Source"] = }]
-       45 NEWTABLE                         R7 0 0
-       47 LOADNIL                          R8
-       48 NEWTABLE                         R9 0 0
-       50 NEWTABLE                         R10 0 0
-       52 NEWTABLE                         R11 0 0
-       54 NEWTABLE                         R12 0 0
-       56 NEWTABLE                         R13 0 0
-       58 LOADB                            R14 0
-       59 LOADB                            R15 1
-       60 NEWTABLE                         R16 0 0
-       62 NEWTABLE                         R17 0 0
-       64 NEWTABLE                         R18 0 0
-       66 NEWTABLE                         R19 0 0
-       68 LOADNIL                          R20
-       69 NEWCLOSURE                       R21 P0
-       70 CAPTURE                          REF R18
-       71 CAPTURE                          REF R20
-       72 NEWCLOSURE                       R22 P1
-       73 CAPTURE                          REF R18
-       74 CAPTURE                          REF R20
-       75 CAPTURE                          REF R16
-       76 CAPTURE                          REF R17
-       77 CAPTURE                          REF R19
-       78 NEWCLOSURE                       R23 P2
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K6 ["Src"]
+       36 GETTABLEKS                       R5 R5 K8 ["Util"]
+       38 GETTABLEKS                       R5 R5 K11 ["MeteringUtil"]
+       40 CALL                             R4 1 1
+       41 GETIMPORT                        R5 K13 [game]
+       43 LOADK                            R7 K14 ["RunService"]
+       44 NAMECALL                         R5 R5 K15 ["GetService"]
+       46 CALL                             R5 2 1
+       47 GETIMPORT                        R6 K13 [game]
+       49 LOADK                            R8 K16 ["Selection"]
+       50 NAMECALL                         R6 R6 K15 ["GetService"]
+       52 CALL                             R6 2 1
+       53 DUPTABLE                         R7 K26 [{["ClassName"] = "", ["Path"] = "", ["MaxRadius"] = -1, ["MinRadius"] = -1, ["Metering"] = , ["Source"] = }]
+       54 NEWTABLE                         R8 0 0
+       56 LOADNIL                          R9
+       57 NEWTABLE                         R10 0 0
+       59 NEWTABLE                         R11 0 0
+       61 NEWTABLE                         R12 0 0
+       63 NEWTABLE                         R13 0 0
+       65 NEWTABLE                         R14 0 0
+       67 LOADB                            R15 0
+       68 LOADB                            R16 1
+       69 NEWTABLE                         R17 0 0
+       71 NEWTABLE                         R18 0 0
+       73 NEWTABLE                         R19 0 0
+       75 NEWTABLE                         R20 0 0
+       77 LOADNIL                          R21
+       78 NEWCLOSURE                       R22 P0
        79 CAPTURE                          REF R19
-       80 CAPTURE                          REF R17
-       81 CAPTURE                          REF R18
-       82 CAPTURE                          REF R16
-       83 NEWCLOSURE                       R20 P3
-       84 CAPTURE                          REF R9
-       85 CAPTURE                          VAL R23
-       86 CAPTURE                          VAL R22
-       87 NEWCLOSURE                       R24 P4
-       88 CAPTURE                          REF R19
+       80 CAPTURE                          REF R21
+       81 NEWCLOSURE                       R23 P1
+       82 CAPTURE                          REF R19
+       83 CAPTURE                          REF R21
+       84 CAPTURE                          REF R17
+       85 CAPTURE                          REF R18
+       86 CAPTURE                          REF R20
+       87 NEWCLOSURE                       R24 P2
+       88 CAPTURE                          REF R20
        89 CAPTURE                          REF R18
-       90 CAPTURE                          REF R17
-       91 CAPTURE                          REF R16
-       92 DUPCLOSURE                       R25 K26 [PROTO_7]
-       93 CAPTURE                          VAL R1
-       94 DUPCLOSURE                       R26 K27 [PROTO_8]
-       95 NEWCLOSURE                       R27 P7
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          REF R16
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          VAL R3
-      100 DUPCLOSURE                       R28 K28 [PROTO_10]
-      101 NEWCLOSURE                       R29 P9
-      102 CAPTURE                          REF R15
-      103 NEWCLOSURE                       R30 P10
-      104 CAPTURE                          REF R10
-      105 NEWCLOSURE                       R31 P11
-      106 CAPTURE                          REF R10
-      107 CAPTURE                          VAL R6
-      108 CAPTURE                          REF R11
-      109 CAPTURE                          REF R9
-      110 NEWCLOSURE                       R32 P12
-      111 CAPTURE                          REF R9
-      112 SETTABLEKS                       R32 R7 K29 ["getSourceData"]
-      114 NEWCLOSURE                       R32 P13
-      115 CAPTURE                          REF R9
-      116 CAPTURE                          VAL R27
-      117 CAPTURE                          REF R15
-      118 CAPTURE                          REF R11
-      119 CAPTURE                          REF R10
-      120 CAPTURE                          VAL R6
-      121 SETTABLEKS                       R32 R7 K30 ["updateInstances"]
-      123 NEWCLOSURE                       R32 P14
-      124 CAPTURE                          REF R9
-      125 CAPTURE                          REF R10
-      126 CAPTURE                          VAL R3
-      127 CAPTURE                          VAL R23
-      128 NEWCLOSURE                       R33 P15
-      129 CAPTURE                          REF R9
-      130 CAPTURE                          VAL R1
-      131 CAPTURE                          VAL R22
-      132 CAPTURE                          VAL R27
-      133 NEWCLOSURE                       R34 P16
-      134 CAPTURE                          REF R11
-      135 CAPTURE                          VAL R1
-      136 CAPTURE                          VAL R5
-      137 DUPCLOSURE                       R35 K31 [PROTO_20]
-      138 CAPTURE                          VAL R5
-      139 CAPTURE                          VAL R1
-      140 CAPTURE                          VAL R2
-      141 NEWCLOSURE                       R36 P18
-      142 CAPTURE                          REF R8
-      143 SETTABLEKS                       R36 R7 K32 ["init"]
-      145 NEWCLOSURE                       R36 P19
-      146 CAPTURE                          REF R14
-      147 CAPTURE                          VAL R7
-      148 CAPTURE                          VAL R3
-      149 CAPTURE                          REF R13
-      150 CAPTURE                          VAL R5
-      151 CAPTURE                          VAL R34
-      152 CAPTURE                          REF R12
-      153 CAPTURE                          VAL R33
-      154 CAPTURE                          VAL R32
-      155 CAPTURE                          VAL R4
+       90 CAPTURE                          REF R19
+       91 CAPTURE                          REF R17
+       92 NEWCLOSURE                       R21 P3
+       93 CAPTURE                          REF R10
+       94 CAPTURE                          VAL R24
+       95 CAPTURE                          VAL R23
+       96 NEWCLOSURE                       R25 P4
+       97 CAPTURE                          REF R20
+       98 CAPTURE                          REF R19
+       99 CAPTURE                          REF R18
+      100 CAPTURE                          REF R17
+      101 DUPCLOSURE                       R26 K27 [PROTO_7]
+      102 CAPTURE                          VAL R1
+      103 DUPCLOSURE                       R27 K28 [PROTO_8]
+      104 NEWCLOSURE                       R28 P7
+      105 CAPTURE                          VAL R7
+      106 CAPTURE                          REF R17
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R4
+      109 DUPCLOSURE                       R29 K29 [PROTO_10]
+      110 NEWCLOSURE                       R30 P9
+      111 CAPTURE                          REF R16
+      112 NEWCLOSURE                       R31 P10
+      113 CAPTURE                          REF R11
+      114 CAPTURE                          VAL R3
+      115 NEWCLOSURE                       R32 P11
+      116 CAPTURE                          REF R11
+      117 CAPTURE                          VAL R7
+      118 CAPTURE                          REF R10
+      119 CAPTURE                          REF R12
+      120 CAPTURE                          VAL R3
+      121 NEWCLOSURE                       R33 P12
+      122 CAPTURE                          REF R10
+      123 SETTABLEKS                       R33 R8 K30 ["getSourceData"]
+      125 NEWCLOSURE                       R33 P13
+      126 CAPTURE                          REF R10
+      127 CAPTURE                          VAL R28
+      128 CAPTURE                          REF R16
+      129 CAPTURE                          REF R12
+      130 CAPTURE                          REF R11
+      131 CAPTURE                          VAL R3
+      132 CAPTURE                          VAL R32
+      133 SETTABLEKS                       R33 R8 K31 ["updateInstances"]
+      135 NEWCLOSURE                       R33 P14
+      136 CAPTURE                          REF R10
+      137 CAPTURE                          REF R11
+      138 CAPTURE                          VAL R3
+      139 CAPTURE                          VAL R4
+      140 CAPTURE                          VAL R24
+      141 NEWCLOSURE                       R34 P15
+      142 CAPTURE                          REF R10
+      143 CAPTURE                          VAL R1
+      144 CAPTURE                          VAL R23
+      145 CAPTURE                          VAL R28
+      146 NEWCLOSURE                       R35 P16
+      147 CAPTURE                          REF R12
+      148 CAPTURE                          VAL R1
+      149 CAPTURE                          VAL R6
+      150 CAPTURE                          VAL R3
+      151 DUPCLOSURE                       R36 K32 [PROTO_20]
+      152 CAPTURE                          VAL R6
+      153 CAPTURE                          VAL R1
+      154 CAPTURE                          VAL R2
+      155 NEWCLOSURE                       R37 P18
       156 CAPTURE                          REF R9
-      157 CAPTURE                          VAL R1
-      158 CAPTURE                          VAL R22
-      159 CAPTURE                          VAL R27
-      160 SETTABLEKS                       R36 R7 K33 ["onOpenView"]
-      162 NEWCLOSURE                       R36 P20
-      163 CAPTURE                          REF R14
-      164 CAPTURE                          REF R12
-      165 CAPTURE                          REF R13
-      166 CAPTURE                          REF R11
-      167 CAPTURE                          REF R10
-      168 CAPTURE                          REF R9
-      169 CAPTURE                          VAL R24
-      170 CAPTURE                          VAL R3
-      171 SETTABLEKS                       R36 R7 K34 ["onCloseView"]
-      173 NEWCLOSURE                       R36 P21
-      174 CAPTURE                          REF R15
-      175 CAPTURE                          VAL R35
-      176 SETTABLEKS                       R36 R7 K35 ["setShowInactiveEnabled"]
-      178 CLOSEUPVALS                      R8
-      179 RETURN                           R7 1
+      157 SETTABLEKS                       R37 R8 K33 ["init"]
+      159 NEWCLOSURE                       R37 P19
+      160 CAPTURE                          REF R15
+      161 CAPTURE                          VAL R8
+      162 CAPTURE                          VAL R4
+      163 CAPTURE                          VAL R3
+      164 CAPTURE                          REF R14
+      165 CAPTURE                          VAL R6
+      166 CAPTURE                          VAL R35
+      167 CAPTURE                          REF R13
+      168 CAPTURE                          VAL R34
+      169 CAPTURE                          VAL R33
+      170 CAPTURE                          VAL R5
+      171 CAPTURE                          REF R10
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          VAL R23
+      174 CAPTURE                          VAL R28
+      175 SETTABLEKS                       R37 R8 K34 ["onOpenView"]
+      177 NEWCLOSURE                       R37 P20
+      178 CAPTURE                          REF R15
+      179 CAPTURE                          REF R13
+      180 CAPTURE                          REF R14
+      181 CAPTURE                          REF R12
+      182 CAPTURE                          REF R11
+      183 CAPTURE                          REF R10
+      184 CAPTURE                          VAL R25
+      185 CAPTURE                          VAL R4
+      186 CAPTURE                          VAL R3
+      187 SETTABLEKS                       R37 R8 K35 ["onCloseView"]
+      189 NEWCLOSURE                       R37 P21
+      190 CAPTURE                          REF R16
+      191 CAPTURE                          VAL R36
+      192 SETTABLEKS                       R37 R8 K36 ["setShowInactiveEnabled"]
+      194 CLOSEUPVALS                      R9
+      195 RETURN                           R8 1

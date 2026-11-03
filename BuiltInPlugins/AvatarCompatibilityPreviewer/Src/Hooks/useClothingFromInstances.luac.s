@@ -247,85 +247,79 @@ PROTO_5:
         2 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["AvatarPreviewerEditingTools_Dev is not enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R1 R1 K3 ["useContext"]
-       11 GETUPVAL                         R2 2
-       12 CALL                             R1 1 1
-       13 GETUPVAL                         R2 1
-       14 GETTABLEKS                       R2 R2 K4 ["useRef"]
-       16 NEWTABLE                         R3 0 0
-       18 CALL                             R2 1 1
-       19 GETUPVAL                         R3 1
-       20 GETTABLEKS                       R3 R3 K4 ["useRef"]
-       22 NEWTABLE                         R4 0 0
-       24 CALL                             R3 1 1
-       25 GETUPVAL                         R4 1
-       26 GETTABLEKS                       R4 R4 K4 ["useRef"]
-       28 NEWTABLE                         R5 0 0
-       30 CALL                             R4 1 1
-       31 GETUPVAL                         R5 1
-       32 GETTABLEKS                       R5 R5 K4 ["useRef"]
-       34 NEWTABLE                         R6 0 0
-       36 CALL                             R5 1 1
-       37 GETUPVAL                         R6 3
-       38 NEWCLOSURE                       R7 P0
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          UPVAL U4
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          VAL R5
-       44 CAPTURE                          UPVAL U5
-       45 NEWTABLE                         R8 0 2
-       47 GETTABLEKS                       R9 R1 K5 ["equippedItems"]
-       49 GETTABLEKS                       R10 R0 K6 ["includeBuiltInAccessories"]
-       51 SETLIST                          R8 R9 2 [1]
-       53 CALL                             R6 2 1
-       54 GETUPVAL                         R7 1
-       55 GETTABLEKS                       R7 R7 K7 ["useCallback"]
-       57 NEWCLOSURE                       R8 P1
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          UPVAL U4
-       60 NEWTABLE                         R9 0 2
-       62 GETTABLEKS                       R10 R0 K8 ["dummy"]
-       64 GETTABLEKS                       R11 R0 K6 ["includeBuiltInAccessories"]
-       66 SETLIST                          R9 R10 2 [1]
-       68 CALL                             R7 2 1
-       69 GETUPVAL                         R8 1
-       70 GETTABLEKS                       R8 R8 K9 ["useEffect"]
-       72 NEWCLOSURE                       R9 P2
-       73 CAPTURE                          VAL R0
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R2
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          VAL R7
-       78 CAPTURE                          UPVAL U4
-       79 CAPTURE                          VAL R3
-       80 NEWTABLE                         R10 0 4
-       82 GETTABLEKS                       R11 R0 K8 ["dummy"]
-       84 GETTABLEKS                       R12 R1 K5 ["equippedItems"]
-       86 MOVE                             R13 R7
-       87 GETTABLEKS                       R15 R6 K10 ["state"]
-       89 JUMPIFNOTEQKS                    R15 K11 ["ok"] ; [+4]
-       91 GETTABLEKS                       R14 R6 K12 ["value"]
-       93 JUMP                             ; [+1]
-       94 LOADNIL                          R14
-       95 SETLIST                          R10 R11 4 [1]
-       97 CALL                             R8 2 0
-       98 GETUPVAL                         R8 1
-       99 GETTABLEKS                       R8 R8 K9 ["useEffect"]
-      101 NEWCLOSURE                       R9 P3
-      102 CAPTURE                          VAL R2
-      103 NEWTABLE                         R10 0 1
-      105 GETTABLEKS                       R11 R0 K8 ["dummy"]
-      107 SETLIST                          R10 R11 1 [1]
-      109 CALL                             R8 2 0
-      110 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useContext"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 1
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K1 ["useRef"]
+        8 NEWTABLE                         R3 0 0
+       10 CALL                             R2 1 1
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K1 ["useRef"]
+       14 NEWTABLE                         R4 0 0
+       16 CALL                             R3 1 1
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K1 ["useRef"]
+       20 NEWTABLE                         R5 0 0
+       22 CALL                             R4 1 1
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K1 ["useRef"]
+       26 NEWTABLE                         R6 0 0
+       28 CALL                             R5 1 1
+       29 GETUPVAL                         R6 2
+       30 NEWCLOSURE                       R7 P0
+       31 CAPTURE                          VAL R0
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          UPVAL U3
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R5
+       36 CAPTURE                          UPVAL U4
+       37 NEWTABLE                         R8 0 2
+       39 GETTABLEKS                       R9 R1 K2 ["equippedItems"]
+       41 GETTABLEKS                       R10 R0 K3 ["includeBuiltInAccessories"]
+       43 SETLIST                          R8 R9 2 [1]
+       45 CALL                             R6 2 1
+       46 GETUPVAL                         R7 0
+       47 GETTABLEKS                       R7 R7 K4 ["useCallback"]
+       49 NEWCLOSURE                       R8 P1
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          UPVAL U3
+       52 NEWTABLE                         R9 0 2
+       54 GETTABLEKS                       R10 R0 K5 ["dummy"]
+       56 GETTABLEKS                       R11 R0 K3 ["includeBuiltInAccessories"]
+       58 SETLIST                          R9 R10 2 [1]
+       60 CALL                             R7 2 1
+       61 GETUPVAL                         R8 0
+       62 GETTABLEKS                       R8 R8 K6 ["useEffect"]
+       64 NEWCLOSURE                       R9 P2
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          VAL R6
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          UPVAL U3
+       71 CAPTURE                          VAL R3
+       72 NEWTABLE                         R10 0 4
+       74 GETTABLEKS                       R11 R0 K5 ["dummy"]
+       76 GETTABLEKS                       R12 R1 K2 ["equippedItems"]
+       78 MOVE                             R13 R7
+       79 GETTABLEKS                       R15 R6 K7 ["state"]
+       81 JUMPIFNOTEQKS                    R15 K8 ["ok"] ; [+4]
+       83 GETTABLEKS                       R14 R6 K9 ["value"]
+       85 JUMP                             ; [+1]
+       86 LOADNIL                          R14
+       87 SETLIST                          R10 R11 4 [1]
+       89 CALL                             R8 2 0
+       90 GETUPVAL                         R8 0
+       91 GETTABLEKS                       R8 R8 K6 ["useEffect"]
+       93 NEWCLOSURE                       R9 P3
+       94 CAPTURE                          VAL R2
+       95 NEWTABLE                         R10 0 1
+       97 GETTABLEKS                       R11 R0 K5 ["dummy"]
+       99 SETLIST                          R10 R11 1 [1]
+      101 CALL                             R8 2 0
+      102 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -357,19 +351,13 @@ MAIN:
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K9 [require]
        47 GETTABLEKS                       R7 R0 K10 ["Src"]
-       49 GETTABLEKS                       R7 R7 K17 ["Flags"]
-       51 GETTABLEKS                       R7 R7 K18 ["getFFlagAvatarPreviewerEditingTools"]
+       49 GETTABLEKS                       R7 R7 K17 ["Hooks"]
+       51 GETTABLEKS                       R7 R7 K18 ["useAsync"]
        53 CALL                             R6 1 1
-       54 GETIMPORT                        R7 K9 [require]
-       56 GETTABLEKS                       R8 R0 K10 ["Src"]
-       58 GETTABLEKS                       R8 R8 K19 ["Hooks"]
-       60 GETTABLEKS                       R8 R8 K20 ["useAsync"]
-       62 CALL                             R7 1 1
-       63 DUPCLOSURE                       R8 K21 [PROTO_6]
-       64 CAPTURE                          VAL R6
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R7
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R1
-       70 RETURN                           R8 1
+       54 DUPCLOSURE                       R7 K19 [PROTO_6]
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R1
+       60 RETURN                           R7 1

@@ -61,40 +61,37 @@ PROTO_1:
        65 CALL                             R14 1 -1
        66 SETLIST                          R9 R10 -1 [1]
        68 GETUPVAL                         R10 9
-       69 CALL                             R10 0 1
-       70 JUMPIFNOT                        R10 ; [+21]
-       71 GETUPVAL                         R10 10
-       72 GETTABLEKS                       R10 R10 K8 ["PluginActions"]
-       74 GETTABLEKS                       R10 R10 K0 ["new"]
-       76 MOVE                             R11 R0
-       77 GETUPVAL                         R12 11
-       78 MOVE                             R13 R0
-       79 GETUPVAL                         R14 12
-       80 GETTABLEKS                       R14 R14 K9 ["mock"]
-       82 CALL                             R14 0 -1
-       83 CALL                             R12 -1 -1
-       84 CALL                             R10 -1 1
-       85 FASTCALL2                        TABLE_INSERT R9 R10 ; [+5]
-       87 MOVE                             R12 R9
-       88 MOVE                             R13 R10
-       89 GETIMPORT                        R11 K12 [table.insert]
-       91 CALL                             R11 2 0
-       92 DUPTABLE                         R10 K19 [{"context", "plugin", "analyticsService", "analyticsEvents", "selectionService", "placesService"}]
-       93 SETTABLEKS                       R9 R10 K13 ["context"]
-       95 SETTABLEKS                       R0 R10 K14 ["plugin"]
-       97 SETTABLEKS                       R1 R10 K15 ["analyticsService"]
-       99 SETTABLEKS                       R3 R10 K16 ["analyticsEvents"]
-      101 SETTABLEKS                       R2 R10 K17 ["selectionService"]
-      103 DUPTABLE                         R11 K22 [{"startPlaySolo", "stopPlaySolo"}]
-      104 SETTABLEKS                       R5 R11 K20 ["startPlaySolo"]
-      106 SETTABLEKS                       R7 R11 K21 ["stopPlaySolo"]
-      108 SETTABLEKS                       R11 R10 K18 ["placesService"]
-      110 DUPTABLE                         R11 K23 [{"placesService"}]
-      111 DUPTABLE                         R12 K22 [{"startPlaySolo", "stopPlaySolo"}]
-      112 SETTABLEKS                       R6 R12 K20 ["startPlaySolo"]
-      114 SETTABLEKS                       R8 R12 K21 ["stopPlaySolo"]
-      116 SETTABLEKS                       R12 R11 K18 ["placesService"]
-      118 RETURN                           R10 2
+       69 GETTABLEKS                       R10 R10 K8 ["PluginActions"]
+       71 GETTABLEKS                       R10 R10 K0 ["new"]
+       73 MOVE                             R11 R0
+       74 GETUPVAL                         R12 10
+       75 MOVE                             R13 R0
+       76 GETUPVAL                         R14 11
+       77 GETTABLEKS                       R14 R14 K9 ["mock"]
+       79 CALL                             R14 0 -1
+       80 CALL                             R12 -1 -1
+       81 CALL                             R10 -1 1
+       82 FASTCALL2                        TABLE_INSERT R9 R10 ; [+5]
+       84 MOVE                             R12 R9
+       85 MOVE                             R13 R10
+       86 GETIMPORT                        R11 K12 [table.insert]
+       88 CALL                             R11 2 0
+       89 DUPTABLE                         R11 K19 [{"context", "plugin", "analyticsService", "analyticsEvents", "selectionService", "placesService"}]
+       90 SETTABLEKS                       R9 R11 K13 ["context"]
+       92 SETTABLEKS                       R0 R11 K14 ["plugin"]
+       94 SETTABLEKS                       R1 R11 K15 ["analyticsService"]
+       96 SETTABLEKS                       R3 R11 K16 ["analyticsEvents"]
+       98 SETTABLEKS                       R2 R11 K17 ["selectionService"]
+      100 DUPTABLE                         R12 K22 [{"startPlaySolo", "stopPlaySolo"}]
+      101 SETTABLEKS                       R5 R12 K20 ["startPlaySolo"]
+      103 SETTABLEKS                       R7 R12 K21 ["stopPlaySolo"]
+      105 SETTABLEKS                       R12 R11 K18 ["placesService"]
+      107 DUPTABLE                         R12 K23 [{"placesService"}]
+      108 DUPTABLE                         R13 K22 [{"startPlaySolo", "stopPlaySolo"}]
+      109 SETTABLEKS                       R6 R13 K20 ["startPlaySolo"]
+      111 SETTABLEKS                       R8 R13 K21 ["stopPlaySolo"]
+      113 SETTABLEKS                       R13 R12 K18 ["placesService"]
+      115 RETURN                           R11 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -140,35 +137,29 @@ MAIN:
        70 GETTABLEKS                       R9 R9 K14 ["Util"]
        72 GETTABLEKS                       R9 R9 K19 ["makePluginActions"]
        74 CALL                             R8 1 1
-       75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R10 R0 K11 ["Src"]
-       79 GETTABLEKS                       R10 R10 K20 ["Flags"]
-       81 GETTABLEKS                       R10 R10 K21 ["getFFlagAvatarPreviewerCageEditingTools"]
-       83 CALL                             R9 1 1
-       84 GETTABLEKS                       R10 R2 K22 ["ContextServices"]
-       86 GETTABLEKS                       R11 R10 K23 ["Localization"]
-       88 GETTABLEKS                       R12 R2 K24 ["TestHelpers"]
-       90 GETTABLEKS                       R12 R12 K25 ["Instances"]
-       92 GETTABLEKS                       R12 R12 K26 ["MockAnalyticsService"]
-       94 GETTABLEKS                       R13 R2 K24 ["TestHelpers"]
-       96 GETTABLEKS                       R13 R13 K25 ["Instances"]
-       98 GETTABLEKS                       R13 R13 K27 ["MockSelectionService"]
-      100 GETTABLEKS                       R14 R2 K24 ["TestHelpers"]
-      102 GETTABLEKS                       R14 R14 K25 ["Instances"]
-      104 GETTABLEKS                       R14 R14 K28 ["MockPlugin"]
-      106 GETTABLEKS                       R15 R3 K29 ["jest"]
-      108 DUPCLOSURE                       R16 K30 [PROTO_1]
-      109 CAPTURE                          VAL R14
-      110 CAPTURE                          VAL R12
-      111 CAPTURE                          VAL R13
-      112 CAPTURE                          VAL R15
-      113 CAPTURE                          VAL R2
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R7
-      116 CAPTURE                          VAL R1
-      117 CAPTURE                          VAL R5
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R8
-      121 CAPTURE                          VAL R11
-      122 RETURN                           R16 1
+       75 GETTABLEKS                       R9 R2 K20 ["ContextServices"]
+       77 GETTABLEKS                       R10 R9 K21 ["Localization"]
+       79 GETTABLEKS                       R11 R2 K22 ["TestHelpers"]
+       81 GETTABLEKS                       R11 R11 K23 ["Instances"]
+       83 GETTABLEKS                       R11 R11 K24 ["MockAnalyticsService"]
+       85 GETTABLEKS                       R12 R2 K22 ["TestHelpers"]
+       87 GETTABLEKS                       R12 R12 K23 ["Instances"]
+       89 GETTABLEKS                       R12 R12 K25 ["MockSelectionService"]
+       91 GETTABLEKS                       R13 R2 K22 ["TestHelpers"]
+       93 GETTABLEKS                       R13 R13 K23 ["Instances"]
+       95 GETTABLEKS                       R13 R13 K26 ["MockPlugin"]
+       97 GETTABLEKS                       R14 R3 K27 ["jest"]
+       99 DUPCLOSURE                       R15 K28 [PROTO_1]
+      100 CAPTURE                          VAL R13
+      101 CAPTURE                          VAL R11
+      102 CAPTURE                          VAL R12
+      103 CAPTURE                          VAL R14
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R4
+      106 CAPTURE                          VAL R7
+      107 CAPTURE                          VAL R1
+      108 CAPTURE                          VAL R5
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R8
+      111 CAPTURE                          VAL R10
+      112 RETURN                           R15 1

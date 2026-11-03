@@ -61,50 +61,53 @@ PROTO_1:
         4 GETTABLEKS                       R2 R0 K0 ["Action"]
         6 GETTABLEKS                       R3 R0 K1 ["Subject"]
         8 GETUPVAL                         R4 2
-        9 GETTABLEKS                       R4 R4 K2 ["PermissionsSubject"]
-       11 GETTABLEKS                       R4 R4 K3 ["Group"]
-       13 JUMPIFNOTEQ                      R3 R4 ; [+7]
-       15 GETUPVAL                         R3 2
-       16 GETTABLEKS                       R3 R3 K4 ["PermissionsAction"]
-       18 GETTABLEKS                       R2 R3 K5 ["Use"]
-       20 JUMP                             ; [+10]
-       21 GETTABLEKS                       R3 R0 K1 ["Subject"]
-       23 GETUPVAL                         R4 2
-       24 GETTABLEKS                       R4 R4 K2 ["PermissionsSubject"]
-       26 GETTABLEKS                       R4 R4 K6 ["Universe"]
-       28 JUMPIFNOTEQ                      R3 R4 ; [+2]
-       30 LOADB                            R1 1
-       31 GETUPVAL                         R7 3
-       32 LENGTH                           R6 R7
-       33 GETUPVAL                         R7 4
-       34 SUB                              R5 R6 R7
-       35 ADDK                             R4 R5 K7 [1]
-       36 GETUPVAL                         R5 5
-       37 GETTABLEKS                       R5 R5 K8 ["ShareBatchAssetMax"]
-       39 FASTCALL2                        MATH_MIN R4 R5 ; [+3]
-       41 GETIMPORT                        R3 K11 [math.min]
-       43 CALL                             R3 2 1
-       44 GETUPVAL                         R4 6
-       45 GETTABLEKS                       R4 R4 K12 ["slice"]
-       47 GETUPVAL                         R5 3
-       48 GETUPVAL                         R6 4
-       49 GETUPVAL                         R9 4
-       50 ADD                              R8 R9 R3
-       51 SUBK                             R7 R8 K7 [1]
-       52 CALL                             R4 3 1
-       53 GETUPVAL                         R5 4
-       54 ADD                              R5 R5 R3
-       55 SETUPVAL                         R5 4
-       56 GETUPVAL                         R5 7
-       57 MOVE                             R7 R4
-       58 GETTABLEKS                       R8 R0 K1 ["Subject"]
-       60 GETTABLEKS                       R9 R0 K13 ["Id"]
-       62 MOVE                             R10 R2
-       63 MOVE                             R11 R1
-       64 GETUPVAL                         R12 8
-       65 NAMECALL                         R5 R5 K14 ["grantAssetsPermissionsAsync"]
-       67 CALL                             R5 7 0
-       68 RETURN                           R0 0
+        9 GETTABLEKS                       R4 R4 K2 ["Enums"]
+       11 GETTABLEKS                       R4 R4 K3 ["PermissionsSubject"]
+       13 GETTABLEKS                       R4 R4 K4 ["Group"]
+       15 JUMPIFNOTEQ                      R3 R4 ; [+9]
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R3 R3 K2 ["Enums"]
+       20 GETTABLEKS                       R3 R3 K5 ["PermissionsAction"]
+       22 GETTABLEKS                       R2 R3 K6 ["Use"]
+       24 JUMP                             ; [+12]
+       25 GETTABLEKS                       R3 R0 K1 ["Subject"]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K2 ["Enums"]
+       30 GETTABLEKS                       R4 R4 K3 ["PermissionsSubject"]
+       32 GETTABLEKS                       R4 R4 K7 ["Universe"]
+       34 JUMPIFNOTEQ                      R3 R4 ; [+2]
+       36 LOADB                            R1 1
+       37 GETUPVAL                         R7 3
+       38 LENGTH                           R6 R7
+       39 GETUPVAL                         R7 4
+       40 SUB                              R5 R6 R7
+       41 ADDK                             R4 R5 K8 [1]
+       42 GETUPVAL                         R5 5
+       43 GETTABLEKS                       R5 R5 K9 ["ShareBatchAssetMax"]
+       45 FASTCALL2                        MATH_MIN R4 R5 ; [+3]
+       47 GETIMPORT                        R3 K12 [math.min]
+       49 CALL                             R3 2 1
+       50 GETUPVAL                         R4 6
+       51 GETTABLEKS                       R4 R4 K13 ["slice"]
+       53 GETUPVAL                         R5 3
+       54 GETUPVAL                         R6 4
+       55 GETUPVAL                         R9 4
+       56 ADD                              R8 R9 R3
+       57 SUBK                             R7 R8 K8 [1]
+       58 CALL                             R4 3 1
+       59 GETUPVAL                         R5 4
+       60 ADD                              R5 R5 R3
+       61 SETUPVAL                         R5 4
+       62 GETUPVAL                         R5 7
+       63 MOVE                             R7 R4
+       64 GETTABLEKS                       R8 R0 K1 ["Subject"]
+       66 GETTABLEKS                       R9 R0 K14 ["Id"]
+       68 MOVE                             R10 R2
+       69 MOVE                             R11 R1
+       70 GETUPVAL                         R12 8
+       71 NAMECALL                         R5 R5 K15 ["grantAssetsPermissionsAsync"]
+       73 CALL                             R5 7 0
+       74 RETURN                           R0 0
 
 PROTO_2:
         0 NEWTABLE                         R4 0 0
@@ -161,31 +164,35 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Dash"]
+       11 GETTABLEKS                       R2 R2 K7 ["AssetManagement"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Dash"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K8 ["Src"]
-       25 GETTABLEKS                       R4 R4 K10 ["Analytics"]
-       27 GETTABLEKS                       R4 R4 K9 ["Types"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K8 ["Src"]
-       34 GETTABLEKS                       R5 R5 K11 ["Resources"]
-       36 GETTABLEKS                       R5 R5 K12 ["Constants"]
-       38 CALL                             R4 1 1
-       39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R6 R0 K8 ["Src"]
-       43 GETTABLEKS                       R6 R6 K10 ["Analytics"]
-       45 GETTABLEKS                       R6 R6 K13 ["Benchmarking"]
-       47 CALL                             R5 1 1
-       48 DUPCLOSURE                       R6 K14 [PROTO_2]
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R4
-       54 RETURN                           R6 1
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Analytics"]
+       34 GETTABLEKS                       R5 R5 K10 ["Types"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K9 ["Src"]
+       41 GETTABLEKS                       R6 R6 K12 ["Resources"]
+       43 GETTABLEKS                       R6 R6 K13 ["Constants"]
+       45 CALL                             R5 1 1
+       46 GETIMPORT                        R6 K5 [require]
+       48 GETTABLEKS                       R7 R0 K9 ["Src"]
+       50 GETTABLEKS                       R7 R7 K11 ["Analytics"]
+       52 GETTABLEKS                       R7 R7 K14 ["Benchmarking"]
+       54 CALL                             R6 1 1
+       55 DUPCLOSURE                       R7 K15 [PROTO_2]
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R5
+       61 RETURN                           R7 1

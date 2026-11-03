@@ -107,7 +107,12 @@ PROTO_2:
        13 JUMPIFNOT                        R1 ; [+3]
        14 LOADB                            R1 0
        15 SETTABLEKS                       R1 R0 K8 ["BodyPartsCollidableOnDeath"]
-       17 RETURN                           R0 1
+       17 GETUPVAL                         R1 2
+       18 CALL                             R1 0 1
+       19 JUMPIFNOT                        R1 ; [+3]
+       20 LOADK                            R1 K9 [{3, 7, 2}]
+       21 SETTABLEKS                       R1 R0 K10 ["HitboxSize"]
+       23 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -216,30 +221,36 @@ MAIN:
        48 GETTABLEKS                       R5 R5 K14 ["Flags"]
        50 GETTABLEKS                       R5 R5 K15 ["getEngineFeatureAvatarSettingsBodyPartsCollidableOnDeath"]
        52 CALL                             R4 1 1
-       53 GETTABLEKS                       R5 R1 K16 ["AssetIds"]
-       55 NEWTABLE                         R6 8 0
-       57 DUPCLOSURE                       R7 K17 [PROTO_0]
-       58 CAPTURE                          VAL R3
-       59 SETTABLEKS                       R7 R6 K18 ["createNonDefaultAvatarRulesInstance"]
-       61 DUPCLOSURE                       R7 K19 [PROTO_1]
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R5
-       64 SETTABLEKS                       R7 R6 K20 ["createNonDefaultAvatarBodyRulesInstance"]
-       66 DUPCLOSURE                       R7 K21 [PROTO_2]
+       53 GETIMPORT                        R5 K5 [require]
+       55 GETTABLEKS                       R6 R0 K6 ["Src"]
+       57 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       59 GETTABLEKS                       R6 R6 K16 ["getEngineFeatureAvatarSettingsHitbox"]
+       61 CALL                             R5 1 1
+       62 GETTABLEKS                       R6 R1 K17 ["AssetIds"]
+       64 NEWTABLE                         R7 8 0
+       66 DUPCLOSURE                       R8 K18 [PROTO_0]
        67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R4
-       69 SETTABLEKS                       R7 R6 K22 ["createNonDefaultAvatarCollisionRulesInstance"]
-       71 DUPCLOSURE                       R7 K23 [PROTO_3]
-       72 CAPTURE                          VAL R3
-       73 SETTABLEKS                       R7 R6 K24 ["createNonDefaultAvatarAbilityRulesInstance"]
-       75 DUPCLOSURE                       R7 K25 [PROTO_4]
+       68 SETTABLEKS                       R8 R7 K19 ["createNonDefaultAvatarRulesInstance"]
+       70 DUPCLOSURE                       R8 K20 [PROTO_1]
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R6
+       73 SETTABLEKS                       R8 R7 K21 ["createNonDefaultAvatarBodyRulesInstance"]
+       75 DUPCLOSURE                       R8 K22 [PROTO_2]
        76 CAPTURE                          VAL R3
-       77 SETTABLEKS                       R7 R6 K26 ["createNonDefaultAvatarAnimationRulesInstance"]
-       79 DUPCLOSURE                       R7 K27 [PROTO_5]
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          VAL R5
-       82 SETTABLEKS                       R7 R6 K28 ["createNonDefaultAvatarAccessoryRulesInstance"]
-       84 DUPCLOSURE                       R7 K29 [PROTO_6]
-       85 CAPTURE                          VAL R3
-       86 SETTABLEKS                       R7 R6 K30 ["createNonDefaultAvatarClothingRulesInstance"]
-       88 RETURN                           R6 1
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R5
+       79 SETTABLEKS                       R8 R7 K23 ["createNonDefaultAvatarCollisionRulesInstance"]
+       81 DUPCLOSURE                       R8 K24 [PROTO_3]
+       82 CAPTURE                          VAL R3
+       83 SETTABLEKS                       R8 R7 K25 ["createNonDefaultAvatarAbilityRulesInstance"]
+       85 DUPCLOSURE                       R8 K26 [PROTO_4]
+       86 CAPTURE                          VAL R3
+       87 SETTABLEKS                       R8 R7 K27 ["createNonDefaultAvatarAnimationRulesInstance"]
+       89 DUPCLOSURE                       R8 K28 [PROTO_5]
+       90 CAPTURE                          VAL R3
+       91 CAPTURE                          VAL R6
+       92 SETTABLEKS                       R8 R7 K29 ["createNonDefaultAvatarAccessoryRulesInstance"]
+       94 DUPCLOSURE                       R8 K30 [PROTO_6]
+       95 CAPTURE                          VAL R3
+       96 SETTABLEKS                       R8 R7 K31 ["createNonDefaultAvatarClothingRulesInstance"]
+       98 RETURN                           R7 1

@@ -691,152 +691,167 @@ PROTO_16:
        82 JUMP                             ; [+1]
        83 LOADB                            R3 0
        84 LOADB                            R4 0
-       85 GETTABLEKS                       R6 R0 K0 ["props"]
-       87 GETTABLEKS                       R6 R6 K6 ["instances"]
-       89 GETTABLEN                        R5 R6 1
-       90 NAMECALL                         R5 R5 K18 ["Clone"]
-       92 CALL                             R5 1 1
-       93 GETUPVAL                         R6 1
-       94 GETTABLEKS                       R6 R6 K19 ["sanitizeForValidation"]
-       96 MOVE                             R7 R5
-       97 CALL                             R6 1 0
-       98 NEWCLOSURE                       R6 P0
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          UPVAL U6
-      101 NEWCLOSURE                       R7 P1
-      102 CAPTURE                          UPVAL U4
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          UPVAL U7
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R1
-      108 CAPTURE                          REF R4
-      109 CAPTURE                          VAL R0
-      110 LOADNIL                          R8
-      111 GETTABLEKS                       R9 R1 K2 ["assetTypeEnum"]
-      113 GETUPVAL                         R10 3
-      114 GETTABLEKS                       R10 R10 K20 ["UGCBundleTypes"]
-      116 GETTABLEKS                       R10 R10 K21 ["Shoes"]
-      118 JUMPIFNOTEQ                      R9 R10 ; [+5]
-      120 GETUPVAL                         R9 8
-      121 GETTABLEKS                       R8 R9 K22 ["validateShoesBundleReadyForUpload"]
-      123 JUMP                             ; [+16]
-      124 GETTABLEKS                       R9 R1 K2 ["assetTypeEnum"]
-      126 GETUPVAL                         R10 3
-      127 GETTABLEKS                       R10 R10 K20 ["UGCBundleTypes"]
-      129 GETTABLEKS                       R10 R10 K23 ["AvatarAnimations"]
-      131 JUMPIFNOTEQ                      R9 R10 ; [+5]
-      133 GETUPVAL                         R9 8
-      134 GETTABLEKS                       R8 R9 K24 ["validateAnimationBundleReadyForUpload"]
-      136 JUMP                             ; [+3]
-      137 GETUPVAL                         R9 8
-      138 GETTABLEKS                       R8 R9 K25 ["validateBundleReadyForUpload"]
-      140 GETTABLEKS                       R9 R1 K2 ["assetTypeEnum"]
-      142 GETTABLEKS                       R10 R1 K6 ["instances"]
-      144 JUMPIFEQKNIL                     R10 ; [+130]
-      146 DUPTABLE                         R10 K29 [{["studioPluginName"] = "Toolbox", ["localizationCallback"]}]
-      147 NEWCLOSURE                       R11 P2
-      148 CAPTURE                          UPVAL U1
-      149 CAPTURE                          VAL R1
-      150 SETTABLEKS                       R11 R10 K28 ["localizationCallback"]
-      152 GETTABLEKS                       R12 R1 K6 ["instances"]
-      154 GETTABLEN                        R11 R12 1
-      155 GETTABLEKS                       R12 R1 K2 ["assetTypeEnum"]
-      157 GETUPVAL                         R13 3
-      158 GETTABLEKS                       R13 R13 K20 ["UGCBundleTypes"]
-      160 GETTABLEKS                       R13 R13 K23 ["AvatarAnimations"]
-      162 JUMPIFNOTEQ                      R12 R13 ; [+7]
-      164 GETUPVAL                         R12 9
-      165 GETTABLEKS                       R12 R12 K30 ["transformBundleForUpload"]
-      167 MOVE                             R13 R11
-      168 CALL                             R12 1 1
-      169 MOVE                             R11 R12
-      170 LOADNIL                          R12
-      171 GETUPVAL                         R13 10
-      172 CALL                             R13 0 1
-      173 JUMPIFNOT                        R13 ; [+60]
-      174 GETUPVAL                         R14 1
-      175 GETTABLEKS                       R14 R14 K31 ["isUGCBundleType"]
-      177 MOVE                             R15 R9
-      178 CALL                             R14 1 1
-      179 FASTCALL2K                       ASSERT R14 K32 ; [+4]
-      181 LOADK                            R15 K32 ["Expected UGC bundle asset type"]
-      182 GETIMPORT                        R13 K34 [assert]
-      184 CALL                             R13 2 0
-      185 GETTABLEKS                       R13 R9 K35 ["rawValue"]
-      187 CALL                             R13 0 1
-      188 NEWCLOSURE                       R14 P3
-      189 CAPTURE                          UPVAL U1
-      190 CAPTURE                          VAL R1
-      191 LOADNIL                          R15
-      192 GETTABLEKS                       R16 R1 K2 ["assetTypeEnum"]
-      194 GETUPVAL                         R17 3
-      195 GETTABLEKS                       R17 R17 K20 ["UGCBundleTypes"]
-      197 GETTABLEKS                       R17 R17 K23 ["AvatarAnimations"]
-      199 JUMPIFNOTEQ                      R16 R17 ; [+13]
-      201 GETUPVAL                         R16 11
-      202 GETTABLEKS                       R16 R16 K36 ["validateAnimationBundle"]
-      204 GETTABLEKS                       R18 R1 K6 ["instances"]
-      206 GETTABLEN                        R17 R18 1
-      207 GETTABLEKS                       R18 R1 K37 ["allowedBundleTypeSettings"]
-      209 MOVE                             R19 R14
-      210 CALL                             R16 3 1
-      211 MOVE                             R15 R16
-      212 JUMP                             ; [+10]
-      213 GETUPVAL                         R16 11
-      214 GETTABLEKS                       R16 R16 K38 ["validateBundle"]
-      216 MOVE                             R17 R11
-      217 GETTABLEKS                       R18 R1 K37 ["allowedBundleTypeSettings"]
-      219 MOVE                             R19 R13
-      220 MOVE                             R20 R14
-      221 CALL                             R16 4 1
-      222 MOVE                             R15 R16
-      223 GETTABLEKS                       R16 R15 K39 ["cancel"]
-      225 SETTABLEKS                       R16 R0 K40 ["cancelServiceValidation"]
-      227 NEWCLOSURE                       R18 P4
-      228 CAPTURE                          VAL R7
-      229 NAMECALL                         R16 R15 K41 ["andThen"]
-      231 CALL                             R16 2 1
-      232 MOVE                             R12 R16
-      233 JUMP                             ; [+15]
-      234 LOADNIL                          R13
-      235 SETTABLEKS                       R13 R0 K40 ["cancelServiceValidation"]
-      237 MOVE                             R13 R8
-      238 MOVE                             R14 R11
-      239 GETTABLEKS                       R15 R1 K37 ["allowedBundleTypeSettings"]
-      241 GETTABLEKS                       R16 R9 K35 ["rawValue"]
-      243 CALL                             R16 0 1
-      244 MOVE                             R17 R7
-      245 LOADNIL                          R18
-      246 MOVE                             R19 R10
-      247 CALL                             R13 6 1
-      248 MOVE                             R12 R13
-      249 GETUPVAL                         R14 10
-      250 CALL                             R14 0 1
-      251 JUMPIFNOT                        R14 ; [+4]
-      252 NEWCLOSURE                       R13 P5
-      253 CAPTURE                          VAL R0
-      254 CAPTURE                          VAL R1
-      255 JUMP                             ; [+1]
-      256 LOADNIL                          R13
-      257 NEWCLOSURE                       R16 P6
-      258 CAPTURE                          UPVAL U4
-      259 CAPTURE                          VAL R3
-      260 CAPTURE                          REF R4
-      261 CAPTURE                          VAL R0
-      262 CAPTURE                          UPVAL U12
-      263 CAPTURE                          UPVAL U13
-      264 CAPTURE                          UPVAL U7
-      265 CAPTURE                          VAL R1
-      266 CAPTURE                          VAL R6
-      267 CAPTURE                          UPVAL U3
-      268 CAPTURE                          UPVAL U1
-      269 MOVE                             R17 R13
-      270 NAMECALL                         R14 R12 K41 ["andThen"]
-      272 CALL                             R14 3 1
-      273 SETTABLEKS                       R14 R0 K42 ["validationPromise"]
-      275 CLOSEUPVALS                      R4
-      276 RETURN                           R0 0
+       85 GETUPVAL                         R5 6
+       86 CALL                             R5 0 1
+       87 JUMPIFNOT                        R5 ; [+17]
+       88 JUMPIFNOT                        R3 ; [+16]
+       89 GETTABLEKS                       R5 R1 K18 ["setUGCBundleValidationResults"]
+       91 JUMPIFNOT                        R5 ; [+5]
+       92 GETTABLEKS                       R5 R1 K18 ["setUGCBundleValidationResults"]
+       94 NEWTABLE                         R6 0 0
+       96 CALL                             R5 1 0
+       97 GETTABLEKS                       R5 R0 K19 ["validationCallback"]
+       99 LOADB                            R6 1
+      100 NEWTABLE                         R7 0 0
+      102 CALL                             R5 2 0
+      103 CLOSEUPVALS                      R4
+      104 RETURN                           R0 0
+      105 GETTABLEKS                       R6 R0 K0 ["props"]
+      107 GETTABLEKS                       R6 R6 K6 ["instances"]
+      109 GETTABLEN                        R5 R6 1
+      110 NAMECALL                         R5 R5 K20 ["Clone"]
+      112 CALL                             R5 1 1
+      113 GETUPVAL                         R6 1
+      114 GETTABLEKS                       R6 R6 K21 ["sanitizeForValidation"]
+      116 MOVE                             R7 R5
+      117 CALL                             R6 1 0
+      118 NEWCLOSURE                       R6 P0
+      119 CAPTURE                          VAL R1
+      120 CAPTURE                          UPVAL U7
+      121 NEWCLOSURE                       R7 P1
+      122 CAPTURE                          UPVAL U4
+      123 CAPTURE                          VAL R3
+      124 CAPTURE                          VAL R6
+      125 CAPTURE                          UPVAL U8
+      126 CAPTURE                          VAL R5
+      127 CAPTURE                          VAL R1
+      128 CAPTURE                          REF R4
+      129 CAPTURE                          VAL R0
+      130 LOADNIL                          R8
+      131 GETTABLEKS                       R9 R1 K2 ["assetTypeEnum"]
+      133 GETUPVAL                         R10 3
+      134 GETTABLEKS                       R10 R10 K22 ["UGCBundleTypes"]
+      136 GETTABLEKS                       R10 R10 K23 ["Shoes"]
+      138 JUMPIFNOTEQ                      R9 R10 ; [+5]
+      140 GETUPVAL                         R9 9
+      141 GETTABLEKS                       R8 R9 K24 ["validateShoesBundleReadyForUpload"]
+      143 JUMP                             ; [+16]
+      144 GETTABLEKS                       R9 R1 K2 ["assetTypeEnum"]
+      146 GETUPVAL                         R10 3
+      147 GETTABLEKS                       R10 R10 K22 ["UGCBundleTypes"]
+      149 GETTABLEKS                       R10 R10 K25 ["AvatarAnimations"]
+      151 JUMPIFNOTEQ                      R9 R10 ; [+5]
+      153 GETUPVAL                         R9 9
+      154 GETTABLEKS                       R8 R9 K26 ["validateAnimationBundleReadyForUpload"]
+      156 JUMP                             ; [+3]
+      157 GETUPVAL                         R9 9
+      158 GETTABLEKS                       R8 R9 K27 ["validateBundleReadyForUpload"]
+      160 GETTABLEKS                       R9 R1 K2 ["assetTypeEnum"]
+      162 GETTABLEKS                       R10 R1 K6 ["instances"]
+      164 JUMPIFEQKNIL                     R10 ; [+130]
+      166 DUPTABLE                         R10 K31 [{["studioPluginName"] = "Toolbox", ["localizationCallback"]}]
+      167 NEWCLOSURE                       R11 P2
+      168 CAPTURE                          UPVAL U1
+      169 CAPTURE                          VAL R1
+      170 SETTABLEKS                       R11 R10 K30 ["localizationCallback"]
+      172 GETTABLEKS                       R12 R1 K6 ["instances"]
+      174 GETTABLEN                        R11 R12 1
+      175 GETTABLEKS                       R12 R1 K2 ["assetTypeEnum"]
+      177 GETUPVAL                         R13 3
+      178 GETTABLEKS                       R13 R13 K22 ["UGCBundleTypes"]
+      180 GETTABLEKS                       R13 R13 K25 ["AvatarAnimations"]
+      182 JUMPIFNOTEQ                      R12 R13 ; [+7]
+      184 GETUPVAL                         R12 10
+      185 GETTABLEKS                       R12 R12 K32 ["transformBundleForUpload"]
+      187 MOVE                             R13 R11
+      188 CALL                             R12 1 1
+      189 MOVE                             R11 R12
+      190 LOADNIL                          R12
+      191 GETUPVAL                         R13 11
+      192 CALL                             R13 0 1
+      193 JUMPIFNOT                        R13 ; [+60]
+      194 GETUPVAL                         R14 1
+      195 GETTABLEKS                       R14 R14 K33 ["isUGCBundleType"]
+      197 MOVE                             R15 R9
+      198 CALL                             R14 1 1
+      199 FASTCALL2K                       ASSERT R14 K34 ; [+4]
+      201 LOADK                            R15 K34 ["Expected UGC bundle asset type"]
+      202 GETIMPORT                        R13 K36 [assert]
+      204 CALL                             R13 2 0
+      205 GETTABLEKS                       R13 R9 K37 ["rawValue"]
+      207 CALL                             R13 0 1
+      208 NEWCLOSURE                       R14 P3
+      209 CAPTURE                          UPVAL U1
+      210 CAPTURE                          VAL R1
+      211 LOADNIL                          R15
+      212 GETTABLEKS                       R16 R1 K2 ["assetTypeEnum"]
+      214 GETUPVAL                         R17 3
+      215 GETTABLEKS                       R17 R17 K22 ["UGCBundleTypes"]
+      217 GETTABLEKS                       R17 R17 K25 ["AvatarAnimations"]
+      219 JUMPIFNOTEQ                      R16 R17 ; [+13]
+      221 GETUPVAL                         R16 12
+      222 GETTABLEKS                       R16 R16 K38 ["validateAnimationBundle"]
+      224 GETTABLEKS                       R18 R1 K6 ["instances"]
+      226 GETTABLEN                        R17 R18 1
+      227 GETTABLEKS                       R18 R1 K39 ["allowedBundleTypeSettings"]
+      229 MOVE                             R19 R14
+      230 CALL                             R16 3 1
+      231 MOVE                             R15 R16
+      232 JUMP                             ; [+10]
+      233 GETUPVAL                         R16 12
+      234 GETTABLEKS                       R16 R16 K40 ["validateBundle"]
+      236 MOVE                             R17 R11
+      237 GETTABLEKS                       R18 R1 K39 ["allowedBundleTypeSettings"]
+      239 MOVE                             R19 R13
+      240 MOVE                             R20 R14
+      241 CALL                             R16 4 1
+      242 MOVE                             R15 R16
+      243 GETTABLEKS                       R16 R15 K41 ["cancel"]
+      245 SETTABLEKS                       R16 R0 K42 ["cancelServiceValidation"]
+      247 NEWCLOSURE                       R18 P4
+      248 CAPTURE                          VAL R7
+      249 NAMECALL                         R16 R15 K43 ["andThen"]
+      251 CALL                             R16 2 1
+      252 MOVE                             R12 R16
+      253 JUMP                             ; [+15]
+      254 LOADNIL                          R13
+      255 SETTABLEKS                       R13 R0 K42 ["cancelServiceValidation"]
+      257 MOVE                             R13 R8
+      258 MOVE                             R14 R11
+      259 GETTABLEKS                       R15 R1 K39 ["allowedBundleTypeSettings"]
+      261 GETTABLEKS                       R16 R9 K37 ["rawValue"]
+      263 CALL                             R16 0 1
+      264 MOVE                             R17 R7
+      265 LOADNIL                          R18
+      266 MOVE                             R19 R10
+      267 CALL                             R13 6 1
+      268 MOVE                             R12 R13
+      269 GETUPVAL                         R14 11
+      270 CALL                             R14 0 1
+      271 JUMPIFNOT                        R14 ; [+4]
+      272 NEWCLOSURE                       R13 P5
+      273 CAPTURE                          VAL R0
+      274 CAPTURE                          VAL R1
+      275 JUMP                             ; [+1]
+      276 LOADNIL                          R13
+      277 NEWCLOSURE                       R16 P6
+      278 CAPTURE                          UPVAL U4
+      279 CAPTURE                          VAL R3
+      280 CAPTURE                          REF R4
+      281 CAPTURE                          VAL R0
+      282 CAPTURE                          UPVAL U13
+      283 CAPTURE                          UPVAL U14
+      284 CAPTURE                          UPVAL U8
+      285 CAPTURE                          VAL R1
+      286 CAPTURE                          VAL R6
+      287 CAPTURE                          UPVAL U3
+      288 CAPTURE                          UPVAL U1
+      289 MOVE                             R17 R13
+      290 NAMECALL                         R14 R12 K43 ["andThen"]
+      292 CALL                             R14 3 1
+      293 SETTABLEKS                       R14 R0 K44 ["validationPromise"]
+      295 CLOSEUPVALS                      R4
+      296 RETURN                           R0 0
 
 PROTO_17:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
@@ -1233,96 +1248,102 @@ MAIN:
       125 GETIMPORT                        R21 K5 [require]
       127 GETTABLEKS                       R22 R0 K10 ["Src"]
       129 GETTABLEKS                       R22 R22 K31 ["Flags"]
-      131 GETTABLEKS                       R22 R22 K33 ["getFStringBundlesToBypassValidation"]
+      131 GETTABLEKS                       R22 R22 K33 ["getFFlagAQMBypassBundleValidation"]
       133 CALL                             R21 1 1
       134 GETIMPORT                        R22 K5 [require]
       136 GETTABLEKS                       R23 R0 K10 ["Src"]
       138 GETTABLEKS                       R23 R23 K31 ["Flags"]
-      140 GETTABLEKS                       R23 R23 K34 ["getToolboxUGCValidationViaAQSEnabled"]
+      140 GETTABLEKS                       R23 R23 K34 ["getFStringBundlesToBypassValidation"]
       142 CALL                             R22 1 1
       143 GETIMPORT                        R23 K5 [require]
-      145 GETTABLEKS                       R24 R5 K35 ["fetchUGCValidationFromService"]
-      147 CALL                             R23 1 1
-      148 GETIMPORT                        R24 K5 [require]
-      150 GETTABLEKS                       R25 R5 K36 ["AvatarAnimationBundleUtil"]
-      152 CALL                             R24 1 1
-      153 GETTABLEKS                       R25 R1 K37 ["ContextServices"]
-      155 GETTABLEKS                       R26 R25 K38 ["withContext"]
-      157 GETTABLEKS                       R27 R0 K10 ["Src"]
-      159 GETTABLEKS                       R27 R27 K39 ["Components"]
-      161 GETTABLEKS                       R27 R27 K40 ["AssetConfiguration"]
-      163 GETIMPORT                        R28 K5 [require]
-      165 GETTABLEKS                       R29 R27 K41 ["BundleValidationRow"]
-      167 CALL                             R28 1 1
-      168 GETIMPORT                        R29 K5 [require]
-      170 GETTABLEKS                       R30 R27 K42 ["ValidationStatus"]
-      172 CALL                             R29 1 1
-      173 GETIMPORT                        R30 K5 [require]
-      175 GETTABLEKS                       R31 R5 K28 ["SharedFlags"]
-      177 GETTABLEKS                       R31 R31 K43 ["getFFlagEnableUGCUploadFlowAnalytics"]
-      179 CALL                             R30 1 1
-      180 DUPCLOSURE                       R31 K44 [PROTO_0]
-      181 DUPCLOSURE                       R32 K45 [PROTO_1]
-      182 GETTABLEKS                       R33 R2 K46 ["PureComponent"]
-      184 LOADK                            R35 K47 ["UGCBundleValidation"]
-      185 NAMECALL                         R33 R33 K48 ["extend"]
-      187 CALL                             R33 2 1
-      188 DUPCLOSURE                       R34 K49 [PROTO_2]
-      189 CAPTURE                          VAL R20
-      190 CAPTURE                          VAL R21
-      191 DUPCLOSURE                       R35 K50 [PROTO_5]
-      192 CAPTURE                          VAL R30
-      193 CAPTURE                          VAL R7
-      194 CAPTURE                          VAL R11
-      195 CAPTURE                          VAL R9
-      196 CAPTURE                          VAL R8
-      197 CAPTURE                          VAL R17
-      198 SETTABLEKS                       R35 R33 K51 ["init"]
-      200 DUPCLOSURE                       R35 K52 [PROTO_6]
-      201 CAPTURE                          VAL R22
-      202 SETTABLEKS                       R35 R33 K53 ["cancelValidationTasks"]
-      204 DUPCLOSURE                       R35 K54 [PROTO_16]
-      205 CAPTURE                          VAL R30
-      206 CAPTURE                          VAL R7
-      207 CAPTURE                          VAL R8
-      208 CAPTURE                          VAL R9
-      209 CAPTURE                          VAL R20
-      210 CAPTURE                          VAL R34
-      211 CAPTURE                          VAL R4
-      212 CAPTURE                          VAL R29
-      213 CAPTURE                          VAL R15
-      214 CAPTURE                          VAL R24
-      215 CAPTURE                          VAL R22
-      216 CAPTURE                          VAL R23
-      217 CAPTURE                          VAL R13
-      218 CAPTURE                          VAL R16
-      219 SETTABLEKS                       R35 R33 K55 ["startUGCBundleValidation"]
-      221 DUPCLOSURE                       R35 K56 [PROTO_17]
-      222 CAPTURE                          VAL R7
-      223 CAPTURE                          VAL R9
-      224 SETTABLEKS                       R35 R33 K57 ["didUpdate"]
-      226 DUPCLOSURE                       R35 K58 [PROTO_18]
-      227 SETTABLEKS                       R35 R33 K59 ["willUnmount"]
-      229 DUPCLOSURE                       R35 K60 [PROTO_19]
-      230 CAPTURE                          VAL R13
-      231 CAPTURE                          VAL R3
-      232 CAPTURE                          VAL R14
-      233 CAPTURE                          VAL R6
-      234 CAPTURE                          VAL R7
-      235 CAPTURE                          VAL R31
-      236 CAPTURE                          VAL R4
-      237 CAPTURE                          VAL R29
-      238 CAPTURE                          VAL R19
-      239 CAPTURE                          VAL R28
-      240 SETTABLEKS                       R35 R33 K61 ["render"]
-      242 MOVE                             R35 R26
-      243 DUPTABLE                         R36 K63 [{"Localization", "Stylizer"}]
-      244 GETTABLEKS                       R37 R25 K11 ["Localization"]
-      246 SETTABLEKS                       R37 R36 K11 ["Localization"]
-      248 GETTABLEKS                       R37 R25 K62 ["Stylizer"]
-      250 SETTABLEKS                       R37 R36 K62 ["Stylizer"]
-      252 CALL                             R35 1 1
-      253 MOVE                             R36 R33
-      254 CALL                             R35 1 1
-      255 MOVE                             R33 R35
-      256 RETURN                           R33 1
+      145 GETTABLEKS                       R24 R0 K10 ["Src"]
+      147 GETTABLEKS                       R24 R24 K31 ["Flags"]
+      149 GETTABLEKS                       R24 R24 K35 ["getToolboxUGCValidationViaAQSEnabled"]
+      151 CALL                             R23 1 1
+      152 GETIMPORT                        R24 K5 [require]
+      154 GETTABLEKS                       R25 R5 K36 ["fetchUGCValidationFromService"]
+      156 CALL                             R24 1 1
+      157 GETIMPORT                        R25 K5 [require]
+      159 GETTABLEKS                       R26 R5 K37 ["AvatarAnimationBundleUtil"]
+      161 CALL                             R25 1 1
+      162 GETTABLEKS                       R26 R1 K38 ["ContextServices"]
+      164 GETTABLEKS                       R27 R26 K39 ["withContext"]
+      166 GETTABLEKS                       R28 R0 K10 ["Src"]
+      168 GETTABLEKS                       R28 R28 K40 ["Components"]
+      170 GETTABLEKS                       R28 R28 K41 ["AssetConfiguration"]
+      172 GETIMPORT                        R29 K5 [require]
+      174 GETTABLEKS                       R30 R28 K42 ["BundleValidationRow"]
+      176 CALL                             R29 1 1
+      177 GETIMPORT                        R30 K5 [require]
+      179 GETTABLEKS                       R31 R28 K43 ["ValidationStatus"]
+      181 CALL                             R30 1 1
+      182 GETIMPORT                        R31 K5 [require]
+      184 GETTABLEKS                       R32 R5 K28 ["SharedFlags"]
+      186 GETTABLEKS                       R32 R32 K44 ["getFFlagEnableUGCUploadFlowAnalytics"]
+      188 CALL                             R31 1 1
+      189 DUPCLOSURE                       R32 K45 [PROTO_0]
+      190 DUPCLOSURE                       R33 K46 [PROTO_1]
+      191 GETTABLEKS                       R34 R2 K47 ["PureComponent"]
+      193 LOADK                            R36 K48 ["UGCBundleValidation"]
+      194 NAMECALL                         R34 R34 K49 ["extend"]
+      196 CALL                             R34 2 1
+      197 DUPCLOSURE                       R35 K50 [PROTO_2]
+      198 CAPTURE                          VAL R20
+      199 CAPTURE                          VAL R22
+      200 DUPCLOSURE                       R36 K51 [PROTO_5]
+      201 CAPTURE                          VAL R31
+      202 CAPTURE                          VAL R7
+      203 CAPTURE                          VAL R11
+      204 CAPTURE                          VAL R9
+      205 CAPTURE                          VAL R8
+      206 CAPTURE                          VAL R17
+      207 SETTABLEKS                       R36 R34 K52 ["init"]
+      209 DUPCLOSURE                       R36 K53 [PROTO_6]
+      210 CAPTURE                          VAL R23
+      211 SETTABLEKS                       R36 R34 K54 ["cancelValidationTasks"]
+      213 DUPCLOSURE                       R36 K55 [PROTO_16]
+      214 CAPTURE                          VAL R31
+      215 CAPTURE                          VAL R7
+      216 CAPTURE                          VAL R8
+      217 CAPTURE                          VAL R9
+      218 CAPTURE                          VAL R20
+      219 CAPTURE                          VAL R35
+      220 CAPTURE                          VAL R21
+      221 CAPTURE                          VAL R4
+      222 CAPTURE                          VAL R30
+      223 CAPTURE                          VAL R15
+      224 CAPTURE                          VAL R25
+      225 CAPTURE                          VAL R23
+      226 CAPTURE                          VAL R24
+      227 CAPTURE                          VAL R13
+      228 CAPTURE                          VAL R16
+      229 SETTABLEKS                       R36 R34 K56 ["startUGCBundleValidation"]
+      231 DUPCLOSURE                       R36 K57 [PROTO_17]
+      232 CAPTURE                          VAL R7
+      233 CAPTURE                          VAL R9
+      234 SETTABLEKS                       R36 R34 K58 ["didUpdate"]
+      236 DUPCLOSURE                       R36 K59 [PROTO_18]
+      237 SETTABLEKS                       R36 R34 K60 ["willUnmount"]
+      239 DUPCLOSURE                       R36 K61 [PROTO_19]
+      240 CAPTURE                          VAL R13
+      241 CAPTURE                          VAL R3
+      242 CAPTURE                          VAL R14
+      243 CAPTURE                          VAL R6
+      244 CAPTURE                          VAL R7
+      245 CAPTURE                          VAL R32
+      246 CAPTURE                          VAL R4
+      247 CAPTURE                          VAL R30
+      248 CAPTURE                          VAL R19
+      249 CAPTURE                          VAL R29
+      250 SETTABLEKS                       R36 R34 K62 ["render"]
+      252 MOVE                             R36 R27
+      253 DUPTABLE                         R37 K64 [{"Localization", "Stylizer"}]
+      254 GETTABLEKS                       R38 R26 K11 ["Localization"]
+      256 SETTABLEKS                       R38 R37 K11 ["Localization"]
+      258 GETTABLEKS                       R38 R26 K63 ["Stylizer"]
+      260 SETTABLEKS                       R38 R37 K63 ["Stylizer"]
+      262 CALL                             R36 1 1
+      263 MOVE                             R37 R34
+      264 CALL                             R36 1 1
+      265 MOVE                             R34 R36
+      266 RETURN                           R34 1

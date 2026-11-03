@@ -3,10 +3,14 @@ PROTO_0:
         2 LOADK                            R2 K2 ["ProcessService"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
         5 CALL                             R0 2 1
-        6 LOADN                            R2 0
-        7 NAMECALL                         R0 R0 K4 ["ExitAsync"]
-        9 CALL                             R0 2 0
-       10 RETURN                           R0 0
+        6 GETUPVAL                         R3 0
+        7 JUMPIFNOT                        R3 ; [+2]
+        8 LOADN                            R2 1
+        9 JUMP                             ; [+1]
+       10 LOADN                            R2 0
+       11 NAMECALL                         R0 R0 K4 ["ExitAsync"]
+       13 CALL                             R0 2 0
+       14 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -30,7 +34,7 @@ MAIN:
        30 JUMPIF                           R3 ; [+4]
        31 GETTABLEKS                       R3 R2 K10 ["RunTests"]
        33 CALL                             R3 0 1
-       34 JUMPIFNOT                        R3 ; [+88]
+       34 JUMPIFNOT                        R3 ; [+124]
        35 GETIMPORT                        R3 K12 [_G]
        37 LOADB                            R4 1
        38 SETTABLEKS                       R4 R3 K13 ["__DEV__"]
@@ -81,14 +85,35 @@ MAIN:
       113 SETLIST                          R9 R10 1 [1]
       115 MOVE                             R10 R6
       116 NAMECALL                         R7 R4 K32 ["run"]
-      118 CALL                             R7 3 0
-      119 GETIMPORT                        R7 K27 [print]
-      121 LOADK                            R8 K33 ["----------------------------------"]
-      122 CALL                             R7 1 0
-      123 GETTABLEKS                       R3 R2 K9 ["RunningUnderCLI"]
-      125 CALL                             R3 0 1
-      126 JUMPIFNOT                        R3 ; [+4]
-      127 GETIMPORT                        R3 K35 [pcall]
-      129 DUPCLOSURE                       R4 K36 [PROTO_0]
-      130 CALL                             R3 1 0
-      131 RETURN                           R0 0
+      118 CALL                             R7 3 1
+      119 GETIMPORT                        R8 K27 [print]
+      121 LOADK                            R9 K33 ["----------------------------------"]
+      122 CALL                             R8 1 0
+      123 LOADB                            R8 0
+      124 FASTCALL1                        TYPEOF R7 ; [+3]
+      125 MOVE                             R10 R7
+      126 GETIMPORT                        R9 K35 [typeof]
+      128 CALL                             R9 1 1
+      129 JUMPIFNOTEQKS                    R9 K36 ["table"] ; [+9]
+      131 GETTABLEKS                       R10 R7 K38 ["failureCount"]
+      133 ORK                              R9 R10 K37 [0]
+      134 LOADN                            R10 0
+      135 JUMPIFLT                         R10 R9 ; [+2]
+      137 LOADB                            R8 0 +1
+      138 LOADB                            R8 1
+      139 JUMPIFNOT                        R8 ; [+10]
+      140 GETIMPORT                        R9 K40 [game]
+      142 LOADK                            R11 K41 ["TestService"]
+      143 NAMECALL                         R9 R9 K42 ["GetService"]
+      145 CALL                             R9 2 1
+      146 LOADK                            R11 K43 ["TestEZ test run failed"]
+      147 NAMECALL                         R9 R9 K44 ["Error"]
+      149 CALL                             R9 2 0
+      150 GETTABLEKS                       R9 R2 K9 ["RunningUnderCLI"]
+      152 CALL                             R9 0 1
+      153 JUMPIFNOT                        R9 ; [+5]
+      154 GETIMPORT                        R9 K46 [pcall]
+      156 DUPCLOSURE                       R10 K47 [PROTO_0]
+      157 CAPTURE                          VAL R8
+      158 CALL                             R9 1 0
+      159 RETURN                           R0 0
