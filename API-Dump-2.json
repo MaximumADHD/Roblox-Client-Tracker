@@ -59223,7 +59223,7 @@
                     "type": {
                         "type": "string",
                         "isEnum": false,
-                        "defaultValue": "0.746.0.7461264"
+                        "defaultValue": "0.746.0.7461269"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -75708,7 +75708,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "1"
+                        "defaultValue": "111490396024320"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -123485,7 +123485,7 @@
                     "type": {
                         "type": "float",
                         "isEnum": false,
-                        "defaultValue": "93453.2734"
+                        "defaultValue": "93997.4062"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -156667,7 +156667,7 @@
                     "type": {
                         "type": "string",
                         "isEnum": false,
-                        "defaultValue": "1363acfb1e3a58cd7ee8645232ce78b11d3d632e"
+                        "defaultValue": "61546450ca9007cd115703f68561fb0cf81a48b8"
                     },
                     "isPublic": true,
                     "readSecurity": "RobloxScript",
