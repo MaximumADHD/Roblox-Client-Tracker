@@ -7951,6 +7951,7 @@
 [C++] FFlagStudioAssistantHandleImageEncodeErrors
 [C++] FFlagStudioAssistantMcpOriginated5
 [C++] FFlagStudioAssistantPermissions8
+[C++] FFlagStudioAssistantPermissionsNetworkAlwaysOn
 [C++] FFlagStudioAttachToWidgetUnparentsBeforeDestruction
 [C++] FFlagStudioAuroraEditorSupport
 [C++] FFlagStudioAutoPersistCookiesAfterLogin2

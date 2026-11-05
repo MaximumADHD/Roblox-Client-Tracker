@@ -73894,6 +73894,7 @@ StudioAssistantHandleImageEncodeErrors
 StudioAssistantMcpOriginated
 StudioAssistantPermissions
 StudioAssistantPermissionsDenyListIds
+StudioAssistantPermissionsNetworkAlwaysOn
 StudioAttachment
 StudioAttachmentProp
 StudioAttachToWidgetUnparentsBeforeDestruction
@@ -89486,7 +89487,7 @@ WillReturn
 WIN32_LEAN_AND_MEAN
 Win32MediaFoundationHardwareVideoEncoder.cpp
 Win32MediaFoundationUtils.cpp
-Win64.746.55545
+Win64.746.55699
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
