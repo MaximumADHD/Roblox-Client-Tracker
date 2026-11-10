@@ -58,8 +58,6 @@ local FFlagDisableLuobuWarningToast = game:DefineFastFlag("DisableLuobuWarningTo
 local FFlagDebugDisableExperienceChatMain = require(RobloxGui.Modules.Flags.FFlagDebugDisableExperienceChatMain)
 
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
-local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
-	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
@@ -125,6 +123,14 @@ end
 
 local FFlagEnableAEGIS2CommsFAEUpsell =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAEGIS2CommsFAEUpsell
+local FFlagInitializeSduiForInExperience =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInitializeSduiForInExperience
+
+-- Cleanup with FFlagInitializeSduiForInExperience
+if FFlagInitializeSduiForInExperience then
+	-- Start SDUI fetches only after LocalPlayer exists: the API store clears its cache when the local user changes.
+	require(CoreGuiModules.ServerDrivenUi.initializeSduiForInExperience)()
+end
 
 local localPlayer = Players.LocalPlayer
 while not localPlayer do
@@ -132,7 +138,8 @@ while not localPlayer do
 	localPlayer = Players.LocalPlayer
 end
 
-local isBuildLibraryMode = require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer()
+local isBuildLibraryMode =
+	require(CorePackages.Workspace.Packages.BuildExperiencePlaytestLaunch.teamCreateUtils).isViewer()
 if isBuildLibraryMode then
 	require(CorePackages.Workspace.Packages.BuildExperience.mountTeamCreateViewer)(game.PlaceId, UserInputService)
 end
@@ -436,6 +443,17 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.VRAvatarGestures.VRAvatarGestur
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
 
+local PopOverlayFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+if
+	game:GetEngineFeature("GameplayPopOverlay")
+	and (
+		PopOverlayFlags.FFlagEnableGameplayPopLatencyOverlay
+		or PopOverlayFlags.FFlagEnableGameplayPopLatencyOverlayForAdmins
+	)
+then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/GameplayPopOverlay", RobloxGui)
+end
+
 if GetFFlagScreenshotHudApi() and not CachedPolicyService:IsSubjectToChinaPolicies() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenshotHud", RobloxGui)
 end
@@ -547,9 +565,7 @@ if GetFFlagEnableSocialContextToast() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SocialContextToast", RobloxGui)
 end
 
-if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
 
 if FFlagEnableExperienceNotificationPrompts then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceNotifications", script.Parent)

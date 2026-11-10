@@ -13,8 +13,6 @@ local Fonts = require(App.Style.Fonts)
 
 local FooterFrame = require(ExperienceTileMetadata.FooterFrame)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 export type StyleProps = {
 	-- Corner radius of text label
 	cornerRadius: number?,
@@ -66,8 +64,7 @@ local function TextFooter(props: Props)
 			Text = props.text,
 			TextXAlignment = textXAlignment,
 			TextYAlignment = Enum.TextYAlignment.Center,
-			Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(textFont.Font) else nil,
+			FontFace = normalizeFontFace(textFont.Font),
 			TextSize = font.BaseSize * textFont.RelativeSize,
 			TextColor3 = textColor.Color,
 			TextTransparency = textColor.Transparency,

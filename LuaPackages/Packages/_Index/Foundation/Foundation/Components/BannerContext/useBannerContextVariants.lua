@@ -3,6 +3,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local BannerContextPresentation = require(Foundation.Enums.BannerContextPresentation)
 local BannerContextVariant = require(Foundation.Enums.BannerContextVariant)
 local IconSize = require(Foundation.Enums.IconSize)
+local InputSize = require(Foundation.Enums.InputSize)
 local InternalNotice = require(Foundation.Components.InternalNotice)
 local Types = require(Foundation.Components.Types)
 
@@ -67,6 +68,7 @@ local function variantsFactory(tokens: Tokens)
 			link = {
 				tag = "text-body-small",
 				padding = inlineTextPadding,
+				size = InputSize.Small,
 			},
 		},
 		[BannerContextPresentation.Affixed] = {
@@ -79,6 +81,7 @@ local function variantsFactory(tokens: Tokens)
 			link = {
 				tag = "text-body-medium",
 				padding = affixedTextPadding,
+				size = InputSize.Medium,
 			},
 		},
 	}

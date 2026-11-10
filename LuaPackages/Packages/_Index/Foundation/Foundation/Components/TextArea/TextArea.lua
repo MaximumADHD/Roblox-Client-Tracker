@@ -51,6 +51,7 @@ local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?
 			hasError = props.hasError,
 			isDisabled = props.isDisabled,
 			isRequired = props.isRequired,
+			-- lute-lint-ignore(noNestedReactDefinitions) UIBLOX-5675
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
 					inputRef = props.inputRef,

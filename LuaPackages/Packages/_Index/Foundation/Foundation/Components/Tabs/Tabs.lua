@@ -21,6 +21,7 @@ local DEPRECATED_OverflowScrollContainer = require(script.Parent.OverflowScrollC
 type InputSize = InputSize.InputSize
 type FillBehavior = FillBehavior.FillBehavior
 export type TabItem = TabItem.TabItem
+export type TabsAccessory = TabItem.TabsAccessory
 export type TabsProps = {
 	-- Default active tab id for uncontrolled component. Active tab is tracked inside the component.
 	defaultActiveTabId: Types.ItemId?,
@@ -49,12 +50,13 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	local internalActiveTabId, setInternalActiveTabId =
 		React.useState(props.defaultActiveTabId or Dash.get(props, { 1, "id" }))
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local onActivated = React.useCallback(function(id: Types.ItemId)
 		if props.onActivated then
 			props.onActivated(id)
 		end
 		setInternalActiveTabId(id)
-	end)
+	end, if Flags.FoundationTabsStableOnActivated then { props.onActivated } else nil)
 
 	local isFill = props.fillBehavior == FillBehavior.Fill
 	local activeTabId = props.activeTabId or internalActiveTabId
@@ -165,6 +167,8 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 										indicator = tab.indicator,
 										key = tostring(tab.id),
 										icon = tab.icon,
+										leading = tab.leading,
+										trailing = tab.trailing,
 										isActive = tab.id == activeTabId,
 										onActivated = onActivated,
 										LayoutOrder = index,

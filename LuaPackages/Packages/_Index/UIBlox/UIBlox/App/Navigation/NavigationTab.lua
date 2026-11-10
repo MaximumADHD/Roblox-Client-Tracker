@@ -1,5 +1,3 @@
-local TextService = game:GetService("TextService")
-
 local UIBlox = script.Parent.Parent.Parent
 local Packages = UIBlox.Parent
 
@@ -7,7 +5,6 @@ local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Logger = require(UIBlox.Logger)
@@ -248,14 +245,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 	end
 	labelSize = React.useMemo(function(): UDim2?
 		if props.hasLabel and props.labelText and props.labelTypography then
-			local textSize = if FFlagFoundationFontFaceMigration
-				then GetTextSize(props.labelText, fontSize, props.labelTypography.Font, HUGE_VECTOR)
-				else TextService:GetTextSize(
-					props.labelText,
-					fontSize,
-					props.labelTypography.Font :: Enum.Font,
-					HUGE_VECTOR
-				)
+			local textSize = GetTextSize(props.labelText, fontSize, props.labelTypography.Font, HUGE_VECTOR)
 			return UDim2.new(0, textSize.X + LABEL_PADDING, 0, textSize.Y + LABEL_PADDING)
 		end
 		return nil
@@ -339,12 +329,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 			TextWrapped = false,
 			TextTruncate = if hasConstrainedWidth then Enum.TextTruncate.AtEnd else nil,
 			Text = props.labelText,
-			Font = if FFlagFoundationFontFaceMigration or props.labelTypography == nil
-				then nil
-				else props.labelTypography.Font,
-			FontFace = if FFlagFoundationFontFaceMigration and props.labelTypography
-				then normalizeFontFace(props.labelTypography.Font)
-				else nil,
+			FontFace = if props.labelTypography then normalizeFontFace(props.labelTypography.Font) else nil,
 			TextSize = if props.labelTypography then props.labelTypography.FontSize else nil,
 			LineHeight = if props.labelTypography then props.labelTypography.LineHeight else nil,
 			TextColor3 = textColor.Color3,

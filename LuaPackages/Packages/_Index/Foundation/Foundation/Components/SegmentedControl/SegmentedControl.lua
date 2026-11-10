@@ -119,6 +119,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 		onContainerSizeChange(frame)
 	end, { props.onAbsoluteSizeChanged, onContainerSizeChange })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	computeSegmentYInset = React.useCallback(function(activeContainerRef: { current: GuiObject? })
 		-- segments are slightly inset from the container; we need to compute this value to properly position
 		-- the animated overlay

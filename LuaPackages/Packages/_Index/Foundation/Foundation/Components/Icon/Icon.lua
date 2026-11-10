@@ -13,7 +13,9 @@ local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 type IconSize = IconSize.IconSize
 
+local Flags = require(Foundation.Utility.Flags)
 local Logger = require(Foundation.Utility.Logger)
+local devAssert = require(Foundation.Utility.devAssert)
 local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 local migrateFontSize = require(script.Parent.migrateFontSize)
 local migrateIconName = require(script.Parent.migrateIconName)
@@ -58,21 +60,31 @@ local function Icon(iconProps: IconProps, ref: React.Ref<GuiObject>?)
 	local variant = props.variant
 	local name = props.name
 	local fontSize: number? = if typeof(size) == "table" then nil else size.Y.Offset
+	local didMigrate = false
 
 	if not isBuilderIcon(name) then
 		if migratedIcon then
 			if typeof(size) == "table" then
-				error("Binding size isn't supported when migrating a UIBlox icon, use Builder Icons directly")
+				if Flags.FoundationDevOnlyPropAsserts then
+					devAssert(
+						false,
+						"Binding size isn't supported when migrating a UIBlox icon, use Builder Icons directly"
+					)
+				else
+					error("Binding size isn't supported when migrating a UIBlox icon, use Builder Icons directly")
+				end
+			else
+				variant = migratedIcon.variant or variant
+				name = migratedIcon.name
+				fontSize = migrateFontSize(fontSize :: number, tokens)
+				didMigrate = true
 			end
-			variant = migratedIcon.variant or variant
-			name = migratedIcon.name
-			fontSize = migrateFontSize(fontSize :: number, tokens)
 		end
 	end
 
 	local iconStyle = props.style or tokens.Color.Content.Default
 
-	if not isBuilderIcon(name) and not migratedIcon then
+	if not isBuilderIcon(name) and not didMigrate then
 		if iconProps.variant ~= nil then
 			Logger:warning("variant is not supported when using FoundationImages, consider using BuilderIcons")
 		end

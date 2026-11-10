@@ -9,13 +9,11 @@ local ReactIs = require(Packages.ReactIs)
 local Components = Foundation.Components
 local Constants = require(Foundation.Constants)
 local Icon = require(Components.Icon)
-local Image = require(Components.Image)
 local Types = require(Components.Types)
 local View = require(Components.View)
 type Bindable<T> = Types.Bindable<T>
 type ColorStyleValue = Types.ColorStyleValue
 
-local Flags = require(Foundation.Utility.Flags)
 local blendTransparencies = require(Foundation.Utility.blendTransparencies)
 local mapBindable = require(Foundation.Utility.mapBindable)
 local useBindable = require(Foundation.Utility.useBindable)
@@ -61,18 +59,9 @@ local function Knob(knobProps: KnobProps)
 		presentationContext and presentationContext.colorNamespace == ColorNamespace.Inverse
 	)
 	local knobStyle = props.style or variantProps.knob.style
-	local knobTransparency = if Flags.FoundationKnobRaisedShadow
-		then mapBindable(knobStyle, function(style: ColorStyleValue)
-			return style.Transparency or 0
-		end)
-		else nil :: never
-
-	local getShadowStyle = React.useCallback(function(style: ColorStyleValue)
-		return {
-			Color3 = tokens.Color.Extended.White.White_100.Color3,
-			Transparency = style.Transparency,
-		}
-	end, { tokens })
+	local knobTransparency = mapBindable(knobStyle, function(style: ColorStyleValue)
+		return style.Transparency or 0
+	end)
 
 	local strokeTransparency = useBindable(if props.stroke then props.stroke.Transparency else nil)
 	local knobStyleBinding = useBindable(knobStyle)
@@ -159,27 +148,18 @@ local function Knob(knobProps: KnobProps)
 					testId = `{props.testId}--circle`,
 				}),
 			Shadow = if props.hasShadow and not props.isDisabled
-				then if Flags.FoundationKnobRaisedShadow
-					then React.createElement(View, {
-						tag = "position-center-center anchor-center-center radius-circle shadow-raised-100",
-						GroupTransparency = knobTransparency,
-						Size = circleSize,
-						Visible = mapBindable(knobTransparency, function(transparency: number)
-							return transparency < 1
-						end),
-						ZIndex = 3,
-						testId = `{props.testId}--shadow`,
-					})
-					else React.createElement(Image, {
-						tag = variantProps.knobShadow.tag,
-						imageStyle = if ReactIs.isBinding(knobStyle)
-							then (knobStyle :: React.Binding<ColorStyleValue>):map(getShadowStyle)
-							else getShadowStyle(knobStyle :: ColorStyleValue),
-						Image = "component_assets/dropshadow_28",
-						Size = variantProps.knobShadow.size,
-						ZIndex = 3,
-						testId = `{props.testId}--shadow`,
-					})
+				then React.createElement(View, {
+					-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
+					-- lute-lint-ignore(mixedTagStrings) UIBLOX-5675
+					tag = "position-center-center anchor-center-center radius-circle shadow-raised-100",
+					GroupTransparency = knobTransparency,
+					Size = circleSize,
+					Visible = mapBindable(knobTransparency, function(transparency: number)
+						return transparency < 1
+					end),
+					ZIndex = 3,
+					testId = `{props.testId}--shadow`,
+				})
 				else nil,
 		}
 	)

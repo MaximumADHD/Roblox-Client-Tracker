@@ -12,6 +12,9 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _google_protobuf_timestamp = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.timestamp)
+local _roblox_apppageplatform_shared_v1beta1_custom_options = require(script.Parent.custom_options)
+
 type _PriceDiscountDetailImpl = {
 	__index: _PriceDiscountDetailImpl,
 	new: (fields: _PriceDiscountDetailPartialFields?) -> PriceDiscountDetail,
@@ -58,6 +61,12 @@ type _GamePassDataFields = {
 	price_discount_details: { PriceDiscountDetail },
 	user_base_price_in_robux: number,
 	is_discounted: boolean,
+	can_configure: boolean,
+	created_time: _google_protobuf_timestamp.Timestamp?,
+	updated_time: _google_protobuf_timestamp.Timestamp?,
+	total_up_votes: number?,
+	total_down_votes: number?,
+	user_vote: boolean?,
 }
 
 type _GamePassDataPartialFields = {
@@ -71,6 +80,12 @@ type _GamePassDataPartialFields = {
 	price_discount_details: { PriceDiscountDetail }?,
 	user_base_price_in_robux: number?,
 	is_discounted: boolean?,
+	can_configure: boolean?,
+	created_time: _google_protobuf_timestamp.Timestamp?,
+	updated_time: _google_protobuf_timestamp.Timestamp?,
+	total_up_votes: number?,
+	total_down_votes: number?,
+	user_vote: boolean?,
 }
 
 export type GamePassData = typeof(setmetatable({} :: _GamePassDataFields, {} :: _GamePassDataImpl))
@@ -239,6 +254,12 @@ do
 				then 0
 				else data.user_base_price_in_robux,
 			is_discounted = if data == nil or data.is_discounted == nil then false else data.is_discounted,
+			can_configure = if data == nil or data.can_configure == nil then false else data.can_configure,
+			created_time = if data == nil or data.created_time == nil then nil else data.created_time,
+			updated_time = if data == nil or data.updated_time == nil then nil else data.updated_time,
+			total_up_votes = if data == nil or data.total_up_votes == nil then nil else data.total_up_votes,
+			total_down_votes = if data == nil or data.total_down_votes == nil then nil else data.total_down_votes,
+			user_vote = if data == nil or data.user_vote == nil then nil else data.user_vote,
 		}, _GamePassDataImpl :: _GamePassDataImpl)
 	end
 
@@ -299,6 +320,38 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_discounted then 1 else 0)
 		end
 
+		if self.can_configure then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.can_configure then 1 else 0)
+		end
+
+		if self.created_time ~= nil then
+			local encoded = self.created_time:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.updated_time ~= nil then
+			local encoded = self.updated_time:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.total_up_votes ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.total_up_votes)
+		end
+
+		if self.total_down_votes ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.total_down_votes)
+		end
+
+		if self.user_vote ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.user_vote then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -343,6 +396,26 @@ do
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_discounted = value ~= 0
 					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.can_configure = value ~= 0
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.total_up_votes = value
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.total_down_votes = value
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.user_vote = value ~= 0
+					continue
 				end
 
 				local _
@@ -367,6 +440,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.price_discount_details, messages.PriceDiscountDetail.decode(value))
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.created_time = _google_protobuf_timestamp.Timestamp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.updated_time = _google_protobuf_timestamp.Timestamp.decode(value)
 					continue
 				end
 
@@ -437,6 +520,30 @@ do
 
 		if self.is_discounted then
 			output.isDiscounted = self.is_discounted
+		end
+
+		if self.can_configure then
+			output.canConfigure = self.can_configure
+		end
+
+		if self.created_time ~= nil then
+			output.createdTime = self.created_time:jsonEncode()
+		end
+
+		if self.updated_time ~= nil then
+			output.updatedTime = self.updated_time:jsonEncode()
+		end
+
+		if self.total_up_votes ~= nil then
+			output.totalUpVotes = self.total_up_votes
+		end
+
+		if self.total_down_votes ~= nil then
+			output.totalDownVotes = self.total_down_votes
+		end
+
+		if self.user_vote ~= nil then
+			output.userVote = self.user_vote
 		end
 
 		return output
@@ -525,6 +632,54 @@ do
 
 		if input.isDiscounted ~= nil then
 			self.is_discounted = input.isDiscounted
+		end
+
+		if input.can_configure ~= nil then
+			self.can_configure = input.can_configure
+		end
+
+		if input.canConfigure ~= nil then
+			self.can_configure = input.canConfigure
+		end
+
+		if input.created_time ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.created_time)
+		end
+
+		if input.createdTime ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.createdTime)
+		end
+
+		if input.updated_time ~= nil then
+			self.updated_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.updated_time)
+		end
+
+		if input.updatedTime ~= nil then
+			self.updated_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.updatedTime)
+		end
+
+		if input.total_up_votes ~= nil then
+			self.total_up_votes = input.total_up_votes
+		end
+
+		if input.totalUpVotes ~= nil then
+			self.total_up_votes = input.totalUpVotes
+		end
+
+		if input.total_down_votes ~= nil then
+			self.total_down_votes = input.total_down_votes
+		end
+
+		if input.totalDownVotes ~= nil then
+			self.total_down_votes = input.totalDownVotes
+		end
+
+		if input.user_vote ~= nil then
+			self.user_vote = input.user_vote
+		end
+
+		if input.userVote ~= nil then
+			self.user_vote = input.userVote
 		end
 
 		return self

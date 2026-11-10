@@ -122,8 +122,7 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 	local variantProps = useListItemVariants(tokens, size)
 	local accessoryVariants = useListAccessoryVariants(tokens, size, "Icon")
 
-	local textGapTag = if Flags.FoundationListItemTypographySpacing then DESCRIPTION_GAP_TAG[size] else "gap-small"
-
+	local textGapTag = DESCRIPTION_GAP_TAG[size]
 	local isConfigTable = typeof(props.onActivated) == "table" and (props.onActivated :: any).onActivated ~= nil
 
 	local onActivated: () -> ()? = React.useMemo(function()
@@ -270,7 +269,7 @@ local function ListItem(listItemProps: ListItemProps, ref: React.Ref<GuiObject>?
 								then React.createElement(View, {
 									tag = {
 										["col auto-xy"] = true,
-										["gap-xsmall"] = not Flags.FoundationListItemTypographySpacing,
+										["gap-xsmall"] = false,
 									},
 									LayoutOrder = 0,
 								}, {

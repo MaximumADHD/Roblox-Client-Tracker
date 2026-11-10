@@ -81,6 +81,7 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 
 	local isUpdatingFromHSV = React.useRef(false)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		local initialMode = props.initialMode
 

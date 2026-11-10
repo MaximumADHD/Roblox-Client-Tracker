@@ -15,6 +15,7 @@ local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 local getIconScale = require(Foundation.Utility.getIconScale)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
@@ -29,7 +30,12 @@ type IconVariant = BuilderIcons.IconVariant
 type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 
+local accessory = require(script.Parent.TabItemAccessory)
+local TabItemAccessory = accessory.TabItemAccessory
+local resolve = accessory.resolve
 local useTabVariants = require(script.Parent.useTabItemVariants)
+
+export type TabsAccessory = accessory.TabsAccessory
 
 export type TabItemIcon = {
 	-- BuilderIcons name or asset path.
@@ -50,9 +56,13 @@ export type TabItem = {
 	id: Types.ItemId,
 	-- Label shown on the tab.
 	text: string,
-	-- Optional leading icon for the tab.
+	-- Accessory rendered before the label: a BuilderIcons name, or an icon, badge, or status indicator. `icon` overrides this.
+	leading: (string | TabsAccessory)?,
+	-- Accessory rendered after the label: a BuilderIcons name, or an icon, badge, or status indicator. `indicator` overrides this.
+	trailing: (string | TabsAccessory)?,
+	-- **DEPRECATED**: Leading accessories moved to `leading`. Use `leading` instead. Still accepted.
 	icon: (string | TabItemIcon)?,
-	-- Optional status indicator overlaid on the tab.
+	-- **DEPRECATED**: Trailing accessories moved to `trailing`. Use `trailing` instead. Still accepted.
 	indicator: TabItemIndicator?,
 	-- When true, the tab cannot be activated.
 	isDisabled: boolean?,
@@ -105,8 +115,14 @@ local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 		end
 	end, { props.icon })
 
+	local leadingAccessory: TabsAccessory? = nil
+	local trailingAccessory: TabsAccessory? = nil
+	if Flags.FoundationTabsAccessory then
+		leadingAccessory, trailingAccessory = resolve(props.leading, props.trailing, props.icon, props.indicator)
+	end
+
 	local _Icon: React.ReactNode
-	if icon then
+	if icon and not Flags.FoundationTabsAccessory then
 		if isBuilderIconOrMigrated(icon.name) then
 			_Icon = React.createElement(Icon, {
 				name = if isMigrated(icon.name) then migrationLookup[icon.name].name else icon.name,
@@ -150,14 +166,23 @@ local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 			tag = variantProps.content.tag,
 			Size = variantProps.content.Size,
 		}, {
-			Icon = if props.icon then _Icon else nil,
+			Icon = if not Flags.FoundationTabsAccessory and props.icon then _Icon else nil,
+			Leading = if Flags.FoundationTabsAccessory and leadingAccessory
+				then React.createElement(TabItemAccessory, {
+					accessory = leadingAccessory,
+					contentStyle = contentStyle,
+					iconSize = variantProps.icon.size,
+					LayoutOrder = 1,
+					testId = `{props.testId}--leading`,
+				})
+				else nil,
 			Text = React.createElement(Text, {
 				Text = props.text,
 				style = contentStyle,
 				tag = variantProps.text.tag,
 				LayoutOrder = 2,
 			}),
-			Indicator = if props.indicator
+			Indicator = if not Flags.FoundationTabsAccessory and props.indicator
 				then React.createElement(
 					StatusIndicator,
 					if props.indicator.value
@@ -175,6 +200,15 @@ local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 							testId = `{props.testId}--indicator`,
 						}
 				)
+				else nil,
+			Trailing = if Flags.FoundationTabsAccessory and trailingAccessory
+				then React.createElement(TabItemAccessory, {
+					accessory = trailingAccessory,
+					contentStyle = contentStyle,
+					iconSize = variantProps.icon.size,
+					LayoutOrder = 3,
+					testId = `{props.testId}--trailing`,
+				})
 				else nil,
 		}),
 	})

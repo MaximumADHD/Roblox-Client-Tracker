@@ -140,6 +140,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 	local isBottomSheet = sheetType == SheetType.Bottom
 
 	local horizontalPadding = if props.isContentFullBleed then nil else UDim.new(0, tokens.Padding.Small)
+	local isScrollBarAtEdge = sheetType == SheetType.Side and not props.isContentFullBleed
 
 	local isSelectableEnabled = if props.Selectable == nil then true else props.Selectable
 	local selectable = if hasOverflowY
@@ -179,9 +180,17 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 		onAbsoluteSizeChanged = updateScrollViewCanvasSize,
 		Position = reversedContentPosition,
 		Size = reversedContentSize,
+		padding = if Flags.FoundationSideSheetInternalDrawer and isScrollBarAtEdge
+			then {
+				left = UDim.new(0, tokens.Padding.Medium),
+				right = UDim.new(0, tokens.Padding.Medium + tokens.Padding.Small),
+			}
+			else nil,
 		tag = {
 			["col align-x-center gap-medium size-full-0 auto-y"] = true,
-			["padding-x-medium"] = not props.isContentFullBleed,
+			["padding-x-medium"] = if Flags.FoundationSideSheetInternalDrawer
+				then not props.isContentFullBleed and not isScrollBarAtEdge
+				else not props.isContentFullBleed,
 			["align-y-bottom"] = isReversed :: boolean,
 		},
 	}, {
@@ -236,7 +245,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 				end)
 				else UDim.new(0, tokens.Padding.Small),
 			left = horizontalPadding,
-			right = horizontalPadding,
+			right = if Flags.FoundationSideSheetInternalDrawer and isScrollBarAtEdge then nil else horizontalPadding,
 		},
 		ClipsDescendants = if isBottomSheet then hasHeader else true,
 		onCanvasPositionChanged = function(rbx: ScrollingFrame)

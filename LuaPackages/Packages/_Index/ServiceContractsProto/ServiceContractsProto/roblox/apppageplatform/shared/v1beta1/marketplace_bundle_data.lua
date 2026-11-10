@@ -61,6 +61,7 @@ type _MarketplaceBundleDataFields =
 		genres: { string },
 		bundled_items: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem },
 		is_recolorable: boolean?,
+		licensing: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing?,
 	}
 
 type _MarketplaceBundleDataPartialFields =
@@ -99,6 +100,7 @@ type _MarketplaceBundleDataPartialFields =
 		genres: { string }?,
 		bundled_items: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogBundledItem }?,
 		is_recolorable: boolean?,
+		licensing: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing?,
 	}
 
 export type MarketplaceBundleData = typeof(setmetatable(
@@ -157,6 +159,7 @@ do
 			genres = if data == nil or data.genres == nil then {} else data.genres,
 			bundled_items = if data == nil or data.bundled_items == nil then {} else data.bundled_items,
 			is_recolorable = if data == nil or data.is_recolorable == nil then nil else data.is_recolorable,
+			licensing = if data == nil or data.licensing == nil then nil else data.licensing,
 		}, _MarketplaceBundleDataImpl :: _MarketplaceBundleDataImpl)
 	end
 
@@ -352,6 +355,12 @@ do
 		if self.is_recolorable ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_recolorable then 1 else 0)
+		end
+
+		if self.licensing ~= nil then
+			local encoded = self.licensing:encode()
+			output, cursor = proto.writeTag(output, cursor, 35, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -563,6 +572,14 @@ do
 						)
 					)
 					continue
+				elseif field == 35 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.licensing =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing.decode(
+							value
+						)
+					continue
 				end
 
 				local length
@@ -756,6 +773,10 @@ do
 
 		if self.is_recolorable ~= nil then
 			output.isRecolorable = self.is_recolorable
+		end
+
+		if self.licensing ~= nil then
+			output.licensing = self.licensing:jsonEncode()
 		end
 
 		return output
@@ -1118,6 +1139,13 @@ do
 
 		if input.isRecolorable ~= nil then
 			self.is_recolorable = input.isRecolorable
+		end
+
+		if input.licensing ~= nil then
+			self.licensing =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing.jsonDecode(
+					input.licensing
+				)
 		end
 
 		return self

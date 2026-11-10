@@ -143,7 +143,6 @@ end
 
 local defaultProps = {
 	variant = InputVariant.Standard,
-	controlsVariant = if Flags.FoundationNumberInputBeta then nil else NumberInputControlsVariant.Stacked,
 	size = InputSize.Large,
 	minimum = -math.huge,
 	maximum = math.huge,
@@ -157,7 +156,7 @@ local defaultProps = {
 	testId = "--foundation-number-input",
 }
 
--- selene: allow(high_cyclomatic_complexity) remove with FoundationNumberInputBeta
+-- selene: allow(high_cyclomatic_complexity)
 local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(numberInputProps, defaultProps) :: {
 		variant: InputVariant,
@@ -200,14 +199,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local tokens = useTokens()
 	local variantProps = useTextInputVariants(tokens, props.size, props.variant)
-	local NumberInputControlsVariantProps = useNumberInputVariants(
-		tokens,
-		props.size,
-		if Flags.FoundationNumberInputBeta then nil else props.controlsVariant
-	)
-	local controlsProps = if Flags.FoundationNumberInputBeta
-		then NumberInputControlsVariantProps.controls
-		else nil :: never
+	local NumberInputControlsVariantProps = useNumberInputVariants(tokens, props.size)
+	local controlsProps = NumberInputControlsVariantProps.controls
 
 	local internalTextBoxRef = React.useRef(nil)
 	local numberInputRef = (
@@ -226,8 +219,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local scrubBehavior: ScrubBehavior = if props.isScrubbable then ScrubBehavior.On else props.scrubBehavior
 	local isScrubbable = scrubBehavior and scrubBehavior ~= ScrubBehavior.Off
 
-	local scrubSensitivity = if Flags.FoundationNumberInputBeta then scrubBehaviorToSensitivity[scrubBehavior] else nil
-
+	local scrubSensitivity = scrubBehaviorToSensitivity[scrubBehavior]
 	local clampValueToRange = React.useCallback(function(value: number)
 		return math.clamp(value, props.minimum, props.maximum)
 	end, { props.minimum, props.maximum })
@@ -279,98 +271,88 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local textInput, setTextInput =
 		React.useBinding(props.formatAsString(constrainValue(getBindableValue(props.value))))
 
-	local incrementButtonsGap = if Flags.FoundationNumberInputBeta
-		then if props.size == InputSize.XSmall then tokens.Gap.Small - (tokens.Gap.XSmall / 2) else tokens.Gap.Small
-		else nil :: never
+	local incrementButtonsGap = if props.size == InputSize.XSmall
+		then tokens.Gap.Small - (tokens.Gap.XSmall / 2)
+		else tokens.Gap.Small
 
 	local hasUnits
 	local prefixText
 	local prefixTextSize
 	local unitsPadding
 	local unitsXOffsets: { left: UDim, right: UDim }
-	if Flags.FoundationNumberInputBeta then
-		local textBoxFontStyle = variantProps.textBox.fontStyle
-		local textBoxFontSize = textBoxFontStyle.FontSize :: number
+	local textBoxFontStyle = variantProps.textBox.fontStyle
+	local textBoxFontSize = textBoxFontStyle.FontSize :: number
 
-		hasUnits = (props.prefix and props.prefix ~= "") or (props.suffix and props.suffix ~= "")
+	hasUnits = (props.prefix and props.prefix ~= "") or (props.suffix and props.suffix ~= "")
 
-		prefixText = if props.prefix then props.prefix .. " " else nil
+	prefixText = if props.prefix then props.prefix .. " " else nil
 
-		-- Floor FontSize before measuring: the engine floors TextSize on render,
-		-- so fractional token sizes (e.g. BodyMedium = 17.64) overestimate width.
-		local prefixFontStyle = React.useMemo(function()
+	-- Floor FontSize before measuring: the engine floors TextSize on render,
+	-- so fractional token sizes (e.g. BodyMedium = 17.64) overestimate width.
+	local prefixFontStyle = React.useMemo(function()
+		return {
+			Font = textBoxFontStyle.Font,
+			FontSize = math.floor(textBoxFontSize),
+			LineHeight = textBoxFontStyle.LineHeight,
+		}
+	end, { textBoxFontStyle, textBoxFontSize } :: { unknown })
+	prefixTextSize = useTextSize(prefixText, prefixFontStyle)
+
+	local leadingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.leadingIcon)) :: UDim2
+	local trailingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.trailingIcon)) :: UDim2
+	local leadingIconWidth = if props.leadingIcon then leadingIconSize.X.Offset else 0
+	local trailingIconWidth = if props.trailingIcon then trailingIconSize.X.Offset else 0
+	local containerGap = if props.size == InputSize.XSmall
+		then tokens.Gap.Small
+		elseif props.size == InputSize.Small then tokens.Gap.Medium
+		else tokens.Gap.Large
+	local leadingIconGap = if props.leadingIcon then containerGap else 0
+	local trailingIconGap = if props.trailingIcon then containerGap else 0
+
+	unitsXOffsets = React.useMemo(
+		function()
 			return {
-				Font = textBoxFontStyle.Font,
-				FontSize = math.floor(textBoxFontSize),
-				LineHeight = textBoxFontStyle.LineHeight,
+				left = UDim.new(0, variantProps.container.horizontalPadding.Offset + leadingIconWidth + leadingIconGap),
+				right = UDim.new(
+					0,
+					variantProps.container.horizontalPadding.Offset + trailingIconWidth + trailingIconGap
+				),
 			}
-		end, { textBoxFontStyle, textBoxFontSize } :: { unknown })
-		prefixTextSize = useTextSize(prefixText, prefixFontStyle)
+		end,
+		{
+			variantProps.container.horizontalPadding,
+			leadingIconGap,
+			trailingIconGap,
+			leadingIconWidth,
+			trailingIconWidth,
+		} :: { unknown }
+	)
 
-		local leadingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.leadingIcon)) :: UDim2
-		local trailingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.trailingIcon)) :: UDim2
-		local leadingIconWidth = if props.leadingIcon then leadingIconSize.X.Offset else 0
-		local trailingIconWidth = if Flags.FoundationNumberInputBeta and props.trailingIcon
-			then trailingIconSize.X.Offset
-			else 0
-		local containerGap = if props.size == InputSize.XSmall
-			then tokens.Gap.Small
-			elseif props.size == InputSize.Small then tokens.Gap.Medium
-			else tokens.Gap.Large
-		local leadingIconGap = if props.leadingIcon then containerGap else 0
-		local trailingIconGap = if Flags.FoundationNumberInputBeta and props.trailingIcon then containerGap else 0
+	-- Mirror InternalTextInput's textBoxWrapperPadding formula plus the 1px
+	-- stroke inset so the overlay's text baseline matches the textbox's.
+	unitsPadding = React.useMemo(
+		function()
+			local textHeight = getMultiLineTextHeight(textBoxFontSize, 1, textBoxFontStyle.LineHeight :: number)
+			local outerBorderOffset = 2
+			local containerPaddingY = math.round(
+				(variantProps.container.minHeight - outerBorderOffset - textHeight) * 2
+			) / 2
+			local strokeInset = 1
+			return {
+				top = UDim.new(0, math.floor(containerPaddingY / 2) + strokeInset),
+				bottom = UDim.new(0, math.ceil(containerPaddingY / 2) + strokeInset),
+				left = UDim.new(),
+				right = UDim.new(),
+			}
+		end,
+		{
+			variantProps.container.minHeight,
+			textBoxFontStyle,
+			textBoxFontSize,
+		} :: { unknown }
+	)
 
-		unitsXOffsets = React.useMemo(
-			function()
-				return {
-					left = UDim.new(
-						0,
-						variantProps.container.horizontalPadding.Offset + leadingIconWidth + leadingIconGap
-					),
-					right = UDim.new(
-						0,
-						variantProps.container.horizontalPadding.Offset + trailingIconWidth + trailingIconGap
-					),
-				}
-			end,
-			{
-				variantProps.container.horizontalPadding,
-				leadingIconGap,
-				trailingIconGap,
-				leadingIconWidth,
-				trailingIconWidth,
-			} :: { unknown }
-		)
-
-		-- Mirror InternalTextInput's textBoxWrapperPadding formula plus the 1px
-		-- stroke inset so the overlay's text baseline matches the textbox's.
-		unitsPadding = React.useMemo(
-			function()
-				local textHeight = getMultiLineTextHeight(textBoxFontSize, 1, textBoxFontStyle.LineHeight :: number)
-				local outerBorderOffset = 2
-				local containerPaddingY = math.round(
-					(variantProps.container.minHeight - outerBorderOffset - textHeight) * 2
-				) / 2
-				local strokeInset = 1
-				return {
-					top = UDim.new(0, math.floor(containerPaddingY / 2) + strokeInset),
-					bottom = UDim.new(0, math.ceil(containerPaddingY / 2) + strokeInset),
-					left = UDim.new(),
-					right = UDim.new(),
-				}
-			end,
-			{
-				variantProps.container.minHeight,
-				textBoxFontStyle,
-				textBoxFontSize,
-			} :: { unknown }
-		)
-	end
-
-	local width = if props.width
-		then props.width :: UDim
-		elseif Flags.FoundationNumberInputBeta then UDim.new(0, Constants.DEFAULT_NUMBER_INPUT_WIDTH)
-		else UDim.new(0, NumberInputControlsVariantProps.container.width)
+	local width = if props.width then props.width :: UDim else UDim.new(0, Constants.DEFAULT_NUMBER_INPUT_WIDTH)
 
 	local onFocus = React.useCallback(function()
 		setTextInput(tostring(getBindableValue(props.value)))
@@ -429,18 +411,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		valueChanged(getBindableValue(downValue), OnChangeCallbackReason.Activate)
 	end, { isDownDisabled, downValue, valueChanged } :: { unknown })
 
-	local hasControls = if Flags.FoundationNumberInputBeta
-		then props.hasControls
-			and controlsVariant ~= NumberInputControlsVariant.None
-			and controlsVariant ~= NumberInputControlsVariant.Stacked
-		else nil
+	local hasControls = props.hasControls
+		and controlsVariant ~= NumberInputControlsVariant.None
+		and controlsVariant ~= NumberInputControlsVariant.Stacked
 
-	local controls = if (Flags.FoundationNumberInputBeta and hasControls) or not Flags.FoundationNumberInputBeta
+	local controls = if hasControls
 		then React.createElement(NumberInputControls, {
 			variant = props.variant,
-			controlsVariant = if Flags.FoundationNumberInputBeta
-				then nil
-				else controlsVariant :: NumberInputControlsVariant?,
 			size = props.size,
 			increment = {
 				isDisabled = isUpDisabled,
@@ -456,12 +433,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local widthOffset = React.useMemo(
 		function()
-			if Flags.FoundationNumberInputBeta then
-				if hasControls then
-					return UDim.new(0, controlsProps.width + incrementButtonsGap)
-				end
-			elseif controlsVariant == NumberInputControlsVariant.Split then
-				return UDim.new(0, (2 * NumberInputControlsVariantProps.splitButton.size) + (2 * tokens.Gap.XSmall))
+			if hasControls then
+				return UDim.new(0, controlsProps.width + incrementButtonsGap)
 			end
 
 			return UDim.new()
@@ -469,11 +442,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		{
 			tokens,
 			controlsVariant,
-			if Flags.FoundationNumberInputBeta then nil else NumberInputControlsVariantProps.splitButton.size,
 			tokens.Gap.XSmall,
-			if Flags.FoundationNumberInputBeta then controlsProps else nil,
-			if Flags.FoundationNumberInputBeta then incrementButtonsGap else nil,
-			if Flags.FoundationNumberInputBeta then hasControls else nil,
+			controlsProps,
+			incrementButtonsGap,
+			hasControls,
 		} :: { unknown }
 	)
 
@@ -491,7 +463,14 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local onDrag = React.useCallback(
 		function(_rbx, position: Vector2)
 			if dragStartTable.current then
-				if
+				if Flags.FoundationNumberInputScrubEndedAlone then
+					if not hasScrubStarted.current then
+						hasScrubStarted.current = true
+						if Flags.FoundationNumberInputScrubCallbackProps and props.onScrubStarted then
+							props.onScrubStarted()
+						end
+					end
+				elseif
 					Flags.FoundationNumberInputScrubCallbackProps
 					and props.onScrubStarted
 					and not hasScrubStarted.current
@@ -505,7 +484,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					dragStartTable.current.position,
 					position.X,
 					props.step,
-					if Flags.FoundationNumberInputBeta then scrubSensitivity else nil :: never
+					scrubSensitivity
 				)
 				valueChanged(newValue, OnChangeCallbackReason.Drag)
 			end
@@ -515,7 +494,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			props.step,
 			constrainValue,
 			if Flags.FoundationNumberInputScrubCallbackProps then props.onScrubStarted else nil,
-			if Flags.FoundationNumberInputBeta then scrubSensitivity else nil,
+			scrubSensitivity,
 		} :: { unknown }
 	)
 
@@ -662,11 +641,9 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			isDisabled = props.isDisabled,
 			hint = props.hint,
 			textBoxRef = numberInputRef,
-			-- selene: allow(high_cyclomatic_complexity) remove with FoundationNumberInputBeta
+			-- lute-lint-ignore(noNestedReactDefinitions) UIBLOX-5675
 			input = function(inputRef)
-				local hasExternalControls = if Flags.FoundationNumberInputBeta
-					then hasControls and controls
-					else controlsVariant == NumberInputControlsVariant.Split
+				local hasExternalControls = hasControls and controls
 
 				local input = React.createElement(InternalTextInput, {
 					inputRef = props.inputRef,
@@ -690,11 +667,9 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					NextSelectionRight = (props.NextSelectionRight) :: any,
 					horizontalPadding = {
 						left = variantProps.container.horizontalPadding,
-						right = if Flags.FoundationNumberInputBeta
-							then variantProps.container.horizontalPadding
-							else nil,
-						innerLeft = if Flags.FoundationNumberInputBeta
-							then if prefixTextSize and prefixTextSize.X > 0 then UDim.new(0, prefixTextSize.X) else nil
+						right = variantProps.container.horizontalPadding,
+						innerLeft = if prefixTextSize and prefixTextSize.X > 0
+							then UDim.new(0, prefixTextSize.X)
 							else nil,
 					},
 					focusBehavior = numberInputProps.focusBehavior,
@@ -723,19 +698,16 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 								Rotation = 0,
 							})
 							else nil),
-					trailingElement = if Flags.FoundationNumberInputBeta
-						then if props.trailingIcon
-							then React.createElement(
-								View,
-								{ tag = "row align-y-center size-0-full auto-x" },
-								React.createElement(Icon, {
-									name = props.trailingIcon,
-									style = variantProps.icon.style,
-									size = variantProps.icon.size,
-								})
-							)
-							else nil
-						elseif controlsVariant == NumberInputControlsVariant.Stacked then controls
+					trailingElement = if props.trailingIcon
+						then React.createElement(
+							View,
+							{ tag = "row align-y-center size-0-full auto-x" },
+							React.createElement(Icon, {
+								name = props.trailingIcon,
+								style = variantProps.icon.style,
+								size = variantProps.icon.size,
+							})
+						)
 						else nil,
 					leadingElement = if props.leadingIcon
 						then React.createElement(
@@ -749,11 +721,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						)
 						else nil,
 					isDisabled = props.isDisabled,
-					LayoutOrder = if hasExternalControls and Flags.FoundationNumberInputBeta then 0 else nil,
+					LayoutOrder = if hasExternalControls then 0 else nil,
 					testId = `{props.testId}--field`,
 				})
 
-				local unitsOverlay = if Flags.FoundationNumberInputBeta and hasUnits
+				local unitsOverlay = if hasUnits
 					then React.createElement(Text, {
 						tag = "text-align-x-left text-align-y-center content-muted",
 						fontStyle = variantProps.textBox.fontStyle,
@@ -770,34 +742,23 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						testId = `{props.testId}--units`,
 					})
 					else nil
+				input = React.createElement(View, { tag = "size-full-0 auto-y" }, {
+					Input = input,
+					Units = unitsOverlay,
+				}) :: any
 
-				if Flags.FoundationNumberInputBeta then
-					input = React.createElement(View, { tag = "size-full-0 auto-y" }, {
-						Input = input,
-						Units = unitsOverlay,
-					}) :: any
-				end
-
-				return if hasExternalControls or Flags.FoundationNumberInputBeta
-					then React.createElement(View, {
-						Size = if Flags.FoundationNumberInputBeta
-							then UDim2.new(width.Scale - widthOffset.Scale, width.Offset - widthOffset.Offset, 0, 0)
-							else UDim2.fromOffset(width.Offset - widthOffset.Offset, 0),
-						tag = if Flags.FoundationNumberInputBeta
-							then "row align-y-center auto-y"
-							else "row align-y-center gap-xsmall auto-y",
-						layout = if Flags.FoundationNumberInputBeta
-							then {
-								FillDirection = Enum.FillDirection.Horizontal,
-								Padding = UDim.new(0, incrementButtonsGap),
-								SortOrder = Enum.SortOrder.LayoutOrder,
-							}
-							else nil,
-					}, {
-						InputField = input,
-						Controls = if hasExternalControls then controls else nil,
-					})
-					else input
+				return React.createElement(View, {
+					Size = UDim2.new(width.Scale - widthOffset.Scale, width.Offset - widthOffset.Offset, 0, 0),
+					tag = "row align-y-center auto-y",
+					layout = {
+						FillDirection = Enum.FillDirection.Horizontal,
+						Padding = UDim.new(0, incrementButtonsGap),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					},
+				}, {
+					InputField = input,
+					Controls = if hasExternalControls then controls else nil,
+				})
 			end,
 		})
 	)

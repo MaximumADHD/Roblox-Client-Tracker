@@ -9,15 +9,22 @@
 	End-to-end flow:
 	  1. User joins game → GCS challenges with rocaptcha → rocaptcha-service init
 	     stores a Pending session with the challenged user's key
-	  2. Client redirects user to captcha place with LaunchData { challengeId, desiredPlaceId }
+	  2. Client redirects user to captcha place with
+	     LaunchData { challengeId, desiredPlaceId, serverInstanceId? }
 	  3. On join, this script calls rocaptcha-service validate (session exists,
-	     belongs to this user, still Pending). Kick on a definitive failure.
+	     belongs to this user, still Pending). Kick on a definitive failure, or, with
+	     FFlagRoCaptchaExperienceKick, reject the player and leave the kick and its
+	     message to the experience. The experience can invoke
+	     ServerStorage.RoCaptchaValidate to wait for this result before showing the captcha.
 	  4. User solves captcha → experience ServerScript invokes ServerStorage.RoCaptchaVerify
-	  5. This script calls rocaptcha-service verify (user check, Pending → Passed)
+	  5. This script calls rocaptcha-service verify (user check, Pending → Passed).
+	     A failure is handled like a validate failure in step 3.
 	  6. This script calls GCS continue (GCS redeems with rocaptcha-service)
-	  7. This script teleports the player back to desiredPlaceId, retrying retryable
-	     TeleportInitFailed results. If that fails the player stays in the place;
-	     invoking RoCaptchaVerify again retries the teleport.
+	  7. This script teleports the player back to desiredPlaceId (targeting
+	     serverInstanceId when present), retrying retryable TeleportInitFailed results.
+	     If the target server is gone or full, it falls back to any server. If that
+	     fails the player stays in the place; invoking RoCaptchaVerify again retries
+	     the teleport.
 ]]
 
 local HttpService = game:GetService("HttpService")
@@ -30,8 +37,13 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
+local Promise = require(CorePackages.Packages.Promise)
 local RoCaptchaUtils = require(RobloxGui.Modules.Server.RoCaptcha.RoCaptchaUtils)
 local FStringRoCaptchaUniverseIds = require(RobloxGui.Modules.Common.Flags.FStringRoCaptchaUniverseIds)
+local FFlagRoCaptchaExperienceValidate = game:DefineFastFlag("RoCaptchaExperienceValidate", false)
+-- Requires RoCaptchaValidate: without it the experience can't learn a player was rejected.
+local FFlagRoCaptchaExperienceKick = game:DefineFastFlag("RoCaptchaExperienceKick", false)
+	and FFlagRoCaptchaExperienceValidate
 
 --------------------------------------------------------------------------------
 -- Gates
@@ -61,12 +73,19 @@ local MAX_TELEPORT_INIT_RETRIES = 3
 -- treated as dead so the experience can retry it.
 local TELEPORT_STALE_SECONDS = 30
 
--- Results that may succeed on retry; anything else (GameNotFound, Unauthorized,
--- GameEnded, GameFull) won't change for the same place.
+-- Results that may succeed on retry; anything else (GameNotFound, Unauthorized) won't
+-- change for the same place. GameEnded and GameFull are only recoverable via
+-- SERVER_INSTANCE_FALLBACK_RESULTS.
 local RETRYABLE_TELEPORT_RESULTS = {
 	[Enum.TeleportResult.Failure] = true,
 	[Enum.TeleportResult.Flooded] = true,
 	[Enum.TeleportResult.IsTeleporting] = true,
+}
+
+-- Results caused by the targeted server instance; retrying without it can succeed.
+local SERVER_INSTANCE_FALLBACK_RESULTS = {
+	[Enum.TeleportResult.GameEnded] = true,
+	[Enum.TeleportResult.GameFull] = true,
 }
 
 local State = {
@@ -148,6 +167,8 @@ end
 type Session = {
 	challengeId: string,
 	desiredPlaceId: number,
+	-- Cleared once the targeted server is unavailable so later teleports go to any server.
+	serverInstanceId: string?,
 	state: string,
 	teleportInitRetries: number,
 	-- Set from a TeleportAsync call until TeleportInitFailed resolves it (retry or give up).
@@ -167,6 +188,7 @@ local function createSession(player: Player): Session?
 	return {
 		challengeId = launchData.challengeId,
 		desiredPlaceId = launchData.desiredPlaceId,
+		serverInstanceId = launchData.serverInstanceId,
 		state = State.Validating,
 		teleportInitRetries = 0,
 		teleportStartedAt = nil,
@@ -184,10 +206,33 @@ local function kick(player: Player, reason: string)
 	end
 end
 
+type Rejection = {
+	reason: string,
+	detail: any,
+}
+
+local rejections: { [Player]: Rejection } = {}
+
+-- The experience shows the failure message and kicks. A rejected player can't progress:
+-- clearing the session makes RoCaptchaVerify refuse them.
+local function reject(player: Player, reason: string, detail: any)
+	warn("[RoCaptcha] Rejecting player, reason:", reason, detail)
+	sessions[player] = nil
+	-- Callers may resume after PlayerRemoving already ran; recording then would leak the entry.
+	if not player.Parent then
+		return
+	end
+	rejections[player] = { reason = reason, detail = detail }
+end
+
 local function onPlayerAdded(player: Player)
 	local session = createSession(player)
 	if not session then
-		kick(player, "invalid_launch_data")
+		if FFlagRoCaptchaExperienceKick then
+			reject(player, "invalid_launch_data", nil)
+		else
+			kick(player, "invalid_launch_data")
+		end
 		return
 	end
 	sessions[player] = session
@@ -207,20 +252,59 @@ local function onPlayerAdded(player: Player)
 	end
 
 	if result.valid ~= true then
-		kick(player, "validate_failed:" .. tostring(result.failureReason))
+		if FFlagRoCaptchaExperienceKick then
+			reject(player, "validate_failed", result.failureReason)
+		else
+			kick(player, "validate_failed:" .. tostring(result.failureReason))
+		end
 		return
 	end
 
 	session.state = State.Ready
 end
 
-Players.PlayerAdded:Connect(onPlayerAdded)
+-- Shared by PlayerAdded and RoCaptchaValidate: the experience's PlayerAdded may run
+-- before ours, so whichever asks first starts validation and both observe one result.
+-- Resolves with the RoCaptchaValidate result once validation settles.
+local validations: { [Player]: any } = {}
+
+local function startValidation(player: Player)
+	local validation = validations[player]
+	if not validation then
+		validation = Promise.new(function(resolve)
+			onPlayerAdded(player)
+			local session = sessions[player]
+			local rejection = rejections[player]
+			if session and session.state == State.Ready then
+				resolve({ valid = true })
+			elseif rejection then
+				resolve({ valid = false, reason = rejection.reason, detail = rejection.detail })
+			else
+				resolve({ valid = false, reason = "no_session" })
+			end
+		end)
+		validations[player] = validation
+	end
+	return validation
+end
+
+local function onPlayerJoined(player: Player)
+	if FFlagRoCaptchaExperienceValidate then
+		startValidation(player)
+	else
+		onPlayerAdded(player)
+	end
+end
+
+Players.PlayerAdded:Connect(onPlayerJoined)
 for _, player in Players:GetPlayers() do
-	task.spawn(onPlayerAdded, player)
+	task.spawn(onPlayerJoined, player)
 end
 
 Players.PlayerRemoving:Connect(function(player: Player)
 	sessions[player] = nil
+	validations[player] = nil
+	rejections[player] = nil
 end)
 
 --------------------------------------------------------------------------------
@@ -231,8 +315,15 @@ end)
 -- TeleportInitFailed, so automatic retries live only in that handler.
 local function teleportBack(player: Player, session: Session): boolean
 	session.teleportStartedAt = os.clock()
+	local teleportOptions: TeleportOptions? = nil
+	local serverInstanceId = session.serverInstanceId
+	if serverInstanceId then
+		local options = Instance.new("TeleportOptions")
+		options.ServerInstanceId = serverInstanceId
+		teleportOptions = options
+	end
 	local ok, err = pcall(function()
-		TeleportService:TeleportAsync(session.desiredPlaceId, { player })
+		TeleportService:TeleportAsync(session.desiredPlaceId, { player }, teleportOptions)
 	end)
 	if not ok then
 		session.teleportStartedAt = nil
@@ -268,7 +359,13 @@ TeleportService.TeleportInitFailed:Connect(
 
 		warn("[RoCaptcha] TeleportInitFailed:", result, errorMessage)
 
-		if not RETRYABLE_TELEPORT_RESULTS[result] then
+		local fallBackToAnyServer = session.serverInstanceId ~= nil and SERVER_INSTANCE_FALLBACK_RESULTS[result] == true
+		if fallBackToAnyServer then
+			warn("[RoCaptcha] Target server unavailable - falling back to any server:", result)
+			session.serverInstanceId = nil
+		end
+
+		if not RETRYABLE_TELEPORT_RESULTS[result] and not fallBackToAnyServer then
 			giveUpTeleport(session, "teleport_failed:" .. tostring(result))
 			return
 		end
@@ -330,7 +427,11 @@ RoCaptchaVerify.OnInvoke = function(arg: any)
 		return { success = false, reason = "verify_error" }
 	end
 	if verifyResult.verified ~= true then
-		kick(player, "verify_failed:" .. tostring(verifyResult.failureReason))
+		if FFlagRoCaptchaExperienceKick then
+			reject(player, "verify_failed", verifyResult.failureReason)
+		else
+			kick(player, "verify_failed:" .. tostring(verifyResult.failureReason))
+		end
 		return { success = false, reason = "verify_failed", detail = verifyResult.failureReason }
 	end
 
@@ -357,3 +458,28 @@ end
 
 -- Parent last so ServerScripts never observe it without a handler.
 RoCaptchaVerify.Parent = ServerStorage
+
+-- Lets the experience hold the captcha UI until validation settles, so a player who is
+-- about to be kicked never sees it.
+if FFlagRoCaptchaExperienceValidate then
+	local RoCaptchaValidate = Instance.new("BindableFunction")
+	RoCaptchaValidate.Name = "RoCaptchaValidate"
+
+	RoCaptchaValidate.OnInvoke = function(arg: any)
+		if typeof(arg) ~= "Instance" or not arg:IsA("Player") then
+			return { valid = false, reason = "invalid_player" }
+		end
+		local player = arg :: Player
+		if not player.Parent then
+			return { valid = false, reason = "no_session" }
+		end
+
+		local ok, result = startValidation(player):await()
+		if not ok then
+			return { valid = false, reason = "no_session" }
+		end
+		return result
+	end
+
+	RoCaptchaValidate.Parent = ServerStorage
+end

@@ -8,14 +8,23 @@ export type TypeRegistry = proto.TypeRegistry
 
 local group_overview_page = require(script.group_overview_page)
 local group_peek_page = require(script.group_peek_page)
+local group_sidebar_page = require(script.group_sidebar_page)
+local group_sidebar_section_page = require(script.group_sidebar_section_page)
 
 -- Exported types
 export type GroupOverviewPageRequest = group_overview_page.GroupOverviewPageRequest
 export type GroupOverviewPageResponse = group_overview_page.GroupOverviewPageResponse
 export type GroupPeekPageRequest = group_peek_page.GroupPeekPageRequest
 export type GroupPeekPageResponse = group_peek_page.GroupPeekPageResponse
+export type GroupSidebarPresentation = group_sidebar_page.GroupSidebarPresentation
+export type GroupSidebarPageRequest = group_sidebar_page.GroupSidebarPageRequest
+export type GroupSidebarPageResponse = group_sidebar_page.GroupSidebarPageResponse
+export type GroupSidebarSectionPageRequest = group_sidebar_section_page.GroupSidebarSectionPageRequest
+export type GroupSidebarSectionPageResponse = group_sidebar_section_page.GroupSidebarSectionPageResponse
 
 return {
 	group_overview_page = group_overview_page,
 	group_peek_page = group_peek_page,
+	group_sidebar_page = group_sidebar_page,
+	group_sidebar_section_page = group_sidebar_section_page,
 }

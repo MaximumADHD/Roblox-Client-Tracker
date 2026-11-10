@@ -17,8 +17,6 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
 local ItemTileEnums = require(Tile.Enum.ItemTileEnums)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local ItemRestrictionStatus = Roact.PureComponent:extend("ItemRestrictionStatus")
 
 local MAX_TEXT_SIZE = Vector2.new(50, 20)
@@ -110,8 +108,7 @@ function ItemRestrictionStatus:render()
 
 			Text = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-				Font = if FFlagFoundationFontFaceMigration then nil else font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font) else nil,
+				FontFace = normalizeFontFace(font),
 				TextSize = fontSize,
 				Text = additionalText,
 				TextColor3 = theme.TextMuted.Color,

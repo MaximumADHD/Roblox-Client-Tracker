@@ -10,6 +10,8 @@ local ScriptContext = game:GetService("ScriptContext")
 local UserInputService = game:GetService("UserInputService")
 
 local FFlagCoreScriptErrorReporterUseErrorHandler = game:DefineFastFlag("CoreScriptErrorReporterUseErrorHandler", false)
+local FFlagCoreScriptErrorCounterIgnoreReporterSampling =
+	game:DefineFastFlag("CoreScriptErrorCounterIgnoreReporterSampling", false)
 
 local RobloxGui = CoreGui.RobloxGui
 local RateLimiter = require(RobloxGui.Modules.ErrorReporting.RateLimiter)
@@ -78,7 +80,10 @@ local isSentryEnabled = FFlagCoreScriptErrorReporterUseErrorHandler
 	and FStringCoreScriptSentryDsn ~= ""
 	and CanReportCoreScriptSentry()
 
-if FFlagCoreScriptErrorReporterUseErrorHandler and (isBacktraceEnabled or isSentryEnabled) then
+if
+	FFlagCoreScriptErrorReporterUseErrorHandler
+	and (isBacktraceEnabled or isSentryEnabled or FFlagCoreScriptErrorCounterIgnoreReporterSampling)
+then
 	local processReport, staticAttributes = createCoreScriptReportProcessor()
 
 	local piiFilter = PiiFilter.new({
@@ -127,13 +132,15 @@ if FFlagCoreScriptErrorReporterUseErrorHandler and (isBacktraceEnabled or isSent
 		onErrorReported = function()
 			LoggingProtocol:logRobloxTelemetryCounter(LuaCoreScriptsErrorV2CounterConfig, 1)
 
-			sessionErrorReporter:reportEvent(1, nil, "ERROR")
+			if #reporters > 0 then
+				sessionErrorReporter:reportEvent(1, nil, "ERROR")
+			end
 		end,
 	})
 
 	-- Sentry can fail to initialize in sessions where Backtrace is disabled;
 	-- don't count errors that no reporter will upload.
-	if #reporters > 0 then
+	if #reporters > 0 or FFlagCoreScriptErrorCounterIgnoreReporterSampling then
 		ScriptContext.ErrorDetailed:Connect(function(...)
 			local success, message = pcall(handleErrorDetailed, ...)
 
@@ -143,9 +150,11 @@ if FFlagCoreScriptErrorReporterUseErrorHandler and (isBacktraceEnabled or isSent
 		end)
 	end
 
-	local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)
-	local serverVersion = serverVersionRemote:InvokeServer()
-	staticAttributes.ServerVersion = serverVersion
+	if isBacktraceEnabled or isSentryEnabled then
+		local serverVersionRemote = RobloxReplicatedStorage:WaitForChild("GetServerVersion", math.huge)
+		local serverVersion = serverVersionRemote:InvokeServer()
+		staticAttributes.ServerVersion = serverVersion
+	end
 end
 
 if isBacktraceEnabled and not FFlagCoreScriptErrorReporterUseErrorHandler then

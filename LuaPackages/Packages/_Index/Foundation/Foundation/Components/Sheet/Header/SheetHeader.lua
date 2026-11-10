@@ -34,6 +34,7 @@ local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		setHasHeader(true)
 		return function()

@@ -11,6 +11,7 @@ local InputReplication = require(script.Parent:WaitForChild("InputReplication"))
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
 local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(Players.LocalPlayer)
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
+	or FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2GA")
 local FFlagUserAbilitiesUserInterfaceB = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceB")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
 local PCSInstanceName = if FFlagUserAbilitiesUserInterfaceB then "ControlState" else "PlayerControlState"

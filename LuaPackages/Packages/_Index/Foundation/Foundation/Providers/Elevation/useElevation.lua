@@ -61,6 +61,7 @@ local function useElevation(layer: ElevationLayer, options: Options): Token
 				end
 			end
 		end,
+		-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 		{
 			layer,
 			token.index,

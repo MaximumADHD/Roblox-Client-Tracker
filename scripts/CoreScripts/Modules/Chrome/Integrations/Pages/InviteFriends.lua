@@ -6,6 +6,9 @@ local RunService = game:GetService("RunService")
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local GameInviteModalManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteModalManager
+local FFlagGameInviteInExpJoinOrInviteLabel =
+	require(CorePackages.Workspace.Packages.GameInvite.FFlagGameInviteInExpJoinOrInviteLabel)
+local isPlatformInviteUIEnabled = require(CorePackages.Workspace.Packages.GameInvite.isPlatformInviteUIEnabled)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 
 local ChromeService = require(Chrome.Service)
@@ -35,7 +38,9 @@ return ChromeService:register({
 		then ChromeService.AvailabilitySignal.Available
 		else ChromeService.AvailabilitySignal.Unavailable,
 	id = "invite_friends",
-	label = "CoreScripts.InGameMenu.PageTitle.InviteFriends",
+	label = if FFlagGameInviteInExpJoinOrInviteLabel and not isPlatformInviteUIEnabled()
+		then "CoreScripts.InGameMenu.PageTitle.JoinOrInvite"
+		else "CoreScripts.InGameMenu.PageTitle.InviteFriends",
 	sideSheetPlacement = SideSheetPlacement.AboveFold,
 	activated = InGameMenuIntegrationUtils.toggleInviteFriendsPage,
 	isActivated = mappedGameInviteModalOpenSignal,

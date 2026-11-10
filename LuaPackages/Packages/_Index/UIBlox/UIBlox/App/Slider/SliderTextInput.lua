@@ -19,8 +19,6 @@ local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 
 local divideTransparency = require(Packages.UIBlox.Utility.divideTransparency)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local SliderTextInput = Roact.PureComponent:extend("SliderTextInput")
 SliderTextInput.validateProps = t.strictInterface({
 	position = t.optional(t.union(t.UDim2, t.table)),
@@ -77,8 +75,7 @@ function SliderTextInput:render()
 				[Roact.Ref] = self.textBoxRef,
 				BackgroundTransparency = 1,
 				ClearTextOnFocus = false,
-				Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Body.Font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(style.Font.Body.Font) else nil,
+				FontFace = normalizeFontFace(style.Font.Body.Font),
 				TextSize = style.Font.Body.RelativeSize * style.Font.BaseSize,
 				TextColor3 = style.Theme.TextDefault.Color,
 				TextTransparency = textTransparency,

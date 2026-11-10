@@ -8,6 +8,7 @@ local ReactOtter = require(Packages.ReactOtter)
 local ReactRoblox = require(Packages.ReactRoblox)
 local useAnimatedBinding = ReactOtter.useAnimatedBinding
 
+local Backdrop = require(Foundation.Components.Backdrop)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local Constants = require(Foundation.Constants)
 local Image = require(Foundation.Components.Image)
@@ -109,6 +110,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 		end
 	end)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if reducedMotion then
 			setBottomPositionGoal(Otter.instant(0) :: Otter.Goal<any>)
@@ -124,6 +126,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 		end
 	end, {})
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local closeDialog = React.useCallback(function(reason: OnCloseCallbackReason?)
 		if closing.current then
 			return
@@ -175,6 +178,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 	}, {
 		Shadow = if Flags.FoundationDialogOverlayShadow
 			then React.createElement(View, {
+				-- lute-lint-ignore(mixedTagStrings) UIBLOX-5675
 				tag = "shadow-overlay-300 radius-large",
 				Size = dialogSizeBinding:map(function(size: Vector2): UDim2
 					return UDim2.fromOffset(size.X, size.Y)
@@ -247,36 +251,51 @@ local function Dialog(dialogProps: DialogInternalProps)
 		testId = `{props.testId}--container`,
 	}, {
 		Backdrop = if props.hasBackdrop
-			then React.createElement(View, {
-				tag = "position-center-center anchor-center-center",
-				Size = UDim2.fromScale(2, 2),
-				stateLayer = {
-					affordance = StateLayerAffordance.None,
-				},
-				onActivated = function()
-					if props.onClose then
-						if closeDialog and not reducedMotion then
-							closeDialog(OnCloseCallbackReason.BackdropClick :: OnCloseCallbackReason)
-						else
-							props.onClose(OnCloseCallbackReason.BackdropClick)
+			then if Flags.FoundationDialogInternalBackdrop
+				then React.createElement(Backdrop, {
+					transparency = if reducedMotion then nil else backdropTransparency,
+					onActivated = function()
+						if props.onClose then
+							if closeDialog and not reducedMotion then
+								closeDialog(OnCloseCallbackReason.BackdropClick :: OnCloseCallbackReason)
+							else
+								props.onClose(OnCloseCallbackReason.BackdropClick)
+							end
 						end
-					end
-				end,
-				backgroundStyle = if not reducedMotion and backdropTransparency
-					then backdropTransparency:map(function(value: number)
-						return {
-							Color3 = variants.backdrop.backgroundStyle.Color3,
-							Transparency = math.lerp(
-								variants.backdrop.backgroundStyle.Transparency :: number,
-								1,
-								value
-							),
-						}
-					end)
-					else variants.backdrop.backgroundStyle,
-				ZIndex = 2,
-				testId = `{props.testId}--backdrop`,
-			})
+					end,
+					ZIndex = 2,
+					testId = `{props.testId}--backdrop`,
+				})
+				else React.createElement(View, {
+					tag = "position-center-center anchor-center-center",
+					Size = UDim2.fromScale(2, 2),
+					stateLayer = {
+						affordance = StateLayerAffordance.None,
+					},
+					onActivated = function()
+						if props.onClose then
+							if closeDialog and not reducedMotion then
+								closeDialog(OnCloseCallbackReason.BackdropClick :: OnCloseCallbackReason)
+							else
+								props.onClose(OnCloseCallbackReason.BackdropClick)
+							end
+						end
+					end,
+					backgroundStyle = if not reducedMotion and backdropTransparency
+						then backdropTransparency:map(function(value: number)
+							return {
+								Color3 = variants.backdrop.backgroundStyle.Color3,
+								Transparency = math.lerp(
+									variants.backdrop.backgroundStyle.Transparency :: number,
+									1,
+									value
+								),
+							}
+						end)
+						else variants.backdrop.backgroundStyle,
+					ZIndex = 2,
+					testId = `{props.testId}--backdrop`,
+				})
 			else nil,
 		DialogContentWrapper = React.createElement(
 			View,

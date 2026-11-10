@@ -25,11 +25,6 @@ type KnobVariantProps = {
 		style: ColorStyleValue,
 		iconSize: IconSize,
 	},
-	knobShadow: {
-		tag: string,
-		size: UDim2,
-		padding: number,
-	},
 	iconContainer: {
 		backgroundStyle: ColorStyleValue,
 	},
@@ -37,19 +32,12 @@ type KnobVariantProps = {
 
 local function computeProps(props: {
 	size: UDim2,
-	shadowPadding: number,
 	iconSize: IconSize,
 })
-	local knobWidth = props.size.X.Offset
-	local shadowSize = knobWidth + 2 * props.shadowPadding
 	return {
 		knob = {
 			size = props.size,
 			iconSize = props.iconSize,
-		},
-		knobShadow = {
-			size = UDim2.fromOffset(shadowSize, shadowSize),
-			padding = props.shadowPadding,
 		},
 	}
 end
@@ -59,31 +47,24 @@ local function variantsFactory(tokens: Tokens)
 		knob = {
 			tag = "align-x-center align-y-center position-center-center anchor-center-center auto-xy radius-circle",
 		},
-		knobShadow = {
-			tag = "position-center-center anchor-center-center",
-		},
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = computeProps({
 			iconSize = IconSize.XSmall,
 			size = getKnobSize(tokens, InputSize.XSmall),
-			shadowPadding = tokens.Padding.XXSmall,
 		}),
 		[InputSize.Small] = computeProps({
 			iconSize = IconSize.Small,
 			size = getKnobSize(tokens, InputSize.Small),
-			shadowPadding = tokens.Padding.XSmall,
 		}),
 		[InputSize.Medium] = computeProps({
 			iconSize = IconSize.Small,
 			size = getKnobSize(tokens, InputSize.Medium),
-			shadowPadding = tokens.Padding.Small,
 		}),
 		[InputSize.Large] = computeProps({
 			iconSize = IconSize.Small,
 			size = getKnobSize(tokens, InputSize.Large),
-			shadowPadding = tokens.Padding.Small,
 		}),
 	}
 

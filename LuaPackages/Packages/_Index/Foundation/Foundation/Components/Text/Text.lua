@@ -31,6 +31,8 @@ export type TextProps = {
 	-- Font face and size configuration.
 	fontStyle: FontStyle?,
 
+	-- **Engine**: Comma-separated OpenType feature tags, e.g. `"zero, ss03"`.
+	OpenTypeFeatures: Bindable<string>?,
 	-- **Engine**: When true, interprets `Text` as rich text markup.
 	RichText: Bindable<boolean>?,
 	-- **Engine**: String content to display.
@@ -134,6 +136,7 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 		AutoButtonColor = if engineComponent == "TextButton" then props.AutoButtonColor else nil,
 		FontFace = fontFace,
 		LineHeight = if props.fontStyle ~= nil then props.fontStyle.LineHeight else nil,
+		OpenTypeFeatures = props.OpenTypeFeatures,
 		RichText = props.RichText,
 		Text = props.Text,
 		TextColor3 = if props.textStyle then indexBindable(props.textStyle, "Color3") else nil,

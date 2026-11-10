@@ -21,7 +21,6 @@ local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Skeleton = Foundation.Skeleton
 local Radius = Foundation.Enums.Radius
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetFontFromFontStyle = require(UIBlox.Core.Text.GetFontFromFontStyle)
 
@@ -91,14 +90,8 @@ function Pill:render()
 		local iconSize = getIconSize(IconSize.Small)
 		local baseSize = font.BaseSize
 		local fontSize = font.CaptionHeader.RelativeSize * baseSize
-		local textBounds = GetTextSize(
-			text,
-			fontSize,
-			if FFlagFoundationFontFaceMigration
-				then GetFontFromFontStyle(font.CaptionHeader)
-				else font.CaptionHeader.Font,
-			Vector2.new(10000, 10000)
-		).X
+		local textBounds =
+			GetTextSize(text, fontSize, GetFontFromFontStyle(font.CaptionHeader), Vector2.new(10000, 10000)).X
 
 		local pillWidth = textBounds + (INNER_PADDING * 2)
 		local textAreaSize = MAX_BUTTON_WIDTH - ((INNER_PADDING * 2) + LIST_PADDING + iconSize)

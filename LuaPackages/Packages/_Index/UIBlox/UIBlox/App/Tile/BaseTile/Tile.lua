@@ -10,8 +10,6 @@ local RoactGamepad = require(Packages.RoactGamepad)
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
@@ -292,9 +290,7 @@ function Tile:render()
 					else
 						local textToMeasure = name or ""
 
-						local titleFont = if FFlagFoundationFontFaceMigration
-							then GetFontFromFontStyle(titleFontStyle)
-							else titleFontStyle.Font
+						local titleFont = GetFontFromFontStyle(titleFontStyle)
 
 						if titleIcon then
 							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale

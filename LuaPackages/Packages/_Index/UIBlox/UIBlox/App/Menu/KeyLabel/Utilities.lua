@@ -3,10 +3,6 @@ local Menu = KeyLabelRoot.Parent
 local App = Menu.Parent
 local UIBlox = App.Parent
 
-local Packages = UIBlox.Parent
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local Types = require(KeyLabelRoot.Types)
 local Constants = require(KeyLabelRoot.Constants)
 local Fonts = require(App.Style.Fonts)
@@ -73,9 +69,7 @@ local function getWidthFromContent(content: Types.KeyLabelContent, font: Fonts.F
 			local textFont = font.CaptionBody
 			local fontSize = baseSize * textFont.RelativeSize
 			-- is this expenseive? we only run on a few different strings, so we could memoize
-			local measureFont = if FFlagFoundationFontFaceMigration
-				then GetFontFromFontStyle(textFont)
-				else textFont.Font
+			local measureFont = GetFontFromFontStyle(textFont)
 			local innerWidth = GetTextSize(content.content, fontSize, measureFont, Vector2.zero).X
 			if innerWidth + 2 * Constants.MIN_SIDE_PADDING > Constants.PREFERRED_WIDTH then
 				return innerWidth + 2 * Constants.SIDE_PADDING

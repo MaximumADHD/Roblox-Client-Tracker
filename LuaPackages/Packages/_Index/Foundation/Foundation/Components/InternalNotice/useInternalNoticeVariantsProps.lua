@@ -1,12 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
 local IconSize = require(Foundation.Enums.IconSize)
+local InputSize = require(Foundation.Enums.InputSize)
 local Types = require(Foundation.Components.Types)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 
 type ColorStyle = Types.ColorStyle
 type ColorStyleValue = Types.ColorStyleValue
 type IconSize = IconSize.IconSize
+type InputSize = InputSize.InputSize
 type Padding = Types.Padding
 type VariantProps = composeStyleVariant.VariantProps
 type SlotProps = { [string]: any }
@@ -41,7 +43,11 @@ export type InternalNoticeVariantProps = {
 	link: {
 		tag: string,
 		padding: Padding?,
+		size: InputSize?,
 	},
+	linkContainer: {
+		tag: string,
+	}?,
 	border: {
 		Size: UDim2,
 		backgroundStyle: ColorStyleValue,
@@ -64,6 +70,7 @@ local stacked: { [boolean]: VariantProps } = {
 	[false] = {
 		message = { tag = "fill auto-y" },
 		link = { tag = "auto-xy" },
+		linkContainer = { tag = "auto-xy" },
 	},
 	[true] = {
 		message = fullWidth,
@@ -72,6 +79,7 @@ local stacked: { [boolean]: VariantProps } = {
 			tag = fullWidth.tag,
 			padding = {},
 		},
+		linkContainer = fullWidth,
 	},
 }
 

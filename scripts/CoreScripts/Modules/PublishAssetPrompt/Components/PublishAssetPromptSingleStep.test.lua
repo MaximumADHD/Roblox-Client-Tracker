@@ -16,7 +16,6 @@ local Reducer = require(PublishAssetPromptFolder.Reducer)
 local OpenPublishAssetPrompt = require(PublishAssetPromptFolder.Actions.OpenPublishAssetPrompt)
 local PromptType = require(PublishAssetPromptFolder.PromptType)
 
-local EngineFeatureEnableEmotePublish = game:GetEngineFeature("EnableEmotePublish")
 local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
 
 local function mountWithAsset(assetInstance, assetType)
@@ -77,14 +76,6 @@ describe("PublishAssetPromptSingleStep", function()
 		it("should create and destroy without errors for " .. entry.name, function()
 			local model = Instance.new("Model")
 			local instance = mountWithAsset(model, entry.assetType)
-			Roact.unmount(instance)
-		end)
-	end
-
-	if EngineFeatureEnableEmotePublish then
-		it("should create and destroy without errors for EmoteAnimation", function()
-			local animClip = Instance.new("KeyframeSequence")
-			local instance = mountWithAsset(animClip, Enum.AssetType.EmoteAnimation)
 			Roact.unmount(instance)
 		end)
 	end

@@ -17,11 +17,8 @@ local GetFStringChatTranslationLayerName = require(script.Parent.Parent.Flags.Ge
 local GetFFlagChatTranslationSettingEnabled = require(script.Parent.Parent.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFFlagVoiceUserAgencyEnableIXP = require(script.Parent.Parent.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(script.Parent.Parent.Flags.GetFStringVoiceUserAgencyIXPLayerName)
-local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
-	require(script.Parent.Parent.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local getFStringDesktopToastNotificationLayer =
 	require(CorePackages.Workspace.Packages.SharedFlags).getFStringDesktopToastNotificationLayer
-local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 local GetFFlagUXForCameraPerformanceIXPEnabled =
 	require(script.Parent.Parent.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
 local GetFStringUXForCameraPerformanceIXPLayerName =
@@ -71,9 +68,6 @@ return function()
 
 	if GetFFlagVoiceUserAgencyEnableIXP() then
 		table.insert(layers, GetFStringVoiceUserAgencyIXPLayerName())
-	end
-	if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
-		table.insert(layers, GetFStringGameInviteMenuLayer())
 	end
 
 	if GetFFlagUXForCameraPerformanceIXPEnabled() then

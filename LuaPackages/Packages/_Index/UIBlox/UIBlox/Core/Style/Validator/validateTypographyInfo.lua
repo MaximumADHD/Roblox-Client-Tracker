@@ -4,11 +4,9 @@ local App = Style.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local Foundation = require(Packages.Foundation)
 local t = require(Packages.t)
 
 local validateFontFace = require(script.Parent.validateFontFace)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 --[[
 	Currently we have two ways of referencing font styles: through style.Tokens and style.Font.
@@ -20,7 +18,7 @@ local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFont
 ]]
 
 return t.strictInterface({
-	Font = if FFlagFoundationFontFaceMigration then t.union(t.EnumItem, validateFontFace) else t.EnumItem,
+	Font = t.union(t.EnumItem, validateFontFace),
 	FontSize = t.numberMinExclusive(0),
 	LineHeight = t.numberMinExclusive(0),
 	LetterSpacing = t.number,

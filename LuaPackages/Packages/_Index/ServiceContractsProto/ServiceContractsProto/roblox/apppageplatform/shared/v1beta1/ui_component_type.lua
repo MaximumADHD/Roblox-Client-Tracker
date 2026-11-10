@@ -138,6 +138,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_PYMK_CAROUSEL"
 	| "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP"
 	| "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW"
+	| "UI_COMPONENT_TYPE_GROUP_SIDEBAR"
+	| "UI_COMPONENT_TYPE_GROUP_SECTION"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -393,6 +395,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP"
 		elseif value == 900 then
 			return "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW"
+		elseif value == 901 then
+			return "UI_COMPONENT_TYPE_GROUP_SIDEBAR"
+		elseif value == 902 then
+			return "UI_COMPONENT_TYPE_GROUP_SECTION"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -651,6 +657,10 @@ messages.UiComponentType = {
 			return 804
 		elseif self == "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW" then
 			return 900
+		elseif self == "UI_COMPONENT_TYPE_GROUP_SIDEBAR" then
+			return 901
+		elseif self == "UI_COMPONENT_TYPE_GROUP_SECTION" then
+			return 902
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -909,6 +919,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_FRIENDS_OWNED_CHIP"
 		elseif name == "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW" then
 			return "UI_COMPONENT_TYPE_GROUP_FORUM_POST_PREVIEW"
+		elseif name == "UI_COMPONENT_TYPE_GROUP_SIDEBAR" then
+			return "UI_COMPONENT_TYPE_GROUP_SIDEBAR"
+		elseif name == "UI_COMPONENT_TYPE_GROUP_SECTION" then
+			return "UI_COMPONENT_TYPE_GROUP_SECTION"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

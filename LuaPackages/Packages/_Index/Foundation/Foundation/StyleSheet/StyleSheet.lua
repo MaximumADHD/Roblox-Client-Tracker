@@ -35,6 +35,7 @@ local function StyleSheet(props: StyleSheetProps)
 	local sheet, setSheet = React.useState(nil :: StyleSheet?)
 	local attributesCache = React.useRef({} :: AttributesCache)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useLayoutEffect(function()
 		if props.setStyleSheetRef and props.setStyleSheetRef.current then
 			props.setStyleSheetRef.current(sheet)

@@ -40,6 +40,7 @@ local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 		return KeyUtilities.encodeCursorTypeKey(cursor, cursorColorNamespace :: ColorNamespace)
 	end, { cursor, tokens, cursorColorNamespace } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		setMountedCursors(function(mountedExisting)
 			if mountedExisting[key] == nil then

@@ -79,6 +79,7 @@ local function Toast(toastProps: ToastProps, ref: React.Ref<GuiObject>?)
 	local hasIcon = props.icon and props.icon ~= ""
 	local hasTitle = props.title and props.title ~= ""
 	local hasBody = props.text and props.text ~= ""
+	-- lute-lint-ignore(rulesOfHooks) UIBLOX-5675
 	local width = props.width or UDim.new(0, useScaledValue(DEFAULT_TOAST_WIDTH))
 
 	return React.createElement(

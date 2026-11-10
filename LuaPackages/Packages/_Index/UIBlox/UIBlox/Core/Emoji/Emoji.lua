@@ -11,8 +11,6 @@ local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local EmojiEnum = require(EmojiRoot.Enum.Emoji)
 local constants = require(EmojiRoot.constants)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 export type Props = {
 	emoji: string,
 	textFont: Font | Enum.Font,
@@ -35,8 +33,7 @@ local function Emoji(props: Props)
 		Text = getEmojiString(props.emoji),
 		TextColor3 = Color3.fromHex("#fff"),
 		AutomaticSize = Enum.AutomaticSize.X,
-		Font = if FFlagFoundationFontFaceMigration then nil else props.textFont,
-		FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(props.textFont) else nil,
+		FontFace = normalizeFontFace(props.textFont),
 		TextSize = props.textSize,
 		Position = props.Position,
 		BackgroundTransparency = 1,

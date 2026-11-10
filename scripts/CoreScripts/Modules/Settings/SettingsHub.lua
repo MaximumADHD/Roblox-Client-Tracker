@@ -105,11 +105,9 @@ local Flags = {
 	EngineFeatureTeleportHistoryButtons = game:GetEngineFeature("TeleportHistoryButtons"),
 	EngineFeaturePlayerScriptStatusProperty = game:GetEngineFeature("PlayerScriptStatusProperty"),
 	FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false),
-	FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false),
 	FFlagFixDisableTopPaddingError = game:DefineFastFlag("FixDisableTopPaddingError", false),
 	FFlagWaitPlayerModuleStatus = game:DefineFastFlag("WaitPlayerModuleStatus", false),
 
-	GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification),
 	FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)(),
 	isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled),
 
@@ -138,7 +136,6 @@ local Flags = {
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled,
 	InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP,
 	FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM,
-	GetFStringGameInviteMenuLayer = SharedFlags.GetFStringGameInviteMenuLayer,
 	GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience,
 	GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints = SharedFlags.GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints,
 	GetFFlagDisplayServerChannel = SharedFlags.GetFFlagDisplayServerChannel,
@@ -229,15 +226,9 @@ local MenuResumeTelemetryConfig = require(RobloxGui.Modules.Settings.Analytics.M
 
 local ReactPageAnalytics = require(RobloxGui.Modules.Settings.Analytics.ReactPageAnalytics)
 
-local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
-
-local GameInvitePackage, GameInviteModalManager, GameInviteInviteExperimentVariant, GameInviteConstants
-if Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
-	GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
-	GameInviteModalManager = GameInvitePackage.GameInviteModalManager
-	GameInviteInviteExperimentVariant = GameInvitePackage.GameInviteInviteExperimentVariant
-	GameInviteConstants = GameInvitePackage.GameInviteConstants
-end
+local GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
+local GameInviteModalManager = GameInvitePackage.GameInviteModalManager
+local GameInviteConstants = GameInvitePackage.GameInviteConstants
 
 local CapturesApp = require(RobloxGui.Modules.Captures.CapturesApp)
 
@@ -318,16 +309,6 @@ local chat = require(RobloxGui.Modules.ChatSelector)
 local topCornerInset, _ = GuiService:GetGuiInset()
 local SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0, 0, 0, -topCornerInset.Y)
 local SETTINGS_SHIELD_SIZE = UDim2.new(1, 0, 1, topCornerInset.Y)
-
-local function GetCorePackagesLoaded(packageList)
-	local CorePackages = game:GetService("CorePackages")
-	for _, moduleName in pairs(packageList) do
-		if not CorePackages:FindFirstChild(moduleName) then
-			return false
-		end
-	end
-	return true
-end
 
 local function GetServerVersionBlocking()
 	if connectedServerVersion then
@@ -3761,10 +3742,6 @@ local function CreateSettingsHub()
 			GuiService.SelectedCoreObject = nil
 
 			this.GameSettingsPage:CloseSettingsPage()
-
-			if this.ShareGamePage then
-				this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
-			end
 		end
 
 		local visibilityAnalyticsPayload = {
@@ -3812,13 +3789,6 @@ local function CreateSettingsHub()
 	end
 
 	function this:InviteToGame()
-		local newGameInviteModalEnabled = false
-		if Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() and Flags.FFlagLuaEnableGameInviteModalSettingsHub then
-			local layer = Flags.GetFStringGameInviteMenuLayer()
-			local layerData = IXPServiceWrapper:GetLayerData(layer)
-			IXPServiceWrapper:LogUserLayerExposure(layer)
-			newGameInviteModalEnabled = if (layerData and (layerData.inExperienceGameInviteUXRefresh2023==GameInviteInviteExperimentVariant.UxRefresh or layerData.inExperienceGameInviteUXRefresh2023==GameInviteInviteExperimentVariant.InviteLimit)) then true else false
-		end
 		if game:GetEngineFeature("PlatformFriendsService") and
 			PlatformFriendsService and
 			PlatformFriendsService:IsInviteFriendsEnabled() then
@@ -3827,7 +3797,7 @@ local function CreateSettingsHub()
 			if PlatformService then
 				PlatformService:PopupGameInviteUI()
 			end
-		elseif newGameInviteModalEnabled then
+		else
 			if not Flags.FFlagAddInviteFriendsIntegration or this.Visible then
 				this:ToggleVisibility()
 			end
@@ -3838,9 +3808,6 @@ local function CreateSettingsHub()
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
 				ChromeService:setShortcutBar(nil)
 			end
-		else
-			this:AddToMenuStack(this.Pages.CurrentPage)
-			this:SwitchToPage(this.ShareGamePage, nil, 1, true)
 		end
 
 		if isSideSheetPairedWithPeoplePage() then
@@ -4094,36 +4061,6 @@ local function CreateSettingsHub()
 	if isSubjectToDesktopPolicies() and InExperienceCapabilities.canNavigateHome then
 		this.LeaveGameToHomePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameToHome)
 		this.LeaveGameToHomePage:SetHub(this)
-	end
-
-	if not legacyIsTenFootInterface then
-		local shareGameCorePackages = {
-			"Roact",
-			"Rodux",
-			"RoactRodux",
-		}
-		if GetCorePackagesLoaded(shareGameCorePackages) then
-			-- Create the embedded Roact app for the ShareGame page
-			-- This is accomplished via a Roact Portal into the ShareGame page frame
-			local CorePackages = game:GetService("CorePackages")
-			local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
-			local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
-
-			local eventStream = EventStream.new(AnalyticsService)
-			local inviteToGameAnalytics = InviteToGameAnalytics.new()
-				:withEventStream(eventStream)
-				:withDiag(Diag.new(AnalyticsService))
-				:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
-
-			local ShareGameMaster = require(RobloxGui.Modules.Settings.ShareGameMaster)
-			this.ShareGameApp = ShareGameMaster.createApp(this.PageViewClipper, inviteToGameAnalytics)
-
-
-			this.ShareGamePage = require(RobloxGui.Modules.Settings.Pages.ShareGamePlaceholderPage)
-			this.ShareGamePage:ConnectHubToApp(this, this.ShareGameApp)
-
-			this:AddPage(this.ShareGamePage)
-		end
 	end
 
 	local policy = CapturesPolicy.PolicyImplementation.read()

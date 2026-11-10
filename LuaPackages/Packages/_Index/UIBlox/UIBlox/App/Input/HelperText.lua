@@ -9,8 +9,6 @@ local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 type HelperTextProps = {
 	-- Determines the string rendered by the UI element
 	text: string,
@@ -35,8 +33,7 @@ local function HelperText(props: HelperTextProps)
 		TextWrapped = true,
 		BackgroundTransparency = 1,
 		TextColor3 = textColor.Color3,
-		Font = if FFlagFoundationFontFaceMigration then nil else typography.Font,
-		FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(typography.Font) else nil,
+		FontFace = normalizeFontFace(typography.Font),
 		TextSize = typography.FontSize,
 		LineHeight = typography.LineHeight,
 		Size = UDim2.new(1, 0, 0, 0),

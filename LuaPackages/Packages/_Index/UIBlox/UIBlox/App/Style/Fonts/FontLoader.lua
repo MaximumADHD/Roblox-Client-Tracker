@@ -6,7 +6,6 @@ local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Constants = require(Style.Constants)
 local StyleTypes = require(Style.StyleTypes)
 
@@ -45,63 +44,49 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 		HeadingLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.HeadingLarge.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.HeadingLarge.Font) :: Font,
 			RelativeSize = tokens.Size.Size_700 / baseSize,
 			RelativeMinSize = tokens.Size.Size_600 / baseSize,
 		},
 		HeadingSmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.HeadingSmall.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.HeadingSmall.Font) :: Font,
 			RelativeSize = tokens.Size.Size_500 / baseSize,
 			RelativeMinSize = tokens.Size.Size_400 / baseSize,
 		},
 		TitleLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansBold,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.TitleLarge.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.TitleLarge.Font) :: Font,
 			RelativeSize = tokens.Size.Size_400 / baseSize,
 			RelativeMinSize = tokens.Size.Size_300 / baseSize,
 		},
 		BodyLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSans,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.BodyLarge.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.BodyLarge.Font) :: Font,
 			RelativeSize = tokens.Size.Size_400 / baseSize,
 			RelativeMinSize = tokens.Size.Size_300 / baseSize,
 		},
 		CaptionLarge = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansMedium,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.CaptionLarge.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.CaptionLarge.Font) :: Font,
 			RelativeSize = tokens.Size.Size_300 / baseSize,
 			RelativeMinSize = tokens.Size.Size_200 / baseSize,
 		},
 		BodySmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSans,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.BodySmall.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.BodySmall.Font) :: Font,
 			RelativeSize = tokens.Size.Size_300 / baseSize,
 			RelativeMinSize = tokens.Size.Size_200 / baseSize,
 		},
 		CaptionSmall = {
 			-- selene: allow(incorrect_standard_library_use)
 			Font = Enum.Font.BuilderSansMedium,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(tokens.Typography.CaptionSmall.Font) :: Font
-				else nil,
+			FontFace = normalizeFontFace(tokens.Typography.CaptionSmall.Font) :: Font,
 			RelativeSize = tokens.Size.Size_250 / baseSize,
 			RelativeMinSize = tokens.Size.Size_200 / baseSize,
 		},
@@ -109,11 +94,10 @@ function FontLoader:loadFont(fontOverride: (Font | Enum.Font)?)
 
 	if fontOverride ~= nil then
 		for _, entry in fontWithToken do
-			if type(entry) == "table" and (entry :: any).Font ~= nil then
-				(entry :: any).Font = fontOverride
-				if FFlagFoundationFontFaceMigration then
-					(entry :: any).FontFace = getOverrideFontFace(fontOverride, (entry :: any).FontFace)
-				end
+			local fontEntry = entry :: any
+			if type(fontEntry) == "table" and fontEntry.Font ~= nil then
+				fontEntry.Font = fontOverride
+				fontEntry.FontFace = getOverrideFontFace(fontOverride, fontEntry.FontFace)
 			end
 		end
 	end

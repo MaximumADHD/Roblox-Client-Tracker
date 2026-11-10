@@ -3,8 +3,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
@@ -36,7 +34,7 @@ local function getTextWidth(text, fontStyle: Fonts.FontInfo, style)
 	local baseSize = style.Font.BaseSize
 	local fontSize = fontStyle.RelativeSize * baseSize
 	local bounds = Vector2.new(TEXT_MAX_BOUND, TEXT_MAX_BOUND)
-	local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(fontStyle) else fontStyle.Font
+	local textFont = GetFontFromFontStyle(fontStyle)
 	return GetTextSize(text, fontSize, textFont, bounds).X
 end
 

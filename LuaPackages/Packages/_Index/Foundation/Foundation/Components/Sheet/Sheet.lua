@@ -41,6 +41,7 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 		end
 	end, { props.isOpen })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if not isOpen and props.isOpen then
 			setIsOpen(true)

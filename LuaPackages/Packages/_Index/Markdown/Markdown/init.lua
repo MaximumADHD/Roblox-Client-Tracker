@@ -25,6 +25,8 @@ export type ParserDocument = typeof(require(script.ParserTypes).ParserDocument)
 export type ParserNode = typeof(require(script.ParserTypes).ParserNode)
 export type Mention = typeof(require(script.ParserTypes).Mention)
 export type Underline = typeof(require(script.ParserTypes).Underline)
+export type FormattingTag = typeof(require(script.ParserTypes).FormattingTag)
+export type FormattingTagText = typeof(require(script.ParserTypes).FormattingTagText)
 
 -- createParser and the adapter (beta until the API is declared stable). `Context` above is the
 -- renderer's, so the adapter's types carry an Adapter prefix.

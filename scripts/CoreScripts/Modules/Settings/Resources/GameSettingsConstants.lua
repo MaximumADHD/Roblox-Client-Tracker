@@ -17,6 +17,7 @@ local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packag
 local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
 local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGroups)
 local RUUserScalePreferenceAPI = game:GetEngineFeature("RUUserScalePreferenceAPI")
+local FFlagUIScaleEngineOptions = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUIScaleEngineOptions
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagUpdateRephraseSettingUI = game:DefineFastFlag("UpdateRephraseSettingUI", false)
 local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
@@ -109,14 +110,20 @@ SETTINGS_MENU_LAYOUT_ORDER.FullScreenFrame = 70
 SETTINGS_MENU_LAYOUT_ORDER.GraphicsEnablerFrame = 71
 SETTINGS_MENU_LAYOUT_ORDER.GraphicsQualityFrame = 72
 SETTINGS_MENU_LAYOUT_ORDER.ReducedMotionFrame = 73
-SETTINGS_MENU_LAYOUT_ORDER.PreferredTransparencyFrame = 74
-SETTINGS_MENU_LAYOUT_ORDER.PreferredTextSizeFrame = 75
+-- The engine UI Scale rows display before the Preferred rows, and Text Size before Background Transparency, matching
+-- App Device Preferences.
+SETTINGS_MENU_LAYOUT_ORDER.PreferredTransparencyFrame = if FFlagUIScaleEngineOptions then 77 else 74
+SETTINGS_MENU_LAYOUT_ORDER.PreferredTextSizeFrame = if FFlagUIScaleEngineOptions then 76 else 75
 if RUUserScalePreferenceAPI then
 	SETTINGS_MENU_LAYOUT_ORDER.UIScaleModeFrame = 76
 	SETTINGS_MENU_LAYOUT_ORDER.UIScaleFrame = 77
 	SETTINGS_MENU_LAYOUT_ORDER.UiNavigationKeyBindEnabledFrame = 78
 else
 	SETTINGS_MENU_LAYOUT_ORDER.UiNavigationKeyBindEnabledFrame = 76
+end
+if FFlagUIScaleEngineOptions then
+	SETTINGS_MENU_LAYOUT_ORDER.UIScaleEngineModeFrame = 74
+	SETTINGS_MENU_LAYOUT_ORDER.UIScaleEngineFrame = 75
 end
 -- Performance
 SETTINGS_MENU_LAYOUT_ORDER.PerformanceStatsFrame = 80
@@ -184,6 +191,8 @@ if FFlagIEMSettingsGroups then
 		DisplayHeader = nextOrder(),
 		OverscanAdjustButton = nextOrder(),
 		FullScreenFrame = nextOrder(),
+		UIScaleEngineModeFrame = if FFlagUIScaleEngineOptions then nextOrder() else nil,
+		UIScaleEngineFrame = if FFlagUIScaleEngineOptions then nextOrder() else nil,
 		PreferredTransparencyFrame = nextOrder(),
 		PreferredTextSizeFrame = nextOrder(),
 		UIScaleModeFrame = if RUUserScalePreferenceAPI then nextOrder() else nil,
@@ -224,6 +233,11 @@ if FFlagIEMSettingsGroups then
 		FreecamToggleRow = nextOrder(),
 		InformationFrame = nextOrder(),
 	}
+	if FFlagUIScaleEngineOptions then
+		-- Text Size displays before Background Transparency, matching App Device Preferences.
+		LAYOUT_ORDER_GROUPS.PreferredTextSizeFrame, LAYOUT_ORDER_GROUPS.PreferredTransparencyFrame =
+			LAYOUT_ORDER_GROUPS.PreferredTransparencyFrame, LAYOUT_ORDER_GROUPS.PreferredTextSizeFrame
+	end
 end
 
 -- Returns a LayoutOrder of Settings Menu with flagging

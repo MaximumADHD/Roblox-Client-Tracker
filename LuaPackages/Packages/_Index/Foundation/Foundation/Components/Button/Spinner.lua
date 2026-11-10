@@ -99,6 +99,7 @@ local function Spinner(spinnerProps: SpinnerProps, ref: React.Ref<GuiObject>?)
 	local values, animate = useMotion(spinnerMotionStates.Default)
 	local presence = usePresence()
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if presence.isPresent then
 			animate(spinnerMotionStates.Loading)

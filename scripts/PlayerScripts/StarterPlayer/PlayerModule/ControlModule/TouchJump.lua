@@ -12,6 +12,7 @@ local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
+	or FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationDGA")
 local FFlagUserPlayerScriptsRefactor1 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor1")
 local FFlagUserPlayerScriptsFixTouchJumpVisibility = FlagUtil.getUserFlag("UserPlayerScriptsFixTouchJumpVisibility")
 

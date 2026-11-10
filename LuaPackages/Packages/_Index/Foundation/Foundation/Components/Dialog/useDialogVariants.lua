@@ -54,6 +54,7 @@ local function variantsFactory(tokens: Tokens)
 			tag = "col align-x-center align-y-center size-full-full",
 		},
 		inner = {
+			-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 			tag = "shrink-1 size-full-0 auto-y clip bg-surface-100 stroke-default",
 		},
 		body = {

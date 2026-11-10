@@ -95,6 +95,7 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 			hint = props.hint,
 			ref = ref,
 			width = props.width,
+			-- lute-lint-ignore(noNestedReactDefinitions) UIBLOX-5675
 			input = function(_inputRef)
 				return React.createElement(View, {
 					onStateChanged = updateControlState,

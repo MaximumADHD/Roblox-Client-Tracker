@@ -11,8 +11,6 @@ local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponen
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local RoundedFrame = require(Packages.UIBlox.App.Menu.RoundedFrame)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local ModalBottomSheetButton = Roact.PureComponent:extend("ModalBottomSheetButton")
 local imageSize = Images["component_assets/circle_17"].ImageRectSize
 local imageOffset = Images["component_assets/circle_17"].ImageRectOffset
@@ -192,8 +190,7 @@ function ModalBottomSheetButton:render()
 					Size = UDim2.new(1, -textWidthOffset, 1, 0),
 					Text = self.props.text,
 					TextTransparency = contentTransparency,
-					Font = if FFlagFoundationFontFaceMigration then nil else font.Header2.Font,
-					FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font.Header2.Font) else nil,
+					FontFace = normalizeFontFace(font.Header2.Font),
 					TextColor3 = contentColor,
 					TextSize = font.Header2.RelativeSize * font.BaseSize,
 					TextTruncate = Enum.TextTruncate.AtEnd,

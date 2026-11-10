@@ -164,19 +164,13 @@ function variantsFactory(tokens: Tokens)
 		},
 		[BadgeVariant.Emphasis] = {
 			container = {
-				backgroundStyle = if Flags.FoundationSystemEmphasisNonActions
-					then tokens.Color.System.Emphasis
-					else tokens.Color.ActionEmphasis.Background,
+				backgroundStyle = tokens.Color.System.Emphasis,
 			},
 			content = {
-				style = if Flags.FoundationSystemEmphasisNonActions
-					then tokens.DarkMode.Content.Emphasis
-					else tokens.Color.ActionEmphasis.Foreground,
+				style = tokens.DarkMode.Content.Emphasis,
 			},
 			icon = {
-				style = if Flags.FoundationSystemEmphasisNonActions
-					then tokens.DarkMode.Content.Emphasis
-					else tokens.Color.ActionEmphasis.Foreground,
+				style = tokens.DarkMode.Content.Emphasis,
 			},
 		},
 	}

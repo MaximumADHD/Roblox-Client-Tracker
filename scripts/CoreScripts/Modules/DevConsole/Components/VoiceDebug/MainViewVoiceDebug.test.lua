@@ -264,20 +264,20 @@ describe("Freeze util bar button (FFlagVoiceDebugConsoleV2)", function()
 	end)
 end)
 
-describe("Voice source toggle util bar button (FFlagVoiceDebugPartyVoiceToggleEnabled)", function()
+describe("Voice source toggle util bar button (FFlagVoiceDebugConsoleV2)", function()
 	it("does not render when the flag is off", function()
 		if not game:GetEngineFeature("VoiceChatDevConsoleTabEnabled") then
 			return
 		end
-		local oldConsoleV2 = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
-		local oldPartyToggle = game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", false)
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", false)
+		local oldV2Override = VoiceDebugConsoleV2TestOverride.setForTesting(false)
 		local container = Instance.new("Frame")
 		local instance = mountVoiceDebugWithDirectData(container)
 
 		local texts = allTexts(container)
 		Roact.unmount(instance)
-		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldConsoleV2)
-		game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", oldPartyToggle)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+		VoiceDebugConsoleV2TestOverride.setForTesting(oldV2Override)
 
 		expect(table.find(texts, "In-experience")).toBe(nil)
 		expect(table.find(texts, "Party voice")).toBe(nil)
@@ -287,15 +287,13 @@ describe("Voice source toggle util bar button (FFlagVoiceDebugPartyVoiceToggleEn
 		if not game:GetEngineFeature("VoiceChatDevConsoleTabEnabled") then
 			return
 		end
-		local oldConsoleV2 = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
-		local oldPartyToggle = game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", true)
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
 		local container = Instance.new("Frame")
 		local instance = mountVoiceDebugWithDirectData(container)
 
 		local texts = allTexts(container)
 		Roact.unmount(instance)
-		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldConsoleV2)
-		game:SetFastFlagForTesting("VoiceDebugPartyVoiceToggleEnabled", oldPartyToggle)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
 
 		expect(table.find(texts, "In-experience")).never.toBe(nil)
 		expect(table.find(texts, "Party voice")).never.toBe(nil)

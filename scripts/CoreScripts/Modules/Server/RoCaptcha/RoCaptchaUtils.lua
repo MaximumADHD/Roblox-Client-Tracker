@@ -1,9 +1,15 @@
 local HttpService = game:GetService("HttpService")
+local Modules = script.Parent.Parent.Parent
+local FFlagRoCaptchaReturnToServerInstance = require(Modules.Common.Flags.FFlagRoCaptchaReturnToServerInstance)
 
 export type LaunchData = {
 	challengeId: string,
 	desiredPlaceId: number,
+	serverInstanceId: string?,
 }
+
+-- A malformed id would make every TeleportAsync throw, stranding the player in the captcha place.
+local GUID_PATTERN = "^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$"
 
 local RoCaptchaUtils = {}
 
@@ -36,9 +42,19 @@ function RoCaptchaUtils.parseLaunchData(launchData: any): LaunchData?
 		return nil
 	end
 
+	-- Optional: an invalid value is dropped rather than failing the parse, which would kick the player.
+	local serverInstanceId: string? = nil
+	if FFlagRoCaptchaReturnToServerInstance then
+		serverInstanceId = parsed.serverInstanceId
+		if type(serverInstanceId) ~= "string" or not string.match(serverInstanceId, GUID_PATTERN) then
+			serverInstanceId = nil
+		end
+	end
+
 	return {
 		challengeId = challengeId,
 		desiredPlaceId = desiredPlaceId,
+		serverInstanceId = serverInstanceId,
 	}
 end
 

@@ -23,8 +23,13 @@ local GamepadUtils = require(CorePackages.Workspace.Packages.InputUi).Gamepad.Ga
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals).default
 local SignalsUtils = require(CorePackages.Workspace.Packages.SignalsUtils)
+local React = require(CorePackages.Packages.React)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local UnibarStyle = ChromePackage.UnibarStyle
+local FFlagTokenizeUnibarConstantsWithStyleProvider =
+	require(Chrome.ChromeShared.Flags).FFlagTokenizeUnibarConstantsWithStyleProvider
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 type ChatOpenCapability = {
@@ -61,6 +66,11 @@ local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsCh
 local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FFlagExpChatHistoricalMessagesUnibarUnread = SharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread
+local FFlagExpChatContinuousListeningChatIconDot = SharedFlags.FFlagExpChatContinuousListeningChatIconDot
+local RedDot = if FFlagExpChatContinuousListeningChatIconDot then require(Chrome.Integrations.RedDot) else nil :: never
+local GetDictationStateStore = if FFlagExpChatContinuousListeningChatIconDot
+	then ExpChat.Stores.GetDictationStateStore
+	else nil :: never
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -318,7 +328,26 @@ chatChromeIntegration = ChromeService:register({
 	components = {
 		Icon = function(props)
 			local visualConfig = getExperienceChatVisualConfig()
-			return CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
+			local icon = CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
+			if not FFlagExpChatContinuousListeningChatIconDot then
+				return icon
+			end
+
+			local iconSize = if FFlagTokenizeUnibarConstantsWithStyleProvider
+				then UnibarStyle.use().ICON_SIZE
+				else ChromeConstants.ICON_SIZE
+			local isListening = SignalsReact.useSignalState(GetDictationStateStore(false).getIsListening)
+			-- Icon-sized so the unibar still centers the icon, and the dot is placed against the icon.
+			return React.createElement("Frame", {
+				Size = UDim2.fromOffset(iconSize, iconSize),
+				BackgroundTransparency = 1,
+			}, {
+				Icon = icon,
+				ListeningDot = React.createElement(RedDot, {
+					position = UDim2.new(1, -7, 1, -7),
+					visible = isListening,
+				}),
+			})
 		end,
 	},
 }) :: ChatIntegration

@@ -115,6 +115,15 @@ describe("createCoreScriptErrorHandler", function()
 		expect(onErrorReported).toHaveBeenCalledTimes(2)
 	end)
 
+	it("should call onErrorReported when there are no reporters", function()
+		local onErrorReported = jest.fn()
+		local handleError = createHandler({ reporters = {}, onErrorReported = onErrorReported })
+
+		handleError("message", "stack", offendingScript, nil)
+
+		expect(onErrorReported).toHaveBeenCalledTimes(1)
+	end)
+
 	it("should stop reporting a repeated error once it is rate limited", function()
 		local onErrorReported = jest.fn()
 		local handleError, config = createHandler({

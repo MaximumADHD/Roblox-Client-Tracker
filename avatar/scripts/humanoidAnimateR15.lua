@@ -537,6 +537,75 @@ function stopAllAnimations()
 	return oldAnim
 end
 
+-- Avatar Settings' single collider seats its root at a stance set by the body height, so HipHeight stops following
+-- the legs. Animation keeps scaling by the legs: the HipHeight a rig build gives a root seated with its bottom on the
+-- hip line, measured down the leg chain as the engine measures it. Only the character's direct children are
+-- searched for legs; the engine also finds legs nested in a model.
+local SINGLE_COLLIDER_NAME = "CollisionPart"
+-- The engine's similar-hip-height tolerance (5%): within it, a rig build keeps the shorter leg.
+local SIMILAR_HIP_HEIGHT_FRACTION = 0.05
+
+local function rigAttachmentY(part, name)
+	local attachment = part and part:FindFirstChild(name)
+	if attachment and attachment:IsA("Attachment") then
+		return attachment.Position.Y
+	end
+	return 0
+end
+
+-- The bottom of one leg's chain in the LowerTorso's space. A missing part or attachment adds nothing, as in a rig build.
+local function legChainBottomY(lowerTorso, side)
+	local hipName = side .. "HipRigAttachment"
+	local kneeName = side .. "KneeRigAttachment"
+	local ankleName = side .. "AnkleRigAttachment"
+	local legLength = 0
+	local upperLeg = Character:FindFirstChild(side .. "UpperLeg")
+	if upperLeg and upperLeg:IsA("BasePart") then
+		legLength += rigAttachmentY(upperLeg, hipName) - rigAttachmentY(upperLeg, kneeName)
+	end
+	local lowerLeg = Character:FindFirstChild(side .. "LowerLeg")
+	if lowerLeg and lowerLeg:IsA("BasePart") then
+		legLength += rigAttachmentY(lowerLeg, kneeName) - rigAttachmentY(lowerLeg, ankleName)
+	end
+	local foot = Character:FindFirstChild(side .. "Foot")
+	if foot and foot:IsA("BasePart") then
+		legLength += rigAttachmentY(foot, ankleName) + foot.Size.Y / 2
+	end
+	return rigAttachmentY(lowerTorso, hipName) - legLength
+end
+
+-- The engine treats a CollisionPart whose Weld holds the HumanoidRootPart as Part1 as the single collider's root.
+local function hasSingleCollider()
+	local collider = Character:FindFirstChild(SINGLE_COLLIDER_NAME)
+	local weld = collider and collider:IsA("BasePart") and collider:FindFirstChildOfClass("Weld")
+	local root = Character:FindFirstChild("HumanoidRootPart")
+	return weld and root ~= nil and weld.Part1 == root or false
+end
+
+local function getAnimationHipHeight()
+	local lowerTorso = Character:FindFirstChild("LowerTorso")
+	if lowerTorso and hasSingleCollider() then
+		local leftHip = lowerTorso:FindFirstChild("LeftHipRigAttachment")
+		local rightHip = lowerTorso:FindFirstChild("RightHipRigAttachment")
+		leftHip = if leftHip and leftHip:IsA("Attachment") then leftHip else nil
+		rightHip = if rightHip and rightHip:IsA("Attachment") then rightHip else nil
+		if leftHip or rightHip then
+			local hipLineY = math.min(leftHip and leftHip.Position.Y or math.huge, rightHip and rightHip.Position.Y or math.huge)
+			local leftHipHeight = hipLineY - legChainBottomY(lowerTorso, "Left")
+			local rightHipHeight = hipLineY - legChainBottomY(lowerTorso, "Right")
+			local larger = math.max(leftHipHeight, rightHipHeight)
+			local kept = if math.abs(leftHipHeight - rightHipHeight) < larger * SIMILAR_HIP_HEIGHT_FRACTION
+				then math.min(leftHipHeight, rightHipHeight)
+				else larger
+			-- As in the engine, a leg chain that measures nothing falls back to HipHeight.
+			if kept > 0 then
+				return kept
+			end
+		end
+	end
+	return Humanoid.HipHeight
+end
+
 function getHeightScale()
 	if Humanoid then
 		if not Humanoid.AutomaticScalingEnabled then
@@ -545,12 +614,13 @@ function getHeightScale()
 			return getRigScale()
 		end
 
-		local scale = Humanoid.HipHeight / HumanoidHipHeight
+		local hipHeight = getAnimationHipHeight()
+		local scale = hipHeight / HumanoidHipHeight
 		if AnimationSpeedDampeningObject == nil then
 			AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 		end
 		if AnimationSpeedDampeningObject ~= nil then
-			scale = 1 + (Humanoid.HipHeight - HumanoidHipHeight) * AnimationSpeedDampeningObject.Value / HumanoidHipHeight
+			scale = 1 + (hipHeight - HumanoidHipHeight) * AnimationSpeedDampeningObject.Value / HumanoidHipHeight
 		end
 		return scale
 	end

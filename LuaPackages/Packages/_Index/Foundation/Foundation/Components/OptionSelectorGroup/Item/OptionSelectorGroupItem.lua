@@ -191,6 +191,7 @@ local function OptionSelectorGroupItem(
 	local disabledValues, animateDisabledValues = useMotion(motionStates.Default)
 	local values, _ = useMotion(motionStates.Default)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if props.isDisabled then
 			animateDisabledValues(motionStates.Disabled)

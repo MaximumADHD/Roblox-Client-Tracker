@@ -55,9 +55,7 @@ local function variantsFactory(tokens: Tokens)
 			},
 			knob = {
 				style = tokens.Color.Extended.White.White_100,
-				dragStyle = if Flags.FoundationSystemEmphasisNonActions
-					then tokens.Color.System.Emphasis
-					else tokens.Color.ActionEmphasis.Background,
+				dragStyle = tokens.Color.System.Emphasis,
 				hasShadow = true,
 			},
 		},

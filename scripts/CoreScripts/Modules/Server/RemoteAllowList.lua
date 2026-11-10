@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagPlatformLeaderboardRccEnabled = SharedFlags.FFlagPlatformLeaderboardRccEnabled
+local FFlagLuaAppsEnablePromptVIPServerPurchase = SharedFlags.FFlagLuaAppsEnablePromptVIPServerPurchase
 local FFlagRemoteAllowListAddExpChatFeatureValueChanged =
 	game:DefineFastFlag("RemoteAllowListAddExpChatFeatureValueChanged", false)
 
@@ -62,6 +63,11 @@ return function()
 
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerBuildExperiencePlaytestTeleport.lua
 	table.insert(allowList, "BuildExperiencePlaytestTeleport")
+
+	-- content/scripts/CoreScripts/ServerCoreScripts/ServerVIPServerTeleport.lua
+	if FFlagLuaAppsEnablePromptVIPServerPurchase then
+		table.insert(allowList, "TeleportToPurchasedVIPServer")
+	end
 
 	-- content/scripts/CoreScripts/ServerCoreScripts/VoiceDefault.lua
 	table.insert(allowList, "SetUserActive")

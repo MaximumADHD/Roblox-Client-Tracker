@@ -26,6 +26,14 @@ local UnifiedEventCounterAggregator =
 	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).UnifiedEventCounterAggregator
 local FFlagAXUnifiedEventCounters =
 	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXUnifiedEventCounters
+local FFlagAXUnifiedEventStrictPayloads =
+	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXUnifiedEventStrictPayloads
+local getMarketplaceUnifiedItemType =
+	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).Utils.getMarketplaceUnifiedItemType
+local getMarketplaceUnifiedAssetType =
+	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).Utils.getMarketplaceUnifiedAssetType
+local getMarketplaceUnifiedBundleType =
+	require(CorePackages.Workspace.Packages.AvatarExperienceAnalytics).Utils.getMarketplaceUnifiedBundleType
 
 export type PurchaseOptions = {
 	itemSubType: string?,
@@ -106,13 +114,21 @@ function Analytics.new(inspecteeUid, ctx, version: number?)
 	function service.reportPurchaseAttemptUnifiedEvent(itemType, itemID, options: PurchaseOptions)
 		service:reportUnifiedEvent({
 			action = UnifiedEventLogEnums.MarketplaceUnifiedAction.PURCHASE_ATTEMPT,
-			itemId = itemID,
-			itemType = itemType,
+			itemId = if FFlagAXUnifiedEventStrictPayloads and itemID ~= nil then tostring(itemID) else itemID,
+			itemType = if FFlagAXUnifiedEventStrictPayloads then getMarketplaceUnifiedItemType(itemType) else itemType,
 			organicTimedOption = if options.timedOptionDays ~= nil
 				then TIMED_OPTION_BY_DAYS[options.timedOptionDays]
 				else nil,
-			assetType = if itemType == ItemTypeEnum.Asset then options.itemSubType else nil,
-			bundleType = if itemType == ItemTypeEnum.Bundle then options.itemSubType else nil,
+			assetType = if itemType == ItemTypeEnum.Asset
+				then (if FFlagAXUnifiedEventStrictPayloads
+					then getMarketplaceUnifiedAssetType(options.itemSubType)
+					else options.itemSubType)
+				else nil,
+			bundleType = if itemType == ItemTypeEnum.Bundle
+				then (if FFlagAXUnifiedEventStrictPayloads
+					then getMarketplaceUnifiedBundleType(options.itemSubType)
+					else options.itemSubType)
+				else nil,
 			organicItemPrice = options.price or 0,
 		})
 
@@ -128,13 +144,21 @@ function Analytics.new(inspecteeUid, ctx, version: number?)
 	function service.reportPurchaseSuccessUnifiedEvent(itemType, itemID, options: PurchaseOptions)
 		service:reportUnifiedEvent({
 			action = UnifiedEventLogEnums.MarketplaceUnifiedAction.PURCHASE_SUCCESS,
-			itemId = itemID,
-			itemType = itemType,
+			itemId = if FFlagAXUnifiedEventStrictPayloads and itemID ~= nil then tostring(itemID) else itemID,
+			itemType = if FFlagAXUnifiedEventStrictPayloads then getMarketplaceUnifiedItemType(itemType) else itemType,
 			organicTimedOption = if options.timedOptionDays ~= nil
 				then TIMED_OPTION_BY_DAYS[options.timedOptionDays]
 				else nil,
-			assetType = if itemType == ItemTypeEnum.Asset then options.itemSubType else nil,
-			bundleType = if itemType == ItemTypeEnum.Bundle then options.itemSubType else nil,
+			assetType = if itemType == ItemTypeEnum.Asset
+				then (if FFlagAXUnifiedEventStrictPayloads
+					then getMarketplaceUnifiedAssetType(options.itemSubType)
+					else options.itemSubType)
+				else nil,
+			bundleType = if itemType == ItemTypeEnum.Bundle
+				then (if FFlagAXUnifiedEventStrictPayloads
+					then getMarketplaceUnifiedBundleType(options.itemSubType)
+					else options.itemSubType)
+				else nil,
 			organicItemPrice = options.price or 0,
 		})
 

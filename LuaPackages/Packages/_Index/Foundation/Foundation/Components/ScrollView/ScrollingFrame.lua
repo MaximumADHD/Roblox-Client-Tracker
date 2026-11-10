@@ -55,6 +55,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 	local tokens = useTokens()
 	local tag = useStyleTags(scrollingFrameProps.tag)
 	local scrollBarStyle = tokens.Color.Shift.Shift_400
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local scrollBarThickness = React.useMemo(function()
 		if props.scrollBarVisibility == Visibility.None then
 			return 0
@@ -82,6 +83,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 		end
 	end, { scrollBarStyle })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if props.scrollBarVisibility == "None" then
 			setIsScrollBarVisible(false, 0)

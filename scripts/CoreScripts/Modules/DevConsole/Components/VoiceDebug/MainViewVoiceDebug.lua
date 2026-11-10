@@ -72,7 +72,6 @@ local VoiceDebugFieldDisplayOrder = require(script.Parent.VoiceDebugFieldDisplay
 local getFFlagVoiceDebugConsoleV2 = require(script.Parent.GetFFlagVoiceDebugConsoleV2)
 
 local FreezeToggle = require(script.Parent.FreezeToggle)
-local getFFlagVoiceDebugPartyVoiceToggleEnabled = require(script.Parent.GetFFlagVoiceDebugPartyVoiceToggleEnabled)
 local VoiceSourceToggle = require(script.Parent.VoiceSourceToggle)
 
 local EXTENDED_DISPLAY_ORDER = {
@@ -710,7 +709,7 @@ function MainViewVoiceDebug:render()
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 					Padding = UDim.new(0, UTIL_BAR_ITEM_GAP),
 				}),
-				VoiceSourceToggle = getFFlagVoiceDebugPartyVoiceToggleEnabled() and Roact.createElement(VoiceSourceToggle, {
+				VoiceSourceToggle = getFFlagVoiceDebugConsoleV2() and Roact.createElement(VoiceSourceToggle, {
 					source = self.state.source,
 					onSourceChanged = self.onSourceChanged,
 					layoutOrder = 1,

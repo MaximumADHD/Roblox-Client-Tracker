@@ -43,7 +43,8 @@ local FFlagEnableSummarySystemMessageOnLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSummarySystemMessageOnLua
 
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
-local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
+local FFlagChatSummariesSettingEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
 local FFlagProfileSettingsSlidingWindowRateLimit = game:DefineFastFlag("ProfileSettingsSlidingWindowRateLimit", false)
 local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsRateLimitSeconds", 5)
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
@@ -51,7 +52,6 @@ local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSet
 local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
 local shouldShowFriendJoinedPlayerToast = require(RobloxGui.Modules.Server.shouldShowFriendJoinedPlayerToast)
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
-local FFlagGlobalUserBlockingLuaReadsFromSCMCache = game:DefineFastFlag("GlobalUserBlockingLuaReadsFromSCMCache", false)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -270,99 +270,47 @@ local function getPlayerCanManage(player)
 	RemoveEvent_NewPlayerCanManageDetails:FireAllClients(uidStr, canManage)
 end
 
-local fetchBlockList = function(player, playerIds)
-	return pcall(function()
-		local apiPath = "user-blocking-api/v1/users/rcc/batch-check-reciprocal-block"
-		local url = string.format(Url.APIS_URL .. apiPath)
-
-		local request = HttpService:JSONEncode({
-			userIds = playerIds,
-			requesterUserId = player.UserId,
-		})
-
-		local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-		return HttpService:JSONDecode(response)
-	end)
-end
-
 local function sendPlayerBlockList(player)
 	if player.UserId <= 0 then
 		return
 	end
 
-	if FFlagGlobalUserBlockingLuaReadsFromSCMCache then
-		local function scanAndSendBlockList(notifyOthers)
-			if not player.Parent then
-				return
-			end
-
-			local blockedUserSet = {}
-			for _, otherPlayer in Players:GetPlayers() do
-				if otherPlayer == player then
-					continue
-				end
-
-				if player:HasBlockedPlayer(otherPlayer.UserId) then
-					blockedUserSet[otherPlayer.UserId] = true
-				end
-
-				if notifyOthers and otherPlayer:HasBlockedPlayer(player.UserId) then
-					RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
-				end
-			end
-
-			RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
+	local function scanAndSendBlockList(notifyOthers)
+		if not player.Parent then
+			return
 		end
 
-		local initialNotifyDone = false
-
-		player.BlockListChanged:Connect(function()
-			if not initialNotifyDone then
-				scanAndSendBlockList(true)
-				initialNotifyDone = true
-			else
-				scanAndSendBlockList(false)
-			end
-		end)
-		if player:GetBlockListInitialized() then
-			scanAndSendBlockList(true)
-			initialNotifyDone = true
-		end
-	else
-		local players = Players:GetPlayers()
-		local playerIds = {}
-		for _, otherPlayer in players do
-			if player ~= otherPlayer then
-				local uid = otherPlayer.UserId
-				table.insert(playerIds, uid)
-			end
-		end
-
-		local success, result = fetchBlockList(player, playerIds)
-
-		local blockedUserIds = {}
 		local blockedUserSet = {}
-		if success and result then
-			for _, user in result.users do
-				if user.isBlocked then
-					blockedUserSet[user.userId] = true
-					table.insert(blockedUserIds, user.userId)
-				end
-
-				if user.isBlockingViewer then
-					local otherPlayer = Players:GetPlayerByUserId(user.userId)
-					otherPlayer:UpdatePlayerBlocked(player.UserId, true)
-					RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
-				end
+		for _, otherPlayer in Players:GetPlayers() do
+			if otherPlayer == player then
+				continue
 			end
-		end
 
-		player:AddToBlockList(blockedUserIds)
-		if game:GetFastFlag("EnableSetUserBlocklistInitialized") then
-			player:SetBlockListInitialized()
+			if player:HasBlockedPlayer(otherPlayer.UserId) then
+				blockedUserSet[otherPlayer.UserId] = true
+			end
+
+			if notifyOthers and otherPlayer:HasBlockedPlayer(player.UserId) then
+				RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
+			end
 		end
 
 		RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
+	end
+
+	local initialNotifyDone = false
+
+	player.BlockListChanged:Connect(function()
+		if not initialNotifyDone then
+			scanAndSendBlockList(true)
+			initialNotifyDone = true
+		else
+			scanAndSendBlockList(false)
+		end
+	end)
+	if player:GetBlockListInitialized() then
+		scanAndSendBlockList(true)
+		initialNotifyDone = true
 	end
 end
 
@@ -504,10 +452,7 @@ local sendFriendExperienceJoinToast = function(newPlayer)
 		-- Both follower and followee are in the same server
 		if
 			followedPlayer
-			and (
-				not FFlagShowFriendJoinedYouToastForNonReferredJoins
-				or shouldShowFriendJoinedPlayerToast(newPlayer)
-			)
+			and (not FFlagShowFriendJoinedYouToastForNonReferredJoins or shouldShowFriendJoinedPlayerToast(newPlayer))
 		then
 			RemoteEvent_ShowFriendJoinedPlayerToast:FireClient(followedPlayer, newPlayer)
 		end

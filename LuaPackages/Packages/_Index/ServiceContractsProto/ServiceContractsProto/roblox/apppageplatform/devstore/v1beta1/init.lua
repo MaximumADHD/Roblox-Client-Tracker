@@ -7,11 +7,16 @@ export type CustomJson<T, Json> = proto.CustomJson<T, Json>
 export type TypeRegistry = proto.TypeRegistry
 
 local dev_store_see_all = require(script.dev_store_see_all)
+local game_item_details_page = require(script.game_item_details_page)
 
 -- Exported types
 export type DevStoreSeeAllRequest = dev_store_see_all.DevStoreSeeAllRequest
 export type DevStoreSeeAllResponse = dev_store_see_all.DevStoreSeeAllResponse
+export type GameItemType = game_item_details_page.GameItemType
+export type GameItemDetailsPageRequest = game_item_details_page.GameItemDetailsPageRequest
+export type GameItemDetailsPageResponse = game_item_details_page.GameItemDetailsPageResponse
 
 return {
 	dev_store_see_all = dev_store_see_all,
+	game_item_details_page = game_item_details_page,
 }

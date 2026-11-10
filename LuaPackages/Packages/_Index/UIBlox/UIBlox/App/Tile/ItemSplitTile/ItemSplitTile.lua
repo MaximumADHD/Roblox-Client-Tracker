@@ -19,8 +19,6 @@ local Images = require(App.ImageSet.Images)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local ItemSplitTileFooter = require(UIBlox.App.Tile.ItemSplitTile.ItemSplitTileFooter)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local TITLE_LINE_COUNT = 2
 local MAX_TITLE_WIDTH = math.huge
 local OUTLINE_THICKNESS = 1
@@ -215,8 +213,7 @@ function ItemSplitTile:renderBottomContent(stylePalette)
 				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				Text = itemName,
-				Font = if FFlagFoundationFontFaceMigration then nil else font.Header2.Font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font.Header2.Font) else nil,
+				FontFace = normalizeFontFace(font.Header2.Font),
 				TextSize = fontSize,
 				TextTransparency = titleColorStyle.Transparency,
 				TextColor3 = titleColorStyle.Color,

@@ -40,7 +40,29 @@ local originalChatVisible = GameSettings.ChatVisible
 
 -- Real enum (unmocked, same one the integration reads) so placement assertions
 -- track the source of truth rather than hard-coded strings.
-local SideSheetPlacement = require(CorePackages.Workspace.Packages.Chrome).Enums.SideSheetPlacement
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
+local UnibarStyle = ChromePackage.UnibarStyle
+
+local React = require(CorePackages.Packages.React)
+local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
+local Signals = require(CorePackages.Packages.Signals)
+local SignalsReact = require(CorePackages.Packages.SignalsReact)
+local rtl = require(CorePackages.Packages.Dev.ReactTestingLibrary)
+
+-- The integration is re-required under jest.isolateModules, so pin the instances the test renders with.
+jest.mock(CorePackages.Packages.React, function()
+	return React
+end)
+jest.mock(CorePackages.Packages.Signals, function()
+	return Signals
+end)
+jest.mock(CorePackages.Packages.SignalsReact, function()
+	return SignalsReact
+end)
+
+-- Stands in for GetDictationStateStore(false).getIsListening.
+local getMockIsListening, setMockIsListening = Signals.createSignal(false)
 
 local lastRegisterProps: any = nil
 local lastIntegration: any = nil
@@ -166,9 +188,13 @@ end)
 
 jest.mock(Chrome.Integrations.CommonIcon, function()
 	return function()
-		return function()
-			return nil
-		end
+		return React.createElement("Frame", { Name = "ChatIcon" })
+	end
+end)
+
+jest.mock(Chrome.Integrations.RedDot, function()
+	return function(props)
+		return React.createElement("Frame", { Name = "ListeningDot", Visible = props.visible })
 	end
 end)
 
@@ -282,6 +308,9 @@ local mockHistoricalCountSignalExists = true
 jest.mock(CorePackages.Workspace.Packages.ExpChat, function()
 	return {
 		Stores = {
+			GetDictationStateStore = function()
+				return { getIsListening = getMockIsListening }
+			end,
 			GetFocusNavigationStore = function()
 				return {
 					getChatInputBarFocused = function()
@@ -406,6 +435,7 @@ local mockSharedFlags = {
 	FFlagExpChatCanShowFriendsTab = false,
 	FFlagExpChatPerfTracking = false,
 	FFlagExpChatHistoricalMessagesUnibarUnread = false,
+	FFlagExpChatContinuousListeningChatIconDot = false,
 }
 jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
 	return mockSharedFlags
@@ -967,5 +997,69 @@ describe("ChatChromeIntegration historical unread badge", function()
 		fireMessageReceived(A_CHANNEL, true)
 
 		expect(notificationFireCountSpy).toHaveBeenCalledWith(1)
+	end)
+end)
+
+describe("ChatChromeIntegration chat icon listening dot", function()
+	local function renderChatIcon()
+		local Icon = lastRegisterProps.components.Icon
+		local result
+		ReactRoblox.act(function()
+			result = rtl.render(React.createElement(UnibarStyle.Context.Provider, {
+				value = { ICON_SIZE = 36 },
+			}, { Icon = React.createElement(Icon) }))
+		end)
+		return result
+	end
+
+	local function findByName(result: any, name: string): any
+		return result.queryByText(function(_, node)
+			return node.Name == name
+		end)
+	end
+
+	beforeEach(function()
+		lastRegisterProps = nil
+		lastIntegration = nil
+		setMockIsListening(false)
+		mockSharedFlags.FFlagExpChatContinuousListeningChatIconDot = false
+	end)
+
+	afterEach(function()
+		mockSharedFlags.FFlagExpChatContinuousListeningChatIconDot = false
+		setMockIsListening(false)
+	end)
+
+	it("SHOULD render only the chat icon WHEN the flag is off, even while listening", function()
+		loadIntegration(false)
+		setMockIsListening(true)
+
+		local result = renderChatIcon()
+
+		expect(findByName(result, "ChatIcon")).never.toBeNil()
+		expect(findByName(result, "ListeningDot")).toBeNil()
+		result.unmount()
+	end)
+
+	it("SHOULD show the dot only while listening WHEN the flag is on", function()
+		mockSharedFlags.FFlagExpChatContinuousListeningChatIconDot = true
+		loadIntegration(false)
+
+		local result = renderChatIcon()
+		expect(findByName(result, "ChatIcon")).never.toBeNil()
+		local dot = findByName(result, "ListeningDot")
+		expect(dot).never.toBeNil()
+		expect(dot.Visible).toBe(false)
+
+		ReactRoblox.act(function()
+			setMockIsListening(true)
+		end)
+		expect(findByName(result, "ListeningDot").Visible).toBe(true)
+
+		ReactRoblox.act(function()
+			setMockIsListening(false)
+		end)
+		expect(findByName(result, "ListeningDot").Visible).toBe(false)
+		result.unmount()
 	end)
 end)

@@ -34,10 +34,7 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuContainerPage)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
-local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
-local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local onBlockButtonActivated = require(script:FindFirstAncestor("Settings").onBlockButtonActivated)
 local VoiceAnalytics = require(script:FindFirstAncestor("Settings").Analytics.VoiceAnalytics)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -49,13 +46,7 @@ local MenuButtonsContainer = require(RobloxGui.Modules.Settings.Components.MenuB
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 
-local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
-	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
-
-local GameInviteAnalyticsManager
-if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
-	GameInviteAnalyticsManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalyticsManager
-end
+local GameInviteAnalyticsManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalyticsManager
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagUserProfilePlatformProfile = SharedFlags.FFlagUserProfilePlatformProfile
@@ -1927,16 +1918,8 @@ local function Initialize()
 		-- If this condition is updated, showShareGameButton should be updated above
 		local isNotStudio = (not RunService:IsStudio())
 		if canShareCurrentGame() and not shareGameButton and isNotStudio and not hidePeoplePageInviteFriends then
-			local inviteToGameAnalytics
-			if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
-				inviteToGameAnalytics =
-					GameInviteAnalyticsManager:withButtonName(GameInviteAnalyticsManager.ButtonName.SettingsHub)
-			else
-				inviteToGameAnalytics = InviteToGameAnalytics.new()
-					:withEventStream(EventStream.new(AnalyticsService))
-					:withDiag(Diag.new(AnalyticsService))
-					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
-			end
+			local inviteToGameAnalytics =
+				GameInviteAnalyticsManager:withButtonName(GameInviteAnalyticsManager.ButtonName.SettingsHub)
 
 			shareGameButton = createShareGameButton()
 			shareGameButton.Activated:connect(function()

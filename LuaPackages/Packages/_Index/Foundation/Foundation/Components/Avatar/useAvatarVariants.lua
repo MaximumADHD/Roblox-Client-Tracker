@@ -37,13 +37,6 @@ type AvatarVariantProps = {
 	avatar: {
 		tag: string,
 	},
-	statusIndicatorBackplate: {
-		Position: UDim2,
-		AnchorPoint: Vector2,
-		tag: string,
-		padding: UDim2,
-		ZIndex: number,
-	},
 	statusIndicatorMask: {
 		Position: UDim2,
 		AnchorPoint: Vector2,
@@ -62,23 +55,12 @@ local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "radius-circle" },
 		avatar = { tag = "size-full radius-circle" },
-		statusIndicatorBackplate = if Flags.FoundationStatusIndicatorMask
-			then nil :: never
-			else {
-				ZIndex = 2,
-				AnchorPoint = Vector2.new(1, 1),
-				Position = UDim2.fromScale(1, 1),
-				tag = "auto-xy radius-circle bg-surface-0",
-				padding = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2),
-			},
-		statusIndicatorMask = if Flags.FoundationStatusIndicatorMask
-			then {
-				ZIndex = 2,
-				AnchorPoint = Vector2.new(1, 1),
-				Position = UDim2.new(1, -tokens.Size.Size_150 / 2, 1, -tokens.Size.Size_150 / 2),
-				mask = tokens.Color.Surface.Surface_0,
-			}
-			else nil :: never,
+		statusIndicatorMask = {
+			ZIndex = 2,
+			AnchorPoint = Vector2.new(1, 1),
+			Position = UDim2.new(1, -tokens.Size.Size_150 / 2, 1, -tokens.Size.Size_150 / 2),
+			mask = tokens.Color.Surface.Surface_0,
+		},
 	}
 
 	local sizes: { [AvatarSize]: VariantProps } = {

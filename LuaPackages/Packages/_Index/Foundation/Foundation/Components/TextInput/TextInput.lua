@@ -65,6 +65,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			hasError = props.hasError,
 			hint = props.hint,
 			textBoxRef = props.textBoxRef,
+			-- lute-lint-ignore(noNestedReactDefinitions) UIBLOX-5675
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
 					ref = inputRef,

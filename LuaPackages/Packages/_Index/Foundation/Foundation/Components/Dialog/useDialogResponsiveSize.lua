@@ -18,6 +18,7 @@ local function useDialogResponsiveSize(size: DialogSize)
 	local overlay = useOverlay()
 	local dialog = useDialog()
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local updateSize = React.useCallback(function()
 		if not overlay then
 			return

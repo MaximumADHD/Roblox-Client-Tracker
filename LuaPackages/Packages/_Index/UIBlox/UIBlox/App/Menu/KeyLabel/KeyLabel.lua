@@ -5,7 +5,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local React = require(Packages.React)
 local LuauPolyfill = require(Packages.LuauPolyfill)
@@ -103,10 +102,7 @@ local function KeyLabel(props: KeyLabelProps)
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextSize = fontSize,
-					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(GetFontFromFontStyle(textFont))
-						else nil,
+					FontFace = normalizeFontFace(GetFontFromFontStyle(textFont)),
 					RichText = false,
 					Position = UDim2.fromOffset(0, Constants.TEXT_CENTER_OFFSET),
 					Size = UDim2.fromScale(1, 1),

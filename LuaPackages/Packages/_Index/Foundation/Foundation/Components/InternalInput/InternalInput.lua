@@ -102,6 +102,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 
 	local values, animate = useMotion(motionStates.Default)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if isFilled then
 			animate(motionStates.Checked)

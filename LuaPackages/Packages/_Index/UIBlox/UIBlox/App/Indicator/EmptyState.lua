@@ -5,7 +5,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -149,10 +148,7 @@ function EmptyState:render()
 							Text = self.props.titleProps.titleText,
 							TextXAlignment = Enum.TextXAlignment.Center,
 							TextYAlignment = Enum.TextYAlignment.Center,
-							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Title.Font,
-							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(GetFontFromFontStyle(style.Font.Title))
-								else nil,
+							FontFace = normalizeFontFace(GetFontFromFontStyle(style.Font.Title)),
 							TextSize = style.Font.Header1.RelativeSize * style.Font.BaseSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextTransparency = style.Theme.TextEmphasis.Transparency,

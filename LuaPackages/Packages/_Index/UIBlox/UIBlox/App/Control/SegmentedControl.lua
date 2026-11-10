@@ -8,8 +8,6 @@ local Core = UIBlox.Core
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -174,9 +172,7 @@ function SegmentedControl:render()
 					GetTextSize(
 						curTab,
 						tabFontSize,
-						if FFlagFoundationFontFaceMigration
-							then GetFontFromFontStyle(style.Font.Header2)
-							else Enum.Font.BuilderSans,
+						GetFontFromFontStyle(style.Font.Header2),
 						Vector2.new(math.huge, math.huge)
 					).X
 				)

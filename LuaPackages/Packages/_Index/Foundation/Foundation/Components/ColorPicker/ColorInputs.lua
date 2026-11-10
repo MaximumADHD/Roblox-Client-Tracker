@@ -246,6 +246,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		end
 	end, { onColorChanged })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local dropdownOptions = React.useMemo(function(): { DropdownItem }
 		local allOptions = {
 			{ id = ColorInputMode.RGB :: string, text = ColorInputMode.RGB :: string },
@@ -281,6 +282,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		return filteredOptions
 	end, { showAlpha })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if mode == ColorInputMode.RGBA and not showAlpha then
 			if props.onModeChanged then
@@ -289,6 +291,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		end
 	end, { mode, showAlpha } :: { unknown })
 
+	-- lute-lint-ignore(noNestedReactDefinitions) UIBLOX-5675
 	local renderInputs = function(): { [string]: any }?
 		if mode == ColorInputMode.Brick then
 			return {

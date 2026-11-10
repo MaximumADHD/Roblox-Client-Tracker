@@ -1,6 +1,8 @@
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
+	or FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationDGA")
+local FFlagUserControlModuleDisabledUpdate = FlagUtil.getUserFlag("UserControlModuleDisabledUpdate")
 local StarterPlayer = game:GetService("StarterPlayer")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local Workspace = game:GetService("Workspace")
@@ -189,7 +191,9 @@ function InputReplication.createPlayerControlState(player: Player)
 end
 
 -- very bloated right now and not final but get ControlModule values to send to server
-function InputReplication.writeInputToPCS(player: Player, controlModule)
+function InputReplication.writeInputToCS(player: Player, controlModule)
+	-- remove with FFlagUserControlModuleDisabledUpdate
+	assert(not FFlagUserControlModuleDisabledUpdate)
 	local data = controlModule.data
 
 	local character = player.Character

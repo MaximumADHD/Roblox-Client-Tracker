@@ -122,6 +122,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 		end
 	end, { isDelaying })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		-- If the button is already in a delay, stop it
 		if isDelaying then
@@ -151,6 +152,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	local disabledValues, animateDisabledValues = useMotion(motionStates.Default)
 	local values, animate = useMotion(motionStates.Default)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if props.isLoading then
 			animate(motionStates.Loading)
@@ -159,6 +161,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 		end
 	end, { props.isLoading })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if props.isDisabled then
 			animateDisabledValues(motionStates.Disabled)

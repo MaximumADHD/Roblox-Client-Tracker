@@ -82,9 +82,7 @@ local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermiss
 local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
 local FFlagDebugSkipSeamlessVoiceAPICheck = game:DefineFastFlag("DebugSkipSeamlessVoiceAPICheck", false)
 local FFlagFixSTUXShowingIncorrectly = game:DefineFastFlag("FixSTUXShowingIncorrectly", false)
-local FFlagSendUserConnectionStatus = game:DefineFastFlag("SendUserConnectionStatus", false)
 local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisconnectInterval", 15)
-local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
 local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
@@ -161,8 +159,6 @@ local SeamlessVoiceStatus = require(RobloxGui.Modules.Settings.Enum.SeamlessVoic
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
-local GetFFlagDisconnectToastClientRewrite =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
 
 local Analytics = VoiceChatCore.Analytics
 
@@ -1992,10 +1988,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FIRST_JOIN_SESSION
 		end
-		-- First time joining voice this session
-		if FFlagSeamlessVoiceV2JoinVoiceToast then
-			self.isInitialJoin = true
-		end
+		self.isInitialJoin = true
 		self.attemptVoiceRejoin:Fire()
 		if self:IsNewSeamlessVoiceUserDisconnect() then
 			self:SetVoiceConnectCookieValue(true)
@@ -2076,7 +2069,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self.Analytics:reportVoiceRewarmClicked(rewarmClickWasRearmed, buttonConsequence)
 	end
 
-	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
+	if self:IsSeamlessVoice() then
 		task.spawn(function()
 			self.coreVoiceManager:PostUserVoiceConnectionStatus(true)
 		end)
@@ -2229,9 +2222,7 @@ end
 
 function VoiceChatServiceManager:Leave()
 	self:ensureInitialized("leave")
-	if GetFFlagDisconnectToastClientRewrite() then
-		self:SetVoiceConnectCookieValue(false)
-	end
+	self:SetVoiceConnectCookieValue(false)
 	self.Analytics:reportConnectDisconnectEvents("voiceDisconnectEvent", self:GetConnectDisconnectAnalyticsData())
 	local previousGroupId = self.service:GetGroupId()
 	local previousMutedState = self.service:IsPublishPaused()
@@ -2246,10 +2237,7 @@ function VoiceChatServiceManager:Leave()
 	self:HideVoiceUI()
 	self.previousGroupId = previousGroupId
 	self.previousMutedState = previousMutedState
-	if not GetFFlagDisconnectToastClientRewrite() then
-		self:SetVoiceConnectCookieValue(false)
-	end
-	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
+	if self:IsSeamlessVoice() then
 		task.spawn(function()
 			self.coreVoiceManager:PostUserVoiceConnectionStatus(false)
 		end)

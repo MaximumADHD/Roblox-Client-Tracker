@@ -38,6 +38,7 @@ local useSliderPointerDrag = require(script.Parent.useSliderPointerDrag)
 local useSliderThumbs = require(script.Parent.useSliderThumbs)
 
 export type InternalSliderThumbConfig = useSliderThumbs.InternalSliderThumbConfig
+export type ThumbSpan = useSliderThumbs.ThumbSpan
 
 export type ThumbRenderState = {
 	isVisible: boolean,
@@ -46,12 +47,16 @@ export type ThumbRenderState = {
 
 export type InternalSliderProps = {
 	-- Ordered from the start of the track to the end. Each thumb is bounded by
-	-- its neighbors, so values must already be in ascending order.
+	-- its neighbors, so values must already be in ascending order. Interaction
+	-- keeps neighbors at least one step apart, or 1% of the range without a
+	-- step; values passed in render as given.
 	thumbs: { InternalSliderThumbConfig },
 	onValueChanged: (thumbIndex: number, newValue: number) -> (),
 	renderThumb: (thumbIndex: number, state: ThumbRenderState) -> React.ReactElement?,
 	-- Track visuals, drawn beneath the thumbs and spanning the full length.
 	children: React.ReactNode?,
+	-- Track visuals that follow the knobs. Takes precedence over `children`.
+	renderTrack: ((thumbSpan: React.Binding<ThumbSpan>) -> React.ReactElement?)?,
 
 	range: NumberRange?,
 	step: number?,
@@ -91,16 +96,13 @@ local FOCUSED_SELECTION_GROUP: Types.SelectionGroup = {
 	SelectionBehaviorDown = Enum.SelectionBehavior.Escape,
 }
 
+local CENTER_ANCHOR = Vector2.new(0.5, 0.5)
+
 local function noop() end
 
-local function getPosition(fraction: number, isVertical: boolean): UDim2
-	return if isVertical then UDim2.fromScale(0.5, 1 - fraction) else UDim2.fromScale(fraction, 0.5)
+local function getFullBounds(): (number, number)
+	return 0, 1
 end
-
-local function getContainedAnchorPoint(fraction: number, isVertical: boolean): Vector2
-	return if isVertical then Vector2.new(0.5, 1 - fraction) else Vector2.new(fraction, 0.5)
-end
-
 local function InternalSlider(sliderProps: InternalSliderProps, forwardRef: React.Ref<GuiObject>?)
 	local props = withDefaults(sliderProps, defaultProps)
 	local isVertical = props.orientation :: Orientation == Orientation.Vertical
@@ -114,16 +116,40 @@ local function InternalSlider(sliderProps: InternalSliderProps, forwardRef: Reac
 	end, {})
 
 	local defaultKnobSize = getKnobSize(tokens, props.size)
-	local knobSize, setKnobSize = React.useBinding(defaultKnobSize)
-	local onThumbSizeChanged = React.useCallback(function(rbx: GuiObject)
-		setKnobSize(UDim2.fromOffset(rbx.AbsoluteSize.X, rbx.AbsoluteSize.Y))
+	-- Measured against the track in absolute units, so the ratio holds under a
+	-- UIScale ancestor.
+	local knobAbsoluteSizeRef = React.useRef(Vector2.new(defaultKnobSize.X.Offset, defaultKnobSize.Y.Offset))
+	local getKnobScale = React.useCallback(function(): Vector2
+		local root = ref.current
+		if root and root.AbsoluteSize.X > 0 and root.AbsoluteSize.Y > 0 then
+			return knobAbsoluteSizeRef.current / root.AbsoluteSize
+		end
+		return Vector2.zero
 	end, {})
+	local knobScale, setKnobScale = React.useBinding(Vector2.zero)
+	local updateKnobScale = React.useCallback(function()
+		setKnobScale(getKnobScale())
+	end, { getKnobScale })
+	local onThumbSizeChanged = React.useCallback(function(rbx: GuiObject)
+		knobAbsoluteSizeRef.current = rbx.AbsoluteSize
+		updateKnobScale()
+	end, { updateKnobScale })
+	local onRootSizeChanged = React.useCallback(function(rbx: GuiObject)
+		updateKnobScale()
+		if props.onAbsoluteSizeChanged then
+			props.onAbsoluteSizeChanged(rbx)
+		end
+	end, { updateKnobScale, props.onAbsoluteSizeChanged } :: { unknown })
 
 	local sliderThumbs = useSliderThumbs({
 		thumbs = props.thumbs,
 		range = props.range,
 		step = props.step,
 		onValueChanged = props.onValueChanged,
+		knobScale = knobScale,
+		getKnobScale = getKnobScale,
+		isVertical = isVertical,
+		isContained = props.isContained,
 	})
 
 	local capture = useSliderCapture({
@@ -133,16 +159,19 @@ local function InternalSlider(sliderProps: InternalSliderProps, forwardRef: Reac
 		step = props.step,
 		isVertical = isVertical,
 		isDisabled = props.isDisabled,
+		lastInputMode = lastInputMode,
 		updateThumbValue = sliderThumbs.updateThumbValue,
 		clampToNeighbors = sliderThumbs.clampToNeighbors,
+		onCaptureStarted = props.onDragStarted,
+		onCaptureEnded = props.onDragEnded,
 	})
 
 	local pointerDrag = useSliderPointerDrag({
 		thumbs = props.thumbs,
 		rootRef = ref,
 		isVertical = isVertical,
-		toFraction = sliderThumbs.toFraction,
-		seekThumb = sliderThumbs.seekThumb,
+		getThumbTrackFraction = sliderThumbs.getThumbTrackFraction,
+		seekThumbToTrackFraction = sliderThumbs.seekThumbToTrackFraction,
 		setActiveIndex = capture.setActiveIndex,
 		onDragStarted = props.onDragStarted,
 		onDragEnded = props.onDragEnded,
@@ -193,20 +222,20 @@ local function InternalSlider(sliderProps: InternalSliderProps, forwardRef: Reac
 					}),
 			}
 		),
-		Track = React.createElement(React.Fragment, nil, props.children),
+		Track = React.createElement(
+			React.Fragment,
+			nil,
+			if props.renderTrack then props.renderTrack(sliderThumbs.span) else props.children
+		),
 		SelectionCursor = if capture.isCaptured
 			then React.createElement(
 				View,
 				{
-					Size = knobSize,
-					AnchorPoint = if props.isContained
-						then sliderThumbs.fractions[capture.activeThumbIndex]:map(function(fraction: number)
-							return getContainedAnchorPoint(fraction, isVertical)
-						end)
-						else Vector2.new(0.5, 0.5),
-					Position = sliderThumbs.fractions[capture.activeThumbIndex]:map(function(fraction: number)
-						return getPosition(fraction, isVertical)
+					Size = knobScale:map(function(scale: Vector2)
+						return UDim2.fromScale(scale.X, scale.Y)
 					end),
+					AnchorPoint = CENTER_ANCHOR,
+					Position = sliderThumbs.positions[capture.activeThumbIndex],
 					ZIndex = 3,
 					selection = { Selectable = true },
 					-- The root group's Stop only blocks leaving the group, not
@@ -234,22 +263,22 @@ local function InternalSlider(sliderProps: InternalSliderProps, forwardRef: Reac
 	for index, thumb in props.thumbs do
 		children[`Thumb{index}`] = React.createElement(SliderThumb, {
 			trackRef = ref,
-			fraction = sliderThumbs.fractions[index],
+			-- Drag moves arrive as track fractions, so the drag starts from one.
+			fraction = sliderThumbs.trackFractions[index],
 			isVertical = isVertical,
+			AnchorPoint = CENTER_ANCHOR,
+			Position = sliderThumbs.positions[index],
 			Visible = isKnobVisible,
 			isDisabled = props.isDisabled,
 			isDragEnabled = isThumbDragEnabled,
-			isContained = props.isContained,
 			knob = props.renderThumb(index, {
 				isVisible = isKnobVisible,
 				isDragging = pointerDrag.draggedIndex == index,
 			}),
-			onSeek = function(fraction: number)
-				sliderThumbs.seekThumb(index, fraction)
+			onSeek = function(trackFraction: number)
+				sliderThumbs.seekThumbToTrackFraction(index, trackFraction)
 			end,
-			getBounds = function()
-				return sliderThumbs.getThumbBounds(index)
-			end,
+			getBounds = getFullBounds,
 			onDragStarted = function()
 				pointerDrag.onThumbDragStarted(index)
 			end,
@@ -259,16 +288,15 @@ local function InternalSlider(sliderProps: InternalSliderProps, forwardRef: Reac
 		})
 	end
 
-	return React.createElement(
-		View,
-		withCommonProps(props, {
-			Size = rootSize,
-			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
-			selectionGroup = if capture.isCaptured then CAPTURED_SELECTION_GROUP else FOCUSED_SELECTION_GROUP,
-			ref = ref,
-		}),
-		children
-	)
+	local rootProps = withCommonProps(props, {
+		Size = rootSize,
+		GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
+		selectionGroup = if capture.isCaptured then CAPTURED_SELECTION_GROUP else FOCUSED_SELECTION_GROUP,
+		ref = ref,
+	})
+	rootProps.onAbsoluteSizeChanged = onRootSizeChanged
+
+	return React.createElement(View, rootProps, children)
 end
 
 return React.forwardRef(InternalSlider)

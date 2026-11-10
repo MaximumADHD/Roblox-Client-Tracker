@@ -135,6 +135,7 @@ local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: R
 	local isMultiLine = props.isMultiLine or isBoundsChecker
 
 	return React.createElement(
+		-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 		"TextBox",
 		{
 			ClearTextOnFocus = false,
@@ -181,6 +182,7 @@ end))
 local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<InternalTextInputRef>?)
 	-- for flag changes while storybook is open, remove with Flags.FoundationInputSelectionProps
 	if textInputProps.Selectable == nil then
+		-- lute-lint-ignore(immutability) UIBLOX-5675
 		textInputProps.Selectable = true
 	end
 
@@ -453,6 +455,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		end
 	end, { props.onDrag })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local onDragEnded = React.useCallback(function(_rbx: InputObject, position: Vector2)
 		if dragStartPosition.current == position then
 			focusTextBox()
@@ -508,14 +511,12 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		} :: { unknown }
 	)
 
-	local textBoxWrapperInsetPadding = if Flags.FoundationNumberInputBeta
-		then React.useMemo(function()
-			return {
-				left = if props.horizontalPadding then props.horizontalPadding.innerLeft else nil,
-				right = if props.horizontalPadding then props.horizontalPadding.innerRight else nil,
-			}
-		end, { props.horizontalPadding })
-		else nil :: never
+	local textBoxWrapperInsetPadding = React.useMemo(function()
+		return {
+			left = if props.horizontalPadding then props.horizontalPadding.innerLeft else nil,
+			right = if props.horizontalPadding then props.horizontalPadding.innerRight else nil,
+		}
+	end, { props.horizontalPadding })
 
 	local textBoxVerticalPadding = textBoxWrapperPadding.bottom.Offset + textBoxWrapperPadding.top.Offset
 	local textBoxSizeFullHeight = UDim2.new(1, 0, 0, textBoxViewportHeight + textBoxVerticalPadding)
@@ -599,6 +600,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		lastScrollingFrameCanvasPosition.current = scrollingFrame.CanvasPosition
 	end, {})
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local dragDetector = React.useMemo(function(): React.ReactNode?
 		if not props.onDragStarted and not props.onDrag and not props.onDragEnded then
 			return nil
@@ -716,7 +718,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				layout = scrollViewLayout,
 				onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
 				scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
-				padding = if Flags.FoundationNumberInputBeta then textBoxWrapperInsetPadding else nil,
+				padding = textBoxWrapperInsetPadding,
 				tag = "fill size-full clip",
 				testId = `{props.testId}--textbox-wrapper`,
 			}, {

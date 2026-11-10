@@ -8,6 +8,8 @@ local Image = require(Foundation.Components.Image)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 
+local Flags = require(Foundation.Utility.Flags)
+local devAssert = require(Foundation.Utility.devAssert)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Sheet = script:FindFirstAncestor("Sheet")
@@ -52,16 +54,25 @@ local function SheetFullBleed(fullBleedProps: SheetFullBleedProps, ref: React.Re
 	assert(setFullBleedHeight and hasHeader and testId, "SheetFullBleed must be used within a Sheet")
 
 	React.useEffect(function()
-		assert(
-			not (props.sticky and hasHeader:getValue()),
-			"Sheet.FullBleed with sticky=true is unsupported when used with Sheet.Header"
-		)
+		if Flags.FoundationDevOnlyPropAsserts then
+			devAssert(
+				not (props.sticky and hasHeader:getValue()),
+				"Sheet.FullBleed with sticky=true is unsupported when used with Sheet.Header"
+			)
+		else
+			assert(
+				not (props.sticky and hasHeader:getValue()),
+				"Sheet.FullBleed with sticky=true is unsupported when used with Sheet.Header"
+			)
+		end
 	end, { props.sticky, hasHeader } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local onAbsoluteSizeChanged = React.useCallback(function(rbx: GuiObject)
 		setFullBleedHeight(rbx.AbsoluteSize.Y)
 	end, {})
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		return function()
 			setFullBleedHeight(0)

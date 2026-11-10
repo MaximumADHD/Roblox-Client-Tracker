@@ -79,12 +79,14 @@ local function SVPicker(svPickerProps: SVPickerProps)
 				[React.Event.DragContinue] = onDragContinue :: any,
 				[React.Event.DragEnd] = onDragEnded :: any,
 			}),
+			-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 			Base = React.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundColor3 = tokens.Color.Extended.White.White_100.Color3,
 				ZIndex = 1,
 				BorderSizePixel = 0,
 			}),
+			-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 			Saturation = React.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundColor3 = pureHueColor,
@@ -98,6 +100,7 @@ local function SVPicker(svPickerProps: SVPickerProps)
 					}),
 				}),
 			}),
+			-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 			Value = React.createElement("Frame", {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundColor3 = tokens.Color.Extended.Black.Black_100.Color3,

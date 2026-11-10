@@ -8,7 +8,6 @@ local UIBlox = script.Parent.Parent.Parent
 local Packages = UIBlox.Parent
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Logger = require(UIBlox.Logger)
 local GetLegacyFont = require(script.Parent.GetLegacyFont)
 
@@ -28,7 +27,7 @@ local function getTextSize(
 	isRichText: boolean?
 )
 	local success, value, usesWidthCorrection = pcall(function(): (Vector2?, boolean)
-		if FFlagFoundationFontFaceMigration and not isRichText then
+		if not isRichText then
 			local legacyFont, usesFallback = GetLegacyFont(font)
 			if legacyFont == nil then
 				return nil, usesFallback
@@ -51,9 +50,7 @@ local function getTextSize(
 		end
 
 		local params = Instance.new("GetTextBoundsParams")
-		params.Font = if FFlagFoundationFontFaceMigration
-			then normalizeFontFace(font) :: Font
-			else Font.fromEnum(font :: Enum.Font)
+		params.Font = normalizeFontFace(font) :: Font
 		params.Size = fontSize
 		params.Text = string
 		params.Width = frameSize.X

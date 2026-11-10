@@ -30,6 +30,7 @@ local function useConnectSignals(
 )
 	local connections = React.useRef({})
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useLayoutEffect(function()
 		if instance ~= nil then
 			for _, signalName in signalNames do

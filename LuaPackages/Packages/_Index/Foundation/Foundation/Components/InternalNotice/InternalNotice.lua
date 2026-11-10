@@ -5,10 +5,13 @@ local React = require(Packages.React)
 
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
+local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local InputSize = require(Foundation.Enums.InputSize)
+local Link = require(Foundation.Components.Link)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Text = require(Foundation.Components.Text)
+local TextOverflow = require(Foundation.Enums.TextOverflow)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local escapeRichText = require(Foundation.Utility.escapeRichText)
@@ -85,8 +88,27 @@ local function InternalNotice(props: InternalNoticeProps, ref: React.Ref<Instanc
 		testId = `{testId}--message`,
 	})
 
-	local link = if props.link
-		then React.createElement(Text, {
+	local linkContainer = variantProps.linkContainer
+	local link = if props.link and Flags.FoundationInternalNoticeUseLink
+		then React.createElement(View, {
+			tag = if linkContainer then linkContainer.tag else nil,
+			padding = variantProps.link.padding,
+			LayoutOrder = if isStacked then 3 else 2,
+			onAbsoluteSizeChanged = layout.measureInlineLink,
+		}, {
+			Link = React.createElement(Link, {
+				text = props.link.text,
+				onActivated = props.link.onActivated,
+				size = variantProps.link.size,
+				hasUnderline = true,
+				textOverflow = if not isStacked
+					then TextOverflow.None
+					elseif props.truncation then TextOverflow.Truncate
+					else TextOverflow.Wrap,
+				testId = `{testId}--link`,
+			}),
+		})
+		elseif props.link then React.createElement(Text, {
 			Text = `<u>{escapeRichText(props.link.text)}</u>`,
 			RichText = true,
 			tag = variantProps.link.tag,

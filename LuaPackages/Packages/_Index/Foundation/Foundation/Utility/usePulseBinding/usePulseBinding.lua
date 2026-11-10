@@ -18,6 +18,7 @@ local function usePulseBinding(cycleTime: number?, pulseRange: NumberRange?)
 	local period = if cycleTime then cycleTime else 1
 	local range = if pulseRange then pulseRange else DEFAULT_RANGE
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	return React.useMemo(function()
 		return clock:map(function(value: number)
 			return math.map(math.sin(value * math.pi / period) ^ 2, 0, 1, range.Min, range.Max)

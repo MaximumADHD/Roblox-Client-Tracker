@@ -16,8 +16,6 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 type TextFieldProps = {
 	-- Input text value
 	text: string,
@@ -233,10 +231,7 @@ local function TextField(props: TextFieldProps)
 						BackgroundTransparency = 1,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Center,
-						Font = if FFlagFoundationFontFaceMigration then nil else tokens.Typography.BodyLarge.Font,
-						FontFace = if FFlagFoundationFontFaceMigration
-							then normalizeFontFace(tokens.Typography.BodyLarge.Font)
-							else nil,
+						FontFace = normalizeFontFace(tokens.Typography.BodyLarge.Font),
 						OpenTypeFeatures = if UIBloxConfig.enableOpenTypeSupport and props.openTypeFeatures
 							then props.openTypeFeatures
 							else nil,

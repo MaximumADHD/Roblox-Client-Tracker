@@ -53,6 +53,7 @@ local function CursorProvider(props: Props)
 		}
 	end, { refCache, setMountedCursors, tokens } :: { unknown })
 
+	-- lute-lint-ignore(noNestedReactDefinitions) UIBLOX-5675
 	local renderCursors = function(): any
 		local cursors: { [string | CursorType]: React.ReactElement<any> } = {}
 		-- param cursors
@@ -141,6 +142,7 @@ local function CursorProvider(props: Props)
 		value = contextValue,
 	}, {
 		Children = React.createElement(React.Fragment, {}, props.children),
+		-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 		FoundationCursorContainer = React.createElement("Frame", {
 			Size = UDim2.new(0, 0, 0, 0),
 			Visible = false,

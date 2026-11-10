@@ -7,8 +7,8 @@ local ChromeService = require(Chrome.Service)
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
-local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
-local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
+local FFlagCenterInExperienceShopWindow =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FFlagCenterInExperienceShopWindow)
 
 local MAX_WINDOW_WIDTH = 844
 local MAX_WINDOW_HEIGHT = 754
@@ -53,10 +53,26 @@ local function toggleInExperienceShopWindow()
 	ChromeService:toggleWindow(Constants.IN_EXPERIENCE_SHOP_ID)
 end
 
+-- No-op when the shop window is already open. Prefer the Chrome integration so
+-- the menu entry and window stay in sync; fall back to the window toggle when
+-- that integration is unavailable (for example the menu is hidden on failure).
+local function openInExperienceShopWindow()
+	local shopId = Constants.IN_EXPERIENCE_SHOP_ID
+	if ChromeService:isWindowOpen(shopId) then
+		return
+	end
+	if ChromeService:isIntegrationValid(shopId) then
+		ChromeService:activate(shopId)
+		return
+	end
+	toggleInExperienceShopWindow()
+end
+
 return {
 	MAX_WINDOW_WIDTH = MAX_WINDOW_WIDTH,
 	MAX_WINDOW_HEIGHT = MAX_WINDOW_HEIGHT,
 	getCenteredShopWindowPosition = getCenteredShopWindowPosition,
 	getStartingWindowPosition = getStartingWindowPosition,
 	toggleInExperienceShopWindow = toggleInExperienceShopWindow,
+	openInExperienceShopWindow = openInExperienceShopWindow,
 }

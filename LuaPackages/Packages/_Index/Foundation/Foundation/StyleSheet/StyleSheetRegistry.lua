@@ -10,8 +10,6 @@ able to move the registry to a more global scope by using the DataModel as the s
 For now this was avoided to keep the change less disruptive, simpler, and likely much faster.
 Reading the DataModel to get state for every operation can be very slow, especially on Android.
 ]]
--- Clip when Flags.FoundationDontParentToFoundationModule is enabled
-local Foundation = script:FindFirstAncestor("Foundation")
 local FoundationRoot = script.Parent.Parent
 local ColorMode = require(FoundationRoot.Enums.ColorMode)
 local Device = require(FoundationRoot.Enums.Device)
@@ -34,19 +32,11 @@ type OverrideAttributes = getOverrideAttributes.OverrideAttributes
 
 local http = game:GetService("HttpService")
 local registryFolder = Instance.new("Folder")
-if Flags.FoundationDontParentToFoundationModule then
-	registryFolder.Name = "FoundationStyleSheets" .. http:GenerateGUID(false)
-else
-	registryFolder.Name = "FoundationStyleSheets"
-end
+registryFolder.Name = "FoundationStyleSheets" .. http:GenerateGUID(false)
 
-if Flags.FoundationDontParentToFoundationModule then
-	local mainGui = getMainGui()
-	devAssert(mainGui ~= nil, "MainGui not found")
-	registryFolder.Parent = mainGui
-else
-	registryFolder.Parent = Foundation
-end
+local mainGui = getMainGui()
+devAssert(mainGui ~= nil, "MainGui not found")
+registryFolder.Parent = mainGui
 
 type FoundationStyleSheet = {
 	themeName: ThemeName,

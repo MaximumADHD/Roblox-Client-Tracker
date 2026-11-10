@@ -28,6 +28,7 @@ local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<
 		return ref.current
 	end, {})
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useLayoutEffect(function()
 		if StudioUri.isStudioUri(props.anchorRef) then
 			popoverContext.setAnchorUri(props.anchorRef :: StudioUri)
@@ -42,6 +43,7 @@ local function PopoverAnchor(props: PopoverAnchorProps, forwardedRef: React.Ref<
 		return nil
 	end
 
+	-- lute-lint-ignore(immutability) UIBLOX-5675
 	props.testId = `{popoverContext.testId}--anchor`
 
 	return React.createElement(

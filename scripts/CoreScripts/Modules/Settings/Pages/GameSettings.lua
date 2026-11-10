@@ -98,7 +98,6 @@ local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
 local FFlagVoiceSelectorIgnoreFailedStateDisconnect = game:DefineFastFlag("VoiceSelectorIgnoreFailedStateDisconnect", false)
-local FFlagVoiceConnectSelectorDebounce = game:DefineFastFlag("VoiceConnectSelectorDebounce", false)
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 local FFlagVoiceVolumeControlsFixSliderVisibilityOnEligibleGames =
@@ -253,6 +252,12 @@ local CreateChatTranslationOptionsWithChatLanguageSwitcher = require(
 
 local GameBasicSettingsFramerateCap = game:GetEngineFeature("GameBasicSettingsFramerateCap")
 local RUUserScalePreferenceAPI = game:GetEngineFeature("RUUserScalePreferenceAPI")
+local FFlagUIScaleEngineOptions = SharedFlags.FFlagUIScaleEngineOptions
+local UIScaleOptions = require(CorePackages.Workspace.Packages.Responsive).UIScaleOptions
+
+-- Indices of the UI Scale mode selector options.
+local UI_SCALE_MODE_AUTO = 1
+local UI_SCALE_MODE_MANUAL = 2
 
 local FFlagFramerateCapIOSOptions = game:DefineFastFlag("FramerateCapIOSOptions", false)
 
@@ -269,7 +274,6 @@ local GfxReset = require(script.Parent.Parent.GfxReset)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local throttle = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.ThrottleFunctionCall)
 local SavedQualityFollower = require(RobloxGui.Modules.Settings.Pages.SavedQualityFollower)
-local debounce = require(RobloxGui.Modules.Chrome.ChromeShared.Utility.debounce)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local Signals = require(CorePackages.Packages.Signals)
 local migrationLookup = BuilderIcons.Migration
@@ -1078,6 +1082,116 @@ local function Initialize()
 		if not ok then
 			warn("createUIScaleOptions failed: " .. tostring(err))
 		end
+	end
+
+	local shownUIScaleOptions = nil
+	local updatingUIScaleControls = false
+
+	local function getUIScaleModeIndex(options)
+		return if options.savedHundredths ~= 0 then UI_SCALE_MODE_MANUAL else UI_SCALE_MODE_AUTO
+	end
+
+	local function refreshUIScaleRows()
+		local latestUIScaleOptions = UIScaleOptions.get(GuiService)
+		-- No rows when the engine has no GetUIScaleOptions (see UIScaleOptions.get).
+		if not this.UIScaleModeFrame or not latestUIScaleOptions then
+			return
+		end
+		if shownUIScaleOptions and UIScaleOptions.equal(latestUIScaleOptions, shownUIScaleOptions) then
+			return
+		end
+		shownUIScaleOptions = latestUIScaleOptions
+		local modeIndex = getUIScaleModeIndex(latestUIScaleOptions)
+		local isManual = modeIndex == UI_SCALE_MODE_MANUAL
+		local selectedIndex = latestUIScaleOptions.selectedIndex
+		updatingUIScaleControls = true
+		this.UIScaleFrame.Visible = isManual
+		if this.UIScaleModeSelector:GetSelectedIndex() ~= modeIndex then
+			this.UIScaleModeSelector:SetSelectionIndex(modeIndex)
+		end
+		this.UIScaleSlider:SetEnabledSteps(latestUIScaleOptions.enabled)
+		this.UIScaleSlider:SetValue(selectedIndex)
+		updatingUIScaleControls = false
+	end
+
+	local function onUIScaleModeChanged(modeIndex)
+		-- Deferred selector events can outlive the refresh guard; only apply the current selection.
+		if updatingUIScaleControls or modeIndex ~= this.UIScaleModeSelector:GetSelectedIndex() then
+			return
+		end
+		local manual = modeIndex == UI_SCALE_MODE_MANUAL
+		local latestUIScaleOptions = UIScaleOptions.get(GuiService)
+		local newValue = if latestUIScaleOptions then UIScaleOptions.valueForMode(latestUIScaleOptions, manual) else nil
+		if newValue == nil then
+			return
+		end
+		GuiService:SetUIScaleMultiplier(newValue)
+		reportSettingsChangeForAnalytics(
+			"ui_scale_mode",
+			if manual then "auto" else "manual",
+			if manual then "manual" else "auto"
+		)
+		refreshUIScaleRows()
+	end
+
+	local function onUIScaleSliderChanged(newIndex)
+		if updatingUIScaleControls then
+			return
+		end
+		local latestUIScaleOptions = UIScaleOptions.get(GuiService)
+		if not latestUIScaleOptions then
+			return
+		end
+		local newValue = UIScaleOptions.valueFromSlider(
+			newIndex,
+			this.UIScaleSlider:GetValue(),
+			shownUIScaleOptions,
+			latestUIScaleOptions
+		)
+		if newValue then
+			GuiService:SetUIScaleMultiplier(newValue)
+			reportSettingsChangeForAnalytics("ui_scale_value", latestUIScaleOptions.savedHundredths, newValue)
+		end
+		-- Also brings the rows up to date when the event was rejected because the options changed.
+		refreshUIScaleRows()
+	end
+
+	local function createUIScaleRows()
+		local latestUIScaleOptions = UIScaleOptions.get(GuiService)
+		if not latestUIScaleOptions then
+			return
+		end
+		this.UIScaleModeFrame, this.UIScaleModeLabel, this.UIScaleModeSelector = utility:AddNewRow(
+			this,
+			locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleMode"),
+			"Selector",
+			{
+				locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleModeAuto"),
+				locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleModeManual"),
+			},
+			getUIScaleModeIndex(latestUIScaleOptions),
+			nil,
+			locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleModeDescription")
+		)
+		this.UIScaleModeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.UIScaleEngineModeFrame
+		this.UIScaleFrame, this.UIScaleLabel, this.UIScaleSlider = utility:AddNewRow(
+			this,
+			locales:Format("CoreScripts.InGameMenu.GameSettings.UIScale"),
+			"Slider",
+			#latestUIScaleOptions.values,
+			latestUIScaleOptions.selectedIndex,
+			nil,
+			locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleDescription"),
+			locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleSmallest"),
+			locales:Format("CoreScripts.InGameMenu.GameSettings.UIScaleLargest")
+		)
+		this.UIScaleFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.UIScaleEngineFrame
+		this.UIScaleSlider:SetMinStep(1)
+
+		this.UIScaleModeSelector.IndexChanged:Connect(onUIScaleModeChanged)
+		this.UIScaleSlider.ValueChanged:connect(onUIScaleSliderChanged)
+
+		refreshUIScaleRows()
 	end
 
 	local function createUiNavigationKeyBindOptions()
@@ -3906,12 +4020,26 @@ local function Initialize()
 		end
 	end
 
+	local uiScaleDisplayPollConnection = nil
 	local uiScaleViewportChangedConnection = nil
 	local uiScaleCurrentCameraChangedConnection = nil
 
 	local function setupUIScaleViewportChangedListener()
 		if not RUUserScalePreferenceAPI then
 			return
+		end
+
+		if FFlagUIScaleEngineOptions and not uiScaleDisplayPollConnection then
+			-- DPR and monitor changes have no Lua signal, so re-read the options on a short poll while the page is open.
+			-- CLI-236864: use a GuiService UI Scale options changed event instead of polling.
+			local elapsed = 0
+			uiScaleDisplayPollConnection = RunService.Heartbeat:Connect(function(delta)
+				elapsed += delta
+				if elapsed >= 0.1 and this.PageOpen then
+					elapsed = 0
+					refreshUIScaleRows()
+				end
+			end)
 		end
 
 		local function rebindToCurrentCamera()
@@ -3926,7 +4054,11 @@ local function Initialize()
 			uiScaleViewportChangedConnection = camera
 				:GetPropertyChangedSignal("ViewportSize"):Connect(function()
 					if this.PageOpen then
-						createUIScaleOptions()
+						if FFlagUIScaleEngineOptions then
+							refreshUIScaleRows()
+						else
+							createUIScaleOptions()
+						end
 					end
 				end)
 		end
@@ -3939,6 +4071,10 @@ local function Initialize()
 	end
 
 	local function teardownUIScaleViewportChangedListener()
+		if uiScaleDisplayPollConnection then
+			uiScaleDisplayPollConnection:Disconnect()
+			uiScaleDisplayPollConnection = nil
+		end
 		if uiScaleViewportChangedConnection then
 			uiScaleViewportChangedConnection:Disconnect()
 			uiScaleViewportChangedConnection = nil
@@ -4079,25 +4215,9 @@ local function Initialize()
 			end
 		end
 
-		if FFlagVoiceConnectSelectorDebounce then
-			local debouncedRunner = if useDebounce then debounce(onSelectorIndexChanged, debounceDelay) else onSelectorIndexChanged
-			this.VoiceConnectDisconnectSelector.IndexChanged:connect(function(newIndex)
-				if FFlagDifferentiateVoiceSelectorSystemAndUser then
-					if isProgrammaticChange then
-						-- Programmatic (system-driven) change: run synchronously so it bypasses the
-						-- debounce -- it can't cancel a pending user tap, and it early-returns without
-						-- firing a voice op or click telemetry (isProgrammaticChange is still set here).
-						onSelectorIndexChanged(newIndex)
-						return
-					end
-				end
-				debouncedRunner(newIndex)
-			end)
-		else
-			this.VoiceConnectDisconnectSelector.IndexChanged:connect(
-				if useDebounce then throttle(debounceDelay, onSelectorIndexChanged) else onSelectorIndexChanged
-			)
-		end
+		this.VoiceConnectDisconnectSelector.IndexChanged:connect(
+			if useDebounce then throttle(debounceDelay, onSelectorIndexChanged) else onSelectorIndexChanged
+		)
 
     	if FFlagVoiceChatSelectorReconnectFocus then
 			this.VoiceConnectDisconnectFrame.SelectionChanged:Connect(function(_, previousSelection, newSelection)
@@ -4134,21 +4254,6 @@ local function Initialize()
 			else
 				if newState == (Enum :: any).VoiceChatState.Failed then
 					this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
-				end
-			end
-
-			if FFlagVoiceConnectSelectorDebounce then
-				if FFlagDifferentiateVoiceSelectorSystemAndUser then
-					-- The Differentiate path syncs Joined/Failed but not Ended/Idle, which can leave the
-					-- toggle stuck on Connected after an external disconnect; reconcile it here.
-					if
-						newState == (Enum :: any).VoiceChatState.Ended
-						or newState == (Enum :: any).VoiceChatState.Idle
-					then
-						if this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= disconnectedIndex then
-							this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
-						end
-					end
 				end
 			end
 
@@ -4473,34 +4578,16 @@ local function Initialize()
 						end
 					end
 
-					if FFlagVoiceConnectSelectorDebounce then
-						-- Only sync to connected if the selector isn't already there; under the debounce a
-						-- redundant SetSelectionIndex would replay the connect animation.
-						if this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= 2 then
-							if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
-								isProgrammaticChange = true
+					if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
+						isProgrammaticChange = true
 
-								this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
 
-								task.defer(function()
-									isProgrammaticChange = false
-								end)
-							else
-								this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-							end
-						end
+						task.defer(function()
+							isProgrammaticChange = false
+						end)
 					else
-						if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
-							isProgrammaticChange = true
-
-							this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-
-							task.defer(function()
-								isProgrammaticChange = false
-							end)
-						else
-							this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
-						end
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
 					end
 				end)
 				:catch(function()
@@ -4702,7 +4789,9 @@ local function Initialize()
 		createPreferredTransparencyOptions()
 	end
 	createPreferredTextSizeOptions()
-	if RUUserScalePreferenceAPI then
+	if FFlagUIScaleEngineOptions then
+		createUIScaleRows()
+	elseif RUUserScalePreferenceAPI then
 		createUIScaleOptions()
 	end
 	createUiNavigationKeyBindOptions()
@@ -4855,7 +4944,9 @@ local function Initialize()
 			end
 		end
 
-		if RUUserScalePreferenceAPI then
+		if FFlagUIScaleEngineOptions then
+			refreshUIScaleRows()
+		elseif RUUserScalePreferenceAPI then
 			createUIScaleOptions()
 		end
 

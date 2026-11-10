@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["ViewRecyclerReact-31ab8d40-0.2.9"]["ViewRecyclerReact"])
+local Package = require(PackageIndex["ViewRecyclerReact"]["ViewRecyclerReact"])
 
 export type DataSource<T> = Package.DataSource<T> 
 export type MutableSequence<T> = Package.MutableSequence<T> 
@@ -17,32 +17,27 @@ export type DiagnosticEvent = Package.DiagnosticEvent
 export type DiagnosticCallback = Package.DiagnosticCallback
 export type OverscanSpan = Package.OverscanSpan
 export type OverscanContext = Package.OverscanContext
-export type OverscanPolicy = Package.OverscanPolicy
 export type DataPrefetchOptions = Package.DataPrefetchOptions
 export type DataPrefetchRequest = Package.DataPrefetchRequest
 export type DataPrefetchEdge = Package.DataPrefetchEdge
 export type ScrollState = Package.ScrollState
 export type ScrollAnchorSnapshot = Package.ScrollAnchorSnapshot
 export type ScrollObservationKind = Package.ScrollObservationKind
-export type VirtualizerCommandType = Package.VirtualizerCommandType
-export type VirtualizerEffectType = Package.VirtualizerEffectType
-export type VirtualizerQueryType = Package.VirtualizerQueryType
 export type PinnedItem<T> = Package.PinnedItem<T> 
 export type ItemPlacement = Package.ItemPlacement
 export type ChatPresetOptions = Package.ChatPresetOptions
 export type ChatPresetProps = Package.ChatPresetProps
+export type ReachedThreshold = Package.ReachedThreshold
 export type DeclarativeData<T> = Package.DeclarativeData<T> 
 export type VirtualListProps<T> = Package.VirtualListProps<T> 
 export type DeclarativeVirtualListProps<T> = Package.DeclarativeVirtualListProps<T> 
 export type DataSourceVirtualListProps<T> = Package.DataSourceVirtualListProps<T> 
 export type VirtualListHandle = Package.VirtualListHandle
-export type AutoScrollCallback = Package.AutoScrollCallback
-export type AutoScrollResult = Package.AutoScrollResult
+export type VisibleItemsPresentation = Package.VisibleItemsPresentation
 export type Axis = Package.Axis
 export type AutoScrollPolicy = Package.AutoScrollPolicy
-export type AutoScrollTarget = Package.AutoScrollTarget
 export type ScrollAlignment = Package.ScrollAlignment
-export type ScrollDirection = Package.ScrollDirection
+export type InitialScrollAlignment = Package.InitialScrollAlignment
 export type PinnedPosition = Package.PinnedPosition
 export type IdentityKind = Package.IdentityKind
 export type DataSourceChangeType = Package.DataSourceChangeType
@@ -52,13 +47,22 @@ export type RecyclableViewSignalProps<T> = Package.RecyclableViewSignalProps<T>
 export type RecyclableViewProps<T> = Package.RecyclableViewProps<T> 
 export type RecyclableViewType<T> = Package.RecyclableViewType<T> 
 export type RecyclableViewOptions = Package.RecyclableViewOptions
+export type RecyclableViewSwitchProps<T> = Package.RecyclableViewSwitchProps<T> 
 export type RecyclableComponentProps<Props> = Package.RecyclableComponentProps<Props> 
+export type VirtualListItemComponentProps<T> = Package.VirtualListItemComponentProps<T> 
+export type VirtualListItemComponent<T> = Package.VirtualListItemComponent<T> 
+export type VirtualListItemComponentDefinition<T> = Package.VirtualListItemComponentDefinition<T> 
+export type SpecializedVirtualListDefinition<T> = Package.SpecializedVirtualListDefinition<T> 
+export type SpecializedVirtualListProps<T> = Package.SpecializedVirtualListProps<T> 
+export type SpecializedVirtualListComponent<T> = Package.SpecializedVirtualListComponent<T> 
 export type RecyclingDependency = Package.RecyclingDependency
 export type StateInitializer<S> = Package.StateInitializer<S> 
 export type RecyclableViewAssignment<T> = Package.RecyclableViewAssignment<T> 
 export type ItemViewType<T> = Package.ItemViewType<T> 
 export type RecyclingScopeProps = Package.RecyclingScopeProps
 export type RecyclingViewportProps = Package.RecyclingViewportProps
+export type RectSlot = Package.RectSlot
+export type RectPlacement = Package.RectPlacement
 
 
 return Package

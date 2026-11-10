@@ -19,8 +19,8 @@ export type SliderPointerDragProps = {
 	thumbs: { InternalSliderThumbConfig },
 	rootRef: { current: GuiObject? },
 	isVertical: boolean,
-	toFraction: (value: number) -> number,
-	seekThumb: (index: number, fraction: number) -> (),
+	getThumbTrackFraction: (index: number) -> number,
+	seekThumbToTrackFraction: (index: number, trackFraction: number) -> (),
 	setActiveIndex: (index: number) -> (),
 	onDragStarted: (() -> ())?,
 	onDragEnded: (() -> ())?,
@@ -35,15 +35,17 @@ export type SliderPointerDrag = {
 	onTrackDragEnded: () -> (),
 }
 
--- Coincident thumbs resolve toward the later thumb when the press lands past
--- them, so the pair can always be pulled apart in either direction.
+-- Knob positions come from layout math, so distances within this of each other
+-- count as a tie.
+local TIE_TOLERANCE = 1e-9
+
+-- A tie goes to the earlier thumb.
 local function getNearestThumbIndex(fraction: number, fractions: { number }): number
 	local nearestIndex = 1
 	local nearestDistance = math.abs(fractions[1] - fraction)
 	for index = 2, #fractions do
 		local distance = math.abs(fractions[index] - fraction)
-		local isPastCoincidentThumb = fractions[index] == fractions[nearestIndex] and fraction > fractions[index]
-		if distance < nearestDistance or isPastCoincidentThumb then
+		if distance < nearestDistance - TIE_TOLERANCE then
 			nearestIndex = index
 			nearestDistance = distance
 		end
@@ -78,24 +80,33 @@ local function useSliderPointerDrag(props: SliderPointerDragProps): SliderPointe
 		return calculateSliderFraction(getGuiInputPosition(inputPosition, track), track, props.isVertical)
 	end, { props.isVertical, props.rootRef } :: { unknown })
 
-	local onTrackDragStarted = React.useCallback(function(_rbx: UIDragDetector, inputPosition: Vector2)
-		local fraction = getTrackFraction(inputPosition)
-		-- The rendered input mode can lag a press that is itself the first
-		-- pointer input, so the press reads the input type it was made with.
-		local isDirectional = getInputMode(UserInputService:GetLastInputType()) == InputMode.Directional
-		if isDirectional or fraction == nil then
-			return
-		end
+	local onTrackDragStarted = React.useCallback(
+		function(_rbx: UIDragDetector, inputPosition: Vector2)
+			local fraction = getTrackFraction(inputPosition)
+			-- The rendered input mode can lag a press that is itself the first
+			-- pointer input, so the press reads the input type it was made with.
+			local isDirectional = getInputMode(UserInputService:GetLastInputType()) == InputMode.Directional
+			if isDirectional or fraction == nil then
+				return
+			end
 
-		local fractions = {}
-		for index, thumb in props.thumbs do
-			fractions[index] = props.toFraction(thumb.value:getValue())
-		end
-		local index = getNearestThumbIndex(fraction, fractions)
-		trackDragIndexRef.current = index
-		onThumbDragStarted(index)
-		props.seekThumb(index, fraction)
-	end, { getTrackFraction, props.thumbs, props.toFraction, onThumbDragStarted, props.seekThumb } :: { unknown })
+			local fractions = {}
+			for index in props.thumbs do
+				fractions[index] = props.getThumbTrackFraction(index)
+			end
+			local index = getNearestThumbIndex(fraction, fractions)
+			trackDragIndexRef.current = index
+			onThumbDragStarted(index)
+			props.seekThumbToTrackFraction(index, fraction)
+		end,
+		{
+			getTrackFraction,
+			props.thumbs,
+			props.getThumbTrackFraction,
+			onThumbDragStarted,
+			props.seekThumbToTrackFraction,
+		} :: { unknown }
+	)
 
 	local onTrackDrag = React.useCallback(function(_rbx: UIDragDetector, inputPosition: Vector2)
 		local index = trackDragIndexRef.current
@@ -103,8 +114,8 @@ local function useSliderPointerDrag(props: SliderPointerDragProps): SliderPointe
 		if index == nil or fraction == nil then
 			return
 		end
-		props.seekThumb(index, fraction)
-	end, { getTrackFraction, props.seekThumb } :: { unknown })
+		props.seekThumbToTrackFraction(index, fraction)
+	end, { getTrackFraction, props.seekThumbToTrackFraction } :: { unknown })
 
 	local onTrackDragEnded = React.useCallback(function()
 		if trackDragIndexRef.current == nil then

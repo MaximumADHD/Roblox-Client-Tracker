@@ -3,5 +3,4 @@ local SafeFlags = require(Packages.SafeFlags)
 
 return {
 	FoundationImagesWhitelistedIconAssets = SafeFlags.createGetFString("FoundationImagesWhitelistedIconAssets", "")(),
-	FoundationImagesStaticPath = SafeFlags.createGetFFlag("FoundationImagesStaticPath")(),
 }

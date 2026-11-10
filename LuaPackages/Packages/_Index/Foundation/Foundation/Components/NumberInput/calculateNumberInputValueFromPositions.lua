@@ -1,8 +1,6 @@
 --[[
 	Calculates a new number input value by applying a delta scaled by the step size to the starting value
 ]]
-local Foundation = script:FindFirstAncestor("Foundation")
-local Flags = require(Foundation.Utility.Flags)
 
 local function calculateNumberInputValueFromPositions(
 	startingValue: number,
@@ -11,9 +9,7 @@ local function calculateNumberInputValueFromPositions(
 	step: number,
 	sensitivity: number?
 ): number
-	local delta = if Flags.FoundationNumberInputBeta
-		then math.floor((dragXPosition - startingXPosition) * (sensitivity or 1))
-		else dragXPosition - startingXPosition
+	local delta = math.floor((dragXPosition - startingXPosition) * (sensitivity or 1))
 	local newValue = startingValue + (delta * step)
 
 	return newValue

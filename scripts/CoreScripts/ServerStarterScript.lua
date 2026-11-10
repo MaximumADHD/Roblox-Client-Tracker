@@ -28,10 +28,10 @@ local FFlagAXEnableInspectAndBuyBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
 local FFlagPlatformLeaderboardRccEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardRccEnabled
-local FFlagDebugServerPlatformLeaderboardDevMock =
-	game:DefineFastFlag("DebugServerPlatformLeaderboardDevMock", false)
+local FFlagLuaAppsEnablePromptVIPServerPurchase =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppsEnablePromptVIPServerPurchase
+local FFlagDebugServerPlatformLeaderboardDevMock = game:DefineFastFlag("DebugServerPlatformLeaderboardDevMock", false)
 local FFlagEmoteSkinningDisableEnabled = game:DefineFastFlag("EmoteSkinningDisableEnabled", false)
-local FFlagExpChatRemoveServerTenFootCheck = game:DefineFastFlag("ExpChatRemoveServerTenFootCheck", false)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -124,15 +124,8 @@ if GetFFlagDisplayServerChannel() then
 	RemoteFunction_GetServerChannel.OnServerInvoke = getServerChannel
 end
 local function shouldLoadLuaChat()
-	if FFlagExpChatRemoveServerTenFootCheck then
-		return game:GetService("Chat").LoadDefaultChat
-			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
-	else
-		-- IsTenFootInterface() is always false on a server; console players are handled client-side in ClientChat.
-		return game:GetService("Chat").LoadDefaultChat
-			and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
-			and (not game:GetService("GuiService"):IsTenFootInterface())
-	end
+	return game:GetService("Chat").LoadDefaultChat
+		and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
 end
 
 if shouldLoadLuaChat() then
@@ -180,6 +173,10 @@ if game:DefineFastFlag("VersionedFlags_Dev", false) then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/VersionedFlagTest", script.Parent)
 end
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerBuildExperiencePlaytestTeleport", script.Parent)
+
+if FFlagLuaAppsEnablePromptVIPServerPurchase then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerVIPServerTeleport", script.Parent)
+end
 
 local FStringRoCaptchaUniverseIds = require(RobloxGui.Modules.Common.Flags.FStringRoCaptchaUniverseIds)
 if game:DefineFastFlag("RoCaptchaServerHandlerEnabled", false) and FStringRoCaptchaUniverseIds ~= "" then

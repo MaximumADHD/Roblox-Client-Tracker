@@ -2488,11 +2488,13 @@ type _PymkItemDataImpl = {
 type _PymkItemDataFields = {
 	item_id: string,
 	has_pending_friend_request: boolean,
+	is_seed_user_friend: boolean,
 }
 
 type _PymkItemDataPartialFields = {
 	item_id: string?,
 	has_pending_friend_request: boolean?,
+	is_seed_user_friend: boolean?,
 }
 
 export type PymkItemData = typeof(setmetatable({} :: _PymkItemDataFields, {} :: _PymkItemDataImpl))
@@ -14222,6 +14224,9 @@ do
 			has_pending_friend_request = if data == nil or data.has_pending_friend_request == nil
 				then false
 				else data.has_pending_friend_request,
+			is_seed_user_friend = if data == nil or data.is_seed_user_friend == nil
+				then false
+				else data.is_seed_user_friend,
 		}, _PymkItemDataImpl :: _PymkItemDataImpl)
 	end
 
@@ -14237,6 +14242,11 @@ do
 		if self.has_pending_friend_request then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.has_pending_friend_request then 1 else 0)
+		end
+
+		if self.is_seed_user_friend then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_seed_user_friend then 1 else 0)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -14257,6 +14267,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.has_pending_friend_request = value ~= 0
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_seed_user_friend = value ~= 0
 					continue
 				end
 
@@ -14303,6 +14318,10 @@ do
 			output.hasPendingFriendRequest = self.has_pending_friend_request
 		end
 
+		if self.is_seed_user_friend then
+			output.isSeedUserFriend = self.is_seed_user_friend
+		end
+
 		return output
 	end
 
@@ -14323,6 +14342,14 @@ do
 
 		if input.hasPendingFriendRequest ~= nil then
 			self.has_pending_friend_request = input.hasPendingFriendRequest
+		end
+
+		if input.is_seed_user_friend ~= nil then
+			self.is_seed_user_friend = input.is_seed_user_friend
+		end
+
+		if input.isSeedUserFriend ~= nil then
+			self.is_seed_user_friend = input.isSeedUserFriend
 		end
 
 		return self

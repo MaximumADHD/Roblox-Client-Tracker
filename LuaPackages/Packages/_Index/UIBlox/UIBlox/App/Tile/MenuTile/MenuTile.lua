@@ -33,7 +33,6 @@ local CursorType = require(App.SelectionCursor.CursorType)
 local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
 
 local FULLY_TRANSPARENT = 1
@@ -267,23 +266,19 @@ function MenuTile:render()
 						Size = UDim2.fromOffset(iconSize, iconSize),
 					}),
 					-- GenericText, does not limit to 2 lines
-					Title = title
-						and Roact.createElement("TextLabel", {
-							BackgroundTransparency = 1,
-							Font = if FFlagFoundationFontFaceMigration then nil else titleFont.Font,
-							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(titleFont.Font)
-								else nil,
-							LayoutOrder = LAYOUT_ORDER.TITLE,
-							Size = UDim2.new(1, 0, 0, titleTextOneLineSizeY * TITLE_MAX_NUMBER_OF_LINES),
-							Text = title,
-							TextColor3 = titleStyle.Color,
-							TextSize = titleFontSize,
-							TextTransparency = titleTransparency,
-							TextTruncate = Enum.TextTruncate.AtEnd,
-							TextWrapped = true,
-							TextYAlignment = Enum.TextYAlignment.Top,
-						}),
+					Title = title and Roact.createElement("TextLabel", {
+						BackgroundTransparency = 1,
+						FontFace = normalizeFontFace(titleFont.Font),
+						LayoutOrder = LAYOUT_ORDER.TITLE,
+						Size = UDim2.new(1, 0, 0, titleTextOneLineSizeY * TITLE_MAX_NUMBER_OF_LINES),
+						Text = title,
+						TextColor3 = titleStyle.Color,
+						TextSize = titleFontSize,
+						TextTransparency = titleTransparency,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextWrapped = true,
+						TextYAlignment = Enum.TextYAlignment.Top,
+					}),
 				}),
 				BadgeContainer = badgeValue and Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

@@ -20,6 +20,7 @@ local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<F
 	local tokens = useTokens()
 	local colorIndex = props.colorNamespace
 
+	-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,

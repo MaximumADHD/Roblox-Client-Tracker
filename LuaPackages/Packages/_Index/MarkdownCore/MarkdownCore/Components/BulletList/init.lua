@@ -40,7 +40,6 @@ local Flags = require(MarkdownCoreRoot.Flags)
 local View = Foundation.View
 local Image = Foundation.Image
 local Text = Foundation.Text
-local FoundationFlags = Foundation.Utility.Flags
 
 local DEFAULT_LIST_STYLE = {
 	ItemOffset = 12,
@@ -142,23 +141,16 @@ local function BulletList(props: Props)
 		if type(item) == "string" then
 			itemElement = React.createElement(Text, {
 				AutomaticSize = Enum.AutomaticSize.XY,
-				Font = if FoundationFlags.FoundationFontFaceMigration then nil else font,
-				fontStyle = if FoundationFlags.FoundationFontFaceMigration
-					then {
-						Font = font,
-						FontSize = textSize,
-					}
-					else nil,
+				fontStyle = {
+					Font = font,
+					FontSize = textSize,
+				},
 				LayoutOrder = 2,
 				Size = itemSize,
 				Text = item,
-				TextColor = if FoundationFlags.FoundationFontFaceMigration then nil else textColor,
-				textStyle = if FoundationFlags.FoundationFontFaceMigration
-					then {
-						Color3 = textColor,
-					}
-					else nil,
-				TextSize = if FoundationFlags.FoundationFontFaceMigration then nil else textSize,
+				textStyle = {
+					Color3 = textColor,
+				},
 				TextTruncate = textTruncate,
 				TextWrapped = textWrapped,
 				Padding = listStyle.Padding or DEFAULT_LIST_STYLE.Padding,
@@ -189,18 +181,10 @@ local function BulletList(props: Props)
 				textStyle = {
 					Color3 = textColor,
 				},
-				FontStyle = if FoundationFlags.FoundationFontFaceMigration
-					then nil
-					else {
-						Font = font,
-						FontSize = textSize,
-					},
-				fontStyle = if FoundationFlags.FoundationFontFaceMigration
-					then {
-						Font = font,
-						FontSize = textSize,
-					}
-					else nil,
+				fontStyle = {
+					Font = font,
+					FontSize = textSize,
+				},
 				Text = item.Text,
 				TextWrapped = textWrapped,
 				TextTruncate = textTruncate,

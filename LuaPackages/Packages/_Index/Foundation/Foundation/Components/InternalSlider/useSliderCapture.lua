@@ -9,6 +9,8 @@ local RunService = Services.RunService
 
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
+local InputMode = require(Foundation.Utility.Input.InputMode)
+type InputMode = InputMode.InputMode
 
 local getSelectionEntryDirection = require(Foundation.Components.Slider.getSelectionEntryDirection)
 local useSliderCaptureKeys = require(Foundation.Components.Slider.useSliderCaptureKeys)
@@ -24,8 +26,11 @@ export type SliderCaptureProps = {
 	step: number?,
 	isVertical: boolean,
 	isDisabled: boolean,
+	lastInputMode: InputMode?,
 	updateThumbValue: (index: number, newValue: number) -> (),
 	clampToNeighbors: (index: number, value: number) -> number,
+	onCaptureStarted: (() -> ())?,
+	onCaptureEnded: (() -> ())?,
 }
 
 export type SliderCapture = {
@@ -52,6 +57,8 @@ local function useSliderCapture(props: SliderCaptureProps): SliderCapture
 	local focusTargetRef = React.useRef<<GuiObject?>>(nil)
 	local captureTargetRef = React.useRef<<GuiObject?>>(nil)
 	local wasSelectedRef = React.useRef(false)
+	local wasCapturedRef = React.useRef(false)
+	local inputModeRef = React.useRef(props.lastInputMode)
 
 	local isSelected = isCaptured
 		or controlState == ControlState.Selected
@@ -76,6 +83,47 @@ local function useSliderCapture(props: SliderCaptureProps): SliderCapture
 			setIsCaptured(false)
 		end
 	end, { props.isDisabled })
+
+	-- Capture belongs to directional input, so switching to a pointer or touch
+	-- ends it before that input can start a drag of its own.
+	React.useEffect(function()
+		local didInputModeChange = props.lastInputMode ~= inputModeRef.current
+		inputModeRef.current = props.lastInputMode
+		if
+			isCaptured
+			and didInputModeChange
+			and props.lastInputMode ~= nil
+			and props.lastInputMode ~= InputMode.Directional
+		then
+			setIsCaptured(false)
+		end
+	end, { isCaptured, props.lastInputMode } :: { unknown })
+
+	React.useEffect(function()
+		if isCaptured == wasCapturedRef.current then
+			return
+		end
+		wasCapturedRef.current = isCaptured
+		if isCaptured then
+			if props.onCaptureStarted then
+				props.onCaptureStarted()
+			end
+		elseif props.onCaptureEnded then
+			props.onCaptureEnded()
+		end
+	end, { isCaptured, props.onCaptureStarted, props.onCaptureEnded } :: { unknown })
+
+	-- Unmount cleanup only sees the first render's props, so it reads the
+	-- callback through a ref to call the latest one.
+	local onCaptureEndedRef = React.useRef(props.onCaptureEnded)
+	onCaptureEndedRef.current = props.onCaptureEnded
+	React.useEffect(function()
+		return function()
+			if wasCapturedRef.current and onCaptureEndedRef.current then
+				onCaptureEndedRef.current()
+			end
+		end
+	end, {})
 
 	React.useEffect(function()
 		local function redirectDragSelection()

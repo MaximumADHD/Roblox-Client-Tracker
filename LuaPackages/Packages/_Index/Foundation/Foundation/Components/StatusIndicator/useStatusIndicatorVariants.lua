@@ -21,7 +21,7 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
-local isDevMode = _G.__DEV__ == true
+local devAssert = require(Foundation.Utility.devAssert)
 
 local Constants = require(Foundation.Constants)
 
@@ -203,14 +203,14 @@ return function(
 	size: StatusIndicatorSize,
 	mask: Types.ColorStyle?
 ): StatusIndicatorVariantProps
-	if isDevMode then
-		if variant == StatusIndicatorVariant.Contrast_Experiment then
-			error("Contrast is not a supported StatusIndicator variant.")
-		end
-		if variant == StatusIndicatorVariant.Alert and hasValue then
-			error("Alert is not a supported numeric StatusIndicator variant.")
-		end
-	end
+	devAssert(
+		variant ~= StatusIndicatorVariant.Contrast_Experiment,
+		"Contrast is not a supported StatusIndicator variant."
+	)
+	devAssert(
+		not (variant == StatusIndicatorVariant.Alert and hasValue),
+		"Alert is not a supported numeric StatusIndicator variant."
+	)
 
 	local commonMask = if mask
 		then {

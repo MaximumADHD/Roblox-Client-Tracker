@@ -33,6 +33,7 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 type ButtonGroupItem = ButtonGroup.ButtonGroupItem
+type FillBehavior = FillBehavior.FillBehavior
 type Bindable<T> = Types.Bindable<T>
 type Selection = Types.Selection
 type SelectionGroup = Types.SelectionGroup
@@ -50,6 +51,8 @@ export type CoachmarkProps = {
 	media: ReactNode?,
 	-- Actions array (up to 2 buttons supported)
 	actions: { ButtonGroupItem }?,
+	-- How action buttons size along the tooltip width. `Fill` stretches them across the panel; `Fit` hugs each label. Defaults to `FillBehavior.Fill`.
+	actionsFillBehavior: FillBehavior?,
 	-- Whether the coachmark is shown. Defaults to `false`.
 	isOpen: boolean?,
 	-- Close callback (optional) - if provided, displays a close affordance in the header
@@ -84,6 +87,7 @@ local defaultProps = {
 	align = PopoverAlign.Start,
 	side = PopoverSide.Right,
 	hasArrow = true,
+	actionsFillBehavior = if Flags.FoundationEducationalTooltipRefresh then FillBehavior.Fill else nil :: never,
 	testId = "--foundation-coachmark",
 }
 
@@ -326,6 +330,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 								then {
 									ButtonGroup = React.createElement(ButtonGroup, {
 										buttons = actionButtons :: { ButtonGroupItem },
+										fillBehavior = props.actionsFillBehavior,
 										maxButtonCount = MAX_BUTTON_COUNT,
 										orientation = Orientation.Horizontal,
 										size = InputSize.Small,

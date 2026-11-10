@@ -36,6 +36,7 @@ export type InputChipVariantProps = {
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
+		-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 		container = { tag = "row align-x-center align-y-center auto-x radius-small bg-action-standard clip" },
 		text = {
 			tag = "shrink size-0-full auto-x text-truncate-end",

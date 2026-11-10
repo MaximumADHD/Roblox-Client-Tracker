@@ -7,7 +7,6 @@ local Core = UIBlox.Core
 local Packages = UIBlox.Parent
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local React = require(Packages.React)
 local useStyle = require(Core.Style.useStyle)
@@ -102,8 +101,7 @@ local function TileContentPanel(props: Props)
 				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				Text = contentTitle,
-				Font = if FFlagFoundationFontFaceMigration then nil else titleFont.Font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(titleFont.Font) else nil,
+				FontFace = normalizeFontFace(titleFont.Font),
 				TextSize = font.BaseSize * titleFont.RelativeSize,
 				TextTransparency = titleColorStyle.Transparency,
 				TextColor3 = titleColorStyle.Color,

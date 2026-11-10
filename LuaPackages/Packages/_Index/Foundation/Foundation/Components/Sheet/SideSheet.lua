@@ -8,10 +8,18 @@ local ReactRoblox = require(Packages.ReactRoblox)
 local useAnimatedBinding = ReactOtter.useAnimatedBinding
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
+local InternalDrawer = require(Foundation.Components.InternalDrawer)
+local InternalDrawerBackdrop = require(Foundation.Enums.InternalDrawerBackdrop)
+local InternalDrawerLayout = require(Foundation.Enums.InternalDrawerLayout)
+local InternalDrawerShadow = require(Foundation.Enums.InternalDrawerShadow)
+local InternalDrawerSide = require(Foundation.Enums.InternalDrawerSide)
+local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
+type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 
 local SheetContext = require(script.Parent.SheetContext)
 local SheetTypes = require(script.Parent.Types)
@@ -30,6 +38,7 @@ local childrenHasFullBleed = require(script.Parent.childrenHasFullBleed)
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
 local useScreenSize = require(script.Parent.useScreenSize)
 
+local Backdrop = require(Foundation.Components.Backdrop)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
@@ -60,6 +69,128 @@ local defaultProps = {
 
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
 local SHADOW_SIZE = Constants.SHADOW_SIZE
+
+local function DrawerSideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObject>)
+	local props = withDefaults(sideSheetProps, defaultProps)
+	local tokens = useTokens()
+	local elevation = useElevation(ElevationLayer.Sheet, { stackAboveOwner = false })
+	local screenSize = useScreenSize()
+
+	local overlay = useOverlay()
+	local hardwareInsets = useHardwareInsets(overlay)
+	local isSmallDisplay = props.displaySize == Enum.DisplaySize.Small
+	local outerBleed = if isSmallDisplay then hardwareInsets.right else 0
+	local widthSpec = SIDE_SHEET_WIDTHS[props.size]
+	local width = math.clamp(
+		screenSize.X * widthSpec.TARGET_WIDTH,
+		widthSpec.MIN * tokens.Config.UI.Scale,
+		widthSpec.MAX * tokens.Config.UI.Scale
+	)
+
+	local isOpen, setIsOpen = React.useState(true)
+	local closeSheet = React.useCallback(function()
+		setIsOpen(false)
+	end, {})
+	local onRequestClose = React.useCallback(function(_reason: OnCloseCallbackReason)
+		closeSheet()
+	end, { closeSheet })
+
+	React.useImperativeHandle(props.sheetRef, function()
+		return {
+			close = closeSheet,
+		}
+	end, { closeSheet })
+
+	local hasActionsDivider, setHasActionsDivider = React.useBinding(false)
+	local hasHeader, setHasHeader = React.useBinding(false)
+	local hasFullBleed = childrenHasFullBleed(props.children)
+	local fullBleedHeight, setFullBleedHeight = React.useBinding(0)
+	local innerScrollY, setInnerScrollY = React.useBinding(0)
+
+	local closeAffordanceRef = React.useRef(nil) :: React.Ref<GuiObject>
+	local contentStartRef, setContentStartRef = React.useState(nil :: React.Ref<GuiObject>?)
+
+	local contextValue = React.useMemo(
+		function()
+			return {
+				actionsHeight = 0,
+				setActionsHeight = Dash.noop,
+				hasActionsDivider = hasActionsDivider,
+				setHasActionsDivider = setHasActionsDivider,
+				sheetHeightAvailable = 0,
+				setSheetHeightAvailable = Dash.noop,
+				safeAreaPadding = 0,
+				bottomPadding = 0,
+				innerScrollingEnabled = true,
+				innerScrollY = innerScrollY,
+				setInnerScrollY = setInnerScrollY,
+				hasHeader = hasHeader,
+				setHasHeader = setHasHeader,
+				hasFullBleed = hasFullBleed,
+				fullBleedHeight = fullBleedHeight,
+				setFullBleedHeight = setFullBleedHeight,
+				closeSheet = closeSheet,
+				hasRadius = not isSmallDisplay,
+				sheetType = SheetType.Side,
+				testId = props.testId,
+				closeAffordanceRef = closeAffordanceRef,
+				contentStartRef = contentStartRef,
+				setContentStartRef = setContentStartRef,
+			}
+		end,
+		{
+			props.testId,
+			closeSheet,
+			contentStartRef,
+			closeAffordanceRef,
+			hasFullBleed,
+			isSmallDisplay,
+		} :: { unknown }
+	)
+
+	return React.createElement(InternalDrawer, {
+		elevation = elevation,
+		isOpen = isOpen,
+		onRequestClose = onRequestClose,
+		onCloseComplete = props.onClose,
+		side = InternalDrawerSide.End,
+		backdrop = InternalDrawerBackdrop.Dismissible,
+		width = width,
+		outerBleed = outerBleed,
+		layout = if isSmallDisplay then InternalDrawerLayout.FullBleed else InternalDrawerLayout.Inset,
+		shadow = InternalDrawerShadow.Overlay300,
+		backgroundColor = "bg-surface-100",
+		scrolls = false,
+		testId = props.testId,
+		ref = ref,
+	}, {
+		Content = React.createElement(View, {
+			tag = "size-full",
+		}, {
+			Body = React.createElement(
+				View,
+				{
+					tag = "col items-center size-full-full clip",
+				},
+				React.createElement(SheetContext.Provider, {
+					value = contextValue,
+				}, props.children)
+			),
+			CloseAffordance = React.createElement(CloseAffordance, {
+				onActivated = closeSheet,
+				ref = closeAffordanceRef,
+				NextSelectionDown = contentStartRef,
+				variant = if hasFullBleed then CloseAffordanceVariant.OverMedia else CloseAffordanceVariant.Utility,
+				Position = UDim2.new(1, -tokens.Margin.Small, 0, tokens.Margin.Small),
+				AnchorPoint = Vector2.new(1, 0),
+				Visible = hasHeader:map(function(value: boolean)
+					return not value
+				end),
+				testId = `{props.testId}--close-affordance`,
+			}),
+		}),
+	})
+end
 
 local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObject>)
 	local props = withDefaults(sideSheetProps, defaultProps)
@@ -141,6 +272,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 		end
 	end, { closedPosition, reducedMotion } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useImperativeHandle(props.sheetRef, function()
 		return {
 			close = closeSheet,
@@ -269,25 +401,32 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 					},
 					imageStyle = tokens.Color.Extended.Black.Black_10,
 				}),
-				Backdrop = React.createElement(View, {
-					Size = UDim2.fromScale(2, 2),
-					Position = UDim2.fromScale(-0.5, -0.5),
-					ZIndex = 1,
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-					backgroundStyle = backdropTransparency:map(function(value: number)
-						return {
-							Color3 = tokens.Color.Common.Backdrop.Color3,
-							Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
-						}
-					end),
-					onActivated = closeSheet,
-					testId = `{props.testId}--backdrop`,
-				}),
+				Backdrop = if Flags.FoundationSideSheetInternalBackdrop
+					then React.createElement(Backdrop, {
+						transparency = backdropTransparency,
+						onActivated = closeSheet,
+						ZIndex = 1,
+						testId = `{props.testId}--backdrop`,
+					})
+					else React.createElement(View, {
+						Size = UDim2.fromScale(2, 2),
+						Position = UDim2.fromScale(-0.5, -0.5),
+						ZIndex = 1,
+						stateLayer = {
+							affordance = StateLayerAffordance.None,
+						},
+						backgroundStyle = backdropTransparency:map(function(value: number)
+							return {
+								Color3 = tokens.Color.Common.Backdrop.Color3,
+								Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
+							}
+						end),
+						onActivated = closeSheet,
+						testId = `{props.testId}--backdrop`,
+					}),
 			}),
 			overlay
 		)
 end
 
-return React.memo(React.forwardRef(SideSheet))
+return React.memo(React.forwardRef(if Flags.FoundationSideSheetInternalDrawer then DrawerSideSheet else SideSheet))

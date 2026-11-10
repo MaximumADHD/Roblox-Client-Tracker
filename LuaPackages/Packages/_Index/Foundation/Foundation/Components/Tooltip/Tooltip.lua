@@ -48,7 +48,7 @@ export type TooltipProps = {
 local defaultProps = {
 	align = PopoverAlign.Start,
 	side = PopoverSide.Right,
-	hasArrow = if Flags.FoundationTooltipBeta then true else nil :: never,
+	hasArrow = true,
 	testId = "--foundation-tooltip",
 }
 
@@ -82,23 +82,21 @@ local function Tooltip(tooltipProps: TooltipProps)
 	local isOpen, setIsOpen = React.useState(false)
 	local tokens = useTokens()
 	local hasText = props.text ~= nil and props.text ~= ""
-	local maxXSize = useScaledValue(if Flags.FoundationTooltipBeta then Constants.TOOLTIP_MAX_WIDTH else 320)
+	local maxXSize = useScaledValue(Constants.TOOLTIP_MAX_WIDTH)
 
-	local containerPadding = if Flags.FoundationTooltipBeta
-		then if hasText
-			then {
-				top = UDim.new(0, tokens.Size.Size_150),
-				bottom = UDim.new(0, tokens.Size.Size_200),
-				left = UDim.new(0, tokens.Size.Size_200),
-				right = UDim.new(0, tokens.Size.Size_200),
-			}
-			else {
-				top = UDim.new(0, tokens.Size.Size_100),
-				bottom = UDim.new(0, tokens.Size.Size_150),
-				left = UDim.new(0, tokens.Size.Size_150),
-				right = UDim.new(0, tokens.Size.Size_150),
-			}
-		else nil
+	local containerPadding = if hasText
+		then {
+			top = UDim.new(0, tokens.Size.Size_150),
+			bottom = UDim.new(0, tokens.Size.Size_200),
+			left = UDim.new(0, tokens.Size.Size_200),
+			right = UDim.new(0, tokens.Size.Size_200),
+		}
+		else {
+			top = UDim.new(0, tokens.Size.Size_100),
+			bottom = UDim.new(0, tokens.Size.Size_150),
+			left = UDim.new(0, tokens.Size.Size_150),
+			right = UDim.new(0, tokens.Size.Size_150),
+		}
 
 	local shortcutText = React.useMemo(function()
 		if props.shortcut == nil then
@@ -133,7 +131,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 		Content = React.createElement(
 			Popover.Content,
 			{
-				hasArrow = if Flags.FoundationTooltipBeta then props.hasArrow else false,
+				hasArrow = props.hasArrow,
 				align = props.align,
 				side = {
 					position = props.side,
@@ -151,8 +149,6 @@ local function Tooltip(tooltipProps: TooltipProps)
 			React.createElement(View, {
 				tag = {
 					["col gap-xsmall auto-xy"] = true,
-					["padding-x-medium padding-y-small"] = not Flags.FoundationTooltipBeta and props.text ~= nil,
-					["padding-x-small padding-y-xsmall"] = not Flags.FoundationTooltipBeta and props.text == nil,
 				},
 				padding = containerPadding,
 				sizeConstraint = {
@@ -170,9 +166,8 @@ local function Tooltip(tooltipProps: TooltipProps)
 									Text = props.title,
 									tag = {
 										["shrink auto-xy text-truncate-end content-inverse-emphasis"] = true,
-										["text-title-small"] = not Flags.FoundationTooltipBeta,
-										["text-caption-medium"] = Flags.FoundationTooltipBeta and hasText,
-										["text-body-small"] = Flags.FoundationTooltipBeta and not hasText,
+										["text-caption-medium"] = hasText,
+										["text-body-small"] = not hasText,
 									},
 									testId = `{props.testId}--title`,
 								})

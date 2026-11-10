@@ -15,8 +15,6 @@ local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 local FitTextLabel = require(Packages.FitFrame).FitTextLabel
 local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local InputButton = Roact.PureComponent:extend("InputButton")
 
 InputButton.validateProps = t.strictInterface({
@@ -107,8 +105,7 @@ function InputButton:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 
 			TextSize = fontSize,
-			Font = if FFlagFoundationFontFaceMigration then nil else textFont,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(textFont) else nil,
+			FontFace = normalizeFontFace(textFont),
 			TextWrapped = true,
 			TextColor3 = self.props.textColor,
 			TextTransparency = self.props.transparency,
@@ -130,8 +127,8 @@ function InputButton:render()
 			frameComponent = FitFrameHorizontal
 			textComponent = FitTextLabel
 			textComponentProps = Cryo.Dictionary.join(textComponentProps, {
-				Font = if FFlagFoundationFontFaceMigration then normalizeFontFace(textFont) else nil,
-				FontFace = if FFlagFoundationFontFaceMigration then Cryo.None else nil,
+				Font = normalizeFontFace(textFont),
+				FontFace = Cryo.None,
 				width = FitTextLabel.Width.FitToText,
 				onActivated = self.props.onActivated,
 				[Roact.Change.AbsoluteSize] = self.textAbsoluteSizeChanged,

@@ -244,6 +244,95 @@ describe("_computeSubscriptionBitrates", function()
 			expect(prevBySsrc[111].bytes).toBe(50)
 		end
 	)
+
+	it("should not let two instances' prev-bytes tables for the same ssrc cross-contaminate", function()
+		local data = VoiceDebugData.new()
+		expect(data._prevSubscriptionBytesBySsrc).never.toBe(data._prevPartySubscriptionBytesBySsrc)
+
+		VoiceDebugData._computeSubscriptionBitrates(
+			{ { audioSsrc = 111, incomingBytes = 1000 } },
+			data._prevSubscriptionBytesBySsrc,
+			1
+		)
+		VoiceDebugData._computeSubscriptionBitrates(
+			{ { audioSsrc = 111, incomingBytes = 9000 } },
+			data._prevPartySubscriptionBytesBySsrc,
+			1
+		)
+
+		expect(data._prevSubscriptionBytesBySsrc[111].bytes).toBe(1000)
+		expect(data._prevPartySubscriptionBytesBySsrc[111].bytes).toBe(9000)
+	end)
+end)
+
+describe("_correctPartyAggregateStats", function()
+	it("should leave bitrate nil on the first sample (no previous party sample yet)", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+
+		data:_correctPartyAggregateStats(nil)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._partyStatsData.incomingBitrateKbps).toBe(nil)
+		expect(data._partyStatsData.outgoingBitrateKbps).toBe(nil)
+	end)
+
+	it("should compute kbps from the byte delta on the next sample", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+		data:_correctPartyAggregateStats(nil)
+
+		data._partyStatsData = { incomingBytes = 2000, outgoingBytes = 1500 }
+		data:_correctPartyAggregateStats(1)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._partyStatsData.incomingBitrateKbps).toBe(8)
+		expect(data._partyStatsData.outgoingBitrateKbps).toBe(8)
+	end)
+
+	it("should parse the outgoing codec from the party connectivity store's publish SDP", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = {}
+		data._partyConnectivityData = { sdpPublishOffer = "a=rtpmap:111 opus/48000/2" }
+
+		data:_correctPartyAggregateStats(nil)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._partyStatsData.outgoingCodec).toBe("opus/48000/2")
+	end)
+
+	it("should not let party samples corrupt the in-experience prev-bytes state or vice versa", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", true)
+		local data = VoiceDebugData.new()
+		data._prevIncomingBytes = 10
+		data._prevOutgoingBytes = 20
+
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+		data:_correctPartyAggregateStats(nil)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+
+		expect(data._prevIncomingBytes).toBe(10)
+		expect(data._prevOutgoingBytes).toBe(20)
+	end)
+
+	it("should do nothing when the flag is off", function()
+		local oldFlagValue = game:SetFastFlagForTesting("VoiceDebugConsoleV2", false)
+		local oldV2Override = VoiceDebugConsoleV2TestOverride.setForTesting(false)
+		local data = VoiceDebugData.new()
+		data._partyStatsData = { incomingBytes = 1000, outgoingBytes = 500 }
+		data:_correctPartyAggregateStats(nil)
+
+		data._partyStatsData = { incomingBytes = 2000, outgoingBytes = 1500 }
+		data:_correctPartyAggregateStats(1)
+		game:SetFastFlagForTesting("VoiceDebugConsoleV2", oldFlagValue)
+		VoiceDebugConsoleV2TestOverride.setForTesting(oldV2Override)
+
+		expect(data._partyStatsData.incomingBitrateKbps).toBe(nil)
+		expect(data._partyStatsData.outgoingBitrateKbps).toBe(nil)
+	end)
 end)
 
 describe("_correctPartyAggregateStats", function()
@@ -560,6 +649,27 @@ describe("Voice source toggle", function()
 		data._remoteOperationsData = { receivedCaptureEnabled = true }
 
 		expect(data:getRemoteOperations().receivedCaptureEnabled).toBe(true)
+	end)
+
+	it("should read from the party subscriptions store once switched to the party source", function()
+		local data = VoiceDebugData.new()
+		data._subscriptionsData = { subscriptions = { { userId = 1 } } }
+		data._partySubscriptionsData = { subscriptions = { { userId = 2 } } }
+
+		data:setSource("party")
+
+		local subscriptions = data:getSubscriptions()
+		expect(#subscriptions).toBe(1)
+		expect(subscriptions[1].userId).toBe(2)
+	end)
+
+	it("should still return the in-experience subscriptions store while that source is selected", function()
+		local data = VoiceDebugData.new()
+		data._subscriptionsData = { subscriptions = { { userId = 1 } } }
+
+		local subscriptions = data:getSubscriptions()
+		expect(#subscriptions).toBe(1)
+		expect(subscriptions[1].userId).toBe(1)
 	end)
 end)
 

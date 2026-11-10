@@ -1,7 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
-
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -79,7 +77,6 @@ local getVariants = function(tokens: Tokens)
 	}
 
 	local isContained: { [boolean]: VariantProps } = {
-		[false] = { header = { tag = if Flags.FoundationAccordionBeta then "" else "padding-x-xsmall" } },
 		[true] = {
 			header = { tag = "padding-x-medium" },
 			content = { tag = "padding-x-medium" },

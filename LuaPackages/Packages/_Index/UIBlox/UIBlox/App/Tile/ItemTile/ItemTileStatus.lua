@@ -17,8 +17,6 @@ local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ItemTileEnums = require(TileRoot.Enum.ItemTileEnums)
 
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
-
 local ItemTileStatus = Roact.PureComponent:extend("ItemTileStatus")
 
 local MAX_TEXT_SIZE = Vector2.new(50, 20)
@@ -60,9 +58,7 @@ function ItemTileStatus:render()
 		local statusText = self.props.statusText
 		local statusStyle = self.props.statusStyle
 
-		local font = if FFlagFoundationFontFaceMigration
-			then GetFontFromFontStyle(fontInfo.CaptionHeader)
-			else fontInfo.CaptionHeader.Font
+		local font = GetFontFromFontStyle(fontInfo.CaptionHeader)
 		local fontSize = fontInfo.BaseSize * fontInfo.CaptionHeader.RelativeSize
 		local textSize = GetTextSize(statusText, fontSize, font, MAX_TEXT_SIZE)
 
@@ -80,8 +76,7 @@ function ItemTileStatus:render()
 		}, {
 			Text = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-				Font = if FFlagFoundationFontFaceMigration then nil else font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font) else nil,
+				FontFace = normalizeFontFace(font),
 				TextSize = fontSize,
 				Text = statusText,
 				TextColor3 = styleInfo.Text.Color,

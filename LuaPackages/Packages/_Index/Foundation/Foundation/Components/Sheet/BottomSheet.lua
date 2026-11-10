@@ -28,6 +28,7 @@ local childrenHasFullBleed = require(script.Parent.childrenHasFullBleed)
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
 local useScreenHeight = require(script.Parent.useScreenHeight)
 
+local Backdrop = require(Foundation.Components.Backdrop)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 
@@ -253,6 +254,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		} :: { unknown }
 	)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local springToSnapIndex = React.useCallback(function(index: number)
 		currentSnapIndex.current = index
 		startSpringSimulation(snapValueToPosition(snapPoints[index]))
@@ -272,6 +274,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end
 	end, { stopSpringSimulation, snapValueToPosition, snapPoints } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local closeSheet = React.useCallback(function(forceAnimate: boolean?)
 		if isClosing.current then
 			return
@@ -388,6 +391,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				stopSpringSimulation()
 			end
 		end,
+		-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 		{
 			overlay,
 			snapPoints,
@@ -485,6 +489,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local innerSurface, setInnerSurface = React.useState(nil :: Frame?)
 	local composedRef = ReactUtils.useComposedRef(ref, setInnerSurface)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useImperativeHandle(props.sheetRef, function()
 		return {
 			close = closeSheet,
@@ -669,6 +674,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					}),
 					Shadow = if Flags.FoundationBottomSheetOverlayShadow
 						then React.createElement(View, {
+							-- lute-lint-ignore(mixedTagStrings) UIBLOX-5675
 							tag = "shadow-overlay-300 radius-large",
 							Size = UDim2.new(1, 0, 0, maxSheetHeight + BOTTOM_PADDING),
 							Position = UDim2.new(0, 0, 1, -maxSheetHeight),
@@ -686,24 +692,34 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 							},
 							imageStyle = tokens.Color.Extended.Black.Black_10,
 						}),
-					Backdrop = React.createElement(View, {
-						Size = UDim2.fromScale(1, 2),
-						Position = UDim2.fromScale(0, -0.5),
-						ZIndex = 1,
-						stateLayer = {
-							affordance = StateLayerAffordance.None,
-						},
-						backgroundStyle = backdropTransparency:map(function(value: number)
-							return {
-								Color3 = tokens.Color.Common.Backdrop.Color3,
-								Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
-							}
-						end),
-						onActivated = function()
-							closeSheet()
-						end,
-						testId = `{props.testId}--backdrop`,
-					}),
+					Backdrop = if Flags.FoundationBottomSheetInternalBackdrop
+						then React.createElement(Backdrop, {
+							transparency = backdropTransparency,
+							onActivated = function()
+								closeSheet()
+							end,
+							Size = UDim2.fromScale(1, 2),
+							ZIndex = 1,
+							testId = `{props.testId}--backdrop`,
+						})
+						else React.createElement(View, {
+							Size = UDim2.fromScale(1, 2),
+							Position = UDim2.fromScale(0, -0.5),
+							ZIndex = 1,
+							stateLayer = {
+								affordance = StateLayerAffordance.None,
+							},
+							backgroundStyle = backdropTransparency:map(function(value: number)
+								return {
+									Color3 = tokens.Color.Common.Backdrop.Color3,
+									Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
+								}
+							end),
+							onActivated = function()
+								closeSheet()
+							end,
+							testId = `{props.testId}--backdrop`,
+						}),
 				})
 			),
 			overlay

@@ -9,4 +9,6 @@ return {
 	-- MarkdownViewer parses with Parsers.RobloxMarkdown when ParserProfile is nil (turn on once every surface
 	-- sets a profile); ParserProfile = "Legacy" keeps CommonMarkComplianceParser. Implies ParserProfile is honored.
 	FFlagMarkdownDefaultRobloxProfile = SafeFlags.createGetFFlag("MarkdownDefaultRobloxProfile")(),
+	-- Parsers.RobloxMarkdown and Parsers.CommonMark read the inline formatting tags <b>, <i>, <u> and <s>
+	FFlagMarkdownFormattingTags = SafeFlags.createGetFFlag("MarkdownFormattingTags")(),
 }

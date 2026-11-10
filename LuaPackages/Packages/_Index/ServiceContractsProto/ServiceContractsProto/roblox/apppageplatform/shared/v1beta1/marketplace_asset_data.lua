@@ -59,6 +59,7 @@ type _MarketplaceAssetDataFields =
 		is_purchasable: boolean?,
 		variant_attributes: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute },
 		genres: { string },
+		licensing: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing?,
 	}
 
 type _MarketplaceAssetDataPartialFields =
@@ -95,6 +96,7 @@ type _MarketplaceAssetDataPartialFields =
 		is_purchasable: boolean?,
 		variant_attributes: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute }?,
 		genres: { string }?,
+		licensing: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing?,
 	}
 
 export type MarketplaceAssetData = typeof(setmetatable(
@@ -151,6 +153,7 @@ do
 			is_purchasable = if data == nil or data.is_purchasable == nil then nil else data.is_purchasable,
 			variant_attributes = if data == nil or data.variant_attributes == nil then {} else data.variant_attributes,
 			genres = if data == nil or data.genres == nil then {} else data.genres,
+			licensing = if data == nil or data.licensing == nil then nil else data.licensing,
 		}, _MarketplaceAssetDataImpl :: _MarketplaceAssetDataImpl)
 	end
 
@@ -333,6 +336,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, value)
 			end
+		end
+
+		if self.licensing ~= nil then
+			local encoded = self.licensing:encode()
+			output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -529,6 +538,14 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.genres, buffer.tostring(value))
 					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.licensing =
+						_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing.decode(
+							value
+						)
+					continue
 				end
 
 				local length
@@ -710,6 +727,10 @@ do
 				table.insert(newOutput, value)
 			end
 			output.genres = newOutput
+		end
+
+		if self.licensing ~= nil then
+			output.licensing = self.licensing:jsonEncode()
 		end
 
 		return output
@@ -1034,6 +1055,13 @@ do
 			end
 
 			self.genres = newOutput
+		end
+
+		if input.licensing ~= nil then
+			self.licensing =
+				_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing.jsonDecode(
+					input.licensing
+				)
 		end
 
 		return self

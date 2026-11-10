@@ -7,6 +7,7 @@ local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
 
 local React = require(CorePackages.Packages.React)
+local Signals = require(CorePackages.Packages.Signals)
 local ChromeService = require(Chrome.Service)
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local WindowSizeSignal = require(Chrome.ChromeShared.Service.WindowSizeSignal)
@@ -20,6 +21,7 @@ local MappedSignal = ChromeUtils.MappedSignal
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local Shop = require(CorePackages.Workspace.Packages.InExperienceShop)
+local FFlagEnableFreeTrialBlueDot = Shop.FFlagEnableFreeTrialBlueDot
 local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
 local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
 local FFlagCenterInExperienceShopWindow = Shop.FFlagCenterInExperienceShopWindow
@@ -28,6 +30,10 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableMenuTrailingBadge = SharedFlags.FFlagEnableMenuTrailingBadge
 local FFlagShowOfferBadge = SharedFlags.FFlagShowOfferBadge
 local FFlagExperienceShopNewIconography = Shop.FFlagExperienceShopNewIconography
+local FFlagEnableAnyFreeTrialToolTip =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FFlagEnableAnyFreeTrialToolTip)
+local FFlagEnableFreeTrialShopMenuBadge = Shop.FFlagEnableFreeTrialShopMenuBadge
+local FFlagMenuBadgePreferFreeTrialOverOffer = Shop.FFlagMenuBadgePreferFreeTrialOverOffer
 
 local ShopCoreGuiToggleSupported = game:GetEngineFeature("ShopCoreGuiToggleSupported")
 local EnableOpenShopSignal = game:GetEngineFeature("EnableOpenShopSignal")
@@ -52,10 +58,82 @@ local FIntNewBadgeDismissalMaxCountInExperienceShop = game:DefineFastInt("NewBad
 local FFlagEnableNewBadgeInExperienceShop = game:DefineFastFlag("EnableNewBadgeInExperienceShop", false)
 local showNewBadge = FFlagEnableNewBadgeInExperienceShop and FFlagEnableMenuTrailingBadge
 
-local offerBadgeText: (() -> string?)? = nil
+local offerBadgeText: Signals.getter<string?>? = nil
+local offerBadgeTextFromOffers: Signals.getter<string?>? = nil
+local dismissFreeTrialMenuBadge: (() -> ())? = nil
 if FFlagShowOfferBadge then
 	local InExperienceOffers = require(CorePackages.Workspace.Packages.InExperienceOffers)
-	offerBadgeText = InExperienceOffers.Utils.createOfferBadgeTextSignal(InExperienceOffers.FeatureKeys.RobloxShop)
+	offerBadgeTextFromOffers =
+		InExperienceOffers.Utils.createOfferBadgeTextSignal(InExperienceOffers.FeatureKeys.RobloxShop)
+	offerBadgeText = offerBadgeTextFromOffers
+end
+
+-- TODO(DMP-4422): Move offers badge to use notifications-orchestrator.
+if FFlagEnableFreeTrialShopMenuBadge then
+	local freeTrialMenuBadge = require(CorePackages.Workspace.Packages.InExperienceShop.submitFreeTrialMenuBadge)
+	local trialBadgeText = freeTrialMenuBadge()
+	local offersText = offerBadgeTextFromOffers
+	if FFlagMenuBadgePreferFreeTrialOverOffer and offersText ~= nil then
+		offerBadgeText = function(scope): string?
+			local trialText = trialBadgeText(scope)
+			if trialText ~= nil then
+				return trialText
+			end
+			return offersText(scope)
+		end
+	elseif offersText ~= nil then
+		offerBadgeText = function(scope): string?
+			local offerText = offersText(scope)
+			if offerText ~= nil then
+				return offerText
+			end
+			return trialBadgeText(scope)
+		end
+	else
+		offerBadgeText = trialBadgeText
+	end
+	dismissFreeTrialMenuBadge = freeTrialMenuBadge.dismiss
+
+	local reportedThisOpen = false
+	local function reportTrialBadgeSeen()
+		if reportedThisOpen or trialBadgeText(false) == nil then
+			return
+		end
+		-- An offer owns the row unless the trial-preference flag is on. Counting a trial
+		-- impression here would record a badge the user did not see.
+		if not FFlagMenuBadgePreferFreeTrialOverOffer then
+			local offers = offersText
+			if offers ~= nil and offers(false) ~= nil then
+				return
+			end
+		end
+		if not ChromeService:withinCurrentSubmenu(Constants.IN_EXPERIENCE_SHOP_ID) then
+			return
+		end
+		reportedThisOpen = true
+		freeTrialMenuBadge.reportMounted()
+		freeTrialMenuBadge.reportViewed()
+	end
+
+	ChromeService:currentSubMenu():connect(function()
+		if not ChromeService:withinCurrentSubmenu(Constants.IN_EXPERIENCE_SHOP_ID) then
+			reportedThisOpen = false
+			return
+		end
+		reportTrialBadgeSeen()
+	end)
+
+	-- Held so the text subscription survives weak observer sets.
+	local _disposeTrialBadgeSeen = Signals.createEffect(function(scope)
+		trialBadgeText(scope)
+		if not FFlagMenuBadgePreferFreeTrialOverOffer then
+			local offers = offersText
+			if offers ~= nil then
+				offers(scope)
+			end
+		end
+		reportTrialBadgeSeen()
+	end)
 end
 
 local menuTrailingBadgeConfig: ChromePackage.MenuTrailingBadge? = if showNewBadge or offerBadgeText ~= nil
@@ -98,6 +176,12 @@ local function toggleShopWindow()
 	end
 end
 
+local function dismissTrialBadgeIfShopIsClosed()
+	if dismissFreeTrialMenuBadge ~= nil and not ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then
+		dismissFreeTrialMenuBadge()
+	end
+end
+
 local integration = ChromeService:register({
 	initialAvailability = getInitialAvailability(),
 	id = Constants.IN_EXPERIENCE_SHOP_ID,
@@ -109,6 +193,7 @@ local integration = ChromeService:register({
 	windowSize = windowSize,
 	startingWindowPosition = ShopWindowLayout.getStartingWindowPosition(),
 	activated = function(_self)
+		dismissTrialBadgeIfShopIsClosed()
 		toggleShopWindow()
 	end,
 	menuTrailingBadgeConfig = menuTrailingBadgeConfig,
@@ -158,6 +243,19 @@ if FFlagEnableShopPrefetch then
 	end
 end
 
+-- Trial tooltip. The shop watcher picks the global shop icon when that icon
+-- is on screen, and the hamburger otherwise, then submits that slot once.
+-- The hamburger hosts the tooltip and re-anchors it onto the shop icon.
+if FFlagEnableAnyFreeTrialToolTip then
+	local submitFreeTrialTooltips = require(CorePackages.Workspace.Packages.InExperienceShop.submitFreeTrialTooltips)
+	submitFreeTrialTooltips()
+end
+
+if FFlagEnableFreeTrialBlueDot then
+	local submitFreeTrialBlueDot = require(CorePackages.Workspace.Packages.InExperienceShop.submitFreeTrialBlueDot)
+	submitFreeTrialBlueDot()
+end
+
 -- TODO(DMP-2518): Drop the intersection cast once the Luau type checker's API dump picks
 -- up `MarketplaceService.OpenShopRequested`. Using an intersection (instead of `:: any`)
 -- keeps the rest of the service typed.
@@ -173,6 +271,7 @@ if EnableOpenShopSignal then
 					return
 				end
 				if not ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then
+					dismissTrialBadgeIfShopIsClosed()
 					toggleShopWindow()
 				end
 			end

@@ -11,7 +11,6 @@ local Rodux = require(Packages.Rodux)
 local ReactRoblox = require(Packages.ReactRoblox)
 local Framework = require(Packages.Framework)
 local RoactRodux = require(Packages.RoactRodux)
-local Dash = require(Packages.Dash)
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
 local registerPluginStyles = Framework.Styling.registerPluginStyles
@@ -40,9 +39,6 @@ local GetStories = require(Src.Thunks.GetStories)
 local Foundation = require(Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 
-local FFlagStorybookEmbeddedRemoveFoundationDerives =
-	game:DefineFastFlag("StorybookEmbeddedRemoveFoundationDerives", false)
-
 local function StyleLinkWrapper(props)
 	local styleSheet = Foundation.Hooks.useStyleSheet()
 
@@ -70,28 +66,17 @@ local function StyleLinkWrapper(props)
 end
 
 function FoundationProviderAdapter(props)
-	if FFlagStorybookEmbeddedRemoveFoundationDerives then
-		return React.createElement(FoundationProvider, {
-			colorMode = props.colorMode,
-			themeName = props.themeName,
-			-- Deprecated Foundation prop kept while consumers migrate.
+	return React.createElement(FoundationProvider, {
+		colorMode = props.colorMode,
+		themeName = props.themeName,
+		-- Deprecated Foundation prop kept while consumers migrate.
+		theme = props.colorMode,
+	}, {
+		StyleLinkWrapper = React.createElement(StyleLinkWrapper, {
+			design = props.design,
 			theme = props.colorMode,
-		}, {
-			StyleLinkWrapper = React.createElement(StyleLinkWrapper, {
-				design = props.design,
-				theme = props.colorMode,
-			}, props.children),
-		})
-	else
-		return React.createElement(
-			FoundationProvider,
-			Dash.join(props, {
-				colorMode = props.colorMode,
-				themeName = props.themeName,
-				theme = props.colorMode,
-			})
-		)
-	end
+		}, props.children),
+	})
 end
 
 -- Hack to react to the color mode change: we update the Rodux store, but initially it's empty.
@@ -112,19 +97,13 @@ function WindowWrapper(props: { design: any })
 		setSideBarPadding(GuiService.TopbarInset.Height)
 	end, {})
 
-	return React.createElement(
-		FoundationProviderAdapter,
-		if FFlagStorybookEmbeddedRemoveFoundationDerives
-			then { design = props.design }
-			else { derives = { props.design } },
-		{
-			React.createElement(Window, { sideBarPadding = sideBarPadding }),
-			React.createElement(ExternalEventConnection, {
-				event = GuiService:GetPropertyChangedSignal("TopbarInset"),
-				callback = onInsetChange,
-			}),
-		}
-	)
+	return React.createElement(FoundationProviderAdapter, { design = props.design }, {
+		React.createElement(Window, { sideBarPadding = sideBarPadding }),
+		React.createElement(ExternalEventConnection, {
+			event = GuiService:GetPropertyChangedSignal("TopbarInset"),
+			callback = onInsetChange,
+		}),
+	})
 end
 
 local EmbeddedStorybook = {}

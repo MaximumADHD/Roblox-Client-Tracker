@@ -55,6 +55,7 @@ type _Messages =
 		EventsCarouselInputData_EventItem: _EventsCarouselInputData_EventItemMessage,
 		DevStoreFeedInputData: _DevStoreFeedInputDataMessage,
 		DevStoreFeedInputData_EntryMapEntry: _DevStoreFeedInputData_EntryMapEntryMessage,
+		GameItemDetailsInputData: _GameItemDetailsInputDataMessage,
 		PillTabsInputData: _PillTabsInputDataMessage,
 		PillTabsInputData_PillTabOption: _PillTabsInputData_PillTabOptionMessage,
 		GamePassCollectionInputData: _GamePassCollectionInputDataMessage,
@@ -155,7 +156,11 @@ type _Messages =
 		ItemWithLayout: _ItemWithLayoutMessage,
 		ContentPool: _ContentPoolMessage,
 		ItemLayout: _ItemLayoutMessage,
+		GroupSidebarInputData: _GroupSidebarInputDataMessage,
+		GroupSidebarInputData_GroupItem: _GroupSidebarInputData_GroupItemMessage,
 		GroupOverviewPaneInputData: _GroupOverviewPaneInputDataMessage,
+		GroupSidebarSectionInputData: _GroupSidebarSectionInputDataMessage,
+		GroupSidebarSectionInputData_ForumCategory: _GroupSidebarSectionInputData_ForumCategoryMessage,
 		CommunityAnnouncementInputData: _CommunityAnnouncementInputDataMessage,
 		ReactionInputData: _ReactionInputDataMessage,
 		AvailableReactionInputData: _AvailableReactionInputDataMessage,
@@ -184,6 +189,13 @@ type _Messages =
 		UserLibraryOverviewInputData: _UserLibraryOverviewInputDataMessage,
 		UserLibraryListInputData: _UserLibraryListInputDataMessage,
 		UserLibraryHeaderInputData: _UserLibraryHeaderInputDataMessage,
+		StreamNotificationRowInputData: _StreamNotificationRowInputDataMessage,
+		StreamNotificationRowInputData_RowAction: _StreamNotificationRowInputData_RowActionMessage,
+		StreamNotificationRowInputData_InteractiveItem: _StreamNotificationRowInputData_InteractiveItemMessage,
+		StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryMessage,
+		StreamNotificationRowInputData_ClientEventsPayloadEntry: _StreamNotificationRowInputData_ClientEventsPayloadEntryMessage,
+		StreamNotificationFeedInputData: _StreamNotificationFeedInputDataMessage,
+		StreamNotificationFeedInputData_EntryMapEntry: _StreamNotificationFeedInputData_EntryMapEntryMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 		BuyRobuxSectionDisplayState: _BuyRobuxSectionDisplayStateMessage,
 		UserLibraryTargetType: _UserLibraryTargetTypeMessage,
@@ -365,6 +377,7 @@ type _PageEntryInputDataFields = {
 		| { type: "event_details_sheet_full_bleed", value: EventDetailsSheetFullBleedInputData }
 		| { type: "event_notifications_modal", value: EventNotificationsModalInputData }
 		| { type: "dev_store_feed", value: DevStoreFeedInputData }
+		| { type: "game_item_details", value: GameItemDetailsInputData }
 		| { type: "charts_feed", value: ChartsFeedInputData }
 		| { type: "filter_pills", value: FilterPillsInputData }
 		| { type: "sort_selector", value: SortSelectorInputData }
@@ -396,12 +409,16 @@ type _PageEntryInputDataFields = {
 		| { type: "group_forums_discovery", value: GroupForumsDiscoveryInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
+		| { type: "group_sidebar", value: GroupSidebarInputData }
 		| { type: "group_overview_pane", value: GroupOverviewPaneInputData }
+		| { type: "group_sidebar_section", value: GroupSidebarSectionInputData }
 		| { type: "buy_robux_page", value: BuyRobuxPageInputData }
 		| { type: "buy_robux_section", value: BuyRobuxSectionInputData }
 		| { type: "user_library_overview", value: UserLibraryOverviewInputData }
 		| { type: "user_library_list", value: UserLibraryListInputData }
 		| { type: "user_library_header", value: UserLibraryHeaderInputData }
+		| { type: "stream_notification_row", value: StreamNotificationRowInputData }
+		| { type: "stream_notification_feed", value: StreamNotificationFeedInputData }
 	)?,
 }
 
@@ -462,6 +479,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "event_details_sheet_full_bleed", value: EventDetailsSheetFullBleedInputData }
 		| { type: "event_notifications_modal", value: EventNotificationsModalInputData }
 		| { type: "dev_store_feed", value: DevStoreFeedInputData }
+		| { type: "game_item_details", value: GameItemDetailsInputData }
 		| { type: "charts_feed", value: ChartsFeedInputData }
 		| { type: "filter_pills", value: FilterPillsInputData }
 		| { type: "sort_selector", value: SortSelectorInputData }
@@ -493,12 +511,16 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "group_forums_discovery", value: GroupForumsDiscoveryInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
+		| { type: "group_sidebar", value: GroupSidebarInputData }
 		| { type: "group_overview_pane", value: GroupOverviewPaneInputData }
+		| { type: "group_sidebar_section", value: GroupSidebarSectionInputData }
 		| { type: "buy_robux_page", value: BuyRobuxPageInputData }
 		| { type: "buy_robux_section", value: BuyRobuxSectionInputData }
 		| { type: "user_library_overview", value: UserLibraryOverviewInputData }
 		| { type: "user_library_list", value: UserLibraryListInputData }
 		| { type: "user_library_header", value: UserLibraryHeaderInputData }
+		| { type: "stream_notification_row", value: StreamNotificationRowInputData }
+		| { type: "stream_notification_feed", value: StreamNotificationFeedInputData }
 	)?,
 }
 
@@ -1309,6 +1331,7 @@ type _ExperiencePlayWithRewardInputDataFields = {
 	product_image_asset_id: string,
 	product_name: string,
 	variant_id: string,
+	is_universe_interstitial_eligible: boolean,
 }
 
 type _ExperiencePlayWithRewardInputDataPartialFields = {
@@ -1318,6 +1341,7 @@ type _ExperiencePlayWithRewardInputDataPartialFields = {
 	product_image_asset_id: string?,
 	product_name: string?,
 	variant_id: string?,
+	is_universe_interstitial_eligible: boolean?,
 }
 
 export type ExperiencePlayWithRewardInputData = typeof(setmetatable(
@@ -1625,6 +1649,7 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	moment_video_playback: ExperienceCarouselInputData_UniverseItem_MomentVideoPlayback?,
 	thumbnail_list_id: string?,
 	sponsored_game_preview_video_eligible: boolean?,
+	footnote_text: string?,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1657,6 +1682,7 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	moment_video_playback: ExperienceCarouselInputData_UniverseItem_MomentVideoPlayback?,
 	thumbnail_list_id: string?,
 	sponsored_game_preview_video_eligible: boolean?,
+	footnote_text: string?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1899,6 +1925,38 @@ type _DevStoreFeedInputData_EntryMapEntryMessage = proto.Message<
 	DevStoreFeedInputData_EntryMapEntry,
 	_DevStoreFeedInputData_EntryMapEntryPartialFields
 >
+
+type _GameItemDetailsInputDataImpl = {
+	__index: _GameItemDetailsInputDataImpl,
+	new: (fields: _GameItemDetailsInputDataPartialFields?) -> GameItemDetailsInputData,
+	encode: (self: GameItemDetailsInputData) -> buffer,
+	decode: (input: buffer) -> GameItemDetailsInputData,
+	jsonEncode: (self: GameItemDetailsInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GameItemDetailsInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GameItemDetailsInputDataFields = {
+	item_id: string,
+	item_type: string,
+	universe_id: string,
+	creator_key: string,
+	viewer_user_id: string,
+}
+
+type _GameItemDetailsInputDataPartialFields = {
+	item_id: string?,
+	item_type: string?,
+	universe_id: string?,
+	creator_key: string?,
+	viewer_user_id: string?,
+}
+
+export type GameItemDetailsInputData = typeof(setmetatable(
+	{} :: _GameItemDetailsInputDataFields,
+	{} :: _GameItemDetailsInputDataImpl
+))
+type _GameItemDetailsInputDataMessage = proto.Message<GameItemDetailsInputData, _GameItemDetailsInputDataPartialFields>
 
 type _PillTabsInputDataImpl = {
 	__index: _PillTabsInputDataImpl,
@@ -3461,6 +3519,16 @@ type _MarketplaceItemInfoTableInputDataFields = {
 	user_can_purchase_from_stock: boolean,
 	resale_listings_available: boolean,
 	creating_experience_available: boolean,
+	creating_universe_id: string?,
+	collectible_item_id: string?,
+	category_type: string?,
+	placement: string?,
+	resellable: boolean,
+	sold_count: number?,
+	stock: number?,
+	recent_average_price: number?,
+	rent_option_row_available: boolean,
+	high_definition_row_available: boolean,
 }
 
 type _MarketplaceItemInfoTableInputDataPartialFields = {
@@ -3469,6 +3537,16 @@ type _MarketplaceItemInfoTableInputDataPartialFields = {
 	user_can_purchase_from_stock: boolean?,
 	resale_listings_available: boolean?,
 	creating_experience_available: boolean?,
+	creating_universe_id: string?,
+	collectible_item_id: string?,
+	category_type: string?,
+	placement: string?,
+	resellable: boolean?,
+	sold_count: number?,
+	stock: number?,
+	recent_average_price: number?,
+	rent_option_row_available: boolean?,
+	high_definition_row_available: boolean?,
 }
 
 export type MarketplaceItemInfoTableInputData = typeof(setmetatable(
@@ -3527,12 +3605,16 @@ type _MarketplaceItemOwnershipInputDataFields = {
 	item_id: string,
 	item_type: string,
 	user_owns_resellable_copy: boolean,
+	resellable_copy_count: number,
+	owned_copy_expiration_time: _google_protobuf_timestamp.Timestamp?,
 }
 
 type _MarketplaceItemOwnershipInputDataPartialFields = {
 	item_id: string?,
 	item_type: string?,
 	user_owns_resellable_copy: boolean?,
+	resellable_copy_count: number?,
+	owned_copy_expiration_time: _google_protobuf_timestamp.Timestamp?,
 }
 
 export type MarketplaceItemOwnershipInputData = typeof(setmetatable(
@@ -4129,6 +4211,7 @@ type _CtaButtonsInputDataFields = {
 	secondary_cta_button_text: string,
 	primary_cta_type: string,
 	secondary_cta_type: string,
+	hide_secondary_cta: boolean,
 }
 
 type _CtaButtonsInputDataPartialFields = {
@@ -4136,6 +4219,7 @@ type _CtaButtonsInputDataPartialFields = {
 	secondary_cta_button_text: string?,
 	primary_cta_type: string?,
 	secondary_cta_type: string?,
+	hide_secondary_cta: boolean?,
 }
 
 export type CtaButtonsInputData = typeof(setmetatable({} :: _CtaButtonsInputDataFields, {} :: _CtaButtonsInputDataImpl))
@@ -4614,12 +4698,14 @@ type _FriendRecommendationCarouselInputDataFields = {
 	items: { FriendRecommendationCarouselInputData_RecommendationItem },
 	sort_id: string,
 	recommendation_request_id: string,
+	seed_user_id: number,
 }
 
 type _FriendRecommendationCarouselInputDataPartialFields = {
 	items: { FriendRecommendationCarouselInputData_RecommendationItem }?,
 	sort_id: string?,
 	recommendation_request_id: string?,
+	seed_user_id: number?,
 }
 
 export type FriendRecommendationCarouselInputData = typeof(setmetatable(
@@ -4646,11 +4732,13 @@ type _FriendRecommendationCarouselInputData_RecommendationItemImpl = {
 type _FriendRecommendationCarouselInputData_RecommendationItemFields = {
 	item_id: string,
 	has_pending_friend_request: boolean,
+	is_seed_user_friend: boolean,
 }
 
 type _FriendRecommendationCarouselInputData_RecommendationItemPartialFields = {
 	item_id: string?,
 	has_pending_friend_request: boolean?,
+	is_seed_user_friend: boolean?,
 }
 
 export type FriendRecommendationCarouselInputData_RecommendationItem = typeof(setmetatable(
@@ -4831,6 +4919,7 @@ type _AdLinkItemFields = {
 	badge_analytics_id: string?,
 	roblox_component: string?,
 	attribution_thumbnail_asset_id: string?,
+	footnote_text: string?,
 }
 
 type _AdLinkItemPartialFields = {
@@ -4848,6 +4937,7 @@ type _AdLinkItemPartialFields = {
 	badge_analytics_id: string?,
 	roblox_component: string?,
 	attribution_thumbnail_asset_id: string?,
+	footnote_text: string?,
 }
 
 export type AdLinkItem = typeof(setmetatable({} :: _AdLinkItemFields, {} :: _AdLinkItemImpl))
@@ -4930,6 +5020,65 @@ type _ItemLayoutPartialFields = {
 export type ItemLayout = typeof(setmetatable({} :: _ItemLayoutFields, {} :: _ItemLayoutImpl))
 type _ItemLayoutMessage = proto.Message<ItemLayout, _ItemLayoutPartialFields>
 
+type _GroupSidebarInputDataImpl = {
+	__index: _GroupSidebarInputDataImpl,
+	new: (fields: _GroupSidebarInputDataPartialFields?) -> GroupSidebarInputData,
+	encode: (self: GroupSidebarInputData) -> buffer,
+	decode: (input: buffer) -> GroupSidebarInputData,
+	jsonEncode: (self: GroupSidebarInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupSidebarInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupSidebarInputDataFields = {
+	groups: { GroupSidebarInputData_GroupItem },
+	selected_group_id: string?,
+	can_create_group: boolean?,
+	visiting_groups: { GroupSidebarInputData_GroupItem },
+	initially_expanded_group_id: string?,
+}
+
+type _GroupSidebarInputDataPartialFields = {
+	groups: { GroupSidebarInputData_GroupItem }?,
+	selected_group_id: string?,
+	can_create_group: boolean?,
+	visiting_groups: { GroupSidebarInputData_GroupItem }?,
+	initially_expanded_group_id: string?,
+}
+
+export type GroupSidebarInputData = typeof(setmetatable(
+	{} :: _GroupSidebarInputDataFields,
+	{} :: _GroupSidebarInputDataImpl
+))
+type _GroupSidebarInputDataMessage = proto.Message<GroupSidebarInputData, _GroupSidebarInputDataPartialFields>
+
+type _GroupSidebarInputData_GroupItemImpl = {
+	__index: _GroupSidebarInputData_GroupItemImpl,
+	new: (fields: _GroupSidebarInputData_GroupItemPartialFields?) -> GroupSidebarInputData_GroupItem,
+	encode: (self: GroupSidebarInputData_GroupItem) -> buffer,
+	decode: (input: buffer) -> GroupSidebarInputData_GroupItem,
+	jsonEncode: (self: GroupSidebarInputData_GroupItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupSidebarInputData_GroupItem,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupSidebarInputData_GroupItemFields = {
+	group_id: string,
+}
+
+type _GroupSidebarInputData_GroupItemPartialFields = {
+	group_id: string?,
+}
+
+export type GroupSidebarInputData_GroupItem = typeof(setmetatable(
+	{} :: _GroupSidebarInputData_GroupItemFields,
+	{} :: _GroupSidebarInputData_GroupItemImpl
+))
+type _GroupSidebarInputData_GroupItemMessage = proto.Message<
+	GroupSidebarInputData_GroupItem,
+	_GroupSidebarInputData_GroupItemPartialFields
+>
+
 type _GroupOverviewPaneInputDataImpl = {
 	__index: _GroupOverviewPaneInputDataImpl,
 	new: (fields: _GroupOverviewPaneInputDataPartialFields?) -> GroupOverviewPaneInputData,
@@ -4955,6 +5104,72 @@ export type GroupOverviewPaneInputData = typeof(setmetatable(
 type _GroupOverviewPaneInputDataMessage = proto.Message<
 	GroupOverviewPaneInputData,
 	_GroupOverviewPaneInputDataPartialFields
+>
+
+type _GroupSidebarSectionInputDataImpl = {
+	__index: _GroupSidebarSectionInputDataImpl,
+	new: (fields: _GroupSidebarSectionInputDataPartialFields?) -> GroupSidebarSectionInputData,
+	encode: (self: GroupSidebarSectionInputData) -> buffer,
+	decode: (input: buffer) -> GroupSidebarSectionInputData,
+	jsonEncode: (self: GroupSidebarSectionInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupSidebarSectionInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupSidebarSectionInputDataFields = {
+	group_id: string,
+	rows: { string },
+	forum_categories: { GroupSidebarSectionInputData_ForumCategory },
+}
+
+type _GroupSidebarSectionInputDataPartialFields = {
+	group_id: string?,
+	rows: { string }?,
+	forum_categories: { GroupSidebarSectionInputData_ForumCategory }?,
+}
+
+export type GroupSidebarSectionInputData = typeof(setmetatable(
+	{} :: _GroupSidebarSectionInputDataFields,
+	{} :: _GroupSidebarSectionInputDataImpl
+))
+type _GroupSidebarSectionInputDataMessage = proto.Message<
+	GroupSidebarSectionInputData,
+	_GroupSidebarSectionInputDataPartialFields
+>
+
+type _GroupSidebarSectionInputData_ForumCategoryImpl = {
+	__index: _GroupSidebarSectionInputData_ForumCategoryImpl,
+	new: (
+		fields: _GroupSidebarSectionInputData_ForumCategoryPartialFields?
+	) -> GroupSidebarSectionInputData_ForumCategory,
+	encode: (self: GroupSidebarSectionInputData_ForumCategory) -> buffer,
+	decode: (input: buffer) -> GroupSidebarSectionInputData_ForumCategory,
+	jsonEncode: (self: GroupSidebarSectionInputData_ForumCategory) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupSidebarSectionInputData_ForumCategory,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupSidebarSectionInputData_ForumCategoryFields = {
+	category_id: string,
+	short_id: string,
+	name: string,
+	is_restricted: boolean,
+}
+
+type _GroupSidebarSectionInputData_ForumCategoryPartialFields = {
+	category_id: string?,
+	short_id: string?,
+	name: string?,
+	is_restricted: boolean?,
+}
+
+export type GroupSidebarSectionInputData_ForumCategory = typeof(setmetatable(
+	{} :: _GroupSidebarSectionInputData_ForumCategoryFields,
+	{} :: _GroupSidebarSectionInputData_ForumCategoryImpl
+))
+type _GroupSidebarSectionInputData_ForumCategoryMessage = proto.Message<
+	GroupSidebarSectionInputData_ForumCategory,
+	_GroupSidebarSectionInputData_ForumCategoryPartialFields
 >
 
 type _CommunityAnnouncementInputDataImpl = {
@@ -5934,6 +6149,289 @@ type _UserLibraryHeaderInputDataMessage = proto.Message<
 	_UserLibraryHeaderInputDataPartialFields
 >
 
+type _StreamNotificationRowInputDataImpl = {
+	__index: _StreamNotificationRowInputDataImpl,
+	new: (fields: _StreamNotificationRowInputDataPartialFields?) -> StreamNotificationRowInputData,
+	encode: (self: StreamNotificationRowInputData) -> buffer,
+	decode: (input: buffer) -> StreamNotificationRowInputData,
+	jsonEncode: (self: StreamNotificationRowInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationRowInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationRowInputDataFields = {
+	notification_id: string,
+	notification_type: string,
+	current_state: string,
+	created_time: _google_protobuf_timestamp.Timestamp?,
+	body: StreamNotificationRowInputData_InteractiveItem?,
+	title: string?,
+	thumbnail_target_id: string?,
+	thumbnail_type: string?,
+	primary_button: StreamNotificationRowInputData_InteractiveItem?,
+	secondary_button: StreamNotificationRowInputData_InteractiveItem?,
+	overflow_items: { StreamNotificationRowInputData_InteractiveItem },
+	client_events_payload: { [string]: string },
+	is_read: boolean,
+	timestamp_text: string,
+	thumbnail_url: string?,
+	bundle_key: string,
+	visual_item_type: string,
+	supports_report: boolean,
+	page_entry_identifier: string,
+	starts_section: boolean,
+	bundle_position: number,
+	bundle_more_count: number,
+	bundle_expanded: boolean,
+	supports_clear: boolean,
+	bundle_size: number,
+	bundle_hidden: boolean,
+	bundle_title: string,
+}
+
+type _StreamNotificationRowInputDataPartialFields = {
+	notification_id: string?,
+	notification_type: string?,
+	current_state: string?,
+	created_time: _google_protobuf_timestamp.Timestamp?,
+	body: StreamNotificationRowInputData_InteractiveItem?,
+	title: string?,
+	thumbnail_target_id: string?,
+	thumbnail_type: string?,
+	primary_button: StreamNotificationRowInputData_InteractiveItem?,
+	secondary_button: StreamNotificationRowInputData_InteractiveItem?,
+	overflow_items: { StreamNotificationRowInputData_InteractiveItem }?,
+	client_events_payload: { [string]: string }?,
+	is_read: boolean?,
+	timestamp_text: string?,
+	thumbnail_url: string?,
+	bundle_key: string?,
+	visual_item_type: string?,
+	supports_report: boolean?,
+	page_entry_identifier: string?,
+	starts_section: boolean?,
+	bundle_position: number?,
+	bundle_more_count: number?,
+	bundle_expanded: boolean?,
+	supports_clear: boolean?,
+	bundle_size: number?,
+	bundle_hidden: boolean?,
+	bundle_title: string?,
+}
+
+export type StreamNotificationRowInputData = typeof(setmetatable(
+	{} :: _StreamNotificationRowInputDataFields,
+	{} :: _StreamNotificationRowInputDataImpl
+))
+type _StreamNotificationRowInputDataMessage = proto.Message<
+	StreamNotificationRowInputData,
+	_StreamNotificationRowInputDataPartialFields
+>
+
+type _StreamNotificationRowInputData_RowActionImpl = {
+	__index: _StreamNotificationRowInputData_RowActionImpl,
+	new: (fields: _StreamNotificationRowInputData_RowActionPartialFields?) -> StreamNotificationRowInputData_RowAction,
+	encode: (self: StreamNotificationRowInputData_RowAction) -> buffer,
+	decode: (input: buffer) -> StreamNotificationRowInputData_RowAction,
+	jsonEncode: (self: StreamNotificationRowInputData_RowAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationRowInputData_RowAction,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationRowInputData_RowActionFields = {
+	action_type: string,
+	path: string,
+	parameters: string?,
+	next_state: string?,
+	fallback_state: string?,
+}
+
+type _StreamNotificationRowInputData_RowActionPartialFields = {
+	action_type: string?,
+	path: string?,
+	parameters: string?,
+	next_state: string?,
+	fallback_state: string?,
+}
+
+export type StreamNotificationRowInputData_RowAction = typeof(setmetatable(
+	{} :: _StreamNotificationRowInputData_RowActionFields,
+	{} :: _StreamNotificationRowInputData_RowActionImpl
+))
+type _StreamNotificationRowInputData_RowActionMessage = proto.Message<
+	StreamNotificationRowInputData_RowAction,
+	_StreamNotificationRowInputData_RowActionPartialFields
+>
+
+type _StreamNotificationRowInputData_InteractiveItemImpl = {
+	__index: _StreamNotificationRowInputData_InteractiveItemImpl,
+	new: (
+		fields: _StreamNotificationRowInputData_InteractiveItemPartialFields?
+	) -> StreamNotificationRowInputData_InteractiveItem,
+	encode: (self: StreamNotificationRowInputData_InteractiveItem) -> buffer,
+	decode: (input: buffer) -> StreamNotificationRowInputData_InteractiveItem,
+	jsonEncode: (self: StreamNotificationRowInputData_InteractiveItem) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationRowInputData_InteractiveItem,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationRowInputData_InteractiveItemFields = {
+	visual_item_name: string,
+	label: string,
+	style: string?,
+	icon: string?,
+	actions: { StreamNotificationRowInputData_RowAction },
+	event_name: string,
+	client_events_payload: { [string]: string },
+	event_visual_item_type: string?,
+	event_visual_item_name: string?,
+}
+
+type _StreamNotificationRowInputData_InteractiveItemPartialFields = {
+	visual_item_name: string?,
+	label: string?,
+	style: string?,
+	icon: string?,
+	actions: { StreamNotificationRowInputData_RowAction }?,
+	event_name: string?,
+	client_events_payload: { [string]: string }?,
+	event_visual_item_type: string?,
+	event_visual_item_name: string?,
+}
+
+export type StreamNotificationRowInputData_InteractiveItem = typeof(setmetatable(
+	{} :: _StreamNotificationRowInputData_InteractiveItemFields,
+	{} :: _StreamNotificationRowInputData_InteractiveItemImpl
+))
+type _StreamNotificationRowInputData_InteractiveItemMessage = proto.Message<
+	StreamNotificationRowInputData_InteractiveItem,
+	_StreamNotificationRowInputData_InteractiveItemPartialFields
+>
+
+type _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl = {
+	__index: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl,
+	new: (
+		fields: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryPartialFields?
+	) -> StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry,
+	encode: (self: StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry) -> buffer,
+	decode: (input: buffer) -> StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry,
+	jsonEncode: (self: StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry = typeof(setmetatable(
+	{} :: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryFields,
+	{} :: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl
+))
+type _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryMessage = proto.Message<
+	StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry,
+	_StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryPartialFields
+>
+
+type _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl = {
+	__index: _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl,
+	new: (
+		fields: _StreamNotificationRowInputData_ClientEventsPayloadEntryPartialFields?
+	) -> StreamNotificationRowInputData_ClientEventsPayloadEntry,
+	encode: (self: StreamNotificationRowInputData_ClientEventsPayloadEntry) -> buffer,
+	decode: (input: buffer) -> StreamNotificationRowInputData_ClientEventsPayloadEntry,
+	jsonEncode: (self: StreamNotificationRowInputData_ClientEventsPayloadEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationRowInputData_ClientEventsPayloadEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationRowInputData_ClientEventsPayloadEntryFields = {
+	key: string,
+	value: string,
+}
+
+type _StreamNotificationRowInputData_ClientEventsPayloadEntryPartialFields = {
+	key: string?,
+	value: string?,
+}
+
+export type StreamNotificationRowInputData_ClientEventsPayloadEntry = typeof(setmetatable(
+	{} :: _StreamNotificationRowInputData_ClientEventsPayloadEntryFields,
+	{} :: _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl
+))
+type _StreamNotificationRowInputData_ClientEventsPayloadEntryMessage = proto.Message<
+	StreamNotificationRowInputData_ClientEventsPayloadEntry,
+	_StreamNotificationRowInputData_ClientEventsPayloadEntryPartialFields
+>
+
+type _StreamNotificationFeedInputDataImpl = {
+	__index: _StreamNotificationFeedInputDataImpl,
+	new: (fields: _StreamNotificationFeedInputDataPartialFields?) -> StreamNotificationFeedInputData,
+	encode: (self: StreamNotificationFeedInputData) -> buffer,
+	decode: (input: buffer) -> StreamNotificationFeedInputData,
+	jsonEncode: (self: StreamNotificationFeedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationFeedInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationFeedInputDataFields = {
+	entry_map: { [string]: FeedEntry },
+	entry_order: { string },
+	has_new: boolean,
+}
+
+type _StreamNotificationFeedInputDataPartialFields = {
+	entry_map: { [string]: FeedEntry }?,
+	entry_order: { string }?,
+	has_new: boolean?,
+}
+
+export type StreamNotificationFeedInputData = typeof(setmetatable(
+	{} :: _StreamNotificationFeedInputDataFields,
+	{} :: _StreamNotificationFeedInputDataImpl
+))
+type _StreamNotificationFeedInputDataMessage = proto.Message<
+	StreamNotificationFeedInputData,
+	_StreamNotificationFeedInputDataPartialFields
+>
+
+type _StreamNotificationFeedInputData_EntryMapEntryImpl = {
+	__index: _StreamNotificationFeedInputData_EntryMapEntryImpl,
+	new: (
+		fields: _StreamNotificationFeedInputData_EntryMapEntryPartialFields?
+	) -> StreamNotificationFeedInputData_EntryMapEntry,
+	encode: (self: StreamNotificationFeedInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> StreamNotificationFeedInputData_EntryMapEntry,
+	jsonEncode: (self: StreamNotificationFeedInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StreamNotificationFeedInputData_EntryMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _StreamNotificationFeedInputData_EntryMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _StreamNotificationFeedInputData_EntryMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type StreamNotificationFeedInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _StreamNotificationFeedInputData_EntryMapEntryFields,
+	{} :: _StreamNotificationFeedInputData_EntryMapEntryImpl
+))
+type _StreamNotificationFeedInputData_EntryMapEntryMessage = proto.Message<
+	StreamNotificationFeedInputData_EntryMapEntry,
+	_StreamNotificationFeedInputData_EntryMapEntryPartialFields
+>
+
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
 export type PageEntryFormat = "PAGE_ENTRY_FORMAT_INVALID" | "PAGE_ENTRY_FORMAT_UNIVERSAL" | number -- Unknown
 
@@ -6733,6 +7231,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 700, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "game_item_details" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 701, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "charts_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 800, proto.wireTypes.lengthDelimited)
@@ -6857,9 +7359,17 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1501, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "group_sidebar" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1600, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "group_overview_pane" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1601, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "group_sidebar_section" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1602, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "buy_robux_page" then
 				local encoded = self.kind.value:encode()
@@ -6880,6 +7390,14 @@ do
 			elseif self.kind.type == "user_library_header" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1802, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "stream_notification_row" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1900, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "stream_notification_feed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1901, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -7231,6 +7749,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "dev_store_feed", value = messages.DevStoreFeedInputData.decode(value) }
 					continue
+				elseif field == 701 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "game_item_details", value = messages.GameItemDetailsInputData.decode(value) }
+					continue
 				elseif field == 800 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -7447,11 +7970,22 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "settings_toggle", value = messages.SettingsToggleInputData.decode(value) }
 					continue
+				elseif field == 1600 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "group_sidebar", value = messages.GroupSidebarInputData.decode(value) }
+					continue
 				elseif field == 1601 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind =
 						{ type = "group_overview_pane", value = messages.GroupOverviewPaneInputData.decode(value) }
+					continue
+				elseif field == 1602 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "group_sidebar_section", value = messages.GroupSidebarSectionInputData.decode(value) }
 					continue
 				elseif field == 1700 then
 					local value
@@ -7479,6 +8013,22 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind =
 						{ type = "user_library_header", value = messages.UserLibraryHeaderInputData.decode(value) }
+					continue
+				elseif field == 1900 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "stream_notification_row",
+						value = messages.StreamNotificationRowInputData.decode(value),
+					}
+					continue
+				elseif field == 1901 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "stream_notification_feed",
+						value = messages.StreamNotificationFeedInputData.decode(value),
+					}
 					continue
 				end
 
@@ -7612,6 +8162,8 @@ do
 				output.eventNotificationsModal = self.kind.value:jsonEncode()
 			elseif self.kind.type == "dev_store_feed" then
 				output.devStoreFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "game_item_details" then
+				output.gameItemDetails = self.kind.value:jsonEncode()
 			elseif self.kind.type == "charts_feed" then
 				output.chartsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "filter_pills" then
@@ -7674,8 +8226,12 @@ do
 				output.settingsRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_toggle" then
 				output.settingsToggle = self.kind.value:jsonEncode()
+			elseif self.kind.type == "group_sidebar" then
+				output.groupSidebar = self.kind.value:jsonEncode()
 			elseif self.kind.type == "group_overview_pane" then
 				output.groupOverviewPane = self.kind.value:jsonEncode()
+			elseif self.kind.type == "group_sidebar_section" then
+				output.groupSidebarSection = self.kind.value:jsonEncode()
 			elseif self.kind.type == "buy_robux_page" then
 				output.buyRobuxPage = self.kind.value:jsonEncode()
 			elseif self.kind.type == "buy_robux_section" then
@@ -7686,6 +8242,10 @@ do
 				output.userLibraryList = self.kind.value:jsonEncode()
 			elseif self.kind.type == "user_library_header" then
 				output.userLibraryHeader = self.kind.value:jsonEncode()
+			elseif self.kind.type == "stream_notification_row" then
+				output.streamNotificationRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "stream_notification_feed" then
+				output.streamNotificationFeed = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -8313,6 +8873,20 @@ do
 				{ type = "dev_store_feed", value = messages.DevStoreFeedInputData.jsonDecode(input.devStoreFeed) }
 		end
 
+		if input.game_item_details ~= nil then
+			self.kind = {
+				type = "game_item_details",
+				value = messages.GameItemDetailsInputData.jsonDecode(input.game_item_details),
+			}
+		end
+
+		if input.gameItemDetails ~= nil then
+			self.kind = {
+				type = "game_item_details",
+				value = messages.GameItemDetailsInputData.jsonDecode(input.gameItemDetails),
+			}
+		end
+
 		if input.charts_feed ~= nil then
 			self.kind = { type = "charts_feed", value = messages.ChartsFeedInputData.jsonDecode(input.charts_feed) }
 		end
@@ -8729,6 +9303,16 @@ do
 				{ type = "settings_toggle", value = messages.SettingsToggleInputData.jsonDecode(input.settingsToggle) }
 		end
 
+		if input.group_sidebar ~= nil then
+			self.kind =
+				{ type = "group_sidebar", value = messages.GroupSidebarInputData.jsonDecode(input.group_sidebar) }
+		end
+
+		if input.groupSidebar ~= nil then
+			self.kind =
+				{ type = "group_sidebar", value = messages.GroupSidebarInputData.jsonDecode(input.groupSidebar) }
+		end
+
 		if input.group_overview_pane ~= nil then
 			self.kind = {
 				type = "group_overview_pane",
@@ -8740,6 +9324,20 @@ do
 			self.kind = {
 				type = "group_overview_pane",
 				value = messages.GroupOverviewPaneInputData.jsonDecode(input.groupOverviewPane),
+			}
+		end
+
+		if input.group_sidebar_section ~= nil then
+			self.kind = {
+				type = "group_sidebar_section",
+				value = messages.GroupSidebarSectionInputData.jsonDecode(input.group_sidebar_section),
+			}
+		end
+
+		if input.groupSidebarSection ~= nil then
+			self.kind = {
+				type = "group_sidebar_section",
+				value = messages.GroupSidebarSectionInputData.jsonDecode(input.groupSidebarSection),
 			}
 		end
 
@@ -8806,6 +9404,34 @@ do
 			self.kind = {
 				type = "user_library_header",
 				value = messages.UserLibraryHeaderInputData.jsonDecode(input.userLibraryHeader),
+			}
+		end
+
+		if input.stream_notification_row ~= nil then
+			self.kind = {
+				type = "stream_notification_row",
+				value = messages.StreamNotificationRowInputData.jsonDecode(input.stream_notification_row),
+			}
+		end
+
+		if input.streamNotificationRow ~= nil then
+			self.kind = {
+				type = "stream_notification_row",
+				value = messages.StreamNotificationRowInputData.jsonDecode(input.streamNotificationRow),
+			}
+		end
+
+		if input.stream_notification_feed ~= nil then
+			self.kind = {
+				type = "stream_notification_feed",
+				value = messages.StreamNotificationFeedInputData.jsonDecode(input.stream_notification_feed),
+			}
+		end
+
+		if input.streamNotificationFeed ~= nil then
+			self.kind = {
+				type = "stream_notification_feed",
+				value = messages.StreamNotificationFeedInputData.jsonDecode(input.streamNotificationFeed),
 			}
 		end
 
@@ -12803,6 +13429,10 @@ do
 				else data.product_image_asset_id,
 			product_name = if data == nil or data.product_name == nil then "" else data.product_name,
 			variant_id = if data == nil or data.variant_id == nil then "" else data.variant_id,
+			is_universe_interstitial_eligible = if data == nil
+					or data.is_universe_interstitial_eligible == nil
+				then false
+				else data.is_universe_interstitial_eligible,
 		}, _ExperiencePlayWithRewardInputDataImpl :: _ExperiencePlayWithRewardInputDataImpl)
 	end
 
@@ -12840,6 +13470,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.variant_id)
 		end
 
+		if self.is_universe_interstitial_eligible then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_universe_interstitial_eligible then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -12854,7 +13489,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 7 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_universe_interstitial_eligible = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -12940,6 +13580,10 @@ do
 			output.variantId = self.variant_id
 		end
 
+		if self.is_universe_interstitial_eligible then
+			output.isUniverseInterstitialEligible = self.is_universe_interstitial_eligible
+		end
+
 		return output
 	end
 
@@ -12994,6 +13638,14 @@ do
 
 		if input.variantId ~= nil then
 			self.variant_id = input.variantId
+		end
+
+		if input.is_universe_interstitial_eligible ~= nil then
+			self.is_universe_interstitial_eligible = input.is_universe_interstitial_eligible
+		end
+
+		if input.isUniverseInterstitialEligible ~= nil then
+			self.is_universe_interstitial_eligible = input.isUniverseInterstitialEligible
 		end
 
 		return self
@@ -14645,6 +15297,7 @@ do
 					or data.sponsored_game_preview_video_eligible == nil
 				then nil
 				else data.sponsored_game_preview_video_eligible,
+			footnote_text = if data == nil or data.footnote_text == nil then nil else data.footnote_text,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -14805,6 +15458,11 @@ do
 			output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.varint)
 			output, cursor =
 				proto.writeVarInt(output, cursor, if self.sponsored_game_preview_video_eligible then 1 else 0)
+		end
+
+		if self.footnote_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.footnote_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -14969,6 +15627,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.thumbnail_list_id = buffer.tostring(value)
 					continue
+				elseif field == 30 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.footnote_text = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -15125,6 +15788,10 @@ do
 
 		if self.sponsored_game_preview_video_eligible ~= nil then
 			output.sponsoredGamePreviewVideoEligible = self.sponsored_game_preview_video_eligible
+		end
+
+		if self.footnote_text ~= nil then
+			output.footnoteText = self.footnote_text
 		end
 
 		return output
@@ -15379,6 +16046,14 @@ do
 
 		if input.sponsoredGamePreviewVideoEligible ~= nil then
 			self.sponsored_game_preview_video_eligible = input.sponsoredGamePreviewVideoEligible
+		end
+
+		if input.footnote_text ~= nil then
+			self.footnote_text = input.footnote_text
+		end
+
+		if input.footnoteText ~= nil then
+			self.footnote_text = input.footnoteText
 		end
 
 		return self
@@ -16759,6 +17434,199 @@ do
 	messages.DevStoreFeedInputData_EntryMapEntry = _DevStoreFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.DevStoreFeedInputData_EntryMapEntry)
+end
+
+do
+	local _GameItemDetailsInputDataImpl = {}
+	_GameItemDetailsInputDataImpl.__index = _GameItemDetailsInputDataImpl
+
+	function _GameItemDetailsInputDataImpl.new(data: _GameItemDetailsInputDataPartialFields?): GameItemDetailsInputData
+		return setmetatable({
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
+			viewer_user_id = if data == nil or data.viewer_user_id == nil then "" else data.viewer_user_id,
+		}, _GameItemDetailsInputDataImpl :: _GameItemDetailsInputDataImpl)
+	end
+
+	function _GameItemDetailsInputDataImpl.encode(self: GameItemDetailsInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_type)
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
+		end
+
+		if self.viewer_user_id ~= nil and self.viewer_user_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.viewer_user_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GameItemDetailsInputDataImpl.decode(input: buffer): GameItemDetailsInputData
+		local self = _GameItemDetailsInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_key = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.viewer_user_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GameItemDetailsInputDataImpl.jsonEncode(self: GameItemDetailsInputData): any
+		local output = {}
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output.itemType = self.item_type
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
+		if self.viewer_user_id ~= nil and self.viewer_user_id ~= "" then
+			output.viewerUserId = self.viewer_user_id
+		end
+
+		return output
+	end
+
+	function _GameItemDetailsInputDataImpl.jsonDecode(input: { [string]: any }): GameItemDetailsInputData
+		local self = _GameItemDetailsInputDataImpl.new()
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.item_type ~= nil then
+			self.item_type = input.item_type
+		end
+
+		if input.itemType ~= nil then
+			self.item_type = input.itemType
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
+		end
+
+		if input.viewer_user_id ~= nil then
+			self.viewer_user_id = input.viewer_user_id
+		end
+
+		if input.viewerUserId ~= nil then
+			self.viewer_user_id = input.viewerUserId
+		end
+
+		return self
+	end
+
+	_GameItemDetailsInputDataImpl.descriptor = {
+		name = "GameItemDetailsInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GameItemDetailsInputData",
+	}
+
+	messages.GameItemDetailsInputData = _GameItemDetailsInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GameItemDetailsInputData)
 end
 
 do
@@ -25189,6 +26057,26 @@ do
 			creating_experience_available = if data == nil or data.creating_experience_available == nil
 				then false
 				else data.creating_experience_available,
+			creating_universe_id = if data == nil or data.creating_universe_id == nil
+				then nil
+				else data.creating_universe_id,
+			collectible_item_id = if data == nil or data.collectible_item_id == nil
+				then nil
+				else data.collectible_item_id,
+			category_type = if data == nil or data.category_type == nil then nil else data.category_type,
+			placement = if data == nil or data.placement == nil then nil else data.placement,
+			resellable = if data == nil or data.resellable == nil then false else data.resellable,
+			sold_count = if data == nil or data.sold_count == nil then nil else data.sold_count,
+			stock = if data == nil or data.stock == nil then nil else data.stock,
+			recent_average_price = if data == nil or data.recent_average_price == nil
+				then nil
+				else data.recent_average_price,
+			rent_option_row_available = if data == nil or data.rent_option_row_available == nil
+				then false
+				else data.rent_option_row_available,
+			high_definition_row_available = if data == nil or data.high_definition_row_available == nil
+				then false
+				else data.high_definition_row_available,
 		}, _MarketplaceItemInfoTableInputDataImpl :: _MarketplaceItemInfoTableInputDataImpl)
 	end
 
@@ -25221,6 +26109,56 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.creating_experience_available then 1 else 0)
 		end
 
+		if self.creating_universe_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creating_universe_id)
+		end
+
+		if self.collectible_item_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collectible_item_id)
+		end
+
+		if self.category_type ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.category_type)
+		end
+
+		if self.placement ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.placement)
+		end
+
+		if self.resellable then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.resellable then 1 else 0)
+		end
+
+		if self.sold_count ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.sold_count)
+		end
+
+		if self.stock ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.stock)
+		end
+
+		if self.recent_average_price ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.recent_average_price)
+		end
+
+		if self.rent_option_row_available then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.rent_option_row_available then 1 else 0)
+		end
+
+		if self.high_definition_row_available then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.high_definition_row_available then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -25250,6 +26188,36 @@ do
 					value, cursor = proto.readVarInt(input, cursor)
 					self.creating_experience_available = value ~= 0
 					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.resellable = value ~= 0
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.sold_count = value
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.stock = value
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.recent_average_price = value
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.rent_option_row_available = value ~= 0
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.high_definition_row_available = value ~= 0
+					continue
 				end
 
 				local _
@@ -25264,6 +26232,26 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.item_type = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creating_universe_id = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collectible_item_id = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_type = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.placement = buffer.tostring(value)
 					continue
 				end
 
@@ -25312,6 +26300,46 @@ do
 			output.creatingExperienceAvailable = self.creating_experience_available
 		end
 
+		if self.creating_universe_id ~= nil then
+			output.creatingUniverseId = self.creating_universe_id
+		end
+
+		if self.collectible_item_id ~= nil then
+			output.collectibleItemId = self.collectible_item_id
+		end
+
+		if self.category_type ~= nil then
+			output.categoryType = self.category_type
+		end
+
+		if self.placement ~= nil then
+			output.placement = self.placement
+		end
+
+		if self.resellable then
+			output.resellable = self.resellable
+		end
+
+		if self.sold_count ~= nil then
+			output.soldCount = self.sold_count
+		end
+
+		if self.stock ~= nil then
+			output.stock = self.stock
+		end
+
+		if self.recent_average_price ~= nil then
+			output.recentAveragePrice = self.recent_average_price
+		end
+
+		if self.rent_option_row_available then
+			output.rentOptionRowAvailable = self.rent_option_row_available
+		end
+
+		if self.high_definition_row_available then
+			output.highDefinitionRowAvailable = self.high_definition_row_available
+		end
+
 		return output
 	end
 
@@ -25358,6 +26386,74 @@ do
 
 		if input.creatingExperienceAvailable ~= nil then
 			self.creating_experience_available = input.creatingExperienceAvailable
+		end
+
+		if input.creating_universe_id ~= nil then
+			self.creating_universe_id = input.creating_universe_id
+		end
+
+		if input.creatingUniverseId ~= nil then
+			self.creating_universe_id = input.creatingUniverseId
+		end
+
+		if input.collectible_item_id ~= nil then
+			self.collectible_item_id = input.collectible_item_id
+		end
+
+		if input.collectibleItemId ~= nil then
+			self.collectible_item_id = input.collectibleItemId
+		end
+
+		if input.category_type ~= nil then
+			self.category_type = input.category_type
+		end
+
+		if input.categoryType ~= nil then
+			self.category_type = input.categoryType
+		end
+
+		if input.placement ~= nil then
+			self.placement = input.placement
+		end
+
+		if input.resellable ~= nil then
+			self.resellable = input.resellable
+		end
+
+		if input.sold_count ~= nil then
+			self.sold_count = input.sold_count
+		end
+
+		if input.soldCount ~= nil then
+			self.sold_count = input.soldCount
+		end
+
+		if input.stock ~= nil then
+			self.stock = input.stock
+		end
+
+		if input.recent_average_price ~= nil then
+			self.recent_average_price = input.recent_average_price
+		end
+
+		if input.recentAveragePrice ~= nil then
+			self.recent_average_price = input.recentAveragePrice
+		end
+
+		if input.rent_option_row_available ~= nil then
+			self.rent_option_row_available = input.rent_option_row_available
+		end
+
+		if input.rentOptionRowAvailable ~= nil then
+			self.rent_option_row_available = input.rentOptionRowAvailable
+		end
+
+		if input.high_definition_row_available ~= nil then
+			self.high_definition_row_available = input.high_definition_row_available
+		end
+
+		if input.highDefinitionRowAvailable ~= nil then
+			self.high_definition_row_available = input.highDefinitionRowAvailable
 		end
 
 		return self
@@ -25560,6 +26656,12 @@ do
 			user_owns_resellable_copy = if data == nil or data.user_owns_resellable_copy == nil
 				then false
 				else data.user_owns_resellable_copy,
+			resellable_copy_count = if data == nil or data.resellable_copy_count == nil
+				then 0
+				else data.resellable_copy_count,
+			owned_copy_expiration_time = if data == nil or data.owned_copy_expiration_time == nil
+				then nil
+				else data.owned_copy_expiration_time,
 		}, _MarketplaceItemOwnershipInputDataImpl :: _MarketplaceItemOwnershipInputDataImpl)
 	end
 
@@ -25582,6 +26684,17 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.user_owns_resellable_copy then 1 else 0)
 		end
 
+		if self.resellable_copy_count ~= nil and self.resellable_copy_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.resellable_copy_count)
+		end
+
+		if self.owned_copy_expiration_time ~= nil then
+			local encoded = self.owned_copy_expiration_time:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -25601,6 +26714,11 @@ do
 					value, cursor = proto.readVarInt(input, cursor)
 					self.user_owns_resellable_copy = value ~= 0
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.resellable_copy_count = value
+					continue
 				end
 
 				local _
@@ -25615,6 +26733,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.item_type = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.owned_copy_expiration_time = _google_protobuf_timestamp.Timestamp.decode(value)
 					continue
 				end
 
@@ -25655,6 +26778,14 @@ do
 			output.userOwnsResellableCopy = self.user_owns_resellable_copy
 		end
 
+		if self.resellable_copy_count ~= nil and self.resellable_copy_count ~= 0 then
+			output.resellableCopyCount = self.resellable_copy_count
+		end
+
+		if self.owned_copy_expiration_time ~= nil then
+			output.ownedCopyExpirationTime = self.owned_copy_expiration_time:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -25685,6 +26816,24 @@ do
 
 		if input.userOwnsResellableCopy ~= nil then
 			self.user_owns_resellable_copy = input.userOwnsResellableCopy
+		end
+
+		if input.resellable_copy_count ~= nil then
+			self.resellable_copy_count = input.resellable_copy_count
+		end
+
+		if input.resellableCopyCount ~= nil then
+			self.resellable_copy_count = input.resellableCopyCount
+		end
+
+		if input.owned_copy_expiration_time ~= nil then
+			self.owned_copy_expiration_time =
+				_google_protobuf_timestamp.Timestamp.jsonDecode(input.owned_copy_expiration_time)
+		end
+
+		if input.ownedCopyExpirationTime ~= nil then
+			self.owned_copy_expiration_time =
+				_google_protobuf_timestamp.Timestamp.jsonDecode(input.ownedCopyExpirationTime)
 		end
 
 		return self
@@ -28808,6 +29957,9 @@ do
 				else data.secondary_cta_button_text,
 			primary_cta_type = if data == nil or data.primary_cta_type == nil then "" else data.primary_cta_type,
 			secondary_cta_type = if data == nil or data.secondary_cta_type == nil then "" else data.secondary_cta_type,
+			hide_secondary_cta = if data == nil or data.hide_secondary_cta == nil
+				then false
+				else data.hide_secondary_cta,
 		}, _CtaButtonsInputDataImpl :: _CtaButtonsInputDataImpl)
 	end
 
@@ -28835,6 +29987,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.secondary_cta_type)
 		end
 
+		if self.hide_secondary_cta then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.hide_secondary_cta then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -28849,7 +30006,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.hide_secondary_cta = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -28917,6 +30079,10 @@ do
 			output.secondaryCtaType = self.secondary_cta_type
 		end
 
+		if self.hide_secondary_cta then
+			output.hideSecondaryCta = self.hide_secondary_cta
+		end
+
 		return output
 	end
 
@@ -28953,6 +30119,14 @@ do
 
 		if input.secondaryCtaType ~= nil then
 			self.secondary_cta_type = input.secondaryCtaType
+		end
+
+		if input.hide_secondary_cta ~= nil then
+			self.hide_secondary_cta = input.hide_secondary_cta
+		end
+
+		if input.hideSecondaryCta ~= nil then
+			self.hide_secondary_cta = input.hideSecondaryCta
 		end
 
 		return self
@@ -31669,6 +32843,7 @@ do
 			recommendation_request_id = if data == nil or data.recommendation_request_id == nil
 				then ""
 				else data.recommendation_request_id,
+			seed_user_id = if data == nil or data.seed_user_id == nil then 0 else data.seed_user_id,
 		}, _FriendRecommendationCarouselInputDataImpl :: _FriendRecommendationCarouselInputDataImpl)
 	end
 
@@ -31694,6 +32869,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.recommendation_request_id)
 		end
 
+		if self.seed_user_id ~= nil and self.seed_user_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.seed_user_id)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -31708,7 +32888,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.seed_user_id = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -31774,6 +32959,10 @@ do
 			output.recommendationRequestId = self.recommendation_request_id
 		end
 
+		if self.seed_user_id ~= nil and self.seed_user_id ~= 0 then
+			output.seedUserId = self.seed_user_id
+		end
+
 		return output
 	end
 
@@ -31810,6 +32999,14 @@ do
 			self.recommendation_request_id = input.recommendationRequestId
 		end
 
+		if input.seed_user_id ~= nil then
+			self.seed_user_id = input.seed_user_id
+		end
+
+		if input.seedUserId ~= nil then
+			self.seed_user_id = input.seedUserId
+		end
+
 		return self
 	end
 
@@ -31837,6 +33034,9 @@ do
 				has_pending_friend_request = if data == nil or data.has_pending_friend_request == nil
 					then false
 					else data.has_pending_friend_request,
+				is_seed_user_friend = if data == nil or data.is_seed_user_friend == nil
+					then false
+					else data.is_seed_user_friend,
 			},
 			_FriendRecommendationCarouselInputData_RecommendationItemImpl :: _FriendRecommendationCarouselInputData_RecommendationItemImpl
 		)
@@ -31856,6 +33056,11 @@ do
 		if self.has_pending_friend_request then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.has_pending_friend_request then 1 else 0)
+		end
+
+		if self.is_seed_user_friend then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_seed_user_friend then 1 else 0)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -31878,6 +33083,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.has_pending_friend_request = value ~= 0
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_seed_user_friend = value ~= 0
 					continue
 				end
 
@@ -31926,6 +33136,10 @@ do
 			output.hasPendingFriendRequest = self.has_pending_friend_request
 		end
 
+		if self.is_seed_user_friend then
+			output.isSeedUserFriend = self.is_seed_user_friend
+		end
+
 		return output
 	end
 
@@ -31948,6 +33162,14 @@ do
 
 		if input.hasPendingFriendRequest ~= nil then
 			self.has_pending_friend_request = input.hasPendingFriendRequest
+		end
+
+		if input.is_seed_user_friend ~= nil then
+			self.is_seed_user_friend = input.is_seed_user_friend
+		end
+
+		if input.isSeedUserFriend ~= nil then
+			self.is_seed_user_friend = input.isSeedUserFriend
 		end
 
 		return self
@@ -32786,6 +34008,7 @@ do
 			attribution_thumbnail_asset_id = if data == nil or data.attribution_thumbnail_asset_id == nil
 				then nil
 				else data.attribution_thumbnail_asset_id,
+			footnote_text = if data == nil or data.footnote_text == nil then nil else data.footnote_text,
 		}, _AdLinkItemImpl :: _AdLinkItemImpl)
 	end
 
@@ -32861,6 +34084,11 @@ do
 		if self.attribution_thumbnail_asset_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.attribution_thumbnail_asset_id)
+		end
+
+		if self.footnote_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.footnote_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -32946,6 +34174,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.attribution_thumbnail_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.footnote_text = buffer.tostring(value)
 					continue
 				end
 
@@ -33033,6 +34266,10 @@ do
 
 		if self.attribution_thumbnail_asset_id ~= nil then
 			output.attributionThumbnailAssetId = self.attribution_thumbnail_asset_id
+		end
+
+		if self.footnote_text ~= nil then
+			output.footnoteText = self.footnote_text
 		end
 
 		return output
@@ -33143,6 +34380,14 @@ do
 
 		if input.attributionThumbnailAssetId ~= nil then
 			self.attribution_thumbnail_asset_id = input.attributionThumbnailAssetId
+		end
+
+		if input.footnote_text ~= nil then
+			self.footnote_text = input.footnote_text
+		end
+
+		if input.footnoteText ~= nil then
+			self.footnote_text = input.footnoteText
 		end
 
 		return self
@@ -33608,6 +34853,329 @@ do
 end
 
 do
+	local _GroupSidebarInputDataImpl = {}
+	_GroupSidebarInputDataImpl.__index = _GroupSidebarInputDataImpl
+
+	function _GroupSidebarInputDataImpl.new(data: _GroupSidebarInputDataPartialFields?): GroupSidebarInputData
+		return setmetatable({
+			groups = if data == nil or data.groups == nil then {} else data.groups,
+			selected_group_id = if data == nil or data.selected_group_id == nil then nil else data.selected_group_id,
+			can_create_group = if data == nil or data.can_create_group == nil then nil else data.can_create_group,
+			visiting_groups = if data == nil or data.visiting_groups == nil then {} else data.visiting_groups,
+			initially_expanded_group_id = if data == nil or data.initially_expanded_group_id == nil
+				then nil
+				else data.initially_expanded_group_id,
+		}, _GroupSidebarInputDataImpl :: _GroupSidebarInputDataImpl)
+	end
+
+	function _GroupSidebarInputDataImpl.encode(self: GroupSidebarInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.groups ~= nil and #self.groups > 0 then
+			for _, value in self.groups do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.selected_group_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.selected_group_id)
+		end
+
+		if self.can_create_group ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.can_create_group then 1 else 0)
+		end
+
+		if self.visiting_groups ~= nil and #self.visiting_groups > 0 then
+			for _, value in self.visiting_groups do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.initially_expanded_group_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.initially_expanded_group_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupSidebarInputDataImpl.decode(input: buffer): GroupSidebarInputData
+		local self = _GroupSidebarInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.can_create_group = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.groups, messages.GroupSidebarInputData_GroupItem.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_group_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.visiting_groups, messages.GroupSidebarInputData_GroupItem.decode(value))
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.initially_expanded_group_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupSidebarInputDataImpl.jsonEncode(self: GroupSidebarInputData): any
+		local output = {}
+
+		if self.groups ~= nil and #self.groups > 0 then
+			local newOutput = {}
+			for _, value in self.groups do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.groups = newOutput
+		end
+
+		if self.selected_group_id ~= nil then
+			output.selectedGroupId = self.selected_group_id
+		end
+
+		if self.can_create_group ~= nil then
+			output.canCreateGroup = self.can_create_group
+		end
+
+		if self.visiting_groups ~= nil and #self.visiting_groups > 0 then
+			local newOutput = {}
+			for _, value in self.visiting_groups do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.visitingGroups = newOutput
+		end
+
+		if self.initially_expanded_group_id ~= nil then
+			output.initiallyExpandedGroupId = self.initially_expanded_group_id
+		end
+
+		return output
+	end
+
+	function _GroupSidebarInputDataImpl.jsonDecode(input: { [string]: any }): GroupSidebarInputData
+		local self = _GroupSidebarInputDataImpl.new()
+
+		if input.groups ~= nil then
+			local newOutput: { GroupSidebarInputData_GroupItem } = {}
+			for _, value in input.groups do
+				table.insert(newOutput, messages.GroupSidebarInputData_GroupItem.jsonDecode(value))
+			end
+
+			self.groups = newOutput
+		end
+
+		if input.selected_group_id ~= nil then
+			self.selected_group_id = input.selected_group_id
+		end
+
+		if input.selectedGroupId ~= nil then
+			self.selected_group_id = input.selectedGroupId
+		end
+
+		if input.can_create_group ~= nil then
+			self.can_create_group = input.can_create_group
+		end
+
+		if input.canCreateGroup ~= nil then
+			self.can_create_group = input.canCreateGroup
+		end
+
+		if input.visiting_groups ~= nil then
+			local newOutput: { GroupSidebarInputData_GroupItem } = {}
+			for _, value in input.visiting_groups do
+				table.insert(newOutput, messages.GroupSidebarInputData_GroupItem.jsonDecode(value))
+			end
+
+			self.visiting_groups = newOutput
+		end
+
+		if input.visitingGroups ~= nil then
+			local newOutput: { GroupSidebarInputData_GroupItem } = {}
+			for _, value in input.visitingGroups do
+				table.insert(newOutput, messages.GroupSidebarInputData_GroupItem.jsonDecode(value))
+			end
+
+			self.visiting_groups = newOutput
+		end
+
+		if input.initially_expanded_group_id ~= nil then
+			self.initially_expanded_group_id = input.initially_expanded_group_id
+		end
+
+		if input.initiallyExpandedGroupId ~= nil then
+			self.initially_expanded_group_id = input.initiallyExpandedGroupId
+		end
+
+		return self
+	end
+
+	_GroupSidebarInputDataImpl.descriptor = {
+		name = "GroupSidebarInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupSidebarInputData",
+	}
+
+	messages.GroupSidebarInputData = _GroupSidebarInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupSidebarInputData)
+end
+
+do
+	local _GroupSidebarInputData_GroupItemImpl = {}
+	_GroupSidebarInputData_GroupItemImpl.__index = _GroupSidebarInputData_GroupItemImpl
+
+	function _GroupSidebarInputData_GroupItemImpl.new(
+		data: _GroupSidebarInputData_GroupItemPartialFields?
+	): GroupSidebarInputData_GroupItem
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then "" else data.group_id,
+		}, _GroupSidebarInputData_GroupItemImpl :: _GroupSidebarInputData_GroupItemImpl)
+	end
+
+	function _GroupSidebarInputData_GroupItemImpl.encode(self: GroupSidebarInputData_GroupItem): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupSidebarInputData_GroupItemImpl.decode(input: buffer): GroupSidebarInputData_GroupItem
+		local self = _GroupSidebarInputData_GroupItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupSidebarInputData_GroupItemImpl.jsonEncode(self: GroupSidebarInputData_GroupItem): any
+		local output = {}
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output.groupId = self.group_id
+		end
+
+		return output
+	end
+
+	function _GroupSidebarInputData_GroupItemImpl.jsonDecode(input: { [string]: any }): GroupSidebarInputData_GroupItem
+		local self = _GroupSidebarInputData_GroupItemImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = input.group_id
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = input.groupId
+		end
+
+		return self
+	end
+
+	_GroupSidebarInputData_GroupItemImpl.descriptor = {
+		name = "GroupSidebarInputData_GroupItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupItem",
+	}
+
+	messages.GroupSidebarInputData_GroupItem = _GroupSidebarInputData_GroupItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupSidebarInputData_GroupItem)
+end
+
+do
 	local _GroupOverviewPaneInputDataImpl = {}
 	_GroupOverviewPaneInputDataImpl.__index = _GroupOverviewPaneInputDataImpl
 
@@ -33708,6 +35276,358 @@ do
 	messages.GroupOverviewPaneInputData = _GroupOverviewPaneInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GroupOverviewPaneInputData)
+end
+
+do
+	local _GroupSidebarSectionInputDataImpl = {}
+	_GroupSidebarSectionInputDataImpl.__index = _GroupSidebarSectionInputDataImpl
+
+	function _GroupSidebarSectionInputDataImpl.new(
+		data: _GroupSidebarSectionInputDataPartialFields?
+	): GroupSidebarSectionInputData
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then "" else data.group_id,
+			rows = if data == nil or data.rows == nil then {} else data.rows,
+			forum_categories = if data == nil or data.forum_categories == nil then {} else data.forum_categories,
+		}, _GroupSidebarSectionInputDataImpl :: _GroupSidebarSectionInputDataImpl)
+	end
+
+	function _GroupSidebarSectionInputDataImpl.encode(self: GroupSidebarSectionInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		if self.rows ~= nil and #self.rows > 0 then
+			for _, value in self.rows do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.forum_categories ~= nil and #self.forum_categories > 0 then
+			for _, value in self.forum_categories do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupSidebarSectionInputDataImpl.decode(input: buffer): GroupSidebarSectionInputData
+		local self = _GroupSidebarSectionInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.rows, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.forum_categories,
+						messages.GroupSidebarSectionInputData_ForumCategory.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupSidebarSectionInputDataImpl.jsonEncode(self: GroupSidebarSectionInputData): any
+		local output = {}
+
+		if self.group_id ~= nil and self.group_id ~= "" then
+			output.groupId = self.group_id
+		end
+
+		if self.rows ~= nil and #self.rows > 0 then
+			local newOutput = {}
+			for _, value in self.rows do
+				table.insert(newOutput, value)
+			end
+			output.rows = newOutput
+		end
+
+		if self.forum_categories ~= nil and #self.forum_categories > 0 then
+			local newOutput = {}
+			for _, value in self.forum_categories do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.forumCategories = newOutput
+		end
+
+		return output
+	end
+
+	function _GroupSidebarSectionInputDataImpl.jsonDecode(input: { [string]: any }): GroupSidebarSectionInputData
+		local self = _GroupSidebarSectionInputDataImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = input.group_id
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = input.groupId
+		end
+
+		if input.rows ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.rows do
+				table.insert(newOutput, value)
+			end
+
+			self.rows = newOutput
+		end
+
+		if input.forum_categories ~= nil then
+			local newOutput: { GroupSidebarSectionInputData_ForumCategory } = {}
+			for _, value in input.forum_categories do
+				table.insert(newOutput, messages.GroupSidebarSectionInputData_ForumCategory.jsonDecode(value))
+			end
+
+			self.forum_categories = newOutput
+		end
+
+		if input.forumCategories ~= nil then
+			local newOutput: { GroupSidebarSectionInputData_ForumCategory } = {}
+			for _, value in input.forumCategories do
+				table.insert(newOutput, messages.GroupSidebarSectionInputData_ForumCategory.jsonDecode(value))
+			end
+
+			self.forum_categories = newOutput
+		end
+
+		return self
+	end
+
+	_GroupSidebarSectionInputDataImpl.descriptor = {
+		name = "GroupSidebarSectionInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupSidebarSectionInputData",
+	}
+
+	messages.GroupSidebarSectionInputData = _GroupSidebarSectionInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupSidebarSectionInputData)
+end
+
+do
+	local _GroupSidebarSectionInputData_ForumCategoryImpl = {}
+	_GroupSidebarSectionInputData_ForumCategoryImpl.__index = _GroupSidebarSectionInputData_ForumCategoryImpl
+
+	function _GroupSidebarSectionInputData_ForumCategoryImpl.new(
+		data: _GroupSidebarSectionInputData_ForumCategoryPartialFields?
+	): GroupSidebarSectionInputData_ForumCategory
+		return setmetatable({
+			category_id = if data == nil or data.category_id == nil then "" else data.category_id,
+			short_id = if data == nil or data.short_id == nil then "" else data.short_id,
+			name = if data == nil or data.name == nil then "" else data.name,
+			is_restricted = if data == nil or data.is_restricted == nil then false else data.is_restricted,
+		}, _GroupSidebarSectionInputData_ForumCategoryImpl :: _GroupSidebarSectionInputData_ForumCategoryImpl)
+	end
+
+	function _GroupSidebarSectionInputData_ForumCategoryImpl.encode(
+		self: GroupSidebarSectionInputData_ForumCategory
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.category_id ~= nil and self.category_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.category_id)
+		end
+
+		if self.short_id ~= nil and self.short_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.short_id)
+		end
+
+		if self.name ~= nil and self.name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.name)
+		end
+
+		if self.is_restricted then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_restricted then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupSidebarSectionInputData_ForumCategoryImpl.decode(
+		input: buffer
+	): GroupSidebarSectionInputData_ForumCategory
+		local self = _GroupSidebarSectionInputData_ForumCategoryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_restricted = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.category_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.short_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupSidebarSectionInputData_ForumCategoryImpl.jsonEncode(
+		self: GroupSidebarSectionInputData_ForumCategory
+	): any
+		local output = {}
+
+		if self.category_id ~= nil and self.category_id ~= "" then
+			output.categoryId = self.category_id
+		end
+
+		if self.short_id ~= nil and self.short_id ~= "" then
+			output.shortId = self.short_id
+		end
+
+		if self.name ~= nil and self.name ~= "" then
+			output.name = self.name
+		end
+
+		if self.is_restricted then
+			output.isRestricted = self.is_restricted
+		end
+
+		return output
+	end
+
+	function _GroupSidebarSectionInputData_ForumCategoryImpl.jsonDecode(
+		input: { [string]: any }
+	): GroupSidebarSectionInputData_ForumCategory
+		local self = _GroupSidebarSectionInputData_ForumCategoryImpl.new()
+
+		if input.category_id ~= nil then
+			self.category_id = input.category_id
+		end
+
+		if input.categoryId ~= nil then
+			self.category_id = input.categoryId
+		end
+
+		if input.short_id ~= nil then
+			self.short_id = input.short_id
+		end
+
+		if input.shortId ~= nil then
+			self.short_id = input.shortId
+		end
+
+		if input.name ~= nil then
+			self.name = input.name
+		end
+
+		if input.is_restricted ~= nil then
+			self.is_restricted = input.is_restricted
+		end
+
+		if input.isRestricted ~= nil then
+			self.is_restricted = input.isRestricted
+		end
+
+		return self
+	end
+
+	_GroupSidebarSectionInputData_ForumCategoryImpl.descriptor = {
+		name = "GroupSidebarSectionInputData_ForumCategory",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ForumCategory",
+	}
+
+	messages.GroupSidebarSectionInputData_ForumCategory = _GroupSidebarSectionInputData_ForumCategoryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupSidebarSectionInputData_ForumCategory)
 end
 
 do
@@ -39653,6 +41573,1870 @@ do
 	typeRegistry.default:register(messages.UserLibraryHeaderInputData)
 end
 
+do
+	local _StreamNotificationRowInputDataImpl = {}
+	_StreamNotificationRowInputDataImpl.__index = _StreamNotificationRowInputDataImpl
+
+	function _StreamNotificationRowInputDataImpl.new(
+		data: _StreamNotificationRowInputDataPartialFields?
+	): StreamNotificationRowInputData
+		return setmetatable({
+			notification_id = if data == nil or data.notification_id == nil then "" else data.notification_id,
+			notification_type = if data == nil or data.notification_type == nil then "" else data.notification_type,
+			current_state = if data == nil or data.current_state == nil then "" else data.current_state,
+			created_time = if data == nil or data.created_time == nil then nil else data.created_time,
+			body = if data == nil or data.body == nil then nil else data.body,
+			title = if data == nil or data.title == nil then nil else data.title,
+			thumbnail_target_id = if data == nil or data.thumbnail_target_id == nil
+				then nil
+				else data.thumbnail_target_id,
+			thumbnail_type = if data == nil or data.thumbnail_type == nil then nil else data.thumbnail_type,
+			primary_button = if data == nil or data.primary_button == nil then nil else data.primary_button,
+			secondary_button = if data == nil or data.secondary_button == nil then nil else data.secondary_button,
+			overflow_items = if data == nil or data.overflow_items == nil then {} else data.overflow_items,
+			client_events_payload = if data == nil or data.client_events_payload == nil
+				then {}
+				else data.client_events_payload,
+			is_read = if data == nil or data.is_read == nil then false else data.is_read,
+			timestamp_text = if data == nil or data.timestamp_text == nil then "" else data.timestamp_text,
+			thumbnail_url = if data == nil or data.thumbnail_url == nil then nil else data.thumbnail_url,
+			bundle_key = if data == nil or data.bundle_key == nil then "" else data.bundle_key,
+			visual_item_type = if data == nil or data.visual_item_type == nil then "" else data.visual_item_type,
+			supports_report = if data == nil or data.supports_report == nil then false else data.supports_report,
+			page_entry_identifier = if data == nil or data.page_entry_identifier == nil
+				then ""
+				else data.page_entry_identifier,
+			starts_section = if data == nil or data.starts_section == nil then false else data.starts_section,
+			bundle_position = if data == nil or data.bundle_position == nil then 0 else data.bundle_position,
+			bundle_more_count = if data == nil or data.bundle_more_count == nil then 0 else data.bundle_more_count,
+			bundle_expanded = if data == nil or data.bundle_expanded == nil then false else data.bundle_expanded,
+			supports_clear = if data == nil or data.supports_clear == nil then false else data.supports_clear,
+			bundle_size = if data == nil or data.bundle_size == nil then 0 else data.bundle_size,
+			bundle_hidden = if data == nil or data.bundle_hidden == nil then false else data.bundle_hidden,
+			bundle_title = if data == nil or data.bundle_title == nil then "" else data.bundle_title,
+		}, _StreamNotificationRowInputDataImpl :: _StreamNotificationRowInputDataImpl)
+	end
+
+	function _StreamNotificationRowInputDataImpl.encode(self: StreamNotificationRowInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.notification_id ~= nil and self.notification_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.notification_id)
+		end
+
+		if self.notification_type ~= nil and self.notification_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.notification_type)
+		end
+
+		if self.current_state ~= nil and self.current_state ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.current_state)
+		end
+
+		if self.created_time ~= nil then
+			local encoded = self.created_time:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.body ~= nil then
+			local encoded = self.body:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.thumbnail_target_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumbnail_target_id)
+		end
+
+		if self.thumbnail_type ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumbnail_type)
+		end
+
+		if self.primary_button ~= nil then
+			local encoded = self.primary_button:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.secondary_button ~= nil then
+			local encoded = self.secondary_button:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.overflow_items ~= nil and #self.overflow_items > 0 then
+			for _, value in self.overflow_items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.client_events_payload ~= nil and next(self.client_events_payload) ~= nil then
+			for key, value in self.client_events_payload do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.is_read then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_read then 1 else 0)
+		end
+
+		if self.timestamp_text ~= nil and self.timestamp_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.timestamp_text)
+		end
+
+		if self.thumbnail_url ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.thumbnail_url)
+		end
+
+		if self.bundle_key ~= nil and self.bundle_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.bundle_key)
+		end
+
+		if self.visual_item_type ~= nil and self.visual_item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.visual_item_type)
+		end
+
+		if self.supports_report then
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.supports_report then 1 else 0)
+		end
+
+		if self.page_entry_identifier ~= nil and self.page_entry_identifier ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.page_entry_identifier)
+		end
+
+		if self.starts_section then
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.starts_section then 1 else 0)
+		end
+
+		if self.bundle_position ~= nil and self.bundle_position ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.bundle_position)
+		end
+
+		if self.bundle_more_count ~= nil and self.bundle_more_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.bundle_more_count)
+		end
+
+		if self.bundle_expanded then
+			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.bundle_expanded then 1 else 0)
+		end
+
+		if self.supports_clear then
+			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.supports_clear then 1 else 0)
+		end
+
+		if self.bundle_size ~= nil and self.bundle_size ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.bundle_size)
+		end
+
+		if self.bundle_hidden then
+			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.bundle_hidden then 1 else 0)
+		end
+
+		if self.bundle_title ~= nil and self.bundle_title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.bundle_title)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationRowInputDataImpl.decode(input: buffer): StreamNotificationRowInputData
+		local self = _StreamNotificationRowInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 13 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_read = value ~= 0
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.supports_report = value ~= 0
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.starts_section = value ~= 0
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.bundle_position = value
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.bundle_more_count = value
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.bundle_expanded = value ~= 0
+					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.supports_clear = value ~= 0
+					continue
+				elseif field == 25 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.bundle_size = value
+					continue
+				elseif field == 26 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.bundle_hidden = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.notification_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.notification_type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.current_state = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.created_time = _google_protobuf_timestamp.Timestamp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.body = messages.StreamNotificationRowInputData_InteractiveItem.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail_target_id = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail_type = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.primary_button = messages.StreamNotificationRowInputData_InteractiveItem.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.secondary_button = messages.StreamNotificationRowInputData_InteractiveItem.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.overflow_items,
+						messages.StreamNotificationRowInputData_InteractiveItem.decode(value)
+					)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.StreamNotificationRowInputData_ClientEventsPayloadEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.client_events_payload[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.timestamp_text = buffer.tostring(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail_url = buffer.tostring(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.bundle_key = buffer.tostring(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visual_item_type = buffer.tostring(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.page_entry_identifier = buffer.tostring(value)
+					continue
+				elseif field == 27 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.bundle_title = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationRowInputDataImpl.jsonEncode(self: StreamNotificationRowInputData): any
+		local output = {}
+
+		if self.notification_id ~= nil and self.notification_id ~= "" then
+			output.notificationId = self.notification_id
+		end
+
+		if self.notification_type ~= nil and self.notification_type ~= "" then
+			output.notificationType = self.notification_type
+		end
+
+		if self.current_state ~= nil and self.current_state ~= "" then
+			output.currentState = self.current_state
+		end
+
+		if self.created_time ~= nil then
+			output.createdTime = self.created_time:jsonEncode()
+		end
+
+		if self.body ~= nil then
+			output.body = self.body:jsonEncode()
+		end
+
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
+		if self.thumbnail_target_id ~= nil then
+			output.thumbnailTargetId = self.thumbnail_target_id
+		end
+
+		if self.thumbnail_type ~= nil then
+			output.thumbnailType = self.thumbnail_type
+		end
+
+		if self.primary_button ~= nil then
+			output.primaryButton = self.primary_button:jsonEncode()
+		end
+
+		if self.secondary_button ~= nil then
+			output.secondaryButton = self.secondary_button:jsonEncode()
+		end
+
+		if self.overflow_items ~= nil and #self.overflow_items > 0 then
+			local newOutput = {}
+			for _, value in self.overflow_items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.overflowItems = newOutput
+		end
+
+		if self.client_events_payload ~= nil and next(self.client_events_payload) ~= nil then
+			local newOutput = {}
+			for key, value in self.client_events_payload do
+				newOutput[key] = value
+			end
+			output.clientEventsPayload = newOutput
+		end
+
+		if self.is_read then
+			output.isRead = self.is_read
+		end
+
+		if self.timestamp_text ~= nil and self.timestamp_text ~= "" then
+			output.timestampText = self.timestamp_text
+		end
+
+		if self.thumbnail_url ~= nil then
+			output.thumbnailUrl = self.thumbnail_url
+		end
+
+		if self.bundle_key ~= nil and self.bundle_key ~= "" then
+			output.bundleKey = self.bundle_key
+		end
+
+		if self.visual_item_type ~= nil and self.visual_item_type ~= "" then
+			output.visualItemType = self.visual_item_type
+		end
+
+		if self.supports_report then
+			output.supportsReport = self.supports_report
+		end
+
+		if self.page_entry_identifier ~= nil and self.page_entry_identifier ~= "" then
+			output.pageEntryIdentifier = self.page_entry_identifier
+		end
+
+		if self.starts_section then
+			output.startsSection = self.starts_section
+		end
+
+		if self.bundle_position ~= nil and self.bundle_position ~= 0 then
+			output.bundlePosition = self.bundle_position
+		end
+
+		if self.bundle_more_count ~= nil and self.bundle_more_count ~= 0 then
+			output.bundleMoreCount = self.bundle_more_count
+		end
+
+		if self.bundle_expanded then
+			output.bundleExpanded = self.bundle_expanded
+		end
+
+		if self.supports_clear then
+			output.supportsClear = self.supports_clear
+		end
+
+		if self.bundle_size ~= nil and self.bundle_size ~= 0 then
+			output.bundleSize = self.bundle_size
+		end
+
+		if self.bundle_hidden then
+			output.bundleHidden = self.bundle_hidden
+		end
+
+		if self.bundle_title ~= nil and self.bundle_title ~= "" then
+			output.bundleTitle = self.bundle_title
+		end
+
+		return output
+	end
+
+	function _StreamNotificationRowInputDataImpl.jsonDecode(input: { [string]: any }): StreamNotificationRowInputData
+		local self = _StreamNotificationRowInputDataImpl.new()
+
+		if input.notification_id ~= nil then
+			self.notification_id = input.notification_id
+		end
+
+		if input.notificationId ~= nil then
+			self.notification_id = input.notificationId
+		end
+
+		if input.notification_type ~= nil then
+			self.notification_type = input.notification_type
+		end
+
+		if input.notificationType ~= nil then
+			self.notification_type = input.notificationType
+		end
+
+		if input.current_state ~= nil then
+			self.current_state = input.current_state
+		end
+
+		if input.currentState ~= nil then
+			self.current_state = input.currentState
+		end
+
+		if input.created_time ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.created_time)
+		end
+
+		if input.createdTime ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.createdTime)
+		end
+
+		if input.body ~= nil then
+			self.body = messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(input.body)
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.thumbnail_target_id ~= nil then
+			self.thumbnail_target_id = input.thumbnail_target_id
+		end
+
+		if input.thumbnailTargetId ~= nil then
+			self.thumbnail_target_id = input.thumbnailTargetId
+		end
+
+		if input.thumbnail_type ~= nil then
+			self.thumbnail_type = input.thumbnail_type
+		end
+
+		if input.thumbnailType ~= nil then
+			self.thumbnail_type = input.thumbnailType
+		end
+
+		if input.primary_button ~= nil then
+			self.primary_button =
+				messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(input.primary_button)
+		end
+
+		if input.primaryButton ~= nil then
+			self.primary_button =
+				messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(input.primaryButton)
+		end
+
+		if input.secondary_button ~= nil then
+			self.secondary_button =
+				messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(input.secondary_button)
+		end
+
+		if input.secondaryButton ~= nil then
+			self.secondary_button =
+				messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(input.secondaryButton)
+		end
+
+		if input.overflow_items ~= nil then
+			local newOutput: { StreamNotificationRowInputData_InteractiveItem } = {}
+			for _, value in input.overflow_items do
+				table.insert(newOutput, messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(value))
+			end
+
+			self.overflow_items = newOutput
+		end
+
+		if input.overflowItems ~= nil then
+			local newOutput: { StreamNotificationRowInputData_InteractiveItem } = {}
+			for _, value in input.overflowItems do
+				table.insert(newOutput, messages.StreamNotificationRowInputData_InteractiveItem.jsonDecode(value))
+			end
+
+			self.overflow_items = newOutput
+		end
+
+		if input.client_events_payload ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.client_events_payload do
+				newOutput[key] = value
+			end
+
+			self.client_events_payload = newOutput
+		end
+
+		if input.clientEventsPayload ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.clientEventsPayload do
+				newOutput[key] = value
+			end
+
+			self.client_events_payload = newOutput
+		end
+
+		if input.is_read ~= nil then
+			self.is_read = input.is_read
+		end
+
+		if input.isRead ~= nil then
+			self.is_read = input.isRead
+		end
+
+		if input.timestamp_text ~= nil then
+			self.timestamp_text = input.timestamp_text
+		end
+
+		if input.timestampText ~= nil then
+			self.timestamp_text = input.timestampText
+		end
+
+		if input.thumbnail_url ~= nil then
+			self.thumbnail_url = input.thumbnail_url
+		end
+
+		if input.thumbnailUrl ~= nil then
+			self.thumbnail_url = input.thumbnailUrl
+		end
+
+		if input.bundle_key ~= nil then
+			self.bundle_key = input.bundle_key
+		end
+
+		if input.bundleKey ~= nil then
+			self.bundle_key = input.bundleKey
+		end
+
+		if input.visual_item_type ~= nil then
+			self.visual_item_type = input.visual_item_type
+		end
+
+		if input.visualItemType ~= nil then
+			self.visual_item_type = input.visualItemType
+		end
+
+		if input.supports_report ~= nil then
+			self.supports_report = input.supports_report
+		end
+
+		if input.supportsReport ~= nil then
+			self.supports_report = input.supportsReport
+		end
+
+		if input.page_entry_identifier ~= nil then
+			self.page_entry_identifier = input.page_entry_identifier
+		end
+
+		if input.pageEntryIdentifier ~= nil then
+			self.page_entry_identifier = input.pageEntryIdentifier
+		end
+
+		if input.starts_section ~= nil then
+			self.starts_section = input.starts_section
+		end
+
+		if input.startsSection ~= nil then
+			self.starts_section = input.startsSection
+		end
+
+		if input.bundle_position ~= nil then
+			self.bundle_position = input.bundle_position
+		end
+
+		if input.bundlePosition ~= nil then
+			self.bundle_position = input.bundlePosition
+		end
+
+		if input.bundle_more_count ~= nil then
+			self.bundle_more_count = input.bundle_more_count
+		end
+
+		if input.bundleMoreCount ~= nil then
+			self.bundle_more_count = input.bundleMoreCount
+		end
+
+		if input.bundle_expanded ~= nil then
+			self.bundle_expanded = input.bundle_expanded
+		end
+
+		if input.bundleExpanded ~= nil then
+			self.bundle_expanded = input.bundleExpanded
+		end
+
+		if input.supports_clear ~= nil then
+			self.supports_clear = input.supports_clear
+		end
+
+		if input.supportsClear ~= nil then
+			self.supports_clear = input.supportsClear
+		end
+
+		if input.bundle_size ~= nil then
+			self.bundle_size = input.bundle_size
+		end
+
+		if input.bundleSize ~= nil then
+			self.bundle_size = input.bundleSize
+		end
+
+		if input.bundle_hidden ~= nil then
+			self.bundle_hidden = input.bundle_hidden
+		end
+
+		if input.bundleHidden ~= nil then
+			self.bundle_hidden = input.bundleHidden
+		end
+
+		if input.bundle_title ~= nil then
+			self.bundle_title = input.bundle_title
+		end
+
+		if input.bundleTitle ~= nil then
+			self.bundle_title = input.bundleTitle
+		end
+
+		return self
+	end
+
+	_StreamNotificationRowInputDataImpl.descriptor = {
+		name = "StreamNotificationRowInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.StreamNotificationRowInputData",
+	}
+
+	messages.StreamNotificationRowInputData = _StreamNotificationRowInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationRowInputData)
+end
+
+do
+	local _StreamNotificationRowInputData_RowActionImpl = {}
+	_StreamNotificationRowInputData_RowActionImpl.__index = _StreamNotificationRowInputData_RowActionImpl
+
+	function _StreamNotificationRowInputData_RowActionImpl.new(
+		data: _StreamNotificationRowInputData_RowActionPartialFields?
+	): StreamNotificationRowInputData_RowAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil then "" else data.action_type,
+			path = if data == nil or data.path == nil then "" else data.path,
+			parameters = if data == nil or data.parameters == nil then nil else data.parameters,
+			next_state = if data == nil or data.next_state == nil then nil else data.next_state,
+			fallback_state = if data == nil or data.fallback_state == nil then nil else data.fallback_state,
+		}, _StreamNotificationRowInputData_RowActionImpl :: _StreamNotificationRowInputData_RowActionImpl)
+	end
+
+	function _StreamNotificationRowInputData_RowActionImpl.encode(
+		self: StreamNotificationRowInputData_RowAction
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.action_type ~= nil and self.action_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.action_type)
+		end
+
+		if self.path ~= nil and self.path ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.path)
+		end
+
+		if self.parameters ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.parameters)
+		end
+
+		if self.next_state ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.next_state)
+		end
+
+		if self.fallback_state ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.fallback_state)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationRowInputData_RowActionImpl.decode(
+		input: buffer
+	): StreamNotificationRowInputData_RowAction
+		local self = _StreamNotificationRowInputData_RowActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_type = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.path = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.parameters = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.next_state = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.fallback_state = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationRowInputData_RowActionImpl.jsonEncode(
+		self: StreamNotificationRowInputData_RowAction
+	): any
+		local output = {}
+
+		if self.action_type ~= nil and self.action_type ~= "" then
+			output.actionType = self.action_type
+		end
+
+		if self.path ~= nil and self.path ~= "" then
+			output.path = self.path
+		end
+
+		if self.parameters ~= nil then
+			output.parameters = self.parameters
+		end
+
+		if self.next_state ~= nil then
+			output.nextState = self.next_state
+		end
+
+		if self.fallback_state ~= nil then
+			output.fallbackState = self.fallback_state
+		end
+
+		return output
+	end
+
+	function _StreamNotificationRowInputData_RowActionImpl.jsonDecode(
+		input: { [string]: any }
+	): StreamNotificationRowInputData_RowAction
+		local self = _StreamNotificationRowInputData_RowActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = input.action_type
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = input.actionType
+		end
+
+		if input.path ~= nil then
+			self.path = input.path
+		end
+
+		if input.parameters ~= nil then
+			self.parameters = input.parameters
+		end
+
+		if input.next_state ~= nil then
+			self.next_state = input.next_state
+		end
+
+		if input.nextState ~= nil then
+			self.next_state = input.nextState
+		end
+
+		if input.fallback_state ~= nil then
+			self.fallback_state = input.fallback_state
+		end
+
+		if input.fallbackState ~= nil then
+			self.fallback_state = input.fallbackState
+		end
+
+		return self
+	end
+
+	_StreamNotificationRowInputData_RowActionImpl.descriptor = {
+		name = "StreamNotificationRowInputData_RowAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RowAction",
+	}
+
+	messages.StreamNotificationRowInputData_RowAction = _StreamNotificationRowInputData_RowActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationRowInputData_RowAction)
+end
+
+do
+	local _StreamNotificationRowInputData_InteractiveItemImpl = {}
+	_StreamNotificationRowInputData_InteractiveItemImpl.__index = _StreamNotificationRowInputData_InteractiveItemImpl
+
+	function _StreamNotificationRowInputData_InteractiveItemImpl.new(
+		data: _StreamNotificationRowInputData_InteractiveItemPartialFields?
+	): StreamNotificationRowInputData_InteractiveItem
+		return setmetatable({
+			visual_item_name = if data == nil or data.visual_item_name == nil then "" else data.visual_item_name,
+			label = if data == nil or data.label == nil then "" else data.label,
+			style = if data == nil or data.style == nil then nil else data.style,
+			icon = if data == nil or data.icon == nil then nil else data.icon,
+			actions = if data == nil or data.actions == nil then {} else data.actions,
+			event_name = if data == nil or data.event_name == nil then "" else data.event_name,
+			client_events_payload = if data == nil or data.client_events_payload == nil
+				then {}
+				else data.client_events_payload,
+			event_visual_item_type = if data == nil or data.event_visual_item_type == nil
+				then nil
+				else data.event_visual_item_type,
+			event_visual_item_name = if data == nil or data.event_visual_item_name == nil
+				then nil
+				else data.event_visual_item_name,
+		}, _StreamNotificationRowInputData_InteractiveItemImpl :: _StreamNotificationRowInputData_InteractiveItemImpl)
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItemImpl.encode(
+		self: StreamNotificationRowInputData_InteractiveItem
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.visual_item_name ~= nil and self.visual_item_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.visual_item_name)
+		end
+
+		if self.label ~= nil and self.label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.label)
+		end
+
+		if self.style ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.style)
+		end
+
+		if self.icon ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.icon)
+		end
+
+		if self.actions ~= nil and #self.actions > 0 then
+			for _, value in self.actions do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.event_name ~= nil and self.event_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_name)
+		end
+
+		if self.client_events_payload ~= nil and next(self.client_events_payload) ~= nil then
+			for key, value in self.client_events_payload do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, value)
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.event_visual_item_type ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_visual_item_type)
+		end
+
+		if self.event_visual_item_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_visual_item_name)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItemImpl.decode(
+		input: buffer
+	): StreamNotificationRowInputData_InteractiveItem
+		local self = _StreamNotificationRowInputData_InteractiveItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visual_item_name = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.label = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.style = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.icon = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.actions, messages.StreamNotificationRowInputData_RowAction.decode(value))
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_name = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry =
+						messages.StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = ""
+
+					self.client_events_payload[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_visual_item_type = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_visual_item_name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItemImpl.jsonEncode(
+		self: StreamNotificationRowInputData_InteractiveItem
+	): any
+		local output = {}
+
+		if self.visual_item_name ~= nil and self.visual_item_name ~= "" then
+			output.visualItemName = self.visual_item_name
+		end
+
+		if self.label ~= nil and self.label ~= "" then
+			output.label = self.label
+		end
+
+		if self.style ~= nil then
+			output.style = self.style
+		end
+
+		if self.icon ~= nil then
+			output.icon = self.icon
+		end
+
+		if self.actions ~= nil and #self.actions > 0 then
+			local newOutput = {}
+			for _, value in self.actions do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.actions = newOutput
+		end
+
+		if self.event_name ~= nil and self.event_name ~= "" then
+			output.eventName = self.event_name
+		end
+
+		if self.client_events_payload ~= nil and next(self.client_events_payload) ~= nil then
+			local newOutput = {}
+			for key, value in self.client_events_payload do
+				newOutput[key] = value
+			end
+			output.clientEventsPayload = newOutput
+		end
+
+		if self.event_visual_item_type ~= nil then
+			output.eventVisualItemType = self.event_visual_item_type
+		end
+
+		if self.event_visual_item_name ~= nil then
+			output.eventVisualItemName = self.event_visual_item_name
+		end
+
+		return output
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItemImpl.jsonDecode(
+		input: { [string]: any }
+	): StreamNotificationRowInputData_InteractiveItem
+		local self = _StreamNotificationRowInputData_InteractiveItemImpl.new()
+
+		if input.visual_item_name ~= nil then
+			self.visual_item_name = input.visual_item_name
+		end
+
+		if input.visualItemName ~= nil then
+			self.visual_item_name = input.visualItemName
+		end
+
+		if input.label ~= nil then
+			self.label = input.label
+		end
+
+		if input.style ~= nil then
+			self.style = input.style
+		end
+
+		if input.icon ~= nil then
+			self.icon = input.icon
+		end
+
+		if input.actions ~= nil then
+			local newOutput: { StreamNotificationRowInputData_RowAction } = {}
+			for _, value in input.actions do
+				table.insert(newOutput, messages.StreamNotificationRowInputData_RowAction.jsonDecode(value))
+			end
+
+			self.actions = newOutput
+		end
+
+		if input.event_name ~= nil then
+			self.event_name = input.event_name
+		end
+
+		if input.eventName ~= nil then
+			self.event_name = input.eventName
+		end
+
+		if input.client_events_payload ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.client_events_payload do
+				newOutput[key] = value
+			end
+
+			self.client_events_payload = newOutput
+		end
+
+		if input.clientEventsPayload ~= nil then
+			local newOutput: { [string]: string } = {}
+			for key, value in input.clientEventsPayload do
+				newOutput[key] = value
+			end
+
+			self.client_events_payload = newOutput
+		end
+
+		if input.event_visual_item_type ~= nil then
+			self.event_visual_item_type = input.event_visual_item_type
+		end
+
+		if input.eventVisualItemType ~= nil then
+			self.event_visual_item_type = input.eventVisualItemType
+		end
+
+		if input.event_visual_item_name ~= nil then
+			self.event_visual_item_name = input.event_visual_item_name
+		end
+
+		if input.eventVisualItemName ~= nil then
+			self.event_visual_item_name = input.eventVisualItemName
+		end
+
+		return self
+	end
+
+	_StreamNotificationRowInputData_InteractiveItemImpl.descriptor = {
+		name = "StreamNotificationRowInputData_InteractiveItem",
+		fullName = "roblox.apppageplatform.shared.v1beta1.InteractiveItem",
+	}
+
+	messages.StreamNotificationRowInputData_InteractiveItem = _StreamNotificationRowInputData_InteractiveItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationRowInputData_InteractiveItem)
+end
+
+do
+	local _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl = {}
+	_StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.__index =
+		_StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl
+
+	function _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.new(
+		data: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryPartialFields?
+	): StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl :: _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl
+		)
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.encode(
+		self: StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.decode(
+		input: buffer
+	): StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry
+		local self = _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.jsonEncode(
+		self: StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.jsonDecode(
+		input: {
+			[string]: any,
+		}
+	): StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry
+		local self = _StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl.descriptor = {
+		name = "StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ClientEventsPayloadEntry",
+	}
+
+	messages.StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry =
+		_StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationRowInputData_InteractiveItem_ClientEventsPayloadEntry)
+end
+
+do
+	local _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl = {}
+	_StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.__index =
+		_StreamNotificationRowInputData_ClientEventsPayloadEntryImpl
+
+	function _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.new(
+		data: _StreamNotificationRowInputData_ClientEventsPayloadEntryPartialFields?
+	): StreamNotificationRowInputData_ClientEventsPayloadEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then "" else data.value,
+			},
+			_StreamNotificationRowInputData_ClientEventsPayloadEntryImpl :: _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl
+		)
+	end
+
+	function _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.encode(
+		self: StreamNotificationRowInputData_ClientEventsPayloadEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.value)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.decode(
+		input: buffer
+	): StreamNotificationRowInputData_ClientEventsPayloadEntry
+		local self = _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.jsonEncode(
+		self: StreamNotificationRowInputData_ClientEventsPayloadEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil and self.value ~= "" then
+			output.value = self.value
+		end
+
+		return output
+	end
+
+	function _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): StreamNotificationRowInputData_ClientEventsPayloadEntry
+		local self = _StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = input.value
+		end
+
+		return self
+	end
+
+	_StreamNotificationRowInputData_ClientEventsPayloadEntryImpl.descriptor = {
+		name = "StreamNotificationRowInputData_ClientEventsPayloadEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ClientEventsPayloadEntry",
+	}
+
+	messages.StreamNotificationRowInputData_ClientEventsPayloadEntry =
+		_StreamNotificationRowInputData_ClientEventsPayloadEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationRowInputData_ClientEventsPayloadEntry)
+end
+
+do
+	local _StreamNotificationFeedInputDataImpl = {}
+	_StreamNotificationFeedInputDataImpl.__index = _StreamNotificationFeedInputDataImpl
+
+	function _StreamNotificationFeedInputDataImpl.new(
+		data: _StreamNotificationFeedInputDataPartialFields?
+	): StreamNotificationFeedInputData
+		return setmetatable({
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
+			has_new = if data == nil or data.has_new == nil then false else data.has_new,
+		}, _StreamNotificationFeedInputDataImpl :: _StreamNotificationFeedInputDataImpl)
+	end
+
+	function _StreamNotificationFeedInputDataImpl.encode(self: StreamNotificationFeedInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			for _, value in self.entry_order do
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.has_new then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_new then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationFeedInputDataImpl.decode(input: buffer): StreamNotificationFeedInputData
+		local self = _StreamNotificationFeedInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_new = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.StreamNotificationFeedInputData_EntryMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.entry_order, buffer.tostring(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationFeedInputDataImpl.jsonEncode(self: StreamNotificationFeedInputData): any
+		local output = {}
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryMap = newOutput
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			local newOutput = {}
+			for _, value in self.entry_order do
+				table.insert(newOutput, value)
+			end
+			output.entryOrder = newOutput
+		end
+
+		if self.has_new then
+			output.hasNew = self.has_new
+		end
+
+		return output
+	end
+
+	function _StreamNotificationFeedInputDataImpl.jsonDecode(input: { [string]: any }): StreamNotificationFeedInputData
+		local self = _StreamNotificationFeedInputDataImpl.new()
+
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entry_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_order do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.entryOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryOrder do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.has_new ~= nil then
+			self.has_new = input.has_new
+		end
+
+		if input.hasNew ~= nil then
+			self.has_new = input.hasNew
+		end
+
+		return self
+	end
+
+	_StreamNotificationFeedInputDataImpl.descriptor = {
+		name = "StreamNotificationFeedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.StreamNotificationFeedInputData",
+	}
+
+	messages.StreamNotificationFeedInputData = _StreamNotificationFeedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationFeedInputData)
+end
+
+do
+	local _StreamNotificationFeedInputData_EntryMapEntryImpl = {}
+	_StreamNotificationFeedInputData_EntryMapEntryImpl.__index = _StreamNotificationFeedInputData_EntryMapEntryImpl
+
+	function _StreamNotificationFeedInputData_EntryMapEntryImpl.new(
+		data: _StreamNotificationFeedInputData_EntryMapEntryPartialFields?
+	): StreamNotificationFeedInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _StreamNotificationFeedInputData_EntryMapEntryImpl :: _StreamNotificationFeedInputData_EntryMapEntryImpl)
+	end
+
+	function _StreamNotificationFeedInputData_EntryMapEntryImpl.encode(
+		self: StreamNotificationFeedInputData_EntryMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StreamNotificationFeedInputData_EntryMapEntryImpl.decode(
+		input: buffer
+	): StreamNotificationFeedInputData_EntryMapEntry
+		local self = _StreamNotificationFeedInputData_EntryMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StreamNotificationFeedInputData_EntryMapEntryImpl.jsonEncode(
+		self: StreamNotificationFeedInputData_EntryMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _StreamNotificationFeedInputData_EntryMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): StreamNotificationFeedInputData_EntryMapEntry
+		local self = _StreamNotificationFeedInputData_EntryMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_StreamNotificationFeedInputData_EntryMapEntryImpl.descriptor = {
+		name = "StreamNotificationFeedInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
+	}
+
+	messages.StreamNotificationFeedInputData_EntryMapEntry = _StreamNotificationFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StreamNotificationFeedInputData_EntryMapEntry)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -39874,6 +43658,7 @@ return {
 	EventsCarouselInputData = messages.EventsCarouselInputData,
 	EventsCarouselInputData_EventItem = messages.EventsCarouselInputData_EventItem,
 	DevStoreFeedInputData = messages.DevStoreFeedInputData,
+	GameItemDetailsInputData = messages.GameItemDetailsInputData,
 	PillTabsInputData = messages.PillTabsInputData,
 	PillTabsInputData_PillTabOption = messages.PillTabsInputData_PillTabOption,
 	GamePassCollectionInputData = messages.GamePassCollectionInputData,
@@ -39966,7 +43751,11 @@ return {
 	ItemWithLayout = messages.ItemWithLayout,
 	ContentPool = messages.ContentPool,
 	ItemLayout = messages.ItemLayout,
+	GroupSidebarInputData = messages.GroupSidebarInputData,
+	GroupSidebarInputData_GroupItem = messages.GroupSidebarInputData_GroupItem,
 	GroupOverviewPaneInputData = messages.GroupOverviewPaneInputData,
+	GroupSidebarSectionInputData = messages.GroupSidebarSectionInputData,
+	GroupSidebarSectionInputData_ForumCategory = messages.GroupSidebarSectionInputData_ForumCategory,
 	CommunityAnnouncementInputData = messages.CommunityAnnouncementInputData,
 	ReactionInputData = messages.ReactionInputData,
 	AvailableReactionInputData = messages.AvailableReactionInputData,
@@ -39994,6 +43783,10 @@ return {
 	UserLibraryOverviewInputData = messages.UserLibraryOverviewInputData,
 	UserLibraryListInputData = messages.UserLibraryListInputData,
 	UserLibraryHeaderInputData = messages.UserLibraryHeaderInputData,
+	StreamNotificationRowInputData = messages.StreamNotificationRowInputData,
+	StreamNotificationRowInputData_RowAction = messages.StreamNotificationRowInputData_RowAction,
+	StreamNotificationRowInputData_InteractiveItem = messages.StreamNotificationRowInputData_InteractiveItem,
+	StreamNotificationFeedInputData = messages.StreamNotificationFeedInputData,
 	PageEntryFormat = messages.PageEntryFormat,
 	BuyRobuxSectionDisplayState = messages.BuyRobuxSectionDisplayState,
 	UserLibraryTargetType = messages.UserLibraryTargetType,

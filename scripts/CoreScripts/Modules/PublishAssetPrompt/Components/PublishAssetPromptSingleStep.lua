@@ -24,7 +24,6 @@ local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFont
 local withStyle = UIBlox.Style.withStyle
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local IconButton = UIBlox.App.Button.IconButton
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
 local LocalPlayer = Players.LocalPlayer
@@ -33,10 +32,6 @@ local NameTextBox = require(script.Parent.Common.NameTextBox)
 local AssetDescriptionTextBox = require(script.Parent.AssetDescriptionTextBox)
 local ImagePreview = require(script.Parent.ImagePreview)
 local ObjectViewport = require(script.Parent.ObjectViewport)
-local PreviewViewport = require(script.Parent.Common.PreviewViewport)
-local EmoteThumbnailView = require(script.Parent.EmoteThumbnailView)
-local EmoteThumbnailEditor = require(script.Parent.EmoteThumbnailEditor)
-local EmoteThumbnailParameters = require(script.Parent.EmoteThumbnailParameters)
 local CloseOpenPrompt = require(script.Parent.Parent.Actions.CloseOpenPrompt)
 
 local INPUT_FIELDS_WIDTH_PERCENT = 0.6
@@ -57,10 +52,6 @@ local DISCLAIMER_TEXT = "disclaimer"
 local CANCEL_TEXT = "cancel"
 local SUBMIT_TEXT = "submit"
 
-local UIBloxImages = UIBlox.App.ImageSet.Images
-local PreviewExpandIcon = UIBloxImages["icons/actions/previewExpand"]
-local EditIcon = UIBloxImages["icons/actions/edit/edit"]
-
 local LayeredAssetTypes = {
 	[Enum.AssetType.TShirtAccessory] = true,
 	[Enum.AssetType.ShirtAccessory] = true,
@@ -75,7 +66,6 @@ local LayeredAssetTypes = {
 }
 
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
-local EngineFeatureEnableEmotePublish = game:GetEngineFeature("EnableEmotePublish")
 local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
 
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
@@ -109,44 +99,8 @@ function PublishAssetPromptSingleStep:init()
 	self.isNameValid = true
 	self.isDescriptionValid = true
 
-	self:setState({
-		thumbnailParameters = EmoteThumbnailParameters.defaultParameters,
-		showingThumbnailEditor = false,
-		showingAssetPreview = false,
-	})
-
 	self.closePrompt = function()
 		self.props.closePrompt()
-	end
-
-	self.openThumbnailEditor = function()
-		self:setState({
-			showingThumbnailEditor = true,
-		})
-	end
-
-	self.closeThumbnailEditor = function()
-		self:setState({
-			showingThumbnailEditor = false,
-		})
-	end
-
-	self.openAssetPreview = function()
-		self:setState({
-			showingAssetPreview = true,
-		})
-	end
-
-	self.closeAssetPreview = function()
-		self:setState({
-			showingAssetPreview = false,
-		})
-	end
-
-	self.updateThumbnailParameters = function(newParameters)
-		self:setState({
-			thumbnailParameters = newParameters,
-		})
 	end
 
 	self.denyAndClose = function()
@@ -167,12 +121,6 @@ function PublishAssetPromptSingleStep:init()
 		local metadata = {}
 		metadata["assetName"] = self.assetName
 		metadata["assetDescription"] = self.assetDescription
-
-		if EngineFeatureEnableEmotePublish and self.props.assetType == Enum.AssetType.EmoteAnimation then
-			local emoteThumbnailParametersTable =
-				EmoteThumbnailParameters.encodeAsATable(self.state.thumbnailParameters)
-			metadata["emoteThumbnailParameters"] = emoteThumbnailParametersTable
-		end
 
 		ExperienceAuthService:ScopeCheckUIComplete(
 			self.props.guid,
@@ -206,10 +154,6 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 		local font = style.Font
 		local theme = style.Theme
 
-		local showingEmotePublish = EngineFeatureEnableEmotePublish
-			and self.props.assetType == Enum.AssetType.EmoteAnimation
-			and self.props.assetInstance:IsA("AnimationClip")
-
 		local showingImagePreview = EngineFeatureEnableImagePublish
 			and self.props.assetType == Enum.AssetType.Image
 			and self.props.assetInstance:IsA("Decal")
@@ -240,45 +184,8 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						})
 						else nil,
 
-					ObjectViewport = not showingEmotePublish and not showingImagePreview and Roact.createElement(
-						ObjectViewport,
-						{
-							model = self.props.assetInstance,
-						}
-					) or nil,
-
-					EmoteThumbnailParent = showingEmotePublish and Roact.createElement("Frame", {
-						Size = UDim2.fromScale(1, 1),
-						BackgroundTransparency = 1,
-					}, {
-						AspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {
-							AspectRatio = 1,
-							AspectType = Enum.AspectType.FitWithinMaxSize,
-							DominantAxis = Enum.DominantAxis.Width,
-						}),
-
-						EmoteThumbnailView = Roact.createElement(EmoteThumbnailView, {
-							animationClip = self.props.assetInstance,
-							thumbnailParameters = self.state.thumbnailParameters,
-						}),
-
-						PreviewButton = Roact.createElement(IconButton, {
-							position = UDim2.new(1, -2, 1, -2),
-							anchorPoint = Vector2.new(1, 1),
-							icon = PreviewExpandIcon,
-							size = UDim2.new(0, 30, 0, 30),
-							showBackground = true,
-							onActivated = self.openAssetPreview,
-						}),
-
-						EditButton = Roact.createElement(IconButton, {
-							position = UDim2.new(0, 2, 1, -2),
-							anchorPoint = Vector2.new(0, 1),
-							icon = EditIcon,
-							size = UDim2.new(0, 30, 0, 30),
-							showBackground = true,
-							onActivated = self.openThumbnailEditor,
-						}),
+					ObjectViewport = not showingImagePreview and Roact.createElement(ObjectViewport, {
+						model = self.props.assetInstance,
 					}) or nil,
 				}),
 
@@ -384,34 +291,7 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 		isMiddleContentFocusable = true,
 	})
 
-	if EngineFeatureEnableEmotePublish then
-		return Roact.createFragment({
-			Prompt = publishPrompt,
-
-			ThumbnailEditor = self.state.showingThumbnailEditor and Roact.createElement(EmoteThumbnailEditor, {
-				animationClip = self.props.assetInstance,
-				initialThumbnailParameters = self.state.thumbnailParameters,
-				screenSize = self.props.screenSize,
-				updateThumbnailCallback = self.updateThumbnailParameters,
-				closePromptCallback = self.closeThumbnailEditor,
-			}) or nil,
-
-			PreviewFrame = self.state.showingAssetPreview and Roact.createElement("Frame", {
-				Size = UDim2.new(0.5, 0, 0.5, 0),
-				BackgroundColor3 = Color3.new(0.2, 0.2, 0.2),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Position = UDim2.fromScale(0.5, 0.5),
-				BackgroundTransparency = 0,
-			}, {
-				PreviewViewport = Roact.createElement(PreviewViewport, {
-					asset = self.props.assetInstance,
-					closePreviewView = self.closeAssetPreview,
-				}),
-			}) or nil,
-		})
-	else
-		return publishPrompt
-	end
+	return publishPrompt
 end
 
 local function IsLayeredClothingType(assetType)

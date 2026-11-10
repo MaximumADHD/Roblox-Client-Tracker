@@ -6,6 +6,8 @@ type Bindable<T> = Types.Bindable<T>
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
+local Flags = require(Foundation.Utility.Flags)
+local devAssert = require(Foundation.Utility.devAssert)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local function isNumber(value: IconSize | Bindable<number>): boolean
@@ -45,14 +47,19 @@ local function useIconSize(
 	end
 
 	if iconSize == nil then
-		error("Invalid icon size: " .. tostring(size))
+		if Flags.FoundationDevOnlyPropAsserts then
+			devAssert(false, "Invalid icon size: " .. tostring(size))
+			iconSize = iconSizes[IconSize.Medium] :: number
+		else
+			error("Invalid icon size: " .. tostring(size))
+		end
 	end
 
 	return if typeof(iconSize) == "table"
 		then iconSize:map(function(value)
 			return UDim2.fromOffset(value, value)
 		end)
-		else UDim2.fromOffset(iconSize, iconSize)
+		else UDim2.fromOffset(iconSize :: number, iconSize :: number)
 end
 
 return useIconSize

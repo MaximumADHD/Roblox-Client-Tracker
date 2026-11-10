@@ -41,11 +41,14 @@ export type StatusBadgeVariantProps = {
 function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "row align-x-center align-y-center auto-xy" },
+		-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 		statusLight = { tag = "row align-x-center align-y-center auto-x size-0-300 padding-x-xxsmall" },
+		-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 		content = { tag = "row align-y-center auto-x size-0-full" },
 		dot = { tag = "radius-circle" },
 		text = {
 			style = tokens.Color.Content.Emphasis,
+			-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 			tag = "auto-xy text-align-x-left text-truncate-split padding-right-xxsmall",
 		},
 	}

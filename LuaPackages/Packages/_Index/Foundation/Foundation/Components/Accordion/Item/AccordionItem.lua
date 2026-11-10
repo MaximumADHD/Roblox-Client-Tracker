@@ -31,8 +31,6 @@ type ItemId = Types.ItemId
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local Flags = require(Foundation.Utility.Flags)
-
 local useAccordionItemVariants = require(script.Parent.Parent.useAccordionItemVariants)
 
 export type AccordionItemProps = {
@@ -122,6 +120,7 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 		end
 	end, { contentRef, isExpanded, reducedMotionEnabled, commonEaseConfig } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if isExpanded and not props.isExpanded then
 			onClose()
@@ -150,6 +149,7 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 	local iconLayoutOrder = if isChevronLeading then 3 else 1
 	local collapseIconLayoutOrder = if isChevronLeading then 1 else 3
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local defaultOnActivated = React.useCallback(function()
 		if isExpanded then
 			onClose()
@@ -196,30 +196,16 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 				onActivated = onActivated,
 				testId = `{props.testId}--header`,
 			}, {
-				Icon = if Flags.FoundationAccordionBeta
-					then if icon
-						then React.createElement(Icon, {
-							LayoutOrder = iconLayoutOrder,
-							name = if type(icon) == "table" then icon.name else icon,
-							variant = if type(icon) == "table" then icon.variant else nil,
-							style = variantProps.icon.style,
-							size = variantProps.icon.size,
-							testId = `{props.testId}--leading-icon`,
-						})
-						else nil
+				Icon = if icon
+					then React.createElement(Icon, {
+						LayoutOrder = iconLayoutOrder,
+						name = if type(icon) == "table" then icon.name else icon,
+						variant = if type(icon) == "table" then icon.variant else nil,
+						style = variantProps.icon.style,
+						size = variantProps.icon.size,
+						testId = `{props.testId}--leading-icon`,
+					})
 					else nil,
-				LeadingIcon = if Flags.FoundationAccordionBeta
-					then nil
-					else if icon
-						then React.createElement(Icon, {
-							LayoutOrder = iconLayoutOrder,
-							name = if type(icon) == "table" then icon.name else icon,
-							variant = if type(icon) == "table" then icon.variant else nil,
-							style = variantProps.icon.style,
-							size = variantProps.icon.size,
-							testId = `{props.testId}--leading-icon`,
-						})
-						else nil,
 				Title = if not hasDescription then title else nil,
 				TextContainer = if hasDescription
 					then React.createElement(View, {

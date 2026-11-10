@@ -78,6 +78,25 @@ export type BadgeAccessoryConfig = {
 	variant: BadgeVariant?,
 }
 
+local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
+type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
+
+local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
+type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
+
+export type StatusIndicatorAccessoryConfig = {
+	-- Selects the status indicator accessory.
+	type: "StatusIndicator",
+	-- Color treatment of the indicator.
+	variant: StatusIndicatorVariant?,
+	-- Outline shape of an empty indicator. Ignored when `value` is set.
+	shape: StatusIndicatorShape?,
+	-- Numeric value shown inside the indicator. Omit for an empty indicator.
+	value: number?,
+	-- Cap used for overflow display (for example `99+`).
+	max: number?,
+}
+
 export type ActionProps = {
 	-- Called when the action is activated.
 	onActivated: () -> (),

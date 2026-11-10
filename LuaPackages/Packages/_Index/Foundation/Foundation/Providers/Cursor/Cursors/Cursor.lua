@@ -141,6 +141,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	local tokens = useTokens()
 	local colorIndex = props.colorNamespace
 	if props.cursorType == CursorType.NavHighlight then
+		-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 		return React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0, 1),
 			Position = UDim2.new(0, 0, 1, -NAV_HIGHLIGHT_HEIGHT),
@@ -152,6 +153,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 			ref = ref,
 		})
 	elseif props.cursorType == CursorType.Invisible then
+		-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 		return React.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
@@ -163,6 +165,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 		if cursorDetails.Tag == "FixedSizeImage" then
 			local size = UDim2.fromOffset(cursorDetails.Size, cursorDetails.Size)
 			local position = UDim2.new(0.5, -size.X.Offset / 2, 0.5, -size.Y.Offset / 2)
+			-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 			return React.createElement("ImageLabel", {
 				Image = Images[cursorDetails.Image].Image,
 				BackgroundTransparency = 1,
@@ -186,6 +189,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 					PaddingRight = UDim.new(0, cursorDetails.Padding),
 				})
 				else nil
+			-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 			return React.createElement("ImageLabel", {
 				Image = Images[cursorDetails.Image].Image,
 				BackgroundTransparency = 1,

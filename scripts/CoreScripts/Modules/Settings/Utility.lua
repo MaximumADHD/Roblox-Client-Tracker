@@ -31,7 +31,7 @@ local MILLISECONDS_PER_WEEK = MILLISECONDS_PER_DAY * 7
 local FOCUS_INSET_ADJUSTMENT = 6
 local FOCUS_BORDER_WIDTH = 3
 local FOCUS_GRADIENT_ROTATION_SPEED = 2
- -- corner_radius should be inset_adjustment + inner object corner radius (8px for players page)
+-- corner_radius should be inset_adjustment + inner object corner radius (8px for players page)
 local FOCUS_CORNER_RADIUS = UDim.new(0, 14)
 
 ------------- SERVICES ----------------
@@ -48,8 +48,10 @@ local CorePackages = game:GetService("CorePackages")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --------------- FLAGS ----------------
-local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
+local FFlagRefactorMenuConfirmationButtons =
+	require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
+local FFlagUIScaleEngineOptions = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUIScaleEngineOptions
 
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
@@ -68,6 +70,7 @@ local isInExperienceUIVREnabled =
 local FFlagIncreaseLegacyPeopleRowButtonSize = game:DefineFastFlag("IncreaseLegacyPeopleRowButtonSize", false)
 
 ------------------ Modules --------------------
+local shouldSelectorArrowStep = require(RobloxGui.Modules.Settings.shouldSelectorArrowStep)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local CorePackages = game:GetService("CorePackages")
@@ -78,8 +81,10 @@ local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration
 
 ------------------ VARIABLES --------------------
-local FFlagResponsiveUnitsDeprecateTenFoot = require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
-local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
+local FFlagResponsiveUnitsDeprecateTenFoot =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagResponsiveUnitsDeprecateTenFoot
+local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
+	and not FFlagResponsiveUnitsDeprecateTenFoot
 
 local isLastInputModeTap = Signals.createComputed(function(scope)
 	local InputModeStore = Responsive.GetInputModeStore(scope)
@@ -454,7 +459,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		Size = UDim2.new(1, 0, 1, 0),
-		Position = UDim2.new(0,0,0,0),
+		Position = UDim2.new(0, 0, 0, 0),
 		TextColor3 = Theme.color("WhiteButtonText", Color3.fromRGB(255, 255, 255)),
 		TextTransparency = Theme.transparency("WhiteButtonText", 0),
 		TextYAlignment = Enum.TextYAlignment.Center,
@@ -472,7 +477,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 		textLabel.TextSize = Theme.textSize(18)
 	elseif isTenFootInterface() then
 		local isButtonWithOverflowingText = name == "FriendStatus" or name == "BlockButton"
-		if not (isButtonWithOverflowingText) then 
+		if not isButtonWithOverflowingText then
 			textLabel.TextSize = Theme.textSize(36)
 		end
 	end
@@ -500,9 +505,9 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 	local imageRectOffset = nil
 	local imageRectSize = nil
 
-	local migrationImage = migrationLookup['uiblox'][image] or migrationLookup['luaApps'][image]
-		image = if string.match(image, "^rbxasset://") then image else Theme.Images[image]
-	
+	local migrationImage = migrationLookup["uiblox"][image] or migrationLookup["luaApps"][image]
+	image = if string.match(image, "^rbxasset://") then image else Theme.Images[image]
+
 	if typeof(image) == "table" then
 		imageRectOffset = image.ImageRectOffset
 		imageRectSize = image.ImageRectSize
@@ -515,7 +520,9 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 			Name = name .. "TextLabel",
 			BackgroundTransparency = 1,
 			Size = imageSize,
-			TextSize = if FFlagIncreaseLegacyPeopleRowButtonSize then imageSize.Y.Offset * (6/7) else imageSize.Y.Offset * (2/3), 
+			TextSize = if FFlagIncreaseLegacyPeopleRowButtonSize
+				then imageSize.Y.Offset * (6 / 7)
+				else imageSize.Y.Offset * (2 / 3),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			TextColor3 = Color3.new(1, 1, 1),
@@ -526,18 +533,18 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 		})
 	else
 		imageLabel = Create("ImageLabel")({
-		Name = name .. "ImageLabel",
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Size = imageSize,
-		Position = UDim2.new(0.5, 0, 0.5, 0),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Image = image,
-		ImageRectOffset = imageRectOffset,
-		ImageRectSize = imageRectSize,
-		ZIndex = 2,
-		Parent = button,
-	})
+			Name = name .. "ImageLabel",
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = imageSize,
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Image = image,
+			ImageRectOffset = imageRectOffset,
+			ImageRectSize = imageRectSize,
+			ZIndex = 2,
+			Parent = button,
+		})
 	end
 	if style == "ImageButton" then
 		button.Border.Thickness = 0
@@ -569,7 +576,7 @@ local function MakeRoundedRectFocusState(instance, renderStepName)
 		Position = UDim2.fromOffset(-FOCUS_INSET_ADJUSTMENT, -FOCUS_INSET_ADJUSTMENT),
 	})
 
-	Create("UICorner") ({
+	Create("UICorner")({
 		CornerRadius = FOCUS_CORNER_RADIUS,
 		Parent = focusState,
 	})
@@ -1353,7 +1360,11 @@ local function CreateSelector(selectionStringTable, startPosition)
 			if #this.Selections <= 0 then
 				return
 			end
-			if GuiService.SelectedCoreObject ~= nil and isAutoSelectButton[GuiService.SelectedCoreObject] and not VRService.VREnabled then
+			if
+				GuiService.SelectedCoreObject ~= nil
+				and isAutoSelectButton[GuiService.SelectedCoreObject]
+				and not VRService.VREnabled
+			then
 				GuiService.SelectedCoreObject = this.SelectorFrame
 			end
 		end)
@@ -1467,13 +1478,15 @@ local function CreateSelector(selectionStringTable, startPosition)
 	onVREnabled("VREnabled")
 
 	leftButton.InputBegan:Connect(function(inputObject)
-		local shouldStep = isLastInputModeTap(false) or isLastInputModePointer(false) and inputObject.UserInputType == Enum.UserInputType.MouseButton1
+		local shouldStep =
+			shouldSelectorArrowStep(inputObject.UserInputType, isLastInputModeTap(false), isLastInputModePointer(false))
 		if shouldStep then
 			stepFunc(nil, -1)
 		end
 	end)
 	rightButton.InputBegan:Connect(function(inputObject)
-		local shouldStep = isLastInputModeTap(false) or isLastInputModePointer(false) and inputObject.UserInputType == Enum.UserInputType.MouseButton1
+		local shouldStep =
+			shouldSelectorArrowStep(inputObject.UserInputType, isLastInputModeTap(false), isLastInputModePointer(false))
 		if shouldStep then
 			stepFunc(nil, 1)
 		end
@@ -1778,6 +1791,8 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 	local timeAtLastInput = nil
 
 	local interactable = true
+	-- Only SetEnabledSteps sets this, and only with FFlagUIScaleEngineOptions on; while nil the slider behaves as before.
+	local enabledSteps = nil
 
 	local renderStepBindName = HttpService:GenerateGUID(false)
 
@@ -1821,14 +1836,14 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			Size = UDim2.new(1, 0, 0, 50),
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
-			Parent = this.SliderFrame
+			Parent = this.SliderFrame,
 		})
 
 		Create("UIListLayout")({
 			Name = "UIListLayout",
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			Parent = this.SliderFrame
+			Parent = this.SliderFrame,
 		})
 
 		-- Create left and right labels below steps
@@ -1845,7 +1860,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			Name = "UIPadding",
 			PaddingRight = UDim.new(0, 50),
 			PaddingLeft = UDim.new(0, 50),
-			Parent = SliderLabels
+			Parent = SliderLabels,
 		})
 
 		local function isWideEnough()
@@ -1865,7 +1880,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 				Size = UDim2.fromScale(1, 0),
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Parent = SliderLabels,
-				Visible = isWideEnough()
+				Visible = isWideEnough(),
 			})
 		end
 
@@ -1883,7 +1898,7 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 				Size = UDim2.fromScale(1, 0),
 				AutomaticSize = Enum.AutomaticSize.Y,
 				Parent = SliderLabels,
-				Visible = isWideEnough()
+				Visible = isWideEnough(),
 			})
 		end
 
@@ -2017,7 +2032,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 	local function hideSelection()
 		for i = 1, steps do
 			this.Steps[i].BackgroundColor3 = NON_SELECTED_COLOR
-			if i == 1 or i == steps then
+			if FFlagUIScaleEngineOptions and enabledSteps then
+				this.Steps[i].BackgroundTransparency = if enabledSteps[i] then 0 else 0.8
+			elseif i == 1 or i == steps then
 				this.Steps[i].Filler.BackgroundColor3 = NON_SELECTED_COLOR
 			end
 		end
@@ -2027,14 +2044,44 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			if i > currentStep then
 				break
 			end
-			this.Steps[i].BackgroundColor3 = SELECTED_COLOR
-			if i == 1 or i == steps then
-				this.Steps[i].Filler.BackgroundColor3 = SELECTED_COLOR
+			if FFlagUIScaleEngineOptions and enabledSteps then
+				if enabledSteps[i] or i == currentStep then
+					this.Steps[i].BackgroundTransparency = 0
+					this.Steps[i].BackgroundColor3 = SELECTED_COLOR
+				end
+			else
+				this.Steps[i].BackgroundColor3 = SELECTED_COLOR
+				if i == 1 or i == steps then
+					this.Steps[i].Filler.BackgroundColor3 = SELECTED_COLOR
+				end
 			end
 		end
 	end
 
-	local function setCurrentStep(newStepPosition)
+	local function updateEnabledArrows()
+		local canDecrease, canIncrease = false, false
+		for index, enabled in enabledSteps do
+			if enabled then
+				canDecrease = canDecrease or index < currentStep
+				canIncrease = canIncrease or index > currentStep
+			end
+		end
+		leftButton.Visible = interactable and canDecrease
+		rightButton.Visible = interactable and canIncrease
+	end
+
+	local function setCurrentStep(newStepPosition, allowDisabledStep)
+		-- The render-step tick re-applies the current step with no input; never walk away from it.
+		if FFlagUIScaleEngineOptions and enabledSteps and not allowDisabledStep and newStepPosition ~= currentStep then
+			newStepPosition = math.clamp(newStepPosition, 1, steps)
+			local direction = if newStepPosition < currentStep then -1 else 1
+			while not enabledSteps[newStepPosition] do
+				newStepPosition += direction
+				if newStepPosition < 1 or newStepPosition > steps then
+					return
+				end
+			end
+		end
 		if not minStep then
 			minStep = 0
 		end
@@ -2052,10 +2099,16 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		end
 
 		if currentStep == newStepPosition then
+			if FFlagUIScaleEngineOptions and enabledSteps then
+				updateEnabledArrows()
+			end
 			return
 		end
 
 		currentStep = newStepPosition
+		if FFlagUIScaleEngineOptions and enabledSteps then
+			updateEnabledArrows()
+		end
 
 		hideSelection()
 		showSelection()
@@ -2081,6 +2134,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 	end
 	local function mouseDownFunc(inputObject, newStepPos, repeatAction)
 		if not interactable then
+			return
+		end
+		if FFlagUIScaleEngineOptions and enabledSteps and not repeatAction and not enabledSteps[newStepPos] then
 			return
 		end
 
@@ -2161,11 +2217,42 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 	end
 
 	function this:SetValue(newValue)
-		setCurrentStep(newValue)
+		if FFlagUIScaleEngineOptions then
+			setCurrentStep(newValue, enabledSteps ~= nil)
+		else
+			setCurrentStep(newValue)
+		end
 	end
 
 	function this:GetValue()
 		return currentStep
+	end
+
+	function this:SetEnabledSteps(enabled)
+		if not FFlagUIScaleEngineOptions then
+			return
+		end
+		enabledSteps = enabled
+		for index, step in this.Steps do
+			local filler = step:FindFirstChild("Filler")
+			if filler then
+				-- Individual corner radii avoid layering two translucent backgrounds at disabled endpoints.
+				local corner = step:FindFirstChildOfClass("UICorner")
+				corner.TopLeftRadius = if index == 1 then Theme.DefaultCornerRadius else UDim.new(0, 0)
+				corner.BottomLeftRadius = corner.TopLeftRadius
+				corner.TopRightRadius = if index == steps then Theme.DefaultCornerRadius else UDim.new(0, 0)
+				corner.BottomRightRadius = corner.TopRightRadius
+				filler:Destroy()
+			end
+			local isEnabled = interactable and enabled[index]
+			-- Keep the current step opaque even when it is disabled, so the slider always shows the current value.
+			step.BackgroundTransparency = if enabled[index] or index == currentStep then 0 else 0.8
+			step.Active = VRService.VREnabled and isEnabled
+			step.Selectable = VRService.VREnabled and isEnabled
+		end
+		hideSelection()
+		showSelection()
+		updateEnabledArrows()
 	end
 
 	function this:SetInteractable(value)
@@ -2230,8 +2317,14 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			this.SliderFrame.Selectable = interactable
 
 			for i = 1, steps do
-				this.Steps[i].Selectable = interactable
-				this.Steps[i].Active = interactable
+				if FFlagUIScaleEngineOptions and enabledSteps then
+					local isEnabled = interactable and enabledSteps[i]
+					this.Steps[i].Selectable = isEnabled
+					this.Steps[i].Active = isEnabled
+				else
+					this.Steps[i].Selectable = interactable
+					this.Steps[i].Active = interactable
+				end
 			end
 		else
 			leftButton.Selectable = false
@@ -2426,7 +2519,18 @@ if isTenFootInterface() then
 end
 
 local nextPosTable = {}
-local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText, interactable)
+local function AddNewRow(
+	pageToAddTo,
+	rowDisplayName,
+	selectionType,
+	rowValues,
+	rowDefault,
+	extraSpacing,
+	rowDisplayDescription,
+	rowSliderLeftLabelText,
+	rowSliderRightLabelText,
+	interactable
+)
 	local nextRowPositionY = 0
 	local isARealRow = selectionType ~= "TextBox" -- Textboxes are constructed in this function - they don't have an associated class.
 
@@ -2446,7 +2550,11 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 		Active = false,
 		AutoButtonColor = false,
 		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-		AutomaticSize = if rowDisplayDescription or rowSliderLeftLabelText or rowSliderRightLabelText then Enum.AutomaticSize.Y else nil,
+		AutomaticSize = if rowDisplayDescription
+				or rowSliderLeftLabelText
+				or rowSliderRightLabelText
+			then Enum.AutomaticSize.Y
+			else nil,
 		Position = UDim2.new(0, 0, 0, nextRowPositionY),
 		ZIndex = 2,
 		Selectable = false,
@@ -2479,7 +2587,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			Position = UDim2.new(0, 10, 0, 0),
 			Size = UDim2.new(0.4, -20, 0, 50),
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Parent = RowFrame
+			Parent = RowFrame,
 		})
 
 		RowLabel = Create("TextLabel")({
@@ -2495,7 +2603,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			TextWrapped = true,
 			ZIndex = 2,
 			Parent = RowLabelAndDescriptionFrame,
-			LayoutOrder = 1
+			LayoutOrder = 1,
 		})
 
 		Create("TextLabel")({
@@ -2512,7 +2620,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			AutomaticSize = Enum.AutomaticSize.Y,
 			ZIndex = 2,
 			Parent = RowLabelAndDescriptionFrame,
-			LayoutOrder = 2
+			LayoutOrder = 2,
 		})
 
 		Create("UIListLayout")({
@@ -2520,14 +2628,14 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, 8),
-			Parent = RowLabelAndDescriptionFrame
+			Parent = RowLabelAndDescriptionFrame,
 		})
 
 		Create("UIPadding")({
 			Name = rowDisplayName .. "UIListLayout",
 			PaddingBottom = UDim.new(0, 10),
 			PaddingTop = UDim.new(0, 10),
-			Parent = RowLabelAndDescriptionFrame
+			Parent = RowLabelAndDescriptionFrame,
 		})
 	else
 		RowLabel = Create("TextLabel")({
@@ -2550,7 +2658,7 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 			Name = rowDisplayName .. "UIPadding",
 			PaddingBottom = UDim.new(0, 10), --pad w same offset values used in for labels with description s.t all UI has consistent appearance
 			PaddingTop = UDim.new(0, 10),
-			Parent = RowLabel
+			Parent = RowLabel,
 		})
 	end
 
@@ -2571,7 +2679,8 @@ local function AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, 
 	local ValueChangerSelection = nil
 	local ValueChangerInstance = nil
 	if selectionType == "Slider" then
-		ValueChangerInstance = CreateNewSlider(rowValues, rowDefault, nil, rowSliderLeftLabelText, rowSliderRightLabelText)
+		ValueChangerInstance =
+			CreateNewSlider(rowValues, rowDefault, nil, rowSliderLeftLabelText, rowSliderRightLabelText)
 		ValueChangerInstance.SliderFrame.Parent = RowFrame
 		ValueChangerSelection = ValueChangerInstance.SliderFrame
 	elseif selectionType == "Selector" then
@@ -2960,9 +3069,9 @@ local function AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpac
 
 	Create("UIPadding")({
 		Name = rowDisplayName .. "UIPadding",
-		PaddingBottom = UDim.new(0, 10),	--pad w/ same offset values used in AddNewRow method (used for majority of in-game settings rows) s.t all settings have consistent appearance
+		PaddingBottom = UDim.new(0, 10), --pad w/ same offset values used in AddNewRow method (used for majority of in-game settings rows) s.t all settings have consistent appearance
 		PaddingTop = UDim.new(0, 10),
-		Parent = RowLabel
+		Parent = RowLabel,
 	})
 
 	local function onResized(viewportSize, portrait)
@@ -3047,8 +3156,30 @@ function moduleApiTable:CreateNewDropDown(dropDownStringTable, startPosition)
 	return CreateDropDown(dropDownStringTable, startPosition, nil)
 end
 
-function moduleApiTable:AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText, interactable)
-	return AddNewRow(pageToAddTo, rowDisplayName, selectionType, rowValues, rowDefault, extraSpacing, rowDisplayDescription, rowSliderLeftLabelText, rowSliderRightLabelText, interactable)
+function moduleApiTable:AddNewRow(
+	pageToAddTo,
+	rowDisplayName,
+	selectionType,
+	rowValues,
+	rowDefault,
+	extraSpacing,
+	rowDisplayDescription,
+	rowSliderLeftLabelText,
+	rowSliderRightLabelText,
+	interactable
+)
+	return AddNewRow(
+		pageToAddTo,
+		rowDisplayName,
+		selectionType,
+		rowValues,
+		rowDefault,
+		extraSpacing,
+		rowDisplayDescription,
+		rowSliderLeftLabelText,
+		rowSliderRightLabelText,
+		interactable
+	)
 end
 
 function moduleApiTable:AddNewRowObject(pageToAddTo, rowDisplayName, rowObject, extraSpacing, autoSizeLabel)

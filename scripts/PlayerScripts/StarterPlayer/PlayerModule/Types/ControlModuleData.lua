@@ -10,6 +10,9 @@ export type ControlModuleData = {
 
 	-- holds references to the InputActions that control this Player
 	actions: { [string]: InputAction },
+
+	-- the ControlModule.Enabled value read this frame
+	enabled: boolean,
 }
 
 return {}

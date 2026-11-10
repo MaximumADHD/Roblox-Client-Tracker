@@ -3,7 +3,6 @@ local Packages = root.Parent
 
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
-local Flags = require(root.Flags)
 
 local EngineFeatureTextBoundsRoundUp do
 	local success, value = pcall(function()
@@ -65,10 +64,8 @@ FitTextLabel.defaultProps = {
 }
 
 function FitTextLabel:init()
-	if Flags.RoactFitComponentsFontDatatypeSupport then
-		self.measurementId = 0
-		self.mounted = false
-	end
+	self.measurementId = 0
+	self.mounted = false
 
 	if Roact.Ref == "ref" then
 		self.frameRef = self.props.forwardedRef or Roact.createRef()
@@ -81,12 +78,10 @@ function FitTextLabel:init()
 			return
 		end
 
-		if Flags.RoactFitComponentsFontDatatypeSupport and typeof(self.props.Font) == "Font" then
+		if typeof(self.props.Font) == "Font" then
 			self:__resizeForFont(self.frameRef.current)
 		else
-			if Flags.RoactFitComponentsFontDatatypeSupport then
-				self.measurementId = self.measurementId + 1
-			end
+			self.measurementId = self.measurementId + 1
 			self.frameRef.current.Size = self:__getSize(self.frameRef.current)
 		end
 	end
@@ -98,9 +93,7 @@ function FitTextLabel:render()
 end
 
 function FitTextLabel:didMount()
-	if Flags.RoactFitComponentsFontDatatypeSupport then
-		self.mounted = true
-	end
+	self.mounted = true
 	self.onResize()
 end
 
@@ -109,10 +102,8 @@ function FitTextLabel:didUpdate()
 end
 
 function FitTextLabel:willUnmount()
-	if Flags.RoactFitComponentsFontDatatypeSupport then
-		self.mounted = false
-		self.measurementId = self.measurementId + 1
-	end
+	self.mounted = false
+	self.measurementId = self.measurementId + 1
 end
 
 function FitTextLabel:__getFilteredProps()
@@ -145,7 +136,7 @@ function FitTextLabel:__getFilteredProps()
 		end,
 	}
 
-	if Flags.RoactFitComponentsFontDatatypeSupport and typeof(self.props.Font) == "Font" then
+	if typeof(self.props.Font) == "Font" then
 		filteredProps.Font = Cryo.None
 		filteredProps.FontFace = self.props.Font
 	end

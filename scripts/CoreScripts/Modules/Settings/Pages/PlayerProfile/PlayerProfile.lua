@@ -29,6 +29,8 @@ local CurrentlyWearing = require(CorePackages.Workspace.Packages.ProfilePlatform
 local getProfilePlatform = require(CorePackages.Workspace.Packages.ProfilePlatform.getProfilePlatform)
 local useDynamicSizeMargin = require(CorePackages.Workspace.Packages.ProfilePlatform.useDynamicSizeMargin)
 local ProfileWrapperContext = require(CorePackages.Workspace.Packages.ProfilePlatform.ProfileWrapperContext)
+local FFlagProfilePlatformGracefulVisibility =
+	require(CorePackages.Workspace.Packages.ProfilePlatform.FFlagProfilePlatformGracefulVisibility)
 
 local AddConnectionButton = require(script.Parent.AddConnectionButton)
 local ProfileHeader = require(script.Parent.ProfileHeader)
@@ -68,20 +70,29 @@ local PlayerProfile = function(props: PlayerProfileProps): React.ReactNode
 
 	local dispatch = useDispatch()
 
+	-- `dispatch` is stable for the lifetime of the Rodux store.
+	-- lute-lint-ignore(exhaustiveDeps)
 	React.useEffect(function()
+		local components: { any } = {
+			{
+				component = ProfilePlatformEnums.Components.CurrentlyWearing,
+			},
+			{
+				component = ProfilePlatformEnums.Components.UserProfileHeader,
+			},
+		}
+		if FFlagProfilePlatformGracefulVisibility then
+			table.insert(components, {
+				component = ProfilePlatformEnums.Components.Friends,
+			})
+		end
+
 		dispatch(getProfilePlatform.API({
 				profileId = profileId,
 				profileType = profileType,
-				components = {
-					{
-						component = ProfilePlatformEnums.Components.CurrentlyWearing,
-					},
-					{
-						component = ProfilePlatformEnums.Components.UserProfileHeader,
-					},
-				} :: { any },
+				components = components,
 				includeComponentOrdering = false,
-				onlyEssentialComponents = true,
+				onlyEssentialComponents = if FFlagProfilePlatformGracefulVisibility then nil else true,
 			}))
 			:andThen(function(response)
 				setIsLoading(false)

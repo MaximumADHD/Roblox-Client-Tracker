@@ -32,6 +32,7 @@ local SheetType = require(script.Parent.SheetType)
 
 local childrenHasFullBleed = require(script.Parent.childrenHasFullBleed)
 
+local Backdrop = require(Foundation.Components.Backdrop)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
@@ -167,6 +168,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 		end
 	end, { animationOffset, reducedMotion } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useImperativeHandle(props.sheetRef, function()
 		return {
 			close = closeSheet,
@@ -233,6 +235,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 		selection = SheetTypes.nonSelectable,
 		selectionGroup = SheetTypes.isolatedSelectionGroup,
 		tag = {
+			-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 			["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
 			["size-full-0 auto-y"] = props.centerSheetHeight == nil,
 		},
@@ -268,6 +271,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 
 	local ShadowNode = if Flags.FoundationCenterSheetOverlayShadow
 		then React.createElement(View, {
+			-- lute-lint-ignore(mixedTagStrings) UIBLOX-5675
 			tag = "shadow-overlay-300 radius-large",
 			Size = sheetHeight:map(function(value: number)
 				return UDim2.new(1, 0, 0, value)
@@ -366,22 +370,29 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 								end
 								else nil,
 						}, nil),
-					Backdrop = React.createElement(View, {
-						Size = UDim2.fromScale(2, 2),
-						Position = UDim2.fromScale(-0.5, -0.5),
-						ZIndex = 1,
-						stateLayer = {
-							affordance = StateLayerAffordance.None,
-						},
-						backgroundStyle = backdropTransparency:map(function(value: number)
-							return {
-								Color3 = tokens.Color.Common.Backdrop.Color3,
-								Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
-							}
-						end),
-						onActivated = closeSheet,
-						testId = `{props.testId}--backdrop`,
-					}),
+					Backdrop = if Flags.FoundationCenterSheetInternalBackdrop
+						then React.createElement(Backdrop, {
+							transparency = backdropTransparency,
+							onActivated = closeSheet,
+							ZIndex = 1,
+							testId = `{props.testId}--backdrop`,
+						})
+						else React.createElement(View, {
+							Size = UDim2.fromScale(2, 2),
+							Position = UDim2.fromScale(-0.5, -0.5),
+							ZIndex = 1,
+							stateLayer = {
+								affordance = StateLayerAffordance.None,
+							},
+							backgroundStyle = backdropTransparency:map(function(value: number)
+								return {
+									Color3 = tokens.Color.Common.Backdrop.Color3,
+									Transparency = math.lerp(tokens.Color.Common.Backdrop.Transparency, 1, value),
+								}
+							end),
+							onActivated = closeSheet,
+							testId = `{props.testId}--backdrop`,
+						}),
 				}),
 				overlay
 			),

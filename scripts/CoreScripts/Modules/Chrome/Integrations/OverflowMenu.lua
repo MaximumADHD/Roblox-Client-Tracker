@@ -41,6 +41,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
+local TooltipContext = require(Chrome.ChromeShared.Unibar.Tooltips.TooltipContext)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local SelfieView = require(RobloxGui.Modules.SelfieView)
@@ -70,15 +71,27 @@ local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 local FFlagAvatarSwitcherFtuxTooltip = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false)
 local FFlagInExperienceShopFtuxTooltip = game:DefineFastFlag("InExperienceShopFtuxTooltip", false)
 	and SharedFlags.FFlagEnableInExperienceShop
+local FFlagEnableAnyFreeTrialToolTip =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FFlagEnableAnyFreeTrialToolTip)
 -- Composed with the Chrome flag that renders the dot at all, so this can't request a
 -- pixel IconHost never draws.
 local FFlagOfferNineDotActivityIndicator = SharedFlags.FFlagOfferNineDotActivityIndicator
+	and ChromeSharedFlags.FFlagChromeNineDotActivityIndicator
+local FFlagFreeTrialNineDotActivityIndicator =
+	require(CorePackages.Workspace.Packages.InExperienceShop.FFlagEnableFreeTrialBlueDot)
+local useFreeTrialBlueDot = FFlagFreeTrialNineDotActivityIndicator
 	and ChromeSharedFlags.FFlagChromeNineDotActivityIndicator
 local useInExperienceOfferExposure = require(Chrome.Integrations.InExperienceShop.useInExperienceOfferExposure)
 
 local useOfferNineDotActivityIndicator: any = nil
 if FFlagOfferNineDotActivityIndicator then
 	useOfferNineDotActivityIndicator = require(Chrome.Integrations.InExperienceShop.useOfferNineDotActivityIndicator)
+end
+
+local useFreeTrialNineDotActivityIndicator: any = nil
+if useFreeTrialBlueDot then
+	useFreeTrialNineDotActivityIndicator =
+		require(Chrome.Integrations.InExperienceShop.useFreeTrialNineDotActivityIndicator)
 end
 
 local InExperienceShopFtuxTooltip: any = nil
@@ -89,7 +102,35 @@ end
 local MenuOfferTooltip = require(Chrome.Integrations.InExperienceShop.MenuOfferTooltip)
 local usePublishShopAvailability = require(Chrome.Integrations.InExperienceShop.usePublishShopAvailability)
 
+local FreeTrialToolTip: any = nil
+local openInExperienceShopWindow: any = nil
+if FFlagEnableAnyFreeTrialToolTip then
+	FreeTrialToolTip = require(CorePackages.Workspace.Packages.InExperienceShop.FreeTrialToolTip)
+	openInExperienceShopWindow =
+		require(Chrome.Integrations.InExperienceShop.ShopWindowLayout).openInExperienceShopWindow
+end
+
 local FIntUnibarConnectIconTooltipPriority = game:DefineFastInt("UnibarConnectTooltipPriority", 2000)
+-- Higher priority shows first. Keep this just under the shop offers tooltip
+-- (MenuOfferTooltipPriority, 1500) so an offer shows ahead of a free trial.
+local FIntTrialAvailableTooltipPriority = game:DefineFastInt("TrialAvailableTooltipPriority", 1400)
+
+-- Reads the queue here so the hamburger button does not subscribe to it.
+-- FreeTrialToolTip lives in the shop package and cannot require Chrome.
+local FreeTrialToolTipChrome: any = nil
+if FFlagEnableAnyFreeTrialToolTip then
+	function FreeTrialToolTipChrome(props)
+		local tooltipQueue = React.useContext(TooltipContext)
+		return React.createElement(FreeTrialToolTip, {
+			anchorRef = props.anchorRef,
+			visible = props.visible,
+			onOpenShop = props.onOpenShop,
+			tooltipQueue = tooltipQueue,
+			priority = FIntTrialAvailableTooltipPriority,
+		})
+	end
+end
+
 local shouldShowConnectTooltip = GetFFlagEnableAppChatInExperience()
 	and FFlagAppChatEnabledChromeDropdownFtuxTooltip
 	and GetShouldShowPlatformChatBasedOnPolicy()
@@ -300,17 +341,28 @@ function HamburgerButton(props)
 	local style = useStyle()
 	local hamburgerRef = React.useRef(nil :: GuiObject?)
 
-	-- The tooltip and the nine-dot indicator are both judged against offer notifications,
-	-- so either one alone needs these running.
+	-- Offer notifications, the free-trial blue dot, and the trial tooltip all need to
+	-- know whether the shop entry can be opened. Offer exposure stays on the offer flags only.
+	-- Once FFlagOfferNineDotActivityIndicator and FFlagFreeTrialNineDotActivityIndicator
+	-- are removed, the nine-dot half of this reduces to FFlagChromeNineDotActivityIndicator.
+	if
+		not RunService:IsStudio()
+		or FFlagOfferNineDotActivityIndicator
+		or useFreeTrialBlueDot
+		or FFlagEnableAnyFreeTrialToolTip
+	then
+		-- Ordered ahead of the exposure hook so no exposure is recorded for an offer
+		-- whose notification a closed shop is about to suppress.
+		-- lute-lint-ignore(rulesOfHooks): IsStudio, useFreeTrialBlueDot does not change between renders
+		usePublishShopAvailability()
+	end
+
+	-- The offer tooltip and the offer nine-dot are both judged against offer notifications,
+	-- so either one alone needs exposure tracking.
 	-- TODO it'd be preferable to have this logic live in the offers package, unfortunately useInExperienceOfferExposure
 	-- depends on Chrome.ChromeShared.Service.LocalStore which is not avaible from a module. Consider moving this if
 	-- LocalStore gets modularized.
 	if not RunService:IsStudio() or FFlagOfferNineDotActivityIndicator then
-		-- Tells the offers store whether the shop can be opened, which offer notifications are
-		-- gated on. Ordered ahead of the exposure hook so no exposure is recorded for an offer
-		-- whose notification a closed shop is about to suppress.
-		-- lute-lint-ignore(rulesOfHooks): IsStudio does not change between renders
-		usePublishShopAvailability()
 		-- Handles saving and loading in-experience offer exposure data, used to determine if an offer notification should be shown.
 		-- lute-lint-ignore(rulesOfHooks): IsStudio does not change between renders
 		useInExperienceOfferExposure()
@@ -318,6 +370,11 @@ function HamburgerButton(props)
 
 	if FFlagOfferNineDotActivityIndicator then
 		useOfferNineDotActivityIndicator()
+	end
+
+	if useFreeTrialBlueDot then
+		-- lute-lint-ignore(rulesOfHooks): useFreeTrialBlueDot is constant for the session
+		useFreeTrialNineDotActivityIndicator()
 	end
 
 	local unibarStyle
@@ -369,7 +426,7 @@ function HamburgerButton(props)
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 		BorderSizePixel = 0,
-		ref = if not RunService:IsStudio() then hamburgerRef else nil,
+		ref = if not RunService:IsStudio() or FFlagEnableAnyFreeTrialToolTip then hamburgerRef else nil,
 		BackgroundColor3 = style.Theme.BackgroundOnHover.Color,
 		BackgroundTransparency = toggleIconTransition:map(function(value): any
 			return 1 - ((1 - style.Theme.BackgroundOnHover.Transparency) * value)
@@ -445,6 +502,13 @@ function HamburgerButton(props)
 			then React.createElement(MenuOfferTooltip, {
 				anchorRef = hamburgerRef,
 				visible = props.visible,
+			})
+			else nil,
+		if FFlagEnableAnyFreeTrialToolTip
+			then React.createElement(FreeTrialToolTipChrome, {
+				anchorRef = hamburgerRef,
+				visible = props.visible,
+				onOpenShop = openInExperienceShopWindow,
 			})
 			else nil,
 	})

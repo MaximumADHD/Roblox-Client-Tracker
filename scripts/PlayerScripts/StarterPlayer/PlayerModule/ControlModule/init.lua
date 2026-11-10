@@ -28,14 +28,17 @@ local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserVRFixCameraCloseArticulation = FlagUtil.getUserFlag("UserVRFixCameraCloseArticulation")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
+	or FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationDGA")
 local FFlagUserPlayerScriptsBindActivateOnIAS = FlagUtil.getUserFlag("UserPlayerScriptsBindActivateOnIAS")
 local FFlagUserPlayerScriptsPlayerControlState = FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2")
+	or FlagUtil.getUserFlag("UserPlayerScriptsPlayerControlState2GA")
 local FFlagUserPlayerScriptsTaskDeferSimulation = FlagUtil.getUserFlag("UserPlayerScriptsTaskDeferSimulation")
 local FFlagUserPlayerScriptsFixSAuthRenderStepMove = FlagUtil.getUserFlag("UserPlayerScriptsFixSAuthRenderStepMove")
 local FFlagUserPlayerScriptsSupportMicroGamepad = FlagUtil.getUserFlag("UserPlayerScriptsSupportMicroGamepad")
 local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
 local FFlagUserPSUseBindToAnimation = FlagUtil.getUserFlag("UserPSUseBindToAnimation")
 local FFlagUserServerAuthorityDontSetAutoRotate = FlagUtil.getUserFlag("UserServerAuthorityDontSetAutoRotate")
+local FFlagUserControlModuleDisabledUpdate = FlagUtil.getUserFlag("UserControlModuleDisabledUpdate")
 local CONNECTIONS = {
 	SERVER_AUTHORITY_CHANGED = "SERVER_AUTHORITY_CHANGED",
 }
@@ -193,8 +196,9 @@ function ControlModule.new() -- TODO ControlModule should be static
 	return self
 end
 
--- remove with FFlagUserPlayerScriptsCCLIntegrationD
+-- remove with FFlagUserPlayerScriptsCCLIntegrationD or FFlagUserControlModuleDisabledUpdate
 local function _fireCustomInputs(player:Player)
+	assert(not FFlagUserControlModuleDisabledUpdate)
 	local input = player:FindFirstChild("InputContexts")
 	if input == nil then
 		return
@@ -312,14 +316,15 @@ function ControlModule:InitializeServerAuthority()
 			end)
 		end
 
-		-- Fire Custom Inputs
 		RunService:BindToRenderStep("CameraInput", Enum.RenderPriority.Last.Value, function()
-			if FFlagUserPlayerScriptsPlayerControlState then
-				InputReplication.writeInputToPCS(Players.LocalPlayer, self)
-			elseif FFlagUserPlayerScriptsCCLIntegrationD then
-				InputReplication.FireCustomInputs(Players.LocalPlayer)
-			else
-				_fireCustomInputs(Players.LocalPlayer)
+			if not FFlagUserControlModuleDisabledUpdate then
+				if FFlagUserPlayerScriptsPlayerControlState then
+					InputReplication.writeInputToCS(Players.LocalPlayer, self)
+				elseif FFlagUserPlayerScriptsCCLIntegrationD then
+					InputReplication.FireCustomInputs(Players.LocalPlayer)
+				else
+					_fireCustomInputs(Players.LocalPlayer)
+				end
 			end
 			if FFlagUserServerAuthorityDontSetAutoRotate and UserGameSettings.RotationType == Enum.RotationType.CameraRelative
 				and not (FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled()) then
@@ -530,6 +535,10 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 end
 
 function ControlModule:Enable(enable: boolean?)
+	if FFlagUserControlModuleDisabledUpdate then
+		warn('ControlModule:Enable() and ControlModule:Disable() are deprecated and will be removed soon; set require("@rbx/PlayerModule").ControlModule.Enabled instead')
+		return
+	end
 	if enable == nil then
 		enable = true
 	end
@@ -683,12 +692,23 @@ function ControlModule:Update(data, dt)
 	assert(data.player)
 	assert(data.character)
 
-	if not self.humanoid then return end
+	if not FFlagUserControlModuleDisabledUpdate and not self.humanoid then return end
 
 	local controlModule = data.controlModule
 	local controlAPI = data.playerModule.ControlModule
 
-	if not controlAPI.Enabled then
+	local enabled = controlAPI.Enabled
+	if FFlagUserControlModuleDisabledUpdate then
+		controlModule.enabled = enabled
+		if enabled ~= self.controlsEnabled then
+			self.controlsEnabled = enabled
+			self:UpdateActiveControlModuleEnabled()
+		elseif not enabled then
+			return
+		end
+	end
+
+	if not enabled then
 		controlModule.isJumping = false
 		controlModule.moveVector = Vector2.new()
 		controlModule.worldMoveVector = Vector3.new()
@@ -701,8 +721,15 @@ function ControlModule:Update(data, dt)
 		return
 	end
 
+	if FFlagUserControlModuleDisabledUpdate and not self.humanoid then return end
+
 	-- We may need to wait for actions to come from the server so we initialize again
 	ActionController.initializeActions(data)
+	if FFlagUserControlModuleDisabledUpdate then
+		if not controlModule.actions["MoveAction"] or not controlModule.actions["JumpAction"] then
+			return
+		end
+	end
 
 	if self.activeController and self.activeController.enabled and self.humanoid then
 		ActionController.update(data)
@@ -711,7 +738,7 @@ function ControlModule:Update(data, dt)
 		clickToMoveController:Update(data, dt)
 
 		-- Now retrieve info from the controller
-		local moveVector = Vector3.new(data.controlModule.moveVector.X, 0, -data.controlModule.moveVector.Y)
+		local moveVector = Vector3.new(controlModule.moveVector.X, 0, -controlModule.moveVector.Y)
 
 		-- Are we driving a vehicle ?
 		if self.vehicleController then
@@ -735,12 +762,16 @@ function ControlModule:Update(data, dt)
 end
 
 function ControlModule:characterMove(data)
+	if FFlagUserControlModuleDisabledUpdate and not self.humanoid then return end
+
 	local controlModule = data.controlModule
 
 	if FFlagUserPlayerScriptsPlayerControlState then
 		if not data.isServerAuthority then
 			if FFlagUserPlayerScriptsCCLIntegrationD and avatarAbilitiesInterface:isEnabled() then
-				InputReplication.writeInputToPCS(Players.LocalPlayer, self)
+				if not FFlagUserControlModuleDisabledUpdate then
+					InputReplication.writeInputToCS(Players.LocalPlayer, self)
+				end
 			else
 				self.moveFunction(Players.LocalPlayer, controlModule.worldMoveVector, false)
 				self.humanoid.Jump = controlModule.isJumping

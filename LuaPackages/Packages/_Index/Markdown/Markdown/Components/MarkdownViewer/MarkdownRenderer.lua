@@ -39,7 +39,6 @@ local Highlighter = MarkdownCore.Utils.Highlighter
 local getNodeTypeConfig = require(Root.Utils.getNodeTypeConfig)
 local isInlineElement = InlineLayout.Utils.isInlineElement
 local Flags = MarkdownCore.Flags
-local FoundationFlags = Foundation.Utility.Flags
 local usesContextRenderers = Flags.FFlagMarkdownTables or Flags.FFlagMarkdownTagFallbacks
 
 local DEFAULT_TEXT_SIZE = 18
@@ -601,9 +600,7 @@ function MarkdownRenderer.render(node: Types.Node, props: Props): React.ReactEle
 		end
 
 		local bodyTypography = props.tokens.Typography.BodyMedium
-		local defaultFontFace = if FoundationFlags.FoundationFontFaceMigration
-			then normalizeStyleFont({ font = bodyTypography.Font }).fontFace
-			else Font.fromEnum(bodyTypography.Font :: Enum.Font)
+		local defaultFontFace = normalizeStyleFont({ font = bodyTypography.Font }).fontFace
 		local defaultTextSize = bodyTypography.FontSize
 
 		defaultStyles = {

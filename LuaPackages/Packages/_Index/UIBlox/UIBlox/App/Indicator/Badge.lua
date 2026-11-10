@@ -6,8 +6,6 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
@@ -84,9 +82,7 @@ function Badge:render()
 		local baseSize = stylePalette.Font.BaseSize
 		local fontSize = font.CaptionBody.RelativeSize * baseSize
 
-		local textFont = if FFlagFoundationFontFaceMigration
-			then GetFontFromFontStyle(font.CaptionBody)
-			else font.CaptionBody.Font
+		local textFont = GetFontFromFontStyle(font.CaptionBody)
 		local textBounds = GetTextSize(badgeText, fontSize, textFont, Vector2.new(10000, 10000)).X
 		local badgeWidth = textBounds + (TEXT_PADDING * 2) + (INNER_PADDING * 2)
 		if badgeWidth < BADGE_MIN_WIDTH then

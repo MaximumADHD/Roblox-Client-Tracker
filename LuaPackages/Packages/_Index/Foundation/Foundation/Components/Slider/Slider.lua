@@ -37,12 +37,11 @@ type SliderVariant = SliderVariant.SliderVariant
 
 local SliderType = require(Foundation.Enums.SliderType)
 
-local InternalSlider = require(Foundation.Components.InternalSlider)
-local SliderThumb = require(script.Parent.SliderThumb)
-
 local ColorNamespace = require(Foundation.Enums.ColorNamespace)
 local ControlState = require(Foundation.Enums.ControlState)
 local CursorType = require(Foundation.Enums.CursorType)
+local InternalSlider = require(Foundation.Components.InternalSlider)
+local SliderThumb = require(script.Parent.SliderThumb)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 type ControlState = ControlState.ControlState
 
@@ -250,31 +249,42 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 			{ props.knob, props.size, props.testId, isRange, variant, thumbs } :: { unknown }
 		)
 
-		local fill = if isRange
-			then React.createElement(View, {
-				tag = variant.fill.tag,
-				Position = rangeValue:map(function(currentRange: NumberRange)
-					return if isVertical
-						then UDim2.fromScale(0, 1 - calculateSliderValueFraction(currentRange.Max, props.range))
-						else UDim2.fromScale(calculateSliderValueFraction(currentRange.Min, props.range), 0)
-				end),
-				Size = rangeValue:map(function(currentRange: NumberRange)
-					local extent = calculateSliderValueFraction(currentRange.Max, props.range)
-						- calculateSliderValueFraction(currentRange.Min, props.range)
-					return if isVertical then UDim2.fromScale(1, extent) else UDim2.fromScale(extent, 1)
-				end),
-				testId = `{props.testId}--fill`,
-			})
-			else React.createElement(View, {
-				tag = variant.fill.tag,
-				AnchorPoint = if isVertical then Vector2.new(0, 1) else nil,
-				Position = if isVertical then UDim2.fromScale(0, 1) else nil,
-				Size = singleValue:map(function(value: number)
-					local fraction = calculateSliderValueFraction(value, props.range)
-					return if isVertical then UDim2.fromScale(1, fraction) else UDim2.fromScale(fraction, 1)
-				end),
-				testId = `{props.testId}--fill`,
-			})
+		local renderTrack = React.useCallback(
+			function(thumbSpan: React.Binding<InternalSlider.ThumbSpan>): React.ReactElement?
+				local fill = if isRange
+					then React.createElement(View, {
+						tag = variant.fill.tag,
+						Position = thumbSpan:map(function(span: InternalSlider.ThumbSpan)
+							return span.Position
+						end),
+						Size = thumbSpan:map(function(span: InternalSlider.ThumbSpan)
+							return span.Size
+						end),
+						testId = `{props.testId}--fill`,
+					})
+					else React.createElement(View, {
+						tag = variant.fill.tag,
+						AnchorPoint = if isVertical then Vector2.new(0, 1) else nil,
+						Position = if isVertical then UDim2.fromScale(0, 1) else nil,
+						Size = singleValue:map(function(value: number)
+							local fraction = calculateSliderValueFraction(value, props.range)
+							return if isVertical then UDim2.fromScale(1, fraction) else UDim2.fromScale(fraction, 1)
+						end),
+						testId = `{props.testId}--fill`,
+					})
+
+				return React.createElement(View, {
+					tag = variant.bar.tag,
+					Size = if isVertical
+						then UDim2.new(0, variant.bar.height, 1, 0)
+						else UDim2.new(1, 0, 0, variant.bar.height),
+					testId = `{props.testId}--bar`,
+				}, {
+					Fill = fill,
+				})
+			end,
+			{ props.range, props.testId, isRange, isVertical, singleValue, variant } :: { unknown }
+		)
 
 		return React.createElement(
 			InternalSlider,
@@ -282,6 +292,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				thumbs = thumbs,
 				onValueChanged = onValueChanged,
 				renderThumb = renderThumb,
+				renderTrack = renderTrack,
 				range = props.range,
 				step = props.step,
 				size = props.size,
@@ -293,15 +304,6 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 				onDragStarted = props.onDragStarted,
 				onDragEnded = props.onDragEnded,
 				ref = forwardRef,
-			}),
-			React.createElement(View, {
-				tag = variant.bar.tag,
-				Size = if isVertical
-					then UDim2.new(0, variant.bar.height, 1, 0)
-					else UDim2.new(1, 0, 0, variant.bar.height),
-				testId = `{props.testId}--bar`,
-			}, {
-				Fill = fill,
 			})
 		)
 	else

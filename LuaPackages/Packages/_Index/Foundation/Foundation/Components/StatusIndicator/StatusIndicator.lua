@@ -9,11 +9,11 @@ local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
+local devAssert = require(Foundation.Utility.devAssert)
 local useStatusIndicatorVariants = require(script.Parent.useStatusIndicatorVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local isDev = _G.__DEV__ == true
 
 local StatusIndicatorSize = require(Foundation.Enums.StatusIndicatorSize)
 type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
@@ -80,8 +80,8 @@ local function StatusIndicator(statusIndicatorProps: StatusIndicatorProps, ref: 
 	local props = withDefaults(statusIndicatorProps, defaultProps)
 	local refinedShape: StatusIndicatorShape = if props.value then StatusIndicatorShape.Circle else props.shape
 
-	if isDev and props.value ~= nil then
-		assert(
+	if props.value ~= nil then
+		devAssert(
 			ValidNumericVariants[props.variant],
 			`{props.variant} is not a supported numeric variant. The following are valid numeric variants: {table.concat(
 				Dash.filter(Dash.keys(ValidNumericVariants), function(value, _)

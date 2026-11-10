@@ -89,6 +89,7 @@ local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
 			Logger:warning("Some state changes are not supported with GroupTransparency")
 		end
 	else
+		-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 		engineComponent = React.useMemo(function()
 			if usesCanvasGroup then
 				if isInteractable and not props.isDisabled then

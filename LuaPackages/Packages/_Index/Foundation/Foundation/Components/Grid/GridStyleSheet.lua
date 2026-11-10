@@ -44,6 +44,7 @@ local function GridStyleSheet(gridStyleSheetProps: GridStyleSheetProps)
 		return Dash.join(gridStyleRules.baseRules, gridStyleRules.rulesByBreakpoint[breakpoint])
 	end, { gridStyleRules, breakpoint } :: { unknown })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useLayoutEffect(function()
 		if sheet.current then
 			local breakpointColCount = gridConfig.columns[breakpoint]

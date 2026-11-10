@@ -6,6 +6,7 @@ local ReactUtils = require(Packages.ReactUtils)
 local useForwardRef = ReactUtils.useForwardRef
 local ControlState = require(Foundation.Enums.ControlState)
 local ControlStateEvent = require(Foundation.Enums.ControlStateEvent)
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 
 type ControlState = ControlState.ControlState
@@ -19,7 +20,7 @@ local guiStateMapper: { [Enum.GuiState]: ControlState } = {
 	[Enum.GuiState.NonInteractable] = ControlState.Disabled,
 }
 
-local function useGuiControlState(guiObjectRef: React.Ref<Instance>, onStateChanged: StateChangedCallback)
+local function useGuiControlState_DEPRECATED(guiObjectRef: React.Ref<Instance>, onStateChanged: StateChangedCallback)
 	local isSelected = React.useRef(false)
 	local currentControlState = React.useRef(ControlState.Initialize :: ControlState)
 
@@ -85,4 +86,90 @@ local function useGuiControlState(guiObjectRef: React.Ref<Instance>, onStateChan
 	return useForwardRef(guiObjectRef, onRefChange)
 end
 
-return useGuiControlState
+type Tracker = {
+	isSelected: boolean,
+	controlState: ControlState,
+	onStateChanged: StateChangedCallback?,
+	connections: { RBXScriptConnection }?,
+}
+
+local function assignRef(ref: React.Ref<Instance>?, instance: Instance?)
+	if typeof(ref) == "function" then
+		ref(instance)
+	elseif ref ~= nil then
+		(ref :: any).current = instance
+	end
+end
+
+local function setControlState(tracker: Tracker, newState: ControlState)
+	if tracker.isSelected then
+		if newState == ControlState.Default or newState == ControlState.Hover then
+			newState = ControlState.Selected
+		elseif newState == ControlState.Pressed then
+			newState = ControlState.SelectedPressed
+		end
+	end
+
+	if tracker.controlState == newState then
+		return
+	end
+
+	tracker.controlState = newState
+
+	if tracker.onStateChanged ~= nil then
+		tracker.onStateChanged(newState)
+	end
+end
+
+local function useGuiControlState(guiObjectRef: React.Ref<Instance>, onStateChanged: StateChangedCallback)
+	local trackerRef = React.useRef<<Tracker>>(nil :: never)
+	if trackerRef.current == nil then -- using this odd structure to avoid reallocating unused tables per-render
+		trackerRef.current = {
+			isSelected = false,
+			controlState = ControlState.Initialize,
+			onStateChanged = onStateChanged,
+			connections = nil,
+		}
+	end
+
+	-- Read at event time, so a new callback doesn't reconnect the instance's signals
+	trackerRef.current.onStateChanged = onStateChanged
+
+	return React.useCallback(function(instance: GuiObject?)
+		local tracker = trackerRef.current
+		assignRef(guiObjectRef, instance)
+
+		local connections = tracker.connections
+		if connections ~= nil then
+			for _, connection in connections do
+				connection:Disconnect()
+			end
+			tracker.connections = nil
+		end
+
+		if instance == nil then
+			return
+		end
+
+		setControlState(tracker, guiStateMapper[instance.GuiState])
+
+		tracker.connections = {
+			instance:GetPropertyChangedSignal("GuiState"):Connect(function()
+				setControlState(tracker, guiStateMapper[instance.GuiState])
+			end),
+			-- Selected state is not part of GuiState, so we need to handle it separately with SelectionGained and SelectionLost
+			instance.SelectionGained:Connect(function()
+				tracker.isSelected = true
+				setControlState(tracker, tracker.controlState)
+			end),
+			instance.SelectionLost:Connect(function()
+				tracker.isSelected = false
+				setControlState(tracker, tracker.controlState)
+			end),
+		}
+	end, { guiObjectRef })
+end
+
+return if Flags.FoundationLightweightGuiControlState
+	then useGuiControlState :: typeof(useGuiControlState_DEPRECATED)
+	else useGuiControlState_DEPRECATED

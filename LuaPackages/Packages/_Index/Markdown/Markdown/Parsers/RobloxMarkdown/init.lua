@@ -1,11 +1,14 @@
 -- The Roblox Markdown profile (ROACTCHAT-2831, Roblox Markdown Specification v15): the CommonMark
 -- core plus the profile's options and extensions, behind parse, safeParse and renderHtml, and the
--- adapter they configure behind toRendererAst. The parser is built with createParser.
+-- adapter they configure behind toRendererAst. The parser is built with createParser. The inline
+-- formatting tags (ROACTCHAT-2959) are on with FFlagMarkdownFormattingTags.
 
 local Root = script:FindFirstAncestor("Markdown")
 local Packages = Root.Parent
 local Adapter = require(Root.Adapter)
 local CommonMark = require(Packages.CommonMark)
+local Flags = require(Root.Flags)
+local FormattingTagsExtension = require(Root.Parsers.FormattingTags.FormattingTagsExtension)
 local MentionExtension = require(script.Mention.MentionExtension)
 local NoNestedQuote = require(script.NoNestedQuote)
 local Types = require(Root.Types)
@@ -44,13 +47,27 @@ local ENABLED_INLINE_TYPES: { string } = table.freeze({
 	"HardLineBreak",
 })
 
--- NoNestedQuote comes first so its factory runs first, where the core quote factory would.
-local EXTENSIONS: { Extension } = table.freeze({
+-- ROACTCHAT-2838: 32 inline levels, which the formatting tags count toward too
+local MAX_INLINE_NESTING = 32
+
+-- With inline HTML off, the formatting tags need their own `<` parser
+local FORMATTING_TAGS: Extension = table.freeze(FormattingTagsExtension.create({
+	parseTags = true,
+	maxNesting = MAX_INLINE_NESTING,
+}))
+
+-- NoNestedQuote comes first so its factory runs first, where the core quote factory would. The
+-- formatting tags and mentions share the `<` trigger, but no input starts both.
+local extensions: { Extension } = {
 	table.freeze(NoNestedQuote.extension()),
 	table.freeze(CommonMark.Ext.Gfm.Strikethrough.StrikethroughExtension.builder():requireTwoTildes(false):build()),
 	table.freeze(UnderlineExtension.create()),
 	table.freeze(MentionExtension.create()),
-})
+}
+if Flags.FFlagMarkdownFormattingTags then
+	table.insert(extensions, FORMATTING_TAGS)
+end
+local EXTENSIONS: { Extension } = table.freeze(extensions)
 
 local parser = createParser({
 	extensions = EXTENSIONS,
@@ -61,7 +78,7 @@ local parser = createParser({
 		linkReferenceDefinitions = false,
 		-- ROACTCHAT-2838: 32 open block parsers is about 16 list levels.
 		maxOpenBlockParsers = 32,
-		maxInlineNesting = 32,
+		maxInlineNesting = MAX_INLINE_NESTING,
 	},
 })
 
@@ -75,6 +92,8 @@ local RobloxMarkdown = {}
 -- The parser's options table, frozen by createParser
 RobloxMarkdown.parseOptions = parser.parseOptions
 RobloxMarkdown.renderOptions = RENDER_OPTIONS
+-- The formatting tags extension as the profile configures it, whether or not the flag adds it
+RobloxMarkdown.formattingTagsExtension = FORMATTING_TAGS
 
 function RobloxMarkdown.parse(source: string): Document
 	return parser.parseDocument(source)

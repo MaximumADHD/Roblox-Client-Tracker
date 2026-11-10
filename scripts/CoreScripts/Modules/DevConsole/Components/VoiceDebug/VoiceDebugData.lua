@@ -109,7 +109,6 @@ export type ConnectivityData = {
 	selectedCandidatePairRemoteProtocolSubscribe: string?,
 }
 
-local getFFlagVoiceDebugPartyVoiceToggleEnabled = require(script.Parent.GetFFlagVoiceDebugPartyVoiceToggleEnabled)
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local CrossExperienceVoiceManager = CrossExperienceVoice.CrossExperienceVoiceManager.default
 
@@ -277,6 +276,7 @@ function VoiceDebugData.new()
 	self._partyStatsData = {} :: StatsData
 	self._partySeries = {} :: SeriesMap
 	self._partyConnectivityData = {} :: ConnectivityData
+	self._partySubscriptionsData = {} :: SubscriptionsData
 	self._partyRemoteOperationsData = {} :: RemoteOperationsData
 	self._isPartyActive = false
 	self._partyPollTask = nil :: thread?
@@ -285,6 +285,8 @@ function VoiceDebugData.new()
 	self._prevPartyJitterBufferEmittedCount = nil :: number?
 	self._prevPartyIncomingBytes = nil :: number?
 	self._prevPartyOutgoingBytes = nil :: number?
+
+	self._prevPartySubscriptionBytesBySsrc = {} :: { [number]: SubscriptionBytesEntry }
 
 	-- Remaining prev-sample fields (in-experience bitrate/loss/jitter-buffer derivation in
 	-- :start()) are otherwise only ever first assigned outside .new() -- declared here with
@@ -363,6 +365,9 @@ function VoiceDebugData:setSource(source: string)
 end
 
 function VoiceDebugData:getSubscriptions(): { SubscriptionData }
+	if self._source == SOURCE_PARTY then
+		return self._partySubscriptionsData.subscriptions or {}
+	end
 	return self._subscriptionsData.subscriptions or {}
 end
 
@@ -493,7 +498,7 @@ function VoiceDebugData:start()
 		end)
 		self._isRunning = true
 
-		if getFFlagVoiceDebugPartyVoiceToggleEnabled() then
+		if getFFlagVoiceDebugConsoleV2() then
 			self:_startPartyPipeline()
 		end
 	end
@@ -573,12 +578,18 @@ function VoiceDebugData:_startPartyPipeline()
 					lastStatsPollClock = sampleClock
 					self._partyStatsData = reply.stats or {}
 					self._partyConnectivityData = reply.connectivity or {}
+					self._partySubscriptionsData = reply.subscriptions or {}
 					local rawRemoteOperations = reply.remoteOperations or {}
 					self._partyRemoteOperationsData = rawRemoteOperations.nativeNowSeconds
 						and decorateRemoteOperationsPayload(rawRemoteOperations)
 						or {}
 					self:_correctPartyJitterBufferDelay()
 					self:_correctPartyAggregateStats(dt)
+					computeSubscriptionBitrates(
+						self._partySubscriptionsData.subscriptions or {},
+						self._prevPartySubscriptionBytesBySsrc,
+						dt
+					)
 
 					local time = os.time()
 					for key, value in self._partyStatsData do
@@ -625,6 +636,7 @@ function VoiceDebugData:stop()
 	self._prevPartyIncomingPacketsLost = nil
 	self._prevPartyJitterBufferDelaySeconds = nil
 	self._prevPartyJitterBufferEmittedCount = nil
+	self._prevPartySubscriptionBytesBySsrc = {}
 end
 
 VoiceDebugData._parseCodecFromSdp = parseCodecFromSdp

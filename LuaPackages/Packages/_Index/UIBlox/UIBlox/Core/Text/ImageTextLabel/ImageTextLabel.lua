@@ -8,8 +8,6 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
@@ -84,7 +82,7 @@ function ImageTextLabel:render()
 		local baseSize = stylePalette.Font.BaseSize
 		local fontSize = if fontStyle.RelativeSize then baseSize * fontStyle.RelativeSize else fontStyle.FontSize
 
-		local font = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(fontStyle) else fontStyle.Font
+		local font = GetFontFromFontStyle(fontStyle)
 
 		if imageProps then
 			text = GetWrappedTextWithIcon(text, fontSize, font, imageProps.Size.X.Offset, padding)

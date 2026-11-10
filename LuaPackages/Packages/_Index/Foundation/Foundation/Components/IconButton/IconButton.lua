@@ -23,6 +23,7 @@ type ButtonVariant = ButtonVariant.ButtonVariant
 type SupportedIconButtonVariant =
 	typeof(ButtonVariant.Standard)
 	| typeof(ButtonVariant.Emphasis)
+	| typeof(ButtonVariant.SoftEmphasis)
 	| typeof(ButtonVariant.Utility)
 	| typeof(ButtonVariant.OverMedia)
 	| typeof(ButtonVariant.Alert)

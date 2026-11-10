@@ -60,6 +60,7 @@ local function variantsFactory(tokens: Tokens)
 			dividerContainer = { tag = "align-y-center size-0-600 auto-x padding-y-xsmall" },
 			thumbUpIcon = { tag = "auto-xy padding-left-small padding-right-xsmall" },
 			thumbDownIcon = { tag = "auto-xy padding-left-small padding-right-medium" },
+			-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 			text = { tag = "shrink size-0-full auto-x text-label-small text-truncate-end padding-right-small" },
 			iconSize = IconSize.XSmall,
 		},
@@ -68,6 +69,7 @@ local function variantsFactory(tokens: Tokens)
 			dividerContainer = { tag = "align-y-center size-0-800 auto-x padding-y-small" },
 			thumbUpIcon = { tag = "auto-xy padding-left-medium padding-right-xsmall" },
 			thumbDownIcon = { tag = "auto-xy padding-left-medium padding-right-medium" },
+			-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 			text = { tag = "shrink size-0-full auto-x text-label-medium text-truncate-end padding-right-medium" },
 			iconSize = IconSize.Small,
 		},
@@ -76,6 +78,7 @@ local function variantsFactory(tokens: Tokens)
 			dividerContainer = { tag = "align-y-center size-0-1000 auto-x padding-y-small" },
 			thumbUpIcon = { tag = "auto-xy padding-left-medium padding-right-small" },
 			thumbDownIcon = { tag = "auto-xy padding-left-medium padding-right-medium" },
+			-- lute-lint-ignore(formatFoundationTags) UIBLOX-5675
 			text = { tag = "shrink size-0-full auto-x text-label-medium text-truncate-end padding-right-large" },
 			iconSize = IconSize.Medium,
 		},

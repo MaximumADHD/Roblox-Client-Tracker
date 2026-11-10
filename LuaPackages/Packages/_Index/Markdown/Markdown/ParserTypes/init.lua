@@ -7,6 +7,7 @@ local Root = script.Parent
 local Packages = Root.Parent
 local Adapter = require(Root.Adapter)
 local CommonMark = require(Packages.CommonMark)
+local FormattingTag = require(Root.Parsers.FormattingTags.FormattingTag)
 local Mention = require(Root.Parsers.RobloxMarkdown.Mention.Mention)
 local Underline = require(Root.Parsers.RobloxMarkdown.Underline.Underline)
 local createParser = require(Root.Adapter.createParser)
@@ -17,6 +18,8 @@ return {
 	ParserDocument = typed :: CommonMark.Document,
 	ParserNode = typed :: CommonMark.Node,
 	Mention = typed :: Mention.Mention,
+	FormattingTag = typed :: FormattingTag.FormattingTag,
+	FormattingTagText = typed :: FormattingTag.FormattingTagText,
 	Underline = typed :: Underline.Underline,
 
 	Parser = typed :: createParser.Parser,

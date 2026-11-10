@@ -84,6 +84,7 @@ local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 		return variantProps.knob.offPosition:Lerp(variantProps.knob.onPosition, value)
 	end)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		local progressMotor = Otter.createSingleMotor(initialProgress)
 		progressMotorRef.current = progressMotor

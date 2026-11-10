@@ -70,6 +70,7 @@ local function useAnimatedHighlight(
 	end, { easeConfig, activeItemId } :: { unknown })
 
 	-- on activeItemChange, update connections
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if activeItemId then
 			local activeItemRef = itemRefs[activeItemId] :: GuiObjectRef?
@@ -106,6 +107,7 @@ local function useAnimatedHighlight(
 		return function() end
 	end, { activeItemId })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		if activeItemId then
 			local activeItemRef = itemRefs[activeItemId] :: GuiObjectRef?

@@ -64,6 +64,7 @@ local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: Rea
 	-- Have to keep variantProps here for checkmark tag
 	local variantProps = useRadioGroupItemVariants(tokens, props.size)
 
+	-- lute-lint-ignore(immutability) UIBLOX-5675
 	props.testId = `{radioGroupContext.testId}--item-{props.value}`
 
 	return React.createElement(

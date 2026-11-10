@@ -44,6 +44,7 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 	local dialogContext = useDialog()
 	local variants = useDialogVariants()
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		dialogContext.setHasHeroMedia(true)
 

@@ -7,8 +7,6 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
-local Foundation = require(Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -115,7 +113,7 @@ function ControllerBar:calculateHintSize(controllerBarWidth, font)
 	local minSize = GetTextSize(
 		self.state.hintStringsConcat,
 		MIN_FONT_SIZE,
-		if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Header2) else font.Header2.Font,
+		GetFontFromFontStyle(font.Header2),
 		Vector2.new(BIG_ENOUGH_NOT_TO_WRAP, BIG_ENOUGH_NOT_TO_WRAP)
 	).X
 
@@ -124,7 +122,7 @@ function ControllerBar:calculateHintSize(controllerBarWidth, font)
 		local maxSize = GetTextSize(
 			self.state.hintStringsConcat,
 			MAX_FONT_SIZE,
-			if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font.Header2) else font.Header2.Font,
+			GetFontFromFontStyle(font.Header2),
 			Vector2.new(BIG_ENOUGH_NOT_TO_WRAP, BIG_ENOUGH_NOT_TO_WRAP)
 		).X
 		local m = (MAX_FONT_SIZE - MIN_FONT_SIZE) / (maxSize - minSize)

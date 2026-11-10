@@ -115,6 +115,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 
 	local backdropListener = React.useRef(nil :: RBXScriptConnection?)
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	local backdropCallback = React.useCallback(function(instance: GuiObject?)
 		if backdropListener.current then
 			backdropListener.current:Disconnect()

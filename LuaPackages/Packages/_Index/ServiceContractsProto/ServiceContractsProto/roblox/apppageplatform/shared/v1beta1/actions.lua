@@ -125,6 +125,12 @@ type _Messages =
 		JoinCommunityAction_Params: _JoinCommunityAction_ParamsMessage,
 		ViewCommunityAction: _ViewCommunityActionMessage,
 		ViewCommunityAction_Params: _ViewCommunityAction_ParamsMessage,
+		OpenGroupPaneAction: _OpenGroupPaneActionMessage,
+		OpenGroupPaneAction_Params: _OpenGroupPaneAction_ParamsMessage,
+		ToggleGamePassVoteAction: _ToggleGamePassVoteActionMessage,
+		ToggleGamePassVoteAction_Params: _ToggleGamePassVoteAction_ParamsMessage,
+		RemoveGamePassFromInventoryAction: _RemoveGamePassFromInventoryActionMessage,
+		RemoveGamePassFromInventoryAction_Params: _RemoveGamePassFromInventoryAction_ParamsMessage,
 		AnalyticsEventAction: _AnalyticsEventActionMessage,
 		AnalyticsEventAction_Params: _AnalyticsEventAction_ParamsMessage,
 		CustomAnalyticsEventAction: _CustomAnalyticsEventActionMessage,
@@ -262,6 +268,10 @@ type _Messages =
 		ToggleContentReactionAction_Params: _ToggleContentReactionAction_ParamsMessage,
 		OpenSignUpModalAction: _OpenSignUpModalActionMessage,
 		OpenSignUpModalAction_Params: _OpenSignUpModalAction_ParamsMessage,
+		RunStreamNotificationItemAction: _RunStreamNotificationItemActionMessage,
+		RunStreamNotificationItemAction_Params: _RunStreamNotificationItemAction_ParamsMessage,
+		ToggleStreamNotificationBundleAction: _ToggleStreamNotificationBundleActionMessage,
+		ToggleStreamNotificationBundleAction_Params: _ToggleStreamNotificationBundleAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -3605,6 +3615,177 @@ type _ViewCommunityAction_ParamsMessage = proto.Message<
 	_ViewCommunityAction_ParamsPartialFields
 >
 
+type _OpenGroupPaneActionImpl = {
+	__index: _OpenGroupPaneActionImpl,
+	new: (fields: _OpenGroupPaneActionPartialFields?) -> OpenGroupPaneAction,
+	encode: (self: OpenGroupPaneAction) -> buffer,
+	decode: (input: buffer) -> OpenGroupPaneAction,
+	jsonEncode: (self: OpenGroupPaneAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenGroupPaneAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenGroupPaneActionFields = {
+	action_type: ActionType,
+	action_params: OpenGroupPaneAction_Params?,
+}
+
+type _OpenGroupPaneActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenGroupPaneAction_Params?,
+}
+
+export type OpenGroupPaneAction = typeof(setmetatable({} :: _OpenGroupPaneActionFields, {} :: _OpenGroupPaneActionImpl))
+type _OpenGroupPaneActionMessage = proto.Message<OpenGroupPaneAction, _OpenGroupPaneActionPartialFields>
+
+type _OpenGroupPaneAction_ParamsImpl = {
+	__index: _OpenGroupPaneAction_ParamsImpl,
+	new: (fields: _OpenGroupPaneAction_ParamsPartialFields?) -> OpenGroupPaneAction_Params,
+	encode: (self: OpenGroupPaneAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenGroupPaneAction_Params,
+	jsonEncode: (self: OpenGroupPaneAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenGroupPaneAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenGroupPaneAction_ParamsFields = {
+	group_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	destination: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	forum_category_short_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenGroupPaneAction_ParamsPartialFields = {
+	group_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	destination: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	forum_category_short_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenGroupPaneAction_Params = typeof(setmetatable(
+	{} :: _OpenGroupPaneAction_ParamsFields,
+	{} :: _OpenGroupPaneAction_ParamsImpl
+))
+type _OpenGroupPaneAction_ParamsMessage = proto.Message<
+	OpenGroupPaneAction_Params,
+	_OpenGroupPaneAction_ParamsPartialFields
+>
+
+type _ToggleGamePassVoteActionImpl = {
+	__index: _ToggleGamePassVoteActionImpl,
+	new: (fields: _ToggleGamePassVoteActionPartialFields?) -> ToggleGamePassVoteAction,
+	encode: (self: ToggleGamePassVoteAction) -> buffer,
+	decode: (input: buffer) -> ToggleGamePassVoteAction,
+	jsonEncode: (self: ToggleGamePassVoteAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleGamePassVoteAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleGamePassVoteActionFields = {
+	action_type: ActionType,
+	action_params: ToggleGamePassVoteAction_Params?,
+}
+
+type _ToggleGamePassVoteActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ToggleGamePassVoteAction_Params?,
+}
+
+export type ToggleGamePassVoteAction = typeof(setmetatable(
+	{} :: _ToggleGamePassVoteActionFields,
+	{} :: _ToggleGamePassVoteActionImpl
+))
+type _ToggleGamePassVoteActionMessage = proto.Message<ToggleGamePassVoteAction, _ToggleGamePassVoteActionPartialFields>
+
+type _ToggleGamePassVoteAction_ParamsImpl = {
+	__index: _ToggleGamePassVoteAction_ParamsImpl,
+	new: (fields: _ToggleGamePassVoteAction_ParamsPartialFields?) -> ToggleGamePassVoteAction_Params,
+	encode: (self: ToggleGamePassVoteAction_Params) -> buffer,
+	decode: (input: buffer) -> ToggleGamePassVoteAction_Params,
+	jsonEncode: (self: ToggleGamePassVoteAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleGamePassVoteAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleGamePassVoteAction_ParamsFields = {
+	game_pass_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	vote_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ToggleGamePassVoteAction_ParamsPartialFields = {
+	game_pass_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	vote_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ToggleGamePassVoteAction_Params = typeof(setmetatable(
+	{} :: _ToggleGamePassVoteAction_ParamsFields,
+	{} :: _ToggleGamePassVoteAction_ParamsImpl
+))
+type _ToggleGamePassVoteAction_ParamsMessage = proto.Message<
+	ToggleGamePassVoteAction_Params,
+	_ToggleGamePassVoteAction_ParamsPartialFields
+>
+
+type _RemoveGamePassFromInventoryActionImpl = {
+	__index: _RemoveGamePassFromInventoryActionImpl,
+	new: (fields: _RemoveGamePassFromInventoryActionPartialFields?) -> RemoveGamePassFromInventoryAction,
+	encode: (self: RemoveGamePassFromInventoryAction) -> buffer,
+	decode: (input: buffer) -> RemoveGamePassFromInventoryAction,
+	jsonEncode: (self: RemoveGamePassFromInventoryAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RemoveGamePassFromInventoryAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RemoveGamePassFromInventoryActionFields = {
+	action_type: ActionType,
+	action_params: RemoveGamePassFromInventoryAction_Params?,
+}
+
+type _RemoveGamePassFromInventoryActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RemoveGamePassFromInventoryAction_Params?,
+}
+
+export type RemoveGamePassFromInventoryAction = typeof(setmetatable(
+	{} :: _RemoveGamePassFromInventoryActionFields,
+	{} :: _RemoveGamePassFromInventoryActionImpl
+))
+type _RemoveGamePassFromInventoryActionMessage = proto.Message<
+	RemoveGamePassFromInventoryAction,
+	_RemoveGamePassFromInventoryActionPartialFields
+>
+
+type _RemoveGamePassFromInventoryAction_ParamsImpl = {
+	__index: _RemoveGamePassFromInventoryAction_ParamsImpl,
+	new: (fields: _RemoveGamePassFromInventoryAction_ParamsPartialFields?) -> RemoveGamePassFromInventoryAction_Params,
+	encode: (self: RemoveGamePassFromInventoryAction_Params) -> buffer,
+	decode: (input: buffer) -> RemoveGamePassFromInventoryAction_Params,
+	jsonEncode: (self: RemoveGamePassFromInventoryAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RemoveGamePassFromInventoryAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RemoveGamePassFromInventoryAction_ParamsFields = {
+	game_pass_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RemoveGamePassFromInventoryAction_ParamsPartialFields = {
+	game_pass_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RemoveGamePassFromInventoryAction_Params = typeof(setmetatable(
+	{} :: _RemoveGamePassFromInventoryAction_ParamsFields,
+	{} :: _RemoveGamePassFromInventoryAction_ParamsImpl
+))
+type _RemoveGamePassFromInventoryAction_ParamsMessage = proto.Message<
+	RemoveGamePassFromInventoryAction_Params,
+	_RemoveGamePassFromInventoryAction_ParamsPartialFields
+>
+
 type _AnalyticsEventActionImpl = {
 	__index: _AnalyticsEventActionImpl,
 	new: (fields: _AnalyticsEventActionPartialFields?) -> AnalyticsEventAction,
@@ -3884,6 +4065,7 @@ type _LaunchExperienceAction_ParamsFields = {
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	launch_source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
+	check_playability_before_launch: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _LaunchExperienceAction_ParamsPartialFields = {
@@ -3891,6 +4073,7 @@ type _LaunchExperienceAction_ParamsPartialFields = {
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	launch_source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
+	check_playability_before_launch: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type LaunchExperienceAction_Params = typeof(setmetatable(
@@ -7688,6 +7871,124 @@ type _OpenSignUpModalAction_ParamsMessage = proto.Message<
 	_OpenSignUpModalAction_ParamsPartialFields
 >
 
+type _RunStreamNotificationItemActionImpl = {
+	__index: _RunStreamNotificationItemActionImpl,
+	new: (fields: _RunStreamNotificationItemActionPartialFields?) -> RunStreamNotificationItemAction,
+	encode: (self: RunStreamNotificationItemAction) -> buffer,
+	decode: (input: buffer) -> RunStreamNotificationItemAction,
+	jsonEncode: (self: RunStreamNotificationItemAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RunStreamNotificationItemAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RunStreamNotificationItemActionFields = {
+	action_type: ActionType,
+	action_params: RunStreamNotificationItemAction_Params?,
+}
+
+type _RunStreamNotificationItemActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RunStreamNotificationItemAction_Params?,
+}
+
+export type RunStreamNotificationItemAction = typeof(setmetatable(
+	{} :: _RunStreamNotificationItemActionFields,
+	{} :: _RunStreamNotificationItemActionImpl
+))
+type _RunStreamNotificationItemActionMessage = proto.Message<
+	RunStreamNotificationItemAction,
+	_RunStreamNotificationItemActionPartialFields
+>
+
+type _RunStreamNotificationItemAction_ParamsImpl = {
+	__index: _RunStreamNotificationItemAction_ParamsImpl,
+	new: (fields: _RunStreamNotificationItemAction_ParamsPartialFields?) -> RunStreamNotificationItemAction_Params,
+	encode: (self: RunStreamNotificationItemAction_Params) -> buffer,
+	decode: (input: buffer) -> RunStreamNotificationItemAction_Params,
+	jsonEncode: (self: RunStreamNotificationItemAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RunStreamNotificationItemAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RunStreamNotificationItemAction_ParamsFields = {
+	notification_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	visual_item_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	page_entry_identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RunStreamNotificationItemAction_ParamsPartialFields = {
+	notification_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	visual_item_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	page_entry_identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RunStreamNotificationItemAction_Params = typeof(setmetatable(
+	{} :: _RunStreamNotificationItemAction_ParamsFields,
+	{} :: _RunStreamNotificationItemAction_ParamsImpl
+))
+type _RunStreamNotificationItemAction_ParamsMessage = proto.Message<
+	RunStreamNotificationItemAction_Params,
+	_RunStreamNotificationItemAction_ParamsPartialFields
+>
+
+type _ToggleStreamNotificationBundleActionImpl = {
+	__index: _ToggleStreamNotificationBundleActionImpl,
+	new: (fields: _ToggleStreamNotificationBundleActionPartialFields?) -> ToggleStreamNotificationBundleAction,
+	encode: (self: ToggleStreamNotificationBundleAction) -> buffer,
+	decode: (input: buffer) -> ToggleStreamNotificationBundleAction,
+	jsonEncode: (self: ToggleStreamNotificationBundleAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleStreamNotificationBundleAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleStreamNotificationBundleActionFields = {
+	action_type: ActionType,
+	action_params: ToggleStreamNotificationBundleAction_Params?,
+}
+
+type _ToggleStreamNotificationBundleActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ToggleStreamNotificationBundleAction_Params?,
+}
+
+export type ToggleStreamNotificationBundleAction = typeof(setmetatable(
+	{} :: _ToggleStreamNotificationBundleActionFields,
+	{} :: _ToggleStreamNotificationBundleActionImpl
+))
+type _ToggleStreamNotificationBundleActionMessage = proto.Message<
+	ToggleStreamNotificationBundleAction,
+	_ToggleStreamNotificationBundleActionPartialFields
+>
+
+type _ToggleStreamNotificationBundleAction_ParamsImpl = {
+	__index: _ToggleStreamNotificationBundleAction_ParamsImpl,
+	new: (
+		fields: _ToggleStreamNotificationBundleAction_ParamsPartialFields?
+	) -> ToggleStreamNotificationBundleAction_Params,
+	encode: (self: ToggleStreamNotificationBundleAction_Params) -> buffer,
+	decode: (input: buffer) -> ToggleStreamNotificationBundleAction_Params,
+	jsonEncode: (self: ToggleStreamNotificationBundleAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleStreamNotificationBundleAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleStreamNotificationBundleAction_ParamsFields = {
+	bundle_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ToggleStreamNotificationBundleAction_ParamsPartialFields = {
+	bundle_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ToggleStreamNotificationBundleAction_Params = typeof(setmetatable(
+	{} :: _ToggleStreamNotificationBundleAction_ParamsFields,
+	{} :: _ToggleStreamNotificationBundleAction_ParamsImpl
+))
+type _ToggleStreamNotificationBundleAction_ParamsMessage = proto.Message<
+	ToggleStreamNotificationBundleAction_Params,
+	_ToggleStreamNotificationBundleAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -7824,6 +8125,11 @@ type _ActionFields = {
 		| { type: "open_sign_up_modal_action", value: OpenSignUpModalAction }
 		| { type: "increment_milestone_count_action", value: IncrementMilestoneCountAction }
 		| { type: "set_milestone_count_action", value: SetMilestoneCountAction }
+		| { type: "run_stream_notification_item_action", value: RunStreamNotificationItemAction }
+		| { type: "toggle_stream_notification_bundle_action", value: ToggleStreamNotificationBundleAction }
+		| { type: "open_group_pane_action", value: OpenGroupPaneAction }
+		| { type: "toggle_game_pass_vote_action", value: ToggleGamePassVoteAction }
+		| { type: "remove_game_pass_from_inventory_action", value: RemoveGamePassFromInventoryAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -7957,6 +8263,11 @@ type _ActionPartialFields = {
 		| { type: "open_sign_up_modal_action", value: OpenSignUpModalAction }
 		| { type: "increment_milestone_count_action", value: IncrementMilestoneCountAction }
 		| { type: "set_milestone_count_action", value: SetMilestoneCountAction }
+		| { type: "run_stream_notification_item_action", value: RunStreamNotificationItemAction }
+		| { type: "toggle_stream_notification_bundle_action", value: ToggleStreamNotificationBundleAction }
+		| { type: "open_group_pane_action", value: OpenGroupPaneAction }
+		| { type: "toggle_game_pass_vote_action", value: ToggleGamePassVoteAction }
+		| { type: "remove_game_pass_from_inventory_action", value: RemoveGamePassFromInventoryAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -8344,6 +8655,11 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_SIGN_UP_MODAL"
 	| "ACTION_TYPE_INCREMENT_MILESTONE_COUNT"
 	| "ACTION_TYPE_SET_MILESTONE_COUNT"
+	| "ACTION_TYPE_RUN_STREAM_NOTIFICATION_ITEM"
+	| "ACTION_TYPE_TOGGLE_STREAM_NOTIFICATION_BUNDLE"
+	| "ACTION_TYPE_OPEN_GROUP_PANE"
+	| "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE"
+	| "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY"
 	| number -- Unknown
 
 do
@@ -25660,6 +25976,910 @@ do
 end
 
 do
+	local _OpenGroupPaneActionImpl = {}
+	_OpenGroupPaneActionImpl.__index = _OpenGroupPaneActionImpl
+
+	function _OpenGroupPaneActionImpl.new(data: _OpenGroupPaneActionPartialFields?): OpenGroupPaneAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenGroupPaneActionImpl :: _OpenGroupPaneActionImpl)
+	end
+
+	function _OpenGroupPaneActionImpl.encode(self: OpenGroupPaneAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenGroupPaneActionImpl.decode(input: buffer): OpenGroupPaneAction
+		local self = _OpenGroupPaneActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenGroupPaneAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenGroupPaneActionImpl.jsonEncode(self: OpenGroupPaneAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenGroupPaneActionImpl.jsonDecode(input: { [string]: any }): OpenGroupPaneAction
+		local self = _OpenGroupPaneActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenGroupPaneAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenGroupPaneAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenGroupPaneActionImpl.descriptor = {
+		name = "OpenGroupPaneAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenGroupPaneAction",
+	}
+
+	messages.OpenGroupPaneAction = _OpenGroupPaneActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenGroupPaneAction)
+end
+
+do
+	local _OpenGroupPaneAction_ParamsImpl = {}
+	_OpenGroupPaneAction_ParamsImpl.__index = _OpenGroupPaneAction_ParamsImpl
+
+	function _OpenGroupPaneAction_ParamsImpl.new(
+		data: _OpenGroupPaneAction_ParamsPartialFields?
+	): OpenGroupPaneAction_Params
+		return setmetatable({
+			group_id = if data == nil or data.group_id == nil then nil else data.group_id,
+			source = if data == nil or data.source == nil then nil else data.source,
+			destination = if data == nil or data.destination == nil then nil else data.destination,
+			forum_category_short_id = if data == nil or data.forum_category_short_id == nil
+				then nil
+				else data.forum_category_short_id,
+		}, _OpenGroupPaneAction_ParamsImpl :: _OpenGroupPaneAction_ParamsImpl)
+	end
+
+	function _OpenGroupPaneAction_ParamsImpl.encode(self: OpenGroupPaneAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.group_id ~= nil then
+			local encoded = self.group_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.destination ~= nil then
+			local encoded = self.destination:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.forum_category_short_id ~= nil then
+			local encoded = self.forum_category_short_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenGroupPaneAction_ParamsImpl.decode(input: buffer): OpenGroupPaneAction_Params
+		local self = _OpenGroupPaneAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.group_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.destination = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.forum_category_short_id =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenGroupPaneAction_ParamsImpl.jsonEncode(self: OpenGroupPaneAction_Params): any
+		local output = {}
+
+		if self.group_id ~= nil then
+			output.groupId = self.group_id:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		if self.destination ~= nil then
+			output.destination = self.destination:jsonEncode()
+		end
+
+		if self.forum_category_short_id ~= nil then
+			output.forumCategoryShortId = self.forum_category_short_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenGroupPaneAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenGroupPaneAction_Params
+		local self = _OpenGroupPaneAction_ParamsImpl.new()
+
+		if input.group_id ~= nil then
+			self.group_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.group_id)
+		end
+
+		if input.groupId ~= nil then
+			self.group_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.groupId)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		if input.destination ~= nil then
+			self.destination =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.destination)
+		end
+
+		if input.forum_category_short_id ~= nil then
+			self.forum_category_short_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.forum_category_short_id)
+		end
+
+		if input.forumCategoryShortId ~= nil then
+			self.forum_category_short_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.forumCategoryShortId)
+		end
+
+		return self
+	end
+
+	_OpenGroupPaneAction_ParamsImpl.descriptor = {
+		name = "OpenGroupPaneAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenGroupPaneAction_Params = _OpenGroupPaneAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenGroupPaneAction_Params)
+end
+
+do
+	local _ToggleGamePassVoteActionImpl = {}
+	_ToggleGamePassVoteActionImpl.__index = _ToggleGamePassVoteActionImpl
+
+	function _ToggleGamePassVoteActionImpl.new(data: _ToggleGamePassVoteActionPartialFields?): ToggleGamePassVoteAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ToggleGamePassVoteActionImpl :: _ToggleGamePassVoteActionImpl)
+	end
+
+	function _ToggleGamePassVoteActionImpl.encode(self: ToggleGamePassVoteAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleGamePassVoteActionImpl.decode(input: buffer): ToggleGamePassVoteAction
+		local self = _ToggleGamePassVoteActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ToggleGamePassVoteAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleGamePassVoteActionImpl.jsonEncode(self: ToggleGamePassVoteAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleGamePassVoteActionImpl.jsonDecode(input: { [string]: any }): ToggleGamePassVoteAction
+		local self = _ToggleGamePassVoteActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ToggleGamePassVoteAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ToggleGamePassVoteAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ToggleGamePassVoteActionImpl.descriptor = {
+		name = "ToggleGamePassVoteAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ToggleGamePassVoteAction",
+	}
+
+	messages.ToggleGamePassVoteAction = _ToggleGamePassVoteActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleGamePassVoteAction)
+end
+
+do
+	local _ToggleGamePassVoteAction_ParamsImpl = {}
+	_ToggleGamePassVoteAction_ParamsImpl.__index = _ToggleGamePassVoteAction_ParamsImpl
+
+	function _ToggleGamePassVoteAction_ParamsImpl.new(
+		data: _ToggleGamePassVoteAction_ParamsPartialFields?
+	): ToggleGamePassVoteAction_Params
+		return setmetatable({
+			game_pass_id = if data == nil or data.game_pass_id == nil then nil else data.game_pass_id,
+			vote_direction = if data == nil or data.vote_direction == nil then nil else data.vote_direction,
+			ctx = if data == nil or data.ctx == nil then nil else data.ctx,
+		}, _ToggleGamePassVoteAction_ParamsImpl :: _ToggleGamePassVoteAction_ParamsImpl)
+	end
+
+	function _ToggleGamePassVoteAction_ParamsImpl.encode(self: ToggleGamePassVoteAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.game_pass_id ~= nil then
+			local encoded = self.game_pass_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.vote_direction ~= nil then
+			local encoded = self.vote_direction:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.ctx ~= nil then
+			local encoded = self.ctx:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleGamePassVoteAction_ParamsImpl.decode(input: buffer): ToggleGamePassVoteAction_Params
+		local self = _ToggleGamePassVoteAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.game_pass_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.vote_direction = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleGamePassVoteAction_ParamsImpl.jsonEncode(self: ToggleGamePassVoteAction_Params): any
+		local output = {}
+
+		if self.game_pass_id ~= nil then
+			output.gamePassId = self.game_pass_id:jsonEncode()
+		end
+
+		if self.vote_direction ~= nil then
+			output.voteDirection = self.vote_direction:jsonEncode()
+		end
+
+		if self.ctx ~= nil then
+			output.ctx = self.ctx:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleGamePassVoteAction_ParamsImpl.jsonDecode(input: { [string]: any }): ToggleGamePassVoteAction_Params
+		local self = _ToggleGamePassVoteAction_ParamsImpl.new()
+
+		if input.game_pass_id ~= nil then
+			self.game_pass_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.game_pass_id)
+		end
+
+		if input.gamePassId ~= nil then
+			self.game_pass_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.gamePassId)
+		end
+
+		if input.vote_direction ~= nil then
+			self.vote_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.vote_direction)
+		end
+
+		if input.voteDirection ~= nil then
+			self.vote_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.voteDirection)
+		end
+
+		if input.ctx ~= nil then
+			self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ctx)
+		end
+
+		return self
+	end
+
+	_ToggleGamePassVoteAction_ParamsImpl.descriptor = {
+		name = "ToggleGamePassVoteAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ToggleGamePassVoteAction_Params = _ToggleGamePassVoteAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleGamePassVoteAction_Params)
+end
+
+do
+	local _RemoveGamePassFromInventoryActionImpl = {}
+	_RemoveGamePassFromInventoryActionImpl.__index = _RemoveGamePassFromInventoryActionImpl
+
+	function _RemoveGamePassFromInventoryActionImpl.new(
+		data: _RemoveGamePassFromInventoryActionPartialFields?
+	): RemoveGamePassFromInventoryAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RemoveGamePassFromInventoryActionImpl :: _RemoveGamePassFromInventoryActionImpl)
+	end
+
+	function _RemoveGamePassFromInventoryActionImpl.encode(self: RemoveGamePassFromInventoryAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RemoveGamePassFromInventoryActionImpl.decode(input: buffer): RemoveGamePassFromInventoryAction
+		local self = _RemoveGamePassFromInventoryActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RemoveGamePassFromInventoryAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RemoveGamePassFromInventoryActionImpl.jsonEncode(self: RemoveGamePassFromInventoryAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RemoveGamePassFromInventoryActionImpl.jsonDecode(
+		input: { [string]: any }
+	): RemoveGamePassFromInventoryAction
+		local self = _RemoveGamePassFromInventoryActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RemoveGamePassFromInventoryAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RemoveGamePassFromInventoryAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RemoveGamePassFromInventoryActionImpl.descriptor = {
+		name = "RemoveGamePassFromInventoryAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RemoveGamePassFromInventoryAction",
+	}
+
+	messages.RemoveGamePassFromInventoryAction = _RemoveGamePassFromInventoryActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RemoveGamePassFromInventoryAction)
+end
+
+do
+	local _RemoveGamePassFromInventoryAction_ParamsImpl = {}
+	_RemoveGamePassFromInventoryAction_ParamsImpl.__index = _RemoveGamePassFromInventoryAction_ParamsImpl
+
+	function _RemoveGamePassFromInventoryAction_ParamsImpl.new(
+		data: _RemoveGamePassFromInventoryAction_ParamsPartialFields?
+	): RemoveGamePassFromInventoryAction_Params
+		return setmetatable({
+			game_pass_id = if data == nil or data.game_pass_id == nil then nil else data.game_pass_id,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+		}, _RemoveGamePassFromInventoryAction_ParamsImpl :: _RemoveGamePassFromInventoryAction_ParamsImpl)
+	end
+
+	function _RemoveGamePassFromInventoryAction_ParamsImpl.encode(
+		self: RemoveGamePassFromInventoryAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.game_pass_id ~= nil then
+			local encoded = self.game_pass_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RemoveGamePassFromInventoryAction_ParamsImpl.decode(
+		input: buffer
+	): RemoveGamePassFromInventoryAction_Params
+		local self = _RemoveGamePassFromInventoryAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.game_pass_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RemoveGamePassFromInventoryAction_ParamsImpl.jsonEncode(
+		self: RemoveGamePassFromInventoryAction_Params
+	): any
+		local output = {}
+
+		if self.game_pass_id ~= nil then
+			output.gamePassId = self.game_pass_id:jsonEncode()
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RemoveGamePassFromInventoryAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RemoveGamePassFromInventoryAction_Params
+		local self = _RemoveGamePassFromInventoryAction_ParamsImpl.new()
+
+		if input.game_pass_id ~= nil then
+			self.game_pass_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.game_pass_id)
+		end
+
+		if input.gamePassId ~= nil then
+			self.game_pass_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.gamePassId)
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		return self
+	end
+
+	_RemoveGamePassFromInventoryAction_ParamsImpl.descriptor = {
+		name = "RemoveGamePassFromInventoryAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RemoveGamePassFromInventoryAction_Params = _RemoveGamePassFromInventoryAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RemoveGamePassFromInventoryAction_Params)
+end
+
+do
 	local _AnalyticsEventActionImpl = {}
 	_AnalyticsEventActionImpl.__index = _AnalyticsEventActionImpl
 
@@ -26975,6 +28195,9 @@ do
 			experience_join_data = if data == nil or data.experience_join_data == nil
 				then nil
 				else data.experience_join_data,
+			check_playability_before_launch = if data == nil or data.check_playability_before_launch == nil
+				then nil
+				else data.check_playability_before_launch,
 		}, _LaunchExperienceAction_ParamsImpl :: _LaunchExperienceAction_ParamsImpl)
 	end
 
@@ -27003,6 +28226,12 @@ do
 		if self.experience_join_data ~= nil then
 			local encoded = self.experience_join_data:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.check_playability_before_launch ~= nil then
+			local encoded = self.check_playability_before_launch:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -27044,6 +28273,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.experience_join_data = messages.LaunchExperienceAction_ExperienceJoinData.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.check_playability_before_launch =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -27088,6 +28323,10 @@ do
 			output.experienceJoinData = self.experience_join_data:jsonEncode()
 		end
 
+		if self.check_playability_before_launch ~= nil then
+			output.checkPlayabilityBeforeLaunch = self.check_playability_before_launch:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -27129,6 +28368,20 @@ do
 		if input.experienceJoinData ~= nil then
 			self.experience_join_data =
 				messages.LaunchExperienceAction_ExperienceJoinData.jsonDecode(input.experienceJoinData)
+		end
+
+		if input.check_playability_before_launch ~= nil then
+			self.check_playability_before_launch =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.check_playability_before_launch
+				)
+		end
+
+		if input.checkPlayabilityBeforeLaunch ~= nil then
+			self.check_playability_before_launch =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.checkPlayabilityBeforeLaunch
+				)
 		end
 
 		return self
@@ -46337,6 +47590,577 @@ do
 end
 
 do
+	local _RunStreamNotificationItemActionImpl = {}
+	_RunStreamNotificationItemActionImpl.__index = _RunStreamNotificationItemActionImpl
+
+	function _RunStreamNotificationItemActionImpl.new(
+		data: _RunStreamNotificationItemActionPartialFields?
+	): RunStreamNotificationItemAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RunStreamNotificationItemActionImpl :: _RunStreamNotificationItemActionImpl)
+	end
+
+	function _RunStreamNotificationItemActionImpl.encode(self: RunStreamNotificationItemAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RunStreamNotificationItemActionImpl.decode(input: buffer): RunStreamNotificationItemAction
+		local self = _RunStreamNotificationItemActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RunStreamNotificationItemAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RunStreamNotificationItemActionImpl.jsonEncode(self: RunStreamNotificationItemAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RunStreamNotificationItemActionImpl.jsonDecode(input: { [string]: any }): RunStreamNotificationItemAction
+		local self = _RunStreamNotificationItemActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RunStreamNotificationItemAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RunStreamNotificationItemAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RunStreamNotificationItemActionImpl.descriptor = {
+		name = "RunStreamNotificationItemAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RunStreamNotificationItemAction",
+	}
+
+	messages.RunStreamNotificationItemAction = _RunStreamNotificationItemActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RunStreamNotificationItemAction)
+end
+
+do
+	local _RunStreamNotificationItemAction_ParamsImpl = {}
+	_RunStreamNotificationItemAction_ParamsImpl.__index = _RunStreamNotificationItemAction_ParamsImpl
+
+	function _RunStreamNotificationItemAction_ParamsImpl.new(
+		data: _RunStreamNotificationItemAction_ParamsPartialFields?
+	): RunStreamNotificationItemAction_Params
+		return setmetatable({
+			notification_id = if data == nil or data.notification_id == nil then nil else data.notification_id,
+			visual_item_name = if data == nil or data.visual_item_name == nil then nil else data.visual_item_name,
+			page_entry_identifier = if data == nil or data.page_entry_identifier == nil
+				then nil
+				else data.page_entry_identifier,
+		}, _RunStreamNotificationItemAction_ParamsImpl :: _RunStreamNotificationItemAction_ParamsImpl)
+	end
+
+	function _RunStreamNotificationItemAction_ParamsImpl.encode(self: RunStreamNotificationItemAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.notification_id ~= nil then
+			local encoded = self.notification_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.visual_item_name ~= nil then
+			local encoded = self.visual_item_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.page_entry_identifier ~= nil then
+			local encoded = self.page_entry_identifier:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RunStreamNotificationItemAction_ParamsImpl.decode(input: buffer): RunStreamNotificationItemAction_Params
+		local self = _RunStreamNotificationItemAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.notification_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visual_item_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.page_entry_identifier =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RunStreamNotificationItemAction_ParamsImpl.jsonEncode(self: RunStreamNotificationItemAction_Params): any
+		local output = {}
+
+		if self.notification_id ~= nil then
+			output.notificationId = self.notification_id:jsonEncode()
+		end
+
+		if self.visual_item_name ~= nil then
+			output.visualItemName = self.visual_item_name:jsonEncode()
+		end
+
+		if self.page_entry_identifier ~= nil then
+			output.pageEntryIdentifier = self.page_entry_identifier:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RunStreamNotificationItemAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RunStreamNotificationItemAction_Params
+		local self = _RunStreamNotificationItemAction_ParamsImpl.new()
+
+		if input.notification_id ~= nil then
+			self.notification_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.notification_id)
+		end
+
+		if input.notificationId ~= nil then
+			self.notification_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.notificationId)
+		end
+
+		if input.visual_item_name ~= nil then
+			self.visual_item_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.visual_item_name)
+		end
+
+		if input.visualItemName ~= nil then
+			self.visual_item_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.visualItemName)
+		end
+
+		if input.page_entry_identifier ~= nil then
+			self.page_entry_identifier =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.page_entry_identifier)
+		end
+
+		if input.pageEntryIdentifier ~= nil then
+			self.page_entry_identifier =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.pageEntryIdentifier)
+		end
+
+		return self
+	end
+
+	_RunStreamNotificationItemAction_ParamsImpl.descriptor = {
+		name = "RunStreamNotificationItemAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RunStreamNotificationItemAction_Params = _RunStreamNotificationItemAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RunStreamNotificationItemAction_Params)
+end
+
+do
+	local _ToggleStreamNotificationBundleActionImpl = {}
+	_ToggleStreamNotificationBundleActionImpl.__index = _ToggleStreamNotificationBundleActionImpl
+
+	function _ToggleStreamNotificationBundleActionImpl.new(
+		data: _ToggleStreamNotificationBundleActionPartialFields?
+	): ToggleStreamNotificationBundleAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ToggleStreamNotificationBundleActionImpl :: _ToggleStreamNotificationBundleActionImpl)
+	end
+
+	function _ToggleStreamNotificationBundleActionImpl.encode(self: ToggleStreamNotificationBundleAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleStreamNotificationBundleActionImpl.decode(input: buffer): ToggleStreamNotificationBundleAction
+		local self = _ToggleStreamNotificationBundleActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ToggleStreamNotificationBundleAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleStreamNotificationBundleActionImpl.jsonEncode(self: ToggleStreamNotificationBundleAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleStreamNotificationBundleActionImpl.jsonDecode(
+		input: { [string]: any }
+	): ToggleStreamNotificationBundleAction
+		local self = _ToggleStreamNotificationBundleActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ToggleStreamNotificationBundleAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ToggleStreamNotificationBundleAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ToggleStreamNotificationBundleActionImpl.descriptor = {
+		name = "ToggleStreamNotificationBundleAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ToggleStreamNotificationBundleAction",
+	}
+
+	messages.ToggleStreamNotificationBundleAction = _ToggleStreamNotificationBundleActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleStreamNotificationBundleAction)
+end
+
+do
+	local _ToggleStreamNotificationBundleAction_ParamsImpl = {}
+	_ToggleStreamNotificationBundleAction_ParamsImpl.__index = _ToggleStreamNotificationBundleAction_ParamsImpl
+
+	function _ToggleStreamNotificationBundleAction_ParamsImpl.new(
+		data: _ToggleStreamNotificationBundleAction_ParamsPartialFields?
+	): ToggleStreamNotificationBundleAction_Params
+		return setmetatable({
+			bundle_key = if data == nil or data.bundle_key == nil then nil else data.bundle_key,
+		}, _ToggleStreamNotificationBundleAction_ParamsImpl :: _ToggleStreamNotificationBundleAction_ParamsImpl)
+	end
+
+	function _ToggleStreamNotificationBundleAction_ParamsImpl.encode(
+		self: ToggleStreamNotificationBundleAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.bundle_key ~= nil then
+			local encoded = self.bundle_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleStreamNotificationBundleAction_ParamsImpl.decode(
+		input: buffer
+	): ToggleStreamNotificationBundleAction_Params
+		local self = _ToggleStreamNotificationBundleAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.bundle_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleStreamNotificationBundleAction_ParamsImpl.jsonEncode(
+		self: ToggleStreamNotificationBundleAction_Params
+	): any
+		local output = {}
+
+		if self.bundle_key ~= nil then
+			output.bundleKey = self.bundle_key:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleStreamNotificationBundleAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ToggleStreamNotificationBundleAction_Params
+		local self = _ToggleStreamNotificationBundleAction_ParamsImpl.new()
+
+		if input.bundle_key ~= nil then
+			self.bundle_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.bundle_key)
+		end
+
+		if input.bundleKey ~= nil then
+			self.bundle_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.bundleKey)
+		end
+
+		return self
+	end
+
+	_ToggleStreamNotificationBundleAction_ParamsImpl.descriptor = {
+		name = "ToggleStreamNotificationBundleAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ToggleStreamNotificationBundleAction_Params = _ToggleStreamNotificationBundleAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleStreamNotificationBundleAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -46842,6 +48666,26 @@ do
 			elseif self.kind.type == "set_milestone_count_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 121, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "run_stream_notification_item_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 122, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "toggle_stream_notification_bundle_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 123, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_group_pane_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 124, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "toggle_game_pass_vote_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 125, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "remove_game_pass_from_inventory_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 126, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -47742,6 +49586,43 @@ do
 					self.kind =
 						{ type = "set_milestone_count_action", value = messages.SetMilestoneCountAction.decode(value) }
 					continue
+				elseif field == 122 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "run_stream_notification_item_action",
+						value = messages.RunStreamNotificationItemAction.decode(value),
+					}
+					continue
+				elseif field == 123 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "toggle_stream_notification_bundle_action",
+						value = messages.ToggleStreamNotificationBundleAction.decode(value),
+					}
+					continue
+				elseif field == 124 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "open_group_pane_action", value = messages.OpenGroupPaneAction.decode(value) }
+					continue
+				elseif field == 125 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "toggle_game_pass_vote_action",
+						value = messages.ToggleGamePassVoteAction.decode(value),
+					}
+					continue
+				elseif field == 126 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "remove_game_pass_from_inventory_action",
+						value = messages.RemoveGamePassFromInventoryAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -48033,6 +49914,16 @@ do
 				output.incrementMilestoneCountAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "set_milestone_count_action" then
 				output.setMilestoneCountAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "run_stream_notification_item_action" then
+				output.runStreamNotificationItemAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "toggle_stream_notification_bundle_action" then
+				output.toggleStreamNotificationBundleAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_group_pane_action" then
+				output.openGroupPaneAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "toggle_game_pass_vote_action" then
+				output.toggleGamePassVoteAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "remove_game_pass_from_inventory_action" then
+				output.removeGamePassFromInventoryAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -49808,6 +51699,82 @@ do
 			}
 		end
 
+		if input.run_stream_notification_item_action ~= nil then
+			self.kind = {
+				type = "run_stream_notification_item_action",
+				value = messages.RunStreamNotificationItemAction.jsonDecode(input.run_stream_notification_item_action),
+			}
+		end
+
+		if input.runStreamNotificationItemAction ~= nil then
+			self.kind = {
+				type = "run_stream_notification_item_action",
+				value = messages.RunStreamNotificationItemAction.jsonDecode(input.runStreamNotificationItemAction),
+			}
+		end
+
+		if input.toggle_stream_notification_bundle_action ~= nil then
+			self.kind = {
+				type = "toggle_stream_notification_bundle_action",
+				value = messages.ToggleStreamNotificationBundleAction.jsonDecode(
+					input.toggle_stream_notification_bundle_action
+				),
+			}
+		end
+
+		if input.toggleStreamNotificationBundleAction ~= nil then
+			self.kind = {
+				type = "toggle_stream_notification_bundle_action",
+				value = messages.ToggleStreamNotificationBundleAction.jsonDecode(
+					input.toggleStreamNotificationBundleAction
+				),
+			}
+		end
+
+		if input.open_group_pane_action ~= nil then
+			self.kind = {
+				type = "open_group_pane_action",
+				value = messages.OpenGroupPaneAction.jsonDecode(input.open_group_pane_action),
+			}
+		end
+
+		if input.openGroupPaneAction ~= nil then
+			self.kind = {
+				type = "open_group_pane_action",
+				value = messages.OpenGroupPaneAction.jsonDecode(input.openGroupPaneAction),
+			}
+		end
+
+		if input.toggle_game_pass_vote_action ~= nil then
+			self.kind = {
+				type = "toggle_game_pass_vote_action",
+				value = messages.ToggleGamePassVoteAction.jsonDecode(input.toggle_game_pass_vote_action),
+			}
+		end
+
+		if input.toggleGamePassVoteAction ~= nil then
+			self.kind = {
+				type = "toggle_game_pass_vote_action",
+				value = messages.ToggleGamePassVoteAction.jsonDecode(input.toggleGamePassVoteAction),
+			}
+		end
+
+		if input.remove_game_pass_from_inventory_action ~= nil then
+			self.kind = {
+				type = "remove_game_pass_from_inventory_action",
+				value = messages.RemoveGamePassFromInventoryAction.jsonDecode(
+					input.remove_game_pass_from_inventory_action
+				),
+			}
+		end
+
+		if input.removeGamePassFromInventoryAction ~= nil then
+			self.kind = {
+				type = "remove_game_pass_from_inventory_action",
+				value = messages.RemoveGamePassFromInventoryAction.jsonDecode(input.removeGamePassFromInventoryAction),
+			}
+		end
+
 		if input.telemetry_handler ~= nil then
 			self.telemetry_handler =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetry_handler)
@@ -51284,6 +53251,16 @@ messages.ActionType = {
 			return "ACTION_TYPE_INCREMENT_MILESTONE_COUNT"
 		elseif value == 121 then
 			return "ACTION_TYPE_SET_MILESTONE_COUNT"
+		elseif value == 122 then
+			return "ACTION_TYPE_RUN_STREAM_NOTIFICATION_ITEM"
+		elseif value == 123 then
+			return "ACTION_TYPE_TOGGLE_STREAM_NOTIFICATION_BUNDLE"
+		elseif value == 124 then
+			return "ACTION_TYPE_OPEN_GROUP_PANE"
+		elseif value == 125 then
+			return "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE"
+		elseif value == 126 then
+			return "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY"
 		else
 			return nil
 		end
@@ -51534,6 +53511,16 @@ messages.ActionType = {
 			return 120
 		elseif self == "ACTION_TYPE_SET_MILESTONE_COUNT" then
 			return 121
+		elseif self == "ACTION_TYPE_RUN_STREAM_NOTIFICATION_ITEM" then
+			return 122
+		elseif self == "ACTION_TYPE_TOGGLE_STREAM_NOTIFICATION_BUNDLE" then
+			return 123
+		elseif self == "ACTION_TYPE_OPEN_GROUP_PANE" then
+			return 124
+		elseif self == "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE" then
+			return 125
+		elseif self == "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY" then
+			return 126
 		else
 			return self
 		end
@@ -51784,6 +53771,16 @@ messages.ActionType = {
 			return "ACTION_TYPE_INCREMENT_MILESTONE_COUNT"
 		elseif name == "ACTION_TYPE_SET_MILESTONE_COUNT" then
 			return "ACTION_TYPE_SET_MILESTONE_COUNT"
+		elseif name == "ACTION_TYPE_RUN_STREAM_NOTIFICATION_ITEM" then
+			return "ACTION_TYPE_RUN_STREAM_NOTIFICATION_ITEM"
+		elseif name == "ACTION_TYPE_TOGGLE_STREAM_NOTIFICATION_BUNDLE" then
+			return "ACTION_TYPE_TOGGLE_STREAM_NOTIFICATION_BUNDLE"
+		elseif name == "ACTION_TYPE_OPEN_GROUP_PANE" then
+			return "ACTION_TYPE_OPEN_GROUP_PANE"
+		elseif name == "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE" then
+			return "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE"
+		elseif name == "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY" then
+			return "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY"
 		else
 			return nil
 		end
@@ -51908,6 +53905,12 @@ return {
 	JoinCommunityAction_Params = messages.JoinCommunityAction_Params,
 	ViewCommunityAction = messages.ViewCommunityAction,
 	ViewCommunityAction_Params = messages.ViewCommunityAction_Params,
+	OpenGroupPaneAction = messages.OpenGroupPaneAction,
+	OpenGroupPaneAction_Params = messages.OpenGroupPaneAction_Params,
+	ToggleGamePassVoteAction = messages.ToggleGamePassVoteAction,
+	ToggleGamePassVoteAction_Params = messages.ToggleGamePassVoteAction_Params,
+	RemoveGamePassFromInventoryAction = messages.RemoveGamePassFromInventoryAction,
+	RemoveGamePassFromInventoryAction_Params = messages.RemoveGamePassFromInventoryAction_Params,
 	AnalyticsEventAction = messages.AnalyticsEventAction,
 	AnalyticsEventAction_Params = messages.AnalyticsEventAction_Params,
 	CustomAnalyticsEventAction = messages.CustomAnalyticsEventAction,
@@ -52044,6 +54047,10 @@ return {
 	ToggleContentReactionAction_Params = messages.ToggleContentReactionAction_Params,
 	OpenSignUpModalAction = messages.OpenSignUpModalAction,
 	OpenSignUpModalAction_Params = messages.OpenSignUpModalAction_Params,
+	RunStreamNotificationItemAction = messages.RunStreamNotificationItemAction,
+	RunStreamNotificationItemAction_Params = messages.RunStreamNotificationItemAction_Params,
+	ToggleStreamNotificationBundleAction = messages.ToggleStreamNotificationBundleAction,
+	ToggleStreamNotificationBundleAction_Params = messages.ToggleStreamNotificationBundleAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

@@ -12,6 +12,7 @@ local PlayerModule = require(script.Parent)
 local CameraModule = require(script.Parent:WaitForChild("CameraModule"))
 local ControlModule = require(script.Parent:WaitForChild("ControlModule"))
 local ServerAuthority = require(script.Parent:WaitForChild("ServerAuthority"))
+local InputSampler = require(script.Parent:WaitForChild("InputSampler"))
 
 local CONNECTIONS = {
 	BIND_TO_SIMULATION = "BIND_TO_SIMULATION", -- switch to bind_to_simulation when possible
@@ -44,6 +45,7 @@ function PlayerModuleInternal.new()
 				moveVector = Vector2.new(),
 				worldMoveVector = Vector3.new(),
 				actions = {},
+				enabled = true,
 			},
 			player = nil,
 			character = nil,
@@ -82,6 +84,7 @@ function PlayerModuleInternal:start()
 			-- connect cameraModule to update loop
 			RunService:BindToRenderStep(CONNECTIONS.RENDERSTEPPED_CAMERA, Enum.RenderPriority.Camera.Value, function(dt)
 				CameraModule:Update(self.data, dt)
+				InputSampler:Update(self.data)
 			end)
 			self.data.connectionUtil:trackBoundFunction(CONNECTIONS.RENDERSTEPPED_CAMERA, function()
 				RunService:UnbindFromRenderStep(CONNECTIONS.RENDERSTEPPED_CAMERA)

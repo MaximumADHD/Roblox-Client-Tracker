@@ -11,6 +11,7 @@ type _Messages = {
 	MarketplaceCatalogTimedOption: _MarketplaceCatalogTimedOptionMessage,
 	MarketplaceCatalogVariantAttribute: _MarketplaceCatalogVariantAttributeMessage,
 	MarketplaceCatalogBundledItem: _MarketplaceCatalogBundledItemMessage,
+	MarketplaceCatalogItemLicensing: _MarketplaceCatalogItemLicensingMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -132,6 +133,41 @@ export type MarketplaceCatalogBundledItem = typeof(setmetatable(
 type _MarketplaceCatalogBundledItemMessage = proto.Message<
 	MarketplaceCatalogBundledItem,
 	_MarketplaceCatalogBundledItemPartialFields
+>
+
+type _MarketplaceCatalogItemLicensingImpl = {
+	__index: _MarketplaceCatalogItemLicensingImpl,
+	new: (fields: _MarketplaceCatalogItemLicensingPartialFields?) -> MarketplaceCatalogItemLicensing,
+	encode: (self: MarketplaceCatalogItemLicensing) -> buffer,
+	decode: (input: buffer) -> MarketplaceCatalogItemLicensing,
+	jsonEncode: (self: MarketplaceCatalogItemLicensing) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> MarketplaceCatalogItemLicensing,
+	descriptor: proto.Descriptor,
+}
+
+type _MarketplaceCatalogItemLicensingFields = {
+	id: string?,
+	license_type: string,
+	badge_asset_id: string?,
+	name: string?,
+	license_display_name: string?,
+}
+
+type _MarketplaceCatalogItemLicensingPartialFields = {
+	id: string?,
+	license_type: string?,
+	badge_asset_id: string?,
+	name: string?,
+	license_display_name: string?,
+}
+
+export type MarketplaceCatalogItemLicensing = typeof(setmetatable(
+	{} :: _MarketplaceCatalogItemLicensingFields,
+	{} :: _MarketplaceCatalogItemLicensingImpl
+))
+type _MarketplaceCatalogItemLicensingMessage = proto.Message<
+	MarketplaceCatalogItemLicensing,
+	_MarketplaceCatalogItemLicensingPartialFields
 >
 
 do
@@ -658,9 +694,199 @@ do
 	typeRegistry.default:register(messages.MarketplaceCatalogBundledItem)
 end
 
+do
+	local _MarketplaceCatalogItemLicensingImpl = {}
+	_MarketplaceCatalogItemLicensingImpl.__index = _MarketplaceCatalogItemLicensingImpl
+
+	function _MarketplaceCatalogItemLicensingImpl.new(
+		data: _MarketplaceCatalogItemLicensingPartialFields?
+	): MarketplaceCatalogItemLicensing
+		return setmetatable({
+			id = if data == nil or data.id == nil then nil else data.id,
+			license_type = if data == nil or data.license_type == nil then "" else data.license_type,
+			badge_asset_id = if data == nil or data.badge_asset_id == nil then nil else data.badge_asset_id,
+			name = if data == nil or data.name == nil then nil else data.name,
+			license_display_name = if data == nil or data.license_display_name == nil
+				then nil
+				else data.license_display_name,
+		}, _MarketplaceCatalogItemLicensingImpl :: _MarketplaceCatalogItemLicensingImpl)
+	end
+
+	function _MarketplaceCatalogItemLicensingImpl.encode(self: MarketplaceCatalogItemLicensing): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.license_type ~= nil and self.license_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.license_type)
+		end
+
+		if self.badge_asset_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_asset_id)
+		end
+
+		if self.name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.name)
+		end
+
+		if self.license_display_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.license_display_name)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _MarketplaceCatalogItemLicensingImpl.decode(input: buffer): MarketplaceCatalogItemLicensing
+		local self = _MarketplaceCatalogItemLicensingImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.license_type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.license_display_name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _MarketplaceCatalogItemLicensingImpl.jsonEncode(self: MarketplaceCatalogItemLicensing): any
+		local output = {}
+
+		if self.id ~= nil then
+			output.id = self.id
+		end
+
+		if self.license_type ~= nil and self.license_type ~= "" then
+			output.licenseType = self.license_type
+		end
+
+		if self.badge_asset_id ~= nil then
+			output.badgeAssetId = self.badge_asset_id
+		end
+
+		if self.name ~= nil then
+			output.name = self.name
+		end
+
+		if self.license_display_name ~= nil then
+			output.licenseDisplayName = self.license_display_name
+		end
+
+		return output
+	end
+
+	function _MarketplaceCatalogItemLicensingImpl.jsonDecode(input: { [string]: any }): MarketplaceCatalogItemLicensing
+		local self = _MarketplaceCatalogItemLicensingImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.license_type ~= nil then
+			self.license_type = input.license_type
+		end
+
+		if input.licenseType ~= nil then
+			self.license_type = input.licenseType
+		end
+
+		if input.badge_asset_id ~= nil then
+			self.badge_asset_id = input.badge_asset_id
+		end
+
+		if input.badgeAssetId ~= nil then
+			self.badge_asset_id = input.badgeAssetId
+		end
+
+		if input.name ~= nil then
+			self.name = input.name
+		end
+
+		if input.license_display_name ~= nil then
+			self.license_display_name = input.license_display_name
+		end
+
+		if input.licenseDisplayName ~= nil then
+			self.license_display_name = input.licenseDisplayName
+		end
+
+		return self
+	end
+
+	_MarketplaceCatalogItemLicensingImpl.descriptor = {
+		name = "MarketplaceCatalogItemLicensing",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceCatalogItemLicensing",
+	}
+
+	messages.MarketplaceCatalogItemLicensing = _MarketplaceCatalogItemLicensingImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.MarketplaceCatalogItemLicensing)
+end
+
 return {
 	MarketplaceCatalogTaxonomyNode = messages.MarketplaceCatalogTaxonomyNode,
 	MarketplaceCatalogTimedOption = messages.MarketplaceCatalogTimedOption,
 	MarketplaceCatalogVariantAttribute = messages.MarketplaceCatalogVariantAttribute,
 	MarketplaceCatalogBundledItem = messages.MarketplaceCatalogBundledItem,
+	MarketplaceCatalogItemLicensing = messages.MarketplaceCatalogItemLicensing,
 }

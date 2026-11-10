@@ -6,7 +6,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Foundation = require(Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -66,7 +65,7 @@ function GenericTextLabel:render()
 		local fontSizeMin = if font.RelativeMinSize then baseSize * font.RelativeMinSize else font.FontSize
 		local fontSizeMax = if font.RelativeSize then baseSize * font.RelativeSize else font.FontSize
 
-		local textFont = if FFlagFoundationFontFaceMigration then GetFontFromFontStyle(font) else font.Font
+		local textFont = GetFontFromFontStyle(font)
 
 		local textboxSize = self.props.Size
 		if textboxSize == nil then
@@ -95,8 +94,8 @@ function GenericTextLabel:render()
 			maxSize = Cryo.None,
 			Size = size,
 			Text = text,
-			Font = if FFlagFoundationFontFaceMigration then Cryo.None else textFont,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(textFont) else Cryo.None,
+			Font = Cryo.None,
+			FontFace = normalizeFontFace(textFont),
 			TextSize = textSize,
 			AutomaticSize = automaticSize,
 			TextColor3 = textColor,

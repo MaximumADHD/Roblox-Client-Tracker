@@ -66,6 +66,14 @@ local function variantsFactory(tokens: Tokens)
 			container = { tag = "size-full-0 auto-y" },
 			text = { tag = "size-full-0 auto-y text-wrap text-align-x-left" },
 		},
+		[TextOverflow.Truncate] = {
+			container = { tag = "size-full-0 auto-y" },
+			text = { tag = "size-full-0 auto-y text-align-x-left text-truncate-end" },
+		},
+		[TextOverflow.TruncateSplit] = {
+			container = { tag = "size-full-0 auto-y" },
+			text = { tag = "size-full-0 auto-y text-align-x-left text-truncate-split" },
+		},
 	}
 
 	return { common = common, variants = variants, sizes = sizes, textOverflows = textOverflows }

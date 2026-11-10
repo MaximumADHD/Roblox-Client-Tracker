@@ -122,7 +122,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 
 	local resolvedLeading = resolveAccessory(props.leading or props.icon)
 	local resolvedTrailing = resolveAccessory(props.trailing)
-	local isSubmenuScrollable = Flags.FoundationBaseMenuSubmenuMaxHeight and context.maxHeight ~= nil
+	local isSubmenuScrollable = context.maxHeight ~= nil
 	local variantProps = useBaseMenuItemVariants(tokens, size, isSubmenuScrollable)
 
 	local itemRef = React.useRef(nil :: GuiObject?)

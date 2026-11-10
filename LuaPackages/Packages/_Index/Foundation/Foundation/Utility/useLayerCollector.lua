@@ -22,6 +22,7 @@ local function useLayerCollector(guiObject: GuiObject?): Instance?
 		setLayerCollector(findLayerCollector(guiObject))
 	end, { guiObject })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function(): (() -> ())?
 		if guiObject then
 			updateLayerCollector()

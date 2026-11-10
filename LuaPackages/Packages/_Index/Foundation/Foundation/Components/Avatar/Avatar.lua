@@ -3,9 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Dash = require(Packages.Dash)
-
-local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local Types = require(Foundation.Components.Types)
@@ -85,29 +82,16 @@ local function Avatar(avatarProps: AvatarProps, ref: React.Ref<GuiObject>?)
 				testId = `{props.testId}--image`,
 			}),
 			Indicator = if variantProps.statusIndicator.isVisible
-				then if Flags.FoundationStatusIndicatorMask
-					then React.createElement(StatusIndicator, {
-						testId = `{props.testId}--status-indicator`,
-						variant = variantProps.statusIndicator.variant,
-						shape = variantProps.statusIndicator.shape,
-						size = variantProps.statusIndicator.size,
-						mask = variantProps.statusIndicatorMask.mask,
-						ZIndex = variantProps.statusIndicatorMask.ZIndex,
-						AnchorPoint = variantProps.statusIndicatorMask.AnchorPoint,
-						Position = variantProps.statusIndicatorMask.Position,
-					})
-					else React.createElement(
-						View,
-						Dash.join(variantProps.statusIndicatorBackplate, {
-							testId = `{props.testId}--indicator-backplate`,
-						}),
-						React.createElement(StatusIndicator, {
-							testId = `{props.testId}--status-indicator`,
-							variant = variantProps.statusIndicator.variant,
-							shape = variantProps.statusIndicator.shape,
-							size = variantProps.statusIndicator.size,
-						})
-					)
+				then React.createElement(StatusIndicator, {
+					testId = `{props.testId}--status-indicator`,
+					variant = variantProps.statusIndicator.variant,
+					shape = variantProps.statusIndicator.shape,
+					size = variantProps.statusIndicator.size,
+					mask = variantProps.statusIndicatorMask.mask,
+					ZIndex = variantProps.statusIndicatorMask.ZIndex,
+					AnchorPoint = variantProps.statusIndicatorMask.AnchorPoint,
+					Position = variantProps.statusIndicatorMask.Position,
+				})
 				else nil,
 		}
 	)

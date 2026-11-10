@@ -65,6 +65,7 @@ local function OverlayProvider(overlayProps: Props)
 					SafeAreaCompatibility = Enum.SafeAreaCompatibility.None,
 					ClipToDeviceSafeArea = false,
 				}, {
+					-- lute-lint-ignore(noEnginePrimitives) UIBLOX-5675
 					SafeAreaFrame = React.createElement("Frame", {
 						Size = safeAreaSize,
 						BackgroundTransparency = 1,

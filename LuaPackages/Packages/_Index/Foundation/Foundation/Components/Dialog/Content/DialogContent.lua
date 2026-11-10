@@ -22,6 +22,7 @@ local function DialogContent(props: DialogContentProps)
 	local variants = useDialogVariants()
 	local dialogContext = useDialog()
 
+	-- lute-lint-ignore(immutability) UIBLOX-5675
 	props.testId = `{dialogContext.testId}--content`
 
 	local isSelectableEnabled = if props.Selectable == nil then true else props.Selectable

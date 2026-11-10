@@ -91,6 +91,7 @@ local function useBreakpoint(instance: GuiBase2d?, options: UseBreakpointOptions
 		})
 	end, { resolvedOptions.throttleTime })
 
+	-- lute-lint-ignore(exhaustiveDeps) UIBLOX-5675
 	React.useEffect(function()
 		local connection
 
