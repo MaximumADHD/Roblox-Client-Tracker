@@ -5871,6 +5871,7 @@ Studio.App.Actions.UIBlur,,,UIBlur,UIBlur
 Studio.App.EmulatorMainWidget.AverageMacbook,,,Average Macbook,Average Macbook
 Studio.App.EmulatorMainWidget.AverageWindows,,,Average Windows,Average Windows
 Studio.App.EmulatorMainWidget.AverageMacBook,,,Average MacBook,Average MacBook
+Studio.App.Actions.ParticleEmitter2D,,,ParticleEmitter2D,ParticleEmitter2D
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -9500,6 +9501,10 @@ Studio.PublishPlaceAs.PublishStatus.LoadFailed,,,Publish status could not be loa
 Studio.PublishPlaceAs.PublishStatus.Retry,,,Retry,Retry
 Studio.PublishPlaceAs.PublishSuccess.ViewPublishStatus,,,Manage Audience,Manage Audience
 Studio.PublishPlaceAs.Notification.PublishRequiresPublishedPlace,,,Save your place to Roblox before Publishing!,Save your place to Roblox before Publishing!
+Studio.PublishPlaceAs.BranchOverwriteWarning.Title,,,Overwrite Branch,Overwrite Branch
+Studio.PublishPlaceAs.BranchOverwriteWarning.Body,,,"If the current branch ({currentBranch}) and target branch ({targetBranch}) don't share a starting point, you won't be able to merge the target branch into main after you save. Merge the current branch into it instead.","If the current branch ({currentBranch}) and target branch ({targetBranch}) don't share a starting point, you won't be able to merge the target branch into main after you save. Merge the current branch into it instead."
+Studio.PublishPlaceAs.BranchOverwriteWarning.SaveAnyway,,,Save anyway,Save anyway
+Studio.PublishPlaceAs.BranchOverwriteWarning.ReplaceTargetBranch,,,Replace the target branch?,Replace the target branch?
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9877,6 +9882,31 @@ Studio.AssetManager.Toast.PublishFailed,,,Some items could not be published.,Som
 Studio.AssetManager.AssetType.Assets,,,Assets,Assets
 Studio.AssetManager.AssetStatus.Restricted,,,Restricted,Restricted
 Studio.AssetManager.AssetStatus.Draft,,,Draft,Draft
+Studio.AssetManager.AssetProperty.Scripted,,,Scripted,Scripted
+Studio.AssetManager.AssetProperty.Yes,,,Yes,Yes
+Studio.AssetManager.AssetProperty.TriangleCount,,,Triangle Count,Triangle Count
+Studio.AssetManager.AssetProperty.VertexCount,,,Vertex Count,Vertex Count
+Studio.AssetManager.AssetProperty.ScriptCount,,,Script Count,Script Count
+Studio.AssetManager.AssetProperty.MeshPartCount,,,MeshPart Count,MeshPart Count
+Studio.AssetManager.AssetProperty.AnimationCount,,,Animation Count,Animation Count
+Studio.AssetManager.AssetProperty.AudioCount,,,Audio Count,Audio Count
+Studio.AssetManager.AssetProperty.DecalCount,,,Decal Count,Decal Count
+Studio.AssetManager.AssetProperty.ToolCount,,,Tool Count,Tool Count
+Studio.AssetManager.AssetProperty.Duration,,,Duration,Duration
+Studio.AssetManager.AssetPermission.AccessPolicy,,,Access Policy,Access Policy
+Studio.AssetManager.AssetPermission.AccessControl,,,Access Control,Access Control
+Studio.AssetManager.AssetPermission.Private,,,Private,Private
+Studio.AssetManager.AssetPermission.SharedWith,,,Shared With,Shared With
+Studio.AssetManager.AssetPermission.ManageSharing,,,Manage Sharing,Manage Sharing
+Studio.AssetManager.AssetProperty.AssetTypes,,,Asset Types,Asset Types
+Studio.AssetManager.AssetProperty.NotDistributed,,,Not Distributed,Not Distributed
+Studio.AssetManager.AssetProperty.AssetsSelected,,,{count} Assets Selected,{count} Assets Selected
+Studio.AssetManager.AssetPermission.SharedWithCount,,,Shared With: {count},Shared With: {count}
+Studio.AssetManager.AssetPermission.Shared,,,Shared,Shared
+Studio.AssetManager.AssetPermission.OpenUse,,,Open Use,Open Use
+Studio.AssetManager.ScopeType.User,,,User,User
+Studio.AssetManager.ScopeType.Group,,,Group,Group
+Studio.AssetManager.ScopeType.Universe,,,Experience,Experience
 Studio.AssetManager.AssetSource.Unknown,,,Unknown,Unknown
 Studio.AssetManager.AssetType.AnimatedImage,,,AnimatedImage,AnimatedImage
 Studio.AssetManager.AssetType.AnimatedImages,,,AnimatedImages,AnimatedImages
@@ -9892,6 +9922,9 @@ Studio.AssetManager.ContextMenu.CopyUris,,,Copy URIs,Copy URIs
 Studio.AssetManager.Toast.ShowInFolderFailed,,,Could not open the folder for this item.,Could not open the folder for this item.
 Studio.AssetManager.ContextMenu.View,,,View,View
 Studio.AssetManager.ContextMenu.Create2DAnimation,,,Create 2D Animation,Create 2D Animation
+Studio.AssetManager.DetailsDrawer.EmptyTitle,,,Asset Details,Asset Details
+Studio.AssetManager.DetailsDrawer.EmptyMessage,,,Select an asset to view its details,Select an asset to view its details
+Studio.AssetManager.DetailsDrawer.Close,,,Close,Close
 Studio.AssetManager.AssetPermission.Restricted,,,Restricted,Restricted
 Studio.AssetManager.AssetStatus.Violation,,,Violation,Violation
 Studio.AssetManager.AssetProperty.AssetUri,,,Asset URI,Asset URI
@@ -9899,6 +9932,7 @@ Studio.AssetManager.DetailsDrawer.NotEditable,,,Not editable,Not editable
 Studio.AssetManager.ContextMenu.CloseDetails,,,Close Details,Close Details
 Studio.AssetManager.Filters.NoResults,,,No results,No results
 Studio.AssetManager.Filters.SearchAllPlaceholder,,,Search all...,Search all...
+Studio.AssetManager.AssetPermission.AccessAndSharing,,,Access & Sharing,Access & Sharing
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11860,7 +11894,7 @@ Studio.StyleEditor.Plugin.Text,,,Example Text!,Example Text!
 Studio.StyleEditor.Onboarding.Title,,,Style Editor,Style Editor
 Studio.StyleEditor.Onboarding.StartFromExample,,,Start from Example,Start from Example
 Studio.StyleEditor.Onboarding.StartBlank,,,New Blank Design,New Blank Design
-Studio.StyleEditor.Onboarding.LearnMore,,,Learn More,Learn More
+Studio.StyleEditor.Onboarding.LearnMore,,,Learn more,Learn more
 Studio.StyleEditor.Onboarding.Description,,,The Style Editor is a way to manage styles and themes. Create global styles for UI elements and change them from one location. Instantly change your UI theme with a button press.,The Style Editor is a way to manage styles and themes. Create global styles for UI elements and change them from one location. Instantly change your UI theme with a button press.
 Studio.StyleEditor.ContextMenu.New.PseudoInstance,,,Pseudo Instance,Pseudo Instance
 Studio.StyleEditor.ContextMenu.Rename,,,Rename,Rename
@@ -11904,7 +11938,7 @@ Studio.StyleEditor.Category.Tokens,,,Tokens,Tokens
 Studio.StyleEditor.ContextMenu.New.GuiState,,,GuiState,GuiState
 Studio.StyleEditor.ContextMenu.New.Descendant,,,Descendant,Descendant
 Studio.StyleEditor.Control.InsertStyleLink,,,Insert Design StyleLink,Insert Design StyleLink
-Studio.StyleEditor.Onboarding.CreateDesign,,,Create Design,Create Design
+Studio.StyleEditor.Onboarding.CreateDesign,,,Create design,Create design
 Studio.StyleEditor.ContextMenu.PasteInto,,,Paste Into,Paste Into
 Studio.StyleEditor.Category.Derives,,,Derives,Derives
 Studio.StyleEditor.Control.ApplyBtn.TooltipApplyTag,,,Add StyleLink and apply tag to selected instance(s),Add StyleLink and apply tag to selected instance(s)
@@ -13974,6 +14008,13 @@ Studio.Ribbon.Plugin.UpdateFailed,,,Update Failed,Update Failed
 Studio.Ribbon.Title.UpdateAvailable,,,Download the new version of Studio,Download the new version of Studio
 Studio.Ribbon.Title.UpdateInProgress,,,Downloading update in the background,Downloading update in the background
 Studio.Ribbon.Title.UpdateFailed,,,The background download failed. Want to try again?,The background download failed. Want to try again?
+Studio.Ribbon.Plugin.NewTeamTest,,,New Team Test,New Team Test
+Studio.Ribbon.Plugin.TeamTests,,,Team Tests,Team Tests
+Studio.Ribbon.Plugin.TeamTestSession,,,Team Test {number},Team Test {number}
+Studio.Ribbon.Plugin.Setting_TestingMode_ServerOnly,,,Server Only,Server Only
+Studio.Ribbon.Plugin.TeamTestRuntimeSeconds,,,{seconds}s,{seconds}s
+Studio.Ribbon.Plugin.TeamTestRuntimeHours,,,{hours}h {minutes}m,{hours}h {minutes}m
+Studio.Ribbon.Plugin.TeamTestRuntimeMinutes,,,{minutes}m,{minutes}m
 Studio.VisualizationModes.Plugin.Name,,,Visualization Modes,Visualization Modes
 Studio.VisualizationModes.Plugin.Text,,,Hello World,Hello World
 Studio.VisualizationModes.Plugin.Button,,,Visualization Modes,Visualization Modes
@@ -14872,6 +14913,9 @@ Studio.StartPage.Plugin.VerifyAgeGateDialog.SecondaryAction,,,Cancel,Cancel
 Studio.StartPage.Plugin.AddLabels,,,Add labels,Add labels
 Studio.StartPage.Plugin.ExperienceLabels.SearchPlaceholder,,,Search for or create labels,Search for or create labels
 Studio.StartPage.Plugin.GroupSelector.You,,,You,You
+Studio.StartPage.Plugin.SortOptions.RecentlyUsed,,,Recently Used,Recently Used
+Studio.StartPage.Plugin.GroupSelector.Sort.Priority,,,Priority,Priority
+Studio.StartPage.Plugin.CreateGroup,,,Create Group,Create Group
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -15215,7 +15259,7 @@ Studio.Assistant.GenerateLayout.HeaderGeneratingImages,,,Generating images: {dis
 Studio.Assistant.GenerateLayout.Position,,,Position,Position
 Studio.Assistant.GenerateLayout.Size,,,Size,Size
 Studio.Assistant.GenerateLayout.AreaDescription,,,Position and size the area where layout should be generated.,Position and size the area where layout should be generated.
-Studio.Assistant.GenerateLayout.Generate,,,Generate layout,Generate layout
+Studio.Assistant.GenerateLayout.Generate,,,Generate scene,Generate scene
 Studio.Assistant.GenerateLayout.AttachImageDescription,,,Attach a reference image and generate layout,Attach a reference image and generate layout
 Studio.Assistant.GenerateLayout.ButtonGenerateAndInsert,,,Generate and insert,Generate and insert
 Studio.Assistant.GenerateLayout.ButtonRetry,,,Retry,Retry
@@ -15237,7 +15281,7 @@ Studio.Assistant.GenerateLayout.ReferenceImage,,,Reference image,Reference image
 Studio.Assistant.GenerateLayout.SlashDescription,,,Generates layout from a reference image,Generates layout from a reference image
 Studio.Assistant.GenerateLayout.StageSubmitting,,,Submitting,Submitting
 Studio.Assistant.GenerateLayout.StatusJobSubmitted,,,Layout generation job submitted. Job ID: {jobId},Layout generation job submitted. Job ID: {jobId}
-Studio.Assistant.GenerateLayout.Title,,,Generate Layout,Generate Layout
+Studio.Assistant.GenerateLayout.Title,,,Generate Scene,Generate Scene
 Studio.Assistant.GenerateLayout.StyleSelectorTitle,,,Style,Style
 Studio.Assistant.GenerateLayout.StyleGreybox,,,Greybox,Greybox
 Studio.Assistant.GenerateLayout.StyleLowPoly,,,Low-Poly,Low-Poly
@@ -16187,6 +16231,7 @@ Studio.AvatarSettings.MovementSettings.HitTouchUseColliderDesc,,,Use the collide
 Studio.AvatarSettings.MovementSettings.HitTouchUsePartsDesc,,,Use avatar part geometry for Touch & Query events,Use avatar part geometry for Touch & Query events
 Studio.AvatarSettings.General.InputOutOfRange,,,Must be {min}-{max},Must be {min}-{max}
 Studio.AvatarSettings.Publish.SaveChangesOutOfRangeTooltip,,,Fix out-of-range Custom Build settings to save,Fix out-of-range Custom Build settings to save
+Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionSpawnEffects,,,Enable Spawn Effects,Enable Spawn Effects
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16636,6 +16681,10 @@ Studio.BetaFeatures.UIParticlesTitle,,,UI Particles,UI Particles
 Studio.BetaFeatures.UIParticlesDescription,,,"Enables the ParticleEmitter2D instance, which emits particles from GUI objects.","Enables the ParticleEmitter2D instance, which emits particles from GUI objects."
 Studio.BetaFeatures.DeviceSimulatorPerformanceTitle,,,Performance Simulator,Performance Simulator
 Studio.BetaFeatures.DeviceSimulatorPerformanceDescription,,,Simulate a device's graphics quality and memory in the Device Simulator while you build and playtest.,Simulate a device's graphics quality and memory in the Device Simulator while you build and playtest.
+Studio.BetaFeatures.AsyncOBJExport,,,OBJ Export Revamp,OBJ Export Revamp
+Studio.BetaFeatures.AsyncOBJExportDescription,,,"Enable a revamped version of OBJ Export. Features async exporting, performance and stability improvements, and more settings.","Enable a revamped version of OBJ Export. Features async exporting, performance and stability improvements, and more settings."
+Studio.BetaFeatures.TeamTestRemoteOutputDescription,,,"See other participants' output via the Context Menu of the Output window during Team Test, and read their logs from scripts with LogService:GetLogHistoryAsync. Participants need this beta enabled too.","See other participants' output via the Context Menu of the Output window during Team Test, and read their logs from scripts with LogService:GetLogHistoryAsync. Participants need this beta enabled too."
+Studio.BetaFeatures.TeamTestRemoteOutputTitle,,,Team Test Client Logs,Team Test Client Logs
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -17237,7 +17286,7 @@ Studio.AssetExport.Buttons.Processing,,,Processing...,Processing...
 Studio.AssetExport.Title.Review,,,Review Issues,Review Issues
 Studio.AssetExport.SettingName.pbr,,,PBR Textures,PBR Textures
 Studio.AssetExport.Info.Failure,,,"Try again, or reach out on the dev forum if the issue persists","Try again, or reach out on the dev forum if the issue persists"
-Studio.AssetExport.Info.Customize,,,Pick the components to include in your GLTF file,Pick the components to include in your GLTF file
+Studio.AssetExport.Info.Customize,,,Pick the components to include in your file,Pick the components to include in your file
 Studio.AssetExport.Buttons.Cancel,,,Cancel,Cancel
 Studio.AssetExport.SettingName.facs,,,Dynamic Heads,Dynamic Heads
 Studio.AssetExport.Info.Permission,,,Permission Issues,Permission Issues
@@ -17256,6 +17305,7 @@ Studio.AssetExport.Title.Customize,,,Customize your export,Customize your export
 Studio.AssetExport.Title.Failure,,,Export failed,Export failed
 Studio.AssetExport.SettingName.textures,,,Textures,Textures
 Studio.AssetExport.Title.Success,,,Export successful,Export successful
+Studio.AssetExport.Window.Title,,,Export Configuration,Export Configuration
 Studio.NativeDialog.Yes,,,Yes,Yes
 Studio.NativeDialog.No,,,No,No
 Studio.NativeDialog.NativeDialogTitle,,,%1 is not responding,%1 is not responding
@@ -18167,6 +18217,23 @@ Studio.ProjectView.Inspector.AssetIdVersionNotFound,,,That asset has no version 
 Studio.ProjectView.Inspector.AssetIdLinkFailed,,,Couldn't link that asset. Try again.,Couldn't link that asset. Try again.
 Studio.ProjectView.Rename.InvalidName,,,"Invalid name. Use letters, numbers, -, _ or .","Invalid name. Use letters, numbers, -, _ or ."
 Studio.ProjectView.Rename.NameTaken,,,That name is already taken.,That name is already taken.
+Studio.ProjectView.Dialog.TeamCreateRequiredTitle,,,Turn on Team Create to upload,Turn on Team Create to upload
+Studio.ProjectView.Dialog.TeamCreateRequiredBody,,,"Uploading files from your computer needs Team Create. Turn it on, then try again.","Uploading files from your computer needs Team Create. Turn it on, then try again."
+Studio.ProjectView.Action.TurnOnTeamCreate,,,Turn on,Turn on
+Studio.ProjectView.Action.Cancel,,,Cancel,Cancel
+Studio.ProjectView.VersionPIcker.Versions,,,Versions,Versions
+Studio.ProjectView.VersionPicker.VersionsUnavailable,,,Versions aren't available for this asset type yet.,Versions aren't available for this asset type yet.
+Studio.ProjectView.VersionPicker.Versions,,,Versions,Versions
+Studio.ProjectView.Status.UnavailableTitle,,,Asset unavailable,Asset unavailable
+Studio.ProjectView.Status.UnsavedTitle,,,Unsaved changes,Unsaved changes
+Studio.ProjectView.Status.UnavailableMessage,,,"This asset may have been deleted or archived, or you don't have access to it.","This asset may have been deleted or archived, or you don't have access to it."
+Studio.ProjectView.Inspector.TypeUnknown,,,Unknown,Unknown
+Studio.ProjectView.Status.UnsavedMessage,,,This content is only in this place. It uploads when you save.,This content is only in this place. It uploads when you save.
+Studio.ProjectView.Inspector.AssetIdUnsavedVersion,,,Unsaved new version. It uploads when you save.,Unsaved new version. It uploads when you save.
+Studio.ProjectView.Inspector.AssetIdNotPublished,,,Not published yet,Not published yet
+Studio.ProjectView.Dialog.ImportNeedsTeamCreateTitle,,,Turn on Team Create to import,Turn on Team Create to import
+Studio.ProjectView.Dialog.ImportNeedsTeamCreatePublishedBody,,,Importing files from your computer needs Team Create. Turning it on publishes your current changes and reopens the place.,Importing files from your computer needs Team Create. Turning it on publishes your current changes and reopens the place.
+Studio.ProjectView.Dialog.ImportNeedsTeamCreateUnpublishedBody,,,"Importing files from your computer needs Team Create. Save the place to Roblox with Team Create on, then try again.","Importing files from your computer needs Team Create. Save the place to Roblox with Team Create on, then try again."
 Studio.SdfTerrainEditor.BrushSettings.Strength,,,Strength,Strength
 Studio.SdfTerrainEditor.SplineToolbar.LockDescription,,,Locked tangents rotate and resize together.,Locked tangents rotate and resize together.
 Studio.SdfTerrainEditor.Category.TransformSettings,,,Transform Settings,Transform Settings
@@ -18531,11 +18598,14 @@ Studio.Permissions.Scope.UserRestrictionRead,,,Read user restrictions (bans) and
 Studio.Permissions.Scope.UserRestrictionWrite,,,Create and update user restrictions (bans) for a universe or place.,Create and update user restrictions (bans) for a universe or place.
 Studio.Permissions.Scope.UserSocialRead,,,Read a user's social profile information.,Read a user's social profile information.
 Studio.Output.Sources.ClientNumber,,,Client %1,Client %1
-Studio.Output.Sources.Heading,,,Sources,Sources
+Studio.Output.Sources.Heading,,,Participants,Participants
 Studio.Output.Sources.ThisStudio,,,This Studio,This Studio
 Studio.Output.Sources.Departed,,,%1 - Left,%1 - Left
 Studio.Output.Sources.ShowingOutputFrom,,,Showing output from %1,Showing output from %1
-Studio.Shortcuts.ResetDefaults,,,Reset defaults,Reset defaults
+Studio.Output.Context.RemoteClient,,,Remote Client,Remote Client
+Studio.Output.Sources.Rejoined,,,%1 rejoined the Team Test session,%1 rejoined the Team Test session
+Studio.Output.Sources.Left,,,%1 left the Team Test session,%1 left the Team Test session
+Studio.Shortcuts.ResetDefaults,,,Reset to defaults,Reset to defaults
 Studio.ConnectionIndicator.Popup.GoodConnectionMessage,,,Connection established,Connection established
 Studio.ConnectionIndicator.Popup.GoodConnectionTitle,,,Changes synced to Team Create,Changes synced to Team Create
 Studio.ConnectionIndicator.Popup.DelayedConnectionTitle,,,Changes may be delayed,Changes may be delayed

@@ -227,6 +227,8 @@ DefaultUnifiedPlasticReflectionVS_80001000,Vertex
 DefaultUnifiedPlasticReflectionVS_80001002,Vertex
 DefaultUnifiedPlasticReflectionVS_80001006,Vertex
 DefaultUnifiedPlasticReflectionVS_80001200,Vertex
+DefaultUnifiedPlasticReflectionVS_80001202,Vertex
+DefaultUnifiedPlasticReflectionVS_80001206,Vertex
 DefaultUnifiedPlasticReflectionVS_80100001,Vertex
 DefaultUnifiedPlasticReflectionVS_80100007,Vertex
 DefaultUnifiedPlasticReflectionVS_80100201,Vertex
@@ -330,6 +332,7 @@ PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
 PassThroughPosViewportVS,Vertex
 PassThroughPosVS,Vertex
+PassThroughRedFS,Fragment
 PassThroughRotationVS,Vertex
 PassThroughViewportRotationVS,Vertex
 PassThroughViewportVS,Vertex
@@ -410,6 +413,10 @@ TrailVS,Vertex
 TrailVSLight,Vertex
 TrailVSQuad,Vertex
 TrailVSQuadLight,Vertex
+UIBlurDualKawaseDownFS,Fragment
+UIBlurDualKawaseUpFS,Fragment
+UIBlurGaussianFS,Fragment
+UIFilterVS,Vertex
 UIFogVS,Vertex
 UITransformedLitFogVS,Vertex
 UITransformedLitFogVSShadowed,Vertex
