@@ -214,18 +214,20 @@ PROTO_15:
 PROTO_16:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+4]
+        2 JUMPIFNOT                        R0 ; [+6]
         3 LOADNIL                          R0
         4 SETUPVAL                         R0 1
         5 LOADNIL                          R0
         6 SETUPVAL                         R0 2
-        7 GETUPVAL                         R0 3
-        8 LOADK                            R2 K0 ["AssetExportController"]
-        9 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
-       11 CALL                             R0 2 1
-       12 NAMECALL                         R0 R0 K2 ["CancelExportInstigatedAsync"]
-       14 CALL                             R0 1 0
-       15 RETURN                           R0 0
+        7 LOADB                            R0 0
+        8 SETUPVAL                         R0 3
+        9 GETUPVAL                         R0 4
+       10 LOADK                            R2 K0 ["AssetExportController"]
+       11 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
+       13 CALL                             R0 2 1
+       14 NAMECALL                         R0 R0 K2 ["CancelExportInstigatedAsync"]
+       16 CALL                             R0 1 0
+       17 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -510,66 +512,67 @@ PROTO_22:
       271 CAPTURE                          UPVAL U7
       272 CAPTURE                          REF R3
       273 CAPTURE                          REF R4
-      274 CAPTURE                          VAL R0
-      275 NAMECALL                         R8 R0 K16 ["OnInvoke"]
-      277 CALL                             R8 3 -1
-      278 FASTCALL                         TABLE_INSERT ; [+2]
-      279 GETIMPORT                        R6 K6 [table.insert]
-      281 CALL                             R6 -1 0
-      282 MOVE                             R7 R2
-      283 LOADK                            R10 K22 ["OnViewInExplorer"]
-      284 DUPCLOSURE                       R11 K23 [PROTO_17]
-      285 CAPTURE                          UPVAL U8
-      286 NAMECALL                         R8 R0 K16 ["OnInvoke"]
-      288 CALL                             R8 3 -1
-      289 FASTCALL                         TABLE_INSERT ; [+2]
-      290 GETIMPORT                        R6 K6 [table.insert]
-      292 CALL                             R6 -1 0
-      293 MOVE                             R7 R2
-      294 LOADK                            R10 K24 ["OnCreateCageParts"]
-      295 NEWCLOSURE                       R11 P18
-      296 CAPTURE                          UPVAL U9
-      297 CAPTURE                          VAL R0
-      298 NAMECALL                         R8 R0 K16 ["OnInvoke"]
-      300 CALL                             R8 3 -1
-      301 FASTCALL                         TABLE_INSERT ; [+2]
-      302 GETIMPORT                        R6 K6 [table.insert]
-      304 CALL                             R6 -1 0
-      305 MOVE                             R7 R2
-      306 LOADK                            R10 K25 ["OnDestroyCageParts"]
-      307 NEWCLOSURE                       R11 P19
-      308 CAPTURE                          UPVAL U10
-      309 CAPTURE                          VAL R0
-      310 NAMECALL                         R8 R0 K16 ["OnInvoke"]
-      312 CALL                             R8 3 -1
-      313 FASTCALL                         TABLE_INSERT ; [+2]
-      314 GETIMPORT                        R6 K6 [table.insert]
-      316 CALL                             R6 -1 0
-      317 GETUPVAL                         R6 11
-      318 CALL                             R6 0 1
-      319 JUMPIFNOT                        R6 ; [+24]
-      320 MOVE                             R7 R2
-      321 LOADK                            R10 K26 ["OnCreateAttachmentParts"]
-      322 NEWCLOSURE                       R11 P20
-      323 CAPTURE                          UPVAL U12
-      324 CAPTURE                          VAL R0
-      325 NAMECALL                         R8 R0 K16 ["OnInvoke"]
-      327 CALL                             R8 3 -1
-      328 FASTCALL                         TABLE_INSERT ; [+2]
-      329 GETIMPORT                        R6 K6 [table.insert]
-      331 CALL                             R6 -1 0
-      332 MOVE                             R7 R2
-      333 LOADK                            R10 K27 ["OnDestroyAttachmentParts"]
-      334 NEWCLOSURE                       R11 P21
-      335 CAPTURE                          UPVAL U13
-      336 CAPTURE                          VAL R0
-      337 NAMECALL                         R8 R0 K16 ["OnInvoke"]
-      339 CALL                             R8 3 -1
-      340 FASTCALL                         TABLE_INSERT ; [+2]
-      341 GETIMPORT                        R6 K6 [table.insert]
-      343 CALL                             R6 -1 0
-      344 CLOSEUPVALS                      R3
-      345 RETURN                           R2 1
+      274 CAPTURE                          REF R5
+      275 CAPTURE                          VAL R0
+      276 NAMECALL                         R8 R0 K16 ["OnInvoke"]
+      278 CALL                             R8 3 -1
+      279 FASTCALL                         TABLE_INSERT ; [+2]
+      280 GETIMPORT                        R6 K6 [table.insert]
+      282 CALL                             R6 -1 0
+      283 MOVE                             R7 R2
+      284 LOADK                            R10 K22 ["OnViewInExplorer"]
+      285 DUPCLOSURE                       R11 K23 [PROTO_17]
+      286 CAPTURE                          UPVAL U8
+      287 NAMECALL                         R8 R0 K16 ["OnInvoke"]
+      289 CALL                             R8 3 -1
+      290 FASTCALL                         TABLE_INSERT ; [+2]
+      291 GETIMPORT                        R6 K6 [table.insert]
+      293 CALL                             R6 -1 0
+      294 MOVE                             R7 R2
+      295 LOADK                            R10 K24 ["OnCreateCageParts"]
+      296 NEWCLOSURE                       R11 P18
+      297 CAPTURE                          UPVAL U9
+      298 CAPTURE                          VAL R0
+      299 NAMECALL                         R8 R0 K16 ["OnInvoke"]
+      301 CALL                             R8 3 -1
+      302 FASTCALL                         TABLE_INSERT ; [+2]
+      303 GETIMPORT                        R6 K6 [table.insert]
+      305 CALL                             R6 -1 0
+      306 MOVE                             R7 R2
+      307 LOADK                            R10 K25 ["OnDestroyCageParts"]
+      308 NEWCLOSURE                       R11 P19
+      309 CAPTURE                          UPVAL U10
+      310 CAPTURE                          VAL R0
+      311 NAMECALL                         R8 R0 K16 ["OnInvoke"]
+      313 CALL                             R8 3 -1
+      314 FASTCALL                         TABLE_INSERT ; [+2]
+      315 GETIMPORT                        R6 K6 [table.insert]
+      317 CALL                             R6 -1 0
+      318 GETUPVAL                         R6 11
+      319 CALL                             R6 0 1
+      320 JUMPIFNOT                        R6 ; [+24]
+      321 MOVE                             R7 R2
+      322 LOADK                            R10 K26 ["OnCreateAttachmentParts"]
+      323 NEWCLOSURE                       R11 P20
+      324 CAPTURE                          UPVAL U12
+      325 CAPTURE                          VAL R0
+      326 NAMECALL                         R8 R0 K16 ["OnInvoke"]
+      328 CALL                             R8 3 -1
+      329 FASTCALL                         TABLE_INSERT ; [+2]
+      330 GETIMPORT                        R6 K6 [table.insert]
+      332 CALL                             R6 -1 0
+      333 MOVE                             R7 R2
+      334 LOADK                            R10 K27 ["OnDestroyAttachmentParts"]
+      335 NEWCLOSURE                       R11 P21
+      336 CAPTURE                          UPVAL U13
+      337 CAPTURE                          VAL R0
+      338 NAMECALL                         R8 R0 K16 ["OnInvoke"]
+      340 CALL                             R8 3 -1
+      341 FASTCALL                         TABLE_INSERT ; [+2]
+      342 GETIMPORT                        R6 K6 [table.insert]
+      344 CALL                             R6 -1 0
+      345 CLOSEUPVALS                      R3
+      346 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

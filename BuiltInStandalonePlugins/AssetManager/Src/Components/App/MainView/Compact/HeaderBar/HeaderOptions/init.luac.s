@@ -9,18 +9,23 @@ PROTO_0:
        11 DUPTABLE                         R4 K8 [{"MenuButton", "ImportButton"}]
        12 GETUPVAL                         R5 0
        13 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       15 GETUPVAL                         R6 2
-       16 DUPTABLE                         R7 K10 [{["LayoutOrder"] = 1}]
-       17 CALL                             R5 2 1
-       18 SETTABLEKS                       R5 R4 K6 ["MenuButton"]
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       23 GETUPVAL                         R6 3
-       24 DUPTABLE                         R7 K12 [{["LayoutOrder"] = 2}]
-       25 CALL                             R5 2 1
-       26 SETTABLEKS                       R5 R4 K7 ["ImportButton"]
-       28 CALL                             R1 3 -1
-       29 RETURN                           R1 -1
+       15 GETUPVAL                         R7 2
+       16 CALL                             R7 0 1
+       17 JUMPIFNOT                        R7 ; [+2]
+       18 GETUPVAL                         R6 3
+       19 JUMP                             ; [+1]
+       20 GETUPVAL                         R6 4
+       21 DUPTABLE                         R7 K10 [{["LayoutOrder"] = 1}]
+       22 CALL                             R5 2 1
+       23 SETTABLEKS                       R5 R4 K6 ["MenuButton"]
+       25 GETUPVAL                         R5 0
+       26 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       28 GETUPVAL                         R6 5
+       29 DUPTABLE                         R7 K12 [{["LayoutOrder"] = 2}]
+       30 CALL                             R5 2 1
+       31 SETTABLEKS                       R5 R4 K7 ["ImportButton"]
+       33 CALL                             R1 3 -1
+       34 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -37,19 +42,30 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETIMPORT                        R4 K1 [script]
-       25 GETTABLEKS                       R4 R4 K9 ["OptionsMenu"]
-       27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K10 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Components"]
-       34 GETTABLEKS                       R5 R5 K12 ["App"]
-       36 GETTABLEKS                       R5 R5 K13 ["MainView"]
-       38 GETTABLEKS                       R5 R5 K14 ["BulkImportButton"]
-       40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K15 [PROTO_0]
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          VAL R2
-       44 CAPTURE                          VAL R3
-       45 CAPTURE                          VAL R4
-       46 RETURN                           R5 1
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       27 GETTABLEKS                       R4 R4 K11 ["getFFlagAmrEnableSearchableMenu"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETIMPORT                        R5 K1 [script]
+       34 GETTABLEKS                       R5 R5 K12 ["OptionsMenu"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETIMPORT                        R6 K1 [script]
+       41 GETTABLEKS                       R6 R6 K13 ["SearchableOptionsMenu"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K9 ["Src"]
+       48 GETTABLEKS                       R7 R7 K14 ["Components"]
+       50 GETTABLEKS                       R7 R7 K15 ["App"]
+       52 GETTABLEKS                       R7 R7 K16 ["MainView"]
+       54 GETTABLEKS                       R7 R7 K17 ["BulkImportButton"]
+       56 CALL                             R6 1 1
+       57 DUPCLOSURE                       R7 K18 [PROTO_0]
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R5
+       62 CAPTURE                          VAL R4
+       63 CAPTURE                          VAL R6
+       64 RETURN                           R7 1

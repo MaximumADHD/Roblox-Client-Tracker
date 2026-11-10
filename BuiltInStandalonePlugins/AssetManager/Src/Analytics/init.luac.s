@@ -221,7 +221,47 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["DetailsDrawerOpened"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_14:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["DetailsDrawerClosed"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_15:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["DetailsDrawerAssetViewed"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_16:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["DetailsDrawerActionClicked"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_17:
+        0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["OpenFromTrigger"]
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R2 3 0
+        5 RETURN                           R0 0
+
+PROTO_18:
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R3 K0 ["NavigationButtonClicked"]
         2 MOVE                             R4 R0
         3 MOVE                             R5 R1
         4 CALL                             R2 3 0
@@ -286,7 +326,7 @@ MAIN:
        91 GETTABLEKS                       R14 R14 K23 ["Flags"]
        93 GETTABLEKS                       R14 R14 K24 ["getFFlagDebugAmrPrintAnalytics"]
        95 CALL                             R13 1 1
-       96 NEWTABLE                         R14 16 0
+       96 NEWTABLE                         R14 32 0
        98 SETTABLEKS                       R7 R14 K9 ["Types"]
       100 LOADK                            R17 K2 ["AssetManager"]
       101 NAMECALL                         R15 R12 K25 ["GetOTAPluginVersion"]
@@ -341,5 +381,20 @@ MAIN:
       162 SETTABLEKS                       R17 R14 K50 ["sendItemInteractionEvent"]
       164 DUPCLOSURE                       R17 K51 [PROTO_13]
       165 CAPTURE                          VAL R16
-      166 SETTABLEKS                       R17 R14 K52 ["sendOpenFromTriggerEvent"]
-      168 RETURN                           R14 1
+      166 SETTABLEKS                       R17 R14 K52 ["sendDetailsDrawerOpenedEvent"]
+      168 DUPCLOSURE                       R17 K53 [PROTO_14]
+      169 CAPTURE                          VAL R16
+      170 SETTABLEKS                       R17 R14 K54 ["sendDetailsDrawerClosedEvent"]
+      172 DUPCLOSURE                       R17 K55 [PROTO_15]
+      173 CAPTURE                          VAL R16
+      174 SETTABLEKS                       R17 R14 K56 ["sendDetailsDrawerAssetViewedEvent"]
+      176 DUPCLOSURE                       R17 K57 [PROTO_16]
+      177 CAPTURE                          VAL R16
+      178 SETTABLEKS                       R17 R14 K58 ["sendDetailsDrawerActionClickedEvent"]
+      180 DUPCLOSURE                       R17 K59 [PROTO_17]
+      181 CAPTURE                          VAL R16
+      182 SETTABLEKS                       R17 R14 K60 ["sendOpenFromTriggerEvent"]
+      184 DUPCLOSURE                       R17 K61 [PROTO_18]
+      185 CAPTURE                          VAL R16
+      186 SETTABLEKS                       R17 R14 K62 ["sendNavigationButtonClickedEvent"]
+      188 RETURN                           R14 1

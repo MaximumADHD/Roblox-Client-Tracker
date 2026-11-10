@@ -192,149 +192,107 @@ PROTO_7:
        11 GETUPVAL                         R4 1
        12 NAMECALL                         R2 R2 K2 ["getCreatorType"]
        14 CALL                             R2 2 1
-       15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R4 R4 K3 ["fflagOwnerRolesetDeprecation2"]
-       18 JUMPIFNOT                        R4 ; [+10]
-       19 GETIMPORT                        R4 K7 [Enum.CreatorType.Group]
-       21 JUMPIFNOTEQ                      R2 R4 ; [+7]
-       23 GETUPVAL                         R3 3
-       24 MOVE                             R5 R1
-       25 NAMECALL                         R3 R3 K8 ["getOwnerId"]
-       27 CALL                             R3 2 1
-       28 JUMP                             ; [+1]
-       29 LOADNIL                          R3
-       30 GETUPVAL                         R5 2
-       31 GETTABLEKS                       R5 R5 K3 ["fflagOwnerRolesetDeprecation2"]
-       33 JUMPIFNOT                        R5 ; [+10]
-       34 GETIMPORT                        R5 K7 [Enum.CreatorType.Group]
-       36 JUMPIFNOTEQ                      R2 R5 ; [+7]
-       38 GETUPVAL                         R4 3
-       39 MOVE                             R6 R1
-       40 NAMECALL                         R4 R4 K9 ["getOwnerName"]
-       42 CALL                             R4 2 1
-       43 JUMP                             ; [+1]
-       44 LOADNIL                          R4
-       45 LOADNIL                          R5
-       46 LOADNIL                          R6
-       47 GETUPVAL                         R7 2
-       48 GETTABLEKS                       R7 R7 K3 ["fflagOwnerRolesetDeprecation2"]
-       50 JUMPIFNOT                        R7 ; [+13]
+       15 GETIMPORT                        R4 K6 [Enum.CreatorType.Group]
+       17 JUMPIFNOTEQ                      R2 R4 ; [+7]
+       19 GETUPVAL                         R3 2
+       20 MOVE                             R5 R1
+       21 NAMECALL                         R3 R3 K7 ["getOwnerId"]
+       23 CALL                             R3 2 1
+       24 JUMP                             ; [+1]
+       25 LOADNIL                          R3
+       26 GETIMPORT                        R5 K6 [Enum.CreatorType.Group]
+       28 JUMPIFNOTEQ                      R2 R5 ; [+7]
+       30 GETUPVAL                         R4 2
+       31 MOVE                             R6 R1
+       32 NAMECALL                         R4 R4 K8 ["getOwnerName"]
+       34 CALL                             R4 2 1
+       35 JUMP                             ; [+1]
+       36 LOADNIL                          R4
+       37 GETUPVAL                         R5 3
+       38 GETUPVAL                         R7 1
+       39 MOVE                             R8 R0
+       40 MOVE                             R9 R1
+       41 MOVE                             R10 R2
+       42 MOVE                             R11 R3
+       43 MOVE                             R12 R4
+       44 NAMECALL                         R5 R5 K9 ["getPermissions"]
+       46 CALL                             R5 7 2
+       47 GETIMPORT                        R7 K6 [Enum.CreatorType.Group]
+       49 JUMPIFNOTEQ                      R2 R7 ; [+6]
        51 GETUPVAL                         R7 4
-       52 GETUPVAL                         R9 1
-       53 MOVE                             R10 R0
-       54 MOVE                             R11 R1
-       55 MOVE                             R12 R2
-       56 MOVE                             R13 R3
-       57 MOVE                             R14 R4
-       58 NAMECALL                         R7 R7 K10 ["getPermissions"]
-       60 CALL                             R7 7 2
-       61 MOVE                             R5 R7
-       62 MOVE                             R6 R8
-       63 JUMP                             ; [+10]
-       64 GETUPVAL                         R7 4
-       65 GETUPVAL                         R9 1
-       66 MOVE                             R10 R0
-       67 MOVE                             R11 R1
-       68 MOVE                             R12 R2
-       69 NAMECALL                         R7 R7 K11 ["getPermissions_DEPRECATED"]
-       71 CALL                             R7 5 2
-       72 MOVE                             R5 R7
-       73 MOVE                             R6 R8
-       74 GETIMPORT                        R7 K7 [Enum.CreatorType.Group]
-       76 JUMPIFNOTEQ                      R2 R7 ; [+6]
-       78 GETUPVAL                         R7 5
-       79 MOVE                             R8 R5
-       80 MOVE                             R9 R1
-       81 CALL                             R7 2 1
-       82 MOVE                             R5 R7
-       83 GETUPVAL                         R7 6
-       84 GETUPVAL                         R9 7
-       85 MOVE                             R10 R5
-       86 CALL                             R9 1 -1
-       87 NAMECALL                         R7 R7 K12 ["dispatch"]
-       89 CALL                             R7 -1 0
-       90 GETUPVAL                         R7 6
-       91 GETUPVAL                         R9 8
-       92 MOVE                             R10 R6
-       93 CALL                             R9 1 -1
-       94 NAMECALL                         R7 R7 K12 ["dispatch"]
-       96 CALL                             R7 -1 0
-       97 GETUPVAL                         R7 2
-       98 GETTABLEKS                       R7 R7 K13 ["fflagManageCollaboratorsActionNeededLabel"]
-      100 JUMPIF                           R7 ; [+21]
-      101 GETUPVAL                         R7 2
-      102 GETTABLEKS                       R7 R7 K14 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-      104 JUMPIF                           R7 ; [+17]
-      105 GETUPVAL                         R7 2
-      106 GETTABLEKS                       R7 R7 K15 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      108 JUMPIF                           R7 ; [+13]
-      109 GETUPVAL                         R7 2
-      110 GETTABLEKS                       R7 R7 K16 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      112 JUMPIF                           R7 ; [+9]
-      113 GETUPVAL                         R7 2
-      114 GETTABLEKS                       R7 R7 K17 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      116 JUMPIF                           R7 ; [+5]
-      117 GETUPVAL                         R7 2
-      118 GETTABLEKS                       R7 R7 K18 ["fflagGroupGameEarlyTesters"]
-      120 JUMPIF                           R7 ; [+1]
-      121 RETURN                           R0 0
-      122 NEWTABLE                         R7 0 0
-      124 GETUPVAL                         R9 9
-      125 GETTABLEKS                       R9 R9 K19 ["UserSubjectKey"]
-      127 GETTABLE                         R8 R5 R9
-      128 JUMPIFNOT                        R8 ; [+17]
-      129 GETIMPORT                        R8 K21 [pairs]
-      131 GETUPVAL                         R11 9
-      132 GETTABLEKS                       R11 R11 K19 ["UserSubjectKey"]
-      134 GETTABLE                         R9 R5 R11
-      135 CALL                             R8 1 3
-      136 FORGPREP_NEXT                    R8
-      137 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
-      139 MOVE                             R14 R7
-      140 MOVE                             R15 R11
-      141 GETIMPORT                        R13 K24 [table.insert]
-      143 CALL                             R13 2 0
-      144 FORGLOOP                         R8 2 ; [-8]
-      146 GETIMPORT                        R8 K7 [Enum.CreatorType.Group]
-      148 JUMPIFNOTEQ                      R2 R8 ; [+41]
-      150 MOVE                             R8 R3
-      151 JUMPIFNOTEQKNIL                  R8 ; [+23]
-      153 GETUPVAL                         R9 2
-      154 GETTABLEKS                       R9 R9 K3 ["fflagOwnerRolesetDeprecation2"]
-      156 JUMPIF                           R9 ; [+18]
-      157 GETUPVAL                         R9 2
-      158 GETTABLEKS                       R9 R9 K16 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      160 JUMPIF                           R9 ; [+8]
-      161 GETUPVAL                         R9 2
-      162 GETTABLEKS                       R9 R9 K17 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      164 JUMPIF                           R9 ; [+4]
-      165 GETUPVAL                         R9 2
-      166 GETTABLEKS                       R9 R9 K18 ["fflagGroupGameEarlyTesters"]
-      168 JUMPIFNOT                        R9 ; [+6]
-      169 GETUPVAL                         R9 3
-      170 MOVE                             R11 R1
-      171 NAMECALL                         R9 R9 K8 ["getOwnerId"]
-      173 CALL                             R9 2 1
-      174 MOVE                             R8 R9
-      175 JUMPIFEQKNIL                     R8 ; [+14]
-      177 GETUPVAL                         R9 10
-      178 NAMECALL                         R9 R9 K25 ["GetUserId"]
-      180 CALL                             R9 1 1
-      181 JUMPIFNOTEQ                      R8 R9 ; [+8]
-      183 FASTCALL2                        TABLE_INSERT R7 R8 ; [+5]
-      185 MOVE                             R10 R7
-      186 MOVE                             R11 R8
-      187 GETIMPORT                        R9 K24 [table.insert]
-      189 CALL                             R9 2 0
-      190 GETIMPORT                        R8 K28 [coroutine.wrap]
-      192 NEWCLOSURE                       R9 P0
-      193 CAPTURE                          UPVAL U6
-      194 CAPTURE                          VAL R7
-      195 CAPTURE                          UPVAL U2
-      196 CAPTURE                          UPVAL U11
-      197 CALL                             R8 1 1
-      198 CALL                             R8 0 0
-      199 RETURN                           R0 0
+       52 MOVE                             R8 R5
+       53 MOVE                             R9 R1
+       54 CALL                             R7 2 1
+       55 MOVE                             R5 R7
+       56 GETUPVAL                         R7 5
+       57 GETUPVAL                         R9 6
+       58 MOVE                             R10 R5
+       59 CALL                             R9 1 -1
+       60 NAMECALL                         R7 R7 K10 ["dispatch"]
+       62 CALL                             R7 -1 0
+       63 GETUPVAL                         R7 5
+       64 GETUPVAL                         R9 7
+       65 MOVE                             R10 R6
+       66 CALL                             R9 1 -1
+       67 NAMECALL                         R7 R7 K10 ["dispatch"]
+       69 CALL                             R7 -1 0
+       70 GETUPVAL                         R7 8
+       71 GETTABLEKS                       R7 R7 K11 ["fflagManageCollaboratorsActionNeededLabel"]
+       73 JUMPIF                           R7 ; [+21]
+       74 GETUPVAL                         R7 8
+       75 GETTABLEKS                       R7 R7 K12 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
+       77 JUMPIF                           R7 ; [+17]
+       78 GETUPVAL                         R7 8
+       79 GETTABLEKS                       R7 R7 K13 ["fflagManageCollaboratorsEditorBlockingBanner"]
+       81 JUMPIF                           R7 ; [+13]
+       82 GETUPVAL                         R7 8
+       83 GETTABLEKS                       R7 R7 K14 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+       85 JUMPIF                           R7 ; [+9]
+       86 GETUPVAL                         R7 8
+       87 GETTABLEKS                       R7 R7 K15 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+       89 JUMPIF                           R7 ; [+5]
+       90 GETUPVAL                         R7 8
+       91 GETTABLEKS                       R7 R7 K16 ["fflagGroupGameEarlyTesters"]
+       93 JUMPIF                           R7 ; [+1]
+       94 RETURN                           R0 0
+       95 NEWTABLE                         R7 0 0
+       97 GETUPVAL                         R9 9
+       98 GETTABLEKS                       R9 R9 K17 ["UserSubjectKey"]
+      100 GETTABLE                         R8 R5 R9
+      101 JUMPIFNOT                        R8 ; [+17]
+      102 GETIMPORT                        R8 K19 [pairs]
+      104 GETUPVAL                         R11 9
+      105 GETTABLEKS                       R11 R11 K17 ["UserSubjectKey"]
+      107 GETTABLE                         R9 R5 R11
+      108 CALL                             R8 1 3
+      109 FORGPREP_NEXT                    R8
+      110 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
+      112 MOVE                             R14 R7
+      113 MOVE                             R15 R11
+      114 GETIMPORT                        R13 K22 [table.insert]
+      116 CALL                             R13 2 0
+      117 FORGLOOP                         R8 2 ; [-8]
+      119 GETIMPORT                        R8 K6 [Enum.CreatorType.Group]
+      121 JUMPIFNOTEQ                      R2 R8 ; [+16]
+      123 JUMPIFEQKNIL                     R3 ; [+14]
+      125 GETUPVAL                         R8 10
+      126 NAMECALL                         R8 R8 K23 ["GetUserId"]
+      128 CALL                             R8 1 1
+      129 JUMPIFNOTEQ                      R3 R8 ; [+8]
+      131 FASTCALL2                        TABLE_INSERT R7 R3 ; [+5]
+      133 MOVE                             R9 R7
+      134 MOVE                             R10 R3
+      135 GETIMPORT                        R8 K22 [table.insert]
+      137 CALL                             R8 2 0
+      138 GETIMPORT                        R8 K26 [coroutine.wrap]
+      140 NEWCLOSURE                       R9 P0
+      141 CAPTURE                          UPVAL U5
+      142 CAPTURE                          VAL R7
+      143 CAPTURE                          UPVAL U8
+      144 CAPTURE                          UPVAL U11
+      145 CALL                             R8 1 1
+      146 CALL                             R8 0 0
+      147 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -630,11 +588,11 @@ PROTO_17:
        29 NEWCLOSURE                       R12 P1
        30 CAPTURE                          VAL R2
        31 CAPTURE                          VAL R8
-       32 CAPTURE                          UPVAL U1
-       33 CAPTURE                          VAL R3
-       34 CAPTURE                          VAL R5
-       35 CAPTURE                          UPVAL U2
-       36 CAPTURE                          VAL R0
+       32 CAPTURE                          VAL R3
+       33 CAPTURE                          VAL R5
+       34 CAPTURE                          UPVAL U1
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          UPVAL U2
        37 CAPTURE                          UPVAL U3
        38 CAPTURE                          UPVAL U4
        39 CAPTURE                          UPVAL U5
@@ -651,7 +609,7 @@ PROTO_17:
        50 CAPTURE                          VAL R4
        51 CAPTURE                          UPVAL U10
        52 CAPTURE                          VAL R9
-       53 CAPTURE                          UPVAL U1
+       53 CAPTURE                          UPVAL U4
        54 CAPTURE                          UPVAL U11
        55 NEWCLOSURE                       R14 P3
        56 CAPTURE                          VAL R2
@@ -664,7 +622,7 @@ PROTO_17:
        63 CAPTURE                          VAL R0
        64 CAPTURE                          UPVAL U13
        65 NEWCLOSURE                       R16 P5
-       66 CAPTURE                          UPVAL U1
+       66 CAPTURE                          UPVAL U4
        67 CAPTURE                          VAL R2
        68 CAPTURE                          VAL R8
        69 CAPTURE                          VAL R7
@@ -678,7 +636,7 @@ PROTO_17:
        77 NEWCLOSURE                       R18 P7
        78 CAPTURE                          VAL R2
        79 CAPTURE                          VAL R8
-       80 CAPTURE                          UPVAL U1
+       80 CAPTURE                          UPVAL U4
        81 CAPTURE                          VAL R1
        82 CAPTURE                          VAL R0
        83 CAPTURE                          UPVAL U16
@@ -932,10 +890,10 @@ MAIN:
       238 CAPTURE                          VAL R26
       239 DUPCLOSURE                       R30 K44 [PROTO_17]
       240 CAPTURE                          VAL R10
-      241 CAPTURE                          VAL R2
-      242 CAPTURE                          VAL R29
-      243 CAPTURE                          VAL R8
-      244 CAPTURE                          VAL R11
+      241 CAPTURE                          VAL R29
+      242 CAPTURE                          VAL R8
+      243 CAPTURE                          VAL R11
+      244 CAPTURE                          VAL R2
       245 CAPTURE                          VAL R7
       246 CAPTURE                          VAL R3
       247 CAPTURE                          VAL R19

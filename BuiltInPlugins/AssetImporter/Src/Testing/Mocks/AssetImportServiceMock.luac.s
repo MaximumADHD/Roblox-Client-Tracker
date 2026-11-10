@@ -99,19 +99,28 @@ PROTO_11:
 
 PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["_mockFiles"]
-        2 RETURN                           R1 1
+        2 JUMPIFNOT                        R1 ; [+4]
+        3 GETTABLEKS                       R2 R0 K0 ["_mockFiles"]
+        5 GETTABLEN                        R1 R2 1
+        6 RETURN                           R1 1
+        7 LOADNIL                          R1
+        8 RETURN                           R1 1
 
 PROTO_13:
+        0 GETTABLEKS                       R1 R0 K0 ["_mockFiles"]
+        2 RETURN                           R1 1
+
+PROTO_14:
         0 LOADN                            R3 0
         1 LOADK                            R4 K0 [""]
         2 RETURN                           R3 2
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R3 R0 K0 ["_versionedUploadErrors"]
         2 SETTABLE                         R2 R3 R1
         3 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETTABLEKS                       R5 R0 K0 ["_versionedUploadErrors"]
         2 GETTABLE                         R4 R5 R1
         3 JUMPIFNOT                        R4 ; [+3]
@@ -123,12 +132,12 @@ PROTO_15:
        10 LOADNIL                          R6
        11 RETURN                           R5 2
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R3 R0 K0 ["_mockSessions"]
         2 SETTABLE                         R2 R3 R1
         3 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETTABLEKS                       R3 R0 K0 ["_mockSessions"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFEQKNIL                     R2 ; [+2]
@@ -177,16 +186,18 @@ MAIN:
        51 DUPCLOSURE                       R3 K26 [PROTO_11]
        52 SETTABLEKS                       R3 R2 K27 ["PickImageFileWithPrompt"]
        54 DUPCLOSURE                       R3 K28 [PROTO_12]
-       55 SETTABLEKS                       R3 R2 K29 ["PickMultipleFilesWithPrompt"]
+       55 SETTABLEKS                       R3 R2 K29 ["PickTextDocumentFileWithPromptAsync"]
        57 DUPCLOSURE                       R3 K30 [PROTO_13]
-       58 SETTABLEKS                       R3 R2 K31 ["UploadAssetFromPathAsync"]
+       58 SETTABLEKS                       R3 R2 K31 ["PickMultipleFilesWithPrompt"]
        60 DUPCLOSURE                       R3 K32 [PROTO_14]
-       61 SETTABLEKS                       R3 R2 K33 ["_setVersionedUploadErrorForPath"]
+       61 SETTABLEKS                       R3 R2 K33 ["UploadAssetFromPathAsync"]
        63 DUPCLOSURE                       R3 K34 [PROTO_15]
-       64 SETTABLEKS                       R3 R2 K35 ["UploadVersionedAssetFromPathAsync"]
+       64 SETTABLEKS                       R3 R2 K35 ["_setVersionedUploadErrorForPath"]
        66 DUPCLOSURE                       R3 K36 [PROTO_16]
-       67 SETTABLEKS                       R3 R2 K37 ["_setSessionFromPath"]
+       67 SETTABLEKS                       R3 R2 K37 ["UploadVersionedAssetFromPathAsync"]
        69 DUPCLOSURE                       R3 K38 [PROTO_17]
-       70 CAPTURE                          VAL R0
-       71 SETTABLEKS                       R3 R2 K39 ["StartSessionWithPathAsync"]
-       73 RETURN                           R2 1
+       70 SETTABLEKS                       R3 R2 K39 ["_setSessionFromPath"]
+       72 DUPCLOSURE                       R3 K40 [PROTO_18]
+       73 CAPTURE                          VAL R0
+       74 SETTABLEKS                       R3 R2 K41 ["StartSessionWithPathAsync"]
+       76 RETURN                           R2 1

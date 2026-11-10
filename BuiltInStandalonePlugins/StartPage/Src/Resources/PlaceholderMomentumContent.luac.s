@@ -1,122 +1,138 @@
 PROTO_0:
-        0 NEWTABLE                         R1 0 6
-        2 DUPTABLE                         R2 K8 [{[1] = "Momentum/Sketch", ["ImageUrl"] = "rbxasset://textures/StartPage/Sketch.png", ["Name"], ["Description"], ["Link"] = "https://www.youtube.com/playlist?list=PLMneGxZNs3ZawdQ3Y5bjCRHM75fDJydv9"}]
-        3 LOADK                            R5 K9 ["DiscoverStudioPlaceholder"]
-        4 LOADK                            R6 K10 ["SketchSeries.Title"]
-        5 NAMECALL                         R3 R0 K11 ["getText"]
-        7 CALL                             R3 3 1
-        8 SETTABLEKS                       R3 R2 K4 ["Name"]
-       10 LOADK                            R5 K9 ["DiscoverStudioPlaceholder"]
-       11 LOADK                            R6 K12 ["SketchSeries.Desc"]
-       12 NAMECALL                         R3 R0 K11 ["getText"]
-       14 CALL                             R3 3 1
-       15 SETTABLEKS                       R3 R2 K5 ["Description"]
-       17 DUPTABLE                         R3 K15 [{[1] = "Momentum/Tutorials", ["ImageUrl"] = "rbxasset://textures/StartPage/Tutorials.png", ["Name"], ["Description"], ["Link"]}]
-       18 LOADK                            R6 K9 ["DiscoverStudioPlaceholder"]
-       19 LOADK                            R7 K16 ["Tutorials.Title"]
-       20 NAMECALL                         R4 R0 K11 ["getText"]
-       22 CALL                             R4 3 1
-       23 SETTABLEKS                       R4 R3 K4 ["Name"]
-       25 LOADK                            R6 K9 ["DiscoverStudioPlaceholder"]
-       26 LOADK                            R7 K17 ["Tutorials.Desc"]
-       27 NAMECALL                         R4 R0 K11 ["getText"]
-       29 CALL                             R4 3 1
-       30 SETTABLEKS                       R4 R3 K5 ["Description"]
-       32 GETUPVAL                         R4 0
-       33 GETTABLEKS                       R4 R4 K18 ["composeUrl"]
-       35 GETUPVAL                         R5 1
-       36 LOADK                            R6 K19 ["docs/en-us/tutorials?utm_source=studio&utm_content=start_page"]
-       37 CALL                             R4 2 1
-       38 SETTABLEKS                       R4 R3 K6 ["Link"]
-       40 DUPTABLE                         R4 K22 [{[1] = "Momentum/Datamodel", ["ImageUrl"] = "rbxasset://textures/StartPage/Datamodel.png", ["Name"], ["Description"], ["Link"]}]
-       41 LOADK                            R7 K9 ["DiscoverStudioPlaceholder"]
-       42 LOADK                            R8 K23 ["Principles.Title"]
-       43 NAMECALL                         R5 R0 K11 ["getText"]
-       45 CALL                             R5 3 1
-       46 SETTABLEKS                       R5 R4 K4 ["Name"]
-       48 LOADK                            R7 K9 ["DiscoverStudioPlaceholder"]
-       49 LOADK                            R8 K24 ["Principles.Desc"]
-       50 NAMECALL                         R5 R0 K11 ["getText"]
-       52 CALL                             R5 3 1
-       53 SETTABLEKS                       R5 R4 K5 ["Description"]
-       55 GETUPVAL                         R5 0
-       56 GETTABLEKS                       R5 R5 K18 ["composeUrl"]
-       58 GETUPVAL                         R6 1
-       59 LOADK                            R7 K25 ["docs/en-us/creation#experiences?utm_source=studio&utm_content=start_page"]
-       60 CALL                             R5 2 1
-       61 SETTABLEKS                       R5 R4 K6 ["Link"]
-       63 DUPTABLE                         R5 K28 [{[1] = "Momentum/Avatar", ["ImageUrl"] = "rbxasset://textures/StartPage/Avatar.png", ["Name"], ["Description"], ["Link"]}]
-       64 LOADK                            R8 K9 ["DiscoverStudioPlaceholder"]
-       65 LOADK                            R9 K29 ["Avatar.Title"]
-       66 NAMECALL                         R6 R0 K11 ["getText"]
-       68 CALL                             R6 3 1
-       69 SETTABLEKS                       R6 R5 K4 ["Name"]
-       71 LOADK                            R8 K9 ["DiscoverStudioPlaceholder"]
-       72 LOADK                            R9 K30 ["Avatar.Desc"]
-       73 NAMECALL                         R6 R0 K11 ["getText"]
-       75 CALL                             R6 3 1
-       76 SETTABLEKS                       R6 R5 K5 ["Description"]
-       78 GETUPVAL                         R6 0
-       79 GETTABLEKS                       R6 R6 K18 ["composeUrl"]
-       81 GETUPVAL                         R7 1
-       82 LOADK                            R8 K31 ["docs/avatar?utm_source=studio&utm_content=start_page"]
-       83 CALL                             R6 2 1
-       84 SETTABLEKS                       R6 R5 K6 ["Link"]
-       86 DUPTABLE                         R6 K34 [{[1] = "Momentum/Engine", ["ImageUrl"] = "rbxasset://textures/StartPage/Engine.png", ["Name"], ["Description"], ["Link"]}]
-       87 LOADK                            R9 K9 ["DiscoverStudioPlaceholder"]
-       88 LOADK                            R10 K35 ["Engine.Title"]
-       89 NAMECALL                         R7 R0 K11 ["getText"]
-       91 CALL                             R7 3 1
-       92 SETTABLEKS                       R7 R6 K4 ["Name"]
-       94 LOADK                            R9 K9 ["DiscoverStudioPlaceholder"]
-       95 LOADK                            R10 K36 ["Engine.Desc"]
-       96 NAMECALL                         R7 R0 K11 ["getText"]
-       98 CALL                             R7 3 1
-       99 SETTABLEKS                       R7 R6 K5 ["Description"]
-      101 GETUPVAL                         R7 0
-      102 GETTABLEKS                       R7 R7 K18 ["composeUrl"]
-      104 GETUPVAL                         R8 1
-      105 LOADK                            R9 K37 ["docs/en-us/platform?utm_source=studioe&utm_content=start_page"]
-      106 CALL                             R7 2 1
-      107 SETTABLEKS                       R7 R6 K6 ["Link"]
-      109 DUPTABLE                         R7 K40 [{[1] = "Momentum/CreatorHub", ["ImageUrl"] = "rbxasset://textures/StartPage/CreatorHub.png", ["Name"], ["Description"], ["Link"]}]
-      110 LOADK                            R10 K9 ["DiscoverStudioPlaceholder"]
-      111 LOADK                            R11 K41 ["CreatorHub.Title"]
-      112 NAMECALL                         R8 R0 K11 ["getText"]
-      114 CALL                             R8 3 1
-      115 SETTABLEKS                       R8 R7 K4 ["Name"]
-      117 LOADK                            R10 K9 ["DiscoverStudioPlaceholder"]
-      118 LOADK                            R11 K42 ["CreatorHub.Desc"]
-      119 NAMECALL                         R8 R0 K11 ["getText"]
-      121 CALL                             R8 3 1
-      122 SETTABLEKS                       R8 R7 K5 ["Description"]
-      124 GETUPVAL                         R8 0
-      125 GETTABLEKS                       R8 R8 K18 ["composeUrl"]
-      127 GETUPVAL                         R9 1
-      128 LOADK                            R10 K43 ["?utm_source=studio&utm_content=start_page"]
-      129 CALL                             R8 2 1
-      130 SETTABLEKS                       R8 R7 K6 ["Link"]
-      132 SETLIST                          R1 R2 6 [1]
-      134 GETUPVAL                         R2 2
-      135 NAMECALL                         R2 R2 K44 ["isTutorialBannerClosed"]
-      137 CALL                             R2 1 1
-      138 JUMPIFNOT                        R2 ; [+21]
-      139 DUPTABLE                         R4 K49 [{[1] = "Momentum/Tour", ["ImageUrl"] = "rbxasset://textures/StartPage/StudioTour.png", ["Name"], ["Description"], ["LaunchTutorialOnClick"] = True}]
-      140 LOADK                            R7 K9 ["DiscoverStudioPlaceholder"]
-      141 LOADK                            R8 K50 ["StudioTour.Title"]
-      142 NAMECALL                         R5 R0 K11 ["getText"]
-      144 CALL                             R5 3 1
-      145 SETTABLEKS                       R5 R4 K4 ["Name"]
-      147 LOADK                            R7 K9 ["DiscoverStudioPlaceholder"]
-      148 LOADK                            R8 K51 ["StudioTour.Desc"]
-      149 NAMECALL                         R5 R0 K11 ["getText"]
-      151 CALL                             R5 3 1
-      152 SETTABLEKS                       R5 R4 K5 ["Description"]
-      154 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
-      156 MOVE                             R3 R1
-      157 GETIMPORT                        R2 K54 [table.insert]
-      159 CALL                             R2 2 0
-      160 RETURN                           R1 1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["composeUrl"]
+        5 GETUPVAL                         R3 2
+        6 JUMPIFNOT                        R1 ; [+2]
+        7 LOADK                            R4 K1 ["docs/"]
+        8 JUMP                             ; [+1]
+        9 LOADK                            R4 K2 ["docs/en-us/"]
+       10 CALL                             R2 2 1
+       11 NEWTABLE                         R3 0 5
+       13 DUPTABLE                         R4 K10 [{["ContentId"] = "Momentum/Tutorials", ["ImageUrl"] = "rbxasset://textures/StartPage/Tutorials.png", ["Name"], ["Description"], ["Link"]}]
+       14 LOADK                            R7 K11 ["DiscoverStudioPlaceholder"]
+       15 LOADK                            R8 K12 ["Tutorials.Title"]
+       16 NAMECALL                         R5 R0 K13 ["getText"]
+       18 CALL                             R5 3 1
+       19 SETTABLEKS                       R5 R4 K7 ["Name"]
+       21 LOADK                            R7 K11 ["DiscoverStudioPlaceholder"]
+       22 LOADK                            R8 K14 ["Tutorials.Desc"]
+       23 NAMECALL                         R5 R0 K13 ["getText"]
+       25 CALL                             R5 3 1
+       26 SETTABLEKS                       R5 R4 K8 ["Description"]
+       28 GETUPVAL                         R5 1
+       29 GETTABLEKS                       R5 R5 K0 ["composeUrl"]
+       31 MOVE                             R6 R2
+       32 LOADK                            R7 K15 ["tutorials?utm_source=studio&utm_content=start_page"]
+       33 CALL                             R5 2 1
+       34 SETTABLEKS                       R5 R4 K9 ["Link"]
+       36 DUPTABLE                         R5 K18 [{["ContentId"] = "Momentum/Datamodel", ["ImageUrl"] = "rbxasset://textures/StartPage/Datamodel.png", ["Name"], ["Description"], ["Link"]}]
+       37 LOADK                            R8 K11 ["DiscoverStudioPlaceholder"]
+       38 LOADK                            R9 K19 ["Principles.Title"]
+       39 NAMECALL                         R6 R0 K13 ["getText"]
+       41 CALL                             R6 3 1
+       42 SETTABLEKS                       R6 R5 K7 ["Name"]
+       44 LOADK                            R8 K11 ["DiscoverStudioPlaceholder"]
+       45 LOADK                            R9 K20 ["Principles.Desc"]
+       46 NAMECALL                         R6 R0 K13 ["getText"]
+       48 CALL                             R6 3 1
+       49 SETTABLEKS                       R6 R5 K8 ["Description"]
+       51 GETUPVAL                         R6 1
+       52 GETTABLEKS                       R6 R6 K0 ["composeUrl"]
+       54 MOVE                             R7 R2
+       55 LOADK                            R8 K21 ["creation#experiences?utm_source=studio&utm_content=start_page"]
+       56 CALL                             R6 2 1
+       57 SETTABLEKS                       R6 R5 K9 ["Link"]
+       59 DUPTABLE                         R6 K24 [{["ContentId"] = "Momentum/Avatar", ["ImageUrl"] = "rbxasset://textures/StartPage/Avatar.png", ["Name"], ["Description"], ["Link"]}]
+       60 LOADK                            R9 K11 ["DiscoverStudioPlaceholder"]
+       61 LOADK                            R10 K25 ["Avatar.Title"]
+       62 NAMECALL                         R7 R0 K13 ["getText"]
+       64 CALL                             R7 3 1
+       65 SETTABLEKS                       R7 R6 K7 ["Name"]
+       67 LOADK                            R9 K11 ["DiscoverStudioPlaceholder"]
+       68 LOADK                            R10 K26 ["Avatar.Desc"]
+       69 NAMECALL                         R7 R0 K13 ["getText"]
+       71 CALL                             R7 3 1
+       72 SETTABLEKS                       R7 R6 K8 ["Description"]
+       74 GETUPVAL                         R7 1
+       75 GETTABLEKS                       R7 R7 K0 ["composeUrl"]
+       77 GETUPVAL                         R8 2
+       78 LOADK                            R9 K27 ["docs/avatar?utm_source=studio&utm_content=start_page"]
+       79 CALL                             R7 2 1
+       80 SETTABLEKS                       R7 R6 K9 ["Link"]
+       82 DUPTABLE                         R7 K30 [{["ContentId"] = "Momentum/Engine", ["ImageUrl"] = "rbxasset://textures/StartPage/Engine.png", ["Name"], ["Description"], ["Link"]}]
+       83 LOADK                            R10 K11 ["DiscoverStudioPlaceholder"]
+       84 LOADK                            R11 K31 ["Engine.Title"]
+       85 NAMECALL                         R8 R0 K13 ["getText"]
+       87 CALL                             R8 3 1
+       88 SETTABLEKS                       R8 R7 K7 ["Name"]
+       90 LOADK                            R10 K11 ["DiscoverStudioPlaceholder"]
+       91 LOADK                            R11 K32 ["Engine.Desc"]
+       92 NAMECALL                         R8 R0 K13 ["getText"]
+       94 CALL                             R8 3 1
+       95 SETTABLEKS                       R8 R7 K8 ["Description"]
+       97 GETUPVAL                         R8 1
+       98 GETTABLEKS                       R8 R8 K0 ["composeUrl"]
+      100 MOVE                             R9 R2
+      101 LOADK                            R10 K33 ["platform?utm_source=studioe&utm_content=start_page"]
+      102 CALL                             R8 2 1
+      103 SETTABLEKS                       R8 R7 K9 ["Link"]
+      105 DUPTABLE                         R8 K36 [{["ContentId"] = "Momentum/CreatorHub", ["ImageUrl"] = "rbxasset://textures/StartPage/CreatorHub.png", ["Name"], ["Description"], ["Link"]}]
+      106 LOADK                            R11 K11 ["DiscoverStudioPlaceholder"]
+      107 LOADK                            R12 K37 ["CreatorHub.Title"]
+      108 NAMECALL                         R9 R0 K13 ["getText"]
+      110 CALL                             R9 3 1
+      111 SETTABLEKS                       R9 R8 K7 ["Name"]
+      113 LOADK                            R11 K11 ["DiscoverStudioPlaceholder"]
+      114 LOADK                            R12 K38 ["CreatorHub.Desc"]
+      115 NAMECALL                         R9 R0 K13 ["getText"]
+      117 CALL                             R9 3 1
+      118 SETTABLEKS                       R9 R8 K8 ["Description"]
+      120 GETUPVAL                         R9 1
+      121 GETTABLEKS                       R9 R9 K0 ["composeUrl"]
+      123 GETUPVAL                         R10 2
+      124 LOADK                            R11 K39 ["?utm_source=studio&utm_content=start_page"]
+      125 CALL                             R9 2 1
+      126 SETTABLEKS                       R9 R8 K9 ["Link"]
+      128 SETLIST                          R3 R4 5 [1]
+      130 JUMPIF                           R1 ; [+22]
+      131 LOADN                            R6 1
+      132 DUPTABLE                         R7 K43 [{["ContentId"] = "Momentum/Sketch", ["ImageUrl"] = "rbxasset://textures/StartPage/Sketch.png", ["Name"], ["Description"], ["Link"] = "https://www.youtube.com/playlist?list=PLMneGxZNs3ZawdQ3Y5bjCRHM75fDJydv9"}]
+      133 LOADK                            R10 K11 ["DiscoverStudioPlaceholder"]
+      134 LOADK                            R11 K44 ["SketchSeries.Title"]
+      135 NAMECALL                         R8 R0 K13 ["getText"]
+      137 CALL                             R8 3 1
+      138 SETTABLEKS                       R8 R7 K7 ["Name"]
+      140 LOADK                            R10 K11 ["DiscoverStudioPlaceholder"]
+      141 LOADK                            R11 K45 ["SketchSeries.Desc"]
+      142 NAMECALL                         R8 R0 K13 ["getText"]
+      144 CALL                             R8 3 1
+      145 SETTABLEKS                       R8 R7 K8 ["Description"]
+      147 FASTCALL3                        TABLE_INSERT R3 R6 R7
+      149 MOVE                             R5 R3
+      150 GETIMPORT                        R4 K48 [table.insert]
+      152 CALL                             R4 3 0
+      153 GETUPVAL                         R4 3
+      154 NAMECALL                         R4 R4 K49 ["isTutorialBannerClosed"]
+      156 CALL                             R4 1 1
+      157 JUMPIFNOT                        R4 ; [+21]
+      158 DUPTABLE                         R6 K54 [{["ContentId"] = "Momentum/Tour", ["ImageUrl"] = "rbxasset://textures/StartPage/StudioTour.png", ["Name"], ["Description"], ["LaunchTutorialOnClick"] = True}]
+      159 LOADK                            R9 K11 ["DiscoverStudioPlaceholder"]
+      160 LOADK                            R10 K55 ["StudioTour.Title"]
+      161 NAMECALL                         R7 R0 K13 ["getText"]
+      163 CALL                             R7 3 1
+      164 SETTABLEKS                       R7 R6 K7 ["Name"]
+      166 LOADK                            R9 K11 ["DiscoverStudioPlaceholder"]
+      167 LOADK                            R10 K56 ["StudioTour.Desc"]
+      168 NAMECALL                         R7 R0 K13 ["getText"]
+      170 CALL                             R7 3 1
+      171 SETTABLEKS                       R7 R6 K8 ["Description"]
+      173 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
+      175 MOVE                             R5 R3
+      176 GETIMPORT                        R4 K48 [table.insert]
+      178 CALL                             R4 2 0
+      179 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -143,10 +159,16 @@ MAIN:
        36 GETTABLEKS                       R6 R6 K15 ["Services"]
        38 CALL                             R5 1 1
        39 GETTABLEKS                       R6 R5 K16 ["StartPageManager"]
-       41 NEWTABLE                         R7 1 0
-       43 DUPCLOSURE                       R8 K17 [PROTO_0]
-       44 CAPTURE                          VAL R2
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R6
-       47 SETTABLEKS                       R8 R7 K18 ["get"]
-       49 RETURN                           R7 1
+       41 GETIMPORT                        R7 K5 [require]
+       43 GETTABLEKS                       R8 R0 K12 ["Src"]
+       45 GETTABLEKS                       R8 R8 K17 ["SharedFlags"]
+       47 GETTABLEKS                       R8 R8 K18 ["getFFlagIsLuobuBuild"]
+       49 CALL                             R7 1 1
+       50 NEWTABLE                         R8 1 0
+       52 DUPCLOSURE                       R9 K19 [PROTO_0]
+       53 CAPTURE                          VAL R7
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R6
+       57 SETTABLEKS                       R9 R8 K20 ["get"]
+       59 RETURN                           R8 1

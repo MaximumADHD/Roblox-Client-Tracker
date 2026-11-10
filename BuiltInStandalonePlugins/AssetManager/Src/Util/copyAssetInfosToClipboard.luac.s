@@ -33,26 +33,19 @@ PROTO_1:
        19 GETUPVAL                         R12 0
        20 GETTABLEKS                       R12 R12 K4 ["AssetInfoField"]
        22 GETTABLEKS                       R12 R12 K5 ["Creator"]
-       24 JUMPIFNOTEQ                      R10 R12 ; [+3]
-       26 GETTABLEKS                       R11 R11 K6 ["Name"]
-       28 JUMPIFNOTEQKNIL                  R11 ; [+2]
-       30 LOADB                            R13 0 +1
-       31 LOADB                            R13 1
-       32 LOADK                            R14 K7 ["Could not find field %* for asset with path %* in items cache"]
-       33 MOVE                             R16 R10
-       34 MOVE                             R17 R1
-       35 NAMECALL                         R14 R14 K8 ["format"]
-       37 CALL                             R14 3 1
-       38 FASTCALL2                        ASSERT R13 R14 ; [+3]
-       40 GETIMPORT                        R12 K10 [assert]
-       42 CALL                             R12 2 0
-       43 FASTCALL2                        TABLE_INSERT R3 R11 ; [+5]
-       45 MOVE                             R13 R3
-       46 MOVE                             R14 R11
-       47 GETIMPORT                        R12 K13 [table.insert]
-       49 CALL                             R12 2 0
-       50 FORGLOOP                         R6 2 ; [-39]
-       52 RETURN                           R3 1
+       24 JUMPIFNOTEQ                      R10 R12 ; [+5]
+       26 JUMPIFEQKNIL                     R11 ; [+3]
+       28 GETTABLEKS                       R11 R11 K6 ["Name"]
+       30 JUMPIFEQKNIL                     R11 ; [+3]
+       32 MOVE                             R14 R11
+       33 JUMP                             ; [+1]
+       34 LOADK                            R14 K7 [""]
+       35 FASTCALL2                        TABLE_INSERT R3 R14 ; [+4]
+       37 MOVE                             R13 R3
+       38 GETIMPORT                        R12 K10 [table.insert]
+       40 CALL                             R12 2 0
+       41 FORGLOOP                         R6 2 ; [-30]
+       43 RETURN                           R3 1
 
 PROTO_2:
         0 NEWTABLE                         R4 0 1

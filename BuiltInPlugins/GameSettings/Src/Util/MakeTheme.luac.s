@@ -691,49 +691,47 @@ MAIN:
      1100 JUMP                             ; [+1]
      1101 LOADNIL                          R20
      1102 SETTABLEKS                       R20 R19 K446 ["guidelinesDescriptionText"]
-     1104 DUPTABLE                         R20 K448 [{["PaddingBottom"] = 5}]
-     1105 SETTABLEKS                       R20 R19 K449 ["atcFrame"]
-     1107 DUPTABLE                         R20 K451 [{"backgroundColor", "textColor", "padding"}]
-     1108 GETTABLEKS                       R21 R5 K125 ["InputFieldBackground"]
-     1110 SETTABLEKS                       R21 R20 K118 ["backgroundColor"]
-     1112 GETTABLEKS                       R21 R5 K46 ["BrightText"]
-     1114 SETTABLEKS                       R21 R20 K450 ["textColor"]
-     1116 DUPTABLE                         R21 K454 [{["Top"] = 12, ["Bottom"] = 12, ["Left"] = 16, ["Right"] = 16}]
-     1117 SETTABLEKS                       R21 R20 K185 ["padding"]
-     1119 SETTABLEKS                       R20 R19 K455 ["permissionsBanner"]
-     1121 GETTABLEKS                       R20 R7 K62 ["Button"]
-     1123 SETTABLE                         R15 R19 R20
-     1124 GETTABLEKS                       R20 R7 K68 ["Image"]
-     1126 SETTABLE                         R16 R19 R20
-     1127 NEWTABLE                         R20 4 0
-     1129 GETTABLEKS                       R21 R5 K195 ["RadioButtonImage"]
-     1131 LOADK                            R22 K456 ["rbxasset://textures/StudioSharedUI/radio_selected_enabled_dark.png"]
-     1132 SETTABLE                         R22 R20 R21
-     1133 GETTABLEKS                       R21 R5 K196 ["RadioButtonDisabledImage"]
-     1135 LOADK                            R22 K457 ["rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot_dark.png"]
-     1136 SETTABLE                         R22 R20 R21
-     1137 GETTABLEKS                       R21 R5 K235 ["RefreshImage"]
-     1139 LOADK                            R22 K458 ["rbxasset://textures/GameSettings/refresh_dark_theme.png"]
-     1140 SETTABLE                         R22 R20 R21
-     1141 GETTABLEKS                       R21 R5 K210 ["InformationImage"]
-     1143 LOADK                            R22 K459 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Large/Information.png"]
-     1144 SETTABLE                         R22 R20 R21
-     1145 NEWTABLE                         R21 4 0
-     1147 GETTABLEKS                       R22 R5 K195 ["RadioButtonImage"]
-     1149 LOADK                            R23 K460 ["rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png"]
-     1150 SETTABLE                         R23 R21 R22
-     1151 GETTABLEKS                       R22 R5 K196 ["RadioButtonDisabledImage"]
-     1153 LOADK                            R23 K461 ["rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png"]
-     1154 SETTABLE                         R23 R21 R22
-     1155 GETTABLEKS                       R22 R5 K235 ["RefreshImage"]
-     1157 LOADK                            R23 K462 ["rbxasset://textures/GameSettings/refresh_light_theme.png"]
-     1158 SETTABLE                         R23 R21 R22
-     1159 GETTABLEKS                       R22 R5 K210 ["InformationImage"]
-     1161 LOADK                            R23 K463 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Large/Information.png"]
-     1162 SETTABLE                         R23 R21 R22
-     1163 DUPCLOSURE                       R22 K464 [PROTO_0]
-     1164 CAPTURE                          VAL R8
-     1165 CAPTURE                          VAL R20
-     1166 CAPTURE                          VAL R21
-     1167 CAPTURE                          VAL R19
-     1168 RETURN                           R22 1
+     1104 DUPTABLE                         R20 K448 [{"backgroundColor", "textColor", "padding"}]
+     1105 GETTABLEKS                       R21 R5 K125 ["InputFieldBackground"]
+     1107 SETTABLEKS                       R21 R20 K118 ["backgroundColor"]
+     1109 GETTABLEKS                       R21 R5 K46 ["BrightText"]
+     1111 SETTABLEKS                       R21 R20 K447 ["textColor"]
+     1113 DUPTABLE                         R21 K451 [{["Top"] = 12, ["Bottom"] = 12, ["Left"] = 16, ["Right"] = 16}]
+     1114 SETTABLEKS                       R21 R20 K185 ["padding"]
+     1116 SETTABLEKS                       R20 R19 K452 ["permissionsBanner"]
+     1118 GETTABLEKS                       R20 R7 K62 ["Button"]
+     1120 SETTABLE                         R15 R19 R20
+     1121 GETTABLEKS                       R20 R7 K68 ["Image"]
+     1123 SETTABLE                         R16 R19 R20
+     1124 NEWTABLE                         R20 4 0
+     1126 GETTABLEKS                       R21 R5 K195 ["RadioButtonImage"]
+     1128 LOADK                            R22 K453 ["rbxasset://textures/StudioSharedUI/radio_selected_enabled_dark.png"]
+     1129 SETTABLE                         R22 R20 R21
+     1130 GETTABLEKS                       R21 R5 K196 ["RadioButtonDisabledImage"]
+     1132 LOADK                            R22 K454 ["rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot_dark.png"]
+     1133 SETTABLE                         R22 R20 R21
+     1134 GETTABLEKS                       R21 R5 K235 ["RefreshImage"]
+     1136 LOADK                            R22 K455 ["rbxasset://textures/GameSettings/refresh_dark_theme.png"]
+     1137 SETTABLE                         R22 R20 R21
+     1138 GETTABLEKS                       R21 R5 K210 ["InformationImage"]
+     1140 LOADK                            R22 K456 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Large/Information.png"]
+     1141 SETTABLE                         R22 R20 R21
+     1142 NEWTABLE                         R21 4 0
+     1144 GETTABLEKS                       R22 R5 K195 ["RadioButtonImage"]
+     1146 LOADK                            R23 K457 ["rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png"]
+     1147 SETTABLE                         R23 R21 R22
+     1148 GETTABLEKS                       R22 R5 K196 ["RadioButtonDisabledImage"]
+     1150 LOADK                            R23 K458 ["rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png"]
+     1151 SETTABLE                         R23 R21 R22
+     1152 GETTABLEKS                       R22 R5 K235 ["RefreshImage"]
+     1154 LOADK                            R23 K459 ["rbxasset://textures/GameSettings/refresh_light_theme.png"]
+     1155 SETTABLE                         R23 R21 R22
+     1156 GETTABLEKS                       R22 R5 K210 ["InformationImage"]
+     1158 LOADK                            R23 K460 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Large/Information.png"]
+     1159 SETTABLE                         R23 R21 R22
+     1160 DUPCLOSURE                       R22 K461 [PROTO_0]
+     1161 CAPTURE                          VAL R8
+     1162 CAPTURE                          VAL R20
+     1163 CAPTURE                          VAL R21
+     1164 CAPTURE                          VAL R19
+     1165 RETURN                           R22 1

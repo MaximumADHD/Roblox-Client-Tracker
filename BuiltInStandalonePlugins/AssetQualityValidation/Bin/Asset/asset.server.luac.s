@@ -173,7 +173,7 @@ PROTO_6:
        34 MOVE                             R18 R15
        35 GETIMPORT                        R16 K3 [table.insert]
        37 CALL                             R16 2 0
-       38 JUMP                             ; [+61]
+       38 JUMP                             ; [+72]
        39 LOADN                            R18 1
        40 LENGTH                           R20 R10
        41 ADDK                             R19 R20 K4 [1]
@@ -184,7 +184,7 @@ PROTO_6:
        48 MOVE                             R18 R10
        49 LOADK                            R19 K8 ["_"]
        50 CONCAT                           R17 R18 R19
-       51 JUMPIFNOTEQ                      R16 R17 ; [+48]
+       51 JUMPIFNOTEQ                      R16 R17 ; [+59]
        53 LENGTH                           R19 R10
        54 ADDK                             R18 R19 K9 [2]
        55 FASTCALL2                        STRING_SUB R14 R18 ; [+4]
@@ -202,30 +202,39 @@ PROTO_6:
        71 JUMPIFEQ                         R18 R2 ; [+2]
        73 LOADB                            R17 0 +1
        74 LOADB                            R17 1
-       75 JUMPIFNOT                        R17 ; [+24]
-       76 LOADB                            R18 0
-       77 JUMPIFNOT                        R3 ; [+14]
-       78 MOVE                             R19 R3
-       79 LOADNIL                          R20
-       80 LOADNIL                          R21
-       81 FORGPREP                         R19
-       82 GETIMPORT                        R24 K11 [string.find]
-       84 MOVE                             R25 R16
-       85 MOVE                             R26 R22
-       86 CALL                             R24 2 1
-       87 JUMPIFNOT                        R24 ; [+2]
-       88 LOADB                            R18 1
-       89 JUMP                             ; [+2]
-       90 FORGLOOP                         R19 1 ; [-9]
-       92 JUMPIF                           R18 ; [+7]
-       93 FASTCALL2                        TABLE_INSERT R5 R15 ; [+5]
-       95 MOVE                             R20 R5
-       96 MOVE                             R21 R15
-       97 GETIMPORT                        R19 K3 [table.insert]
-       99 CALL                             R19 2 0
-      100 FORGLOOP                         R11 2 ; [-73]
-      102 FORGLOOP                         R6 2 ; [-79]
-      104 RETURN                           R5 1
+       75 JUMPIFNOT                        R17 ; [+35]
+       76 GETUPVAL                         R18 4
+       77 GETTABLEKS                       R18 R18 K10 ["getEngineFeatureAssetQualityVisualizationShapes"]
+       79 CALL                             R18 0 1
+       80 JUMPIFNOT                        R18 ; [+6]
+       81 GETUPVAL                         R18 1
+       82 GETTABLEKS                       R18 R18 K11 ["isShapeVolumesPartForOtherMeasure"]
+       84 MOVE                             R19 R16
+       85 MOVE                             R20 R0
+       86 CALL                             R18 2 1
+       87 JUMPIF                           R18 ; [+15]
+       88 JUMPIFNOT                        R3 ; [+14]
+       89 MOVE                             R19 R3
+       90 LOADNIL                          R20
+       91 LOADNIL                          R21
+       92 FORGPREP                         R19
+       93 GETIMPORT                        R24 K13 [string.find]
+       95 MOVE                             R25 R16
+       96 MOVE                             R26 R22
+       97 CALL                             R24 2 1
+       98 JUMPIFNOT                        R24 ; [+2]
+       99 LOADB                            R18 1
+      100 JUMP                             ; [+2]
+      101 FORGLOOP                         R19 1 ; [-9]
+      103 JUMPIF                           R18 ; [+7]
+      104 FASTCALL2                        TABLE_INSERT R5 R15 ; [+5]
+      106 MOVE                             R20 R5
+      107 MOVE                             R21 R15
+      108 GETIMPORT                        R19 K3 [table.insert]
+      110 CALL                             R19 2 0
+      111 FORGLOOP                         R11 2 ; [-84]
+      113 FORGLOOP                         R6 2 ; [-90]
+      115 RETURN                           R5 1
 
 PROTO_7:
         0 JUMPIF                           R0 ; [+5]
@@ -1319,80 +1328,81 @@ MAIN:
       170 CAPTURE                          VAL R3
       171 CAPTURE                          VAL R14
       172 CAPTURE                          VAL R13
-      173 DUPCLOSURE                       R27 K51 [PROTO_7]
-      174 CAPTURE                          VAL R24
-      175 CAPTURE                          VAL R26
-      176 DUPCLOSURE                       R28 K52 [PROTO_8]
-      177 CAPTURE                          VAL R13
-      178 NEWCLOSURE                       R29 P7
-      179 CAPTURE                          VAL R13
-      180 CAPTURE                          VAL R16
-      181 CAPTURE                          VAL R19
-      182 CAPTURE                          VAL R14
-      183 CAPTURE                          VAL R15
-      184 CAPTURE                          REF R17
-      185 CAPTURE                          REF R18
-      186 DUPCLOSURE                       R30 K53 [PROTO_10]
-      187 CAPTURE                          VAL R4
-      188 CAPTURE                          VAL R5
-      189 CAPTURE                          VAL R6
-      190 NEWCLOSURE                       R31 P9
-      191 CAPTURE                          REF R9
-      192 CAPTURE                          REF R11
-      193 CAPTURE                          VAL R1
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R8
-      196 CAPTURE                          VAL R10
-      197 CAPTURE                          REF R20
-      198 CAPTURE                          REF R21
-      199 CAPTURE                          VAL R3
-      200 CAPTURE                          VAL R29
-      201 CAPTURE                          REF R18
-      202 CAPTURE                          VAL R2
-      203 CAPTURE                          VAL R14
-      204 CAPTURE                          VAL R15
-      205 CAPTURE                          VAL R16
-      206 CAPTURE                          VAL R30
-      207 CAPTURE                          VAL R28
-      208 CAPTURE                          VAL R13
-      209 CAPTURE                          VAL R24
-      210 CAPTURE                          VAL R26
-      211 NEWCLOSURE                       R32 P10
-      212 CAPTURE                          REF R9
-      213 CAPTURE                          VAL R10
-      214 NEWCLOSURE                       R33 P11
-      215 CAPTURE                          REF R9
-      216 CAPTURE                          VAL R10
-      217 CAPTURE                          VAL R31
-      218 GETIMPORT                        R34 K1 [plugin]
-      220 GETTABLEKS                       R34 R34 K54 ["MultipleDocumentInterfaceInstance"]
-      222 MOVE                             R35 R33
-      223 GETTABLEKS                       R36 R34 K55 ["FocusedDataModelSession"]
-      225 CALL                             R35 1 0
-      226 GETIMPORT                        R35 K12 [require]
-      228 GETTABLEKS                       R36 R0 K24 ["Bin"]
-      230 GETTABLEKS                       R36 R36 K25 ["Common"]
-      232 GETTABLEKS                       R36 R36 K56 ["pluginType"]
-      234 CALL                             R35 1 1
-      235 GETTABLEKS                       R36 R35 K57 ["get"]
-      237 CALL                             R36 0 1
-      238 GETTABLEKS                       R37 R35 K58 ["Asset"]
-      240 JUMPIFEQ                         R36 R37 ; [+3]
-      242 CLOSEUPVALS                      R9
-      243 RETURN                           R0 0
-      244 GETIMPORT                        R36 K12 [require]
-      246 GETTABLEKS                       R37 R0 K24 ["Bin"]
-      248 GETTABLEKS                       R37 R37 K25 ["Common"]
-      250 GETTABLEKS                       R37 R37 K59 ["setup"]
-      252 CALL                             R36 1 1
-      253 GETIMPORT                        R37 K12 [require]
-      255 GETTABLEKS                       R38 R0 K24 ["Bin"]
-      257 GETTABLEKS                       R38 R38 K25 ["Common"]
-      259 GETTABLEKS                       R38 R38 K60 ["setupMain"]
-      261 CALL                             R37 1 1
-      262 MOVE                             R38 R36
-      263 GETIMPORT                        R39 K1 [plugin]
-      265 MOVE                             R40 R37
-      266 CALL                             R38 2 0
-      267 CLOSEUPVALS                      R9
-      268 RETURN                           R0 0
+      173 CAPTURE                          VAL R8
+      174 DUPCLOSURE                       R27 K51 [PROTO_7]
+      175 CAPTURE                          VAL R24
+      176 CAPTURE                          VAL R26
+      177 DUPCLOSURE                       R28 K52 [PROTO_8]
+      178 CAPTURE                          VAL R13
+      179 NEWCLOSURE                       R29 P7
+      180 CAPTURE                          VAL R13
+      181 CAPTURE                          VAL R16
+      182 CAPTURE                          VAL R19
+      183 CAPTURE                          VAL R14
+      184 CAPTURE                          VAL R15
+      185 CAPTURE                          REF R17
+      186 CAPTURE                          REF R18
+      187 DUPCLOSURE                       R30 K53 [PROTO_10]
+      188 CAPTURE                          VAL R4
+      189 CAPTURE                          VAL R5
+      190 CAPTURE                          VAL R6
+      191 NEWCLOSURE                       R31 P9
+      192 CAPTURE                          REF R9
+      193 CAPTURE                          REF R11
+      194 CAPTURE                          VAL R1
+      195 CAPTURE                          VAL R12
+      196 CAPTURE                          VAL R8
+      197 CAPTURE                          VAL R10
+      198 CAPTURE                          REF R20
+      199 CAPTURE                          REF R21
+      200 CAPTURE                          VAL R3
+      201 CAPTURE                          VAL R29
+      202 CAPTURE                          REF R18
+      203 CAPTURE                          VAL R2
+      204 CAPTURE                          VAL R14
+      205 CAPTURE                          VAL R15
+      206 CAPTURE                          VAL R16
+      207 CAPTURE                          VAL R30
+      208 CAPTURE                          VAL R28
+      209 CAPTURE                          VAL R13
+      210 CAPTURE                          VAL R24
+      211 CAPTURE                          VAL R26
+      212 NEWCLOSURE                       R32 P10
+      213 CAPTURE                          REF R9
+      214 CAPTURE                          VAL R10
+      215 NEWCLOSURE                       R33 P11
+      216 CAPTURE                          REF R9
+      217 CAPTURE                          VAL R10
+      218 CAPTURE                          VAL R31
+      219 GETIMPORT                        R34 K1 [plugin]
+      221 GETTABLEKS                       R34 R34 K54 ["MultipleDocumentInterfaceInstance"]
+      223 MOVE                             R35 R33
+      224 GETTABLEKS                       R36 R34 K55 ["FocusedDataModelSession"]
+      226 CALL                             R35 1 0
+      227 GETIMPORT                        R35 K12 [require]
+      229 GETTABLEKS                       R36 R0 K24 ["Bin"]
+      231 GETTABLEKS                       R36 R36 K25 ["Common"]
+      233 GETTABLEKS                       R36 R36 K56 ["pluginType"]
+      235 CALL                             R35 1 1
+      236 GETTABLEKS                       R36 R35 K57 ["get"]
+      238 CALL                             R36 0 1
+      239 GETTABLEKS                       R37 R35 K58 ["Asset"]
+      241 JUMPIFEQ                         R36 R37 ; [+3]
+      243 CLOSEUPVALS                      R9
+      244 RETURN                           R0 0
+      245 GETIMPORT                        R36 K12 [require]
+      247 GETTABLEKS                       R37 R0 K24 ["Bin"]
+      249 GETTABLEKS                       R37 R37 K25 ["Common"]
+      251 GETTABLEKS                       R37 R37 K59 ["setup"]
+      253 CALL                             R36 1 1
+      254 GETIMPORT                        R37 K12 [require]
+      256 GETTABLEKS                       R38 R0 K24 ["Bin"]
+      258 GETTABLEKS                       R38 R38 K25 ["Common"]
+      260 GETTABLEKS                       R38 R38 K60 ["setupMain"]
+      262 CALL                             R37 1 1
+      263 MOVE                             R38 R36
+      264 GETIMPORT                        R39 K1 [plugin]
+      266 MOVE                             R40 R37
+      267 CALL                             R38 2 0
+      268 CLOSEUPVALS                      R9
+      269 RETURN                           R0 0

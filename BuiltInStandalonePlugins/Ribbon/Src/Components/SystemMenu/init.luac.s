@@ -281,62 +281,69 @@ PROTO_8:
       231 GETUPVAL                         R36 2
       232 GETTABLEKS                       R36 R36 K18 ["createElement"]
       234 GETUPVAL                         R37 8
-      235 DUPTABLE                         R38 K47 [{["tag"] = "row align-y-center gap-xsmall auto-xy padding-right-medium", ["LayoutOrder"], ["onAbsolutePositionChanged"], ["onAbsoluteSizeChanged"]}]
-      236 MOVE                             R39 R7
-      237 CALL                             R39 0 1
-      238 SETTABLEKS                       R39 R38 K21 ["LayoutOrder"]
-      240 SETTABLEKS                       R25 R38 K46 ["onAbsolutePositionChanged"]
-      242 SETTABLEKS                       R25 R38 K30 ["onAbsoluteSizeChanged"]
-      244 MOVE                             R39 R27
-      245 CALL                             R36 3 1
-      246 SETTABLEKS                       R36 R35 K38 ["Menus"]
-      248 GETUPVAL                         R36 2
-      249 GETTABLEKS                       R36 R36 K18 ["createElement"]
-      251 GETUPVAL                         R37 8
-      252 DUPTABLE                         R38 K49 [{["tag"] = "row align-x-center align-y-center grow size-0-full clip", ["LayoutOrder"]}]
-      253 MOVE                             R39 R7
-      254 CALL                             R39 0 1
-      255 SETTABLEKS                       R39 R38 K21 ["LayoutOrder"]
-      257 DUPTABLE                         R39 K51 [{"Title"}]
-      258 JUMPIFNOT                        R2 ; [+9]
-      259 GETUPVAL                         R40 2
-      260 GETTABLEKS                       R40 R40 K18 ["createElement"]
-      262 GETUPVAL                         R41 9
-      263 DUPTABLE                         R42 K54 [{["Text"], ["tag"] = "size-full text-title-small text-no-wrap text-align-x-center text-truncate-end content-emphasis"}]
-      264 SETTABLEKS                       R2 R42 K52 ["Text"]
-      266 CALL                             R40 2 1
-      267 JUMP                             ; [+1]
-      268 LOADNIL                          R40
-      269 SETTABLEKS                       R40 R39 K50 ["Title"]
-      271 CALL                             R36 3 1
-      272 SETTABLEKS                       R36 R35 K39 ["WindowTitle"]
-      274 GETUPVAL                         R36 2
-      275 GETTABLEKS                       R36 R36 K18 ["createElement"]
-      277 GETUPVAL                         R37 8
-      278 DUPTABLE                         R38 K44 [{"LayoutOrder", "Size"}]
-      279 MOVE                             R39 R7
-      280 CALL                             R39 0 1
-      281 SETTABLEKS                       R39 R38 K21 ["LayoutOrder"]
-      283 SETTABLEKS                       R23 R38 K43 ["Size"]
-      285 CALL                             R36 2 1
-      286 SETTABLEKS                       R36 R35 K40 ["RightPadding"]
-      288 CALL                             R32 3 1
-      289 SETTABLEKS                       R32 R31 K32 ["MenuBar"]
-      291 JUMPIFNOT                        R2 ; [+14]
-      292 GETUPVAL                         R32 2
-      293 GETTABLEKS                       R32 R32 K18 ["createElement"]
-      295 GETUPVAL                         R33 9
-      296 DUPTABLE                         R34 K57 [{["Text"], ["tag"] = "auto-xy text-title-small text-no-wrap", ["textStyle"], ["onAbsoluteSizeChanged"]}]
-      297 SETTABLEKS                       R2 R34 K52 ["Text"]
-      299 DUPTABLE                         R35 K60 [{["Transparency"] = 1}]
-      300 SETTABLEKS                       R35 R34 K56 ["textStyle"]
-      302 SETTABLEKS                       R26 R34 K30 ["onAbsoluteSizeChanged"]
-      304 CALL                             R32 2 1
-      305 JUMP                             ; [+1]
-      306 LOADNIL                          R32
-      307 SETTABLEKS                       R32 R31 K33 ["TitleMeasure"]
-      309 CALL                             R28 3 -1
-      310 RETURN                           R28 -1
+      235 DUPTABLE                         R38 K46 [{"tag", "LayoutOrder", "onAbsolutePositionChanged", "onAbsoluteSizeChanged"}]
+      236 NEWTABLE                         R39 2 0
+      238 LOADB                            R40 1
+      239 SETTABLEKS                       R40 R39 K47 ["row align-y-center gap-xsmall auto-xy padding-right-medium"]
+      241 GETUPVAL                         R40 9
+      242 CALL                             R40 0 1
+      243 SETTABLEKS                       R40 R39 K48 ["padding-left-xsmall"]
+      245 SETTABLEKS                       R39 R38 K27 ["tag"]
+      247 MOVE                             R39 R7
+      248 CALL                             R39 0 1
+      249 SETTABLEKS                       R39 R38 K21 ["LayoutOrder"]
+      251 SETTABLEKS                       R25 R38 K45 ["onAbsolutePositionChanged"]
+      253 SETTABLEKS                       R25 R38 K30 ["onAbsoluteSizeChanged"]
+      255 MOVE                             R39 R27
+      256 CALL                             R36 3 1
+      257 SETTABLEKS                       R36 R35 K38 ["Menus"]
+      259 GETUPVAL                         R36 2
+      260 GETTABLEKS                       R36 R36 K18 ["createElement"]
+      262 GETUPVAL                         R37 8
+      263 DUPTABLE                         R38 K50 [{["tag"] = "row align-x-center align-y-center grow size-0-full clip", ["LayoutOrder"]}]
+      264 MOVE                             R39 R7
+      265 CALL                             R39 0 1
+      266 SETTABLEKS                       R39 R38 K21 ["LayoutOrder"]
+      268 DUPTABLE                         R39 K52 [{"Title"}]
+      269 JUMPIFNOT                        R2 ; [+9]
+      270 GETUPVAL                         R40 2
+      271 GETTABLEKS                       R40 R40 K18 ["createElement"]
+      273 GETUPVAL                         R41 10
+      274 DUPTABLE                         R42 K55 [{["Text"], ["tag"] = "size-full text-title-small text-no-wrap text-align-x-center text-truncate-end content-emphasis"}]
+      275 SETTABLEKS                       R2 R42 K53 ["Text"]
+      277 CALL                             R40 2 1
+      278 JUMP                             ; [+1]
+      279 LOADNIL                          R40
+      280 SETTABLEKS                       R40 R39 K51 ["Title"]
+      282 CALL                             R36 3 1
+      283 SETTABLEKS                       R36 R35 K39 ["WindowTitle"]
+      285 GETUPVAL                         R36 2
+      286 GETTABLEKS                       R36 R36 K18 ["createElement"]
+      288 GETUPVAL                         R37 8
+      289 DUPTABLE                         R38 K44 [{"LayoutOrder", "Size"}]
+      290 MOVE                             R39 R7
+      291 CALL                             R39 0 1
+      292 SETTABLEKS                       R39 R38 K21 ["LayoutOrder"]
+      294 SETTABLEKS                       R23 R38 K43 ["Size"]
+      296 CALL                             R36 2 1
+      297 SETTABLEKS                       R36 R35 K40 ["RightPadding"]
+      299 CALL                             R32 3 1
+      300 SETTABLEKS                       R32 R31 K32 ["MenuBar"]
+      302 JUMPIFNOT                        R2 ; [+14]
+      303 GETUPVAL                         R32 2
+      304 GETTABLEKS                       R32 R32 K18 ["createElement"]
+      306 GETUPVAL                         R33 10
+      307 DUPTABLE                         R34 K58 [{["Text"], ["tag"] = "auto-xy text-title-small text-no-wrap", ["textStyle"], ["onAbsoluteSizeChanged"]}]
+      308 SETTABLEKS                       R2 R34 K53 ["Text"]
+      310 DUPTABLE                         R35 K61 [{["Transparency"] = 1}]
+      311 SETTABLEKS                       R35 R34 K57 ["textStyle"]
+      313 SETTABLEKS                       R26 R34 K30 ["onAbsoluteSizeChanged"]
+      315 CALL                             R32 2 1
+      316 JUMP                             ; [+1]
+      317 LOADNIL                          R32
+      318 SETTABLEKS                       R32 R31 K33 ["TitleMeasure"]
+      320 CALL                             R28 3 -1
+      321 RETURN                           R28 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -372,35 +379,41 @@ MAIN:
        53 CALL                             R9 1 1
        54 GETIMPORT                        R10 K5 [require]
        56 GETTABLEKS                       R11 R0 K17 ["Src"]
-       58 GETTABLEKS                       R11 R11 K18 ["Hooks"]
-       60 GETTABLEKS                       R11 R11 K19 ["useSystemMenu"]
+       58 GETTABLEKS                       R11 R11 K18 ["SharedFlags"]
+       60 GETTABLEKS                       R11 R11 K19 ["getFFlagRibbonSystemMenuFixes"]
        62 CALL                             R10 1 1
        63 GETIMPORT                        R11 K5 [require]
        65 GETTABLEKS                       R12 R0 K17 ["Src"]
-       67 GETTABLEKS                       R12 R12 K18 ["Hooks"]
-       69 GETTABLEKS                       R12 R12 K20 ["WindowChrome"]
-       71 GETTABLEKS                       R12 R12 K21 ["useSystemButtonRectPadding"]
-       73 CALL                             R11 1 1
-       74 GETIMPORT                        R12 K5 [require]
-       76 GETTABLEKS                       R13 R0 K17 ["Src"]
-       78 GETTABLEKS                       R13 R13 K18 ["Hooks"]
-       80 GETTABLEKS                       R13 R13 K20 ["WindowChrome"]
-       82 GETTABLEKS                       R13 R13 K22 ["useUncoveredRects"]
-       84 CALL                             R12 1 1
-       85 GETIMPORT                        R13 K5 [require]
-       87 GETTABLEKS                       R14 R0 K17 ["Src"]
-       89 GETTABLEKS                       R14 R14 K18 ["Hooks"]
-       91 GETTABLEKS                       R14 R14 K23 ["useWindowTitle"]
+       67 GETTABLEKS                       R12 R12 K20 ["Hooks"]
+       69 GETTABLEKS                       R12 R12 K21 ["useSystemMenu"]
+       71 CALL                             R11 1 1
+       72 GETIMPORT                        R12 K5 [require]
+       74 GETTABLEKS                       R13 R0 K17 ["Src"]
+       76 GETTABLEKS                       R13 R13 K20 ["Hooks"]
+       78 GETTABLEKS                       R13 R13 K22 ["WindowChrome"]
+       80 GETTABLEKS                       R13 R13 K23 ["useSystemButtonRectPadding"]
+       82 CALL                             R12 1 1
+       83 GETIMPORT                        R13 K5 [require]
+       85 GETTABLEKS                       R14 R0 K17 ["Src"]
+       87 GETTABLEKS                       R14 R14 K20 ["Hooks"]
+       89 GETTABLEKS                       R14 R14 K22 ["WindowChrome"]
+       91 GETTABLEKS                       R14 R14 K24 ["useUncoveredRects"]
        93 CALL                             R13 1 1
-       94 DUPCLOSURE                       R14 K24 [PROTO_8]
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          VAL R13
-       97 CAPTURE                          VAL R1
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R11
-      101 CAPTURE                          VAL R12
-      102 CAPTURE                          VAL R9
-      103 CAPTURE                          VAL R4
-      104 CAPTURE                          VAL R3
-      105 RETURN                           R14 1
+       94 GETIMPORT                        R14 K5 [require]
+       96 GETTABLEKS                       R15 R0 K17 ["Src"]
+       98 GETTABLEKS                       R15 R15 K20 ["Hooks"]
+      100 GETTABLEKS                       R15 R15 K25 ["useWindowTitle"]
+      102 CALL                             R14 1 1
+      103 DUPCLOSURE                       R15 K26 [PROTO_8]
+      104 CAPTURE                          VAL R11
+      105 CAPTURE                          VAL R14
+      106 CAPTURE                          VAL R1
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R12
+      110 CAPTURE                          VAL R13
+      111 CAPTURE                          VAL R9
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R3
+      115 RETURN                           R15 1

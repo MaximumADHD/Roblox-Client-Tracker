@@ -251,6 +251,21 @@ PROTO_12:
        16 RETURN                           R6 -1
 
 PROTO_13:
+        0 MOVE                             R7 R2
+        1 GETUPVAL                         R8 0
+        2 GETTABLEKS                       R8 R8 K0 ["FileType"]
+        4 GETTABLEKS                       R8 R8 K1 ["Text"]
+        6 MOVE                             R9 R3
+        7 NAMECALL                         R5 R0 K2 ["_createAssetRequestParams"]
+        9 CALL                             R5 4 1
+       10 GETTABLEKS                       R6 R0 K3 ["_createVersionedPromiseHelper"]
+       12 MOVE                             R7 R1
+       13 MOVE                             R8 R5
+       14 MOVE                             R9 R4
+       15 CALL                             R6 3 -1
+       16 RETURN                           R6 -1
+
+PROTO_14:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
         2 GETUPVAL                         R5 0
         3 GETTABLEKS                       R5 R5 K1 ["FileType"]
@@ -264,7 +279,7 @@ PROTO_13:
        17 CALL                             R3 2 -1
        18 RETURN                           R3 -1
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
         2 GETUPVAL                         R5 0
         3 GETTABLEKS                       R5 R5 K1 ["FileType"]
@@ -278,7 +293,7 @@ PROTO_14:
        17 CALL                             R3 2 -1
        18 RETURN                           R3 -1
 
-PROTO_15:
+PROTO_16:
         0 GETTABLEKS                       R5 R1 K0 ["assetName"]
         2 GETUPVAL                         R6 0
         3 GETTABLEKS                       R6 R6 K1 ["FileType"]
@@ -293,7 +308,7 @@ PROTO_15:
        18 CALL                             R4 3 -1
        19 RETURN                           R4 -1
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R4 R1 K0 ["assetName"]
         2 GETUPVAL                         R5 0
         3 GETTABLEKS                       R5 R5 K1 ["FileType"]
@@ -375,14 +390,17 @@ MAIN:
        97 SETTABLEKS                       R10 R9 K33 ["createVersionedImagePromise"]
        99 DUPCLOSURE                       R10 K34 [PROTO_13]
       100 CAPTURE                          VAL R6
-      101 SETTABLEKS                       R10 R9 K35 ["createAudioPromise"]
+      101 SETTABLEKS                       R10 R9 K35 ["createVersionedTextPromise"]
       103 DUPCLOSURE                       R10 K36 [PROTO_14]
       104 CAPTURE                          VAL R6
-      105 SETTABLEKS                       R10 R9 K37 ["createTextPromise"]
+      105 SETTABLEKS                       R10 R9 K37 ["createAudioPromise"]
       107 DUPCLOSURE                       R10 K38 [PROTO_15]
       108 CAPTURE                          VAL R6
-      109 SETTABLEKS                       R10 R9 K39 ["createVideoPromise"]
+      109 SETTABLEKS                       R10 R9 K39 ["createTextPromise"]
       111 DUPCLOSURE                       R10 K40 [PROTO_16]
       112 CAPTURE                          VAL R6
-      113 SETTABLEKS                       R10 R9 K41 ["createAnimatedImagePromise"]
-      115 RETURN                           R9 1
+      113 SETTABLEKS                       R10 R9 K41 ["createVideoPromise"]
+      115 DUPCLOSURE                       R10 K42 [PROTO_17]
+      116 CAPTURE                          VAL R6
+      117 SETTABLEKS                       R10 R9 K43 ["createAnimatedImagePromise"]
+      119 RETURN                           R9 1

@@ -10,16 +10,18 @@ PROTO_0:
        10 MOVE                             R2 R0
        11 LOADK                            R3 K4 ["Id$"]
        12 CALL                             R1 2 1
-       13 JUMPIF                           R1 ; [+6]
-       14 GETIMPORT                        R1 K2 [string.match]
-       16 MOVE                             R2 R0
-       17 LOADK                            R3 K5 ["Override$"]
-       18 CALL                             R1 2 1
-       19 JUMPIFNOT                        R1 ; [+2]
-       20 LOADN                            R1 0
-       21 RETURN                           R1 1
-       22 LOADNIL                          R1
+       13 JUMPIFNOT                        R1 ; [+2]
+       14 LOADN                            R1 0
+       15 RETURN                           R1 1
+       16 GETIMPORT                        R1 K2 [string.match]
+       18 MOVE                             R2 R0
+       19 LOADK                            R3 K5 ["Override$"]
+       20 CALL                             R1 2 1
+       21 JUMPIFNOT                        R1 ; [+2]
+       22 LOADN                            R1 -1
        23 RETURN                           R1 1
+       24 LOADNIL                          R1
+       25 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -92,36 +94,38 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
-        2 JUMPIFNOTEQKNIL                  R1 ; [+24]
+        2 JUMPIFNOTEQKNIL                  R1 ; [+26]
         4 GETIMPORT                        R2 K2 [string.match]
         6 MOVE                             R3 R0
         7 LOADK                            R4 K3 ["Enabled$"]
         8 CALL                             R2 2 1
         9 JUMPIFNOT                        R2 ; [+2]
        10 LOADB                            R1 0
-       11 JUMP                             ; [+15]
+       11 JUMP                             ; [+17]
        12 GETIMPORT                        R2 K2 [string.match]
        14 MOVE                             R3 R0
        15 LOADK                            R4 K4 ["Id$"]
        16 CALL                             R2 2 1
-       17 JUMPIF                           R2 ; [+6]
-       18 GETIMPORT                        R2 K2 [string.match]
-       20 MOVE                             R3 R0
-       21 LOADK                            R4 K5 ["Override$"]
-       22 CALL                             R2 2 1
-       23 JUMPIFNOT                        R2 ; [+2]
-       24 LOADN                            R1 0
-       25 JUMP                             ; [+1]
-       26 LOADNIL                          R1
-       27 JUMPIFNOTEQKNIL                  R1 ; [+10]
-       29 GETIMPORT                        R2 K7 [error]
-       31 LOADK                            R3 K8 ["%* is not a valid member of %*"]
-       32 MOVE                             R5 R0
-       33 GETUPVAL                         R6 1
-       34 NAMECALL                         R3 R3 K9 ["format"]
-       36 CALL                             R3 3 1
-       37 CALL                             R2 1 0
-       38 RETURN                           R1 1
+       17 JUMPIFNOT                        R2 ; [+2]
+       18 LOADN                            R1 0
+       19 JUMP                             ; [+9]
+       20 GETIMPORT                        R2 K2 [string.match]
+       22 MOVE                             R3 R0
+       23 LOADK                            R4 K5 ["Override$"]
+       24 CALL                             R2 2 1
+       25 JUMPIFNOT                        R2 ; [+2]
+       26 LOADN                            R1 -1
+       27 JUMP                             ; [+1]
+       28 LOADNIL                          R1
+       29 JUMPIFNOTEQKNIL                  R1 ; [+10]
+       31 GETIMPORT                        R2 K7 [error]
+       33 LOADK                            R3 K8 ["%* is not a valid member of %*"]
+       34 MOVE                             R5 R0
+       35 GETUPVAL                         R6 1
+       36 NAMECALL                         R3 R3 K9 ["format"]
+       38 CALL                             R3 3 1
+       39 CALL                             R2 1 0
+       40 RETURN                           R1 1
 
 PROTO_8:
         0 JUMPIFNOTEQKS                    R1 K0 ["ClassName"] ; [+3]
@@ -138,37 +142,39 @@ PROTO_8:
        13 RETURN                           R2 1
        14 GETUPVAL                         R4 3
        15 GETTABLE                         R3 R4 R1
-       16 JUMPIFNOTEQKNIL                  R3 ; [+24]
+       16 JUMPIFNOTEQKNIL                  R3 ; [+26]
        18 GETIMPORT                        R4 K4 [string.match]
        20 MOVE                             R5 R1
        21 LOADK                            R6 K5 ["Enabled$"]
        22 CALL                             R4 2 1
        23 JUMPIFNOT                        R4 ; [+2]
        24 LOADB                            R3 0
-       25 JUMP                             ; [+15]
+       25 JUMP                             ; [+17]
        26 GETIMPORT                        R4 K4 [string.match]
        28 MOVE                             R5 R1
        29 LOADK                            R6 K6 ["Id$"]
        30 CALL                             R4 2 1
-       31 JUMPIF                           R4 ; [+6]
-       32 GETIMPORT                        R4 K4 [string.match]
-       34 MOVE                             R5 R1
-       35 LOADK                            R6 K7 ["Override$"]
-       36 CALL                             R4 2 1
-       37 JUMPIFNOT                        R4 ; [+2]
-       38 LOADN                            R3 0
-       39 JUMP                             ; [+1]
-       40 LOADNIL                          R3
-       41 JUMPIFNOTEQKNIL                  R3 ; [+10]
-       43 GETIMPORT                        R4 K9 [error]
-       45 LOADK                            R5 K10 ["%* is not a valid member of %*"]
-       46 MOVE                             R7 R1
-       47 GETUPVAL                         R8 0
-       48 NAMECALL                         R5 R5 K11 ["format"]
-       50 CALL                             R5 3 1
-       51 CALL                             R4 1 0
-       52 MOVE                             R2 R3
-       53 RETURN                           R2 1
+       31 JUMPIFNOT                        R4 ; [+2]
+       32 LOADN                            R3 0
+       33 JUMP                             ; [+9]
+       34 GETIMPORT                        R4 K4 [string.match]
+       36 MOVE                             R5 R1
+       37 LOADK                            R6 K7 ["Override$"]
+       38 CALL                             R4 2 1
+       39 JUMPIFNOT                        R4 ; [+2]
+       40 LOADN                            R3 -1
+       41 JUMP                             ; [+1]
+       42 LOADNIL                          R3
+       43 JUMPIFNOTEQKNIL                  R3 ; [+10]
+       45 GETIMPORT                        R4 K9 [error]
+       47 LOADK                            R5 K10 ["%* is not a valid member of %*"]
+       48 MOVE                             R7 R1
+       49 GETUPVAL                         R8 0
+       50 NAMECALL                         R5 R5 K11 ["format"]
+       52 CALL                             R5 3 1
+       53 CALL                             R4 1 0
+       54 MOVE                             R2 R3
+       55 RETURN                           R2 1
 
 PROTO_9:
         0 JUMPIFNOTEQKS                    R1 K0 ["Parent"] ; [+33]
@@ -201,54 +207,56 @@ PROTO_9:
        33 RETURN                           R0 0
        34 GETUPVAL                         R5 3
        35 GETTABLE                         R4 R5 R1
-       36 JUMPIFNOTEQKNIL                  R4 ; [+24]
+       36 JUMPIFNOTEQKNIL                  R4 ; [+26]
        38 GETIMPORT                        R5 K10 [string.match]
        40 MOVE                             R6 R1
        41 LOADK                            R7 K11 ["Enabled$"]
        42 CALL                             R5 2 1
        43 JUMPIFNOT                        R5 ; [+2]
        44 LOADB                            R4 0
-       45 JUMP                             ; [+15]
+       45 JUMP                             ; [+17]
        46 GETIMPORT                        R5 K10 [string.match]
        48 MOVE                             R6 R1
        49 LOADK                            R7 K12 ["Id$"]
        50 CALL                             R5 2 1
-       51 JUMPIF                           R5 ; [+6]
-       52 GETIMPORT                        R5 K10 [string.match]
-       54 MOVE                             R6 R1
-       55 LOADK                            R7 K13 ["Override$"]
-       56 CALL                             R5 2 1
-       57 JUMPIFNOT                        R5 ; [+2]
-       58 LOADN                            R4 0
-       59 JUMP                             ; [+1]
-       60 LOADNIL                          R4
-       61 JUMPIFNOTEQKNIL                  R4 ; [+10]
-       63 GETIMPORT                        R5 K15 [error]
-       65 LOADK                            R6 K16 ["%* is not a valid member of %*"]
-       66 MOVE                             R8 R1
-       67 GETUPVAL                         R9 4
-       68 NAMECALL                         R6 R6 K17 ["format"]
-       70 CALL                             R6 3 1
-       71 CALL                             R5 1 0
-       72 MOVE                             R3 R4
-       73 JUMPIFNOTEQ                      R3 R2 ; [+2]
-       75 RETURN                           R0 0
-       76 GETUPVAL                         R3 3
-       77 SETTABLE                         R2 R3 R1
-       78 GETIMPORT                        R3 K19 [table.clone]
-       80 GETUPVAL                         R5 5
-       81 GETTABLE                         R4 R5 R1
-       82 JUMPIF                           R4 ; [+2]
-       83 NEWTABLE                         R4 0 0
-       85 CALL                             R3 1 1
-       86 MOVE                             R4 R3
-       87 LOADNIL                          R5
-       88 LOADNIL                          R6
-       89 FORGPREP                         R4
-       90 MOVE                             R9 R8
-       91 CALL                             R9 0 0
-       92 FORGLOOP                         R4 2 ; [-3]
-       94 RETURN                           R0 0
+       51 JUMPIFNOT                        R5 ; [+2]
+       52 LOADN                            R4 0
+       53 JUMP                             ; [+9]
+       54 GETIMPORT                        R5 K10 [string.match]
+       56 MOVE                             R6 R1
+       57 LOADK                            R7 K13 ["Override$"]
+       58 CALL                             R5 2 1
+       59 JUMPIFNOT                        R5 ; [+2]
+       60 LOADN                            R4 -1
+       61 JUMP                             ; [+1]
+       62 LOADNIL                          R4
+       63 JUMPIFNOTEQKNIL                  R4 ; [+10]
+       65 GETIMPORT                        R5 K15 [error]
+       67 LOADK                            R6 K16 ["%* is not a valid member of %*"]
+       68 MOVE                             R8 R1
+       69 GETUPVAL                         R9 4
+       70 NAMECALL                         R6 R6 K17 ["format"]
+       72 CALL                             R6 3 1
+       73 CALL                             R5 1 0
+       74 MOVE                             R3 R4
+       75 JUMPIFNOTEQ                      R3 R2 ; [+2]
+       77 RETURN                           R0 0
+       78 GETUPVAL                         R3 3
+       79 SETTABLE                         R2 R3 R1
+       80 GETIMPORT                        R3 K19 [table.clone]
+       82 GETUPVAL                         R5 5
+       83 GETTABLE                         R4 R5 R1
+       84 JUMPIF                           R4 ; [+2]
+       85 NEWTABLE                         R4 0 0
+       87 CALL                             R3 1 1
+       88 MOVE                             R4 R3
+       89 LOADNIL                          R5
+       90 LOADNIL                          R6
+       91 FORGPREP                         R4
+       92 MOVE                             R9 R8
+       93 CALL                             R9 0 0
+       94 FORGLOOP                         R4 2 ; [-3]
+       96 RETURN                           R0 0
 
 PROTO_10:
         0 GETIMPORT                        R2 K2 [table.clone]

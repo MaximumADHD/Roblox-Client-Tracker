@@ -1647,7 +1647,7 @@ PROTO_54:
       487 CALL                             R36 3 -1
       488 CALL                             R32 -1 1
       489 SETTABLEKS                       R32 R31 K97 ["Display"]
-      491 GETTABLEKS                       R33 R0 K136 ["hasInternalPermission"]
+      491 GETTABLEKS                       R33 R0 K136 ["showsMemory"]
       493 JUMPIFNOT                        R33 ; [+27]
       494 MOVE                             R32 R23
       495 LOADK                            R33 K137 ["performance"]
@@ -2369,276 +2369,273 @@ PROTO_77:
         9 GETUPVAL                         R2 1
        10 NAMECALL                         R2 R2 K1 ["HasInternalPermission"]
        12 CALL                             R2 1 1
-       13 GETUPVAL                         R4 2
-       14 GETTABLEKS                       R4 R4 K2 ["getEngineFeatureDeviceSimulatorNominalMemory"]
-       16 CALL                             R4 0 1
-       17 JUMPIFNOT                        R4 ; [+3]
-       18 GETTABLEKS                       R3 R0 K3 ["memoryTiersByPlatform"]
-       20 JUMP                             ; [+1]
-       21 LOADNIL                          R3
-       22 GETUPVAL                         R4 3
-       23 GETTABLEKS                       R4 R4 K4 ["useState"]
-       25 NEWCLOSURE                       R5 P0
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          VAL R0
-       28 CALL                             R4 1 2
-       29 GETUPVAL                         R6 3
-       30 GETTABLEKS                       R6 R6 K4 ["useState"]
-       32 DUPTABLE                         R7 K10 [{["display"] = True, ["performance"] = True, ["keyboard"] = False}]
-       33 CALL                             R6 1 2
-       34 GETUPVAL                         R8 3
-       35 GETTABLEKS                       R8 R8 K4 ["useState"]
-       37 LOADB                            R9 0
-       38 CALL                             R8 1 2
-       39 GETUPVAL                         R10 4
-       40 GETTABLEKS                       R10 R10 K11 ["validate"]
-       42 MOVE                             R11 R4
-       43 MOVE                             R12 R1
-       44 CALL                             R10 2 1
-       45 MOVE                             R11 R10
-       46 JUMPIFNOT                        R11 ; [+5]
-       47 GETUPVAL                         R11 4
-       48 GETTABLEKS                       R11 R11 K12 ["isDirty"]
-       50 MOVE                             R12 R4
-       51 CALL                             R11 1 1
-       52 GETUPVAL                         R12 4
-       53 GETTABLEKS                       R12 R12 K13 ["getSelected"]
-       55 MOVE                             R13 R4
-       56 CALL                             R12 1 1
-       57 NEWCLOSURE                       R13 P1
-       58 CAPTURE                          VAL R0
-       59 NEWCLOSURE                       R14 P2
-       60 CAPTURE                          VAL R0
-       61 CAPTURE                          UPVAL U4
-       62 CAPTURE                          VAL R4
-       63 NEWCLOSURE                       R15 P3
-       64 CAPTURE                          VAL R5
-       65 CAPTURE                          UPVAL U4
-       66 CAPTURE                          VAL R1
-       67 GETUPVAL                         R16 5
-       68 GETUPVAL                         R17 6
-       69 DUPTABLE                         R18 K25 [{["uri"], ["type"] = "Default", ["width"] = 650, ["isContentFullBleed"] = True, ["tertiaryActionVariant"], ["primaryAction"], ["secondaryAction"], ["tertiaryAction"], ["escapeAction"]}]
-       70 GETUPVAL                         R19 7
-       71 SETTABLEKS                       R19 R18 K14 ["uri"]
-       73 GETUPVAL                         R19 8
-       74 GETTABLEKS                       R19 R19 K26 ["Enums"]
-       76 GETTABLEKS                       R19 R19 K27 ["ButtonVariant"]
-       78 GETTABLEKS                       R19 R19 K28 ["Utility"]
-       80 SETTABLEKS                       R19 R18 K20 ["tertiaryActionVariant"]
-       82 DUPTABLE                         R19 K32 [{"uri", "text", "disabled", "onActivated"}]
-       83 GETUPVAL                         R20 9
-       84 GETTABLEKS                       R20 R20 K33 ["child"]
-       86 GETUPVAL                         R21 7
-       87 LOADK                            R22 K34 ["Apply"]
-       88 CALL                             R20 2 1
-       89 SETTABLEKS                       R20 R19 K14 ["uri"]
-       91 LOADK                            R22 K35 ["DeviceManager"]
-       92 LOADK                            R23 K34 ["Apply"]
-       93 NAMECALL                         R20 R1 K36 ["getText"]
-       95 CALL                             R20 3 1
-       96 SETTABLEKS                       R20 R19 K29 ["text"]
-       98 NOT                              R20 R11
-       99 SETTABLEKS                       R20 R19 K30 ["disabled"]
-      101 SETTABLEKS                       R14 R19 K31 ["onActivated"]
-      103 SETTABLEKS                       R19 R18 K21 ["primaryAction"]
-      105 DUPTABLE                         R19 K37 [{"uri", "text", "onActivated"}]
-      106 GETUPVAL                         R20 9
-      107 GETTABLEKS                       R20 R20 K33 ["child"]
-      109 GETUPVAL                         R21 7
-      110 LOADK                            R22 K38 ["Cancel"]
-      111 CALL                             R20 2 1
-      112 SETTABLEKS                       R20 R19 K14 ["uri"]
-      114 LOADK                            R22 K39 ["Common"]
-      115 LOADK                            R23 K38 ["Cancel"]
-      116 NAMECALL                         R20 R1 K36 ["getText"]
-      118 CALL                             R20 3 1
-      119 SETTABLEKS                       R20 R19 K29 ["text"]
-      121 SETTABLEKS                       R13 R19 K31 ["onActivated"]
-      123 SETTABLEKS                       R19 R18 K22 ["secondaryAction"]
-      125 JUMPIFNOT                        R12 ; [+24]
-      126 GETTABLEKS                       R20 R12 K40 ["info"]
-      128 GETTABLEKS                       R20 R20 K41 ["isCustom"]
-      130 JUMPIF                           R20 ; [+19]
-      131 DUPTABLE                         R19 K37 [{"uri", "text", "onActivated"}]
-      132 GETUPVAL                         R20 9
-      133 GETTABLEKS                       R20 R20 K33 ["child"]
-      135 GETUPVAL                         R21 7
-      136 LOADK                            R22 K42 ["SaveAsCustom"]
-      137 CALL                             R20 2 1
-      138 SETTABLEKS                       R20 R19 K14 ["uri"]
-      140 LOADK                            R22 K35 ["DeviceManager"]
-      141 LOADK                            R23 K43 ["Duplicate"]
-      142 NAMECALL                         R20 R1 K36 ["getText"]
-      144 CALL                             R20 3 1
-      145 SETTABLEKS                       R20 R19 K29 ["text"]
-      147 SETTABLEKS                       R15 R19 K31 ["onActivated"]
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R19
-      151 SETTABLEKS                       R19 R18 K23 ["tertiaryAction"]
-      153 DUPTABLE                         R19 K45 [{"uri", "onClose"}]
-      154 GETUPVAL                         R20 9
-      155 GETTABLEKS                       R20 R20 K33 ["child"]
-      157 GETUPVAL                         R21 7
-      158 LOADK                            R22 K46 ["Close"]
-      159 CALL                             R20 2 1
-      160 SETTABLEKS                       R20 R19 K14 ["uri"]
-      162 SETTABLEKS                       R13 R19 K44 ["onClose"]
-      164 SETTABLEKS                       R19 R18 K24 ["escapeAction"]
-      166 DUPTABLE                         R19 K49 [{"Content", "AddDevices"}]
-      167 GETUPVAL                         R20 5
-      168 GETUPVAL                         R21 10
-      169 DUPTABLE                         R22 K52 [{["tag"] = "col size-full-0 auto-y"}]
-      170 DUPTABLE                         R23 K55 [{"Tabs", "Body"}]
-      171 GETUPVAL                         R24 5
-      172 GETUPVAL                         R25 11
-      173 DUPTABLE                         R26 K59 [{["LayoutOrder"] = 1, ["activeTab"], ["onActivated"]}]
-      174 GETTABLEKS                       R27 R4 K58 ["activeTab"]
-      176 SETTABLEKS                       R27 R26 K58 ["activeTab"]
-      178 NEWCLOSURE                       R27 P4
-      179 CAPTURE                          VAL R5
-      180 CAPTURE                          UPVAL U4
-      181 SETTABLEKS                       R27 R26 K31 ["onActivated"]
-      183 CALL                             R24 2 1
-      184 SETTABLEKS                       R24 R23 K53 ["Tabs"]
-      186 GETUPVAL                         R24 5
-      187 GETUPVAL                         R25 10
-      188 DUPTABLE                         R26 K65 [{["LayoutOrder"] = 2, ["tag"] = "row size-full-0", ["Size"], ["testId"] = "device-manager-body"}]
-      189 GETIMPORT                        R27 K68 [UDim2.new]
-      191 LOADN                            R28 1
-      192 LOADN                            R29 0
-      193 LOADN                            R30 0
-      194 LOADN                            R31 420
-      195 CALL                             R27 4 1
-      196 SETTABLEKS                       R27 R26 K62 ["Size"]
-      198 DUPTABLE                         R27 K72 [{"Rail", "Divider", "Details"}]
-      199 GETUPVAL                         R28 5
-      200 GETUPVAL                         R29 12
-      201 DUPTABLE                         R30 K76 [{["LayoutOrder"] = 1, ["Size"], ["layout"], ["scroll"], ["testId"] = "device-list-scroll"}]
-      202 GETIMPORT                        R31 K68 [UDim2.new]
-      204 LOADN                            R32 0
-      205 LOADN                            R33 240
-      206 LOADN                            R34 1
-      207 LOADN                            R35 0
-      208 CALL                             R31 4 1
-      209 SETTABLEKS                       R31 R30 K62 ["Size"]
-      211 DUPTABLE                         R31 K78 [{"FillDirection"}]
-      212 GETIMPORT                        R32 K81 [Enum.FillDirection.Vertical]
-      214 SETTABLEKS                       R32 R31 K77 ["FillDirection"]
-      216 SETTABLEKS                       R31 R30 K73 ["layout"]
-      218 DUPTABLE                         R31 K85 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-      219 GETIMPORT                        R32 K88 [Enum.AutomaticSize.Y]
-      221 SETTABLEKS                       R32 R31 K82 ["AutomaticCanvasSize"]
-      223 GETIMPORT                        R32 K90 [UDim2.fromOffset]
-      225 LOADN                            R33 0
-      226 LOADN                            R34 0
-      227 CALL                             R32 2 1
-      228 SETTABLEKS                       R32 R31 K83 ["CanvasSize"]
-      230 GETIMPORT                        R32 K91 [Enum.ScrollingDirection.Y]
-      232 SETTABLEKS                       R32 R31 K84 ["ScrollingDirection"]
-      234 SETTABLEKS                       R31 R30 K74 ["scroll"]
-      236 DUPTABLE                         R31 K93 [{"DeviceList"}]
-      237 GETUPVAL                         R32 5
-      238 GETUPVAL                         R33 13
-      239 DUPTABLE                         R34 K97 [{"state", "setState", "memoryTiersByPlatform", "onAddDevices"}]
-      240 SETTABLEKS                       R4 R34 K94 ["state"]
-      242 SETTABLEKS                       R5 R34 K95 ["setState"]
-      244 JUMPIFNOT                        R2 ; [+2]
-      245 MOVE                             R35 R3
-      246 JUMP                             ; [+1]
-      247 LOADNIL                          R35
-      248 SETTABLEKS                       R35 R34 K3 ["memoryTiersByPlatform"]
-      250 GETUPVAL                         R36 2
-      251 GETTABLEKS                       R36 R36 K98 ["getFFlagEnableDeviceSimulatorDeviceVisibility"]
-      253 CALL                             R36 0 1
-      254 JUMPIFNOT                        R36 ; [+3]
-      255 NEWCLOSURE                       R35 P5
-      256 CAPTURE                          VAL R9
-      257 JUMP                             ; [+1]
-      258 LOADNIL                          R35
-      259 SETTABLEKS                       R35 R34 K96 ["onAddDevices"]
-      261 CALL                             R32 2 1
-      262 SETTABLEKS                       R32 R31 K92 ["DeviceList"]
-      264 CALL                             R28 3 1
-      265 SETTABLEKS                       R28 R27 K69 ["Rail"]
-      267 GETUPVAL                         R28 5
-      268 GETUPVAL                         R29 8
-      269 GETTABLEKS                       R29 R29 K70 ["Divider"]
-      271 DUPTABLE                         R30 K100 [{["LayoutOrder"] = 2, ["orientation"]}]
-      272 GETUPVAL                         R31 8
-      273 GETTABLEKS                       R31 R31 K26 ["Enums"]
-      275 GETTABLEKS                       R31 R31 K101 ["Orientation"]
-      277 GETTABLEKS                       R31 R31 K80 ["Vertical"]
-      279 SETTABLEKS                       R31 R30 K99 ["orientation"]
-      281 CALL                             R28 2 1
-      282 SETTABLEKS                       R28 R27 K70 ["Divider"]
-      284 GETUPVAL                         R28 5
-      285 GETUPVAL                         R29 12
-      286 DUPTABLE                         R30 K105 [{["LayoutOrder"] = 3, ["Size"], ["flexItem"], ["layout"], ["scroll"], ["testId"] = "device-details-scroll"}]
-      287 GETIMPORT                        R31 K107 [UDim2.fromScale]
-      289 LOADN                            R32 0
-      290 LOADN                            R33 1
-      291 CALL                             R31 2 1
-      292 SETTABLEKS                       R31 R30 K62 ["Size"]
-      294 DUPTABLE                         R31 K111 [{["FlexMode"], ["GrowRatio"] = 1, ["ShrinkRatio"] = 1}]
-      295 GETIMPORT                        R32 K114 [Enum.UIFlexMode.Fill]
-      297 SETTABLEKS                       R32 R31 K108 ["FlexMode"]
-      299 SETTABLEKS                       R31 R30 K103 ["flexItem"]
-      301 DUPTABLE                         R31 K78 [{"FillDirection"}]
-      302 GETIMPORT                        R32 K81 [Enum.FillDirection.Vertical]
-      304 SETTABLEKS                       R32 R31 K77 ["FillDirection"]
-      306 SETTABLEKS                       R31 R30 K73 ["layout"]
-      308 DUPTABLE                         R31 K85 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-      309 GETIMPORT                        R32 K88 [Enum.AutomaticSize.Y]
-      311 SETTABLEKS                       R32 R31 K82 ["AutomaticCanvasSize"]
-      313 GETIMPORT                        R32 K90 [UDim2.fromOffset]
-      315 LOADN                            R33 0
-      316 LOADN                            R34 0
-      317 CALL                             R32 2 1
-      318 SETTABLEKS                       R32 R31 K83 ["CanvasSize"]
-      320 GETIMPORT                        R32 K91 [Enum.ScrollingDirection.Y]
-      322 SETTABLEKS                       R32 R31 K84 ["ScrollingDirection"]
-      324 SETTABLEKS                       R31 R30 K74 ["scroll"]
-      326 DUPTABLE                         R31 K116 [{"DeviceDetails"}]
-      327 GETUPVAL                         R32 5
-      328 GETUPVAL                         R33 14
-      329 DUPTABLE                         R34 K119 [{"state", "setState", "expanded", "setExpanded", "hasInternalPermission", "memoryTiersByPlatform"}]
-      330 SETTABLEKS                       R4 R34 K94 ["state"]
-      332 SETTABLEKS                       R5 R34 K95 ["setState"]
-      334 SETTABLEKS                       R6 R34 K117 ["expanded"]
-      336 SETTABLEKS                       R7 R34 K118 ["setExpanded"]
-      338 SETTABLEKS                       R2 R34 K0 ["hasInternalPermission"]
-      340 JUMPIFNOT                        R2 ; [+2]
-      341 MOVE                             R35 R3
-      342 JUMP                             ; [+1]
-      343 LOADNIL                          R35
-      344 SETTABLEKS                       R35 R34 K3 ["memoryTiersByPlatform"]
-      346 CALL                             R32 2 1
-      347 SETTABLEKS                       R32 R31 K115 ["DeviceDetails"]
-      349 CALL                             R28 3 1
-      350 SETTABLEKS                       R28 R27 K71 ["Details"]
-      352 CALL                             R24 3 1
-      353 SETTABLEKS                       R24 R23 K54 ["Body"]
-      355 CALL                             R20 3 1
-      356 SETTABLEKS                       R20 R19 K47 ["Content"]
-      358 JUMPIFNOT                        R8 ; [+17]
-      359 GETUPVAL                         R20 5
-      360 GETUPVAL                         R21 15
-      361 DUPTABLE                         R22 K122 [{"state", "onCancel", "onUpdate"}]
-      362 SETTABLEKS                       R4 R22 K94 ["state"]
-      364 NEWCLOSURE                       R23 P6
-      365 CAPTURE                          VAL R9
-      366 SETTABLEKS                       R23 R22 K120 ["onCancel"]
-      368 NEWCLOSURE                       R23 P7
-      369 CAPTURE                          VAL R5
-      370 CAPTURE                          UPVAL U4
-      371 CAPTURE                          VAL R9
-      372 SETTABLEKS                       R23 R22 K121 ["onUpdate"]
-      374 CALL                             R20 2 1
-      375 JUMP                             ; [+1]
-      376 LOADNIL                          R20
-      377 SETTABLEKS                       R20 R19 K48 ["AddDevices"]
-      379 CALL                             R16 3 -1
-      380 RETURN                           R16 -1
+       13 MOVE                             R3 R2
+       14 JUMPIF                           R3 ; [+4]
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K2 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       18 CALL                             R3 0 1
+       19 GETUPVAL                         R5 2
+       20 GETTABLEKS                       R5 R5 K2 ["getEngineFeatureDeviceSimulatorNominalMemory"]
+       22 CALL                             R5 0 1
+       23 JUMPIFNOT                        R5 ; [+3]
+       24 GETTABLEKS                       R4 R0 K3 ["memoryTiersByPlatform"]
+       26 JUMP                             ; [+1]
+       27 LOADNIL                          R4
+       28 GETUPVAL                         R5 3
+       29 GETTABLEKS                       R5 R5 K4 ["useState"]
+       31 NEWCLOSURE                       R6 P0
+       32 CAPTURE                          UPVAL U4
+       33 CAPTURE                          VAL R0
+       34 CALL                             R5 1 2
+       35 GETUPVAL                         R7 3
+       36 GETTABLEKS                       R7 R7 K4 ["useState"]
+       38 DUPTABLE                         R8 K10 [{["display"] = True, ["performance"] = True, ["keyboard"] = False}]
+       39 CALL                             R7 1 2
+       40 GETUPVAL                         R9 3
+       41 GETTABLEKS                       R9 R9 K4 ["useState"]
+       43 LOADB                            R10 0
+       44 CALL                             R9 1 2
+       45 GETUPVAL                         R11 4
+       46 GETTABLEKS                       R11 R11 K11 ["validate"]
+       48 MOVE                             R12 R5
+       49 MOVE                             R13 R1
+       50 CALL                             R11 2 1
+       51 MOVE                             R12 R11
+       52 JUMPIFNOT                        R12 ; [+5]
+       53 GETUPVAL                         R12 4
+       54 GETTABLEKS                       R12 R12 K12 ["isDirty"]
+       56 MOVE                             R13 R5
+       57 CALL                             R12 1 1
+       58 GETUPVAL                         R13 4
+       59 GETTABLEKS                       R13 R13 K13 ["getSelected"]
+       61 MOVE                             R14 R5
+       62 CALL                             R13 1 1
+       63 NEWCLOSURE                       R14 P1
+       64 CAPTURE                          VAL R0
+       65 NEWCLOSURE                       R15 P2
+       66 CAPTURE                          VAL R0
+       67 CAPTURE                          UPVAL U4
+       68 CAPTURE                          VAL R5
+       69 NEWCLOSURE                       R16 P3
+       70 CAPTURE                          VAL R6
+       71 CAPTURE                          UPVAL U4
+       72 CAPTURE                          VAL R1
+       73 GETUPVAL                         R17 5
+       74 GETUPVAL                         R18 6
+       75 DUPTABLE                         R19 K25 [{["uri"], ["type"] = "Default", ["width"] = 650, ["isContentFullBleed"] = True, ["tertiaryActionVariant"], ["primaryAction"], ["secondaryAction"], ["tertiaryAction"], ["escapeAction"]}]
+       76 GETUPVAL                         R20 7
+       77 SETTABLEKS                       R20 R19 K14 ["uri"]
+       79 GETUPVAL                         R20 8
+       80 GETTABLEKS                       R20 R20 K26 ["Enums"]
+       82 GETTABLEKS                       R20 R20 K27 ["ButtonVariant"]
+       84 GETTABLEKS                       R20 R20 K28 ["Utility"]
+       86 SETTABLEKS                       R20 R19 K20 ["tertiaryActionVariant"]
+       88 DUPTABLE                         R20 K32 [{"uri", "text", "disabled", "onActivated"}]
+       89 GETUPVAL                         R21 9
+       90 GETTABLEKS                       R21 R21 K33 ["child"]
+       92 GETUPVAL                         R22 7
+       93 LOADK                            R23 K34 ["Apply"]
+       94 CALL                             R21 2 1
+       95 SETTABLEKS                       R21 R20 K14 ["uri"]
+       97 LOADK                            R23 K35 ["DeviceManager"]
+       98 LOADK                            R24 K34 ["Apply"]
+       99 NAMECALL                         R21 R1 K36 ["getText"]
+      101 CALL                             R21 3 1
+      102 SETTABLEKS                       R21 R20 K29 ["text"]
+      104 NOT                              R21 R12
+      105 SETTABLEKS                       R21 R20 K30 ["disabled"]
+      107 SETTABLEKS                       R15 R20 K31 ["onActivated"]
+      109 SETTABLEKS                       R20 R19 K21 ["primaryAction"]
+      111 DUPTABLE                         R20 K37 [{"uri", "text", "onActivated"}]
+      112 GETUPVAL                         R21 9
+      113 GETTABLEKS                       R21 R21 K33 ["child"]
+      115 GETUPVAL                         R22 7
+      116 LOADK                            R23 K38 ["Cancel"]
+      117 CALL                             R21 2 1
+      118 SETTABLEKS                       R21 R20 K14 ["uri"]
+      120 LOADK                            R23 K39 ["Common"]
+      121 LOADK                            R24 K38 ["Cancel"]
+      122 NAMECALL                         R21 R1 K36 ["getText"]
+      124 CALL                             R21 3 1
+      125 SETTABLEKS                       R21 R20 K29 ["text"]
+      127 SETTABLEKS                       R14 R20 K31 ["onActivated"]
+      129 SETTABLEKS                       R20 R19 K22 ["secondaryAction"]
+      131 JUMPIFNOT                        R13 ; [+24]
+      132 GETTABLEKS                       R21 R13 K40 ["info"]
+      134 GETTABLEKS                       R21 R21 K41 ["isCustom"]
+      136 JUMPIF                           R21 ; [+19]
+      137 DUPTABLE                         R20 K37 [{"uri", "text", "onActivated"}]
+      138 GETUPVAL                         R21 9
+      139 GETTABLEKS                       R21 R21 K33 ["child"]
+      141 GETUPVAL                         R22 7
+      142 LOADK                            R23 K42 ["SaveAsCustom"]
+      143 CALL                             R21 2 1
+      144 SETTABLEKS                       R21 R20 K14 ["uri"]
+      146 LOADK                            R23 K35 ["DeviceManager"]
+      147 LOADK                            R24 K43 ["Duplicate"]
+      148 NAMECALL                         R21 R1 K36 ["getText"]
+      150 CALL                             R21 3 1
+      151 SETTABLEKS                       R21 R20 K29 ["text"]
+      153 SETTABLEKS                       R16 R20 K31 ["onActivated"]
+      155 JUMP                             ; [+1]
+      156 LOADNIL                          R20
+      157 SETTABLEKS                       R20 R19 K23 ["tertiaryAction"]
+      159 DUPTABLE                         R20 K45 [{"uri", "onClose"}]
+      160 GETUPVAL                         R21 9
+      161 GETTABLEKS                       R21 R21 K33 ["child"]
+      163 GETUPVAL                         R22 7
+      164 LOADK                            R23 K46 ["Close"]
+      165 CALL                             R21 2 1
+      166 SETTABLEKS                       R21 R20 K14 ["uri"]
+      168 SETTABLEKS                       R14 R20 K44 ["onClose"]
+      170 SETTABLEKS                       R20 R19 K24 ["escapeAction"]
+      172 DUPTABLE                         R20 K49 [{"Content", "AddDevices"}]
+      173 GETUPVAL                         R21 5
+      174 GETUPVAL                         R22 10
+      175 DUPTABLE                         R23 K52 [{["tag"] = "col size-full-0 auto-y"}]
+      176 DUPTABLE                         R24 K55 [{"Tabs", "Body"}]
+      177 GETUPVAL                         R25 5
+      178 GETUPVAL                         R26 11
+      179 DUPTABLE                         R27 K59 [{["LayoutOrder"] = 1, ["activeTab"], ["onActivated"]}]
+      180 GETTABLEKS                       R28 R5 K58 ["activeTab"]
+      182 SETTABLEKS                       R28 R27 K58 ["activeTab"]
+      184 NEWCLOSURE                       R28 P4
+      185 CAPTURE                          VAL R6
+      186 CAPTURE                          UPVAL U4
+      187 SETTABLEKS                       R28 R27 K31 ["onActivated"]
+      189 CALL                             R25 2 1
+      190 SETTABLEKS                       R25 R24 K53 ["Tabs"]
+      192 GETUPVAL                         R25 5
+      193 GETUPVAL                         R26 10
+      194 DUPTABLE                         R27 K65 [{["LayoutOrder"] = 2, ["tag"] = "row size-full-0", ["Size"], ["testId"] = "device-manager-body"}]
+      195 GETIMPORT                        R28 K68 [UDim2.new]
+      197 LOADN                            R29 1
+      198 LOADN                            R30 0
+      199 LOADN                            R31 0
+      200 LOADN                            R32 420
+      201 CALL                             R28 4 1
+      202 SETTABLEKS                       R28 R27 K62 ["Size"]
+      204 DUPTABLE                         R28 K72 [{"Rail", "Divider", "Details"}]
+      205 GETUPVAL                         R29 5
+      206 GETUPVAL                         R30 12
+      207 DUPTABLE                         R31 K76 [{["LayoutOrder"] = 1, ["Size"], ["layout"], ["scroll"], ["testId"] = "device-list-scroll"}]
+      208 GETIMPORT                        R32 K68 [UDim2.new]
+      210 LOADN                            R33 0
+      211 LOADN                            R34 240
+      212 LOADN                            R35 1
+      213 LOADN                            R36 0
+      214 CALL                             R32 4 1
+      215 SETTABLEKS                       R32 R31 K62 ["Size"]
+      217 DUPTABLE                         R32 K78 [{"FillDirection"}]
+      218 GETIMPORT                        R33 K81 [Enum.FillDirection.Vertical]
+      220 SETTABLEKS                       R33 R32 K77 ["FillDirection"]
+      222 SETTABLEKS                       R32 R31 K73 ["layout"]
+      224 DUPTABLE                         R32 K85 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+      225 GETIMPORT                        R33 K88 [Enum.AutomaticSize.Y]
+      227 SETTABLEKS                       R33 R32 K82 ["AutomaticCanvasSize"]
+      229 GETIMPORT                        R33 K90 [UDim2.fromOffset]
+      231 LOADN                            R34 0
+      232 LOADN                            R35 0
+      233 CALL                             R33 2 1
+      234 SETTABLEKS                       R33 R32 K83 ["CanvasSize"]
+      236 GETIMPORT                        R33 K91 [Enum.ScrollingDirection.Y]
+      238 SETTABLEKS                       R33 R32 K84 ["ScrollingDirection"]
+      240 SETTABLEKS                       R32 R31 K74 ["scroll"]
+      242 DUPTABLE                         R32 K93 [{"DeviceList"}]
+      243 GETUPVAL                         R33 5
+      244 GETUPVAL                         R34 13
+      245 DUPTABLE                         R35 K97 [{"state", "setState", "memoryTiersByPlatform", "onAddDevices"}]
+      246 SETTABLEKS                       R5 R35 K94 ["state"]
+      248 SETTABLEKS                       R6 R35 K95 ["setState"]
+      250 SETTABLEKS                       R4 R35 K3 ["memoryTiersByPlatform"]
+      252 GETUPVAL                         R37 2
+      253 GETTABLEKS                       R37 R37 K98 ["getFFlagEnableDeviceSimulatorDeviceVisibility"]
+      255 CALL                             R37 0 1
+      256 JUMPIFNOT                        R37 ; [+3]
+      257 NEWCLOSURE                       R36 P5
+      258 CAPTURE                          VAL R10
+      259 JUMP                             ; [+1]
+      260 LOADNIL                          R36
+      261 SETTABLEKS                       R36 R35 K96 ["onAddDevices"]
+      263 CALL                             R33 2 1
+      264 SETTABLEKS                       R33 R32 K92 ["DeviceList"]
+      266 CALL                             R29 3 1
+      267 SETTABLEKS                       R29 R28 K69 ["Rail"]
+      269 GETUPVAL                         R29 5
+      270 GETUPVAL                         R30 8
+      271 GETTABLEKS                       R30 R30 K70 ["Divider"]
+      273 DUPTABLE                         R31 K100 [{["LayoutOrder"] = 2, ["orientation"]}]
+      274 GETUPVAL                         R32 8
+      275 GETTABLEKS                       R32 R32 K26 ["Enums"]
+      277 GETTABLEKS                       R32 R32 K101 ["Orientation"]
+      279 GETTABLEKS                       R32 R32 K80 ["Vertical"]
+      281 SETTABLEKS                       R32 R31 K99 ["orientation"]
+      283 CALL                             R29 2 1
+      284 SETTABLEKS                       R29 R28 K70 ["Divider"]
+      286 GETUPVAL                         R29 5
+      287 GETUPVAL                         R30 12
+      288 DUPTABLE                         R31 K105 [{["LayoutOrder"] = 3, ["Size"], ["flexItem"], ["layout"], ["scroll"], ["testId"] = "device-details-scroll"}]
+      289 GETIMPORT                        R32 K107 [UDim2.fromScale]
+      291 LOADN                            R33 0
+      292 LOADN                            R34 1
+      293 CALL                             R32 2 1
+      294 SETTABLEKS                       R32 R31 K62 ["Size"]
+      296 DUPTABLE                         R32 K111 [{["FlexMode"], ["GrowRatio"] = 1, ["ShrinkRatio"] = 1}]
+      297 GETIMPORT                        R33 K114 [Enum.UIFlexMode.Fill]
+      299 SETTABLEKS                       R33 R32 K108 ["FlexMode"]
+      301 SETTABLEKS                       R32 R31 K103 ["flexItem"]
+      303 DUPTABLE                         R32 K78 [{"FillDirection"}]
+      304 GETIMPORT                        R33 K81 [Enum.FillDirection.Vertical]
+      306 SETTABLEKS                       R33 R32 K77 ["FillDirection"]
+      308 SETTABLEKS                       R32 R31 K73 ["layout"]
+      310 DUPTABLE                         R32 K85 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+      311 GETIMPORT                        R33 K88 [Enum.AutomaticSize.Y]
+      313 SETTABLEKS                       R33 R32 K82 ["AutomaticCanvasSize"]
+      315 GETIMPORT                        R33 K90 [UDim2.fromOffset]
+      317 LOADN                            R34 0
+      318 LOADN                            R35 0
+      319 CALL                             R33 2 1
+      320 SETTABLEKS                       R33 R32 K83 ["CanvasSize"]
+      322 GETIMPORT                        R33 K91 [Enum.ScrollingDirection.Y]
+      324 SETTABLEKS                       R33 R32 K84 ["ScrollingDirection"]
+      326 SETTABLEKS                       R32 R31 K74 ["scroll"]
+      328 DUPTABLE                         R32 K116 [{"DeviceDetails"}]
+      329 GETUPVAL                         R33 5
+      330 GETUPVAL                         R34 14
+      331 DUPTABLE                         R35 K120 [{"state", "setState", "expanded", "setExpanded", "showsMemory", "memoryTiersByPlatform"}]
+      332 SETTABLEKS                       R5 R35 K94 ["state"]
+      334 SETTABLEKS                       R6 R35 K95 ["setState"]
+      336 SETTABLEKS                       R7 R35 K117 ["expanded"]
+      338 SETTABLEKS                       R8 R35 K118 ["setExpanded"]
+      340 SETTABLEKS                       R3 R35 K119 ["showsMemory"]
+      342 SETTABLEKS                       R4 R35 K3 ["memoryTiersByPlatform"]
+      344 CALL                             R33 2 1
+      345 SETTABLEKS                       R33 R32 K115 ["DeviceDetails"]
+      347 CALL                             R29 3 1
+      348 SETTABLEKS                       R29 R28 K71 ["Details"]
+      350 CALL                             R25 3 1
+      351 SETTABLEKS                       R25 R24 K54 ["Body"]
+      353 CALL                             R21 3 1
+      354 SETTABLEKS                       R21 R20 K47 ["Content"]
+      356 JUMPIFNOT                        R9 ; [+17]
+      357 GETUPVAL                         R21 5
+      358 GETUPVAL                         R22 15
+      359 DUPTABLE                         R23 K123 [{"state", "onCancel", "onUpdate"}]
+      360 SETTABLEKS                       R5 R23 K94 ["state"]
+      362 NEWCLOSURE                       R24 P6
+      363 CAPTURE                          VAL R10
+      364 SETTABLEKS                       R24 R23 K121 ["onCancel"]
+      366 NEWCLOSURE                       R24 P7
+      367 CAPTURE                          VAL R6
+      368 CAPTURE                          UPVAL U4
+      369 CAPTURE                          VAL R10
+      370 SETTABLEKS                       R24 R23 K122 ["onUpdate"]
+      372 CALL                             R21 2 1
+      373 JUMP                             ; [+1]
+      374 LOADNIL                          R21
+      375 SETTABLEKS                       R21 R20 K48 ["AddDevices"]
+      377 CALL                             R17 3 -1
+      378 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

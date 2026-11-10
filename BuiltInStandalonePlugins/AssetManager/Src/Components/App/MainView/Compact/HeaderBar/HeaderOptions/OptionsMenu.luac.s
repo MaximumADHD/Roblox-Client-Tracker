@@ -90,7 +90,7 @@ PROTO_2:
       114 GETTABLEKS                       R14 R14 K34 ["Start"]
       116 SETTABLEKS                       R14 R13 K23 ["align"]
       118 GETUPVAL                         R15 7
-      119 GETTABLEKS                       R15 R15 K35 ["CompactOptionsMenuMaxHeight"]
+      119 GETTABLEKS                       R15 R15 K35 ["DEPRECATED_CompactOptionsMenuMaxHeight"]
       121 FASTCALL2                        MATH_MIN R15 R7 ; [+4]
       123 MOVE                             R16 R7
       124 GETIMPORT                        R14 K38 [math.min]
@@ -157,7 +157,7 @@ MAIN:
        50 GETIMPORT                        R8 K5 [require]
        52 GETTABLEKS                       R9 R0 K12 ["Src"]
        54 GETTABLEKS                       R9 R9 K17 ["Hooks"]
-       56 GETTABLEKS                       R9 R9 K18 ["useCompactHeaderOptions"]
+       56 GETTABLEKS                       R9 R9 K18 ["useHeaderMenuOptions"]
        58 CALL                             R8 1 1
        59 GETIMPORT                        R9 K5 [require]
        61 GETTABLEKS                       R10 R0 K12 ["Src"]

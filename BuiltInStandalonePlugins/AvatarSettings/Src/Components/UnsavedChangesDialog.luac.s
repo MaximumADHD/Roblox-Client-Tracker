@@ -93,69 +93,77 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+12]
-        2 GETUPVAL                         R0 0
-        3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R0 1
-        5 LOADK                            R2 K0 ["PublishedWithPreset"]
-        6 DUPTABLE                         R3 K2 [{"presetType"}]
-        7 GETUPVAL                         R5 2
-        8 ORK                              R4 R5 K3 ["None"]
-        9 SETTABLEKS                       R4 R3 K1 ["presetType"]
-       11 NAMECALL                         R0 R0 K4 ["logCounter"]
-       13 CALL                             R0 3 0
-       14 GETUPVAL                         R0 3
-       15 GETUPVAL                         R2 4
-       16 GETTABLEKS                       R2 R2 K5 ["publishSettings"]
-       18 NAMECALL                         R0 R0 K6 ["Invoke"]
-       20 CALL                             R0 2 0
-       21 GETUPVAL                         R0 3
-       22 GETUPVAL                         R2 4
-       23 GETTABLEKS                       R2 R2 K7 ["releaseStudioCloseHold"]
-       25 NAMECALL                         R0 R0 K6 ["Invoke"]
-       27 CALL                             R0 2 0
-       28 GETUPVAL                         R0 3
-       29 GETUPVAL                         R2 4
-       30 GETTABLEKS                       R2 R2 K8 ["releaseStudioPublishHold"]
-       32 NAMECALL                         R0 R0 K6 ["Invoke"]
-       34 CALL                             R0 2 0
-       35 GETUPVAL                         R0 5
-       36 LOADB                            R1 0
-       37 CALL                             R0 1 0
-       38 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["hasInvalidSettings"]
+        3 JUMPIFNOT                        R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R0 1
+        6 JUMPIFNOT                        R0 ; [+12]
+        7 GETUPVAL                         R0 1
+        8 JUMPIFNOT                        R0 ; [+10]
+        9 GETUPVAL                         R0 2
+       10 LOADK                            R2 K1 ["PublishedWithPreset"]
+       11 DUPTABLE                         R3 K3 [{"presetType"}]
+       12 GETUPVAL                         R5 3
+       13 ORK                              R4 R5 K4 ["None"]
+       14 SETTABLEKS                       R4 R3 K2 ["presetType"]
+       16 NAMECALL                         R0 R0 K5 ["logCounter"]
+       18 CALL                             R0 3 0
+       19 GETUPVAL                         R0 4
+       20 GETUPVAL                         R2 5
+       21 GETTABLEKS                       R2 R2 K6 ["publishSettings"]
+       23 NAMECALL                         R0 R0 K7 ["Invoke"]
+       25 CALL                             R0 2 0
+       26 GETUPVAL                         R0 4
+       27 GETUPVAL                         R2 5
+       28 GETTABLEKS                       R2 R2 K8 ["releaseStudioCloseHold"]
+       30 NAMECALL                         R0 R0 K7 ["Invoke"]
+       32 CALL                             R0 2 0
+       33 GETUPVAL                         R0 4
+       34 GETUPVAL                         R2 5
+       35 GETTABLEKS                       R2 R2 K9 ["releaseStudioPublishHold"]
+       37 NAMECALL                         R0 R0 K7 ["Invoke"]
+       39 CALL                             R0 2 0
+       40 GETUPVAL                         R0 6
+       41 LOADB                            R1 0
+       42 CALL                             R0 1 0
+       43 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+12]
-        2 GETUPVAL                         R0 0
-        3 JUMPIFNOT                        R0 ; [+10]
-        4 GETUPVAL                         R0 1
-        5 LOADK                            R2 K0 ["PublishedWithPreset"]
-        6 DUPTABLE                         R3 K2 [{"presetType"}]
-        7 GETUPVAL                         R5 2
-        8 ORK                              R4 R5 K3 ["None"]
-        9 SETTABLEKS                       R4 R3 K1 ["presetType"]
-       11 NAMECALL                         R0 R0 K4 ["logCounter"]
-       13 CALL                             R0 3 0
-       14 GETUPVAL                         R0 3
-       15 GETUPVAL                         R2 4
-       16 GETTABLEKS                       R2 R2 K5 ["publishSettings"]
-       18 NAMECALL                         R0 R0 K6 ["Invoke"]
-       20 CALL                             R0 2 0
-       21 GETUPVAL                         R0 3
-       22 GETUPVAL                         R2 4
-       23 GETTABLEKS                       R2 R2 K7 ["releaseStudioCloseHold"]
-       25 NAMECALL                         R0 R0 K6 ["Invoke"]
-       27 CALL                             R0 2 0
-       28 GETUPVAL                         R0 3
-       29 GETUPVAL                         R2 4
-       30 GETTABLEKS                       R2 R2 K8 ["releaseStudioPublishHold"]
-       32 NAMECALL                         R0 R0 K6 ["Invoke"]
-       34 CALL                             R0 2 0
-       35 GETUPVAL                         R0 5
-       36 LOADB                            R1 0
-       37 CALL                             R0 1 0
-       38 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["hasInvalidSettings"]
+        3 JUMPIFNOT                        R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R0 1
+        6 JUMPIFNOT                        R0 ; [+12]
+        7 GETUPVAL                         R0 1
+        8 JUMPIFNOT                        R0 ; [+10]
+        9 GETUPVAL                         R0 2
+       10 LOADK                            R2 K1 ["PublishedWithPreset"]
+       11 DUPTABLE                         R3 K3 [{"presetType"}]
+       12 GETUPVAL                         R5 3
+       13 ORK                              R4 R5 K4 ["None"]
+       14 SETTABLEKS                       R4 R3 K2 ["presetType"]
+       16 NAMECALL                         R0 R0 K5 ["logCounter"]
+       18 CALL                             R0 3 0
+       19 GETUPVAL                         R0 4
+       20 GETUPVAL                         R2 5
+       21 GETTABLEKS                       R2 R2 K6 ["publishSettings"]
+       23 NAMECALL                         R0 R0 K7 ["Invoke"]
+       25 CALL                             R0 2 0
+       26 GETUPVAL                         R0 4
+       27 GETUPVAL                         R2 5
+       28 GETTABLEKS                       R2 R2 K8 ["releaseStudioCloseHold"]
+       30 NAMECALL                         R0 R0 K7 ["Invoke"]
+       32 CALL                             R0 2 0
+       33 GETUPVAL                         R0 4
+       34 GETUPVAL                         R2 5
+       35 GETTABLEKS                       R2 R2 K9 ["releaseStudioPublishHold"]
+       37 NAMECALL                         R0 R0 K7 ["Invoke"]
+       39 CALL                             R0 2 0
+       40 GETUPVAL                         R0 6
+       41 LOADB                            R1 0
+       42 CALL                             R0 1 0
+       43 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R0 0
@@ -207,6 +215,24 @@ PROTO_12:
        24 RETURN                           R0 0
 
 PROTO_13:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["releaseStudioCloseHold"]
+        4 LOADK                            R3 K1 ["cancel"]
+        5 NAMECALL                         R0 R0 K2 ["Invoke"]
+        7 CALL                             R0 3 0
+        8 GETUPVAL                         R0 0
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K3 ["releaseStudioPublishHold"]
+       12 LOADK                            R3 K1 ["cancel"]
+       13 NAMECALL                         R0 R0 K2 ["Invoke"]
+       15 CALL                             R0 3 0
+       16 GETUPVAL                         R0 2
+       17 LOADB                            R1 0
+       18 CALL                             R0 1 0
+       19 RETURN                           R0 0
+
+PROTO_14:
         0 DUPTABLE                         R0 K2 [{"DialogComponent", "DialogUri"}]
         1 GETUPVAL                         R1 0
         2 SETTABLEKS                       R1 R0 K0 ["DialogComponent"]
@@ -220,7 +246,7 @@ PROTO_13:
        13 SETTABLEKS                       R1 R0 K1 ["DialogUri"]
        15 RETURN                           R0 1
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+3]
         2 GETUPVAL                         R0 1
@@ -230,7 +256,7 @@ PROTO_14:
         6 CALL                             R0 0 0
         7 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 CALL                             R1 1 1
@@ -317,134 +343,157 @@ PROTO_15:
        98 CAPTURE                          VAL R7
        99 NEWTABLE                         R17 0 0
       101 CALL                             R15 2 0
-      102 DUPTABLE                         R15 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
-      103 LOADK                            R18 K14 ["UnsavedChangesDialog"]
-      104 LOADK                            R19 K15 ["SaveAction"]
-      105 NAMECALL                         R16 R10 K16 ["getText"]
+      102 DUPTABLE                         R15 K14 [{["Label"], ["HidesDialog"] = True, ["Enabled"], ["OnActivated"]}]
+      103 LOADK                            R18 K15 ["UnsavedChangesDialog"]
+      104 LOADK                            R19 K16 ["SaveAction"]
+      105 NAMECALL                         R16 R10 K17 ["getText"]
       107 CALL                             R16 3 1
       108 SETTABLEKS                       R16 R15 K9 ["Label"]
-      110 NEWCLOSURE                       R16 P5
-      111 CAPTURE                          UPVAL U8
-      112 CAPTURE                          VAL R13
-      113 CAPTURE                          VAL R12
-      114 CAPTURE                          VAL R9
-      115 CAPTURE                          UPVAL U12
-      116 CAPTURE                          VAL R7
-      117 SETTABLEKS                       R16 R15 K12 ["OnActivated"]
-      119 DUPTABLE                         R16 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
-      120 LOADK                            R19 K14 ["UnsavedChangesDialog"]
-      121 LOADK                            R20 K17 ["SaveAndRestartAction"]
-      122 NAMECALL                         R17 R10 K16 ["getText"]
-      124 CALL                             R17 3 1
-      125 SETTABLEKS                       R17 R16 K9 ["Label"]
-      127 NEWCLOSURE                       R17 P6
-      128 CAPTURE                          UPVAL U8
-      129 CAPTURE                          VAL R13
-      130 CAPTURE                          VAL R12
-      131 CAPTURE                          VAL R9
-      132 CAPTURE                          UPVAL U12
-      133 CAPTURE                          VAL R7
-      134 SETTABLEKS                       R17 R16 K12 ["OnActivated"]
-      136 DUPTABLE                         R17 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
-      137 LOADK                            R20 K14 ["UnsavedChangesDialog"]
-      138 LOADK                            R21 K18 ["DiscardAction"]
-      139 NAMECALL                         R18 R10 K16 ["getText"]
-      141 CALL                             R18 3 1
-      142 SETTABLEKS                       R18 R17 K9 ["Label"]
-      144 NEWCLOSURE                       R18 P7
-      145 CAPTURE                          VAL R2
-      146 CAPTURE                          VAL R8
-      147 CAPTURE                          VAL R9
-      148 CAPTURE                          UPVAL U12
-      149 CAPTURE                          VAL R7
-      150 SETTABLEKS                       R18 R17 K12 ["OnActivated"]
-      152 DUPTABLE                         R18 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
-      153 LOADK                            R21 K14 ["UnsavedChangesDialog"]
-      154 LOADK                            R22 K19 ["CancelAction"]
-      155 NAMECALL                         R19 R10 K16 ["getText"]
-      157 CALL                             R19 3 1
-      158 SETTABLEKS                       R19 R18 K9 ["Label"]
-      160 NEWCLOSURE                       R19 P8
-      161 CAPTURE                          VAL R8
-      162 CAPTURE                          VAL R9
-      163 CAPTURE                          UPVAL U12
-      164 CAPTURE                          VAL R7
-      165 SETTABLEKS                       R19 R18 K12 ["OnActivated"]
-      167 GETUPVAL                         R20 13
-      168 JUMPIFNOT                        R20 ; [+14]
-      169 GETUPVAL                         R19 3
-      170 GETTABLEKS                       R19 R19 K20 ["useMemo"]
-      172 NEWCLOSURE                       R20 P9
-      173 CAPTURE                          UPVAL U14
-      174 CAPTURE                          UPVAL U15
-      175 CAPTURE                          VAL R9
-      176 NEWTABLE                         R21 0 1
-      178 MOVE                             R22 R9
-      179 SETLIST                          R21 R22 1 [1]
-      181 CALL                             R19 2 1
-      182 JUMP                             ; [+1]
-      183 LOADNIL                          R19
-      184 GETUPVAL                         R20 16
-      185 DUPTABLE                         R21 K33 [{["Intent"], ["Heading"], ["Body"], ["ActionPrimary"], ["ActionSecondary"], ["ActionTertiary"], ["DisableTitleBar"], ["OnClosed"], ["Width"] = 410, ["Modal"] = True, ["MigrateToStudioFoundation"]}]
-      186 GETTABLEKS                       R23 R5 K34 ["current"]
-      188 JUMPIFNOT                        R23 ; [+2]
-      189 LOADK                            R22 K35 ["Destructive"]
-      190 JUMP                             ; [+1]
-      191 LOADK                            R22 K36 ["Warning"]
-      192 SETTABLEKS                       R22 R21 K21 ["Intent"]
-      194 LOADK                            R24 K14 ["UnsavedChangesDialog"]
-      195 LOADK                            R25 K37 ["Title"]
-      196 NAMECALL                         R22 R10 K16 ["getText"]
-      198 CALL                             R22 3 1
-      199 SETTABLEKS                       R22 R21 K22 ["Heading"]
-      201 GETTABLEKS                       R23 R5 K34 ["current"]
-      203 JUMPIFNOT                        R23 ; [+6]
-      204 LOADK                            R24 K14 ["UnsavedChangesDialog"]
-      205 LOADK                            R25 K38 ["ServerRestartDescription"]
-      206 NAMECALL                         R22 R10 K16 ["getText"]
-      208 CALL                             R22 3 1
-      209 JUMP                             ; [+5]
-      210 LOADK                            R24 K14 ["UnsavedChangesDialog"]
-      211 LOADK                            R25 K39 ["Description"]
-      212 NAMECALL                         R22 R10 K16 ["getText"]
-      214 CALL                             R22 3 1
-      215 SETTABLEKS                       R22 R21 K23 ["Body"]
-      217 GETTABLEKS                       R23 R5 K34 ["current"]
-      219 JUMPIFNOT                        R23 ; [+2]
-      220 MOVE                             R22 R16
-      221 JUMP                             ; [+1]
-      222 MOVE                             R22 R15
-      223 SETTABLEKS                       R22 R21 K24 ["ActionPrimary"]
-      225 JUMPIFNOT                        R3 ; [+2]
-      226 MOVE                             R22 R17
-      227 JUMP                             ; [+1]
-      228 MOVE                             R22 R18
-      229 SETTABLEKS                       R22 R21 K25 ["ActionSecondary"]
-      231 JUMPIFNOT                        R3 ; [+2]
-      232 LOADNIL                          R22
-      233 JUMP                             ; [+1]
-      234 MOVE                             R22 R17
-      235 SETTABLEKS                       R22 R21 K26 ["ActionTertiary"]
-      237 NOT                              R22 R8
-      238 SETTABLEKS                       R22 R21 K27 ["DisableTitleBar"]
-      240 GETTABLEKS                       R22 R18 K12 ["OnActivated"]
-      242 SETTABLEKS                       R22 R21 K28 ["OnClosed"]
-      244 SETTABLEKS                       R19 R21 K32 ["MigrateToStudioFoundation"]
-      246 CALL                             R20 1 2
-      247 GETUPVAL                         R22 11
-      248 NEWCLOSURE                       R23 P10
-      249 CAPTURE                          VAL R6
-      250 CAPTURE                          VAL R20
-      251 CAPTURE                          VAL R21
-      252 NEWTABLE                         R24 0 1
-      254 MOVE                             R25 R6
-      255 SETLIST                          R24 R25 1 [1]
-      257 CALL                             R22 2 0
-      258 GETUPVAL                         R22 17
-      259 GETUPVAL                         R23 3
-      260 GETTABLEKS                       R23 R23 K40 ["Fragment"]
-      262 CALL                             R22 1 -1
-      263 RETURN                           R22 -1
+      110 GETTABLEKS                       R17 R2 K18 ["hasInvalidSettings"]
+      112 NOT                              R16 R17
+      113 SETTABLEKS                       R16 R15 K12 ["Enabled"]
+      115 NEWCLOSURE                       R16 P5
+      116 CAPTURE                          VAL R2
+      117 CAPTURE                          UPVAL U8
+      118 CAPTURE                          VAL R13
+      119 CAPTURE                          VAL R12
+      120 CAPTURE                          VAL R9
+      121 CAPTURE                          UPVAL U12
+      122 CAPTURE                          VAL R7
+      123 SETTABLEKS                       R16 R15 K13 ["OnActivated"]
+      125 DUPTABLE                         R16 K14 [{["Label"], ["HidesDialog"] = True, ["Enabled"], ["OnActivated"]}]
+      126 LOADK                            R19 K15 ["UnsavedChangesDialog"]
+      127 LOADK                            R20 K19 ["SaveAndRestartAction"]
+      128 NAMECALL                         R17 R10 K17 ["getText"]
+      130 CALL                             R17 3 1
+      131 SETTABLEKS                       R17 R16 K9 ["Label"]
+      133 GETTABLEKS                       R18 R2 K18 ["hasInvalidSettings"]
+      135 NOT                              R17 R18
+      136 SETTABLEKS                       R17 R16 K12 ["Enabled"]
+      138 NEWCLOSURE                       R17 P6
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          UPVAL U8
+      141 CAPTURE                          VAL R13
+      142 CAPTURE                          VAL R12
+      143 CAPTURE                          VAL R9
+      144 CAPTURE                          UPVAL U12
+      145 CAPTURE                          VAL R7
+      146 SETTABLEKS                       R17 R16 K13 ["OnActivated"]
+      148 DUPTABLE                         R17 K20 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      149 LOADK                            R20 K15 ["UnsavedChangesDialog"]
+      150 LOADK                            R21 K21 ["DiscardAction"]
+      151 NAMECALL                         R18 R10 K17 ["getText"]
+      153 CALL                             R18 3 1
+      154 SETTABLEKS                       R18 R17 K9 ["Label"]
+      156 NEWCLOSURE                       R18 P7
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R8
+      159 CAPTURE                          VAL R9
+      160 CAPTURE                          UPVAL U12
+      161 CAPTURE                          VAL R7
+      162 SETTABLEKS                       R18 R17 K13 ["OnActivated"]
+      164 DUPTABLE                         R18 K20 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      165 LOADK                            R21 K15 ["UnsavedChangesDialog"]
+      166 LOADK                            R22 K22 ["CancelAction"]
+      167 NAMECALL                         R19 R10 K17 ["getText"]
+      169 CALL                             R19 3 1
+      170 SETTABLEKS                       R19 R18 K9 ["Label"]
+      172 NEWCLOSURE                       R19 P8
+      173 CAPTURE                          VAL R8
+      174 CAPTURE                          VAL R9
+      175 CAPTURE                          UPVAL U12
+      176 CAPTURE                          VAL R7
+      177 SETTABLEKS                       R19 R18 K13 ["OnActivated"]
+      179 DUPTABLE                         R19 K20 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      180 LOADK                            R22 K15 ["UnsavedChangesDialog"]
+      181 LOADK                            R23 K22 ["CancelAction"]
+      182 NAMECALL                         R20 R10 K17 ["getText"]
+      184 CALL                             R20 3 1
+      185 SETTABLEKS                       R20 R19 K9 ["Label"]
+      187 NEWCLOSURE                       R20 P9
+      188 CAPTURE                          VAL R9
+      189 CAPTURE                          UPVAL U12
+      190 CAPTURE                          VAL R7
+      191 SETTABLEKS                       R20 R19 K13 ["OnActivated"]
+      193 GETUPVAL                         R21 13
+      194 JUMPIFNOT                        R21 ; [+14]
+      195 GETUPVAL                         R20 3
+      196 GETTABLEKS                       R20 R20 K23 ["useMemo"]
+      198 NEWCLOSURE                       R21 P10
+      199 CAPTURE                          UPVAL U14
+      200 CAPTURE                          UPVAL U15
+      201 CAPTURE                          VAL R9
+      202 NEWTABLE                         R22 0 1
+      204 MOVE                             R23 R9
+      205 SETLIST                          R22 R23 1 [1]
+      207 CALL                             R20 2 1
+      208 JUMP                             ; [+1]
+      209 LOADNIL                          R20
+      210 GETUPVAL                         R21 16
+      211 DUPTABLE                         R22 K36 [{["Intent"], ["Heading"], ["Body"], ["ActionPrimary"], ["ActionSecondary"], ["ActionTertiary"], ["DisableTitleBar"], ["OnClosed"], ["Width"] = 410, ["Modal"] = True, ["MigrateToStudioFoundation"]}]
+      212 GETTABLEKS                       R24 R5 K37 ["current"]
+      214 JUMPIFNOT                        R24 ; [+2]
+      215 LOADK                            R23 K38 ["Destructive"]
+      216 JUMP                             ; [+1]
+      217 LOADK                            R23 K39 ["Warning"]
+      218 SETTABLEKS                       R23 R22 K24 ["Intent"]
+      220 LOADK                            R25 K15 ["UnsavedChangesDialog"]
+      221 LOADK                            R26 K40 ["Title"]
+      222 NAMECALL                         R23 R10 K17 ["getText"]
+      224 CALL                             R23 3 1
+      225 SETTABLEKS                       R23 R22 K25 ["Heading"]
+      227 GETTABLEKS                       R24 R5 K37 ["current"]
+      229 JUMPIFNOT                        R24 ; [+6]
+      230 LOADK                            R25 K15 ["UnsavedChangesDialog"]
+      231 LOADK                            R26 K41 ["ServerRestartDescription"]
+      232 NAMECALL                         R23 R10 K17 ["getText"]
+      234 CALL                             R23 3 1
+      235 JUMP                             ; [+5]
+      236 LOADK                            R25 K15 ["UnsavedChangesDialog"]
+      237 LOADK                            R26 K42 ["Description"]
+      238 NAMECALL                         R23 R10 K17 ["getText"]
+      240 CALL                             R23 3 1
+      241 SETTABLEKS                       R23 R22 K26 ["Body"]
+      243 GETTABLEKS                       R24 R5 K37 ["current"]
+      245 JUMPIFNOT                        R24 ; [+2]
+      246 MOVE                             R23 R16
+      247 JUMP                             ; [+1]
+      248 MOVE                             R23 R15
+      249 SETTABLEKS                       R23 R22 K27 ["ActionPrimary"]
+      251 JUMPIFNOT                        R3 ; [+2]
+      252 MOVE                             R23 R17
+      253 JUMP                             ; [+1]
+      254 MOVE                             R23 R18
+      255 SETTABLEKS                       R23 R22 K28 ["ActionSecondary"]
+      257 JUMPIF                           R3 ; [+2]
+      258 MOVE                             R23 R17
+      259 JUMP                             ; [+6]
+      260 GETTABLEKS                       R24 R2 K18 ["hasInvalidSettings"]
+      262 JUMPIFNOT                        R24 ; [+2]
+      263 MOVE                             R23 R19
+      264 JUMP                             ; [+1]
+      265 LOADNIL                          R23
+      266 SETTABLEKS                       R23 R22 K29 ["ActionTertiary"]
+      268 NOT                              R23 R8
+      269 SETTABLEKS                       R23 R22 K30 ["DisableTitleBar"]
+      271 GETTABLEKS                       R23 R18 K13 ["OnActivated"]
+      273 SETTABLEKS                       R23 R22 K31 ["OnClosed"]
+      275 SETTABLEKS                       R20 R22 K35 ["MigrateToStudioFoundation"]
+      277 CALL                             R21 1 2
+      278 GETUPVAL                         R23 11
+      279 NEWCLOSURE                       R24 P11
+      280 CAPTURE                          VAL R6
+      281 CAPTURE                          VAL R21
+      282 CAPTURE                          VAL R22
+      283 NEWTABLE                         R25 0 1
+      285 MOVE                             R26 R6
+      286 SETLIST                          R25 R26 1 [1]
+      288 CALL                             R23 2 0
+      289 GETUPVAL                         R23 17
+      290 GETUPVAL                         R24 3
+      291 GETTABLEKS                       R24 R24 K43 ["Fragment"]
+      293 CALL                             R23 1 -1
+      294 RETURN                           R23 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -524,7 +573,7 @@ MAIN:
       133 GETTABLEKS                       R22 R22 K33 ["Flags"]
       135 GETTABLEKS                       R22 R22 K36 ["getFFlagAvatarSettingsUnsavedDialogHoldResolution"]
       137 CALL                             R21 1 1
-      138 DUPCLOSURE                       R22 K37 [PROTO_15]
+      138 DUPCLOSURE                       R22 K37 [PROTO_16]
       139 CAPTURE                          VAL R17
       140 CAPTURE                          VAL R4
       141 CAPTURE                          VAL R15

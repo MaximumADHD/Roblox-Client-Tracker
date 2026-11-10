@@ -76,70 +76,62 @@ PROTO_1:
        28 GETTABLEKS                       R7 R7 K7 ["store"]
        30 GETTABLEKS                       R8 R0 K0 ["props"]
        32 GETTABLEKS                       R8 R8 K8 ["theme"]
-       34 GETTABLEKS                       R9 R0 K0 ["props"]
-       36 GETTABLEKS                       R9 R9 K9 ["worldRootPhysics"]
-       38 NEWTABLE                         R10 0 4
-       40 GETUPVAL                         R11 1
-       41 GETTABLEKS                       R11 R11 K10 ["Focus"]
-       43 GETTABLEKS                       R11 R11 K11 ["new"]
-       45 MOVE                             R12 R5
-       46 CALL                             R11 1 1
-       47 GETUPVAL                         R12 1
-       48 GETTABLEKS                       R12 R12 K12 ["Plugin"]
-       50 GETTABLEKS                       R12 R12 K11 ["new"]
-       52 MOVE                             R13 R4
-       53 CALL                             R12 1 1
-       54 MOVE                             R13 R2
-       55 MOVE                             R14 R8
-       56 SETLIST                          R10 R11 4 [1]
-       58 JUMPIFNOT                        R6 ; [+10]
-       59 MOVE                             R12 R10
-       60 GETUPVAL                         R13 2
-       61 GETTABLEKS                       R13 R13 K11 ["new"]
-       63 MOVE                             R14 R6
-       64 CALL                             R13 1 -1
-       65 FASTCALL                         TABLE_INSERT ; [+2]
-       66 GETIMPORT                        R11 K15 [table.insert]
-       68 CALL                             R11 -1 0
-       69 JUMPIFNOT                        R7 ; [+12]
-       70 MOVE                             R12 R10
-       71 GETUPVAL                         R13 1
-       72 GETTABLEKS                       R13 R13 K16 ["Store"]
-       74 GETTABLEKS                       R13 R13 K11 ["new"]
-       76 MOVE                             R14 R7
-       77 CALL                             R13 1 -1
-       78 FASTCALL                         TABLE_INSERT ; [+2]
-       79 GETIMPORT                        R11 K15 [table.insert]
-       81 CALL                             R11 -1 0
-       82 MOVE                             R12 R10
-       83 GETUPVAL                         R13 1
-       84 GETTABLEKS                       R13 R13 K17 ["API"]
-       86 GETTABLEKS                       R13 R13 K11 ["new"]
-       88 CALL                             R13 0 -1
-       89 FASTCALL                         TABLE_INSERT ; [+2]
-       90 GETIMPORT                        R11 K15 [table.insert]
-       92 CALL                             R11 -1 0
-       93 MOVE                             R12 R10
-       94 GETUPVAL                         R13 1
-       95 GETTABLEKS                       R13 R13 K18 ["Mouse"]
-       97 GETTABLEKS                       R13 R13 K11 ["new"]
-       99 MOVE                             R14 R3
-      100 CALL                             R13 1 -1
-      101 FASTCALL                         TABLE_INSERT ; [+2]
-      102 GETIMPORT                        R11 K15 [table.insert]
-      104 CALL                             R11 -1 0
-      105 JUMPIFNOT                        R9 ; [+7]
-      106 FASTCALL2                        TABLE_INSERT R10 R9 ; [+5]
-      108 MOVE                             R12 R10
-      109 MOVE                             R13 R9
-      110 GETIMPORT                        R11 K15 [table.insert]
-      112 CALL                             R11 2 0
-      113 GETUPVAL                         R11 1
-      114 GETTABLEKS                       R11 R11 K19 ["provide"]
-      116 MOVE                             R12 R10
-      117 MOVE                             R13 R1
-      118 CALL                             R11 2 -1
-      119 RETURN                           R11 -1
+       34 NEWTABLE                         R9 0 4
+       36 GETUPVAL                         R10 1
+       37 GETTABLEKS                       R10 R10 K9 ["Focus"]
+       39 GETTABLEKS                       R10 R10 K10 ["new"]
+       41 MOVE                             R11 R5
+       42 CALL                             R10 1 1
+       43 GETUPVAL                         R11 1
+       44 GETTABLEKS                       R11 R11 K11 ["Plugin"]
+       46 GETTABLEKS                       R11 R11 K10 ["new"]
+       48 MOVE                             R12 R4
+       49 CALL                             R11 1 1
+       50 MOVE                             R12 R2
+       51 MOVE                             R13 R8
+       52 SETLIST                          R9 R10 4 [1]
+       54 JUMPIFNOT                        R6 ; [+10]
+       55 MOVE                             R11 R9
+       56 GETUPVAL                         R12 2
+       57 GETTABLEKS                       R12 R12 K10 ["new"]
+       59 MOVE                             R13 R6
+       60 CALL                             R12 1 -1
+       61 FASTCALL                         TABLE_INSERT ; [+2]
+       62 GETIMPORT                        R10 K14 [table.insert]
+       64 CALL                             R10 -1 0
+       65 JUMPIFNOT                        R7 ; [+12]
+       66 MOVE                             R11 R9
+       67 GETUPVAL                         R12 1
+       68 GETTABLEKS                       R12 R12 K15 ["Store"]
+       70 GETTABLEKS                       R12 R12 K10 ["new"]
+       72 MOVE                             R13 R7
+       73 CALL                             R12 1 -1
+       74 FASTCALL                         TABLE_INSERT ; [+2]
+       75 GETIMPORT                        R10 K14 [table.insert]
+       77 CALL                             R10 -1 0
+       78 MOVE                             R11 R9
+       79 GETUPVAL                         R12 1
+       80 GETTABLEKS                       R12 R12 K16 ["API"]
+       82 GETTABLEKS                       R12 R12 K10 ["new"]
+       84 CALL                             R12 0 -1
+       85 FASTCALL                         TABLE_INSERT ; [+2]
+       86 GETIMPORT                        R10 K14 [table.insert]
+       88 CALL                             R10 -1 0
+       89 MOVE                             R11 R9
+       90 GETUPVAL                         R12 1
+       91 GETTABLEKS                       R12 R12 K17 ["Mouse"]
+       93 GETTABLEKS                       R12 R12 K10 ["new"]
+       95 MOVE                             R13 R3
+       96 CALL                             R12 1 -1
+       97 FASTCALL                         TABLE_INSERT ; [+2]
+       98 GETIMPORT                        R10 K14 [table.insert]
+      100 CALL                             R10 -1 0
+      101 GETUPVAL                         R10 1
+      102 GETTABLEKS                       R10 R10 K18 ["provide"]
+      104 MOVE                             R11 R9
+      105 MOVE                             R12 R1
+      106 CALL                             R10 2 -1
+      107 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,110 +1,70 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["hideFocus"]
-        3 JUMPIFEQKB                       R0 FALSE ; [+17]
-        5 GETUPVAL                         R0 1
-        6 LOADB                            R1 0
-        7 GETUPVAL                         R2 2
-        8 GETTABLEKS                       R2 R2 K1 ["type"]
-       10 JUMPIFEQKS                       R2 K2 ["fileDialog"] ; [+8]
-       12 GETUPVAL                         R2 2
-       13 GETTABLEKS                       R2 R2 K1 ["type"]
-       15 JUMPIFNOTEQKS                    R2 K3 ["none"] ; [+2]
-       17 LOADB                            R1 0 +1
-       18 LOADB                            R1 1
-       19 SETTABLEKS                       R1 R0 K4 ["Enabled"]
-       21 RETURN                           R0 0
-
-PROTO_1:
-        0 GETUPVAL                         R0 0
         1 DUPTABLE                         R1 K2 [{[1] = "none"}]
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["ContextServices"]
-        3 GETTABLEKS                       R1 R1 K1 ["Focus"]
-        5 NAMECALL                         R1 R1 K2 ["use"]
-        7 CALL                             R1 1 1
-        8 NAMECALL                         R1 R1 K3 ["get"]
-       10 CALL                             R1 1 1
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R2 R2 K4 ["useState"]
-       14 GETTABLEKS                       R3 R0 K5 ["initialScreen"]
-       16 CALL                             R2 1 2
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R4 R4 K6 ["useEffect"]
-       20 NEWCLOSURE                       R5 P0
-       21 CAPTURE                          VAL R0
-       22 CAPTURE                          VAL R1
-       23 CAPTURE                          VAL R2
-       24 NEWTABLE                         R6 0 3
-       26 GETTABLEKS                       R7 R0 K7 ["hideFocus"]
-       28 MOVE                             R8 R1
-       29 GETTABLEKS                       R9 R2 K8 ["type"]
-       31 SETLIST                          R6 R7 3 [1]
-       33 CALL                             R4 2 0
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R4 R4 K9 ["useEventCallback"]
-       37 NEWCLOSURE                       R5 P1
-       38 CAPTURE                          VAL R3
-       39 CALL                             R4 1 1
-       40 GETUPVAL                         R5 1
-       41 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       43 GETUPVAL                         R6 2
-       44 GETTABLEKS                       R6 R6 K11 ["ContextStack"]
-       46 DUPTABLE                         R7 K13 [{"providers"}]
-       47 NEWTABLE                         R8 0 0
-       49 SETTABLEKS                       R8 R7 K12 ["providers"]
-       51 DUPTABLE                         R8 K15 [{"Screen"}]
-       52 GETTABLEKS                       R10 R2 K8 ["type"]
-       54 JUMPIFNOTEQKS                    R10 K16 ["importer"] ; [+14]
-       56 GETUPVAL                         R9 1
-       57 GETTABLEKS                       R9 R9 K10 ["createElement"]
-       59 GETUPVAL                         R10 3
-       60 DUPTABLE                         R11 K19 [{"sources", "close"}]
-       61 GETTABLEKS                       R12 R2 K17 ["sources"]
-       63 SETTABLEKS                       R12 R11 K17 ["sources"]
-       65 SETTABLEKS                       R4 R11 K18 ["close"]
-       67 CALL                             R9 2 1
-       68 JUMP                             ; [+50]
-       69 GETTABLEKS                       R10 R2 K8 ["type"]
-       71 JUMPIFNOTEQKS                    R10 K20 ["slicer"] ; [+14]
-       73 GETUPVAL                         R9 1
-       74 GETTABLEKS                       R9 R9 K10 ["createElement"]
-       76 GETUPVAL                         R10 4
-       77 DUPTABLE                         R11 K23 [{"source", "setScreen"}]
-       78 GETTABLEKS                       R12 R2 K21 ["source"]
-       80 SETTABLEKS                       R12 R11 K21 ["source"]
-       82 SETTABLEKS                       R3 R11 K22 ["setScreen"]
-       84 CALL                             R9 2 1
-       85 JUMP                             ; [+33]
-       86 GETTABLEKS                       R10 R2 K8 ["type"]
-       88 JUMPIFNOTEQKS                    R10 K24 ["fileDialog"] ; [+20]
-       90 GETUPVAL                         R9 1
-       91 GETTABLEKS                       R9 R9 K10 ["createElement"]
-       93 GETUPVAL                         R10 5
-       94 DUPTABLE                         R11 K27 [{"setScreen", "avoidDialogRender", "onClose"}]
-       95 SETTABLEKS                       R3 R11 K22 ["setScreen"]
-       97 GETTABLEKS                       R13 R2 K25 ["avoidDialogRender"]
-       99 JUMPIFEQKB                       R13 TRUE ; [+2]
-      101 LOADB                            R12 0 +1
-      102 LOADB                            R12 1
-      103 SETTABLEKS                       R12 R11 K25 ["avoidDialogRender"]
-      105 SETTABLEKS                       R4 R11 K26 ["onClose"]
-      107 CALL                             R9 2 1
-      108 JUMP                             ; [+10]
-      109 GETTABLEKS                       R10 R2 K8 ["type"]
-      111 JUMPIFNOTEQKS                    R10 K28 ["none"] ; [+3]
-      113 LOADNIL                          R9
-      114 JUMP                             ; [+4]
-      115 GETUPVAL                         R9 6
-      116 GETTABLEKS                       R10 R2 K8 ["type"]
-      118 CALL                             R9 1 1
-      119 SETTABLEKS                       R9 R8 K14 ["Screen"]
-      121 CALL                             R5 3 -1
-      122 RETURN                           R5 -1
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
+        3 GETTABLEKS                       R2 R0 K1 ["initialScreen"]
+        5 CALL                             R1 1 2
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K2 ["useEventCallback"]
+        9 NEWCLOSURE                       R4 P0
+       10 CAPTURE                          VAL R2
+       11 CALL                             R3 1 1
+       12 GETUPVAL                         R4 0
+       13 GETTABLEKS                       R4 R4 K3 ["createElement"]
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K4 ["ContextStack"]
+       18 DUPTABLE                         R6 K6 [{"providers"}]
+       19 NEWTABLE                         R7 0 0
+       21 SETTABLEKS                       R7 R6 K5 ["providers"]
+       23 DUPTABLE                         R7 K8 [{"Screen"}]
+       24 GETTABLEKS                       R9 R1 K9 ["type"]
+       26 JUMPIFNOTEQKS                    R9 K10 ["importer"] ; [+14]
+       28 GETUPVAL                         R8 0
+       29 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       31 GETUPVAL                         R9 2
+       32 DUPTABLE                         R10 K13 [{"sources", "close"}]
+       33 GETTABLEKS                       R11 R1 K11 ["sources"]
+       35 SETTABLEKS                       R11 R10 K11 ["sources"]
+       37 SETTABLEKS                       R3 R10 K12 ["close"]
+       39 CALL                             R8 2 1
+       40 JUMP                             ; [+44]
+       41 GETTABLEKS                       R9 R1 K9 ["type"]
+       43 JUMPIFNOTEQKS                    R9 K14 ["slicer"] ; [+16]
+       45 GETUPVAL                         R8 0
+       46 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       48 GETUPVAL                         R9 3
+       49 DUPTABLE                         R10 K17 [{"source", "setScreen", "close"}]
+       50 GETTABLEKS                       R11 R1 K15 ["source"]
+       52 SETTABLEKS                       R11 R10 K15 ["source"]
+       54 SETTABLEKS                       R2 R10 K16 ["setScreen"]
+       56 SETTABLEKS                       R3 R10 K12 ["close"]
+       58 CALL                             R8 2 1
+       59 JUMP                             ; [+25]
+       60 GETTABLEKS                       R9 R1 K9 ["type"]
+       62 JUMPIFNOTEQKS                    R9 K18 ["fileDialog"] ; [+12]
+       64 GETUPVAL                         R8 0
+       65 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       67 GETUPVAL                         R9 4
+       68 DUPTABLE                         R10 K20 [{"setScreen", "onClose"}]
+       69 SETTABLEKS                       R2 R10 K16 ["setScreen"]
+       71 SETTABLEKS                       R3 R10 K19 ["onClose"]
+       73 CALL                             R8 2 1
+       74 JUMP                             ; [+10]
+       75 GETTABLEKS                       R9 R1 K9 ["type"]
+       77 JUMPIFNOTEQKS                    R9 K21 ["none"] ; [+3]
+       79 LOADNIL                          R8
+       80 JUMP                             ; [+4]
+       81 GETUPVAL                         R8 5
+       82 GETTABLEKS                       R9 R1 K9 ["type"]
+       84 CALL                             R8 1 1
+       85 SETTABLEKS                       R8 R7 K7 ["Screen"]
+       87 CALL                             R4 3 -1
+       88 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -118,42 +78,37 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K8 ["FileDialog"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R4 K7 ["Components"]
-       29 GETTABLEKS                       R4 R4 K11 ["Importer"]
+       18 GETTABLEKS                       R3 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R3 K7 ["Components"]
+       22 GETTABLEKS                       R3 R3 K9 ["Importer"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K11 ["React"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       36 GETTABLEKS                       R5 R5 K12 ["React"]
+       34 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K12 ["ReactUtils"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
-       41 GETTABLEKS                       R6 R0 K9 ["Packages"]
-       43 GETTABLEKS                       R6 R6 K13 ["ReactUtils"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K6 ["Src"]
-       50 GETTABLEKS                       R7 R7 K7 ["Components"]
-       52 GETTABLEKS                       R7 R7 K14 ["Slicer"]
+       41 GETTABLEKS                       R6 R0 K6 ["Src"]
+       43 GETTABLEKS                       R6 R6 K7 ["Components"]
+       45 GETTABLEKS                       R6 R6 K13 ["Slicer"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R7 R0 K6 ["Src"]
+       52 GETTABLEKS                       R7 R7 K14 ["Types"]
        54 CALL                             R6 1 1
        55 GETIMPORT                        R7 K5 [require]
        57 GETTABLEKS                       R8 R0 K6 ["Src"]
-       59 GETTABLEKS                       R8 R8 K15 ["Types"]
-       61 CALL                             R7 1 1
-       62 GETIMPORT                        R8 K5 [require]
-       64 GETTABLEKS                       R9 R0 K6 ["Src"]
-       66 GETTABLEKS                       R9 R9 K16 ["Libraries"]
-       68 GETTABLEKS                       R9 R9 K17 ["exhaustiveMatch"]
-       70 CALL                             R8 1 1
-       71 DUPCLOSURE                       R9 K18 [PROTO_2]
-       72 CAPTURE                          VAL R2
-       73 CAPTURE                          VAL R4
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R8
-       79 RETURN                           R9 1
+       59 GETTABLEKS                       R8 R8 K15 ["Libraries"]
+       61 GETTABLEKS                       R8 R8 K16 ["exhaustiveMatch"]
+       63 CALL                             R7 1 1
+       64 DUPCLOSURE                       R8 K17 [PROTO_1]
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          VAL R1
+       70 CAPTURE                          VAL R7
+       71 RETURN                           R8 1

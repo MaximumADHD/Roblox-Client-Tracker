@@ -20,6 +20,43 @@ PROTO_1:
        10 RETURN                           R1 -1
 
 PROTO_2:
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R7 R7 K0 ["createElement"]
+        3 GETUPVAL                         R8 1
+        4 GETTABLEKS                       R8 R8 K1 ["Tooltip"]
+        6 DUPTABLE                         R9 K6 [{"LayoutOrder", "title", "side", "align"}]
+        7 SETTABLEKS                       R0 R9 K2 ["LayoutOrder"]
+        9 SETTABLEKS                       R2 R9 K3 ["title"]
+       11 GETUPVAL                         R10 1
+       12 GETTABLEKS                       R10 R10 K7 ["Enums"]
+       14 GETTABLEKS                       R10 R10 K8 ["PopoverSide"]
+       16 GETTABLEKS                       R10 R10 K9 ["Bottom"]
+       18 SETTABLEKS                       R10 R9 K4 ["side"]
+       20 SETTABLEKS                       R3 R9 K5 ["align"]
+       22 GETUPVAL                         R10 0
+       23 GETTABLEKS                       R10 R10 K0 ["createElement"]
+       25 GETUPVAL                         R11 1
+       26 GETTABLEKS                       R11 R11 K10 ["IconButton"]
+       28 DUPTABLE                         R12 K17 [{"onActivated", "icon", "variant", "size", "testId", "isDisabled"}]
+       29 SETTABLEKS                       R4 R12 K11 ["onActivated"]
+       31 SETTABLEKS                       R1 R12 K12 ["icon"]
+       33 GETUPVAL                         R13 1
+       34 GETTABLEKS                       R13 R13 K7 ["Enums"]
+       36 GETTABLEKS                       R13 R13 K18 ["ButtonVariant"]
+       38 GETTABLEKS                       R13 R13 K19 ["Utility"]
+       40 SETTABLEKS                       R13 R12 K13 ["variant"]
+       42 GETUPVAL                         R13 1
+       43 GETTABLEKS                       R13 R13 K7 ["Enums"]
+       45 GETTABLEKS                       R13 R13 K20 ["InputSize"]
+       47 GETTABLEKS                       R13 R13 K21 ["XSmall"]
+       49 SETTABLEKS                       R13 R12 K14 ["size"]
+       51 SETTABLEKS                       R5 R12 K15 ["testId"]
+       53 SETTABLEKS                       R6 R12 K16 ["isDisabled"]
+       55 CALL                             R10 2 -1
+       56 CALL                             R7 -1 -1
+       57 RETURN                           R7 -1
+
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -70,17 +107,17 @@ PROTO_2:
        74 CALL                             R1 3 -1
        75 RETURN                           R1 -1
 
-PROTO_3:
+PROTO_4:
         0 NOT                              R1 R0
         1 RETURN                           R1 1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPCLOSURE                       R1 K0 [PROTO_3]
+        1 DUPCLOSURE                       R1 K0 [PROTO_4]
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useState"]
         3 LOADB                            R2 1
@@ -166,7 +203,7 @@ PROTO_5:
       125 CALL                             R4 3 -1
       126 RETURN                           R4 -1
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -200,7 +237,7 @@ PROTO_6:
        42 CALL                             R1 3 -1
        43 RETURN                           R1 -1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -224,7 +261,7 @@ PROTO_7:
        29 CALL                             R1 3 -1
        30 RETURN                           R1 -1
 
-PROTO_8:
+PROTO_9:
         0 NEWTABLE                         R1 0 0
         2 LOADN                            R4 1
         3 GETTABLEKS                       R5 R0 K1 ["RowCount"]
@@ -267,13 +304,13 @@ PROTO_8:
        55 CALL                             R2 3 -1
        56 RETURN                           R2 -1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["getNextOrder"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R4 0
         1 JUMPIFNOT                        R4 ; [+30]
         2 GETUPVAL                         R4 1
@@ -320,7 +357,7 @@ PROTO_10:
        60 SETUPVAL                         R4 0
        61 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 CALL                             R0 0 1
@@ -341,20 +378,20 @@ PROTO_11:
        19 CLOSEUPVALS                      R2
        20 RETURN                           R5 3
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["AbsoluteWindowSize"]
         3 CALL                             R1 1 0
         4 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["AbsoluteCanvasSize"]
         3 GETTABLEKS                       R2 R2 K1 ["Y"]
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
@@ -554,32 +591,36 @@ MAIN:
        73 DUPCLOSURE                       R9 K26 [PROTO_2]
        74 CAPTURE                          VAL R2
        75 CAPTURE                          VAL R3
-       76 DUPCLOSURE                       R10 K27 [PROTO_5]
-       77 CAPTURE                          VAL R2
-       78 CAPTURE                          VAL R3
-       79 SETTABLEKS                       R10 R8 K28 ["Section"]
+       76 SETTABLEKS                       R9 R8 K27 ["ActionButton"]
+       78 DUPCLOSURE                       R9 K28 [PROTO_3]
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R3
        81 DUPCLOSURE                       R10 K29 [PROTO_6]
        82 CAPTURE                          VAL R2
        83 CAPTURE                          VAL R3
-       84 SETTABLEKS                       R10 R8 K30 ["ThumbnailSquare"]
+       84 SETTABLEKS                       R10 R8 K30 ["Section"]
        86 DUPCLOSURE                       R10 K31 [PROTO_7]
        87 CAPTURE                          VAL R2
        88 CAPTURE                          VAL R3
-       89 SETTABLEKS                       R10 R8 K32 ["FontThumbnailStrip"]
+       89 SETTABLEKS                       R10 R8 K32 ["ThumbnailSquare"]
        91 DUPCLOSURE                       R10 K33 [PROTO_8]
        92 CAPTURE                          VAL R2
        93 CAPTURE                          VAL R3
-       94 SETTABLEKS                       R10 R8 K34 ["LoadingRows"]
-       96 DUPCLOSURE                       R10 K35 [PROTO_11]
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          VAL R3
-      100 CAPTURE                          VAL R9
-      101 SETTABLEKS                       R10 R8 K36 ["createRowList"]
-      103 DUPCLOSURE                       R10 K37 [PROTO_14]
-      104 CAPTURE                          VAL R7
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R3
-      108 SETTABLEKS                       R10 R8 K38 ["DrawerBody"]
-      110 RETURN                           R8 1
+       94 SETTABLEKS                       R10 R8 K34 ["FontThumbnailStrip"]
+       96 DUPCLOSURE                       R10 K35 [PROTO_9]
+       97 CAPTURE                          VAL R2
+       98 CAPTURE                          VAL R3
+       99 SETTABLEKS                       R10 R8 K36 ["LoadingRows"]
+      101 DUPCLOSURE                       R10 K37 [PROTO_12]
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R2
+      104 CAPTURE                          VAL R3
+      105 CAPTURE                          VAL R9
+      106 SETTABLEKS                       R10 R8 K38 ["createRowList"]
+      108 DUPCLOSURE                       R10 K39 [PROTO_15]
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R2
+      111 CAPTURE                          VAL R5
+      112 CAPTURE                          VAL R3
+      113 SETTABLEKS                       R10 R8 K40 ["DrawerBody"]
+      115 RETURN                           R8 1

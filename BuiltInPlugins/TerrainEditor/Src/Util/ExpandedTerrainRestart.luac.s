@@ -5,10 +5,22 @@ PROTO_0:
         4 NAMECALL                         R2 R1 K2 ["GetPlaceIsPersistedToCloudAsync"]
         6 CALL                             R2 1 1
         7 JUMPIFNOT                        R2 ; [+2]
-        8 LOADK                            R3 K3 ["Cloud"]
+        8 DUPTABLE                         R3 K5 [{["placeKind"] = "Cloud"}]
         9 RETURN                           R3 1
-       10 LOADK                            R3 K4 ["Local"]
-       11 RETURN                           R3 1
+       10 GETUPVAL                         R3 0
+       11 CALL                             R3 0 1
+       12 JUMPIF                           R3 ; [+2]
+       13 DUPTABLE                         R3 K7 [{["placeKind"] = "New"}]
+       14 RETURN                           R3 1
+       15 NAMECALL                         R3 R1 K8 ["GetPlaceFilePathAsync"]
+       17 CALL                             R3 1 1
+       18 JUMPIFNOT                        R3 ; [+6]
+       19 JUMPIFEQKS                       R3 K9 [""] ; [+5]
+       21 DUPTABLE                         R4 K12 [{["placeKind"] = "Local", ["placeFilePath"]}]
+       22 SETTABLEKS                       R3 R4 K11 ["placeFilePath"]
+       24 RETURN                           R4 1
+       25 DUPTABLE                         R4 K7 [{["placeKind"] = "New"}]
+       26 RETURN                           R4 1
 
 PROTO_1:
         0 LOADK                            R3 K0 ["Actions"]
@@ -202,6 +214,24 @@ PROTO_3:
       236 RETURN                           R0 0
 
 PROTO_4:
+        0 LOADK                            R4 K0 ["LocalFileSaveManager"]
+        1 NAMECALL                         R2 R0 K1 ["GetPluginComponent"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R3 R2 K2 ["SaveToFileAsync"]
+        6 CALL                             R3 1 0
+        7 LOADK                            R5 K3 ["PlaceOpener"]
+        8 NAMECALL                         R3 R0 K1 ["GetPluginComponent"]
+       10 CALL                             R3 2 1
+       11 DUPTABLE                         R6 K5 [{"PlaceLaunchInfo"}]
+       12 DUPTABLE                         R7 K7 [{"LocalFilePath"}]
+       13 SETTABLEKS                       R1 R7 K6 ["LocalFilePath"]
+       15 SETTABLEKS                       R7 R6 K4 ["PlaceLaunchInfo"]
+       17 LOADB                            R7 1
+       18 NAMECALL                         R4 R3 K8 ["ReplacePlaceAsync"]
+       20 CALL                             R4 3 0
+       21 RETURN                           R0 0
+
+PROTO_5:
         0 MOVE                             R3 R2
         1 JUMPIF                           R3 ; [+2]
         2 NEWTABLE                         R3 0 0
@@ -215,20 +245,36 @@ PROTO_4:
        14 CALL                             R5 0 1
        15 JUMPIFNOT                        R5 ; [+1]
        16 RETURN                           R0 0
-       17 JUMPIFNOTEQKS                    R1 K1 ["Cloud"] ; [+7]
-       19 GETUPVAL                         R5 1
-       20 MOVE                             R6 R0
-       21 MOVE                             R7 R3
-       22 MOVE                             R8 R4
-       23 CALL                             R5 3 0
-       24 RETURN                           R0 0
-       25 LOADK                            R7 K2 ["Actions"]
-       26 NAMECALL                         R5 R0 K3 ["GetPluginComponent"]
-       28 CALL                             R5 2 1
-       29 GETUPVAL                         R8 2
-       30 NAMECALL                         R6 R5 K4 ["ActivateAsync"]
-       32 CALL                             R6 2 0
-       33 RETURN                           R0 0
+       17 GETTABLEKS                       R5 R1 K1 ["placeKind"]
+       19 JUMPIFNOTEQKS                    R5 K2 ["Cloud"] ; [+7]
+       21 GETUPVAL                         R5 1
+       22 MOVE                             R6 R0
+       23 MOVE                             R7 R3
+       24 MOVE                             R8 R4
+       25 CALL                             R5 3 0
+       26 RETURN                           R0 0
+       27 GETTABLEKS                       R5 R1 K1 ["placeKind"]
+       29 JUMPIFNOTEQKS                    R5 K3 ["Local"] ; [+19]
+       31 GETTABLEKS                       R7 R1 K4 ["placeFilePath"]
+       33 JUMPIFNOTEQKS                    R7 K5 [""] ; [+2]
+       35 LOADB                            R6 0 +1
+       36 LOADB                            R6 1
+       37 FASTCALL2K                       ASSERT R6 K6 ; [+4]
+       39 LOADK                            R7 K6 ["Local place does not have a file path"]
+       40 GETIMPORT                        R5 K8 [assert]
+       42 CALL                             R5 2 0
+       43 GETUPVAL                         R5 2
+       44 MOVE                             R6 R0
+       45 GETTABLEKS                       R7 R1 K4 ["placeFilePath"]
+       47 CALL                             R5 2 0
+       48 RETURN                           R0 0
+       49 LOADK                            R7 K9 ["Actions"]
+       50 NAMECALL                         R5 R0 K10 ["GetPluginComponent"]
+       52 CALL                             R5 2 1
+       53 GETUPVAL                         R8 3
+       54 NAMECALL                         R6 R5 K11 ["ActivateAsync"]
+       56 CALL                             R6 2 0
+       57 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -254,26 +300,34 @@ MAIN:
        34 GETTABLEKS                       R5 R5 K12 ["Flags"]
        36 GETTABLEKS                       R5 R5 K13 ["getFFlagTerrainEditorExpandedTerrainShutdownTeamCreate"]
        38 CALL                             R4 1 1
-       39 GETTABLEKS                       R5 R2 K14 ["Util"]
-       41 GETTABLEKS                       R5 R5 K15 ["StudioUri"]
-       43 GETTABLEKS                       R5 R5 K16 ["fromAction"]
-       45 LOADK                            R6 K17 ["PlaceManagement"]
-       46 LOADK                            R7 K18 ["Close"]
-       47 CALL                             R5 2 1
-       48 GETTABLEKS                       R6 R1 K19 ["RobloxAPI"]
-       50 GETTABLEKS                       R6 R6 K20 ["Url"]
-       52 NEWTABLE                         R7 2 0
-       54 DUPCLOSURE                       R8 K21 [PROTO_0]
-       55 SETTABLEKS                       R8 R7 K22 ["getPlaceKindAsync"]
-       57 DUPCLOSURE                       R8 K23 [PROTO_1]
-       58 CAPTURE                          VAL R5
-       59 DUPCLOSURE                       R9 K24 [PROTO_2]
-       60 DUPCLOSURE                       R10 K25 [PROTO_3]
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R6
-       63 DUPCLOSURE                       R11 K26 [PROTO_4]
-       64 CAPTURE                          VAL R4
-       65 CAPTURE                          VAL R10
-       66 CAPTURE                          VAL R5
-       67 SETTABLEKS                       R11 R7 K27 ["restartAsync"]
-       69 RETURN                           R7 1
+       39 GETIMPORT                        R5 K5 [require]
+       41 GETTABLEKS                       R6 R0 K11 ["Src"]
+       43 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K14 ["getEngineFeatureStudioRestartLocalPlace"]
+       47 CALL                             R5 1 1
+       48 GETTABLEKS                       R6 R2 K15 ["Util"]
+       50 GETTABLEKS                       R6 R6 K16 ["StudioUri"]
+       52 GETTABLEKS                       R6 R6 K17 ["fromAction"]
+       54 LOADK                            R7 K18 ["PlaceManagement"]
+       55 LOADK                            R8 K19 ["Close"]
+       56 CALL                             R6 2 1
+       57 GETTABLEKS                       R7 R1 K20 ["RobloxAPI"]
+       59 GETTABLEKS                       R7 R7 K21 ["Url"]
+       61 NEWTABLE                         R8 2 0
+       63 DUPCLOSURE                       R9 K22 [PROTO_0]
+       64 CAPTURE                          VAL R5
+       65 SETTABLEKS                       R9 R8 K23 ["getPlaceKindAsync"]
+       67 DUPCLOSURE                       R9 K24 [PROTO_1]
+       68 CAPTURE                          VAL R6
+       69 DUPCLOSURE                       R10 K25 [PROTO_2]
+       70 DUPCLOSURE                       R11 K26 [PROTO_3]
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R7
+       73 DUPCLOSURE                       R12 K27 [PROTO_4]
+       74 DUPCLOSURE                       R13 K28 [PROTO_5]
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R11
+       77 CAPTURE                          VAL R12
+       78 CAPTURE                          VAL R6
+       79 SETTABLEKS                       R13 R8 K29 ["restartAsync"]
+       81 RETURN                           R8 1

@@ -1,44 +1,34 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["AutoTranslationAllowed"]
+        1 GETTABLEKS                       R0 R1 K0 ["SocialMediaReferencesAllowed"]
         3 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["AutoTranslationTargetLanguages"]
+        1 GETTABLEKS                       R0 R1 K0 ["DisablePrivateServersAndPaidAccess"]
         3 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["SocialMediaReferencesAllowed"]
+        1 GETTABLEKS                       R0 R1 K0 ["ShowBadges"]
         3 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["DisablePrivateServersAndPaidAccess"]
-        3 RETURN                           R0 1
-
-PROTO_4:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["ShowBadges"]
-        3 RETURN                           R0 1
-
-PROTO_5:
-        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["ShowOptInLocations"]
         3 RETURN                           R0 1
 
-PROTO_6:
+PROTO_4:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R2 R3 K0 ["PlayerAppDownloadLink"]
         3 GETTABLE                         R1 R2 R0
         4 RETURN                           R1 1
 
-PROTO_7:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 RETURN                           R1 1
 
-PROTO_8:
+PROTO_6:
         0 NEWTABLE                         R2 2 0
         2 GETUPVAL                         R3 0
         3 SETTABLE                         R0 R2 R3
@@ -46,7 +36,7 @@ PROTO_8:
         5 SETTABLE                         R1 R2 R3
         6 RETURN                           R2 1
 
-PROTO_9:
+PROTO_7:
         0 GETUPVAL                         R5 0
         1 NEWTABLE                         R4 2 0
         3 GETUPVAL                         R6 1
@@ -68,7 +58,7 @@ PROTO_9:
        22 CALL                             R5 4 0
        23 RETURN                           R0 0
 
-PROTO_10:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["IsEdit"]
         3 CALL                             R0 1 1
@@ -79,7 +69,7 @@ PROTO_10:
         9 NOT                              R0 R1
        10 RETURN                           R0 1
 
-PROTO_11:
+PROTO_9:
         0 GETIMPORT                        R3 K2 [Vector2.new]
         2 LOADN                            R4 5000
         3 LOADN                            R5 5000
@@ -139,41 +129,35 @@ MAIN:
        62 NEWTABLE                         R10 16 0
        64 DUPCLOSURE                       R11 K23 [PROTO_0]
        65 CAPTURE                          VAL R3
-       66 SETTABLEKS                       R11 R10 K24 ["getAutoTranslationAllowed"]
+       66 SETTABLEKS                       R11 R10 K24 ["getSocialMediaReferencesAllowed"]
        68 DUPCLOSURE                       R11 K25 [PROTO_1]
        69 CAPTURE                          VAL R3
-       70 SETTABLEKS                       R11 R10 K26 ["getAutoTranslatedLanguages"]
+       70 SETTABLEKS                       R11 R10 K26 ["shouldDisablePrivateServersAndPaidAccess"]
        72 DUPCLOSURE                       R11 K27 [PROTO_2]
        73 CAPTURE                          VAL R3
-       74 SETTABLEKS                       R11 R10 K28 ["getSocialMediaReferencesAllowed"]
+       74 SETTABLEKS                       R11 R10 K28 ["shouldAllowBadges"]
        76 DUPCLOSURE                       R11 K29 [PROTO_3]
        77 CAPTURE                          VAL R3
-       78 SETTABLEKS                       R11 R10 K30 ["shouldDisablePrivateServersAndPaidAccess"]
+       78 SETTABLEKS                       R11 R10 K30 ["shouldShowDevPublishLocations"]
        80 DUPCLOSURE                       R11 K31 [PROTO_4]
        81 CAPTURE                          VAL R3
-       82 SETTABLEKS                       R11 R10 K32 ["shouldAllowBadges"]
+       82 SETTABLEKS                       R11 R10 K32 ["getPlayerAppDownloadLink"]
        84 DUPCLOSURE                       R11 K33 [PROTO_5]
-       85 CAPTURE                          VAL R3
-       86 SETTABLEKS                       R11 R10 K34 ["shouldShowDevPublishLocations"]
+       85 CAPTURE                          VAL R0
+       86 SETTABLEKS                       R11 R10 K34 ["getOptInLocationsRequirementsLink"]
        88 DUPCLOSURE                       R11 K35 [PROTO_6]
-       89 CAPTURE                          VAL R3
-       90 SETTABLEKS                       R11 R10 K36 ["getPlayerAppDownloadLink"]
-       92 DUPCLOSURE                       R11 K37 [PROTO_7]
-       93 CAPTURE                          VAL R0
-       94 SETTABLEKS                       R11 R10 K38 ["getOptInLocationsRequirementsLink"]
-       96 DUPCLOSURE                       R11 K39 [PROTO_8]
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R7
-       99 DUPCLOSURE                       R12 K40 [PROTO_9]
-      100 CAPTURE                          VAL R9
-      101 CAPTURE                          VAL R8
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R5
-      104 CAPTURE                          VAL R1
-      105 SETTABLEKS                       R12 R10 K41 ["sendAnalyticsToKibana"]
-      107 DUPCLOSURE                       R12 K42 [PROTO_10]
-      108 CAPTURE                          VAL R2
-      109 SETTABLEKS                       R12 R10 K43 ["isTeamCreateEnabled"]
-      111 DUPCLOSURE                       R12 K44 [PROTO_11]
-      112 SETTABLEKS                       R12 R10 K45 ["calculateTextSize"]
-      114 RETURN                           R10 1
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R7
+       91 DUPCLOSURE                       R12 K36 [PROTO_7]
+       92 CAPTURE                          VAL R9
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R7
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R1
+       97 SETTABLEKS                       R12 R10 K37 ["sendAnalyticsToKibana"]
+       99 DUPCLOSURE                       R12 K38 [PROTO_8]
+      100 CAPTURE                          VAL R2
+      101 SETTABLEKS                       R12 R10 K39 ["isTeamCreateEnabled"]
+      103 DUPCLOSURE                       R12 K40 [PROTO_9]
+      104 SETTABLEKS                       R12 R10 K41 ["calculateTextSize"]
+      106 RETURN                           R10 1

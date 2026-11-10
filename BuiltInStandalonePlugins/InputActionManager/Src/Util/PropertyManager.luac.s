@@ -212,17 +212,30 @@ PROTO_6:
         5 CALL                             R2 2 1
         6 SETTABLEKS                       R2 R1 K0 ["uuid"]
         8 GETUPVAL                         R2 1
-        9 LOADNIL                          R3
-       10 LOADNIL                          R4
-       11 FORGPREP                         R2
-       12 GETUPVAL                         R7 2
-       13 GETTABLEKS                       R7 R7 K3 ["serializeBindingProperty"]
-       15 MOVE                             R8 R0
-       16 MOVE                             R9 R1
-       17 MOVE                             R10 R6
-       18 CALL                             R7 3 0
-       19 FORGLOOP                         R2 2 ; [-8]
-       21 RETURN                           R1 1
+        9 CALL                             R2 0 1
+       10 JUMPIFNOT                        R2 ; [+20]
+       11 GETTABLEKS                       R2 R0 K3 ["SecondaryModifier"]
+       13 GETIMPORT                        R3 K7 [Enum.KeyCode.None]
+       15 JUMPIFEQ                         R2 R3 ; [+15]
+       17 GETTABLEKS                       R2 R0 K8 ["PrimaryModifier"]
+       19 GETIMPORT                        R3 K7 [Enum.KeyCode.None]
+       21 JUMPIFNOTEQ                      R2 R3 ; [+9]
+       23 GETTABLEKS                       R2 R0 K3 ["SecondaryModifier"]
+       25 SETTABLEKS                       R2 R0 K8 ["PrimaryModifier"]
+       27 GETIMPORT                        R2 K7 [Enum.KeyCode.None]
+       29 SETTABLEKS                       R2 R0 K3 ["SecondaryModifier"]
+       31 GETUPVAL                         R2 2
+       32 LOADNIL                          R3
+       33 LOADNIL                          R4
+       34 FORGPREP                         R2
+       35 GETUPVAL                         R7 3
+       36 GETTABLEKS                       R7 R7 K9 ["serializeBindingProperty"]
+       38 MOVE                             R8 R0
+       39 MOVE                             R9 R1
+       40 MOVE                             R10 R6
+       41 CALL                             R7 3 0
+       42 FORGLOOP                         R2 2 ; [-8]
+       44 RETURN                           R1 1
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["name"]
@@ -492,88 +505,94 @@ MAIN:
        15 GETTABLEKS                       R3 R1 K10 ["Src"]
        17 GETTABLEKS                       R3 R3 K11 ["Types"]
        19 CALL                             R2 1 1
-       20 NEWTABLE                         R3 16 0
-       22 NEWTABLE                         R4 0 4
-       24 LOADK                            R5 K12 ["Name"]
-       25 LOADK                            R6 K13 ["Enabled"]
-       26 LOADK                            R7 K14 ["Priority"]
-       27 LOADK                            R8 K15 ["Sink"]
-       28 SETLIST                          R4 R5 4 [1]
-       30 NEWTABLE                         R5 0 3
-       32 LOADK                            R6 K12 ["Name"]
-       33 LOADK                            R7 K13 ["Enabled"]
-       34 LOADK                            R8 K16 ["Type"]
-       35 SETLIST                          R5 R6 3 [1]
-       37 NEWTABLE                         R6 0 23
-       39 LOADK                            R7 K17 ["ClampMagnitudeToOne"]
-       40 LOADK                            R8 K18 ["DisplayImage"]
-       41 LOADK                            R9 K19 ["DisplayName"]
-       42 LOADK                            R10 K12 ["Name"]
-       43 LOADK                            R11 K20 ["Backward"]
-       44 LOADK                            R12 K21 ["Down"]
-       45 LOADK                            R13 K22 ["Forward"]
-       46 LOADK                            R14 K23 ["KeyCode"]
-       47 LOADK                            R15 K24 ["Left"]
-       48 LOADK                            R16 K25 ["PressedThreshold"]
-       49 LOADK                            R17 K26 ["PrimaryModifier"]
-       50 LOADK                            R18 K27 ["PointerIndex"]
-       51 LOADK                            R19 K28 ["ReleasedThreshold"]
-       52 LOADK                            R20 K29 ["ResponseCurve"]
-       53 LOADK                            R21 K30 ["Right"]
-       54 LOADK                            R22 K31 ["Scale"]
-       55 SETLIST                          R6 R7 16 [1]
-       57 LOADK                            R7 K32 ["SecondaryModifier"]
-       58 LOADK                            R8 K16 ["Type"]
-       59 LOADK                            R9 K33 ["UIButton"]
-       60 LOADK                            R10 K34 ["UIModifier"]
-       61 LOADK                            R11 K35 ["Up"]
-       62 LOADK                            R12 K36 ["Vector2Scale"]
-       63 LOADK                            R13 K37 ["Vector3Scale"]
-       64 SETLIST                          R6 R7 7 [17]
-       66 DUPCLOSURE                       R7 K38 [PROTO_0]
-       67 CAPTURE                          VAL R0
-       68 SETTABLEKS                       R7 R3 K39 ["serializeBindingButton"]
-       70 DUPCLOSURE                       R7 K40 [PROTO_1]
-       71 SETTABLEKS                       R7 R3 K41 ["serializeContextProperty"]
-       73 DUPCLOSURE                       R7 K42 [PROTO_2]
-       74 SETTABLEKS                       R7 R3 K43 ["serializeActionProperty"]
-       76 DUPCLOSURE                       R7 K44 [PROTO_3]
-       77 CAPTURE                          VAL R3
-       78 SETTABLEKS                       R7 R3 K45 ["serializeBindingProperty"]
-       80 DUPCLOSURE                       R7 K46 [PROTO_4]
-       81 CAPTURE                          VAL R0
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R3
-       84 SETTABLEKS                       R7 R3 K47 ["serializeContext"]
-       86 DUPCLOSURE                       R7 K48 [PROTO_5]
-       87 CAPTURE                          VAL R0
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R3
-       90 SETTABLEKS                       R7 R3 K49 ["serializeAction"]
-       92 DUPCLOSURE                       R7 K50 [PROTO_6]
-       93 CAPTURE                          VAL R0
-       94 CAPTURE                          VAL R6
-       95 CAPTURE                          VAL R3
-       96 SETTABLEKS                       R7 R3 K51 ["serializeBinding"]
-       98 DUPCLOSURE                       R7 K52 [PROTO_7]
-       99 SETTABLEKS                       R7 R3 K53 ["deserializeContextProperty"]
-      101 DUPCLOSURE                       R7 K54 [PROTO_8]
-      102 SETTABLEKS                       R7 R3 K55 ["deserializeActionProperty"]
-      104 DUPCLOSURE                       R7 K56 [PROTO_9]
-      105 SETTABLEKS                       R7 R3 K57 ["deserializeBindingProperty"]
-      107 DUPCLOSURE                       R7 K58 [PROTO_10]
-      108 CAPTURE                          VAL R4
-      109 CAPTURE                          VAL R3
-      110 SETTABLEKS                       R7 R3 K59 ["deserializeContext"]
-      112 DUPCLOSURE                       R7 K60 [PROTO_11]
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R3
-      115 SETTABLEKS                       R7 R3 K61 ["deserializeAction"]
-      117 DUPCLOSURE                       R7 K62 [PROTO_12]
-      118 CAPTURE                          VAL R6
-      119 CAPTURE                          VAL R3
-      120 SETTABLEKS                       R7 R3 K63 ["deserializeBinding"]
-      122 SETTABLEKS                       R4 R3 K64 ["CONTEXT_PROPERTIES"]
-      124 SETTABLEKS                       R5 R3 K65 ["ACTION_PROPERTIES"]
-      126 SETTABLEKS                       R6 R3 K66 ["BINDING_PROPERTIES"]
-      128 RETURN                           R3 1
+       20 GETIMPORT                        R3 K9 [require]
+       22 GETTABLEKS                       R4 R1 K10 ["Src"]
+       24 GETTABLEKS                       R4 R4 K12 ["Flags"]
+       26 GETTABLEKS                       R4 R4 K13 ["getFFlagIAMSecondaryRequiresPrimaryModifier"]
+       28 CALL                             R3 1 1
+       29 NEWTABLE                         R4 16 0
+       31 NEWTABLE                         R5 0 4
+       33 LOADK                            R6 K14 ["Name"]
+       34 LOADK                            R7 K15 ["Enabled"]
+       35 LOADK                            R8 K16 ["Priority"]
+       36 LOADK                            R9 K17 ["Sink"]
+       37 SETLIST                          R5 R6 4 [1]
+       39 NEWTABLE                         R6 0 3
+       41 LOADK                            R7 K14 ["Name"]
+       42 LOADK                            R8 K15 ["Enabled"]
+       43 LOADK                            R9 K18 ["Type"]
+       44 SETLIST                          R6 R7 3 [1]
+       46 NEWTABLE                         R7 0 23
+       48 LOADK                            R8 K19 ["ClampMagnitudeToOne"]
+       49 LOADK                            R9 K20 ["DisplayImage"]
+       50 LOADK                            R10 K21 ["DisplayName"]
+       51 LOADK                            R11 K14 ["Name"]
+       52 LOADK                            R12 K22 ["Backward"]
+       53 LOADK                            R13 K23 ["Down"]
+       54 LOADK                            R14 K24 ["Forward"]
+       55 LOADK                            R15 K25 ["KeyCode"]
+       56 LOADK                            R16 K26 ["Left"]
+       57 LOADK                            R17 K27 ["PressedThreshold"]
+       58 LOADK                            R18 K28 ["PrimaryModifier"]
+       59 LOADK                            R19 K29 ["PointerIndex"]
+       60 LOADK                            R20 K30 ["ReleasedThreshold"]
+       61 LOADK                            R21 K31 ["ResponseCurve"]
+       62 LOADK                            R22 K32 ["Right"]
+       63 LOADK                            R23 K33 ["Scale"]
+       64 SETLIST                          R7 R8 16 [1]
+       66 LOADK                            R8 K34 ["SecondaryModifier"]
+       67 LOADK                            R9 K18 ["Type"]
+       68 LOADK                            R10 K35 ["UIButton"]
+       69 LOADK                            R11 K36 ["UIModifier"]
+       70 LOADK                            R12 K37 ["Up"]
+       71 LOADK                            R13 K38 ["Vector2Scale"]
+       72 LOADK                            R14 K39 ["Vector3Scale"]
+       73 SETLIST                          R7 R8 7 [17]
+       75 DUPCLOSURE                       R8 K40 [PROTO_0]
+       76 CAPTURE                          VAL R0
+       77 SETTABLEKS                       R8 R4 K41 ["serializeBindingButton"]
+       79 DUPCLOSURE                       R8 K42 [PROTO_1]
+       80 SETTABLEKS                       R8 R4 K43 ["serializeContextProperty"]
+       82 DUPCLOSURE                       R8 K44 [PROTO_2]
+       83 SETTABLEKS                       R8 R4 K45 ["serializeActionProperty"]
+       85 DUPCLOSURE                       R8 K46 [PROTO_3]
+       86 CAPTURE                          VAL R4
+       87 SETTABLEKS                       R8 R4 K47 ["serializeBindingProperty"]
+       89 DUPCLOSURE                       R8 K48 [PROTO_4]
+       90 CAPTURE                          VAL R0
+       91 CAPTURE                          VAL R5
+       92 CAPTURE                          VAL R4
+       93 SETTABLEKS                       R8 R4 K49 ["serializeContext"]
+       95 DUPCLOSURE                       R8 K50 [PROTO_5]
+       96 CAPTURE                          VAL R0
+       97 CAPTURE                          VAL R6
+       98 CAPTURE                          VAL R4
+       99 SETTABLEKS                       R8 R4 K51 ["serializeAction"]
+      101 DUPCLOSURE                       R8 K52 [PROTO_6]
+      102 CAPTURE                          VAL R0
+      103 CAPTURE                          VAL R3
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R4
+      106 SETTABLEKS                       R8 R4 K53 ["serializeBinding"]
+      108 DUPCLOSURE                       R8 K54 [PROTO_7]
+      109 SETTABLEKS                       R8 R4 K55 ["deserializeContextProperty"]
+      111 DUPCLOSURE                       R8 K56 [PROTO_8]
+      112 SETTABLEKS                       R8 R4 K57 ["deserializeActionProperty"]
+      114 DUPCLOSURE                       R8 K58 [PROTO_9]
+      115 SETTABLEKS                       R8 R4 K59 ["deserializeBindingProperty"]
+      117 DUPCLOSURE                       R8 K60 [PROTO_10]
+      118 CAPTURE                          VAL R5
+      119 CAPTURE                          VAL R4
+      120 SETTABLEKS                       R8 R4 K61 ["deserializeContext"]
+      122 DUPCLOSURE                       R8 K62 [PROTO_11]
+      123 CAPTURE                          VAL R6
+      124 CAPTURE                          VAL R4
+      125 SETTABLEKS                       R8 R4 K63 ["deserializeAction"]
+      127 DUPCLOSURE                       R8 K64 [PROTO_12]
+      128 CAPTURE                          VAL R7
+      129 CAPTURE                          VAL R4
+      130 SETTABLEKS                       R8 R4 K65 ["deserializeBinding"]
+      132 SETTABLEKS                       R5 R4 K66 ["CONTEXT_PROPERTIES"]
+      134 SETTABLEKS                       R6 R4 K67 ["ACTION_PROPERTIES"]
+      136 SETTABLEKS                       R7 R4 K68 ["BINDING_PROPERTIES"]
+      138 RETURN                           R4 1

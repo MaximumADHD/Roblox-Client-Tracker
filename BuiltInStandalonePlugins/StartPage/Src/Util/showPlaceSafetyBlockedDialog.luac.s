@@ -24,28 +24,33 @@ PROTO_0:
        28 SETTABLEKS                       R11 R10 K18 ["Uri"]
        30 SETTABLEKS                       R4 R10 K19 ["Text"]
        32 SETTABLEKS                       R10 R9 K15 ["PrimaryButton"]
-       34 DUPTABLE                         R10 K20 [{"Uri", "Text"}]
-       35 DUPTABLE                         R11 K24 [{["PluginId"] = "StartPage", ["ItemId"] = "PlaceSafetyBlockedDialog/ViewTermsOfUse"}]
-       36 SETTABLEKS                       R11 R10 K18 ["Uri"]
-       38 SETTABLEKS                       R5 R10 K19 ["Text"]
-       40 SETTABLEKS                       R10 R9 K16 ["SecondaryButton"]
-       42 NAMECALL                         R6 R0 K25 ["ShowDialogAsync"]
-       44 CALL                             R6 3 1
-       45 JUMPIFNOT                        R6 ; [+20]
-       46 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
-       48 JUMPIFNOT                        R7 ; [+17]
-       49 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
-       51 GETTABLEKS                       R7 R7 K8 ["ItemId"]
-       53 JUMPIFNOT                        R7 ; [+12]
+       34 GETUPVAL                         R11 0
+       35 CALL                             R11 0 1
+       36 JUMPIFNOT                        R11 ; [+2]
+       37 LOADNIL                          R10
+       38 JUMP                             ; [+6]
+       39 DUPTABLE                         R10 K20 [{"Uri", "Text"}]
+       40 DUPTABLE                         R11 K24 [{["PluginId"] = "StartPage", ["ItemId"] = "PlaceSafetyBlockedDialog/ViewTermsOfUse"}]
+       41 SETTABLEKS                       R11 R10 K18 ["Uri"]
+       43 SETTABLEKS                       R5 R10 K19 ["Text"]
+       45 SETTABLEKS                       R10 R9 K16 ["SecondaryButton"]
+       47 NAMECALL                         R6 R0 K25 ["ShowDialogAsync"]
+       49 CALL                             R6 3 1
+       50 JUMPIFNOT                        R6 ; [+20]
+       51 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
+       53 JUMPIFNOT                        R7 ; [+17]
        54 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
        56 GETTABLEKS                       R7 R7 K8 ["ItemId"]
-       58 JUMPIFNOTEQKS                    R7 K23 ["PlaceSafetyBlockedDialog/ViewTermsOfUse"] ; [+7]
-       60 GETUPVAL                         R7 0
-       61 GETUPVAL                         R9 1
-       62 CALL                             R9 0 -1
-       63 NAMECALL                         R7 R7 K27 ["openLink"]
-       65 CALL                             R7 -1 0
-       66 RETURN                           R0 0
+       58 JUMPIFNOT                        R7 ; [+12]
+       59 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
+       61 GETTABLEKS                       R7 R7 K8 ["ItemId"]
+       63 JUMPIFNOTEQKS                    R7 K23 ["PlaceSafetyBlockedDialog/ViewTermsOfUse"] ; [+7]
+       65 GETUPVAL                         R7 1
+       66 GETUPVAL                         R9 2
+       67 CALL                             R9 0 -1
+       68 NAMECALL                         R7 R7 K27 ["openLink"]
+       70 CALL                             R7 -1 0
+       71 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -64,7 +69,13 @@ MAIN:
        22 GETTABLEKS                       R4 R4 K10 ["SharedFlags"]
        24 GETTABLEKS                       R4 R4 K11 ["getFStringLuaStartPageTermsOfUseLink"]
        26 CALL                             R3 1 1
-       27 DUPCLOSURE                       R4 K12 [PROTO_0]
-       28 CAPTURE                          VAL R2
-       29 CAPTURE                          VAL R3
-       30 RETURN                           R4 1
+       27 GETIMPORT                        R4 K5 [require]
+       29 GETTABLEKS                       R5 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K10 ["SharedFlags"]
+       33 GETTABLEKS                       R5 R5 K12 ["getFFlagIsLuobuBuild"]
+       35 CALL                             R4 1 1
+       36 DUPCLOSURE                       R5 K13 [PROTO_0]
+       37 CAPTURE                          VAL R4
+       38 CAPTURE                          VAL R2
+       39 CAPTURE                          VAL R3
+       40 RETURN                           R5 1

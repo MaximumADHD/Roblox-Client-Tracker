@@ -128,69 +128,71 @@ PROTO_8:
        60 GETUPVAL                         R11 0
        61 GETTABLEKS                       R11 R11 K8 ["createElement"]
        63 GETUPVAL                         R12 3
-       64 DUPTABLE                         R13 K17 [{"Size", "onSaved"}]
-       65 GETIMPORT                        R14 K20 [UDim2.fromScale]
+       64 DUPTABLE                         R13 K18 [{"Size", "onSaved", "reloadToken"}]
+       65 GETIMPORT                        R14 K21 [UDim2.fromScale]
        67 LOADN                            R15 1
        68 LOADN                            R16 1
        69 CALL                             R14 2 1
        70 SETTABLEKS                       R14 R13 K15 ["Size"]
        72 SETTABLEKS                       R6 R13 K16 ["onSaved"]
-       74 CALL                             R11 2 1
-       75 SETTABLEKS                       R11 R10 K12 ["FlagEditor"]
-       77 JUMPIFNOT                        R3 ; [+72]
-       78 GETUPVAL                         R11 0
-       79 GETTABLEKS                       R11 R11 K8 ["createElement"]
-       81 GETUPVAL                         R12 4
-       82 GETTABLEKS                       R12 R12 K21 ["Root"]
-       84 DUPTABLE                         R13 K29 [{["disablePortal"] = True, ["hasBackdrop"] = True, ["onClose"], ["size"], ["testId"] = "flag-editor-overrides-saved"}]
-       85 SETTABLEKS                       R5 R13 K25 ["onClose"]
-       87 GETUPVAL                         R14 5
-       88 GETTABLEKS                       R14 R14 K30 ["Small"]
-       90 SETTABLEKS                       R14 R13 K26 ["size"]
-       92 DUPTABLE                         R14 K34 [{"Title", "Content", "Actions"}]
-       93 GETUPVAL                         R15 0
-       94 GETTABLEKS                       R15 R15 K8 ["createElement"]
-       96 GETUPVAL                         R16 4
-       97 GETTABLEKS                       R16 R16 K31 ["Title"]
-       99 DUPTABLE                         R17 K37 [{["text"] = "Overrides saved"}]
-      100 CALL                             R15 2 1
-      101 SETTABLEKS                       R15 R14 K31 ["Title"]
-      103 GETUPVAL                         R15 0
-      104 GETTABLEKS                       R15 R15 K8 ["createElement"]
-      106 GETUPVAL                         R16 4
-      107 GETTABLEKS                       R16 R16 K32 ["Content"]
-      109 DUPTABLE                         R17 K40 [{["LayoutOrder"] = 1}]
-      110 DUPTABLE                         R18 K42 [{"Body"}]
-      111 GETUPVAL                         R19 0
-      112 GETTABLEKS                       R19 R19 K8 ["createElement"]
-      114 GETUPVAL                         R20 4
-      115 GETTABLEKS                       R20 R20 K43 ["Text"]
-      117 DUPTABLE                         R21 K45 [{["Text"] = "Restart Studio for these changes to take effect."}]
-      118 CALL                             R19 2 1
-      119 SETTABLEKS                       R19 R18 K41 ["Body"]
-      121 CALL                             R15 3 1
-      122 SETTABLEKS                       R15 R14 K32 ["Content"]
-      124 GETUPVAL                         R15 0
-      125 GETTABLEKS                       R15 R15 K8 ["createElement"]
-      127 GETUPVAL                         R16 4
-      128 GETTABLEKS                       R16 R16 K33 ["Actions"]
-      130 DUPTABLE                         R17 K48 [{["LayoutOrder"] = 2, ["actions"]}]
-      131 NEWTABLE                         R18 0 1
-      133 DUPTABLE                         R19 K56 [{["icon"] = , ["inputDelay"] = , ["ref"] = , ["text"] = "Done", ["variant"], ["onActivated"]}]
-      134 GETUPVAL                         R20 6
-      135 GETTABLEKS                       R20 R20 K57 ["Emphasis"]
-      137 SETTABLEKS                       R20 R19 K54 ["variant"]
-      139 SETTABLEKS                       R5 R19 K55 ["onActivated"]
-      141 SETLIST                          R18 R19 1 [1]
-      143 SETTABLEKS                       R18 R17 K47 ["actions"]
-      145 CALL                             R15 2 1
-      146 SETTABLEKS                       R15 R14 K33 ["Actions"]
-      148 CALL                             R11 3 1
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R11
-      151 SETTABLEKS                       R11 R10 K13 ["SavedNotice"]
-      153 CALL                             R7 3 -1
-      154 RETURN                           R7 -1
+       74 GETTABLEKS                       R14 R0 K17 ["reloadToken"]
+       76 SETTABLEKS                       R14 R13 K17 ["reloadToken"]
+       78 CALL                             R11 2 1
+       79 SETTABLEKS                       R11 R10 K12 ["FlagEditor"]
+       81 JUMPIFNOT                        R3 ; [+72]
+       82 GETUPVAL                         R11 0
+       83 GETTABLEKS                       R11 R11 K8 ["createElement"]
+       85 GETUPVAL                         R12 4
+       86 GETTABLEKS                       R12 R12 K22 ["Root"]
+       88 DUPTABLE                         R13 K30 [{["disablePortal"] = True, ["hasBackdrop"] = True, ["onClose"], ["size"], ["testId"] = "flag-editor-overrides-saved"}]
+       89 SETTABLEKS                       R5 R13 K26 ["onClose"]
+       91 GETUPVAL                         R14 5
+       92 GETTABLEKS                       R14 R14 K31 ["Small"]
+       94 SETTABLEKS                       R14 R13 K27 ["size"]
+       96 DUPTABLE                         R14 K35 [{"Title", "Content", "Actions"}]
+       97 GETUPVAL                         R15 0
+       98 GETTABLEKS                       R15 R15 K8 ["createElement"]
+      100 GETUPVAL                         R16 4
+      101 GETTABLEKS                       R16 R16 K32 ["Title"]
+      103 DUPTABLE                         R17 K38 [{["text"] = "Overrides saved"}]
+      104 CALL                             R15 2 1
+      105 SETTABLEKS                       R15 R14 K32 ["Title"]
+      107 GETUPVAL                         R15 0
+      108 GETTABLEKS                       R15 R15 K8 ["createElement"]
+      110 GETUPVAL                         R16 4
+      111 GETTABLEKS                       R16 R16 K33 ["Content"]
+      113 DUPTABLE                         R17 K41 [{["LayoutOrder"] = 1}]
+      114 DUPTABLE                         R18 K43 [{"Body"}]
+      115 GETUPVAL                         R19 0
+      116 GETTABLEKS                       R19 R19 K8 ["createElement"]
+      118 GETUPVAL                         R20 4
+      119 GETTABLEKS                       R20 R20 K44 ["Text"]
+      121 DUPTABLE                         R21 K46 [{["Text"] = "Restart Studio for these changes to take effect."}]
+      122 CALL                             R19 2 1
+      123 SETTABLEKS                       R19 R18 K42 ["Body"]
+      125 CALL                             R15 3 1
+      126 SETTABLEKS                       R15 R14 K33 ["Content"]
+      128 GETUPVAL                         R15 0
+      129 GETTABLEKS                       R15 R15 K8 ["createElement"]
+      131 GETUPVAL                         R16 4
+      132 GETTABLEKS                       R16 R16 K34 ["Actions"]
+      134 DUPTABLE                         R17 K49 [{["LayoutOrder"] = 2, ["actions"]}]
+      135 NEWTABLE                         R18 0 1
+      137 DUPTABLE                         R19 K57 [{["icon"] = , ["inputDelay"] = , ["ref"] = , ["text"] = "Done", ["variant"], ["onActivated"]}]
+      138 GETUPVAL                         R20 6
+      139 GETTABLEKS                       R20 R20 K58 ["Emphasis"]
+      141 SETTABLEKS                       R20 R19 K55 ["variant"]
+      143 SETTABLEKS                       R5 R19 K56 ["onActivated"]
+      145 SETLIST                          R18 R19 1 [1]
+      147 SETTABLEKS                       R18 R17 K48 ["actions"]
+      149 CALL                             R15 2 1
+      150 SETTABLEKS                       R15 R14 K34 ["Actions"]
+      152 CALL                             R11 3 1
+      153 JUMP                             ; [+1]
+      154 LOADNIL                          R11
+      155 SETTABLEKS                       R11 R10 K13 ["SavedNotice"]
+      157 CALL                             R7 3 -1
+      158 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

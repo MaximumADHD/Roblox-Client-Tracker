@@ -1,48 +1,33 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+4]
-        2 GETUPVAL                         R0 0
-        3 NAMECALL                         R0 R0 K0 ["unmount"]
-        5 CALL                             R0 1 0
-        6 RETURN                           R0 0
+        1 NAMECALL                         R0 R0 K0 ["unmount"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_1:
-        0 GETIMPORT                        R2 K1 [require]
-        2 GETUPVAL                         R3 0
-        3 GETTABLEKS                       R3 R3 K2 ["Packages"]
-        5 GETTABLEKS                       R3 R3 K3 ["React"]
-        7 CALL                             R2 1 1
-        8 GETIMPORT                        R3 K1 [require]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R4 R4 K2 ["Packages"]
-       13 GETTABLEKS                       R4 R4 K4 ["ReactRoblox"]
-       15 CALL                             R3 1 1
-       16 GETIMPORT                        R4 K1 [require]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R5 R5 K5 ["Src"]
-       21 GETTABLEKS                       R5 R5 K6 ["MainPlugin"]
-       23 CALL                             R4 1 1
-       24 GETTABLEKS                       R5 R2 K7 ["createElement"]
-       26 MOVE                             R6 R4
-       27 DUPTABLE                         R7 K10 [{"Plugin", "PluginLoaderContext"}]
-       28 SETTABLEKS                       R0 R7 K8 ["Plugin"]
-       30 SETTABLEKS                       R1 R7 K9 ["PluginLoaderContext"]
-       32 CALL                             R5 2 1
-       33 GETIMPORT                        R6 K13 [Instance.new]
-       35 LOADK                            R7 K14 ["Frame"]
-       36 CALL                             R6 1 1
-       37 GETTABLEKS                       R7 R3 K15 ["createRoot"]
-       39 MOVE                             R8 R6
-       40 CALL                             R7 1 1
-       41 MOVE                             R10 R5
-       42 NAMECALL                         R8 R7 K16 ["render"]
-       44 CALL                             R8 2 0
-       45 GETTABLEKS                       R8 R0 K17 ["Unloading"]
-       47 NEWCLOSURE                       R10 P0
-       48 CAPTURE                          VAL R7
-       49 NAMECALL                         R8 R8 K18 ["Connect"]
-       51 CALL                             R8 2 0
-       52 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["createElement"]
+        3 GETUPVAL                         R3 1
+        4 DUPTABLE                         R4 K3 [{"Plugin", "TeamCreateService"}]
+        5 SETTABLEKS                       R0 R4 K1 ["Plugin"]
+        7 SETTABLEKS                       R1 R4 K2 ["TeamCreateService"]
+        9 CALL                             R2 2 1
+       10 GETIMPORT                        R3 K6 [Instance.new]
+       12 LOADK                            R4 K7 ["Frame"]
+       13 CALL                             R3 1 1
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R4 R4 K8 ["createRoot"]
+       17 MOVE                             R5 R3
+       18 CALL                             R4 1 1
+       19 MOVE                             R7 R2
+       20 NAMECALL                         R5 R4 K9 ["render"]
+       22 CALL                             R5 2 0
+       23 GETTABLEKS                       R5 R0 K10 ["Unloading"]
+       25 NEWCLOSURE                       R7 P0
+       26 CAPTURE                          VAL R4
+       27 NAMECALL                         R5 R5 K11 ["Connect"]
+       29 CALL                             R5 2 0
+       30 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -50,6 +35,24 @@ MAIN:
         3 LOADK                            R2 K2 ["ConnectionIndicator"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 DUPCLOSURE                       R1 K4 [PROTO_1]
-        8 CAPTURE                          VAL R0
-        9 RETURN                           R1 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactRoblox"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["MainPlugin"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K9 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Types"]
+       34 CALL                             R4 1 1
+       35 DUPCLOSURE                       R5 K12 [PROTO_1]
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R2
+       39 RETURN                           R5 1

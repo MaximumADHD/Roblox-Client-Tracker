@@ -327,255 +327,211 @@ PROTO_22:
        79 GETUPVAL                         R12 5
        80 GETTABLEKS                       R12 R12 K11 ["View"]
        82 DUPTABLE                         R13 K14 [{["tag"] = "col size-full"}]
-       83 DUPTABLE                         R14 K29 [{"Gap1", "Title", "Gap2", "MetadataDivider", "Columns", "Rows", "Width", "Height", "OffsetX", "OffsetY", "Gap3", "FrameCount", "Gap4", "SliceImageButton"}]
+       83 DUPTABLE                         R14 K27 [{"Gap1", "Title", "Gap2", "MetadataDivider", "Columns", "Rows", "Width", "Height", "OffsetX", "OffsetY", "Gap3", "FrameCount"}]
        84 GETUPVAL                         R15 0
        85 GETTABLEKS                       R15 R15 K10 ["createElement"]
        87 GETUPVAL                         R16 5
        88 GETTABLEKS                       R16 R16 K11 ["View"]
-       90 DUPTABLE                         R17 K32 [{["LayoutOrder"], ["tag"] = "size-0-300"}]
+       90 DUPTABLE                         R17 K30 [{["LayoutOrder"], ["tag"] = "size-0-300"}]
        91 MOVE                             R18 R10
        92 CALL                             R18 0 1
-       93 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+       93 SETTABLEKS                       R18 R17 K28 ["LayoutOrder"]
        95 CALL                             R15 2 1
        96 SETTABLEKS                       R15 R14 K15 ["Gap1"]
        98 GETUPVAL                         R15 0
        99 GETTABLEKS                       R15 R15 K10 ["createElement"]
       101 GETUPVAL                         R16 5
-      102 GETTABLEKS                       R16 R16 K33 ["Text"]
-      104 DUPTABLE                         R17 K35 [{["Text"], ["LayoutOrder"], ["tag"] = "content-emphasis text-title-large auto-xy"}]
-      105 DUPCLOSURE                       R20 K36 [PROTO_14]
-      106 NAMECALL                         R18 R2 K37 ["map"]
+      102 GETTABLEKS                       R16 R16 K31 ["Text"]
+      104 DUPTABLE                         R17 K33 [{["Text"], ["LayoutOrder"], ["tag"] = "content-emphasis text-title-large auto-xy"}]
+      105 DUPCLOSURE                       R20 K34 [PROTO_14]
+      106 NAMECALL                         R18 R2 K35 ["map"]
       108 CALL                             R18 2 1
-      109 SETTABLEKS                       R18 R17 K33 ["Text"]
+      109 SETTABLEKS                       R18 R17 K31 ["Text"]
       111 MOVE                             R18 R10
       112 CALL                             R18 0 1
-      113 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      113 SETTABLEKS                       R18 R17 K28 ["LayoutOrder"]
       115 CALL                             R15 2 1
       116 SETTABLEKS                       R15 R14 K16 ["Title"]
       118 GETUPVAL                         R15 0
       119 GETTABLEKS                       R15 R15 K10 ["createElement"]
       121 GETUPVAL                         R16 5
       122 GETTABLEKS                       R16 R16 K11 ["View"]
-      124 DUPTABLE                         R17 K39 [{["LayoutOrder"], ["tag"] = "size-0-800"}]
+      124 DUPTABLE                         R17 K37 [{["LayoutOrder"], ["tag"] = "size-0-800"}]
       125 MOVE                             R18 R10
       126 CALL                             R18 0 1
-      127 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      127 SETTABLEKS                       R18 R17 K28 ["LayoutOrder"]
       129 CALL                             R15 2 1
       130 SETTABLEKS                       R15 R14 K17 ["Gap2"]
       132 GETUPVAL                         R15 0
       133 GETTABLEKS                       R15 R15 K10 ["createElement"]
       135 GETUPVAL                         R16 5
-      136 GETTABLEKS                       R16 R16 K40 ["Divider"]
-      138 DUPTABLE                         R17 K42 [{"orientation", "LayoutOrder"}]
+      136 GETTABLEKS                       R16 R16 K38 ["Divider"]
+      138 DUPTABLE                         R17 K40 [{"orientation", "LayoutOrder"}]
       139 GETUPVAL                         R18 5
-      140 GETTABLEKS                       R18 R18 K43 ["Enums"]
-      142 GETTABLEKS                       R18 R18 K44 ["Orientation"]
-      144 GETTABLEKS                       R18 R18 K45 ["Horizontal"]
-      146 SETTABLEKS                       R18 R17 K41 ["orientation"]
+      140 GETTABLEKS                       R18 R18 K41 ["Enums"]
+      142 GETTABLEKS                       R18 R18 K42 ["Orientation"]
+      144 GETTABLEKS                       R18 R18 K43 ["Horizontal"]
+      146 SETTABLEKS                       R18 R17 K39 ["orientation"]
       148 MOVE                             R18 R10
       149 CALL                             R18 0 1
-      150 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      150 SETTABLEKS                       R18 R17 K28 ["LayoutOrder"]
       152 CALL                             R15 2 1
       153 SETTABLEKS                       R15 R14 K18 ["MetadataDivider"]
       155 GETUPVAL                         R15 0
       156 GETTABLEKS                       R15 R15 K10 ["createElement"]
       158 GETUPVAL                         R16 6
-      159 DUPTABLE                         R17 K53 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
-      160 LOADK                            R20 K54 ["Slicer"]
+      159 DUPTABLE                         R17 K51 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
+      160 LOADK                            R20 K52 ["Slicer"]
       161 LOADK                            R21 K19 ["Columns"]
-      162 NAMECALL                         R18 R1 K55 ["getText"]
+      162 NAMECALL                         R18 R1 K53 ["getText"]
       164 CALL                             R18 3 1
-      165 SETTABLEKS                       R18 R17 K46 ["text"]
+      165 SETTABLEKS                       R18 R17 K44 ["text"]
       167 MOVE                             R18 R10
       168 CALL                             R18 0 1
-      169 SETTABLEKS                       R18 R17 K47 ["layoutOrder"]
-      171 SETTABLEKS                       R4 R17 K48 ["onChanged"]
-      173 DUPCLOSURE                       R20 K56 [PROTO_15]
-      174 NAMECALL                         R18 R2 K37 ["map"]
+      169 SETTABLEKS                       R18 R17 K45 ["layoutOrder"]
+      171 SETTABLEKS                       R4 R17 K46 ["onChanged"]
+      173 DUPCLOSURE                       R20 K54 [PROTO_15]
+      174 NAMECALL                         R18 R2 K35 ["map"]
       176 CALL                             R18 2 1
-      177 SETTABLEKS                       R18 R17 K49 ["value"]
-      179 GETTABLEKS                       R18 R3 K57 ["X"]
-      181 SETTABLEKS                       R18 R17 K52 ["maximum"]
+      177 SETTABLEKS                       R18 R17 K47 ["value"]
+      179 GETTABLEKS                       R18 R3 K55 ["X"]
+      181 SETTABLEKS                       R18 R17 K50 ["maximum"]
       183 CALL                             R15 2 1
       184 SETTABLEKS                       R15 R14 K19 ["Columns"]
       186 GETUPVAL                         R15 0
       187 GETTABLEKS                       R15 R15 K10 ["createElement"]
       189 GETUPVAL                         R16 6
-      190 DUPTABLE                         R17 K53 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
-      191 LOADK                            R20 K54 ["Slicer"]
+      190 DUPTABLE                         R17 K51 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
+      191 LOADK                            R20 K52 ["Slicer"]
       192 LOADK                            R21 K20 ["Rows"]
-      193 NAMECALL                         R18 R1 K55 ["getText"]
+      193 NAMECALL                         R18 R1 K53 ["getText"]
       195 CALL                             R18 3 1
-      196 SETTABLEKS                       R18 R17 K46 ["text"]
+      196 SETTABLEKS                       R18 R17 K44 ["text"]
       198 MOVE                             R18 R10
       199 CALL                             R18 0 1
-      200 SETTABLEKS                       R18 R17 K47 ["layoutOrder"]
-      202 SETTABLEKS                       R5 R17 K48 ["onChanged"]
-      204 DUPCLOSURE                       R20 K58 [PROTO_16]
-      205 NAMECALL                         R18 R2 K37 ["map"]
+      200 SETTABLEKS                       R18 R17 K45 ["layoutOrder"]
+      202 SETTABLEKS                       R5 R17 K46 ["onChanged"]
+      204 DUPCLOSURE                       R20 K56 [PROTO_16]
+      205 NAMECALL                         R18 R2 K35 ["map"]
       207 CALL                             R18 2 1
-      208 SETTABLEKS                       R18 R17 K49 ["value"]
-      210 GETTABLEKS                       R18 R3 K59 ["Y"]
-      212 SETTABLEKS                       R18 R17 K52 ["maximum"]
+      208 SETTABLEKS                       R18 R17 K47 ["value"]
+      210 GETTABLEKS                       R18 R3 K57 ["Y"]
+      212 SETTABLEKS                       R18 R17 K50 ["maximum"]
       214 CALL                             R15 2 1
       215 SETTABLEKS                       R15 R14 K20 ["Rows"]
       217 GETUPVAL                         R15 0
       218 GETTABLEKS                       R15 R15 K10 ["createElement"]
       220 GETUPVAL                         R16 6
-      221 DUPTABLE                         R17 K53 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
-      222 LOADK                            R20 K54 ["Slicer"]
+      221 DUPTABLE                         R17 K51 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
+      222 LOADK                            R20 K52 ["Slicer"]
       223 LOADK                            R21 K21 ["Width"]
-      224 NAMECALL                         R18 R1 K55 ["getText"]
+      224 NAMECALL                         R18 R1 K53 ["getText"]
       226 CALL                             R18 3 1
-      227 SETTABLEKS                       R18 R17 K46 ["text"]
+      227 SETTABLEKS                       R18 R17 K44 ["text"]
       229 MOVE                             R18 R10
       230 CALL                             R18 0 1
-      231 SETTABLEKS                       R18 R17 K47 ["layoutOrder"]
-      233 SETTABLEKS                       R6 R17 K48 ["onChanged"]
-      235 DUPCLOSURE                       R20 K60 [PROTO_17]
-      236 NAMECALL                         R18 R2 K37 ["map"]
+      231 SETTABLEKS                       R18 R17 K45 ["layoutOrder"]
+      233 SETTABLEKS                       R6 R17 K46 ["onChanged"]
+      235 DUPCLOSURE                       R20 K58 [PROTO_17]
+      236 NAMECALL                         R18 R2 K35 ["map"]
       238 CALL                             R18 2 1
-      239 SETTABLEKS                       R18 R17 K49 ["value"]
-      241 GETTABLEKS                       R18 R3 K57 ["X"]
-      243 SETTABLEKS                       R18 R17 K52 ["maximum"]
+      239 SETTABLEKS                       R18 R17 K47 ["value"]
+      241 GETTABLEKS                       R18 R3 K55 ["X"]
+      243 SETTABLEKS                       R18 R17 K50 ["maximum"]
       245 CALL                             R15 2 1
       246 SETTABLEKS                       R15 R14 K21 ["Width"]
       248 GETUPVAL                         R15 0
       249 GETTABLEKS                       R15 R15 K10 ["createElement"]
       251 GETUPVAL                         R16 6
-      252 DUPTABLE                         R17 K53 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
-      253 LOADK                            R20 K54 ["Slicer"]
+      252 DUPTABLE                         R17 K51 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 1, ["maximum"]}]
+      253 LOADK                            R20 K52 ["Slicer"]
       254 LOADK                            R21 K22 ["Height"]
-      255 NAMECALL                         R18 R1 K55 ["getText"]
+      255 NAMECALL                         R18 R1 K53 ["getText"]
       257 CALL                             R18 3 1
-      258 SETTABLEKS                       R18 R17 K46 ["text"]
+      258 SETTABLEKS                       R18 R17 K44 ["text"]
       260 MOVE                             R18 R10
       261 CALL                             R18 0 1
-      262 SETTABLEKS                       R18 R17 K47 ["layoutOrder"]
-      264 SETTABLEKS                       R7 R17 K48 ["onChanged"]
-      266 DUPCLOSURE                       R20 K61 [PROTO_18]
-      267 NAMECALL                         R18 R2 K37 ["map"]
+      262 SETTABLEKS                       R18 R17 K45 ["layoutOrder"]
+      264 SETTABLEKS                       R7 R17 K46 ["onChanged"]
+      266 DUPCLOSURE                       R20 K59 [PROTO_18]
+      267 NAMECALL                         R18 R2 K35 ["map"]
       269 CALL                             R18 2 1
-      270 SETTABLEKS                       R18 R17 K49 ["value"]
-      272 GETTABLEKS                       R18 R3 K59 ["Y"]
-      274 SETTABLEKS                       R18 R17 K52 ["maximum"]
+      270 SETTABLEKS                       R18 R17 K47 ["value"]
+      272 GETTABLEKS                       R18 R3 K57 ["Y"]
+      274 SETTABLEKS                       R18 R17 K50 ["maximum"]
       276 CALL                             R15 2 1
       277 SETTABLEKS                       R15 R14 K22 ["Height"]
       279 GETUPVAL                         R15 0
       280 GETTABLEKS                       R15 R15 K10 ["createElement"]
       282 GETUPVAL                         R16 6
-      283 DUPTABLE                         R17 K63 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 0, ["maximum"]}]
-      284 LOADK                            R20 K54 ["Slicer"]
+      283 DUPTABLE                         R17 K61 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 0, ["maximum"]}]
+      284 LOADK                            R20 K52 ["Slicer"]
       285 LOADK                            R21 K23 ["OffsetX"]
-      286 NAMECALL                         R18 R1 K55 ["getText"]
+      286 NAMECALL                         R18 R1 K53 ["getText"]
       288 CALL                             R18 3 1
-      289 SETTABLEKS                       R18 R17 K46 ["text"]
+      289 SETTABLEKS                       R18 R17 K44 ["text"]
       291 MOVE                             R18 R10
       292 CALL                             R18 0 1
-      293 SETTABLEKS                       R18 R17 K47 ["layoutOrder"]
-      295 SETTABLEKS                       R8 R17 K48 ["onChanged"]
-      297 DUPCLOSURE                       R20 K64 [PROTO_19]
-      298 NAMECALL                         R18 R2 K37 ["map"]
+      293 SETTABLEKS                       R18 R17 K45 ["layoutOrder"]
+      295 SETTABLEKS                       R8 R17 K46 ["onChanged"]
+      297 DUPCLOSURE                       R20 K62 [PROTO_19]
+      298 NAMECALL                         R18 R2 K35 ["map"]
       300 CALL                             R18 2 1
-      301 SETTABLEKS                       R18 R17 K49 ["value"]
-      303 GETTABLEKS                       R19 R3 K57 ["X"]
-      305 SUBK                             R18 R19 K51 [1]
-      306 SETTABLEKS                       R18 R17 K52 ["maximum"]
+      301 SETTABLEKS                       R18 R17 K47 ["value"]
+      303 GETTABLEKS                       R19 R3 K55 ["X"]
+      305 SUBK                             R18 R19 K49 [1]
+      306 SETTABLEKS                       R18 R17 K50 ["maximum"]
       308 CALL                             R15 2 1
       309 SETTABLEKS                       R15 R14 K23 ["OffsetX"]
       311 GETUPVAL                         R15 0
       312 GETTABLEKS                       R15 R15 K10 ["createElement"]
       314 GETUPVAL                         R16 6
-      315 DUPTABLE                         R17 K63 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 0, ["maximum"]}]
-      316 LOADK                            R20 K54 ["Slicer"]
+      315 DUPTABLE                         R17 K61 [{["text"], ["layoutOrder"], ["onChanged"], ["value"], ["minimum"] = 0, ["maximum"]}]
+      316 LOADK                            R20 K52 ["Slicer"]
       317 LOADK                            R21 K24 ["OffsetY"]
-      318 NAMECALL                         R18 R1 K55 ["getText"]
+      318 NAMECALL                         R18 R1 K53 ["getText"]
       320 CALL                             R18 3 1
-      321 SETTABLEKS                       R18 R17 K46 ["text"]
+      321 SETTABLEKS                       R18 R17 K44 ["text"]
       323 MOVE                             R18 R10
       324 CALL                             R18 0 1
-      325 SETTABLEKS                       R18 R17 K47 ["layoutOrder"]
-      327 SETTABLEKS                       R9 R17 K48 ["onChanged"]
-      329 DUPCLOSURE                       R20 K65 [PROTO_20]
-      330 NAMECALL                         R18 R2 K37 ["map"]
+      325 SETTABLEKS                       R18 R17 K45 ["layoutOrder"]
+      327 SETTABLEKS                       R9 R17 K46 ["onChanged"]
+      329 DUPCLOSURE                       R20 K63 [PROTO_20]
+      330 NAMECALL                         R18 R2 K35 ["map"]
       332 CALL                             R18 2 1
-      333 SETTABLEKS                       R18 R17 K49 ["value"]
-      335 GETTABLEKS                       R19 R3 K59 ["Y"]
-      337 SUBK                             R18 R19 K51 [1]
-      338 SETTABLEKS                       R18 R17 K52 ["maximum"]
+      333 SETTABLEKS                       R18 R17 K47 ["value"]
+      335 GETTABLEKS                       R19 R3 K57 ["Y"]
+      337 SUBK                             R18 R19 K49 [1]
+      338 SETTABLEKS                       R18 R17 K50 ["maximum"]
       340 CALL                             R15 2 1
       341 SETTABLEKS                       R15 R14 K24 ["OffsetY"]
       343 GETUPVAL                         R15 0
       344 GETTABLEKS                       R15 R15 K10 ["createElement"]
       346 GETUPVAL                         R16 5
       347 GETTABLEKS                       R16 R16 K11 ["View"]
-      349 DUPTABLE                         R17 K67 [{["tag"] = "fill", ["LayoutOrder"]}]
+      349 DUPTABLE                         R17 K65 [{["tag"] = "fill", ["LayoutOrder"]}]
       350 MOVE                             R18 R10
       351 CALL                             R18 0 1
-      352 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      352 SETTABLEKS                       R18 R17 K28 ["LayoutOrder"]
       354 CALL                             R15 2 1
       355 SETTABLEKS                       R15 R14 K25 ["Gap3"]
       357 GETUPVAL                         R15 0
       358 GETTABLEKS                       R15 R15 K10 ["createElement"]
       360 GETUPVAL                         R16 5
-      361 GETTABLEKS                       R16 R16 K33 ["Text"]
-      363 DUPTABLE                         R17 K69 [{["Text"], ["LayoutOrder"], ["tag"] = "auto-xy text-caption-small"}]
+      361 GETTABLEKS                       R16 R16 K31 ["Text"]
+      363 DUPTABLE                         R17 K67 [{["Text"], ["LayoutOrder"], ["tag"] = "auto-xy text-caption-small"}]
       364 NEWCLOSURE                       R20 P14
       365 CAPTURE                          VAL R1
-      366 NAMECALL                         R18 R2 K37 ["map"]
+      366 NAMECALL                         R18 R2 K35 ["map"]
       368 CALL                             R18 2 1
-      369 SETTABLEKS                       R18 R17 K33 ["Text"]
+      369 SETTABLEKS                       R18 R17 K31 ["Text"]
       371 MOVE                             R18 R10
       372 CALL                             R18 0 1
-      373 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      373 SETTABLEKS                       R18 R17 K28 ["LayoutOrder"]
       375 CALL                             R15 2 1
       376 SETTABLEKS                       R15 R14 K26 ["FrameCount"]
-      378 GETUPVAL                         R15 0
-      379 GETTABLEKS                       R15 R15 K10 ["createElement"]
-      381 GETUPVAL                         R16 5
-      382 GETTABLEKS                       R16 R16 K11 ["View"]
-      384 DUPTABLE                         R17 K71 [{["tag"] = "size-0-250", ["LayoutOrder"]}]
-      385 MOVE                             R18 R10
-      386 CALL                             R18 0 1
-      387 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
-      389 CALL                             R15 2 1
-      390 SETTABLEKS                       R15 R14 K27 ["Gap4"]
-      392 GETUPVAL                         R15 0
-      393 GETTABLEKS                       R15 R15 K10 ["createElement"]
-      395 GETUPVAL                         R16 5
-      396 GETTABLEKS                       R16 R16 K72 ["Button"]
-      398 DUPTABLE                         R17 K78 [{"text", "variant", "onActivated", "size", "width", "isDisabled", "LayoutOrder"}]
-      399 LOADK                            R20 K54 ["Slicer"]
-      400 LOADK                            R21 K79 ["SliceImage"]
-      401 NAMECALL                         R18 R1 K55 ["getText"]
-      403 CALL                             R18 3 1
-      404 SETTABLEKS                       R18 R17 K46 ["text"]
-      406 GETUPVAL                         R18 5
-      407 GETTABLEKS                       R18 R18 K43 ["Enums"]
-      409 GETTABLEKS                       R18 R18 K80 ["ButtonVariant"]
-      411 GETTABLEKS                       R18 R18 K81 ["Emphasis"]
-      413 SETTABLEKS                       R18 R17 K73 ["variant"]
-      415 GETTABLEKS                       R18 R0 K82 ["onFinish"]
-      417 SETTABLEKS                       R18 R17 K74 ["onActivated"]
-      419 GETUPVAL                         R18 5
-      420 GETTABLEKS                       R18 R18 K43 ["Enums"]
-      422 GETTABLEKS                       R18 R18 K83 ["ButtonSize"]
-      424 GETTABLEKS                       R18 R18 K84 ["Small"]
-      426 SETTABLEKS                       R18 R17 K75 ["size"]
-      428 GETIMPORT                        R18 K87 [UDim.new]
-      430 LOADN                            R19 1
-      431 LOADN                            R20 0
-      432 CALL                             R18 2 1
-      433 SETTABLEKS                       R18 R17 K76 ["width"]
-      435 GETTABLEKS                       R18 R0 K88 ["finishing"]
-      437 SETTABLEKS                       R18 R17 K77 ["isDisabled"]
-      439 MOVE                             R18 R10
-      440 CALL                             R18 0 1
-      441 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
-      443 CALL                             R15 2 1
-      444 SETTABLEKS                       R15 R14 K28 ["SliceImageButton"]
-      446 CALL                             R11 3 -1
-      447 RETURN                           R11 -1
+      378 CALL                             R11 3 -1
+      379 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

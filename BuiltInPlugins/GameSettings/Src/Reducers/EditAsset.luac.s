@@ -7,17 +7,6 @@ PROTO_1:
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K3 [{"editPlaceId"}]
-        7 GETTABLEKS                       R5 R1 K2 ["editPlaceId"]
-        9 SETTABLEKS                       R5 R4 K2 ["editPlaceId"]
-       11 CALL                             R2 2 -1
-       12 RETURN                           R2 -1
-
-PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
-        3 GETTABLEKS                       R2 R2 K1 ["join"]
-        5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"editDevProductId"}]
         7 GETTABLEKS                       R6 R1 K2 ["editDevProductId"]
         9 JUMPIFEQKNIL                     R6 ; [+4]
@@ -29,7 +18,7 @@ PROTO_2:
        19 CALL                             R2 2 -1
        20 RETURN                           R2 -1
 
-PROTO_3:
+PROTO_2:
         0 GETTABLEKS                       R3 R1 K0 ["editSecretId"]
         2 JUMPIFEQKNIL                     R3 ; [+4]
         4 GETTABLEKS                       R2 R1 K0 ["editSecretId"]
@@ -45,7 +34,7 @@ PROTO_3:
        19 CALL                             R3 2 -1
        20 RETURN                           R3 -1
 
-PROTO_4:
+PROTO_3:
         0 GETTABLEKS                       R3 R1 K0 ["value"]
         2 JUMPIFEQKNIL                     R3 ; [+4]
         4 GETTABLEKS                       R2 R1 K0 ["value"]
@@ -76,24 +65,21 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K16 [{["editPlaceId"] = 0, ["editDevProductId"] = , ["editSecretId"] = , ["editSecretFormName"] = , ["editSecretFormValue"] = , ["editSecretFormDomain"] = }]
-       24 GETTABLEKS                       R4 R2 K17 ["createReducer"]
+       23 DUPTABLE                         R3 K14 [{["editDevProductId"] = , ["editSecretId"] = , ["editSecretFormName"] = , ["editSecretFormValue"] = , ["editSecretFormDomain"] = }]
+       24 GETTABLEKS                       R4 R2 K15 ["createReducer"]
        26 MOVE                             R5 R3
-       27 DUPTABLE                         R6 K23 [{"ResetStore", "SetEditPlaceId", "SetEditDevProductId", "SetEditSecretId", "SetEditSecretFormField"}]
-       28 DUPCLOSURE                       R7 K24 [PROTO_0]
+       27 DUPTABLE                         R6 K20 [{"ResetStore", "SetEditDevProductId", "SetEditSecretId", "SetEditSecretFormField"}]
+       28 DUPCLOSURE                       R7 K21 [PROTO_0]
        29 CAPTURE                          VAL R3
-       30 SETTABLEKS                       R7 R6 K18 ["ResetStore"]
-       32 DUPCLOSURE                       R7 K25 [PROTO_1]
+       30 SETTABLEKS                       R7 R6 K16 ["ResetStore"]
+       32 DUPCLOSURE                       R7 K22 [PROTO_1]
        33 CAPTURE                          VAL R1
-       34 SETTABLEKS                       R7 R6 K19 ["SetEditPlaceId"]
-       36 DUPCLOSURE                       R7 K26 [PROTO_2]
+       34 SETTABLEKS                       R7 R6 K17 ["SetEditDevProductId"]
+       36 DUPCLOSURE                       R7 K23 [PROTO_2]
        37 CAPTURE                          VAL R1
-       38 SETTABLEKS                       R7 R6 K20 ["SetEditDevProductId"]
-       40 DUPCLOSURE                       R7 K27 [PROTO_3]
+       38 SETTABLEKS                       R7 R6 K18 ["SetEditSecretId"]
+       40 DUPCLOSURE                       R7 K24 [PROTO_3]
        41 CAPTURE                          VAL R1
-       42 SETTABLEKS                       R7 R6 K21 ["SetEditSecretId"]
-       44 DUPCLOSURE                       R7 K28 [PROTO_4]
-       45 CAPTURE                          VAL R1
-       46 SETTABLEKS                       R7 R6 K22 ["SetEditSecretFormField"]
-       48 CALL                             R4 2 -1
-       49 RETURN                           R4 -1
+       42 SETTABLEKS                       R7 R6 K19 ["SetEditSecretFormField"]
+       44 CALL                             R4 2 -1
+       45 RETURN                           R4 -1

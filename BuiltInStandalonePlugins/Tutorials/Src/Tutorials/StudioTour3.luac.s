@@ -237,341 +237,376 @@ MAIN:
        15 GETTABLEKS                       R2 R2 K7 ["getFFlagEnableRibbonTour"]
        17 CALL                             R1 1 1
        18 CALL                             R1 0 1
-       19 GETIMPORT                        R2 K9 [game]
-       21 LOADK                            R4 K10 ["Workspace"]
-       22 NAMECALL                         R2 R2 K11 ["GetService"]
-       24 CALL                             R2 2 1
-       25 GETIMPORT                        R3 K9 [game]
-       27 LOADK                            R5 K12 ["Selection"]
-       28 NAMECALL                         R3 R3 K11 ["GetService"]
-       30 CALL                             R3 2 1
-       31 DUPTABLE                         R4 K18 [{["assetIds"], ["positionOverride"] = {-363.583, 18.009, 74.073}, ["scriptWarningOverride"] = True}]
-       32 NEWTABLE                         R5 0 1
-       34 LOADK                            R6 K19 [17274156146]
-       35 SETLIST                          R5 R6 1 [1]
-       37 SETTABLEKS                       R5 R4 K13 ["assetIds"]
-       39 DUPCLOSURE                       R5 K20 [PROTO_0]
-       40 DUPTABLE                         R6 K29 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "ExplorerPlugin", ["Category"] = "Widgets", ["ItemId"] = "ExplorerPlugin"}]
-       41 DUPTABLE                         R7 K32 [{["PluginId"] = "Properties", ["Category"] = "Widgets", ["ItemId"] = "Main"}]
-       42 DUPTABLE                         R8 K36 [{["DataModel"] = "Edit", ["PluginType"] = "Asset", ["PluginId"] = "Toolbox", ["Category"] = "Widgets", ["ItemId"] = "Toolbox"}]
-       43 DUPCLOSURE                       R9 K37 [PROTO_2]
-       44 CAPTURE                          VAL R2
-       45 DUPCLOSURE                       R10 K38 [PROTO_3]
-       46 CAPTURE                          VAL R2
-       47 NEWTABLE                         R11 0 26
-       49 DUPTABLE                         R12 K49 [{["id"] = "intro1", ["topic"] = "introduction", ["showNext"] = True, ["cameraFocus"] = {-363.583, 18.009, 74.073}, ["cameraOffset"] = {80, 30, -20}, ["cameraMoveDuration"] = 0}]
-       50 DUPTABLE                         R13 K51 [{["id"] = "intro2", ["topic"] = "introduction", ["showNext"] = True}]
-       51 DUPTABLE                         R14 K58 [{["id"] = "rotateCamera", ["kind"] = "Rotate", ["topic"] = "navigation", ["instanceId"] = "camera"}]
-       52 DUPTABLE                         R15 K62 [{["id"] = "moveCamera", ["kind"] = "Input", ["keys"], ["topic"] = "navigation"}]
-       53 NEWTABLE                         R16 0 4
-       55 GETIMPORT                        R17 K66 [Enum.KeyCode.W]
-       57 GETIMPORT                        R18 K68 [Enum.KeyCode.A]
-       59 GETIMPORT                        R19 K70 [Enum.KeyCode.S]
-       61 GETIMPORT                        R20 K72 [Enum.KeyCode.D]
-       63 SETLIST                          R16 R17 4 [1]
-       65 SETTABLEKS                       R16 R15 K61 ["keys"]
-       67 DUPTABLE                         R16 K74 [{["id"] = "panCamera", ["kind"] = "Input", ["keys"], ["topic"] = "navigation"}]
-       68 NEWTABLE                         R17 0 2
-       70 GETIMPORT                        R18 K76 [Enum.KeyCode.E]
-       72 GETIMPORT                        R19 K78 [Enum.KeyCode.Q]
-       74 SETLIST                          R17 R18 2 [1]
-       76 SETTABLEKS                       R17 R16 K61 ["keys"]
-       78 DUPTABLE                         R17 K81 [{["id"] = "zoomCamera", ["kind"] = "Input", ["inputs"], ["topic"] = "navigation"}]
-       79 NEWTABLE                         R18 0 1
-       81 GETIMPORT                        R19 K84 [Enum.UserInputType.MouseWheel]
-       83 SETLIST                          R18 R19 1 [1]
-       85 SETTABLEKS                       R18 R17 K80 ["inputs"]
-       87 DUPTABLE                         R18 K89 [{["id"] = "marketplace", ["topic"] = "marketplace", ["widgets"] = "Toolbox", ["showNext"] = True, ["spotlight"], ["toolboxLimits"]}]
-       88 DUPTABLE                         R19 K94 [{["TargetWidgetUri"], ["ShowBox"] = True, ["ShowHighlight"] = True, ["ShowShadows"] = True}]
-       89 SETTABLEKS                       R8 R19 K90 ["TargetWidgetUri"]
-       91 SETTABLEKS                       R19 R18 K87 ["spotlight"]
-       93 SETTABLEKS                       R4 R18 K88 ["toolboxLimits"]
-       95 DUPTABLE                         R19 K99 [{["id"] = "searchMarketplace", ["kind"] = "ToolboxSearch", ["search"] = "ball", ["toolboxLimits"], ["topic"] = "marketplace", ["widgets"] = "Toolbox"}]
-       96 SETTABLEKS                       R4 R19 K88 ["toolboxLimits"]
-       98 DUPTABLE                         R20 K103 [{["id"] = "insertMarketplace", ["kind"] = "ToolboxInsert", ["toolboxLimits"], ["topic"] = "marketplace", ["onSkip"], ["widgets"] = "Toolbox"}]
-       99 SETTABLEKS                       R4 R20 K88 ["toolboxLimits"]
-      101 DUPCLOSURE                       R21 K104 [PROTO_4]
-      102 CAPTURE                          VAL R9
-      103 SETTABLEKS                       R21 R20 K102 ["onSkip"]
-      105 DUPTABLE                         R21 K109 [{["id"] = "playtest", ["topic"] = "playtest", ["kind"] = "StartPlaytest", ["widgets"] = "Ribbon-Home", ["hideWidgets"] = "Toolbox"}]
-      106 DUPTABLE                         R22 K113 [{["id"] = "avatar", ["topic"] = "playtest", ["kind"] = "Avatar", ["state"], ["widgets"] = "Ribbon-Home"}]
-      107 GETIMPORT                        R23 K116 [Enum.HumanoidStateType.Seated]
-      109 SETTABLEKS                       R23 R22 K112 ["state"]
-      111 DUPTABLE                         R23 K119 [{["id"] = "stopPlaytest", ["topic"] = "playtest", ["kind"] = "StopPlaytest", ["widgets"] = "Ribbon-Home"}]
-      112 DUPTABLE                         R24 K131 [{["id"] = "wedge", ["kind"] = "Insert", ["topic"] = "parts", ["callout"], ["spotlight"], ["cameraFocus"] = {-843.991, -192.828, 68.512}, ["cameraOffset"] = {20, 20, 5}, ["instanceId"] = "wedge", ["className"] = "Part", ["properties"], ["onBind"], ["onSkip"], ["onUnbind"], ["widgets"] = "Ribbon-Home"}]
-      113 DUPTABLE                         R25 K133 [{"TargetWidgetUri", "Offset"}]
-      114 DUPTABLE                         R26 K136 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Part"}]
-      115 SETTABLEKS                       R26 R25 K90 ["TargetWidgetUri"]
-      117 GETIMPORT                        R26 K139 [Vector2.new]
-      119 LOADN                            R27 5
-      120 LOADN                            R28 20
-      121 CALL                             R26 2 1
-      122 SETTABLEKS                       R26 R25 K132 ["Offset"]
-      124 SETTABLEKS                       R25 R24 K123 ["callout"]
-      126 DUPTABLE                         R25 K140 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
-      127 DUPTABLE                         R26 K136 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Part"}]
-      128 SETTABLEKS                       R26 R25 K90 ["TargetWidgetUri"]
-      130 SETTABLEKS                       R25 R24 K87 ["spotlight"]
-      132 DUPTABLE                         R25 K142 [{"Shape"}]
-      133 GETIMPORT                        R26 K145 [Enum.PartType.Wedge]
-      135 SETTABLEKS                       R26 R25 K141 ["Shape"]
-      137 SETTABLEKS                       R25 R24 K128 ["properties"]
-      139 DUPCLOSURE                       R25 K146 [PROTO_5]
-      140 SETTABLEKS                       R25 R24 K129 ["onBind"]
-      142 DUPCLOSURE                       R25 K147 [PROTO_6]
-      143 CAPTURE                          VAL R10
-      144 SETTABLEKS                       R25 R24 K102 ["onSkip"]
-      146 DUPCLOSURE                       R25 K148 [PROTO_7]
-      147 CAPTURE                          VAL R10
-      148 SETTABLEKS                       R25 R24 K130 ["onUnbind"]
-      150 DUPTABLE                         R25 K155 [{["id"] = "move", ["kind"] = "Move", ["topic"] = "parts", ["callout"], ["spotlight"], ["position"] = {-851.33, -193.045, 60.764}, ["distance"] = 80, ["instanceId"] = "wedge", ["onSkip"], ["widgets"] = "Ribbon-Home"}]
-      151 DUPTABLE                         R26 K158 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-      152 DUPTABLE                         R27 K160 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Move"}]
-      153 SETTABLEKS                       R27 R26 K90 ["TargetWidgetUri"]
-      155 GETIMPORT                        R27 K139 [Vector2.new]
-      157 LOADN                            R28 0
-      158 LOADN                            R29 1
-      159 CALL                             R27 2 1
-      160 SETTABLEKS                       R27 R26 K156 ["TargetAnchorPoint"]
-      162 GETIMPORT                        R27 K139 [Vector2.new]
-      164 LOADN                            R28 0
-      165 LOADN                            R29 0
-      166 CALL                             R27 2 1
-      167 SETTABLEKS                       R27 R26 K157 ["SubjectAnchorPoint"]
-      169 GETIMPORT                        R27 K139 [Vector2.new]
-      171 LOADN                            R28 0
-      172 LOADN                            R29 20
-      173 CALL                             R27 2 1
-      174 SETTABLEKS                       R27 R26 K132 ["Offset"]
-      176 SETTABLEKS                       R26 R25 K123 ["callout"]
-      178 DUPTABLE                         R26 K161 [{["TargetWidgetUri"], ["TargetAnchorPoint"], ["SubjectAnchorPoint"], ["ShowHighlight"] = True}]
-      179 DUPTABLE                         R27 K160 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Move"}]
-      180 SETTABLEKS                       R27 R26 K90 ["TargetWidgetUri"]
-      182 GETIMPORT                        R27 K139 [Vector2.new]
-      184 LOADN                            R28 0
-      185 LOADN                            R29 1
-      186 CALL                             R27 2 1
-      187 SETTABLEKS                       R27 R26 K156 ["TargetAnchorPoint"]
-      189 GETIMPORT                        R27 K139 [Vector2.new]
-      191 LOADN                            R28 0
-      192 LOADN                            R29 0
-      193 CALL                             R27 2 1
-      194 SETTABLEKS                       R27 R26 K157 ["SubjectAnchorPoint"]
-      196 SETTABLEKS                       R26 R25 K87 ["spotlight"]
-      198 DUPCLOSURE                       R26 K162 [PROTO_8]
-      199 CAPTURE                          VAL R10
-      200 SETTABLEKS                       R26 R25 K102 ["onSkip"]
-      202 DUPTABLE                         R26 K167 [{["id"] = "rotate", ["kind"] = "Rotate", ["topic"] = "parts", ["callout"], ["spotlight"], ["rotation"] = {0, -90, 0}, ["distance"] = 30, ["instanceId"] = "wedge", ["onSkip"], ["widgets"] = "Ribbon-Home"}]
-      203 DUPTABLE                         R27 K158 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-      204 DUPTABLE                         R28 K169 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Rotate"}]
-      205 SETTABLEKS                       R28 R27 K90 ["TargetWidgetUri"]
-      207 GETIMPORT                        R28 K139 [Vector2.new]
-      209 LOADN                            R29 0
-      210 LOADN                            R30 1
-      211 CALL                             R28 2 1
-      212 SETTABLEKS                       R28 R27 K156 ["TargetAnchorPoint"]
-      214 GETIMPORT                        R28 K139 [Vector2.new]
-      216 LOADN                            R29 0
-      217 LOADN                            R30 0
-      218 CALL                             R28 2 1
-      219 SETTABLEKS                       R28 R27 K157 ["SubjectAnchorPoint"]
-      221 GETIMPORT                        R28 K139 [Vector2.new]
-      223 LOADN                            R29 0
-      224 LOADN                            R30 20
-      225 CALL                             R28 2 1
-      226 SETTABLEKS                       R28 R27 K132 ["Offset"]
-      228 SETTABLEKS                       R27 R26 K123 ["callout"]
-      230 DUPTABLE                         R27 K140 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
-      231 DUPTABLE                         R28 K169 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Rotate"}]
-      232 SETTABLEKS                       R28 R27 K90 ["TargetWidgetUri"]
-      234 SETTABLEKS                       R27 R26 K87 ["spotlight"]
-      236 DUPCLOSURE                       R27 K170 [PROTO_9]
-      237 CAPTURE                          VAL R10
-      238 SETTABLEKS                       R27 R26 K102 ["onSkip"]
-      240 DUPTABLE                         R27 K175 [{["id"] = "scale", ["kind"] = "Scale", ["topic"] = "parts", ["callout"], ["spotlight"], ["minSize"] = {15, 5, 10}, ["instanceId"] = "wedge", ["onSkip"], ["widgets"] = "Ribbon-Home"}]
-      241 DUPTABLE                         R28 K158 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-      242 DUPTABLE                         R29 K177 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Scale"}]
-      243 SETTABLEKS                       R29 R28 K90 ["TargetWidgetUri"]
-      245 GETIMPORT                        R29 K139 [Vector2.new]
-      247 LOADN                            R30 0
-      248 LOADN                            R31 1
-      249 CALL                             R29 2 1
-      250 SETTABLEKS                       R29 R28 K156 ["TargetAnchorPoint"]
-      252 GETIMPORT                        R29 K139 [Vector2.new]
-      254 LOADN                            R30 0
-      255 LOADN                            R31 0
-      256 CALL                             R29 2 1
-      257 SETTABLEKS                       R29 R28 K157 ["SubjectAnchorPoint"]
-      259 GETIMPORT                        R29 K139 [Vector2.new]
-      261 LOADN                            R30 0
-      262 LOADN                            R31 20
-      263 CALL                             R29 2 1
-      264 SETTABLEKS                       R29 R28 K132 ["Offset"]
-      266 SETTABLEKS                       R28 R27 K123 ["callout"]
-      268 DUPTABLE                         R28 K140 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
-      269 DUPTABLE                         R29 K177 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Scale"}]
-      270 SETTABLEKS                       R29 R28 K90 ["TargetWidgetUri"]
-      272 SETTABLEKS                       R28 R27 K87 ["spotlight"]
-      274 DUPCLOSURE                       R28 K178 [PROTO_10]
-      275 CAPTURE                          VAL R10
-      276 SETTABLEKS                       R28 R27 K102 ["onSkip"]
-      278 SETLIST                          R11 R12 16 [1]
-      280 DUPTABLE                         R12 K181 [{["id"] = "color", ["kind"] = "Edit", ["topic"] = "properties", ["callout"], ["spotlight"], ["className"] = "Part", ["changes"], ["onSkip"], ["widgets"] = "Ribbon-Home"}]
-      281 DUPTABLE                         R13 K133 [{"TargetWidgetUri", "Offset"}]
-      282 DUPTABLE                         R14 K183 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Color"}]
-      283 SETTABLEKS                       R14 R13 K90 ["TargetWidgetUri"]
-      285 GETIMPORT                        R14 K139 [Vector2.new]
-      287 LOADN                            R15 5
-      288 LOADN                            R16 20
-      289 CALL                             R14 2 1
-      290 SETTABLEKS                       R14 R13 K132 ["Offset"]
-      292 SETTABLEKS                       R13 R12 K123 ["callout"]
-      294 DUPTABLE                         R13 K140 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
-      295 DUPTABLE                         R14 K183 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Color"}]
-      296 SETTABLEKS                       R14 R13 K90 ["TargetWidgetUri"]
-      298 SETTABLEKS                       R13 R12 K87 ["spotlight"]
-      300 DUPTABLE                         R13 K185 [{["Color"] = True}]
-      301 SETTABLEKS                       R13 R12 K180 ["changes"]
-      303 DUPCLOSURE                       R13 K186 [PROTO_11]
-      304 CAPTURE                          VAL R10
-      305 SETTABLEKS                       R13 R12 K102 ["onSkip"]
-      307 DUPTABLE                         R13 K188 [{["id"] = "anchor", ["kind"] = "Edit", ["topic"] = "properties", ["callout"], ["spotlight"], ["className"] = "Part", ["changes"], ["onSkip"], ["widgets"] = "Ribbon-Home"}]
-      308 DUPTABLE                         R14 K133 [{"TargetWidgetUri", "Offset"}]
-      309 DUPTABLE                         R15 K190 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Anchor"}]
-      310 SETTABLEKS                       R15 R14 K90 ["TargetWidgetUri"]
-      312 GETIMPORT                        R15 K139 [Vector2.new]
-      314 LOADN                            R16 0
-      315 LOADN                            R17 20
-      316 CALL                             R15 2 1
-      317 SETTABLEKS                       R15 R14 K132 ["Offset"]
-      319 SETTABLEKS                       R14 R13 K123 ["callout"]
-      321 DUPTABLE                         R14 K140 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
-      322 DUPTABLE                         R15 K190 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Anchor"}]
-      323 SETTABLEKS                       R15 R14 K90 ["TargetWidgetUri"]
-      325 SETTABLEKS                       R14 R13 K87 ["spotlight"]
-      327 DUPTABLE                         R14 K192 [{["Anchored"] = True}]
-      328 SETTABLEKS                       R14 R13 K180 ["changes"]
-      330 DUPCLOSURE                       R14 K193 [PROTO_12]
-      331 CAPTURE                          VAL R10
-      332 SETTABLEKS                       R14 R13 K102 ["onSkip"]
-      334 DUPTABLE                         R14 K196 [{["id"] = "explorer", ["callout"], ["spotlight"], ["topic"] = "properties", ["showNext"] = True, ["widgets"] = "Ribbon-Home,Explorer"}]
-      335 DUPTABLE                         R15 K197 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-      336 SETTABLEKS                       R6 R15 K90 ["TargetWidgetUri"]
-      338 GETIMPORT                        R16 K139 [Vector2.new]
-      340 LOADN                            R17 1
-      341 LOADN                            R18 0
-      342 CALL                             R16 2 1
-      343 SETTABLEKS                       R16 R15 K157 ["SubjectAnchorPoint"]
-      345 GETIMPORT                        R16 K139 [Vector2.new]
-      347 LOADN                            R17 0
-      348 LOADN                            R18 0
-      349 CALL                             R16 2 1
-      350 SETTABLEKS                       R16 R15 K156 ["TargetAnchorPoint"]
-      352 GETIMPORT                        R16 K139 [Vector2.new]
-      354 LOADN                            R17 -10
-      355 LOADN                            R18 20
-      356 CALL                             R16 2 1
-      357 SETTABLEKS                       R16 R15 K132 ["Offset"]
-      359 SETTABLEKS                       R15 R14 K123 ["callout"]
-      361 DUPTABLE                         R15 K94 [{["TargetWidgetUri"], ["ShowBox"] = True, ["ShowHighlight"] = True, ["ShowShadows"] = True}]
-      362 SETTABLEKS                       R6 R15 K90 ["TargetWidgetUri"]
-      364 SETTABLEKS                       R15 R14 K87 ["spotlight"]
-      366 DUPTABLE                         R15 K202 [{["id"] = "select", ["kind"] = "Select", ["path"] = "Ball", ["topic"] = "properties", ["callout"], ["onSkip"], ["widgets"] = "Ribbon-Home,Explorer"}]
-      367 DUPTABLE                         R16 K197 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-      368 SETTABLEKS                       R6 R16 K90 ["TargetWidgetUri"]
-      370 GETIMPORT                        R17 K139 [Vector2.new]
-      372 LOADN                            R18 1
-      373 LOADN                            R19 0
-      374 CALL                             R17 2 1
-      375 SETTABLEKS                       R17 R16 K157 ["SubjectAnchorPoint"]
-      377 GETIMPORT                        R17 K139 [Vector2.new]
-      379 LOADN                            R18 0
-      380 LOADN                            R19 0
-      381 CALL                             R17 2 1
-      382 SETTABLEKS                       R17 R16 K156 ["TargetAnchorPoint"]
-      384 GETIMPORT                        R17 K139 [Vector2.new]
-      386 LOADN                            R18 -10
-      387 LOADN                            R19 20
-      388 CALL                             R17 2 1
-      389 SETTABLEKS                       R17 R16 K132 ["Offset"]
-      391 SETTABLEKS                       R16 R15 K123 ["callout"]
-      393 DUPCLOSURE                       R16 K203 [PROTO_13]
-      394 CAPTURE                          VAL R9
-      395 CAPTURE                          VAL R3
-      396 SETTABLEKS                       R16 R15 K102 ["onSkip"]
-      398 DUPTABLE                         R16 K206 [{["id"] = "focus", ["topic"] = "properties", ["kind"] = "Focus", ["onSkip"], ["widgets"] = "Ribbon-Home"}]
-      399 DUPCLOSURE                       R17 K207 [PROTO_14]
-      400 CAPTURE                          VAL R9
-      401 CAPTURE                          VAL R3
-      402 SETTABLEKS                       R17 R16 K102 ["onSkip"]
-      404 DUPTABLE                         R17 K209 [{["id"] = "properties", ["topic"] = "properties", ["callout"], ["spotlight"], ["showNext"] = True, ["widgets"] = "Ribbon-Home,Explorer,Properties"}]
-      405 DUPTABLE                         R18 K197 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-      406 SETTABLEKS                       R7 R18 K90 ["TargetWidgetUri"]
-      408 GETIMPORT                        R19 K139 [Vector2.new]
-      410 LOADN                            R20 1
-      411 LOADN                            R21 1
-      412 CALL                             R19 2 1
-      413 SETTABLEKS                       R19 R18 K157 ["SubjectAnchorPoint"]
-      415 GETIMPORT                        R19 K139 [Vector2.new]
-      417 LOADN                            R20 0
-      418 LOADN                            R21 1
-      419 CALL                             R19 2 1
-      420 SETTABLEKS                       R19 R18 K156 ["TargetAnchorPoint"]
-      422 GETIMPORT                        R19 K139 [Vector2.new]
-      424 LOADN                            R20 -10
-      425 LOADN                            R21 0
-      426 CALL                             R19 2 1
-      427 SETTABLEKS                       R19 R18 K132 ["Offset"]
-      429 SETTABLEKS                       R18 R17 K123 ["callout"]
-      431 DUPTABLE                         R18 K94 [{["TargetWidgetUri"], ["ShowBox"] = True, ["ShowHighlight"] = True, ["ShowShadows"] = True}]
-      432 SETTABLEKS                       R7 R18 K90 ["TargetWidgetUri"]
-      434 SETTABLEKS                       R18 R17 K87 ["spotlight"]
-      436 DUPTABLE                         R18 K212 [{["id"] = "speed", ["topic"] = "properties", ["kind"] = "Edit", ["callout"], ["className"] = "Model", ["changes"], ["onSkip"], ["widgets"] = "Ribbon-Home,Explorer,Properties"}]
-      437 DUPTABLE                         R19 K197 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-      438 SETTABLEKS                       R7 R19 K90 ["TargetWidgetUri"]
-      440 GETIMPORT                        R20 K139 [Vector2.new]
-      442 LOADN                            R21 1
-      443 LOADN                            R22 1
-      444 CALL                             R20 2 1
-      445 SETTABLEKS                       R20 R19 K157 ["SubjectAnchorPoint"]
-      447 GETIMPORT                        R20 K139 [Vector2.new]
-      449 LOADN                            R21 0
-      450 LOADN                            R22 1
-      451 CALL                             R20 2 1
-      452 SETTABLEKS                       R20 R19 K156 ["TargetAnchorPoint"]
-      454 GETIMPORT                        R20 K139 [Vector2.new]
-      456 LOADN                            R21 -10
-      457 LOADN                            R22 0
-      458 CALL                             R20 2 1
-      459 SETTABLEKS                       R20 R19 K132 ["Offset"]
-      461 SETTABLEKS                       R19 R18 K123 ["callout"]
-      463 DUPTABLE                         R19 K214 [{"Attributes"}]
-      464 DUPTABLE                         R20 K216 [{["Speed"] = True}]
-      465 SETTABLEKS                       R20 R19 K213 ["Attributes"]
-      467 SETTABLEKS                       R19 R18 K180 ["changes"]
-      469 DUPCLOSURE                       R19 K217 [PROTO_15]
-      470 CAPTURE                          VAL R9
-      471 SETTABLEKS                       R19 R18 K102 ["onSkip"]
-      473 DUPTABLE                         R19 K220 [{["id"] = "playtest2", ["topic"] = "summary", ["kind"] = "StartPlaytest", ["widgets"] = "Ribbon-Home,Explorer,Properties"}]
-      474 DUPTABLE                         R20 K222 [{["id"] = "stopPlaytest2", ["topic"] = "summary", ["kind"] = "StopPlaytest", ["widgets"] = "Ribbon-Home,Explorer,Properties"}]
-      475 DUPTABLE                         R21 K224 [{["id"] = "complete", ["topic"] = "summary", ["widgets"] = "Ribbon-Home,Explorer,Properties"}]
-      476 SETLIST                          R11 R12 10 [17]
-      478 DUPTABLE                         R12 K231 [{["id"] = "StudioTour3", ["allowedPlaceIds"], ["onStart"], ["onComplete"], ["steps"], ["shouldShowCompletedDialog"]}]
-      479 NEWTABLE                         R13 0 2
-      481 LOADK                            R14 K232 [81362103443151]
-      482 LOADK                            R15 K233 [88926143951080]
-      483 SETLIST                          R13 R14 2 [1]
-      485 SETTABLEKS                       R13 R12 K226 ["allowedPlaceIds"]
-      487 DUPCLOSURE                       R13 K234 [PROTO_16]
-      488 CAPTURE                          VAL R2
-      489 SETTABLEKS                       R13 R12 K227 ["onStart"]
-      491 DUPCLOSURE                       R13 K235 [PROTO_17]
-      492 CAPTURE                          VAL R2
-      493 SETTABLEKS                       R13 R12 K228 ["onComplete"]
-      495 SETTABLEKS                       R11 R12 K229 ["steps"]
-      497 JUMPIFNOT                        R1 ; [+2]
-      498 LOADB                            R13 1
-      499 JUMP                             ; [+1]
-      500 LOADNIL                          R13
-      501 SETTABLEKS                       R13 R12 K230 ["shouldShowCompletedDialog"]
-      503 RETURN                           R12 1
+       19 GETIMPORT                        R2 K4 [require]
+       21 GETTABLEKS                       R3 R0 K5 ["Src"]
+       23 GETTABLEKS                       R3 R3 K6 ["Flags"]
+       25 GETTABLEKS                       R3 R3 K8 ["getFFlagTutorialsFixUnsupportedRibbonHomeWidget"]
+       27 CALL                             R2 1 1
+       28 CALL                             R2 0 1
+       29 JUMPIFNOT                        R2 ; [+2]
+       30 LOADNIL                          R3
+       31 JUMP                             ; [+1]
+       32 LOADK                            R3 K9 ["Ribbon-Home"]
+       33 JUMPIFNOT                        R2 ; [+2]
+       34 LOADK                            R4 K10 ["Explorer"]
+       35 JUMP                             ; [+1]
+       36 LOADK                            R4 K11 ["Ribbon-Home,Explorer"]
+       37 JUMPIFNOT                        R2 ; [+2]
+       38 LOADK                            R5 K12 ["Explorer,Properties"]
+       39 JUMP                             ; [+1]
+       40 LOADK                            R5 K13 ["Ribbon-Home,Explorer,Properties"]
+       41 GETIMPORT                        R6 K15 [game]
+       43 LOADK                            R8 K16 ["Workspace"]
+       44 NAMECALL                         R6 R6 K17 ["GetService"]
+       46 CALL                             R6 2 1
+       47 GETIMPORT                        R7 K15 [game]
+       49 LOADK                            R9 K18 ["Selection"]
+       50 NAMECALL                         R7 R7 K17 ["GetService"]
+       52 CALL                             R7 2 1
+       53 DUPTABLE                         R8 K24 [{["assetIds"], ["positionOverride"] = {-363.583, 18.009, 74.073}, ["scriptWarningOverride"] = True}]
+       54 NEWTABLE                         R9 0 1
+       56 LOADK                            R10 K25 [17274156146]
+       57 SETLIST                          R9 R10 1 [1]
+       59 SETTABLEKS                       R9 R8 K19 ["assetIds"]
+       61 DUPCLOSURE                       R9 K26 [PROTO_0]
+       62 DUPTABLE                         R10 K35 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "ExplorerPlugin", ["Category"] = "Widgets", ["ItemId"] = "ExplorerPlugin"}]
+       63 DUPTABLE                         R11 K38 [{["PluginId"] = "Properties", ["Category"] = "Widgets", ["ItemId"] = "Main"}]
+       64 DUPTABLE                         R12 K42 [{["DataModel"] = "Edit", ["PluginType"] = "Asset", ["PluginId"] = "Toolbox", ["Category"] = "Widgets", ["ItemId"] = "Toolbox"}]
+       65 DUPCLOSURE                       R13 K43 [PROTO_2]
+       66 CAPTURE                          VAL R6
+       67 DUPCLOSURE                       R14 K44 [PROTO_3]
+       68 CAPTURE                          VAL R6
+       69 NEWTABLE                         R15 0 26
+       71 DUPTABLE                         R16 K55 [{["id"] = "intro1", ["topic"] = "introduction", ["showNext"] = True, ["cameraFocus"] = {-363.583, 18.009, 74.073}, ["cameraOffset"] = {80, 30, -20}, ["cameraMoveDuration"] = 0}]
+       72 DUPTABLE                         R17 K57 [{["id"] = "intro2", ["topic"] = "introduction", ["showNext"] = True}]
+       73 DUPTABLE                         R18 K64 [{["id"] = "rotateCamera", ["kind"] = "Rotate", ["topic"] = "navigation", ["instanceId"] = "camera"}]
+       74 DUPTABLE                         R19 K68 [{["id"] = "moveCamera", ["kind"] = "Input", ["keys"], ["topic"] = "navigation"}]
+       75 NEWTABLE                         R20 0 4
+       77 GETIMPORT                        R21 K72 [Enum.KeyCode.W]
+       79 GETIMPORT                        R22 K74 [Enum.KeyCode.A]
+       81 GETIMPORT                        R23 K76 [Enum.KeyCode.S]
+       83 GETIMPORT                        R24 K78 [Enum.KeyCode.D]
+       85 SETLIST                          R20 R21 4 [1]
+       87 SETTABLEKS                       R20 R19 K67 ["keys"]
+       89 DUPTABLE                         R20 K80 [{["id"] = "panCamera", ["kind"] = "Input", ["keys"], ["topic"] = "navigation"}]
+       90 NEWTABLE                         R21 0 2
+       92 GETIMPORT                        R22 K82 [Enum.KeyCode.E]
+       94 GETIMPORT                        R23 K84 [Enum.KeyCode.Q]
+       96 SETLIST                          R21 R22 2 [1]
+       98 SETTABLEKS                       R21 R20 K67 ["keys"]
+      100 DUPTABLE                         R21 K87 [{["id"] = "zoomCamera", ["kind"] = "Input", ["inputs"], ["topic"] = "navigation"}]
+      101 NEWTABLE                         R22 0 1
+      103 GETIMPORT                        R23 K90 [Enum.UserInputType.MouseWheel]
+      105 SETLIST                          R22 R23 1 [1]
+      107 SETTABLEKS                       R22 R21 K86 ["inputs"]
+      109 DUPTABLE                         R22 K95 [{["id"] = "marketplace", ["topic"] = "marketplace", ["widgets"] = "Toolbox", ["showNext"] = True, ["spotlight"], ["toolboxLimits"]}]
+      110 DUPTABLE                         R23 K100 [{["TargetWidgetUri"], ["ShowBox"] = True, ["ShowHighlight"] = True, ["ShowShadows"] = True}]
+      111 SETTABLEKS                       R12 R23 K96 ["TargetWidgetUri"]
+      113 SETTABLEKS                       R23 R22 K93 ["spotlight"]
+      115 SETTABLEKS                       R8 R22 K94 ["toolboxLimits"]
+      117 DUPTABLE                         R23 K105 [{["id"] = "searchMarketplace", ["kind"] = "ToolboxSearch", ["search"] = "ball", ["toolboxLimits"], ["topic"] = "marketplace", ["widgets"] = "Toolbox"}]
+      118 SETTABLEKS                       R8 R23 K94 ["toolboxLimits"]
+      120 DUPTABLE                         R24 K109 [{["id"] = "insertMarketplace", ["kind"] = "ToolboxInsert", ["toolboxLimits"], ["topic"] = "marketplace", ["onSkip"], ["widgets"] = "Toolbox"}]
+      121 SETTABLEKS                       R8 R24 K94 ["toolboxLimits"]
+      123 DUPCLOSURE                       R25 K110 [PROTO_4]
+      124 CAPTURE                          VAL R13
+      125 SETTABLEKS                       R25 R24 K108 ["onSkip"]
+      127 DUPTABLE                         R25 K114 [{["id"] = "playtest", ["topic"] = "playtest", ["kind"] = "StartPlaytest", ["widgets"], ["hideWidgets"] = "Toolbox"}]
+      128 SETTABLEKS                       R3 R25 K92 ["widgets"]
+      130 DUPTABLE                         R26 K118 [{["id"] = "avatar", ["topic"] = "playtest", ["kind"] = "Avatar", ["state"], ["widgets"]}]
+      131 GETIMPORT                        R27 K121 [Enum.HumanoidStateType.Seated]
+      133 SETTABLEKS                       R27 R26 K117 ["state"]
+      135 SETTABLEKS                       R3 R26 K92 ["widgets"]
+      137 DUPTABLE                         R27 K124 [{["id"] = "stopPlaytest", ["topic"] = "playtest", ["kind"] = "StopPlaytest", ["widgets"]}]
+      138 SETTABLEKS                       R3 R27 K92 ["widgets"]
+      140 DUPTABLE                         R28 K136 [{["id"] = "wedge", ["kind"] = "Insert", ["topic"] = "parts", ["callout"], ["spotlight"], ["cameraFocus"] = {-843.991, -192.828, 68.512}, ["cameraOffset"] = {20, 20, 5}, ["instanceId"] = "wedge", ["className"] = "Part", ["properties"], ["onBind"], ["onSkip"], ["onUnbind"], ["widgets"]}]
+      141 DUPTABLE                         R29 K138 [{"TargetWidgetUri", "Offset"}]
+      142 DUPTABLE                         R30 K141 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Part"}]
+      143 SETTABLEKS                       R30 R29 K96 ["TargetWidgetUri"]
+      145 GETIMPORT                        R30 K144 [Vector2.new]
+      147 LOADN                            R31 5
+      148 LOADN                            R32 20
+      149 CALL                             R30 2 1
+      150 SETTABLEKS                       R30 R29 K137 ["Offset"]
+      152 SETTABLEKS                       R29 R28 K128 ["callout"]
+      154 DUPTABLE                         R29 K145 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
+      155 DUPTABLE                         R30 K141 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Part"}]
+      156 SETTABLEKS                       R30 R29 K96 ["TargetWidgetUri"]
+      158 SETTABLEKS                       R29 R28 K93 ["spotlight"]
+      160 DUPTABLE                         R29 K147 [{"Shape"}]
+      161 GETIMPORT                        R30 K150 [Enum.PartType.Wedge]
+      163 SETTABLEKS                       R30 R29 K146 ["Shape"]
+      165 SETTABLEKS                       R29 R28 K133 ["properties"]
+      167 DUPCLOSURE                       R29 K151 [PROTO_5]
+      168 SETTABLEKS                       R29 R28 K134 ["onBind"]
+      170 DUPCLOSURE                       R29 K152 [PROTO_6]
+      171 CAPTURE                          VAL R14
+      172 SETTABLEKS                       R29 R28 K108 ["onSkip"]
+      174 DUPCLOSURE                       R29 K153 [PROTO_7]
+      175 CAPTURE                          VAL R14
+      176 SETTABLEKS                       R29 R28 K135 ["onUnbind"]
+      178 SETTABLEKS                       R3 R28 K92 ["widgets"]
+      180 DUPTABLE                         R29 K160 [{["id"] = "move", ["kind"] = "Move", ["topic"] = "parts", ["callout"], ["spotlight"], ["position"] = {-851.33, -193.045, 60.764}, ["distance"] = 80, ["instanceId"] = "wedge", ["onSkip"], ["widgets"]}]
+      181 DUPTABLE                         R30 K163 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+      182 DUPTABLE                         R31 K165 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Move"}]
+      183 SETTABLEKS                       R31 R30 K96 ["TargetWidgetUri"]
+      185 GETIMPORT                        R31 K144 [Vector2.new]
+      187 LOADN                            R32 0
+      188 LOADN                            R33 1
+      189 CALL                             R31 2 1
+      190 SETTABLEKS                       R31 R30 K161 ["TargetAnchorPoint"]
+      192 GETIMPORT                        R31 K144 [Vector2.new]
+      194 LOADN                            R32 0
+      195 LOADN                            R33 0
+      196 CALL                             R31 2 1
+      197 SETTABLEKS                       R31 R30 K162 ["SubjectAnchorPoint"]
+      199 GETIMPORT                        R31 K144 [Vector2.new]
+      201 LOADN                            R32 0
+      202 LOADN                            R33 20
+      203 CALL                             R31 2 1
+      204 SETTABLEKS                       R31 R30 K137 ["Offset"]
+      206 SETTABLEKS                       R30 R29 K128 ["callout"]
+      208 DUPTABLE                         R30 K166 [{["TargetWidgetUri"], ["TargetAnchorPoint"], ["SubjectAnchorPoint"], ["ShowHighlight"] = True}]
+      209 DUPTABLE                         R31 K165 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Move"}]
+      210 SETTABLEKS                       R31 R30 K96 ["TargetWidgetUri"]
+      212 GETIMPORT                        R31 K144 [Vector2.new]
+      214 LOADN                            R32 0
+      215 LOADN                            R33 1
+      216 CALL                             R31 2 1
+      217 SETTABLEKS                       R31 R30 K161 ["TargetAnchorPoint"]
+      219 GETIMPORT                        R31 K144 [Vector2.new]
+      221 LOADN                            R32 0
+      222 LOADN                            R33 0
+      223 CALL                             R31 2 1
+      224 SETTABLEKS                       R31 R30 K162 ["SubjectAnchorPoint"]
+      226 SETTABLEKS                       R30 R29 K93 ["spotlight"]
+      228 DUPCLOSURE                       R30 K167 [PROTO_8]
+      229 CAPTURE                          VAL R14
+      230 SETTABLEKS                       R30 R29 K108 ["onSkip"]
+      232 SETTABLEKS                       R3 R29 K92 ["widgets"]
+      234 DUPTABLE                         R30 K172 [{["id"] = "rotate", ["kind"] = "Rotate", ["topic"] = "parts", ["callout"], ["spotlight"], ["rotation"] = {0, -90, 0}, ["distance"] = 30, ["instanceId"] = "wedge", ["onSkip"], ["widgets"]}]
+      235 DUPTABLE                         R31 K163 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+      236 DUPTABLE                         R32 K174 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Rotate"}]
+      237 SETTABLEKS                       R32 R31 K96 ["TargetWidgetUri"]
+      239 GETIMPORT                        R32 K144 [Vector2.new]
+      241 LOADN                            R33 0
+      242 LOADN                            R34 1
+      243 CALL                             R32 2 1
+      244 SETTABLEKS                       R32 R31 K161 ["TargetAnchorPoint"]
+      246 GETIMPORT                        R32 K144 [Vector2.new]
+      248 LOADN                            R33 0
+      249 LOADN                            R34 0
+      250 CALL                             R32 2 1
+      251 SETTABLEKS                       R32 R31 K162 ["SubjectAnchorPoint"]
+      253 GETIMPORT                        R32 K144 [Vector2.new]
+      255 LOADN                            R33 0
+      256 LOADN                            R34 20
+      257 CALL                             R32 2 1
+      258 SETTABLEKS                       R32 R31 K137 ["Offset"]
+      260 SETTABLEKS                       R31 R30 K128 ["callout"]
+      262 DUPTABLE                         R31 K145 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
+      263 DUPTABLE                         R32 K174 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Rotate"}]
+      264 SETTABLEKS                       R32 R31 K96 ["TargetWidgetUri"]
+      266 SETTABLEKS                       R31 R30 K93 ["spotlight"]
+      268 DUPCLOSURE                       R31 K175 [PROTO_9]
+      269 CAPTURE                          VAL R14
+      270 SETTABLEKS                       R31 R30 K108 ["onSkip"]
+      272 SETTABLEKS                       R3 R30 K92 ["widgets"]
+      274 DUPTABLE                         R31 K180 [{["id"] = "scale", ["kind"] = "Scale", ["topic"] = "parts", ["callout"], ["spotlight"], ["minSize"] = {15, 5, 10}, ["instanceId"] = "wedge", ["onSkip"], ["widgets"]}]
+      275 DUPTABLE                         R32 K163 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+      276 DUPTABLE                         R33 K182 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Scale"}]
+      277 SETTABLEKS                       R33 R32 K96 ["TargetWidgetUri"]
+      279 GETIMPORT                        R33 K144 [Vector2.new]
+      281 LOADN                            R34 0
+      282 LOADN                            R35 1
+      283 CALL                             R33 2 1
+      284 SETTABLEKS                       R33 R32 K161 ["TargetAnchorPoint"]
+      286 GETIMPORT                        R33 K144 [Vector2.new]
+      288 LOADN                            R34 0
+      289 LOADN                            R35 0
+      290 CALL                             R33 2 1
+      291 SETTABLEKS                       R33 R32 K162 ["SubjectAnchorPoint"]
+      293 GETIMPORT                        R33 K144 [Vector2.new]
+      295 LOADN                            R34 0
+      296 LOADN                            R35 20
+      297 CALL                             R33 2 1
+      298 SETTABLEKS                       R33 R32 K137 ["Offset"]
+      300 SETTABLEKS                       R32 R31 K128 ["callout"]
+      302 DUPTABLE                         R32 K145 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
+      303 DUPTABLE                         R33 K182 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Scale"}]
+      304 SETTABLEKS                       R33 R32 K96 ["TargetWidgetUri"]
+      306 SETTABLEKS                       R32 R31 K93 ["spotlight"]
+      308 DUPCLOSURE                       R32 K183 [PROTO_10]
+      309 CAPTURE                          VAL R14
+      310 SETTABLEKS                       R32 R31 K108 ["onSkip"]
+      312 SETTABLEKS                       R3 R31 K92 ["widgets"]
+      314 SETLIST                          R15 R16 16 [1]
+      316 DUPTABLE                         R16 K186 [{["id"] = "color", ["kind"] = "Edit", ["topic"] = "properties", ["callout"], ["spotlight"], ["className"] = "Part", ["changes"], ["onSkip"], ["widgets"]}]
+      317 DUPTABLE                         R17 K138 [{"TargetWidgetUri", "Offset"}]
+      318 DUPTABLE                         R18 K188 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Color"}]
+      319 SETTABLEKS                       R18 R17 K96 ["TargetWidgetUri"]
+      321 GETIMPORT                        R18 K144 [Vector2.new]
+      323 LOADN                            R19 5
+      324 LOADN                            R20 20
+      325 CALL                             R18 2 1
+      326 SETTABLEKS                       R18 R17 K137 ["Offset"]
+      328 SETTABLEKS                       R17 R16 K128 ["callout"]
+      330 DUPTABLE                         R17 K145 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
+      331 DUPTABLE                         R18 K188 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Color"}]
+      332 SETTABLEKS                       R18 R17 K96 ["TargetWidgetUri"]
+      334 SETTABLEKS                       R17 R16 K93 ["spotlight"]
+      336 DUPTABLE                         R17 K190 [{["Color"] = True}]
+      337 SETTABLEKS                       R17 R16 K185 ["changes"]
+      339 DUPCLOSURE                       R17 K191 [PROTO_11]
+      340 CAPTURE                          VAL R14
+      341 SETTABLEKS                       R17 R16 K108 ["onSkip"]
+      343 SETTABLEKS                       R3 R16 K92 ["widgets"]
+      345 DUPTABLE                         R17 K193 [{["id"] = "anchor", ["kind"] = "Edit", ["topic"] = "properties", ["callout"], ["spotlight"], ["className"] = "Part", ["changes"], ["onSkip"], ["widgets"]}]
+      346 DUPTABLE                         R18 K138 [{"TargetWidgetUri", "Offset"}]
+      347 DUPTABLE                         R19 K195 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Anchor"}]
+      348 SETTABLEKS                       R19 R18 K96 ["TargetWidgetUri"]
+      350 GETIMPORT                        R19 K144 [Vector2.new]
+      352 LOADN                            R20 0
+      353 LOADN                            R21 20
+      354 CALL                             R19 2 1
+      355 SETTABLEKS                       R19 R18 K137 ["Offset"]
+      357 SETTABLEKS                       R18 R17 K128 ["callout"]
+      359 DUPTABLE                         R18 K145 [{["TargetWidgetUri"], ["ShowHighlight"] = True}]
+      360 DUPTABLE                         R19 K195 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "Tabs/BuiltIn_HomeTab/Anchor"}]
+      361 SETTABLEKS                       R19 R18 K96 ["TargetWidgetUri"]
+      363 SETTABLEKS                       R18 R17 K93 ["spotlight"]
+      365 DUPTABLE                         R18 K197 [{["Anchored"] = True}]
+      366 SETTABLEKS                       R18 R17 K185 ["changes"]
+      368 DUPCLOSURE                       R18 K198 [PROTO_12]
+      369 CAPTURE                          VAL R14
+      370 SETTABLEKS                       R18 R17 K108 ["onSkip"]
+      372 SETTABLEKS                       R3 R17 K92 ["widgets"]
+      374 DUPTABLE                         R18 K200 [{["id"] = "explorer", ["callout"], ["spotlight"], ["topic"] = "properties", ["showNext"] = True, ["widgets"]}]
+      375 DUPTABLE                         R19 K201 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+      376 SETTABLEKS                       R10 R19 K96 ["TargetWidgetUri"]
+      378 GETIMPORT                        R20 K144 [Vector2.new]
+      380 LOADN                            R21 1
+      381 LOADN                            R22 0
+      382 CALL                             R20 2 1
+      383 SETTABLEKS                       R20 R19 K162 ["SubjectAnchorPoint"]
+      385 GETIMPORT                        R20 K144 [Vector2.new]
+      387 LOADN                            R21 0
+      388 LOADN                            R22 0
+      389 CALL                             R20 2 1
+      390 SETTABLEKS                       R20 R19 K161 ["TargetAnchorPoint"]
+      392 GETIMPORT                        R20 K144 [Vector2.new]
+      394 LOADN                            R21 -10
+      395 LOADN                            R22 20
+      396 CALL                             R20 2 1
+      397 SETTABLEKS                       R20 R19 K137 ["Offset"]
+      399 SETTABLEKS                       R19 R18 K128 ["callout"]
+      401 DUPTABLE                         R19 K100 [{["TargetWidgetUri"], ["ShowBox"] = True, ["ShowHighlight"] = True, ["ShowShadows"] = True}]
+      402 SETTABLEKS                       R10 R19 K96 ["TargetWidgetUri"]
+      404 SETTABLEKS                       R19 R18 K93 ["spotlight"]
+      406 SETTABLEKS                       R4 R18 K92 ["widgets"]
+      408 DUPTABLE                         R19 K206 [{["id"] = "select", ["kind"] = "Select", ["path"] = "Ball", ["topic"] = "properties", ["callout"], ["onSkip"], ["widgets"]}]
+      409 DUPTABLE                         R20 K201 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+      410 SETTABLEKS                       R10 R20 K96 ["TargetWidgetUri"]
+      412 GETIMPORT                        R21 K144 [Vector2.new]
+      414 LOADN                            R22 1
+      415 LOADN                            R23 0
+      416 CALL                             R21 2 1
+      417 SETTABLEKS                       R21 R20 K162 ["SubjectAnchorPoint"]
+      419 GETIMPORT                        R21 K144 [Vector2.new]
+      421 LOADN                            R22 0
+      422 LOADN                            R23 0
+      423 CALL                             R21 2 1
+      424 SETTABLEKS                       R21 R20 K161 ["TargetAnchorPoint"]
+      426 GETIMPORT                        R21 K144 [Vector2.new]
+      428 LOADN                            R22 -10
+      429 LOADN                            R23 20
+      430 CALL                             R21 2 1
+      431 SETTABLEKS                       R21 R20 K137 ["Offset"]
+      433 SETTABLEKS                       R20 R19 K128 ["callout"]
+      435 DUPCLOSURE                       R20 K207 [PROTO_13]
+      436 CAPTURE                          VAL R13
+      437 CAPTURE                          VAL R7
+      438 SETTABLEKS                       R20 R19 K108 ["onSkip"]
+      440 SETTABLEKS                       R4 R19 K92 ["widgets"]
+      442 DUPTABLE                         R20 K210 [{["id"] = "focus", ["topic"] = "properties", ["kind"] = "Focus", ["onSkip"], ["widgets"]}]
+      443 DUPCLOSURE                       R21 K211 [PROTO_14]
+      444 CAPTURE                          VAL R13
+      445 CAPTURE                          VAL R7
+      446 SETTABLEKS                       R21 R20 K108 ["onSkip"]
+      448 SETTABLEKS                       R3 R20 K92 ["widgets"]
+      450 DUPTABLE                         R21 K212 [{["id"] = "properties", ["topic"] = "properties", ["callout"], ["spotlight"], ["showNext"] = True, ["widgets"]}]
+      451 DUPTABLE                         R22 K201 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+      452 SETTABLEKS                       R11 R22 K96 ["TargetWidgetUri"]
+      454 GETIMPORT                        R23 K144 [Vector2.new]
+      456 LOADN                            R24 1
+      457 LOADN                            R25 1
+      458 CALL                             R23 2 1
+      459 SETTABLEKS                       R23 R22 K162 ["SubjectAnchorPoint"]
+      461 GETIMPORT                        R23 K144 [Vector2.new]
+      463 LOADN                            R24 0
+      464 LOADN                            R25 1
+      465 CALL                             R23 2 1
+      466 SETTABLEKS                       R23 R22 K161 ["TargetAnchorPoint"]
+      468 GETIMPORT                        R23 K144 [Vector2.new]
+      470 LOADN                            R24 -10
+      471 LOADN                            R25 0
+      472 CALL                             R23 2 1
+      473 SETTABLEKS                       R23 R22 K137 ["Offset"]
+      475 SETTABLEKS                       R22 R21 K128 ["callout"]
+      477 DUPTABLE                         R22 K100 [{["TargetWidgetUri"], ["ShowBox"] = True, ["ShowHighlight"] = True, ["ShowShadows"] = True}]
+      478 SETTABLEKS                       R11 R22 K96 ["TargetWidgetUri"]
+      480 SETTABLEKS                       R22 R21 K93 ["spotlight"]
+      482 SETTABLEKS                       R5 R21 K92 ["widgets"]
+      484 DUPTABLE                         R22 K215 [{["id"] = "speed", ["topic"] = "properties", ["kind"] = "Edit", ["callout"], ["className"] = "Model", ["changes"], ["onSkip"], ["widgets"]}]
+      485 DUPTABLE                         R23 K201 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+      486 SETTABLEKS                       R11 R23 K96 ["TargetWidgetUri"]
+      488 GETIMPORT                        R24 K144 [Vector2.new]
+      490 LOADN                            R25 1
+      491 LOADN                            R26 1
+      492 CALL                             R24 2 1
+      493 SETTABLEKS                       R24 R23 K162 ["SubjectAnchorPoint"]
+      495 GETIMPORT                        R24 K144 [Vector2.new]
+      497 LOADN                            R25 0
+      498 LOADN                            R26 1
+      499 CALL                             R24 2 1
+      500 SETTABLEKS                       R24 R23 K161 ["TargetAnchorPoint"]
+      502 GETIMPORT                        R24 K144 [Vector2.new]
+      504 LOADN                            R25 -10
+      505 LOADN                            R26 0
+      506 CALL                             R24 2 1
+      507 SETTABLEKS                       R24 R23 K137 ["Offset"]
+      509 SETTABLEKS                       R23 R22 K128 ["callout"]
+      511 DUPTABLE                         R23 K217 [{"Attributes"}]
+      512 DUPTABLE                         R24 K219 [{["Speed"] = True}]
+      513 SETTABLEKS                       R24 R23 K216 ["Attributes"]
+      515 SETTABLEKS                       R23 R22 K185 ["changes"]
+      517 DUPCLOSURE                       R23 K220 [PROTO_15]
+      518 CAPTURE                          VAL R13
+      519 SETTABLEKS                       R23 R22 K108 ["onSkip"]
+      521 SETTABLEKS                       R5 R22 K92 ["widgets"]
+      523 DUPTABLE                         R23 K223 [{["id"] = "playtest2", ["topic"] = "summary", ["kind"] = "StartPlaytest", ["widgets"]}]
+      524 SETTABLEKS                       R5 R23 K92 ["widgets"]
+      526 DUPTABLE                         R24 K225 [{["id"] = "stopPlaytest2", ["topic"] = "summary", ["kind"] = "StopPlaytest", ["widgets"]}]
+      527 SETTABLEKS                       R5 R24 K92 ["widgets"]
+      529 DUPTABLE                         R25 K227 [{["id"] = "complete", ["topic"] = "summary", ["widgets"]}]
+      530 SETTABLEKS                       R5 R25 K92 ["widgets"]
+      532 SETLIST                          R15 R16 10 [17]
+      534 DUPTABLE                         R16 K234 [{["id"] = "StudioTour3", ["allowedPlaceIds"], ["onStart"], ["onComplete"], ["steps"], ["shouldShowCompletedDialog"]}]
+      535 NEWTABLE                         R17 0 2
+      537 LOADK                            R18 K235 [81362103443151]
+      538 LOADK                            R19 K236 [88926143951080]
+      539 SETLIST                          R17 R18 2 [1]
+      541 SETTABLEKS                       R17 R16 K229 ["allowedPlaceIds"]
+      543 DUPCLOSURE                       R17 K237 [PROTO_16]
+      544 CAPTURE                          VAL R6
+      545 SETTABLEKS                       R17 R16 K230 ["onStart"]
+      547 DUPCLOSURE                       R17 K238 [PROTO_17]
+      548 CAPTURE                          VAL R6
+      549 SETTABLEKS                       R17 R16 K231 ["onComplete"]
+      551 SETTABLEKS                       R15 R16 K232 ["steps"]
+      553 JUMPIFNOT                        R1 ; [+2]
+      554 LOADB                            R17 1
+      555 JUMP                             ; [+1]
+      556 LOADNIL                          R17
+      557 SETTABLEKS                       R17 R16 K233 ["shouldShowCompletedDialog"]
+      559 RETURN                           R16 1

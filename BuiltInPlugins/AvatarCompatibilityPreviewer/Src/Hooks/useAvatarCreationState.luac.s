@@ -744,7 +744,7 @@ PROTO_26:
        51 CALL                             R5 1 0
        52 GETUPVAL                         R5 8
        53 CALL                             R5 0 1
-       54 JUMPIFNOT                        R5 ; [+164]
+       54 JUMPIFNOT                        R5 ; [+170]
        55 JUMPIFEQKNIL                     R4 ; [+3]
        57 JUMPIFNOTEQKS                    R4 K10 [""] ; [+29]
        59 GETIMPORT                        R5 K4 [warn]
@@ -835,109 +835,121 @@ PROTO_26:
       158 CAPTURE                          VAL R7
       159 CALL                             R8 1 0
       160 RETURN                           R0 0
-      161 GETUPVAL                         R7 10
-      162 SETTABLEKS                       R7 R6 K19 ["Name"]
+      161 GETUPVAL                         R8 10
+      162 CALL                             R8 0 1
+      163 JUMPIFNOT                        R8 ; [+3]
       164 GETUPVAL                         R7 11
       165 CALL                             R7 0 1
-      166 JUMPIFNOT                        R7 ; [+3]
+      166 JUMP                             ; [+1]
       167 GETUPVAL                         R7 12
-      168 MOVE                             R8 R6
-      169 CALL                             R7 1 0
+      168 SETTABLEKS                       R7 R6 K19 ["Name"]
       170 GETUPVAL                         R7 13
       171 CALL                             R7 0 1
-      172 JUMPIFNOT                        R7 ; [+14]
-      173 GETUPVAL                         R9 14
-      174 GETTABLEKS                       R9 R9 K20 ["ATTRIBUTE_AVATAR_CREATION_JOB_ID"]
-      176 MOVE                             R10 R4
-      177 NAMECALL                         R7 R6 K21 ["SetAttribute"]
-      179 CALL                             R7 3 0
-      180 GETUPVAL                         R9 14
-      181 GETTABLEKS                       R9 R9 K22 ["ATTRIBUTE_AVATAR_CREATION_PROMPT"]
-      183 GETUPVAL                         R10 10
-      184 NAMECALL                         R7 R6 K21 ["SetAttribute"]
-      186 CALL                             R7 3 0
-      187 GETUPVAL                         R7 15
-      188 GETTABLEKS                       R7 R7 K23 ["placeGeneratedAvatar"]
-      190 GETUPVAL                         R8 16
-      191 MOVE                             R9 R6
-      192 GETUPVAL                         R10 17
-      193 CALL                             R7 3 0
-      194 GETUPVAL                         R7 18
-      195 CALL                             R7 0 1
-      196 JUMPIFNOT                        R7 ; [+10]
-      197 GETUPVAL                         R7 2
-      198 LOADK                            R9 K24 ["sendAvatarCreationUsage"]
-      199 MOVE                             R10 R4
-      200 GETUPVAL                         R11 19
-      201 MOVE                             R12 R6
-      202 CALL                             R11 1 1
-      203 GETUPVAL                         R12 17
-      204 NAMECALL                         R7 R7 K9 ["report"]
-      206 CALL                             R7 5 0
-      207 GETUPVAL                         R7 20
-      208 GETTABLEKS                       R7 R7 K25 ["disable"]
-      210 CALL                             R7 0 0
-      211 GETUPVAL                         R7 21
-      212 NEWTABLE                         R8 0 0
-      214 CALL                             R7 1 0
-      215 GETUPVAL                         R7 3
-      216 LOADNIL                          R8
-      217 CALL                             R7 1 0
-      218 RETURN                           R0 0
-      219 GETIMPORT                        R5 K1 [pcall]
-      221 GETUPVAL                         R6 6
-      222 GETTABLEKS                       R6 R6 K26 ["load3DAvatarAsync"]
-      224 MOVE                             R7 R3
-      225 CALL                             R5 2 2
-      226 JUMPIF                           R5 ; [+29]
-      227 GETIMPORT                        R7 K4 [warn]
-      229 LOADK                            R8 K27 ["[AvatarCreation] 3D load failed:"]
-      230 MOVE                             R9 R6
-      231 CALL                             R7 2 0
-      232 GETUPVAL                         R8 0
-      233 CALL                             R8 0 1
-      234 JUMPIF                           R8 ; [+2]
-      235 LOADNIL                          R7
-      236 JUMP                             ; [+13]
-      237 GETUPVAL                         R8 1
-      238 GETTABLEKS                       R8 R8 K6 ["classify"]
-      240 MOVE                             R9 R6
-      241 CALL                             R8 1 1
-      242 GETUPVAL                         R9 2
-      243 LOADK                            R11 K7 ["sendAvatarCreationFailure"]
-      244 LOADK                            R12 K28 ["load3D"]
-      245 MOVE                             R13 R8
-      246 NAMECALL                         R9 R9 K9 ["report"]
-      248 CALL                             R9 4 0
-      249 MOVE                             R7 R8
-      250 GETUPVAL                         R8 3
-      251 NEWCLOSURE                       R9 P2
-      252 CAPTURE                          UPVAL U4
-      253 CAPTURE                          VAL R7
-      254 CALL                             R8 1 0
-      255 RETURN                           R0 0
-      256 GETUPVAL                         R7 6
-      257 GETTABLEKS                       R7 R7 K29 ["createGeneratedAvatarModelAsync"]
-      259 MOVE                             R8 R6
-      260 CALL                             R7 1 1
-      261 GETUPVAL                         R8 10
-      262 SETTABLEKS                       R8 R7 K19 ["Name"]
-      264 GETUPVAL                         R8 15
-      265 GETTABLEKS                       R8 R8 K23 ["placeGeneratedAvatar"]
-      267 GETUPVAL                         R9 16
-      268 MOVE                             R10 R7
-      269 GETUPVAL                         R11 17
-      270 CALL                             R8 3 0
-      271 GETUPVAL                         R8 20
-      272 GETTABLEKS                       R8 R8 K25 ["disable"]
-      274 CALL                             R8 0 0
-      275 GETUPVAL                         R8 21
-      276 NEWTABLE                         R9 0 0
-      278 CALL                             R8 1 0
-      279 GETUPVAL                         R8 3
-      280 LOADNIL                          R9
-      281 CALL                             R8 1 0
-      282 RETURN                           R0 0
+      172 JUMPIFNOT                        R7 ; [+3]
+      173 GETUPVAL                         R7 14
+      174 MOVE                             R8 R6
+      175 CALL                             R7 1 0
+      176 GETUPVAL                         R7 15
+      177 CALL                             R7 0 1
+      178 JUMPIFNOT                        R7 ; [+14]
+      179 GETUPVAL                         R9 16
+      180 GETTABLEKS                       R9 R9 K20 ["ATTRIBUTE_AVATAR_CREATION_JOB_ID"]
+      182 MOVE                             R10 R4
+      183 NAMECALL                         R7 R6 K21 ["SetAttribute"]
+      185 CALL                             R7 3 0
+      186 GETUPVAL                         R9 16
+      187 GETTABLEKS                       R9 R9 K22 ["ATTRIBUTE_AVATAR_CREATION_PROMPT"]
+      189 GETUPVAL                         R10 12
+      190 NAMECALL                         R7 R6 K21 ["SetAttribute"]
+      192 CALL                             R7 3 0
+      193 GETUPVAL                         R7 17
+      194 GETTABLEKS                       R7 R7 K23 ["placeGeneratedAvatar"]
+      196 GETUPVAL                         R8 18
+      197 MOVE                             R9 R6
+      198 GETUPVAL                         R10 19
+      199 CALL                             R7 3 0
+      200 GETUPVAL                         R7 20
+      201 CALL                             R7 0 1
+      202 JUMPIFNOT                        R7 ; [+10]
+      203 GETUPVAL                         R7 2
+      204 LOADK                            R9 K24 ["sendAvatarCreationUsage"]
+      205 MOVE                             R10 R4
+      206 GETUPVAL                         R11 21
+      207 MOVE                             R12 R6
+      208 CALL                             R11 1 1
+      209 GETUPVAL                         R12 19
+      210 NAMECALL                         R7 R7 K9 ["report"]
+      212 CALL                             R7 5 0
+      213 GETUPVAL                         R7 22
+      214 GETTABLEKS                       R7 R7 K25 ["disable"]
+      216 CALL                             R7 0 0
+      217 GETUPVAL                         R7 23
+      218 NEWTABLE                         R8 0 0
+      220 CALL                             R7 1 0
+      221 GETUPVAL                         R7 3
+      222 LOADNIL                          R8
+      223 CALL                             R7 1 0
+      224 RETURN                           R0 0
+      225 GETIMPORT                        R5 K1 [pcall]
+      227 GETUPVAL                         R6 6
+      228 GETTABLEKS                       R6 R6 K26 ["load3DAvatarAsync"]
+      230 MOVE                             R7 R3
+      231 CALL                             R5 2 2
+      232 JUMPIF                           R5 ; [+29]
+      233 GETIMPORT                        R7 K4 [warn]
+      235 LOADK                            R8 K27 ["[AvatarCreation] 3D load failed:"]
+      236 MOVE                             R9 R6
+      237 CALL                             R7 2 0
+      238 GETUPVAL                         R8 0
+      239 CALL                             R8 0 1
+      240 JUMPIF                           R8 ; [+2]
+      241 LOADNIL                          R7
+      242 JUMP                             ; [+13]
+      243 GETUPVAL                         R8 1
+      244 GETTABLEKS                       R8 R8 K6 ["classify"]
+      246 MOVE                             R9 R6
+      247 CALL                             R8 1 1
+      248 GETUPVAL                         R9 2
+      249 LOADK                            R11 K7 ["sendAvatarCreationFailure"]
+      250 LOADK                            R12 K28 ["load3D"]
+      251 MOVE                             R13 R8
+      252 NAMECALL                         R9 R9 K9 ["report"]
+      254 CALL                             R9 4 0
+      255 MOVE                             R7 R8
+      256 GETUPVAL                         R8 3
+      257 NEWCLOSURE                       R9 P2
+      258 CAPTURE                          UPVAL U4
+      259 CAPTURE                          VAL R7
+      260 CALL                             R8 1 0
+      261 RETURN                           R0 0
+      262 GETUPVAL                         R7 6
+      263 GETTABLEKS                       R7 R7 K29 ["createGeneratedAvatarModelAsync"]
+      265 MOVE                             R8 R6
+      266 CALL                             R7 1 1
+      267 GETUPVAL                         R9 10
+      268 CALL                             R9 0 1
+      269 JUMPIFNOT                        R9 ; [+3]
+      270 GETUPVAL                         R8 11
+      271 CALL                             R8 0 1
+      272 JUMP                             ; [+1]
+      273 GETUPVAL                         R8 12
+      274 SETTABLEKS                       R8 R7 K19 ["Name"]
+      276 GETUPVAL                         R8 17
+      277 GETTABLEKS                       R8 R8 K23 ["placeGeneratedAvatar"]
+      279 GETUPVAL                         R9 18
+      280 MOVE                             R10 R7
+      281 GETUPVAL                         R11 19
+      282 CALL                             R8 3 0
+      283 GETUPVAL                         R8 22
+      284 GETTABLEKS                       R8 R8 K25 ["disable"]
+      286 CALL                             R8 0 0
+      287 GETUPVAL                         R8 23
+      288 NEWTABLE                         R9 0 0
+      290 CALL                             R8 1 0
+      291 GETUPVAL                         R8 3
+      292 LOADNIL                          R9
+      293 CALL                             R8 1 0
+      294 RETURN                           R0 0
 
 PROTO_27:
         0 GETUPVAL                         R2 0
@@ -988,21 +1000,23 @@ PROTO_27:
        58 CAPTURE                          VAL R3
        59 CAPTURE                          UPVAL U11
        60 CAPTURE                          UPVAL U12
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          UPVAL U13
-       63 CAPTURE                          UPVAL U14
+       61 CAPTURE                          UPVAL U13
+       62 CAPTURE                          UPVAL U14
+       63 CAPTURE                          VAL R4
        64 CAPTURE                          UPVAL U15
        65 CAPTURE                          UPVAL U16
        66 CAPTURE                          UPVAL U17
        67 CAPTURE                          UPVAL U18
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          UPVAL U19
-       70 CAPTURE                          UPVAL U20
+       68 CAPTURE                          UPVAL U19
+       69 CAPTURE                          UPVAL U20
+       70 CAPTURE                          VAL R5
        71 CAPTURE                          UPVAL U21
        72 CAPTURE                          UPVAL U22
-       73 CALL                             R7 1 1
-       74 SETTABLEKS                       R7 R6 K5 ["current"]
-       76 RETURN                           R0 0
+       73 CAPTURE                          UPVAL U23
+       74 CAPTURE                          UPVAL U24
+       75 CALL                             R7 1 1
+       76 SETTABLEKS                       R7 R6 K5 ["current"]
+       78 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R0 0
@@ -1197,42 +1211,44 @@ PROTO_30:
       137 CAPTURE                          UPVAL U15
       138 CAPTURE                          UPVAL U16
       139 CAPTURE                          UPVAL U17
-      140 CAPTURE                          VAL R2
-      141 CAPTURE                          UPVAL U18
-      142 CAPTURE                          UPVAL U19
-      143 CAPTURE                          VAL R4
-      144 CAPTURE                          VAL R6
-      145 CALL                             R18 1 1
-      146 GETUPVAL                         R19 6
-      147 GETTABLEKS                       R19 R19 K7 ["useEventCallback"]
-      149 NEWCLOSURE                       R20 P8
-      150 CAPTURE                          VAL R11
-      151 CAPTURE                          VAL R4
-      152 CAPTURE                          VAL R6
-      153 CAPTURE                          VAL R8
-      154 CALL                             R19 1 1
-      155 GETUPVAL                         R20 1
-      156 GETTABLEKS                       R20 R20 K9 ["useMemo"]
-      158 NEWCLOSURE                       R21 P9
-      159 CAPTURE                          VAL R4
-      160 CAPTURE                          VAL R5
-      161 CAPTURE                          VAL R7
-      162 NEWTABLE                         R22 0 3
-      164 MOVE                             R23 R5
-      165 MOVE                             R24 R7
-      166 GETTABLEKS                       R25 R4 K10 ["enabled"]
-      168 SETLIST                          R22 R23 3 [1]
-      170 CALL                             R20 2 1
-      171 DUPTABLE                         R21 K18 [{"state", "open", "submitPrompt", "regenerate", "cancelGeneration", "generate3D", "resetGeneration"}]
-      172 SETTABLEKS                       R20 R21 K11 ["state"]
-      174 GETTABLEKS                       R22 R4 K19 ["enable"]
-      176 SETTABLEKS                       R22 R21 K12 ["open"]
-      178 SETTABLEKS                       R15 R21 K13 ["submitPrompt"]
-      180 SETTABLEKS                       R16 R21 K14 ["regenerate"]
-      182 SETTABLEKS                       R17 R21 K15 ["cancelGeneration"]
-      184 SETTABLEKS                       R18 R21 K16 ["generate3D"]
-      186 SETTABLEKS                       R19 R21 K17 ["resetGeneration"]
-      188 RETURN                           R21 1
+      140 CAPTURE                          UPVAL U18
+      141 CAPTURE                          UPVAL U19
+      142 CAPTURE                          VAL R2
+      143 CAPTURE                          UPVAL U20
+      144 CAPTURE                          UPVAL U21
+      145 CAPTURE                          VAL R4
+      146 CAPTURE                          VAL R6
+      147 CALL                             R18 1 1
+      148 GETUPVAL                         R19 6
+      149 GETTABLEKS                       R19 R19 K7 ["useEventCallback"]
+      151 NEWCLOSURE                       R20 P8
+      152 CAPTURE                          VAL R11
+      153 CAPTURE                          VAL R4
+      154 CAPTURE                          VAL R6
+      155 CAPTURE                          VAL R8
+      156 CALL                             R19 1 1
+      157 GETUPVAL                         R20 1
+      158 GETTABLEKS                       R20 R20 K9 ["useMemo"]
+      160 NEWCLOSURE                       R21 P9
+      161 CAPTURE                          VAL R4
+      162 CAPTURE                          VAL R5
+      163 CAPTURE                          VAL R7
+      164 NEWTABLE                         R22 0 3
+      166 MOVE                             R23 R5
+      167 MOVE                             R24 R7
+      168 GETTABLEKS                       R25 R4 K10 ["enabled"]
+      170 SETLIST                          R22 R23 3 [1]
+      172 CALL                             R20 2 1
+      173 DUPTABLE                         R21 K18 [{"state", "open", "submitPrompt", "regenerate", "cancelGeneration", "generate3D", "resetGeneration"}]
+      174 SETTABLEKS                       R20 R21 K11 ["state"]
+      176 GETTABLEKS                       R22 R4 K19 ["enable"]
+      178 SETTABLEKS                       R22 R21 K12 ["open"]
+      180 SETTABLEKS                       R15 R21 K13 ["submitPrompt"]
+      182 SETTABLEKS                       R16 R21 K14 ["regenerate"]
+      184 SETTABLEKS                       R17 R21 K15 ["cancelGeneration"]
+      186 SETTABLEKS                       R18 R21 K16 ["generate3D"]
+      188 SETTABLEKS                       R19 R21 K17 ["resetGeneration"]
+      190 RETURN                           R21 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1313,49 +1329,61 @@ MAIN:
       132 GETIMPORT                        R16 K5 [require]
       134 GETTABLEKS                       R17 R0 K11 ["Src"]
       136 GETTABLEKS                       R17 R17 K23 ["Flags"]
-      138 GETTABLEKS                       R17 R17 K26 ["getFFlagAvatarPreviewerAvatarCreationErrorCodes"]
+      138 GETTABLEKS                       R17 R17 K26 ["getFFlagAvatarPreviewerAvatarCreationBuildName"]
       140 CALL                             R16 1 1
       141 GETIMPORT                        R17 K5 [require]
       143 GETTABLEKS                       R18 R0 K11 ["Src"]
       145 GETTABLEKS                       R18 R18 K23 ["Flags"]
-      147 GETTABLEKS                       R18 R18 K27 ["getFFlagAvatarPreviewerAvatarCreationFeedback"]
+      147 GETTABLEKS                       R18 R18 K27 ["getFFlagAvatarPreviewerAvatarCreationErrorCodes"]
       149 CALL                             R17 1 1
       150 GETIMPORT                        R18 K5 [require]
       152 GETTABLEKS                       R19 R0 K11 ["Src"]
       154 GETTABLEKS                       R19 R19 K23 ["Flags"]
-      156 GETTABLEKS                       R19 R19 K28 ["getFFlagAvatarPreviewerAvatarCreationUsage"]
+      156 GETTABLEKS                       R19 R19 K28 ["getFFlagAvatarPreviewerAvatarCreationFeedback"]
       158 CALL                             R18 1 1
       159 GETIMPORT                        R19 K5 [require]
       161 GETTABLEKS                       R20 R0 K11 ["Src"]
-      163 GETTABLEKS                       R20 R20 K29 ["Hooks"]
-      165 GETTABLEKS                       R20 R20 K30 ["useToggleState"]
+      163 GETTABLEKS                       R20 R20 K23 ["Flags"]
+      165 GETTABLEKS                       R20 R20 K29 ["getFFlagAvatarPreviewerAvatarCreationUsage"]
       167 CALL                             R19 1 1
-      168 DUPCLOSURE                       R20 K31 [PROTO_1]
-      169 CAPTURE                          VAL R1
-      170 DUPCLOSURE                       R21 K32 [PROTO_2]
-      171 DUPCLOSURE                       R22 K33 [PROTO_3]
-      172 DUPCLOSURE                       R23 K34 [PROTO_4]
-      173 CAPTURE                          VAL R1
-      174 DUPCLOSURE                       R24 K35 [PROTO_5]
-      175 DUPCLOSURE                       R25 K36 [PROTO_30]
-      176 CAPTURE                          VAL R2
-      177 CAPTURE                          VAL R3
-      178 CAPTURE                          VAL R6
-      179 CAPTURE                          VAL R9
-      180 CAPTURE                          VAL R10
-      181 CAPTURE                          VAL R19
-      182 CAPTURE                          VAL R4
-      183 CAPTURE                          VAL R16
-      184 CAPTURE                          VAL R7
-      185 CAPTURE                          VAL R1
-      186 CAPTURE                          VAL R21
-      187 CAPTURE                          VAL R24
-      188 CAPTURE                          VAL R14
-      189 CAPTURE                          VAL R15
-      190 CAPTURE                          VAL R12
-      191 CAPTURE                          VAL R17
-      192 CAPTURE                          VAL R8
-      193 CAPTURE                          VAL R5
-      194 CAPTURE                          VAL R18
-      195 CAPTURE                          VAL R13
-      196 RETURN                           R25 1
+      168 GETIMPORT                        R20 K5 [require]
+      170 GETTABLEKS                       R21 R0 K11 ["Src"]
+      172 GETTABLEKS                       R21 R21 K12 ["Util"]
+      174 GETTABLEKS                       R21 R21 K30 ["getNextAvatarCreationName"]
+      176 CALL                             R20 1 1
+      177 GETIMPORT                        R21 K5 [require]
+      179 GETTABLEKS                       R22 R0 K11 ["Src"]
+      181 GETTABLEKS                       R22 R22 K31 ["Hooks"]
+      183 GETTABLEKS                       R22 R22 K32 ["useToggleState"]
+      185 CALL                             R21 1 1
+      186 DUPCLOSURE                       R22 K33 [PROTO_1]
+      187 CAPTURE                          VAL R1
+      188 DUPCLOSURE                       R23 K34 [PROTO_2]
+      189 DUPCLOSURE                       R24 K35 [PROTO_3]
+      190 DUPCLOSURE                       R25 K36 [PROTO_4]
+      191 CAPTURE                          VAL R1
+      192 DUPCLOSURE                       R26 K37 [PROTO_5]
+      193 DUPCLOSURE                       R27 K38 [PROTO_30]
+      194 CAPTURE                          VAL R2
+      195 CAPTURE                          VAL R3
+      196 CAPTURE                          VAL R6
+      197 CAPTURE                          VAL R9
+      198 CAPTURE                          VAL R10
+      199 CAPTURE                          VAL R21
+      200 CAPTURE                          VAL R4
+      201 CAPTURE                          VAL R17
+      202 CAPTURE                          VAL R7
+      203 CAPTURE                          VAL R1
+      204 CAPTURE                          VAL R23
+      205 CAPTURE                          VAL R26
+      206 CAPTURE                          VAL R14
+      207 CAPTURE                          VAL R16
+      208 CAPTURE                          VAL R20
+      209 CAPTURE                          VAL R15
+      210 CAPTURE                          VAL R12
+      211 CAPTURE                          VAL R18
+      212 CAPTURE                          VAL R8
+      213 CAPTURE                          VAL R5
+      214 CAPTURE                          VAL R19
+      215 CAPTURE                          VAL R13
+      216 RETURN                           R27 1

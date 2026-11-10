@@ -83,78 +83,84 @@ MAIN:
       121 LOADN                            R1 200
       122 SETTABLEKS                       R1 R0 K44 ["SortOptionsWidth"]
       124 LOADN                            R1 250
-      125 SETTABLEKS                       R1 R0 K45 ["FilterTypesWidth"]
+      125 SETTABLEKS                       R1 R0 K45 ["DEPRECATED_FilterTypesWidth"]
       127 LOADN                            R1 420
-      128 SETTABLEKS                       R1 R0 K46 ["FilterTypesHeight"]
-      130 GETIMPORT                        R1 K49 [Vector2.new]
-      132 LOADK                            R2 K50 [0.5]
-      133 LOADK                            R3 K50 [0.5]
-      134 CALL                             R1 2 1
-      135 SETTABLEKS                       R1 R0 K51 ["AnchorCenter"]
-      137 GETIMPORT                        R1 K53 [UDim2.fromScale]
-      139 LOADK                            R2 K50 [0.5]
-      140 LOADK                            R3 K50 [0.5]
-      141 CALL                             R1 2 1
-      142 SETTABLEKS                       R1 R0 K54 ["PositionCenter"]
-      144 GETIMPORT                        R1 K49 [Vector2.new]
-      146 LOADN                            R2 640
-      147 LOADN                            R3 360
-      148 CALL                             R1 2 1
-      149 SETTABLEKS                       R1 R0 K55 ["QuickShareDialogSize"]
-      151 GETIMPORT                        R1 K41 [UDim2.fromOffset]
-      153 LOADN                            R2 608
-      154 LOADN                            R3 125
-      155 CALL                             R1 2 1
-      156 SETTABLEKS                       R1 R0 K56 ["QuickShareDropdownSize"]
-      158 GETIMPORT                        R1 K49 [Vector2.new]
-      160 LOADN                            R2 100
-      161 LOADN                            R3 200
-      162 CALL                             R1 2 1
-      163 SETTABLEKS                       R1 R0 K57 ["QuickSharePermissionsDropdownSize"]
-      165 GETIMPORT                        R1 K49 [Vector2.new]
-      167 LOADN                            R2 415
-      168 LOADN                            R3 100
-      169 CALL                             R1 2 1
-      170 SETTABLEKS                       R1 R0 K58 ["ConfirmDialogSize"]
-      172 GETIMPORT                        R1 K49 [Vector2.new]
-      174 LOADN                            R2 450
-      175 LOADN                            R3 125
-      176 CALL                             R1 2 1
-      177 SETTABLEKS                       R1 R0 K59 ["ConfirmOpenInBrowserDialogSize"]
-      179 GETIMPORT                        R1 K49 [Vector2.new]
-      181 LOADN                            R2 400
-      182 LOADN                            R3 480
-      183 CALL                             R1 2 1
-      184 SETTABLEKS                       R1 R0 K60 ["MoveDialogSize"]
-      186 LOADN                            R1 180
-      187 SETTABLEKS                       R1 R0 K61 ["ContextMenuWidth"]
-      189 LOADN                            R1 180
-      190 SETTABLEKS                       R1 R0 K62 ["CompactOptionsMenuWidth"]
-      192 LOADN                            R1 350
-      193 SETTABLEKS                       R1 R0 K63 ["CompactOptionsMenuMaxHeight"]
-      195 LOADN                            R1 220
-      196 SETTABLEKS                       R1 R0 K64 ["CompactScopeListWidth"]
-      198 LOADN                            R1 32
-      199 SETTABLEKS                       R1 R0 K65 ["CompactScopeListMinHeight"]
-      201 LOADN                            R1 320
-      202 SETTABLEKS                       R1 R0 K66 ["CompactScopeListMaxHeight"]
-      204 LOADK                            R1 K67 [26.5]
-      205 SETTABLEKS                       R1 R0 K68 ["CompactScopeListItemHeight"]
-      207 LOADN                            R1 330
-      208 SETTABLEKS                       R1 R0 K69 ["AssetStatusPopoverWidth"]
-      210 GETIMPORT                        R1 K41 [UDim2.fromOffset]
-      212 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
-      214 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
-      216 CALL                             R1 2 1
-      217 SETTABLEKS                       R1 R0 K70 ["IconSizeXSmall"]
+      128 SETTABLEKS                       R1 R0 K46 ["DEPRECATED_FilterTypesHeight"]
+      130 LOADN                            R1 180
+      131 SETTABLEKS                       R1 R0 K47 ["FilterTypesWidth"]
+      133 LOADN                            R1 180
+      134 SETTABLEKS                       R1 R0 K48 ["FilterTypesHeight"]
+      136 GETIMPORT                        R1 K51 [Vector2.new]
+      138 LOADK                            R2 K52 [0.5]
+      139 LOADK                            R3 K52 [0.5]
+      140 CALL                             R1 2 1
+      141 SETTABLEKS                       R1 R0 K53 ["AnchorCenter"]
+      143 GETIMPORT                        R1 K55 [UDim2.fromScale]
+      145 LOADK                            R2 K52 [0.5]
+      146 LOADK                            R3 K52 [0.5]
+      147 CALL                             R1 2 1
+      148 SETTABLEKS                       R1 R0 K56 ["PositionCenter"]
+      150 GETIMPORT                        R1 K51 [Vector2.new]
+      152 LOADN                            R2 640
+      153 LOADN                            R3 360
+      154 CALL                             R1 2 1
+      155 SETTABLEKS                       R1 R0 K57 ["QuickShareDialogSize"]
+      157 GETIMPORT                        R1 K41 [UDim2.fromOffset]
+      159 LOADN                            R2 608
+      160 LOADN                            R3 125
+      161 CALL                             R1 2 1
+      162 SETTABLEKS                       R1 R0 K58 ["QuickShareDropdownSize"]
+      164 GETIMPORT                        R1 K51 [Vector2.new]
+      166 LOADN                            R2 100
+      167 LOADN                            R3 200
+      168 CALL                             R1 2 1
+      169 SETTABLEKS                       R1 R0 K59 ["QuickSharePermissionsDropdownSize"]
+      171 GETIMPORT                        R1 K51 [Vector2.new]
+      173 LOADN                            R2 415
+      174 LOADN                            R3 100
+      175 CALL                             R1 2 1
+      176 SETTABLEKS                       R1 R0 K60 ["ConfirmDialogSize"]
+      178 GETIMPORT                        R1 K51 [Vector2.new]
+      180 LOADN                            R2 450
+      181 LOADN                            R3 125
+      182 CALL                             R1 2 1
+      183 SETTABLEKS                       R1 R0 K61 ["ConfirmOpenInBrowserDialogSize"]
+      185 GETIMPORT                        R1 K51 [Vector2.new]
+      187 LOADN                            R2 400
+      188 LOADN                            R3 480
+      189 CALL                             R1 2 1
+      190 SETTABLEKS                       R1 R0 K62 ["MoveDialogSize"]
+      192 LOADN                            R1 180
+      193 SETTABLEKS                       R1 R0 K63 ["ContextMenuWidth"]
+      195 LOADN                            R1 180
+      196 SETTABLEKS                       R1 R0 K64 ["CompactOptionsMenuWidth"]
+      198 LOADN                            R1 350
+      199 SETTABLEKS                       R1 R0 K65 ["DEPRECATED_CompactOptionsMenuMaxHeight"]
+      201 LOADN                            R1 270
+      202 SETTABLEKS                       R1 R0 K66 ["CompactOptionsMenuHeight"]
+      204 LOADN                            R1 220
+      205 SETTABLEKS                       R1 R0 K67 ["CompactScopeListWidth"]
+      207 LOADN                            R1 32
+      208 SETTABLEKS                       R1 R0 K68 ["CompactScopeListMinHeight"]
+      210 LOADN                            R1 320
+      211 SETTABLEKS                       R1 R0 K69 ["CompactScopeListMaxHeight"]
+      213 LOADK                            R1 K70 [26.5]
+      214 SETTABLEKS                       R1 R0 K71 ["CompactScopeListItemHeight"]
+      216 LOADN                            R1 330
+      217 SETTABLEKS                       R1 R0 K72 ["AssetStatusPopoverWidth"]
       219 GETIMPORT                        R1 K41 [UDim2.fromOffset]
-      221 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
-      223 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
+      221 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
+      223 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
       225 CALL                             R1 2 1
-      226 SETTABLEKS                       R1 R0 K71 ["IconSize"]
+      226 SETTABLEKS                       R1 R0 K73 ["IconSizeXSmall"]
       228 GETIMPORT                        R1 K41 [UDim2.fromOffset]
-      230 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
-      232 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
+      230 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
+      232 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
       234 CALL                             R1 2 1
-      235 SETTABLEKS                       R1 R0 K72 ["IconSizeXLarge"]
-      237 RETURN                           R0 1
+      235 SETTABLEKS                       R1 R0 K74 ["IconSize"]
+      237 GETIMPORT                        R1 K41 [UDim2.fromOffset]
+      239 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
+      241 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
+      243 CALL                             R1 2 1
+      244 SETTABLEKS                       R1 R0 K75 ["IconSizeXLarge"]
+      246 RETURN                           R0 1

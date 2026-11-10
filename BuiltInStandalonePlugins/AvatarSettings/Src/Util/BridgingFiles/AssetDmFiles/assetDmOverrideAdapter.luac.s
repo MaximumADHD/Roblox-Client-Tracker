@@ -21,6 +21,13 @@ PROTO_1:
        17 RETURN                           R3 1
 
 PROTO_2:
+        0 LOADN                            R2 0
+        1 JUMPIFLE                         R2 R0 ; [+2]
+        3 LOADB                            R1 0 +1
+        4 LOADB                            R1 1
+        5 RETURN                           R1 1
+
+PROTO_3:
         0 GETTABLEKS                       R6 R1 K0 ["gate"]
         2 JUMPIFNOTEQKS                    R6 K1 ["OnValue"] ; [+8]
         4 GETTABLEKS                       R6 R0 K2 ["onValue"]
@@ -34,16 +41,16 @@ PROTO_2:
        16 LOADB                            R5 1
        17 JUMPIFNOT                        R5 ; [+1]
        18 JUMPIF                           R3 ; [+2]
-       19 LOADN                            R5 0
+       19 LOADN                            R5 -1
        20 RETURN                           R5 1
        21 LOADN                            R6 0
        22 JUMPIFNOTLT                      R6 R4 ; [+3]
        24 MOVE                             R5 R4
        25 RETURN                           R5 1
-       26 LOADN                            R5 -1
+       26 LOADN                            R5 0
        27 RETURN                           R5 1
 
-PROTO_3:
+PROTO_4:
         0 LOADB                            R2 1
         1 JUMPIFEQ                         R0 R1 ; [+10]
         3 LOADB                            R2 0
@@ -55,7 +62,7 @@ PROTO_3:
        11 LOADB                            R2 1
        12 RETURN                           R2 1
 
-PROTO_4:
+PROTO_5:
         0 GETTABLEKS                       R2 R1 K0 ["overrideClass"]
         2 JUMPIF                           R2 ; [+1]
         3 RETURN                           R0 1
@@ -68,7 +75,7 @@ PROTO_4:
        12 LOADNIL                          R4
        13 RETURN                           R4 1
 
-PROTO_5:
+PROTO_6:
         0 GETTABLEKS                       R3 R1 K0 ["overrideClass"]
         2 JUMPIF                           R3 ; [+2]
         3 MOVE                             R2 R0
@@ -85,10 +92,10 @@ PROTO_5:
        16 GETTABLEKS                       R4 R1 K3 ["override"]
        18 GETTABLE                         R3 R2 R4
        19 RETURN                           R3 1
-       20 LOADN                            R3 0
+       20 LOADN                            R3 -1
        21 RETURN                           R3 1
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R4 R0 K0 ["ClassName"]
         3 GETTABLE                         R2 R3 R4
@@ -100,7 +107,7 @@ PROTO_6:
        11 LOADB                            R3 1
        12 RETURN                           R3 1
 
-PROTO_7:
+PROTO_8:
         0 LOADK                            R3 K0 ["AvatarRules"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
@@ -186,13 +193,13 @@ PROTO_7:
       110 LOADB                            R12 1
       111 JUMPIFNOT                        R12 ; [+1]
       112 JUMPIF                           R10 ; [+2]
-      113 LOADN                            R9 0
+      113 LOADN                            R9 -1
       114 JUMP                             ; [+6]
       115 LOADN                            R12 0
       116 JUMPIFNOTLT                      R12 R11 ; [+3]
       118 MOVE                             R9 R11
       119 JUMP                             ; [+1]
-      120 LOADN                            R9 -1
+      120 LOADN                            R9 0
       121 GETTABLEKS                       R12 R7 K23 ["override"]
       123 GETTABLE                         R11 R8 R12
       124 LOADB                            R10 1
@@ -212,7 +219,7 @@ PROTO_7:
       143 SETUPVAL                         R3 0
       144 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R3 R0 K0 ["ClassName"]
         3 GETTABLE                         R1 R2 R3
@@ -224,118 +231,122 @@ PROTO_8:
        11 LOADNIL                          R4
        12 LOADNIL                          R5
        13 FORGPREP                         R3
-       14 GETTABLEKS                       R10 R7 K3 ["overrideClass"]
-       16 JUMPIF                           R10 ; [+2]
-       17 MOVE                             R9 R0
+       14 GETTABLEKS                       R11 R7 K3 ["overrideClass"]
+       16 JUMPIF                           R11 ; [+2]
+       17 MOVE                             R10 R0
        18 JUMP                             ; [+10]
-       19 GETTABLEKS                       R11 R0 K4 ["Parent"]
-       21 JUMPIFNOT                        R11 ; [+6]
-       22 MOVE                             R14 R10
-       23 NAMECALL                         R12 R11 K5 ["FindFirstChildWhichIsA"]
-       25 CALL                             R12 2 1
-       26 MOVE                             R9 R12
+       19 GETTABLEKS                       R12 R0 K4 ["Parent"]
+       21 JUMPIFNOT                        R12 ; [+6]
+       22 MOVE                             R15 R11
+       23 NAMECALL                         R13 R12 K5 ["FindFirstChildWhichIsA"]
+       25 CALL                             R13 2 1
+       26 MOVE                             R10 R13
        27 JUMP                             ; [+1]
-       28 LOADNIL                          R9
-       29 JUMPIFNOT                        R9 ; [+4]
-       30 GETTABLEKS                       R10 R7 K6 ["override"]
-       32 GETTABLE                         R8 R9 R10
+       28 LOADNIL                          R10
+       29 JUMPIFNOT                        R10 ; [+4]
+       30 GETTABLEKS                       R11 R7 K6 ["override"]
+       32 GETTABLE                         R9 R10 R11
        33 JUMP                             ; [+1]
-       34 LOADN                            R8 0
-       35 JUMPIFEQKN                       R8 K7 [0] ; [+26]
-       37 MOVE                             R9 R2
-       38 GETTABLEKS                       R10 R7 K8 ["gate"]
-       40 JUMPIFNOTEQKS                    R10 K9 ["OnValue"] ; [+8]
-       42 GETTABLEKS                       R10 R1 K10 ["onValue"]
-       44 JUMPIFEQ                         R9 R10 ; [+2]
-       46 LOADB                            R8 0 +1
-       47 LOADB                            R8 1
-       48 JUMP                             ; [+6]
-       49 GETTABLEKS                       R10 R9 K11 ["Value"]
-       51 JUMPIFNOTEQKN                    R10 K7 [0] ; [+2]
-       53 LOADB                            R8 0 +1
-       54 LOADB                            R8 1
-       55 JUMPIF                           R8 ; [+6]
-       56 GETTABLEKS                       R2 R1 K10 ["onValue"]
-       58 GETTABLEKS                       R8 R1 K1 ["modeProperty"]
-       60 SETTABLE                         R2 R0 R8
-       61 JUMP                             ; [+2]
-       62 FORGLOOP                         R3 2 ; [-49]
-       64 GETTABLEKS                       R3 R1 K2 ["slots"]
-       66 LOADNIL                          R4
-       67 LOADNIL                          R5
-       68 FORGPREP                         R3
-       69 GETTABLEKS                       R9 R7 K12 ["name"]
-       71 LOADK                            R10 K13 ["Enabled"]
-       72 CONCAT                           R8 R9 R10
-       73 GETTABLEKS                       R10 R7 K12 ["name"]
-       75 LOADK                            R11 K14 ["Id"]
-       76 CONCAT                           R9 R10 R11
-       77 GETTABLEKS                       R12 R7 K3 ["overrideClass"]
-       79 JUMPIF                           R12 ; [+2]
-       80 MOVE                             R11 R0
-       81 JUMP                             ; [+10]
-       82 GETTABLEKS                       R13 R0 K4 ["Parent"]
-       84 JUMPIFNOT                        R13 ; [+6]
-       85 MOVE                             R16 R12
-       86 NAMECALL                         R14 R13 K5 ["FindFirstChildWhichIsA"]
-       88 CALL                             R14 2 1
-       89 MOVE                             R11 R14
-       90 JUMP                             ; [+1]
-       91 LOADNIL                          R11
-       92 JUMPIFNOT                        R11 ; [+4]
-       93 GETTABLEKS                       R12 R7 K6 ["override"]
-       95 GETTABLE                         R10 R11 R12
-       96 JUMP                             ; [+1]
-       97 LOADN                            R10 0
-       98 MOVE                             R12 R2
-       99 GETTABLE                         R13 R0 R8
-      100 GETTABLE                         R14 R0 R9
-      101 GETTABLEKS                       R16 R7 K8 ["gate"]
-      103 JUMPIFNOTEQKS                    R16 K9 ["OnValue"] ; [+8]
-      105 GETTABLEKS                       R16 R1 K10 ["onValue"]
-      107 JUMPIFEQ                         R12 R16 ; [+2]
-      109 LOADB                            R15 0 +1
-      110 LOADB                            R15 1
-      111 JUMP                             ; [+6]
-      112 GETTABLEKS                       R16 R12 K11 ["Value"]
-      114 JUMPIFNOTEQKN                    R16 K7 [0] ; [+2]
-      116 LOADB                            R15 0 +1
-      117 LOADB                            R15 1
-      118 JUMPIFNOT                        R15 ; [+1]
-      119 JUMPIF                           R13 ; [+2]
-      120 LOADN                            R11 0
-      121 JUMP                             ; [+6]
-      122 LOADN                            R15 0
-      123 JUMPIFNOTLT                      R15 R14 ; [+3]
-      125 MOVE                             R11 R14
-      126 JUMP                             ; [+1]
-      127 LOADN                            R11 -1
-      128 LOADB                            R12 1
-      129 JUMPIFEQ                         R10 R11 ; [+10]
-      131 LOADB                            R12 0
-      132 LOADN                            R13 0
-      133 JUMPIFNOTLT                      R10 R13 ; [+6]
-      135 LOADN                            R13 0
-      136 JUMPIFLT                         R11 R13 ; [+2]
-      138 LOADB                            R12 0 +1
-      139 LOADB                            R12 1
-      140 JUMPIF                           R12 ; [+15]
-      141 JUMPIFNOTEQKN                    R10 K7 [0] ; [+2]
-      143 LOADB                            R12 0 +1
-      144 LOADB                            R12 1
-      145 SETTABLE                         R12 R0 R8
-      146 LOADN                            R12 0
-      147 JUMPIFNOTLT                      R12 R10 ; [+3]
-      149 SETTABLE                         R10 R0 R9
-      150 JUMP                             ; [+5]
+       34 LOADN                            R9 -1
+       35 LOADN                            R10 0
+       36 JUMPIFLE                         R10 R9 ; [+2]
+       38 LOADB                            R8 0 +1
+       39 LOADB                            R8 1
+       40 JUMPIFNOT                        R8 ; [+25]
+       41 MOVE                             R9 R2
+       42 GETTABLEKS                       R10 R7 K7 ["gate"]
+       44 JUMPIFNOTEQKS                    R10 K8 ["OnValue"] ; [+8]
+       46 GETTABLEKS                       R10 R1 K9 ["onValue"]
+       48 JUMPIFEQ                         R9 R10 ; [+2]
+       50 LOADB                            R8 0 +1
+       51 LOADB                            R8 1
+       52 JUMP                             ; [+6]
+       53 GETTABLEKS                       R10 R9 K10 ["Value"]
+       55 JUMPIFNOTEQKN                    R10 K11 [0] ; [+2]
+       57 LOADB                            R8 0 +1
+       58 LOADB                            R8 1
+       59 JUMPIF                           R8 ; [+6]
+       60 GETTABLEKS                       R2 R1 K9 ["onValue"]
+       62 GETTABLEKS                       R8 R1 K1 ["modeProperty"]
+       64 SETTABLE                         R2 R0 R8
+       65 JUMP                             ; [+2]
+       66 FORGLOOP                         R3 2 ; [-53]
+       68 GETTABLEKS                       R3 R1 K2 ["slots"]
+       70 LOADNIL                          R4
+       71 LOADNIL                          R5
+       72 FORGPREP                         R3
+       73 GETTABLEKS                       R9 R7 K12 ["name"]
+       75 LOADK                            R10 K13 ["Enabled"]
+       76 CONCAT                           R8 R9 R10
+       77 GETTABLEKS                       R10 R7 K12 ["name"]
+       79 LOADK                            R11 K14 ["Id"]
+       80 CONCAT                           R9 R10 R11
+       81 GETTABLEKS                       R12 R7 K3 ["overrideClass"]
+       83 JUMPIF                           R12 ; [+2]
+       84 MOVE                             R11 R0
+       85 JUMP                             ; [+10]
+       86 GETTABLEKS                       R13 R0 K4 ["Parent"]
+       88 JUMPIFNOT                        R13 ; [+6]
+       89 MOVE                             R16 R12
+       90 NAMECALL                         R14 R13 K5 ["FindFirstChildWhichIsA"]
+       92 CALL                             R14 2 1
+       93 MOVE                             R11 R14
+       94 JUMP                             ; [+1]
+       95 LOADNIL                          R11
+       96 JUMPIFNOT                        R11 ; [+4]
+       97 GETTABLEKS                       R12 R7 K6 ["override"]
+       99 GETTABLE                         R10 R11 R12
+      100 JUMP                             ; [+1]
+      101 LOADN                            R10 -1
+      102 MOVE                             R12 R2
+      103 GETTABLE                         R13 R0 R8
+      104 GETTABLE                         R14 R0 R9
+      105 GETTABLEKS                       R16 R7 K7 ["gate"]
+      107 JUMPIFNOTEQKS                    R16 K8 ["OnValue"] ; [+8]
+      109 GETTABLEKS                       R16 R1 K9 ["onValue"]
+      111 JUMPIFEQ                         R12 R16 ; [+2]
+      113 LOADB                            R15 0 +1
+      114 LOADB                            R15 1
+      115 JUMP                             ; [+6]
+      116 GETTABLEKS                       R16 R12 K10 ["Value"]
+      118 JUMPIFNOTEQKN                    R16 K11 [0] ; [+2]
+      120 LOADB                            R15 0 +1
+      121 LOADB                            R15 1
+      122 JUMPIFNOT                        R15 ; [+1]
+      123 JUMPIF                           R13 ; [+2]
+      124 LOADN                            R11 -1
+      125 JUMP                             ; [+6]
+      126 LOADN                            R15 0
+      127 JUMPIFNOTLT                      R15 R14 ; [+3]
+      129 MOVE                             R11 R14
+      130 JUMP                             ; [+1]
+      131 LOADN                            R11 0
+      132 LOADB                            R12 1
+      133 JUMPIFEQ                         R10 R11 ; [+10]
+      135 LOADB                            R12 0
+      136 LOADN                            R13 0
+      137 JUMPIFNOTLT                      R10 R13 ; [+6]
+      139 LOADN                            R13 0
+      140 JUMPIFLT                         R11 R13 ; [+2]
+      142 LOADB                            R12 0 +1
+      143 LOADB                            R12 1
+      144 JUMPIF                           R12 ; [+15]
+      145 LOADN                            R13 0
+      146 JUMPIFLE                         R13 R10 ; [+2]
+      148 LOADB                            R12 0 +1
+      149 LOADB                            R12 1
+      150 SETTABLE                         R12 R0 R8
       151 LOADN                            R12 0
-      152 JUMPIFNOTLT                      R10 R12 ; [+3]
-      154 LOADN                            R12 0
-      155 SETTABLE                         R12 R0 R9
-      156 FORGLOOP                         R3 2 ; [-88]
-      158 RETURN                           R0 0
+      152 JUMPIFNOTLT                      R12 R10 ; [+3]
+      154 SETTABLE                         R10 R0 R9
+      155 JUMP                             ; [+4]
+      156 JUMPIFNOTEQKN                    R10 K11 [0] ; [+3]
+      158 LOADN                            R12 0
+      159 SETTABLE                         R12 R0 R9
+      160 FORGLOOP                         R3 2 ; [-88]
+      162 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+14]
         2 GETUPVAL                         R0 1
@@ -349,7 +360,7 @@ PROTO_9:
        14 SETTABLEKS                       R1 R0 K0 ["AvatarType"]
        16 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["toLegacy"]
         3 GETUPVAL                         R1 1
@@ -364,7 +375,7 @@ PROTO_10:
        15 SETTABLEKS                       R0 R1 K2 ["HitAndTouchDetectionMode"]
        17 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 JUMPIF                           R0 ; [+5]
         2 GETUPVAL                         R0 1
@@ -373,7 +384,7 @@ PROTO_11:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 NEWTABLE                         R1 0 0
         2 LOADK                            R4 K0 ["AvatarBodyRules"]
         3 NAMECALL                         R2 R0 K1 ["FindFirstChildWhichIsA"]
@@ -478,7 +489,7 @@ PROTO_12:
       132 FORGLOOP                         R4 2 ; [-52]
       134 RETURN                           R1 1
 
-PROTO_13:
+PROTO_14:
         0 NEWTABLE                         R2 0 0
         2 GETUPVAL                         R4 0
         3 GETTABLE                         R3 R4 R0
@@ -515,13 +526,13 @@ PROTO_13:
        48 LOADB                            R17 1
        49 JUMPIFNOT                        R17 ; [+1]
        50 JUMPIF                           R15 ; [+2]
-       51 LOADN                            R14 0
+       51 LOADN                            R14 -1
        52 JUMP                             ; [+6]
        53 LOADN                            R17 0
        54 JUMPIFNOTLT                      R17 R16 ; [+3]
        56 MOVE                             R14 R16
        57 JUMP                             ; [+1]
-       58 LOADN                            R14 -1
+       58 LOADN                            R14 0
        59 SETTABLE                         R14 R12 R13
        60 FORGLOOP                         R5 2 ; [-47]
        62 RETURN                           R2 1
@@ -696,24 +707,25 @@ MAIN:
       227 DUPCLOSURE                       R12 K143 [PROTO_4]
       228 DUPCLOSURE                       R13 K144 [PROTO_5]
       229 DUPCLOSURE                       R14 K145 [PROTO_6]
-      230 CAPTURE                          VAL R7
-      231 SETTABLEKS                       R14 R3 K146 ["isOverrideBacked"]
-      233 NEWCLOSURE                       R14 P7
-      234 CAPTURE                          REF R8
-      235 CAPTURE                          VAL R1
-      236 CAPTURE                          VAL R5
-      237 SETTABLEKS                       R14 R3 K147 ["writeOverrides"]
-      239 DUPCLOSURE                       R14 K148 [PROTO_8]
-      240 CAPTURE                          VAL R5
-      241 SETTABLEKS                       R14 R3 K149 ["syncLegacyProperties"]
-      243 NEWCLOSURE                       R14 P9
-      244 CAPTURE                          REF R8
-      245 CAPTURE                          VAL R1
-      246 CAPTURE                          VAL R5
-      247 CAPTURE                          VAL R3
-      248 SETTABLEKS                       R14 R3 K150 ["connect"]
-      250 DUPCLOSURE                       R14 K151 [PROTO_13]
-      251 CAPTURE                          VAL R5
-      252 SETTABLEKS                       R14 R3 K152 ["computeOverrides"]
-      254 CLOSEUPVALS                      R8
-      255 RETURN                           R3 1
+      230 DUPCLOSURE                       R15 K146 [PROTO_7]
+      231 CAPTURE                          VAL R7
+      232 SETTABLEKS                       R15 R3 K147 ["isOverrideBacked"]
+      234 NEWCLOSURE                       R15 P8
+      235 CAPTURE                          REF R8
+      236 CAPTURE                          VAL R1
+      237 CAPTURE                          VAL R5
+      238 SETTABLEKS                       R15 R3 K148 ["writeOverrides"]
+      240 DUPCLOSURE                       R15 K149 [PROTO_9]
+      241 CAPTURE                          VAL R5
+      242 SETTABLEKS                       R15 R3 K150 ["syncLegacyProperties"]
+      244 NEWCLOSURE                       R15 P10
+      245 CAPTURE                          REF R8
+      246 CAPTURE                          VAL R1
+      247 CAPTURE                          VAL R5
+      248 CAPTURE                          VAL R3
+      249 SETTABLEKS                       R15 R3 K151 ["connect"]
+      251 DUPCLOSURE                       R15 K152 [PROTO_14]
+      252 CAPTURE                          VAL R5
+      253 SETTABLEKS                       R15 R3 K153 ["computeOverrides"]
+      255 CLOSEUPVALS                      R8
+      256 RETURN                           R3 1

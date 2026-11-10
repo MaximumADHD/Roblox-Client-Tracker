@@ -373,9 +373,9 @@ PROTO_17:
       202 GETUPVAL                         R28 11
       203 DUPTABLE                         R29 K16 [{["tag"] = "col size-full"}]
       204 DUPTABLE                         R30 K19 [{"OSDeprecationBanner", "Content"}]
-      205 JUMPIF                           R10 ; [+54]
+      205 JUMPIF                           R10 ; [+59]
       206 JUMPIF                           R12 ; [+1]
-      207 JUMPIFNOT                        R14 ; [+52]
+      207 JUMPIFNOT                        R14 ; [+57]
       208 GETUPVAL                         R31 10
       209 GETTABLEKS                       R31 R31 K13 ["createElement"]
       211 GETUPVAL                         R32 12
@@ -400,238 +400,243 @@ PROTO_17:
       235 CAPTURE                          VAL R1
       236 CAPTURE                          VAL R11
       237 SETTABLEKS                       R34 R33 K22 ["onClose"]
-      239 DUPTABLE                         R34 K32 [{"text", "onClick"}]
-      240 LOADK                            R37 K0 ["Plugin"]
-      241 LOADK                            R38 K33 ["OSDeprecationBanner.Action"]
-      242 NAMECALL                         R35 R3 K27 ["getText"]
-      244 CALL                             R35 3 1
-      245 SETTABLEKS                       R35 R34 K30 ["text"]
-      247 DUPCLOSURE                       R35 K34 [PROTO_9]
-      248 CAPTURE                          UPVAL U5
-      249 CAPTURE                          UPVAL U13
-      250 SETTABLEKS                       R35 R34 K31 ["onClick"]
-      252 SETTABLEKS                       R34 R33 K23 ["inlineAction"]
-      254 MOVE                             R34 R26
-      255 CALL                             R34 0 1
-      256 SETTABLEKS                       R34 R33 K24 ["LayoutOrder"]
-      258 CALL                             R31 2 1
-      259 JUMP                             ; [+1]
-      260 LOADNIL                          R31
-      261 SETTABLEKS                       R31 R30 K17 ["OSDeprecationBanner"]
-      263 GETUPVAL                         R31 10
-      264 GETTABLEKS                       R31 R31 K13 ["createElement"]
-      266 GETUPVAL                         R32 11
-      267 DUPTABLE                         R33 K36 [{["tag"] = "col gap-xlarge size-full-0 auto-y padding-x-xxlarge padding-top-small", ["LayoutOrder"]}]
-      268 MOVE                             R34 R26
-      269 CALL                             R34 0 1
-      270 SETTABLEKS                       R34 R33 K24 ["LayoutOrder"]
-      272 DUPTABLE                         R34 K40 [{"Header", "Controls", "PageComponent"}]
-      273 GETUPVAL                         R35 10
-      274 GETTABLEKS                       R35 R35 K13 ["createElement"]
-      276 GETUPVAL                         R36 14
-      277 DUPTABLE                         R37 K42 [{"title", "searchBar", "LayoutOrder"}]
-      278 GETTABLEKS                       R39 R0 K4 ["Tabs"]
-      280 GETTABLE                         R38 R39 R4
-      281 GETTABLEKS                       R38 R38 K43 ["Title"]
-      283 SETTABLEKS                       R38 R37 K20 ["title"]
-      285 GETTABLEKS                       R39 R0 K44 ["HasSearchBar"]
-      287 JUMPIFNOT                        R39 ; [+20]
-      288 DUPTABLE                         R38 K49 [{"calculatedQuery", "setSearchQuery", "resultComponent", "type"}]
-      289 SETTABLEKS                       R25 R38 K45 ["calculatedQuery"]
-      291 SETTABLEKS                       R9 R38 K46 ["setSearchQuery"]
-      293 GETTABLEKS                       R40 R0 K4 ["Tabs"]
-      295 GETTABLE                         R39 R40 R4
-      296 GETTABLEKS                       R39 R39 K39 ["PageComponent"]
-      298 SETTABLEKS                       R39 R38 K47 ["resultComponent"]
-      300 GETTABLEKS                       R40 R0 K4 ["Tabs"]
-      302 GETTABLE                         R39 R40 R4
-      303 GETTABLEKS                       R39 R39 K43 ["Title"]
-      305 SETTABLEKS                       R39 R38 K48 ["type"]
-      307 JUMP                             ; [+1]
-      308 LOADNIL                          R38
-      309 SETTABLEKS                       R38 R37 K41 ["searchBar"]
-      311 MOVE                             R38 R26
-      312 CALL                             R38 0 1
-      313 SETTABLEKS                       R38 R37 K24 ["LayoutOrder"]
-      315 CALL                             R35 2 1
-      316 SETTABLEKS                       R35 R34 K37 ["Header"]
-      318 GETUPVAL                         R35 10
-      319 GETTABLEKS                       R35 R35 K13 ["createElement"]
-      321 GETUPVAL                         R36 11
-      322 DUPTABLE                         R37 K51 [{["LayoutOrder"], ["tag"] = "row size-full-0 auto-y"}]
-      323 MOVE                             R38 R26
-      324 CALL                             R38 0 1
-      325 SETTABLEKS                       R38 R37 K24 ["LayoutOrder"]
-      327 DUPTABLE                         R38 K54 [{"Pills", "DropdownControls"}]
-      328 GETTABLEKS                       R40 R0 K55 ["HideTabs"]
-      330 JUMPIF                           R40 ; [+27]
-      331 GETUPVAL                         R39 10
-      332 GETTABLEKS                       R39 R39 K13 ["createElement"]
-      334 GETUPVAL                         R40 15
-      335 DUPTABLE                         R41 K59 [{"tabs", "defaultSelectedTab", "onTabSelected"}]
-      336 GETTABLEKS                       R42 R0 K4 ["Tabs"]
-      338 SETTABLEKS                       R42 R41 K56 ["tabs"]
-      340 GETTABLEKS                       R43 R0 K4 ["Tabs"]
-      342 GETTABLEN                        R42 R43 1
-      343 GETTABLEKS                       R42 R42 K60 ["Key"]
-      345 SETTABLEKS                       R42 R41 K57 ["defaultSelectedTab"]
-      347 NEWCLOSURE                       R42 P8
-      348 CAPTURE                          VAL R4
-      349 CAPTURE                          VAL R2
-      350 CAPTURE                          UPVAL U16
-      351 CAPTURE                          VAL R0
-      352 CAPTURE                          UPVAL U17
-      353 CAPTURE                          VAL R5
-      354 SETTABLEKS                       R42 R41 K58 ["onTabSelected"]
-      356 CALL                             R39 2 1
-      357 JUMP                             ; [+1]
-      358 LOADNIL                          R39
-      359 SETTABLEKS                       R39 R38 K52 ["Pills"]
-      361 GETUPVAL                         R39 10
-      362 GETTABLEKS                       R39 R39 K13 ["createElement"]
-      364 GETUPVAL                         R40 11
-      365 DUPTABLE                         R41 K62 [{["LayoutOrder"], ["tag"] = "row align-x-right grow gap-medium auto-xy"}]
-      366 MOVE                             R42 R26
-      367 CALL                             R42 0 1
-      368 SETTABLEKS                       R42 R41 K24 ["LayoutOrder"]
-      370 DUPTABLE                         R42 K64 [{"GroupDropdown", "SortDropdown", "ToggleView"}]
-      371 JUMPIFNOT                        R20 ; [+31]
-      372 GETUPVAL                         R43 10
-      373 GETTABLEKS                       R43 R43 K13 ["createElement"]
-      375 GETUPVAL                         R44 18
-      376 GETTABLEKS                       R44 R44 K65 ["Root"]
-      378 GETUPVAL                         R45 19
-      379 GETTABLEKS                       R45 R45 K66 ["join"]
-      381 GETUPVAL                         R46 20
-      382 DUPTABLE                         R47 K72 [{["LayoutOrder"] = 1, ["placeholder"], ["value"], ["items"], ["onItemChanged"]}]
-      383 LOADK                            R50 K0 ["Plugin"]
-      384 LOADK                            R51 K73 ["GroupDropdown.Placeholder"]
-      385 NAMECALL                         R48 R3 K27 ["getText"]
-      387 CALL                             R48 3 1
-      388 SETTABLEKS                       R48 R47 K68 ["placeholder"]
-      390 SETTABLEKS                       R23 R47 K69 ["value"]
-      392 SETTABLEKS                       R20 R47 K70 ["items"]
-      394 NEWCLOSURE                       R48 P9
-      395 CAPTURE                          VAL R23
-      396 CAPTURE                          UPVAL U17
-      397 CAPTURE                          VAL R24
-      398 SETTABLEKS                       R48 R47 K71 ["onItemChanged"]
-      400 CALL                             R45 2 -1
-      401 CALL                             R43 -1 1
-      402 JUMP                             ; [+1]
-      403 LOADNIL                          R43
-      404 SETTABLEKS                       R43 R42 K8 ["GroupDropdown"]
-      406 JUMPIFNOT                        R19 ; [+31]
-      407 GETUPVAL                         R43 10
-      408 GETTABLEKS                       R43 R43 K13 ["createElement"]
-      410 GETUPVAL                         R44 18
-      411 GETTABLEKS                       R44 R44 K65 ["Root"]
-      413 GETUPVAL                         R45 19
-      414 GETTABLEKS                       R45 R45 K66 ["join"]
-      416 GETUPVAL                         R46 20
-      417 DUPTABLE                         R47 K75 [{["LayoutOrder"] = 2, ["placeholder"], ["value"], ["items"], ["onItemChanged"]}]
-      418 LOADK                            R50 K0 ["Plugin"]
-      419 LOADK                            R51 K76 ["SortDropdown.Placeholder"]
-      420 NAMECALL                         R48 R3 K27 ["getText"]
-      422 CALL                             R48 3 1
-      423 SETTABLEKS                       R48 R47 K68 ["placeholder"]
-      425 SETTABLEKS                       R21 R47 K69 ["value"]
-      427 SETTABLEKS                       R19 R47 K70 ["items"]
-      429 NEWCLOSURE                       R48 P10
-      430 CAPTURE                          VAL R21
-      431 CAPTURE                          UPVAL U17
-      432 CAPTURE                          VAL R22
-      433 SETTABLEKS                       R48 R47 K71 ["onItemChanged"]
-      435 CALL                             R45 2 -1
-      436 CALL                             R43 -1 1
-      437 JUMP                             ; [+1]
-      438 LOADNIL                          R43
-      439 SETTABLEKS                       R43 R42 K6 ["SortDropdown"]
-      441 GETTABLEKS                       R44 R0 K77 ["CanSwapBetweenViews"]
-      443 JUMPIFNOT                        R44 ; [+22]
-      444 GETUPVAL                         R43 10
-      445 GETTABLEKS                       R43 R43 K13 ["createElement"]
-      447 GETUPVAL                         R44 21
-      448 DUPTABLE                         R45 K81 [{["LayoutOrder"] = 3, ["id"], ["options"], ["onActivated"]}]
-      449 JUMPIFNOT                        R16 ; [+2]
-      450 LOADK                            R46 K82 ["grid"]
-      451 JUMP                             ; [+1]
-      452 LOADK                            R46 K83 ["list"]
-      453 SETTABLEKS                       R46 R45 K10 ["id"]
-      455 GETUPVAL                         R46 22
-      456 SETTABLEKS                       R46 R45 K79 ["options"]
-      458 NEWCLOSURE                       R46 P11
-      459 CAPTURE                          VAL R1
-      460 CAPTURE                          VAL R16
-      461 CAPTURE                          VAL R17
-      462 SETTABLEKS                       R46 R45 K80 ["onActivated"]
-      464 CALL                             R43 2 1
-      465 JUMP                             ; [+1]
-      466 LOADNIL                          R43
-      467 SETTABLEKS                       R43 R42 K63 ["ToggleView"]
-      469 CALL                             R39 3 1
-      470 SETTABLEKS                       R39 R38 K53 ["DropdownControls"]
-      472 CALL                             R35 3 1
-      473 SETTABLEKS                       R35 R34 K38 ["Controls"]
-      475 GETUPVAL                         R35 10
-      476 GETTABLEKS                       R35 R35 K13 ["createElement"]
-      478 GETUPVAL                         R36 23
-      479 DUPTABLE                         R37 K85 [{["LayoutOrder"], ["tag"] = "fill size-full"}]
-      480 MOVE                             R38 R26
-      481 CALL                             R38 0 1
-      482 SETTABLEKS                       R38 R37 K24 ["LayoutOrder"]
-      484 GETUPVAL                         R38 10
-      485 GETTABLEKS                       R38 R38 K13 ["createElement"]
-      487 GETTABLEKS                       R40 R0 K4 ["Tabs"]
-      489 GETTABLE                         R39 R40 R4
-      490 GETTABLEKS                       R39 R39 K39 ["PageComponent"]
-      492 DUPTABLE                         R40 K94 [{"DisplayComponent", "Dropdowns", "NoContentDisplayComponent", "CanDisplayComponentAdjustQuery", "DisplayComponentHasAdjustedQuery", "InitialContentHasLoaded", "CellSize", "CellPadding", "BaseQuery"}]
-      493 JUMPIFNOT                        R16 ; [+2]
-      494 GETUPVAL                         R41 24
-      495 JUMP                             ; [+5]
-      496 GETUPVAL                         R42 6
-      497 JUMPIFNOT                        R42 ; [+2]
-      498 GETUPVAL                         R41 25
-      499 JUMP                             ; [+1]
-      500 GETUPVAL                         R41 26
-      501 SETTABLEKS                       R41 R40 K86 ["DisplayComponent"]
-      503 SETTABLEKS                       R18 R40 K5 ["Dropdowns"]
-      505 NEWCLOSURE                       R41 P12
-      506 CAPTURE                          UPVAL U10
-      507 CAPTURE                          UPVAL U27
-      508 CAPTURE                          UPVAL U8
-      509 CAPTURE                          VAL R8
-      510 CAPTURE                          VAL R3
-      511 CAPTURE                          VAL R0
-      512 CAPTURE                          VAL R4
-      513 SETTABLEKS                       R41 R40 K87 ["NoContentDisplayComponent"]
-      515 NOT                              R41 R16
-      516 JUMPIFNOT                        R41 ; [+4]
-      517 MOVE                             R41 R18
-      518 JUMPIFNOT                        R41 ; [+2]
-      519 GETTABLEKS                       R41 R18 K6 ["SortDropdown"]
-      521 SETTABLEKS                       R41 R40 K88 ["CanDisplayComponentAdjustQuery"]
-      523 JUMPIF                           R16 ; [+3]
-      524 NEWCLOSURE                       R41 P13
-      525 CAPTURE                          VAL R7
-      526 JUMP                             ; [+1]
-      527 LOADNIL                          R41
-      528 SETTABLEKS                       R41 R40 K89 ["DisplayComponentHasAdjustedQuery"]
-      530 DUPCLOSURE                       R41 K95 [PROTO_16]
-      531 SETTABLEKS                       R41 R40 K90 ["InitialContentHasLoaded"]
-      533 GETTABLEKS                       R41 R0 K91 ["CellSize"]
-      535 SETTABLEKS                       R41 R40 K91 ["CellSize"]
-      537 GETUPVAL                         R41 28
-      538 SETTABLEKS                       R41 R40 K92 ["CellPadding"]
-      540 SETTABLEKS                       R25 R40 K93 ["BaseQuery"]
-      542 CALL                             R38 2 -1
-      543 CALL                             R35 -1 1
-      544 SETTABLEKS                       R35 R34 K39 ["PageComponent"]
-      546 CALL                             R31 3 1
-      547 SETTABLEKS                       R31 R30 K18 ["Content"]
-      549 CALL                             R27 3 -1
-      550 CLOSEUPVALS                      R20
-      551 RETURN                           R27 -1
+      239 GETUPVAL                         R35 13
+      240 CALL                             R35 0 1
+      241 JUMPIFNOT                        R35 ; [+2]
+      242 LOADNIL                          R34
+      243 JUMP                             ; [+13]
+      244 DUPTABLE                         R34 K32 [{"text", "onClick"}]
+      245 LOADK                            R37 K0 ["Plugin"]
+      246 LOADK                            R38 K33 ["OSDeprecationBanner.Action"]
+      247 NAMECALL                         R35 R3 K27 ["getText"]
+      249 CALL                             R35 3 1
+      250 SETTABLEKS                       R35 R34 K30 ["text"]
+      252 DUPCLOSURE                       R35 K34 [PROTO_9]
+      253 CAPTURE                          UPVAL U5
+      254 CAPTURE                          UPVAL U14
+      255 SETTABLEKS                       R35 R34 K31 ["onClick"]
+      257 SETTABLEKS                       R34 R33 K23 ["inlineAction"]
+      259 MOVE                             R34 R26
+      260 CALL                             R34 0 1
+      261 SETTABLEKS                       R34 R33 K24 ["LayoutOrder"]
+      263 CALL                             R31 2 1
+      264 JUMP                             ; [+1]
+      265 LOADNIL                          R31
+      266 SETTABLEKS                       R31 R30 K17 ["OSDeprecationBanner"]
+      268 GETUPVAL                         R31 10
+      269 GETTABLEKS                       R31 R31 K13 ["createElement"]
+      271 GETUPVAL                         R32 11
+      272 DUPTABLE                         R33 K36 [{["tag"] = "col gap-xlarge size-full-0 auto-y padding-x-xxlarge padding-top-small", ["LayoutOrder"]}]
+      273 MOVE                             R34 R26
+      274 CALL                             R34 0 1
+      275 SETTABLEKS                       R34 R33 K24 ["LayoutOrder"]
+      277 DUPTABLE                         R34 K40 [{"Header", "Controls", "PageComponent"}]
+      278 GETUPVAL                         R35 10
+      279 GETTABLEKS                       R35 R35 K13 ["createElement"]
+      281 GETUPVAL                         R36 15
+      282 DUPTABLE                         R37 K42 [{"title", "searchBar", "LayoutOrder"}]
+      283 GETTABLEKS                       R39 R0 K4 ["Tabs"]
+      285 GETTABLE                         R38 R39 R4
+      286 GETTABLEKS                       R38 R38 K43 ["Title"]
+      288 SETTABLEKS                       R38 R37 K20 ["title"]
+      290 GETTABLEKS                       R39 R0 K44 ["HasSearchBar"]
+      292 JUMPIFNOT                        R39 ; [+20]
+      293 DUPTABLE                         R38 K49 [{"calculatedQuery", "setSearchQuery", "resultComponent", "type"}]
+      294 SETTABLEKS                       R25 R38 K45 ["calculatedQuery"]
+      296 SETTABLEKS                       R9 R38 K46 ["setSearchQuery"]
+      298 GETTABLEKS                       R40 R0 K4 ["Tabs"]
+      300 GETTABLE                         R39 R40 R4
+      301 GETTABLEKS                       R39 R39 K39 ["PageComponent"]
+      303 SETTABLEKS                       R39 R38 K47 ["resultComponent"]
+      305 GETTABLEKS                       R40 R0 K4 ["Tabs"]
+      307 GETTABLE                         R39 R40 R4
+      308 GETTABLEKS                       R39 R39 K43 ["Title"]
+      310 SETTABLEKS                       R39 R38 K48 ["type"]
+      312 JUMP                             ; [+1]
+      313 LOADNIL                          R38
+      314 SETTABLEKS                       R38 R37 K41 ["searchBar"]
+      316 MOVE                             R38 R26
+      317 CALL                             R38 0 1
+      318 SETTABLEKS                       R38 R37 K24 ["LayoutOrder"]
+      320 CALL                             R35 2 1
+      321 SETTABLEKS                       R35 R34 K37 ["Header"]
+      323 GETUPVAL                         R35 10
+      324 GETTABLEKS                       R35 R35 K13 ["createElement"]
+      326 GETUPVAL                         R36 11
+      327 DUPTABLE                         R37 K51 [{["LayoutOrder"], ["tag"] = "row size-full-0 auto-y"}]
+      328 MOVE                             R38 R26
+      329 CALL                             R38 0 1
+      330 SETTABLEKS                       R38 R37 K24 ["LayoutOrder"]
+      332 DUPTABLE                         R38 K54 [{"Pills", "DropdownControls"}]
+      333 GETTABLEKS                       R40 R0 K55 ["HideTabs"]
+      335 JUMPIF                           R40 ; [+27]
+      336 GETUPVAL                         R39 10
+      337 GETTABLEKS                       R39 R39 K13 ["createElement"]
+      339 GETUPVAL                         R40 16
+      340 DUPTABLE                         R41 K59 [{"tabs", "defaultSelectedTab", "onTabSelected"}]
+      341 GETTABLEKS                       R42 R0 K4 ["Tabs"]
+      343 SETTABLEKS                       R42 R41 K56 ["tabs"]
+      345 GETTABLEKS                       R43 R0 K4 ["Tabs"]
+      347 GETTABLEN                        R42 R43 1
+      348 GETTABLEKS                       R42 R42 K60 ["Key"]
+      350 SETTABLEKS                       R42 R41 K57 ["defaultSelectedTab"]
+      352 NEWCLOSURE                       R42 P8
+      353 CAPTURE                          VAL R4
+      354 CAPTURE                          VAL R2
+      355 CAPTURE                          UPVAL U17
+      356 CAPTURE                          VAL R0
+      357 CAPTURE                          UPVAL U18
+      358 CAPTURE                          VAL R5
+      359 SETTABLEKS                       R42 R41 K58 ["onTabSelected"]
+      361 CALL                             R39 2 1
+      362 JUMP                             ; [+1]
+      363 LOADNIL                          R39
+      364 SETTABLEKS                       R39 R38 K52 ["Pills"]
+      366 GETUPVAL                         R39 10
+      367 GETTABLEKS                       R39 R39 K13 ["createElement"]
+      369 GETUPVAL                         R40 11
+      370 DUPTABLE                         R41 K62 [{["LayoutOrder"], ["tag"] = "row align-x-right grow gap-medium auto-xy"}]
+      371 MOVE                             R42 R26
+      372 CALL                             R42 0 1
+      373 SETTABLEKS                       R42 R41 K24 ["LayoutOrder"]
+      375 DUPTABLE                         R42 K64 [{"GroupDropdown", "SortDropdown", "ToggleView"}]
+      376 JUMPIFNOT                        R20 ; [+31]
+      377 GETUPVAL                         R43 10
+      378 GETTABLEKS                       R43 R43 K13 ["createElement"]
+      380 GETUPVAL                         R44 19
+      381 GETTABLEKS                       R44 R44 K65 ["Root"]
+      383 GETUPVAL                         R45 20
+      384 GETTABLEKS                       R45 R45 K66 ["join"]
+      386 GETUPVAL                         R46 21
+      387 DUPTABLE                         R47 K72 [{["LayoutOrder"] = 1, ["placeholder"], ["value"], ["items"], ["onItemChanged"]}]
+      388 LOADK                            R50 K0 ["Plugin"]
+      389 LOADK                            R51 K73 ["GroupDropdown.Placeholder"]
+      390 NAMECALL                         R48 R3 K27 ["getText"]
+      392 CALL                             R48 3 1
+      393 SETTABLEKS                       R48 R47 K68 ["placeholder"]
+      395 SETTABLEKS                       R23 R47 K69 ["value"]
+      397 SETTABLEKS                       R20 R47 K70 ["items"]
+      399 NEWCLOSURE                       R48 P9
+      400 CAPTURE                          VAL R23
+      401 CAPTURE                          UPVAL U18
+      402 CAPTURE                          VAL R24
+      403 SETTABLEKS                       R48 R47 K71 ["onItemChanged"]
+      405 CALL                             R45 2 -1
+      406 CALL                             R43 -1 1
+      407 JUMP                             ; [+1]
+      408 LOADNIL                          R43
+      409 SETTABLEKS                       R43 R42 K8 ["GroupDropdown"]
+      411 JUMPIFNOT                        R19 ; [+31]
+      412 GETUPVAL                         R43 10
+      413 GETTABLEKS                       R43 R43 K13 ["createElement"]
+      415 GETUPVAL                         R44 19
+      416 GETTABLEKS                       R44 R44 K65 ["Root"]
+      418 GETUPVAL                         R45 20
+      419 GETTABLEKS                       R45 R45 K66 ["join"]
+      421 GETUPVAL                         R46 21
+      422 DUPTABLE                         R47 K75 [{["LayoutOrder"] = 2, ["placeholder"], ["value"], ["items"], ["onItemChanged"]}]
+      423 LOADK                            R50 K0 ["Plugin"]
+      424 LOADK                            R51 K76 ["SortDropdown.Placeholder"]
+      425 NAMECALL                         R48 R3 K27 ["getText"]
+      427 CALL                             R48 3 1
+      428 SETTABLEKS                       R48 R47 K68 ["placeholder"]
+      430 SETTABLEKS                       R21 R47 K69 ["value"]
+      432 SETTABLEKS                       R19 R47 K70 ["items"]
+      434 NEWCLOSURE                       R48 P10
+      435 CAPTURE                          VAL R21
+      436 CAPTURE                          UPVAL U18
+      437 CAPTURE                          VAL R22
+      438 SETTABLEKS                       R48 R47 K71 ["onItemChanged"]
+      440 CALL                             R45 2 -1
+      441 CALL                             R43 -1 1
+      442 JUMP                             ; [+1]
+      443 LOADNIL                          R43
+      444 SETTABLEKS                       R43 R42 K6 ["SortDropdown"]
+      446 GETTABLEKS                       R44 R0 K77 ["CanSwapBetweenViews"]
+      448 JUMPIFNOT                        R44 ; [+22]
+      449 GETUPVAL                         R43 10
+      450 GETTABLEKS                       R43 R43 K13 ["createElement"]
+      452 GETUPVAL                         R44 22
+      453 DUPTABLE                         R45 K81 [{["LayoutOrder"] = 3, ["id"], ["options"], ["onActivated"]}]
+      454 JUMPIFNOT                        R16 ; [+2]
+      455 LOADK                            R46 K82 ["grid"]
+      456 JUMP                             ; [+1]
+      457 LOADK                            R46 K83 ["list"]
+      458 SETTABLEKS                       R46 R45 K10 ["id"]
+      460 GETUPVAL                         R46 23
+      461 SETTABLEKS                       R46 R45 K79 ["options"]
+      463 NEWCLOSURE                       R46 P11
+      464 CAPTURE                          VAL R1
+      465 CAPTURE                          VAL R16
+      466 CAPTURE                          VAL R17
+      467 SETTABLEKS                       R46 R45 K80 ["onActivated"]
+      469 CALL                             R43 2 1
+      470 JUMP                             ; [+1]
+      471 LOADNIL                          R43
+      472 SETTABLEKS                       R43 R42 K63 ["ToggleView"]
+      474 CALL                             R39 3 1
+      475 SETTABLEKS                       R39 R38 K53 ["DropdownControls"]
+      477 CALL                             R35 3 1
+      478 SETTABLEKS                       R35 R34 K38 ["Controls"]
+      480 GETUPVAL                         R35 10
+      481 GETTABLEKS                       R35 R35 K13 ["createElement"]
+      483 GETUPVAL                         R36 24
+      484 DUPTABLE                         R37 K85 [{["LayoutOrder"], ["tag"] = "fill size-full"}]
+      485 MOVE                             R38 R26
+      486 CALL                             R38 0 1
+      487 SETTABLEKS                       R38 R37 K24 ["LayoutOrder"]
+      489 GETUPVAL                         R38 10
+      490 GETTABLEKS                       R38 R38 K13 ["createElement"]
+      492 GETTABLEKS                       R40 R0 K4 ["Tabs"]
+      494 GETTABLE                         R39 R40 R4
+      495 GETTABLEKS                       R39 R39 K39 ["PageComponent"]
+      497 DUPTABLE                         R40 K94 [{"DisplayComponent", "Dropdowns", "NoContentDisplayComponent", "CanDisplayComponentAdjustQuery", "DisplayComponentHasAdjustedQuery", "InitialContentHasLoaded", "CellSize", "CellPadding", "BaseQuery"}]
+      498 JUMPIFNOT                        R16 ; [+2]
+      499 GETUPVAL                         R41 25
+      500 JUMP                             ; [+5]
+      501 GETUPVAL                         R42 6
+      502 JUMPIFNOT                        R42 ; [+2]
+      503 GETUPVAL                         R41 26
+      504 JUMP                             ; [+1]
+      505 GETUPVAL                         R41 27
+      506 SETTABLEKS                       R41 R40 K86 ["DisplayComponent"]
+      508 SETTABLEKS                       R18 R40 K5 ["Dropdowns"]
+      510 NEWCLOSURE                       R41 P12
+      511 CAPTURE                          UPVAL U10
+      512 CAPTURE                          UPVAL U28
+      513 CAPTURE                          UPVAL U8
+      514 CAPTURE                          VAL R8
+      515 CAPTURE                          VAL R3
+      516 CAPTURE                          VAL R0
+      517 CAPTURE                          VAL R4
+      518 SETTABLEKS                       R41 R40 K87 ["NoContentDisplayComponent"]
+      520 NOT                              R41 R16
+      521 JUMPIFNOT                        R41 ; [+4]
+      522 MOVE                             R41 R18
+      523 JUMPIFNOT                        R41 ; [+2]
+      524 GETTABLEKS                       R41 R18 K6 ["SortDropdown"]
+      526 SETTABLEKS                       R41 R40 K88 ["CanDisplayComponentAdjustQuery"]
+      528 JUMPIF                           R16 ; [+3]
+      529 NEWCLOSURE                       R41 P13
+      530 CAPTURE                          VAL R7
+      531 JUMP                             ; [+1]
+      532 LOADNIL                          R41
+      533 SETTABLEKS                       R41 R40 K89 ["DisplayComponentHasAdjustedQuery"]
+      535 DUPCLOSURE                       R41 K95 [PROTO_16]
+      536 SETTABLEKS                       R41 R40 K90 ["InitialContentHasLoaded"]
+      538 GETTABLEKS                       R41 R0 K91 ["CellSize"]
+      540 SETTABLEKS                       R41 R40 K91 ["CellSize"]
+      542 GETUPVAL                         R41 29
+      543 SETTABLEKS                       R41 R40 K92 ["CellPadding"]
+      545 SETTABLEKS                       R25 R40 K93 ["BaseQuery"]
+      547 CALL                             R38 2 -1
+      548 CALL                             R35 -1 1
+      549 SETTABLEKS                       R35 R34 K39 ["PageComponent"]
+      551 CALL                             R31 3 1
+      552 SETTABLEKS                       R31 R30 K18 ["Content"]
+      554 CALL                             R27 3 -1
+      555 CLOSEUPVALS                      R20
+      556 RETURN                           R27 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -762,57 +767,63 @@ MAIN:
       225 GETTABLEKS                       R34 R34 K45 ["getFStringLuaStartPageOSDeprecationLink"]
       227 CALL                             R33 1 1
       228 CALL                             R33 0 1
-      229 GETIMPORT                        R34 K48 [UDim2.fromOffset]
-      231 LOADN                            R35 16
-      232 LOADN                            R36 16
-      233 CALL                             R34 2 1
-      234 DUPTABLE                         R35 K55 [{["label"] = "", ["width"], ["size"], ["maxHeight"] = 300}]
-      235 GETIMPORT                        R36 K58 [UDim.new]
-      237 LOADN                            R37 0
-      238 LOADN                            R38 186
-      239 CALL                             R36 2 1
-      240 SETTABLEKS                       R36 R35 K51 ["width"]
-      242 GETTABLEKS                       R36 R21 K59 ["Small"]
-      244 SETTABLEKS                       R36 R35 K52 ["size"]
-      246 NEWTABLE                         R36 0 2
-      248 DUPTABLE                         R37 K63 [{["id"] = "grid", ["name"]}]
-      249 GETTABLEKS                       R38 R22 K22 ["Grid"]
-      251 SETTABLEKS                       R38 R37 K62 ["name"]
-      253 DUPTABLE                         R38 K65 [{["id"] = "list", ["name"]}]
-      254 GETTABLEKS                       R39 R22 K66 ["ListBulleted"]
-      256 SETTABLEKS                       R39 R38 K62 ["name"]
-      258 SETLIST                          R36 R37 2 [1]
-      260 DUPCLOSURE                       R37 K67 [PROTO_1]
-      261 CAPTURE                          VAL R7
-      262 DUPCLOSURE                       R38 K68 [PROTO_2]
-      263 DUPCLOSURE                       R39 K69 [PROTO_17]
-      264 CAPTURE                          VAL R31
-      265 CAPTURE                          VAL R23
-      266 CAPTURE                          VAL R11
-      267 CAPTURE                          VAL R2
-      268 CAPTURE                          VAL R3
-      269 CAPTURE                          VAL R5
-      270 CAPTURE                          VAL R28
-      271 CAPTURE                          VAL R7
-      272 CAPTURE                          VAL R8
-      273 CAPTURE                          VAL R10
-      274 CAPTURE                          VAL R1
-      275 CAPTURE                          VAL R19
-      276 CAPTURE                          VAL R14
-      277 CAPTURE                          VAL R33
-      278 CAPTURE                          VAL R16
-      279 CAPTURE                          VAL R26
-      280 CAPTURE                          VAL R24
-      281 CAPTURE                          VAL R25
-      282 CAPTURE                          VAL R20
-      283 CAPTURE                          VAL R6
-      284 CAPTURE                          VAL R35
-      285 CAPTURE                          VAL R15
-      286 CAPTURE                          VAL R36
-      287 CAPTURE                          VAL R17
-      288 CAPTURE                          VAL R13
-      289 CAPTURE                          VAL R29
-      290 CAPTURE                          VAL R27
-      291 CAPTURE                          VAL R30
-      292 CAPTURE                          VAL R34
-      293 RETURN                           R39 1
+      229 GETIMPORT                        R34 K5 [require]
+      231 GETTABLEKS                       R35 R0 K10 ["Src"]
+      233 GETTABLEKS                       R35 R35 K40 ["SharedFlags"]
+      235 GETTABLEKS                       R35 R35 K46 ["getFFlagIsLuobuBuild"]
+      237 CALL                             R34 1 1
+      238 GETIMPORT                        R35 K49 [UDim2.fromOffset]
+      240 LOADN                            R36 16
+      241 LOADN                            R37 16
+      242 CALL                             R35 2 1
+      243 DUPTABLE                         R36 K56 [{["label"] = "", ["width"], ["size"], ["maxHeight"] = 300}]
+      244 GETIMPORT                        R37 K59 [UDim.new]
+      246 LOADN                            R38 0
+      247 LOADN                            R39 186
+      248 CALL                             R37 2 1
+      249 SETTABLEKS                       R37 R36 K52 ["width"]
+      251 GETTABLEKS                       R37 R21 K60 ["Small"]
+      253 SETTABLEKS                       R37 R36 K53 ["size"]
+      255 NEWTABLE                         R37 0 2
+      257 DUPTABLE                         R38 K64 [{["id"] = "grid", ["name"]}]
+      258 GETTABLEKS                       R39 R22 K22 ["Grid"]
+      260 SETTABLEKS                       R39 R38 K63 ["name"]
+      262 DUPTABLE                         R39 K66 [{["id"] = "list", ["name"]}]
+      263 GETTABLEKS                       R40 R22 K67 ["ListBulleted"]
+      265 SETTABLEKS                       R40 R39 K63 ["name"]
+      267 SETLIST                          R37 R38 2 [1]
+      269 DUPCLOSURE                       R38 K68 [PROTO_1]
+      270 CAPTURE                          VAL R7
+      271 DUPCLOSURE                       R39 K69 [PROTO_2]
+      272 DUPCLOSURE                       R40 K70 [PROTO_17]
+      273 CAPTURE                          VAL R31
+      274 CAPTURE                          VAL R23
+      275 CAPTURE                          VAL R11
+      276 CAPTURE                          VAL R2
+      277 CAPTURE                          VAL R3
+      278 CAPTURE                          VAL R5
+      279 CAPTURE                          VAL R28
+      280 CAPTURE                          VAL R7
+      281 CAPTURE                          VAL R8
+      282 CAPTURE                          VAL R10
+      283 CAPTURE                          VAL R1
+      284 CAPTURE                          VAL R19
+      285 CAPTURE                          VAL R14
+      286 CAPTURE                          VAL R34
+      287 CAPTURE                          VAL R33
+      288 CAPTURE                          VAL R16
+      289 CAPTURE                          VAL R26
+      290 CAPTURE                          VAL R24
+      291 CAPTURE                          VAL R25
+      292 CAPTURE                          VAL R20
+      293 CAPTURE                          VAL R6
+      294 CAPTURE                          VAL R36
+      295 CAPTURE                          VAL R15
+      296 CAPTURE                          VAL R37
+      297 CAPTURE                          VAL R17
+      298 CAPTURE                          VAL R13
+      299 CAPTURE                          VAL R29
+      300 CAPTURE                          VAL R27
+      301 CAPTURE                          VAL R30
+      302 CAPTURE                          VAL R35
+      303 RETURN                           R40 1

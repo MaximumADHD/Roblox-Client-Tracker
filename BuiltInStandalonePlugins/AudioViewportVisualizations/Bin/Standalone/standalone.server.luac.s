@@ -1,3 +1,29 @@
+PROTO_0:
+        0 GETIMPORT                        R0 K1 [require]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K2 ["Src"]
+        5 GETTABLEKS                       R1 R1 K3 ["Resources"]
+        7 GETTABLEKS                       R1 R1 K4 ["Telemetry"]
+        9 CALL                             R0 1 1
+       10 GETTABLEKS                       R0 R0 K5 ["init"]
+       12 GETIMPORT                        R1 K7 [plugin]
+       14 CALL                             R0 1 0
+       15 RETURN                           R0 0
+
+PROTO_1:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 DUPCLOSURE                       R1 K2 [PROTO_0]
+        3 CAPTURE                          UPVAL U0
+        4 CALL                             R0 1 2
+        5 JUMPIF                           R0 ; [+8]
+        6 GETIMPORT                        R2 K4 [warn]
+        8 LOADK                            R3 K5 ["AudioViewportVisualizations telemetry failed to start: %*"]
+        9 MOVE                             R5 R1
+       10 NAMECALL                         R3 R3 K6 ["format"]
+       12 CALL                             R3 2 1
+       13 CALL                             R2 1 0
+       14 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -48,7 +74,18 @@ MAIN:
        74 GETTABLEKS                       R6 R6 K7 ["Common"]
        76 GETTABLEKS                       R6 R6 K25 ["setup"]
        78 CALL                             R5 1 1
-       79 MOVE                             R6 R5
-       80 GETIMPORT                        R7 K22 [plugin]
-       82 CALL                             R6 1 0
-       83 RETURN                           R0 0
+       79 DUPCLOSURE                       R6 K26 [PROTO_1]
+       80 CAPTURE                          VAL R0
+       81 GETTABLEKS                       R7 R1 K27 ["getFFlagEnableAudioViewportVisualizationsTelemetry"]
+       83 CALL                             R7 0 1
+       84 JUMPIFNOT                        R7 ; [+8]
+       85 MOVE                             R7 R5
+       86 GETIMPORT                        R8 K22 [plugin]
+       88 DUPTABLE                         R9 K29 [{"onActionsCreated"}]
+       89 SETTABLEKS                       R6 R9 K28 ["onActionsCreated"]
+       91 CALL                             R7 2 0
+       92 RETURN                           R0 0
+       93 MOVE                             R7 R5
+       94 GETIMPORT                        R8 K22 [plugin]
+       96 CALL                             R7 1 0
+       97 RETURN                           R0 0

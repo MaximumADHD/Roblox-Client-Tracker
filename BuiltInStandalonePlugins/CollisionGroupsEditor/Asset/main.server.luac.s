@@ -1005,144 +1005,160 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETIMPORT                        R1 K4 [require]
         9 GETTABLEKS                       R2 R0 K5 ["Common"]
-       11 GETTABLEKS                       R2 R2 K6 ["commonInit"]
-       13 CALL                             R1 1 1
-       14 MOVE                             R2 R1
-       15 CALL                             R2 0 0
-       16 GETIMPORT                        R2 K8 [game]
-       18 LOADK                            R4 K9 ["PhysicsService"]
-       19 NAMECALL                         R2 R2 K10 ["GetService"]
-       21 CALL                             R2 2 1
-       22 GETIMPORT                        R3 K8 [game]
-       24 LOADK                            R5 K11 ["ChangeHistoryService"]
-       25 NAMECALL                         R3 R3 K10 ["GetService"]
-       27 CALL                             R3 2 1
-       28 GETIMPORT                        R4 K8 [game]
-       30 LOADK                            R6 K12 ["Selection"]
-       31 NAMECALL                         R4 R4 K10 ["GetService"]
-       33 CALL                             R4 2 1
-       34 GETIMPORT                        R5 K4 [require]
-       36 GETTABLEKS                       R6 R0 K13 ["Plugin"]
-       38 GETTABLEKS                       R6 R6 K14 ["getWorlds"]
-       40 CALL                             R5 1 1
-       41 GETIMPORT                        R6 K4 [require]
-       43 GETTABLEKS                       R7 R0 K13 ["Plugin"]
-       45 GETTABLEKS                       R7 R7 K15 ["getSelectedParts"]
-       47 CALL                             R6 1 1
-       48 GETIMPORT                        R7 K4 [require]
-       50 GETTABLEKS                       R8 R0 K13 ["Plugin"]
-       52 GETTABLEKS                       R8 R8 K16 ["getPartsInGroup"]
-       54 CALL                             R7 1 1
-       55 GETIMPORT                        R8 K4 [require]
-       57 GETTABLEKS                       R9 R0 K13 ["Plugin"]
-       59 GETTABLEKS                       R9 R9 K17 ["getGroups"]
-       61 CALL                             R8 1 1
-       62 GETIMPORT                        R9 K4 [require]
-       64 GETTABLEKS                       R10 R0 K13 ["Plugin"]
-       66 GETTABLEKS                       R10 R10 K18 ["getSelectedGroupIds"]
-       68 CALL                             R9 1 1
-       69 GETIMPORT                        R10 K8 [game]
-       71 LOADK                            R12 K19 ["StudioService"]
-       72 NAMECALL                         R10 R10 K10 ["GetService"]
-       74 CALL                             R10 2 1
-       75 NAMECALL                         R10 R10 K20 ["HasInternalPermission"]
-       77 CALL                             R10 1 1
-       78 GETIMPORT                        R11 K4 [require]
-       80 GETTABLEKS                       R12 R0 K13 ["Plugin"]
-       82 GETTABLEKS                       R12 R12 K21 ["getEngineFeatureMultiworldCollisionGroups"]
-       84 CALL                             R11 1 1
-       85 GETIMPORT                        R12 K23 [workspace]
-       87 LOADNIL                          R13
-       88 LOADNIL                          R14
-       89 NEWCLOSURE                       R15 P0
-       90 CAPTURE                          REF R14
-       91 NEWCLOSURE                       R13 P1
-       92 CAPTURE                          REF R14
-       93 CAPTURE                          VAL R11
-       94 CAPTURE                          REF R12
-       95 CAPTURE                          VAL R2
-       96 LOADNIL                          R16
-       97 NEWCLOSURE                       R17 P2
-       98 CAPTURE                          VAL R5
-       99 CAPTURE                          REF R12
-      100 CAPTURE                          REF R16
-      101 NEWCLOSURE                       R18 P3
-      102 CAPTURE                          VAL R11
-      103 CAPTURE                          VAL R8
-      104 CAPTURE                          REF R12
-      105 CAPTURE                          VAL R9
-      106 CAPTURE                          VAL R5
-      107 DUPCLOSURE                       R19 K24 [PROTO_4]
-      108 CAPTURE                          VAL R18
-      109 NEWTABLE                         R20 0 0
-      111 NEWCLOSURE                       R21 P5
-      112 CAPTURE                          VAL R20
-      113 CAPTURE                          VAL R4
-      114 CAPTURE                          VAL R11
-      115 CAPTURE                          REF R12
-      116 CAPTURE                          VAL R18
-      117 CAPTURE                          VAL R3
-      118 DUPCLOSURE                       R22 K25 [PROTO_9]
-      119 CAPTURE                          VAL R20
-      120 NEWCLOSURE                       R23 P7
-      121 CAPTURE                          VAL R11
-      122 CAPTURE                          REF R12
-      123 CAPTURE                          VAL R2
-      124 NEWTABLE                         R24 0 0
-      126 NEWCLOSURE                       R25 P8
-      127 CAPTURE                          VAL R24
-      128 CAPTURE                          VAL R21
-      129 CAPTURE                          VAL R18
-      130 CAPTURE                          VAL R20
-      131 CAPTURE                          VAL R11
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          REF R12
-      134 CAPTURE                          VAL R4
-      135 CAPTURE                          VAL R3
-      136 CAPTURE                          VAL R2
-      137 CAPTURE                          VAL R7
-      138 CAPTURE                          VAL R6
-      139 CAPTURE                          VAL R23
-      140 DUPCLOSURE                       R26 K26 [PROTO_21]
-      141 CAPTURE                          VAL R24
-      142 LOADB                            R27 0
-      143 NEWCLOSURE                       R28 P10
-      144 CAPTURE                          REF R27
-      145 CAPTURE                          VAL R11
-      146 CAPTURE                          VAL R17
-      147 CAPTURE                          VAL R18
-      148 CAPTURE                          REF R13
-      149 NEWCLOSURE                       R29 P11
-      150 CAPTURE                          REF R27
-      151 LOADNIL                          R30
-      152 NEWCLOSURE                       R31 P12
-      153 CAPTURE                          REF R12
-      154 CAPTURE                          REF R14
-      155 CAPTURE                          REF R16
-      156 CAPTURE                          VAL R18
-      157 CAPTURE                          REF R27
-      158 CAPTURE                          VAL R11
-      159 CAPTURE                          VAL R17
-      160 CAPTURE                          REF R13
-      161 CAPTURE                          VAL R25
-      162 CAPTURE                          VAL R10
-      163 CAPTURE                          VAL R0
-      164 CAPTURE                          REF R30
-      165 NEWCLOSURE                       R32 P13
-      166 CAPTURE                          VAL R24
-      167 CAPTURE                          VAL R20
-      168 CAPTURE                          REF R27
-      169 CAPTURE                          REF R30
-      170 NEWCLOSURE                       R33 P14
-      171 CAPTURE                          VAL R24
-      172 CAPTURE                          VAL R20
-      173 CAPTURE                          REF R27
-      174 CAPTURE                          REF R30
-      175 CAPTURE                          VAL R31
-      176 GETIMPORT                        R34 K28 [plugin]
-      178 GETTABLEKS                       R34 R34 K29 ["MultipleDocumentInterfaceInstance"]
-      180 MOVE                             R35 R33
-      181 GETTABLEKS                       R36 R34 K30 ["FocusedDataModelSession"]
-      183 CALL                             R35 1 0
-      184 CLOSEUPVALS                      R12
-      185 RETURN                           R0 0
+       11 GETTABLEKS                       R2 R2 K6 ["defineLuaFlags"]
+       13 CALL                             R1 1 0
+       14 GETIMPORT                        R1 K4 [require]
+       16 GETTABLEKS                       R2 R0 K7 ["Packages"]
+       18 GETTABLEKS                       R2 R2 K8 ["TestLoader"]
+       20 CALL                             R1 1 1
+       21 GETTABLEKS                       R2 R1 K9 ["launch"]
+       23 LOADK                            R3 K10 ["CollisionGroupsEditor"]
+       24 GETTABLEKS                       R4 R0 K11 ["Plugin"]
+       26 CALL                             R2 2 0
+       27 GETTABLEKS                       R2 R1 K12 ["isCli"]
+       29 CALL                             R2 0 1
+       30 JUMPIFNOT                        R2 ; [+1]
+       31 RETURN                           R0 0
+       32 GETIMPORT                        R2 K4 [require]
+       34 GETTABLEKS                       R3 R0 K5 ["Common"]
+       36 GETTABLEKS                       R3 R3 K13 ["commonInit"]
+       38 CALL                             R2 1 1
+       39 MOVE                             R3 R2
+       40 CALL                             R3 0 0
+       41 GETIMPORT                        R3 K15 [game]
+       43 LOADK                            R5 K16 ["PhysicsService"]
+       44 NAMECALL                         R3 R3 K17 ["GetService"]
+       46 CALL                             R3 2 1
+       47 GETIMPORT                        R4 K15 [game]
+       49 LOADK                            R6 K18 ["ChangeHistoryService"]
+       50 NAMECALL                         R4 R4 K17 ["GetService"]
+       52 CALL                             R4 2 1
+       53 GETIMPORT                        R5 K15 [game]
+       55 LOADK                            R7 K19 ["Selection"]
+       56 NAMECALL                         R5 R5 K17 ["GetService"]
+       58 CALL                             R5 2 1
+       59 GETIMPORT                        R6 K4 [require]
+       61 GETTABLEKS                       R7 R0 K11 ["Plugin"]
+       63 GETTABLEKS                       R7 R7 K20 ["getWorlds"]
+       65 CALL                             R6 1 1
+       66 GETIMPORT                        R7 K4 [require]
+       68 GETTABLEKS                       R8 R0 K11 ["Plugin"]
+       70 GETTABLEKS                       R8 R8 K21 ["getSelectedParts"]
+       72 CALL                             R7 1 1
+       73 GETIMPORT                        R8 K4 [require]
+       75 GETTABLEKS                       R9 R0 K11 ["Plugin"]
+       77 GETTABLEKS                       R9 R9 K22 ["getPartsInGroup"]
+       79 CALL                             R8 1 1
+       80 GETIMPORT                        R9 K4 [require]
+       82 GETTABLEKS                       R10 R0 K11 ["Plugin"]
+       84 GETTABLEKS                       R10 R10 K23 ["getGroups"]
+       86 CALL                             R9 1 1
+       87 GETIMPORT                        R10 K4 [require]
+       89 GETTABLEKS                       R11 R0 K11 ["Plugin"]
+       91 GETTABLEKS                       R11 R11 K24 ["getSelectedGroupIds"]
+       93 CALL                             R10 1 1
+       94 GETIMPORT                        R11 K15 [game]
+       96 LOADK                            R13 K25 ["StudioService"]
+       97 NAMECALL                         R11 R11 K17 ["GetService"]
+       99 CALL                             R11 2 1
+      100 NAMECALL                         R11 R11 K26 ["HasInternalPermission"]
+      102 CALL                             R11 1 1
+      103 GETIMPORT                        R12 K4 [require]
+      105 GETTABLEKS                       R13 R0 K11 ["Plugin"]
+      107 GETTABLEKS                       R13 R13 K27 ["getEngineFeatureMultiworldCollisionGroups"]
+      109 CALL                             R12 1 1
+      110 GETIMPORT                        R13 K29 [workspace]
+      112 LOADNIL                          R14
+      113 LOADNIL                          R15
+      114 NEWCLOSURE                       R16 P0
+      115 CAPTURE                          REF R15
+      116 NEWCLOSURE                       R14 P1
+      117 CAPTURE                          REF R15
+      118 CAPTURE                          VAL R12
+      119 CAPTURE                          REF R13
+      120 CAPTURE                          VAL R3
+      121 LOADNIL                          R17
+      122 NEWCLOSURE                       R18 P2
+      123 CAPTURE                          VAL R6
+      124 CAPTURE                          REF R13
+      125 CAPTURE                          REF R17
+      126 NEWCLOSURE                       R19 P3
+      127 CAPTURE                          VAL R12
+      128 CAPTURE                          VAL R9
+      129 CAPTURE                          REF R13
+      130 CAPTURE                          VAL R10
+      131 CAPTURE                          VAL R6
+      132 DUPCLOSURE                       R20 K30 [PROTO_4]
+      133 CAPTURE                          VAL R19
+      134 NEWTABLE                         R21 0 0
+      136 NEWCLOSURE                       R22 P5
+      137 CAPTURE                          VAL R21
+      138 CAPTURE                          VAL R5
+      139 CAPTURE                          VAL R12
+      140 CAPTURE                          REF R13
+      141 CAPTURE                          VAL R19
+      142 CAPTURE                          VAL R4
+      143 DUPCLOSURE                       R23 K31 [PROTO_9]
+      144 CAPTURE                          VAL R21
+      145 NEWCLOSURE                       R24 P7
+      146 CAPTURE                          VAL R12
+      147 CAPTURE                          REF R13
+      148 CAPTURE                          VAL R3
+      149 NEWTABLE                         R25 0 0
+      151 NEWCLOSURE                       R26 P8
+      152 CAPTURE                          VAL R25
+      153 CAPTURE                          VAL R22
+      154 CAPTURE                          VAL R19
+      155 CAPTURE                          VAL R21
+      156 CAPTURE                          VAL R12
+      157 CAPTURE                          VAL R6
+      158 CAPTURE                          REF R13
+      159 CAPTURE                          VAL R5
+      160 CAPTURE                          VAL R4
+      161 CAPTURE                          VAL R3
+      162 CAPTURE                          VAL R8
+      163 CAPTURE                          VAL R7
+      164 CAPTURE                          VAL R24
+      165 DUPCLOSURE                       R27 K32 [PROTO_21]
+      166 CAPTURE                          VAL R25
+      167 LOADB                            R28 0
+      168 NEWCLOSURE                       R29 P10
+      169 CAPTURE                          REF R28
+      170 CAPTURE                          VAL R12
+      171 CAPTURE                          VAL R18
+      172 CAPTURE                          VAL R19
+      173 CAPTURE                          REF R14
+      174 NEWCLOSURE                       R30 P11
+      175 CAPTURE                          REF R28
+      176 LOADNIL                          R31
+      177 NEWCLOSURE                       R32 P12
+      178 CAPTURE                          REF R13
+      179 CAPTURE                          REF R15
+      180 CAPTURE                          REF R17
+      181 CAPTURE                          VAL R19
+      182 CAPTURE                          REF R28
+      183 CAPTURE                          VAL R12
+      184 CAPTURE                          VAL R18
+      185 CAPTURE                          REF R14
+      186 CAPTURE                          VAL R26
+      187 CAPTURE                          VAL R11
+      188 CAPTURE                          VAL R0
+      189 CAPTURE                          REF R31
+      190 NEWCLOSURE                       R33 P13
+      191 CAPTURE                          VAL R25
+      192 CAPTURE                          VAL R21
+      193 CAPTURE                          REF R28
+      194 CAPTURE                          REF R31
+      195 NEWCLOSURE                       R34 P14
+      196 CAPTURE                          VAL R25
+      197 CAPTURE                          VAL R21
+      198 CAPTURE                          REF R28
+      199 CAPTURE                          REF R31
+      200 CAPTURE                          VAL R32
+      201 GETIMPORT                        R35 K34 [plugin]
+      203 GETTABLEKS                       R35 R35 K35 ["MultipleDocumentInterfaceInstance"]
+      205 MOVE                             R36 R34
+      206 GETTABLEKS                       R37 R35 K36 ["FocusedDataModelSession"]
+      208 CALL                             R36 1 0
+      209 CLOSEUPVALS                      R13
+      210 RETURN                           R0 0

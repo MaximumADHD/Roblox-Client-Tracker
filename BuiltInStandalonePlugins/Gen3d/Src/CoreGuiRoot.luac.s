@@ -158,16 +158,16 @@ PROTO_4:
       149 GETTABLEKS                       R27 R27 K25 ["Provider"]
       151 DUPTABLE                         R28 K31 [{"value"}]
       152 SETTABLEKS                       R9 R28 K30 ["value"]
-      154 DUPTABLE                         R29 K36 [{"Popover", "SceneGen"}]
+      154 DUPTABLE                         R29 K37 [{"Popover", "SceneGen", "MeshGen"}]
       155 SETTABLEKS                       R10 R29 K34 ["Popover"]
       157 GETUPVAL                         R31 13
-      158 GETTABLEKS                       R31 R31 K37 ["getFFlagGen3dSceneGenSurface"]
+      158 GETTABLEKS                       R31 R31 K38 ["getFFlagGen3dSceneGenSurface"]
       160 CALL                             R31 0 1
       161 JUMPIFNOT                        R31 ; [+13]
       162 GETUPVAL                         R30 1
       163 GETTABLEKS                       R30 R30 K14 ["createElement"]
       165 GETUPVAL                         R31 18
-      166 DUPTABLE                         R32 K38 [{"Plugin", "EditSessionId"}]
+      166 DUPTABLE                         R32 K39 [{"Plugin", "EditSessionId"}]
       167 SETTABLEKS                       R1 R32 K0 ["Plugin"]
       169 GETTABLEKS                       R33 R0 K9 ["EditSessionId"]
       171 SETTABLEKS                       R33 R32 K9 ["EditSessionId"]
@@ -175,16 +175,27 @@ PROTO_4:
       174 JUMP                             ; [+1]
       175 LOADNIL                          R30
       176 SETTABLEKS                       R30 R29 K35 ["SceneGen"]
-      178 CALL                             R26 3 1
-      179 SETTABLEKS                       R26 R25 K32 ["ToggleProvider"]
-      181 CALL                             R22 3 1
-      182 SETTABLEKS                       R22 R21 K28 ["ViewModelProvider"]
-      184 CALL                             R18 3 1
-      185 SETTABLEKS                       R18 R17 K23 ["LocalizationProvider"]
-      187 CALL                             R14 3 1
-      188 SETTABLEKS                       R14 R13 K17 ["FoundationProvider"]
-      190 CALL                             R11 2 -1
-      191 RETURN                           R11 -1
+      178 GETUPVAL                         R31 13
+      179 GETTABLEKS                       R31 R31 K40 ["getFFlagGen3dMeshGen"]
+      181 CALL                             R31 0 1
+      182 JUMPIFNOT                        R31 ; [+6]
+      183 GETUPVAL                         R30 1
+      184 GETTABLEKS                       R30 R30 K14 ["createElement"]
+      186 GETUPVAL                         R31 19
+      187 CALL                             R30 1 1
+      188 JUMP                             ; [+1]
+      189 LOADNIL                          R30
+      190 SETTABLEKS                       R30 R29 K36 ["MeshGen"]
+      192 CALL                             R26 3 1
+      193 SETTABLEKS                       R26 R25 K32 ["ToggleProvider"]
+      195 CALL                             R22 3 1
+      196 SETTABLEKS                       R22 R21 K28 ["ViewModelProvider"]
+      198 CALL                             R18 3 1
+      199 SETTABLEKS                       R18 R17 K23 ["LocalizationProvider"]
+      201 CALL                             R14 3 1
+      202 SETTABLEKS                       R14 R13 K17 ["FoundationProvider"]
+      204 CALL                             R11 2 -1
+      205 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -251,43 +262,49 @@ MAIN:
       111 GETIMPORT                        R19 K5 [require]
       113 GETTABLEKS                       R20 R0 K21 ["Src"]
       115 GETTABLEKS                       R20 R20 K31 ["CoreGuiComponents"]
-      117 GETTABLEKS                       R20 R20 K33 ["SceneGenView"]
+      117 GETTABLEKS                       R20 R20 K33 ["MeshGenPopover"]
       119 CALL                             R19 1 1
       120 GETIMPORT                        R20 K5 [require]
-      122 GETTABLEKS                       R21 R0 K34 ["Bin"]
-      124 GETTABLEKS                       R21 R21 K35 ["Common"]
-      126 GETTABLEKS                       R21 R21 K36 ["defineLuaFlags"]
+      122 GETTABLEKS                       R21 R0 K21 ["Src"]
+      124 GETTABLEKS                       R21 R21 K31 ["CoreGuiComponents"]
+      126 GETTABLEKS                       R21 R21 K34 ["SceneGenView"]
       128 CALL                             R20 1 1
-      129 GETTABLEKS                       R21 R6 K13 ["Localization"]
-      131 GETTABLEKS                       R21 R21 K37 ["new"]
-      133 DUPTABLE                         R22 K41 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Gen3d"}]
-      134 SETTABLEKS                       R12 R22 K38 ["stringResourceTable"]
-      136 SETTABLEKS                       R13 R22 K39 ["translationResourceTable"]
-      138 CALL                             R21 1 1
-      139 GETTABLEKS                       R22 R5 K13 ["Localization"]
-      141 GETTABLEKS                       R22 R22 K37 ["new"]
-      143 DUPTABLE                         R23 K41 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Gen3d"}]
-      144 SETTABLEKS                       R12 R23 K38 ["stringResourceTable"]
-      146 SETTABLEKS                       R13 R23 K39 ["translationResourceTable"]
-      148 CALL                             R22 1 1
-      149 DUPCLOSURE                       R23 K42 [PROTO_4]
-      150 CAPTURE                          VAL R17
-      151 CAPTURE                          VAL R1
-      152 CAPTURE                          VAL R3
-      153 CAPTURE                          VAL R11
-      154 CAPTURE                          VAL R16
-      155 CAPTURE                          VAL R18
-      156 CAPTURE                          VAL R6
-      157 CAPTURE                          VAL R7
-      158 CAPTURE                          VAL R8
-      159 CAPTURE                          VAL R9
-      160 CAPTURE                          VAL R21
-      161 CAPTURE                          VAL R10
-      162 CAPTURE                          VAL R4
-      163 CAPTURE                          VAL R20
-      164 CAPTURE                          VAL R5
-      165 CAPTURE                          VAL R22
-      166 CAPTURE                          VAL R14
-      167 CAPTURE                          VAL R15
-      168 CAPTURE                          VAL R19
-      169 RETURN                           R23 1
+      129 GETIMPORT                        R21 K5 [require]
+      131 GETTABLEKS                       R22 R0 K35 ["Bin"]
+      133 GETTABLEKS                       R22 R22 K36 ["Common"]
+      135 GETTABLEKS                       R22 R22 K37 ["defineLuaFlags"]
+      137 CALL                             R21 1 1
+      138 GETTABLEKS                       R22 R6 K13 ["Localization"]
+      140 GETTABLEKS                       R22 R22 K38 ["new"]
+      142 DUPTABLE                         R23 K42 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Gen3d"}]
+      143 SETTABLEKS                       R12 R23 K39 ["stringResourceTable"]
+      145 SETTABLEKS                       R13 R23 K40 ["translationResourceTable"]
+      147 CALL                             R22 1 1
+      148 GETTABLEKS                       R23 R5 K13 ["Localization"]
+      150 GETTABLEKS                       R23 R23 K38 ["new"]
+      152 DUPTABLE                         R24 K42 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Gen3d"}]
+      153 SETTABLEKS                       R12 R24 K39 ["stringResourceTable"]
+      155 SETTABLEKS                       R13 R24 K40 ["translationResourceTable"]
+      157 CALL                             R23 1 1
+      158 DUPCLOSURE                       R24 K43 [PROTO_4]
+      159 CAPTURE                          VAL R17
+      160 CAPTURE                          VAL R1
+      161 CAPTURE                          VAL R3
+      162 CAPTURE                          VAL R11
+      163 CAPTURE                          VAL R16
+      164 CAPTURE                          VAL R18
+      165 CAPTURE                          VAL R6
+      166 CAPTURE                          VAL R7
+      167 CAPTURE                          VAL R8
+      168 CAPTURE                          VAL R9
+      169 CAPTURE                          VAL R22
+      170 CAPTURE                          VAL R10
+      171 CAPTURE                          VAL R4
+      172 CAPTURE                          VAL R21
+      173 CAPTURE                          VAL R5
+      174 CAPTURE                          VAL R23
+      175 CAPTURE                          VAL R14
+      176 CAPTURE                          VAL R15
+      177 CAPTURE                          VAL R20
+      178 CAPTURE                          VAL R19
+      179 RETURN                           R24 1

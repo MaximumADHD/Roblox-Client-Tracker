@@ -199,21 +199,12 @@ PROTO_4:
        72 CALL                             R5 1 0
        73 RETURN                           R0 0
        74 GETUPVAL                         R5 3
-       75 LOADK                            R7 K18 ["AssetsUploaded"]
-       76 GETUPVAL                         R8 4
-       77 DUPTABLE                         R10 K22 [{["Source"] = "Import", ["AssetIds"]}]
-       78 NEWTABLE                         R11 0 1
-       80 GETTABLEKS                       R12 R4 K23 ["assetId"]
-       82 SETLIST                          R11 R12 1 [1]
-       84 SETTABLEKS                       R11 R10 K21 ["AssetIds"]
-       86 NAMECALL                         R8 R8 K24 ["JSONEncode"]
-       88 CALL                             R8 2 -1
-       89 NAMECALL                         R5 R5 K25 ["Fire"]
-       91 CALL                             R5 -1 0
-       92 GETUPVAL                         R5 5
-       93 GETTABLEKS                       R5 R5 K26 ["onClose"]
-       95 CALL                             R5 0 0
-       96 RETURN                           R0 0
+       75 GETTABLEKS                       R6 R4 K18 ["assetId"]
+       77 CALL                             R5 1 0
+       78 GETUPVAL                         R5 4
+       79 GETTABLEKS                       R5 R5 K19 ["onClose"]
+       81 CALL                             R5 0 0
+       82 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -227,9 +218,8 @@ PROTO_5:
        10 CAPTURE                          UPVAL U2
        11 CAPTURE                          UPVAL U3
        12 CAPTURE                          UPVAL U4
-       13 CAPTURE                          UPVAL U5
-       14 CALL                             R0 1 0
-       15 RETURN                           R0 0
+       13 CALL                             R0 1 0
+       14 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -367,148 +357,144 @@ PROTO_11:
        39 CAPTURE                          VAL R3
        40 CAPTURE                          UPVAL U5
        41 CAPTURE                          UPVAL U6
-       42 CAPTURE                          UPVAL U7
-       43 CAPTURE                          VAL R0
-       44 CALL                             R5 1 1
-       45 GETUPVAL                         R6 4
-       46 GETTABLEKS                       R6 R6 K9 ["useEventCallback"]
-       48 NEWCLOSURE                       R7 P1
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R0
+       43 CALL                             R5 1 1
+       44 GETUPVAL                         R6 4
+       45 GETTABLEKS                       R6 R6 K9 ["useEventCallback"]
+       47 NEWCLOSURE                       R7 P1
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          UPVAL U7
        51 CAPTURE                          UPVAL U8
        52 CAPTURE                          UPVAL U9
-       53 CAPTURE                          UPVAL U10
-       54 CAPTURE                          VAL R0
-       55 CALL                             R6 1 1
-       56 GETUPVAL                         R7 4
-       57 GETTABLEKS                       R7 R7 K10 ["createNextOrder"]
-       59 CALL                             R7 0 1
-       60 GETUPVAL                         R8 1
-       61 GETTABLEKS                       R8 R8 K11 ["createElement"]
-       63 GETUPVAL                         R9 11
-       64 GETTABLEKS                       R9 R9 K12 ["View"]
-       66 DUPTABLE                         R10 K17 [{["tag"] = "size-full-0 auto-y col gap-large", ["testId"] = "FileDialog"}]
-       67 DUPTABLE                         R11 K21 [{"Description", "Aseprite", "SpritesheetOrImageSequence"}]
-       68 GETUPVAL                         R12 1
-       69 GETTABLEKS                       R12 R12 K11 ["createElement"]
-       71 GETUPVAL                         R13 11
-       72 GETTABLEKS                       R13 R13 K22 ["Text"]
-       74 DUPTABLE                         R14 K27 [{["RichText"] = True, ["Text"], ["LayoutOrder"], ["tag"] = "size-full-0 auto-y content-emphasis text-wrap text-body-small text-align-x-left"}]
-       75 LOADK                            R17 K16 ["FileDialog"]
-       76 LOADK                            R18 K18 ["Description"]
-       77 NAMECALL                         R15 R2 K28 ["getText"]
-       79 CALL                             R15 3 1
-       80 SETTABLEKS                       R15 R14 K22 ["Text"]
-       82 MOVE                             R15 R7
-       83 CALL                             R15 0 1
-       84 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
-       86 CALL                             R12 2 1
-       87 SETTABLEKS                       R12 R11 K18 ["Description"]
-       89 GETUPVAL                         R12 1
-       90 GETTABLEKS                       R12 R12 K11 ["createElement"]
-       92 GETUPVAL                         R13 12
-       93 DUPTABLE                         R14 K35 [{["image"], ["title"], ["text"], ["layoutOrder"], ["fileTypes"], ["onActivated"], ["testId"] = "Aseprite"}]
-       94 GETUPVAL                         R15 13
-       95 GETUPVAL                         R16 1
-       96 GETTABLEKS                       R16 R16 K11 ["createElement"]
-       98 GETUPVAL                         R17 11
-       99 GETTABLEKS                       R17 R17 K36 ["Image"]
-      101 DUPTABLE                         R18 K39 [{["Image"] = "rbxasset://studio_svg_textures/Lua/AnimatedImageImporter/Light/Standard/AsepriteLogo@3x.png", ["Size"]}]
-      102 GETIMPORT                        R19 K42 [UDim2.fromOffset]
-      104 LOADN                            R20 24
-      105 LOADN                            R21 24
-      106 CALL                             R19 2 1
-      107 SETTABLEKS                       R19 R18 K38 ["Size"]
-      109 CALL                             R16 2 -1
-      110 CALL                             R15 -1 1
-      111 SETTABLEKS                       R15 R14 K29 ["image"]
-      113 LOADK                            R17 K16 ["FileDialog"]
-      114 LOADK                            R18 K43 ["AsepriteTitle"]
-      115 NAMECALL                         R15 R2 K28 ["getText"]
-      117 CALL                             R15 3 1
-      118 SETTABLEKS                       R15 R14 K30 ["title"]
-      120 LOADK                            R17 K16 ["FileDialog"]
-      121 LOADK                            R18 K44 ["AsepriteDescription"]
-      122 NAMECALL                         R15 R2 K28 ["getText"]
-      124 CALL                             R15 3 1
-      125 SETTABLEKS                       R15 R14 K31 ["text"]
-      127 MOVE                             R15 R7
-      128 CALL                             R15 0 1
-      129 SETTABLEKS                       R15 R14 K32 ["layoutOrder"]
-      131 GETUPVAL                         R15 14
-      132 SETTABLEKS                       R15 R14 K33 ["fileTypes"]
-      134 SETTABLEKS                       R5 R14 K34 ["onActivated"]
-      136 CALL                             R12 2 1
-      137 SETTABLEKS                       R12 R11 K19 ["Aseprite"]
-      139 GETUPVAL                         R12 1
-      140 GETTABLEKS                       R12 R12 K11 ["createElement"]
-      142 GETUPVAL                         R13 12
-      143 DUPTABLE                         R14 K45 [{["image"], ["title"], ["text"], ["layoutOrder"], ["fileTypes"], ["onActivated"], ["testId"] = "SpritesheetOrImageSequence"}]
-      144 GETUPVAL                         R15 13
-      145 GETUPVAL                         R16 1
-      146 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      148 GETUPVAL                         R17 11
-      149 GETTABLEKS                       R17 R17 K46 ["Icon"]
-      151 DUPTABLE                         R18 K49 [{"name", "size"}]
-      152 GETUPVAL                         R19 11
-      153 GETTABLEKS                       R19 R19 K50 ["Enums"]
-      155 GETTABLEKS                       R19 R19 K51 ["IconName"]
-      157 GETTABLEKS                       R19 R19 K52 ["ImageStacked"]
-      159 SETTABLEKS                       R19 R18 K47 ["name"]
-      161 GETUPVAL                         R19 11
-      162 GETTABLEKS                       R19 R19 K50 ["Enums"]
-      164 GETTABLEKS                       R19 R19 K53 ["IconSize"]
-      166 GETTABLEKS                       R19 R19 K54 ["Large"]
-      168 SETTABLEKS                       R19 R18 K48 ["size"]
-      170 CALL                             R16 2 -1
-      171 CALL                             R15 -1 1
-      172 SETTABLEKS                       R15 R14 K29 ["image"]
-      174 LOADK                            R17 K16 ["FileDialog"]
-      175 LOADK                            R18 K55 ["SpritesheetOrImageSequenceTitle"]
-      176 NAMECALL                         R15 R2 K28 ["getText"]
-      178 CALL                             R15 3 1
-      179 SETTABLEKS                       R15 R14 K30 ["title"]
-      181 LOADK                            R17 K16 ["FileDialog"]
-      182 LOADK                            R18 K56 ["SpritesheetOrImageSequenceDescription"]
-      183 NAMECALL                         R15 R2 K28 ["getText"]
-      185 CALL                             R15 3 1
-      186 SETTABLEKS                       R15 R14 K31 ["text"]
-      188 MOVE                             R15 R7
-      189 CALL                             R15 0 1
-      190 SETTABLEKS                       R15 R14 K32 ["layoutOrder"]
-      192 GETUPVAL                         R15 8
-      193 SETTABLEKS                       R15 R14 K33 ["fileTypes"]
-      195 SETTABLEKS                       R6 R14 K34 ["onActivated"]
-      197 CALL                             R12 2 1
-      198 SETTABLEKS                       R12 R11 K20 ["SpritesheetOrImageSequence"]
-      200 CALL                             R8 3 1
-      201 GETTABLEKS                       R9 R0 K57 ["avoidDialogRender"]
-      203 JUMPIFNOT                        R9 ; [+1]
-      204 RETURN                           R8 1
-      205 GETUPVAL                         R9 1
-      206 GETTABLEKS                       R9 R9 K11 ["createElement"]
-      208 GETUPVAL                         R10 2
-      209 GETTABLEKS                       R10 R10 K58 ["Components"]
-      211 GETTABLEKS                       R10 R10 K59 ["Dialog"]
-      213 DUPTABLE                         R11 K66 [{["uri"], ["type"] = "Default", ["title"], ["escapeAction"], ["width"] = 430}]
-      214 NAMECALL                         R12 R1 K67 ["GetUri"]
-      216 CALL                             R12 1 1
-      217 SETTABLEKS                       R12 R11 K60 ["uri"]
-      219 LOADK                            R14 K16 ["FileDialog"]
-      220 LOADK                            R15 K68 ["Title"]
-      221 NAMECALL                         R12 R2 K28 ["getText"]
-      223 CALL                             R12 3 1
-      224 SETTABLEKS                       R12 R11 K30 ["title"]
-      226 DUPTABLE                         R12 K70 [{"uri", "onClose"}]
-      227 NAMECALL                         R13 R1 K67 ["GetUri"]
-      229 CALL                             R13 1 1
-      230 SETTABLEKS                       R13 R12 K60 ["uri"]
-      232 GETTABLEKS                       R13 R0 K69 ["onClose"]
-      234 SETTABLEKS                       R13 R12 K69 ["onClose"]
-      236 SETTABLEKS                       R12 R11 K63 ["escapeAction"]
-      238 MOVE                             R12 R8
-      239 CALL                             R9 3 -1
-      240 RETURN                           R9 -1
+       53 CAPTURE                          VAL R0
+       54 CALL                             R6 1 1
+       55 GETUPVAL                         R7 4
+       56 GETTABLEKS                       R7 R7 K10 ["createNextOrder"]
+       58 CALL                             R7 0 1
+       59 GETUPVAL                         R8 1
+       60 GETTABLEKS                       R8 R8 K11 ["createElement"]
+       62 GETUPVAL                         R9 10
+       63 GETTABLEKS                       R9 R9 K12 ["View"]
+       65 DUPTABLE                         R10 K17 [{["tag"] = "size-full-0 auto-y col gap-large", ["testId"] = "FileDialog"}]
+       66 DUPTABLE                         R11 K21 [{"Description", "Aseprite", "SpritesheetOrImageSequence"}]
+       67 GETUPVAL                         R12 1
+       68 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       70 GETUPVAL                         R13 10
+       71 GETTABLEKS                       R13 R13 K22 ["Text"]
+       73 DUPTABLE                         R14 K27 [{["RichText"] = True, ["Text"], ["LayoutOrder"], ["tag"] = "size-full-0 auto-y content-emphasis text-wrap text-body-small text-align-x-left"}]
+       74 LOADK                            R17 K16 ["FileDialog"]
+       75 LOADK                            R18 K18 ["Description"]
+       76 NAMECALL                         R15 R2 K28 ["getText"]
+       78 CALL                             R15 3 1
+       79 SETTABLEKS                       R15 R14 K22 ["Text"]
+       81 MOVE                             R15 R7
+       82 CALL                             R15 0 1
+       83 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
+       85 CALL                             R12 2 1
+       86 SETTABLEKS                       R12 R11 K18 ["Description"]
+       88 GETUPVAL                         R12 1
+       89 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       91 GETUPVAL                         R13 11
+       92 DUPTABLE                         R14 K35 [{["image"], ["title"], ["text"], ["layoutOrder"], ["fileTypes"], ["onActivated"], ["testId"] = "Aseprite"}]
+       93 GETUPVAL                         R15 12
+       94 GETUPVAL                         R16 1
+       95 GETTABLEKS                       R16 R16 K11 ["createElement"]
+       97 GETUPVAL                         R17 10
+       98 GETTABLEKS                       R17 R17 K36 ["Image"]
+      100 DUPTABLE                         R18 K39 [{["Image"] = "rbxasset://studio_svg_textures/Lua/AnimatedImageImporter/Light/Standard/AsepriteLogo@3x.png", ["Size"]}]
+      101 GETIMPORT                        R19 K42 [UDim2.fromOffset]
+      103 LOADN                            R20 24
+      104 LOADN                            R21 24
+      105 CALL                             R19 2 1
+      106 SETTABLEKS                       R19 R18 K38 ["Size"]
+      108 CALL                             R16 2 -1
+      109 CALL                             R15 -1 1
+      110 SETTABLEKS                       R15 R14 K29 ["image"]
+      112 LOADK                            R17 K16 ["FileDialog"]
+      113 LOADK                            R18 K43 ["AsepriteTitle"]
+      114 NAMECALL                         R15 R2 K28 ["getText"]
+      116 CALL                             R15 3 1
+      117 SETTABLEKS                       R15 R14 K30 ["title"]
+      119 LOADK                            R17 K16 ["FileDialog"]
+      120 LOADK                            R18 K44 ["AsepriteDescription"]
+      121 NAMECALL                         R15 R2 K28 ["getText"]
+      123 CALL                             R15 3 1
+      124 SETTABLEKS                       R15 R14 K31 ["text"]
+      126 MOVE                             R15 R7
+      127 CALL                             R15 0 1
+      128 SETTABLEKS                       R15 R14 K32 ["layoutOrder"]
+      130 GETUPVAL                         R15 13
+      131 SETTABLEKS                       R15 R14 K33 ["fileTypes"]
+      133 SETTABLEKS                       R5 R14 K34 ["onActivated"]
+      135 CALL                             R12 2 1
+      136 SETTABLEKS                       R12 R11 K19 ["Aseprite"]
+      138 GETUPVAL                         R12 1
+      139 GETTABLEKS                       R12 R12 K11 ["createElement"]
+      141 GETUPVAL                         R13 11
+      142 DUPTABLE                         R14 K45 [{["image"], ["title"], ["text"], ["layoutOrder"], ["fileTypes"], ["onActivated"], ["testId"] = "SpritesheetOrImageSequence"}]
+      143 GETUPVAL                         R15 12
+      144 GETUPVAL                         R16 1
+      145 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      147 GETUPVAL                         R17 10
+      148 GETTABLEKS                       R17 R17 K46 ["Icon"]
+      150 DUPTABLE                         R18 K49 [{"name", "size"}]
+      151 GETUPVAL                         R19 10
+      152 GETTABLEKS                       R19 R19 K50 ["Enums"]
+      154 GETTABLEKS                       R19 R19 K51 ["IconName"]
+      156 GETTABLEKS                       R19 R19 K52 ["ImageStacked"]
+      158 SETTABLEKS                       R19 R18 K47 ["name"]
+      160 GETUPVAL                         R19 10
+      161 GETTABLEKS                       R19 R19 K50 ["Enums"]
+      163 GETTABLEKS                       R19 R19 K53 ["IconSize"]
+      165 GETTABLEKS                       R19 R19 K54 ["Large"]
+      167 SETTABLEKS                       R19 R18 K48 ["size"]
+      169 CALL                             R16 2 -1
+      170 CALL                             R15 -1 1
+      171 SETTABLEKS                       R15 R14 K29 ["image"]
+      173 LOADK                            R17 K16 ["FileDialog"]
+      174 LOADK                            R18 K55 ["SpritesheetOrImageSequenceTitle"]
+      175 NAMECALL                         R15 R2 K28 ["getText"]
+      177 CALL                             R15 3 1
+      178 SETTABLEKS                       R15 R14 K30 ["title"]
+      180 LOADK                            R17 K16 ["FileDialog"]
+      181 LOADK                            R18 K56 ["SpritesheetOrImageSequenceDescription"]
+      182 NAMECALL                         R15 R2 K28 ["getText"]
+      184 CALL                             R15 3 1
+      185 SETTABLEKS                       R15 R14 K31 ["text"]
+      187 MOVE                             R15 R7
+      188 CALL                             R15 0 1
+      189 SETTABLEKS                       R15 R14 K32 ["layoutOrder"]
+      191 GETUPVAL                         R15 7
+      192 SETTABLEKS                       R15 R14 K33 ["fileTypes"]
+      194 SETTABLEKS                       R6 R14 K34 ["onActivated"]
+      196 CALL                             R12 2 1
+      197 SETTABLEKS                       R12 R11 K20 ["SpritesheetOrImageSequence"]
+      199 CALL                             R8 3 1
+      200 GETUPVAL                         R9 1
+      201 GETTABLEKS                       R9 R9 K11 ["createElement"]
+      203 GETUPVAL                         R10 2
+      204 GETTABLEKS                       R10 R10 K57 ["Components"]
+      206 GETTABLEKS                       R10 R10 K58 ["Dialog"]
+      208 DUPTABLE                         R11 K65 [{["uri"], ["type"] = "Default", ["title"], ["escapeAction"], ["width"] = 430}]
+      209 NAMECALL                         R12 R1 K66 ["GetUri"]
+      211 CALL                             R12 1 1
+      212 SETTABLEKS                       R12 R11 K59 ["uri"]
+      214 LOADK                            R14 K16 ["FileDialog"]
+      215 LOADK                            R15 K67 ["Title"]
+      216 NAMECALL                         R12 R2 K28 ["getText"]
+      218 CALL                             R12 3 1
+      219 SETTABLEKS                       R12 R11 K30 ["title"]
+      221 DUPTABLE                         R12 K69 [{"uri", "onClose"}]
+      222 NAMECALL                         R13 R1 K66 ["GetUri"]
+      224 CALL                             R13 1 1
+      225 SETTABLEKS                       R13 R12 K59 ["uri"]
+      227 GETTABLEKS                       R13 R0 K68 ["onClose"]
+      229 SETTABLEKS                       R13 R12 K68 ["onClose"]
+      231 SETTABLEKS                       R12 R11 K62 ["escapeAction"]
+      233 MOVE                             R12 R8
+      234 CALL                             R9 3 -1
+      235 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -517,87 +503,83 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K1 [game]
-        9 LOADK                            R3 K4 ["HttpService"]
+        9 LOADK                            R3 K4 ["StudioService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K1 [game]
-       15 LOADK                            R4 K5 ["MemStorageService"]
-       16 NAMECALL                         R2 R2 K3 ["GetService"]
+       13 GETIMPORT                        R2 K6 [script]
+       15 LOADK                            R4 K7 ["AnimatedImageImporter"]
+       16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
        18 CALL                             R2 2 1
-       19 GETIMPORT                        R3 K1 [game]
-       21 LOADK                            R5 K6 ["StudioService"]
-       22 NAMECALL                         R3 R3 K3 ["GetService"]
-       24 CALL                             R3 2 1
-       25 GETIMPORT                        R4 K8 [script]
-       27 LOADK                            R6 K9 ["AnimatedImageImporter"]
-       28 NAMECALL                         R4 R4 K10 ["FindFirstAncestor"]
-       30 CALL                             R4 2 1
-       31 GETIMPORT                        R5 K12 [require]
-       33 GETTABLEKS                       R6 R4 K13 ["Packages"]
-       35 GETTABLEKS                       R6 R6 K14 ["Foundation"]
-       37 CALL                             R5 1 1
-       38 GETIMPORT                        R6 K12 [require]
-       40 GETTABLEKS                       R7 R4 K13 ["Packages"]
-       42 GETTABLEKS                       R7 R7 K15 ["Framework"]
-       44 CALL                             R6 1 1
-       45 GETIMPORT                        R7 K12 [require]
-       47 GETTABLEKS                       R8 R4 K16 ["Src"]
-       49 GETTABLEKS                       R8 R8 K17 ["Components"]
-       51 GETTABLEKS                       R8 R8 K18 ["ImportContext"]
-       53 CALL                             R7 1 1
-       54 GETIMPORT                        R8 K12 [require]
-       56 GETTABLEKS                       R9 R4 K13 ["Packages"]
-       58 GETTABLEKS                       R9 R9 K19 ["React"]
-       60 CALL                             R8 1 1
-       61 GETIMPORT                        R9 K12 [require]
-       63 GETTABLEKS                       R10 R4 K13 ["Packages"]
-       65 GETTABLEKS                       R10 R10 K20 ["ReactUtils"]
-       67 CALL                             R9 1 1
-       68 GETIMPORT                        R10 K12 [require]
-       70 GETTABLEKS                       R11 R4 K13 ["Packages"]
-       72 GETTABLEKS                       R11 R11 K21 ["StudioFoundation"]
-       74 CALL                             R10 1 1
-       75 GETIMPORT                        R11 K12 [require]
-       77 GETTABLEKS                       R12 R4 K16 ["Src"]
-       79 GETTABLEKS                       R12 R12 K22 ["Types"]
-       81 CALL                             R11 1 1
-       82 GETIMPORT                        R12 K12 [require]
-       84 GETTABLEKS                       R13 R4 K16 ["Src"]
-       86 GETTABLEKS                       R13 R13 K23 ["Libraries"]
-       88 GETTABLEKS                       R13 R13 K24 ["as"]
-       90 CALL                             R12 1 1
-       91 GETIMPORT                        R13 K12 [require]
-       93 GETTABLEKS                       R14 R4 K16 ["Src"]
-       95 GETTABLEKS                       R14 R14 K23 ["Libraries"]
-       97 GETTABLEKS                       R14 R14 K25 ["isInvisible"]
-       99 CALL                             R13 1 1
-      100 NEWTABLE                         R14 0 2
-      102 LOADK                            R15 K26 ["ase"]
-      103 LOADK                            R16 K27 ["aseprite"]
-      104 SETLIST                          R14 R15 2 [1]
-      106 NEWTABLE                         R15 0 3
-      108 LOADK                            R16 K28 ["png"]
-      109 LOADK                            R17 K29 ["jpg"]
-      110 LOADK                            R18 K30 ["jpeg"]
-      111 SETLIST                          R15 R16 3 [1]
-      113 DUPCLOSURE                       R16 K31 [PROTO_1]
-      114 CAPTURE                          VAL R9
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          VAL R5
-      117 DUPCLOSURE                       R17 K32 [PROTO_11]
-      118 CAPTURE                          VAL R6
-      119 CAPTURE                          VAL R8
-      120 CAPTURE                          VAL R10
-      121 CAPTURE                          VAL R7
-      122 CAPTURE                          VAL R9
-      123 CAPTURE                          VAL R3
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R1
+       19 GETIMPORT                        R3 K10 [require]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["Foundation"]
+       25 CALL                             R3 1 1
+       26 GETIMPORT                        R4 K10 [require]
+       28 GETTABLEKS                       R5 R2 K11 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K13 ["Framework"]
+       32 CALL                             R4 1 1
+       33 GETIMPORT                        R5 K10 [require]
+       35 GETTABLEKS                       R6 R2 K14 ["Src"]
+       37 GETTABLEKS                       R6 R6 K15 ["Components"]
+       39 GETTABLEKS                       R6 R6 K16 ["ImportContext"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K10 [require]
+       44 GETTABLEKS                       R7 R2 K11 ["Packages"]
+       46 GETTABLEKS                       R7 R7 K17 ["React"]
+       48 CALL                             R6 1 1
+       49 GETIMPORT                        R7 K10 [require]
+       51 GETTABLEKS                       R8 R2 K11 ["Packages"]
+       53 GETTABLEKS                       R8 R8 K18 ["ReactUtils"]
+       55 CALL                             R7 1 1
+       56 GETIMPORT                        R8 K10 [require]
+       58 GETTABLEKS                       R9 R2 K11 ["Packages"]
+       60 GETTABLEKS                       R9 R9 K19 ["StudioFoundation"]
+       62 CALL                             R8 1 1
+       63 GETIMPORT                        R9 K10 [require]
+       65 GETTABLEKS                       R10 R2 K14 ["Src"]
+       67 GETTABLEKS                       R10 R10 K20 ["Types"]
+       69 CALL                             R9 1 1
+       70 GETIMPORT                        R10 K10 [require]
+       72 GETTABLEKS                       R11 R2 K14 ["Src"]
+       74 GETTABLEKS                       R11 R11 K21 ["Libraries"]
+       76 GETTABLEKS                       R11 R11 K22 ["as"]
+       78 CALL                             R10 1 1
+       79 GETIMPORT                        R11 K10 [require]
+       81 GETTABLEKS                       R12 R2 K14 ["Src"]
+       83 GETTABLEKS                       R12 R12 K21 ["Libraries"]
+       85 GETTABLEKS                       R12 R12 K23 ["isInvisible"]
+       87 CALL                             R11 1 1
+       88 GETIMPORT                        R12 K10 [require]
+       90 GETTABLEKS                       R13 R2 K14 ["Src"]
+       92 GETTABLEKS                       R13 R13 K21 ["Libraries"]
+       94 GETTABLEKS                       R13 R13 K24 ["notifyAnimatedImageUploaded"]
+       96 CALL                             R12 1 1
+       97 NEWTABLE                         R13 0 2
+       99 LOADK                            R14 K25 ["ase"]
+      100 LOADK                            R15 K26 ["aseprite"]
+      101 SETLIST                          R13 R14 2 [1]
+      103 NEWTABLE                         R14 0 3
+      105 LOADK                            R15 K27 ["png"]
+      106 LOADK                            R16 K28 ["jpg"]
+      107 LOADK                            R17 K29 ["jpeg"]
+      108 SETLIST                          R14 R15 3 [1]
+      110 DUPCLOSURE                       R15 K30 [PROTO_1]
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R6
+      113 CAPTURE                          VAL R3
+      114 DUPCLOSURE                       R16 K31 [PROTO_11]
+      115 CAPTURE                          VAL R4
+      116 CAPTURE                          VAL R6
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R5
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R1
+      121 CAPTURE                          VAL R12
+      122 CAPTURE                          VAL R14
+      123 CAPTURE                          VAL R0
+      124 CAPTURE                          VAL R11
+      125 CAPTURE                          VAL R3
       126 CAPTURE                          VAL R15
-      127 CAPTURE                          VAL R0
+      127 CAPTURE                          VAL R10
       128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R5
-      130 CAPTURE                          VAL R16
-      131 CAPTURE                          VAL R12
-      132 CAPTURE                          VAL R14
-      133 RETURN                           R17 1
+      129 RETURN                           R16 1

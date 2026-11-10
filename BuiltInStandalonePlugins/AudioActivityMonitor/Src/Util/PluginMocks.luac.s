@@ -211,19 +211,23 @@ PROTO_13:
         4 RETURN                           R1 1
 
 PROTO_14:
-        0 DUPTABLE                         R1 K3 [{"WindowFocused", "WindowFocusReleased", "GetRelativeMousePosition"}]
-        1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R2 R2 K4 ["_createSignal"]
-        4 CALL                             R2 0 1
-        5 SETTABLEKS                       R2 R1 K0 ["WindowFocused"]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K4 ["_createSignal"]
-       10 CALL                             R2 0 1
-       11 SETTABLEKS                       R2 R1 K1 ["WindowFocusReleased"]
-       13 NEWCLOSURE                       R2 P0
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R2 R1 K2 ["GetRelativeMousePosition"]
-       17 RETURN                           R1 1
+        0 DUPTABLE                         R2 K4 [{"AbsoluteSize", "WindowFocused", "WindowFocusReleased", "GetRelativeMousePosition"}]
+        1 MOVE                             R3 R1
+        2 JUMPIF                           R3 ; [+2]
+        3 GETIMPORT                        R3 K7 [Vector2.zero]
+        5 SETTABLEKS                       R3 R2 K0 ["AbsoluteSize"]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K8 ["_createSignal"]
+       10 CALL                             R3 0 1
+       11 SETTABLEKS                       R3 R2 K1 ["WindowFocused"]
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K8 ["_createSignal"]
+       16 CALL                             R3 0 1
+       17 SETTABLEKS                       R3 R2 K2 ["WindowFocusReleased"]
+       19 NEWCLOSURE                       R3 P0
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R3 R2 K3 ["GetRelativeMousePosition"]
+       23 RETURN                           R2 1
 
 PROTO_15:
         0 DUPTABLE                         R1 K24 [{[1], ["rows"], ["numVoices"] = 0, ["numPlayingVoices"] = 0, ["activityValues"], ["currentFrameTimestamp"] = 0, ["sortMethod"], ["toggleSortColumn"], ["lookbackAmount"] = 0, ["maxLookbackAmount"] = 0, ["setLookbackAmount"], ["onLookbackScrubFinished"], ["isPaused"] = False, ["togglePaused"], ["pausedFrames"], ["selectedIds"], ["selectId"], ["clearSelection"], ["meteringMode"] = "Disabled", ["setMeteringMode"], ["reloadMeteringModeFromSettings"]}]

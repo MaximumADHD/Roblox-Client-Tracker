@@ -25,6 +25,12 @@ MAIN:
        35 SETTABLEKS                       R9 R2 K67 ["TutorialAdvanceSource"]
        37 DUPTABLE                         R10 K70 [{["CopyAssetId"] = "copyAssetId"}]
        38 SETTABLEKS                       R10 R2 K71 ["ItemInteraction"]
-       40 DUPTABLE                         R11 K78 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope", ["Sort"] = "Sort", ["Filter"] = "Filter"}]
-       41 SETTABLEKS                       R11 R2 K79 ["BenchmarkingEvent"]
-       43 RETURN                           R2 1
+       40 DUPTABLE                         R11 K78 [{["Empty"] = "empty", ["Single"] = "single", ["Multiple"] = "multiple"}]
+       41 SETTABLEKS                       R11 R2 K79 ["DetailsDrawerSelectionMode"]
+       43 DUPTABLE                         R12 K87 [{["Edit"] = "edit", ["CopyAssetId"] = "copy_asset_id", ["CopyUri"] = "copy_uri", ["ManageSharing"] = "manage_sharing"}]
+       44 SETTABLEKS                       R12 R2 K88 ["DetailsDrawerAction"]
+       46 DUPTABLE                         R13 K93 [{["Back"] = "back", ["Forward"] = "forward"}]
+       47 SETTABLEKS                       R13 R2 K94 ["NavigationDirection"]
+       49 DUPTABLE                         R14 K101 [{["FirstLoad"] = "FirstLoad", ["Insert"] = "Insert", ["Share"] = "Share", ["LoadNewScope"] = "LoadNewScope", ["Sort"] = "Sort", ["Filter"] = "Filter"}]
+       50 SETTABLEKS                       R14 R2 K102 ["BenchmarkingEvent"]
+       52 RETURN                           R2 1

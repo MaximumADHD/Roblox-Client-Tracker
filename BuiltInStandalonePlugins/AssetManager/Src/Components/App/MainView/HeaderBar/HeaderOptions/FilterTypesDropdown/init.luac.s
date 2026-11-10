@@ -118,13 +118,13 @@ PROTO_7:
        58 DUPTABLE                         R16 K10 [{["Size"], ["tag"] = "col flex-fill padding-small stroke-default radius-medium bg-surface-100"}]
        59 GETIMPORT                        R17 K13 [UDim2.fromOffset]
        61 GETUPVAL                         R19 8
-       62 GETTABLEKS                       R19 R19 K14 ["FilterTypesWidth"]
+       62 GETTABLEKS                       R19 R19 K14 ["DEPRECATED_FilterTypesWidth"]
        64 FASTCALL2                        MATH_MIN R19 R8 ; [+4]
        66 MOVE                             R20 R8
        67 GETIMPORT                        R18 K17 [math.min]
        69 CALL                             R18 2 1
        70 GETUPVAL                         R20 8
-       71 GETTABLEKS                       R20 R20 K18 ["FilterTypesHeight"]
+       71 GETTABLEKS                       R20 R20 K18 ["DEPRECATED_FilterTypesHeight"]
        73 GETUPVAL                         R22 8
        74 GETTABLEKS                       R22 R22 K19 ["HeaderRowHeight"]
        76 SUB                              R21 R9 R22

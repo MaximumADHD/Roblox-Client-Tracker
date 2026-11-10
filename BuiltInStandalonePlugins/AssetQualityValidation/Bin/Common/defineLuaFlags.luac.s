@@ -1,32 +1,42 @@
 PROTO_0:
+        0 GETIMPORT                        R1 K1 [game]
+        2 LOADK                            R3 K2 ["EngineAssetQualityVisualizationShapes"]
+        3 NAMECALL                         R1 R1 K3 ["GetEngineFeature"]
+        5 CALL                             R1 2 1
+        6 JUMPIFEQKB                       R1 TRUE ; [+2]
+        8 LOADB                            R0 0 +1
+        9 LOADB                            R0 1
+       10 RETURN                           R0 1
+
+PROTO_1:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["AQVFollowup"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_1:
+PROTO_2:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["EnableAssetQualityValidation"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_2:
+PROTO_3:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["EnableAssetQualityValidationIcon"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_3:
+PROTO_4:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["AssetQualityValidationTimeoutSeconds"]
         3 NAMECALL                         R0 R0 K3 ["GetFastInt"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_4:
+PROTO_5:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["AssetQualityValidationMode"]
         3 NAMECALL                         R0 R0 K3 ["GetFastString"]
@@ -60,15 +70,17 @@ MAIN:
        32 LOADK                            R3 K9 ["shadow"]
        33 NAMECALL                         R0 R0 K10 ["DefineFastString"]
        35 CALL                             R0 3 0
-       36 DUPTABLE                         R0 K16 [{"getFFlagAQVFollowup", "getFFlagEnableAssetQualityValidation", "getFFlagEnableAssetQualityValidationIcon", "getFIntAssetQualityValidationTimeoutSeconds", "getFStringAssetQualityValidationMode"}]
-       37 DUPCLOSURE                       R1 K17 [PROTO_0]
-       38 SETTABLEKS                       R1 R0 K11 ["getFFlagAQVFollowup"]
-       40 DUPCLOSURE                       R1 K18 [PROTO_1]
-       41 SETTABLEKS                       R1 R0 K12 ["getFFlagEnableAssetQualityValidation"]
-       43 DUPCLOSURE                       R1 K19 [PROTO_2]
-       44 SETTABLEKS                       R1 R0 K13 ["getFFlagEnableAssetQualityValidationIcon"]
-       46 DUPCLOSURE                       R1 K20 [PROTO_3]
-       47 SETTABLEKS                       R1 R0 K14 ["getFIntAssetQualityValidationTimeoutSeconds"]
-       49 DUPCLOSURE                       R1 K21 [PROTO_4]
-       50 SETTABLEKS                       R1 R0 K15 ["getFStringAssetQualityValidationMode"]
-       52 RETURN                           R0 1
+       36 DUPTABLE                         R0 K17 [{"getEngineFeatureAssetQualityVisualizationShapes", "getFFlagAQVFollowup", "getFFlagEnableAssetQualityValidation", "getFFlagEnableAssetQualityValidationIcon", "getFIntAssetQualityValidationTimeoutSeconds", "getFStringAssetQualityValidationMode"}]
+       37 DUPCLOSURE                       R1 K18 [PROTO_0]
+       38 SETTABLEKS                       R1 R0 K11 ["getEngineFeatureAssetQualityVisualizationShapes"]
+       40 DUPCLOSURE                       R1 K19 [PROTO_1]
+       41 SETTABLEKS                       R1 R0 K12 ["getFFlagAQVFollowup"]
+       43 DUPCLOSURE                       R1 K20 [PROTO_2]
+       44 SETTABLEKS                       R1 R0 K13 ["getFFlagEnableAssetQualityValidation"]
+       46 DUPCLOSURE                       R1 K21 [PROTO_3]
+       47 SETTABLEKS                       R1 R0 K14 ["getFFlagEnableAssetQualityValidationIcon"]
+       49 DUPCLOSURE                       R1 K22 [PROTO_4]
+       50 SETTABLEKS                       R1 R0 K15 ["getFIntAssetQualityValidationTimeoutSeconds"]
+       52 DUPCLOSURE                       R1 K23 [PROTO_5]
+       53 SETTABLEKS                       R1 R0 K16 ["getFStringAssetQualityValidationMode"]
+       55 RETURN                           R0 1

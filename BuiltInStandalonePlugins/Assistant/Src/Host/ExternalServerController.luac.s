@@ -426,27 +426,38 @@ PROTO_18:
         3 CALL                             R0 0 1
         4 GETTABLEKS                       R0 R0 K1 ["getAssistantPermissionsBridge"]
         6 CALL                             R0 0 1
-        7 JUMPIFNOT                        R0 ; [+3]
+        7 JUMPIFNOT                        R0 ; [+16]
         8 NAMECALL                         R1 R0 K2 ["SyncPermissionsAsync"]
        10 CALL                             R1 1 0
-       11 RETURN                           R0 0
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K3 ["FFlagStudioAssistantPermissionsHideNetwork"]
+       14 JUMPIFNOT                        R1 ; [+9]
+       15 GETUPVAL                         R1 2
+       16 GETTABLEKS                       R1 R1 K4 ["IntegrationManagement"]
+       18 GETTABLEKS                       R1 R1 K5 ["ForcedExecutionPermissions"]
+       20 GETTABLEKS                       R1 R1 K6 ["grantAsync"]
+       22 MOVE                             R2 R0
+       23 CALL                             R1 1 0
+       24 RETURN                           R0 0
 
 PROTO_19:
         0 GETIMPORT                        R0 K1 [pcall]
         2 DUPCLOSURE                       R1 K2 [PROTO_18]
         3 CAPTURE                          UPVAL U0
-        4 CALL                             R0 1 2
-        5 JUMPIF                           R0 ; [+12]
-        6 GETUPVAL                         R2 1
-        7 GETTABLEKS                       R2 R2 K3 ["FFlagDebugLogAssistantUI"]
-        9 JUMPIFNOT                        R2 ; [+8]
-       10 GETIMPORT                        R2 K5 [warn]
-       12 FASTCALL1                        TOSTRING R1 ; [+3]
-       13 MOVE                             R4 R1
-       14 GETIMPORT                        R3 K7 [tostring]
-       16 CALL                             R3 1 1
-       17 CALL                             R2 1 0
-       18 RETURN                           R0 0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CALL                             R0 1 2
+        7 JUMPIF                           R0 ; [+12]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K3 ["FFlagDebugLogAssistantUI"]
+       11 JUMPIFNOT                        R2 ; [+8]
+       12 GETIMPORT                        R2 K5 [warn]
+       14 FASTCALL1                        TOSTRING R1 ; [+3]
+       15 MOVE                             R4 R1
+       16 GETIMPORT                        R3 K7 [tostring]
+       18 CALL                             R3 1 1
+       19 CALL                             R2 1 0
+       20 RETURN                           R0 0
 
 PROTO_20:
         0 GETUPVAL                         R1 0
@@ -459,8 +470,9 @@ PROTO_20:
        11 DUPCLOSURE                       R1 K7 [PROTO_19]
        12 CAPTURE                          UPVAL U1
        13 CAPTURE                          UPVAL U0
-       14 CALL                             R0 1 0
-       15 RETURN                           R0 0
+       14 CAPTURE                          UPVAL U2
+       15 CALL                             R0 1 0
+       16 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R1 0
@@ -1325,10 +1337,10 @@ PROTO_49:
        16 CALL                             R1 0 0
        17 GETUPVAL                         R1 3
        18 GETTABLEKS                       R1 R1 K5 ["EngineFeatureStudioAssistantPermissions"]
-       20 JUMPIFNOT                        R1 ; [+18]
-       21 JUMPIFNOT                        R0 ; [+17]
+       20 JUMPIFNOT                        R1 ; [+19]
+       21 JUMPIFNOT                        R0 ; [+18]
        22 GETUPVAL                         R1 4
-       23 JUMPIFNOT                        R1 ; [+15]
+       23 JUMPIFNOT                        R1 ; [+16]
        24 GETUPVAL                         R2 3
        25 GETTABLEKS                       R2 R2 K5 ["EngineFeatureStudioAssistantPermissions"]
        27 FASTCALL2K                       ASSERT R2 K6 ; [+4]
@@ -1339,14 +1351,15 @@ PROTO_49:
        35 DUPCLOSURE                       R2 K12 [PROTO_19]
        36 CAPTURE                          UPVAL U5
        37 CAPTURE                          UPVAL U3
-       38 CALL                             R1 1 0
-       39 GETUPVAL                         R1 3
-       40 GETTABLEKS                       R1 R1 K13 ["FFlagAssistantResetMcpSessionOnPlaceClose"]
-       42 JUMPIFNOT                        R1 ; [+3]
-       43 JUMPIF                           R0 ; [+2]
-       44 GETUPVAL                         R1 6
-       45 CALL                             R1 0 0
-       46 RETURN                           R0 0
+       38 CAPTURE                          UPVAL U6
+       39 CALL                             R1 1 0
+       40 GETUPVAL                         R1 3
+       41 GETTABLEKS                       R1 R1 K13 ["FFlagAssistantResetMcpSessionOnPlaceClose"]
+       43 JUMPIFNOT                        R1 ; [+3]
+       44 JUMPIF                           R0 ; [+2]
+       45 GETUPVAL                         R1 7
+       46 CALL                             R1 0 0
+       47 RETURN                           R0 0
 
 PROTO_50:
         0 LENGTH                           R2 R0
@@ -1354,9 +1367,9 @@ PROTO_50:
         2 JUMPIFLT                         R3 R2 ; [+2]
         4 LOADB                            R1 0 +1
         5 LOADB                            R1 1
-        6 JUMPIFNOT                        R1 ; [+28]
+        6 JUMPIFNOT                        R1 ; [+29]
         7 GETUPVAL                         R2 0
-        8 JUMPIF                           R2 ; [+26]
+        8 JUMPIF                           R2 ; [+27]
         9 GETUPVAL                         R3 1
        10 GETTABLEKS                       R3 R3 K0 ["getFocusedDataModelEnum"]
        12 CALL                             R3 0 1
@@ -1364,7 +1377,7 @@ PROTO_50:
        15 JUMPIFNOTEQ                      R3 R4 ; [+2]
        17 LOADB                            R2 0 +1
        18 LOADB                            R2 1
-       19 JUMPIFNOT                        R2 ; [+15]
+       19 JUMPIFNOT                        R2 ; [+16]
        20 GETUPVAL                         R3 2
        21 GETTABLEKS                       R3 R3 K5 ["EngineFeatureStudioAssistantPermissions"]
        23 FASTCALL2K                       ASSERT R3 K6 ; [+4]
@@ -1375,9 +1388,10 @@ PROTO_50:
        31 DUPCLOSURE                       R3 K12 [PROTO_19]
        32 CAPTURE                          UPVAL U3
        33 CAPTURE                          UPVAL U2
-       34 CALL                             R2 1 0
-       35 SETUPVAL                         R1 0
-       36 RETURN                           R0 0
+       34 CAPTURE                          UPVAL U4
+       35 CALL                             R2 1 0
+       36 SETUPVAL                         R1 0
+       37 RETURN                           R0 0
 
 PROTO_51:
         0 GETUPVAL                         R0 0
@@ -1415,27 +1429,29 @@ PROTO_52:
        29 CAPTURE                          UPVAL U6
        30 CAPTURE                          UPVAL U7
        31 CAPTURE                          UPVAL U8
-       32 CALL                             R1 1 1
-       33 SETUPVAL                         R1 4
-       34 GETUPVAL                         R1 1
-       35 GETTABLEKS                       R1 R1 K7 ["EngineFeatureStudioAssistantPermissions"]
-       37 JUMPIFNOT                        R1 ; [+10]
-       38 GETUPVAL                         R1 10
-       39 NEWCLOSURE                       R3 P1
-       40 CAPTURE                          UPVAL U6
-       41 CAPTURE                          UPVAL U3
-       42 CAPTURE                          UPVAL U1
-       43 CAPTURE                          UPVAL U7
-       44 NAMECALL                         R1 R1 K8 ["connect"]
-       46 CALL                             R1 2 1
-       47 SETUPVAL                         R1 9
-       48 GETIMPORT                        R1 K11 [task.spawn]
-       50 NEWCLOSURE                       R2 P2
-       51 CAPTURE                          UPVAL U11
-       52 CAPTURE                          UPVAL U12
-       53 CALL                             R1 1 0
-       54 CLOSEUPVALS                      R0
-       55 RETURN                           R0 0
+       32 CAPTURE                          UPVAL U9
+       33 CALL                             R1 1 1
+       34 SETUPVAL                         R1 4
+       35 GETUPVAL                         R1 1
+       36 GETTABLEKS                       R1 R1 K7 ["EngineFeatureStudioAssistantPermissions"]
+       38 JUMPIFNOT                        R1 ; [+11]
+       39 GETUPVAL                         R1 11
+       40 NEWCLOSURE                       R3 P1
+       41 CAPTURE                          UPVAL U6
+       42 CAPTURE                          UPVAL U3
+       43 CAPTURE                          UPVAL U1
+       44 CAPTURE                          UPVAL U7
+       45 CAPTURE                          UPVAL U8
+       46 NAMECALL                         R1 R1 K8 ["connect"]
+       48 CALL                             R1 2 1
+       49 SETUPVAL                         R1 10
+       50 GETIMPORT                        R1 K11 [task.spawn]
+       52 NEWCLOSURE                       R2 P2
+       53 CAPTURE                          UPVAL U12
+       54 CAPTURE                          UPVAL U13
+       55 CALL                             R1 1 0
+       56 CLOSEUPVALS                      R0
+       57 RETURN                           R0 0
 
 PROTO_53:
         0 LOADB                            R0 1
@@ -1639,146 +1655,149 @@ PROTO_54:
       123 DUPCLOSURE                       R41 K10 [PROTO_20]
       124 CAPTURE                          UPVAL U1
       125 CAPTURE                          UPVAL U2
-      126 NEWCLOSURE                       R42 P12
-      127 CAPTURE                          REF R14
-      128 CAPTURE                          VAL R4
-      129 CAPTURE                          REF R15
-      130 CAPTURE                          VAL R5
-      131 CAPTURE                          UPVAL U1
-      132 CAPTURE                          VAL R31
-      133 NEWCLOSURE                       R43 P13
-      134 CAPTURE                          UPVAL U1
-      135 CAPTURE                          REF R29
-      136 CAPTURE                          REF R14
-      137 CAPTURE                          REF R15
-      138 CAPTURE                          VAL R4
-      139 CAPTURE                          VAL R5
-      140 NEWCLOSURE                       R44 P14
-      141 CAPTURE                          REF R7
-      142 CAPTURE                          VAL R6
-      143 CAPTURE                          UPVAL U1
-      144 CAPTURE                          UPVAL U7
-      145 CAPTURE                          UPVAL U2
-      146 CAPTURE                          REF R10
-      147 NEWCLOSURE                       R45 P15
-      148 CAPTURE                          UPVAL U1
-      149 CAPTURE                          REF R29
-      150 CAPTURE                          UPVAL U8
-      151 CAPTURE                          VAL R12
-      152 CAPTURE                          REF R9
-      153 CAPTURE                          REF R30
-      154 CAPTURE                          VAL R31
-      155 CAPTURE                          REF R7
-      156 CAPTURE                          VAL R44
-      157 CAPTURE                          VAL R6
-      158 CAPTURE                          UPVAL U9
-      159 CAPTURE                          VAL R33
-      160 CAPTURE                          VAL R8
-      161 DUPCLOSURE                       R46 K11 [PROTO_33]
-      162 CAPTURE                          UPVAL U2
-      163 CAPTURE                          UPVAL U1
-      164 NEWCLOSURE                       R47 P17
-      165 CAPTURE                          REF R24
-      166 CAPTURE                          UPVAL U2
-      167 CAPTURE                          UPVAL U10
-      168 CAPTURE                          VAL R3
-      169 NEWCLOSURE                       R48 P18
-      170 CAPTURE                          REF R13
-      171 CAPTURE                          REF R25
-      172 CAPTURE                          REF R24
-      173 CAPTURE                          UPVAL U2
-      174 CAPTURE                          UPVAL U10
-      175 CAPTURE                          VAL R3
-      176 CAPTURE                          REF R26
-      177 CAPTURE                          UPVAL U1
-      178 CAPTURE                          REF R28
-      179 CAPTURE                          VAL R31
-      180 CAPTURE                          VAL R2
-      181 CAPTURE                          VAL R1
-      182 CAPTURE                          VAL R45
-      183 CAPTURE                          REF R23
-      184 CAPTURE                          REF R27
-      185 CAPTURE                          VAL R42
-      186 CAPTURE                          VAL R40
-      187 CAPTURE                          VAL R46
-      188 CAPTURE                          VAL R48
-      189 NEWCLOSURE                       R49 P19
-      190 CAPTURE                          UPVAL U1
-      191 CAPTURE                          REF R28
-      192 CAPTURE                          REF R25
-      193 CAPTURE                          REF R26
-      194 CAPTURE                          REF R27
-      195 CAPTURE                          REF R18
-      196 CAPTURE                          REF R17
-      197 CAPTURE                          REF R16
-      198 CAPTURE                          REF R13
-      199 CAPTURE                          VAL R43
-      200 CAPTURE                          VAL R6
-      201 CAPTURE                          VAL R1
-      202 CAPTURE                          VAL R31
-      203 CAPTURE                          VAL R2
-      204 CAPTURE                          VAL R46
-      205 NEWCLOSURE                       R50 P20
-      206 CAPTURE                          UPVAL U2
-      207 CAPTURE                          REF R13
-      208 CAPTURE                          REF R25
-      209 CAPTURE                          REF R26
-      210 CAPTURE                          REF R18
-      211 CAPTURE                          REF R17
-      212 CAPTURE                          REF R16
-      213 CAPTURE                          VAL R43
-      214 CAPTURE                          UPVAL U1
-      215 CAPTURE                          VAL R6
-      216 CAPTURE                          VAL R1
-      217 CAPTURE                          VAL R48
-      218 DUPCLOSURE                       R51 K12 [PROTO_48]
-      219 CAPTURE                          UPVAL U2
-      220 CAPTURE                          UPVAL U1
-      221 NEWCLOSURE                       R52 P22
-      222 CAPTURE                          REF R22
-      223 CAPTURE                          UPVAL U1
-      224 CAPTURE                          VAL R31
-      225 CAPTURE                          UPVAL U5
-      226 CAPTURE                          REF R19
-      227 CAPTURE                          VAL R40
-      228 CAPTURE                          REF R20
-      229 CAPTURE                          UPVAL U2
-      230 CAPTURE                          VAL R50
-      231 CAPTURE                          REF R21
-      232 CAPTURE                          VAL R5
-      233 CAPTURE                          VAL R51
-      234 CAPTURE                          VAL R48
-      235 NEWCLOSURE                       R53 P23
-      236 CAPTURE                          REF R23
-      237 CAPTURE                          UPVAL U1
-      238 CAPTURE                          REF R28
-      239 CAPTURE                          REF R32
-      240 CAPTURE                          REF R25
-      241 CAPTURE                          REF R26
-      242 CAPTURE                          REF R18
-      243 CAPTURE                          REF R17
-      244 CAPTURE                          REF R16
-      245 CAPTURE                          REF R19
-      246 CAPTURE                          REF R21
-      247 CAPTURE                          REF R13
-      248 CAPTURE                          VAL R43
-      249 CAPTURE                          VAL R6
-      250 CAPTURE                          VAL R1
-      251 CAPTURE                          VAL R31
-      252 DUPTABLE                         R54 K24 [{"init", "destroy", "start", "stop", "ensureSetupInstructionsLoaded", "stateObservable", "isBusyObservable", "setupInstructionsObservable", "connectionCountObservable", "activeConnectionsObservable", "authRejectedObservable"}]
-      253 SETTABLEKS                       R52 R54 K13 ["init"]
-      255 SETTABLEKS                       R53 R54 K14 ["destroy"]
-      257 SETTABLEKS                       R48 R54 K15 ["start"]
-      259 SETTABLEKS                       R49 R54 K16 ["stop"]
-      261 SETTABLEKS                       R47 R54 K17 ["ensureSetupInstructionsLoaded"]
-      263 SETTABLEKS                       R1 R54 K18 ["stateObservable"]
-      265 SETTABLEKS                       R2 R54 K19 ["isBusyObservable"]
-      267 SETTABLEKS                       R3 R54 K20 ["setupInstructionsObservable"]
-      269 SETTABLEKS                       R4 R54 K21 ["connectionCountObservable"]
-      271 SETTABLEKS                       R5 R54 K22 ["activeConnectionsObservable"]
-      273 SETTABLEKS                       R6 R54 K23 ["authRejectedObservable"]
-      275 CLOSEUPVALS                      R7
-      276 RETURN                           R54 1
+      126 CAPTURE                          UPVAL U7
+      127 NEWCLOSURE                       R42 P12
+      128 CAPTURE                          REF R14
+      129 CAPTURE                          VAL R4
+      130 CAPTURE                          REF R15
+      131 CAPTURE                          VAL R5
+      132 CAPTURE                          UPVAL U1
+      133 CAPTURE                          VAL R31
+      134 NEWCLOSURE                       R43 P13
+      135 CAPTURE                          UPVAL U1
+      136 CAPTURE                          REF R29
+      137 CAPTURE                          REF R14
+      138 CAPTURE                          REF R15
+      139 CAPTURE                          VAL R4
+      140 CAPTURE                          VAL R5
+      141 NEWCLOSURE                       R44 P14
+      142 CAPTURE                          REF R7
+      143 CAPTURE                          VAL R6
+      144 CAPTURE                          UPVAL U1
+      145 CAPTURE                          UPVAL U8
+      146 CAPTURE                          UPVAL U2
+      147 CAPTURE                          REF R10
+      148 NEWCLOSURE                       R45 P15
+      149 CAPTURE                          UPVAL U1
+      150 CAPTURE                          REF R29
+      151 CAPTURE                          UPVAL U9
+      152 CAPTURE                          VAL R12
+      153 CAPTURE                          REF R9
+      154 CAPTURE                          REF R30
+      155 CAPTURE                          VAL R31
+      156 CAPTURE                          REF R7
+      157 CAPTURE                          VAL R44
+      158 CAPTURE                          VAL R6
+      159 CAPTURE                          UPVAL U10
+      160 CAPTURE                          VAL R33
+      161 CAPTURE                          VAL R8
+      162 DUPCLOSURE                       R46 K11 [PROTO_33]
+      163 CAPTURE                          UPVAL U2
+      164 CAPTURE                          UPVAL U1
+      165 NEWCLOSURE                       R47 P17
+      166 CAPTURE                          REF R24
+      167 CAPTURE                          UPVAL U2
+      168 CAPTURE                          UPVAL U11
+      169 CAPTURE                          VAL R3
+      170 NEWCLOSURE                       R48 P18
+      171 CAPTURE                          REF R13
+      172 CAPTURE                          REF R25
+      173 CAPTURE                          REF R24
+      174 CAPTURE                          UPVAL U2
+      175 CAPTURE                          UPVAL U11
+      176 CAPTURE                          VAL R3
+      177 CAPTURE                          REF R26
+      178 CAPTURE                          UPVAL U1
+      179 CAPTURE                          REF R28
+      180 CAPTURE                          VAL R31
+      181 CAPTURE                          VAL R2
+      182 CAPTURE                          VAL R1
+      183 CAPTURE                          VAL R45
+      184 CAPTURE                          REF R23
+      185 CAPTURE                          REF R27
+      186 CAPTURE                          VAL R42
+      187 CAPTURE                          VAL R40
+      188 CAPTURE                          VAL R46
+      189 CAPTURE                          VAL R48
+      190 NEWCLOSURE                       R49 P19
+      191 CAPTURE                          UPVAL U1
+      192 CAPTURE                          REF R28
+      193 CAPTURE                          REF R25
+      194 CAPTURE                          REF R26
+      195 CAPTURE                          REF R27
+      196 CAPTURE                          REF R18
+      197 CAPTURE                          REF R17
+      198 CAPTURE                          REF R16
+      199 CAPTURE                          REF R13
+      200 CAPTURE                          VAL R43
+      201 CAPTURE                          VAL R6
+      202 CAPTURE                          VAL R1
+      203 CAPTURE                          VAL R31
+      204 CAPTURE                          VAL R2
+      205 CAPTURE                          VAL R46
+      206 NEWCLOSURE                       R50 P20
+      207 CAPTURE                          UPVAL U2
+      208 CAPTURE                          REF R13
+      209 CAPTURE                          REF R25
+      210 CAPTURE                          REF R26
+      211 CAPTURE                          REF R18
+      212 CAPTURE                          REF R17
+      213 CAPTURE                          REF R16
+      214 CAPTURE                          VAL R43
+      215 CAPTURE                          UPVAL U1
+      216 CAPTURE                          VAL R6
+      217 CAPTURE                          VAL R1
+      218 CAPTURE                          VAL R48
+      219 DUPCLOSURE                       R51 K12 [PROTO_48]
+      220 CAPTURE                          UPVAL U2
+      221 CAPTURE                          UPVAL U1
+      222 NEWCLOSURE                       R52 P22
+      223 CAPTURE                          REF R22
+      224 CAPTURE                          UPVAL U1
+      225 CAPTURE                          VAL R31
+      226 CAPTURE                          UPVAL U5
+      227 CAPTURE                          REF R19
+      228 CAPTURE                          VAL R40
+      229 CAPTURE                          REF R20
+      230 CAPTURE                          UPVAL U2
+      231 CAPTURE                          UPVAL U7
+      232 CAPTURE                          VAL R50
+      233 CAPTURE                          REF R21
+      234 CAPTURE                          VAL R5
+      235 CAPTURE                          VAL R51
+      236 CAPTURE                          VAL R48
+      237 NEWCLOSURE                       R53 P23
+      238 CAPTURE                          REF R23
+      239 CAPTURE                          UPVAL U1
+      240 CAPTURE                          REF R28
+      241 CAPTURE                          REF R32
+      242 CAPTURE                          REF R25
+      243 CAPTURE                          REF R26
+      244 CAPTURE                          REF R18
+      245 CAPTURE                          REF R17
+      246 CAPTURE                          REF R16
+      247 CAPTURE                          REF R19
+      248 CAPTURE                          REF R21
+      249 CAPTURE                          REF R13
+      250 CAPTURE                          VAL R43
+      251 CAPTURE                          VAL R6
+      252 CAPTURE                          VAL R1
+      253 CAPTURE                          VAL R31
+      254 DUPTABLE                         R54 K25 [{"init", "destroy", "start", "stop", "readIsEnabledAsync", "ensureSetupInstructionsLoaded", "stateObservable", "isBusyObservable", "setupInstructionsObservable", "connectionCountObservable", "activeConnectionsObservable", "authRejectedObservable"}]
+      255 SETTABLEKS                       R52 R54 K13 ["init"]
+      257 SETTABLEKS                       R53 R54 K14 ["destroy"]
+      259 SETTABLEKS                       R48 R54 K15 ["start"]
+      261 SETTABLEKS                       R49 R54 K16 ["stop"]
+      263 SETTABLEKS                       R51 R54 K17 ["readIsEnabledAsync"]
+      265 SETTABLEKS                       R47 R54 K18 ["ensureSetupInstructionsLoaded"]
+      267 SETTABLEKS                       R1 R54 K19 ["stateObservable"]
+      269 SETTABLEKS                       R2 R54 K20 ["isBusyObservable"]
+      271 SETTABLEKS                       R3 R54 K21 ["setupInstructionsObservable"]
+      273 SETTABLEKS                       R4 R54 K22 ["connectionCountObservable"]
+      275 SETTABLEKS                       R5 R54 K23 ["activeConnectionsObservable"]
+      277 SETTABLEKS                       R6 R54 K24 ["authRejectedObservable"]
+      279 CLOSEUPVALS                      R7
+      280 RETURN                           R54 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1846,10 +1865,11 @@ MAIN:
       103 CAPTURE                          VAL R5
       104 CAPTURE                          VAL R8
       105 CAPTURE                          VAL R7
-      106 CAPTURE                          VAL R14
-      107 CAPTURE                          VAL R12
-      108 CAPTURE                          VAL R9
-      109 CAPTURE                          VAL R16
-      110 DUPTABLE                         R18 K40 [{"new"}]
-      111 SETTABLEKS                       R17 R18 K39 ["new"]
-      113 RETURN                           R18 1
+      106 CAPTURE                          VAL R1
+      107 CAPTURE                          VAL R14
+      108 CAPTURE                          VAL R12
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R16
+      111 DUPTABLE                         R18 K40 [{"new"}]
+      112 SETTABLEKS                       R17 R18 K39 ["new"]
+      114 RETURN                           R18 1

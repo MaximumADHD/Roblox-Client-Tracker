@@ -303,105 +303,117 @@ PROTO_10:
       116 LOADK                            R11 K24 ["Generate Avatar"]
       117 NAMECALL                         R8 R8 K25 ["TryBeginRecording"]
       119 CALL                             R8 3 1
-      120 GETUPVAL                         R9 8
-      121 GETTABLEKS                       R10 R0 K26 ["textPrompt"]
-      123 CALL                             R9 1 1
-      124 SETTABLEKS                       R9 R7 K27 ["Name"]
-      126 GETUPVAL                         R9 2
-      127 GETTABLEKS                       R9 R9 K28 ["FFlagAssistantAvatarGenAccessoriesFromMeshParts"]
-      129 JUMPIFNOT                        R9 ; [+3]
-      130 GETUPVAL                         R9 9
-      131 MOVE                             R10 R7
-      132 CALL                             R9 1 0
-      133 GETUPVAL                         R9 10
-      134 GETTABLEKS                       R9 R9 K29 ["setPivotOffset"]
-      136 MOVE                             R10 R7
-      137 CALL                             R9 1 0
-      138 GETUPVAL                         R9 11
-      139 GETTABLEKS                       R9 R9 K30 ["setPositionOnGround"]
-      141 MOVE                             R10 R7
-      142 LOADB                            R11 1
-      143 LOADNIL                          R12
-      144 GETUPVAL                         R14 2
-      145 GETTABLEKS                       R14 R14 K31 ["FFlagAssistantAvatarGenPlaceWithoutRotation"]
-      147 JUMPIFNOT                        R14 ; [+2]
-      148 LOADK                            R13 K32 [{-0, -0, -1}]
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R13
-      151 CALL                             R9 4 0
-      152 GETUPVAL                         R9 12
-      153 SETTABLEKS                       R9 R7 K33 ["Parent"]
-      155 GETTABLEKS                       R9 R2 K5 ["r15Plus"]
-      157 JUMPIFNOT                        R9 ; [+9]
-      158 GETUPVAL                         R9 2
-      159 GETTABLEKS                       R9 R9 K34 ["FFlagAssistantAvatarGenHumanoidRigDescription"]
-      161 JUMPIFNOT                        R9 ; [+5]
-      162 GETUPVAL                         R9 4
-      163 GETTABLEKS                       R9 R9 K35 ["addHumanoidRigDescription"]
-      165 MOVE                             R10 R7
-      166 CALL                             R9 1 0
-      167 JUMPIFEQKNIL                     R8 ; [+8]
-      169 GETUPVAL                         R9 7
-      170 MOVE                             R11 R8
-      171 GETIMPORT                        R12 K39 [Enum.FinishRecordingOperation.Commit]
-      173 NAMECALL                         R9 R9 K40 ["FinishRecording"]
-      175 CALL                             R9 3 0
-      176 GETUPVAL                         R9 2
-      177 GETTABLEKS                       R9 R9 K41 ["FFlagAssistantAvatarGenUsageTelemetry"]
-      179 JUMPIFNOT                        R9 ; [+79]
-      180 GETUPVAL                         R9 4
-      181 GETTABLEKS                       R9 R9 K42 ["isUploadAndInsertEnabled"]
-      183 CALL                             R9 0 1
-      184 JUMPIFNOT                        R9 ; [+74]
-      185 GETUPVAL                         R9 13
-      186 LOADK                            R11 K43 ["studio"]
-      187 LOADK                            R12 K44 ["Assistant"]
-      188 LOADK                            R13 K45 ["AvatarCreationUsage"]
-      189 DUPTABLE                         R14 K53 [{"user_id", "job_id", "place_id", "universe_id", "output_asset_ids", "job_config", "request_source"}]
-      190 GETUPVAL                         R16 14
-      191 NAMECALL                         R16 R16 K54 ["GetUserId"]
-      193 CALL                             R16 1 -1
-      194 FASTCALL                         TOSTRING ; [+2]
-      195 GETIMPORT                        R15 K56 [tostring]
-      197 CALL                             R15 -1 1
-      198 SETTABLEKS                       R15 R14 K46 ["user_id"]
-      200 GETTABLEKS                       R15 R4 K19 ["jobId"]
-      202 SETTABLEKS                       R15 R14 K47 ["job_id"]
-      204 GETIMPORT                        R16 K58 [game]
-      206 GETTABLEKS                       R16 R16 K59 ["PlaceId"]
-      208 FASTCALL1                        TOSTRING R16 ; [+2]
-      209 GETIMPORT                        R15 K56 [tostring]
-      211 CALL                             R15 1 1
-      212 SETTABLEKS                       R15 R14 K48 ["place_id"]
-      214 GETIMPORT                        R16 K58 [game]
-      216 GETTABLEKS                       R16 R16 K60 ["GameId"]
-      218 FASTCALL1                        TOSTRING R16 ; [+2]
-      219 GETIMPORT                        R15 K56 [tostring]
-      221 CALL                             R15 1 1
-      222 SETTABLEKS                       R15 R14 K49 ["universe_id"]
-      224 GETIMPORT                        R15 K63 [table.concat]
-      226 GETUPVAL                         R16 15
-      227 MOVE                             R17 R7
-      228 CALL                             R16 1 1
-      229 LOADK                            R17 K64 [","]
-      230 CALL                             R15 2 1
-      231 SETTABLEKS                       R15 R14 K50 ["output_asset_ids"]
-      233 GETUPVAL                         R15 16
-      234 DUPTABLE                         R17 K66 [{"pipeline", "dynamicHead", "r15Plus"}]
-      235 GETTABLEKS                       R18 R2 K3 ["pipelineName"]
-      237 SETTABLEKS                       R18 R17 K65 ["pipeline"]
-      239 GETTABLEKS                       R18 R2 K4 ["dynamicHead"]
-      241 SETTABLEKS                       R18 R17 K4 ["dynamicHead"]
-      243 GETTABLEKS                       R18 R2 K5 ["r15Plus"]
-      245 SETTABLEKS                       R18 R17 K5 ["r15Plus"]
-      247 NAMECALL                         R15 R15 K67 ["JSONEncode"]
-      249 CALL                             R15 2 1
-      250 SETTABLEKS                       R15 R14 K51 ["job_config"]
-      252 GETTABLEKS                       R15 R0 K68 ["requestSource"]
-      254 SETTABLEKS                       R15 R14 K52 ["request_source"]
-      256 NAMECALL                         R9 R9 K69 ["SendEventDeferred"]
-      258 CALL                             R9 5 0
-      259 RETURN                           R7 1
+      120 GETUPVAL                         R10 2
+      121 GETTABLEKS                       R10 R10 K26 ["FFlagAssistantAvatarGenCompactName"]
+      123 JUMPIFNOT                        R10 ; [+12]
+      124 GETTABLEKS                       R10 R0 K27 ["avatarName"]
+      126 JUMPIFEQKNIL                     R10 ; [+6]
+      128 GETUPVAL                         R9 8
+      129 GETTABLEKS                       R10 R0 K27 ["avatarName"]
+      131 CALL                             R9 1 1
+      132 JUMP                             ; [+7]
+      133 GETUPVAL                         R9 9
+      134 CALL                             R9 0 1
+      135 JUMP                             ; [+4]
+      136 GETUPVAL                         R9 8
+      137 GETTABLEKS                       R10 R0 K28 ["textPrompt"]
+      139 CALL                             R9 1 1
+      140 SETTABLEKS                       R9 R7 K29 ["Name"]
+      142 GETUPVAL                         R9 2
+      143 GETTABLEKS                       R9 R9 K30 ["FFlagAssistantAvatarGenAccessoriesFromMeshParts"]
+      145 JUMPIFNOT                        R9 ; [+3]
+      146 GETUPVAL                         R9 10
+      147 MOVE                             R10 R7
+      148 CALL                             R9 1 0
+      149 GETUPVAL                         R9 11
+      150 GETTABLEKS                       R9 R9 K31 ["setPivotOffset"]
+      152 MOVE                             R10 R7
+      153 CALL                             R9 1 0
+      154 GETUPVAL                         R9 12
+      155 GETTABLEKS                       R9 R9 K32 ["setPositionOnGround"]
+      157 MOVE                             R10 R7
+      158 LOADB                            R11 1
+      159 LOADNIL                          R12
+      160 GETUPVAL                         R14 2
+      161 GETTABLEKS                       R14 R14 K33 ["FFlagAssistantAvatarGenPlaceWithoutRotation"]
+      163 JUMPIFNOT                        R14 ; [+2]
+      164 LOADK                            R13 K34 [{-0, -0, -1}]
+      165 JUMP                             ; [+1]
+      166 LOADNIL                          R13
+      167 CALL                             R9 4 0
+      168 GETUPVAL                         R9 13
+      169 SETTABLEKS                       R9 R7 K35 ["Parent"]
+      171 GETTABLEKS                       R9 R2 K5 ["r15Plus"]
+      173 JUMPIFNOT                        R9 ; [+9]
+      174 GETUPVAL                         R9 2
+      175 GETTABLEKS                       R9 R9 K36 ["FFlagAssistantAvatarGenHumanoidRigDescription"]
+      177 JUMPIFNOT                        R9 ; [+5]
+      178 GETUPVAL                         R9 4
+      179 GETTABLEKS                       R9 R9 K37 ["addHumanoidRigDescription"]
+      181 MOVE                             R10 R7
+      182 CALL                             R9 1 0
+      183 JUMPIFEQKNIL                     R8 ; [+8]
+      185 GETUPVAL                         R9 7
+      186 MOVE                             R11 R8
+      187 GETIMPORT                        R12 K41 [Enum.FinishRecordingOperation.Commit]
+      189 NAMECALL                         R9 R9 K42 ["FinishRecording"]
+      191 CALL                             R9 3 0
+      192 GETUPVAL                         R9 2
+      193 GETTABLEKS                       R9 R9 K43 ["FFlagAssistantAvatarGenUsageTelemetry"]
+      195 JUMPIFNOT                        R9 ; [+79]
+      196 GETUPVAL                         R9 4
+      197 GETTABLEKS                       R9 R9 K44 ["isUploadAndInsertEnabled"]
+      199 CALL                             R9 0 1
+      200 JUMPIFNOT                        R9 ; [+74]
+      201 GETUPVAL                         R9 14
+      202 LOADK                            R11 K45 ["studio"]
+      203 LOADK                            R12 K46 ["Assistant"]
+      204 LOADK                            R13 K47 ["AvatarCreationUsage"]
+      205 DUPTABLE                         R14 K55 [{"user_id", "job_id", "place_id", "universe_id", "output_asset_ids", "job_config", "request_source"}]
+      206 GETUPVAL                         R16 15
+      207 NAMECALL                         R16 R16 K56 ["GetUserId"]
+      209 CALL                             R16 1 -1
+      210 FASTCALL                         TOSTRING ; [+2]
+      211 GETIMPORT                        R15 K58 [tostring]
+      213 CALL                             R15 -1 1
+      214 SETTABLEKS                       R15 R14 K48 ["user_id"]
+      216 GETTABLEKS                       R15 R4 K19 ["jobId"]
+      218 SETTABLEKS                       R15 R14 K49 ["job_id"]
+      220 GETIMPORT                        R16 K60 [game]
+      222 GETTABLEKS                       R16 R16 K61 ["PlaceId"]
+      224 FASTCALL1                        TOSTRING R16 ; [+2]
+      225 GETIMPORT                        R15 K58 [tostring]
+      227 CALL                             R15 1 1
+      228 SETTABLEKS                       R15 R14 K50 ["place_id"]
+      230 GETIMPORT                        R16 K60 [game]
+      232 GETTABLEKS                       R16 R16 K62 ["GameId"]
+      234 FASTCALL1                        TOSTRING R16 ; [+2]
+      235 GETIMPORT                        R15 K58 [tostring]
+      237 CALL                             R15 1 1
+      238 SETTABLEKS                       R15 R14 K51 ["universe_id"]
+      240 GETIMPORT                        R15 K65 [table.concat]
+      242 GETUPVAL                         R16 16
+      243 MOVE                             R17 R7
+      244 CALL                             R16 1 1
+      245 LOADK                            R17 K66 [","]
+      246 CALL                             R15 2 1
+      247 SETTABLEKS                       R15 R14 K52 ["output_asset_ids"]
+      249 GETUPVAL                         R15 17
+      250 DUPTABLE                         R17 K68 [{"pipeline", "dynamicHead", "r15Plus"}]
+      251 GETTABLEKS                       R18 R2 K3 ["pipelineName"]
+      253 SETTABLEKS                       R18 R17 K67 ["pipeline"]
+      255 GETTABLEKS                       R18 R2 K4 ["dynamicHead"]
+      257 SETTABLEKS                       R18 R17 K4 ["dynamicHead"]
+      259 GETTABLEKS                       R18 R2 K5 ["r15Plus"]
+      261 SETTABLEKS                       R18 R17 K5 ["r15Plus"]
+      263 NAMECALL                         R15 R15 K69 ["JSONEncode"]
+      265 CALL                             R15 2 1
+      266 SETTABLEKS                       R15 R14 K53 ["job_config"]
+      268 GETTABLEKS                       R15 R0 K70 ["requestSource"]
+      270 SETTABLEKS                       R15 R14 K54 ["request_source"]
+      272 NAMECALL                         R9 R9 K71 ["SendEventDeferred"]
+      274 CALL                             R9 5 0
+      275 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -473,36 +485,43 @@ MAIN:
       112 GETTABLEKS                       R14 R14 K18 ["AvatarGen"]
       114 GETTABLEKS                       R14 R14 K26 ["findUnderlyingMeshAndTextureAssetIds"]
       116 CALL                             R13 1 1
-      117 GETTABLEKS                       R14 R6 K27 ["Utils"]
-      119 GETTABLEKS                       R14 R14 K28 ["Tools"]
-      121 DUPCLOSURE                       R15 K29 [PROTO_0]
-      122 DUPCLOSURE                       R16 K30 [PROTO_1]
-      123 DUPCLOSURE                       R17 K31 [PROTO_2]
-      124 DUPCLOSURE                       R18 K32 [PROTO_3]
-      125 CAPTURE                          VAL R8
-      126 DUPCLOSURE                       R19 K33 [PROTO_4]
-      127 CAPTURE                          VAL R8
-      128 DUPCLOSURE                       R20 K34 [PROTO_7]
-      129 CAPTURE                          VAL R7
-      130 CAPTURE                          VAL R19
-      131 NEWTABLE                         R21 1 0
-      133 DUPCLOSURE                       R22 K35 [PROTO_10]
-      134 CAPTURE                          VAL R15
-      135 CAPTURE                          VAL R9
+      117 GETIMPORT                        R14 K13 [require]
+      119 GETTABLEKS                       R15 R0 K16 ["Src"]
+      121 GETTABLEKS                       R15 R15 K17 ["Util"]
+      123 GETTABLEKS                       R15 R15 K18 ["AvatarGen"]
+      125 GETTABLEKS                       R15 R15 K27 ["getNextAvatarCreationName"]
+      127 CALL                             R14 1 1
+      128 GETTABLEKS                       R15 R6 K28 ["Utils"]
+      130 GETTABLEKS                       R15 R15 K29 ["Tools"]
+      132 DUPCLOSURE                       R16 K30 [PROTO_0]
+      133 DUPCLOSURE                       R17 K31 [PROTO_1]
+      134 DUPCLOSURE                       R18 K32 [PROTO_2]
+      135 DUPCLOSURE                       R19 K33 [PROTO_3]
       136 CAPTURE                          VAL R8
-      137 CAPTURE                          VAL R19
-      138 CAPTURE                          VAL R7
-      139 CAPTURE                          VAL R20
-      140 CAPTURE                          VAL R16
-      141 CAPTURE                          VAL R1
-      142 CAPTURE                          VAL R17
-      143 CAPTURE                          VAL R12
-      144 CAPTURE                          VAL R10
-      145 CAPTURE                          VAL R14
-      146 CAPTURE                          VAL R5
-      147 CAPTURE                          VAL R3
-      148 CAPTURE                          VAL R4
-      149 CAPTURE                          VAL R13
-      150 CAPTURE                          VAL R2
-      151 SETTABLEKS                       R22 R21 K36 ["generateAvatarAsync"]
-      153 RETURN                           R21 1
+      137 DUPCLOSURE                       R20 K34 [PROTO_4]
+      138 CAPTURE                          VAL R8
+      139 DUPCLOSURE                       R21 K35 [PROTO_7]
+      140 CAPTURE                          VAL R7
+      141 CAPTURE                          VAL R20
+      142 NEWTABLE                         R22 1 0
+      144 DUPCLOSURE                       R23 K36 [PROTO_10]
+      145 CAPTURE                          VAL R16
+      146 CAPTURE                          VAL R9
+      147 CAPTURE                          VAL R8
+      148 CAPTURE                          VAL R20
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R21
+      151 CAPTURE                          VAL R17
+      152 CAPTURE                          VAL R1
+      153 CAPTURE                          VAL R18
+      154 CAPTURE                          VAL R14
+      155 CAPTURE                          VAL R12
+      156 CAPTURE                          VAL R10
+      157 CAPTURE                          VAL R15
+      158 CAPTURE                          VAL R5
+      159 CAPTURE                          VAL R3
+      160 CAPTURE                          VAL R4
+      161 CAPTURE                          VAL R13
+      162 CAPTURE                          VAL R2
+      163 SETTABLEKS                       R23 R22 K37 ["generateAvatarAsync"]
+      165 RETURN                           R22 1

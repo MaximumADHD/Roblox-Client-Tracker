@@ -30,8 +30,8 @@ PROTO_3:
        11 JUMPIFNOTEQ                      R2 R3 ; [+21]
        13 JUMPIFNOT                        R0 ; [+6]
        14 GETUPVAL                         R2 4
-       15 DUPTABLE                         R3 K7 [{["type"] = "Prompt", ["placeKind"]}]
-       16 SETTABLEKS                       R1 R3 K6 ["placeKind"]
+       15 DUPTABLE                         R3 K7 [{["type"] = "Prompt", ["place"]}]
+       16 SETTABLEKS                       R1 R3 K6 ["place"]
        18 CALL                             R2 1 0
        19 RETURN                           R0 0
        20 GETIMPORT                        R2 K9 [warn]
@@ -125,29 +125,30 @@ PROTO_8:
        25 GETTABLEKS                       R4 R4 K6 ["current"]
        27 JUMPIFEQ                         R3 R4 ; [+2]
        29 RETURN                           R0 0
-       30 JUMPIFNOT                        R1 ; [+9]
+       30 JUMPIFNOT                        R1 ; [+11]
        31 GETUPVAL                         R3 6
-       32 JUMPIFEQKS                       R3 K7 ["Local"] ; [+3]
-       34 GETUPVAL                         R3 0
-       35 JUMPIFNOT                        R3 ; [+20]
-       36 GETUPVAL                         R3 7
-       37 DUPTABLE                         R4 K10 [{["type"] = "Hidden"}]
-       38 CALL                             R3 1 0
-       39 RETURN                           R0 0
-       40 GETIMPORT                        R3 K12 [warn]
-       42 LOADK                            R5 K13 ["Failed to restart place for Expanded Terrain: "]
-       43 FASTCALL1                        TOSTRING R2 ; [+3]
-       44 MOVE                             R7 R2
-       45 GETIMPORT                        R6 K15 [tostring]
-       47 CALL                             R6 1 1
-       48 CONCAT                           R4 R5 R6
-       49 CALL                             R3 1 0
-       50 GETUPVAL                         R3 7
-       51 DUPTABLE                         R4 K18 [{["type"] = "Prompt", ["placeKind"]}]
-       52 GETUPVAL                         R5 6
-       53 SETTABLEKS                       R5 R4 K17 ["placeKind"]
-       55 CALL                             R3 1 0
-       56 RETURN                           R0 0
+       32 GETTABLEKS                       R3 R3 K7 ["placeKind"]
+       34 JUMPIFEQKS                       R3 K8 ["New"] ; [+3]
+       36 GETUPVAL                         R3 0
+       37 JUMPIFNOT                        R3 ; [+20]
+       38 GETUPVAL                         R3 7
+       39 DUPTABLE                         R4 K11 [{["type"] = "Hidden"}]
+       40 CALL                             R3 1 0
+       41 RETURN                           R0 0
+       42 GETIMPORT                        R3 K13 [warn]
+       44 LOADK                            R5 K14 ["Failed to restart place for Expanded Terrain: "]
+       45 FASTCALL1                        TOSTRING R2 ; [+3]
+       46 MOVE                             R7 R2
+       47 GETIMPORT                        R6 K16 [tostring]
+       49 CALL                             R6 1 1
+       50 CONCAT                           R4 R5 R6
+       51 CALL                             R3 1 0
+       52 GETUPVAL                         R3 7
+       53 DUPTABLE                         R4 K19 [{["type"] = "Prompt", ["place"]}]
+       54 GETUPVAL                         R5 6
+       55 SETTABLEKS                       R5 R4 K18 ["place"]
+       57 CALL                             R3 1 0
+       58 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -155,7 +156,7 @@ PROTO_9:
         3 GETTABLEKS                       R1 R0 K1 ["type"]
         5 JUMPIFEQKS                       R1 K2 ["Prompt"] ; [+2]
         7 RETURN                           R0 0
-        8 GETTABLEKS                       R1 R0 K3 ["placeKind"]
+        8 GETTABLEKS                       R1 R0 K3 ["place"]
        10 GETUPVAL                         R2 1
        11 GETTABLEKS                       R3 R2 K0 ["current"]
        13 ADDK                             R3 R3 K4 [1]
@@ -163,8 +164,8 @@ PROTO_9:
        16 GETUPVAL                         R2 1
        17 GETTABLEKS                       R2 R2 K0 ["current"]
        19 GETUPVAL                         R3 2
-       20 DUPTABLE                         R4 K6 [{["type"] = "Restarting", ["placeKind"]}]
-       21 SETTABLEKS                       R1 R4 K3 ["placeKind"]
+       20 DUPTABLE                         R4 K6 [{["type"] = "Restarting", ["place"]}]
+       21 SETTABLEKS                       R1 R4 K3 ["place"]
        23 CALL                             R3 1 0
        24 GETIMPORT                        R3 K9 [task.spawn]
        26 NEWCLOSURE                       R4 P0
@@ -255,26 +256,28 @@ PROTO_10:
        88 DUPTABLE                         R11 K11 [{"isVisible", "isRestarting", "close", "restart"}]
        89 LOADB                            R12 1
        90 GETTABLEKS                       R13 R3 K1 ["type"]
-       92 JUMPIFEQKS                       R13 K12 ["Prompt"] ; [+12]
+       92 JUMPIFEQKS                       R13 K12 ["Prompt"] ; [+14]
        94 LOADB                            R12 0
        95 GETTABLEKS                       R13 R3 K1 ["type"]
-       97 JUMPIFNOTEQKS                    R13 K13 ["Restarting"] ; [+7]
-       99 GETTABLEKS                       R13 R3 K14 ["placeKind"]
-      101 JUMPIFEQKS                       R13 K15 ["Cloud"] ; [+2]
-      103 LOADB                            R12 0 +1
-      104 LOADB                            R12 1
-      105 SETTABLEKS                       R12 R11 K7 ["isVisible"]
-      107 LOADB                            R12 0
-      108 GETTABLEKS                       R13 R3 K1 ["type"]
-      110 JUMPIFNOTEQKS                    R13 K13 ["Restarting"] ; [+7]
-      112 GETTABLEKS                       R13 R3 K14 ["placeKind"]
-      114 JUMPIFEQKS                       R13 K15 ["Cloud"] ; [+2]
-      116 LOADB                            R12 0 +1
-      117 LOADB                            R12 1
-      118 SETTABLEKS                       R12 R11 K8 ["isRestarting"]
-      120 SETTABLEKS                       R9 R11 K9 ["close"]
-      122 SETTABLEKS                       R10 R11 K10 ["restart"]
-      124 RETURN                           R11 1
+       97 JUMPIFNOTEQKS                    R13 K13 ["Restarting"] ; [+9]
+       99 GETTABLEKS                       R13 R3 K14 ["place"]
+      101 GETTABLEKS                       R13 R13 K15 ["placeKind"]
+      103 JUMPIFNOTEQKS                    R13 K16 ["New"] ; [+2]
+      105 LOADB                            R12 0 +1
+      106 LOADB                            R12 1
+      107 SETTABLEKS                       R12 R11 K7 ["isVisible"]
+      109 LOADB                            R12 0
+      110 GETTABLEKS                       R13 R3 K1 ["type"]
+      112 JUMPIFNOTEQKS                    R13 K13 ["Restarting"] ; [+9]
+      114 GETTABLEKS                       R13 R3 K14 ["place"]
+      116 GETTABLEKS                       R13 R13 K15 ["placeKind"]
+      118 JUMPIFNOTEQKS                    R13 K16 ["New"] ; [+2]
+      120 LOADB                            R12 0 +1
+      121 LOADB                            R12 1
+      122 SETTABLEKS                       R12 R11 K8 ["isRestarting"]
+      124 SETTABLEKS                       R9 R11 K9 ["close"]
+      126 SETTABLEKS                       R10 R11 K10 ["restart"]
+      128 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -42,267 +42,277 @@ PROTO_2:
        14 NAMECALL                         R0 R0 K4 ["UnbindFromRenderStep"]
        16 CALL                             R0 2 0
        17 GETUPVAL                         R0 3
-       18 LOADK                            R2 K5 ["rbxasset://models/ViewSelector/ViewSelector.rbxm"]
-       19 NAMECALL                         R0 R0 K6 ["LoadLocalAsset"]
-       21 CALL                             R0 2 1
-       22 SETUPVAL                         R0 0
-       23 GETUPVAL                         R0 0
-       24 GETUPVAL                         R1 1
-       25 SETTABLEKS                       R1 R0 K7 ["Parent"]
-       27 GETUPVAL                         R0 0
-       28 LOADB                            R1 0
-       29 SETTABLEKS                       R1 R0 K8 ["Enabled"]
-       31 GETUPVAL                         R0 0
-       32 LOADK                            R2 K9 ["Panel"]
-       33 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       35 CALL                             R0 2 1
-       36 SETUPVAL                         R0 4
-       37 GETUPVAL                         R0 4
-       38 LOADK                            R2 K11 ["Viewport"]
-       39 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       41 CALL                             R0 2 1
-       42 SETUPVAL                         R0 5
-       43 GETUPVAL                         R0 5
-       44 GETTABLEKS                       R0 R0 K12 ["AbsoluteSize"]
-       46 GETTABLEKS                       R0 R0 K13 ["x"]
-       48 SETUPVAL                         R0 6
-       49 GETUPVAL                         R0 5
-       50 LOADK                            R2 K14 ["EventReceiver"]
-       51 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       53 CALL                             R0 2 1
-       54 SETUPVAL                         R0 7
-       55 GETUPVAL                         R0 7
-       56 GETIMPORT                        R1 K17 [UDim2.new]
-       58 LOADN                            R2 1
-       59 LOADN                            R3 0
-       60 LOADN                            R4 0
-       61 GETUPVAL                         R5 6
-       62 CALL                             R1 4 1
-       63 SETTABLEKS                       R1 R0 K18 ["Size"]
-       65 GETUPVAL                         R0 5
-       66 LOADK                            R2 K19 ["Model"]
-       67 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       69 CALL                             R0 2 1
-       70 SETUPVAL                         R0 8
-       71 GETUPVAL                         R0 4
-       72 LOADK                            R2 K20 ["X"]
-       73 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       75 CALL                             R0 2 1
-       76 SETUPVAL                         R0 9
-       77 GETUPVAL                         R0 4
-       78 LOADK                            R2 K21 ["Y"]
-       79 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       81 CALL                             R0 2 1
-       82 SETUPVAL                         R0 10
-       83 GETUPVAL                         R0 4
-       84 LOADK                            R2 K22 ["Z"]
-       85 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       87 CALL                             R0 2 1
-       88 SETUPVAL                         R0 11
-       89 GETUPVAL                         R0 4
-       90 LOADK                            R2 K23 ["ArrowButtons"]
-       91 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-       93 CALL                             R0 2 1
-       94 SETUPVAL                         R0 12
-       95 GETUPVAL                         R0 12
-       96 LOADB                            R1 0
-       97 SETTABLEKS                       R1 R0 K24 ["Visible"]
-       99 LOADB                            R0 0
-      100 SETUPVAL                         R0 13
-      101 GETIMPORT                        R0 K26 [game]
-      103 LOADK                            R2 K27 ["NextGenDraggersEnabledFeature"]
-      104 NAMECALL                         R0 R0 K28 ["GetEngineFeature"]
-      106 CALL                             R0 2 1
-      107 JUMPIFNOT                        R0 ; [+36]
-      108 GETUPVAL                         R0 9
-      109 GETUPVAL                         R1 14
-      110 SETTABLEKS                       R1 R0 K29 ["TextColor3"]
-      112 GETUPVAL                         R0 10
-      113 GETUPVAL                         R1 15
-      114 SETTABLEKS                       R1 R0 K29 ["TextColor3"]
-      116 GETUPVAL                         R0 11
-      117 GETUPVAL                         R1 16
-      118 SETTABLEKS                       R1 R0 K29 ["TextColor3"]
-      120 GETUPVAL                         R0 8
-      121 LOADK                            R2 K13 ["x"]
-      122 NAMECALL                         R0 R0 K10 ["WaitForChild"]
-      124 CALL                             R0 2 1
-      125 GETUPVAL                         R1 8
-      126 LOADK                            R3 K30 ["y"]
-      127 NAMECALL                         R1 R1 K10 ["WaitForChild"]
-      129 CALL                             R1 2 1
-      130 GETUPVAL                         R2 8
-      131 LOADK                            R4 K31 ["z"]
-      132 NAMECALL                         R2 R2 K10 ["WaitForChild"]
-      134 CALL                             R2 2 1
-      135 GETUPVAL                         R3 14
-      136 SETTABLEKS                       R3 R0 K32 ["Color"]
-      138 GETUPVAL                         R3 15
-      139 SETTABLEKS                       R3 R1 K32 ["Color"]
-      141 GETUPVAL                         R3 16
-      142 SETTABLEKS                       R3 R2 K32 ["Color"]
-      144 GETIMPORT                        R0 K34 [Instance.new]
-      146 LOADK                            R1 K35 ["Camera"]
-      147 CALL                             R0 1 1
-      148 SETUPVAL                         R0 17
-      149 GETUPVAL                         R0 17
-      150 GETUPVAL                         R1 5
-      151 SETTABLEKS                       R1 R0 K7 ["Parent"]
-      153 GETUPVAL                         R0 17
-      154 GETIMPORT                        R1 K37 [CFrame.new]
-      156 LOADK                            R2 K38 [{0, 0, 0}]
-      157 LOADK                            R3 K39 [{0, 0, -1}]
-      158 CALL                             R1 2 1
-      159 SETTABLEKS                       R1 R0 K36 ["CFrame"]
-      161 GETUPVAL                         R0 17
-      162 LOADN                            R1 70
-      163 SETTABLEKS                       R1 R0 K40 ["FieldOfView"]
-      165 GETUPVAL                         R0 5
-      166 GETUPVAL                         R1 17
-      167 SETTABLEKS                       R1 R0 K41 ["CurrentCamera"]
-      169 GETIMPORT                        R0 K43 [script]
-      171 GETTABLEKS                       R0 R0 K7 ["Parent"]
-      173 GETTABLEKS                       R0 R0 K44 ["LocalizedStrings"]
-      175 GETUPVAL                         R3 18
-      176 GETTABLEKS                       R3 R3 K45 ["StudioLocaleId"]
-      178 NAMECALL                         R1 R0 K46 ["GetTranslator"]
-      180 CALL                             R1 2 1
-      181 LOADK                            R4 K47 ["en-us"]
-      182 NAMECALL                         R2 R0 K46 ["GetTranslator"]
-      184 CALL                             R2 2 1
-      185 GETUPVAL                         R3 8
-      186 NAMECALL                         R3 R3 K48 ["GetChildren"]
-      188 CALL                             R3 1 1
-      189 LOADN                            R6 1
-      190 LENGTH                           R4 R3
-      191 LOADN                            R5 1
-      192 FORNPREP                         R4
-      193 GETTABLE                         R7 R3 R6
-      194 GETTABLEKS                       R8 R7 K49 ["ClassName"]
-      196 JUMPIFEQKS                       R8 K50 ["Part"] ; [+5]
-      198 GETTABLEKS                       R8 R7 K49 ["ClassName"]
-      200 JUMPIFNOTEQKS                    R8 K51 ["MeshPart"] ; [+12]
-      202 GETUPVAL                         R8 8
-      203 GETTABLEKS                       R8 R8 K36 ["CFrame"]
-      205 GETTABLEKS                       R10 R7 K36 ["CFrame"]
-      207 NAMECALL                         R8 R8 K52 ["ToObjectSpace"]
-      209 CALL                             R8 2 1
-      210 SETTABLEKS                       R8 R7 K36 ["CFrame"]
-      212 JUMP                             ; [+48]
-      213 GETTABLEKS                       R8 R7 K49 ["ClassName"]
-      215 JUMPIFNOTEQKS                    R8 K53 ["Decal"] ; [+45]
-      217 GETTABLEKS                       R8 R7 K54 ["Name"]
-      219 GETTABLEKS                       R10 R7 K54 ["Name"]
-      221 LOADK                            R11 K55 ["_hover"]
-      222 CONCAT                           R9 R10 R11
-      223 GETIMPORT                        R10 K57 [pcall]
-      225 NEWCLOSURE                       R11 P0
-      226 CAPTURE                          UPVAL U19
-      227 CAPTURE                          VAL R7
-      228 CAPTURE                          VAL R1
-      229 CAPTURE                          VAL R8
-      230 CAPTURE                          VAL R9
-      231 CALL                             R10 1 1
-      232 JUMPIF                           R10 ; [+20]
-      233 GETUPVAL                         R11 19
-      234 GETTABLEKS                       R11 R11 K58 ["Normal"]
-      236 GETTABLEKS                       R12 R7 K54 ["Name"]
-      238 MOVE                             R15 R8
-      239 NAMECALL                         R13 R2 K59 ["FormatByKey"]
-      241 CALL                             R13 2 1
-      242 SETTABLE                         R13 R11 R12
-      243 GETUPVAL                         R11 19
-      244 GETTABLEKS                       R11 R11 K60 ["Hover"]
-      246 GETTABLEKS                       R12 R7 K54 ["Name"]
-      248 MOVE                             R15 R9
-      249 NAMECALL                         R13 R2 K59 ["FormatByKey"]
-      251 CALL                             R13 2 1
-      252 SETTABLE                         R13 R11 R12
-      253 GETUPVAL                         R12 19
-      254 GETTABLEKS                       R12 R12 K58 ["Normal"]
-      256 GETTABLEKS                       R13 R7 K54 ["Name"]
-      258 GETTABLE                         R11 R12 R13
-      259 SETTABLEKS                       R11 R7 K61 ["Texture"]
-      261 FORNLOOP                         R4
-      262 GETUPVAL                         R4 8
-      263 GETIMPORT                        R5 K37 [CFrame.new]
-      265 CALL                             R5 0 1
-      266 SETTABLEKS                       R5 R4 K36 ["CFrame"]
-      268 NEWTABLE                         R4 0 3
-      270 LOADK                            R5 K62 ["n"]
-      271 LOADK                            R6 K63 ["0"]
-      272 LOADK                            R7 K64 ["p"]
-      273 SETLIST                          R4 R5 3 [1]
-      275 LOADN                            R7 -1
-      276 LOADN                            R5 1
-      277 LOADN                            R6 1
-      278 FORNPREP                         R5
-      279 LOADN                            R10 -1
-      280 LOADN                            R8 1
-      281 LOADN                            R9 1
-      282 FORNPREP                         R8
-      283 LOADN                            R13 -1
-      284 LOADN                            R11 1
-      285 LOADN                            R12 1
-      286 FORNPREP                         R11
-      287 ADDK                             R18 R7 K65 [2]
-      288 GETTABLE                         R15 R4 R18
-      289 ADDK                             R18 R10 K65 [2]
-      290 GETTABLE                         R16 R4 R18
-      291 ADDK                             R18 R13 K65 [2]
-      292 GETTABLE                         R17 R4 R18
-      293 CONCAT                           R14 R15 R17
-      294 GETUPVAL                         R15 20
-      295 GETIMPORT                        R16 K37 [CFrame.new]
-      297 FASTCALL                         VECTOR ; [+2]
-      298 GETIMPORT                        R17 K67 [Vector3.new]
-      300 CALL                             R17 0 1
-      301 MINUS                            R19 R7
-      302 MINUS                            R20 R10
-      303 MINUS                            R21 R13
-      304 FASTCALL                         VECTOR ; [+2]
-      305 GETIMPORT                        R18 K67 [Vector3.new]
-      307 CALL                             R18 3 1
-      308 GETTABLEKS                       R18 R18 K68 ["Unit"]
-      310 CALL                             R16 2 1
-      311 SETTABLE                         R16 R15 R14
-      312 FORNLOOP                         R11
-      313 FORNLOOP                         R8
-      314 FORNLOOP                         R5
-      315 GETUPVAL                         R5 20
-      316 GETIMPORT                        R6 K70 [CFrame.fromEulerAnglesYXZ]
-      318 LOADK                            R7 K71 [-1.5707963267948966]
-      319 LOADK                            R8 K72 [3.141592653589793]
-      320 LOADN                            R9 0
-      321 CALL                             R6 3 1
-      322 SETTABLEKS                       R6 R5 K73 ["0p0"]
-      324 GETUPVAL                         R5 20
-      325 GETIMPORT                        R6 K75 [CFrame.fromEulerAnglesXYZ]
-      327 LOADK                            R7 K71 [-1.5707963267948966]
-      328 LOADK                            R8 K72 [3.141592653589793]
-      329 LOADN                            R9 0
-      330 CALL                             R6 3 1
-      331 SETTABLEKS                       R6 R5 K76 ["0n0"]
-      333 LOADK                            R5 K77 [{0.576, -0.48, -0.48}]
-      334 SETUPVAL                         R5 21
-      335 LOADK                            R5 K78 [{-0.48, 0.576, -0.48}]
-      336 SETUPVAL                         R5 22
-      337 LOADK                            R5 K79 [{-0.48, -0.48, 0.576}]
-      338 SETUPVAL                         R5 23
-      339 GETIMPORT                        R5 K81 [plugin]
-      341 LOADK                            R7 K82 ["ViewSelector_Active"]
-      342 NAMECALL                         R5 R5 K83 ["GetSetting"]
-      344 CALL                             R5 2 1
-      345 SETUPVAL                         R5 24
-      346 GETUPVAL                         R5 24
-      347 JUMPIFNOTEQKNIL                  R5 ; [+3]
-      349 LOADB                            R5 1
-      350 SETUPVAL                         R5 24
-      351 GETUPVAL                         R5 25
-      352 GETUPVAL                         R7 24
-      353 NAMECALL                         R5 R5 K84 ["SetActive"]
-      355 CALL                             R5 2 0
-      356 RETURN                           R0 0
+       18 JUMPIFNOT                        R0 ; [+13]
+       19 GETIMPORT                        R0 K6 [script]
+       21 GETTABLEKS                       R0 R0 K7 ["Parent"]
+       23 GETTABLEKS                       R0 R0 K8 ["Assets"]
+       25 GETTABLEKS                       R0 R0 K0 ["ViewSelectorScreenGui"]
+       27 NAMECALL                         R0 R0 K9 ["Clone"]
+       29 CALL                             R0 1 1
+       30 SETUPVAL                         R0 0
+       31 JUMP                             ; [+6]
+       32 GETUPVAL                         R0 4
+       33 LOADK                            R2 K10 ["rbxasset://models/ViewSelector/ViewSelector.rbxm"]
+       34 NAMECALL                         R0 R0 K11 ["LoadLocalAsset"]
+       36 CALL                             R0 2 1
+       37 SETUPVAL                         R0 0
+       38 GETUPVAL                         R0 0
+       39 GETUPVAL                         R1 1
+       40 SETTABLEKS                       R1 R0 K7 ["Parent"]
+       42 GETUPVAL                         R0 0
+       43 LOADB                            R1 0
+       44 SETTABLEKS                       R1 R0 K12 ["Enabled"]
+       46 GETUPVAL                         R0 0
+       47 LOADK                            R2 K13 ["Panel"]
+       48 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+       50 CALL                             R0 2 1
+       51 SETUPVAL                         R0 5
+       52 GETUPVAL                         R0 5
+       53 LOADK                            R2 K15 ["Viewport"]
+       54 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+       56 CALL                             R0 2 1
+       57 SETUPVAL                         R0 6
+       58 GETUPVAL                         R0 6
+       59 GETTABLEKS                       R0 R0 K16 ["AbsoluteSize"]
+       61 GETTABLEKS                       R0 R0 K17 ["x"]
+       63 SETUPVAL                         R0 7
+       64 GETUPVAL                         R0 6
+       65 LOADK                            R2 K18 ["EventReceiver"]
+       66 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+       68 CALL                             R0 2 1
+       69 SETUPVAL                         R0 8
+       70 GETUPVAL                         R0 8
+       71 GETIMPORT                        R1 K21 [UDim2.new]
+       73 LOADN                            R2 1
+       74 LOADN                            R3 0
+       75 LOADN                            R4 0
+       76 GETUPVAL                         R5 7
+       77 CALL                             R1 4 1
+       78 SETTABLEKS                       R1 R0 K22 ["Size"]
+       80 GETUPVAL                         R0 6
+       81 LOADK                            R2 K23 ["Model"]
+       82 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+       84 CALL                             R0 2 1
+       85 SETUPVAL                         R0 9
+       86 GETUPVAL                         R0 5
+       87 LOADK                            R2 K24 ["X"]
+       88 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+       90 CALL                             R0 2 1
+       91 SETUPVAL                         R0 10
+       92 GETUPVAL                         R0 5
+       93 LOADK                            R2 K25 ["Y"]
+       94 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+       96 CALL                             R0 2 1
+       97 SETUPVAL                         R0 11
+       98 GETUPVAL                         R0 5
+       99 LOADK                            R2 K26 ["Z"]
+      100 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+      102 CALL                             R0 2 1
+      103 SETUPVAL                         R0 12
+      104 GETUPVAL                         R0 5
+      105 LOADK                            R2 K27 ["ArrowButtons"]
+      106 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+      108 CALL                             R0 2 1
+      109 SETUPVAL                         R0 13
+      110 GETUPVAL                         R0 13
+      111 LOADB                            R1 0
+      112 SETTABLEKS                       R1 R0 K28 ["Visible"]
+      114 LOADB                            R0 0
+      115 SETUPVAL                         R0 14
+      116 GETIMPORT                        R0 K30 [game]
+      118 LOADK                            R2 K31 ["NextGenDraggersEnabledFeature"]
+      119 NAMECALL                         R0 R0 K32 ["GetEngineFeature"]
+      121 CALL                             R0 2 1
+      122 JUMPIFNOT                        R0 ; [+36]
+      123 GETUPVAL                         R0 10
+      124 GETUPVAL                         R1 15
+      125 SETTABLEKS                       R1 R0 K33 ["TextColor3"]
+      127 GETUPVAL                         R0 11
+      128 GETUPVAL                         R1 16
+      129 SETTABLEKS                       R1 R0 K33 ["TextColor3"]
+      131 GETUPVAL                         R0 12
+      132 GETUPVAL                         R1 17
+      133 SETTABLEKS                       R1 R0 K33 ["TextColor3"]
+      135 GETUPVAL                         R0 9
+      136 LOADK                            R2 K17 ["x"]
+      137 NAMECALL                         R0 R0 K14 ["WaitForChild"]
+      139 CALL                             R0 2 1
+      140 GETUPVAL                         R1 9
+      141 LOADK                            R3 K34 ["y"]
+      142 NAMECALL                         R1 R1 K14 ["WaitForChild"]
+      144 CALL                             R1 2 1
+      145 GETUPVAL                         R2 9
+      146 LOADK                            R4 K35 ["z"]
+      147 NAMECALL                         R2 R2 K14 ["WaitForChild"]
+      149 CALL                             R2 2 1
+      150 GETUPVAL                         R3 15
+      151 SETTABLEKS                       R3 R0 K36 ["Color"]
+      153 GETUPVAL                         R3 16
+      154 SETTABLEKS                       R3 R1 K36 ["Color"]
+      156 GETUPVAL                         R3 17
+      157 SETTABLEKS                       R3 R2 K36 ["Color"]
+      159 GETIMPORT                        R0 K38 [Instance.new]
+      161 LOADK                            R1 K39 ["Camera"]
+      162 CALL                             R0 1 1
+      163 SETUPVAL                         R0 18
+      164 GETUPVAL                         R0 18
+      165 GETUPVAL                         R1 6
+      166 SETTABLEKS                       R1 R0 K7 ["Parent"]
+      168 GETUPVAL                         R0 18
+      169 GETIMPORT                        R1 K41 [CFrame.new]
+      171 LOADK                            R2 K42 [{0, 0, 0}]
+      172 LOADK                            R3 K43 [{0, 0, -1}]
+      173 CALL                             R1 2 1
+      174 SETTABLEKS                       R1 R0 K40 ["CFrame"]
+      176 GETUPVAL                         R0 18
+      177 LOADN                            R1 70
+      178 SETTABLEKS                       R1 R0 K44 ["FieldOfView"]
+      180 GETUPVAL                         R0 6
+      181 GETUPVAL                         R1 18
+      182 SETTABLEKS                       R1 R0 K45 ["CurrentCamera"]
+      184 GETIMPORT                        R0 K6 [script]
+      186 GETTABLEKS                       R0 R0 K7 ["Parent"]
+      188 GETTABLEKS                       R0 R0 K46 ["LocalizedStrings"]
+      190 GETUPVAL                         R3 19
+      191 GETTABLEKS                       R3 R3 K47 ["StudioLocaleId"]
+      193 NAMECALL                         R1 R0 K48 ["GetTranslator"]
+      195 CALL                             R1 2 1
+      196 LOADK                            R4 K49 ["en-us"]
+      197 NAMECALL                         R2 R0 K48 ["GetTranslator"]
+      199 CALL                             R2 2 1
+      200 GETUPVAL                         R3 9
+      201 NAMECALL                         R3 R3 K50 ["GetChildren"]
+      203 CALL                             R3 1 1
+      204 LOADN                            R6 1
+      205 LENGTH                           R4 R3
+      206 LOADN                            R5 1
+      207 FORNPREP                         R4
+      208 GETTABLE                         R7 R3 R6
+      209 GETTABLEKS                       R8 R7 K51 ["ClassName"]
+      211 JUMPIFEQKS                       R8 K52 ["Part"] ; [+5]
+      213 GETTABLEKS                       R8 R7 K51 ["ClassName"]
+      215 JUMPIFNOTEQKS                    R8 K53 ["MeshPart"] ; [+12]
+      217 GETUPVAL                         R8 9
+      218 GETTABLEKS                       R8 R8 K40 ["CFrame"]
+      220 GETTABLEKS                       R10 R7 K40 ["CFrame"]
+      222 NAMECALL                         R8 R8 K54 ["ToObjectSpace"]
+      224 CALL                             R8 2 1
+      225 SETTABLEKS                       R8 R7 K40 ["CFrame"]
+      227 JUMP                             ; [+48]
+      228 GETTABLEKS                       R8 R7 K51 ["ClassName"]
+      230 JUMPIFNOTEQKS                    R8 K55 ["Decal"] ; [+45]
+      232 GETTABLEKS                       R8 R7 K56 ["Name"]
+      234 GETTABLEKS                       R10 R7 K56 ["Name"]
+      236 LOADK                            R11 K57 ["_hover"]
+      237 CONCAT                           R9 R10 R11
+      238 GETIMPORT                        R10 K59 [pcall]
+      240 NEWCLOSURE                       R11 P0
+      241 CAPTURE                          UPVAL U20
+      242 CAPTURE                          VAL R7
+      243 CAPTURE                          VAL R1
+      244 CAPTURE                          VAL R8
+      245 CAPTURE                          VAL R9
+      246 CALL                             R10 1 1
+      247 JUMPIF                           R10 ; [+20]
+      248 GETUPVAL                         R11 20
+      249 GETTABLEKS                       R11 R11 K60 ["Normal"]
+      251 GETTABLEKS                       R12 R7 K56 ["Name"]
+      253 MOVE                             R15 R8
+      254 NAMECALL                         R13 R2 K61 ["FormatByKey"]
+      256 CALL                             R13 2 1
+      257 SETTABLE                         R13 R11 R12
+      258 GETUPVAL                         R11 20
+      259 GETTABLEKS                       R11 R11 K62 ["Hover"]
+      261 GETTABLEKS                       R12 R7 K56 ["Name"]
+      263 MOVE                             R15 R9
+      264 NAMECALL                         R13 R2 K61 ["FormatByKey"]
+      266 CALL                             R13 2 1
+      267 SETTABLE                         R13 R11 R12
+      268 GETUPVAL                         R12 20
+      269 GETTABLEKS                       R12 R12 K60 ["Normal"]
+      271 GETTABLEKS                       R13 R7 K56 ["Name"]
+      273 GETTABLE                         R11 R12 R13
+      274 SETTABLEKS                       R11 R7 K63 ["Texture"]
+      276 FORNLOOP                         R4
+      277 GETUPVAL                         R4 9
+      278 GETIMPORT                        R5 K41 [CFrame.new]
+      280 CALL                             R5 0 1
+      281 SETTABLEKS                       R5 R4 K40 ["CFrame"]
+      283 NEWTABLE                         R4 0 3
+      285 LOADK                            R5 K64 ["n"]
+      286 LOADK                            R6 K65 ["0"]
+      287 LOADK                            R7 K66 ["p"]
+      288 SETLIST                          R4 R5 3 [1]
+      290 LOADN                            R7 -1
+      291 LOADN                            R5 1
+      292 LOADN                            R6 1
+      293 FORNPREP                         R5
+      294 LOADN                            R10 -1
+      295 LOADN                            R8 1
+      296 LOADN                            R9 1
+      297 FORNPREP                         R8
+      298 LOADN                            R13 -1
+      299 LOADN                            R11 1
+      300 LOADN                            R12 1
+      301 FORNPREP                         R11
+      302 ADDK                             R18 R7 K67 [2]
+      303 GETTABLE                         R15 R4 R18
+      304 ADDK                             R18 R10 K67 [2]
+      305 GETTABLE                         R16 R4 R18
+      306 ADDK                             R18 R13 K67 [2]
+      307 GETTABLE                         R17 R4 R18
+      308 CONCAT                           R14 R15 R17
+      309 GETUPVAL                         R15 21
+      310 GETIMPORT                        R16 K41 [CFrame.new]
+      312 FASTCALL                         VECTOR ; [+2]
+      313 GETIMPORT                        R17 K69 [Vector3.new]
+      315 CALL                             R17 0 1
+      316 MINUS                            R19 R7
+      317 MINUS                            R20 R10
+      318 MINUS                            R21 R13
+      319 FASTCALL                         VECTOR ; [+2]
+      320 GETIMPORT                        R18 K69 [Vector3.new]
+      322 CALL                             R18 3 1
+      323 GETTABLEKS                       R18 R18 K70 ["Unit"]
+      325 CALL                             R16 2 1
+      326 SETTABLE                         R16 R15 R14
+      327 FORNLOOP                         R11
+      328 FORNLOOP                         R8
+      329 FORNLOOP                         R5
+      330 GETUPVAL                         R5 21
+      331 GETIMPORT                        R6 K72 [CFrame.fromEulerAnglesYXZ]
+      333 LOADK                            R7 K73 [-1.5707963267948966]
+      334 LOADK                            R8 K74 [3.141592653589793]
+      335 LOADN                            R9 0
+      336 CALL                             R6 3 1
+      337 SETTABLEKS                       R6 R5 K75 ["0p0"]
+      339 GETUPVAL                         R5 21
+      340 GETIMPORT                        R6 K77 [CFrame.fromEulerAnglesXYZ]
+      342 LOADK                            R7 K73 [-1.5707963267948966]
+      343 LOADK                            R8 K74 [3.141592653589793]
+      344 LOADN                            R9 0
+      345 CALL                             R6 3 1
+      346 SETTABLEKS                       R6 R5 K78 ["0n0"]
+      348 LOADK                            R5 K79 [{0.576, -0.48, -0.48}]
+      349 SETUPVAL                         R5 22
+      350 LOADK                            R5 K80 [{-0.48, 0.576, -0.48}]
+      351 SETUPVAL                         R5 23
+      352 LOADK                            R5 K81 [{-0.48, -0.48, 0.576}]
+      353 SETUPVAL                         R5 24
+      354 GETIMPORT                        R5 K83 [plugin]
+      356 LOADK                            R7 K84 ["ViewSelector_Active"]
+      357 NAMECALL                         R5 R5 K85 ["GetSetting"]
+      359 CALL                             R5 2 1
+      360 SETUPVAL                         R5 25
+      361 GETUPVAL                         R5 25
+      362 JUMPIFNOTEQKNIL                  R5 ; [+3]
+      364 LOADB                            R5 1
+      365 SETUPVAL                         R5 25
+      366 GETUPVAL                         R5 26
+      367 GETUPVAL                         R7 25
+      368 NAMECALL                         R5 R5 K86 ["SetActive"]
+      370 CALL                             R5 2 0
+      371 RETURN                           R0 0
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [game]
@@ -1848,613 +1858,619 @@ PROTO_53:
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["NewCameraControls_StudioCameraUI"]
-        4 NAMECALL                         R0 R0 K3 ["GetEngineFeature"]
-        6 CALL                             R0 2 1
-        7 JUMPIFNOT                        R0 ; [+1]
-        8 RETURN                           R0 0
-        9 GETIMPORT                        R0 K1 [game]
-       11 LOADK                            R2 K4 ["RunService"]
-       12 NAMECALL                         R0 R0 K5 ["GetService"]
-       14 CALL                             R0 2 1
-       15 GETIMPORT                        R1 K1 [game]
-       17 LOADK                            R3 K6 ["GuiService"]
-       18 NAMECALL                         R1 R1 K5 ["GetService"]
-       20 CALL                             R1 2 1
-       21 GETIMPORT                        R2 K1 [game]
-       23 LOADK                            R4 K7 ["CoreGui"]
-       24 NAMECALL                         R2 R2 K5 ["GetService"]
-       26 CALL                             R2 2 1
-       27 GETIMPORT                        R3 K1 [game]
-       29 LOADK                            R5 K8 ["ContentProvider"]
-       30 NAMECALL                         R3 R3 K5 ["GetService"]
-       32 CALL                             R3 2 1
-       33 GETIMPORT                        R4 K1 [game]
-       35 LOADK                            R6 K9 ["UserInputService"]
-       36 NAMECALL                         R4 R4 K5 ["GetService"]
-       38 CALL                             R4 2 1
-       39 GETIMPORT                        R5 K1 [game]
-       41 LOADK                            R7 K10 ["InsertService"]
-       42 NAMECALL                         R5 R5 K5 ["GetService"]
-       44 CALL                             R5 2 1
-       45 GETIMPORT                        R6 K1 [game]
-       47 LOADK                            R8 K11 ["StudioService"]
-       48 NAMECALL                         R6 R6 K5 ["GetService"]
-       50 CALL                             R6 2 1
-       51 GETIMPORT                        R7 K1 [game]
-       53 LOADK                            R9 K12 ["TweenService"]
-       54 NAMECALL                         R7 R7 K5 ["GetService"]
-       56 CALL                             R7 2 1
-       57 GETIMPORT                        R8 K14 [plugin]
-       59 LOADK                            R10 K15 ["ViewSelector"]
-       60 NAMECALL                         R8 R8 K16 ["CreateToolbar"]
-       62 CALL                             R8 2 1
-       63 LOADK                            R11 K15 ["ViewSelector"]
-       64 LOADK                            R12 K17 ["Show View Selector"]
-       65 LOADK                            R13 K18 [""]
-       66 NAMECALL                         R9 R8 K19 ["CreateButton"]
-       68 CALL                             R9 4 1
-       69 LOADB                            R10 0
-       70 SETTABLEKS                       R10 R9 K20 ["ClickableWhenViewportHidden"]
-       72 LOADNIL                          R10
-       73 LOADNIL                          R11
-       74 LOADNIL                          R12
-       75 LOADNIL                          R13
-       76 LOADNIL                          R14
-       77 LOADNIL                          R15
-       78 LOADNIL                          R16
-       79 LOADNIL                          R17
-       80 LOADNIL                          R18
-       81 LOADNIL                          R19
-       82 LOADNIL                          R20
-       83 LOADNIL                          R21
-       84 LOADNIL                          R22
-       85 LOADNIL                          R23
-       86 LOADNIL                          R24
-       87 LOADNIL                          R25
-       88 LOADNIL                          R26
-       89 LOADNIL                          R27
-       90 LOADNIL                          R28
-       91 LOADNIL                          R29
-       92 LOADNIL                          R30
-       93 LOADNIL                          R31
-       94 LOADNIL                          R32
-       95 LOADNIL                          R33
-       96 NEWTABLE                         R34 0 0
-       98 NEWTABLE                         R35 2 0
-      100 NEWTABLE                         R36 0 0
-      102 SETTABLEKS                       R36 R35 K21 ["Normal"]
-      104 NEWTABLE                         R36 0 0
-      106 SETTABLEKS                       R36 R35 K22 ["Hover"]
-      108 DUPCLOSURE                       R36 K23 [PROTO_0]
-      109 LOADNIL                          R37
-      110 LOADNIL                          R38
-      111 LOADNIL                          R39
-      112 GETIMPORT                        R40 K1 [game]
-      114 LOADK                            R42 K24 ["NextGenDraggersEnabledFeature"]
-      115 NAMECALL                         R40 R40 K3 ["GetEngineFeature"]
-      117 CALL                             R40 2 1
-      118 JUMPIFNOT                        R40 ; [+42]
-      119 GETIMPORT                        R40 K27 [Color3.fromHex]
-      121 GETIMPORT                        R41 K30 [string.format]
-      123 LOADK                            R42 K31 ["%06X"]
-      124 GETIMPORT                        R43 K1 [game]
-      126 LOADK                            R45 K32 ["rbxRed"]
-      127 NAMECALL                         R43 R43 K33 ["GetFastInt"]
-      129 CALL                             R43 2 -1
-      130 CALL                             R41 -1 -1
-      131 CALL                             R40 -1 1
-      132 MOVE                             R37 R40
-      133 GETIMPORT                        R40 K27 [Color3.fromHex]
-      135 GETIMPORT                        R41 K30 [string.format]
-      137 LOADK                            R42 K31 ["%06X"]
-      138 GETIMPORT                        R43 K1 [game]
-      140 LOADK                            R45 K34 ["rbxGreen"]
-      141 NAMECALL                         R43 R43 K33 ["GetFastInt"]
-      143 CALL                             R43 2 -1
-      144 CALL                             R41 -1 -1
-      145 CALL                             R40 -1 1
-      146 MOVE                             R38 R40
-      147 GETIMPORT                        R40 K27 [Color3.fromHex]
-      149 GETIMPORT                        R41 K30 [string.format]
-      151 LOADK                            R42 K31 ["%06X"]
-      152 GETIMPORT                        R43 K1 [game]
-      154 LOADK                            R45 K35 ["rbxBlue"]
-      155 NAMECALL                         R43 R43 K33 ["GetFastInt"]
-      157 CALL                             R43 2 -1
-      158 CALL                             R41 -1 -1
-      159 CALL                             R40 -1 1
-      160 MOVE                             R39 R40
-      161 NEWCLOSURE                       R40 P1
-      162 CAPTURE                          REF R16
-      163 CAPTURE                          VAL R2
-      164 CAPTURE                          VAL R0
-      165 CAPTURE                          VAL R5
-      166 CAPTURE                          REF R17
-      167 CAPTURE                          REF R18
-      168 CAPTURE                          REF R19
-      169 CAPTURE                          REF R29
-      170 CAPTURE                          REF R20
-      171 CAPTURE                          REF R21
-      172 CAPTURE                          REF R22
-      173 CAPTURE                          REF R23
-      174 CAPTURE                          REF R27
-      175 CAPTURE                          REF R28
-      176 CAPTURE                          REF R37
-      177 CAPTURE                          REF R38
-      178 CAPTURE                          REF R39
-      179 CAPTURE                          REF R15
-      180 CAPTURE                          VAL R6
-      181 CAPTURE                          VAL R35
-      182 CAPTURE                          VAL R34
-      183 CAPTURE                          REF R24
-      184 CAPTURE                          REF R25
-      185 CAPTURE                          REF R26
-      186 CAPTURE                          REF R10
-      187 CAPTURE                          VAL R9
-      188 DUPCLOSURE                       R41 K36 [PROTO_3]
-      189 DUPCLOSURE                       R42 K37 [PROTO_5]
-      190 DUPCLOSURE                       R43 K38 [PROTO_6]
-      191 CAPTURE                          VAL R35
-      192 DUPCLOSURE                       R44 K39 [PROTO_7]
-      193 CAPTURE                          VAL R35
-      194 DUPCLOSURE                       R45 K40 [PROTO_9]
-      195 NEWCLOSURE                       R46 P7
-      196 CAPTURE                          VAL R1
-      197 CAPTURE                          REF R18
-      198 NEWCLOSURE                       R47 P8
-      199 CAPTURE                          VAL R1
-      200 CAPTURE                          REF R18
-      201 CAPTURE                          REF R15
-      202 CAPTURE                          REF R19
-      203 CAPTURE                          VAL R42
-      204 CAPTURE                          VAL R45
-      205 CAPTURE                          REF R20
-      206 CAPTURE                          REF R14
-      207 CAPTURE                          VAL R35
-      208 NEWCLOSURE                       R48 P9
-      209 CAPTURE                          REF R28
-      210 CAPTURE                          REF R11
-      211 CAPTURE                          REF R27
-      212 NEWCLOSURE                       R49 P10
-      213 CAPTURE                          REF R28
-      214 CAPTURE                          VAL R48
-      215 NEWCLOSURE                       R50 P11
-      216 CAPTURE                          REF R14
-      217 CAPTURE                          VAL R35
-      218 CAPTURE                          REF R27
+        3 LOADK                            R2 K2 ["ViewSelectorEmbedViewCubeModel"]
+        4 LOADB                            R3 0
+        5 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+        7 CALL                             R0 3 1
+        8 GETIMPORT                        R1 K1 [game]
+       10 LOADK                            R3 K4 ["NewCameraControls_StudioCameraUI"]
+       11 NAMECALL                         R1 R1 K5 ["GetEngineFeature"]
+       13 CALL                             R1 2 1
+       14 JUMPIFNOT                        R1 ; [+1]
+       15 RETURN                           R0 0
+       16 GETIMPORT                        R1 K1 [game]
+       18 LOADK                            R3 K6 ["RunService"]
+       19 NAMECALL                         R1 R1 K7 ["GetService"]
+       21 CALL                             R1 2 1
+       22 GETIMPORT                        R2 K1 [game]
+       24 LOADK                            R4 K8 ["GuiService"]
+       25 NAMECALL                         R2 R2 K7 ["GetService"]
+       27 CALL                             R2 2 1
+       28 GETIMPORT                        R3 K1 [game]
+       30 LOADK                            R5 K9 ["CoreGui"]
+       31 NAMECALL                         R3 R3 K7 ["GetService"]
+       33 CALL                             R3 2 1
+       34 GETIMPORT                        R4 K1 [game]
+       36 LOADK                            R6 K10 ["ContentProvider"]
+       37 NAMECALL                         R4 R4 K7 ["GetService"]
+       39 CALL                             R4 2 1
+       40 GETIMPORT                        R5 K1 [game]
+       42 LOADK                            R7 K11 ["UserInputService"]
+       43 NAMECALL                         R5 R5 K7 ["GetService"]
+       45 CALL                             R5 2 1
+       46 GETIMPORT                        R6 K1 [game]
+       48 LOADK                            R8 K12 ["InsertService"]
+       49 NAMECALL                         R6 R6 K7 ["GetService"]
+       51 CALL                             R6 2 1
+       52 GETIMPORT                        R7 K1 [game]
+       54 LOADK                            R9 K13 ["StudioService"]
+       55 NAMECALL                         R7 R7 K7 ["GetService"]
+       57 CALL                             R7 2 1
+       58 GETIMPORT                        R8 K1 [game]
+       60 LOADK                            R10 K14 ["TweenService"]
+       61 NAMECALL                         R8 R8 K7 ["GetService"]
+       63 CALL                             R8 2 1
+       64 GETIMPORT                        R9 K16 [plugin]
+       66 LOADK                            R11 K17 ["ViewSelector"]
+       67 NAMECALL                         R9 R9 K18 ["CreateToolbar"]
+       69 CALL                             R9 2 1
+       70 LOADK                            R12 K17 ["ViewSelector"]
+       71 LOADK                            R13 K19 ["Show View Selector"]
+       72 LOADK                            R14 K20 [""]
+       73 NAMECALL                         R10 R9 K21 ["CreateButton"]
+       75 CALL                             R10 4 1
+       76 LOADB                            R11 0
+       77 SETTABLEKS                       R11 R10 K22 ["ClickableWhenViewportHidden"]
+       79 LOADNIL                          R11
+       80 LOADNIL                          R12
+       81 LOADNIL                          R13
+       82 LOADNIL                          R14
+       83 LOADNIL                          R15
+       84 LOADNIL                          R16
+       85 LOADNIL                          R17
+       86 LOADNIL                          R18
+       87 LOADNIL                          R19
+       88 LOADNIL                          R20
+       89 LOADNIL                          R21
+       90 LOADNIL                          R22
+       91 LOADNIL                          R23
+       92 LOADNIL                          R24
+       93 LOADNIL                          R25
+       94 LOADNIL                          R26
+       95 LOADNIL                          R27
+       96 LOADNIL                          R28
+       97 LOADNIL                          R29
+       98 LOADNIL                          R30
+       99 LOADNIL                          R31
+      100 LOADNIL                          R32
+      101 LOADNIL                          R33
+      102 LOADNIL                          R34
+      103 NEWTABLE                         R35 0 0
+      105 NEWTABLE                         R36 2 0
+      107 NEWTABLE                         R37 0 0
+      109 SETTABLEKS                       R37 R36 K23 ["Normal"]
+      111 NEWTABLE                         R37 0 0
+      113 SETTABLEKS                       R37 R36 K24 ["Hover"]
+      115 DUPCLOSURE                       R37 K25 [PROTO_0]
+      116 LOADNIL                          R38
+      117 LOADNIL                          R39
+      118 LOADNIL                          R40
+      119 GETIMPORT                        R41 K1 [game]
+      121 LOADK                            R43 K26 ["NextGenDraggersEnabledFeature"]
+      122 NAMECALL                         R41 R41 K5 ["GetEngineFeature"]
+      124 CALL                             R41 2 1
+      125 JUMPIFNOT                        R41 ; [+42]
+      126 GETIMPORT                        R41 K29 [Color3.fromHex]
+      128 GETIMPORT                        R42 K32 [string.format]
+      130 LOADK                            R43 K33 ["%06X"]
+      131 GETIMPORT                        R44 K1 [game]
+      133 LOADK                            R46 K34 ["rbxRed"]
+      134 NAMECALL                         R44 R44 K35 ["GetFastInt"]
+      136 CALL                             R44 2 -1
+      137 CALL                             R42 -1 -1
+      138 CALL                             R41 -1 1
+      139 MOVE                             R38 R41
+      140 GETIMPORT                        R41 K29 [Color3.fromHex]
+      142 GETIMPORT                        R42 K32 [string.format]
+      144 LOADK                            R43 K33 ["%06X"]
+      145 GETIMPORT                        R44 K1 [game]
+      147 LOADK                            R46 K36 ["rbxGreen"]
+      148 NAMECALL                         R44 R44 K35 ["GetFastInt"]
+      150 CALL                             R44 2 -1
+      151 CALL                             R42 -1 -1
+      152 CALL                             R41 -1 1
+      153 MOVE                             R39 R41
+      154 GETIMPORT                        R41 K29 [Color3.fromHex]
+      156 GETIMPORT                        R42 K32 [string.format]
+      158 LOADK                            R43 K33 ["%06X"]
+      159 GETIMPORT                        R44 K1 [game]
+      161 LOADK                            R46 K37 ["rbxBlue"]
+      162 NAMECALL                         R44 R44 K35 ["GetFastInt"]
+      164 CALL                             R44 2 -1
+      165 CALL                             R42 -1 -1
+      166 CALL                             R41 -1 1
+      167 MOVE                             R40 R41
+      168 NEWCLOSURE                       R41 P1
+      169 CAPTURE                          REF R17
+      170 CAPTURE                          VAL R3
+      171 CAPTURE                          VAL R1
+      172 CAPTURE                          VAL R0
+      173 CAPTURE                          VAL R6
+      174 CAPTURE                          REF R18
+      175 CAPTURE                          REF R19
+      176 CAPTURE                          REF R20
+      177 CAPTURE                          REF R30
+      178 CAPTURE                          REF R21
+      179 CAPTURE                          REF R22
+      180 CAPTURE                          REF R23
+      181 CAPTURE                          REF R24
+      182 CAPTURE                          REF R28
+      183 CAPTURE                          REF R29
+      184 CAPTURE                          REF R38
+      185 CAPTURE                          REF R39
+      186 CAPTURE                          REF R40
+      187 CAPTURE                          REF R16
+      188 CAPTURE                          VAL R7
+      189 CAPTURE                          VAL R36
+      190 CAPTURE                          VAL R35
+      191 CAPTURE                          REF R25
+      192 CAPTURE                          REF R26
+      193 CAPTURE                          REF R27
+      194 CAPTURE                          REF R11
+      195 CAPTURE                          VAL R10
+      196 DUPCLOSURE                       R42 K38 [PROTO_3]
+      197 DUPCLOSURE                       R43 K39 [PROTO_5]
+      198 DUPCLOSURE                       R44 K40 [PROTO_6]
+      199 CAPTURE                          VAL R36
+      200 DUPCLOSURE                       R45 K41 [PROTO_7]
+      201 CAPTURE                          VAL R36
+      202 DUPCLOSURE                       R46 K42 [PROTO_9]
+      203 NEWCLOSURE                       R47 P7
+      204 CAPTURE                          VAL R2
+      205 CAPTURE                          REF R19
+      206 NEWCLOSURE                       R48 P8
+      207 CAPTURE                          VAL R2
+      208 CAPTURE                          REF R19
+      209 CAPTURE                          REF R16
+      210 CAPTURE                          REF R20
+      211 CAPTURE                          VAL R43
+      212 CAPTURE                          VAL R46
+      213 CAPTURE                          REF R21
+      214 CAPTURE                          REF R15
+      215 CAPTURE                          VAL R36
+      216 NEWCLOSURE                       R49 P9
+      217 CAPTURE                          REF R29
+      218 CAPTURE                          REF R12
       219 CAPTURE                          REF R28
-      220 NEWCLOSURE                       R51 P12
-      221 CAPTURE                          REF R12
-      222 CAPTURE                          REF R13
-      223 CAPTURE                          REF R17
-      224 NEWCLOSURE                       R52 P13
-      225 CAPTURE                          REF R19
-      226 CAPTURE                          REF R17
-      227 NEWCLOSURE                       R53 P14
-      228 CAPTURE                          REF R19
-      229 CAPTURE                          REF R17
-      230 NEWCLOSURE                       R54 P15
-      231 CAPTURE                          REF R12
-      232 CAPTURE                          VAL R53
-      233 NEWCLOSURE                       R55 P16
-      234 CAPTURE                          REF R12
-      235 CAPTURE                          REF R13
-      236 CAPTURE                          REF R17
-      237 NEWCLOSURE                       R56 P17
-      238 CAPTURE                          REF R33
-      239 CAPTURE                          REF R32
-      240 CAPTURE                          REF R31
-      241 CAPTURE                          REF R30
-      242 NEWCLOSURE                       R57 P18
-      243 CAPTURE                          REF R12
-      244 CAPTURE                          REF R14
-      245 CAPTURE                          VAL R34
-      246 CAPTURE                          REF R33
-      247 CAPTURE                          REF R32
-      248 CAPTURE                          REF R31
-      249 CAPTURE                          REF R30
-      250 CAPTURE                          VAL R53
-      251 NEWCLOSURE                       R58 P19
-      252 CAPTURE                          REF R20
-      253 CAPTURE                          REF R11
-      254 CAPTURE                          REF R18
-      255 CAPTURE                          REF R15
-      256 CAPTURE                          REF R19
-      257 CAPTURE                          REF R21
-      258 CAPTURE                          REF R24
-      259 CAPTURE                          REF R22
-      260 CAPTURE                          REF R25
-      261 CAPTURE                          REF R23
-      262 CAPTURE                          REF R26
-      263 NEWCLOSURE                       R59 P20
-      264 CAPTURE                          REF R30
-      265 CAPTURE                          REF R32
-      266 CAPTURE                          REF R33
-      267 CAPTURE                          REF R31
-      268 CAPTURE                          REF R15
-      269 CAPTURE                          REF R11
-      270 CAPTURE                          REF R18
-      271 CAPTURE                          REF R20
-      272 CAPTURE                          REF R19
-      273 CAPTURE                          REF R21
-      274 CAPTURE                          REF R24
-      275 CAPTURE                          REF R22
-      276 CAPTURE                          REF R25
-      277 CAPTURE                          REF R23
-      278 CAPTURE                          REF R26
-      279 CAPTURE                          VAL R48
-      280 NEWCLOSURE                       R60 P21
-      281 CAPTURE                          REF R16
-      282 CAPTURE                          VAL R3
-      283 CAPTURE                          VAL R59
-      284 CAPTURE                          VAL R0
-      285 CAPTURE                          VAL R52
-      286 CAPTURE                          VAL R9
-      287 NEWCLOSURE                       R61 P22
-      288 CAPTURE                          REF R10
-      289 CAPTURE                          VAL R60
-      290 NEWCLOSURE                       R62 P23
-      291 CAPTURE                          REF R11
-      292 CAPTURE                          VAL R42
-      293 CAPTURE                          VAL R45
-      294 CAPTURE                          VAL R34
-      295 CAPTURE                          REF R33
-      296 CAPTURE                          REF R32
-      297 CAPTURE                          REF R31
-      298 CAPTURE                          REF R30
-      299 CAPTURE                          VAL R57
-      300 NAMECALL                         R63 R0 K41 ["IsEdit"]
-      302 CALL                             R63 1 1
-      303 JUMPIF                           R63 ; [+9]
-      304 NAMECALL                         R63 R0 K42 ["IsServer"]
-      306 CALL                             R63 1 1
-      307 JUMPIF                           R63 ; [+5]
-      308 LOADB                            R63 0
-      309 SETTABLEKS                       R63 R9 K43 ["Enabled"]
-      311 CLOSEUPVALS                      R10
-      312 RETURN                           R0 0
-      313 MOVE                             R63 R40
-      314 CALL                             R63 0 0
-      315 MOVE                             R63 R60
-      316 MOVE                             R64 R10
-      317 CALL                             R63 1 0
-      318 GETTABLEKS                       R63 R9 K44 ["Click"]
-      320 MOVE                             R65 R61
-      321 NAMECALL                         R63 R63 K45 ["connect"]
-      323 CALL                             R63 2 0
-      324 GETTABLEKS                       R63 R29 K46 ["MouseMoved"]
-      326 MOVE                             R65 R47
-      327 NAMECALL                         R63 R63 K45 ["connect"]
-      329 CALL                             R63 2 0
-      330 GETTABLEKS                       R63 R29 K47 ["MouseEnter"]
-      332 MOVE                             R65 R49
-      333 NAMECALL                         R63 R63 K45 ["connect"]
-      335 CALL                             R63 2 0
-      336 GETTABLEKS                       R63 R29 K48 ["MouseLeave"]
-      338 MOVE                             R65 R50
-      339 NAMECALL                         R63 R63 K45 ["connect"]
-      341 CALL                             R63 2 0
-      342 GETTABLEKS                       R63 R29 K49 ["MouseButton1Down"]
-      344 MOVE                             R65 R55
-      345 NAMECALL                         R63 R63 K45 ["connect"]
-      347 CALL                             R63 2 0
-      348 GETTABLEKS                       R63 R29 K50 ["MouseButton1Up"]
-      350 MOVE                             R65 R57
-      351 NAMECALL                         R63 R63 K45 ["connect"]
-      353 CALL                             R63 2 0
-      354 GETTABLEKS                       R63 R4 K51 ["InputChanged"]
-      356 MOVE                             R65 R51
-      357 NAMECALL                         R63 R63 K45 ["connect"]
-      359 CALL                             R63 2 0
-      360 GETTABLEKS                       R63 R4 K52 ["InputEnded"]
-      362 MOVE                             R65 R54
-      363 NAMECALL                         R63 R63 K45 ["connect"]
-      365 CALL                             R63 2 0
-      366 MOVE                             R63 R62
-      367 LOADK                            R66 K53 ["RightArrow"]
-      368 NAMECALL                         R64 R27 K54 ["WaitForChild"]
-      370 CALL                             R64 2 1
-      371 GETIMPORT                        R65 K57 [Vector2.new]
-      373 LOADN                            R66 1
-      374 LOADN                            R67 0
-      375 CALL                             R65 2 -1
-      376 CALL                             R63 -1 0
-      377 MOVE                             R63 R62
-      378 LOADK                            R66 K58 ["LeftArrow"]
-      379 NAMECALL                         R64 R27 K54 ["WaitForChild"]
-      381 CALL                             R64 2 1
-      382 GETIMPORT                        R65 K57 [Vector2.new]
-      384 LOADN                            R66 -1
-      385 LOADN                            R67 0
-      386 CALL                             R65 2 -1
-      387 CALL                             R63 -1 0
-      388 MOVE                             R63 R62
-      389 LOADK                            R66 K59 ["UpArrow"]
-      390 NAMECALL                         R64 R27 K54 ["WaitForChild"]
-      392 CALL                             R64 2 1
-      393 GETIMPORT                        R65 K57 [Vector2.new]
-      395 LOADN                            R66 0
-      396 LOADN                            R67 1
-      397 CALL                             R65 2 -1
-      398 CALL                             R63 -1 0
-      399 MOVE                             R63 R62
-      400 LOADK                            R66 K60 ["DownArrow"]
-      401 NAMECALL                         R64 R27 K54 ["WaitForChild"]
-      403 CALL                             R64 2 1
-      404 GETIMPORT                        R65 K57 [Vector2.new]
-      406 LOADN                            R66 0
-      407 LOADN                            R67 -1
-      408 CALL                             R65 2 -1
-      409 CALL                             R63 -1 0
-      410 GETIMPORT                        R63 K1 [game]
-      412 LOADK                            R65 K61 ["NewCameraControls"]
-      413 NAMECALL                         R63 R63 K3 ["GetEngineFeature"]
-      415 CALL                             R63 2 1
-      416 JUMPIFNOT                        R63 ; [+345]
-      417 GETIMPORT                        R63 K63 [TweenInfo.new]
-      419 LOADK                            R64 K64 [0.2]
-      420 GETIMPORT                        R65 K68 [Enum.EasingStyle.Linear]
-      422 CALL                             R63 2 1
-      423 LOADK                            R66 K69 ["CamSpeed"]
-      424 NAMECALL                         R64 R17 K54 ["WaitForChild"]
-      426 CALL                             R64 2 1
-      427 LOADK                            R67 K70 ["UIStroke"]
-      428 NAMECALL                         R65 R64 K54 ["WaitForChild"]
-      430 CALL                             R65 2 1
-      431 LOADK                            R68 K71 ["Slider"]
-      432 NAMECALL                         R66 R64 K54 ["WaitForChild"]
-      434 CALL                             R66 2 1
-      435 MOVE                             R69 R64
-      436 MOVE                             R70 R63
-      437 DUPTABLE                         R71 K75 [{["TextTransparency"] = 1, ["BackgroundTransparency"] = 1}]
-      438 NAMECALL                         R67 R7 K76 ["Create"]
-      440 CALL                             R67 4 1
-      441 MOVE                             R70 R66
-      442 MOVE                             R71 R63
-      443 DUPTABLE                         R72 K77 [{["BackgroundTransparency"] = 1}]
-      444 NAMECALL                         R68 R7 K76 ["Create"]
-      446 CALL                             R68 4 1
-      447 LOADNIL                          R69
-      448 GETIMPORT                        R70 K79 [UDim2.new]
-      450 LOADN                            R71 0
-      451 LOADN                            R72 96
-      452 LOADN                            R73 0
-      453 LOADN                            R74 22
-      454 CALL                             R70 4 1
-      455 SETTABLEKS                       R70 R64 K80 ["Size"]
-      457 GETIMPORT                        R70 K81 [Color3.new]
-      459 LOADN                            R71 1
-      460 LOADN                            R72 1
-      461 LOADN                            R73 1
-      462 CALL                             R70 3 1
-      463 SETTABLEKS                       R70 R64 K82 ["BackgroundColor3"]
-      465 GETIMPORT                        R70 K81 [Color3.new]
-      467 LOADN                            R71 1
-      468 LOADN                            R72 1
-      469 LOADN                            R73 1
-      470 CALL                             R70 3 1
-      471 SETTABLEKS                       R70 R66 K82 ["BackgroundColor3"]
-      473 GETTABLEKS                       R71 R64 K83 ["Position"]
-      475 GETIMPORT                        R72 K79 [UDim2.new]
-      477 LOADN                            R73 0
-      478 LOADN                            R74 13
-      479 LOADN                            R75 0
-      480 LOADN                            R76 3
-      481 CALL                             R72 4 1
-      482 ADD                              R70 R71 R72
-      483 SETTABLEKS                       R70 R64 K83 ["Position"]
-      485 GETIMPORT                        R70 K1 [game]
-      487 LOADK                            R72 K84 ["StudioCameraService"]
-      488 NAMECALL                         R70 R70 K5 ["GetService"]
-      490 CALL                             R70 2 1
-      491 LOADB                            R71 0
-      492 SETTABLEKS                       R71 R64 K85 ["ClipsDescendants"]
-      494 GETIMPORT                        R71 K87 [Instance.new]
-      496 LOADK                            R72 K88 ["ImageButton"]
-      497 MOVE                             R73 R64
+      220 NEWCLOSURE                       R50 P10
+      221 CAPTURE                          REF R29
+      222 CAPTURE                          VAL R49
+      223 NEWCLOSURE                       R51 P11
+      224 CAPTURE                          REF R15
+      225 CAPTURE                          VAL R36
+      226 CAPTURE                          REF R28
+      227 CAPTURE                          REF R29
+      228 NEWCLOSURE                       R52 P12
+      229 CAPTURE                          REF R13
+      230 CAPTURE                          REF R14
+      231 CAPTURE                          REF R18
+      232 NEWCLOSURE                       R53 P13
+      233 CAPTURE                          REF R20
+      234 CAPTURE                          REF R18
+      235 NEWCLOSURE                       R54 P14
+      236 CAPTURE                          REF R20
+      237 CAPTURE                          REF R18
+      238 NEWCLOSURE                       R55 P15
+      239 CAPTURE                          REF R13
+      240 CAPTURE                          VAL R54
+      241 NEWCLOSURE                       R56 P16
+      242 CAPTURE                          REF R13
+      243 CAPTURE                          REF R14
+      244 CAPTURE                          REF R18
+      245 NEWCLOSURE                       R57 P17
+      246 CAPTURE                          REF R34
+      247 CAPTURE                          REF R33
+      248 CAPTURE                          REF R32
+      249 CAPTURE                          REF R31
+      250 NEWCLOSURE                       R58 P18
+      251 CAPTURE                          REF R13
+      252 CAPTURE                          REF R15
+      253 CAPTURE                          VAL R35
+      254 CAPTURE                          REF R34
+      255 CAPTURE                          REF R33
+      256 CAPTURE                          REF R32
+      257 CAPTURE                          REF R31
+      258 CAPTURE                          VAL R54
+      259 NEWCLOSURE                       R59 P19
+      260 CAPTURE                          REF R21
+      261 CAPTURE                          REF R12
+      262 CAPTURE                          REF R19
+      263 CAPTURE                          REF R16
+      264 CAPTURE                          REF R20
+      265 CAPTURE                          REF R22
+      266 CAPTURE                          REF R25
+      267 CAPTURE                          REF R23
+      268 CAPTURE                          REF R26
+      269 CAPTURE                          REF R24
+      270 CAPTURE                          REF R27
+      271 NEWCLOSURE                       R60 P20
+      272 CAPTURE                          REF R31
+      273 CAPTURE                          REF R33
+      274 CAPTURE                          REF R34
+      275 CAPTURE                          REF R32
+      276 CAPTURE                          REF R16
+      277 CAPTURE                          REF R12
+      278 CAPTURE                          REF R19
+      279 CAPTURE                          REF R21
+      280 CAPTURE                          REF R20
+      281 CAPTURE                          REF R22
+      282 CAPTURE                          REF R25
+      283 CAPTURE                          REF R23
+      284 CAPTURE                          REF R26
+      285 CAPTURE                          REF R24
+      286 CAPTURE                          REF R27
+      287 CAPTURE                          VAL R49
+      288 NEWCLOSURE                       R61 P21
+      289 CAPTURE                          REF R17
+      290 CAPTURE                          VAL R4
+      291 CAPTURE                          VAL R60
+      292 CAPTURE                          VAL R1
+      293 CAPTURE                          VAL R53
+      294 CAPTURE                          VAL R10
+      295 NEWCLOSURE                       R62 P22
+      296 CAPTURE                          REF R11
+      297 CAPTURE                          VAL R61
+      298 NEWCLOSURE                       R63 P23
+      299 CAPTURE                          REF R12
+      300 CAPTURE                          VAL R43
+      301 CAPTURE                          VAL R46
+      302 CAPTURE                          VAL R35
+      303 CAPTURE                          REF R34
+      304 CAPTURE                          REF R33
+      305 CAPTURE                          REF R32
+      306 CAPTURE                          REF R31
+      307 CAPTURE                          VAL R58
+      308 NAMECALL                         R64 R1 K43 ["IsEdit"]
+      310 CALL                             R64 1 1
+      311 JUMPIF                           R64 ; [+9]
+      312 NAMECALL                         R64 R1 K44 ["IsServer"]
+      314 CALL                             R64 1 1
+      315 JUMPIF                           R64 ; [+5]
+      316 LOADB                            R64 0
+      317 SETTABLEKS                       R64 R10 K45 ["Enabled"]
+      319 CLOSEUPVALS                      R11
+      320 RETURN                           R0 0
+      321 MOVE                             R64 R41
+      322 CALL                             R64 0 0
+      323 MOVE                             R64 R61
+      324 MOVE                             R65 R11
+      325 CALL                             R64 1 0
+      326 GETTABLEKS                       R64 R10 K46 ["Click"]
+      328 MOVE                             R66 R62
+      329 NAMECALL                         R64 R64 K47 ["connect"]
+      331 CALL                             R64 2 0
+      332 GETTABLEKS                       R64 R30 K48 ["MouseMoved"]
+      334 MOVE                             R66 R48
+      335 NAMECALL                         R64 R64 K47 ["connect"]
+      337 CALL                             R64 2 0
+      338 GETTABLEKS                       R64 R30 K49 ["MouseEnter"]
+      340 MOVE                             R66 R50
+      341 NAMECALL                         R64 R64 K47 ["connect"]
+      343 CALL                             R64 2 0
+      344 GETTABLEKS                       R64 R30 K50 ["MouseLeave"]
+      346 MOVE                             R66 R51
+      347 NAMECALL                         R64 R64 K47 ["connect"]
+      349 CALL                             R64 2 0
+      350 GETTABLEKS                       R64 R30 K51 ["MouseButton1Down"]
+      352 MOVE                             R66 R56
+      353 NAMECALL                         R64 R64 K47 ["connect"]
+      355 CALL                             R64 2 0
+      356 GETTABLEKS                       R64 R30 K52 ["MouseButton1Up"]
+      358 MOVE                             R66 R58
+      359 NAMECALL                         R64 R64 K47 ["connect"]
+      361 CALL                             R64 2 0
+      362 GETTABLEKS                       R64 R5 K53 ["InputChanged"]
+      364 MOVE                             R66 R52
+      365 NAMECALL                         R64 R64 K47 ["connect"]
+      367 CALL                             R64 2 0
+      368 GETTABLEKS                       R64 R5 K54 ["InputEnded"]
+      370 MOVE                             R66 R55
+      371 NAMECALL                         R64 R64 K47 ["connect"]
+      373 CALL                             R64 2 0
+      374 MOVE                             R64 R63
+      375 LOADK                            R67 K55 ["RightArrow"]
+      376 NAMECALL                         R65 R28 K56 ["WaitForChild"]
+      378 CALL                             R65 2 1
+      379 GETIMPORT                        R66 K59 [Vector2.new]
+      381 LOADN                            R67 1
+      382 LOADN                            R68 0
+      383 CALL                             R66 2 -1
+      384 CALL                             R64 -1 0
+      385 MOVE                             R64 R63
+      386 LOADK                            R67 K60 ["LeftArrow"]
+      387 NAMECALL                         R65 R28 K56 ["WaitForChild"]
+      389 CALL                             R65 2 1
+      390 GETIMPORT                        R66 K59 [Vector2.new]
+      392 LOADN                            R67 -1
+      393 LOADN                            R68 0
+      394 CALL                             R66 2 -1
+      395 CALL                             R64 -1 0
+      396 MOVE                             R64 R63
+      397 LOADK                            R67 K61 ["UpArrow"]
+      398 NAMECALL                         R65 R28 K56 ["WaitForChild"]
+      400 CALL                             R65 2 1
+      401 GETIMPORT                        R66 K59 [Vector2.new]
+      403 LOADN                            R67 0
+      404 LOADN                            R68 1
+      405 CALL                             R66 2 -1
+      406 CALL                             R64 -1 0
+      407 MOVE                             R64 R63
+      408 LOADK                            R67 K62 ["DownArrow"]
+      409 NAMECALL                         R65 R28 K56 ["WaitForChild"]
+      411 CALL                             R65 2 1
+      412 GETIMPORT                        R66 K59 [Vector2.new]
+      414 LOADN                            R67 0
+      415 LOADN                            R68 -1
+      416 CALL                             R66 2 -1
+      417 CALL                             R64 -1 0
+      418 GETIMPORT                        R64 K1 [game]
+      420 LOADK                            R66 K63 ["NewCameraControls"]
+      421 NAMECALL                         R64 R64 K5 ["GetEngineFeature"]
+      423 CALL                             R64 2 1
+      424 JUMPIFNOT                        R64 ; [+345]
+      425 GETIMPORT                        R64 K65 [TweenInfo.new]
+      427 LOADK                            R65 K66 [0.2]
+      428 GETIMPORT                        R66 K70 [Enum.EasingStyle.Linear]
+      430 CALL                             R64 2 1
+      431 LOADK                            R67 K71 ["CamSpeed"]
+      432 NAMECALL                         R65 R18 K56 ["WaitForChild"]
+      434 CALL                             R65 2 1
+      435 LOADK                            R68 K72 ["UIStroke"]
+      436 NAMECALL                         R66 R65 K56 ["WaitForChild"]
+      438 CALL                             R66 2 1
+      439 LOADK                            R69 K73 ["Slider"]
+      440 NAMECALL                         R67 R65 K56 ["WaitForChild"]
+      442 CALL                             R67 2 1
+      443 MOVE                             R70 R65
+      444 MOVE                             R71 R64
+      445 DUPTABLE                         R72 K77 [{["TextTransparency"] = 1, ["BackgroundTransparency"] = 1}]
+      446 NAMECALL                         R68 R8 K78 ["Create"]
+      448 CALL                             R68 4 1
+      449 MOVE                             R71 R67
+      450 MOVE                             R72 R64
+      451 DUPTABLE                         R73 K79 [{["BackgroundTransparency"] = 1}]
+      452 NAMECALL                         R69 R8 K78 ["Create"]
+      454 CALL                             R69 4 1
+      455 LOADNIL                          R70
+      456 GETIMPORT                        R71 K81 [UDim2.new]
+      458 LOADN                            R72 0
+      459 LOADN                            R73 96
+      460 LOADN                            R74 0
+      461 LOADN                            R75 22
+      462 CALL                             R71 4 1
+      463 SETTABLEKS                       R71 R65 K82 ["Size"]
+      465 GETIMPORT                        R71 K83 [Color3.new]
+      467 LOADN                            R72 1
+      468 LOADN                            R73 1
+      469 LOADN                            R74 1
+      470 CALL                             R71 3 1
+      471 SETTABLEKS                       R71 R65 K84 ["BackgroundColor3"]
+      473 GETIMPORT                        R71 K83 [Color3.new]
+      475 LOADN                            R72 1
+      476 LOADN                            R73 1
+      477 LOADN                            R74 1
+      478 CALL                             R71 3 1
+      479 SETTABLEKS                       R71 R67 K84 ["BackgroundColor3"]
+      481 GETTABLEKS                       R72 R65 K85 ["Position"]
+      483 GETIMPORT                        R73 K81 [UDim2.new]
+      485 LOADN                            R74 0
+      486 LOADN                            R75 13
+      487 LOADN                            R76 0
+      488 LOADN                            R77 3
+      489 CALL                             R73 4 1
+      490 ADD                              R71 R72 R73
+      491 SETTABLEKS                       R71 R65 K85 ["Position"]
+      493 GETIMPORT                        R71 K1 [game]
+      495 LOADK                            R73 K86 ["StudioCameraService"]
+      496 NAMECALL                         R71 R71 K7 ["GetService"]
       498 CALL                             R71 2 1
-      499 LOADK                            R72 K89 ["NavModelButton"]
-      500 SETTABLEKS                       R72 R71 K90 ["Name"]
-      502 LOADN                            R72 0
-      503 SETTABLEKS                       R72 R71 K74 ["BackgroundTransparency"]
-      505 GETIMPORT                        R72 K81 [Color3.new]
-      507 LOADN                            R73 1
-      508 LOADN                            R74 1
-      509 LOADN                            R75 1
-      510 CALL                             R72 3 1
-      511 SETTABLEKS                       R72 R71 K82 ["BackgroundColor3"]
-      513 LOADN                            R72 0
-      514 SETTABLEKS                       R72 R71 K91 ["BorderSizePixel"]
-      516 GETIMPORT                        R72 K57 [Vector2.new]
-      518 LOADN                            R73 1
-      519 LOADN                            R74 0
-      520 CALL                             R72 2 1
-      521 SETTABLEKS                       R72 R71 K92 ["AnchorPoint"]
-      523 GETIMPORT                        R72 K79 [UDim2.new]
-      525 LOADN                            R73 0
-      526 LOADN                            R74 -5
+      499 LOADB                            R72 0
+      500 SETTABLEKS                       R72 R65 K87 ["ClipsDescendants"]
+      502 GETIMPORT                        R72 K89 [Instance.new]
+      504 LOADK                            R73 K90 ["ImageButton"]
+      505 MOVE                             R74 R65
+      506 CALL                             R72 2 1
+      507 LOADK                            R73 K91 ["NavModelButton"]
+      508 SETTABLEKS                       R73 R72 K92 ["Name"]
+      510 LOADN                            R73 0
+      511 SETTABLEKS                       R73 R72 K76 ["BackgroundTransparency"]
+      513 GETIMPORT                        R73 K83 [Color3.new]
+      515 LOADN                            R74 1
+      516 LOADN                            R75 1
+      517 LOADN                            R76 1
+      518 CALL                             R73 3 1
+      519 SETTABLEKS                       R73 R72 K84 ["BackgroundColor3"]
+      521 LOADN                            R73 0
+      522 SETTABLEKS                       R73 R72 K93 ["BorderSizePixel"]
+      524 GETIMPORT                        R73 K59 [Vector2.new]
+      526 LOADN                            R74 1
       527 LOADN                            R75 0
-      528 LOADN                            R76 0
-      529 CALL                             R72 4 1
-      530 SETTABLEKS                       R72 R71 K83 ["Position"]
-      532 GETIMPORT                        R72 K79 [UDim2.new]
-      534 LOADN                            R73 0
-      535 LOADN                            R74 22
-      536 LOADN                            R75 0
-      537 LOADN                            R76 22
-      538 CALL                             R72 4 1
-      539 SETTABLEKS                       R72 R71 K80 ["Size"]
-      541 LOADN                            R72 20
-      542 SETTABLEKS                       R72 R71 K93 ["ZIndex"]
-      544 GETIMPORT                        R72 K96 [Enum.ScaleType.Fit]
-      546 SETTABLEKS                       R72 R71 K94 ["ScaleType"]
-      548 GETIMPORT                        R72 K81 [Color3.new]
-      550 LOADN                            R73 0
-      551 LOADN                            R74 0
-      552 LOADN                            R75 0
-      553 CALL                             R72 3 1
-      554 SETTABLEKS                       R72 R71 K97 ["ImageColor3"]
-      556 LOADN                            R72 0
-      557 SETTABLEKS                       R72 R71 K98 ["ImageTransparency"]
-      559 GETIMPORT                        R72 K87 [Instance.new]
-      561 LOADK                            R73 K99 ["UICorner"]
-      562 MOVE                             R74 R71
-      563 CALL                             R72 2 1
-      564 GETIMPORT                        R73 K101 [UDim.new]
-      566 LOADN                            R74 0
-      567 LOADN                            R75 4
-      568 CALL                             R73 2 1
-      569 SETTABLEKS                       R73 R72 K102 ["CornerRadius"]
-      571 MOVE                             R75 R71
-      572 MOVE                             R76 R63
-      573 DUPTABLE                         R77 K103 [{["ImageTransparency"] = 1, ["BackgroundTransparency"] = 1}]
-      574 NAMECALL                         R73 R7 K76 ["Create"]
-      576 CALL                             R73 4 1
-      577 DUPCLOSURE                       R74 K104 [PROTO_35]
-      578 CAPTURE                          VAL R71
-      579 GETIMPORT                        R75 K106 [settings]
-      581 CALL                             R75 0 1
-      582 GETTABLEKS                       R75 R75 K107 ["Studio"]
-      584 GETTABLEKS                       R75 R75 K108 ["CameraNavigationModel"]
-      586 GETIMPORT                        R76 K110 [Enum.CameraNavigationModel.Roblox]
-      588 JUMPIFNOTEQ                      R75 R76 ; [+5]
-      590 LOADK                            R76 K111 ["rbxasset://textures/StudioCameraUI/iconFPS.png"]
-      591 SETTABLEKS                       R76 R71 K112 ["Image"]
-      593 JUMP                             ; [+3]
-      594 LOADK                            R76 K113 ["rbxasset://textures/StudioCameraUI/iconFocus.png"]
-      595 SETTABLEKS                       R76 R71 K112 ["Image"]
-      597 GETIMPORT                        R75 K106 [settings]
-      599 CALL                             R75 0 1
-      600 GETTABLEKS                       R75 R75 K107 ["Studio"]
-      602 LOADK                            R77 K108 ["CameraNavigationModel"]
-      603 NAMECALL                         R75 R75 K114 ["GetPropertyChangedSignal"]
-      605 CALL                             R75 2 1
-      606 DUPCLOSURE                       R77 K115 [PROTO_36]
-      607 CAPTURE                          VAL R71
-      608 NAMECALL                         R75 R75 K116 ["Connect"]
-      610 CALL                             R75 2 0
-      611 DUPTABLE                         R75 K122 [{["mouseOverViewSelector"] = False, ["mouseOverSlider"] = False, ["isDraggingSlider"] = False, ["mouseOverNavModel"] = False}]
-      612 NEWCLOSURE                       R76 P26
-      613 CAPTURE                          VAL R67
-      614 CAPTURE                          VAL R68
-      615 CAPTURE                          VAL R73
-      616 CAPTURE                          REF R69
-      617 CAPTURE                          VAL R64
-      618 CAPTURE                          VAL R66
-      619 CAPTURE                          VAL R75
-      620 CAPTURE                          VAL R65
-      621 CAPTURE                          VAL R71
-      622 DUPCLOSURE                       R77 K123 [PROTO_39]
-      623 DUPCLOSURE                       R78 K124 [PROTO_40]
-      624 CAPTURE                          VAL R64
-      625 DUPCLOSURE                       R79 K125 [PROTO_41]
-      626 CAPTURE                          VAL R64
-      627 CAPTURE                          VAL R66
-      628 GETIMPORT                        R80 K106 [settings]
-      630 CALL                             R80 0 1
-      631 GETTABLEKS                       R80 R80 K107 ["Studio"]
-      633 LOADK                            R82 K126 ["Camera Speed"]
-      634 NAMECALL                         R80 R80 K114 ["GetPropertyChangedSignal"]
-      636 CALL                             R80 2 1
-      637 DUPCLOSURE                       R82 K127 [PROTO_42]
-      638 CAPTURE                          VAL R79
-      639 CAPTURE                          VAL R76
-      640 NAMECALL                         R80 R80 K116 ["Connect"]
-      642 CALL                             R80 2 0
-      643 GETTABLEKS                       R80 R70 K128 ["ShowCameraSpeed"]
-      645 DUPCLOSURE                       R82 K129 [PROTO_43]
-      646 CAPTURE                          VAL R79
-      647 CAPTURE                          VAL R76
-      648 NAMECALL                         R80 R80 K116 ["Connect"]
-      650 CALL                             R80 2 0
-      651 GETTABLEKS                       R80 R29 K47 ["MouseEnter"]
-      653 DUPCLOSURE                       R82 K130 [PROTO_44]
-      654 CAPTURE                          VAL R75
-      655 CAPTURE                          VAL R76
-      656 NAMECALL                         R80 R80 K116 ["Connect"]
-      658 CALL                             R80 2 0
-      659 GETTABLEKS                       R80 R29 K48 ["MouseLeave"]
-      661 DUPCLOSURE                       R82 K131 [PROTO_45]
-      662 CAPTURE                          VAL R75
-      663 CAPTURE                          VAL R76
-      664 NAMECALL                         R80 R80 K116 ["Connect"]
-      666 CALL                             R80 2 0
-      667 GETTABLEKS                       R80 R64 K47 ["MouseEnter"]
-      669 NEWCLOSURE                       R82 P34
-      670 CAPTURE                          VAL R75
-      671 CAPTURE                          REF R27
-      672 CAPTURE                          VAL R76
-      673 NAMECALL                         R80 R80 K116 ["Connect"]
-      675 CALL                             R80 2 0
-      676 GETTABLEKS                       R80 R64 K48 ["MouseLeave"]
-      678 DUPCLOSURE                       R82 K132 [PROTO_47]
-      679 CAPTURE                          VAL R75
-      680 CAPTURE                          VAL R48
-      681 CAPTURE                          VAL R76
-      682 NAMECALL                         R80 R80 K116 ["Connect"]
-      684 CALL                             R80 2 0
-      685 GETTABLEKS                       R80 R64 K49 ["MouseButton1Down"]
-      687 DUPCLOSURE                       R82 K133 [PROTO_48]
-      688 CAPTURE                          VAL R75
-      689 CAPTURE                          VAL R76
-      690 CAPTURE                          VAL R4
-      691 CAPTURE                          VAL R64
-      692 CAPTURE                          VAL R0
-      693 NAMECALL                         R80 R80 K116 ["Connect"]
-      695 CALL                             R80 2 0
-      696 GETTABLEKS                       R80 R64 K51 ["InputChanged"]
-      698 DUPCLOSURE                       R82 K134 [PROTO_49]
-      699 NAMECALL                         R80 R80 K116 ["Connect"]
-      701 CALL                             R80 2 0
-      702 GETTABLEKS                       R80 R71 K47 ["MouseEnter"]
-      704 NEWCLOSURE                       R82 P38
-      705 CAPTURE                          VAL R75
-      706 CAPTURE                          REF R27
-      707 CAPTURE                          VAL R76
-      708 NAMECALL                         R80 R80 K116 ["Connect"]
-      710 CALL                             R80 2 0
-      711 GETTABLEKS                       R80 R71 K48 ["MouseLeave"]
-      713 DUPCLOSURE                       R82 K135 [PROTO_51]
-      714 CAPTURE                          VAL R75
-      715 CAPTURE                          VAL R48
-      716 CAPTURE                          VAL R76
-      717 NAMECALL                         R80 R80 K116 ["Connect"]
-      719 CALL                             R80 2 0
-      720 GETTABLEKS                       R80 R71 K136 ["Activated"]
-      722 DUPCLOSURE                       R82 K137 [PROTO_52]
-      723 NAMECALL                         R80 R80 K116 ["Connect"]
-      725 CALL                             R80 2 0
-      726 GETIMPORT                        R80 K106 [settings]
-      728 CALL                             R80 0 1
-      729 GETTABLEKS                       R80 R80 K107 ["Studio"]
-      731 LOADK                            R82 K108 ["CameraNavigationModel"]
-      732 NAMECALL                         R80 R80 K114 ["GetPropertyChangedSignal"]
-      734 CALL                             R80 2 1
-      735 DUPCLOSURE                       R82 K138 [PROTO_53]
-      736 CAPTURE                          VAL R76
-      737 NAMECALL                         R80 R80 K116 ["Connect"]
-      739 CALL                             R80 2 0
-      740 MOVE                             R80 R79
-      741 CALL                             R80 0 0
-      742 LOADN                            R80 1
-      743 SETTABLEKS                       R80 R64 K74 ["BackgroundTransparency"]
-      745 LOADN                            R80 1
-      746 SETTABLEKS                       R80 R64 K72 ["TextTransparency"]
-      748 LOADN                            R80 1
-      749 SETTABLEKS                       R80 R65 K139 ["Transparency"]
-      751 LOADN                            R80 1
-      752 SETTABLEKS                       R80 R66 K74 ["BackgroundTransparency"]
-      754 LOADN                            R80 1
-      755 SETTABLEKS                       R80 R71 K98 ["ImageTransparency"]
-      757 LOADN                            R80 1
-      758 SETTABLEKS                       R80 R71 K74 ["BackgroundTransparency"]
-      760 CLOSEUPVALS                      R69
-      761 JUMP                             ; [+7]
-      762 LOADK                            R65 K69 ["CamSpeed"]
-      763 NAMECALL                         R63 R17 K54 ["WaitForChild"]
-      765 CALL                             R63 2 1
-      766 NAMECALL                         R63 R63 K140 ["Destroy"]
-      768 CALL                             R63 1 0
-      769 CLOSEUPVALS                      R10
-      770 RETURN                           R0 0
+      528 CALL                             R73 2 1
+      529 SETTABLEKS                       R73 R72 K94 ["AnchorPoint"]
+      531 GETIMPORT                        R73 K81 [UDim2.new]
+      533 LOADN                            R74 0
+      534 LOADN                            R75 -5
+      535 LOADN                            R76 0
+      536 LOADN                            R77 0
+      537 CALL                             R73 4 1
+      538 SETTABLEKS                       R73 R72 K85 ["Position"]
+      540 GETIMPORT                        R73 K81 [UDim2.new]
+      542 LOADN                            R74 0
+      543 LOADN                            R75 22
+      544 LOADN                            R76 0
+      545 LOADN                            R77 22
+      546 CALL                             R73 4 1
+      547 SETTABLEKS                       R73 R72 K82 ["Size"]
+      549 LOADN                            R73 20
+      550 SETTABLEKS                       R73 R72 K95 ["ZIndex"]
+      552 GETIMPORT                        R73 K98 [Enum.ScaleType.Fit]
+      554 SETTABLEKS                       R73 R72 K96 ["ScaleType"]
+      556 GETIMPORT                        R73 K83 [Color3.new]
+      558 LOADN                            R74 0
+      559 LOADN                            R75 0
+      560 LOADN                            R76 0
+      561 CALL                             R73 3 1
+      562 SETTABLEKS                       R73 R72 K99 ["ImageColor3"]
+      564 LOADN                            R73 0
+      565 SETTABLEKS                       R73 R72 K100 ["ImageTransparency"]
+      567 GETIMPORT                        R73 K89 [Instance.new]
+      569 LOADK                            R74 K101 ["UICorner"]
+      570 MOVE                             R75 R72
+      571 CALL                             R73 2 1
+      572 GETIMPORT                        R74 K103 [UDim.new]
+      574 LOADN                            R75 0
+      575 LOADN                            R76 4
+      576 CALL                             R74 2 1
+      577 SETTABLEKS                       R74 R73 K104 ["CornerRadius"]
+      579 MOVE                             R76 R72
+      580 MOVE                             R77 R64
+      581 DUPTABLE                         R78 K105 [{["ImageTransparency"] = 1, ["BackgroundTransparency"] = 1}]
+      582 NAMECALL                         R74 R8 K78 ["Create"]
+      584 CALL                             R74 4 1
+      585 DUPCLOSURE                       R75 K106 [PROTO_35]
+      586 CAPTURE                          VAL R72
+      587 GETIMPORT                        R76 K108 [settings]
+      589 CALL                             R76 0 1
+      590 GETTABLEKS                       R76 R76 K109 ["Studio"]
+      592 GETTABLEKS                       R76 R76 K110 ["CameraNavigationModel"]
+      594 GETIMPORT                        R77 K112 [Enum.CameraNavigationModel.Roblox]
+      596 JUMPIFNOTEQ                      R76 R77 ; [+5]
+      598 LOADK                            R77 K113 ["rbxasset://textures/StudioCameraUI/iconFPS.png"]
+      599 SETTABLEKS                       R77 R72 K114 ["Image"]
+      601 JUMP                             ; [+3]
+      602 LOADK                            R77 K115 ["rbxasset://textures/StudioCameraUI/iconFocus.png"]
+      603 SETTABLEKS                       R77 R72 K114 ["Image"]
+      605 GETIMPORT                        R76 K108 [settings]
+      607 CALL                             R76 0 1
+      608 GETTABLEKS                       R76 R76 K109 ["Studio"]
+      610 LOADK                            R78 K110 ["CameraNavigationModel"]
+      611 NAMECALL                         R76 R76 K116 ["GetPropertyChangedSignal"]
+      613 CALL                             R76 2 1
+      614 DUPCLOSURE                       R78 K117 [PROTO_36]
+      615 CAPTURE                          VAL R72
+      616 NAMECALL                         R76 R76 K118 ["Connect"]
+      618 CALL                             R76 2 0
+      619 DUPTABLE                         R76 K124 [{["mouseOverViewSelector"] = False, ["mouseOverSlider"] = False, ["isDraggingSlider"] = False, ["mouseOverNavModel"] = False}]
+      620 NEWCLOSURE                       R77 P26
+      621 CAPTURE                          VAL R68
+      622 CAPTURE                          VAL R69
+      623 CAPTURE                          VAL R74
+      624 CAPTURE                          REF R70
+      625 CAPTURE                          VAL R65
+      626 CAPTURE                          VAL R67
+      627 CAPTURE                          VAL R76
+      628 CAPTURE                          VAL R66
+      629 CAPTURE                          VAL R72
+      630 DUPCLOSURE                       R78 K125 [PROTO_39]
+      631 DUPCLOSURE                       R79 K126 [PROTO_40]
+      632 CAPTURE                          VAL R65
+      633 DUPCLOSURE                       R80 K127 [PROTO_41]
+      634 CAPTURE                          VAL R65
+      635 CAPTURE                          VAL R67
+      636 GETIMPORT                        R81 K108 [settings]
+      638 CALL                             R81 0 1
+      639 GETTABLEKS                       R81 R81 K109 ["Studio"]
+      641 LOADK                            R83 K128 ["Camera Speed"]
+      642 NAMECALL                         R81 R81 K116 ["GetPropertyChangedSignal"]
+      644 CALL                             R81 2 1
+      645 DUPCLOSURE                       R83 K129 [PROTO_42]
+      646 CAPTURE                          VAL R80
+      647 CAPTURE                          VAL R77
+      648 NAMECALL                         R81 R81 K118 ["Connect"]
+      650 CALL                             R81 2 0
+      651 GETTABLEKS                       R81 R71 K130 ["ShowCameraSpeed"]
+      653 DUPCLOSURE                       R83 K131 [PROTO_43]
+      654 CAPTURE                          VAL R80
+      655 CAPTURE                          VAL R77
+      656 NAMECALL                         R81 R81 K118 ["Connect"]
+      658 CALL                             R81 2 0
+      659 GETTABLEKS                       R81 R30 K49 ["MouseEnter"]
+      661 DUPCLOSURE                       R83 K132 [PROTO_44]
+      662 CAPTURE                          VAL R76
+      663 CAPTURE                          VAL R77
+      664 NAMECALL                         R81 R81 K118 ["Connect"]
+      666 CALL                             R81 2 0
+      667 GETTABLEKS                       R81 R30 K50 ["MouseLeave"]
+      669 DUPCLOSURE                       R83 K133 [PROTO_45]
+      670 CAPTURE                          VAL R76
+      671 CAPTURE                          VAL R77
+      672 NAMECALL                         R81 R81 K118 ["Connect"]
+      674 CALL                             R81 2 0
+      675 GETTABLEKS                       R81 R65 K49 ["MouseEnter"]
+      677 NEWCLOSURE                       R83 P34
+      678 CAPTURE                          VAL R76
+      679 CAPTURE                          REF R28
+      680 CAPTURE                          VAL R77
+      681 NAMECALL                         R81 R81 K118 ["Connect"]
+      683 CALL                             R81 2 0
+      684 GETTABLEKS                       R81 R65 K50 ["MouseLeave"]
+      686 DUPCLOSURE                       R83 K134 [PROTO_47]
+      687 CAPTURE                          VAL R76
+      688 CAPTURE                          VAL R49
+      689 CAPTURE                          VAL R77
+      690 NAMECALL                         R81 R81 K118 ["Connect"]
+      692 CALL                             R81 2 0
+      693 GETTABLEKS                       R81 R65 K51 ["MouseButton1Down"]
+      695 DUPCLOSURE                       R83 K135 [PROTO_48]
+      696 CAPTURE                          VAL R76
+      697 CAPTURE                          VAL R77
+      698 CAPTURE                          VAL R5
+      699 CAPTURE                          VAL R65
+      700 CAPTURE                          VAL R1
+      701 NAMECALL                         R81 R81 K118 ["Connect"]
+      703 CALL                             R81 2 0
+      704 GETTABLEKS                       R81 R65 K53 ["InputChanged"]
+      706 DUPCLOSURE                       R83 K136 [PROTO_49]
+      707 NAMECALL                         R81 R81 K118 ["Connect"]
+      709 CALL                             R81 2 0
+      710 GETTABLEKS                       R81 R72 K49 ["MouseEnter"]
+      712 NEWCLOSURE                       R83 P38
+      713 CAPTURE                          VAL R76
+      714 CAPTURE                          REF R28
+      715 CAPTURE                          VAL R77
+      716 NAMECALL                         R81 R81 K118 ["Connect"]
+      718 CALL                             R81 2 0
+      719 GETTABLEKS                       R81 R72 K50 ["MouseLeave"]
+      721 DUPCLOSURE                       R83 K137 [PROTO_51]
+      722 CAPTURE                          VAL R76
+      723 CAPTURE                          VAL R49
+      724 CAPTURE                          VAL R77
+      725 NAMECALL                         R81 R81 K118 ["Connect"]
+      727 CALL                             R81 2 0
+      728 GETTABLEKS                       R81 R72 K138 ["Activated"]
+      730 DUPCLOSURE                       R83 K139 [PROTO_52]
+      731 NAMECALL                         R81 R81 K118 ["Connect"]
+      733 CALL                             R81 2 0
+      734 GETIMPORT                        R81 K108 [settings]
+      736 CALL                             R81 0 1
+      737 GETTABLEKS                       R81 R81 K109 ["Studio"]
+      739 LOADK                            R83 K110 ["CameraNavigationModel"]
+      740 NAMECALL                         R81 R81 K116 ["GetPropertyChangedSignal"]
+      742 CALL                             R81 2 1
+      743 DUPCLOSURE                       R83 K140 [PROTO_53]
+      744 CAPTURE                          VAL R77
+      745 NAMECALL                         R81 R81 K118 ["Connect"]
+      747 CALL                             R81 2 0
+      748 MOVE                             R81 R80
+      749 CALL                             R81 0 0
+      750 LOADN                            R81 1
+      751 SETTABLEKS                       R81 R65 K76 ["BackgroundTransparency"]
+      753 LOADN                            R81 1
+      754 SETTABLEKS                       R81 R65 K74 ["TextTransparency"]
+      756 LOADN                            R81 1
+      757 SETTABLEKS                       R81 R66 K141 ["Transparency"]
+      759 LOADN                            R81 1
+      760 SETTABLEKS                       R81 R67 K76 ["BackgroundTransparency"]
+      762 LOADN                            R81 1
+      763 SETTABLEKS                       R81 R72 K100 ["ImageTransparency"]
+      765 LOADN                            R81 1
+      766 SETTABLEKS                       R81 R72 K76 ["BackgroundTransparency"]
+      768 CLOSEUPVALS                      R70
+      769 JUMP                             ; [+7]
+      770 LOADK                            R66 K71 ["CamSpeed"]
+      771 NAMECALL                         R64 R18 K56 ["WaitForChild"]
+      773 CALL                             R64 2 1
+      774 NAMECALL                         R64 R64 K142 ["Destroy"]
+      776 CALL                             R64 1 0
+      777 CLOSEUPVALS                      R11
+      778 RETURN                           R0 0

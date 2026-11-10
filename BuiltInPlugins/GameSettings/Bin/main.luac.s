@@ -480,7 +480,7 @@ PROTO_12:
        23 GETUPVAL                         R3 2
        24 GETTABLEKS                       R3 R3 K8 ["createElement"]
        26 GETUPVAL                         R4 3
-       27 DUPTABLE                         R5 K17 [{"store", "showDialog", "theme", "mouse", "localization", "pluginGui", "plugin", "worldRootPhysics"}]
+       27 DUPTABLE                         R5 K16 [{"store", "showDialog", "theme", "mouse", "localization", "pluginGui", "plugin"}]
        28 GETUPVAL                         R6 0
        29 SETTABLEKS                       R6 R5 K9 ["store"]
        31 GETUPVAL                         R6 4
@@ -489,7 +489,7 @@ PROTO_12:
        35 CALL                             R6 0 1
        36 SETTABLEKS                       R6 R5 K11 ["theme"]
        38 GETUPVAL                         R6 6
-       39 NAMECALL                         R6 R6 K18 ["GetMouse"]
+       39 NAMECALL                         R6 R6 K17 ["GetMouse"]
        41 CALL                             R6 1 1
        42 SETTABLEKS                       R6 R5 K12 ["mouse"]
        44 GETUPVAL                         R6 7
@@ -498,86 +498,84 @@ PROTO_12:
        48 SETTABLEKS                       R6 R5 K14 ["pluginGui"]
        50 GETUPVAL                         R6 6
        51 SETTABLEKS                       R6 R5 K15 ["plugin"]
-       53 GETUPVAL                         R6 9
-       54 SETTABLEKS                       R6 R5 K16 ["worldRootPhysics"]
-       56 DUPTABLE                         R6 K20 [{"mainView"}]
-       57 GETUPVAL                         R7 2
-       58 GETTABLEKS                       R7 R7 K8 ["createElement"]
-       60 GETUPVAL                         R8 10
-       61 DUPTABLE                         R9 K23 [{"OnClose", "FirstSelectedId"}]
-       62 GETUPVAL                         R10 11
-       63 SETTABLEKS                       R10 R9 K21 ["OnClose"]
-       65 SETTABLEKS                       R2 R9 K22 ["FirstSelectedId"]
-       67 CALL                             R7 2 1
-       68 SETTABLEKS                       R7 R6 K19 ["mainView"]
-       70 CALL                             R3 3 1
-       71 GETUPVAL                         R4 0
-       72 GETUPVAL                         R6 12
-       73 CALL                             R6 0 -1
-       74 NAMECALL                         R4 R4 K24 ["dispatch"]
-       76 CALL                             R4 -1 0
-       77 GETUPVAL                         R4 0
-       78 GETUPVAL                         R6 13
-       79 MOVE                             R7 R0
-       80 CALL                             R6 1 -1
-       81 NAMECALL                         R4 R4 K24 ["dispatch"]
-       83 CALL                             R4 -1 0
-       84 GETUPVAL                         R4 0
-       85 GETUPVAL                         R6 14
-       86 MOVE                             R7 R1
-       87 CALL                             R6 1 -1
-       88 NAMECALL                         R4 R4 K24 ["dispatch"]
-       90 CALL                             R4 -1 0
-       91 GETUPVAL                         R4 0
-       92 GETUPVAL                         R6 15
-       93 GETUPVAL                         R7 1
-       94 GETTABLEKS                       R7 R7 K25 ["Open"]
-       96 CALL                             R6 1 -1
-       97 NAMECALL                         R4 R4 K24 ["dispatch"]
-       99 CALL                             R4 -1 0
-      100 GETUPVAL                         R4 2
-      101 GETTABLEKS                       R4 R4 K26 ["mount"]
-      103 MOVE                             R5 R3
-      104 GETUPVAL                         R6 8
-      105 CALL                             R4 2 1
-      106 SETUPVAL                         R4 16
-      107 GETUPVAL                         R4 8
-      108 LOADB                            R5 1
-      109 SETTABLEKS                       R5 R4 K27 ["Enabled"]
-      111 GETUPVAL                         R4 17
-      112 JUMPIFNOT                        R4 ; [+28]
-      113 GETIMPORT                        R4 K1 [game]
-      115 LOADK                            R6 K28 ["StudioService"]
-      116 NAMECALL                         R4 R4 K3 ["GetService"]
-      118 CALL                             R4 2 1
-      119 NAMECALL                         R4 R4 K29 ["HasInternalPermission"]
-      121 CALL                             R4 1 1
-      122 JUMPIFNOT                        R4 ; [+18]
-      123 GETUPVAL                         R4 19
-      124 GETTABLEKS                       R4 R4 K30 ["Packages"]
-      126 GETTABLEKS                       R4 R4 K31 ["DeveloperTools"]
-      128 GETTABLEKS                       R4 R4 K32 ["forPlugin"]
-      130 LOADK                            R5 K33 ["Game Settings"]
-      131 GETUPVAL                         R6 6
-      132 CALL                             R4 2 1
-      133 SETUPVAL                         R4 18
-      134 GETUPVAL                         R4 18
-      135 LOADK                            R6 K34 ["Roact tree"]
-      136 GETUPVAL                         R7 16
-      137 GETUPVAL                         R8 2
-      138 NAMECALL                         R4 R4 K35 ["addRoactTree"]
-      140 CALL                             R4 4 0
-      141 GETUPVAL                         R4 20
-      142 GETTABLEKS                       R4 R4 K36 ["onOpenEvent"]
-      144 GETUPVAL                         R5 6
-      145 NAMECALL                         R5 R5 K37 ["GetStudioUserId"]
-      147 CALL                             R5 1 1
-      148 MOVE                             R6 R0
-      149 CALL                             R4 2 0
-      150 GETIMPORT                        R4 K39 [tick]
-      152 CALL                             R4 0 1
-      153 SETUPVAL                         R4 21
-      154 RETURN                           R0 0
+       53 DUPTABLE                         R6 K19 [{"mainView"}]
+       54 GETUPVAL                         R7 2
+       55 GETTABLEKS                       R7 R7 K8 ["createElement"]
+       57 GETUPVAL                         R8 9
+       58 DUPTABLE                         R9 K22 [{"OnClose", "FirstSelectedId"}]
+       59 GETUPVAL                         R10 10
+       60 SETTABLEKS                       R10 R9 K20 ["OnClose"]
+       62 SETTABLEKS                       R2 R9 K21 ["FirstSelectedId"]
+       64 CALL                             R7 2 1
+       65 SETTABLEKS                       R7 R6 K18 ["mainView"]
+       67 CALL                             R3 3 1
+       68 GETUPVAL                         R4 0
+       69 GETUPVAL                         R6 11
+       70 CALL                             R6 0 -1
+       71 NAMECALL                         R4 R4 K23 ["dispatch"]
+       73 CALL                             R4 -1 0
+       74 GETUPVAL                         R4 0
+       75 GETUPVAL                         R6 12
+       76 MOVE                             R7 R0
+       77 CALL                             R6 1 -1
+       78 NAMECALL                         R4 R4 K23 ["dispatch"]
+       80 CALL                             R4 -1 0
+       81 GETUPVAL                         R4 0
+       82 GETUPVAL                         R6 13
+       83 MOVE                             R7 R1
+       84 CALL                             R6 1 -1
+       85 NAMECALL                         R4 R4 K23 ["dispatch"]
+       87 CALL                             R4 -1 0
+       88 GETUPVAL                         R4 0
+       89 GETUPVAL                         R6 14
+       90 GETUPVAL                         R7 1
+       91 GETTABLEKS                       R7 R7 K24 ["Open"]
+       93 CALL                             R6 1 -1
+       94 NAMECALL                         R4 R4 K23 ["dispatch"]
+       96 CALL                             R4 -1 0
+       97 GETUPVAL                         R4 2
+       98 GETTABLEKS                       R4 R4 K25 ["mount"]
+      100 MOVE                             R5 R3
+      101 GETUPVAL                         R6 8
+      102 CALL                             R4 2 1
+      103 SETUPVAL                         R4 15
+      104 GETUPVAL                         R4 8
+      105 LOADB                            R5 1
+      106 SETTABLEKS                       R5 R4 K26 ["Enabled"]
+      108 GETUPVAL                         R4 16
+      109 JUMPIFNOT                        R4 ; [+28]
+      110 GETIMPORT                        R4 K1 [game]
+      112 LOADK                            R6 K27 ["StudioService"]
+      113 NAMECALL                         R4 R4 K3 ["GetService"]
+      115 CALL                             R4 2 1
+      116 NAMECALL                         R4 R4 K28 ["HasInternalPermission"]
+      118 CALL                             R4 1 1
+      119 JUMPIFNOT                        R4 ; [+18]
+      120 GETUPVAL                         R4 18
+      121 GETTABLEKS                       R4 R4 K29 ["Packages"]
+      123 GETTABLEKS                       R4 R4 K30 ["DeveloperTools"]
+      125 GETTABLEKS                       R4 R4 K31 ["forPlugin"]
+      127 LOADK                            R5 K32 ["Game Settings"]
+      128 GETUPVAL                         R6 6
+      129 CALL                             R4 2 1
+      130 SETUPVAL                         R4 17
+      131 GETUPVAL                         R4 17
+      132 LOADK                            R6 K33 ["Roact tree"]
+      133 GETUPVAL                         R7 15
+      134 GETUPVAL                         R8 2
+      135 NAMECALL                         R4 R4 K34 ["addRoactTree"]
+      137 CALL                             R4 4 0
+      138 GETUPVAL                         R4 19
+      139 GETTABLEKS                       R4 R4 K35 ["onOpenEvent"]
+      141 GETUPVAL                         R5 6
+      142 NAMECALL                         R5 R5 K36 ["GetStudioUserId"]
+      144 CALL                             R5 1 1
+      145 MOVE                             R6 R0
+      146 CALL                             R4 2 0
+      147 GETIMPORT                        R4 K38 [tick]
+      149 CALL                             R4 0 1
+      150 SETUPVAL                         R4 20
+      151 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -758,331 +756,304 @@ PROTO_17:
       149 GETTABLEKS                       R24 R24 K36 ["Networking"]
       151 CALL                             R23 1 1
       152 GETIMPORT                        R24 K13 [require]
-      154 GETTABLEKS                       R25 R2 K37 ["Pages"]
-      156 GETTABLEKS                       R25 R25 K38 ["WorldPage"]
-      158 GETTABLEKS                       R25 R25 K25 ["ContextServices"]
-      160 GETTABLEKS                       R25 R25 K39 ["WorldRootPhysics"]
-      162 CALL                             R24 1 1
-      163 GETIMPORT                        R25 K13 [require]
-      165 GETTABLEKS                       R26 R2 K14 ["Src"]
-      167 GETTABLEKS                       R26 R26 K40 ["Controllers"]
-      169 GETTABLEKS                       R26 R26 K41 ["GameInfoController"]
-      171 CALL                             R25 1 1
-      172 GETIMPORT                        R26 K13 [require]
-      174 GETTABLEKS                       R27 R2 K14 ["Src"]
-      176 GETTABLEKS                       R27 R27 K40 ["Controllers"]
-      178 GETTABLEKS                       R27 R27 K42 ["GameMetadataController"]
-      180 CALL                             R26 1 1
-      181 GETIMPORT                        R27 K13 [require]
-      183 GETTABLEKS                       R28 R2 K14 ["Src"]
-      185 GETTABLEKS                       R28 R28 K40 ["Controllers"]
-      187 GETTABLEKS                       R28 R28 K43 ["GroupMetadataController"]
+      154 GETTABLEKS                       R25 R2 K14 ["Src"]
+      156 GETTABLEKS                       R25 R25 K37 ["Controllers"]
+      158 GETTABLEKS                       R25 R25 K38 ["GameInfoController"]
+      160 CALL                             R24 1 1
+      161 GETIMPORT                        R25 K13 [require]
+      163 GETTABLEKS                       R26 R2 K14 ["Src"]
+      165 GETTABLEKS                       R26 R26 K37 ["Controllers"]
+      167 GETTABLEKS                       R26 R26 K39 ["GameMetadataController"]
+      169 CALL                             R25 1 1
+      170 GETIMPORT                        R26 K13 [require]
+      172 GETTABLEKS                       R27 R2 K14 ["Src"]
+      174 GETTABLEKS                       R27 R27 K37 ["Controllers"]
+      176 GETTABLEKS                       R27 R27 K40 ["GroupMetadataController"]
+      178 CALL                             R26 1 1
+      179 GETIMPORT                        R27 K13 [require]
+      181 GETTABLEKS                       R28 R2 K41 ["Pages"]
+      183 GETTABLEKS                       R28 R28 K42 ["PermissionsPage"]
+      185 GETTABLEKS                       R28 R28 K37 ["Controllers"]
+      187 GETTABLEKS                       R28 R28 K43 ["GamePermissionsController"]
       189 CALL                             R27 1 1
       190 GETIMPORT                        R28 K13 [require]
-      192 GETTABLEKS                       R29 R2 K37 ["Pages"]
-      194 GETTABLEKS                       R29 R29 K44 ["PermissionsPage"]
-      196 GETTABLEKS                       R29 R29 K40 ["Controllers"]
-      198 GETTABLEKS                       R29 R29 K45 ["GamePermissionsController"]
-      200 CALL                             R28 1 1
-      201 GETIMPORT                        R29 K13 [require]
-      203 GETTABLEKS                       R30 R2 K37 ["Pages"]
-      205 GETTABLEKS                       R30 R30 K46 ["OptionsPage"]
-      207 GETTABLEKS                       R30 R30 K40 ["Controllers"]
-      209 GETTABLEKS                       R30 R30 K47 ["GameOptionsController"]
-      211 CALL                             R29 1 1
-      212 GETIMPORT                        R30 K13 [require]
-      214 GETTABLEKS                       R31 R2 K37 ["Pages"]
-      216 GETTABLEKS                       R31 R31 K48 ["CommunicationPage"]
-      218 GETTABLEKS                       R31 R31 K40 ["Controllers"]
-      220 GETTABLEKS                       R31 R31 K49 ["CommunicationController"]
-      222 CALL                             R30 1 1
-      223 GETIMPORT                        R31 K13 [require]
-      225 GETTABLEKS                       R32 R2 K37 ["Pages"]
-      227 GETTABLEKS                       R32 R32 K50 ["MonetizationPage"]
-      229 GETTABLEKS                       R32 R32 K40 ["Controllers"]
-      231 GETTABLEKS                       R32 R32 K51 ["MonetizationController"]
-      233 CALL                             R31 1 1
-      234 GETIMPORT                        R32 K13 [require]
-      236 GETTABLEKS                       R33 R2 K37 ["Pages"]
-      238 GETTABLEKS                       R33 R33 K50 ["MonetizationPage"]
-      240 GETTABLEKS                       R33 R33 K40 ["Controllers"]
-      242 GETTABLEKS                       R33 R33 K52 ["DevSubsController"]
-      244 CALL                             R32 1 1
-      245 GETIMPORT                        R33 K13 [require]
-      247 GETTABLEKS                       R34 R2 K37 ["Pages"]
-      249 GETTABLEKS                       R34 R34 K53 ["PlacesPage"]
-      251 GETTABLEKS                       R34 R34 K40 ["Controllers"]
-      253 GETTABLEKS                       R34 R34 K54 ["PlacesController"]
-      255 CALL                             R33 1 1
-      256 GETIMPORT                        R34 K13 [require]
-      258 GETTABLEKS                       R35 R2 K14 ["Src"]
-      260 GETTABLEKS                       R35 R35 K40 ["Controllers"]
-      262 GETTABLEKS                       R35 R35 K55 ["PolicyInfoController"]
-      264 CALL                             R34 1 1
-      265 GETIMPORT                        R35 K13 [require]
-      267 GETTABLEKS                       R36 R2 K37 ["Pages"]
-      269 GETTABLEKS                       R36 R36 K56 ["SecurityPage"]
-      271 GETTABLEKS                       R36 R36 K40 ["Controllers"]
-      273 GETTABLEKS                       R36 R36 K57 ["SecurityController"]
-      275 CALL                             R35 1 1
-      276 GETIMPORT                        R36 K13 [require]
-      278 GETTABLEKS                       R37 R2 K37 ["Pages"]
-      280 GETTABLEKS                       R37 R37 K58 ["LocalizationPage"]
-      282 GETTABLEKS                       R37 R37 K40 ["Controllers"]
-      284 GETTABLEKS                       R37 R37 K59 ["LocalizationPageController"]
-      286 CALL                             R36 1 1
-      287 GETIMPORT                        R37 K13 [require]
-      289 GETTABLEKS                       R38 R2 K14 ["Src"]
-      291 GETTABLEKS                       R38 R38 K26 ["Util"]
-      293 GETTABLEKS                       R38 R38 K60 ["CurrentStatus"]
-      295 CALL                             R37 1 1
-      296 GETIMPORT                        R38 K13 [require]
-      298 GETTABLEKS                       R39 R2 K14 ["Src"]
-      300 GETTABLEKS                       R39 R39 K61 ["Actions"]
-      302 GETTABLEKS                       R39 R39 K62 ["ResetStore"]
-      304 CALL                             R38 1 1
-      305 GETIMPORT                        R39 K13 [require]
-      307 GETTABLEKS                       R40 R2 K14 ["Src"]
-      309 GETTABLEKS                       R40 R40 K61 ["Actions"]
-      311 GETTABLEKS                       R40 R40 K63 ["SetCurrentStatus"]
-      313 CALL                             R39 1 1
-      314 GETIMPORT                        R40 K13 [require]
-      316 GETTABLEKS                       R41 R2 K14 ["Src"]
-      318 GETTABLEKS                       R41 R41 K61 ["Actions"]
-      320 GETTABLEKS                       R41 R41 K64 ["DiscardChanges"]
-      322 CALL                             R40 1 1
-      323 GETIMPORT                        R41 K13 [require]
-      325 GETTABLEKS                       R42 R2 K14 ["Src"]
-      327 GETTABLEKS                       R42 R42 K61 ["Actions"]
-      329 GETTABLEKS                       R42 R42 K65 ["SetGameId"]
-      331 CALL                             R41 1 1
-      332 GETIMPORT                        R42 K13 [require]
-      334 GETTABLEKS                       R43 R2 K14 ["Src"]
-      336 GETTABLEKS                       R43 R43 K61 ["Actions"]
-      338 GETTABLEKS                       R43 R43 K66 ["SetGame"]
-      340 CALL                             R42 1 1
-      341 GETIMPORT                        R43 K13 [require]
-      343 GETTABLEKS                       R44 R2 K14 ["Src"]
-      345 GETTABLEKS                       R44 R44 K26 ["Util"]
-      347 GETTABLEKS                       R44 R44 K67 ["isEmpty"]
-      349 CALL                             R43 1 1
-      350 GETIMPORT                        R44 K13 [require]
-      352 GETTABLEKS                       R45 R2 K14 ["Src"]
-      354 GETTABLEKS                       R45 R45 K26 ["Util"]
-      356 GETTABLEKS                       R45 R45 K68 ["Analytics"]
-      358 CALL                             R44 1 1
-      359 LOADNIL                          R45
-      360 LOADNIL                          R46
-      361 LOADNIL                          R47
-      362 LOADNIL                          R48
-      363 GETTABLEKS                       R49 R24 K69 ["new"]
-      365 CALL                             R49 0 1
-      366 NEWTABLE                         R50 16 0
-      368 GETTABLEKS                       R51 R23 K69 ["new"]
-      370 CALL                             R51 0 1
-      371 GETTABLEKS                       R52 R25 K69 ["new"]
-      373 NAMECALL                         R53 R51 K70 ["get"]
-      375 CALL                             R53 1 -1
-      376 CALL                             R52 -1 1
-      377 GETTABLEKS                       R53 R26 K69 ["new"]
-      379 NAMECALL                         R54 R51 K70 ["get"]
-      381 CALL                             R54 1 -1
-      382 CALL                             R53 -1 1
-      383 GETTABLEKS                       R54 R27 K69 ["new"]
-      385 NAMECALL                         R55 R51 K70 ["get"]
-      387 CALL                             R55 1 -1
-      388 CALL                             R54 -1 1
-      389 JUMPIFNOT                        R7 ; [+2]
-      390 LOADNIL                          R55
-      391 JUMP                             ; [+6]
-      392 GETTABLEKS                       R55 R28 K69 ["new"]
-      394 NAMECALL                         R56 R51 K70 ["get"]
-      396 CALL                             R56 1 -1
-      397 CALL                             R55 -1 1
-      398 JUMPIFNOT                        R7 ; [+2]
-      399 LOADNIL                          R56
-      400 JUMP                             ; [+6]
-      401 GETTABLEKS                       R56 R31 K69 ["new"]
-      403 NAMECALL                         R57 R51 K70 ["get"]
-      405 CALL                             R57 1 -1
-      406 CALL                             R56 -1 1
-      407 JUMPIFNOT                        R7 ; [+2]
-      408 LOADNIL                          R57
-      409 JUMP                             ; [+9]
-      410 JUMPIFNOT                        R4 ; [+7]
-      411 GETTABLEKS                       R57 R32 K69 ["new"]
-      413 NAMECALL                         R58 R51 K70 ["get"]
-      415 CALL                             R58 1 -1
-      416 CALL                             R57 -1 1
-      417 JUMPIF                           R57 ; [+1]
-      418 LOADNIL                          R57
-      419 GETTABLEKS                       R58 R29 K69 ["new"]
-      421 NAMECALL                         R59 R51 K70 ["get"]
-      423 CALL                             R59 1 -1
-      424 CALL                             R58 -1 1
-      425 GETTABLEKS                       R59 R30 K69 ["new"]
-      427 NAMECALL                         R60 R51 K70 ["get"]
-      429 CALL                             R60 1 -1
-      430 CALL                             R59 -1 1
-      431 GETTABLEKS                       R60 R35 K69 ["new"]
-      433 NAMECALL                         R61 R51 K70 ["get"]
-      435 CALL                             R61 1 -1
-      436 CALL                             R60 -1 1
-      437 GETTABLEKS                       R61 R33 K69 ["new"]
-      439 NAMECALL                         R62 R51 K70 ["get"]
-      441 CALL                             R62 1 -1
-      442 CALL                             R61 -1 1
-      443 GETTABLEKS                       R62 R36 K69 ["new"]
-      445 NAMECALL                         R63 R51 K70 ["get"]
-      447 CALL                             R63 1 -1
-      448 CALL                             R62 -1 1
-      449 GETTABLEKS                       R63 R34 K69 ["new"]
-      451 NAMECALL                         R64 R51 K70 ["get"]
-      453 CALL                             R64 1 -1
-      454 CALL                             R63 -1 1
-      455 NAMECALL                         R64 R51 K70 ["get"]
-      457 CALL                             R64 1 1
-      458 SETTABLEKS                       R64 R50 K71 ["networking"]
-      460 NAMECALL                         R64 R49 K70 ["get"]
-      462 CALL                             R64 1 1
-      463 SETTABLEKS                       R64 R50 K72 ["worldRootPhysicsController"]
-      465 SETTABLEKS                       R52 R50 K73 ["gameInfoController"]
-      467 SETTABLEKS                       R53 R50 K74 ["gameMetadataController"]
-      469 SETTABLEKS                       R54 R50 K75 ["groupMetadataController"]
-      471 SETTABLEKS                       R55 R50 K76 ["gamePermissionsController"]
-      473 SETTABLEKS                       R58 R50 K77 ["gameOptionsController"]
-      475 SETTABLEKS                       R59 R50 K78 ["communicationController"]
-      477 SETTABLEKS                       R56 R50 K79 ["monetizationController"]
-      479 SETTABLEKS                       R57 R50 K80 ["devSubsController"]
-      481 SETTABLEKS                       R60 R50 K81 ["universePermissionsController"]
-      483 SETTABLEKS                       R61 R50 K82 ["placesController"]
-      485 SETTABLEKS                       R62 R50 K83 ["localizationPageController"]
-      487 SETTABLEKS                       R63 R50 K84 ["policyInfoController"]
-      489 GETTABLEKS                       R64 R16 K85 ["ThunkWithArgsMiddleware"]
-      491 MOVE                             R65 R50
-      492 CALL                             R64 1 1
-      493 NEWTABLE                         R65 0 1
-      495 MOVE                             R66 R64
-      496 SETLIST                          R65 R66 1 [1]
-      498 GETTABLEKS                       R66 R12 K86 ["Store"]
-      500 GETTABLEKS                       R66 R66 K69 ["new"]
-      502 MOVE                             R67 R20
-      503 LOADNIL                          R68
-      504 MOVE                             R69 R65
-      505 CALL                             R66 3 1
-      506 GETTABLEKS                       R67 R37 K87 ["Open"]
-      508 GETTABLEKS                       R68 R2 K14 ["Src"]
-      510 GETTABLEKS                       R68 R68 K88 ["Resources"]
-      512 GETTABLEKS                       R68 R68 K89 ["SourceStrings"]
-      514 GETTABLEKS                       R69 R2 K14 ["Src"]
-      516 GETTABLEKS                       R69 R69 K88 ["Resources"]
-      518 GETTABLEKS                       R69 R69 K90 ["LocalizedStrings"]
-      520 GETTABLEKS                       R70 R15 K91 ["Localization"]
-      522 GETTABLEKS                       R70 R70 K69 ["new"]
-      524 DUPTABLE                         R71 K97 [{["pluginName"] = "GameSettings", ["stringResourceTable"], ["translationResourceTable"], ["libraries"]}]
-      525 SETTABLEKS                       R68 R71 K94 ["stringResourceTable"]
-      527 SETTABLEKS                       R69 R71 K95 ["translationResourceTable"]
-      529 NEWTABLE                         R72 1 0
-      531 GETTABLEKS                       R73 R14 K88 ["Resources"]
-      533 GETTABLEKS                       R73 R73 K98 ["LOCALIZATION_PROJECT_NAME"]
-      535 DUPTABLE                         R74 K99 [{"stringResourceTable", "translationResourceTable"}]
-      536 GETTABLEKS                       R75 R14 K88 ["Resources"]
-      538 GETTABLEKS                       R75 R75 K89 ["SourceStrings"]
-      540 SETTABLEKS                       R75 R74 K94 ["stringResourceTable"]
-      542 GETTABLEKS                       R75 R14 K88 ["Resources"]
-      544 GETTABLEKS                       R75 R75 K90 ["LocalizedStrings"]
-      546 SETTABLEKS                       R75 R74 K95 ["translationResourceTable"]
-      548 SETTABLE                         R74 R72 R73
-      549 SETTABLEKS                       R72 R71 K96 ["libraries"]
-      551 CALL                             R70 1 1
-      552 JUMPIFNOT                        R6 ; [+2]
-      553 SETTABLEKS                       R70 R50 K100 ["localization"]
-      555 NEWCLOSURE                       R71 P0
-      556 CAPTURE                          REF R46
-      557 NEWCLOSURE                       R72 P1
-      558 CAPTURE                          VAL R17
-      559 CAPTURE                          VAL R71
-      560 CAPTURE                          VAL R0
-      561 CAPTURE                          VAL R10
-      562 CAPTURE                          VAL R3
-      563 CAPTURE                          VAL R11
-      564 CAPTURE                          VAL R21
-      565 CAPTURE                          VAL R22
-      566 CAPTURE                          VAL R70
-      567 CAPTURE                          REF R46
-      568 CAPTURE                          VAL R13
-      569 NEWCLOSURE                       R73 P2
-      570 CAPTURE                          REF R47
-      571 CAPTURE                          VAL R44
-      572 NEWCLOSURE                       R74 P3
-      573 CAPTURE                          VAL R66
-      574 CAPTURE                          VAL R40
-      575 CAPTURE                          VAL R39
-      576 CAPTURE                          VAL R37
-      577 CAPTURE                          REF R46
-      578 CAPTURE                          VAL R11
+      192 GETTABLEKS                       R29 R2 K14 ["Src"]
+      194 GETTABLEKS                       R29 R29 K37 ["Controllers"]
+      196 GETTABLEKS                       R29 R29 K44 ["GameOptionsController"]
+      198 CALL                             R28 1 1
+      199 GETIMPORT                        R29 K13 [require]
+      201 GETTABLEKS                       R30 R2 K41 ["Pages"]
+      203 GETTABLEKS                       R30 R30 K45 ["CommunicationPage"]
+      205 GETTABLEKS                       R30 R30 K37 ["Controllers"]
+      207 GETTABLEKS                       R30 R30 K46 ["CommunicationController"]
+      209 CALL                             R29 1 1
+      210 GETIMPORT                        R30 K13 [require]
+      212 GETTABLEKS                       R31 R2 K41 ["Pages"]
+      214 GETTABLEKS                       R31 R31 K47 ["MonetizationPage"]
+      216 GETTABLEKS                       R31 R31 K37 ["Controllers"]
+      218 GETTABLEKS                       R31 R31 K48 ["MonetizationController"]
+      220 CALL                             R30 1 1
+      221 GETIMPORT                        R31 K13 [require]
+      223 GETTABLEKS                       R32 R2 K41 ["Pages"]
+      225 GETTABLEKS                       R32 R32 K47 ["MonetizationPage"]
+      227 GETTABLEKS                       R32 R32 K37 ["Controllers"]
+      229 GETTABLEKS                       R32 R32 K49 ["DevSubsController"]
+      231 CALL                             R31 1 1
+      232 GETIMPORT                        R32 K13 [require]
+      234 GETTABLEKS                       R33 R2 K14 ["Src"]
+      236 GETTABLEKS                       R33 R33 K37 ["Controllers"]
+      238 GETTABLEKS                       R33 R33 K50 ["PlacesController"]
+      240 CALL                             R32 1 1
+      241 GETIMPORT                        R33 K13 [require]
+      243 GETTABLEKS                       R34 R2 K14 ["Src"]
+      245 GETTABLEKS                       R34 R34 K37 ["Controllers"]
+      247 GETTABLEKS                       R34 R34 K51 ["PolicyInfoController"]
+      249 CALL                             R33 1 1
+      250 GETIMPORT                        R34 K13 [require]
+      252 GETTABLEKS                       R35 R2 K41 ["Pages"]
+      254 GETTABLEKS                       R35 R35 K52 ["SecurityPage"]
+      256 GETTABLEKS                       R35 R35 K37 ["Controllers"]
+      258 GETTABLEKS                       R35 R35 K53 ["SecurityController"]
+      260 CALL                             R34 1 1
+      261 GETIMPORT                        R35 K13 [require]
+      263 GETTABLEKS                       R36 R2 K14 ["Src"]
+      265 GETTABLEKS                       R36 R36 K26 ["Util"]
+      267 GETTABLEKS                       R36 R36 K54 ["CurrentStatus"]
+      269 CALL                             R35 1 1
+      270 GETIMPORT                        R36 K13 [require]
+      272 GETTABLEKS                       R37 R2 K14 ["Src"]
+      274 GETTABLEKS                       R37 R37 K55 ["Actions"]
+      276 GETTABLEKS                       R37 R37 K56 ["ResetStore"]
+      278 CALL                             R36 1 1
+      279 GETIMPORT                        R37 K13 [require]
+      281 GETTABLEKS                       R38 R2 K14 ["Src"]
+      283 GETTABLEKS                       R38 R38 K55 ["Actions"]
+      285 GETTABLEKS                       R38 R38 K57 ["SetCurrentStatus"]
+      287 CALL                             R37 1 1
+      288 GETIMPORT                        R38 K13 [require]
+      290 GETTABLEKS                       R39 R2 K14 ["Src"]
+      292 GETTABLEKS                       R39 R39 K55 ["Actions"]
+      294 GETTABLEKS                       R39 R39 K58 ["DiscardChanges"]
+      296 CALL                             R38 1 1
+      297 GETIMPORT                        R39 K13 [require]
+      299 GETTABLEKS                       R40 R2 K14 ["Src"]
+      301 GETTABLEKS                       R40 R40 K55 ["Actions"]
+      303 GETTABLEKS                       R40 R40 K59 ["SetGameId"]
+      305 CALL                             R39 1 1
+      306 GETIMPORT                        R40 K13 [require]
+      308 GETTABLEKS                       R41 R2 K14 ["Src"]
+      310 GETTABLEKS                       R41 R41 K55 ["Actions"]
+      312 GETTABLEKS                       R41 R41 K60 ["SetGame"]
+      314 CALL                             R40 1 1
+      315 GETIMPORT                        R41 K13 [require]
+      317 GETTABLEKS                       R42 R2 K14 ["Src"]
+      319 GETTABLEKS                       R42 R42 K26 ["Util"]
+      321 GETTABLEKS                       R42 R42 K61 ["isEmpty"]
+      323 CALL                             R41 1 1
+      324 GETIMPORT                        R42 K13 [require]
+      326 GETTABLEKS                       R43 R2 K14 ["Src"]
+      328 GETTABLEKS                       R43 R43 K26 ["Util"]
+      330 GETTABLEKS                       R43 R43 K62 ["Analytics"]
+      332 CALL                             R42 1 1
+      333 LOADNIL                          R43
+      334 LOADNIL                          R44
+      335 LOADNIL                          R45
+      336 LOADNIL                          R46
+      337 NEWTABLE                         R47 16 0
+      339 GETTABLEKS                       R48 R23 K63 ["new"]
+      341 CALL                             R48 0 1
+      342 GETTABLEKS                       R49 R24 K63 ["new"]
+      344 NAMECALL                         R50 R48 K64 ["get"]
+      346 CALL                             R50 1 -1
+      347 CALL                             R49 -1 1
+      348 GETTABLEKS                       R50 R25 K63 ["new"]
+      350 NAMECALL                         R51 R48 K64 ["get"]
+      352 CALL                             R51 1 -1
+      353 CALL                             R50 -1 1
+      354 GETTABLEKS                       R51 R26 K63 ["new"]
+      356 NAMECALL                         R52 R48 K64 ["get"]
+      358 CALL                             R52 1 -1
+      359 CALL                             R51 -1 1
+      360 JUMPIFNOT                        R7 ; [+2]
+      361 LOADNIL                          R52
+      362 JUMP                             ; [+6]
+      363 GETTABLEKS                       R52 R27 K63 ["new"]
+      365 NAMECALL                         R53 R48 K64 ["get"]
+      367 CALL                             R53 1 -1
+      368 CALL                             R52 -1 1
+      369 JUMPIFNOT                        R7 ; [+2]
+      370 LOADNIL                          R53
+      371 JUMP                             ; [+6]
+      372 GETTABLEKS                       R53 R30 K63 ["new"]
+      374 NAMECALL                         R54 R48 K64 ["get"]
+      376 CALL                             R54 1 -1
+      377 CALL                             R53 -1 1
+      378 JUMPIFNOT                        R7 ; [+2]
+      379 LOADNIL                          R54
+      380 JUMP                             ; [+9]
+      381 JUMPIFNOT                        R4 ; [+7]
+      382 GETTABLEKS                       R54 R31 K63 ["new"]
+      384 NAMECALL                         R55 R48 K64 ["get"]
+      386 CALL                             R55 1 -1
+      387 CALL                             R54 -1 1
+      388 JUMPIF                           R54 ; [+1]
+      389 LOADNIL                          R54
+      390 GETTABLEKS                       R55 R28 K63 ["new"]
+      392 CALL                             R55 0 1
+      393 GETTABLEKS                       R56 R29 K63 ["new"]
+      395 NAMECALL                         R57 R48 K64 ["get"]
+      397 CALL                             R57 1 -1
+      398 CALL                             R56 -1 1
+      399 GETTABLEKS                       R57 R34 K63 ["new"]
+      401 NAMECALL                         R58 R48 K64 ["get"]
+      403 CALL                             R58 1 -1
+      404 CALL                             R57 -1 1
+      405 GETTABLEKS                       R58 R32 K63 ["new"]
+      407 NAMECALL                         R59 R48 K64 ["get"]
+      409 CALL                             R59 1 -1
+      410 CALL                             R58 -1 1
+      411 GETTABLEKS                       R59 R33 K63 ["new"]
+      413 NAMECALL                         R60 R48 K64 ["get"]
+      415 CALL                             R60 1 -1
+      416 CALL                             R59 -1 1
+      417 NAMECALL                         R60 R48 K64 ["get"]
+      419 CALL                             R60 1 1
+      420 SETTABLEKS                       R60 R47 K65 ["networking"]
+      422 SETTABLEKS                       R49 R47 K66 ["gameInfoController"]
+      424 SETTABLEKS                       R50 R47 K67 ["gameMetadataController"]
+      426 SETTABLEKS                       R51 R47 K68 ["groupMetadataController"]
+      428 SETTABLEKS                       R52 R47 K69 ["gamePermissionsController"]
+      430 SETTABLEKS                       R55 R47 K70 ["gameOptionsController"]
+      432 SETTABLEKS                       R56 R47 K71 ["communicationController"]
+      434 SETTABLEKS                       R53 R47 K72 ["monetizationController"]
+      436 SETTABLEKS                       R54 R47 K73 ["devSubsController"]
+      438 SETTABLEKS                       R57 R47 K74 ["universePermissionsController"]
+      440 SETTABLEKS                       R58 R47 K75 ["placesController"]
+      442 SETTABLEKS                       R59 R47 K76 ["policyInfoController"]
+      444 GETTABLEKS                       R60 R16 K77 ["ThunkWithArgsMiddleware"]
+      446 MOVE                             R61 R47
+      447 CALL                             R60 1 1
+      448 NEWTABLE                         R61 0 1
+      450 MOVE                             R62 R60
+      451 SETLIST                          R61 R62 1 [1]
+      453 GETTABLEKS                       R62 R12 K78 ["Store"]
+      455 GETTABLEKS                       R62 R62 K63 ["new"]
+      457 MOVE                             R63 R20
+      458 LOADNIL                          R64
+      459 MOVE                             R65 R61
+      460 CALL                             R62 3 1
+      461 GETTABLEKS                       R63 R35 K79 ["Open"]
+      463 GETTABLEKS                       R64 R2 K14 ["Src"]
+      465 GETTABLEKS                       R64 R64 K80 ["Resources"]
+      467 GETTABLEKS                       R64 R64 K81 ["SourceStrings"]
+      469 GETTABLEKS                       R65 R2 K14 ["Src"]
+      471 GETTABLEKS                       R65 R65 K80 ["Resources"]
+      473 GETTABLEKS                       R65 R65 K82 ["LocalizedStrings"]
+      475 GETTABLEKS                       R66 R15 K83 ["Localization"]
+      477 GETTABLEKS                       R66 R66 K63 ["new"]
+      479 DUPTABLE                         R67 K89 [{["pluginName"] = "GameSettings", ["stringResourceTable"], ["translationResourceTable"], ["libraries"]}]
+      480 SETTABLEKS                       R64 R67 K86 ["stringResourceTable"]
+      482 SETTABLEKS                       R65 R67 K87 ["translationResourceTable"]
+      484 NEWTABLE                         R68 1 0
+      486 GETTABLEKS                       R69 R14 K80 ["Resources"]
+      488 GETTABLEKS                       R69 R69 K90 ["LOCALIZATION_PROJECT_NAME"]
+      490 DUPTABLE                         R70 K91 [{"stringResourceTable", "translationResourceTable"}]
+      491 GETTABLEKS                       R71 R14 K80 ["Resources"]
+      493 GETTABLEKS                       R71 R71 K81 ["SourceStrings"]
+      495 SETTABLEKS                       R71 R70 K86 ["stringResourceTable"]
+      497 GETTABLEKS                       R71 R14 K80 ["Resources"]
+      499 GETTABLEKS                       R71 R71 K82 ["LocalizedStrings"]
+      501 SETTABLEKS                       R71 R70 K87 ["translationResourceTable"]
+      503 SETTABLE                         R70 R68 R69
+      504 SETTABLEKS                       R68 R67 K88 ["libraries"]
+      506 CALL                             R66 1 1
+      507 JUMPIFNOT                        R6 ; [+2]
+      508 SETTABLEKS                       R66 R47 K92 ["localization"]
+      510 NEWCLOSURE                       R67 P0
+      511 CAPTURE                          REF R44
+      512 NEWCLOSURE                       R68 P1
+      513 CAPTURE                          VAL R17
+      514 CAPTURE                          VAL R67
+      515 CAPTURE                          VAL R0
+      516 CAPTURE                          VAL R10
+      517 CAPTURE                          VAL R3
+      518 CAPTURE                          VAL R11
+      519 CAPTURE                          VAL R21
+      520 CAPTURE                          VAL R22
+      521 CAPTURE                          VAL R66
+      522 CAPTURE                          REF R44
+      523 CAPTURE                          VAL R13
+      524 NEWCLOSURE                       R69 P2
+      525 CAPTURE                          REF R45
+      526 CAPTURE                          VAL R42
+      527 NEWCLOSURE                       R70 P3
+      528 CAPTURE                          VAL R62
+      529 CAPTURE                          VAL R38
+      530 CAPTURE                          VAL R37
+      531 CAPTURE                          VAL R35
+      532 CAPTURE                          REF R44
+      533 CAPTURE                          VAL R11
+      534 CAPTURE                          REF R43
+      535 CAPTURE                          VAL R5
+      536 CAPTURE                          REF R46
+      537 CAPTURE                          REF R45
+      538 CAPTURE                          VAL R42
+      539 CAPTURE                          VAL R41
+      540 CAPTURE                          VAL R66
+      541 CAPTURE                          VAL R19
+      542 CAPTURE                          VAL R17
+      543 CAPTURE                          VAL R67
+      544 CAPTURE                          VAL R0
+      545 CAPTURE                          VAL R10
+      546 CAPTURE                          VAL R3
+      547 CAPTURE                          VAL R21
+      548 CAPTURE                          VAL R22
+      549 CAPTURE                          VAL R13
+      550 NEWCLOSURE                       R71 P4
+      551 CAPTURE                          VAL R2
+      552 CAPTURE                          REF R44
+      553 CAPTURE                          VAL R0
+      554 CAPTURE                          VAL R3
+      555 CAPTURE                          VAL R8
+      556 CAPTURE                          VAL R66
+      557 CAPTURE                          VAL R70
+      558 NEWCLOSURE                       R72 P5
+      559 CAPTURE                          VAL R62
+      560 CAPTURE                          VAL R35
+      561 CAPTURE                          VAL R11
+      562 CAPTURE                          VAL R21
+      563 CAPTURE                          VAL R68
+      564 CAPTURE                          VAL R22
+      565 CAPTURE                          VAL R0
+      566 CAPTURE                          VAL R66
+      567 CAPTURE                          REF R44
+      568 CAPTURE                          VAL R18
+      569 CAPTURE                          VAL R70
+      570 CAPTURE                          VAL R36
+      571 CAPTURE                          VAL R39
+      572 CAPTURE                          VAL R40
+      573 CAPTURE                          VAL R37
+      574 CAPTURE                          REF R43
+      575 CAPTURE                          VAL R5
+      576 CAPTURE                          REF R46
+      577 CAPTURE                          VAL R2
+      578 CAPTURE                          VAL R42
       579 CAPTURE                          REF R45
-      580 CAPTURE                          VAL R5
-      581 CAPTURE                          REF R48
-      582 CAPTURE                          REF R47
-      583 CAPTURE                          VAL R44
-      584 CAPTURE                          VAL R43
-      585 CAPTURE                          VAL R70
-      586 CAPTURE                          VAL R19
-      587 CAPTURE                          VAL R17
-      588 CAPTURE                          VAL R71
-      589 CAPTURE                          VAL R0
-      590 CAPTURE                          VAL R10
-      591 CAPTURE                          VAL R3
-      592 CAPTURE                          VAL R21
-      593 CAPTURE                          VAL R22
-      594 CAPTURE                          VAL R13
-      595 NEWCLOSURE                       R75 P4
-      596 CAPTURE                          VAL R2
-      597 CAPTURE                          REF R46
-      598 CAPTURE                          VAL R0
-      599 CAPTURE                          VAL R3
-      600 CAPTURE                          VAL R8
-      601 CAPTURE                          VAL R70
-      602 CAPTURE                          VAL R74
-      603 NEWCLOSURE                       R76 P5
-      604 CAPTURE                          VAL R66
-      605 CAPTURE                          VAL R37
-      606 CAPTURE                          VAL R11
-      607 CAPTURE                          VAL R21
-      608 CAPTURE                          VAL R72
-      609 CAPTURE                          VAL R22
-      610 CAPTURE                          VAL R0
-      611 CAPTURE                          VAL R70
-      612 CAPTURE                          REF R46
-      613 CAPTURE                          VAL R49
-      614 CAPTURE                          VAL R18
-      615 CAPTURE                          VAL R74
-      616 CAPTURE                          VAL R38
-      617 CAPTURE                          VAL R41
-      618 CAPTURE                          VAL R42
-      619 CAPTURE                          VAL R39
-      620 CAPTURE                          REF R45
-      621 CAPTURE                          VAL R5
-      622 CAPTURE                          REF R48
-      623 CAPTURE                          VAL R2
-      624 CAPTURE                          VAL R44
-      625 CAPTURE                          REF R47
-      626 NEWCLOSURE                       R77 P6
-      627 CAPTURE                          VAL R0
-      628 CAPTURE                          VAL R2
-      629 CAPTURE                          VAL R1
-      630 CAPTURE                          VAL R9
-      631 CAPTURE                          VAL R75
-      632 CAPTURE                          VAL R76
-      633 CAPTURE                          VAL R66
-      634 CAPTURE                          REF R67
-      635 CAPTURE                          VAL R37
-      636 CAPTURE                          VAL R71
-      637 MOVE                             R78 R77
-      638 CALL                             R78 0 0
-      639 CLOSEUPVALS                      R45
-      640 RETURN                           R0 0
+      580 NEWCLOSURE                       R73 P6
+      581 CAPTURE                          VAL R0
+      582 CAPTURE                          VAL R2
+      583 CAPTURE                          VAL R1
+      584 CAPTURE                          VAL R9
+      585 CAPTURE                          VAL R71
+      586 CAPTURE                          VAL R72
+      587 CAPTURE                          VAL R62
+      588 CAPTURE                          REF R63
+      589 CAPTURE                          VAL R35
+      590 CAPTURE                          VAL R67
+      591 MOVE                             R74 R73
+      592 CALL                             R74 0 0
+      593 CLOSEUPVALS                      R43
+      594 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,143 +1,119 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R1 K1 ["IsRolesetOwner"]
-        4 GETTABLEKS                       R3 R1 K2 ["IsGroupOwner"]
-        6 GETTABLEKS                       R4 R1 K3 ["RolePermissions"]
-        8 GETTABLEKS                       R5 R1 K4 ["Localization"]
-       10 JUMPIFNOT                        R2 ; [+25]
-       11 NEWTABLE                         R6 0 1
-       13 DUPTABLE                         R7 K8 [{"Key", "Display", "Description"}]
-       14 GETUPVAL                         R8 0
-       15 GETTABLEKS                       R8 R8 K9 ["OwnerKey"]
-       17 SETTABLEKS                       R8 R7 K5 ["Key"]
-       19 LOADK                            R10 K10 ["PermissionLabels"]
-       20 LOADK                            R11 K11 ["Owner"]
-       21 NAMECALL                         R8 R5 K12 ["getText"]
-       23 CALL                             R8 3 1
-       24 SETTABLEKS                       R8 R7 K6 ["Display"]
-       26 LOADK                            R10 K13 ["PermissionDescriptions"]
-       27 LOADK                            R11 K11 ["Owner"]
-       28 NAMECALL                         R8 R5 K12 ["getText"]
-       30 CALL                             R8 3 1
-       31 SETTABLEKS                       R8 R7 K7 ["Description"]
-       33 SETLIST                          R6 R7 1 [1]
-       35 RETURN                           R6 1
-       36 JUMPIFNOT                        R3 ; [+97]
-       37 JUMPIFEQKNIL                     R4 ; [+31]
-       39 GETTABLEKS                       R6 R4 K14 ["groupEconomyPermissions"]
-       41 GETTABLEKS                       R6 R6 K15 ["manageGroupGames"]
-       43 JUMPIFNOT                        R6 ; [+25]
-       44 NEWTABLE                         R6 0 1
-       46 DUPTABLE                         R7 K8 [{"Key", "Display", "Description"}]
-       47 GETUPVAL                         R8 0
-       48 GETTABLEKS                       R8 R8 K16 ["EditKey"]
-       50 SETTABLEKS                       R8 R7 K5 ["Key"]
-       52 LOADK                            R10 K10 ["PermissionLabels"]
-       53 LOADK                            R11 K17 ["Edit"]
-       54 NAMECALL                         R8 R5 K12 ["getText"]
-       56 CALL                             R8 3 1
-       57 SETTABLEKS                       R8 R7 K6 ["Display"]
-       59 LOADK                            R10 K13 ["PermissionDescriptions"]
-       60 LOADK                            R11 K17 ["Edit"]
-       61 NAMECALL                         R8 R5 K12 ["getText"]
-       63 CALL                             R8 3 1
-       64 SETTABLEKS                       R8 R7 K7 ["Description"]
-       66 SETLIST                          R6 R7 1 [1]
-       68 RETURN                           R6 1
-       69 NEWTABLE                         R6 0 3
-       71 DUPTABLE                         R7 K8 [{"Key", "Display", "Description"}]
-       72 GETUPVAL                         R8 0
-       73 GETTABLEKS                       R8 R8 K18 ["NoAccessKey"]
-       75 SETTABLEKS                       R8 R7 K5 ["Key"]
-       77 LOADK                            R10 K10 ["PermissionLabels"]
-       78 LOADK                            R11 K19 ["NoAccess"]
-       79 NAMECALL                         R8 R5 K12 ["getText"]
-       81 CALL                             R8 3 1
-       82 SETTABLEKS                       R8 R7 K6 ["Display"]
-       84 LOADK                            R10 K13 ["PermissionDescriptions"]
-       85 LOADK                            R11 K19 ["NoAccess"]
-       86 NAMECALL                         R8 R5 K12 ["getText"]
-       88 CALL                             R8 3 1
-       89 SETTABLEKS                       R8 R7 K7 ["Description"]
-       91 DUPTABLE                         R8 K8 [{"Key", "Display", "Description"}]
-       92 GETUPVAL                         R9 0
-       93 GETTABLEKS                       R9 R9 K20 ["PlayKey"]
-       95 SETTABLEKS                       R9 R8 K5 ["Key"]
-       97 LOADK                            R11 K10 ["PermissionLabels"]
-       98 LOADK                            R12 K21 ["Play"]
-       99 NAMECALL                         R9 R5 K12 ["getText"]
-      101 CALL                             R9 3 1
-      102 SETTABLEKS                       R9 R8 K6 ["Display"]
-      104 LOADK                            R11 K13 ["PermissionDescriptions"]
-      105 LOADK                            R12 K21 ["Play"]
-      106 NAMECALL                         R9 R5 K12 ["getText"]
-      108 CALL                             R9 3 1
-      109 SETTABLEKS                       R9 R8 K7 ["Description"]
-      111 DUPTABLE                         R9 K8 [{"Key", "Display", "Description"}]
-      112 GETUPVAL                         R10 0
-      113 GETTABLEKS                       R10 R10 K16 ["EditKey"]
-      115 SETTABLEKS                       R10 R9 K5 ["Key"]
-      117 LOADK                            R12 K10 ["PermissionLabels"]
-      118 LOADK                            R13 K17 ["Edit"]
-      119 NAMECALL                         R10 R5 K12 ["getText"]
-      121 CALL                             R10 3 1
-      122 SETTABLEKS                       R10 R9 K6 ["Display"]
-      124 LOADK                            R12 K13 ["PermissionDescriptions"]
-      125 LOADK                            R13 K17 ["Edit"]
-      126 NAMECALL                         R10 R5 K12 ["getText"]
-      128 CALL                             R10 3 1
-      129 SETTABLEKS                       R10 R9 K7 ["Description"]
-      131 SETLIST                          R6 R7 3 [1]
-      133 RETURN                           R6 1
-      134 NEWTABLE                         R6 0 2
-      136 DUPTABLE                         R7 K8 [{"Key", "Display", "Description"}]
-      137 GETUPVAL                         R8 0
-      138 GETTABLEKS                       R8 R8 K18 ["NoAccessKey"]
-      140 SETTABLEKS                       R8 R7 K5 ["Key"]
-      142 LOADK                            R10 K10 ["PermissionLabels"]
-      143 LOADK                            R11 K19 ["NoAccess"]
-      144 NAMECALL                         R8 R5 K12 ["getText"]
-      146 CALL                             R8 3 1
-      147 SETTABLEKS                       R8 R7 K6 ["Display"]
-      149 LOADK                            R10 K13 ["PermissionDescriptions"]
-      150 LOADK                            R11 K19 ["NoAccess"]
-      151 NAMECALL                         R8 R5 K12 ["getText"]
-      153 CALL                             R8 3 1
-      154 SETTABLEKS                       R8 R7 K7 ["Description"]
-      156 DUPTABLE                         R8 K8 [{"Key", "Display", "Description"}]
-      157 GETUPVAL                         R9 0
-      158 GETTABLEKS                       R9 R9 K20 ["PlayKey"]
-      160 SETTABLEKS                       R9 R8 K5 ["Key"]
-      162 LOADK                            R11 K10 ["PermissionLabels"]
-      163 LOADK                            R12 K21 ["Play"]
-      164 NAMECALL                         R9 R5 K12 ["getText"]
-      166 CALL                             R9 3 1
-      167 SETTABLEKS                       R9 R8 K6 ["Display"]
-      169 LOADK                            R11 K13 ["PermissionDescriptions"]
-      170 LOADK                            R12 K21 ["Play"]
-      171 NAMECALL                         R9 R5 K12 ["getText"]
-      173 CALL                             R9 3 1
-      174 SETTABLEKS                       R9 R8 K7 ["Description"]
-      176 SETLIST                          R6 R7 2 [1]
-      178 RETURN                           R6 1
+        2 GETTABLEKS                       R2 R1 K1 ["IsGroupOwner"]
+        4 GETTABLEKS                       R3 R1 K2 ["RolePermissions"]
+        6 GETTABLEKS                       R4 R1 K3 ["Localization"]
+        8 JUMPIFNOT                        R2 ; [+97]
+        9 JUMPIFEQKNIL                     R3 ; [+31]
+       11 GETTABLEKS                       R5 R3 K4 ["groupEconomyPermissions"]
+       13 GETTABLEKS                       R5 R5 K5 ["manageGroupGames"]
+       15 JUMPIFNOT                        R5 ; [+25]
+       16 NEWTABLE                         R5 0 1
+       18 DUPTABLE                         R6 K9 [{"Key", "Display", "Description"}]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K10 ["EditKey"]
+       22 SETTABLEKS                       R7 R6 K6 ["Key"]
+       24 LOADK                            R9 K11 ["PermissionLabels"]
+       25 LOADK                            R10 K12 ["Edit"]
+       26 NAMECALL                         R7 R4 K13 ["getText"]
+       28 CALL                             R7 3 1
+       29 SETTABLEKS                       R7 R6 K7 ["Display"]
+       31 LOADK                            R9 K14 ["PermissionDescriptions"]
+       32 LOADK                            R10 K12 ["Edit"]
+       33 NAMECALL                         R7 R4 K13 ["getText"]
+       35 CALL                             R7 3 1
+       36 SETTABLEKS                       R7 R6 K8 ["Description"]
+       38 SETLIST                          R5 R6 1 [1]
+       40 RETURN                           R5 1
+       41 NEWTABLE                         R5 0 3
+       43 DUPTABLE                         R6 K9 [{"Key", "Display", "Description"}]
+       44 GETUPVAL                         R7 0
+       45 GETTABLEKS                       R7 R7 K15 ["NoAccessKey"]
+       47 SETTABLEKS                       R7 R6 K6 ["Key"]
+       49 LOADK                            R9 K11 ["PermissionLabels"]
+       50 LOADK                            R10 K16 ["NoAccess"]
+       51 NAMECALL                         R7 R4 K13 ["getText"]
+       53 CALL                             R7 3 1
+       54 SETTABLEKS                       R7 R6 K7 ["Display"]
+       56 LOADK                            R9 K14 ["PermissionDescriptions"]
+       57 LOADK                            R10 K16 ["NoAccess"]
+       58 NAMECALL                         R7 R4 K13 ["getText"]
+       60 CALL                             R7 3 1
+       61 SETTABLEKS                       R7 R6 K8 ["Description"]
+       63 DUPTABLE                         R7 K9 [{"Key", "Display", "Description"}]
+       64 GETUPVAL                         R8 0
+       65 GETTABLEKS                       R8 R8 K17 ["PlayKey"]
+       67 SETTABLEKS                       R8 R7 K6 ["Key"]
+       69 LOADK                            R10 K11 ["PermissionLabels"]
+       70 LOADK                            R11 K18 ["Play"]
+       71 NAMECALL                         R8 R4 K13 ["getText"]
+       73 CALL                             R8 3 1
+       74 SETTABLEKS                       R8 R7 K7 ["Display"]
+       76 LOADK                            R10 K14 ["PermissionDescriptions"]
+       77 LOADK                            R11 K18 ["Play"]
+       78 NAMECALL                         R8 R4 K13 ["getText"]
+       80 CALL                             R8 3 1
+       81 SETTABLEKS                       R8 R7 K8 ["Description"]
+       83 DUPTABLE                         R8 K9 [{"Key", "Display", "Description"}]
+       84 GETUPVAL                         R9 0
+       85 GETTABLEKS                       R9 R9 K10 ["EditKey"]
+       87 SETTABLEKS                       R9 R8 K6 ["Key"]
+       89 LOADK                            R11 K11 ["PermissionLabels"]
+       90 LOADK                            R12 K12 ["Edit"]
+       91 NAMECALL                         R9 R4 K13 ["getText"]
+       93 CALL                             R9 3 1
+       94 SETTABLEKS                       R9 R8 K7 ["Display"]
+       96 LOADK                            R11 K14 ["PermissionDescriptions"]
+       97 LOADK                            R12 K12 ["Edit"]
+       98 NAMECALL                         R9 R4 K13 ["getText"]
+      100 CALL                             R9 3 1
+      101 SETTABLEKS                       R9 R8 K8 ["Description"]
+      103 SETLIST                          R5 R6 3 [1]
+      105 RETURN                           R5 1
+      106 NEWTABLE                         R5 0 2
+      108 DUPTABLE                         R6 K9 [{"Key", "Display", "Description"}]
+      109 GETUPVAL                         R7 0
+      110 GETTABLEKS                       R7 R7 K15 ["NoAccessKey"]
+      112 SETTABLEKS                       R7 R6 K6 ["Key"]
+      114 LOADK                            R9 K11 ["PermissionLabels"]
+      115 LOADK                            R10 K16 ["NoAccess"]
+      116 NAMECALL                         R7 R4 K13 ["getText"]
+      118 CALL                             R7 3 1
+      119 SETTABLEKS                       R7 R6 K7 ["Display"]
+      121 LOADK                            R9 K14 ["PermissionDescriptions"]
+      122 LOADK                            R10 K16 ["NoAccess"]
+      123 NAMECALL                         R7 R4 K13 ["getText"]
+      125 CALL                             R7 3 1
+      126 SETTABLEKS                       R7 R6 K8 ["Description"]
+      128 DUPTABLE                         R7 K9 [{"Key", "Display", "Description"}]
+      129 GETUPVAL                         R8 0
+      130 GETTABLEKS                       R8 R8 K17 ["PlayKey"]
+      132 SETTABLEKS                       R8 R7 K6 ["Key"]
+      134 LOADK                            R10 K11 ["PermissionLabels"]
+      135 LOADK                            R11 K18 ["Play"]
+      136 NAMECALL                         R8 R4 K13 ["getText"]
+      138 CALL                             R8 3 1
+      139 SETTABLEKS                       R8 R7 K7 ["Display"]
+      141 LOADK                            R10 K14 ["PermissionDescriptions"]
+      142 LOADK                            R11 K18 ["Play"]
+      143 NAMECALL                         R8 R4 K13 ["getText"]
+      145 CALL                             R8 3 1
+      146 SETTABLEKS                       R8 R7 K8 ["Description"]
+      148 SETLIST                          R5 R6 2 [1]
+      150 RETURN                           R5 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
-        2 GETTABLEKS                       R2 R1 K1 ["IsRolesetOwner"]
-        4 GETTABLEKS                       R3 R1 K2 ["RolePermissions"]
-        6 GETTABLEKS                       R4 R1 K3 ["CurrentPermission"]
-        8 JUMPIFNOT                        R2 ; [+4]
-        9 GETUPVAL                         R5 0
-       10 GETTABLEKS                       R5 R5 K4 ["OwnerKey"]
-       12 RETURN                           R5 1
-       13 JUMPIFEQKNIL                     R3 ; [+10]
-       15 GETTABLEKS                       R5 R3 K5 ["groupEconomyPermissions"]
-       17 GETTABLEKS                       R5 R5 K6 ["manageGroupGames"]
-       19 JUMPIFNOT                        R5 ; [+4]
-       20 GETUPVAL                         R5 0
-       21 GETTABLEKS                       R5 R5 K7 ["EditKey"]
-       23 RETURN                           R5 1
-       24 RETURN                           R4 1
+        2 GETTABLEKS                       R2 R1 K1 ["RolePermissions"]
+        4 GETTABLEKS                       R3 R1 K2 ["CurrentPermission"]
+        6 JUMPIFEQKNIL                     R2 ; [+10]
+        8 GETTABLEKS                       R4 R2 K3 ["groupEconomyPermissions"]
+       10 GETTABLEKS                       R4 R4 K4 ["manageGroupGames"]
+       12 JUMPIFNOT                        R4 ; [+4]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K5 ["EditKey"]
+       16 RETURN                           R4 1
+       17 RETURN                           R3 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -157,116 +133,103 @@ PROTO_3:
        10 GETTABLEKS                       R4 R1 K3 ["Id"]
        12 GETTABLEKS                       R5 R1 K4 ["Writable"]
        14 GETTABLEKS                       R6 R1 K5 ["RolesetName"]
-       16 GETTABLEKS                       R7 R1 K6 ["IsRolesetOwner"]
-       18 GETTABLEKS                       R8 R1 K7 ["HideSeparator"]
-       20 GETTABLEKS                       R9 R1 K8 ["SetRolesetPermission"]
-       22 NAMECALL                         R10 R0 K9 ["getAvailablePermissions"]
-       24 CALL                             R10 1 1
-       25 LOADNIL                          R11
-       26 LOADNIL                          R12
-       27 GETTABLEKS                       R13 R1 K2 ["Localization"]
-       29 GETUPVAL                         R14 0
-       30 JUMPIFNOT                        R14 ; [+46]
-       31 GETTABLEKS                       R11 R1 K10 ["IsGroupGame"]
-       33 JUMPIF                           R7 ; [+43]
-       34 JUMPIFNOT                        R11 ; [+35]
-       35 JUMPIF                           R5 ; [+7]
-       36 LOADK                            R16 K11 ["PermissionDescriptions"]
-       37 LOADK                            R17 K12 ["GroupOwnerToEdit"]
-       38 NAMECALL                         R14 R13 K13 ["getText"]
-       40 CALL                             R14 3 1
-       41 MOVE                             R12 R14
-       42 JUMP                             ; [+34]
-       43 LENGTH                           R14 R10
-       44 LOADN                            R15 1
-       45 JUMPIFNOTLE                      R14 R15 ; [+31]
-       47 GETTABLEN                        R16 R10 1
-       48 GETTABLEKS                       R16 R16 K14 ["Display"]
-       50 LOADK                            R19 K15 ["PermissionLabels"]
-       51 LOADK                            R20 K16 ["Edit"]
-       52 NAMECALL                         R17 R13 K13 ["getText"]
-       54 CALL                             R17 3 1
-       55 JUMPIFEQ                         R16 R17 ; [+2]
-       57 LOADB                            R15 0 +1
-       58 LOADB                            R15 1
-       59 FASTCALL1                        ASSERT R15 ; [+2]
-       60 GETIMPORT                        R14 K18 [assert]
-       62 CALL                             R14 1 0
-       63 LOADK                            R16 K11 ["PermissionDescriptions"]
-       64 LOADK                            R17 K19 ["RoleHasEditPerms"]
-       65 NAMECALL                         R14 R13 K13 ["getText"]
-       67 CALL                             R14 3 1
-       68 MOVE                             R12 R14
-       69 JUMP                             ; [+7]
-       70 JUMPIF                           R5 ; [+6]
-       71 LOADK                            R16 K11 ["PermissionDescriptions"]
-       72 LOADK                            R17 K20 ["GameOwnerToEdit"]
-       73 NAMECALL                         R14 R13 K13 ["getText"]
-       75 CALL                             R14 3 1
-       76 MOVE                             R12 R14
-       77 GETUPVAL                         R15 0
-       78 JUMPIFNOT                        R15 ; [+11]
-       79 MOVE                             R14 R5
-       80 JUMPIFNOT                        R14 ; [+12]
-       81 NOT                              R14 R7
-       82 JUMPIFNOT                        R14 ; [+10]
-       83 LENGTH                           R15 R10
-       84 LOADN                            R16 1
-       85 JUMPIFLT                         R16 R15 ; [+2]
-       87 LOADB                            R14 0 +1
-       88 LOADB                            R14 1
-       89 JUMP                             ; [+3]
-       90 MOVE                             R14 R5
-       91 JUMPIFNOT                        R14 ; [+1]
-       92 NOT                              R14 R7
-       93 GETUPVAL                         R15 1
-       94 GETTABLEKS                       R15 R15 K21 ["createElement"]
-       96 GETUPVAL                         R16 2
-       97 DUPTABLE                         R17 K34 [{["LayoutOrder"], ["Name"], ["Writable"], ["Loading"] = False, ["Removable"] = False, ["IsRolesetCollaborator"] = True, ["HideSeparator"], ["TooltipText"], ["HidePermissions"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"], ["DisableEditPermission"]}]
-       98 SETTABLEKS                       R2 R17 K1 ["LayoutOrder"]
-      100 SETTABLEKS                       R6 R17 K22 ["Name"]
-      102 SETTABLEKS                       R14 R17 K4 ["Writable"]
-      104 SETTABLEKS                       R8 R17 K7 ["HideSeparator"]
-      106 SETTABLEKS                       R12 R17 K28 ["TooltipText"]
-      108 GETUPVAL                         R19 0
-      109 JUMPIF                           R19 ; [+4]
-      110 NOT                              R18 R5
-      111 JUMPIFNOT                        R18 ; [+3]
-      112 NOT                              R18 R7
-      113 JUMP                             ; [+1]
-      114 LOADNIL                          R18
-      115 SETTABLEKS                       R18 R17 K29 ["HidePermissions"]
-      117 NAMECALL                         R18 R0 K35 ["getCurrentPermission"]
-      119 CALL                             R18 1 1
-      120 SETTABLEKS                       R18 R17 K30 ["CurrentPermission"]
-      122 SETTABLEKS                       R10 R17 K31 ["AvailablePermissions"]
-      124 NEWCLOSURE                       R18 P0
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R4
-      127 SETTABLEKS                       R18 R17 K32 ["OnPermissionChanged"]
-      129 GETTABLEKS                       R18 R1 K33 ["DisableEditPermission"]
-      131 SETTABLEKS                       R18 R17 K33 ["DisableEditPermission"]
-      133 CALL                             R15 2 -1
-      134 RETURN                           R15 -1
+       16 GETTABLEKS                       R7 R1 K6 ["HideSeparator"]
+       18 GETTABLEKS                       R8 R1 K7 ["SetRolesetPermission"]
+       20 NAMECALL                         R9 R0 K8 ["getAvailablePermissions"]
+       22 CALL                             R9 1 1
+       23 LOADNIL                          R10
+       24 LOADNIL                          R11
+       25 GETTABLEKS                       R12 R1 K2 ["Localization"]
+       27 GETUPVAL                         R13 0
+       28 JUMPIFNOT                        R13 ; [+45]
+       29 GETTABLEKS                       R10 R1 K9 ["IsGroupGame"]
+       31 JUMPIFNOT                        R10 ; [+35]
+       32 JUMPIF                           R5 ; [+7]
+       33 LOADK                            R15 K10 ["PermissionDescriptions"]
+       34 LOADK                            R16 K11 ["GroupOwnerToEdit"]
+       35 NAMECALL                         R13 R12 K12 ["getText"]
+       37 CALL                             R13 3 1
+       38 MOVE                             R11 R13
+       39 JUMP                             ; [+34]
+       40 LENGTH                           R13 R9
+       41 LOADN                            R14 1
+       42 JUMPIFNOTLE                      R13 R14 ; [+31]
+       44 GETTABLEN                        R15 R9 1
+       45 GETTABLEKS                       R15 R15 K13 ["Display"]
+       47 LOADK                            R18 K14 ["PermissionLabels"]
+       48 LOADK                            R19 K15 ["Edit"]
+       49 NAMECALL                         R16 R12 K12 ["getText"]
+       51 CALL                             R16 3 1
+       52 JUMPIFEQ                         R15 R16 ; [+2]
+       54 LOADB                            R14 0 +1
+       55 LOADB                            R14 1
+       56 FASTCALL1                        ASSERT R14 ; [+2]
+       57 GETIMPORT                        R13 K17 [assert]
+       59 CALL                             R13 1 0
+       60 LOADK                            R15 K10 ["PermissionDescriptions"]
+       61 LOADK                            R16 K18 ["RoleHasEditPerms"]
+       62 NAMECALL                         R13 R12 K12 ["getText"]
+       64 CALL                             R13 3 1
+       65 MOVE                             R11 R13
+       66 JUMP                             ; [+7]
+       67 JUMPIF                           R5 ; [+6]
+       68 LOADK                            R15 K10 ["PermissionDescriptions"]
+       69 LOADK                            R16 K19 ["GameOwnerToEdit"]
+       70 NAMECALL                         R13 R12 K12 ["getText"]
+       72 CALL                             R13 3 1
+       73 MOVE                             R11 R13
+       74 GETUPVAL                         R14 0
+       75 JUMPIFNOT                        R14 ; [+9]
+       76 MOVE                             R13 R5
+       77 JUMPIFNOT                        R13 ; [+8]
+       78 LENGTH                           R14 R9
+       79 LOADN                            R15 1
+       80 JUMPIFLT                         R15 R14 ; [+2]
+       82 LOADB                            R13 0 +1
+       83 LOADB                            R13 1
+       84 JUMP                             ; [+1]
+       85 MOVE                             R13 R5
+       86 GETUPVAL                         R14 1
+       87 GETTABLEKS                       R14 R14 K20 ["createElement"]
+       89 GETUPVAL                         R15 2
+       90 DUPTABLE                         R16 K33 [{["LayoutOrder"], ["Name"], ["Writable"], ["Loading"] = False, ["Removable"] = False, ["IsRolesetCollaborator"] = True, ["HideSeparator"], ["TooltipText"], ["HidePermissions"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"], ["DisableEditPermission"]}]
+       91 SETTABLEKS                       R2 R16 K1 ["LayoutOrder"]
+       93 SETTABLEKS                       R6 R16 K21 ["Name"]
+       95 SETTABLEKS                       R13 R16 K4 ["Writable"]
+       97 SETTABLEKS                       R7 R16 K6 ["HideSeparator"]
+       99 SETTABLEKS                       R11 R16 K27 ["TooltipText"]
+      101 GETUPVAL                         R18 0
+      102 JUMPIF                           R18 ; [+2]
+      103 NOT                              R17 R5
+      104 JUMP                             ; [+1]
+      105 LOADNIL                          R17
+      106 SETTABLEKS                       R17 R16 K28 ["HidePermissions"]
+      108 NAMECALL                         R17 R0 K34 ["getCurrentPermission"]
+      110 CALL                             R17 1 1
+      111 SETTABLEKS                       R17 R16 K29 ["CurrentPermission"]
+      113 SETTABLEKS                       R9 R16 K30 ["AvailablePermissions"]
+      115 NEWCLOSURE                       R17 P0
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R4
+      118 SETTABLEKS                       R17 R16 K31 ["OnPermissionChanged"]
+      120 GETTABLEKS                       R17 R1 K32 ["DisableEditPermission"]
+      122 SETTABLEKS                       R17 R16 K32 ["DisableEditPermission"]
+      124 CALL                             R14 2 -1
+      125 RETURN                           R14 -1
 
 PROTO_4:
-        0 DUPTABLE                         R2 K3 [{"IsRolesetOwner", "RolesetName", "CurrentPermission"}]
+        0 DUPTABLE                         R2 K2 [{"RolesetName", "CurrentPermission"}]
         1 GETUPVAL                         R3 0
         2 MOVE                             R4 R0
-        3 GETTABLEKS                       R5 R1 K4 ["Id"]
+        3 GETTABLEKS                       R5 R1 K3 ["Id"]
         5 CALL                             R3 2 1
-        6 SETTABLEKS                       R3 R2 K0 ["IsRolesetOwner"]
+        6 SETTABLEKS                       R3 R2 K0 ["RolesetName"]
         8 GETUPVAL                         R3 1
         9 MOVE                             R4 R0
-       10 GETTABLEKS                       R5 R1 K4 ["Id"]
+       10 GETTABLEKS                       R5 R1 K3 ["Id"]
        12 CALL                             R3 2 1
-       13 SETTABLEKS                       R3 R2 K1 ["RolesetName"]
-       15 GETUPVAL                         R3 2
-       16 MOVE                             R4 R0
-       17 GETTABLEKS                       R5 R1 K4 ["Id"]
-       19 CALL                             R3 2 1
-       20 SETTABLEKS                       R3 R2 K2 ["CurrentPermission"]
-       22 RETURN                           R2 1
+       13 SETTABLEKS                       R3 R2 K1 ["CurrentPermission"]
+       15 RETURN                           R2 1
 
 PROTO_5:
         0 PREPVARARGS                      0
@@ -322,55 +285,49 @@ MAIN:
        58 GETIMPORT                        R8 K8 [require]
        60 GETTABLEKS                       R9 R1 K15 ["Src"]
        62 GETTABLEKS                       R9 R9 K20 ["Selectors"]
-       64 GETTABLEKS                       R9 R9 K21 ["IsRolesetOwner"]
+       64 GETTABLEKS                       R9 R9 K21 ["GetRolesetName"]
        66 CALL                             R8 1 1
        67 GETIMPORT                        R9 K8 [require]
        69 GETTABLEKS                       R10 R1 K15 ["Src"]
        71 GETTABLEKS                       R10 R10 K20 ["Selectors"]
-       73 GETTABLEKS                       R10 R10 K22 ["GetRolesetName"]
+       73 GETTABLEKS                       R10 R10 K22 ["GetRolesetPermission"]
        75 CALL                             R9 1 1
        76 GETIMPORT                        R10 K8 [require]
        78 GETTABLEKS                       R11 R1 K15 ["Src"]
-       80 GETTABLEKS                       R11 R11 K20 ["Selectors"]
-       82 GETTABLEKS                       R11 R11 K23 ["GetRolesetPermission"]
+       80 GETTABLEKS                       R11 R11 K23 ["Thunks"]
+       82 GETTABLEKS                       R11 R11 K24 ["SetRolesetPermission"]
        84 CALL                             R10 1 1
-       85 GETIMPORT                        R11 K8 [require]
-       87 GETTABLEKS                       R12 R1 K15 ["Src"]
-       89 GETTABLEKS                       R12 R12 K24 ["Thunks"]
-       91 GETTABLEKS                       R12 R12 K25 ["SetRolesetPermission"]
-       93 CALL                             R11 1 1
-       94 GETTABLEKS                       R12 R2 K26 ["PureComponent"]
-       96 LOADK                            R14 K27 ["RolesetCollaboratorItem"]
-       97 NAMECALL                         R12 R12 K28 ["extend"]
-       99 CALL                             R12 2 1
-      100 DUPCLOSURE                       R13 K29 [PROTO_0]
-      101 CAPTURE                          VAL R6
-      102 SETTABLEKS                       R13 R12 K30 ["getAvailablePermissions"]
-      104 DUPCLOSURE                       R13 K31 [PROTO_1]
-      105 CAPTURE                          VAL R6
-      106 SETTABLEKS                       R13 R12 K32 ["getCurrentPermission"]
-      108 DUPCLOSURE                       R13 K33 [PROTO_3]
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          VAL R2
-      111 CAPTURE                          VAL R7
-      112 SETTABLEKS                       R13 R12 K34 ["render"]
-      114 MOVE                             R13 R5
-      115 DUPTABLE                         R14 K36 [{"Localization"}]
-      116 GETTABLEKS                       R15 R4 K35 ["Localization"]
-      118 SETTABLEKS                       R15 R14 K35 ["Localization"]
-      120 CALL                             R13 1 1
-      121 MOVE                             R14 R12
-      122 CALL                             R13 1 1
-      123 MOVE                             R12 R13
-      124 GETTABLEKS                       R13 R3 K37 ["connect"]
-      126 DUPCLOSURE                       R14 K38 [PROTO_4]
-      127 CAPTURE                          VAL R8
-      128 CAPTURE                          VAL R9
-      129 CAPTURE                          VAL R10
-      130 DUPCLOSURE                       R15 K39 [PROTO_6]
-      131 CAPTURE                          VAL R11
-      132 CALL                             R13 2 1
-      133 MOVE                             R14 R12
-      134 CALL                             R13 1 1
-      135 MOVE                             R12 R13
-      136 RETURN                           R12 1
+       85 GETTABLEKS                       R11 R2 K25 ["PureComponent"]
+       87 LOADK                            R13 K26 ["RolesetCollaboratorItem"]
+       88 NAMECALL                         R11 R11 K27 ["extend"]
+       90 CALL                             R11 2 1
+       91 DUPCLOSURE                       R12 K28 [PROTO_0]
+       92 CAPTURE                          VAL R6
+       93 SETTABLEKS                       R12 R11 K29 ["getAvailablePermissions"]
+       95 DUPCLOSURE                       R12 K30 [PROTO_1]
+       96 CAPTURE                          VAL R6
+       97 SETTABLEKS                       R12 R11 K31 ["getCurrentPermission"]
+       99 DUPCLOSURE                       R12 K32 [PROTO_3]
+      100 CAPTURE                          VAL R0
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R7
+      103 SETTABLEKS                       R12 R11 K33 ["render"]
+      105 MOVE                             R12 R5
+      106 DUPTABLE                         R13 K35 [{"Localization"}]
+      107 GETTABLEKS                       R14 R4 K34 ["Localization"]
+      109 SETTABLEKS                       R14 R13 K34 ["Localization"]
+      111 CALL                             R12 1 1
+      112 MOVE                             R13 R11
+      113 CALL                             R12 1 1
+      114 MOVE                             R11 R12
+      115 GETTABLEKS                       R12 R3 K36 ["connect"]
+      117 DUPCLOSURE                       R13 K37 [PROTO_4]
+      118 CAPTURE                          VAL R8
+      119 CAPTURE                          VAL R9
+      120 DUPCLOSURE                       R14 K38 [PROTO_6]
+      121 CAPTURE                          VAL R10
+      122 CALL                             R12 2 1
+      123 MOVE                             R13 R11
+      124 CALL                             R12 1 1
+      125 MOVE                             R11 R12
+      126 RETURN                           R11 1

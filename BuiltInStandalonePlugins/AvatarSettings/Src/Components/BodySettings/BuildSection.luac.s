@@ -177,7 +177,7 @@ PROTO_8:
       121 CALL                             R14 2 1
       122 SETTABLEKS                       R14 R13 K32 ["BuildGenericModeSelector"]
       124 MOVE                             R14 R9
-      125 JUMPIFNOT                        R14 ; [+53]
+      125 JUMPIFNOT                        R14 ; [+67]
       126 GETUPVAL                         R14 6
       127 GETUPVAL                         R15 9
       128 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
@@ -193,201 +193,241 @@ PROTO_8:
       142 DUPTABLE                         R17 K52 [{"Content"}]
       143 GETUPVAL                         R18 6
       144 GETUPVAL                         R19 10
-      145 DUPTABLE                         R20 K63 [{["snapIncrement"] = 1, ["min"] = 90, ["max"] = 105, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
-      146 GETTABLEKS                       R22 R6 K64 ["bodyBuildCustomHeight"]
-      148 GETTABLEKS                       R22 R22 K21 ["value"]
-      150 GETIMPORT                        R23 K66 [NumberRange.new]
-      152 GETTABLEKS                       R26 R22 K68 ["Min"]
-      154 MULK                             R25 R26 K67 [100]
-      155 FASTCALL1                        MATH_ROUND R25 ; [+2]
-      156 GETIMPORT                        R24 K71 [math.round]
-      158 CALL                             R24 1 1
-      159 GETTABLEKS                       R27 R22 K72 ["Max"]
-      161 MULK                             R26 R27 K67 [100]
-      162 FASTCALL1                        MATH_ROUND R26 ; [+2]
-      163 GETIMPORT                        R25 K71 [math.round]
-      165 CALL                             R25 1 1
-      166 CALL                             R23 2 1
-      167 MOVE                             R21 R23
-      168 SETTABLEKS                       R21 R20 K61 ["numberRange"]
-      170 NEWCLOSURE                       R21 P1
-      171 CAPTURE                          VAL R6
-      172 CAPTURE                          UPVAL U11
-      173 SETTABLEKS                       R21 R20 K62 ["setNumberRange"]
-      175 CALL                             R18 2 1
-      176 SETTABLEKS                       R18 R17 K51 ["Content"]
-      178 CALL                             R14 3 1
-      179 SETTABLEKS                       R14 R13 K33 ["HeightSetting"]
-      181 MOVE                             R14 R9
-      182 JUMPIFNOT                        R14 ; [+53]
-      183 GETUPVAL                         R14 6
-      184 GETUPVAL                         R15 9
-      185 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
-      186 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
-      188 LOADK                            R19 K13 ["BodySettings"]
-      189 LOADK                            R20 K73 ["BuildWidth"]
-      190 NAMECALL                         R17 R1 K15 ["getText"]
-      192 CALL                             R17 3 1
-      193 SETTABLEKS                       R17 R16 K26 ["text"]
-      195 MOVE                             R17 R3
-      196 CALL                             R17 0 1
-      197 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
-      199 DUPTABLE                         R17 K52 [{"Content"}]
-      200 GETUPVAL                         R18 6
-      201 GETUPVAL                         R19 10
-      202 DUPTABLE                         R20 K75 [{["snapIncrement"] = 1, ["min"] = 70, ["max"] = 100, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
-      203 GETTABLEKS                       R22 R6 K76 ["bodyBuildCustomWidth"]
-      205 GETTABLEKS                       R22 R22 K21 ["value"]
-      207 GETIMPORT                        R23 K66 [NumberRange.new]
-      209 GETTABLEKS                       R26 R22 K68 ["Min"]
-      211 MULK                             R25 R26 K67 [100]
-      212 FASTCALL1                        MATH_ROUND R25 ; [+2]
-      213 GETIMPORT                        R24 K71 [math.round]
-      215 CALL                             R24 1 1
-      216 GETTABLEKS                       R27 R22 K72 ["Max"]
-      218 MULK                             R26 R27 K67 [100]
-      219 FASTCALL1                        MATH_ROUND R26 ; [+2]
-      220 GETIMPORT                        R25 K71 [math.round]
-      222 CALL                             R25 1 1
-      223 CALL                             R23 2 1
-      224 MOVE                             R21 R23
-      225 SETTABLEKS                       R21 R20 K61 ["numberRange"]
-      227 NEWCLOSURE                       R21 P2
-      228 CAPTURE                          VAL R6
-      229 CAPTURE                          UPVAL U11
-      230 SETTABLEKS                       R21 R20 K62 ["setNumberRange"]
-      232 CALL                             R18 2 1
-      233 SETTABLEKS                       R18 R17 K51 ["Content"]
-      235 CALL                             R14 3 1
-      236 SETTABLEKS                       R14 R13 K34 ["WidthSetting"]
-      238 MOVE                             R14 R9
-      239 JUMPIFNOT                        R14 ; [+53]
-      240 GETUPVAL                         R14 6
-      241 GETUPVAL                         R15 9
-      242 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
-      243 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
-      245 LOADK                            R19 K13 ["BodySettings"]
-      246 LOADK                            R20 K77 ["BuildHead"]
-      247 NAMECALL                         R17 R1 K15 ["getText"]
-      249 CALL                             R17 3 1
-      250 SETTABLEKS                       R17 R16 K26 ["text"]
-      252 MOVE                             R17 R3
-      253 CALL                             R17 0 1
-      254 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
-      256 DUPTABLE                         R17 K52 [{"Content"}]
-      257 GETUPVAL                         R18 6
-      258 GETUPVAL                         R19 10
-      259 DUPTABLE                         R20 K79 [{["snapIncrement"] = 1, ["min"] = 95, ["max"] = 100, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
-      260 GETTABLEKS                       R22 R6 K80 ["bodyBuildCustomHead"]
-      262 GETTABLEKS                       R22 R22 K21 ["value"]
-      264 GETIMPORT                        R23 K66 [NumberRange.new]
-      266 GETTABLEKS                       R26 R22 K68 ["Min"]
-      268 MULK                             R25 R26 K67 [100]
-      269 FASTCALL1                        MATH_ROUND R25 ; [+2]
-      270 GETIMPORT                        R24 K71 [math.round]
-      272 CALL                             R24 1 1
-      273 GETTABLEKS                       R27 R22 K72 ["Max"]
-      275 MULK                             R26 R27 K67 [100]
-      276 FASTCALL1                        MATH_ROUND R26 ; [+2]
-      277 GETIMPORT                        R25 K71 [math.round]
-      279 CALL                             R25 1 1
-      280 CALL                             R23 2 1
-      281 MOVE                             R21 R23
-      282 SETTABLEKS                       R21 R20 K61 ["numberRange"]
-      284 NEWCLOSURE                       R21 P3
-      285 CAPTURE                          VAL R6
-      286 CAPTURE                          UPVAL U11
-      287 SETTABLEKS                       R21 R20 K62 ["setNumberRange"]
-      289 CALL                             R18 2 1
-      290 SETTABLEKS                       R18 R17 K51 ["Content"]
-      292 CALL                             R14 3 1
-      293 SETTABLEKS                       R14 R13 K35 ["HeadSetting"]
-      295 MOVE                             R14 R9
-      296 JUMPIFNOT                        R14 ; [+53]
-      297 GETUPVAL                         R14 6
-      298 GETUPVAL                         R15 9
-      299 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
-      300 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
-      302 LOADK                            R19 K13 ["BodySettings"]
-      303 LOADK                            R20 K81 ["BuildBodyType"]
-      304 NAMECALL                         R17 R1 K15 ["getText"]
-      306 CALL                             R17 3 1
-      307 SETTABLEKS                       R17 R16 K26 ["text"]
-      309 MOVE                             R17 R3
-      310 CALL                             R17 0 1
-      311 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
-      313 DUPTABLE                         R17 K52 [{"Content"}]
-      314 GETUPVAL                         R18 6
-      315 GETUPVAL                         R19 10
-      316 DUPTABLE                         R20 K83 [{["snapIncrement"] = 1, ["min"] = 0, ["max"] = 100, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
-      317 GETTABLEKS                       R22 R6 K84 ["bodyBuildCustomBodyType"]
-      319 GETTABLEKS                       R22 R22 K21 ["value"]
-      321 GETIMPORT                        R23 K66 [NumberRange.new]
-      323 GETTABLEKS                       R26 R22 K68 ["Min"]
-      325 MULK                             R25 R26 K67 [100]
-      326 FASTCALL1                        MATH_ROUND R25 ; [+2]
-      327 GETIMPORT                        R24 K71 [math.round]
-      329 CALL                             R24 1 1
-      330 GETTABLEKS                       R27 R22 K72 ["Max"]
-      332 MULK                             R26 R27 K67 [100]
-      333 FASTCALL1                        MATH_ROUND R26 ; [+2]
-      334 GETIMPORT                        R25 K71 [math.round]
-      336 CALL                             R25 1 1
-      337 CALL                             R23 2 1
-      338 MOVE                             R21 R23
-      339 SETTABLEKS                       R21 R20 K61 ["numberRange"]
-      341 NEWCLOSURE                       R21 P4
-      342 CAPTURE                          VAL R6
-      343 CAPTURE                          UPVAL U11
-      344 SETTABLEKS                       R21 R20 K62 ["setNumberRange"]
-      346 CALL                             R18 2 1
-      347 SETTABLEKS                       R18 R17 K51 ["Content"]
-      349 CALL                             R14 3 1
-      350 SETTABLEKS                       R14 R13 K36 ["BodyTypeSetting"]
-      352 MOVE                             R14 R9
-      353 JUMPIFNOT                        R14 ; [+53]
-      354 GETUPVAL                         R14 6
-      355 GETUPVAL                         R15 9
-      356 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
-      357 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
-      359 LOADK                            R19 K13 ["BodySettings"]
-      360 LOADK                            R20 K85 ["BuildProportions"]
-      361 NAMECALL                         R17 R1 K15 ["getText"]
-      363 CALL                             R17 3 1
-      364 SETTABLEKS                       R17 R16 K26 ["text"]
-      366 MOVE                             R17 R3
-      367 CALL                             R17 0 1
-      368 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
-      370 DUPTABLE                         R17 K52 [{"Content"}]
-      371 GETUPVAL                         R18 6
-      372 GETUPVAL                         R19 10
-      373 DUPTABLE                         R20 K83 [{["snapIncrement"] = 1, ["min"] = 0, ["max"] = 100, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
-      374 GETTABLEKS                       R22 R6 K86 ["bodyBuildCustomProportions"]
-      376 GETTABLEKS                       R22 R22 K21 ["value"]
-      378 GETIMPORT                        R23 K66 [NumberRange.new]
-      380 GETTABLEKS                       R26 R22 K68 ["Min"]
-      382 MULK                             R25 R26 K67 [100]
-      383 FASTCALL1                        MATH_ROUND R25 ; [+2]
-      384 GETIMPORT                        R24 K71 [math.round]
-      386 CALL                             R24 1 1
-      387 GETTABLEKS                       R27 R22 K72 ["Max"]
-      389 MULK                             R26 R27 K67 [100]
-      390 FASTCALL1                        MATH_ROUND R26 ; [+2]
-      391 GETIMPORT                        R25 K71 [math.round]
-      393 CALL                             R25 1 1
-      394 CALL                             R23 2 1
-      395 MOVE                             R21 R23
-      396 SETTABLEKS                       R21 R20 K61 ["numberRange"]
-      398 NEWCLOSURE                       R21 P5
-      399 CAPTURE                          VAL R6
-      400 CAPTURE                          UPVAL U11
-      401 SETTABLEKS                       R21 R20 K62 ["setNumberRange"]
-      403 CALL                             R18 2 1
-      404 SETTABLEKS                       R18 R17 K51 ["Content"]
-      406 CALL                             R14 3 1
-      407 SETTABLEKS                       R14 R13 K37 ["BuildSetting"]
-      409 CALL                             R10 3 -1
-      410 RETURN                           R10 -1
+      145 DUPTABLE                         R20 K62 [{["snapIncrement"] = 1, ["min"], ["max"], ["enforceInputBounds"] = True, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
+      146 GETUPVAL                         R21 11
+      147 GETTABLEKS                       R21 R21 K63 ["bodyBuildCustomHeight"]
+      149 GETTABLEKS                       R21 R21 K55 ["min"]
+      151 SETTABLEKS                       R21 R20 K55 ["min"]
+      153 GETUPVAL                         R21 11
+      154 GETTABLEKS                       R21 R21 K63 ["bodyBuildCustomHeight"]
+      156 GETTABLEKS                       R21 R21 K56 ["max"]
+      158 SETTABLEKS                       R21 R20 K56 ["max"]
+      160 GETTABLEKS                       R22 R6 K63 ["bodyBuildCustomHeight"]
+      162 GETTABLEKS                       R22 R22 K21 ["value"]
+      164 GETIMPORT                        R23 K65 [NumberRange.new]
+      166 GETTABLEKS                       R26 R22 K67 ["Min"]
+      168 MULK                             R25 R26 K66 [100]
+      169 FASTCALL1                        MATH_ROUND R25 ; [+2]
+      170 GETIMPORT                        R24 K70 [math.round]
+      172 CALL                             R24 1 1
+      173 GETTABLEKS                       R27 R22 K71 ["Max"]
+      175 MULK                             R26 R27 K66 [100]
+      176 FASTCALL1                        MATH_ROUND R26 ; [+2]
+      177 GETIMPORT                        R25 K70 [math.round]
+      179 CALL                             R25 1 1
+      180 CALL                             R23 2 1
+      181 MOVE                             R21 R23
+      182 SETTABLEKS                       R21 R20 K60 ["numberRange"]
+      184 NEWCLOSURE                       R21 P1
+      185 CAPTURE                          VAL R6
+      186 CAPTURE                          UPVAL U12
+      187 SETTABLEKS                       R21 R20 K61 ["setNumberRange"]
+      189 CALL                             R18 2 1
+      190 SETTABLEKS                       R18 R17 K51 ["Content"]
+      192 CALL                             R14 3 1
+      193 SETTABLEKS                       R14 R13 K33 ["HeightSetting"]
+      195 MOVE                             R14 R9
+      196 JUMPIFNOT                        R14 ; [+67]
+      197 GETUPVAL                         R14 6
+      198 GETUPVAL                         R15 9
+      199 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      200 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
+      202 LOADK                            R19 K13 ["BodySettings"]
+      203 LOADK                            R20 K72 ["BuildWidth"]
+      204 NAMECALL                         R17 R1 K15 ["getText"]
+      206 CALL                             R17 3 1
+      207 SETTABLEKS                       R17 R16 K26 ["text"]
+      209 MOVE                             R17 R3
+      210 CALL                             R17 0 1
+      211 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
+      213 DUPTABLE                         R17 K52 [{"Content"}]
+      214 GETUPVAL                         R18 6
+      215 GETUPVAL                         R19 10
+      216 DUPTABLE                         R20 K62 [{["snapIncrement"] = 1, ["min"], ["max"], ["enforceInputBounds"] = True, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
+      217 GETUPVAL                         R21 11
+      218 GETTABLEKS                       R21 R21 K73 ["bodyBuildCustomWidth"]
+      220 GETTABLEKS                       R21 R21 K55 ["min"]
+      222 SETTABLEKS                       R21 R20 K55 ["min"]
+      224 GETUPVAL                         R21 11
+      225 GETTABLEKS                       R21 R21 K73 ["bodyBuildCustomWidth"]
+      227 GETTABLEKS                       R21 R21 K56 ["max"]
+      229 SETTABLEKS                       R21 R20 K56 ["max"]
+      231 GETTABLEKS                       R22 R6 K73 ["bodyBuildCustomWidth"]
+      233 GETTABLEKS                       R22 R22 K21 ["value"]
+      235 GETIMPORT                        R23 K65 [NumberRange.new]
+      237 GETTABLEKS                       R26 R22 K67 ["Min"]
+      239 MULK                             R25 R26 K66 [100]
+      240 FASTCALL1                        MATH_ROUND R25 ; [+2]
+      241 GETIMPORT                        R24 K70 [math.round]
+      243 CALL                             R24 1 1
+      244 GETTABLEKS                       R27 R22 K71 ["Max"]
+      246 MULK                             R26 R27 K66 [100]
+      247 FASTCALL1                        MATH_ROUND R26 ; [+2]
+      248 GETIMPORT                        R25 K70 [math.round]
+      250 CALL                             R25 1 1
+      251 CALL                             R23 2 1
+      252 MOVE                             R21 R23
+      253 SETTABLEKS                       R21 R20 K60 ["numberRange"]
+      255 NEWCLOSURE                       R21 P2
+      256 CAPTURE                          VAL R6
+      257 CAPTURE                          UPVAL U12
+      258 SETTABLEKS                       R21 R20 K61 ["setNumberRange"]
+      260 CALL                             R18 2 1
+      261 SETTABLEKS                       R18 R17 K51 ["Content"]
+      263 CALL                             R14 3 1
+      264 SETTABLEKS                       R14 R13 K34 ["WidthSetting"]
+      266 MOVE                             R14 R9
+      267 JUMPIFNOT                        R14 ; [+67]
+      268 GETUPVAL                         R14 6
+      269 GETUPVAL                         R15 9
+      270 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      271 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
+      273 LOADK                            R19 K13 ["BodySettings"]
+      274 LOADK                            R20 K74 ["BuildHead"]
+      275 NAMECALL                         R17 R1 K15 ["getText"]
+      277 CALL                             R17 3 1
+      278 SETTABLEKS                       R17 R16 K26 ["text"]
+      280 MOVE                             R17 R3
+      281 CALL                             R17 0 1
+      282 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
+      284 DUPTABLE                         R17 K52 [{"Content"}]
+      285 GETUPVAL                         R18 6
+      286 GETUPVAL                         R19 10
+      287 DUPTABLE                         R20 K62 [{["snapIncrement"] = 1, ["min"], ["max"], ["enforceInputBounds"] = True, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
+      288 GETUPVAL                         R21 11
+      289 GETTABLEKS                       R21 R21 K75 ["bodyBuildCustomHead"]
+      291 GETTABLEKS                       R21 R21 K55 ["min"]
+      293 SETTABLEKS                       R21 R20 K55 ["min"]
+      295 GETUPVAL                         R21 11
+      296 GETTABLEKS                       R21 R21 K75 ["bodyBuildCustomHead"]
+      298 GETTABLEKS                       R21 R21 K56 ["max"]
+      300 SETTABLEKS                       R21 R20 K56 ["max"]
+      302 GETTABLEKS                       R22 R6 K75 ["bodyBuildCustomHead"]
+      304 GETTABLEKS                       R22 R22 K21 ["value"]
+      306 GETIMPORT                        R23 K65 [NumberRange.new]
+      308 GETTABLEKS                       R26 R22 K67 ["Min"]
+      310 MULK                             R25 R26 K66 [100]
+      311 FASTCALL1                        MATH_ROUND R25 ; [+2]
+      312 GETIMPORT                        R24 K70 [math.round]
+      314 CALL                             R24 1 1
+      315 GETTABLEKS                       R27 R22 K71 ["Max"]
+      317 MULK                             R26 R27 K66 [100]
+      318 FASTCALL1                        MATH_ROUND R26 ; [+2]
+      319 GETIMPORT                        R25 K70 [math.round]
+      321 CALL                             R25 1 1
+      322 CALL                             R23 2 1
+      323 MOVE                             R21 R23
+      324 SETTABLEKS                       R21 R20 K60 ["numberRange"]
+      326 NEWCLOSURE                       R21 P3
+      327 CAPTURE                          VAL R6
+      328 CAPTURE                          UPVAL U12
+      329 SETTABLEKS                       R21 R20 K61 ["setNumberRange"]
+      331 CALL                             R18 2 1
+      332 SETTABLEKS                       R18 R17 K51 ["Content"]
+      334 CALL                             R14 3 1
+      335 SETTABLEKS                       R14 R13 K35 ["HeadSetting"]
+      337 MOVE                             R14 R9
+      338 JUMPIFNOT                        R14 ; [+67]
+      339 GETUPVAL                         R14 6
+      340 GETUPVAL                         R15 9
+      341 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      342 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
+      344 LOADK                            R19 K13 ["BodySettings"]
+      345 LOADK                            R20 K76 ["BuildBodyType"]
+      346 NAMECALL                         R17 R1 K15 ["getText"]
+      348 CALL                             R17 3 1
+      349 SETTABLEKS                       R17 R16 K26 ["text"]
+      351 MOVE                             R17 R3
+      352 CALL                             R17 0 1
+      353 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
+      355 DUPTABLE                         R17 K52 [{"Content"}]
+      356 GETUPVAL                         R18 6
+      357 GETUPVAL                         R19 10
+      358 DUPTABLE                         R20 K62 [{["snapIncrement"] = 1, ["min"], ["max"], ["enforceInputBounds"] = True, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
+      359 GETUPVAL                         R21 11
+      360 GETTABLEKS                       R21 R21 K77 ["bodyBuildCustomBodyType"]
+      362 GETTABLEKS                       R21 R21 K55 ["min"]
+      364 SETTABLEKS                       R21 R20 K55 ["min"]
+      366 GETUPVAL                         R21 11
+      367 GETTABLEKS                       R21 R21 K77 ["bodyBuildCustomBodyType"]
+      369 GETTABLEKS                       R21 R21 K56 ["max"]
+      371 SETTABLEKS                       R21 R20 K56 ["max"]
+      373 GETTABLEKS                       R22 R6 K77 ["bodyBuildCustomBodyType"]
+      375 GETTABLEKS                       R22 R22 K21 ["value"]
+      377 GETIMPORT                        R23 K65 [NumberRange.new]
+      379 GETTABLEKS                       R26 R22 K67 ["Min"]
+      381 MULK                             R25 R26 K66 [100]
+      382 FASTCALL1                        MATH_ROUND R25 ; [+2]
+      383 GETIMPORT                        R24 K70 [math.round]
+      385 CALL                             R24 1 1
+      386 GETTABLEKS                       R27 R22 K71 ["Max"]
+      388 MULK                             R26 R27 K66 [100]
+      389 FASTCALL1                        MATH_ROUND R26 ; [+2]
+      390 GETIMPORT                        R25 K70 [math.round]
+      392 CALL                             R25 1 1
+      393 CALL                             R23 2 1
+      394 MOVE                             R21 R23
+      395 SETTABLEKS                       R21 R20 K60 ["numberRange"]
+      397 NEWCLOSURE                       R21 P4
+      398 CAPTURE                          VAL R6
+      399 CAPTURE                          UPVAL U12
+      400 SETTABLEKS                       R21 R20 K61 ["setNumberRange"]
+      402 CALL                             R18 2 1
+      403 SETTABLEKS                       R18 R17 K51 ["Content"]
+      405 CALL                             R14 3 1
+      406 SETTABLEKS                       R14 R13 K36 ["BodyTypeSetting"]
+      408 MOVE                             R14 R9
+      409 JUMPIFNOT                        R14 ; [+67]
+      410 GETUPVAL                         R14 6
+      411 GETUPVAL                         R15 9
+      412 DUPTABLE                         R16 K49 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      413 SETTABLEKS                       R8 R16 K46 ["minTextLabelWidth"]
+      415 LOADK                            R19 K13 ["BodySettings"]
+      416 LOADK                            R20 K78 ["BuildProportions"]
+      417 NAMECALL                         R17 R1 K15 ["getText"]
+      419 CALL                             R17 3 1
+      420 SETTABLEKS                       R17 R16 K26 ["text"]
+      422 MOVE                             R17 R3
+      423 CALL                             R17 0 1
+      424 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
+      426 DUPTABLE                         R17 K52 [{"Content"}]
+      427 GETUPVAL                         R18 6
+      428 GETUPVAL                         R19 10
+      429 DUPTABLE                         R20 K62 [{["snapIncrement"] = 1, ["min"], ["max"], ["enforceInputBounds"] = True, ["inputFieldText"] = "%", ["numberRange"], ["setNumberRange"]}]
+      430 GETUPVAL                         R21 11
+      431 GETTABLEKS                       R21 R21 K79 ["bodyBuildCustomProportions"]
+      433 GETTABLEKS                       R21 R21 K55 ["min"]
+      435 SETTABLEKS                       R21 R20 K55 ["min"]
+      437 GETUPVAL                         R21 11
+      438 GETTABLEKS                       R21 R21 K79 ["bodyBuildCustomProportions"]
+      440 GETTABLEKS                       R21 R21 K56 ["max"]
+      442 SETTABLEKS                       R21 R20 K56 ["max"]
+      444 GETTABLEKS                       R22 R6 K79 ["bodyBuildCustomProportions"]
+      446 GETTABLEKS                       R22 R22 K21 ["value"]
+      448 GETIMPORT                        R23 K65 [NumberRange.new]
+      450 GETTABLEKS                       R26 R22 K67 ["Min"]
+      452 MULK                             R25 R26 K66 [100]
+      453 FASTCALL1                        MATH_ROUND R25 ; [+2]
+      454 GETIMPORT                        R24 K70 [math.round]
+      456 CALL                             R24 1 1
+      457 GETTABLEKS                       R27 R22 K71 ["Max"]
+      459 MULK                             R26 R27 K66 [100]
+      460 FASTCALL1                        MATH_ROUND R26 ; [+2]
+      461 GETIMPORT                        R25 K70 [math.round]
+      463 CALL                             R25 1 1
+      464 CALL                             R23 2 1
+      465 MOVE                             R21 R23
+      466 SETTABLEKS                       R21 R20 K60 ["numberRange"]
+      468 NEWCLOSURE                       R21 P5
+      469 CAPTURE                          VAL R6
+      470 CAPTURE                          UPVAL U12
+      471 SETTABLEKS                       R21 R20 K61 ["setNumberRange"]
+      473 CALL                             R18 2 1
+      474 SETTABLEKS                       R18 R17 K51 ["Content"]
+      476 CALL                             R14 3 1
+      477 SETTABLEKS                       R14 R13 K37 ["BuildSetting"]
+      479 CALL                             R10 3 -1
+      480 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -446,21 +486,23 @@ MAIN:
        94 GETTABLEKS                       R13 R13 K22 ["Telemetry"]
        96 GETTABLEKS                       R13 R13 K23 ["TelemetryContext"]
        98 CALL                             R12 1 1
-       99 GETTABLEKS                       R13 R7 K24 ["createNextOrder"]
-      101 GETTABLEKS                       R14 R6 K25 ["createElement"]
-      103 DUPCLOSURE                       R15 K26 [PROTO_0]
-      104 DUPCLOSURE                       R16 K27 [PROTO_1]
-      105 DUPCLOSURE                       R17 K28 [PROTO_8]
-      106 CAPTURE                          VAL R11
-      107 CAPTURE                          VAL R12
-      108 CAPTURE                          VAL R13
-      109 CAPTURE                          VAL R6
-      110 CAPTURE                          VAL R1
-      111 CAPTURE                          VAL R2
-      112 CAPTURE                          VAL R14
-      113 CAPTURE                          VAL R3
-      114 CAPTURE                          VAL R5
-      115 CAPTURE                          VAL R9
-      116 CAPTURE                          VAL R8
-      117 CAPTURE                          VAL R16
-      118 RETURN                           R17 1
+       99 GETTABLEKS                       R13 R2 K24 ["CUSTOM_BUILD_PERCENT_LIMITS"]
+      101 GETTABLEKS                       R14 R7 K25 ["createNextOrder"]
+      103 GETTABLEKS                       R15 R6 K26 ["createElement"]
+      105 DUPCLOSURE                       R16 K27 [PROTO_0]
+      106 DUPCLOSURE                       R17 K28 [PROTO_1]
+      107 DUPCLOSURE                       R18 K29 [PROTO_8]
+      108 CAPTURE                          VAL R11
+      109 CAPTURE                          VAL R12
+      110 CAPTURE                          VAL R14
+      111 CAPTURE                          VAL R6
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R2
+      114 CAPTURE                          VAL R15
+      115 CAPTURE                          VAL R3
+      116 CAPTURE                          VAL R5
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R8
+      119 CAPTURE                          VAL R13
+      120 CAPTURE                          VAL R17
+      121 RETURN                           R18 1

@@ -381,57 +381,54 @@ MAIN:
        34 GETTABLEKS                       R6 R2 K13 ["Style"]
        36 GETTABLEKS                       R6 R6 K14 ["Themes"]
        38 GETTABLEKS                       R6 R6 K15 ["StudioTheme"]
-       40 GETTABLEKS                       R7 R3 K16 ["Util"]
-       42 GETTABLEKS                       R7 R7 K17 ["StudioUri"]
-       44 GETTABLEKS                       R8 R2 K18 ["Styling"]
-       46 GETTABLEKS                       R8 R8 K19 ["registerPluginStyles"]
-       48 GETTABLEKS                       R9 R0 K20 ["Src"]
-       50 GETTABLEKS                       R9 R9 K21 ["Resources"]
-       52 GETTABLEKS                       R9 R9 K11 ["Localization"]
-       54 GETTABLEKS                       R9 R9 K22 ["SourceStrings"]
-       56 GETTABLEKS                       R10 R0 K20 ["Src"]
-       58 GETTABLEKS                       R10 R10 K21 ["Resources"]
-       60 GETTABLEKS                       R10 R10 K11 ["Localization"]
-       62 GETTABLEKS                       R10 R10 K23 ["LocalizedStrings"]
-       64 GETIMPORT                        R11 K5 [require]
-       66 GETTABLEKS                       R12 R0 K20 ["Src"]
-       68 GETTABLEKS                       R12 R12 K16 ["Util"]
-       70 GETTABLEKS                       R12 R12 K24 ["DMCoordinator"]
-       72 CALL                             R11 1 1
-       73 GETTABLEKS                       R12 R1 K25 ["PureComponent"]
-       75 LOADK                            R14 K26 ["MainPlugin"]
-       76 NAMECALL                         R12 R12 K27 ["extend"]
-       78 CALL                             R12 2 1
-       79 GETTABLEKS                       R13 R7 K28 ["fromAction"]
-       81 LOADK                            R14 K2 ["AudioViewportVisualizations"]
-       82 LOADK                            R15 K29 ["Toggle"]
-       83 CALL                             R13 2 1
-       84 GETTABLEKS                       R14 R7 K28 ["fromAction"]
-       86 LOADK                            R15 K2 ["AudioViewportVisualizations"]
-       87 LOADK                            R16 K30 ["ToggleShowInactiveSources"]
-       88 CALL                             R14 2 1
-       89 DUPCLOSURE                       R15 K31 [PROTO_9]
-       90 CAPTURE                          VAL R13
-       91 CAPTURE                          VAL R14
-       92 CAPTURE                          VAL R5
+       40 GETTABLEKS                       R7 R2 K16 ["Styling"]
+       42 GETTABLEKS                       R7 R7 K17 ["registerPluginStyles"]
+       44 GETTABLEKS                       R8 R0 K18 ["Src"]
+       46 GETTABLEKS                       R8 R8 K19 ["Resources"]
+       48 GETTABLEKS                       R8 R8 K11 ["Localization"]
+       50 GETTABLEKS                       R8 R8 K20 ["SourceStrings"]
+       52 GETTABLEKS                       R9 R0 K18 ["Src"]
+       54 GETTABLEKS                       R9 R9 K19 ["Resources"]
+       56 GETTABLEKS                       R9 R9 K11 ["Localization"]
+       58 GETTABLEKS                       R9 R9 K21 ["LocalizedStrings"]
+       60 GETIMPORT                        R10 K5 [require]
+       62 GETTABLEKS                       R11 R0 K18 ["Src"]
+       64 GETTABLEKS                       R11 R11 K22 ["Util"]
+       66 GETTABLEKS                       R11 R11 K23 ["DMCoordinator"]
+       68 CALL                             R10 1 1
+       69 GETIMPORT                        R11 K5 [require]
+       71 GETTABLEKS                       R12 R0 K18 ["Src"]
+       73 GETTABLEKS                       R12 R12 K19 ["Resources"]
+       75 GETTABLEKS                       R12 R12 K24 ["ActionUris"]
+       77 CALL                             R11 1 1
+       78 GETTABLEKS                       R12 R1 K25 ["PureComponent"]
+       80 LOADK                            R14 K26 ["MainPlugin"]
+       81 NAMECALL                         R12 R12 K27 ["extend"]
+       83 CALL                             R12 2 1
+       84 GETTABLEKS                       R13 R11 K28 ["TOGGLE_ACTION_URI"]
+       86 GETTABLEKS                       R14 R11 K29 ["SHOW_INACTIVE_ACTION_URI"]
+       88 DUPCLOSURE                       R15 K30 [PROTO_9]
+       89 CAPTURE                          VAL R13
+       90 CAPTURE                          VAL R14
+       91 CAPTURE                          VAL R5
+       92 CAPTURE                          VAL R8
        93 CAPTURE                          VAL R9
-       94 CAPTURE                          VAL R10
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R6
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          VAL R8
-       99 SETTABLEKS                       R15 R12 K32 ["init"]
-      101 DUPCLOSURE                       R15 K33 [PROTO_11]
-      102 CAPTURE                          VAL R11
-      103 CAPTURE                          VAL R13
-      104 CAPTURE                          VAL R14
-      105 SETTABLEKS                       R15 R12 K34 ["didMount"]
-      107 DUPCLOSURE                       R15 K35 [PROTO_12]
-      108 CAPTURE                          VAL R11
-      109 SETTABLEKS                       R15 R12 K36 ["didUpdate"]
-      111 DUPCLOSURE                       R15 K37 [PROTO_13]
-      112 CAPTURE                          VAL R1
-      113 SETTABLEKS                       R15 R12 K38 ["render"]
-      115 DUPCLOSURE                       R15 K39 [PROTO_14]
-      116 SETTABLEKS                       R15 R12 K40 ["willUnmount"]
-      118 RETURN                           R12 1
+       94 CAPTURE                          VAL R4
+       95 CAPTURE                          VAL R6
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          VAL R7
+       98 SETTABLEKS                       R15 R12 K31 ["init"]
+      100 DUPCLOSURE                       R15 K32 [PROTO_11]
+      101 CAPTURE                          VAL R10
+      102 CAPTURE                          VAL R13
+      103 CAPTURE                          VAL R14
+      104 SETTABLEKS                       R15 R12 K33 ["didMount"]
+      106 DUPCLOSURE                       R15 K34 [PROTO_12]
+      107 CAPTURE                          VAL R10
+      108 SETTABLEKS                       R15 R12 K35 ["didUpdate"]
+      110 DUPCLOSURE                       R15 K36 [PROTO_13]
+      111 CAPTURE                          VAL R1
+      112 SETTABLEKS                       R15 R12 K37 ["render"]
+      114 DUPCLOSURE                       R15 K38 [PROTO_14]
+      115 SETTABLEKS                       R15 R12 K39 ["willUnmount"]
+      117 RETURN                           R12 1

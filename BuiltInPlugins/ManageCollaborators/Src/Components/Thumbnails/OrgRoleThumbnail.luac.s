@@ -3,66 +3,42 @@ PROTO_0:
         2 GETTABLEKS                       R2 R1 K1 ["Color"]
         4 GETTABLEKS                       R3 R1 K2 ["Size"]
         6 GETTABLEKS                       R4 R1 K3 ["Stylizer"]
-        8 LOADNIL                          R5
-        9 GETUPVAL                         R6 0
-       10 GETTABLEKS                       R6 R6 K4 ["fflagIncludePrivateRoles"]
-       12 JUMPIFNOT                        R6 ; [+44]
-       13 GETUPVAL                         R6 1
-       14 GETTABLEKS                       R6 R6 K5 ["createElement"]
-       16 GETUPVAL                         R7 2
-       17 DUPTABLE                         R8 K12 [{["name"], ["variant"], ["size"], ["style"], ["tag"] = "align-x-center align-y-center"}]
-       18 GETTABLEKS                       R10 R1 K13 ["IsPrivate"]
-       20 JUMPIFNOT                        R10 ; [+6]
-       21 GETUPVAL                         R9 3
-       22 GETTABLEKS                       R9 R9 K14 ["IconName"]
-       24 GETTABLEKS                       R9 R9 K15 ["LockClosed"]
-       26 JUMP                             ; [+5]
-       27 GETUPVAL                         R9 3
-       28 GETTABLEKS                       R9 R9 K14 ["IconName"]
-       30 GETTABLEKS                       R9 R9 K16 ["PersonRectangleHorizontalLine"]
-       32 SETTABLEKS                       R9 R8 K6 ["name"]
-       34 GETUPVAL                         R9 4
-       35 GETTABLEKS                       R9 R9 K17 ["Filled"]
-       37 SETTABLEKS                       R9 R8 K7 ["variant"]
-       39 GETTABLEKS                       R9 R4 K18 ["collaboratorItem"]
-       41 GETTABLEKS                       R9 R9 K19 ["iconContainerSize"]
-       43 SETTABLEKS                       R9 R8 K8 ["size"]
-       45 DUPTABLE                         R9 K23 [{["Color3"], ["Transparency"] = 0}]
-       46 GETIMPORT                        R10 K25 [Color3.fromHex]
-       48 MOVE                             R11 R2
-       49 CALL                             R10 1 1
-       50 SETTABLEKS                       R10 R9 K20 ["Color3"]
-       52 SETTABLEKS                       R9 R8 K9 ["style"]
-       54 CALL                             R6 2 1
-       55 MOVE                             R5 R6
-       56 JUMP                             ; [+26]
-       57 GETUPVAL                         R6 1
-       58 GETTABLEKS                       R6 R6 K5 ["createElement"]
-       60 LOADK                            R7 K26 ["ImageLabel"]
-       61 DUPTABLE                         R8 K31 [{["Size"], ["BackgroundTransparency"] = 1, ["ImageColor3"], ["Image"]}]
-       62 GETIMPORT                        R9 K34 [UDim2.fromScale]
-       64 LOADN                            R10 1
-       65 LOADN                            R11 1
-       66 CALL                             R9 2 1
-       67 SETTABLEKS                       R9 R8 K2 ["Size"]
-       69 GETIMPORT                        R9 K25 [Color3.fromHex]
-       71 MOVE                             R10 R2
-       72 CALL                             R9 1 1
-       73 SETTABLEKS                       R9 R8 K29 ["ImageColor3"]
-       75 GETTABLEKS                       R9 R4 K35 ["orgRoleThumbnail"]
-       77 GETTABLEKS                       R9 R9 K30 ["Image"]
-       79 SETTABLEKS                       R9 R8 K30 ["Image"]
-       81 CALL                             R6 2 1
-       82 MOVE                             R5 R6
-       83 GETUPVAL                         R6 1
-       84 GETTABLEKS                       R6 R6 K5 ["createElement"]
-       86 LOADK                            R7 K36 ["Frame"]
-       87 DUPTABLE                         R8 K37 [{["BackgroundTransparency"] = 1, ["Size"]}]
-       88 SETTABLEKS                       R3 R8 K2 ["Size"]
-       90 DUPTABLE                         R9 K39 [{"Thumbnail"}]
-       91 SETTABLEKS                       R5 R9 K38 ["Thumbnail"]
-       93 CALL                             R6 3 -1
-       94 RETURN                           R6 -1
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R5 R5 K4 ["createElement"]
+       11 GETUPVAL                         R6 1
+       12 DUPTABLE                         R7 K11 [{["name"], ["variant"], ["size"], ["style"], ["tag"] = "align-x-center align-y-center"}]
+       13 GETTABLEKS                       R9 R1 K12 ["IsPrivate"]
+       15 JUMPIFNOT                        R9 ; [+6]
+       16 GETUPVAL                         R8 2
+       17 GETTABLEKS                       R8 R8 K13 ["IconName"]
+       19 GETTABLEKS                       R8 R8 K14 ["LockClosed"]
+       21 JUMP                             ; [+5]
+       22 GETUPVAL                         R8 2
+       23 GETTABLEKS                       R8 R8 K13 ["IconName"]
+       25 GETTABLEKS                       R8 R8 K15 ["PersonRectangleHorizontalLine"]
+       27 SETTABLEKS                       R8 R7 K5 ["name"]
+       29 GETUPVAL                         R8 3
+       30 GETTABLEKS                       R8 R8 K16 ["Filled"]
+       32 SETTABLEKS                       R8 R7 K6 ["variant"]
+       34 GETTABLEKS                       R8 R4 K17 ["collaboratorItem"]
+       36 GETTABLEKS                       R8 R8 K18 ["iconContainerSize"]
+       38 SETTABLEKS                       R8 R7 K7 ["size"]
+       40 DUPTABLE                         R8 K22 [{["Color3"], ["Transparency"] = 0}]
+       41 GETIMPORT                        R9 K24 [Color3.fromHex]
+       43 MOVE                             R10 R2
+       44 CALL                             R9 1 1
+       45 SETTABLEKS                       R9 R8 K19 ["Color3"]
+       47 SETTABLEKS                       R8 R7 K8 ["style"]
+       49 CALL                             R5 2 1
+       50 GETUPVAL                         R6 0
+       51 GETTABLEKS                       R6 R6 K4 ["createElement"]
+       53 LOADK                            R7 K25 ["Frame"]
+       54 DUPTABLE                         R8 K28 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       55 SETTABLEKS                       R3 R8 K2 ["Size"]
+       57 DUPTABLE                         R9 K30 [{"Thumbnail"}]
+       58 SETTABLEKS                       R5 R9 K29 ["Thumbnail"]
+       60 CALL                             R6 3 -1
+       61 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -76,42 +52,37 @@ MAIN:
        15 GETTABLEKS                       R2 R2 K6 ["Roact"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R3 R0 K7 ["Bin"]
-       22 GETTABLEKS                       R3 R3 K8 ["defineLuaFlags"]
+       20 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K7 ["Framework"]
        24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R4 R0 K5 ["Packages"]
-       29 GETTABLEKS                       R4 R4 K9 ["Framework"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R3 K10 ["Style"]
-       34 GETTABLEKS                       R4 R4 K11 ["Stylizer"]
-       36 GETTABLEKS                       R5 R3 K12 ["ContextServices"]
-       38 GETTABLEKS                       R6 R5 K13 ["withContext"]
-       40 GETIMPORT                        R7 K4 [require]
-       42 GETTABLEKS                       R8 R0 K5 ["Packages"]
-       44 GETTABLEKS                       R8 R8 K14 ["Foundation"]
-       46 CALL                             R7 1 1
-       47 GETTABLEKS                       R8 R7 K15 ["Icon"]
-       49 GETTABLEKS                       R9 R7 K16 ["Enums"]
-       51 GETTABLEKS                       R10 R7 K16 ["Enums"]
-       53 GETTABLEKS                       R10 R10 K17 ["IconVariant"]
-       55 GETTABLEKS                       R11 R1 K18 ["Component"]
-       57 GETIMPORT                        R13 K1 [script]
-       59 GETTABLEKS                       R13 R13 K19 ["Name"]
-       61 NAMECALL                         R11 R11 K20 ["extend"]
-       63 CALL                             R11 2 1
-       64 DUPCLOSURE                       R12 K21 [PROTO_0]
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R1
-       67 CAPTURE                          VAL R8
-       68 CAPTURE                          VAL R9
-       69 CAPTURE                          VAL R10
-       70 SETTABLEKS                       R12 R11 K22 ["render"]
-       72 MOVE                             R12 R6
-       73 DUPTABLE                         R13 K23 [{"Stylizer"}]
-       74 SETTABLEKS                       R4 R13 K11 ["Stylizer"]
-       76 CALL                             R12 1 1
-       77 MOVE                             R13 R11
-       78 CALL                             R12 1 1
-       79 MOVE                             R11 R12
-       80 RETURN                           R11 1
+       25 GETTABLEKS                       R3 R2 K8 ["Style"]
+       27 GETTABLEKS                       R3 R3 K9 ["Stylizer"]
+       29 GETTABLEKS                       R4 R2 K10 ["ContextServices"]
+       31 GETTABLEKS                       R5 R4 K11 ["withContext"]
+       33 GETIMPORT                        R6 K4 [require]
+       35 GETTABLEKS                       R7 R0 K5 ["Packages"]
+       37 GETTABLEKS                       R7 R7 K12 ["Foundation"]
+       39 CALL                             R6 1 1
+       40 GETTABLEKS                       R7 R6 K13 ["Icon"]
+       42 GETTABLEKS                       R8 R6 K14 ["Enums"]
+       44 GETTABLEKS                       R9 R6 K14 ["Enums"]
+       46 GETTABLEKS                       R9 R9 K15 ["IconVariant"]
+       48 GETTABLEKS                       R10 R1 K16 ["Component"]
+       50 GETIMPORT                        R12 K1 [script]
+       52 GETTABLEKS                       R12 R12 K17 ["Name"]
+       54 NAMECALL                         R10 R10 K18 ["extend"]
+       56 CALL                             R10 2 1
+       57 DUPCLOSURE                       R11 K19 [PROTO_0]
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R7
+       60 CAPTURE                          VAL R8
+       61 CAPTURE                          VAL R9
+       62 SETTABLEKS                       R11 R10 K20 ["render"]
+       64 MOVE                             R11 R5
+       65 DUPTABLE                         R12 K21 [{"Stylizer"}]
+       66 SETTABLEKS                       R3 R12 K9 ["Stylizer"]
+       68 CALL                             R11 1 1
+       69 MOVE                             R12 R10
+       70 CALL                             R11 1 1
+       71 MOVE                             R10 R11
+       72 RETURN                           R10 1

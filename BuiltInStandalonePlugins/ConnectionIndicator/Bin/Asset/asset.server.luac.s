@@ -22,34 +22,34 @@ MAIN:
        29 GETIMPORT                        R2 K7 [require]
        31 GETTABLEKS                       R3 R0 K13 ["Bin"]
        33 GETTABLEKS                       R3 R3 K14 ["Common"]
-       35 GETTABLEKS                       R3 R3 K15 ["defineLuaFlags"]
+       35 GETTABLEKS                       R3 R3 K15 ["getFFlagStudioConnectionIndicatorPluginDialog"]
        37 CALL                             R2 1 1
-       38 GETTABLEKS                       R3 R2 K16 ["getFFlagEnableConnectionIndicator"]
-       40 CALL                             R3 0 1
-       41 JUMPIF                           R3 ; [+1]
-       42 RETURN                           R0 0
-       43 GETIMPORT                        R3 K7 [require]
-       45 GETTABLEKS                       R4 R0 K13 ["Bin"]
-       47 GETTABLEKS                       R4 R4 K14 ["Common"]
-       49 GETTABLEKS                       R4 R4 K17 ["pluginType"]
-       51 CALL                             R3 1 1
-       52 GETTABLEKS                       R4 R3 K18 ["get"]
-       54 CALL                             R4 0 1
-       55 GETTABLEKS                       R5 R3 K19 ["Asset"]
-       57 JUMPIFEQ                         R4 R5 ; [+2]
-       59 RETURN                           R0 0
-       60 GETIMPORT                        R4 K7 [require]
-       62 GETTABLEKS                       R5 R0 K13 ["Bin"]
-       64 GETTABLEKS                       R5 R5 K14 ["Common"]
-       66 GETTABLEKS                       R5 R5 K20 ["setup"]
-       68 CALL                             R4 1 1
-       69 GETIMPORT                        R5 K7 [require]
-       71 GETTABLEKS                       R6 R0 K13 ["Bin"]
-       73 GETTABLEKS                       R6 R6 K14 ["Common"]
-       75 GETTABLEKS                       R6 R6 K21 ["setupMain"]
-       77 CALL                             R5 1 1
-       78 MOVE                             R6 R4
-       79 GETIMPORT                        R7 K1 [plugin]
-       81 MOVE                             R8 R5
-       82 CALL                             R6 2 0
-       83 RETURN                           R0 0
+       38 MOVE                             R3 R2
+       39 CALL                             R3 0 1
+       40 JUMPIF                           R3 ; [+1]
+       41 RETURN                           R0 0
+       42 GETIMPORT                        R3 K7 [require]
+       44 GETTABLEKS                       R4 R0 K13 ["Bin"]
+       46 GETTABLEKS                       R4 R4 K14 ["Common"]
+       48 GETTABLEKS                       R4 R4 K16 ["pluginType"]
+       50 CALL                             R3 1 1
+       51 GETTABLEKS                       R4 R3 K17 ["get"]
+       53 CALL                             R4 0 1
+       54 GETTABLEKS                       R5 R3 K18 ["Asset"]
+       56 JUMPIFEQ                         R4 R5 ; [+2]
+       58 RETURN                           R0 0
+       59 GETIMPORT                        R4 K7 [require]
+       61 GETTABLEKS                       R5 R0 K13 ["Bin"]
+       63 GETTABLEKS                       R5 R5 K14 ["Common"]
+       65 GETTABLEKS                       R5 R5 K19 ["setup"]
+       67 CALL                             R4 1 1
+       68 GETIMPORT                        R5 K7 [require]
+       70 GETTABLEKS                       R6 R0 K13 ["Bin"]
+       72 GETTABLEKS                       R6 R6 K14 ["Common"]
+       74 GETTABLEKS                       R6 R6 K20 ["setupMain"]
+       76 CALL                             R5 1 1
+       77 MOVE                             R6 R4
+       78 GETIMPORT                        R7 K1 [plugin]
+       80 MOVE                             R8 R5
+       81 CALL                             R6 2 0
+       82 RETURN                           R0 0

@@ -168,53 +168,58 @@ PROTO_2:
       236 LOADNIL                          R13
       237 SETTABLEKS                       R13 R12 K15 ["GridSortButtonContainer"]
       239 JUMPIFNOT                        R8 ; [+1]
-      240 JUMPIFNOT                        R7 ; [+12]
+      240 JUMPIFNOT                        R7 ; [+17]
       241 GETUPVAL                         R13 8
       242 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      244 GETUPVAL                         R14 11
-      245 DUPTABLE                         R15 K51 [{"LayoutOrder"}]
-      246 NAMECALL                         R16 R1 K28 ["getNextOrder"]
-      248 CALL                             R16 1 1
-      249 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
-      251 CALL                             R13 2 1
-      252 JUMP                             ; [+1]
-      253 LOADNIL                          R13
-      254 SETTABLEKS                       R13 R12 K16 ["FilterDropdown"]
-      256 GETUPVAL                         R13 8
-      257 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      259 GETUPVAL                         R14 12
-      260 DUPTABLE                         R15 K51 [{"LayoutOrder"}]
-      261 NAMECALL                         R16 R1 K28 ["getNextOrder"]
-      263 CALL                             R16 1 1
-      264 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
-      266 CALL                             R13 2 1
-      267 SETTABLEKS                       R13 R12 K17 ["ViewTypeContainer"]
-      269 GETUPVAL                         R13 8
-      270 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      272 GETUPVAL                         R14 9
-      273 GETTABLEKS                       R14 R14 K18 ["Divider"]
-      275 DUPTABLE                         R15 K53 [{"LayoutOrder", "orientation"}]
-      276 NAMECALL                         R16 R1 K28 ["getNextOrder"]
-      278 CALL                             R16 1 1
-      279 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
-      281 GETUPVAL                         R16 9
-      282 GETTABLEKS                       R16 R16 K31 ["Enums"]
-      284 GETTABLEKS                       R16 R16 K54 ["DividerOrientation"]
-      286 GETTABLEKS                       R16 R16 K55 ["Vertical"]
-      288 SETTABLEKS                       R16 R15 K52 ["orientation"]
-      290 CALL                             R13 2 1
-      291 SETTABLEKS                       R13 R12 K18 ["Divider"]
-      293 GETUPVAL                         R13 8
-      294 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      296 GETUPVAL                         R14 13
-      297 DUPTABLE                         R15 K51 [{"LayoutOrder"}]
-      298 NAMECALL                         R16 R1 K28 ["getNextOrder"]
-      300 CALL                             R16 1 1
-      301 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
-      303 CALL                             R13 2 1
-      304 SETTABLEKS                       R13 R12 K19 ["BulkImportButton"]
-      306 CALL                             R9 3 -1
-      307 RETURN                           R9 -1
+      244 GETUPVAL                         R15 11
+      245 CALL                             R15 0 1
+      246 JUMPIFNOT                        R15 ; [+2]
+      247 GETUPVAL                         R14 12
+      248 JUMP                             ; [+1]
+      249 GETUPVAL                         R14 13
+      250 DUPTABLE                         R15 K51 [{"LayoutOrder"}]
+      251 NAMECALL                         R16 R1 K28 ["getNextOrder"]
+      253 CALL                             R16 1 1
+      254 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
+      256 CALL                             R13 2 1
+      257 JUMP                             ; [+1]
+      258 LOADNIL                          R13
+      259 SETTABLEKS                       R13 R12 K16 ["FilterDropdown"]
+      261 GETUPVAL                         R13 8
+      262 GETTABLEKS                       R13 R13 K7 ["createElement"]
+      264 GETUPVAL                         R14 14
+      265 DUPTABLE                         R15 K51 [{"LayoutOrder"}]
+      266 NAMECALL                         R16 R1 K28 ["getNextOrder"]
+      268 CALL                             R16 1 1
+      269 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
+      271 CALL                             R13 2 1
+      272 SETTABLEKS                       R13 R12 K17 ["ViewTypeContainer"]
+      274 GETUPVAL                         R13 8
+      275 GETTABLEKS                       R13 R13 K7 ["createElement"]
+      277 GETUPVAL                         R14 9
+      278 GETTABLEKS                       R14 R14 K18 ["Divider"]
+      280 DUPTABLE                         R15 K53 [{"LayoutOrder", "orientation"}]
+      281 NAMECALL                         R16 R1 K28 ["getNextOrder"]
+      283 CALL                             R16 1 1
+      284 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
+      286 GETUPVAL                         R16 9
+      287 GETTABLEKS                       R16 R16 K31 ["Enums"]
+      289 GETTABLEKS                       R16 R16 K54 ["DividerOrientation"]
+      291 GETTABLEKS                       R16 R16 K55 ["Vertical"]
+      293 SETTABLEKS                       R16 R15 K52 ["orientation"]
+      295 CALL                             R13 2 1
+      296 SETTABLEKS                       R13 R12 K18 ["Divider"]
+      298 GETUPVAL                         R13 8
+      299 GETTABLEKS                       R13 R13 K7 ["createElement"]
+      301 GETUPVAL                         R14 15
+      302 DUPTABLE                         R15 K51 [{"LayoutOrder"}]
+      303 NAMECALL                         R16 R1 K28 ["getNextOrder"]
+      305 CALL                             R16 1 1
+      306 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
+      308 CALL                             R13 2 1
+      309 SETTABLEKS                       R13 R12 K19 ["BulkImportButton"]
+      311 CALL                             R9 3 -1
+      312 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -249,56 +254,67 @@ MAIN:
        51 CALL                             R7 1 1
        52 GETIMPORT                        R8 K5 [require]
        54 GETIMPORT                        R9 K1 [script]
-       56 GETTABLEKS                       R9 R9 K18 ["SortOptions"]
+       56 GETTABLEKS                       R9 R9 K18 ["SearchableFilterTypesDropdown"]
        58 CALL                             R8 1 1
        59 GETIMPORT                        R9 K5 [require]
        61 GETIMPORT                        R10 K1 [script]
-       63 GETTABLEKS                       R10 R10 K19 ["ViewOptions"]
+       63 GETTABLEKS                       R10 R10 K19 ["SortOptions"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K5 [require]
-       68 GETTABLEKS                       R11 R0 K12 ["Src"]
-       70 GETTABLEKS                       R11 R11 K20 ["Controllers"]
-       72 GETTABLEKS                       R11 R11 K21 ["ItemsController"]
-       74 CALL                             R10 1 1
-       75 GETIMPORT                        R11 K5 [require]
-       77 GETTABLEKS                       R12 R0 K12 ["Src"]
-       79 GETTABLEKS                       R12 R12 K22 ["Hooks"]
-       81 GETTABLEKS                       R12 R12 K23 ["useIxpValue"]
-       83 CALL                             R11 1 1
-       84 GETIMPORT                        R12 K5 [require]
-       86 GETTABLEKS                       R13 R0 K12 ["Src"]
-       88 GETTABLEKS                       R13 R13 K22 ["Hooks"]
-       90 GETTABLEKS                       R13 R13 K24 ["useLayoutInfo"]
-       92 CALL                             R12 1 1
-       93 GETIMPORT                        R13 K5 [require]
-       95 GETTABLEKS                       R14 R0 K12 ["Src"]
-       97 GETTABLEKS                       R14 R14 K22 ["Hooks"]
-       99 GETTABLEKS                       R14 R14 K25 ["useSearchInfo"]
-      101 CALL                             R13 1 1
-      102 GETIMPORT                        R14 K5 [require]
-      104 GETTABLEKS                       R15 R0 K12 ["Src"]
-      106 GETTABLEKS                       R15 R15 K22 ["Hooks"]
-      108 GETTABLEKS                       R15 R15 K26 ["useCurrentScope"]
-      110 CALL                             R14 1 1
-      111 GETIMPORT                        R15 K5 [require]
-      113 GETTABLEKS                       R16 R0 K12 ["Src"]
-      115 GETTABLEKS                       R16 R16 K27 ["Types"]
+       68 GETIMPORT                        R11 K1 [script]
+       70 GETTABLEKS                       R11 R11 K20 ["ViewOptions"]
+       72 CALL                             R10 1 1
+       73 GETIMPORT                        R11 K5 [require]
+       75 GETTABLEKS                       R12 R0 K12 ["Src"]
+       77 GETTABLEKS                       R12 R12 K21 ["Controllers"]
+       79 GETTABLEKS                       R12 R12 K22 ["ItemsController"]
+       81 CALL                             R11 1 1
+       82 GETIMPORT                        R12 K5 [require]
+       84 GETTABLEKS                       R13 R0 K12 ["Src"]
+       86 GETTABLEKS                       R13 R13 K23 ["Flags"]
+       88 GETTABLEKS                       R13 R13 K24 ["getFFlagAmrEnableSearchableMenu"]
+       90 CALL                             R12 1 1
+       91 GETIMPORT                        R13 K5 [require]
+       93 GETTABLEKS                       R14 R0 K12 ["Src"]
+       95 GETTABLEKS                       R14 R14 K25 ["Hooks"]
+       97 GETTABLEKS                       R14 R14 K26 ["useIxpValue"]
+       99 CALL                             R13 1 1
+      100 GETIMPORT                        R14 K5 [require]
+      102 GETTABLEKS                       R15 R0 K12 ["Src"]
+      104 GETTABLEKS                       R15 R15 K25 ["Hooks"]
+      106 GETTABLEKS                       R15 R15 K27 ["useLayoutInfo"]
+      108 CALL                             R14 1 1
+      109 GETIMPORT                        R15 K5 [require]
+      111 GETTABLEKS                       R16 R0 K12 ["Src"]
+      113 GETTABLEKS                       R16 R16 K25 ["Hooks"]
+      115 GETTABLEKS                       R16 R16 K28 ["useSearchInfo"]
       117 CALL                             R15 1 1
-      118 GETTABLEKS                       R16 R3 K28 ["Util"]
-      120 GETTABLEKS                       R16 R16 K29 ["LayoutOrderIterator"]
-      122 DUPCLOSURE                       R17 K30 [PROTO_2]
-      123 CAPTURE                          VAL R16
-      124 CAPTURE                          VAL R5
-      125 CAPTURE                          VAL R10
-      126 CAPTURE                          VAL R14
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R11
-      130 CAPTURE                          VAL R15
-      131 CAPTURE                          VAL R1
-      132 CAPTURE                          VAL R2
-      133 CAPTURE                          VAL R8
-      134 CAPTURE                          VAL R7
-      135 CAPTURE                          VAL R9
-      136 CAPTURE                          VAL R6
-      137 RETURN                           R17 1
+      118 GETIMPORT                        R16 K5 [require]
+      120 GETTABLEKS                       R17 R0 K12 ["Src"]
+      122 GETTABLEKS                       R17 R17 K25 ["Hooks"]
+      124 GETTABLEKS                       R17 R17 K29 ["useCurrentScope"]
+      126 CALL                             R16 1 1
+      127 GETIMPORT                        R17 K5 [require]
+      129 GETTABLEKS                       R18 R0 K12 ["Src"]
+      131 GETTABLEKS                       R18 R18 K30 ["Types"]
+      133 CALL                             R17 1 1
+      134 GETTABLEKS                       R18 R3 K31 ["Util"]
+      136 GETTABLEKS                       R18 R18 K32 ["LayoutOrderIterator"]
+      138 DUPCLOSURE                       R19 K33 [PROTO_2]
+      139 CAPTURE                          VAL R18
+      140 CAPTURE                          VAL R5
+      141 CAPTURE                          VAL R11
+      142 CAPTURE                          VAL R16
+      143 CAPTURE                          VAL R14
+      144 CAPTURE                          VAL R15
+      145 CAPTURE                          VAL R13
+      146 CAPTURE                          VAL R17
+      147 CAPTURE                          VAL R1
+      148 CAPTURE                          VAL R2
+      149 CAPTURE                          VAL R9
+      150 CAPTURE                          VAL R12
+      151 CAPTURE                          VAL R8
+      152 CAPTURE                          VAL R7
+      153 CAPTURE                          VAL R10
+      154 CAPTURE                          VAL R6
+      155 RETURN                           R19 1

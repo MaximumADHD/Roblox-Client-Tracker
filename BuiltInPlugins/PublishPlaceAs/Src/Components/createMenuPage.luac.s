@@ -167,65 +167,35 @@ PROTO_7:
         9 RETURN                           R3 -1
 
 PROTO_8:
-        0 NAMECALL                         R2 R0 K0 ["getState"]
-        2 CALL                             R2 1 1
-        3 GETTABLEKS                       R2 R2 K1 ["NewGameSettings"]
-        5 GETTABLEKS                       R2 R2 K2 ["changed"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLE                         R1 R2 R3
-        9 GETUPVAL                         R2 1
-       10 JUMPIFEQ                         R1 R2 ; [+9]
-       12 GETUPVAL                         R3 2
-       13 GETUPVAL                         R4 0
-       14 GETUPVAL                         R5 1
-       15 CALL                             R3 2 -1
-       16 NAMECALL                         R1 R0 K3 ["dispatch"]
-       18 CALL                             R1 -1 -1
-       19 RETURN                           R1 -1
-       20 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 MOVE                             R4 R0
+        4 CALL                             R2 2 -1
+        5 CALL                             R1 -1 0
+        6 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+7]
-        3 GETUPVAL                         R1 1
-        4 NEWCLOSURE                       R2 P0
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          VAL R0
-        7 CAPTURE                          UPVAL U3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
-       10 GETUPVAL                         R1 1
-       11 GETUPVAL                         R2 3
-       12 GETUPVAL                         R3 2
-       13 MOVE                             R4 R0
-       14 CALL                             R2 2 -1
-       15 CALL                             R1 -1 0
-       16 RETURN                           R0 0
-
-PROTO_10:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          VAL R0
-        4 CAPTURE                          UPVAL U2
-        5 RETURN                           R1 1
+        4 RETURN                           R1 1
 
-PROTO_11:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 NEWCLOSURE                       R1 P0
-        4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          VAL R0
-        6 CAPTURE                          UPVAL U2
-        7 GETUPVAL                         R2 0
-        8 MOVE                             R3 R1
-        9 MOVE                             R4 R0
-       10 CALL                             R2 2 -1
-       11 RETURN                           R2 -1
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U1
+        6 GETUPVAL                         R2 0
+        7 MOVE                             R3 R1
+        8 MOVE                             R4 R0
+        9 CALL                             R2 2 -1
+       10 RETURN                           R2 -1
 
-PROTO_12:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["PureComponent"]
         3 LOADK                            R4 K1 ["Page"]
@@ -264,15 +234,14 @@ PROTO_12:
        48 NEWCLOSURE                       R4 P4
        49 CAPTURE                          VAL R1
        50 CAPTURE                          UPVAL U5
-       51 CAPTURE                          UPVAL U6
-       52 GETUPVAL                         R5 7
-       53 GETTABLEKS                       R5 R5 K14 ["connect"]
-       55 MOVE                             R6 R3
-       56 MOVE                             R7 R4
-       57 CALL                             R5 2 1
-       58 MOVE                             R6 R2
-       59 CALL                             R5 1 -1
-       60 RETURN                           R5 -1
+       51 GETUPVAL                         R5 6
+       52 GETTABLEKS                       R5 R5 K14 ["connect"]
+       54 MOVE                             R6 R3
+       55 MOVE                             R7 R4
+       56 CALL                             R5 2 1
+       57 MOVE                             R6 R2
+       58 CALL                             R5 1 -1
+       59 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -293,30 +262,24 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K8 ["Cryo"]
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R5 R0 K9 ["Src"]
-       34 GETTABLEKS                       R5 R5 K10 ["Flags"]
-       36 GETTABLEKS                       R5 R5 K11 ["getFFlagPublishPlaceFixRenderThrash"]
-       38 CALL                             R4 1 1
-       39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R6 R0 K5 ["Packages"]
-       43 GETTABLEKS                       R6 R6 K12 ["Framework"]
-       45 CALL                             R5 1 1
-       46 GETTABLEKS                       R6 R5 K13 ["ContextServices"]
-       48 GETTABLEKS                       R7 R6 K14 ["withContext"]
-       50 GETTABLEKS                       R8 R5 K15 ["Util"]
-       52 GETTABLEKS                       R9 R8 K16 ["StyleModifier"]
-       54 GETIMPORT                        R10 K4 [require]
-       56 GETTABLEKS                       R11 R0 K9 ["Src"]
-       58 GETTABLEKS                       R11 R11 K17 ["Actions"]
-       60 GETTABLEKS                       R11 R11 K18 ["AddChange"]
-       62 CALL                             R10 1 1
-       63 DUPCLOSURE                       R11 K19 [PROTO_12]
-       64 CAPTURE                          VAL R1
-       65 CAPTURE                          VAL R9
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R7
-       68 CAPTURE                          VAL R6
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R10
-       71 CAPTURE                          VAL R2
-       72 RETURN                           R11 1
+       32 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K9 ["Framework"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R5 R4 K10 ["ContextServices"]
+       39 GETTABLEKS                       R6 R5 K11 ["withContext"]
+       41 GETTABLEKS                       R7 R4 K12 ["Util"]
+       43 GETTABLEKS                       R8 R7 K13 ["StyleModifier"]
+       45 GETIMPORT                        R9 K4 [require]
+       47 GETTABLEKS                       R10 R0 K14 ["Src"]
+       49 GETTABLEKS                       R10 R10 K15 ["Actions"]
+       51 GETTABLEKS                       R10 R10 K16 ["AddChange"]
+       53 CALL                             R9 1 1
+       54 DUPCLOSURE                       R10 K17 [PROTO_11]
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R8
+       57 CAPTURE                          VAL R3
+       58 CAPTURE                          VAL R6
+       59 CAPTURE                          VAL R5
+       60 CAPTURE                          VAL R9
+       61 CAPTURE                          VAL R2
+       62 RETURN                           R10 1

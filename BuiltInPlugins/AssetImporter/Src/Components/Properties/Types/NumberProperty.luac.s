@@ -139,51 +139,6 @@ PROTO_5:
        97 CALL                             R4 2 -1
        98 RETURN                           R4 -1
 
-PROTO_6:
-        0 GETTABLEKS                       R2 R0 K0 ["Value"]
-        2 FASTCALL1                        TOSTRING R2 ; [+2]
-        3 GETIMPORT                        R1 K2 [tostring]
-        5 CALL                             R1 1 1
-        6 GETTABLEKS                       R2 R0 K3 ["Editable"]
-        8 JUMPIFEQKNIL                     R2 ; [+44]
-       10 GETTABLEKS                       R2 R0 K3 ["Editable"]
-       12 JUMPIF                           R2 ; [+40]
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R2 R2 K4 ["createElement"]
-       16 GETUPVAL                         R3 1
-       17 DUPTABLE                         R4 K10 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment"}]
-       18 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
-       20 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       22 GETIMPORT                        R5 K13 [UDim2.new]
-       24 LOADN                            R6 0
-       25 LOADN                            R7 0
-       26 GETTABLEKS                       R8 R0 K6 ["Size"]
-       28 GETTABLEKS                       R8 R8 K14 ["Y"]
-       30 GETTABLEKS                       R8 R8 K15 ["Scale"]
-       32 GETTABLEKS                       R9 R0 K6 ["Size"]
-       34 GETTABLEKS                       R9 R9 K14 ["Y"]
-       36 GETTABLEKS                       R9 R9 K16 ["Offset"]
-       38 CALL                             R5 4 1
-       39 SETTABLEKS                       R5 R4 K6 ["Size"]
-       41 GETIMPORT                        R5 K19 [Enum.AutomaticSize.X]
-       43 SETTABLEKS                       R5 R4 K7 ["AutomaticSize"]
-       45 SETTABLEKS                       R1 R4 K8 ["Text"]
-       47 GETIMPORT                        R5 K21 [Enum.TextXAlignment.Left]
-       49 SETTABLEKS                       R5 R4 K9 ["TextXAlignment"]
-       51 CALL                             R2 2 -1
-       52 RETURN                           R2 -1
-       53 GETUPVAL                         R2 0
-       54 GETTABLEKS                       R2 R2 K4 ["createElement"]
-       56 GETUPVAL                         R3 2
-       57 DUPTABLE                         R4 K24 [{["Disabled"] = True, ["LayoutOrder"], ["Size"], ["Text"]}]
-       58 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
-       60 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       62 GETTABLEKS                       R5 R0 K6 ["Size"]
-       64 SETTABLEKS                       R5 R4 K6 ["Size"]
-       66 SETTABLEKS                       R1 R4 K8 ["Text"]
-       68 CALL                             R2 2 -1
-       69 RETURN                           R2 -1
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -202,28 +157,15 @@ MAIN:
        23 GETTABLEKS                       R4 R0 K6 ["Packages"]
        25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
-       28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K10 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["Flags"]
-       34 GETTABLEKS                       R5 R5 K12 ["getDFFlagMeshImporterEnableCustomScaleFactor"]
-       36 CALL                             R4 1 1
-       37 GETTABLEKS                       R5 R1 K13 ["UI"]
-       39 GETTABLEKS                       R6 R5 K14 ["TextInput"]
-       41 GETTABLEKS                       R7 R5 K15 ["TextLabel"]
-       43 MOVE                             R8 R4
-       44 CALL                             R8 0 1
-       45 JUMPIFNOT                        R8 ; [+9]
-       46 DUPCLOSURE                       R8 K16 [PROTO_0]
-       47 DUPCLOSURE                       R9 K17 [PROTO_1]
-       48 DUPCLOSURE                       R10 K18 [PROTO_5]
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R9
-       51 CAPTURE                          VAL R2
-       52 CAPTURE                          VAL R7
-       53 CAPTURE                          VAL R6
-       54 RETURN                           R10 1
-       55 DUPCLOSURE                       R8 K19 [PROTO_6]
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R7
-       58 CAPTURE                          VAL R6
-       59 RETURN                           R8 1
+       28 GETTABLEKS                       R4 R1 K10 ["UI"]
+       30 GETTABLEKS                       R5 R4 K11 ["TextInput"]
+       32 GETTABLEKS                       R6 R4 K12 ["TextLabel"]
+       34 DUPCLOSURE                       R7 K13 [PROTO_0]
+       35 DUPCLOSURE                       R8 K14 [PROTO_1]
+       36 DUPCLOSURE                       R9 K15 [PROTO_5]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R8
+       39 CAPTURE                          VAL R2
+       40 CAPTURE                          VAL R6
+       41 CAPTURE                          VAL R5
+       42 RETURN                           R9 1

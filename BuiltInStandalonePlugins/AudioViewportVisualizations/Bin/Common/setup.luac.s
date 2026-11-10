@@ -81,77 +81,89 @@ PROTO_5:
         6 RETURN                           R3 -1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["Name"]
-        3 SETTABLEKS                       R1 R0 K0 ["Name"]
-        5 NEWTABLE                         R1 0 2
-        7 DUPTABLE                         R2 K14 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"] = "AudioDeviceOutput", ["enabled"] = True, ["visible"] = True, ["visibleOnRibbon"] = False, ["checkable"] = True, ["checked"]}]
-        8 DUPTABLE                         R3 K23 [{["DataModel"] = "Standalone", ["PluginId"] = "AudioViewportVisualizations", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
-        9 SETTABLEKS                       R3 R2 K1 ["uri"]
-       11 DUPCLOSURE                       R3 K24 [PROTO_2]
-       12 SETTABLEKS                       R3 R2 K4 ["getText"]
-       14 DUPCLOSURE                       R3 K25 [PROTO_3]
-       15 SETTABLEKS                       R3 R2 K5 ["getTooltip"]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R3 R3 K16 ["Standalone"]
-       20 GETTABLEKS                       R3 R3 K26 ["isShowSourcesEnabled"]
-       22 CALL                             R3 0 1
-       23 SETTABLEKS                       R3 R2 K13 ["checked"]
-       25 DUPTABLE                         R3 K14 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"] = "AudioDeviceOutput", ["enabled"] = True, ["visible"] = True, ["visibleOnRibbon"] = False, ["checkable"] = True, ["checked"]}]
-       26 DUPTABLE                         R4 K28 [{["DataModel"] = "Standalone", ["PluginId"] = "AudioViewportVisualizations", ["Category"] = "Actions", ["ItemId"] = "ToggleShowInactiveSources"}]
-       27 SETTABLEKS                       R4 R3 K1 ["uri"]
-       29 DUPCLOSURE                       R4 K29 [PROTO_4]
-       30 SETTABLEKS                       R4 R3 K4 ["getText"]
-       32 DUPCLOSURE                       R4 K30 [PROTO_5]
-       33 SETTABLEKS                       R4 R3 K5 ["getTooltip"]
-       35 GETUPVAL                         R4 1
-       36 GETTABLEKS                       R4 R4 K16 ["Standalone"]
-       38 GETTABLEKS                       R4 R4 K31 ["isShowInactiveEnabled"]
-       40 CALL                             R4 0 1
-       41 SETTABLEKS                       R4 R3 K13 ["checked"]
-       43 SETLIST                          R1 R2 2 [1]
-       45 DUPTABLE                         R2 K38 [{["plugin"], ["pluginName"] = "AudioViewportVisualizations", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True, ["actionInfos"]}]
-       46 SETTABLEKS                       R0 R2 K32 ["plugin"]
-       48 GETUPVAL                         R3 2
-       49 SETTABLEKS                       R3 R2 K34 ["translationResourceTable"]
-       51 GETUPVAL                         R3 3
-       52 SETTABLEKS                       R3 R2 K35 ["fallbackResourceTable"]
-       54 SETTABLEKS                       R1 R2 K37 ["actionInfos"]
-       56 GETIMPORT                        R3 K40 [game]
-       58 LOADK                            R5 K41 ["RunService"]
-       59 NAMECALL                         R3 R3 K42 ["GetService"]
-       61 CALL                             R3 2 1
-       62 GETUPVAL                         R5 4
-       63 GETTABLEKS                       R5 R5 K43 ["get"]
-       65 CALL                             R5 0 1
-       66 GETUPVAL                         R6 4
-       67 GETTABLEKS                       R6 R6 K16 ["Standalone"]
-       69 JUMPIFEQ                         R5 R6 ; [+2]
-       71 LOADB                            R4 0 +1
-       72 LOADB                            R4 1
-       73 NAMECALL                         R5 R3 K44 ["IsEdit"]
-       75 CALL                             R5 1 1
-       76 JUMPIF                           R4 ; [+1]
-       77 JUMPIFNOT                        R5 ; [+17]
-       78 GETUPVAL                         R6 5
-       79 GETTABLEKS                       R6 R6 K45 ["build"]
-       81 MOVE                             R7 R2
-       82 CALL                             R6 1 1
-       83 GETTABLEKS                       R7 R6 K46 ["pluginLoader"]
-       85 NAMECALL                         R7 R7 K47 ["waitForUserInteraction"]
-       87 CALL                             R7 1 1
-       88 JUMPIF                           R7 ; [+1]
-       89 RETURN                           R0 0
-       90 GETUPVAL                         R8 6
-       91 MOVE                             R9 R0
-       92 MOVE                             R10 R6
-       93 CALL                             R8 2 0
-       94 RETURN                           R0 0
-       95 GETUPVAL                         R6 5
-       96 GETTABLEKS                       R6 R6 K45 ["build"]
-       98 MOVE                             R7 R2
-       99 CALL                             R6 1 0
-      100 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["Name"]
+        3 SETTABLEKS                       R2 R0 K0 ["Name"]
+        5 NEWTABLE                         R2 0 2
+        7 DUPTABLE                         R3 K14 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"] = "AudioDeviceOutput", ["enabled"] = True, ["visible"] = True, ["visibleOnRibbon"] = False, ["checkable"] = True, ["checked"]}]
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R4 R4 K15 ["TOGGLE_ACTION_URI"]
+       11 SETTABLEKS                       R4 R3 K1 ["uri"]
+       13 DUPCLOSURE                       R4 K16 [PROTO_2]
+       14 SETTABLEKS                       R4 R3 K4 ["getText"]
+       16 DUPCLOSURE                       R4 K17 [PROTO_3]
+       17 SETTABLEKS                       R4 R3 K5 ["getTooltip"]
+       19 GETUPVAL                         R4 2
+       20 GETTABLEKS                       R4 R4 K18 ["Standalone"]
+       22 GETTABLEKS                       R4 R4 K19 ["isShowSourcesEnabled"]
+       24 CALL                             R4 0 1
+       25 SETTABLEKS                       R4 R3 K13 ["checked"]
+       27 DUPTABLE                         R4 K14 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"] = "AudioDeviceOutput", ["enabled"] = True, ["visible"] = True, ["visibleOnRibbon"] = False, ["checkable"] = True, ["checked"]}]
+       28 GETUPVAL                         R5 1
+       29 GETTABLEKS                       R5 R5 K20 ["SHOW_INACTIVE_ACTION_URI"]
+       31 SETTABLEKS                       R5 R4 K1 ["uri"]
+       33 DUPCLOSURE                       R5 K21 [PROTO_4]
+       34 SETTABLEKS                       R5 R4 K4 ["getText"]
+       36 DUPCLOSURE                       R5 K22 [PROTO_5]
+       37 SETTABLEKS                       R5 R4 K5 ["getTooltip"]
+       39 GETUPVAL                         R5 2
+       40 GETTABLEKS                       R5 R5 K18 ["Standalone"]
+       42 GETTABLEKS                       R5 R5 K23 ["isShowInactiveEnabled"]
+       44 CALL                             R5 0 1
+       45 SETTABLEKS                       R5 R4 K13 ["checked"]
+       47 SETLIST                          R2 R3 2 [1]
+       49 DUPTABLE                         R3 K31 [{["plugin"], ["pluginName"] = "AudioViewportVisualizations", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True, ["actionInfos"]}]
+       50 SETTABLEKS                       R0 R3 K24 ["plugin"]
+       52 GETUPVAL                         R4 3
+       53 SETTABLEKS                       R4 R3 K27 ["translationResourceTable"]
+       55 GETUPVAL                         R4 4
+       56 SETTABLEKS                       R4 R3 K28 ["fallbackResourceTable"]
+       58 SETTABLEKS                       R2 R3 K30 ["actionInfos"]
+       60 GETIMPORT                        R4 K33 [game]
+       62 LOADK                            R6 K34 ["RunService"]
+       63 NAMECALL                         R4 R4 K35 ["GetService"]
+       65 CALL                             R4 2 1
+       66 GETUPVAL                         R6 5
+       67 GETTABLEKS                       R6 R6 K36 ["get"]
+       69 CALL                             R6 0 1
+       70 GETUPVAL                         R7 5
+       71 GETTABLEKS                       R7 R7 K18 ["Standalone"]
+       73 JUMPIFEQ                         R6 R7 ; [+2]
+       75 LOADB                            R5 0 +1
+       76 LOADB                            R5 1
+       77 NAMECALL                         R6 R4 K37 ["IsEdit"]
+       79 CALL                             R6 1 1
+       80 JUMPIFNOT                        R1 ; [+3]
+       81 GETTABLEKS                       R7 R1 K38 ["onActionsCreated"]
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R7
+       85 JUMPIF                           R5 ; [+1]
+       86 JUMPIFNOT                        R6 ; [+20]
+       87 GETUPVAL                         R8 6
+       88 GETTABLEKS                       R8 R8 K39 ["build"]
+       90 MOVE                             R9 R3
+       91 CALL                             R8 1 1
+       92 JUMPIFNOT                        R7 ; [+2]
+       93 MOVE                             R9 R7
+       94 CALL                             R9 0 0
+       95 GETTABLEKS                       R9 R8 K40 ["pluginLoader"]
+       97 NAMECALL                         R9 R9 K41 ["waitForUserInteraction"]
+       99 CALL                             R9 1 1
+      100 JUMPIF                           R9 ; [+1]
+      101 RETURN                           R0 0
+      102 GETUPVAL                         R10 7
+      103 MOVE                             R11 R0
+      104 MOVE                             R12 R8
+      105 CALL                             R10 2 0
+      106 RETURN                           R0 0
+      107 GETUPVAL                         R8 6
+      108 GETTABLEKS                       R8 R8 K39 ["build"]
+      110 MOVE                             R9 R3
+      111 CALL                             R8 1 0
+      112 JUMPIFNOT                        R7 ; [+2]
+      113 MOVE                             R8 R7
+      114 CALL                             R8 0 0
+      115 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -182,14 +194,20 @@ MAIN:
        45 GETTABLEKS                       R7 R7 K17 ["Util"]
        47 GETTABLEKS                       R7 R7 K18 ["DMCoordinator"]
        49 CALL                             R6 1 1
-       50 DUPCLOSURE                       R7 K19 [PROTO_1]
-       51 CAPTURE                          VAL R0
-       52 DUPCLOSURE                       R8 K20 [PROTO_6]
-       53 CAPTURE                          VAL R0
-       54 CAPTURE                          VAL R6
-       55 CAPTURE                          VAL R4
-       56 CAPTURE                          VAL R3
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R2
-       59 CAPTURE                          VAL R7
-       60 RETURN                           R8 1
+       50 GETIMPORT                        R7 K5 [require]
+       52 GETTABLEKS                       R8 R0 K9 ["Src"]
+       54 GETTABLEKS                       R8 R8 K10 ["Resources"]
+       56 GETTABLEKS                       R8 R8 K19 ["ActionUris"]
+       58 CALL                             R7 1 1
+       59 DUPCLOSURE                       R8 K20 [PROTO_1]
+       60 CAPTURE                          VAL R0
+       61 DUPCLOSURE                       R9 K21 [PROTO_6]
+       62 CAPTURE                          VAL R0
+       63 CAPTURE                          VAL R7
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R5
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          VAL R8
+       70 RETURN                           R9 1

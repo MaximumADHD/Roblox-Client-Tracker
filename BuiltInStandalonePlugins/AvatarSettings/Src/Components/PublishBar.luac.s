@@ -70,150 +70,153 @@ PROTO_3:
        47 GETUPVAL                         R9 8
        48 GETTABLEKS                       R10 R7 K7 ["currentGameId"]
        50 GETTABLEKS                       R11 R6 K9 ["canPublish"]
-       52 CALL                             R9 2 1
-       53 GETUPVAL                         R10 9
-       54 GETUPVAL                         R11 10
-       55 NEWTABLE                         R12 4 0
-       57 GETUPVAL                         R13 4
-       58 GETTABLEKS                       R13 R13 K10 ["Tag"]
-       60 LOADK                            R14 K11 ["PublishBar X-Row X-Middle X-Right"]
-       61 SETTABLE                         R14 R12 R13
-       62 GETIMPORT                        R13 K14 [UDim2.new]
-       64 LOADN                            R14 1
-       65 LOADN                            R15 0
-       66 LOADN                            R16 0
-       67 GETUPVAL                         R17 11
-       68 GETTABLEKS                       R17 R17 K15 ["MENU_BAR_HEIGHT"]
-       70 CALL                             R13 4 1
-       71 SETTABLEKS                       R13 R12 K16 ["Size"]
-       73 GETTABLEKS                       R13 R0 K17 ["layoutOrder"]
-       75 SETTABLEKS                       R13 R12 K18 ["LayoutOrder"]
-       77 DUPTABLE                         R13 K22 [{"CreatePlaceSettingsButton", "RevertChangesButton", "SaveChangesButton"}]
-       78 GETUPVAL                         R14 12
-       79 CALL                             R14 0 1
-       80 JUMPIFNOT                        R14 ; [+52]
-       81 GETUPVAL                         R14 9
-       82 GETUPVAL                         R15 13
-       83 NEWTABLE                         R16 8 0
-       85 GETUPVAL                         R17 4
-       86 GETTABLEKS                       R17 R17 K10 ["Tag"]
-       88 LOADK                            R18 K23 ["Compact"]
-       89 SETTABLE                         R18 R16 R17
-       90 GETIMPORT                        R17 K25 [UDim2.fromOffset]
-       92 LOADN                            R18 0
-       93 GETUPVAL                         R19 11
-       94 GETTABLEKS                       R19 R19 K26 ["STANDARD_HEIGHT"]
-       96 CALL                             R17 2 1
-       97 SETTABLEKS                       R17 R16 K16 ["Size"]
-       99 GETIMPORT                        R17 K30 [Enum.AutomaticSize.X]
-      101 SETTABLEKS                       R17 R16 K28 ["AutomaticSize"]
-      103 LOADK                            R19 K31 ["Publish"]
-      104 LOADK                            R20 K32 ["CreatePlaceSettings"]
-      105 NAMECALL                         R17 R1 K33 ["getText"]
-      107 CALL                             R17 3 1
-      108 SETTABLEKS                       R17 R16 K34 ["Text"]
-      110 LOADK                            R19 K31 ["Publish"]
-      111 MOVE                             R20 R8
-      112 NAMECALL                         R17 R1 K33 ["getText"]
-      114 CALL                             R17 3 1
-      115 SETTABLEKS                       R17 R16 K35 ["TooltipText"]
-      117 MOVE                             R17 R3
-      118 CALL                             R17 0 1
-      119 SETTABLEKS                       R17 R16 K18 ["LayoutOrder"]
-      121 GETTABLEKS                       R18 R6 K8 ["canCreatePlaceSettings"]
-      123 NOT                              R17 R18
-      124 SETTABLEKS                       R17 R16 K36 ["Disabled"]
-      126 NEWCLOSURE                       R17 P0
-      127 CAPTURE                          VAL R2
-      128 CAPTURE                          VAL R4
-      129 CAPTURE                          UPVAL U14
-      130 SETTABLEKS                       R17 R16 K37 ["OnClick"]
-      132 CALL                             R14 2 1
-      133 SETTABLEKS                       R14 R13 K19 ["CreatePlaceSettingsButton"]
-      135 GETUPVAL                         R14 9
-      136 GETUPVAL                         R15 13
-      137 NEWTABLE                         R16 8 0
-      139 GETUPVAL                         R17 4
-      140 GETTABLEKS                       R17 R17 K10 ["Tag"]
-      142 LOADK                            R18 K23 ["Compact"]
-      143 SETTABLE                         R18 R16 R17
-      144 GETIMPORT                        R17 K25 [UDim2.fromOffset]
-      146 LOADN                            R18 0
-      147 GETUPVAL                         R19 11
-      148 GETTABLEKS                       R19 R19 K26 ["STANDARD_HEIGHT"]
-      150 CALL                             R17 2 1
-      151 SETTABLEKS                       R17 R16 K16 ["Size"]
-      153 GETIMPORT                        R17 K30 [Enum.AutomaticSize.X]
-      155 SETTABLEKS                       R17 R16 K28 ["AutomaticSize"]
-      157 LOADK                            R19 K31 ["Publish"]
-      158 LOADK                            R20 K38 ["RevertChanges"]
-      159 NAMECALL                         R17 R1 K33 ["getText"]
-      161 CALL                             R17 3 1
-      162 SETTABLEKS                       R17 R16 K34 ["Text"]
-      164 GETTABLEKS                       R18 R9 K39 ["revert"]
-      166 JUMPIFNOT                        R18 ; [+7]
-      167 LOADK                            R19 K31 ["Publish"]
-      168 GETTABLEKS                       R20 R9 K39 ["revert"]
-      170 NAMECALL                         R17 R1 K33 ["getText"]
-      172 CALL                             R17 3 1
-      173 JUMP                             ; [+1]
-      174 LOADNIL                          R17
-      175 SETTABLEKS                       R17 R16 K35 ["TooltipText"]
-      177 MOVE                             R17 R3
-      178 CALL                             R17 0 1
-      179 SETTABLEKS                       R17 R16 K18 ["LayoutOrder"]
-      181 GETTABLEKS                       R18 R6 K9 ["canPublish"]
-      183 NOT                              R17 R18
-      184 SETTABLEKS                       R17 R16 K36 ["Disabled"]
-      186 NEWCLOSURE                       R17 P1
-      187 CAPTURE                          VAL R2
-      188 CAPTURE                          VAL R6
-      189 SETTABLEKS                       R17 R16 K37 ["OnClick"]
-      191 CALL                             R14 2 1
-      192 SETTABLEKS                       R14 R13 K20 ["RevertChangesButton"]
-      194 GETUPVAL                         R14 9
-      195 GETUPVAL                         R15 13
-      196 NEWTABLE                         R16 8 0
-      198 GETUPVAL                         R17 4
-      199 GETTABLEKS                       R17 R17 K10 ["Tag"]
-      201 LOADK                            R18 K40 ["PrimaryBrand Compact"]
-      202 SETTABLE                         R18 R16 R17
-      203 GETIMPORT                        R17 K25 [UDim2.fromOffset]
-      205 LOADN                            R18 0
-      206 GETUPVAL                         R19 11
-      207 GETTABLEKS                       R19 R19 K26 ["STANDARD_HEIGHT"]
-      209 CALL                             R17 2 1
-      210 SETTABLEKS                       R17 R16 K16 ["Size"]
-      212 GETIMPORT                        R17 K30 [Enum.AutomaticSize.X]
-      214 SETTABLEKS                       R17 R16 K28 ["AutomaticSize"]
-      216 LOADK                            R19 K31 ["Publish"]
-      217 LOADK                            R20 K41 ["SaveChanges"]
-      218 NAMECALL                         R17 R1 K33 ["getText"]
-      220 CALL                             R17 3 1
-      221 SETTABLEKS                       R17 R16 K34 ["Text"]
-      223 GETTABLEKS                       R18 R9 K42 ["save"]
-      225 JUMPIFNOT                        R18 ; [+7]
-      226 LOADK                            R19 K31 ["Publish"]
-      227 GETTABLEKS                       R20 R9 K42 ["save"]
-      229 NAMECALL                         R17 R1 K33 ["getText"]
-      231 CALL                             R17 3 1
-      232 JUMP                             ; [+1]
-      233 LOADNIL                          R17
-      234 SETTABLEKS                       R17 R16 K35 ["TooltipText"]
-      236 MOVE                             R17 R3
-      237 CALL                             R17 0 1
-      238 SETTABLEKS                       R17 R16 K18 ["LayoutOrder"]
-      240 GETTABLEKS                       R18 R6 K9 ["canPublish"]
-      242 NOT                              R17 R18
-      243 SETTABLEKS                       R17 R16 K36 ["Disabled"]
-      245 NEWCLOSURE                       R17 P2
-      246 CAPTURE                          VAL R2
-      247 CAPTURE                          VAL R6
-      248 SETTABLEKS                       R17 R16 K37 ["OnClick"]
-      250 CALL                             R14 2 1
-      251 SETTABLEKS                       R14 R13 K21 ["SaveChangesButton"]
-      253 CALL                             R10 3 -1
-      254 RETURN                           R10 -1
+       52 GETTABLEKS                       R12 R6 K10 ["hasInvalidSettings"]
+       54 CALL                             R9 3 1
+       55 GETUPVAL                         R10 9
+       56 GETUPVAL                         R11 10
+       57 NEWTABLE                         R12 4 0
+       59 GETUPVAL                         R13 4
+       60 GETTABLEKS                       R13 R13 K11 ["Tag"]
+       62 LOADK                            R14 K12 ["PublishBar X-Row X-Middle X-Right"]
+       63 SETTABLE                         R14 R12 R13
+       64 GETIMPORT                        R13 K15 [UDim2.new]
+       66 LOADN                            R14 1
+       67 LOADN                            R15 0
+       68 LOADN                            R16 0
+       69 GETUPVAL                         R17 11
+       70 GETTABLEKS                       R17 R17 K16 ["MENU_BAR_HEIGHT"]
+       72 CALL                             R13 4 1
+       73 SETTABLEKS                       R13 R12 K17 ["Size"]
+       75 GETTABLEKS                       R13 R0 K18 ["layoutOrder"]
+       77 SETTABLEKS                       R13 R12 K19 ["LayoutOrder"]
+       79 DUPTABLE                         R13 K23 [{"CreatePlaceSettingsButton", "RevertChangesButton", "SaveChangesButton"}]
+       80 GETUPVAL                         R14 12
+       81 CALL                             R14 0 1
+       82 JUMPIFNOT                        R14 ; [+52]
+       83 GETUPVAL                         R14 9
+       84 GETUPVAL                         R15 13
+       85 NEWTABLE                         R16 8 0
+       87 GETUPVAL                         R17 4
+       88 GETTABLEKS                       R17 R17 K11 ["Tag"]
+       90 LOADK                            R18 K24 ["Compact"]
+       91 SETTABLE                         R18 R16 R17
+       92 GETIMPORT                        R17 K26 [UDim2.fromOffset]
+       94 LOADN                            R18 0
+       95 GETUPVAL                         R19 11
+       96 GETTABLEKS                       R19 R19 K27 ["STANDARD_HEIGHT"]
+       98 CALL                             R17 2 1
+       99 SETTABLEKS                       R17 R16 K17 ["Size"]
+      101 GETIMPORT                        R17 K31 [Enum.AutomaticSize.X]
+      103 SETTABLEKS                       R17 R16 K29 ["AutomaticSize"]
+      105 LOADK                            R19 K32 ["Publish"]
+      106 LOADK                            R20 K33 ["CreatePlaceSettings"]
+      107 NAMECALL                         R17 R1 K34 ["getText"]
+      109 CALL                             R17 3 1
+      110 SETTABLEKS                       R17 R16 K35 ["Text"]
+      112 LOADK                            R19 K32 ["Publish"]
+      113 MOVE                             R20 R8
+      114 NAMECALL                         R17 R1 K34 ["getText"]
+      116 CALL                             R17 3 1
+      117 SETTABLEKS                       R17 R16 K36 ["TooltipText"]
+      119 MOVE                             R17 R3
+      120 CALL                             R17 0 1
+      121 SETTABLEKS                       R17 R16 K19 ["LayoutOrder"]
+      123 GETTABLEKS                       R18 R6 K8 ["canCreatePlaceSettings"]
+      125 NOT                              R17 R18
+      126 SETTABLEKS                       R17 R16 K37 ["Disabled"]
+      128 NEWCLOSURE                       R17 P0
+      129 CAPTURE                          VAL R2
+      130 CAPTURE                          VAL R4
+      131 CAPTURE                          UPVAL U14
+      132 SETTABLEKS                       R17 R16 K38 ["OnClick"]
+      134 CALL                             R14 2 1
+      135 SETTABLEKS                       R14 R13 K20 ["CreatePlaceSettingsButton"]
+      137 GETUPVAL                         R14 9
+      138 GETUPVAL                         R15 13
+      139 NEWTABLE                         R16 8 0
+      141 GETUPVAL                         R17 4
+      142 GETTABLEKS                       R17 R17 K11 ["Tag"]
+      144 LOADK                            R18 K24 ["Compact"]
+      145 SETTABLE                         R18 R16 R17
+      146 GETIMPORT                        R17 K26 [UDim2.fromOffset]
+      148 LOADN                            R18 0
+      149 GETUPVAL                         R19 11
+      150 GETTABLEKS                       R19 R19 K27 ["STANDARD_HEIGHT"]
+      152 CALL                             R17 2 1
+      153 SETTABLEKS                       R17 R16 K17 ["Size"]
+      155 GETIMPORT                        R17 K31 [Enum.AutomaticSize.X]
+      157 SETTABLEKS                       R17 R16 K29 ["AutomaticSize"]
+      159 LOADK                            R19 K32 ["Publish"]
+      160 LOADK                            R20 K39 ["RevertChanges"]
+      161 NAMECALL                         R17 R1 K34 ["getText"]
+      163 CALL                             R17 3 1
+      164 SETTABLEKS                       R17 R16 K35 ["Text"]
+      166 GETTABLEKS                       R18 R9 K40 ["revert"]
+      168 JUMPIFNOT                        R18 ; [+7]
+      169 LOADK                            R19 K32 ["Publish"]
+      170 GETTABLEKS                       R20 R9 K40 ["revert"]
+      172 NAMECALL                         R17 R1 K34 ["getText"]
+      174 CALL                             R17 3 1
+      175 JUMP                             ; [+1]
+      176 LOADNIL                          R17
+      177 SETTABLEKS                       R17 R16 K36 ["TooltipText"]
+      179 MOVE                             R17 R3
+      180 CALL                             R17 0 1
+      181 SETTABLEKS                       R17 R16 K19 ["LayoutOrder"]
+      183 GETTABLEKS                       R18 R6 K9 ["canPublish"]
+      185 NOT                              R17 R18
+      186 SETTABLEKS                       R17 R16 K37 ["Disabled"]
+      188 NEWCLOSURE                       R17 P1
+      189 CAPTURE                          VAL R2
+      190 CAPTURE                          VAL R6
+      191 SETTABLEKS                       R17 R16 K38 ["OnClick"]
+      193 CALL                             R14 2 1
+      194 SETTABLEKS                       R14 R13 K21 ["RevertChangesButton"]
+      196 GETUPVAL                         R14 9
+      197 GETUPVAL                         R15 13
+      198 NEWTABLE                         R16 8 0
+      200 GETUPVAL                         R17 4
+      201 GETTABLEKS                       R17 R17 K11 ["Tag"]
+      203 LOADK                            R18 K41 ["PrimaryBrand Compact"]
+      204 SETTABLE                         R18 R16 R17
+      205 GETIMPORT                        R17 K26 [UDim2.fromOffset]
+      207 LOADN                            R18 0
+      208 GETUPVAL                         R19 11
+      209 GETTABLEKS                       R19 R19 K27 ["STANDARD_HEIGHT"]
+      211 CALL                             R17 2 1
+      212 SETTABLEKS                       R17 R16 K17 ["Size"]
+      214 GETIMPORT                        R17 K31 [Enum.AutomaticSize.X]
+      216 SETTABLEKS                       R17 R16 K29 ["AutomaticSize"]
+      218 LOADK                            R19 K32 ["Publish"]
+      219 LOADK                            R20 K42 ["SaveChanges"]
+      220 NAMECALL                         R17 R1 K34 ["getText"]
+      222 CALL                             R17 3 1
+      223 SETTABLEKS                       R17 R16 K35 ["Text"]
+      225 GETTABLEKS                       R18 R9 K43 ["save"]
+      227 JUMPIFNOT                        R18 ; [+7]
+      228 LOADK                            R19 K32 ["Publish"]
+      229 GETTABLEKS                       R20 R9 K43 ["save"]
+      231 NAMECALL                         R17 R1 K34 ["getText"]
+      233 CALL                             R17 3 1
+      234 JUMP                             ; [+1]
+      235 LOADNIL                          R17
+      236 SETTABLEKS                       R17 R16 K36 ["TooltipText"]
+      238 MOVE                             R17 R3
+      239 CALL                             R17 0 1
+      240 SETTABLEKS                       R17 R16 K19 ["LayoutOrder"]
+      242 GETTABLEKS                       R18 R6 K9 ["canPublish"]
+      244 NOT                              R17 R18
+      245 JUMPIF                           R17 ; [+2]
+      246 GETTABLEKS                       R17 R6 K10 ["hasInvalidSettings"]
+      248 SETTABLEKS                       R17 R16 K37 ["Disabled"]
+      250 NEWCLOSURE                       R17 P2
+      251 CAPTURE                          VAL R2
+      252 CAPTURE                          VAL R6
+      253 SETTABLEKS                       R17 R16 K38 ["OnClick"]
+      255 CALL                             R14 2 1
+      256 SETTABLEKS                       R14 R13 K22 ["SaveChangesButton"]
+      258 CALL                             R10 3 -1
+      259 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

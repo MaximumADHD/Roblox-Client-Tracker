@@ -40,15 +40,21 @@ PROTO_4:
         3 GETUPVAL                         R2 1
         4 CALL                             R1 1 1
         5 SETUPVAL                         R1 2
-        6 GETTABLEKS                       R4 R0 K1 ["Ids"]
-        8 GETTABLEKS                       R5 R0 K2 ["VersionNumbers"]
-       10 GETTABLEKS                       R6 R0 K3 ["Types"]
-       12 GETTABLEKS                       R7 R0 K4 ["Names"]
-       14 GETTABLEKS                       R8 R0 K5 ["IsPackage"]
-       16 GETTABLEKS                       R9 R0 K6 ["Creators"]
-       18 NAMECALL                         R2 R1 K7 ["start"]
-       20 CALL                             R2 7 0
-       21 RETURN                           R0 0
+        6 GETUPVAL                         R2 3
+        7 CALL                             R2 0 1
+        8 JUMPIFNOT                        R2 ; [+5]
+        9 GETTABLEKS                       R4 R0 K1 ["InventoryPublishStates"]
+       11 NAMECALL                         R2 R1 K2 ["setInventoryPublishStates"]
+       13 CALL                             R2 2 0
+       14 GETTABLEKS                       R4 R0 K3 ["Ids"]
+       16 GETTABLEKS                       R5 R0 K4 ["VersionNumbers"]
+       18 GETTABLEKS                       R6 R0 K5 ["Types"]
+       20 GETTABLEKS                       R7 R0 K6 ["Names"]
+       22 GETTABLEKS                       R8 R0 K7 ["IsPackage"]
+       24 GETTABLEKS                       R9 R0 K8 ["Creators"]
+       26 NAMECALL                         R2 R1 K9 ["start"]
+       28 CALL                             R2 7 0
+       29 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -166,38 +172,39 @@ PROTO_10:
        68 CAPTURE                          UPVAL U7
        69 CAPTURE                          VAL R0
        70 CAPTURE                          REF R3
-       71 NAMECALL                         R4 R0 K11 ["OnInvoke"]
-       73 CALL                             R4 3 1
-       74 SETTABLEKS                       R4 R2 K18 ["DragManagerStartConnection"]
-       76 LOADK                            R6 K19 ["StopDragInsertManager"]
-       77 NEWCLOSURE                       R7 P5
-       78 CAPTURE                          REF R3
-       79 CAPTURE                          VAL R0
-       80 NAMECALL                         R4 R0 K11 ["OnInvoke"]
-       82 CALL                             R4 3 1
-       83 SETTABLEKS                       R4 R2 K20 ["DragManagerStopConnection"]
-       85 LOADK                            R6 K21 ["OnSelectItems"]
-       86 NEWCLOSURE                       R7 P6
-       87 CAPTURE                          UPVAL U8
-       88 CAPTURE                          VAL R0
-       89 NAMECALL                         R4 R0 K11 ["OnInvoke"]
-       91 CALL                             R4 3 1
-       92 SETTABLEKS                       R4 R2 K22 ["OnSelectItemsConnection"]
-       94 LOADK                            R6 K23 ["OnOpenPlace"]
-       95 NEWCLOSURE                       R7 P7
-       96 CAPTURE                          VAL R0
-       97 NAMECALL                         R4 R0 K11 ["OnInvoke"]
-       99 CALL                             R4 3 1
-      100 SETTABLEKS                       R4 R2 K24 ["OnOpenPlaceConnection"]
-      102 LOADK                            R6 K25 ["ImportAssetVersion"]
-      103 NEWCLOSURE                       R7 P8
-      104 CAPTURE                          VAL R1
-      105 CAPTURE                          UPVAL U1
-      106 NAMECALL                         R4 R0 K11 ["OnInvoke"]
-      108 CALL                             R4 3 1
-      109 SETTABLEKS                       R4 R2 K26 ["OnImportAssetVersionConnection"]
-      111 CLOSEUPVALS                      R3
-      112 RETURN                           R2 1
+       71 CAPTURE                          UPVAL U8
+       72 NAMECALL                         R4 R0 K11 ["OnInvoke"]
+       74 CALL                             R4 3 1
+       75 SETTABLEKS                       R4 R2 K18 ["DragManagerStartConnection"]
+       77 LOADK                            R6 K19 ["StopDragInsertManager"]
+       78 NEWCLOSURE                       R7 P5
+       79 CAPTURE                          REF R3
+       80 CAPTURE                          VAL R0
+       81 NAMECALL                         R4 R0 K11 ["OnInvoke"]
+       83 CALL                             R4 3 1
+       84 SETTABLEKS                       R4 R2 K20 ["DragManagerStopConnection"]
+       86 LOADK                            R6 K21 ["OnSelectItems"]
+       87 NEWCLOSURE                       R7 P6
+       88 CAPTURE                          UPVAL U9
+       89 CAPTURE                          VAL R0
+       90 NAMECALL                         R4 R0 K11 ["OnInvoke"]
+       92 CALL                             R4 3 1
+       93 SETTABLEKS                       R4 R2 K22 ["OnSelectItemsConnection"]
+       95 LOADK                            R6 K23 ["OnOpenPlace"]
+       96 NEWCLOSURE                       R7 P7
+       97 CAPTURE                          VAL R0
+       98 NAMECALL                         R4 R0 K11 ["OnInvoke"]
+      100 CALL                             R4 3 1
+      101 SETTABLEKS                       R4 R2 K24 ["OnOpenPlaceConnection"]
+      103 LOADK                            R6 K25 ["ImportAssetVersion"]
+      104 NEWCLOSURE                       R7 P8
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          UPVAL U1
+      107 NAMECALL                         R4 R0 K11 ["OnInvoke"]
+      109 CALL                             R4 3 1
+      110 SETTABLEKS                       R4 R2 K26 ["OnImportAssetVersionConnection"]
+      112 CLOSEUPVALS                      R3
+      113 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -258,14 +265,20 @@ MAIN:
        98 GETTABLEKS                       R12 R12 K19 ["Flags"]
       100 GETTABLEKS                       R12 R12 K21 ["getFFlagAmrEnablePublishOption"]
       102 CALL                             R11 1 1
-      103 DUPCLOSURE                       R12 K22 [PROTO_10]
-      104 CAPTURE                          VAL R3
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R6
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R8
-      109 CAPTURE                          VAL R11
-      110 CAPTURE                          VAL R9
-      111 CAPTURE                          VAL R4
-      112 CAPTURE                          VAL R7
-      113 RETURN                           R12 1
+      103 GETIMPORT                        R12 K5 [require]
+      105 GETTABLEKS                       R13 R0 K11 ["Src"]
+      107 GETTABLEKS                       R13 R13 K19 ["Flags"]
+      109 GETTABLEKS                       R13 R13 K22 ["getFFlagAmrPublishInsertUsesInventoryDraftState"]
+      111 CALL                             R12 1 1
+      112 DUPCLOSURE                       R13 K23 [PROTO_10]
+      113 CAPTURE                          VAL R3
+      114 CAPTURE                          VAL R2
+      115 CAPTURE                          VAL R6
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R11
+      119 CAPTURE                          VAL R9
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R12
+      122 CAPTURE                          VAL R7
+      123 RETURN                           R13 1

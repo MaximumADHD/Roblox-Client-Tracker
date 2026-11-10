@@ -378,6 +378,16 @@ PROTO_16:
        77 RETURN                           R0 0
 
 PROTO_17:
+        0 GETTABLEKS                       R4 R1 K0 ["LayoutController"]
+        2 NAMECALL                         R4 R4 K1 ["getShowDetailsDrawer"]
+        4 CALL                             R4 1 1
+        5 JUMPIFNOT                        R4 ; [+2]
+        6 LOADK                            R3 K2 ["CloseDetails"]
+        7 RETURN                           R3 1
+        8 LOADK                            R3 K3 ["ViewDetails"]
+        9 RETURN                           R3 1
+
+PROTO_18:
         0 GETTABLEKS                       R3 R1 K0 ["ItemsController"]
         2 GETTABLEKS                       R4 R1 K1 ["LayoutController"]
         4 GETIMPORT                        R5 K3 [next]
@@ -387,19 +397,18 @@ PROTO_17:
        10 JUMPIFNOTEQKNIL                  R5 ; [+2]
        12 RETURN                           R0 0
        13 NAMECALL                         R5 R3 K5 ["consumeRightClickChangedSelection"]
-       15 CALL                             R5 1 1
-       16 NAMECALL                         R6 R4 K6 ["getShowDetailsDrawer"]
-       18 CALL                             R6 1 1
-       19 JUMPIFNOT                        R6 ; [+5]
-       20 JUMPIF                           R5 ; [+4]
-       21 NAMECALL                         R6 R4 K7 ["closeDetailsDrawer"]
-       23 CALL                             R6 1 0
-       24 RETURN                           R0 0
-       25 NAMECALL                         R6 R4 K8 ["openDetailsDrawer"]
-       27 CALL                             R6 1 0
-       28 RETURN                           R0 0
+       15 CALL                             R5 1 0
+       16 NAMECALL                         R5 R4 K6 ["getShowDetailsDrawer"]
+       18 CALL                             R5 1 1
+       19 JUMPIFNOT                        R5 ; [+4]
+       20 NAMECALL                         R5 R4 K7 ["closeDetailsDrawer"]
+       22 CALL                             R5 1 0
+       23 RETURN                           R0 0
+       24 NAMECALL                         R5 R4 K8 ["openDetailsDrawer"]
+       26 CALL                             R5 1 0
+       27 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 LOADB                            R3 0
         1 GETUPVAL                         R4 0
         2 GETTABLEKS                       R4 R4 K0 ["MenuContext"]
@@ -415,7 +424,7 @@ PROTO_18:
        19 LOADB                            R3 1
        20 RETURN                           R3 1
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 JUMPIFNOT                        R3 ; [+5]
@@ -426,7 +435,7 @@ PROTO_19:
         7 CALL                             R3 3 1
         8 RETURN                           R3 1
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R3 0
         1 CALL                             R3 0 1
         2 JUMPIFNOT                        R3 ; [+25]
@@ -450,7 +459,7 @@ PROTO_20:
        27 NOT                              R3 R4
        28 RETURN                           R3 1
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R4 0
         1 CALL                             R4 0 1
         2 NOT                              R3 R4
@@ -592,44 +601,46 @@ MAIN:
       184 CAPTURE                          VAL R7
       185 SETTABLEKS                       R20 R19 K26 ["OnItemClicked"]
       187 SETTABLEKS                       R18 R19 K27 ["ShouldRender"]
-      189 DUPTABLE                         R20 K62 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "ViewDetails", ["OnItemClicked"], ["ShouldRender"]}]
-      190 DUPCLOSURE                       R21 K63 [PROTO_17]
-      191 SETTABLEKS                       R21 R20 K26 ["OnItemClicked"]
-      193 DUPCLOSURE                       R21 K64 [PROTO_18]
-      194 CAPTURE                          VAL R2
-      195 SETTABLEKS                       R21 R20 K27 ["ShouldRender"]
-      197 DUPTABLE                         R21 K66 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "View", ["Children"], ["ShouldRender"]}]
-      198 NEWTABLE                         R22 0 2
-      200 MOVE                             R23 R20
-      201 MOVE                             R24 R19
-      202 SETLIST                          R22 R23 2 [1]
-      204 SETTABLEKS                       R22 R21 K48 ["Children"]
-      206 DUPCLOSURE                       R22 K67 [PROTO_19]
-      207 CAPTURE                          VAL R9
-      208 CAPTURE                          VAL R18
-      209 SETTABLEKS                       R22 R21 K27 ["ShouldRender"]
-      211 GETTABLEKS                       R22 R1 K68 ["join"]
-      213 MOVE                             R23 R20
-      214 DUPTABLE                         R24 K69 [{"ShouldRender"}]
-      215 DUPCLOSURE                       R25 K70 [PROTO_20]
-      216 CAPTURE                          VAL R9
-      217 CAPTURE                          VAL R2
-      218 CAPTURE                          VAL R18
-      219 SETTABLEKS                       R25 R24 K27 ["ShouldRender"]
-      221 CALL                             R22 2 1
-      222 GETTABLEKS                       R23 R1 K68 ["join"]
-      224 MOVE                             R24 R19
-      225 DUPTABLE                         R25 K69 [{"ShouldRender"}]
-      226 DUPCLOSURE                       R26 K71 [PROTO_21]
-      227 CAPTURE                          VAL R9
-      228 CAPTURE                          VAL R18
-      229 SETTABLEKS                       R26 R25 K27 ["ShouldRender"]
-      231 CALL                             R23 2 1
-      232 NEWTABLE                         R24 0 5
-      234 MOVE                             R25 R16
-      235 MOVE                             R26 R17
-      236 MOVE                             R27 R21
-      237 MOVE                             R28 R22
-      238 MOVE                             R29 R23
-      239 SETLIST                          R24 R25 5 [1]
-      241 RETURN                           R24 1
+      189 DUPTABLE                         R20 K63 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "ViewDetails", ["GetTextSubKey"], ["OnItemClicked"], ["ShouldRender"]}]
+      190 DUPCLOSURE                       R21 K64 [PROTO_17]
+      191 SETTABLEKS                       R21 R20 K62 ["GetTextSubKey"]
+      193 DUPCLOSURE                       R21 K65 [PROTO_18]
+      194 SETTABLEKS                       R21 R20 K26 ["OnItemClicked"]
+      196 DUPCLOSURE                       R21 K66 [PROTO_19]
+      197 CAPTURE                          VAL R2
+      198 SETTABLEKS                       R21 R20 K27 ["ShouldRender"]
+      200 DUPTABLE                         R21 K68 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "View", ["Children"], ["ShouldRender"]}]
+      201 NEWTABLE                         R22 0 2
+      203 MOVE                             R23 R20
+      204 MOVE                             R24 R19
+      205 SETLIST                          R22 R23 2 [1]
+      207 SETTABLEKS                       R22 R21 K48 ["Children"]
+      209 DUPCLOSURE                       R22 K69 [PROTO_20]
+      210 CAPTURE                          VAL R9
+      211 CAPTURE                          VAL R18
+      212 SETTABLEKS                       R22 R21 K27 ["ShouldRender"]
+      214 GETTABLEKS                       R22 R1 K70 ["join"]
+      216 MOVE                             R23 R20
+      217 DUPTABLE                         R24 K71 [{"ShouldRender"}]
+      218 DUPCLOSURE                       R25 K72 [PROTO_21]
+      219 CAPTURE                          VAL R9
+      220 CAPTURE                          VAL R2
+      221 CAPTURE                          VAL R18
+      222 SETTABLEKS                       R25 R24 K27 ["ShouldRender"]
+      224 CALL                             R22 2 1
+      225 GETTABLEKS                       R23 R1 K70 ["join"]
+      227 MOVE                             R24 R19
+      228 DUPTABLE                         R25 K71 [{"ShouldRender"}]
+      229 DUPCLOSURE                       R26 K73 [PROTO_22]
+      230 CAPTURE                          VAL R9
+      231 CAPTURE                          VAL R18
+      232 SETTABLEKS                       R26 R25 K27 ["ShouldRender"]
+      234 CALL                             R23 2 1
+      235 NEWTABLE                         R24 0 5
+      237 MOVE                             R25 R16
+      238 MOVE                             R26 R17
+      239 MOVE                             R27 R21
+      240 MOVE                             R28 R22
+      241 MOVE                             R29 R23
+      242 SETLIST                          R24 R25 5 [1]
+      244 RETURN                           R24 1

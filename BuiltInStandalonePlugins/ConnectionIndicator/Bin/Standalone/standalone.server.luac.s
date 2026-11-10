@@ -7,45 +7,45 @@ MAIN:
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Bin"]
        11 GETTABLEKS                       R2 R2 K7 ["Common"]
-       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getFFlagStudioConnectionIndicatorPluginDialog"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R2 R1 K9 ["getFFlagEnableConnectionIndicator"]
-       18 CALL                             R2 0 1
-       19 JUMPIF                           R2 ; [+1]
-       20 RETURN                           R0 0
-       21 GETIMPORT                        R2 K5 [require]
-       23 GETTABLEKS                       R3 R0 K10 ["Packages"]
-       25 GETTABLEKS                       R3 R3 K11 ["TestLoader"]
-       27 CALL                             R2 1 1
-       28 GETTABLEKS                       R3 R2 K12 ["isCli"]
-       30 CALL                             R3 0 1
-       31 JUMPIFNOT                        R3 ; [+5]
-       32 GETIMPORT                        R3 K14 [error]
-       34 LOADK                            R4 K15 ["roblox-cli should not be loading standalone plugins"]
-       35 CALL                             R3 1 0
-       36 RETURN                           R0 0
-       37 GETIMPORT                        R3 K5 [require]
-       39 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       41 GETTABLEKS                       R4 R4 K7 ["Common"]
-       43 GETTABLEKS                       R4 R4 K16 ["pluginType"]
-       45 CALL                             R3 1 1
-       46 GETTABLEKS                       R4 R3 K17 ["get"]
-       48 CALL                             R4 0 1
-       49 GETTABLEKS                       R5 R3 K18 ["Standalone"]
-       51 JUMPIFEQ                         R4 R5 ; [+2]
-       53 RETURN                           R0 0
-       54 GETIMPORT                        R4 K5 [require]
-       56 GETTABLEKS                       R5 R0 K6 ["Bin"]
-       58 GETTABLEKS                       R5 R5 K7 ["Common"]
-       60 GETTABLEKS                       R5 R5 K19 ["setup"]
-       62 CALL                             R4 1 1
-       63 GETIMPORT                        R5 K5 [require]
-       65 GETTABLEKS                       R6 R0 K6 ["Bin"]
-       67 GETTABLEKS                       R6 R6 K7 ["Common"]
-       69 GETTABLEKS                       R6 R6 K20 ["setupMain"]
-       71 CALL                             R5 1 1
-       72 MOVE                             R6 R4
-       73 GETIMPORT                        R7 K22 [plugin]
-       75 MOVE                             R8 R5
-       76 CALL                             R6 2 0
-       77 RETURN                           R0 0
+       16 MOVE                             R2 R1
+       17 CALL                             R2 0 1
+       18 JUMPIF                           R2 ; [+1]
+       19 RETURN                           R0 0
+       20 GETIMPORT                        R2 K5 [require]
+       22 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K10 ["TestLoader"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R3 R2 K11 ["isCli"]
+       29 CALL                             R3 0 1
+       30 JUMPIFNOT                        R3 ; [+5]
+       31 GETIMPORT                        R3 K13 [error]
+       33 LOADK                            R4 K14 ["roblox-cli should not be loading standalone plugins"]
+       34 CALL                             R3 1 0
+       35 RETURN                           R0 0
+       36 GETIMPORT                        R3 K5 [require]
+       38 GETTABLEKS                       R4 R0 K6 ["Bin"]
+       40 GETTABLEKS                       R4 R4 K7 ["Common"]
+       42 GETTABLEKS                       R4 R4 K15 ["pluginType"]
+       44 CALL                             R3 1 1
+       45 GETTABLEKS                       R4 R3 K16 ["get"]
+       47 CALL                             R4 0 1
+       48 GETTABLEKS                       R5 R3 K17 ["Standalone"]
+       50 JUMPIFEQ                         R4 R5 ; [+2]
+       52 RETURN                           R0 0
+       53 GETIMPORT                        R4 K5 [require]
+       55 GETTABLEKS                       R5 R0 K6 ["Bin"]
+       57 GETTABLEKS                       R5 R5 K7 ["Common"]
+       59 GETTABLEKS                       R5 R5 K18 ["setup"]
+       61 CALL                             R4 1 1
+       62 GETIMPORT                        R5 K5 [require]
+       64 GETTABLEKS                       R6 R0 K6 ["Bin"]
+       66 GETTABLEKS                       R6 R6 K7 ["Common"]
+       68 GETTABLEKS                       R6 R6 K19 ["setupMain"]
+       70 CALL                             R5 1 1
+       71 MOVE                             R6 R4
+       72 GETIMPORT                        R7 K21 [plugin]
+       74 MOVE                             R8 R5
+       75 CALL                             R6 2 0
+       76 RETURN                           R0 0
