@@ -10,7 +10,7 @@ category: Display
 
 EducationalTooltip is a component for displaying a popover with a title, optional text, optional media, optional step indicator, optional close affordance, and action buttons when clicking an anchor element. It's designed for guided user experiences and feature tours.
 
-Actions should be provided as an array, with entries conforming to the ActionProps type (shared with other components):
+Actions should be provided as an array, with entries conforming to the ActionProps type (shared with other components). Action buttons fill the tooltip width by default. Pass `actionsFillBehavior = FillBehavior.Fit` to hug each label instead.
 
 ```luau
 type ActionProps = {

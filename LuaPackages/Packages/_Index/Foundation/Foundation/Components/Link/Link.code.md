@@ -26,7 +26,7 @@ The `hasUnderline` property controls whether the underline is persistent. It def
 
 ### Text overflow
 
-The `textOverflow` property controls what happens when the link text is longer than the space it sits in, with values defined in [[TextOverflow]]. `None` is the default: the link stays on one line and sizes to its text. Set it to `Wrap` and the link fills its container's width and its text wraps onto as many lines as needed, keeping the underline on every line.
+The `textOverflow` property controls what happens when the link text is longer than the space it sits in, with values defined in [[TextOverflow]]. `None` is the default: the link stays on one line and sizes to its text. Set it to `Wrap` and the link fills its container's width and its text wraps onto as many lines as needed, keeping the underline on every line. Set it to `Truncate` and the link fills its container's width but stays on one line, cutting off text that doesn't fit with an ellipsis at a whole word; `TruncateSplit` does the same but cuts mid-word, filling the line to the edge.
 
 ### Examples
 

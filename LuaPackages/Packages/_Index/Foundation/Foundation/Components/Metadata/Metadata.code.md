@@ -60,6 +60,17 @@ React.createElement(Metadata, {
 })
 ```
 
+### Size
+
+`size` sets the text style: `MetadataSize.Medium` (body medium, the default) or `MetadataSize.Small` (body small). Use `Small` next to smaller headings, such as a title-small heading. Icons, avatars, and spacing are the same in both sizes.
+
+```luau
+React.createElement(Metadata, {
+	text = "Metadata",
+	size = Foundation.Enums.MetadataSize.Small,
+})
+```
+
 ### Truncation
 
 Metadata hugs its content, and truncates with an ellipsis when its parent is narrower than the content. In a row next to other elements, wrap it in a `View` tagged `shrink auto-xy` so it gives up space to its siblings instead of pushing them out. For a list, set `truncateIndex` to choose which item truncates; it defaults to the last item. Point it at the least important item so key metadata stays visible.
@@ -82,16 +93,9 @@ React.createElement(Metadata, {
 })
 ```
 
-### Loading
+### Glyphs
 
-Set `isLoading` to show a skeleton in place of the text while the content loads. Accessories still render. The skeleton is as wide as the `text` you pass, so pass the expected value (or a representative one) while loading; with empty text it falls back to a fixed width. It is as tall as `maxLines` lines.
-
-```luau
-React.createElement(Metadata, {
-	text = "Metadata",
-	isLoading = true,
-})
-```
+Metadata always renders a slashed zero and a tailed lowercase l, so characters like `0`/`O` and `l`/`I`/`1` are easy to tell apart in usernames, counts, and prices.
 
 ---
 

@@ -10,11 +10,11 @@ This module provides a complete markdown solution including a parser and rendere
 
 The exports of `src/init.lua`, values and types. Every change to them gets an entry in [CHANGELOG.md](CHANGELOG.md).
 
-- **Stable:** `Components` (including `MarkdownViewer`), `Enums`, `Parsers` (`CommonMark`, `CommonMarkComplianceParser`, `RobloxMarkdown`, `WikiMarkdownParser`), `Utils`, `parse`, `safeParse`, `toRendererAst`, `parseOptions` (the Roblox profile), `Flags`, the renderer types (`Node`, `Context`, `RenderersType`, ...) and `ParserDocument`, `ParserNode`, `Mention`, `Underline`. Stable also covers the renderer AST these parsers produce for a given input.
+- **Stable:** `Components` (including `MarkdownViewer`), `Enums`, `Parsers` (`CommonMark`, `CommonMarkComplianceParser`, `RobloxMarkdown`, `WikiMarkdownParser`), `Utils`, `parse`, `safeParse`, `toRendererAst`, `parseOptions` (the Roblox profile), `Flags`, the renderer types (`Node`, `Context`, `RenderersType`, ...) and `ParserDocument`, `ParserNode`, `Mention`, `Underline`, `FormattingTag`, `FormattingTagText`. Stable also covers the renderer AST these parsers produce for a given input.
 - **Temporary:** `MarkdownViewer`'s `ParserProfile` prop (`"RobloxMarkdown" | "CommonMark" | "Legacy"`) is temporary cutover config, not long-term API. It's honored only while `FFlagMarkdownUseRobloxProfileParser` or `FFlagMarkdownDefaultRobloxProfile` is on, and goes away when the cutover ends. `"Legacy"` keeps `CommonMarkComplianceParser`.
 - **Beta:** `createParser`, `Adapter`, and the types `Parser`, `ParserConfig`, `Extension` and `Adapter*`. They may change in any release; the changelog lists the changes under *Beta*.
 - **Leaving beta:** when one extension written outside this repo, or GFM tables, has been built on the adapter with no change to the beta API. Then the beta marks come off here, in `src/init.lua` and in [docs/extensions.md](docs/extensions.md), and the changelog records it.
-- `Flags` is read once at require time through SafeFlags: `FFlagMarkdownUseRobloxProfileParser` (whether `MarkdownViewer` may parse with the profile its `ParserProfile` prop names) and `FFlagMarkdownDefaultRobloxProfile` (whether a viewer with no `ParserProfile` parses with `Parsers.RobloxMarkdown` instead of `CommonMarkComplianceParser`; implies the prop is honored).
+- `Flags` is read once at require time through SafeFlags: `FFlagMarkdownUseRobloxProfileParser` (whether `MarkdownViewer` may parse with the profile its `ParserProfile` prop names) `FFlagMarkdownDefaultRobloxProfile` (whether a viewer with no `ParserProfile` parses with `Parsers.RobloxMarkdown` instead of `CommonMarkComplianceParser`; implies the prop is honored) and `FFlagMarkdownFormattingTags` (whether both profiles read the inline formatting tags `<b>`, `<i>`, `<u>`, `<s>`; [docs/roblox-profile.md](docs/roblox-profile.md#inline-formatting-tags)).
 
 ## Versioning
 
@@ -38,7 +38,7 @@ The WikiMarkdown parser supports only the existing single-tilde `STRIKE` delimit
 
 ## Adapter (beta)
 
-`Markdown.createParser({ extensions, parserOptions })` builds a parser: CommonMark's parse, then an adapter from the CommonMark `Document` to the renderer AST. Extensions add parser syntax and adapter rules (`extendAdapter`). RobloxMarkdown (`Markdown.parse`, `Markdown.Parsers.RobloxMarkdown`) and plain CommonMark (`Markdown.Parsers.CommonMark`) are two configurations of it. `parse(source, options?)` and `safeParse(source, options?)` take the old parser's options (`{ isStreaming }`) and hand them to the adapter as `ctx.options`. Beta (see *Public surface*): rule forms, context and pass names may change. The rule forms, context, passes and built-in rules are documented in [docs/extensions.md](docs/extensions.md).
+`Markdown.createParser({ extensions, parserOptions })` builds a parser: CommonMark's parse, then an adapter from the CommonMark `Document` to the renderer AST. Extensions add parser syntax and adapter rules (`extendAdapter`). RobloxMarkdown (`Markdown.parse`, `Markdown.Parsers.RobloxMarkdown`) and CommonMark (`Markdown.Parsers.CommonMark`: plain CommonMark, plus the formatting tags under `FFlagMarkdownFormattingTags`) are two configurations of it. `parse(source, options?)` and `safeParse(source, options?)` take the old parser's options (`{ isStreaming }`) and hand them to the adapter as `ctx.options`. Beta (see *Public surface*): rule forms, context and pass names may change. The rule forms, context, passes and built-in rules are documented in [docs/extensions.md](docs/extensions.md).
 
 ## Docs
 
@@ -49,4 +49,4 @@ The WikiMarkdown parser supports only the existing single-tilde `STRIKE` delimit
 
 ## License
 
-The Underline files are adapted from commonmark-java (BSD-2-Clause, Copyright (c) 2015, Robin Stocker); see `LICENSE-commonmark-java`. [modules/commonmark/NOTICE.md](../commonmark/NOTICE.md) lists every third-party source in Markdown and CommonMark.
+The Underline files and `Parsers/FormattingTags/FormattingTagHtmlNodeRenderer.lua` are adapted from commonmark-java (BSD-2-Clause, Copyright (c) 2015, Robin Stocker); see `LICENSE-commonmark-java`. [modules/commonmark/NOTICE.md](../commonmark/NOTICE.md) lists every third-party source in Markdown and CommonMark.

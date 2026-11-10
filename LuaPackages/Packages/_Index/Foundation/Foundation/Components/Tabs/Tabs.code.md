@@ -10,8 +10,8 @@ consists of a row of tab items, where clicking on a tab displays its associated 
 Key features:
 
 - Horizontal scrolling with overflow indicators when tabs don't fit in the available space
-- Support for both text and icon in tab items
-- Optional per-tab StatusIndicator
+- Leading and trailing accessories on each tab: an icon, a [[Badge]], or a [[StatusIndicator]].
+- `icon` and `indicator` are deprecated. For backwards compatibility, `icon` overrides `leading`, and `indicator` overrides `trailing` when passed.
 - Customizable size and fill behavior
 - Support for disabled tabs
 
@@ -26,7 +26,7 @@ local Foundation = require(Packages.Foundation)
 local Tabs = Foundation.Tabs
 local InputSize = Foundation.Enums.InputSize
 local FillBehavior = Foundation.Enums.FillBehavior
-local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
+local BadgeVariant = Foundation.Enums.BadgeVariant
 
 local function MyComponent()
 	return React.createElement(Tabs, {
@@ -51,17 +51,18 @@ local function MyComponent()
 			{
 				id = "3",
 				text = "Tab with Icon",
-				icon = "star",
+				leading = "star",
 				content = React.createElement(Text, {
 					Text = "Content for Tab 3",
 				}),
 			},
 			{
 				id = "4",
-				text = "Tab with indicator",
-				indicator = {
-					value = 1,
-					variant = StatusIndicatorVariant.Emphasis,
+				text = "Tab with badge",
+				trailing = {
+					type = "Badge",
+					text = "New",
+					variant = BadgeVariant.Success,
 				},
 				content = React.createElement(Text, {
 					Text = "Content for Tab 4",
@@ -114,7 +115,7 @@ local function MyComponent()
 				{
 					id = "3",
 					text = "Tab with Icon",
-					icon = "star",
+					leading = "star",
 				},
 				{
 					id = "4",

@@ -1,12 +1,13 @@
 [package]
 name = "InlineLayout"
-version = "0.0.10"
+version = "0.0.11"
 readme = "README.md"
 content_root = "src"
 files = [
     "*",
     "!**/*.test.lua",
-    "!src/jest.config.lua",
+    "!**/jest.config.lua",
+    "!**/__fixtures__/**",
 ]
 publish = true
 authors = [
@@ -23,7 +24,7 @@ version = "^1.111.0"
 
 [dependencies.MarkdownCore]
 package = "MarkdownCore"
-version = "^0.0.10"
+version = "^0.0.11"
 
 [dependencies.React]
 version = "^17.3.6"

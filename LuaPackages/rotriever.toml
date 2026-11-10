@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.3326+20261029"
+ServiceContractsProto = "1.0.3429+20261105"
 Rodux = "1.0"
 RoactRodux = "0.5.1"
 RoactAppExperiment = "0.4.1"
@@ -18,10 +18,10 @@ Dash = "3.3.1"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "2.0.3"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.293"
-Foundation = "1.121.0"
+UIBlox = "0.2.297"
+Foundation = "1.123.0"
 FoundationCloudAssets = "0.6.0"
-FoundationImages = "2.5.2"
+FoundationImages = "2.6.0"
 Thumbnailing = "0.6.4"
 Otter = "1.3.7"
 ReactOtter = "1.3.7"
@@ -31,7 +31,7 @@ PolicyProvider = { version = "0.1.5", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
 UrlBuilder = "1.2.25"
-FitFrame = { version = "2.1.0", package = "RoactFitComponents" }
+FitFrame = { version = "2.1.1", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 NetworkingUserSettings = "1.17.5"
 Util = "1.17.5"
@@ -51,8 +51,7 @@ ReactSceneUnderstanding = "0.13.1"
 ReactUtils = "1.13.1"
 Promise = "3.5.1"
 UltimateList = { version = "0.3.3-roblox.1", package = "ultimate-list" }
-ViewRecyclerReact = "0.2.9"
-ViewRecyclerReact06 = { version = "0.7.1", package = "ViewRecyclerReact" }
+ViewRecyclerReact = "0.8.1"
 VirtualizedList = "1.6.3"
 LuauPolyfill = "1.2.3"
 RegExp = "0.3.0"
@@ -77,8 +76,8 @@ SignalsReact = "0.6.0"
 SignalsExperimental = "0.6.0"
 Motion = "0.0.7"
 BuilderIcons = "0.1.45"
-InlineLayout = "0.0.10"
-Markdown = "1.0.0-alpha-13"
+InlineLayout = "0.0.11"
+Markdown = "1.0.0-alpha-15"
 MomentsCreationFlow = "0.1.9"
 MomentScenes = "0.1.3"
 Graphing = "0.12.0"

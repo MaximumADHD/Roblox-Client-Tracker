@@ -22,6 +22,6 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 return React.createElement(IconButton, {
   size = InputSize.Medium,
   icon = "icons/common/search_small",
-  variant = ButtonVariant.Standard,
+  variant = ButtonVariant.SoftEmphasis,
 })
 ```

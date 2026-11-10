@@ -683,10 +683,11 @@ type FeatureMatchingSchema = {
     SchemaName: string?,
     Normalization: Enum.FeatureNormalization?,
     Channels: { { Name: string, Width: number, Weight: number?, ElementWidth: number?, Offset: number?, Normalize: Enum.FeatureNormalization?, Encoding: Enum.FeatureChannelEncoding? } },
-    Fields: { { Name: string, Type: Enum.MetadataFieldType?, Width: number? } }?,
+    Fields: { { Name: string, Type: Enum.MetadataFieldType?, Width: number?, Tags: { [string]: number }? } }?,
     NormalizationField: string?,
     BlendSpaces: { [string]: { BlendDim: number, Frames: { any }, SyncSequences: boolean? } }?,
-    Sequences: { [string]: { StartRow: number, EndRow: number, SampleInterval: number, Loop: boolean?, SyncPoints: { { Name: string, Time: number } }? } }?
+    Sequences: { [string]: { StartRow: number, EndRow: number, SampleInterval: number, Loop: boolean?, SyncPoints: { { Name: string, Time: number } }? } }?,
+    Constants: { [string]: { Type: Enum.MetadataFieldType?, Value: any } }?
 }
 
 type FeatureMatchingColumns = buffer | { [string]: { number } | buffer }

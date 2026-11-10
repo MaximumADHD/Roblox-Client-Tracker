@@ -21,7 +21,7 @@ dependencies = [
     "NetworkingShareLinks NetworkingShareLinks 1.4.2 registry",
     "NetworkingUserSettings <patched> NetworkingUserSettings 1.17.5 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
-    "RoactFitComponents RoactFitComponents 2.1.0 registry",
+    "RoactFitComponents RoactFitComponents 2.1.1 registry",
     "RoduxAliases RoduxAliases 2.2.1 registry",
     "RoduxCall RoduxCall 1.18.0 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",

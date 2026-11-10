@@ -2135,7 +2135,7 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">LightEmission</string>
+            <string name="Name">LightInfluence</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
           </Properties>
@@ -2181,6 +2181,7 @@
             <string name="Name">Speed</string>
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">500</double>
+            <double name="UINumTicks">100</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3281,7 +3282,7 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <string name="FFlag">RealtimeEditableAudioApi</string>
+        <string name="FFlag">EnableRealtimeScriptableAudio</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -3290,7 +3291,7 @@
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
-        <string name="FFlag">RealtimeEditableAudioApi</string>
+        <string name="FFlag">EnableRealtimeScriptableAudio</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -4603,7 +4604,29 @@
       </Item>
     </Item>
 
-     <Item class="ReflectionMetadataClass">
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">UIBlur</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiObject</string>
+        <string name="FFlag">UIBlur</string>
+      </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Transparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIShadow</string>
         <string name="ExplorerOrder">30</string>
@@ -9579,6 +9602,32 @@
           </Properties>
         </Item>
       </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">FollowTwistBoneBehavior</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">53</string>
+        <string name="PreferredParent">Bone</string>
+        <string name="PreferredParents">Bone</string>
+        <string name="PreferredParents">Motor6D</string>
+        <string name="PreferredParents">AnimationConstraint</string>
+        <string name="FFlag">AnimationProceduralBones</string>
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">FollowRotationBoneBehavior</string>
+        <string name="ClassCategory">Animations</string>
+        <string name="ExplorerOrder">220</string>
+        <string name="ExplorerImageIndex">53</string>
+        <string name="PreferredParent">Bone</string>
+        <string name="PreferredParents">Bone</string>
+        <string name="PreferredParents">Motor6D</string>
+        <string name="PreferredParents">AnimationConstraint</string>
+        <string name="FFlag">AnimationProceduralBones</string>
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

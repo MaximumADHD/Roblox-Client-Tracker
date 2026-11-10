@@ -40,7 +40,7 @@ dependencies = [
 name = "AvatarExperienceDeps"
 version = "0.0.1"
 source = "registry"
-dependencies = ["RoactFitComponents RoactFitComponents 2.1.0 registry"]
+dependencies = ["RoactFitComponents RoactFitComponents 2.1.1 registry"]
 
 [[package]]
 name = "Boolean"
@@ -106,11 +106,11 @@ dependencies = [
     "DataLoader DataLoader 0.2.0 registry",
     "DeveloperTools DeveloperTools 0.2.7 registry",
     "EmojiList EmojiList 1.0.0 registry",
-    "FitFrame RoactFitComponents 2.1.0 registry",
+    "FitFrame RoactFitComponents 2.1.1 registry",
     "FocusBehaviors FocusBehaviors 2.2.0 registry",
-    "Foundation Foundation 1.121.0 registry",
+    "Foundation Foundation 1.123.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.6.0 registry",
-    "FoundationImages FoundationImages 2.5.3 registry",
+    "FoundationImages FoundationImages 2.6.0 registry",
     "FoundationTestingLibrary FoundationTestingLibrary 0.1.5 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "Graphing Graphing 0.12.0 registry",
@@ -118,7 +118,7 @@ dependencies = [
     "HMR HMR 0.1.1 registry",
     "HttpRequest HttpRequest 1.1.1 registry",
     "InGameMenuDependencies InGameMenuDependencies 0.3.0 registry",
-    "InlineLayout InlineLayout 0.0.10 registry",
+    "InlineLayout InlineLayout 0.0.11 registry",
     "InputHandlers InputHandlers 2.2.0 registry",
     "Jest Jest 3.19.0 registry",
     "JestBenchmark JestBenchmark 3.19.0 registry",
@@ -128,7 +128,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "LuauUIEcosystemLints LuauUIEcosystemLints 0.8.1 registry",
     "Lumberyak lumberyak 0.1.1 registry",
-    "Markdown Markdown 1.0.0-alpha-13 registry",
+    "Markdown Markdown 1.0.0-alpha-15 registry",
     "Merge Merge 0.3.2 registry",
     "MomentScenes MomentScenes 0.1.3 registry",
     "MomentsCreationFlow MomentsCreationFlow 0.1.9 registry",
@@ -174,7 +174,7 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.13 registry",
-    "ServiceContractsProto ServiceContractsProto 1.0.3326+20261029 registry",
+    "ServiceContractsProto ServiceContractsProto 1.0.3429+20261105 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
@@ -183,13 +183,12 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.6.4 registry",
     "UGCValidation UGCValidation 1.22.7 registry",
-    "UIBlox UIBlox 0.2.293 registry",
+    "UIBlox UIBlox 0.2.297 registry",
     "UltimateList ultimate-list 0.3.3-roblox.1 registry",
     "UrlBuilder UrlBuilder 1.2.25 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "Util <patched> Util 1.17.5 registry",
-    "ViewRecyclerReact ViewRecyclerReact 0.2.9 registry",
-    "ViewRecyclerReact06 ViewRecyclerReact 0.7.1 registry",
+    "ViewRecyclerReact ViewRecyclerReact 0.8.1 registry",
     "VirtualizedList VirtualizedList 1.6.3 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
@@ -319,13 +318,13 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.121.0"
+version = "1.123.0"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.45 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.4.4 registry",
-    "FoundationImages FoundationImages 2.5.3 registry",
+    "FoundationImages FoundationImages 2.6.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Motion Motion 0.1.0 registry",
     "Otter Otter 1.3.7 registry",
@@ -354,7 +353,7 @@ source = "registry"
 
 [[package]]
 name = "FoundationImages"
-version = "2.5.3"
+version = "2.6.0"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.45 registry",
@@ -369,8 +368,8 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.45 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.121.0 registry",
-    "FoundationImages FoundationImages 2.5.3 registry",
+    "Foundation Foundation 1.123.0 registry",
+    "FoundationImages FoundationImages 2.6.0 registry",
     "JestGlobals JestGlobals 3.19.0 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
@@ -459,18 +458,18 @@ dependencies = [
     "Roact RoactCompat 17.3.13 registry",
     "RoactRodux RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.293 registry",
+    "UIBlox UIBlox 0.2.297 registry",
     "t t 1.2.6 registry",
 ]
 
 [[package]]
 name = "InlineLayout"
-version = "0.0.10"
+version = "0.0.11"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.121.0 registry",
-    "MarkdownCore MarkdownCore 0.0.10 registry",
+    "Foundation Foundation 1.123.0 registry",
+    "MarkdownCore MarkdownCore 0.0.11 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
@@ -1032,7 +1031,7 @@ dependencies = [
     "NetworkingShareLinks NetworkingShareLinks 1.4.2 registry",
     "NetworkingUserSettings <patched> NetworkingUserSettings 1.17.5 registry",
     "NetworkingUsers NetworkingUsers 1.2.1 registry",
-    "RoactFitComponents RoactFitComponents 2.1.0 registry",
+    "RoactFitComponents RoactFitComponents 2.1.1 registry",
     "RoduxAliases RoduxAliases 2.2.1 registry",
     "RoduxCall RoduxCall 1.18.0 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
@@ -1081,14 +1080,14 @@ source = "registry"
 
 [[package]]
 name = "Markdown"
-version = "1.0.0-alpha-13"
+version = "1.0.0-alpha-15"
 source = "registry"
 dependencies = [
     "CommonMark CommonMark 0.1.1 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.121.0 registry",
-    "InlineLayout InlineLayout 0.0.10 registry",
-    "MarkdownCore MarkdownCore 0.0.10 registry",
+    "Foundation Foundation 1.123.0 registry",
+    "InlineLayout InlineLayout 0.0.11 registry",
+    "MarkdownCore MarkdownCore 0.0.11 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
     "SafeFlags SafeFlags 0.1.2 registry",
@@ -1096,11 +1095,11 @@ dependencies = [
 
 [[package]]
 name = "MarkdownCore"
-version = "0.0.10"
+version = "0.0.11"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.121.0 registry",
+    "Foundation Foundation 1.123.0 registry",
     "React <patched> React 17.3.13 registry",
     "ReactIs ReactIs 17.3.13 registry",
     "ReactRoblox <patched> ReactRoblox 17.3.13 registry",
@@ -1136,7 +1135,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.121.0 registry",
+    "Foundation Foundation 1.123.0 registry",
     "Promise Promise 3.5.1 registry",
     "React <patched> React 17.3.13 registry",
     "ReactOtter ReactOtter 1.3.7 registry",
@@ -1153,7 +1152,7 @@ dependencies = [
     "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.121.0 registry",
+    "Foundation Foundation 1.123.0 registry",
     "MomentsCommon MomentsCommon 0.1.5 registry",
     "Promise Promise 3.5.1 registry",
     "React <patched> React 17.3.13 registry",
@@ -1649,12 +1648,11 @@ dependencies = [
 
 [[package]]
 name = "RoactFitComponents"
-version = "2.1.0"
+version = "2.1.1"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
     "Roact RoactCompat 17.3.13 registry",
-    "SafeFlags SafeFlags 0.1.2 registry",
 ]
 
 [[package]]
@@ -1861,7 +1859,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "1.0.3326+20261029"
+version = "1.0.3429+20261105"
 source = "registry"
 
 [[package]]
@@ -1920,7 +1918,7 @@ version = "4.4.0"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
-    "Foundation Foundation 1.121.0 registry",
+    "Foundation Foundation 1.123.0 registry",
     "GenericPagination GenericPagination 0.1.1 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
@@ -1928,13 +1926,13 @@ dependencies = [
     "Promise Promise 3.5.1 registry",
     "React <patched> React 17.3.13 registry",
     "Roact RoactCompat 17.3.13 registry",
-    "RoactFitComponents RoactFitComponents 2.1.0 registry",
+    "RoactFitComponents RoactFitComponents 2.1.1 registry",
     "RoactNavigation RoactNavigation 0.5.10 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.293 registry",
+    "UIBlox UIBlox 0.2.297 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -2031,14 +2029,14 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.293"
+version = "0.2.297"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.45 registry",
     "Cryo Cryo 1.1.0 registry",
-    "FitFrame RoactFitComponents 2.1.0 registry",
-    "Foundation Foundation 1.121.0 registry",
-    "FoundationImages FoundationImages 2.5.3 registry",
+    "FitFrame RoactFitComponents 2.1.1 registry",
+    "Foundation Foundation 1.123.0 registry",
+    "FoundationImages FoundationImages 2.6.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Otter Otter 1.3.7 registry",
@@ -2095,36 +2093,12 @@ dependencies = [
 
 [[package]]
 name = "ViewRecycler"
-version = "0.2.9"
-source = "registry"
-dependencies = [
-    "Signal Signal 1.0.0 registry",
-    "Signals Signals 0.6.0 registry",
-    "SignalsExperimental SignalsExperimental 0.6.0 registry",
-]
-
-[[package]]
-name = "ViewRecycler"
-version = "0.7.1"
+version = "0.8.1"
 source = "registry"
 
 [[package]]
 name = "ViewRecyclerReact"
-version = "0.2.9"
-source = "registry"
-dependencies = [
-    "React <patched> React 17.3.13 registry",
-    "ReactRoblox <patched> ReactRoblox 17.3.13 registry",
-    "Signals Signals 0.6.0 registry",
-    "SignalsExperimental SignalsExperimental 0.6.0 registry",
-    "SignalsReact SignalsReact 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.2.9 registry",
-    "ViewRecyclerRoblox ViewRecyclerRoblox 0.2.9 registry",
-]
-
-[[package]]
-name = "ViewRecyclerReact"
-version = "0.7.1"
+version = "0.8.1"
 source = "registry"
 dependencies = [
     "React <patched> React 17.3.13 registry",
@@ -2133,28 +2107,18 @@ dependencies = [
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
     "SignalsReact SignalsReact 0.6.0 registry",
     "SignalsScheduler SignalsScheduler 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.7.1 registry",
-    "ViewRecyclerRoblox ViewRecyclerRoblox 0.7.1 registry",
+    "ViewRecycler ViewRecycler 0.8.1 registry",
+    "ViewRecyclerRoblox ViewRecyclerRoblox 0.8.1 registry",
 ]
 
 [[package]]
 name = "ViewRecyclerRoblox"
-version = "0.2.9"
+version = "0.8.1"
 source = "registry"
 dependencies = [
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.2.9 registry",
-]
-
-[[package]]
-name = "ViewRecyclerRoblox"
-version = "0.7.1"
-source = "registry"
-dependencies = [
-    "Signals Signals 0.6.0 registry",
-    "SignalsExperimental SignalsExperimental 0.6.0 registry",
-    "ViewRecycler ViewRecycler 0.7.1 registry",
+    "ViewRecycler ViewRecycler 0.8.1 registry",
 ]
 
 [[package]]

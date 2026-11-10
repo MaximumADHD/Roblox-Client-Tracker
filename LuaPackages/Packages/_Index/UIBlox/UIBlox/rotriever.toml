@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.293"
+version = "0.2.297"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -22,13 +22,13 @@ version = "^1.1.0"
 
 [dependencies.FitFrame]
 package = "RoactFitComponents"
-version = "^2.1.0"
+version = "^2.1.1"
 
 [dependencies.Foundation]
-version = "^1.117.0"
+version = "^1.122.0"
 
 [dependencies.FoundationImages]
-version = "^2.5.2"
+version = "^2.6.0"
 
 [dependencies.LuauPolyfill]
 target = "https://github.com/roblox/luau-polyfill"
