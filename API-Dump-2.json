@@ -4412,24 +4412,6 @@
                     "security": "RobloxScript",
                     "threadSafety": "Unsafe",
                     "simulationAccess": false
-                },
-                {
-                    "name": "UserCreatedClips",
-                    "isUserFacing": false,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "BinaryString",
-                        "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
-                    },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
-                    "isScriptable": false,
-                    "isReplicated": true,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
                 }
             ]
         },
@@ -22818,6 +22800,550 @@
             ]
         },
         {
+            "name": "AudioStreamReader",
+            "isUserFacing": true,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": true,
+            "security": "None",
+            "capabilities": [
+                "Audio"
+            ],
+            "members": [
+                {
+                    "name": "GetConnectedWires",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "pin"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "GetInputPins",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "GetOutputPins",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "Layout",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AudioChannelLayout",
+                        "isEnum": true,
+                        "defaultValue": "Mono"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ],
+                    "writeCapabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "Peek",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Array",
+                                "isEnum": false,
+                                "identifier": "into"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "int",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Safe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "Read",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Array",
+                                "isEnum": false,
+                                "identifier": "into"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "int",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Safe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "SampleFormat",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AudioSampleFormat",
+                        "isEnum": true,
+                        "defaultValue": "Float32"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "SampleRate",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "int",
+                        "isEnum": false,
+                        "defaultValue": "48000"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "WindowSize",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AudioWindowSize",
+                        "isEnum": true,
+                        "defaultValue": "Medium"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ],
+                    "writeCapabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "WiringChanged",
+                    "isUserFacing": true,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "bool",
+                                "isEnum": false,
+                                "identifier": "connected"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "pin"
+                            },
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "wire"
+                            },
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "instance"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "None",
+                    "capabilities": [
+                        "Audio"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AudioStreamWriter",
+            "isUserFacing": true,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": true,
+            "security": "None",
+            "capabilities": [
+                "Audio"
+            ],
+            "members": [
+                {
+                    "name": "GetConnectedWires",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "pin"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "GetInputPins",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "GetOutputPins",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "Layout",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AudioChannelLayout",
+                        "isEnum": true,
+                        "defaultValue": "Mono"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ],
+                    "writeCapabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "SampleFormat",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AudioSampleFormat",
+                        "isEnum": true,
+                        "defaultValue": "Float32"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "SampleRate",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "int",
+                        "isEnum": false,
+                        "defaultValue": "48000"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "Space",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "int",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Safe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "WindowSize",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AudioWindowSize",
+                        "isEnum": true,
+                        "defaultValue": "Medium"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ],
+                    "writeCapabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "WiringChanged",
+                    "isUserFacing": true,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "bool",
+                                "isEnum": false,
+                                "identifier": "connected"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "pin"
+                            },
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "wire"
+                            },
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "instance"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "None",
+                    "capabilities": [
+                        "Audio"
+                    ]
+                },
+                {
+                    "name": "Write",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Array",
+                                "isEnum": false,
+                                "identifier": "audioBuffer"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "int",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Safe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Audio"
+                    ]
+                }
+            ]
+        },
+        {
             "name": "AudioTextToSpeech",
             "isUserFacing": true,
             "baseClass": "Instance",
@@ -25580,7 +26106,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26028,6 +26554,30 @@
                     ]
                 },
                 {
+                    "name": "EnableSpawnEffects",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "true"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "AvatarAppearance"
+                    ]
+                },
+                {
                     "name": "EnableVFX",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -26055,7 +26605,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26076,7 +26626,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26097,7 +26647,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26118,7 +26668,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26181,7 +26731,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26202,7 +26752,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26223,7 +26773,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26335,7 +26885,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26814,7 +27364,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26835,7 +27385,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26856,7 +27406,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26877,7 +27427,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26898,7 +27448,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26919,7 +27469,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26940,7 +27490,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26961,7 +27511,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -26982,7 +27532,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -27843,7 +28393,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -27886,7 +28436,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -27907,7 +28457,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -27928,7 +28478,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -27949,7 +28499,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -27991,7 +28541,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -28355,7 +28905,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -28376,7 +28926,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -28397,7 +28947,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29014,7 +29564,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29035,7 +29585,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29056,7 +29606,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29098,7 +29648,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29119,7 +29669,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29140,7 +29690,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29161,7 +29711,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29182,7 +29732,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29203,7 +29753,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "0"
+                        "defaultValue": "-1"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -29316,6 +29866,29 @@
                         "defaultValue": "UseParts"
                     },
                     "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "deprecated": true,
+                    "replacedWith": "TouchAndQueryDetectionMode",
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ]
+                },
+                {
+                    "name": "HitboxSize",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Vector3",
+                        "isEnum": false,
+                        "defaultValue": "2, 5.5, 1"
+                    },
+                    "isPublic": true,
                     "readSecurity": "None",
                     "writeSecurity": "None",
                     "isScriptable": true,
@@ -29357,6 +29930,27 @@
                         "type": "Vector3",
                         "isEnum": false,
                         "defaultValue": "2, 3, 1"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ]
+                },
+                {
+                    "name": "TouchAndQueryDetectionMode",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AvatarSettingsTouchAndQueryDetectionMode",
+                        "isEnum": true,
+                        "defaultValue": "UseParts"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -32739,6 +33333,67 @@
                     "security": "RobloxScript",
                     "threadSafety": "Unsafe",
                     "simulationAccess": false
+                }
+            ]
+        },
+        {
+            "name": "AvatarEffectDescription",
+            "isUserFacing": true,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": true,
+            "security": "None",
+            "capabilities": [
+                "AvatarAppearance"
+            ],
+            "members": [
+                {
+                    "name": "AssetId",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "int64",
+                        "isEnum": false,
+                        "defaultValue": "0"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "AvatarAppearance"
+                    ]
+                },
+                {
+                    "name": "EffectType",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "AvatarEffectType",
+                        "isEnum": true,
+                        "defaultValue": "None"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "AvatarAppearance"
+                    ]
                 }
             ]
         },
@@ -36602,7 +37257,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -36610,6 +37265,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -36623,7 +37281,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -36631,6 +37289,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -36644,7 +37305,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -36652,6 +37313,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -36900,7 +37564,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -36908,6 +37572,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -46665,7 +47332,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "NotAccessible",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -46673,6 +47340,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Chat"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -48794,6 +49464,58 @@
                     "simulationAccess": false
                 },
                 {
+                    "name": "CheckOfferEligibility",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "offerType"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "bool",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "CheckOfferEligibilityAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "offerType"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "bool",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
                     "name": "GetSessionElapsedTime",
                     "isUserFacing": false,
                     "memberType": "Function",
@@ -48845,6 +49567,37 @@
                     "isReplicated": false,
                     "isSerialized": true,
                     "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "MakeOfferReservationAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "placeId"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "offerType"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
                     "simulationAccess": false
                 },
                 {
@@ -57210,6 +57963,23 @@
                     "security": "None"
                 },
                 {
+                    "name": "ServerRegion",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "string",
+                        "isEnum": false,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
                     "name": "ServerRestartScheduled",
                     "isUserFacing": true,
                     "memberType": "Event",
@@ -59223,7 +59993,7 @@
                     "type": {
                         "type": "string",
                         "isEnum": false,
-                        "defaultValue": "0.746.0.7461269"
+                        "defaultValue": "0.747.0.7471481"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -61335,7 +62105,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -61343,6 +62113,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Basic"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -61438,15 +62211,19 @@
                         "defaultValue": ""
                     },
                     "isPublic": false,
-                    "readSecurity": "Plugin",
-                    "writeSecurity": "Plugin",
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false,
                     "capabilities": [
-                        "Basic"
+                        "Basic",
+                        "PluginOrOpenCloud"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -61460,7 +62237,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -61468,6 +62245,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Basic"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -61480,15 +62260,19 @@
                         "defaultValue": ""
                     },
                     "isPublic": false,
-                    "readSecurity": "Plugin",
-                    "writeSecurity": "Plugin",
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false,
                     "capabilities": [
-                        "Basic"
+                        "Basic",
+                        "PluginOrOpenCloud"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -61502,7 +62286,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -61510,6 +62294,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Basic"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -61564,15 +62351,19 @@
                         "defaultValue": ""
                     },
                     "isPublic": false,
-                    "readSecurity": "Plugin",
-                    "writeSecurity": "Plugin",
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false,
                     "capabilities": [
-                        "Basic"
+                        "Basic",
+                        "PluginOrOpenCloud"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -61586,7 +62377,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -61594,6 +62385,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Basic"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -75708,7 +76502,7 @@
                     "type": {
                         "type": "int64",
                         "isEnum": false,
-                        "defaultValue": "111490396024320"
+                        "defaultValue": "1"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -77096,6 +77890,30 @@
             "security": "None",
             "members": [
                 {
+                    "name": "ExplorerIconContent",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Content",
+                        "isEnum": false,
+                        "defaultValue": "<Content name=\"ExplorerIconContent\">\n\t<null></null>\n</Content>"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Basic"
+                    ],
+                    "writeCapabilities": [
+                        "Basic"
+                    ]
+                },
+                {
                     "name": "IconTint",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -77136,6 +77954,272 @@
                     "isSerialized": false,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false
+                }
+            ]
+        },
+        {
+            "name": "FollowRotationBoneBehavior",
+            "isUserFacing": true,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": true,
+            "security": "None",
+            "capabilities": [
+                "InternalTest"
+            ],
+            "members": [
+                {
+                    "name": "CounterRotate",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "false"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "Driver",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Instance",
+                        "isEnum": false,
+                        "defaultValue": "nullptr"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "Weight",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValue": "0.5"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "FollowTwistBoneBehavior",
+            "isUserFacing": true,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": true,
+            "security": "None",
+            "capabilities": [
+                "InternalTest"
+            ],
+            "members": [
+                {
+                    "name": "Axis",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Axis",
+                        "isEnum": true,
+                        "defaultValue": "X"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "AxisMode",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "FollowTwistBoneAxisMode",
+                        "isEnum": true,
+                        "defaultValue": "Local"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "CounterRotate",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "false"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "Driver",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Instance",
+                        "isEnum": false,
+                        "defaultValue": "nullptr"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "EndBone",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Instance",
+                        "isEnum": false,
+                        "defaultValue": "nullptr"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "StartBone",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Instance",
+                        "isEnum": false,
+                        "defaultValue": "nullptr"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "Weight",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValue": "0.5"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ],
+                    "writeCapabilities": [
+                        "InternalTest"
+                    ]
                 }
             ]
         },
@@ -78081,6 +79165,160 @@
                     "isYieldable": false,
                     "isCustom": false,
                     "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                }
+            ]
+        },
+        {
+            "name": "GameDownloaderService",
+            "isUserFacing": false,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": [
+                {
+                    "name": "CancelGameDownload",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "universeId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "DownloadCompleted",
+                    "isUserFacing": false,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "universeId"
+                            },
+                            {
+                                "type": "GameDownloadResult",
+                                "isEnum": true,
+                                "identifier": "result"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "RobloxScript"
+                },
+                {
+                    "name": "DownloadGame",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "universeId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "GameDownloadStartResult",
+                                "isEnum": true
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "DownloadProgressChanged",
+                    "isUserFacing": false,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "universeId"
+                            },
+                            {
+                                "type": "GameDownloadPhase",
+                                "isEnum": true,
+                                "identifier": "phase"
+                            },
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "bytesDownloaded"
+                            },
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "totalExpectedBytes"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "RobloxScript"
+                },
+                {
+                    "name": "GetGameDownloadStatus",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "universeId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
                     "threadSafety": "Unsafe",
                     "simulationAccess": false
                 }
@@ -79705,6 +80943,66 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "CSG"
+                    ]
+                },
+                {
+                    "name": "NegateAsync",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false,
+                                "identifier": "parts"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "CSG",
+                        "PluginOrOpenCloud"
+                    ]
+                },
+                {
+                    "name": "SeparateAsync",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false,
+                                "identifier": "parts"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "CSG",
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -83080,7 +84378,13 @@
                     "memberType": "Event",
                     "type": {
                         "name": "function",
-                        "arguments": [],
+                        "arguments": [
+                            {
+                                "type": "GuiNavigationDirection",
+                                "isEnum": true,
+                                "identifier": "inputDirection"
+                            }
+                        ],
                         "results": [
                             {
                                 "type": "null",
@@ -83121,7 +84425,13 @@
                     "memberType": "Event",
                     "type": {
                         "name": "function",
-                        "arguments": [],
+                        "arguments": [
+                            {
+                                "type": "GuiNavigationDirection",
+                                "isEnum": true,
+                                "identifier": "inputDirection"
+                            }
+                        ],
                         "results": [
                             {
                                 "type": "null",
@@ -91595,6 +92905,24 @@
                     "writeCapabilities": [
                         "AvatarAppearance"
                     ]
+                },
+                {
+                    "name": "InternalAnimationHipHeight",
+                    "isUserFacing": false,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValue": "0"
+                    },
+                    "isPublic": false,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": false,
+                    "isReplicated": true,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
                 },
                 {
                     "name": "InternalAvatarRulesRootPartSize",
@@ -121050,6 +122378,30 @@
                     "deprecated": true
                 },
                 {
+                    "name": "ExplorerIconContent",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Content",
+                        "isEnum": false,
+                        "defaultValue": "<Content name=\"ExplorerIconContent\">\n\t<null></null>\n</Content>"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Basic"
+                    ],
+                    "writeCapabilities": [
+                        "Basic"
+                    ]
+                },
+                {
                     "name": "GetBoundingBox",
                     "isUserFacing": true,
                     "memberType": "Function",
@@ -121754,6 +123106,42 @@
                     "simulationAccess": false,
                     "deprecated": true,
                     "replacedWith": "MoveTo"
+                }
+            ]
+        },
+        {
+            "name": "ModelInfoService",
+            "isUserFacing": false,
+            "baseClass": "Instance",
+            "isPublic": false,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": [
+                {
+                    "name": "GetModelTriangleCount",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "model"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "int",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
                 }
             ]
         },
@@ -123464,7 +124852,7 @@
                     "type": {
                         "type": "int",
                         "isEnum": false,
-                        "defaultValue": "109999"
+                        "defaultValue": "239999"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -123485,7 +124873,7 @@
                     "type": {
                         "type": "float",
                         "isEnum": false,
-                        "defaultValue": "93997.4062"
+                        "defaultValue": "203472.156"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -129156,7 +130544,7 @@
                     ]
                 },
                 {
-                    "name": "LightEmission",
+                    "name": "LightInfluence",
                     "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
@@ -131641,7 +133029,7 @@
             "isScriptCreatable": true,
             "security": "None",
             "capabilities": [
-                "InternalTest"
+                "Basic"
             ],
             "members": [
                 {
@@ -131661,7 +133049,7 @@
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false,
                     "capabilities": [
-                        "InternalTest"
+                        "Basic"
                     ]
                 },
                 {
@@ -131678,14 +133066,14 @@
                     "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": false,
-                    "isSerialized": true,
+                    "isSerialized": false,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": true,
                     "capabilities": [
-                        "InternalTest"
+                        "Basic"
                     ],
                     "writeCapabilities": [
-                        "InternalTest"
+                        "Basic"
                     ]
                 },
                 {
@@ -131702,14 +133090,14 @@
                     "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": false,
-                    "isSerialized": true,
+                    "isSerialized": false,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": true,
                     "capabilities": [
-                        "InternalTest"
+                        "Basic"
                     ],
                     "writeCapabilities": [
-                        "InternalTest"
+                        "Basic"
                     ]
                 }
             ]
@@ -135298,29 +136686,6 @@
                     "isYieldable": true,
                     "isCustom": false,
                     "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false,
-                    "capabilities": [
-                        "Players"
-                    ]
-                },
-                {
-                    "name": "GetData",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [],
-                        "results": [
-                            {
-                                "type": "Instance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
                     "threadSafety": "Unsafe",
                     "simulationAccess": false,
                     "capabilities": [
@@ -139330,589 +140695,7 @@
             "isPublic": true,
             "isScriptCreatable": false,
             "security": "None",
-            "members": [
-                {
-                    "name": "GetPlayer",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [],
-                        "results": [
-                            {
-                                "type": "Instance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetRecordAsync",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "recordName",
-                                "defaultValue": "Default"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Instance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                }
-            ]
-        },
-        {
-            "name": "PlayerDataRecord",
-            "isUserFacing": true,
-            "baseClass": "Instance",
-            "isPublic": true,
-            "isScriptCreatable": false,
-            "security": "None",
-            "members": [
-                {
-                    "name": "Changed",
-                    "isUserFacing": true,
-                    "memberType": "Event",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            },
-                            {
-                                "type": "Variant",
-                                "isEnum": false,
-                                "identifier": "value"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isPublic": true,
-                    "security": "None"
-                },
-                {
-                    "name": "CreatedTime",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "int64",
-                        "isEnum": false,
-                        "defaultValue": "0"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "DefaultRecordName",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "bool",
-                        "isEnum": false,
-                        "defaultValue": "true"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "Dirty",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "bool",
-                        "isEnum": false,
-                        "defaultValue": "false"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "Error",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "PlayerDataErrorState",
-                        "isEnum": true,
-                        "defaultValue": "None"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "Flushed",
-                    "isUserFacing": true,
-                    "memberType": "Event",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "bool",
-                                "isEnum": false,
-                                "identifier": "flushState"
-                            },
-                            {
-                                "type": "string?",
-                                "isEnum": false,
-                                "identifier": "error"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isPublic": true,
-                    "security": "None"
-                },
-                {
-                    "name": "FlushedTime",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "int64",
-                        "isEnum": false,
-                        "defaultValue": "0"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetPlayer",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [],
-                        "results": [
-                            {
-                                "type": "Instance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetValue",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Variant",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetValueChangedSignal",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "EventInstance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "Loaded",
-                    "isUserFacing": true,
-                    "memberType": "Event",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "bool",
-                                "isEnum": false,
-                                "identifier": "success"
-                            },
-                            {
-                                "type": "string?",
-                                "isEnum": false,
-                                "identifier": "error"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isPublic": true,
-                    "security": "None"
-                },
-                {
-                    "name": "LoadedTime",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "int64",
-                        "isEnum": false,
-                        "defaultValue": "0"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "ModifiedTime",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "int64",
-                        "isEnum": false,
-                        "defaultValue": "0"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "NewRecord",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "bool",
-                        "isEnum": false,
-                        "defaultValue": "false"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "Readable",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "bool",
-                        "isEnum": false,
-                        "defaultValue": "false"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "RecordName",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "string",
-                        "isEnum": false,
-                        "defaultValue": "Default"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "ReleaseAsync",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "RemoveValue",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "RequestFlushAsync",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "SetValue",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            },
-                            {
-                                "type": "Variant",
-                                "isEnum": false,
-                                "identifier": "value"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "Writable",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "bool",
-                        "isEnum": false,
-                        "defaultValue": "false"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                }
-            ]
-        },
-        {
-            "name": "PlayerDataRecordConfig",
-            "isUserFacing": true,
-            "baseClass": "Instance",
-            "isPublic": true,
-            "isScriptCreatable": false,
-            "security": "None",
-            "members": [
-                {
-                    "name": "GetDefaultValue",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Variant",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "RecordName",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "string",
-                        "isEnum": false,
-                        "defaultValue": ""
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": false,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "SetDefaultValue",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "key"
-                            },
-                            {
-                                "type": "Variant",
-                                "isEnum": false,
-                                "identifier": "value"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                }
-            ]
+            "members": []
         },
         {
             "name": "PlayerDataService",
@@ -139921,53 +140704,7 @@
             "isPublic": true,
             "isScriptCreatable": false,
             "security": "None",
-            "members": [
-                {
-                    "name": "GetRecordConfig",
-                    "isUserFacing": true,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "recordName",
-                                "defaultValue": "Default"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Instance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "None",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "LoadFailureBehavior",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "PlayerDataLoadFailureBehavior",
-                        "isEnum": true,
-                        "defaultValue": "Failure"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "writeSecurity": "None",
-                    "isScriptable": true,
-                    "isReplicated": true,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                }
-            ]
+            "members": []
         },
         {
             "name": "PlayerEmulatorService",
@@ -149475,7 +150212,29 @@
             "capabilities": [
                 "UI"
             ],
-            "members": []
+            "members": [
+                {
+                    "name": "CloseButtonEnabled",
+                    "isUserFacing": false,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "true"
+                    },
+                    "isPublic": false,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "UI"
+                    ]
+                }
+            ]
         },
         {
             "name": "QueueService",
@@ -150598,6 +151357,11 @@
                                 "type": "bool",
                                 "isEnum": false,
                                 "identifier": "expected"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "reason"
                             }
                         ],
                         "results": [
@@ -156667,7 +157431,7 @@
                     "type": {
                         "type": "string",
                         "isEnum": false,
-                        "defaultValue": "61546450ca9007cd115703f68561fb0cf81a48b8"
+                        "defaultValue": "babe3fc99182467fa75b02b63f8ce029058c0b7b"
                     },
                     "isPublic": true,
                     "readSecurity": "RobloxScript",
@@ -167759,6 +168523,29 @@
                     ]
                 },
                 {
+                    "name": "PromptRateExperienceAsync",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "ExperienceRatingResult",
+                                "isEnum": true
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Social"
+                    ]
+                },
+                {
                     "name": "PromptRsvpToEventAsync",
                     "isUserFacing": true,
                     "memberType": "Function",
@@ -167814,6 +168601,35 @@
                                 "isEnum": true,
                                 "identifier": "previousRsvpStatus",
                                 "defaultValue": "None"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Social"
+                    ]
+                },
+                {
+                    "name": "RateExperiencePromptCompleted",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "ExperienceRatingResult",
+                                "isEnum": true,
+                                "identifier": "result"
                             }
                         ],
                         "results": [
@@ -167974,6 +168790,26 @@
                                 "identifier": "eventId"
                             }
                         ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "RobloxScript",
+                    "capabilities": [
+                        "Social"
+                    ]
+                },
+                {
+                    "name": "ShowRateExperiencePrompt",
+                    "isUserFacing": false,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
                         "results": [
                             {
                                 "type": "null",
@@ -176259,6 +177095,24 @@
                     "isPublic": true,
                     "readSecurity": "Plugin",
                     "writeSecurity": "Plugin",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "Enable Flag Editor",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -199062,6 +199916,29 @@
             "security": "None",
             "members": [
                 {
+                    "name": "ReadAsync",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "PluginOrOpenCloud"
+                    ]
+                },
+                {
                     "name": "TextContent",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -205266,32 +206143,6 @@
                     "simulationAccess": false
                 },
                 {
-                    "name": "ValidateEditableMeshCageNonManifoldAndHoles",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Object",
-                                "isEnum": false,
-                                "identifier": "editableMesh"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Tuple",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
                     "name": "ValidateEditableMeshCageUVCoincident",
                     "isUserFacing": false,
                     "memberType": "Function",
@@ -205416,32 +206267,6 @@
                     "simulationAccess": false
                 },
                 {
-                    "name": "ValidateEditableMeshFullBodyCageDeletion",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Object",
-                                "isEnum": false,
-                                "identifier": "editableMesh"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "bool",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
                     "name": "ValidateEditableMeshMisMatchUV",
                     "isUserFacing": false,
                     "memberType": "Function",
@@ -205500,32 +206325,6 @@
                 },
                 {
                     "name": "ValidateEditableMeshTriangleArea",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Object",
-                                "isEnum": false,
-                                "identifier": "editableMesh"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "bool",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "ValidateEditableMeshTriangles",
                     "isUserFacing": false,
                     "memberType": "Function",
                     "type": {
@@ -211223,7 +212022,14 @@
                     "memberType": "Function",
                     "type": {
                         "name": "function",
-                        "arguments": [],
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "target",
+                                "defaultValue": "nil"
+                            }
+                        ],
                         "results": [
                             {
                                 "type": "Object",
@@ -211234,6 +212040,35 @@
                     "isYieldable": false,
                     "isCustom": false,
                     "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Input"
+                    ]
+                },
+                {
+                    "name": "CreateVirtualInputForPluginGuiId",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "pluginGuiId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Object",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
                     "threadSafety": "Unsafe",
                     "simulationAccess": false,
                     "capabilities": [
@@ -216761,6 +217596,33 @@
                     ]
                 },
                 {
+                    "name": "SubtitlesChanged",
+                    "isUserFacing": true,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Array",
+                                "isEnum": false,
+                                "identifier": "subtitleCues"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "None",
+                    "capabilities": [
+                        "Audio",
+                        "UI"
+                    ]
+                },
+                {
                     "name": "TimeLength",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -220640,8 +221502,8 @@
                         "defaultValue": "Inverse"
                     },
                     "isPublic": true,
-                    "readSecurity": "Plugin",
-                    "writeSecurity": "Plugin",
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -220649,7 +221511,11 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Audio",
-                        "Chat"
+                        "Chat",
+                        "PluginOrOpenCloud"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -220662,8 +221528,8 @@
                         "defaultValue": "true"
                     },
                     "isPublic": true,
-                    "readSecurity": "Plugin",
-                    "writeSecurity": "Plugin",
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -220671,7 +221537,11 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Audio",
-                        "Chat"
+                        "Chat",
+                        "PluginOrOpenCloud"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -221859,8 +222729,8 @@
                         "defaultValue": "Automatic"
                     },
                     "isPublic": true,
-                    "readSecurity": "Plugin",
-                    "writeSecurity": "Plugin",
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -221868,7 +222738,11 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Audio",
-                        "Chat"
+                        "Chat",
+                        "PluginOrOpenCloud"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -225422,24 +226296,6 @@
                     "simulationAccess": false
                 },
                 {
-                    "name": "ImprovedAnimationConstraint",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "RolloutState",
-                        "isEnum": true,
-                        "defaultValueMissingReason": "api_dump_class_not_creatable"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "writeSecurity": "None",
-                    "isScriptable": false,
-                    "isReplicated": true,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false
-                },
-                {
                     "name": "ImprovedPhysicsReplication",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -228493,7 +229349,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -228501,6 +229357,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -228662,7 +229521,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -228670,6 +229529,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -228683,7 +229545,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -228691,6 +229553,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -228704,7 +229569,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -228712,6 +229577,9 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -228997,7 +229865,7 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -229006,6 +229874,9 @@
                     "deprecated": true,
                     "capabilities": [
                         "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
                     ]
                 }
             ]
@@ -229643,7 +230514,9 @@
                 "GamePageLoaded": 8,
                 "HomePageLoaded": 9,
                 "AvatarEditorPageLoaded": 10,
-                "HomePageInteractive": 11
+                "HomePageInteractive": 11,
+                "TapCampaignPageTab": 12,
+                "CampaignPageLoaded": 13
             }
         },
         {
@@ -229794,7 +230667,9 @@
                 "EyeMakeup": 90,
                 "AvatarBackground": 92,
                 "TextDocument": 93,
-                "AnimatedImage": 95
+                "AnimatedImage": 95,
+                "ComputeFunction": 96,
+                "SpawnEffect": 97
             },
             "deprecatedItems": [
                 "TeeShirt",
@@ -229865,7 +230740,7 @@
         },
         {
             "name": "AudioSampleFormat",
-            "isUserFacing": false,
+            "isUserFacing": true,
             "items": {
                 "Int16": 0,
                 "Float32": 1
@@ -229983,7 +230858,8 @@
                 "FaceMakeup": 88,
                 "LipMakeup": 89,
                 "EyeMakeup": 90,
-                "AvatarBackground": 92
+                "AvatarBackground": 92,
+                "SpawnEffect": 97
             },
             "deprecatedItems": [
                 "TeeShirtAccessory"
@@ -230014,6 +230890,14 @@
                 "Chat": 1,
                 "Emote": 2,
                 "InspectMenu": 3
+            }
+        },
+        {
+            "name": "AvatarEffectType",
+            "isUserFacing": true,
+            "items": {
+                "None": 0,
+                "Spawn": 1
             }
         },
         {
@@ -230152,7 +231036,8 @@
             "isUserFacing": true,
             "items": {
                 "UseParts": 0,
-                "UseCollider": 1
+                "UseCollider": 1,
+                "UseHitbox": 2
             }
         },
         {
@@ -230177,6 +231062,15 @@
             "items": {
                 "PlayerChoice": 0,
                 "CustomScale": 1
+            }
+        },
+        {
+            "name": "AvatarSettingsTouchAndQueryDetectionMode",
+            "isUserFacing": true,
+            "items": {
+                "UseParts": 0,
+                "UseCollider": 1,
+                "UseHitbox": 2
             }
         },
         {
@@ -231600,6 +232494,16 @@
             }
         },
         {
+            "name": "ExperienceRatingResult",
+            "isUserFacing": true,
+            "items": {
+                "Completed": 1,
+                "Dismissed": 2,
+                "NotAllowed": 3,
+                "Failed": 4
+            }
+        },
+        {
             "name": "ExperienceStateCaptureSelectionMode",
             "isUserFacing": false,
             "items": {
@@ -231882,6 +232786,15 @@
             ]
         },
         {
+            "name": "FollowTwistBoneAxisMode",
+            "isUserFacing": true,
+            "items": {
+                "Local": 0,
+                "Follower": 1,
+                "StartToEndBone": 2
+            }
+        },
+        {
             "name": "Font",
             "isUserFacing": true,
             "items": {
@@ -232153,6 +233066,42 @@
             }
         },
         {
+            "name": "GameDownloadPhase",
+            "isUserFacing": false,
+            "items": {
+                "FetchingManifest": 0,
+                "CheckingGuards": 1,
+                "Downloading": 2
+            }
+        },
+        {
+            "name": "GameDownloadResult",
+            "isUserFacing": false,
+            "items": {
+                "Success": 0,
+                "ManifestUnavailable": 1,
+                "NotEnoughSpace": 2,
+                "NotOnWiFi": 3,
+                "NetworkMetered": 4,
+                "LowPowerMode": 5,
+                "Moderated": 6,
+                "NetworkError": 7,
+                "Cancelled": 8
+            }
+        },
+        {
+            "name": "GameDownloadStartResult",
+            "isUserFacing": false,
+            "items": {
+                "Started": 0,
+                "AlreadyDownloading": 1,
+                "GameDownloadInProgress": 2,
+                "NotOnWiFi": 3,
+                "NetworkMetered": 4,
+                "LowPowerMode": 5
+            }
+        },
+        {
             "name": "GamepadType",
             "isUserFacing": false,
             "items": {
@@ -232263,6 +233212,19 @@
                 "Joined": 1,
                 "JoinRequestPending": 2,
                 "AlreadyMember": 3
+            }
+        },
+        {
+            "name": "GuiNavigationDirection",
+            "isUserFacing": true,
+            "items": {
+                "None": 0,
+                "Up": 1,
+                "Down": 2,
+                "Left": 3,
+                "Right": 4,
+                "Forward": 5,
+                "Backward": 6
             }
         },
         {
@@ -232530,7 +233492,14 @@
                 "Multiply": 4,
                 "AlphaBlend": 5,
                 "NormalMapBlend": 6,
-                "Subtract": 7
+                "Subtract": 7,
+                "Darken": 8,
+                "Lighten": 9,
+                "Screen": 10,
+                "Overlay": 11,
+                "SoftLight": 12,
+                "HardLight": 13,
+                "Difference": 14
             }
         },
         {
@@ -233989,25 +234958,6 @@
                 "All": 0,
                 "Team": 1,
                 "Whisper": 2
-            }
-        },
-        {
-            "name": "PlayerDataErrorState",
-            "isUserFacing": true,
-            "items": {
-                "LoadFailed": 0,
-                "FlushFailed": 1,
-                "ReleaseFailed": 2,
-                "None": 3
-            }
-        },
-        {
-            "name": "PlayerDataLoadFailureBehavior",
-            "isUserFacing": true,
-            "items": {
-                "Failure": 0,
-                "FallbackToDefault": 1,
-                "Kick": 2
             }
         },
         {
