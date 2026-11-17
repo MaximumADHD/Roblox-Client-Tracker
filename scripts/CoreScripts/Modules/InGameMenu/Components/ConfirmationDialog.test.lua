@@ -18,7 +18,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 local Cryo = require(CorePackages.Packages.Cryo)
 local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local foundationTypography = Foundation.Utility.getTokens(Foundation.Enums.ColorMode.Dark).Typography
 local Style = require(CorePackages.Workspace.Packages.Style)
 local getTextSizeSpy = jest.spyOn(Style, "GetTextSize")
@@ -86,23 +85,20 @@ describe("Mounting and destroying", function()
 		expect(CoreGui:FindFirstChild("InGameMenuConfirmationDialog")).never.toBeNil()
 		Roact.unmount(instance)
 	end)
+	it("should measure body text without temporary padding", function()
+		jest.clearAllMocks()
+		local instance = Roact.mount(getMountableComponent())
 
-	if FFlagFoundationFontFaceMigration then
-		it("should measure body text without temporary padding", function()
-			jest.clearAllMocks()
-			local instance = Roact.mount(getMountableComponent())
+		expect(getTextSizeSpy).toHaveBeenCalledWith(
+			dummyDialogProps.bodyText,
+			expect.anything(),
+			foundationTypography.BodyLarge.Font,
+			expect.anything(),
+			{ addTemporaryPadding = false }
+		)
 
-			expect(getTextSizeSpy).toHaveBeenCalledWith(
-				dummyDialogProps.bodyText,
-				expect.anything(),
-				foundationTypography.BodyLarge.Font,
-				expect.anything(),
-				{ addTemporaryPadding = false }
-			)
-
-			Roact.unmount(instance)
-		end)
-	end
+		Roact.unmount(instance)
+	end)
 end)
 
 if FFlagIGMDialogButtonsUseUIBloxButton then

@@ -114,6 +114,7 @@ local StatusBadgeVariant = require(script.Enums.StatusBadgeVariant)
 local StatusIndicatorShape = require(script.Enums.StatusIndicatorShape)
 local StatusIndicatorSize = require(script.Enums.StatusIndicatorSize)
 local StatusIndicatorVariant = require(script.Enums.StatusIndicatorVariant)
+local SwipeBehavior = require(script.Enums.SwipeBehavior)
 local TextOverflow = require(script.Enums.TextOverflow)
 -- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 local Theme = require(script.Enums.Theme)
@@ -199,6 +200,7 @@ export type StatusBadgeVariant = StatusBadgeVariant.StatusBadgeVariant
 export type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
 export type StatusIndicatorSize = StatusIndicatorSize.StatusIndicatorSize
 export type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
+export type SwipeBehavior = SwipeBehavior.SwipeBehavior
 export type TextOverflow = TextOverflow.TextOverflow
 -- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 export type Theme = Theme.Theme
@@ -319,6 +321,9 @@ export type EmptyProps = Empty.EmptyProps
 local FeedbackAlert = require(script.Components.FeedbackAlert)
 export type FeedbackAlertProps = FeedbackAlert.FeedbackAlertProps
 
+local FloatingBanner = require(script.Components.FloatingBanner)
+export type FloatingBannerProps = FloatingBanner.FloatingBannerProps
+
 local Icon = require(script.Components.Icon)
 export type IconProps = Icon.IconProps
 
@@ -333,6 +338,9 @@ export type InputChipProps = InputChip.InputChipProps
 
 local InputLabel = require(script.Components.InputLabel)
 export type InputLabelProps = InputLabel.InputLabelProps
+
+local InputSlider = require(script.Components.InputSlider)
+export type InputSliderProps = InputSlider.InputSliderProps
 
 -- **DEPRECATED**: KeyLabel is deprecated. Use Shortcut instead.
 local KeyLabel = require(script.Components.KeyLabel)
@@ -370,6 +378,9 @@ export type MenuItems = Menu.MenuItems
 local NavigationBar = require(script.Components.NavigationBar)
 export type NavigationBarProps = NavigationBar.NavigationBarProps
 export type NavigationBarItem = NavigationBar.NavigationBarItem
+
+local NavigationDrawer = require(script.Components.NavigationDrawer)
+export type NavigationDrawerProps = NavigationDrawer.NavigationDrawerProps
 
 local NumberInput = require(script.Components.NumberInput)
 export type NumberInputProps = NumberInput.NumberInputProps
@@ -459,6 +470,13 @@ local TextInput = require(script.Components.TextInput)
 export type TextInputProps = TextInput.TextInputProps
 export type TextInputRef = Types.TextInputRef
 
+local TileIcon = require(script.Components.TileIcon)
+export type TileIconProps = TileIcon.TileIconProps
+export type TileIconIndicator = TileIcon.TileIconIndicator
+
+local TilePlayer = require(script.Components.TilePlayer)
+export type TilePlayerProps = TilePlayer.TilePlayerProps
+
 local Toggle = require(script.Components.Toggle)
 export type ToggleProps = Toggle.ToggleProps
 
@@ -505,11 +523,13 @@ local Foundation = strict({
 	HeaderBar = HeaderBar,
 	Empty = Empty,
 	FeedbackAlert = FeedbackAlert,
+	FloatingBanner = FloatingBanner,
 	Icon = Icon,
 	IconButton = IconButton,
 	Image = Image,
 	InputChip = InputChip,
 	InputLabel = InputLabel,
+	InputSlider = InputSlider,
 	-- **DEPRECATED**: KeyLabel is deprecated. Use Shortcut instead.
 	KeyLabel = KeyLabel,
 	Knob = Knob,
@@ -520,6 +540,7 @@ local Foundation = strict({
 	Metadata = Metadata,
 	Menu = Menu,
 	NavigationBar = NavigationBar,
+	NavigationDrawer = NavigationDrawer,
 	NumberInput = NumberInput,
 	OptionSelectorGroup = OptionSelectorGroup,
 	Pagination = Pagination,
@@ -544,6 +565,8 @@ local Foundation = strict({
 	Text = Text,
 	TextArea = TextArea,
 	TextInput = TextInput,
+	TileIcon = TileIcon,
+	TilePlayer = TilePlayer,
 	Toggle = Toggle,
 	ToggleGroup = ToggleGroup,
 	Tooltip = Tooltip,
@@ -566,6 +589,7 @@ local Foundation = strict({
 		useDefaultTags = require(script.Utility.useDefaultTags),
 		useDialogNavigation = require(script.Components.Dialog.useDialogNavigation),
 		useSheetNavigation = require(script.Components.Sheet.useSheetNavigation),
+		useHeaderBarHeight = require(script.Components.HeaderBar.useHeaderBarHeight),
 		useIconSize = require(script.Utility.useIconSize),
 		useMeasurableRef = require(script.Components.Popover.useMeasurableRef),
 		useOverlay = require(script.Providers.Overlay.useOverlay),
@@ -667,6 +691,7 @@ local Foundation = strict({
 		StatusIndicatorShape = StatusIndicatorShape,
 		StatusIndicatorSize = StatusIndicatorSize,
 		StatusIndicatorVariant = StatusIndicatorVariant,
+		SwipeBehavior = SwipeBehavior,
 		TextOverflow = TextOverflow,
 		-- **DEPRECATED**: Theme is deprecated. Use ColorMode instead.
 		Theme = Theme,

@@ -1,5 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
@@ -26,7 +25,6 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Image = Foundation.Image
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
@@ -51,7 +49,7 @@ function LoadingFriendsError:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Font = {
 				BaseSize = 1,
 				Body = {
@@ -64,22 +62,14 @@ function LoadingFriendsError:render()
 		return withLocalization({
 			errorOccured = "CoreScripts.InGameMenu.InviteFriends.ErrorOccured",
 		})(function(localized)
-			local bodyFont = style.Font.Body.Font
 			local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
-			local textHeight = if FFlagFoundationFontFaceMigration
-				then GetTextSize(
-					localized.errorOccured,
-					bodyFontSize,
-					style.Tokens.Typography.BodyLarge.Font,
-					Vector2.new(CONTAINER_WIDTH, math.huge),
-					{ addTemporaryPadding = false }
-				).Y
-				else TextService:GetTextSize(
-					localized.errorOccured,
-					bodyFontSize,
-					bodyFont,
-					Vector2.new(CONTAINER_WIDTH, math.huge)
-				).Y
+			local textHeight = GetTextSize(
+				localized.errorOccured,
+				bodyFontSize,
+				style.Tokens.Typography.BodyLarge.Font,
+				Vector2.new(CONTAINER_WIDTH, math.huge),
+				{ addTemporaryPadding = false }
+			).Y
 
 			local totalTextPadding = TEXT_PADDING_TOP + TEXT_PADDING_BOTTOM
 

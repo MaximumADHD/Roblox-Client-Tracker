@@ -52,6 +52,7 @@ local FFlagRefactorMenuConfirmationButtons =
 	require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
 local FFlagUIScaleEngineOptions = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUIScaleEngineOptions
+local FFlagUIScaleSliderImprovements = require(RobloxGui.Modules.Settings.Flags.FFlagUIScaleSliderImprovements)
 
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
@@ -1793,6 +1794,12 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 	local interactable = true
 	-- Only SetEnabledSteps sets this, and only with FFlagUIScaleEngineOptions on; while nil the slider behaves as before.
 	local enabledSteps = nil
+	-- A UI Scale step press holds ValueChanged until release: applying the scale relayouts the menu, so the drag would map
+	-- the unmoved cursor onto a different step.
+	local deferringValueChanged = false
+	local valueChangedPending = false
+	-- The press being deferred. A step press also reaches the enclosing SliderFrame, and that second call must not flush it.
+	local deferringInputObject = nil
 
 	local renderStepBindName = HttpService:GenerateGUID(false)
 
@@ -2045,7 +2052,8 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 				break
 			end
 			if FFlagUIScaleEngineOptions and enabledSteps then
-				if enabledSteps[i] or i == currentStep then
+				-- A saved step the window no longer fits stays dim like the other disabled steps.
+				if enabledSteps[i] or (i == currentStep and not FFlagUIScaleSliderImprovements) then
 					this.Steps[i].BackgroundTransparency = 0
 					this.Steps[i].BackgroundColor3 = SELECTED_COLOR
 				end
@@ -2114,6 +2122,24 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		showSelection()
 
 		timeAtLastInput = tick()
+		if FFlagUIScaleSliderImprovements and deferringValueChanged then
+			valueChangedPending = true
+		else
+			if valueChangedSignal then
+				valueChangedSignal:fire(currentStep)
+			else
+				valueChangedEvent:Fire(currentStep)
+			end
+		end
+	end
+
+	local function endDeferredValueChanged()
+		deferringValueChanged = false
+		deferringInputObject = nil
+		if not valueChangedPending then
+			return
+		end
+		valueChangedPending = false
 		if valueChangedSignal then
 			valueChangedSignal:fire(currentStep)
 		else
@@ -2150,6 +2176,16 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 
 		if usesSelectedObject() and not VRService.VREnabled then
 			GuiService.SelectedCoreObject = this.SliderFrame
+		end
+
+		if FFlagUIScaleSliderImprovements and inputObject ~= deferringInputObject then
+			-- A press whose release was never delivered reports its step first, so arrows and later presses apply at once.
+			endDeferredValueChanged()
+			deferringValueChanged = FFlagUIScaleEngineOptions
+				and enabledSteps ~= nil
+				and not repeatAction
+				and not VRService.VREnabled
+			deferringInputObject = if deferringValueChanged then inputObject else nil
 		end
 
 		if not VRService.VREnabled then
@@ -2190,6 +2226,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 					lastInputDirection = 0
 					mouseInputEndedCon:Disconnect()
 					mouseInputMovedCon:Disconnect()
+					if FFlagUIScaleSliderImprovements and deferringValueChanged then
+						endDeferredValueChanged()
+					end
 				end)
 			end
 		else
@@ -2412,6 +2451,10 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 			return
 		end
 
+		if FFlagUIScaleSliderImprovements and deferringValueChanged and navigationKeyCodes[inputObject.KeyCode] then
+			-- Navigation applies at once; first report a press whose release was never delivered.
+			endDeferredValueChanged()
+		end
 		if navigationKeyCodes[inputObject.KeyCode] == navigateLeft then
 			lastInputDirection = -1
 			setCurrentStep(currentStep - 1)

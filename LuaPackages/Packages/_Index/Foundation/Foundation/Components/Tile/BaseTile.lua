@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local BaseTileContent = require(script.Parent.BaseTileContent)
 local BaseTileMedia = require(script.Parent.BaseTileMedia)
+local BaseTileMediaClipping = require(Foundation.Enums.BaseTileMediaClipping)
 local TileAspectRatio = require(Foundation.Enums.TileAspectRatio)
 local Types = require(Foundation.Components.Types)
 local getTestIdTag = require(Foundation.Utility.getTestIdTag)
@@ -16,6 +17,7 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 type Bindable<T> = Types.Bindable<T>
+type BaseTileMediaClipping = BaseTileMediaClipping.BaseTileMediaClipping
 type StateChangedCallback = Types.StateChangedCallback
 type TileAspectRatio = TileAspectRatio.TileAspectRatio
 
@@ -43,8 +45,11 @@ export type BaseTileProps = {
 	isContained: boolean?,
 	-- Surface behind a contained tile; defaults to Shift_200
 	containedBackgroundStyle: Types.ColorStyle?,
-	-- Element rendered in the media well, clipped at the well's corners
+	-- Element rendered in the media well; round it with BaseTileMediaCorner
 	mediaContent: React.ReactElement?,
+	-- How the well clips mediaContent: Default clips to its bounds, None doesn't clip, and Rounded clips to its rounded
+	-- corners with a CanvasGroup, at a memory and render cost per tile
+	mediaClippingStyle: BaseTileMediaClipping?,
 	-- Width-to-height ratio of the media well
 	mediaAspectRatio: TileAspectRatio?,
 	-- Fill behind the media well; defaults to Shift_200
@@ -65,10 +70,15 @@ export type BaseTileProps = {
 	onSecondaryActivated: ((self: GuiObject, inputObject: InputObject) -> ())?,
 	-- Tile size; a zero height hugs the content, and a bounded height shrinks the media to fit
 	Size: Bindable<UDim2>?,
+	-- Smallest tile size, applied with a UISizeConstraint
+	minSize: Vector2?,
+	-- Largest tile size, applied with a UISizeConstraint
+	maxSize: Vector2?,
 } & Types.CommonProps
 
 local defaultProps = {
 	mediaAspectRatio = TileAspectRatio.Ratio16x9,
+	mediaClippingStyle = BaseTileMediaClipping.Default,
 	isContained = false,
 	testId = "--foundation-base-tile",
 }
@@ -136,6 +146,7 @@ local function BaseTile(tileProps: BaseTileProps, ref: React.Ref<GuiObject>?)
 	local onSecondaryActivated = props.onSecondaryActivated
 	local onStateChanged = props.onStateChanged
 	local isActivatable = onActivated ~= nil or onSecondaryActivated ~= nil
+	local isSizeConstrained = props.minSize ~= nil or props.maxSize ~= nil
 
 	local tracksState = onStateChanged ~= nil
 	local backgroundStyle = if props.isContained
@@ -187,6 +198,12 @@ local function BaseTile(tileProps: BaseTileProps, ref: React.Ref<GuiObject>?)
 		Corner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, tokens.Radius.Medium),
 		}),
+		SizeConstraint = if isSizeConstrained
+			then React.createElement("UISizeConstraint", {
+				MinSize = props.minSize,
+				MaxSize = props.maxSize,
+			})
+			else nil,
 		Layout = React.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -194,8 +211,10 @@ local function BaseTile(tileProps: BaseTileProps, ref: React.Ref<GuiObject>?)
 		}),
 		Media = React.createElement(BaseTileMedia, {
 			content = props.mediaContent,
+			clippingStyle = props.mediaClippingStyle,
 			aspectRatio = props.mediaAspectRatio,
 			backgroundStyle = props.mediaBackgroundStyle or tokens.Color.Shift.Shift_200,
+			isSizeConstrained = isSizeConstrained,
 			isContained = props.isContained,
 			tileSize = tileSize,
 			maxHeight = if measured ~= nil then measured.mediaMaxHeight else nil,

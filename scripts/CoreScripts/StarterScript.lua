@@ -70,6 +70,7 @@ local FFlagEnableExperienceGenericChallengeRenderingOnLoadingScript =
 local FFlagEnableRobloxCommerce = game:GetEngineFeature("EnableRobloxCommerce")
 local FFlagEnableLinkSharingEvent = game:DefineFastFlag("EnableLinkSharingEvent", false)
 local FFlagEnableShareSheet = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableShareSheet
+local FFlagUseUIOverlayForCloudPlay = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseUIOverlayForCloudPlay
 local FFlagPlayerFeedbackPromptEnabled = game:GetEngineFeature("PlayerFeedbackEnabled")
 local FFlagLuaAppInExperienceDetailsPrompt =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppInExperienceDetailsPrompt
@@ -237,6 +238,13 @@ coroutine.wrap(safeRequire)(CoreGuiModules.SelfieView)
 -- TopBar
 if not isBuildLibraryMode then
 	coroutine.wrap(safeRequire)(CoreGuiModules.TopBar)
+end
+
+if FFlagUseUIOverlayForCloudPlay and not isBuildLibraryMode then
+	local InExperienceCloudPlay = coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.InExperienceCloudPlay)
+	if InExperienceCloudPlay then
+		InExperienceCloudPlay.mountCloudPlayUIOverlay()
+	end
 end
 
 -- SideSheet

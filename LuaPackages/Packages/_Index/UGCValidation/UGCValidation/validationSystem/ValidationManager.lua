@@ -28,6 +28,7 @@ local getFFlagDebugAllowHRDUploadOnBundleBackend = require(root.flags.getFFlagDe
 local getEngineFeatureEngineUGCValidateInstanceTreesEquivalent =
 	require(root.flags.getEngineFeatureEngineUGCValidateInstanceTreesEquivalent)
 local getFFlagUGCValidationAllowFullVaas = require(root.flags.getFFlagUGCValidationAllowFullVaas)
+local getFFlagUGCValidateAQSRequiresOnlySummary = require(root.flags.getFFlagUGCValidateAQSRequiresOnlySummary)
 local getFFlagDebugUGCDisableAssetQualityChecks = require(root.flags.getFFlagDebugUGCDisableAssetQualityChecks)
 local getEngineFeatureEngineDebugUGCValidationViaLocalRCC =
 	require(root.flags.getEngineFeatureEngineDebugUGCValidationViaLocalRCC)
@@ -147,6 +148,12 @@ local function initRunVariables(
 		end
 	end
 
+	if getFFlagUGCValidateAQSRequiresOnlySummary() and #qualityTests > 0 and configs.aqFetchStage == "scene" then
+		for _, dataEnum in RecreateSceneFromEditables.requiredData do
+			desiredData[dataEnum] = true
+		end
+	end
+
 	-- step 2.5: fill in postreqs
 	for curTest: string, validationFD: Types.SingleValidationFileData in desiredValidations do
 		for prereqTest, _ in validationFD.prereqs do
@@ -180,6 +187,13 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 		success = true
 	else
 		success, errors = pcall(function()
+			if getFFlagUGCValidateAQSRequiresOnlySummary() then
+				for _, dataEnum in RecreateSceneFromEditables.requiredData do
+					if (sharedData :: any)[dataEnum] == FetchAllDesiredData.DATA_FETCH_FAILURE then
+						error(`Missing scene data: {dataEnum}`)
+					end
+				end
+			end
 			gltfScene = RecreateSceneFromEditables.createModelForGltfExport(sharedData)
 			gltfString = AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(gltfScene)
 		end)

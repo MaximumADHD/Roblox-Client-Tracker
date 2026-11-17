@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
+local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -14,7 +15,18 @@ local MenuNavigationPromptTokenMapper = require(script.Parent.Parent.TokenMapper
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe = JestGlobals.describe
+local expect = JestGlobals.expect
 local it = JestGlobals.it
+local jest = JestGlobals.jest
+
+local InExperienceCloudPlay = CorePackages.Workspace.Packages.InExperienceCloudPlay
+local FFlagEnableRestyleTopBar = require(InExperienceCloudPlay.FFlagEnableRestyleTopBar)
+local mountsRestyleTimer = FFlagEnableRestyleTopBar
+	and require(CorePackages.Workspace.Packages.SharedFlags).FFlagUseUIOverlayForCloudPlay
+local mockRestyleTimer, mockRestyleTimerFn = jest.fn()
+jest.mock(InExperienceCloudPlay.RestyleTimer, function()
+	return mockRestyleTimerFn
+end)
 
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
 if not FFlagTopBarRefactor then
@@ -30,7 +42,7 @@ local defaultStyle = {
 local Reducer = require(script.Parent.Parent.Reducer)
 
 describe("TopBarApp", function()
-	it("should create and destroy without errors", function()
+	it("mounts the Restyle timer only when its flags are on and hides it with the TopBar", function()
 		local TopBarApp = require(script.Parent.TopBarApp)
 
 		local store = Rodux.Store.new(Reducer, nil, {
@@ -64,6 +76,19 @@ describe("TopBarApp", function()
 		})
 
 		local instance = Roact.mount(element)
+		if mountsRestyleTimer then
+			local GamepadConnector = require(script.Parent.Parent.Components.GamepadConnector)
+			expect(mockRestyleTimer).toHaveBeenLastCalledWith(expect.objectContaining({ isHidden = false }))
+			ReactRoblox.act(function()
+				GamepadConnector:getShowTopBar():set(false)
+			end)
+			expect(mockRestyleTimer).toHaveBeenLastCalledWith(expect.objectContaining({ isHidden = true }))
+			ReactRoblox.act(function()
+				GamepadConnector:getShowTopBar():set(true)
+			end)
+		else
+			expect(mockRestyleTimer).never.toHaveBeenCalled()
+		end
 		Roact.unmount(instance)
 	end)
 end)

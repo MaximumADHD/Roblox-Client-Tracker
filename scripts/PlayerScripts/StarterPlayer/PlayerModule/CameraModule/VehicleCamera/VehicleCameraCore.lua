@@ -21,16 +21,17 @@ end
 -- step a damped angular spring axis
 local function stepSpringAxis(dt, f, g, p, v)
 	local offset = sanitizeAngle(p - g)
-	local decay = math.exp(-f*dt)
+	local decay = math.exp(-f * dt)
 
-	local p1 = sanitizeAngle((offset*(1 + f*dt) + v*dt)*decay + g)
-	local v1 = (v*(1 - f*dt) - offset*(f*f*dt))*decay
+	local p1 = sanitizeAngle((offset * (1 + f * dt) + v * dt) * decay + g)
+	local v1 = (v * (1 - f * dt) - offset * (f * f * dt)) * decay
 
 	return p1, v1
 end
 
 -- value damper with separate response frequencies for rising and falling values
-local VariableEdgeSpring = {} do
+local VariableEdgeSpring = {}
+do
 	VariableEdgeSpring.__index = VariableEdgeSpring
 
 	function VariableEdgeSpring.new(fRising, fFalling, position)
@@ -39,7 +40,7 @@ local VariableEdgeSpring = {} do
 			fFalling = fFalling,
 			g = position,
 			p = position,
-			v = position*0,
+			v = position * 0,
 		}, VariableEdgeSpring)
 	end
 
@@ -50,13 +51,13 @@ local VariableEdgeSpring = {} do
 		local p0 = self.p
 		local v0 = self.v
 
-		local f = 2*math.pi*(v0 > 0 and fRising or fFalling)
+		local f = 2 * math.pi * (v0 > 0 and fRising or fFalling)
 
 		local offset = p0 - g
-		local decay = math.exp(-f*dt)
+		local decay = math.exp(-f * dt)
 
-		local p1 = (offset*(1 + f*dt) + v0*dt)*decay + g
-		local v1 = (v0*(1 - f*dt) - offset*(f*f*dt))*decay
+		local p1 = (offset * (1 + f * dt) + v0 * dt) * decay + g
+		local v1 = (v0 * (1 - f * dt) - offset * (f * f * dt)) * decay
 
 		self.p = p1
 		self.v = v1
@@ -66,12 +67,13 @@ local VariableEdgeSpring = {} do
 end
 
 -- damps a 3D rotation in Tait-Bryan YXZ space, filtering out Z
-local YawPitchSpring = {} do
+local YawPitchSpring = {}
+do
 	YawPitchSpring.__index = YawPitchSpring
 
 	function YawPitchSpring.new(cf)
 		assert(typeof(cf) == "CFrame")
-		
+
 		return setmetatable({
 			yawG = getYaw(cf), -- yaw goal
 			yawP = getYaw(cf), -- yaw position
@@ -94,11 +96,11 @@ local YawPitchSpring = {} do
 			),
 		}, YawPitchSpring)
 	end
-	
+
 	-- Extract Tait-Bryan angles from a CFrame rotation
 	function YawPitchSpring:setGoal(goalCFrame)
 		assert(typeof(goalCFrame) == "CFrame")
-		
+
 		self.yawG = getYaw(goalCFrame)
 		self.pitchG = getPitch(goalCFrame)
 	end
@@ -112,61 +114,52 @@ local YawPitchSpring = {} do
 		assert(typeof(yawVel) == "number")
 		assert(typeof(pitchVel) == "number")
 		assert(typeof(firstPerson) == "number")
-		
+
 		local fSpringYaw = self.fSpringYaw
 		local fSpringPitch = self.fSpringPitch
-		
+
 		-- calculate the frequency spring
 		fSpringYaw.g = mapClamp(
 			map(firstPerson, 0, 1, yawVel, 0),
 			math.rad(VehicleCameraConfig.cutoffMinAngularVelYaw),
 			math.rad(VehicleCameraConfig.cutoffMaxAngularVelYaw),
-			1, 0
+			1,
+			0
 		)
 
 		fSpringPitch.g = mapClamp(
 			map(firstPerson, 0, 1, pitchVel, 0),
 			math.rad(VehicleCameraConfig.cutoffMinAngularVelPitch),
 			math.rad(VehicleCameraConfig.cutoffMaxAngularVelPitch),
-			1, 0
+			1,
+			0
 		)
-		
+
 		-- calculate final frequencies
-		local fYaw = 2*math.pi*VehicleCameraConfig.yawStiffness*fSpringYaw:step(dt)
-		local fPitch = 2*math.pi*VehicleCameraConfig.pitchStiffness*fSpringPitch:step(dt)
-		
+		local fYaw = 2 * math.pi * VehicleCameraConfig.yawStiffness * fSpringYaw:step(dt)
+		local fPitch = 2 * math.pi * VehicleCameraConfig.pitchStiffness * fSpringPitch:step(dt)
+
 		-- adjust response for first person
 		fPitch *= map(firstPerson, 0, 1, 1, VehicleCameraConfig.firstPersonResponseMul)
 		fYaw *= map(firstPerson, 0, 1, 1, VehicleCameraConfig.firstPersonResponseMul)
-		
+
 		-- step yaw
-		self.yawP, self.yawV = stepSpringAxis(
-			dt,
-			fYaw,
-			self.yawG,
-			self.yawP,
-			self.yawV
-		)
-		
+		self.yawP, self.yawV = stepSpringAxis(dt, fYaw, self.yawG, self.yawP, self.yawV)
+
 		-- step pitch
-		self.pitchP, self.pitchV = stepSpringAxis(
-			dt,
-			fPitch,
-			self.pitchG,
-			self.pitchP,
-			self.pitchV
-		)
+		self.pitchP, self.pitchV = stepSpringAxis(dt, fPitch, self.pitchG, self.pitchP, self.pitchV)
 
 		return self:getCFrame()
 	end
 end
 
-local VehicleCameraCore = {} do
+local VehicleCameraCore = {}
+do
 	VehicleCameraCore.__index = VehicleCameraCore
 
 	function VehicleCameraCore.new(transform)
 		return setmetatable({
-			vrs = YawPitchSpring.new(transform)
+			vrs = YawPitchSpring.new(transform),
 		}, VehicleCameraCore)
 	end
 

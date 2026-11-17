@@ -15,7 +15,7 @@ local OCCLUSION_VIGNETTE_THRESHOLD = math.cos(math.rad(30))
 local OCCLUSION_VIGNETTE_MIN_INTENSITY = 0.15
 local USE_OCCLUSION_VIGNETTE = false
 local USE_ORBIT_CONTROL = false
-local DEFAULT_GAMEPAD_ZOOM_LEVELS = {0, 30}
+local DEFAULT_GAMEPAD_ZOOM_LEVELS = { 0, 30 }
 
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
@@ -27,7 +27,8 @@ local Lighting = game:GetService("Lighting")
 
 local localPlayer = Players.LocalPlayer
 local mapClamp = CameraUtils.mapClamp
-local VehicleCameraConfig = require(script.Parent:WaitForChild("VehicleCamera"):FindFirstChild("VehicleCameraConfig")) :: any
+local VehicleCameraConfig =
+	require(script.Parent:WaitForChild("VehicleCamera"):FindFirstChild("VehicleCameraConfig")) :: any
 
 local vrRaycastParams = RaycastParams.new()
 vrRaycastParams.FilterType = Enum.RaycastFilterType.Exclude
@@ -54,7 +55,7 @@ local function vrOccludeDisplace(focus: CFrame, orbitalDir: Vector3, zoom: numbe
 	if distance < OCCLUSION_MIN_DIST then
 		return cf
 	end
-	local filter: {Instance} = {camera}
+	local filter: { Instance } = { camera }
 	if vehicleModel then
 		table.insert(filter, vehicleModel)
 	end
@@ -78,7 +79,12 @@ end
 local vrOverlapParams = OverlapParams.new()
 vrOverlapParams.FilterType = Enum.RaycastFilterType.Exclude
 
-local function findObstructions(cf: CFrame, focus: CFrame, zoom: number, vehicleModel: Instance?): (number, {BasePart})
+local function findObstructions(
+	cf: CFrame,
+	focus: CFrame,
+	zoom: number,
+	vehicleModel: Instance?
+): (number, { BasePart })
 	local camera = workspace.CurrentCamera
 	if not camera then
 		return 0, {}
@@ -93,7 +99,7 @@ local function findObstructions(cf: CFrame, focus: CFrame, zoom: number, vehicle
 	if distance < OCCLUSION_MIN_DIST then
 		return 0, {}
 	end
-	local filter: {Instance} = {camera}
+	local filter: { Instance } = { camera }
 	if vehicleModel then
 		table.insert(filter, vehicleModel)
 	end
@@ -118,7 +124,7 @@ local function findObstructions(cf: CFrame, focus: CFrame, zoom: number, vehicle
 			local boxSize: Vector3 = Vector3.new(2, 2, (cameraPos - hitPos).Magnitude)
 			local boxOrientation: CFrame = CFrame.lookAt(boxCenter, cameraPos)
 			vrOverlapParams.FilterDescendantsInstances = filter
-			local parts: {BasePart} = workspace:GetPartBoundsInBox(boxOrientation, boxSize, vrOverlapParams)
+			local parts: { BasePart } = workspace:GetPartBoundsInBox(boxOrientation, boxSize, vrOverlapParams)
 
 			return intensity, parts
 		end
@@ -126,7 +132,7 @@ local function findObstructions(cf: CFrame, focus: CFrame, zoom: number, vehicle
 	return 0, {}
 end
 
-local worldDt = 1/60
+local worldDt = 1 / 60
 local VRVehicleCamera = setmetatable({}, VRBaseCamera)
 VRVehicleCamera.__index = VRVehicleCamera
 
@@ -297,12 +303,14 @@ function VRVehicleCamera:_updateStepRotation(dt: number): (CFrame, CFrame)
 		self.wasInFirstPerson = false
 		self.lastVehicleYaw = nil
 
-		local driftTimeout: boolean? = self.lastRotateTime and (os.clock() - self.lastRotateTime < VehicleCameraConfig.autocorrectDelay)
+		local driftTimeout: boolean? = self.lastRotateTime
+			and (os.clock() - self.lastRotateTime < VehicleCameraConfig.autocorrectDelay)
 		if isMoving and not driftTimeout then
 			local behindDir: Vector3 = (subjectCFrame.LookVector * Vector3.new(-1, 0, -1)).Unit
 			local angle: number = math.acos(math.clamp(orbitalDir:Dot(behindDir), -1, 1))
 			local turnSpeed: number = yawVelocity(self:GetSubjectRotVelocity(), subjectCFrame)
-			local driftRate: number = math.min(DRIFT_BASE + (angle / math.pi) * DRIFT_ANGLE + turnSpeed * DRIFT_TURN, DRIFT_MAX)
+			local driftRate: number =
+				math.min(DRIFT_BASE + (angle / math.pi) * DRIFT_ANGLE + turnSpeed * DRIFT_TURN, DRIFT_MAX)
 			orbitalDir = orbitalDir:Lerp(behindDir, driftRate)
 		end
 

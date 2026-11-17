@@ -1,8 +1,9 @@
 --[[
 	Downloads the CurveAnimation(s) referenced by every Animation.AnimationId reachable
 	from the rootInstance (the root itself plus all descendants) and returns them as a
-	flat list. Animations with an empty AnimationId are skipped. Each downloaded asset
-	must resolve to exactly one CurveAnimation root (enforced behind
+	flat list, plus a parallel list of the Animation each one came from. Animations with
+	an empty AnimationId are skipped. Each downloaded asset must resolve to exactly one
+	CurveAnimation root (enforced behind
 	FFlagUGCValidateCurveAnimSingleRoot, matching the legacy invariant); other schema
 	checks on the emote belong in validators. Returns nil when any download throws or does
 	not resolve to a single CurveAnimation root — a partial list would hide the problem,
@@ -23,8 +24,9 @@ local FetchCurveAnimations = {}
 function FetchCurveAnimations.getData(
 	rootInstance: Instance,
 	consumerConfig: Types.PreloadedConsumerConfigs?
-): Types.CurveAnimationsData?
+): (Types.CurveAnimationsData?, { Animation }?)
 	local curveAnimations: Types.CurveAnimationsData = {}
+	local sourceAnimations: { Animation } = {}
 
 	for _, animation in getAllInstancesIsA(rootInstance, "Animation") do
 		local animationId = (animation :: Animation).AnimationId
@@ -35,6 +37,7 @@ function FetchCurveAnimations.getData(
 		local preloaded = consumerConfig and consumerConfig.preloadedCurveAnimations[animationId]
 		if preloaded then
 			table.insert(curveAnimations, preloaded)
+			table.insert(sourceAnimations, animation :: Animation)
 			continue
 		end
 
@@ -57,16 +60,18 @@ function FetchCurveAnimations.getData(
 			end
 
 			table.insert(curveAnimations, instances[1] :: CurveAnimation)
+			table.insert(sourceAnimations, animation :: Animation)
 		else
 			for _, inst in instances do
 				if inst:IsA("CurveAnimation") then
 					table.insert(curveAnimations, inst :: CurveAnimation)
+					table.insert(sourceAnimations, animation :: Animation)
 				end
 			end
 		end
 	end
 
-	return curveAnimations
+	return curveAnimations, sourceAnimations
 end
 
 return FetchCurveAnimations

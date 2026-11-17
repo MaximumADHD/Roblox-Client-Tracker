@@ -14,10 +14,35 @@ local getFFlagUGCValidateForwardIECRestrictedUserIds =
 local getFFlagUGCValidateBackendInExperienceViaCanPublish =
 	require(root.flags.getFFlagUGCValidateBackendInExperienceViaCanPublish)
 local getFFlagUGCValidateMakeupCategoryParity = require(root.flags.getFFlagUGCValidateMakeupCategoryParity)
+local getFFlagUGCValidateRejectUnsupportedCreatorTypes =
+	require(root.flags.getFFlagUGCValidateRejectUnsupportedCreatorTypes)
 
 -- Accept both proto-enum and legacy camel-case labels.
 local RCC_MODERATION_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true }
 local RCC_MODERATION_APPROVED = { ["MODERATION_STATE_APPROVED"] = true, ["Approved"] = true }
+
+local function validateConfiguredCreators(
+	reporter: Types.ValidationReporter,
+	restrictedUserIds: Types.RestrictedUserIds
+): boolean
+	for _, creator in restrictedUserIds do
+		if creator.creatorType == "Experience" then
+			reporter:fail(ErrorSourceStrings.Keys.ExperienceCreatorNotSupported, {
+				CreatorType = creator.creatorType,
+				CreatorId = creator.id,
+			})
+			return false
+		end
+		if creator.creatorType ~= "User" and creator.creatorType ~= "Group" then
+			reporter:fail(ErrorSourceStrings.Keys.UnsupportedCreatorType, {
+				CreatorType = creator.creatorType,
+				CreatorId = creator.id,
+			})
+			return false
+		end
+	end
+	return true
+end
 
 local function collectContentIdsArray(contentIdMap: Types.ContentIdEntriesMap): { string }
 	local contentIds: { string } = {}
@@ -73,6 +98,17 @@ local function buildOwnerLookup(restrictedUserIds: Types.RestrictedUserIds): { [
 	return lookup
 end
 
+local function buildTypedCreatorLookup(restrictedUserIds: Types.RestrictedUserIds): { [string]: { [number]: boolean } }
+	local lookup: { [string]: { [number]: boolean } } = {
+		User = {},
+		Group = {},
+	}
+	for _, entry in restrictedUserIds do
+		lookup[entry.creatorType][tonumber(entry.id) :: number] = true
+	end
+	return lookup
+end
+
 local function runBackend(
 	reporter: Types.ValidationReporter,
 	contentIdMap: Types.ContentIdEntriesMap,
@@ -81,6 +117,14 @@ local function runBackend(
 	local restrictedUserIds = backendConfigs.restrictedUserIds
 	if not restrictedUserIds or #restrictedUserIds == 0 then
 		return
+	end
+	local rejectUnsupportedCreatorTypes = getFFlagUGCValidateRejectUnsupportedCreatorTypes()
+	local typedCreatorLookup: { [string]: { [number]: boolean } } = {}
+	if rejectUnsupportedCreatorTypes then
+		if not validateConfiguredCreators(reporter, restrictedUserIds) then
+			return
+		end
+		typedCreatorLookup = buildTypedCreatorLookup(restrictedUserIds)
 	end
 
 	local ownerLookup = buildOwnerLookup(restrictedUserIds)
@@ -94,9 +138,19 @@ local function runBackend(
 		end
 
 		local creator = response.creationContext.creator
+		local typedCreatorOwned = true
+		if rejectUnsupportedCreatorTypes then
+			if creator.userId ~= nil then
+				typedCreatorOwned = typedCreatorLookup.User[tonumber(creator.userId) :: number] == true
+			elseif creator.groupId ~= nil then
+				typedCreatorOwned = typedCreatorLookup.Group[tonumber(creator.groupId) :: number] == true
+			else
+				typedCreatorOwned = false
+			end
+		end
 		local creatorId = if creator.userId then creator.userId else creator.groupId
 
-		if not ownerLookup[tonumber(creatorId) :: number] then
+		if not ownerLookup[tonumber(creatorId) :: number] or not typedCreatorOwned then
 			reporter:fail(ErrorSourceStrings.Keys.DescendantIdNotOwned, {
 				AssetId = assetId,
 				InstanceFullName = firstEntry.instance:GetFullName(),
@@ -137,6 +191,13 @@ local function runCanPublishOwnershipCheck(
 	contentIdMap: Types.ContentIdEntriesMap,
 	iecConfigs: Types.IECConfigs
 )
+	if getFFlagUGCValidateRejectUnsupportedCreatorTypes() then
+		local configuredCreators = iecConfigs.restrictedUserIds or {}
+		if not validateConfiguredCreators(reporter, configuredCreators) then
+			return
+		end
+	end
+
 	-- Backend in-experience jobs carry a universeId but no per-session token (real IEC always has one); /rcc/canPublish authenticates them by RCC identity + universeId instead.
 	local canAuthViaUniverseId = getFFlagUGCValidateBackendInExperienceViaCanPublish()
 		and iecConfigs.token == nil

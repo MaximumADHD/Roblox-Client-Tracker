@@ -1,19 +1,5 @@
 local CurveAnimTranslationUtils = {}
 
-function CurveAnimTranslationUtils.positionHasKeyframes(folder: Folder): boolean
-	local pos = folder:FindFirstChild("Position")
-	if not pos or not pos:IsA("Vector3Curve") then
-		return false
-	end
-	for _, axis in { "X", "Y", "Z" } do
-		local floatCurve = pos:FindFirstChild(axis)
-		if floatCurve and floatCurve:IsA("FloatCurve") and #(floatCurve :: FloatCurve):GetKeys() > 0 then
-			return true
-		end
-	end
-	return false
-end
-
 function CurveAnimTranslationUtils.translationExceedsThreshold(folder: Folder, maxDistance: number): (boolean, number)
 	local pos = folder:FindFirstChild("Position")
 	if not pos or not pos:IsA("Vector3Curve") then

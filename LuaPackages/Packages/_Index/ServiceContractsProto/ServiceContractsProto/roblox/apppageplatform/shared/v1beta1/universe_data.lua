@@ -55,6 +55,8 @@ type _UniverseDataFields = {
 	promotional_text: string?,
 	moment_video_asset_id: number?,
 	is_community_licensed: boolean?,
+	summary: string?,
+	tags: { string },
 }
 
 type _UniverseDataPartialFields = {
@@ -89,6 +91,8 @@ type _UniverseDataPartialFields = {
 	promotional_text: string?,
 	moment_video_asset_id: number?,
 	is_community_licensed: boolean?,
+	summary: string?,
+	tags: { string }?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -145,6 +149,8 @@ do
 			is_community_licensed = if data == nil or data.is_community_licensed == nil
 				then nil
 				else data.is_community_licensed,
+			summary = if data == nil or data.summary == nil then nil else data.summary,
+			tags = if data == nil or data.tags == nil then {} else data.tags,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -305,6 +311,18 @@ do
 		if self.is_community_licensed ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_community_licensed then 1 else 0)
+		end
+
+		if self.summary ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.summary)
+		end
+
+		if self.tags ~= nil and #self.tags > 0 then
+			for _, value in self.tags do
+				output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -481,6 +499,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.promotional_text = buffer.tostring(value)
 					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.summary = buffer.tostring(value)
+					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.tags, buffer.tostring(value))
+					continue
 				end
 
 				local length
@@ -630,6 +658,18 @@ do
 
 		if self.is_community_licensed ~= nil then
 			output.isCommunityLicensed = self.is_community_licensed
+		end
+
+		if self.summary ~= nil then
+			output.summary = self.summary
+		end
+
+		if self.tags ~= nil and #self.tags > 0 then
+			local newOutput = {}
+			for _, value in self.tags do
+				table.insert(newOutput, value)
+			end
+			output.tags = newOutput
 		end
 
 		return output
@@ -872,6 +912,19 @@ do
 
 		if input.isCommunityLicensed ~= nil then
 			self.is_community_licensed = input.isCommunityLicensed
+		end
+
+		if input.summary ~= nil then
+			self.summary = input.summary
+		end
+
+		if input.tags ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.tags do
+				table.insert(newOutput, value)
+			end
+
+			self.tags = newOutput
 		end
 
 		return self

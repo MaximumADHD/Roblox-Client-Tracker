@@ -12,8 +12,6 @@ local R15plusUtils = require(root.util.R15plusUtils)
 local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPartSpace)
 
 local getFStringUGCValidationAttachmentErrorLink = require(root.flags.getFStringUGCValidationAttachmentErrorLink)
-local getFFlagUGCValidateAttachmentBoundsErrorMessage =
-	require(root.flags.getFFlagUGCValidateAttachmentBoundsErrorMessage)
 
 local AttachmentBoundsValid = {}
 
@@ -63,40 +61,16 @@ local function validateInMeshSpace(
 			local attachmentClampedCFrame =
 				MeshSpaceUtils.clampAttachmentToBounds(att, transformData, boundsInfoMeshSpace, 0.001)
 
-			local acceptableCFrameLocal, acceptableDimensions = MeshSpaceUtils.calculateAcceptableBoundsLocalSpace(
-				boundsInfoMeshSpace,
-				transformData,
-				meshDimensionsOpt :: Vector3,
-				meshCenterOpt :: Vector3
-			)
-			local acceptablePosition = acceptableCFrameLocal.Position
-			local acceptableOriX, acceptableOriY, acceptableOriZ = acceptableCFrameLocal.Rotation:ToOrientation()
-			local acceptableOrientation =
-				Vector3.new(math.deg(acceptableOriX), math.deg(acceptableOriY), math.deg(acceptableOriZ))
-
-			if getFFlagUGCValidateAttachmentBoundsErrorMessage() then
-				local errorKey = if isRigAttachment
-					then ErrorSourceStrings.Keys.RigAttachmentOutOfBounds
-					else ErrorSourceStrings.Keys.AccessoryAttachmentOutOfBounds
-				reporter:fail(errorKey, {
-					AttachmentName = att.Name,
-					PartName = part.Name,
-					CurrentPosition = prettyPrintVector3(att.CFrame.Position, 3),
-					ClosestValidPosition = prettyPrintVector3(attachmentClampedCFrame.Position, 3),
-					HelpLink = getFStringUGCValidationAttachmentErrorLink(),
-				})
-			else
-				reporter:fail(ErrorSourceStrings.Keys.AttachmentOutOfBounds, {
-					AttachmentName = att.Name,
-					PartName = part.Name,
-					CurrentPosition = prettyPrintVector3(att.CFrame.Position, 3),
-					ClosestValidPosition = prettyPrintVector3(attachmentClampedCFrame.Position, 3),
-					BoundsPosition = prettyPrintVector3(acceptablePosition, 3),
-					BoundsOrientation = prettyPrintVector3(acceptableOrientation, 3),
-					BoundsSize = prettyPrintVector3(acceptableDimensions, 3),
-					HelpLink = getFStringUGCValidationAttachmentErrorLink(),
-				})
-			end
+			local errorKey = if isRigAttachment
+				then ErrorSourceStrings.Keys.RigAttachmentOutOfBounds
+				else ErrorSourceStrings.Keys.AccessoryAttachmentOutOfBounds
+			reporter:fail(errorKey, {
+				AttachmentName = att.Name,
+				PartName = part.Name,
+				CurrentPosition = prettyPrintVector3(att.CFrame.Position, 3),
+				ClosestValidPosition = prettyPrintVector3(attachmentClampedCFrame.Position, 3),
+				HelpLink = getFStringUGCValidationAttachmentErrorLink(),
+			})
 			return
 		end
 	end

@@ -96,7 +96,6 @@ local function CreateWaypointTemplates()
 	EndWaypointImageLabel.Size = UDim2.new(1, 0, 1, 0)
 	EndWaypointImageLabel.Parent = EndWaypointBillboard
 
-
 	local FailureWaypointTemplate = Instance.new("Part")
 	FailureWaypointTemplate.Size = Vector3.new(2, 2, 2)
 	FailureWaypointTemplate.Anchored = true
@@ -127,9 +126,8 @@ local function CreateWaypointTemplates()
 	local FailureWaypointImageLabel = Instance.new("ImageLabel")
 	FailureWaypointImageLabel.Image = EndWaypointIcon
 	FailureWaypointImageLabel.BackgroundTransparency = 1
-	FailureWaypointImageLabel.Position = UDim2.new(
-		0, -WAYPOINT_BILLBOARD_SIZE.X.Offset/2, 0, -WAYPOINT_BILLBOARD_SIZE.Y.Offset
-	)
+	FailureWaypointImageLabel.Position =
+		UDim2.new(0, -WAYPOINT_BILLBOARD_SIZE.X.Offset / 2, 0, -WAYPOINT_BILLBOARD_SIZE.Y.Offset)
 	FailureWaypointImageLabel.Size = WAYPOINT_BILLBOARD_SIZE
 	FailureWaypointImageLabel.Parent = FailureWaypointFrame
 
@@ -160,10 +158,8 @@ local function placePathWaypoint(waypointModel, position: Vector3)
 		end
 	else
 		local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
-		local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
-			ray,
-			{ Workspace.CurrentCamera, LocalPlayer.Character }
-		)
+		local hitPart, hitPoint, hitNormal =
+			Workspace:FindPartOnRayWithIgnoreList(ray, { Workspace.CurrentCamera, LocalPlayer.Character })
 		if hitPart then
 			waypointModel.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
 			waypointModel.Parent = getTrailDotParent()
@@ -224,11 +220,8 @@ function EndWaypoint:TweenInFrom(originalPosition: Vector3)
 	local studsOffset = originalPosition - currentPositon
 	self.DisplayModel.EndWaypointBillboard.StudsOffset = Vector3.new(0, studsOffset.Y, 0)
 	local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-	local tween = TweenService:Create(
-		self.DisplayModel.EndWaypointBillboard,
-		tweenInfo,
-		{ StudsOffset = Vector3.new(0, 0, 0) }
-	)
+	local tween =
+		TweenService:Create(self.DisplayModel.EndWaypointBillboard, tweenInfo, { StudsOffset = Vector3.new(0, 0, 0) })
 	tween:Play()
 	return tween
 end
@@ -278,9 +271,8 @@ function FailureWaypoint:NewDisplayModel(position)
 		end
 	else
 		local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
-		local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
-			ray, { Workspace.CurrentCamera, LocalPlayer.Character }
-		)
+		local hitPart, hitPoint, hitNormal =
+			Workspace:FindPartOnRayWithIgnoreList(ray, { Workspace.CurrentCamera, LocalPlayer.Character })
 		if hitPart then
 			newDisplayModel.CFrame = CFrame.new(hitPoint, hitPoint + hitNormal)
 			newDisplayModel.Parent = getTrailDotParent()
@@ -292,45 +284,67 @@ end
 function FailureWaypoint:RunFailureTween()
 	wait(FAILURE_TWEEN_LENGTH) -- Delay one tween length betfore starting tweening
 	-- Tween out from center
-	local tweenInfo = TweenInfo.new(FAILURE_TWEEN_LENGTH/2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-	local tweenLeft = TweenService:Create(self.DisplayModel.FailureWaypointBillboard, tweenInfo,
-		{ SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_LEFT })
+	local tweenInfo = TweenInfo.new(FAILURE_TWEEN_LENGTH / 2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+	local tweenLeft = TweenService:Create(
+		self.DisplayModel.FailureWaypointBillboard,
+		tweenInfo,
+		{ SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_LEFT }
+	)
 	tweenLeft:Play()
 
-	local tweenLeftRoation = TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame, tweenInfo,
-		{ Rotation = 10 })
+	local tweenLeftRoation =
+		TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame, tweenInfo, { Rotation = 10 })
 	tweenLeftRoation:Play()
 
 	tweenLeft.Completed:wait()
 
 	-- Tween back and forth
-	tweenInfo = TweenInfo.new(FAILURE_TWEEN_LENGTH, Enum.EasingStyle.Sine, Enum.EasingDirection.Out,
-		FAILURE_TWEEN_COUNT - 1, true)
-	local tweenSideToSide = TweenService:Create(self.DisplayModel.FailureWaypointBillboard, tweenInfo,
-		{ SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_RIGHT})
+	tweenInfo = TweenInfo.new(
+		FAILURE_TWEEN_LENGTH,
+		Enum.EasingStyle.Sine,
+		Enum.EasingDirection.Out,
+		FAILURE_TWEEN_COUNT - 1,
+		true
+	)
+	local tweenSideToSide = TweenService:Create(
+		self.DisplayModel.FailureWaypointBillboard,
+		tweenInfo,
+		{ SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_RIGHT }
+	)
 	tweenSideToSide:Play()
 
 	-- Tween flash dark and roate left and right
-	tweenInfo = TweenInfo.new(FAILURE_TWEEN_LENGTH, Enum.EasingStyle.Sine, Enum.EasingDirection.Out,
-		FAILURE_TWEEN_COUNT - 1, true)
-	local tweenFlash = TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame.ImageLabel, tweenInfo,
-		{ ImageColor3 = Color3.new(0.75, 0.75, 0.75)})
+	tweenInfo = TweenInfo.new(
+		FAILURE_TWEEN_LENGTH,
+		Enum.EasingStyle.Sine,
+		Enum.EasingDirection.Out,
+		FAILURE_TWEEN_COUNT - 1,
+		true
+	)
+	local tweenFlash = TweenService:Create(
+		self.DisplayModel.FailureWaypointBillboard.Frame.ImageLabel,
+		tweenInfo,
+		{ ImageColor3 = Color3.new(0.75, 0.75, 0.75) }
+	)
 	tweenFlash:Play()
 
-	local tweenRotate = TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame, tweenInfo,
-		{ Rotation = -10 })
+	local tweenRotate =
+		TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame, tweenInfo, { Rotation = -10 })
 	tweenRotate:Play()
 
 	tweenSideToSide.Completed:wait()
 
 	-- Tween back to center
-	tweenInfo = TweenInfo.new(FAILURE_TWEEN_LENGTH/2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-	local tweenCenter = TweenService:Create(self.DisplayModel.FailureWaypointBillboard, tweenInfo,
-		{ SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_CENTER })
+	tweenInfo = TweenInfo.new(FAILURE_TWEEN_LENGTH / 2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+	local tweenCenter = TweenService:Create(
+		self.DisplayModel.FailureWaypointBillboard,
+		tweenInfo,
+		{ SizeOffset = FAIL_WAYPOINT_SIZE_OFFSET_CENTER }
+	)
 	tweenCenter:Play()
 
-	local tweenRoation = TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame, tweenInfo,
-		{ Rotation = 0 })
+	local tweenRoation =
+		TweenService:Create(self.DisplayModel.FailureWaypointBillboard.Frame, tweenInfo, { Rotation = 0 })
 	tweenRoation:Play()
 
 	tweenCenter.Completed:wait()
@@ -370,7 +384,7 @@ local function findPlayerHumanoid()
 	end
 end
 
-local function createTrailDots(wayPoints: {PathWaypoint}, originalEndWaypoint: Vector3)
+local function createTrailDots(wayPoints: { PathWaypoint }, originalEndWaypoint: Vector3)
 	local newTrailDots = {}
 	local count = 1
 	for i = 1, #wayPoints - 1 do
@@ -397,8 +411,8 @@ end
 
 local function getTrailDotScale(distanceToCamera: number, defaultSize: Vector2)
 	local rangeLength = TRAIL_DOT_MAX_DISTANCE - TRAIL_DOT_MIN_DISTANCE
-	local inRangePoint = math.clamp(distanceToCamera - TRAIL_DOT_MIN_DISTANCE, 0, rangeLength)/rangeLength
-	local scale = TRAIL_DOT_MIN_SCALE + (TRAIL_DOT_MAX_SCALE - TRAIL_DOT_MIN_SCALE)*inRangePoint
+	local inRangePoint = math.clamp(distanceToCamera - TRAIL_DOT_MIN_DISTANCE, 0, rangeLength) / rangeLength
+	local scale = TRAIL_DOT_MIN_SCALE + (TRAIL_DOT_MAX_SCALE - TRAIL_DOT_MIN_SCALE) * inRangePoint
 	return defaultSize * scale
 end
 
@@ -421,7 +435,7 @@ function ClickToMoveDisplay.CreatePathDisplay(wayPoints, originalEndWaypoint)
 		end
 	end
 
-	local reiszeTrailDotsUpdateName = "ClickToMoveResizeTrail" ..createPathCount
+	local reiszeTrailDotsUpdateName = "ClickToMoveResizeTrail" .. createPathCount
 	local function resizeTrailDots()
 		if #trailDots == 0 then
 			RunService:UnbindFromRenderStep(reiszeTrailDotsUpdateName)

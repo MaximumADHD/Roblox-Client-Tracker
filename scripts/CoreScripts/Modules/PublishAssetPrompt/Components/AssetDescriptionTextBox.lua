@@ -4,7 +4,6 @@
 	Supports multi-line input and re-positions the canvas scrolling to fit the cursor position.
 ]]
 local CorePackages = game:GetService("CorePackages")
-local TextService = game:GetService("TextService")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -18,7 +17,6 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = UIBlox.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
@@ -42,7 +40,7 @@ local AssetDescriptionTextBox = Roact.PureComponent:extend("AssetDescriptionText
 AssetDescriptionTextBox.validateProps = t.strictInterface({
 	Size = t.optional(t.UDim2),
 	Position = t.optional(t.UDim2),
-	onAssetDescriptionUpdated = t.callback, -- function(newDescription, isDescriptionValid)
+	onAssetDescriptionUpdated = t.callback, -- function(newDescription)
 	descriptionTextBoxRef = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	assetType = t.optional(t.enum(Enum.AssetType)),
@@ -72,7 +70,6 @@ function AssetDescriptionTextBox:init()
 		canvasPosition = 0,
 		cursorPosition = 0,
 		textBoxWidth = DEFAULT_TEXTBOX_WIDTH,
-		isDescriptionValid = true,
 	})
 
 	self.wasInitiallyFocused = false
@@ -107,15 +104,13 @@ function AssetDescriptionTextBox:calculateNeedsRescroll(
 	local textBeforeCursor = assetDescription:sub(1, self.state.cursorPosition - 1)
 	local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 	local availableSpace = Vector2.new(self.state.textBoxWidth, 10000)
-	local textSize = if FFlagFoundationFontFaceMigration
-		then GetTextSize(
-			textBeforeCursor,
-			fontHeight,
-			style.Tokens.Typography.BodySmall.Font,
-			availableSpace,
-			{ addTemporaryPadding = false }
-		)
-		else TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+	local textSize = GetTextSize(
+		textBeforeCursor,
+		fontHeight,
+		style.Tokens.Typography.BodySmall.Font,
+		availableSpace,
+		{ addTemporaryPadding = false }
+	)
 
 	if textSize.Y > self.state.scrollingFrameHeight + self.state.canvasPosition then
 		-- The cursor is below the visible frame. Scroll down just enough to show the cursor.
@@ -138,7 +133,6 @@ function AssetDescriptionTextBox:onTextChanged(
 	textFont: { Font: Enum.Font, RelativeSize: number, RelativeMinSize: number }
 )
 	local assetDescription = rbx.Text
-	local isDescriptionValid = true
 
 	local lastValidDescription = self.state.lastValidDescription
 	if isDescriptionTooLong(assetDescription, MAX_DESCRIPTION_LENGTH) then
@@ -152,25 +146,22 @@ function AssetDescriptionTextBox:onTextChanged(
 
 	local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 	local availableSpace = Vector2.new(self.state.textBoxWidth, 10000)
-	local textSize = if FFlagFoundationFontFaceMigration
-		then GetTextSize(
-			assetDescription,
-			fontHeight,
-			style.Tokens.Typography.BodySmall.Font,
-			availableSpace,
-			{ addTemporaryPadding = false }
-		)
-		else TextService:GetTextSize(assetDescription, fontHeight, textFont.Font, availableSpace)
+	local textSize = GetTextSize(
+		assetDescription,
+		fontHeight,
+		style.Tokens.Typography.BodySmall.Font,
+		availableSpace,
+		{ addTemporaryPadding = false }
+	)
 
 	self:setState({
 		lastValidDescription = lastValidDescription,
 		assetDescription = assetDescription,
 		descriptionLength = descriptionLength,
 		canvasHeight = math.max(MIN_CANVAS_HEIGHT, textSize.Y),
-		isDescriptionValid = isDescriptionValid,
 	})
 
-	self.props.onAssetDescriptionUpdated(assetDescription, isDescriptionValid)
+	self.props.onAssetDescriptionUpdated(assetDescription)
 end
 
 function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionCursor)
@@ -219,10 +210,7 @@ function AssetDescriptionTextBox:renderWithProviders(stylePalette, getSelectionC
 					Text = self.state.assetDescription,
 					BackgroundTransparency = 1,
 					ClearTextOnFocus = false,
-					Font = if FFlagFoundationFontFaceMigration then nil else font.Header2.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(stylePalette.Tokens.Typography.TitleLarge.Font)
-						else nil,
+					FontFace = normalizeFontFace(stylePalette.Tokens.Typography.TitleLarge.Font),
 					TextSize = font.BaseSize * fontType.RelativeSize,
 					PlaceholderColor3 = theme.PlaceHolder.Color,
 					PlaceholderText = RobloxTranslator:FormatByKey(

@@ -13,6 +13,9 @@ local Chrome = TopBar.Parent.Chrome
 local Constants = require(TopBar.Constants)
 local ExperienceAgeRatingPolicy = require(TopBar.ExperienceAgeRatingPolicy)
 local ExperienceAgeRatingBadge = require(CorePackages.Workspace.Packages.InExperienceTopBar.ExperienceAgeRatingBadge)
+local InExperienceCloudPlay = CorePackages.Workspace.Packages.InExperienceCloudPlay
+local FFlagEnableRestyleTopBar = require(InExperienceCloudPlay.FFlagEnableRestyleTopBar)
+local RestyleTimer = if FFlagEnableRestyleTopBar then require(Presentation.RestyleTimer) else nil :: never
 local FFlagExperienceAgeRatingBadge =
 	require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagExperienceAgeRatingBadge
 
@@ -34,6 +37,7 @@ local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppP
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
 local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
+local FFlagUseUIOverlayForCloudPlay = SharedFlags.FFlagUseUIOverlayForCloudPlay
 local FFlagEnableTeamTestLua = SharedFlags.FFlagEnableTeamTestLua
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
@@ -56,6 +60,8 @@ local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).is
 local shouldAddSwitchServerToSideSheet = isSideSheetEnabled
 	and (FFlagShowSwitchServerButton or isPioneerLaunch())
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
+local FFlagEnableFreeTrialTopBarChip = InExperienceShop.FFlagEnableFreeTrialTopBarChip
+local FreeTrialChipHost = require(Presentation.FreeTrialChipHost)
 local FFlagTopBarShopIconV2 = require(TopBar.Flags.FFlagTopBarShopIconV2)
 local ShopIcon
 if FFlagTopBarShopIconV2 then
@@ -311,6 +317,12 @@ local function TopBarApp(props: TopBarProps)
 					else nil) :: React.Node?,
 			})
 			else nil,
+		RestyleTimer = if FFlagEnableRestyleTopBar and FFlagUseUIOverlayForCloudPlay
+			then React.createElement(RestyleTimer, {
+				buttonSize = topBarButtonHeight,
+				layoutOrder = 4,
+			})
+			else nil,
 	})
 
 	return React.createElement("ScreenGui", {
@@ -387,7 +399,14 @@ local function TopBarApp(props: TopBarProps)
 					then React.createElement(BuildPillMenuPortalHost)
 					else nil,
 				HealthBar = React.createElement(HealthBar)
-			})
+			}),
+			FreeTrialChipHost = if FFlagEnableFreeTrialTopBarChip
+				then React.createElement(FreeTrialChipHost, {
+					position = UDim2.new(1, -screenSideOffset, 0, topBarTopMargin),
+					size = UDim2.new(0.5, -screenSideOffset, 0, topBarButtonHeight),
+					visible = showTopBar,
+				})
+				else nil,
 		}),
 		VRBottomBar = if VRService.VREnabled then 
 			React.createElement(VoiceStateContext.Provider, {}, {

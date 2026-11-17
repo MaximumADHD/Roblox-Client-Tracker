@@ -20,7 +20,6 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = UIBlox.Style.withStyle
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -66,6 +65,8 @@ local LayeredAssetTypes = {
 }
 
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
+local FFlagDisablePublishPlatformContentWithoutName =
+	require(script.Parent.Parent.Flags.FFlagDisablePublishPlatformContentWithoutName)
 local EngineFeatureEnableImagePublish = game:GetEngineFeature("EnableImagePublish")
 
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
@@ -96,8 +97,17 @@ end
 function PublishAssetPromptSingleStep:init()
 	self.assetName = self:getDefaultText()
 	self.assetDescription = self:getDefaultText()
+	-- Flag-off only. Remove self.isNameValid with FFlagDisablePublishPlatformContentWithoutName
 	self.isNameValid = true
-	self.isDescriptionValid = true
+
+	if FFlagDisablePublishPlatformContentWithoutName then
+		-- NameTextBox uses this as PlaceholderText. Remove with FFlagDisablePublishPlatformContentWithoutName
+		self.defaultName = self.assetName
+		-- NameTextBox only reports validity after the player edits, so seed it from the default.
+		self:setState({
+			isPublishNameValid = string.match(self.assetName, "^%s*$") == nil,
+		})
+	end
 
 	self.closePrompt = function()
 		self.props.closePrompt()
@@ -114,7 +124,10 @@ function PublishAssetPromptSingleStep:init()
 	end
 
 	self.confirmAndUpload = function()
-		if not self.isNameValid then
+		local publishNameIsValid = if FFlagDisablePublishPlatformContentWithoutName
+			then self.state.isPublishNameValid
+			else self.isNameValid
+		if not publishNameIsValid then
 			return
 		end
 
@@ -132,17 +145,25 @@ function PublishAssetPromptSingleStep:init()
 	end
 
 	self.onAssetNameUpdated = function(newName, isNameValid)
-		if isNameValid then
-			self.assetName = newName
-			self.isNameValid = true
+		if FFlagDisablePublishPlatformContentWithoutName then
+			if isNameValid then
+				self.assetName = newName
+			end
+			self:setState({
+				isPublishNameValid = isNameValid,
+			})
 		else
-			self.isNameValid = false
+			if isNameValid then
+				self.assetName = newName
+				self.isNameValid = true
+			else
+				self.isNameValid = false
+			end
 		end
 	end
 
-	self.onAssetDescriptionUpdated = function(newDescription, isDescriptionValid)
+	self.onAssetDescriptionUpdated = function(newDescription)
 		self.assetDescription = newDescription
-		self.isDescriptionValid = isDescriptionValid
 	end
 
 	self.nameTextBoxRef = Roact.createRef()
@@ -151,7 +172,6 @@ end
 
 function PublishAssetPromptSingleStep:renderMiddle(localized)
 	return withStyle(function(style)
-		local font = style.Font
 		local theme = style.Theme
 
 		local showingImagePreview = EngineFeatureEnableImagePublish
@@ -197,10 +217,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 				}, {
 					NameLabel = Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
-						Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
-						FontFace = if FFlagFoundationFontFaceMigration
-							then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-							else nil,
+						FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 						Text = localized[NAME_TEXT],
 						TextSize = LABEL_TEXT_SIZE,
 						TextColor3 = theme.TextDefault.Color,
@@ -213,16 +230,15 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 						onNameUpdated = self.onAssetNameUpdated,
 						nameTextBoxRef = self.nameTextBoxRef,
 						NextSelectionDown = self.descriptionTextBoxRef,
-						defaultName = self.assetName,
+						defaultName = if FFlagDisablePublishPlatformContentWithoutName
+							then self.defaultName
+							else self.assetName,
 					}),
 
 					DescriptionLabel = Roact.createElement("TextLabel", {
 						Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
 						Position = UDim2.new(0, 0, 0, 60),
-						Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
-						FontFace = if FFlagFoundationFontFaceMigration
-							then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-							else nil,
+						FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 						TextSize = LABEL_TEXT_SIZE,
 						Text = localized[DESCRIPTION_TEXT],
 						TextColor3 = theme.TextDefault.Color,
@@ -243,10 +259,7 @@ function PublishAssetPromptSingleStep:renderMiddle(localized)
 				Size = UDim2.new(1, 0, 0, DISCLAIMER_HEIGHT_PIXELS),
 				TextYAlignment = Enum.TextYAlignment.Center,
 				Text = localized[DISCLAIMER_TEXT],
-				Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-					else nil,
+				FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 				TextSize = DISCLAIMER_TEXT_SIZE,
 				TextColor3 = theme.TextEmphasis.Color,
 				BackgroundTransparency = 1,
@@ -278,6 +291,9 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 						isDelayedInput = true,
 						enableInputDelayed = true,
 						delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
+						isDisabled = if FFlagDisablePublishPlatformContentWithoutName
+							then not self.state.isPublishNameValid
+							else nil,
 					},
 					isDefaultChild = false,
 				},

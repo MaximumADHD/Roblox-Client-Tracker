@@ -22,6 +22,8 @@ export type ItemPlacement = Package.ItemPlacement
 export type ChatPresetOptions = Package.ChatPresetOptions
 export type ChatPresetProps = Package.ChatPresetProps
 export type ReachedThreshold = Package.ReachedThreshold
+export type ScrollOptions = Package.ScrollOptions
+export type AnimatedScrollOptions = Package.AnimatedScrollOptions
 
 
 return Package

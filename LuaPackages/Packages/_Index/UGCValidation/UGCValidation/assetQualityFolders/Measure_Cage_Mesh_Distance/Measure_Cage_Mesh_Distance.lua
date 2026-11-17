@@ -14,7 +14,6 @@ Measure_Cage_Mesh_Distance.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
 	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 }
-Measure_Cage_Mesh_Distance.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityLC)
 
 Measure_Cage_Mesh_Distance.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Cage_Mesh_Distance.Handle_OuterCage

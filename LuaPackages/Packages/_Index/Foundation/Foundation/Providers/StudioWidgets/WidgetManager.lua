@@ -171,7 +171,7 @@ function WidgetManager._flushWith(
 				currentSignals.SizeChanged:Disconnect()
 				currentSignals.VisibleChanged:Disconnect()
 				currentSignals.AncestryChanged:Disconnect()
-			elseif Flags.FoundationPopoverPluginOverlayMeasurement and currentSignals.Host ~= host then
+			elseif currentSignals.Host ~= host then
 				currentSignals.Host = host
 				table.insert(rebindUris, entry.Uri)
 				continue
@@ -182,7 +182,7 @@ function WidgetManager._flushWith(
 
 		self._signals[uriString] = {
 			Widget = entry.Widget,
-			Host = if Flags.FoundationPopoverPluginOverlayMeasurement then host else nil,
+			Host = host,
 			PositionChanged = entry.Widget:GetPropertyChangedSignal("AbsolutePosition"):Connect(function()
 				self:register(entry.Uri, entry.Widget)
 			end),
@@ -200,7 +200,7 @@ function WidgetManager._flushWith(
 		}
 	end
 
-	if Flags.FoundationPopoverPluginOverlayMeasurement and #rebindUris > 0 then
+	if #rebindUris > 0 then
 		pcall(function()
 			self._widgetsApi:DeregisterAsync(rebindUris)
 		end)

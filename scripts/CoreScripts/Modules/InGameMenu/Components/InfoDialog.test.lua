@@ -10,7 +10,6 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local Rodux = InGameMenuDependencies.Rodux
 local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local foundationTypography = Foundation.Utility.getTokens(Foundation.Enums.ColorMode.Dark).Typography
 local Style = require(CorePackages.Workspace.Packages.Style)
 local getTextSizeSpy = jest.spyOn(Style, "GetTextSize")
@@ -44,20 +43,17 @@ it("should create and destroy without errors", function()
 	local instance = Roact.mount(getMountableComponent())
 	Roact.unmount(instance)
 end)
+it("should measure body text without temporary padding", function()
+	jest.clearAllMocks()
+	local instance = Roact.mount(getMountableComponent())
 
-if FFlagFoundationFontFaceMigration then
-	it("should measure body text without temporary padding", function()
-		jest.clearAllMocks()
-		local instance = Roact.mount(getMountableComponent())
+	expect(getTextSizeSpy).toHaveBeenCalledWith(
+		"Hello world!",
+		expect.anything(),
+		foundationTypography.BodyLarge.Font,
+		expect.anything(),
+		{ addTemporaryPadding = false }
+	)
 
-		expect(getTextSizeSpy).toHaveBeenCalledWith(
-			"Hello world!",
-			expect.anything(),
-			foundationTypography.BodyLarge.Font,
-			expect.anything(),
-			{ addTemporaryPadding = false }
-		)
-
-		Roact.unmount(instance)
-	end)
-end
+	Roact.unmount(instance)
+end)

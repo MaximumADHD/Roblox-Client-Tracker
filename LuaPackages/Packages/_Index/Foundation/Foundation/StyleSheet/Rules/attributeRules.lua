@@ -184,8 +184,7 @@ local function SizeRules(sizes: Sizes): { StyleRule }
 	return rules
 end
 
--- Remove useFontFace when cleaning up FFlagFoundationFontFaceMigration
-local function TypographyRules(typography: Typography, nominalScale: number, useFontFace: boolean?): { StyleRule }
+local function TypographyRules(typography: Typography, nominalScale: number): { StyleRule }
 	local rules: { StyleRule } = {}
 
 	for name, type in typography do
@@ -195,8 +194,7 @@ local function TypographyRules(typography: Typography, nominalScale: number, use
 		table.insert(rules, {
 			tag = `text-{name}`,
 			properties = {
-				Font = if useFontFace then nil :: never else `$Font{pascalName}`,
-				FontFace = if useFontFace then `$Font{pascalName}` else nil :: never,
+				FontFace = `$Font{pascalName}`,
 				TextSize = `$TextSize{pascalName}`,
 				LineHeight = type.LineHeight,
 			},
@@ -358,16 +356,14 @@ local function GuiObjectDefaultRules(): { StyleRule }
 	}
 end
 
--- Remove useFontFace when cleaning up FFlagFoundationFontFaceMigration
-local function DefaultFontRules(tokens: Tokens, useFontFace: boolean?): { StyleRule }
+local function DefaultFontRules(tokens: Tokens): { StyleRule }
 	local fontValue = tokens.Typography.BodyLarge.Font
 	return {
 		{
 			tag = "text-defaults",
 			priority = -1,
 			properties = {
-				Font = if useFontFace then nil :: never else "$FontBodyLarge",
-				FontFace = if useFontFace then "$FontBodyLarge" else nil :: never,
+				FontFace = "$FontBodyLarge",
 			},
 			attributes = {
 				{
@@ -1099,11 +1095,9 @@ local function AspectRatioRules(): { StyleRule }
 	return rules
 end
 
--- Remove useFontFace when cleaning up FFlagFoundationFontFaceMigration
 local function rulesGenerator(
 	tokens: Tokens,
-	formattedTokens: FormattedTokens,
-	useFontFace: boolean?
+	formattedTokens: FormattedTokens
 ): ({ StyleRule }, { StyleRule }, { StyleRule }, { StyleRule })
 	local colors = formattedTokens.colors
 	local variants = formattedTokens.variants
@@ -1147,9 +1141,9 @@ local function rulesGenerator(
 	)
 
 	local typographyRules: { StyleRule } = Dash.joinArrays(
-		DefaultFontRules(tokens, useFontFace),
+		DefaultFontRules(tokens),
 		DefaultSizeRules(typography["body-large"], tokens.Config.Text.NominalScale),
-		TypographyRules(typography, tokens.Config.Text.NominalScale, useFontFace)
+		TypographyRules(typography, tokens.Config.Text.NominalScale)
 	)
 
 	return common, size, colorMode, typographyRules

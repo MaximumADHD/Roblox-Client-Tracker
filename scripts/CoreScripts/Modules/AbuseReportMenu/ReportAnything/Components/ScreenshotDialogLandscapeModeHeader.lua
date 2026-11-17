@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local React = require(CorePackages.Packages.React)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
@@ -34,14 +33,10 @@ local function renderWrappingCenter(title)
 	return function()
 		return withStyle(function(style)
 			local theme = style.Theme
-			local font = style.Font
 
 			return React.createElement("TextLabel", {
 				Text = title,
-				Font = if FFlagFoundationFontFaceMigration then nil else font.Header2.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
-					else nil,
+				FontFace = normalizeFontFace(style.Tokens.Typography.TitleLarge.Font),
 				TextColor3 = theme.TextEmphasis.Color,
 				TextTransparency = theme.TextEmphasis.Transparency,
 				TextSize = 20,

@@ -109,12 +109,15 @@ export type EditableImageWithPBRData = {
 
 export type CurveAnimationsData = { CurveAnimation }
 
-export type CurveAnimComputedFramesData = {
+export type CurveAnimClipComputedFrames = {
+	animation: Animation?,
 	animFrames: { { [string]: CFrame } },
 	animLength: number,
 	positionMagnitudeFrames: { { [string]: number } },
 	tracks: { any },
 }
+
+export type CurveAnimComputedFramesData = { CurveAnimClipComputedFrames }
 
 -- version is set when the field pins one (rbxassetid://1234&version=3)
 export type ContentIdEntry = { instance: Instance, fieldName: string, version: number? }

@@ -24,6 +24,7 @@ local FFlagVoiceVolumeControlsEnableVoiceVolumeImpressionsTelemetry =
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local Cryo = require(CorePackages.Packages.Cryo)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+local ExperienceService = require(CorePackages.Workspace.Packages.ExperienceService).ExperienceService
 local SurveyEventPublisher = require(CorePackages.Workspace.Packages.OnPlatformSurveys.SurveyEventPublisher)
 local WebViewEventType = require(CorePackages.Workspace.Packages.OnPlatformSurveys.WebViewEventType)
 local coreGuiFinalStateAnalytics = require(script:FindFirstAncestor("Settings").Analytics.CoreGuiFinalStateAnalytics).new()
@@ -47,6 +48,8 @@ export type LeaveGameProps = {
     shouldNativeExit: boolean?,
     inhibitAppRating: boolean?,
     telemetryContext: string?,
+    -- Leaves through ExperienceService so the app can read the reason once the experience is gone.
+    leaveReason: string?,
 }
 
 local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?)
@@ -112,6 +115,12 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     -- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
     for i = 1, LEAVE_GAME_FRAME_WAITS do
         RunService.RenderStepped:wait()
+    end
+
+    if props and props.leaveReason then
+        ExperienceService:LeaveExperienceWithReason(props.leaveReason)
+        settings().Rendering.QualityLevel = GetDefaultQualityLevel()
+        return
     end
 
     -- return to app by default, unless shouldNativeExit is true then native exit

@@ -11,7 +11,6 @@ local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local FeedbackModule = script.Parent.Parent.Parent
 local GlobalConfig = require(FeedbackModule.GlobalConfig)
 
@@ -67,12 +66,10 @@ local function ThemedTextLabel(props)
 				fontKey = Cryo.None,
 				themeKey = Cryo.None,
 				BackgroundTransparency = 1,
-				Font = if FFlagFoundationFontFaceMigration then Cryo.None else textFont.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(
-						style.Tokens.Typography[FOUNDATION_TYPOGRAPHY_BY_FONT_KEY[props.fontKey or "Body"]].Font
-					)
-					else nil,
+				Font = Cryo.None,
+				FontFace = normalizeFontFace(
+					style.Tokens.Typography[FOUNDATION_TYPOGRAPHY_BY_FONT_KEY[props.fontKey or "Body"]].Font
+				),
 				TextSize = textFont.RelativeSize * style.Font.BaseSize,
 			}
 		)

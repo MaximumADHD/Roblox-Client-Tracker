@@ -1,6 +1,5 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local TextService = game:GetService("TextService")
 local ContextActionService = game:GetService("ContextActionService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local UserInputService = game:GetService("UserInputService")
@@ -19,9 +18,7 @@ local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local useLastInput = Responsive.useLastInput
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local Foundation = require(CorePackages.Packages.Foundation)
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local SlideFromTopToast = UIBlox.App.Dialog.Toast
@@ -684,20 +681,13 @@ function VoiceChatPromptFrame:render()
 		local titleText = self.state.toastContent.toastTitle
 		local titleFont = self.promptStyle.Font.Header1.Font
 		local titleFontSize = self.promptStyle.Font.Header1.RelativeSize * self.promptStyle.Font.BaseSize
-		local titleTextHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				titleText,
-				titleFontSize,
-				titleFont,
-				Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				titleText,
-				titleFontSize,
-				titleFont,
-				Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-			).Y
+		local titleTextHeight = GetTextSize(
+			titleText,
+			titleFontSize,
+			titleFont,
+			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
 		local titleTextContainerHeight = PADDING + titleTextHeight
 
 		-- With the fix enabled, init() composes the complete sentence, including the date label.
@@ -713,20 +703,13 @@ function VoiceChatPromptFrame:render()
 		local bodyText = errorText or successText
 		local bodyFont = self.promptStyle.Font.Body.Font
 		local bodyFontSize = self.promptStyle.Font.Body.RelativeSize * self.promptStyle.Font.BaseSize
-		local bodyTextHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				bodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				bodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-			).Y
+		local bodyTextHeight = GetTextSize(
+			bodyText,
+			bodyFontSize,
+			bodyFont,
+			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
 		local bodyTextContainerHeight = PADDING + bodyTextHeight
 		if isUpdatedBanModalB or isUpdatedBanModalBV2 then
 			bodyTextContainerHeight = bodyTextContainerHeight + PADDING
@@ -738,20 +721,13 @@ function VoiceChatPromptFrame:render()
 				GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and isUpdatedBanModalBV2
 			then voiceChatLimitsOnAccountV2
 			else voiceChatFutureViolations
-		local subTextHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				subBodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				subBodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-			).Y
+		local subTextHeight = GetTextSize(
+			subBodyText,
+			bodyFontSize,
+			bodyFont,
+			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
 		local subBodyTextContainerHeight = PADDING + subTextHeight
 
 		local showSecondaryButton = ShouldShowSecondaryButton(self.state.promptType)

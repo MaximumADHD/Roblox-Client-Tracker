@@ -57,17 +57,25 @@ local function PanelsProvider(props: PanelsProviderProps): React.ReactNode
 			onClose: () -> (),
 			depth: number?,
 			parentPopoverId: string?,
-			isFocusable: boolean?
+			isFocusable: boolean?,
+			initialSize: Vector2?
 		)
 			if Flags.FoundationPopoverPluginAnchorRefresh then
 				widgets.refreshAsync(anchorUri)
 			end
-			local handle = popoverManager:openAtAsync({
-				targetWidgetUri = anchorUri,
-				targetAnchorPoint = position.targetAnchorPoint,
-				subjectAnchorPoint = position.subjectAnchorPoint,
-				offset = position.offset,
-			}, onClose, depth, parentPopoverId, if Flags.FoundationPopoverPluginFocusable then isFocusable else nil)
+			local handle = popoverManager:openAtAsync(
+				{
+					targetWidgetUri = anchorUri,
+					targetAnchorPoint = position.targetAnchorPoint,
+					subjectAnchorPoint = position.subjectAnchorPoint,
+					offset = position.offset,
+				},
+				onClose,
+				depth,
+				parentPopoverId,
+				if Flags.FoundationPopoverPluginFocusable then isFocusable else nil,
+				if Flags.FoundationPopoverPluginPoolReclaim then initialSize else nil
+			)
 
 			return handle, function()
 				handle.close()

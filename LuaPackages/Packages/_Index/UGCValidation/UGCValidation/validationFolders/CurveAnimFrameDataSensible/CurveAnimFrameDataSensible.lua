@@ -35,13 +35,16 @@ local function areNumbersGood(...): boolean
 	return true
 end
 
-CurveAnimFrameDataSensible.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local computed = data.curveAnimComputedFrames
-
+local function validateCurveAnimClip(reporter: Types.ValidationReporter, computed: Types.CurveAnimClipComputedFrames)
+	local animationName = computed.animation and computed.animation:GetFullName()
 	for _, frame in computed.animFrames do
 		for _, cframe in frame do
 			if not areNumbersGood((cframe :: CFrame):GetComponents()) then
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidNumericalData)
+				reporter:fail(
+					ErrorSourceStrings.Keys.CurveAnim_InvalidNumericalData,
+					{ animationName = animationName },
+					computed.animation
+				)
 				return
 			end
 		end
@@ -50,10 +53,20 @@ CurveAnimFrameDataSensible.run = function(reporter: Types.ValidationReporter, da
 	for _, frame in computed.positionMagnitudeFrames do
 		for _, magnitude in frame do
 			if not areNumbersGood(magnitude) then
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidNumericalData)
+				reporter:fail(
+					ErrorSourceStrings.Keys.CurveAnim_InvalidNumericalData,
+					{ animationName = animationName },
+					computed.animation
+				)
 				return
 			end
 		end
+	end
+end
+
+CurveAnimFrameDataSensible.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	for _, computed in data.curveAnimComputedFrames do
+		validateCurveAnimClip(reporter, computed)
 	end
 end
 

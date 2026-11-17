@@ -26,11 +26,13 @@ export type MetadataAccessoryVariant = {
 	avatarSize: AvatarIconSize,
 	avatarTag: string,
 	style: ColorStyleValue,
+	width: number,
+	avatarWidth: number,
 }
 
 export type MetadataVariantProps = {
 	container: { tag: string },
-	item: { tag: string },
+	item: { tag: string, gap: number },
 	truncatedItem: { tag: string },
 	text: { tag: string, fontStyle: FontStyle, openTypeFeatures: string },
 	truncatedText: { tag: string },
@@ -41,7 +43,7 @@ export type MetadataVariantProps = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = { tag = "row align-y-center auto-xy" },
-		item = { tag = "row align-y-center gap-xsmall auto-xy" },
+		item = { tag = "row align-y-center gap-xsmall auto-xy", gap = tokens.Gap.XSmall },
 		truncatedItem = { tag = "row align-y-center shrink gap-xsmall auto-xy" },
 		text = { tag = "auto-xy content-default", openTypeFeatures = "zero, ss03" },
 		truncatedText = { tag = "shrink auto-xy text-truncate-split content-default" },
@@ -53,6 +55,8 @@ local function variantsFactory(tokens: Tokens)
 			avatarSize = AvatarIconSize.Small,
 			avatarTag = "auto-xy padding-right-xxsmall",
 			style = tokens.Color.Content.Default,
+			width = tokens.Size.Size_400,
+			avatarWidth = tokens.Size.Size_400 + tokens.Padding.XXSmall,
 		},
 	}
 

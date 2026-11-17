@@ -26,6 +26,7 @@ local VoiceChatServiceStub = require(CorePackages.Workspace.Packages.MockEngineS
 local makeMockUser = VoiceChatServiceStub.makeMockUser
 
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+local waitForEventsTimes = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEventsTimes
 
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
@@ -114,6 +115,11 @@ end)
 local showUFRVoiceRestriction = jest.fn()
 jest.mock(script.Parent.Helpers.showUFRVoiceRestriction, function()
 	return showUFRVoiceRestriction
+end)
+local actualGetServerNow = jest.requireActual(script.Parent.Helpers.getServerNow)
+local getServerNowMock, getServerNow = jest.fn(actualGetServerNow)
+jest.mock(script.Parent.Helpers.getServerNow, function()
+	return getServerNow
 end)
 
 local VoiceChatServiceManagerKlass = require(script.Parent.VoiceChatServiceManager)
@@ -1362,10 +1368,18 @@ if FFlagProactiveVoiceRestrictionsUFR and FFlagReactiveVoiceRestrictionsUFR then
 		local settings
 		local requests
 		local leaveVoice
+		local clientNow
+		local serverNow
 
 		beforeEach(function()
 			settings = { isBanned = true, banReason = 8, bannedUntil = { Seconds = 2000000000 } }
 			requests = {}
+			-- Fake timers do not fake the server clock, so it follows the fake client clock unless a test skews it.
+			clientNow = DateTime.now().UnixTimestamp
+			serverNow = clientNow
+			getServerNowMock.mockImplementation(function()
+				return serverNow
+			end)
 			-- Every live manager receives the signal, so stub the class method to keep the engine's leave path out of tests.
 			leaveVoice = jest.spyOn(getmetatable(VoiceChatServiceManager.coreVoiceManager), "LeaveVoiceForRestriction")
 				.mockImplementation(function() end)
@@ -1383,6 +1397,7 @@ if FFlagProactiveVoiceRestrictionsUFR and FFlagReactiveVoiceRestrictionsUFR then
 
 		afterEach(function()
 			leaveVoice.mockRestore()
+			getServerNowMock.mockImplementation(actualGetServerNow)
 		end)
 
 		it("restricts and leaves voice for an active UFR timeout push without fetching settings", function()
@@ -1424,9 +1439,54 @@ if FFlagProactiveVoiceRestrictionsUFR and FFlagReactiveVoiceRestrictionsUFR then
 			VoiceChatServiceManager:ShowVoiceRestriction()
 			checkSpy.mock.results[2].value:await()
 			expect(showUFRVoiceRestriction).toHaveBeenCalledTimes(1)
-			expect(showUFRVoiceRestriction.mock.calls[1][1].onAcknowledgementSuccess).toBeNil()
+			expect(showUFRVoiceRestriction.mock.calls[1][1].onAcknowledgementSuccess).toEqual(
+				expect.any("function")
+			)
 			expect(requests).toHaveLength(1)
 			expect(requests[1]).toContain("/v1/settings/")
+		end)
+
+		it("hides voice until rejoin on join when the restriction ended on the server clock", function()
+			settings.bannedUntil.Seconds = clientNow + 600
+			serverNow = clientNow + 1200
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
+			checkSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("hiddenUntilRejoin")
+			expect(showUFRVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(requests).toHaveLength(0)
+		end)
+
+		it("keeps voice and shows the dialog once for an unbanned join that only needs an acknowledgement", function()
+			settings = { isBanned = false, banReason = 10, bannedUntil = { Seconds = clientNow - 600 } }
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", settings, {})
+			VoiceChatServiceManager.coreVoiceManager:emit("OnJoinAgeVerificationOverlayFetched", {
+				voiceSettings = settings,
+			})
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("normal")
+			expect(showUFRVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(showUFRVoiceRestriction.mock.calls[1][1].settings).toEqual(settings)
+			expect(requests).toHaveLength(0)
+		end)
+
+		it("hides voice until rejoin with one dialog when a banned join reads an ended restriction", function()
+			settings = { isBanned = false, banReason = 10, bannedUntil = { Seconds = clientNow - 5 } }
+			local checkSpy = jest.spyOn(VoiceChatServiceManager.voiceRestrictionController, "check")
+			VoiceChatServiceManager.coreVoiceManager:emit("OnUserAndPlaceCanUseVoiceResolved", { isBanned = true }, {})
+			VoiceChatServiceManager.coreVoiceManager:emit("OnJoinAgeVerificationOverlayFetched", {
+				voiceSettings = settings,
+			})
+			checkSpy.mock.results[1].value:await()
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("hiddenUntilRejoin")
+			expect(showUFRVoiceRestriction).toHaveBeenCalledTimes(1)
+			expect(requests).toHaveLength(1)
+		end)
+
+		it("ignores a UFR timeout push that already ended on the server clock", function()
+			serverNow = clientNow + 10000
+			voiceInterventionReceivedSignal:fire(voiceIntervention("timeout", 10000 - 1200, 600))
+			expect(VoiceChatServiceManager:GetVoiceRestrictionState(false)).toBe("normal")
+			expect(leaveVoice).never.toHaveBeenCalled()
 		end)
 	end)
 else
@@ -1571,6 +1631,196 @@ describe("VoiceChatServiceManager SignalR watcher", function()
 	end)
 end)
 
+local VoiceChatCoreFlags = require(CorePackages.Workspace.Packages.VoiceChatCore).Flags
+local registryEnabled = VoiceChatCoreFlags.GetFFlagMicConsumerRegistry()
+	and VoiceChatCoreFlags.GetFFlagCoreMicManagerRefactor()
+local syncsVoiceDeviceToServer = VoiceChatCoreFlags.FFlagMicSyncVoiceDeviceAcrossRejoin
+	and VoiceChatCoreFlags.GetFFlagCoreMicManagerRefactor()
+	and game:GetService("VoiceChatService").UseNewAudioApi
+
+-- Mirrors the Chrome ToggleMic listener that owns mic indicator readiness. Under deferred signal behavior it runs
+-- after the Joined handler has already synced the device.
+local function connectDeferredMicIndicatorReadiness()
+	local micManager = VoiceChatServiceManager:GetMicManager()
+	return micManager.hasConsumersChanged.Event:Connect(function()
+		task.defer(function()
+			micManager:SetMicIndicatorReady(micManager:GetConsumerCount() > 0)
+		end)
+	end)
+end
+
+-- Managers from earlier tests stay subscribed to PlayerRemoving, which would pass these fake devices to
+-- onInstanceRemove, so they must not outlive their test.
+local fakeVoiceDeviceOwners = {}
+
+afterEach(function()
+	for device, coreVoiceManager in fakeVoiceDeviceOwners do
+		coreVoiceManager.audioDevices[device] = nil
+	end
+	table.clear(fakeVoiceDeviceOwners)
+end)
+
+local function trackLocalVoiceDevice(sentValues)
+	local coreVoiceManager = VoiceChatServiceManager.coreVoiceManager
+	local device = { Active = false, Player = game:GetService("Players").LocalPlayer }
+	coreVoiceManager.audioDevices[device] = {}
+	fakeVoiceDeviceOwners[device] = coreVoiceManager
+	local sendMuteEvent = {
+		FireServer = function(_, value)
+			table.insert(sentValues, value)
+		end,
+	}
+	coreVoiceManager.GetSendMuteEvent = function()
+		return sendMuteEvent
+	end
+	return device
+end
+
+if registryEnabled then
+	describe("voice_chat mic consumer across a voice rejoin", function()
+		local VoiceChatState = (Enum :: any).VoiceChatState
+
+		local function leaveAndRejoin()
+			VoiceChatServiceStub:changeState(VoiceChatState.Joined, VoiceChatState.Ended)
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.Joining)
+			VoiceChatServiceStub:changeState(VoiceChatState.Joining, VoiceChatState.Joined)
+		end
+
+		it("unregisters the voice_chat consumer when voice ends", function()
+			local micManager = VoiceChatServiceManager:GetMicManager()
+			expect(micManager:HasConsumer("voice_chat")).toBe(true)
+
+			VoiceChatServiceStub:changeState(VoiceChatState.Joined, VoiceChatState.Ended)
+
+			expect(micManager:HasConsumer("voice_chat")).toBe(false)
+			expect(micManager:GetConsumerCount()).toBe(0)
+		end)
+
+		if VoiceChatCoreFlags.FFlagMicSyncVoiceDeviceAcrossRejoin then
+			it("re-registers the voice_chat consumer when voice rejoins", function()
+				local micManager = VoiceChatServiceManager:GetMicManager()
+
+				leaveAndRejoin()
+
+				expect(micManager:HasConsumer("voice_chat")).toBe(true)
+				expect(micManager:GetConsumerCount()).toBe(1)
+			end)
+		else
+			it("leaves the voice_chat consumer unregistered after voice rejoins", function()
+				local micManager = VoiceChatServiceManager:GetMicManager()
+
+				leaveAndRejoin()
+
+				expect(micManager:HasConsumer("voice_chat")).toBe(false)
+			end)
+		end
+
+		if syncsVoiceDeviceToServer then
+			it("activates the voice device on the server once the mic indicator is ready after a rejoin", function()
+				local readinessConnection = connectDeferredMicIndicatorReadiness()
+				local sentValues = {}
+				local device = trackLocalVoiceDevice(sentValues)
+
+				leaveAndRejoin()
+				-- Under deferred signals, readiness waits on the hasConsumersChanged event and then the listener's task.defer.
+				waitForEventsTimes(2)
+				readinessConnection:Disconnect()
+
+				expect(VoiceChatServiceManager.localMuted).toBe(false)
+				expect(device.Active).toBe(true)
+				expect(sentValues[#sentValues]).toBe(true)
+			end)
+
+			it("keeps a user-muted voice device inactive when readiness returns after a rejoin", function()
+				local previousPublishPaused = VoiceChatServiceStub.publishPaused
+				VoiceChatServiceStub.publishPaused = false
+				local sentValues = {}
+				local device = trackLocalVoiceDevice(sentValues)
+				VoiceChatServiceStub:changeState(VoiceChatState.Joining, VoiceChatState.Joined)
+				VoiceChatServiceManager:ToggleMic("test")
+				local readinessConnection = connectDeferredMicIndicatorReadiness()
+
+				leaveAndRejoin()
+				-- Under deferred signals, readiness waits on the hasConsumersChanged event and then the listener's task.defer.
+				waitForEventsTimes(2)
+				readinessConnection:Disconnect()
+				VoiceChatServiceStub.publishPaused = previousPublishPaused
+
+				expect(VoiceChatServiceManager.localMuted).toBe(true)
+				expect(device.Active).toBe(false)
+				expect(table.find(sentValues, true)).toBeNil()
+			end)
+		end
+	end)
+end
+
+describe("voice state JoiningRetry", function()
+	local VoiceChatState = (Enum :: any).VoiceChatState
+	local previousPublishPaused
+
+	beforeEach(function()
+		previousPublishPaused = VoiceChatServiceStub.publishPaused
+		VoiceChatServiceStub.publishPaused = false
+		VoiceChatServiceStub:changeState(VoiceChatState.Joining, VoiceChatState.Joined)
+		VoiceChatServiceStub:changeState(VoiceChatState.Joined, VoiceChatState.Ended)
+	end)
+
+	afterEach(function()
+		VoiceChatServiceStub.publishPaused = previousPublishPaused
+	end)
+
+	if VoiceChatCoreFlags.FFlagMicSyncVoiceDeviceAcrossRejoin then
+		it("leaves the mic state unset until the rejoin completes", function()
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.JoiningRetry)
+
+			expect(VoiceChatServiceManager.localMuted).toBeNil()
+		end)
+
+		it("ignores a mic toggle until the rejoin completes", function()
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.JoiningRetry)
+			VoiceChatServiceManager:ToggleMic("test")
+
+			expect(VoiceChatServiceManager.localMuted).toBeNil()
+		end)
+	else
+		it("derives the mic state from the engine while rejoining", function()
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.JoiningRetry)
+
+			expect(VoiceChatServiceManager.localMuted).toBe(false)
+		end)
+	end
+
+	if syncsVoiceDeviceToServer then
+		it("deactivates the local voice device on the client and server while rejoining", function()
+			local sentValues = {}
+			local device = trackLocalVoiceDevice(sentValues)
+			device.Active = true
+
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.JoiningRetry)
+
+			expect(device.Active).toBe(false)
+			expect(sentValues).toEqual({ false })
+		end)
+
+		it("keeps handling the state change while the SetUserActive remote is missing", function()
+			trackLocalVoiceDevice({})
+			VoiceChatServiceManager.coreVoiceManager.GetSendMuteEvent = function()
+				coroutine.yield()
+				return nil
+			end
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.Joining)
+			local retryRequested = false
+			VoiceChatServiceManager.coreVoiceManager:subscribe("OnRetryRequested", function()
+				retryRequested = true
+			end)
+
+			VoiceChatServiceStub:changeState(VoiceChatState.Joining, VoiceChatState.Ended)
+
+			expect(retryRequested).toBe(true)
+		end)
+	end
+end)
+
 local REWARM_KEY = require(CorePackages.Workspace.Packages.VoiceChatCore).Constants.VOICE_REWARM_KEY
 
 -- The flag matrix can't produce every combination these tests need, so they set flags directly and
@@ -1630,6 +1880,8 @@ local function setUpFreshRewarmManager(flags: { [string]: boolean })
 			reportVoiceRewarmShown = jest.fn(),
 			reportVoiceRewarmClicked = jest.fn(),
 			reportConnectDisconnectEvents = jest.fn(),
+			reportVoiceConnected = jest.fn(),
+			reportVoiceDisconnected = jest.fn(),
 		}
 		-- Isolate the rewarm check: every other ShouldShowJoinVoice / JoinVoice branch is off.
 		manager.EligibleForFaeUpsell = stub(false)
@@ -1758,6 +2010,104 @@ describe("VoiceChatServiceManager voice rewarm re-arm", function()
 	end
 end)
 
+if
+	VoiceChatCoreFlags.FFlagMicSyncVoiceDeviceAcrossRejoin
+	and VoiceChatCoreFlags.GetFFlagCoreMicManagerRefactor()
+	and game:GetService("VoiceChatService").UseNewAudioApi
+then
+	describe("mic mute across a voice rejoin", function()
+		local VoiceChatState = (Enum :: any).VoiceChatState
+		local previousPublishPaused
+		local readinessConnection
+		local sentValues
+		local device
+		local muteChangedValues
+		local muteChangedConnection
+
+		local function leaveAndRejoin()
+			VoiceChatServiceStub:changeState(VoiceChatState.Joined, VoiceChatState.Leaving)
+			VoiceChatServiceStub:changeState(VoiceChatState.Leaving, VoiceChatState.Ended)
+			VoiceChatServiceStub:changeState(VoiceChatState.Ended, VoiceChatState.JoiningRetry)
+			VoiceChatServiceStub:changeState(VoiceChatState.JoiningRetry, VoiceChatState.Joined)
+			-- Under deferred signals, readiness waits on the hasConsumersChanged event and then the listener's task.defer.
+			waitForEventsTimes(2)
+		end
+
+		beforeEach(function()
+			previousPublishPaused = VoiceChatServiceStub.publishPaused
+			VoiceChatServiceStub.publishPaused = false
+			if registryEnabled then
+				readinessConnection = connectDeferredMicIndicatorReadiness()
+			end
+			sentValues = {}
+			device = trackLocalVoiceDevice(sentValues)
+			VoiceChatServiceStub:changeState(VoiceChatState.Joining, VoiceChatState.Joined)
+			muteChangedValues = {}
+			muteChangedConnection = VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+				table.insert(muteChangedValues, muted)
+			end)
+		end)
+
+		afterEach(function()
+			muteChangedConnection:Disconnect()
+			if readinessConnection then
+				readinessConnection:Disconnect()
+				readinessConnection = nil
+			end
+			VoiceChatServiceStub.publishPaused = previousPublishPaused
+		end)
+
+		it("re-applies a mute that the engine reports as unmuted after a rejoin", function()
+			VoiceChatServiceManager:ToggleMic("test")
+			expect(VoiceChatServiceManager.localMuted).toBe(true)
+			waitForEvents()
+			table.clear(sentValues)
+			table.clear(muteChangedValues)
+
+			leaveAndRejoin()
+
+			expect(VoiceChatServiceManager.localMuted).toBe(true)
+			expect(device.Active).toBe(false)
+			expect(sentValues[#sentValues]).toBe(false)
+			expect(table.find(sentValues, true)).toBeNil()
+			expect(muteChangedValues).toEqual({ true })
+		end)
+
+		it("re-applies an automated mute that was active before a rejoin", function()
+			VoiceChatServiceManager:ToggleMic("AudioFocusManagement - UGC deafenAll")
+			expect(VoiceChatServiceManager.localMuted).toBe(true)
+			waitForEvents()
+			table.clear(muteChangedValues)
+
+			leaveAndRejoin()
+
+			expect(VoiceChatServiceManager.localMuted).toBe(true)
+			expect(device.Active).toBe(false)
+			expect(sentValues[#sentValues]).toBe(false)
+			expect(muteChangedValues).toEqual({ true })
+		end)
+
+		it("resumes unmuted after a rejoin when the mic was unmuted", function()
+			leaveAndRejoin()
+
+			expect(VoiceChatServiceManager.localMuted).toBe(false)
+			expect(device.Active).toBe(true)
+			expect(sentValues[#sentValues]).toBe(true)
+		end)
+
+		it("resumes unmuted after a rejoin when the mic was unmuted again before it", function()
+			VoiceChatServiceManager:ToggleMic("test")
+			VoiceChatServiceManager:ToggleMic("test")
+
+			leaveAndRejoin()
+
+			expect(VoiceChatServiceManager.localMuted).toBe(false)
+			expect(device.Active).toBe(true)
+			expect(sentValues[#sentValues]).toBe(true)
+		end)
+	end)
+end
+
 describe("VoiceChatServiceManager voice rewarm Grafana metrics", function()
 	-- The allOn sweep can't force the metrics flag off, so that half only runs in the default sweep.
 	local metricsStates = if game:GetFastFlag("VoiceRewarmGrafanaMetricsV2") then { true } else { false, true }
@@ -1846,6 +2196,79 @@ describe("VoiceChatServiceManager voice rewarm Grafana metrics", function()
 					context.joinVoiceWithNoOtherBranches()
 
 					expect(manager.Analytics.reportVoiceRewarmClicked).never.toHaveBeenCalled()
+				end)
+			end
+		end)
+	end
+end)
+
+describe("VoiceChatServiceManager connect and disconnect Grafana metrics", function()
+	-- The allOn sweep can't force the metrics flag off, so that half only runs in the default sweep.
+	local metricsStates = if game:GetFastFlag("VoiceConnectDisconnectGrafanaMetrics") then { true } else { false, true }
+	for _, metricsEnabled in metricsStates do
+		describe("WHEN VoiceConnectDisconnectGrafanaMetrics is " .. tostring(metricsEnabled), function()
+			local context = setUpFreshRewarmManager({
+				VoiceConnectDisconnectGrafanaMetrics = metricsEnabled,
+			})
+			local VoiceChatState = (Enum :: any).VoiceChatState
+
+			if metricsEnabled then
+				it("SHOULD count an AUTO_CONNECT connect WHEN voice joins without a user join", function()
+					local manager = context.createManager(nil)
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joining, VoiceChatState.Joined)
+
+					expect(manager.Analytics.reportVoiceConnected).toHaveBeenCalledTimes(1)
+					expect(manager.Analytics.reportVoiceConnected).toHaveBeenCalledWith(
+						manager.Analytics,
+						"AUTO_CONNECT"
+					)
+				end)
+
+				it("SHOULD label the connect with the pending source WHEN a user join completes", function()
+					local manager = context.createManager(nil)
+					manager.IsSeamlessVoice = stub(false)
+					manager.pendingConnectionSource = VoiceChatConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
+					manager.attemptVoiceRejoin:Fire()
+					waitForEvents()
+
+					manager.coreVoiceManager:emit("OnVoiceJoin")
+
+					expect(manager.Analytics.reportVoiceConnected).toHaveBeenCalledWith(
+						manager.Analytics,
+						"SETTINGS_TOGGLE_ON"
+					)
+				end)
+
+				it("SHOULD count a USER_DISCONNECT disconnect WHEN the user left voice", function()
+					local manager = context.createManager(nil)
+					manager.pendingDisconnectReason = VoiceChatConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joined, VoiceChatState.Ended)
+
+					expect(manager.Analytics.reportVoiceDisconnected).toHaveBeenCalledTimes(1)
+					expect(manager.Analytics.reportVoiceDisconnected).toHaveBeenCalledWith(
+						manager.Analytics,
+						"USER_DISCONNECT"
+					)
+				end)
+
+				it("SHOULD count a SYSTEM disconnect WHEN voice ended without a user or moderation reason", function()
+					local manager = context.createManager(nil)
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joined, VoiceChatState.Ended)
+
+					expect(manager.Analytics.reportVoiceDisconnected).toHaveBeenCalledWith(manager.Analytics, "SYSTEM")
+				end)
+			else
+				it("SHOULD NOT count connects or disconnects", function()
+					local manager = context.createManager(nil)
+
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joining, VoiceChatState.Joined)
+					manager.coreVoiceManager:emit("OnStateChanged", VoiceChatState.Joined, VoiceChatState.Ended)
+
+					expect(manager.Analytics.reportVoiceConnected).never.toHaveBeenCalled()
+					expect(manager.Analytics.reportVoiceDisconnected).never.toHaveBeenCalled()
 				end)
 			end
 		end)

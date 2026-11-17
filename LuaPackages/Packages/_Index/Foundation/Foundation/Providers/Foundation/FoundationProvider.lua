@@ -17,6 +17,7 @@ local StyleProvider = require(Providers.Style.StyleProvider)
 local Types = require(Foundation.Components.Types)
 local WidgetsProvider = require(Providers.StudioWidgets.WidgetsProvider)
 local ElevationProvider = require(Providers.Elevation.ElevationProvider).ElevationProvider
+local ScreenRegionProvider = require(Providers.ScreenRegion.ScreenRegionProvider).ScreenRegionProvider
 local isPluginElevated = require(Providers.Plugin.isPluginElevated)
 
 type OverlayConfig = Types.OverlayConfig
@@ -68,6 +69,9 @@ local function FoundationProvider(props: FoundationProviderProps)
 		),
 		React.createElement(CursorProvider),
 	}
+	if Flags.FoundationScreenRegionProvider then
+		table.insert(providers, React.createElement(ScreenRegionProvider, nil))
+	end
 	if props.plugin and isPluginElevated(props.plugin) then
 		table.insert(providers, React.createElement(WidgetsProvider, {}))
 		table.insert(providers, React.createElement(PanelsProvider, {}))

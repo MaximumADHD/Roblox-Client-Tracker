@@ -26,9 +26,6 @@ return {
 	-- Foundation@1.93.0
 	FoundationBaseMenuContentSizing = SafeFlags.createGetFFlag("FoundationBaseMenuContentSizing")(),
 
-	-- Foundation@1.95.0
-	FoundationPopoverPluginOverlayMeasurement = SafeFlags.createGetFFlag("FoundationPopoverPluginOverlayMeasurement2")(),
-
 	-- Foundation@1.97.0
 	FoundationViewMemoizationChanges = SafeFlags.createGetFFlag("FoundationViewMemoizationChanges")(),
 
@@ -62,10 +59,8 @@ return {
 	-- Foundation@1.112.0
 	FoundationFixColorOnScrubbableNumberInput = FoundationFixColorOnScrubbableNumberInput,
 	FoundationPluginShadowSize = SafeFlags.createGetFFlag("FoundationPluginShadowSize")(),
-	FoundationProgressBarBetaUpdate = SafeFlags.createGetFFlag("FoundationProgressBarBetaUpdate2")(),
 
 	-- Foundation@1.113.0
-	FoundationCenterSheetHeightFix = SafeFlags.createGetFFlag("FoundationCenterSheetHeightFix")(),
 	FoundationNumberInputScrubbingUsesOffset = FoundationFixColorOnScrubbableNumberInput
 		and SafeFlags.createGetFFlag("FoundationNumberInputScrubbingUsesOffset")(),
 	FoundationSliderCapture = FoundationSliderCapture,
@@ -78,9 +73,6 @@ return {
 	-- Foundation@1.114.2
 	FoundationEducationalTooltipMinMediaWidth = FoundationEducationalTooltipMinMediaWidth,
 	FoundationStudioFontFaceMigration = SafeFlags.createGetFFlag("FoundationStudioFontFaceMigration")(),
-
-	-- Foundation@1.114.3
-	FoundationFontFaceMigration = SafeFlags.createGetFFlag("FoundationFontFaceMigration3")(),
 
 	-- Foundation@1.115.0
 	FoundationSheetReversedContent = SafeFlags.createGetFFlag("FoundationSheetReversedContent")(),
@@ -129,6 +121,16 @@ return {
 	FoundationSideSheetInternalDrawer = SafeFlags.createGetFFlag("FoundationSideSheetInternalDrawer")(),
 	FoundationSliderRebuild = FoundationSliderCapture and SafeFlags.createGetFFlag("FoundationSliderRebuild2")(),
 	FoundationTabsAccessory = SafeFlags.createGetFFlag("FoundationTabsAccessory")(),
+
+	-- Foundation@1.124.0
+	FoundationBottomSheetClearsActionsHeight = SafeFlags.createGetFFlag("FoundationBottomSheetClearsActionsHeight")(),
+	FoundationBottomSheetKeepsSnapPoint = SafeFlags.createGetFFlag("FoundationBottomSheetKeepsSnapPoint")(),
+	FoundationFloatingElevationLayer = SafeFlags.createGetFFlag("FoundationFloatingElevationLayer")(),
+	FoundationHeaderBarSlotSizing = SafeFlags.createGetFFlag("FoundationHeaderBarSlotSizing")(),
+	FoundationMetadataTruncateFallback = SafeFlags.createGetFFlag("FoundationMetadataTruncateFallback")(),
+	FoundationPopoverPluginPoolReclaim = SafeFlags.createGetFFlag("FoundationPopoverPluginPoolReclaim")(),
+	FoundationScreenRegionProvider = SafeFlags.createGetFFlag("FoundationScreenRegionProvider")(),
+	FoundationSharedViewportBreakpoint = SafeFlags.createGetFFlag("FoundationSharedViewportBreakpoint")(),
 
 	-- Unreleased flags
 }

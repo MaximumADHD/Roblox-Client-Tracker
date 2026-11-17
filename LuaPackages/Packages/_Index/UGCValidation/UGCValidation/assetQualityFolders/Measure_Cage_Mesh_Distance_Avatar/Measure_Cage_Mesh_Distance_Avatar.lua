@@ -11,7 +11,6 @@ local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidat
 local Measure_Cage_Mesh_Distance_Avatar = {}
 
 Measure_Cage_Mesh_Distance_Avatar.categories = { ValidationEnums.UploadCategory.FULL_BODY }
-Measure_Cage_Mesh_Distance_Avatar.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityAvatar)
 
 Measure_Cage_Mesh_Distance_Avatar.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Cage_Mesh_Distance_Avatar.full_body_cage

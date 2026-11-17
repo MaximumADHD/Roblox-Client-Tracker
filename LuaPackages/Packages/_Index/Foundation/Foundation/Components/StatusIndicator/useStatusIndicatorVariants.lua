@@ -24,6 +24,7 @@ local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local devAssert = require(Foundation.Utility.devAssert)
 
 local Constants = require(Foundation.Constants)
+local getStatusIndicatorSize = require(script.Parent.getStatusIndicatorSize)
 
 type StatusIndicatorVariantProps = {
 	container: { tag: string, backgroundStyle: ColorStyleValue?, size: UDim2? }, -- only populated if bg tag is non-compliant },
@@ -139,41 +140,46 @@ function variantsFactory(tokens: Tokens)
 		},
 	}
 
+	local function squareSize(size: StatusIndicatorSize, isNumeric: boolean, ratio: number?): UDim2
+		local diameter = getStatusIndicatorSize(tokens, size, isNumeric) * (ratio or 1)
+		return UDim2.fromOffset(diameter, diameter)
+	end
+
 	local sizes: { [StatusIndicatorSize]: VariantProps } = {
 		[StatusIndicatorSize.XSmall] = {
-			container = { size = UDim2.fromOffset(tokens.Size.Size_150, tokens.Size.Size_150) },
-			ring = { size = UDim2.fromOffset(tokens.Size.Size_150 / 2, tokens.Size.Size_150 / 2) },
+			container = { size = squareSize(StatusIndicatorSize.XSmall, false) },
+			ring = { size = squareSize(StatusIndicatorSize.XSmall, false, 0.5) },
 			stroke = if Flags.FoundationStatusIndicatorDesignUpdate
 				then nil
 				else { Thickness = tokens.Stroke.Standard },
 		},
 		[StatusIndicatorSize.Small] = {
-			container = { size = UDim2.fromOffset(tokens.Size.Size_200, tokens.Size.Size_200) },
-			ring = { size = UDim2.fromOffset(tokens.Size.Size_200 / 2, tokens.Size.Size_200 / 2) },
+			container = { size = squareSize(StatusIndicatorSize.Small, false) },
+			ring = { size = squareSize(StatusIndicatorSize.Small, false, 0.5) },
 			stroke = if Flags.FoundationStatusIndicatorDesignUpdate then nil else { Thickness = tokens.Size.Size_50 },
 		},
 		[StatusIndicatorSize.Medium] = {
-			container = { size = UDim2.fromOffset(tokens.Size.Size_250, tokens.Size.Size_250) },
-			ring = { size = UDim2.fromOffset(tokens.Size.Size_250 / 2, tokens.Size.Size_250 / 2) },
+			container = { size = squareSize(StatusIndicatorSize.Medium, false) },
+			ring = { size = squareSize(StatusIndicatorSize.Medium, false, 0.5) },
 			stroke = if Flags.FoundationStatusIndicatorDesignUpdate then nil else { Thickness = tokens.Size.Size_50 },
 		},
 		[StatusIndicatorSize.Large] = {
-			container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
-			ring = { size = UDim2.fromOffset(tokens.Size.Size_500 / 2, tokens.Size.Size_500 / 2) },
+			container = { size = squareSize(StatusIndicatorSize.Large, false) },
+			ring = { size = squareSize(StatusIndicatorSize.Large, false, 0.5) },
 			stroke = { Thickness = tokens.Stroke.Thicker },
 		},
 		[StatusIndicatorSize.Pictogram] = {
-			container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
-			ring = { size = UDim2.fromOffset(tokens.Size.Size_500 / 2, tokens.Size.Size_500 / 2) },
+			container = { size = squareSize(StatusIndicatorSize.Pictogram, false) },
+			ring = { size = squareSize(StatusIndicatorSize.Pictogram, false, 0.5) },
 			stroke = { Thickness = tokens.Stroke.Thicker },
 		},
 	}
 
 	local numericDefault = {
-		container = { size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400) },
+		container = { size = squareSize(StatusIndicatorSize.Small, true) },
 	}
 	local numericLarge = {
-		container = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
+		container = { size = squareSize(StatusIndicatorSize.Large, true) },
 		content = { typography = tokens.Typography.LabelMedium },
 	}
 

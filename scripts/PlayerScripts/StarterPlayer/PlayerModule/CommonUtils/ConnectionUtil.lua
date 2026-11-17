@@ -1,5 +1,6 @@
 --!strict
 -- Utility module for handling RBXScriptConnections. This module is used to track connections and disconnect them when needed.
+-- TODO: This class should be a subclass of EngineInterface which is the only owner of engine API connections.
 
 type ConnectionUtilClass = {
 	__index: ConnectionUtilClass,
@@ -14,12 +15,15 @@ type ConnectionUtilClass = {
 	disconnectAll: (self: ConnectionUtil) -> (),
 }
 
-export type ConnectionUtil = typeof(setmetatable({} :: {
-	-- Mapping from a unique key to a disconnect function
-	_connections: {[string]: () -> ()},
-}, {} :: ConnectionUtilClass))
+export type ConnectionUtil = typeof(setmetatable(
+	{} :: {
+		-- Mapping from a unique key to a disconnect function
+		_connections: { [string]: () -> () },
+	},
+	{} :: ConnectionUtilClass
+))
 
-local ConnectionUtil: ConnectionUtilClass = {} :: ConnectionUtilClass;
+local ConnectionUtil: ConnectionUtilClass = {} :: ConnectionUtilClass
 ConnectionUtil.__index = ConnectionUtil
 
 function ConnectionUtil.new()
@@ -35,7 +39,9 @@ function ConnectionUtil:trackConnection(key, connection)
 		self._connections[key]() -- Disconnect existing connection
 	end
 	-- store the disconnect function
-	self._connections[key] = function() connection:Disconnect() end
+	self._connections[key] = function()
+		connection:Disconnect()
+	end
 end
 
 function ConnectionUtil:trackBoundFunction(key, disconnectionFunc)

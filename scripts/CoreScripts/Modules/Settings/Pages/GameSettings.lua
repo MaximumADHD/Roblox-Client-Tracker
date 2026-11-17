@@ -33,7 +33,6 @@ if game:GetEngineFeature("CaptureModeEnabled") then
 end
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
-local FFlagIEMSettingsGroups = require(RobloxGui.Modules.Settings.Flags.FFlagIEMSettingsGroups)
 
 local locales = nil
 local LocalizationService = game:GetService("LocalizationService")
@@ -43,12 +42,8 @@ locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
-local renderSettingsHeader
-local renderSettingsDivider
-if FFlagIEMSettingsGroups then
-	renderSettingsHeader = require(RobloxGui.Modules.Settings.Components.renderSettingsHeader)
-	renderSettingsDivider = require(RobloxGui.Modules.Settings.Components.renderSettingsDivider)
-end
+local renderSettingsHeader = require(RobloxGui.Modules.Settings.Components.renderSettingsHeader)
+local renderSettingsDivider = require(RobloxGui.Modules.Settings.Components.renderSettingsDivider)
 local FFlagEnablePioneerIGMSettingsBanner =
 	require(RobloxGui.Modules.Settings.Flags.FFlagEnablePioneerIGMSettingsBanner)
 local renderMoreSettingsBanner
@@ -94,12 +89,19 @@ local FFlagChatSummariesSettingEnabled = SharedFlags.FFlagChatSummariesSettingEn
 -- Only meaningful where the dictation mic is actually available.
 local isVoiceTypingModeSettingEnabled = SharedFlags.FFlagExpChatDictationVoiceTypingModeSetting
 	and (SharedFlags.FFlagExpChatDictation or SharedFlags.FFlagExpChatContinuousDictation)
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
 local FFlagVoiceSelectorIgnoreFailedStateDisconnect = game:DefineFastFlag("VoiceSelectorIgnoreFailedStateDisconnect", false)
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
+local FFlagFriendsCallingCallVolumeSlider =
+	require(RobloxGui.Modules.Settings.Flags.FFlagFriendsCallingCallVolumeSlider)
+local FriendsCallingService = nil
+local GetFriendsCallingStore = nil
+if FFlagFriendsCallingCallVolumeSlider then
+	FriendsCallingService = game:GetService("FriendsCallingService")
+	GetFriendsCallingStore = require(CorePackages.Workspace.Packages.FriendsCalling.GetFriendsCallingStore)
+end
 local FFlagVoiceVolumeControlsFixSliderVisibilityOnEligibleGames =
 	game:DefineFastFlag("VoiceVolumeControlsFixSliderVisibilityOnEligibleGames", false)
 local FFlagVoiceVolumeControlsDisableInteractionWhenNoMasterVolume =
@@ -2790,6 +2792,45 @@ local function Initialize()
 		end)
 	end
 
+	local function createCallVolumeOptions()
+		if FriendsCallingService == nil or GetFriendsCallingStore == nil then
+			return
+		end
+		local friendsCallingStore = GetFriendsCallingStore(false)
+
+		local callVolumeLevel = 10
+		this.CallVolumeFrame, _, this.CallVolumeSlider =
+			utility:AddNewRow(this, "Call Volume", "Slider", 10, callVolumeLevel)
+		this.CallVolumeFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["CallVolumeFrame"]
+		this.CallVolumeFrame.Visible = false
+
+		local seededCallId: string? = nil
+		this.CallVolumeDisposeEffect = Signals.createEffect(function(scope)
+			local call = friendsCallingStore.getCall(scope)
+			local activeCall = if call and call.phase == Enum.FriendsCallingPhase.Active then call else nil
+			this.CallVolumeFrame.Visible = activeCall ~= nil
+
+			-- Seeded once per call, because the engine's volume trails the slider while it is dragged.
+			if activeCall and activeCall.callId ~= seededCallId then
+				seededCallId = activeCall.callId
+				callVolumeLevel = math.floor(activeCall.volume * 10 + 0.5)
+				this.CallVolumeSlider:SetValue(callVolumeLevel)
+			end
+		end)
+
+		this.CallVolumeSlider.ValueChanged:connect(function(newValue)
+			if newValue == callVolumeLevel then
+				return
+			end
+			local oldValue = callVolumeLevel
+			callVolumeLevel = newValue
+			FriendsCallingService:SetVolume(newValue / 10)
+
+			reportSettingsChangeForAnalytics("call_volume", oldValue, newValue)
+			reportSettingsForAnalytics()
+		end)
+	end
+
 	local function createVoiceChatVolumeOptions()
 		local startVolumeLevel = voiceChatVolumeToSlider(GameSettings.VoiceChatVolume)
 		local translationOk, voiceChatVolumeLabel = pcall(function()
@@ -4773,6 +4814,9 @@ local function Initialize()
 	if hasPartyVoiceVolume then
 		createPartyVoiceVolumeOptions()
 	end
+	if FFlagFriendsCallingCallVolumeSlider then
+		createCallVolumeOptions()
+	end
 
 	createHapticsToggle()
 	createGraphicsOptions()
@@ -4829,10 +4873,7 @@ local function Initialize()
 	if isVoiceTypingModeSettingEnabled then
 		createVoiceTypingModeSettingOptions()
 	end
-
-	if FFlagExpChatEnableFriendsTab then
 		createChatNotificationsSettingOptions()
-	end
 
 	-- dev console option only shows for place/group place owners
 	createDeveloperConsoleOption()
@@ -4859,42 +4900,40 @@ local function Initialize()
 		})
 	end
 
-	if FFlagIEMSettingsGroups then
-		this.AudioHeader = renderSettingsHeader({
-			headerText = "CoreScripts.InGameMenu.GameSettings.AudioHeader",
-			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.AudioHeader,
+	this.AudioHeader = renderSettingsHeader({
+		headerText = "CoreScripts.InGameMenu.GameSettings.AudioHeader",
+		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.AudioHeader,
+		parent = this.Page,
+	})
+	this.AudioDivider = renderSettingsDivider({
+		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.AudioDivider,
+		parent = this.Page,
+	})
+	this.DisplayHeader = renderSettingsHeader({
+		headerText = "CoreScripts.InGameMenu.GameSettings.DisplayHeader",
+		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayHeader,
+		parent = this.Page,
+	})
+	this.DisplayDivider = renderSettingsDivider({
+		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayDivider,
+		parent = this.Page,
+	})
+	if not isSpatial() then
+		this.LanguageHeader = renderSettingsHeader({
+			headerText = "CoreScripts.InGameMenu.GameSettings.LanguageHeader",
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageHeader,
 			parent = this.Page,
 		})
-		this.AudioDivider = renderSettingsDivider({
-			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.AudioDivider,
-			parent = this.Page,
-		})
-		this.DisplayHeader = renderSettingsHeader({
-			headerText = "CoreScripts.InGameMenu.GameSettings.DisplayHeader",
-			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayHeader,
-			parent = this.Page,
-		})
-		this.DisplayDivider = renderSettingsDivider({
-			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayDivider,
-			parent = this.Page,
-		})
-		if not isSpatial() then
-			this.LanguageHeader = renderSettingsHeader({
-				headerText = "CoreScripts.InGameMenu.GameSettings.LanguageHeader",
-				layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageHeader,
-				parent = this.Page,
-			})
-			this.LanguageDivider = renderSettingsDivider({
-				layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageDivider,
-				parent = this.Page,
-			})
-		end
-		this.ViewAndControlsHeader = renderSettingsHeader({
-			headerText = "CoreScripts.InGameMenu.GameSettings.ViewandControlsHeader",
-			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.ViewAndControlsHeader,
+		this.LanguageDivider = renderSettingsDivider({
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageDivider,
 			parent = this.Page,
 		})
 	end
+	this.ViewAndControlsHeader = renderSettingsHeader({
+		headerText = "CoreScripts.InGameMenu.GameSettings.ViewandControlsHeader",
+		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.ViewAndControlsHeader,
+		parent = this.Page,
+	})
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "GameSettingsTab"

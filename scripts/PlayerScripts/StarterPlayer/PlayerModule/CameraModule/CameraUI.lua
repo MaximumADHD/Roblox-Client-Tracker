@@ -15,7 +15,7 @@ do
 		if not initialized then
 			initialized = true
 		end
-		
+
 		if not enabled then
 			CameraUI.setCameraModeToastOpen(false)
 		end

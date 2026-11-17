@@ -1,4 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
+local React = require(Packages.React)
 
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
@@ -113,7 +115,10 @@ local function useInternalDrawerVariants(
 	local tokens = useTokens()
 	local variants = VariantsContext.useVariants("InternalDrawer", variantsFactory, tokens)
 
-	return composeStyleVariant(variants.common, variants.layout[layout], variants.side[side])
+	-- composeStyleVariant returns a new table every call. Memoize so binding deps can use the result.
+	return React.useMemo(function()
+		return composeStyleVariant(variants.common, variants.layout[layout], variants.side[side])
+	end, { variants, layout, side } :: { unknown })
 end
 
 return useInternalDrawerVariants

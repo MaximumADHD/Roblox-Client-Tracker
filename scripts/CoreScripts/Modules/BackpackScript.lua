@@ -31,14 +31,9 @@ local FFlagBackpackResponsiveUnits = require(CorePackages.Workspace.Packages.Sha
 local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
 local FFlagStudioDeviceSimVRSwitchFixes = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStudioDeviceSimVRSwitchFixes
 
-local FFlagSAToolEquipLuauFlag = game:DefineFastFlag("SAToolEquipLuauFlag", false)
 -- Workspace.AuthorityMode may change at runtime, in which case we want this feature on
 local function featureSAToolEquipEnabled()
-    if FFlagSAToolEquipLuauFlag and game:GetEngineFeature("SAToolEquipEngineFeature") then
-	    return workspace.AuthorityMode == Enum.AuthorityMode.Server
-    else
-        return false
-    end
+	return workspace.AuthorityMode == Enum.AuthorityMode.Server
 end
 
 local BackpackScript = {}

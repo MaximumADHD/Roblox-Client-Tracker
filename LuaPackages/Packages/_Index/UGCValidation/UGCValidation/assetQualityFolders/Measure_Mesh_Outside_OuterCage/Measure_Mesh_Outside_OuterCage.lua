@@ -14,7 +14,6 @@ Measure_Mesh_Outside_OuterCage.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
 	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 }
-Measure_Mesh_Outside_OuterCage.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityLC)
 
 Measure_Mesh_Outside_OuterCage.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Mesh_Outside_OuterCage.Handle

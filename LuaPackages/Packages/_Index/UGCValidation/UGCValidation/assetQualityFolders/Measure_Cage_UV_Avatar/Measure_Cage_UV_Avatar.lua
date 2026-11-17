@@ -12,7 +12,6 @@ local minCageUVAvatarScoreThreshold = game:DefineFastInt("UGCValidateLCCageUVAva
 local Measure_Cage_UV_Avatar = {}
 
 Measure_Cage_UV_Avatar.categories = { ValidationEnums.UploadCategory.FULL_BODY }
-Measure_Cage_UV_Avatar.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityAvatar)
 
 Measure_Cage_UV_Avatar.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Cage_UV_Avatar

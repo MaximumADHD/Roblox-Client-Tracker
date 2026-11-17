@@ -24,6 +24,7 @@ type ElevationProviderProps = {
 local function ElevationProvider(props: ElevationProviderProps)
 	local countersRef = React.useRef({
 		[ElevationLayer.Popover] = 0,
+		[ElevationLayer.Floating] = 0,
 		[ElevationLayer.Drawer] = 0,
 		[ElevationLayer.Sheet] = 0,
 		[ElevationLayer.Dialog] = 0,

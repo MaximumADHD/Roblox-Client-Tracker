@@ -3,8 +3,6 @@ local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact
 local Cryo = dependencies.Cryo
 local UIBlox = dependencies.UIBlox
-local Text = dependencies.Text
-local FFlagFoundationFontFaceMigration = dependencies.Foundation.Utility.Flags.FoundationFontFaceMigration
 local getTextBoundsAsync = dependencies.Foundation.Utility.getTextBoundsAsync
 local Components = SocialLibraries.Components
 local AlertViewLabel = require(Components.AlertView.AlertViewLabel)
@@ -119,123 +117,108 @@ function AlertViewBuilder:init()
 		numTextboxes = numTextboxes,
 	}
 
-	if FFlagFoundationFontFaceMigration then
-		self.isMounted = false
-		self.textMeasurements = {}
+	self.isMounted = false
+	self.textMeasurements = {}
 
-		self.flushTextMeasurements = function()
-			for textboxKey, slots in self.textMeasurements do
-				if not self.props.textboxes[textboxKey] then
-					self.textMeasurements[textboxKey] = nil
+	self.flushTextMeasurements = function()
+		for textboxKey, slots in self.textMeasurements do
+			if not self.props.textboxes[textboxKey] then
+				self.textMeasurements[textboxKey] = nil
+				continue
+			end
+
+			for slot, measurement: TextMeasurement in slots do
+				if measurement.height ~= nil or measurement.inFlight then
 					continue
 				end
 
-				for slot, measurement: TextMeasurement in slots do
-					if measurement.height ~= nil or measurement.inFlight then
-						continue
+				measurement.inFlight = true
+				task.spawn(function()
+					local bounds = getTextBoundsAsync(
+						measurement.text,
+						measurement.font,
+						measurement.fontSize,
+						measurement.width
+					)
+					measurement.inFlight = false
+
+					local currentSlots = self.textMeasurements[textboxKey]
+					if bounds and self.isMounted and currentSlots and currentSlots[slot] == measurement then
+						measurement.height = bounds.Y
+						self:setState(function(state: State)
+							return {
+								textMeasurementVersion = (state.textMeasurementVersion or 0) + 1,
+							}
+						end)
 					end
-
-					measurement.inFlight = true
-					task.spawn(function()
-						local bounds = getTextBoundsAsync(
-							measurement.text,
-							measurement.font,
-							measurement.fontSize,
-							measurement.width
-						)
-						measurement.inFlight = false
-
-						local currentSlots = self.textMeasurements[textboxKey]
-						if bounds and self.isMounted and currentSlots and currentSlots[slot] == measurement then
-							measurement.height = bounds.Y
-							self:setState(function(state: State)
-								return {
-									textMeasurementVersion = (state.textMeasurementVersion or 0) + 1,
-								}
-							end)
-						end
-					end)
-				end
+				end)
 			end
-		end
-
-		self.scheduleTextMeasurementFlush = function()
-			if self.textMeasurementFlushScheduled then
-				return
-			end
-
-			self.textMeasurementFlushScheduled = true
-			task.defer(function()
-				self.textMeasurementFlushScheduled = false
-				if self.isMounted then
-					self.flushTextMeasurements()
-				end
-			end)
 		end
 	end
 
-	self.calcTextboxTextHeight = if FFlagFoundationFontFaceMigration
-		then function(
-			styles: Styles,
-			text: string?,
-			textboxKey: string,
-			slot: TextMeasurementSlot
-		): number
-			if not text or text == "" then
-				local slots = self.textMeasurements[textboxKey]
-				if slots then
-					slots[slot] = nil
-				end
-				return 0
-			end
+	self.scheduleTextMeasurementFlush = function()
+		if self.textMeasurementFlushScheduled then
+			return
+		end
 
-			local fontSize = styles.Font.Body.RelativeSize * styles.Font.BaseSize
-			local font = styles.Font.Body.Font
-			local width = self.props.childComponentWidth
+		self.textMeasurementFlushScheduled = true
+		task.defer(function()
+			self.textMeasurementFlushScheduled = false
+			if self.isMounted then
+				self.flushTextMeasurements()
+			end
+		end)
+	end
+
+	self.calcTextboxTextHeight = function(
+		styles: Styles,
+		text: string?,
+		textboxKey: string,
+		slot: TextMeasurementSlot
+	): number
+		if not text or text == "" then
 			local slots = self.textMeasurements[textboxKey]
-			if not slots then
-				slots = {}
-				self.textMeasurements[textboxKey] = slots
+			if slots then
+				slots[slot] = nil
 			end
-
-			local measurement = slots[slot]
-			if
-				measurement
-				and measurement.text == text
-				and measurement.font == font
-				and measurement.fontSize == fontSize
-				and measurement.width == width
-			then
-				return if measurement.height ~= nil then measurement.height else fontSize
-			end
-
-			slots[slot] = {
-				text = text,
-				font = font,
-				fontSize = fontSize,
-				width = width,
-				inFlight = false,
-			}
-			self.scheduleTextMeasurementFlush()
-			return fontSize
+			return 0
 		end
-		else function(styles: Styles, text: string?): number
-			local fontSize = styles.Font.Body.RelativeSize * styles.Font.BaseSize
-			local font = styles.Font.Body.Font
-			local textHeight = 0
-			if text and text ~= "" then
-				textHeight = Text.GetTextHeight(text, font, fontSize, self.props.childComponentWidth)
-			end
 
-			return textHeight
+		local fontSize = styles.Font.Body.RelativeSize * styles.Font.BaseSize
+		local font = styles.Font.Body.Font
+		local width = self.props.childComponentWidth
+		local slots = self.textMeasurements[textboxKey]
+		if not slots then
+			slots = {}
+			self.textMeasurements[textboxKey] = slots
 		end
+
+		local measurement = slots[slot]
+		if
+			measurement
+			and measurement.text == text
+			and measurement.font == font
+			and measurement.fontSize == fontSize
+			and measurement.width == width
+		then
+			return if measurement.height ~= nil then measurement.height else fontSize
+		end
+
+		slots[slot] = {
+			text = text,
+			font = font,
+			fontSize = fontSize,
+			width = width,
+			inFlight = false,
+		}
+		self.scheduleTextMeasurementFlush()
+		return fontSize
+	end
 end
 
 function AlertViewBuilder:didMount()
-	if FFlagFoundationFontFaceMigration then
-		self.isMounted = true
-		self.flushTextMeasurements()
-	end
+	self.isMounted = true
+	self.flushTextMeasurements()
 
 	if type(self.props.onModalOpen) == "function" then
 		self.props.onModalOpen()
@@ -243,15 +226,11 @@ function AlertViewBuilder:didMount()
 end
 
 function AlertViewBuilder:didUpdate()
-	if FFlagFoundationFontFaceMigration then
-		self.flushTextMeasurements()
-	end
+	self.flushTextMeasurements()
 end
 
 function AlertViewBuilder:willUnmount()
-	if FFlagFoundationFontFaceMigration then
-		self.isMounted = false
-	end
+	self.isMounted = false
 end
 
 function AlertViewBuilder:reset()

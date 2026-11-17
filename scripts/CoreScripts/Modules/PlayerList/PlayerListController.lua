@@ -20,7 +20,11 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
+local FoundationProvider = Foundation.FoundationProvider
 local ColorMode = Foundation.Enums.ColorMode
+local React = require(CorePackages.Packages.React)
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
+local useEventConnection = ReactUtils.useEventConnection
 local StyleConstants = UIBlox.App.Style.Constants
 local ApolloClientInstance = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local ApolloClientModule = require(CorePackages.Packages.ApolloClient)
@@ -40,6 +44,9 @@ local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.Playe
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 local PlayerListConstants = PlayerListPackage.Common.Constants
 local PlayerRelationshipStore = PlayerListPackage.PlayerRelationshipStore
+local PlayerListPanel = PlayerListPackage.Presentation.PlayerListPanel
+local PlayerContextualMenuView = PlayerListPackage.Presentation.PlayerContextualMenuView
+local LeaderboardScrim = PlayerListPackage.Presentation.LeaderboardScrim
 
 -- Actions
 local SetPlayerListEnabled = require(PlayerList.Actions.SetPlayerListEnabled)
@@ -74,6 +81,7 @@ local FFlagPlatformLeaderboardPersistStoreOnRemount =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagPlatformLeaderboardPersistStoreOnRemount
 
 local FFlagPlayerListReskin = PlayerListPackage.Flags.FFlagPlayerListReskin
+local FFlagPlayerListContrastingTeamText = PlayerListPackage.Flags.FFlagPlayerListContrastingTeamText
 local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
@@ -94,10 +102,7 @@ end
 local function isTouchOrGamepadInput(preferredInput: Enum.PreferredInput): boolean
 	return preferredInput == Enum.PreferredInput.Touch
 		or preferredInput == Enum.PreferredInput.Gamepad
-		or (
-			FFlagLuaSupportMicroGamepadPreferredInput
-			and preferredInput == Enum.PreferredInput.MicroGamepad
-		)
+		or (FFlagLuaSupportMicroGamepadPreferredInput and preferredInput == Enum.PreferredInput.MicroGamepad)
 end
 
 -- Reskin console-mobile routing: Large display plus touch/gamepad on console, or
@@ -349,6 +354,56 @@ if FFlagAddNewPlayerListMobileFocusNav then
 	end
 end
 
+local preferredTransparencyChanged = UserGameSettings:GetPropertyChangedSignal("PreferredTransparency")
+local function ReskinElement(options)
+	assert(
+		FFlagPlayerListContrastingTeamText,
+		"ReskinElement is only supported when FFlagPlayerListContrastingTeamText is on"
+	)
+
+	local preferredTransparency, setPreferredTransparency = React.useState(UserGameSettings.PreferredTransparency)
+	useEventConnection(preferredTransparencyChanged, function()
+		setPreferredTransparency(UserGameSettings.PreferredTransparency)
+	end, { preferredTransparencyChanged })
+
+	local children = {
+		-- Full-screen dim behind the panel on mobile/console.
+		-- ZIndex 0 keeps it below the panel + in-experience menu.
+		Scrim = React.createElement(LeaderboardScrim, {
+			isSmallTouchDevice = options.isSmallTouchDevice,
+		}),
+
+		Container = React.createElement(Foundation.View, options.resolveContainerProps(), {
+			ReskinContainer = React.createElement(PlayerListContainer, {
+				leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
+				TopBarConstants = options.TopBarConstants,
+				isTenFoot = options.isTenFoot,
+			}, {
+				PlayerListPanel = React.createElement(PlayerListPanel, {
+					isSmallTouchDevice = options.isSmallTouchDevice,
+					title = options.leaderboardTitle,
+				}),
+			}),
+		}),
+
+		ContextMenu = React.createElement(PlayerContextualMenuView, {
+			isSmallTouchDevice = options.isSmallTouchDevice,
+		}),
+	}
+
+	return React.createElement(FoundationProvider, {
+		colorMode = ColorMode.Dark,
+		device = options.foundationDevice,
+		preferences = {
+			preferredTransparency = preferredTransparency,
+		},
+	}, children)
+end
+
+local function createReskinElement(options)
+	return React.createElement(ReskinElement, options)
+end
+
 -- Reskin path: mounts the new React + Foundation + Signals leaderboard tree.
 function PlayerListController:_setupReskin()
 	local React = require(CorePackages.Packages.React)
@@ -359,10 +414,6 @@ function PlayerListController:_setupReskin()
 	local ColorMode = Foundation.Enums.ColorMode
 	local Device = Foundation.Enums.Device
 	local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-
-	local PlayerListPanel = PlayerListPackage.Presentation.PlayerListPanel
-	local PlayerContextualMenuView = PlayerListPackage.Presentation.PlayerContextualMenuView
-	local LeaderboardScrim = PlayerListPackage.Presentation.LeaderboardScrim
 	local ContextMenuController = require(PlayerList.ContextMenuController)
 
 	local function translate(key, fallback)
@@ -386,7 +437,9 @@ function PlayerListController:_setupReskin()
 	-- (isLargeConsoleLayout — Large + touch/gamepad); desktop-Large-KB renders at desktop
 	-- size. Gating on ViewportDisplaySize alone would misclassify a desktop on a very
 	-- large monitor (same trap as APPEXP-3482 on the Small side).
-	local foundationDevice = if isTenFoot or isLargeConsoleLayout(preferredInput) then Device.Console else Device.Unknown
+	local foundationDevice = if isTenFoot or isLargeConsoleLayout(preferredInput)
+		then Device.Console
+		else Device.Unknown
 
 	local function restoreVisibilityOnDismiss()
 		if PlayerContextualMenuStore.takeSuppressNextDismissRestore() then
@@ -485,6 +538,7 @@ function PlayerListController:_setupReskin()
 		}
 	end
 
+	-- Remove with FFlagPlayerListContrastingTeamText
 	local function buildReskinElement()
 		return React.createElement(FoundationProvider, {
 			colorMode = ColorMode.Dark,
@@ -623,7 +677,16 @@ function PlayerListController:_setupReskin()
 		screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		screenGui.Parent = CoreGui
 		local root = ReactRoblox.createRoot(screenGui)
-		root:render(buildReskinElement())
+		root:render(if FFlagPlayerListContrastingTeamText
+			then createReskinElement({
+				isSmallTouchDevice = isSmallTouchDevice,
+				isTenFoot = isTenFoot,
+				foundationDevice = foundationDevice,
+				leaderboardTitle = leaderboardTitle,
+				TopBarConstants = TopBarConstants,
+				resolveContainerProps = resolveContainerProps,
+			})
+			else buildReskinElement())
 		self._reskinRoot = root
 		self._reskinScreenGui = screenGui
 		if isSmallTouchDevice then
@@ -706,9 +769,7 @@ function PlayerListController:_setupReskin()
 				PlayerContextualMenuStore.closeContextMenu()
 			end
 			isSmallTouchDevice = nextIsSmallTouchDevice
-			foundationDevice = if isLargeConsoleLayout(nextPreferredInput)
-				then Device.Console
-				else Device.Unknown
+			foundationDevice = if isLargeConsoleLayout(nextPreferredInput) then Device.Console else Device.Unknown
 			PlayerContextualMenuStore.setOnDismiss(if isSmallTouchDevice then restoreVisibilityOnDismiss else nil)
 			if self.mounted then
 				unmountReskin()

@@ -4,7 +4,6 @@ local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local Cryo = dependencies.Cryo
 local Images = require(script.Parent.Images)
-local FFlagFoundationFontFaceMigration = dependencies.Foundation.Utility.Flags.FoundationFontFaceMigration
 local normalizeFontFace = dependencies.Foundation.Utility.normalizeFontFace
 
 local SOME_SORT_OF_WHITE_COLOR = Color3.fromRGB(200, 200, 200)
@@ -44,10 +43,7 @@ function AlertViewTextbox:render()
 			Textbox = Roact.createElement("TextBox", {
 				BackgroundTransparency = 1,
 				ClearTextOnFocus = false,
-				Font = if FFlagFoundationFontFaceMigration then nil :: never else font.Header2.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(font.Header2.Font)
-					else nil :: never,
+				FontFace = normalizeFontFace(font.Header2.Font),
 				PlaceholderText = placeholderText,
 				PlaceholderColor3 = SOME_SORT_OF_WHITE_COLOR,
 				Position = UDim2.new(0, 6, 0, 0),

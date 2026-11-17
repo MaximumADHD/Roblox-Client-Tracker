@@ -10,9 +10,9 @@
 -- Local private variables and constants
 
 local tweenAcceleration = math.rad(220) -- Radians/Second^2
-local tweenSpeed = math.rad(0)          -- Radians/Second
-local tweenMaxSpeed = math.rad(250)     -- Radians/Second
-local TIME_BEFORE_AUTO_ROTATE = 2       -- Seconds, used when auto-aligning camera with vehicles
+local tweenSpeed = math.rad(0) -- Radians/Second
+local tweenMaxSpeed = math.rad(250) -- Radians/Second
+local TIME_BEFORE_AUTO_ROTATE = 2 -- Seconds, used when auto-aligning camera with vehicles
 
 local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 
@@ -21,13 +21,15 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 
 local FFlagUserFixCameraFPError = FlagUtil.getUserFlag("UserFixCameraFPError")
 
---[[ Services ]]--
+--[[ Services ]]
+--
 local PlayersService = game:GetService("Players")
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local ClassicCamera = setmetatable({}, BaseCamera)
 ClassicCamera.__index = ClassicCamera
@@ -48,13 +50,14 @@ function ClassicCamera:GetCameraToggleOffset(dt: number)
 		local zoom = self.currentSubjectDistance
 
 		if CameraInput.getTogglePan() then
-			self.cameraToggleSpring.goal = math.clamp(Util.map(zoom, 0.5, self.FIRST_PERSON_DISTANCE_THRESHOLD, 0, 1), 0, 1)
+			self.cameraToggleSpring.goal =
+				math.clamp(Util.map(zoom, 0.5, self.FIRST_PERSON_DISTANCE_THRESHOLD, 0, 1), 0, 1)
 		else
 			self.cameraToggleSpring.goal = 0
 		end
 
 		local distanceOffset: number = math.clamp(Util.map(zoom, 0.5, 64, 0, 1), 0, 1) + 1
-		return Vector3.new(0, self.cameraToggleSpring:step(dt)*distanceOffset, 0)
+		return Vector3.new(0, self.cameraToggleSpring:step(dt) * distanceOffset, 0)
 	end
 
 	return Vector3.new()
@@ -127,7 +130,9 @@ function ClassicCamera:Update(dt)
 			if humanoid then
 				offset += humanoid.CameraOffset
 			end
-			local cameraRelativeOffset: Vector3 = offset.X * newLookCFrame.RightVector + offset.Y * newLookCFrame.UpVector + offset.Z * newLookCFrame.LookVector
+			local cameraRelativeOffset: Vector3 = offset.X * newLookCFrame.RightVector
+				+ offset.Y * newLookCFrame.UpVector
+				+ offset.Z * newLookCFrame.LookVector
 
 			--offset can be NAN, NAN, NAN if newLookVector has only y component
 			if Util.IsFiniteVector3(cameraRelativeOffset) then
@@ -137,13 +142,24 @@ function ClassicCamera:Update(dt)
 			local userPanningTheCamera = rotateInput ~= Vector2.new()
 
 			if not userPanningTheCamera and self.lastCameraTransform then
-
 				local isInFirstPerson = self:IsInFirstPerson()
 
-				if (isInVehicle or isOnASkateboard or (self.isFollowCamera and isClimbing)) and self.lastUpdate and humanoid and humanoid.Torso then
+				if
+					(isInVehicle or isOnASkateboard or (self.isFollowCamera and isClimbing))
+					and self.lastUpdate
+					and humanoid
+					and humanoid.Torso
+				then
 					if isInFirstPerson then
-						if self.lastSubjectCFrame and (isInVehicle or isOnASkateboard) and cameraSubject:IsA("BasePart") then
-							local y = -Util.GetAngleBetweenXZVectors(self.lastSubjectCFrame.lookVector, cameraSubject.CFrame.lookVector)
+						if
+							self.lastSubjectCFrame
+							and (isInVehicle or isOnASkateboard)
+							and cameraSubject:IsA("BasePart")
+						then
+							local y = -Util.GetAngleBetweenXZVectors(
+								self.lastSubjectCFrame.lookVector,
+								cameraSubject.CFrame.lookVector
+							)
 							if Util.IsFinite(y) then
 								rotateInput = rotateInput + Vector2.new(y, 0)
 							end
@@ -163,7 +179,6 @@ function ClassicCamera:Update(dt)
 							rotateInput = rotateInput + Vector2.new(y * percent, 0)
 						end
 					end
-
 				elseif self.isFollowCamera and not (isInFirstPerson or userRecentlyPannedCamera) then
 					-- Logic that was unique to the old FollowCamera module
 					local lastVec = -(self.lastCameraTransform.Position - subjectPosition)
@@ -189,7 +204,7 @@ function ClassicCamera:Update(dt)
 
 			local cameraFocusP = newCameraFocus.Position
 			local newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
-			
+
 			if FFlagUserFixCameraFPError then
 				newCameraCFrame = CFrame.lookAlong(cameraFocusP - (zoom * newLookVector), newLookVector)
 			else
@@ -203,7 +218,8 @@ function ClassicCamera:Update(dt)
 			if FFlagUserFixCameraFPError then
 				newCameraCFrame = CFrame.lookAlong(newCameraFocus.Position - (zoom * newLookVector), newLookVector)
 			else
-				newCameraCFrame = CFrame.new(newCameraFocus.Position - (zoom * newLookVector), newCameraFocus.Position) + Vector3.new(0, cameraHeight, 0)
+				newCameraCFrame = CFrame.new(newCameraFocus.Position - (zoom * newLookVector), newCameraFocus.Position)
+					+ Vector3.new(0, cameraHeight, 0)
 			end
 		end
 

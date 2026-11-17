@@ -2,7 +2,6 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent.Parent
 
-local getEngineFeatureUGCValidateHSRMeshIds = require(root.flags.getEngineFeatureUGCValidateHSRMeshIds)
 local getFFlagUGCValidateVersionedContentIds = require(root.flags.getFFlagUGCValidateVersionedContentIds)
 
 local Types = require(root.util.Types)
@@ -105,10 +104,6 @@ HSRMeshIdsMatch.run = function(reporter: Types.ValidationReporter, data: Types.S
 
 		local hsrAsset = validateHSRStructure(hsrCandidates, wrapLayer, reporter)
 		if not hsrAsset then
-			continue
-		end
-
-		if not getEngineFeatureUGCValidateHSRMeshIds() then
 			continue
 		end
 

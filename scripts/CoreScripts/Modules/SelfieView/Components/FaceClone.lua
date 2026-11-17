@@ -7,12 +7,11 @@ local FaceAnimatorService = game:FindService("FaceAnimatorService")
 local CharacterUtility = require(CorePackages.Packages.Thumbnailing).CharacterUtility
 local CFrameUtility = require(CorePackages.Packages.Thumbnailing).CFrameUtility
 
-local EngineFeatureAnimatorAndADFRefactor = game:GetEngineFeature("AnimatorAndADFRefactor")
 local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerViewRemoteEventSupport")
 
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
-local FFlagSelfViewNewPoseSynchronization = game:DefineFastFlag("SelfViewNewPoseSynchronization", false)
+local FFlagSelfViewRestorePoseSynchronization = game:DefineFastFlag("SelfViewRestorePoseSynchronization", false)
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
@@ -351,7 +350,7 @@ local function updateClone(player: Player?)
 
 	--prep sync streaming tracks
 	if cloneAnimator then
-		if not EngineFeatureAnimatorAndADFRefactor or not FFlagSelfViewNewPoseSynchronization then
+		if not FFlagSelfViewRestorePoseSynchronization then
 			-- clear cloned tracks
 			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
 			local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
@@ -377,7 +376,7 @@ local function updateClone(player: Player?)
 		end
 
 		if animator then
-			if EngineFeatureAnimatorAndADFRefactor and FFlagSelfViewNewPoseSynchronization then
+			if FFlagSelfViewRestorePoseSynchronization then
 				cloneAnimator:SynchronizeWith(animator)
 			else
 				-- clone tracks manually

@@ -8,7 +8,6 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
@@ -61,8 +60,7 @@ local function HeaderArea()
 		Header = React.createElement("TextLabel", {
 			Text = localizedStrings.HeaderText,
 			BackgroundTransparency = 1,
-			Font = if FFlagFoundationFontFaceMigration then nil else Typography.header.Font,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(Typography.header.Font) else nil,
+			FontFace = normalizeFontFace(Typography.header.Font),
 			TextSize = Typography.header.FontSize,
 			TextColor3 = Color.textColor.Color3,
 			Size = UDim2.fromOffset(0, 0),
@@ -129,8 +127,7 @@ local function GamepadImageArea()
 				Text = localizedStrings.ButtonLabelText,
 				LayoutOrder = 100,
 				BackgroundTransparency = 1,
-				Font = if FFlagFoundationFontFaceMigration then nil else Typography.label.Font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(Typography.label.Font) else nil,
+				FontFace = normalizeFontFace(Typography.label.Font),
 				TextSize = Typography.label.FontSize,
 				TextColor3 = Color.textColor.Color3,
 				Size = UDim2.fromOffset(0, 0),
@@ -195,8 +192,7 @@ local function Body(props: Props)
 			Text = localizedStrings.Description,
 			LayoutOrder = 100,
 			BackgroundTransparency = 1,
-			Font = if FFlagFoundationFontFaceMigration then nil else Typography.caption.Font,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(Typography.caption.Font) else nil,
+			FontFace = normalizeFontFace(Typography.caption.Font),
 			TextSize = Typography.caption.FontSize,
 			TextColor3 = Color.textColor.Color3,
 			TextWrapped = true,

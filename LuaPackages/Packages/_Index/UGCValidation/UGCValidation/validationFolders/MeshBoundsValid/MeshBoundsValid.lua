@@ -11,7 +11,9 @@ local getAccessoryScale = require(root.util.getAccessoryScale)
 local getAttachment = require(root.util.getAttachment)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 local isMeshPartAccessory = require(root.util.isMeshPartAccessory)
+local valueToString = require(root.util.valueToString)
 local getFFlagUGCValidateMeshMaxScale = require(root.flags.getFFlagUGCValidateMeshMaxScale)
+local getFFlagUGCValidateMeshScaleErrorMessage = require(root.flags.getFFlagUGCValidateMeshScaleErrorMessage)
 local getFIntUGCValidateMeshCenteringHundredsThreshold =
 	require(root.flags.getFIntUGCValidateMeshCenteringHundredsThreshold)
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
@@ -131,7 +133,25 @@ MeshBoundsValid.run = function(reporter: Types.ValidationReporter, data: Types.S
 		or meshScale.Y < FIntUGCValidationScaleMinimumThousandths / 1000
 		or meshScale.Z < FIntUGCValidationScaleMinimumThousandths / 1000
 	then
-		reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleTooSmall, {})
+		local smallestAxisScale = math.min(meshScale.X, meshScale.Y, meshScale.Z)
+		-- A NaN axis (only a hand-crafted SpecialMesh.Scale) has no number worth showing
+		if not getFFlagUGCValidateMeshScaleErrorMessage() or smallestAxisScale ~= smallestAxisScale then
+			reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleTooSmall, {})
+		elseif smallestAxisScale <= 0 then
+			reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleNotPositive, {
+				meshName = handle:GetFullName(),
+			})
+		else
+			-- Vector3 components are float32, so round to the nearest hundredth of a percent, but keep
+			-- it between 0.01 and just below the minimum: a failing scale never prints as 0 or the minimum.
+			local minScalePercent = FIntUGCValidationScaleMinimumThousandths / 10
+			local scalePercent = math.clamp(math.round(smallestAxisScale * 10000) / 100, 0.01, minScalePercent - 0.01)
+			reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleBelowMinimum, {
+				meshName = handle:GetFullName(),
+				scalePercent = valueToString(scalePercent),
+				minScalePercent = valueToString(minScalePercent),
+			})
+		end
 		return
 	end
 
@@ -142,9 +162,22 @@ MeshBoundsValid.run = function(reporter: Types.ValidationReporter, data: Types.S
 			or meshScale.Y > FIntUGCValidationScaleMaximumThousandths / 1000
 			or meshScale.Z > FIntUGCValidationScaleMaximumThousandths / 1000
 		then
-			reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleTooLarge, {
-				meshName = handle.Name,
-			})
+			local largestAxisScale = math.max(meshScale.X, meshScale.Y, meshScale.Z)
+			-- An infinite axis (a zero MeshSize component) or a NaN one keeps the generic message below
+			if getFFlagUGCValidateMeshScaleErrorMessage() and largestAxisScale < math.huge then
+				-- Same rounding as the minimum message, kept just above the maximum
+				local maxScaleMultiple = FIntUGCValidationScaleMaximumThousandths / 1000
+				local scaleMultiple = math.max(math.round(largestAxisScale * 100) / 100, maxScaleMultiple + 0.01)
+				reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleAboveMaximum, {
+					meshName = handle:GetFullName(),
+					scaleMultiple = valueToString(scaleMultiple),
+					maxScaleMultiple = valueToString(maxScaleMultiple),
+				})
+			else
+				reporter:fail(ErrorSourceStrings.Keys.MeshGeometry_ScaleTooLarge, {
+					meshName = handle.Name,
+				})
+			end
 			return
 		end
 	end

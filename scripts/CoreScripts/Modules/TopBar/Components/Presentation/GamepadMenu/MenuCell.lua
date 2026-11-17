@@ -7,7 +7,6 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
@@ -123,10 +122,7 @@ function MenuCell:render()
 					Size = UDim2.new(1, -(PADDING + ICON_SIZE), 1, 0),
 
 					Text = text,
-					Font = if FFlagFoundationFontFaceMigration then nil else font.Header2.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.TitleLarge.Font),
 					TextSize = font.BaseSize * font.Header2.RelativeSize,
 					TextColor3 = theme.TextEmphasis.Color,
 					TextTransparency = theme.TextEmphasis.TextTransparency,

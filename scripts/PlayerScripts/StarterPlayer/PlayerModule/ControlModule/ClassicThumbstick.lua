@@ -6,7 +6,8 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationD = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationD")
 	or FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationDGA")
-local FFlagUserPlayerScriptsClassicThumbstickRenameUI = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
+local FFlagUserPlayerScriptsClassicThumbstickRenameUI =
+	FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
 local FFlagUserAbilitiesUserInterfaceC = FlagUtil.getUserFlag("UserAbilitiesUserInterfaceC")
 local FFlagUserPlayerScriptsResetDTTouchOnCreate = FlagUtil.getUserFlag("UserPlayerScriptsResetDTTouchOnCreate")
 
@@ -14,7 +15,8 @@ local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local transformerContext = inputContexts:WaitForChild("TransformerContext")
 local thumbstickAction = transformerContext:WaitForChild("ThumbstickAction") :: InputAction
 
---[[ Constants ]]--
+--[[ Constants ]]
+--
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 local INACTIVE_VIEWPORT_POSITION = Vector2.new(-1, -1)
 
@@ -23,7 +25,8 @@ local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationD
 	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
 	else nil
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local ClassicThumbstick = setmetatable({}, ActionController)
 ClassicThumbstick.__index = ClassicThumbstick
@@ -73,9 +76,13 @@ local function enableThumbstickInput(self, enabled: boolean)
 end
 
 function ClassicThumbstick:Enable(enable: boolean?, uiParentFrame)
-	if enable == nil then return false end			-- If nil, return false (invalid argument)
-	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
-	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
+	if enable == nil then
+		return false
+	end -- If nil, return false (invalid argument)
+	enable = enable and true or false -- Force anything non-nil to boolean before comparison
+	if self.enabled == enable then
+		return true
+	end -- If no state change, return true indicating already in requested state
 	ActionController.Enable(self, enable)
 
 	self.isJumping = false
@@ -109,11 +116,15 @@ function ClassicThumbstick:Enable(enable: boolean?, uiParentFrame)
 	self.enabled = enable
 end
 
-
 function ClassicThumbstick:OnInputEnded()
 	self.isTouchActive = false
 	self.thumbstickFrame.Position = self.screenPos
-	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
+	self.stickImage.Position = UDim2.new(
+		0,
+		self.thumbstickFrame.Size.X.Offset / 2 - self.thumbstickSize / 4,
+		0,
+		self.thumbstickFrame.Size.Y.Offset / 2 - self.thumbstickSize / 4
+	)
 
 	local binding = self.data.controlModule.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
 	if binding then
@@ -170,9 +181,9 @@ function ClassicThumbstick:Create(parentFrame)
 		local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
 		local isSmallScreen = minAxis <= 500
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationD then
-			avatarAbilitiesInterface:isEnabled() else
-			AvatarAbilitiesInterface.isEnabled()
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationD
+			then avatarAbilitiesInterface:isEnabled()
+			else AvatarAbilitiesInterface.isEnabled()
 		if isCCLEnabled then
 			local buttonInsetX = isSmallScreen and 64 or 100
 			local buttonInsetY = isSmallScreen and 64 or 112
@@ -180,23 +191,31 @@ function ClassicThumbstick:Create(parentFrame)
 			self.screenPos = UDim2.new(0, buttonInsetX, 1, -self.thumbstickSize - buttonInsetY)
 		else
 			self.thumbstickSize = isSmallScreen and 70 or 120
-			self.screenPos = isSmallScreen and UDim2.new(0, (self.thumbstickSize/2) - 10, 1, -self.thumbstickSize - 20) or
-				UDim2.new(0, self.thumbstickSize/2, 1, -self.thumbstickSize * 1.75)
+			self.screenPos = isSmallScreen
+					and UDim2.new(0, (self.thumbstickSize / 2) - 10, 1, -self.thumbstickSize - 20)
+				or UDim2.new(0, self.thumbstickSize / 2, 1, -self.thumbstickSize * 1.75)
 		end
 
 		self.thumbstickFrame.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
 		self.thumbstickFrame.Position = self.screenPos
 		outerImage.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
-		self.stickImage.Size = UDim2.new(0, self.thumbstickSize/2, 0, self.thumbstickSize/2)
-		self.stickImage.Position = UDim2.new(0, self.thumbstickSize/2 - self.thumbstickSize/4, 0, self.thumbstickSize/2 - self.thumbstickSize/4)
+		self.stickImage.Size = UDim2.new(0, self.thumbstickSize / 2, 0, self.thumbstickSize / 2)
+		self.stickImage.Position = UDim2.new(
+			0,
+			self.thumbstickSize / 2 - self.thumbstickSize / 4,
+			0,
+			self.thumbstickSize / 2 - self.thumbstickSize / 4
+		)
 	end
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
 	if FFlagUserPlayerScriptsCCLIntegrationD then
-		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
+		self.avatarAbilitiesEnabledChangedConn =
+			avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	else
-		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)
+		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal()
+			:Connect(ResizeThumbstick)
 	end
 
 	outerImage.Parent = self.thumbstickFrame
@@ -225,7 +244,7 @@ function ClassicThumbstick:Create(parentFrame)
 	local deadZone = 0.05
 
 	local function DoMove(direction: Vector2)
-		local currentMoveVector = direction / (self.thumbstickSize/2)
+		local currentMoveVector = direction / (self.thumbstickSize / 2)
 
 		-- Scaled Radial Dead Zone
 		local inputAxisMagnitude = currentMoveVector.magnitude
@@ -247,24 +266,35 @@ function ClassicThumbstick:Create(parentFrame)
 	local function MoveStick(pos: Vector3)
 		local relativePosition = Vector2.new(pos.X - centerPosition.X, pos.Y - centerPosition.Y)
 		local length = relativePosition.magnitude
-		local maxLength = self.thumbstickFrame.AbsoluteSize.X/2
+		local maxLength = self.thumbstickFrame.AbsoluteSize.X / 2
 		if self.isFollowStick and length > maxLength then
 			local offset = relativePosition.unit * maxLength
 			if FFlagUserAbilitiesUserInterfaceC then
 				local parentPos = parentFrame.AbsolutePosition
 				self.thumbstickFrame.Position = UDim2.new(
-					0, pos.X - parentPos.X - self.thumbstickFrame.AbsoluteSize.X/2 - offset.X,
-					0, pos.Y - parentPos.Y - self.thumbstickFrame.AbsoluteSize.Y/2 - offset.Y)
+					0,
+					pos.X - parentPos.X - self.thumbstickFrame.AbsoluteSize.X / 2 - offset.X,
+					0,
+					pos.Y - parentPos.Y - self.thumbstickFrame.AbsoluteSize.Y / 2 - offset.Y
+				)
 			else
 				self.thumbstickFrame.Position = UDim2.new(
-					0, pos.X - self.thumbstickFrame.AbsoluteSize.X/2 - offset.X,
-					0, pos.Y - self.thumbstickFrame.AbsoluteSize.Y/2 - offset.Y)
+					0,
+					pos.X - self.thumbstickFrame.AbsoluteSize.X / 2 - offset.X,
+					0,
+					pos.Y - self.thumbstickFrame.AbsoluteSize.Y / 2 - offset.Y
+				)
 			end
 		else
 			length = math.min(length, maxLength)
 			relativePosition = relativePosition.unit * length
 		end
-		self.stickImage.Position = UDim2.new(0, relativePosition.X + self.stickImage.AbsoluteSize.X/2, 0, relativePosition.Y + self.stickImage.AbsoluteSize.Y/2)
+		self.stickImage.Position = UDim2.new(
+			0,
+			relativePosition.X + self.stickImage.AbsoluteSize.X / 2,
+			0,
+			relativePosition.Y + self.stickImage.AbsoluteSize.Y / 2
+		)
 	end
 
 	self.onStateChanged = function(newPos: Vector2)
@@ -277,13 +307,17 @@ function ClassicThumbstick:Create(parentFrame)
 				if FFlagUserAbilitiesUserInterfaceC then
 					local parentPos = parentFrame.AbsolutePosition
 					self.thumbstickFrame.Position = UDim2.new(
-						0, screenPos.X - parentPos.X - self.thumbstickFrame.Size.X.Offset / 2,
-						0, screenPos.Y - parentPos.Y - self.thumbstickFrame.Size.Y.Offset / 2
+						0,
+						screenPos.X - parentPos.X - self.thumbstickFrame.Size.X.Offset / 2,
+						0,
+						screenPos.Y - parentPos.Y - self.thumbstickFrame.Size.Y.Offset / 2
 					)
 				else
 					self.thumbstickFrame.Position = UDim2.new(
-						0, screenPos.X - self.thumbstickFrame.Size.X.Offset / 2,
-						0, screenPos.Y - self.thumbstickFrame.Size.Y.Offset / 2
+						0,
+						screenPos.X - self.thumbstickFrame.Size.X.Offset / 2,
+						0,
+						screenPos.Y - self.thumbstickFrame.Size.Y.Offset / 2
 					)
 				end
 				centerPosition = Vector2.new(

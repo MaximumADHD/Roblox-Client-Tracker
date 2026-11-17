@@ -4,13 +4,14 @@
 	2021 Roblox VR
 --]]
 
---[[ Local Constants ]]--
+--[[ Local Constants ]]
+--
 local VR_ANGLE = math.rad(15)
 local VR_PANEL_SIZE = 512
 local VR_ZOOM = 7
 local VR_FADE_SPEED = 10 -- 1/10 second
 local VR_SCREEN_EGDE_BLEND_TIME = 0.14
-local VR_SEAT_OFFSET = Vector3.new(0,4,0)
+local VR_SEAT_OFFSET = Vector3.new(0, 4, 0)
 
 local VRService = game:GetService("VRService")
 local Players = game:GetService("Players")
@@ -28,17 +29,18 @@ local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local cameraContext = inputContexts:WaitForChild("CameraContext")
 local cameraGamepadResetAction = cameraContext:WaitForChild("CameraGamepadResetAction") :: InputAction
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local VRBaseCamera = setmetatable({}, BaseCamera)
 VRBaseCamera.__index = VRBaseCamera
 
 function VRBaseCamera.new()
 	local self = setmetatable(BaseCamera.new(), VRBaseCamera)
-	
+
 	-- zoom levels cycles when pressing R3 on a gamepad, not multiplied by headscale yet
-	self.gamepadZoomLevels = {0, VR_ZOOM}
-	
+	self.gamepadZoomLevels = { 0, VR_ZOOM }
+
 	-- need to save headscale value to respond to changes
 	self.headScale = 1
 
@@ -58,7 +60,7 @@ function VRBaseCamera.new()
 
 	-- timer for step rotation
 	self:Reset()
-	
+
 	return self
 end
 
@@ -95,10 +97,11 @@ function VRBaseCamera:OnEnabledChanged()
 		cameraGamepadResetAction.Enabled = true
 
 		-- reset on options change
-		self.thirdPersonOptionChanged = VRService:GetPropertyChangedSignal("ThirdPersonFollowCamEnabled"):Connect(function()
-			self:Reset()
-		end)
-		
+		self.thirdPersonOptionChanged = VRService:GetPropertyChangedSignal("ThirdPersonFollowCamEnabled")
+			:Connect(function()
+				self:Reset()
+			end)
+
 		self.vrRecentered = VRService.UserCFrameChanged:Connect(function(userCFrame, _)
 			if userCFrame == Enum.UserCFrame.Floor then
 				self.recentered = true
@@ -120,7 +123,7 @@ function VRBaseCamera:OnEnabledChanged()
 			self.vrRecentered:Disconnect()
 			self.vrRecentered = nil
 		end
-		
+
 		if self.cameraHeadScaleChangedConn then
 			self.cameraHeadScaleChangedConn:Disconnect()
 			self.cameraHeadScaleChangedConn = nil
@@ -144,27 +147,28 @@ function VRBaseCamera:OnCurrentCameraChanged()
 		self.cameraHeadScaleChangedConn:Disconnect()
 		self.cameraHeadScaleChangedConn = nil
 	end
-	
+
 	-- add new connections if camera is valid
 	local camera = workspace.CurrentCamera :: Camera
 	if camera then
-		self.cameraHeadScaleChangedConn = camera:GetPropertyChangedSignal("HeadScale"):Connect(function() self:OnHeadScaleChanged() end)
+		self.cameraHeadScaleChangedConn = camera:GetPropertyChangedSignal("HeadScale"):Connect(function()
+			self:OnHeadScaleChanged()
+		end)
 		self:OnHeadScaleChanged()
 	end
 end
 
 function VRBaseCamera:OnHeadScaleChanged()
-
 	local camera = workspace.CurrentCamera :: Camera
 	local newHeadScale = camera.HeadScale
-	
+
 	-- scale zoom levels by headscale
 	for i, zoom in self.gamepadZoomLevels do
 		self.gamepadZoomLevels[i] = zoom * newHeadScale / self.headScale
 	end
-		
+
 	-- rescale current distance
-	self:SetCameraToSubjectDistance(self:GetCameraToSubjectDistance()  * newHeadScale / self.headScale)
+	self:SetCameraToSubjectDistance(self:GetCameraToSubjectDistance() * newHeadScale / self.headScale)
 	self.headScale = newHeadScale
 end
 
@@ -175,11 +179,14 @@ function VRBaseCamera:GetVRFocus(subjectPosition, timeDelta)
 	self.cameraTranslationConstraints = Vector3.new(
 		self.cameraTranslationConstraints.x,
 		math.min(1, self.cameraTranslationConstraints.y + timeDelta),
-		self.cameraTranslationConstraints.z)
+		self.cameraTranslationConstraints.z
+	)
 
 	local cameraHeightDelta = Vector3.new(0, self:GetCameraHeight(), 0)
-	local newFocus = CFrame.new(Vector3.new(subjectPosition.x, lastFocus.y, subjectPosition.z):
-			Lerp(subjectPosition + cameraHeightDelta, self.cameraTranslationConstraints.y))
+	local newFocus = CFrame.new(
+		Vector3.new(subjectPosition.x, lastFocus.y, subjectPosition.z)
+			:Lerp(subjectPosition + cameraHeightDelta, self.cameraTranslationConstraints.y)
+	)
 
 	return newFocus
 end
@@ -202,7 +209,7 @@ end
 
 function VRBaseCamera:UpdateFadeFromBlack(timeDelta: number)
 	local VRFade = Lighting:FindFirstChild("VRFade")
-	if self.VRFadeResetTimer > 0  then
+	if self.VRFadeResetTimer > 0 then
 		self.VRFadeResetTimer = math.max(self.VRFadeResetTimer - timeDelta, 0)
 
 		local VRFade = Lighting:FindFirstChild("VRFade")
@@ -224,7 +231,7 @@ function VRBaseCamera:StartVREdgeBlur(player, force)
 	local blurPart = nil
 	blurPart = (workspace.CurrentCamera :: Camera):FindFirstChild("VRBlurPart")
 	if not blurPart then
-		local basePartSize = Vector3.new(0.44,0.47,1)
+		local basePartSize = Vector3.new(0.44, 0.47, 1)
 		blurPart = Instance.new("Part")
 		blurPart.Name = "VRBlurPart"
 		blurPart.Parent = workspace.CurrentCamera
@@ -239,8 +246,13 @@ function VRBaseCamera:StartVREdgeBlur(player, force)
 		RunService.RenderStepped:Connect(function(step)
 			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 
-			local vrCF = (workspace.CurrentCamera :: Camera).CFrame * (CFrame.new(userHeadCF.Position * (workspace.CurrentCamera :: Camera).HeadScale) * (userHeadCF - userHeadCF.Position))
-			blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0)) + vrCF.LookVector * (1.05 * (workspace.CurrentCamera :: Camera).HeadScale)
+			local vrCF = (workspace.CurrentCamera :: Camera).CFrame
+				* (
+					CFrame.new(userHeadCF.Position * (workspace.CurrentCamera :: Camera).HeadScale)
+					* (userHeadCF - userHeadCF.Position)
+				)
+			blurPart.CFrame = (vrCF * CFrame.Angles(0, math.rad(180), 0))
+				+ vrCF.LookVector * (1.05 * (workspace.CurrentCamera :: Camera).HeadScale)
 			blurPart.Size = basePartSize * (workspace.CurrentCamera :: Camera).HeadScale
 		end)
 	end
@@ -300,8 +312,9 @@ function VRBaseCamera:UpdateEdgeBlur(player, timeDelta)
 			if VRScreen then
 				local VRBlur = VRScreen:FindFirstChild("VRBlur")
 				if VRBlur then
-					VRBlur.ImageTransparency = 1.0 - math.clamp(self.VREdgeBlurTimer, 0.01,
-						VR_SCREEN_EGDE_BLEND_TIME) * (1/VR_SCREEN_EGDE_BLEND_TIME)
+					VRBlur.ImageTransparency = 1.0
+						- math.clamp(self.VREdgeBlurTimer, 0.01, VR_SCREEN_EGDE_BLEND_TIME)
+							* (1 / VR_SCREEN_EGDE_BLEND_TIME)
 				end
 			end
 		else
@@ -354,7 +367,7 @@ function VRBaseCamera:GetSubjectPosition(): Vector3?
 			local humanoid = cameraSubject
 			local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
 
-			if  humanoidIsDead and humanoid == self.lastSubject then
+			if humanoidIsDead and humanoid == self.lastSubject then
 				result = self.lastSubjectPosition
 			end
 		elseif cameraSubject:IsA("VehicleSeat") then
@@ -370,12 +383,12 @@ function VRBaseCamera:GetSubjectPosition(): Vector3?
 	return result
 end
 
--- gets the desired rotation accounting for smooth rotation. Manages fades and resets resulting 
+-- gets the desired rotation accounting for smooth rotation. Manages fades and resets resulting
 -- from rotation
 function VRBaseCamera:getRotation(dt)
 	local rotateInput = CameraInput.getRotation(dt)
 	local yawDelta = 0
-	
+
 	if UserGameSettings.VRSmoothRotationEnabled then
 		yawDelta = rotateInput.X
 	else
@@ -385,13 +398,13 @@ function VRBaseCamera:getRotation(dt)
 			if self.stepRotateTimeout > 0 then
 				self.stepRotateTimeout -= dt
 			end
-			
+
 			if self.stepRotateTimeout <= 0 then
 				yawDelta = 1
 				if rotateInput.X < 0 then
 					yawDelta = -1
 				end
-				
+
 				yawDelta *= math.rad(30)
 				self:StartFadeFromBlack()
 				self.stepRotateTimeout = 0.25
@@ -400,9 +413,8 @@ function VRBaseCamera:getRotation(dt)
 			self.stepRotateTimeout = 0 -- allow fast rotation when spamming input
 		end
 	end
-	
-	return yawDelta
 
+	return yawDelta
 end
 
 -----------------------------

@@ -83,11 +83,9 @@ export type FormattedTokens = {
 	gutters: Gutters,
 }
 
--- Remove useFontFace when cleaning up FFlagFoundationFontFaceMigration
 export type RulesGenerator = (
 	tokens: Tokens,
-	formattedTokens: FormattedTokens,
-	useFontFace: boolean?
+	formattedTokens: FormattedTokens
 ) -> ({ StyleRule }, { StyleRule }, { StyleRule }, { StyleRule })
 
 return {}

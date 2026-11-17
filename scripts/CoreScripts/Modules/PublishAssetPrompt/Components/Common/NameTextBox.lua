@@ -15,7 +15,6 @@ local Focusable = RoactGamepad.Focusable
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = UIBlox.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
@@ -148,10 +147,7 @@ function NameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 				Text = self.state.name,
 				BackgroundTransparency = 1,
 				ClearTextOnFocus = false,
-				Font = if FFlagFoundationFontFaceMigration then nil else textboxStyle.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(stylePalette.Tokens.Typography.BodyLarge.Font)
-					else nil,
+				FontFace = normalizeFontFace(stylePalette.Tokens.Typography.BodyLarge.Font),
 				TextSize = font.BaseSize * textboxStyle.RelativeSize,
 				PlaceholderColor3 = theme.PlaceHolder.Color,
 				PlaceholderText = self.props.defaultName,
@@ -197,10 +193,7 @@ function NameTextBox:renderWithProviders(stylePalette, getSelectionCursor)
 			Size = UDim2.new(1, 0, 0, 20),
 			TextColor3 = theme.Alert.Color,
 			TextWrapped = true,
-			Font = if FFlagFoundationFontFaceMigration then nil else font.Body.Font,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(stylePalette.Tokens.Typography.BodyLarge.Font)
-				else nil,
+			FontFace = normalizeFontFace(stylePalette.Tokens.Typography.BodyLarge.Font),
 			TextSize = WARNING_TEXT_SIZE,
 		}),
 	})

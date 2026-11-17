@@ -18,23 +18,21 @@ CameraModule.__index = CameraModule
 
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
-local PLAYER_CAMERA_PROPERTIES =
-{
+local PLAYER_CAMERA_PROPERTIES = {
 	"CameraMinZoomDistance",
 	"CameraMaxZoomDistance",
 	"CameraMode",
 	"DevCameraOcclusionMode",
-	"DevComputerCameraMode",			-- Corresponds to StarterPlayer.DevComputerCameraMovementMode
-	"DevTouchCameraMode",				-- Corresponds to StarterPlayer.DevTouchCameraMovementMode
+	"DevComputerCameraMode", -- Corresponds to StarterPlayer.DevComputerCameraMovementMode
+	"DevTouchCameraMode", -- Corresponds to StarterPlayer.DevTouchCameraMovementMode
 
 	-- Character movement mode
 	"DevComputerMovementMode",
 	"DevTouchMovementMode",
-	"DevEnableMouseLock",				-- Corresponds to StarterPlayer.EnableMouseLockOption
+	"DevEnableMouseLock", -- Corresponds to StarterPlayer.EnableMouseLockOption
 }
 
-local USER_GAME_SETTINGS_PROPERTIES =
-{
+local USER_GAME_SETTINGS_PROPERTIES = {
 	"ComputerCameraMovementMode",
 	"ComputerMovementMode",
 	"ControlMode",
@@ -45,7 +43,8 @@ local USER_GAME_SETTINGS_PROPERTIES =
 	"TouchMovementMode",
 }
 
---[[ Roblox Services ]]--
+--[[ Roblox Services ]]
+--
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -55,7 +54,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
-
 
 -- Static camera utils
 local CameraUtils = require(script:WaitForChild("CameraUtils"))
@@ -103,10 +101,8 @@ end
 
 local FFlagUserPlayerConnectionMemoryLeak = FlagUtil.getUserFlag("UserPlayerConnectionMemoryLeak")
 local FFlagUserPSFixCameraControllerReset = FlagUtil.getUserFlag("UserPSFixCameraControllerReset")
+local FFlagUserPlayerModuleEngineAPI = FlagUtil.getUserFlag("UserPlayerModuleEngineAPI")
 local FFlagUserVRFixCameraCloseArticulation = FlagUtil.getUserFlag("UserVRFixCameraCloseArticulation")
-local FFlagUserOrthographicOcclusion = FFlagUserOrthographicOcclusion and pcall(function()
-	return Instance.new("Camera").ProjectionType -- check for orthographic support
-end)
 
 local VRFirstPersonState = CommonUtils.get("VRFirstPersonState")
 
@@ -120,15 +116,21 @@ type CameraModuleClass = {
 
 	ActivateCameraController: (self: CameraModule) -> (),
 	ActivateOcclusionModule: (self: CameraModule, occlusionMode: Enum.DevCameraOcclusionMode) -> (),
-	GetCameraMovementModeFromSettings: (self: CameraModule) -> Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode,
+	GetCameraMovementModeFromSettings: (
+		self: CameraModule
+	) -> Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode,
 	OnPreferredInputChanged: (self: CameraModule) -> (),
 	OnCameraSubjectChanged: (self: CameraModule) -> (),
 	OnCameraTypeChanged: (self: CameraModule, newCameraType: Enum.CameraType) -> (),
+	-- remove with FFlagUserPlayerModuleEngineAPI
 	OnCharacterAdded: (self: CameraModule, character: Model, player: Player) -> (),
+	-- remove with FFlagUserPlayerModuleEngineAPI
 	OnCharacterRemoving: (self: CameraModule, character: Model, player: Player) -> (),
 	OnCurrentCameraChanged: (self: CameraModule) -> (),
 	OnLocalPlayerCameraPropertyChanged: (self: CameraModule, propertyName: string) -> (),
+	-- remove with FFlagUserPlayerModuleEngineAPI
 	OnPlayerAdded: (self: CameraModule, player: Player) -> (),
+	-- remove with FFlagUserPlayerModuleEngineAPI
 	OnPlayerRemoving: (self: CameraModule, player: Player) -> (),
 	OnMouseLockToggled: (self: CameraModule) -> (),
 	OnUserGameSettingsPropertyChanged: (self: CameraModule, propertyName: string) -> (),
@@ -136,23 +138,26 @@ type CameraModuleClass = {
 	Update: (self: CameraModule, dt: number) -> (),
 }
 
-export type CameraModule = typeof(setmetatable({} :: {
-	activeCameraController: GenericOptional,
-	activeMouseLockController: GenericOptional,
-	activeOcclusionModule: GenericOptional,
-	activeTransparencyController: Generic,
-	cameraSubjectChangedConn: RBXScriptConnection?,
-	cameraTypeChangedConn: RBXScriptConnection?,
-	connectionUtil: ConnectionUtil.ConnectionUtil?,
-	currentComputerCameraMovementMode: Enum.ComputerCameraMovementMode? | Enum.DevComputerCameraMovementMode?,
-	occlusionMode: Enum.DevCameraOcclusionMode?,
-}, {} :: CameraModuleClass))
+export type CameraModule = typeof(setmetatable(
+	{} :: {
+		activeCameraController: GenericOptional,
+		activeMouseLockController: GenericOptional,
+		activeOcclusionModule: GenericOptional,
+		activeTransparencyController: Generic,
+		cameraSubjectChangedConn: RBXScriptConnection?,
+		cameraTypeChangedConn: RBXScriptConnection?,
+		connectionUtil: ConnectionUtil.ConnectionUtil?,
+		currentComputerCameraMovementMode: Enum.ComputerCameraMovementMode? | Enum.DevComputerCameraMovementMode?,
+		occlusionMode: Enum.DevCameraOcclusionMode?,
+	},
+	{} :: CameraModuleClass
+))
 
 function CameraModule.new()
 	local self: CameraModule = setmetatable({
 		activeTransparencyController = TransparencyController.new(),
 		connectionUtil = if FFlagUserPlayerConnectionMemoryLeak then ConnectionUtil.new() else nil,
-	},CameraModule)
+	}, CameraModule)
 
 	-- Current active controller instances
 	self.activeCameraController = nil
@@ -165,20 +170,22 @@ function CameraModule.new()
 	self.cameraSubjectChangedConn = nil
 	self.cameraTypeChangedConn = nil
 
-	-- Adds CharacterAdded and CharacterRemoving event handlers for all current players
-	for _,player in pairs(Players:GetPlayers()) do
-		self:OnPlayerAdded(player)
-	end
+	if not FFlagUserPlayerModuleEngineAPI then
+		-- Adds CharacterAdded and CharacterRemoving event handlers for all current players
+		for _, player in pairs(Players:GetPlayers()) do
+			self:OnPlayerAdded(player)
+		end
 
-	-- Adds CharacterAdded and CharacterRemoving event handlers for all players who join in the future
-	Players.PlayerAdded:Connect(function(player)
-		self:OnPlayerAdded(player)
-	end)
-
-	if FFlagUserPlayerConnectionMemoryLeak then
-		Players.PlayerRemoving:Connect(function(player)
-			self:OnPlayerRemoving(player)
+		-- Adds CharacterAdded and CharacterRemoving event handlers for all players who join in the future
+		Players.PlayerAdded:Connect(function(player)
+			self:OnPlayerAdded(player)
 		end)
+
+		if FFlagUserPlayerConnectionMemoryLeak then
+			Players.PlayerRemoving:Connect(function(player)
+				self:OnPlayerRemoving(player)
+			end)
+		end
 	end
 
 	self.activeTransparencyController:Enable(true)
@@ -286,7 +293,12 @@ function CameraModule:ActivateOcclusionModule(occlusionMode: Enum.DevCameraOcclu
 		local newModuleOcclusionMode = self.activeOcclusionModule:GetOcclusionMode()
 		-- Sanity check that the module we selected or instantiated actually supports the desired occlusionMode
 		if newModuleOcclusionMode ~= occlusionMode then
-			warn("CameraScript ActivateOcclusionModule mismatch: ",self.activeOcclusionModule:GetOcclusionMode(),"~=",occlusionMode)
+			warn(
+				"CameraScript ActivateOcclusionModule mismatch: ",
+				self.activeOcclusionModule:GetOcclusionMode(),
+				"~=",
+				occlusionMode
+			)
 		end
 
 		-- Deactivate current module if there is one
@@ -305,7 +317,7 @@ function CameraModule:ActivateOcclusionModule(occlusionMode: Enum.DevCameraOcclu
 		if occlusionMode == Enum.DevCameraOcclusionMode.Invisicam then
 			-- Optimization to only send Invisicam what we know it needs
 			if Players.LocalPlayer.Character then
-				self.activeOcclusionModule:CharacterAdded(Players.LocalPlayer.Character, Players.LocalPlayer )
+				self.activeOcclusionModule:CharacterAdded(Players.LocalPlayer.Character, Players.LocalPlayer)
 			end
 		else
 			-- When Poppercam is enabled, we send it all existing player characters for its raycast ignore list
@@ -377,10 +389,12 @@ function CameraModule:ActivateCameraController()
 	if not newCameraCreator then
 		if VRService.VREnabled then
 			newCameraCreator = VRCamera
-		elseif cameraMovementMode == Enum.ComputerCameraMovementMode.Classic or
-			cameraMovementMode == Enum.ComputerCameraMovementMode.Follow or
-			cameraMovementMode == Enum.ComputerCameraMovementMode.Default or
-			cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle then
+		elseif
+			cameraMovementMode == Enum.ComputerCameraMovementMode.Classic
+			or cameraMovementMode == Enum.ComputerCameraMovementMode.Follow
+			or cameraMovementMode == Enum.ComputerCameraMovementMode.Default
+			or cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle
+		then
 			newCameraCreator = ClassicCamera
 		elseif cameraMovementMode == Enum.ComputerCameraMovementMode.Orbital then
 			newCameraCreator = OrbitalCamera
@@ -406,7 +420,7 @@ function CameraModule:ActivateCameraController()
 		instantiatedCameraControllers[newCameraCreator] = newCameraController
 	else
 		newCameraController = instantiatedCameraControllers[newCameraCreator]
-		if FFlagUserPSFixCameraControllerReset then 
+		if FFlagUserPSFixCameraControllerReset then
 			if newCameraController.Reset and self.activeCameraController ~= newCameraController then
 				newCameraController:Reset()
 			end
@@ -476,7 +490,9 @@ end
 -- Note: Called whenever workspace.CurrentCamera changes, but also on initialization of this script
 function CameraModule:OnCurrentCameraChanged()
 	local currentCamera = game.Workspace.CurrentCamera
-	if not currentCamera then return end
+	if not currentCamera then
+		return
+	end
 
 	if self.cameraSubjectChangedConn then
 		self.cameraSubjectChangedConn:Disconnect()
@@ -515,16 +531,12 @@ function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName: string)
 			-- Not locked in first person view
 			self:ActivateCameraController()
 		else
-			warn("Unhandled value for property player.CameraMode: ",Players.LocalPlayer.CameraMode)
+			warn("Unhandled value for property player.CameraMode: ", Players.LocalPlayer.CameraMode)
 		end
-
-	elseif propertyName == "DevComputerCameraMode" or
-		   propertyName == "DevTouchCameraMode" then
+	elseif propertyName == "DevComputerCameraMode" or propertyName == "DevTouchCameraMode" then
 		self:ActivateCameraController()
-
 	elseif propertyName == "DevCameraOcclusionMode" then
 		self:ActivateOcclusionModule(Players.LocalPlayer.DevCameraOcclusionMode)
-
 	elseif propertyName == "CameraMinZoomDistance" or propertyName == "CameraMaxZoomDistance" then
 		if self.activeCameraController then
 			self.activeCameraController:UpdateForDistancePropertyChange()
@@ -562,22 +574,20 @@ function CameraModule:Update(data, dt)
 
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
 
-		if FFlagUserVRFixCameraCloseArticulation and VRService.VREnabled and self.activeCameraController.IsInFirstPerson then
+		if
+			FFlagUserVRFixCameraCloseArticulation
+			and VRService.VREnabled
+			and self.activeCameraController.IsInFirstPerson
+		then
 			VRFirstPersonState.inFirstPerson = self.activeCameraController:IsInFirstPerson()
 		end
 
 		local currentCamera = game.Workspace.CurrentCamera :: Camera
 
-		if FFlagUserOrthographicOcclusion then
-			if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion and not (currentCamera.ProjectionType == Enum.ProjectionType.Orthographic) then
-				newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
-			end
-		else
-			if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion then
-				newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
-			end
+		if self.activeOcclusionModule and not self.activeCameraController.skipOcclusion then
+			newCameraCFrame, newCameraFocus =
+				self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus, data)
 		end
-
 
 		-- Here is where the new CFrame and Focus are set for this render frame
 		currentCamera.CFrame = newCameraCFrame
@@ -593,44 +603,52 @@ function CameraModule:Update(data, dt)
 	end
 end
 
-function CameraModule:OnCharacterAdded(char: Model, player: Player)
-	if self.activeOcclusionModule then
-		self.activeOcclusionModule:CharacterAdded(char, player)
+if not FFlagUserPlayerModuleEngineAPI then
+	function CameraModule:OnCharacterAdded(char: Model, player: Player)
+		if self.activeOcclusionModule then
+			self.activeOcclusionModule:CharacterAdded(char, player)
+		end
 	end
-end
 
-function CameraModule:OnCharacterRemoving(char, player)
-	if self.activeOcclusionModule then
-		self.activeOcclusionModule:CharacterRemoving(char, player)
+	function CameraModule:OnCharacterRemoving(char, player)
+		if self.activeOcclusionModule then
+			self.activeOcclusionModule:CharacterRemoving(char, player)
+		end
 	end
-end
 
-function CameraModule:OnPlayerAdded(player: Player)
-	if FFlagUserPlayerConnectionMemoryLeak then
+	function CameraModule:OnPlayerAdded(player: Player)
+		if FFlagUserPlayerConnectionMemoryLeak then
+			-- Return connectionUtil to non optional if FFlagUserPlayerConnectionMemoryLeak is removed
+			if self.connectionUtil then
+				self.connectionUtil:trackConnection(
+					`{player.UserId}CharacterAdded`,
+					player.CharacterAdded:Connect(function(char)
+						self:OnCharacterAdded(char, player)
+					end)
+				)
+				self.connectionUtil:trackConnection(
+					`{player.UserId}CharacterRemoving`,
+					player.CharacterRemoving:Connect(function(char)
+						self:OnCharacterRemoving(char, player)
+					end)
+				)
+			end
+		else
+			player.CharacterAdded:Connect(function(char)
+				self:OnCharacterAdded(char, player)
+			end)
+			player.CharacterRemoving:Connect(function(char)
+				self:OnCharacterRemoving(char, player)
+			end)
+		end
+	end
+
+	function CameraModule:OnPlayerRemoving(player: Player)
 		-- Return connectionUtil to non optional if FFlagUserPlayerConnectionMemoryLeak is removed
 		if self.connectionUtil then
-			self.connectionUtil:trackConnection(`{player.UserId}CharacterAdded`, player.CharacterAdded:Connect(function(char)
-				self:OnCharacterAdded(char, player)
-			end))
-			self.connectionUtil:trackConnection(`{player.UserId}CharacterRemoving`, player.CharacterRemoving:Connect(function(char)
-				self:OnCharacterRemoving(char, player)
-			end))
+			self.connectionUtil:disconnect(`{player.UserId}CharacterAdded`)
+			self.connectionUtil:disconnect(`{player.UserId}CharacterRemoving`)
 		end
-	else
-		player.CharacterAdded:Connect(function(char)
-			self:OnCharacterAdded(char, player)
-		end)
-		player.CharacterRemoving:Connect(function(char)
-			self:OnCharacterRemoving(char, player)
-		end)
-	end
-end
-
-function CameraModule:OnPlayerRemoving(player: Player)
-	-- Return connectionUtil to non optional if FFlagUserPlayerConnectionMemoryLeak is removed
-	if self.connectionUtil then
-		self.connectionUtil:disconnect(`{player.UserId}CharacterAdded`)
-		self.connectionUtil:disconnect(`{player.UserId}CharacterRemoving`)
 	end
 end
 

@@ -9,10 +9,12 @@ local PITCH_LIMIT = math.rad(80)
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 
---[[ Services ]]--
-local PlayersService = game:GetService('Players')
+--[[ Services ]]
+--
+local PlayersService = game:GetService("Players")
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local LegacyCamera = setmetatable({}, BaseCamera)
 LegacyCamera.__index = LegacyCamera
@@ -32,7 +34,6 @@ function LegacyCamera:GetModuleName()
 end
 
 function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
-
 	-- Cannot update until cameraType has been set
 	if not self.cameraType then
 		return nil, nil
@@ -40,7 +41,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
-	local camera = 	workspace.CurrentCamera
+	local camera = workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
 	local player = PlayersService.LocalPlayer
@@ -57,9 +58,9 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 			local newLookVector = self:CalculateNewLookVectorFromArg(nil, rotateInput)
 
 			newCameraFocus = camera.Focus -- Fixed camera does not change focus
-			newCameraCFrame = CFrame.new(camera.CFrame.Position, camera.CFrame.Position + (distanceToSubject * newLookVector))
+			newCameraCFrame =
+				CFrame.new(camera.CFrame.Position, camera.CFrame.Position + (distanceToSubject * newLookVector))
 		end
-
 	elseif self.cameraType == Enum.CameraType.Attach then
 		local subjectCFrame = self:GetSubjectCFrame()
 		local cameraPitch = camera.CFrame:ToEulerAnglesYXZ()
@@ -67,9 +68,8 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 
 		cameraPitch = math.clamp(cameraPitch - rotateInput.Y, -PITCH_LIMIT, PITCH_LIMIT)
 
-		newCameraFocus = CFrame.new(subjectCFrame.Position)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
-		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom(dt))
-
+		newCameraFocus = CFrame.new(subjectCFrame.Position) * CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
+		newCameraCFrame = newCameraFocus * CFrame.new(0, 0, self:StepZoom(dt))
 	elseif self.cameraType == Enum.CameraType.Watch then
 		if subjectPosition and player and camera then
 			local cameraLook = nil

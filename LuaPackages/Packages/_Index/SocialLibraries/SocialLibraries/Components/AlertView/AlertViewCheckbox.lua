@@ -3,7 +3,6 @@ local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local CheckIcon = require(script.Parent.CheckIcon)
-local FFlagFoundationFontFaceMigration = dependencies.Foundation.Utility.Flags.FoundationFontFaceMigration
 local normalizeFontFace = dependencies.Foundation.Utility.normalizeFontFace
 
 local AlertViewCheckbox = Roact.Component:extend("AlertViewCheckbox")
@@ -44,12 +43,7 @@ function AlertViewCheckbox:render()
 				Text = self.props.Text,
 				TextColor3 = self.props.TextColor3 or styles.Theme.TextDefault.Color,
 				TextSize = self.props.TextSize or (styles.Font.Body.RelativeSize * styles.Font.BaseSize),
-				Font = if FFlagFoundationFontFaceMigration
-					then nil :: never
-					else self.props.Font or styles.Font.CaptionSubHeader.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(self.props.Font or styles.Font.CaptionSubHeader.Font)
-					else nil :: never,
+				FontFace = normalizeFontFace(self.props.Font or styles.Font.CaptionSubHeader.Font),
 				TextXAlignment = Enum.TextXAlignment.Left,
 			})
 		})

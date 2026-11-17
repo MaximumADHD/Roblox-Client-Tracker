@@ -13,7 +13,6 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local useExternalEvent = ReactUtils.useEventConnection
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
@@ -28,9 +27,6 @@ local GamepadConnector = if (not FFlagEnableConsoleExpControls or ChromeEnabled)
 local useObservableValue = require(Chrome.ChromeShared.Hooks.useObservableValue)
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
-
-local FFlagLocalizeMenuNavigationToggleDialog =
-	require(CoreGui.RobloxGui.Modules.TopBar.Flags.FFlagLocalizeMenuNavigationToggleDialog)
 
 local SELECT_ICON_ASSET_ID = "rbxasset://textures/ui/Controls/DesignSystem/ButtonSelect@2x.png"
 local PRE_ICON_LOCALIZATION_KEY = "CoreScripts.InGameMenu.VirtualCursorHintPreIcon"
@@ -54,47 +50,34 @@ local function MenuNavigationToggleDialog(props: Props)
 	local textColor = tokens.Color.Content.Emphasis.Color3
 	local iconPadding = tokens.Size.Size_100
 
-	local selectButtonImage = if FFlagLocalizeMenuNavigationToggleDialog
-			and game:GetEngineFeature("GetImageForKeyCode")
+	local selectButtonImage = if game:GetEngineFeature("GetImageForKeyCode")
 		then UserInputService:GetImageForKeyCode(Enum.KeyCode.ButtonSelect)
 		else SELECT_ICON_ASSET_ID
 
 	local leftText, rightText
-	if FFlagLocalizeMenuNavigationToggleDialog then
-		local locale, setLocale = React.useState(LocalizationService.RobloxLocaleId)
-		useExternalEvent(LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"), function()
-			setLocale(LocalizationService.RobloxLocaleId)
-		end)
+	local locale, setLocale = React.useState(LocalizationService.RobloxLocaleId)
+	useExternalEvent(LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"), function()
+		setLocale(LocalizationService.RobloxLocaleId)
+	end)
 
-		--[[
-			Typically, translations would be retrieved in the useLocalization hook.
-			However, the localization strings for these translation keys are stored in
-			`Modules.InGameMenu.Localization.Localization`, which are not accessible via the TopBar
-			localization provider, and thus the useLocalization hook.
-		]]
-		leftText, rightText = React.useMemo(function()
-			local newLocalization = Localization.new(locale)
+	--[[
+		Typically, translations would be retrieved in the useLocalization hook.
+		However, the localization strings for these translation keys are stored in
+		`Modules.InGameMenu.Localization.Localization`, which are not accessible via the TopBar
+		localization provider, and thus the useLocalization hook.
+	]]
+	leftText, rightText = React.useMemo(function()
+		local newLocalization = Localization.new(locale)
 
-			-- newLocalization.Format takes "self" as the first argument. This is equivalent to newLocalization:Format(key).
-			local leftTextOk, leftTextOrError =
-				pcall(newLocalization.Format, newLocalization, PRE_ICON_LOCALIZATION_KEY)
-			local rightTextOk, rightTextOrError =
-				pcall(newLocalization.Format, newLocalization, POST_ICON_LOCALIZATION_KEY)
+		-- newLocalization.Format takes "self" as the first argument. This is equivalent to newLocalization:Format(key).
+		local leftTextOk, leftTextOrError = pcall(newLocalization.Format, newLocalization, PRE_ICON_LOCALIZATION_KEY)
+		local rightTextOk, rightTextOrError = pcall(newLocalization.Format, newLocalization, POST_ICON_LOCALIZATION_KEY)
 
-			local leftText_ = if leftTextOk then leftTextOrError else PRE_ICON_FALLBACK_STRING
-			local rightText_ = if rightTextOk then rightTextOrError else POST_ICON_FALLBACK_STRING
+		local leftText_ = if leftTextOk then leftTextOrError else PRE_ICON_FALLBACK_STRING
+		local rightText_ = if rightTextOk then rightTextOrError else POST_ICON_FALLBACK_STRING
 
-			return leftText_, rightText_
-		end, { locale })
-	else
-		local localizedStrings = {
-			VirtualCursorHintPreIcon = "Some experiences require pressing ",
-			VirtualCursorHintPostIcon = " to toggle menu navigation",
-		}
-
-		leftText = localizedStrings.VirtualCursorHintPreIcon
-		rightText = localizedStrings.VirtualCursorHintPostIcon
-	end
+		return leftText_, rightText_
+	end, { locale })
 
 	local leftTextSize, rightTextSize = React.useMemo(function()
 		local leftTextSize_ = GetTextSize(leftText, font.FontSize, font.Font, Vector2.new(math.huge, math.huge))
@@ -128,7 +111,7 @@ local function MenuNavigationToggleDialog(props: Props)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Padding = if FFlagLocalizeMenuNavigationToggleDialog then UDim.new(0, iconPadding) else nil,
+			Padding = UDim.new(0, iconPadding),
 		}),
 		LeftText = React.createElement("TextLabel", {
 			Size = UDim2.fromOffset(leftTextSize.X, leftTextSize.Y),
@@ -136,8 +119,7 @@ local function MenuNavigationToggleDialog(props: Props)
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextColor3 = textColor,
-			Font = if FFlagFoundationFontFaceMigration then nil else font.Font,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font.Font) else nil,
+			FontFace = normalizeFontFace(font.Font),
 			TextSize = font.FontSize,
 			TextWrapped = false,
 			BackgroundTransparency = 1,
@@ -155,8 +137,7 @@ local function MenuNavigationToggleDialog(props: Props)
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
 			TextColor3 = textColor,
-			Font = if FFlagFoundationFontFaceMigration then nil else font.Font,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(font.Font) else nil,
+			FontFace = normalizeFontFace(font.Font),
 			TextSize = font.FontSize,
 			TextWrapped = false,
 			BackgroundTransparency = 1,

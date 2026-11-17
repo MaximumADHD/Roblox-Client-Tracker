@@ -11,9 +11,7 @@ local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
-local SHADOW_SIZE = if Flags.FoundationPopoverPluginOverlayMeasurement and Flags.FoundationPluginShadowSize
-	then Constants.PLUGIN_SHADOW_SIZE
-	else Constants.SHADOW_SIZE
+local SHADOW_SIZE = if Flags.FoundationPluginShadowSize then Constants.PLUGIN_SHADOW_SIZE else Constants.SHADOW_SIZE
 
 export type PopoverShadowProps = {
 	contentSize: React.Binding<UDim2>,
@@ -27,7 +25,7 @@ export type PopoverShadowProps = {
 local function PopoverShadow(props: PopoverShadowProps): React.ReactNode
 	local tokens = useTokens()
 
-	return if Flags.FoundationPopoverPluginOverlayMeasurement and Flags.FoundationPluginShadowSize
+	return if Flags.FoundationPluginShadowSize
 		then React.createElement(
 			View,
 			{

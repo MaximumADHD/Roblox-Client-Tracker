@@ -8,6 +8,8 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 
 type _Messages = {
 	GetSearchResultsPageRequest: _GetSearchResultsPageRequestMessage,
+	GuidedSearchContext: _GuidedSearchContextMessage,
+	GuidedSearchSuggestion: _GuidedSearchSuggestionMessage,
 	GetSearchResultsPageResponse: _GetSearchResultsPageResponseMessage,
 	GetSearchResultsPageResponse_TemplatesEntry: _GetSearchResultsPageResponse_TemplatesEntryMessage,
 	GetSearchResultsPageResponse_LocalizedLiteralsEntry: _GetSearchResultsPageResponse_LocalizedLiteralsEntryMessage,
@@ -40,6 +42,7 @@ type _GetSearchResultsPageRequestFields = {
 	vertical_type: SearchResultsPageVerticalType,
 	global_session_id: string,
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	guided_search_context: GuidedSearchContext?,
 }
 
 type _GetSearchResultsPageRequestPartialFields = {
@@ -48,6 +51,7 @@ type _GetSearchResultsPageRequestPartialFields = {
 	vertical_type: SearchResultsPageVerticalType?,
 	global_session_id: string?,
 	client_capabilities: _roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities?,
+	guided_search_context: GuidedSearchContext?,
 }
 
 export type GetSearchResultsPageRequest = typeof(setmetatable(
@@ -58,6 +62,55 @@ type _GetSearchResultsPageRequestMessage = proto.Message<
 	GetSearchResultsPageRequest,
 	_GetSearchResultsPageRequestPartialFields
 >
+
+type _GuidedSearchContextImpl = {
+	__index: _GuidedSearchContextImpl,
+	new: (fields: _GuidedSearchContextPartialFields?) -> GuidedSearchContext,
+	encode: (self: GuidedSearchContext) -> buffer,
+	decode: (input: buffer) -> GuidedSearchContext,
+	jsonEncode: (self: GuidedSearchContext) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GuidedSearchContext,
+	descriptor: proto.Descriptor,
+}
+
+type _GuidedSearchContextFields = {
+	selected_option: string,
+	suggestions: { GuidedSearchSuggestion },
+}
+
+type _GuidedSearchContextPartialFields = {
+	selected_option: string?,
+	suggestions: { GuidedSearchSuggestion }?,
+}
+
+export type GuidedSearchContext = typeof(setmetatable({} :: _GuidedSearchContextFields, {} :: _GuidedSearchContextImpl))
+type _GuidedSearchContextMessage = proto.Message<GuidedSearchContext, _GuidedSearchContextPartialFields>
+
+type _GuidedSearchSuggestionImpl = {
+	__index: _GuidedSearchSuggestionImpl,
+	new: (fields: _GuidedSearchSuggestionPartialFields?) -> GuidedSearchSuggestion,
+	encode: (self: GuidedSearchSuggestion) -> buffer,
+	decode: (input: buffer) -> GuidedSearchSuggestion,
+	jsonEncode: (self: GuidedSearchSuggestion) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GuidedSearchSuggestion,
+	descriptor: proto.Descriptor,
+}
+
+type _GuidedSearchSuggestionFields = {
+	id: string,
+	query: string,
+}
+
+type _GuidedSearchSuggestionPartialFields = {
+	id: string?,
+	query: string?,
+}
+
+export type GuidedSearchSuggestion = typeof(setmetatable(
+	{} :: _GuidedSearchSuggestionFields,
+	{} :: _GuidedSearchSuggestionImpl
+))
+type _GuidedSearchSuggestionMessage = proto.Message<GuidedSearchSuggestion, _GuidedSearchSuggestionPartialFields>
 
 type _GetSearchResultsPageResponseImpl = {
 	__index: _GetSearchResultsPageResponseImpl,
@@ -179,6 +232,9 @@ do
 			client_capabilities = if data == nil or data.client_capabilities == nil
 				then nil
 				else data.client_capabilities,
+			guided_search_context = if data == nil or data.guided_search_context == nil
+				then nil
+				else data.guided_search_context,
 		}, _GetSearchResultsPageRequestImpl :: _GetSearchResultsPageRequestImpl)
 	end
 
@@ -219,6 +275,12 @@ do
 		if self.client_capabilities ~= nil then
 			local encoded = self.client_capabilities:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.guided_search_context ~= nil then
+			local encoded = self.guided_search_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -266,6 +328,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.client_capabilities =
 						_roblox_apppageplatform_shared_v1beta1_client_capabilities.ClientCapabilities.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.guided_search_context = messages.GuidedSearchContext.decode(value)
 					continue
 				end
 
@@ -320,6 +387,10 @@ do
 
 		if self.client_capabilities ~= nil then
 			output.clientCapabilities = self.client_capabilities:jsonEncode()
+		end
+
+		if self.guided_search_context ~= nil then
+			output.guidedSearchContext = self.guided_search_context:jsonEncode()
 		end
 
 		return output
@@ -378,6 +449,14 @@ do
 				)
 		end
 
+		if input.guided_search_context ~= nil then
+			self.guided_search_context = messages.GuidedSearchContext.jsonDecode(input.guided_search_context)
+		end
+
+		if input.guidedSearchContext ~= nil then
+			self.guided_search_context = messages.GuidedSearchContext.jsonDecode(input.guidedSearchContext)
+		end
+
 		return self
 	end
 
@@ -389,6 +468,254 @@ do
 	messages.GetSearchResultsPageRequest = _GetSearchResultsPageRequestImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GetSearchResultsPageRequest)
+end
+
+do
+	local _GuidedSearchContextImpl = {}
+	_GuidedSearchContextImpl.__index = _GuidedSearchContextImpl
+
+	function _GuidedSearchContextImpl.new(data: _GuidedSearchContextPartialFields?): GuidedSearchContext
+		return setmetatable({
+			selected_option = if data == nil or data.selected_option == nil then "" else data.selected_option,
+			suggestions = if data == nil or data.suggestions == nil then {} else data.suggestions,
+		}, _GuidedSearchContextImpl :: _GuidedSearchContextImpl)
+	end
+
+	function _GuidedSearchContextImpl.encode(self: GuidedSearchContext): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.selected_option ~= nil and self.selected_option ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.selected_option)
+		end
+
+		if self.suggestions ~= nil and #self.suggestions > 0 then
+			for _, value in self.suggestions do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GuidedSearchContextImpl.decode(input: buffer): GuidedSearchContext
+		local self = _GuidedSearchContextImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.suggestions, messages.GuidedSearchSuggestion.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GuidedSearchContextImpl.jsonEncode(self: GuidedSearchContext): any
+		local output = {}
+
+		if self.selected_option ~= nil and self.selected_option ~= "" then
+			output.selectedOption = self.selected_option
+		end
+
+		if self.suggestions ~= nil and #self.suggestions > 0 then
+			local newOutput = {}
+			for _, value in self.suggestions do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.suggestions = newOutput
+		end
+
+		return output
+	end
+
+	function _GuidedSearchContextImpl.jsonDecode(input: { [string]: any }): GuidedSearchContext
+		local self = _GuidedSearchContextImpl.new()
+
+		if input.selected_option ~= nil then
+			self.selected_option = input.selected_option
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option = input.selectedOption
+		end
+
+		if input.suggestions ~= nil then
+			local newOutput: { GuidedSearchSuggestion } = {}
+			for _, value in input.suggestions do
+				table.insert(newOutput, messages.GuidedSearchSuggestion.jsonDecode(value))
+			end
+
+			self.suggestions = newOutput
+		end
+
+		return self
+	end
+
+	_GuidedSearchContextImpl.descriptor = {
+		name = "GuidedSearchContext",
+		fullName = "roblox.apppageplatform.search.v1beta1.GuidedSearchContext",
+	}
+
+	messages.GuidedSearchContext = _GuidedSearchContextImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GuidedSearchContext)
+end
+
+do
+	local _GuidedSearchSuggestionImpl = {}
+	_GuidedSearchSuggestionImpl.__index = _GuidedSearchSuggestionImpl
+
+	function _GuidedSearchSuggestionImpl.new(data: _GuidedSearchSuggestionPartialFields?): GuidedSearchSuggestion
+		return setmetatable({
+			id = if data == nil or data.id == nil then "" else data.id,
+			query = if data == nil or data.query == nil then "" else data.query,
+		}, _GuidedSearchSuggestionImpl :: _GuidedSearchSuggestionImpl)
+	end
+
+	function _GuidedSearchSuggestionImpl.encode(self: GuidedSearchSuggestion): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.query ~= nil and self.query ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.query)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GuidedSearchSuggestionImpl.decode(input: buffer): GuidedSearchSuggestion
+		local self = _GuidedSearchSuggestionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.query = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GuidedSearchSuggestionImpl.jsonEncode(self: GuidedSearchSuggestion): any
+		local output = {}
+
+		if self.id ~= nil and self.id ~= "" then
+			output.id = self.id
+		end
+
+		if self.query ~= nil and self.query ~= "" then
+			output.query = self.query
+		end
+
+		return output
+	end
+
+	function _GuidedSearchSuggestionImpl.jsonDecode(input: { [string]: any }): GuidedSearchSuggestion
+		local self = _GuidedSearchSuggestionImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.query ~= nil then
+			self.query = input.query
+		end
+
+		return self
+	end
+
+	_GuidedSearchSuggestionImpl.descriptor = {
+		name = "GuidedSearchSuggestion",
+		fullName = "roblox.apppageplatform.search.v1beta1.GuidedSearchSuggestion",
+	}
+
+	messages.GuidedSearchSuggestion = _GuidedSearchSuggestionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GuidedSearchSuggestion)
 end
 
 do
@@ -949,6 +1276,8 @@ messages.SearchResultsPageVerticalType = {
 
 return {
 	GetSearchResultsPageRequest = messages.GetSearchResultsPageRequest,
+	GuidedSearchContext = messages.GuidedSearchContext,
+	GuidedSearchSuggestion = messages.GuidedSearchSuggestion,
 	GetSearchResultsPageResponse = messages.GetSearchResultsPageResponse,
 	SearchResultsPageVerticalType = messages.SearchResultsPageVerticalType,
 }

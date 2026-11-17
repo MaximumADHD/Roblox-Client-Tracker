@@ -10,6 +10,9 @@ type HeaderBarSlot = HeaderBarSlot.HeaderBarSlot
 export type HeaderBarContext = {
 	testId: string,
 	slot: HeaderBarSlot?,
+	leadingWidth: number?,
+	trailingWidth: number?,
+	onSideWidthChanged: ((HeaderBarSlot, number) -> ())?,
 }
 
 local HeaderBarContext = React.createContext<<HeaderBarContext>>({
@@ -19,16 +22,31 @@ local HeaderBarContext = React.createContext<<HeaderBarContext>>({
 export type HeaderBarProviderProps = {
 	testId: string,
 	slot: HeaderBarSlot?,
+	leadingWidth: number?,
+	trailingWidth: number?,
+	onSideWidthChanged: ((HeaderBarSlot, number) -> ())?,
 	children: React.ReactNode,
 }
 
 local function HeaderBarProvider(props: HeaderBarProviderProps)
-	local contextValue = React.useMemo(function(): HeaderBarContext
-		return {
-			testId = props.testId,
-			slot = props.slot,
-		}
-	end, { props.testId, props.slot } :: { unknown })
+	local contextValue = React.useMemo(
+		function(): HeaderBarContext
+			return {
+				testId = props.testId,
+				slot = props.slot,
+				leadingWidth = props.leadingWidth,
+				trailingWidth = props.trailingWidth,
+				onSideWidthChanged = props.onSideWidthChanged,
+			}
+		end,
+		{
+			props.testId,
+			props.slot,
+			props.leadingWidth,
+			props.trailingWidth,
+			props.onSideWidthChanged,
+		} :: { unknown }
+	)
 
 	return React.createElement(HeaderBarContext.Provider, {
 		value = contextValue,

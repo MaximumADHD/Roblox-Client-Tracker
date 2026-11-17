@@ -14,6 +14,8 @@ export type GetSearchAutocompleteRequest = search_autocomplete.GetSearchAutocomp
 export type GetSearchAutocompleteResponse = search_autocomplete.GetSearchAutocompleteResponse
 export type SearchResultsPageVerticalType = search_results_page.SearchResultsPageVerticalType
 export type GetSearchResultsPageRequest = search_results_page.GetSearchResultsPageRequest
+export type GuidedSearchContext = search_results_page.GuidedSearchContext
+export type GuidedSearchSuggestion = search_results_page.GuidedSearchSuggestion
 export type GetSearchResultsPageResponse = search_results_page.GetSearchResultsPageResponse
 
 return {

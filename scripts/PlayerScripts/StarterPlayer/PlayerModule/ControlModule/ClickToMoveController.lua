@@ -6,19 +6,26 @@
 --]]
 
 --[[ Flags ]]
-local FFlagUserExcludeNonCollidableForPathfindingSuccess, FFlagUserExcludeNonCollidableForPathfindingResult =
-	pcall(function() return UserSettings():IsUserFeatureEnabled("UserExcludeNonCollidableForPathfinding") end)
-local FFlagUserExcludeNonCollidableForPathfinding = FFlagUserExcludeNonCollidableForPathfindingSuccess and FFlagUserExcludeNonCollidableForPathfindingResult
+local FFlagUserExcludeNonCollidableForPathfindingSuccess, FFlagUserExcludeNonCollidableForPathfindingResult = pcall(
+	function()
+		return UserSettings():IsUserFeatureEnabled("UserExcludeNonCollidableForPathfinding")
+	end
+)
+local FFlagUserExcludeNonCollidableForPathfinding = FFlagUserExcludeNonCollidableForPathfindingSuccess
+	and FFlagUserExcludeNonCollidableForPathfindingResult
 
-local FFlagUserClickToMoveSupportAgentCanClimbSuccess, FFlagUserClickToMoveSupportAgentCanClimbResult =
-	pcall(function() return UserSettings():IsUserFeatureEnabled("UserClickToMoveSupportAgentCanClimb2") end)
-local FFlagUserClickToMoveSupportAgentCanClimb = FFlagUserClickToMoveSupportAgentCanClimbSuccess and FFlagUserClickToMoveSupportAgentCanClimbResult
+local FFlagUserClickToMoveSupportAgentCanClimbSuccess, FFlagUserClickToMoveSupportAgentCanClimbResult = pcall(function()
+	return UserSettings():IsUserFeatureEnabled("UserClickToMoveSupportAgentCanClimb2")
+end)
+local FFlagUserClickToMoveSupportAgentCanClimb = FFlagUserClickToMoveSupportAgentCanClimbSuccess
+	and FFlagUserClickToMoveSupportAgentCanClimbResult
 
---[[ Roblox Services ]]--
+--[[ Roblox Services ]]
+--
 local UserInputService = game:GetService("UserInputService")
 local PathfindingService = game:GetService("PathfindingService")
 local Players = game:GetService("Players")
-local DebrisService = game:GetService('Debris')
+local DebrisService = game:GetService("Debris")
 local Workspace = game:GetService("Workspace")
 local CollectionService = game:GetService("CollectionService")
 local GuiService = game:GetService("GuiService")
@@ -31,7 +38,8 @@ local FFlagUserPSIASClickToMoveRelaxTeleport = FlagUtil.getUserFlag("UserPSIASCl
 local FFlagUserPlayerScriptsRefactor2 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor2")
 local FFlagUserDoubleJumpButtonFix = FlagUtil.getUserFlag("UserDoubleJumpButtonFix")
 
---[[ Input Actions ]]--
+--[[ Input Actions ]]
+--
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local characterContext = inputContexts:WaitForChild("CharacterContext")
 local clickToMoveAction = characterContext:WaitForChild("ClickToMoveAction")
@@ -49,12 +57,11 @@ local Player = Players.LocalPlayer
 
 local ClickToMoveDisplay = require(script.Parent:WaitForChild("ClickToMoveDisplay"))
 
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
+local ZERO_VECTOR3 = Vector3.new(0, 0, 0)
 local ALMOST_ZERO = 0.000001
 
 local raycastParams = RaycastParams.new()
 raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-
 
 --------------------------UTIL LIBRARY-------------------------------
 local Utility = {}
@@ -72,7 +79,7 @@ if not FFlagUserRaycastUpdateAPI then
 		end
 		Utility.FindCharacterAncestor = FindCharacterAncestor
 
-		local function Raycast(ray, ignoreNonCollidable: boolean, ignoreList: {Model})
+		local function Raycast(ray, ignoreNonCollidable: boolean, ignoreList: { Model })
 			ignoreList = ignoreList or {}
 			local hitPart, hitPos, hitNorm, hitMat = Workspace:FindPartOnRayWithIgnoreList(ray, ignoreList)
 			if hitPart then
@@ -112,7 +119,7 @@ local function findPlayerHumanoid(player: Player)
 end
 
 --------------------------CHARACTER CONTROL-------------------------------
-local CurrentIgnoreList: {Model}
+local CurrentIgnoreList: { Model }
 local CurrentIgnoreTag = nil
 
 local TaggedInstanceAddedConnection: RBXScriptConnection? = nil
@@ -135,30 +142,30 @@ local function UpdateIgnoreTag(newIgnoreTag)
 		TaggedInstanceRemovedConnection = nil
 	end
 	CurrentIgnoreTag = newIgnoreTag
-	CurrentIgnoreList = {GetCharacter()}
+	CurrentIgnoreList = { GetCharacter() }
 	if CurrentIgnoreTag ~= nil then
 		local ignoreParts = CollectionService:GetTagged(CurrentIgnoreTag)
 		for _, ignorePart in ipairs(ignoreParts) do
 			table.insert(CurrentIgnoreList, ignorePart)
 		end
-		TaggedInstanceAddedConnection = CollectionService:GetInstanceAddedSignal(
-			CurrentIgnoreTag):Connect(function(ignorePart)
-			table.insert(CurrentIgnoreList, ignorePart)
-		end)
-		TaggedInstanceRemovedConnection = CollectionService:GetInstanceRemovedSignal(
-			CurrentIgnoreTag):Connect(function(ignorePart)
-			for i = 1, #CurrentIgnoreList do
-				if CurrentIgnoreList[i] == ignorePart then
-					CurrentIgnoreList[i] = CurrentIgnoreList[#CurrentIgnoreList]
-					table.remove(CurrentIgnoreList)
-					break
+		TaggedInstanceAddedConnection = CollectionService:GetInstanceAddedSignal(CurrentIgnoreTag)
+			:Connect(function(ignorePart)
+				table.insert(CurrentIgnoreList, ignorePart)
+			end)
+		TaggedInstanceRemovedConnection = CollectionService:GetInstanceRemovedSignal(CurrentIgnoreTag)
+			:Connect(function(ignorePart)
+				for i = 1, #CurrentIgnoreList do
+					if CurrentIgnoreList[i] == ignorePart then
+						CurrentIgnoreList[i] = CurrentIgnoreList[#CurrentIgnoreList]
+						table.remove(CurrentIgnoreList)
+						break
+					end
 				end
-			end
-		end)
+			end)
 	end
 end
 
-local function getIgnoreList(): {Model}
+local function getIgnoreList(): { Model }
 	if CurrentIgnoreList then
 		return CurrentIgnoreList
 	end
@@ -175,27 +182,29 @@ local function maxV(a, b)
 	return Vector3.new(math.max(a.X, b.X), math.max(a.Y, b.Y), math.max(a.Z, b.Z))
 end
 local function getCollidableExtentsSize(character: Model?)
-	if character == nil or character.PrimaryPart == nil then return end
+	if character == nil or character.PrimaryPart == nil then
+		return
+	end
 	assert(character, "")
 	assert(character.PrimaryPart, "")
 	local toLocalCFrame = character.PrimaryPart.CFrame:Inverse()
 	local min = Vector3.new(math.huge, math.huge, math.huge)
 	local max = Vector3.new(-math.huge, -math.huge, -math.huge)
-	for _,descendant in pairs(character:GetDescendants()) do
-		if descendant:IsA('BasePart') and descendant.CanCollide then
+	for _, descendant in pairs(character:GetDescendants()) do
+		if descendant:IsA("BasePart") and descendant.CanCollide then
 			local localCFrame = toLocalCFrame * descendant.CFrame
 			local size = Vector3.new(descendant.Size.X / 2, descendant.Size.Y / 2, descendant.Size.Z / 2)
 			local vertices = {
-				Vector3.new( size.X,  size.Y,  size.Z),
-				Vector3.new( size.X,  size.Y, -size.Z),
-				Vector3.new( size.X, -size.Y,  size.Z),
-				Vector3.new( size.X, -size.Y, -size.Z),
-				Vector3.new(-size.X,  size.Y,  size.Z),
-				Vector3.new(-size.X,  size.Y, -size.Z),
-				Vector3.new(-size.X, -size.Y,  size.Z),
-				Vector3.new(-size.X, -size.Y, -size.Z)
+				Vector3.new(size.X, size.Y, size.Z),
+				Vector3.new(size.X, size.Y, -size.Z),
+				Vector3.new(size.X, -size.Y, size.Z),
+				Vector3.new(size.X, -size.Y, -size.Z),
+				Vector3.new(-size.X, size.Y, size.Z),
+				Vector3.new(-size.X, size.Y, -size.Z),
+				Vector3.new(-size.X, -size.Y, size.Z),
+				Vector3.new(-size.X, -size.Y, -size.Z),
 			}
-			for _,vertex in ipairs(vertices) do
+			for _, vertex in ipairs(vertices) do
 				local v = localCFrame * vertex
 				min = minV(min, v)
 				max = maxV(max, v)
@@ -203,7 +212,9 @@ local function getCollidableExtentsSize(character: Model?)
 		end
 	end
 	local r = max - min
-	if r.X < 0 or r.Y < 0 or r.Z < 0 then return nil end
+	if r.X < 0 or r.Y < 0 or r.Z < 0 then
+		return nil
+	end
 	return r
 end
 
@@ -247,7 +258,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 	this.CurrentWaypointPosition = nil
 	this.CurrentWaypointPlaneNormal = ZERO_VECTOR3
 	this.CurrentWaypointPlaneDistance = 0
-	this.CurrentWaypointNeedsJump = false;
+	this.CurrentWaypointNeedsJump = false
 
 	this.CurrentHumanoidPosition = ZERO_VECTOR3
 	this.CurrentHumanoidVelocity = 0 :: Vector3 | number
@@ -265,7 +276,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 
 	this.stopTraverseFunc = nil :: (() -> ())?
 	this.setPointFunc = nil :: ((number) -> ())?
-	this.pointList = nil :: {PathWaypoint}?
+	this.pointList = nil :: { PathWaypoint }?
 
 	local rootPart: BasePart = this.Humanoid and this.Humanoid.RootPart
 	if rootPart then
@@ -289,7 +300,9 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 				-- For now, only direct path
 				if directPathForVehicle then
 					local extents: Vector3 = vehicle:GetExtentsSize()
-					agentRadius = AgentSizeIncreaseFactor * 0.5 * math.sqrt(extents.X * extents.X + extents.Z * extents.Z)
+					agentRadius = AgentSizeIncreaseFactor
+						* 0.5
+						* math.sqrt(extents.X * extents.X + extents.Z * extents.Z)
 					agentHeight = AgentSizeIncreaseFactor * extents.Y
 					agentCanJump = false
 					this.AgentCanFollowPath = true
@@ -321,9 +334,18 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 
 		-- Build path object
 		if FFlagUserClickToMoveSupportAgentCanClimb then
-			this.pathResult = PathfindingService:CreatePath({AgentRadius = agentRadius, AgentHeight = agentHeight, AgentCanJump = agentCanJump, AgentCanClimb = true})
+			this.pathResult = PathfindingService:CreatePath({
+				AgentRadius = agentRadius,
+				AgentHeight = agentHeight,
+				AgentCanJump = agentCanJump,
+				AgentCanClimb = true,
+			})
 		else
-			this.pathResult = PathfindingService:CreatePath({AgentRadius = agentRadius, AgentHeight = agentHeight, AgentCanJump = agentCanJump})
+			this.pathResult = PathfindingService:CreatePath({
+				AgentRadius = agentRadius,
+				AgentHeight = agentHeight,
+				AgentCanJump = agentCanJump,
+			})
 		end
 	end
 
@@ -373,19 +395,26 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 
 	function this:ComputePath()
 		if this.OriginPoint then
-			if this.PathComputed or this.PathComputing then return end
+			if this.PathComputed or this.PathComputing then
+				return
+			end
 			this.PathComputing = true
 			if this.AgentCanFollowPath then
 				if this.DirectPath then
 					this.pointList = {
 						PathWaypoint.new(this.OriginPoint, Enum.PathWaypointAction.Walk),
-						PathWaypoint.new(this.TargetPoint, this.DirectPathRiseFirst and Enum.PathWaypointAction.Jump or Enum.PathWaypointAction.Walk)
+						PathWaypoint.new(
+							this.TargetPoint,
+							this.DirectPathRiseFirst and Enum.PathWaypointAction.Jump or Enum.PathWaypointAction.Walk
+						),
 					}
 					this.PathComputed = true
 				else
 					this.pathResult:ComputeAsync(this.OriginPoint, this.TargetPoint)
 					this.pointList = this.pathResult:GetWaypoints()
-					this.BlockedConn = this.pathResult.Blocked:Connect(function(blockedIdx) this:OnPathBlocked(blockedIdx) end)
+					this.BlockedConn = this.pathResult.Blocked:Connect(function(blockedIdx)
+						this:OnPathBlocked(blockedIdx)
+					end)
 					this.PathComputed = this.pathResult.Status == Enum.PathStatus.Success
 				end
 			end
@@ -465,7 +494,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 				-- Jump action
 				if this.CurrentWaypointNeedsJump then
 					this.NextActionJump = true
-					this.CurrentWaypointNeedsJump = false	-- Request jump only once
+					this.CurrentWaypointNeedsJump = false -- Request jump only once
 				else
 					this.NextActionJump = false
 				end
@@ -479,7 +508,8 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 		-- Check we do have a plane, if not, we consider the waypoint reached
 		if this.CurrentWaypointPlaneNormal ~= ZERO_VECTOR3 then
 			-- Compute distance of Humanoid from destination plane
-			local dist = this.CurrentWaypointPlaneNormal:Dot(this.CurrentHumanoidPosition) - this.CurrentWaypointPlaneDistance
+			local dist = this.CurrentWaypointPlaneNormal:Dot(this.CurrentHumanoidPosition)
+				- this.CurrentWaypointPlaneDistance
 			-- Compute the component of the Humanoid velocity that is towards the plane
 			local velocity = -this.CurrentWaypointPlaneNormal:Dot(this.CurrentHumanoidVelocity)
 			-- Compute the threshold from the destination plane based on Humanoid velocity
@@ -492,7 +522,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 
 		if reached then
 			this.CurrentWaypointPosition = nil
-			this.CurrentWaypointPlaneNormal	= ZERO_VECTOR3
+			this.CurrentWaypointPlaneNormal = ZERO_VECTOR3
 			this.CurrentWaypointPlaneDistance = 0
 		end
 
@@ -500,7 +530,6 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 	end
 
 	function this:OnPointReached(reached)
-
 		if reached and not this.Cancelled then
 			-- First, destroyed the current displayed waypoint
 			if this.setPointFunc then
@@ -567,22 +596,23 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 		-- (plane normal is perpendicular to the y plane and is from next waypoint towards current one (provided the two waypoints are not at the same location))
 		-- (plane location is at next waypoint)
 		this.CurrentWaypointPlaneNormal = currentWaypoint.Position - nextWaypoint.Position
-		
+
 		-- plane normal isn't perpendicular to the y plane when climbing up
 		if not FFlagUserClickToMoveSupportAgentCanClimb or (nextWaypoint.Label ~= "Climb") then
-			this.CurrentWaypointPlaneNormal = Vector3.new(this.CurrentWaypointPlaneNormal.X, 0, this.CurrentWaypointPlaneNormal.Z)
+			this.CurrentWaypointPlaneNormal =
+				Vector3.new(this.CurrentWaypointPlaneNormal.X, 0, this.CurrentWaypointPlaneNormal.Z)
 		end
 		if this.CurrentWaypointPlaneNormal.Magnitude > ALMOST_ZERO then
-			this.CurrentWaypointPlaneNormal	= this.CurrentWaypointPlaneNormal.Unit
+			this.CurrentWaypointPlaneNormal = this.CurrentWaypointPlaneNormal.Unit
 			this.CurrentWaypointPlaneDistance = this.CurrentWaypointPlaneNormal:Dot(nextWaypoint.Position)
 		else
 			-- Next waypoint is the same as current waypoint so no plane
-			this.CurrentWaypointPlaneNormal	= ZERO_VECTOR3
+			this.CurrentWaypointPlaneNormal = ZERO_VECTOR3
 			this.CurrentWaypointPlaneDistance = 0
 		end
 
 		-- Should we jump
-		this.CurrentWaypointNeedsJump = nextWaypoint.Action == Enum.PathWaypointAction.Jump;
+		this.CurrentWaypointNeedsJump = nextWaypoint.Action == Enum.PathWaypointAction.Jump
 
 		-- Remember next waypoint position
 		this.CurrentWaypointPosition = nextWaypoint.Position
@@ -600,14 +630,17 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 			return
 		end
 
-		if this.Started then return end
+		if this.Started then
+			return
+		end
 		this.Started = true
 
 		ClickToMoveDisplay.CancelFailureAnimation()
 
 		if ShowPath then
 			if overrideShowPath == nil or overrideShowPath then
-				this.stopTraverseFunc, this.setPointFunc = ClickToMoveDisplay.CreatePathDisplay(this.pointList, this.OriginalTargetPoint)
+				this.stopTraverseFunc, this.setPointFunc =
+					ClickToMoveDisplay.CreatePathDisplay(this.pointList, this.OriginalTargetPoint)
 			end
 		end
 
@@ -621,9 +654,13 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 			this.CurrentHumanoidVelocity = this.Humanoid.RootPart.Velocity
 
 			-- Connect to events
-			this.SeatedConn = this.Humanoid.Seated:Connect(function(isSeated, seat) this:OnPathInterrupted() end)
-			this.DiedConn = this.Humanoid.Died:Connect(function() this:OnPathInterrupted() end)
-			if FFlagUserPSIASClickToMoveRelaxTeleport then 
+			this.SeatedConn = this.Humanoid.Seated:Connect(function(isSeated, seat)
+				this:OnPathInterrupted()
+			end)
+			this.DiedConn = this.Humanoid.Died:Connect(function()
+				this:OnPathInterrupted()
+			end)
+			if FFlagUserPSIASClickToMoveRelaxTeleport then
 				this.lastPosition = this.Humanoid.RootPart.CFrame.Position
 				this.TeleportedConn = this.Humanoid.RootPart:GetPropertyChangedSignal("CFrame"):Connect(function()
 					local newPosition = this.Humanoid.RootPart.CFrame.Position
@@ -634,7 +671,9 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 					end
 				end)
 			else
-				this.TeleportedConn = this.Humanoid.RootPart:GetPropertyChangedSignal("CFrame"):Connect(function() this:OnPathInterrupted() end)
+				this.TeleportedConn = this.Humanoid.RootPart:GetPropertyChangedSignal("CFrame"):Connect(function()
+					this:OnPathInterrupted()
+				end)
 			end
 
 			-- Actually start
@@ -649,16 +688,16 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 	end
 
 	--We always raycast to the ground in the case that the user clicked a wall.
-	local offsetPoint = this.TargetPoint + this.TargetSurfaceNormal*1.5
+	local offsetPoint = this.TargetPoint + this.TargetSurfaceNormal * 1.5
 	if FFlagUserRaycastUpdateAPI then
 		raycastParams.FilterDescendantsInstances = getIgnoreList()
 		local raycastResult = Workspace:Raycast(offsetPoint, -Vector3.yAxis * 50, raycastParams)
-	
+
 		if raycastResult then
 			this.TargetPoint = raycastResult.Position
 		end
 	else
-		local ray = Ray.new(offsetPoint, Vector3.new(0,-1,0)*50)
+		local ray = Ray.new(offsetPoint, Vector3.new(0, -1, 0) * 50)
 		local newHitPart, newHitPos = Workspace:FindPartOnRayWithIgnoreList(ray, getIgnoreList())
 		if newHitPart then
 			this.TargetPoint = newHitPos
@@ -679,7 +718,7 @@ end
 local function GetEquippedTool(character: Model?)
 	if character ~= nil then
 		for _, child in pairs(character:GetChildren()) do
-			if child:IsA('Tool') then
+			if child:IsA("Tool") then
 				return child
 			end
 		end
@@ -707,12 +746,13 @@ local function calculateLocalMoveVector(worldMoveVector: Vector3): Vector2
 	return Vector2.new(localVec.X, -localVec.Z)
 end
 
---[[ The ClickToMove Controller Class ]]--
+--[[ The ClickToMove Controller Class ]]
+--
 local ClickToMove = {}
 ClickToMove.__index = ClickToMove
 
 function ClickToMove.new(data)
-	local self = setmetatable({} , ClickToMove)
+	local self = setmetatable({}, ClickToMove)
 
 	-- PC simulation
 	self.mouse2DownTime = tick()
@@ -736,7 +776,6 @@ function ClickToMove.new(data)
 	self.data = nil -- TODO: remove, controllers should not store data
 
 	self.running = false
-
 
 	return self
 end
@@ -805,12 +844,14 @@ function ClickToMove:ShowPathFailedFeedback(hitPt)
 	ClickToMoveDisplay.DisplayFailureWaypoint(hitPt)
 end
 
-function ClickToMove:OnTap(tapPositions: {Vector3}, goToPoint: Vector3?)
+function ClickToMove:OnTap(tapPositions: { Vector3 }, goToPoint: Vector3?)
 	-- Good to remember if this is the latest tap event
 	local camera = Workspace.CurrentCamera
 	local character = Player.Character
 
-	if not CheckAlive() then return end
+	if not CheckAlive() then
+		return
+	end
 
 	-- This is a path tap position
 	if #tapPositions == 1 or goToPoint then
@@ -866,7 +907,7 @@ function ClickToMove:OnTap(tapPositions: {Vector3}, goToPoint: Vector3?)
 					self:ShowPathFailedFeedback(position)
 				end
 			else
-				local ray = Ray.new(unitRay.Origin, unitRay.Direction*1000)
+				local ray = Ray.new(unitRay.Origin, unitRay.Direction * 1000)
 				local hitPart, hitPt, hitNormal = Utility.Raycast(ray, true, getIgnoreList())
 
 				local hitChar, hitHumanoid = Utility.FindCharacterAncestor(hitPart)
@@ -917,7 +958,7 @@ function ClickToMove:OnPreferredInputChanged()
 	if character then
 		local toolShouldBeDisabled = (UserInputService.PreferredInput == Enum.PreferredInput.Touch)
 		for _, child in pairs(character:GetChildren()) do
-			if child:IsA('Tool') then
+			if child:IsA("Tool") then
 				child.ManualActivationOnly = toolShouldBeDisabled
 			end
 		end
@@ -953,7 +994,7 @@ function ClickToMove:OnCharacterAdded(character)
 
 		local allowed = ExistingPather or self.data.controlModule.actions.MoveAction:GetState().Magnitude <= 0
 		if self.mouse2UpTime - self.mouse2DownTime < 0.25 and allowed then
-			local positions = {currPos}
+			local positions = { currPos }
 			self:OnTap(positions)
 		end
 	end)
@@ -964,11 +1005,11 @@ function ClickToMove:OnCharacterAdded(character)
 
 	local function OnCharacterChildAdded(child)
 		if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
-			if child:IsA('Tool') then
+			if child:IsA("Tool") then
 				child.ManualActivationOnly = true
 			end
 		end
-		if child:IsA('Humanoid') then
+		if child:IsA("Humanoid") then
 			DisconnectEvent(self.humanoidDiedConn)
 			self.humanoidDiedConn = child.Died:Connect(function()
 				if ExistingIndicator then
@@ -983,7 +1024,7 @@ function ClickToMove:OnCharacterAdded(character)
 	end)
 	self.characterChildRemovedConn = character.ChildRemoved:Connect(function(child)
 		if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
-			if child:IsA('Tool') then
+			if child:IsA("Tool") then
 				child.ManualActivationOnly = false
 			end
 		end
@@ -992,9 +1033,10 @@ function ClickToMove:OnCharacterAdded(character)
 		OnCharacterChildAdded(child)
 	end
 
-	self.preferredInputChangedConnection = UserInputService:GetPropertyChangedSignal("PreferredInput"):Connect(function()
-		self:OnPreferredInputChanged()
-	end)
+	self.preferredInputChangedConnection = UserInputService:GetPropertyChangedSignal("PreferredInput")
+		:Connect(function()
+			self:OnPreferredInputChanged()
+		end)
 end
 
 function ClickToMove:Start()
@@ -1032,7 +1074,7 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 				local character = Player.Character
 				if character then
 					for _, child in pairs(character:GetChildren()) do
-						if child:IsA('Tool') then
+						if child:IsA("Tool") then
 							child.ManualActivationOnly = false
 						end
 					end
@@ -1059,7 +1101,7 @@ function ClickToMove:Update(data, dt)
 	assert(data.controlModule.actions.MoveAction)
 	assert(data.controlModule.actions.JumpAction)
 
-	if not self.data then 
+	if not self.data then
 		self.data = data
 	end
 
@@ -1082,7 +1124,8 @@ function ClickToMove:Update(data, dt)
 			-- Handle jump request from Pather
 			if currentPather.NextActionJump then
 				if data.controlModule.actions.JumpAction:GetState() ~= true then
-					local jumpBinding = data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+					local jumpBinding =
+						data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 					if jumpBinding then
 						jumpBinding:Fire(true)
 					end
@@ -1091,7 +1134,8 @@ function ClickToMove:Update(data, dt)
 				data.controlModule.isJumping = true
 			elseif self.lastPatherJumped then
 				if data.controlModule.actions.JumpAction:GetState() == true then
-					local jumpBinding = data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
+					local jumpBinding =
+						data.controlModule.actions.JumpAction:FindFirstChild("ClickToMoveScriptableBinding")
 					if jumpBinding then
 						jumpBinding:Fire(false)
 					end

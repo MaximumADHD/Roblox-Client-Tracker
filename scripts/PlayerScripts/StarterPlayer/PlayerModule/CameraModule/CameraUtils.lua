@@ -14,7 +14,8 @@ local function round(num: number)
 end
 
 -- Critically damped spring class for fluid motion effects
-local Spring = {} do
+local Spring = {}
+do
 	Spring.__index = Spring
 
 	-- Initialize to a given undamped frequency and default position
@@ -29,16 +30,16 @@ local Spring = {} do
 
 	-- Advance the spring simulation by `dt` seconds
 	function Spring:step(dt: number)
-		local f: number = self.freq::number * 2.0 * math.pi
+		local f: number = self.freq :: number * 2.0 * math.pi
 		local g: Vector3 = self.goal
 		local p0: Vector3 = self.pos
 		local v0: Vector3 = self.vel
 
 		local offset = p0 - g
-		local decay = math.exp(-f*dt)
+		local decay = math.exp(-f * dt)
 
-		local p1 = (offset*(1 + f*dt) + v0*dt)*decay + g
-		local v1 = (v0*(1 - f*dt) - offset*(f*f*dt))*decay
+		local p1 = (offset * (1 + f * dt) + v0 * dt) * decay + g
+		local v1 = (v0 * (1 - f * dt) - offset * (f * f * dt)) * decay
 
 		self.pos = p1
 		self.vel = v1
@@ -51,20 +52,20 @@ CameraUtils.Spring = Spring
 
 -- map a value from one range to another
 function CameraUtils.map(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
-	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
+	return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin
 end
 
 -- maps a value from one range to another, clamping to the output range. order does not matter
 function CameraUtils.mapClamp(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
 	return math.clamp(
-		(x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin,
+		(x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin,
 		math.min(outMin, outMax),
 		math.max(outMin, outMax)
 	)
 end
 
 -- Ritter's loose bounding sphere algorithm
-function CameraUtils.getLooseBoundingSphere(parts: {BasePart})
+function CameraUtils.getLooseBoundingSphere(parts: { BasePart })
 	local points = table.create(#parts)
 	for idx, part in pairs(parts) do
 		points[idx] = part.Position
@@ -100,8 +101,8 @@ function CameraUtils.getLooseBoundingSphere(parts: {BasePart})
 	end
 
 	-- use (y, z) as the initial bounding sphere
-	local sc = (y + z)*0.5
-	local sr = (y - z).Magnitude*0.5
+	local sc = (y + z) * 0.5
+	local sr = (y - z).Magnitude * 0.5
 
 	-- expand sphere to fit any outlying points
 	for _, p in ipairs(points) do
@@ -109,10 +110,10 @@ function CameraUtils.getLooseBoundingSphere(parts: {BasePart})
 
 		if pDist > sr then
 			-- shift to midpoint
-			sc = sc + (pDist - sr)*0.5*(p - sc).Unit
+			sc = sc + (pDist - sr) * 0.5 * (p - sc).Unit
 
 			-- expand
-			sr = (pDist + sr)*0.5
+			sr = (pDist + sr) * 0.5
 		end
 	end
 
@@ -121,12 +122,12 @@ end
 
 -- canonicalize an angle to +-180 degrees
 function CameraUtils.sanitizeAngle(a: number): number
-	return (a + math.pi)%(2*math.pi) - math.pi
+	return (a + math.pi) % (2 * math.pi) - math.pi
 end
 
 -- From TransparencyController
 function CameraUtils.Round(num: number, places: number): number
-	local decimalPivot = 10^places
+	local decimalPivot = 10 ^ places
 	return math.floor(num * decimalPivot + 0.5) / decimalPivot
 end
 
@@ -140,7 +141,7 @@ end
 
 -- Legacy implementation renamed
 function CameraUtils.GetAngleBetweenXZVectors(v1: Vector3, v2: Vector3): number
-	return math.atan2(v2.X*v1.Z-v2.Z*v1.X, v2.X*v1.X+v2.Z*v1.Z)
+	return math.atan2(v2.X * v1.Z - v2.Z * v1.X, v2.X * v1.X + v2.Z * v1.Z)
 end
 
 function CameraUtils.RotateVectorByAngleAndRound(camLook: Vector3, rotateAngle: number, roundAmount: number): number
@@ -160,18 +161,18 @@ local lowerK = 0.8
 local function SCurveTranform(t: number)
 	t = math.clamp(t, -1, 1)
 	if t >= 0 then
-		return (k*t) / (k - t + 1)
+		return (k * t) / (k - t + 1)
 	end
-	return -((lowerK*-t) / (lowerK + t + 1))
+	return -((lowerK * -t) / (lowerK + t + 1))
 end
 
 local DEADZONE = 0.1
 local function toSCurveSpace(t: number)
-	return (1 + DEADZONE) * (2*math.abs(t) - 1) - DEADZONE
+	return (1 + DEADZONE) * (2 * math.abs(t) - 1) - DEADZONE
 end
 
 local function fromSCurveSpace(t: number)
-	return t/2 + 0.5
+	return t / 2 + 0.5
 end
 
 function CameraUtils.GamepadLinearToCurve(thumbstickPosition: Vector2)
@@ -188,11 +189,9 @@ function CameraUtils.GamepadLinearToCurve(thumbstickPosition: Vector2)
 end
 
 -- This function converts 4 different, redundant enumeration types to one standard so the values can be compared
-function CameraUtils.ConvertCameraModeEnumToStandard(enumValue:
-		Enum.TouchCameraMovementMode |
-		Enum.ComputerCameraMovementMode |
-		Enum.DevTouchCameraMovementMode |
-		Enum.DevComputerCameraMovementMode): Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode
+function CameraUtils.ConvertCameraModeEnumToStandard(
+	enumValue: Enum.TouchCameraMovementMode | Enum.ComputerCameraMovementMode | Enum.DevTouchCameraMovementMode | Enum.DevComputerCameraMovementMode
+): Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode
 	if enumValue == Enum.TouchCameraMovementMode.Default then
 		return Enum.ComputerCameraMovementMode.Follow
 	end
@@ -201,35 +200,45 @@ function CameraUtils.ConvertCameraModeEnumToStandard(enumValue:
 		return Enum.ComputerCameraMovementMode.Classic
 	end
 
-	if enumValue == Enum.TouchCameraMovementMode.Classic or
-		enumValue == Enum.DevTouchCameraMovementMode.Classic or
-		enumValue == Enum.DevComputerCameraMovementMode.Classic or
-		enumValue == Enum.ComputerCameraMovementMode.Classic then
+	if
+		enumValue == Enum.TouchCameraMovementMode.Classic
+		or enumValue == Enum.DevTouchCameraMovementMode.Classic
+		or enumValue == Enum.DevComputerCameraMovementMode.Classic
+		or enumValue == Enum.ComputerCameraMovementMode.Classic
+	then
 		return Enum.ComputerCameraMovementMode.Classic
 	end
 
-	if enumValue == Enum.TouchCameraMovementMode.Follow or
-		enumValue == Enum.DevTouchCameraMovementMode.Follow or
-		enumValue == Enum.DevComputerCameraMovementMode.Follow or
-		enumValue == Enum.ComputerCameraMovementMode.Follow then
+	if
+		enumValue == Enum.TouchCameraMovementMode.Follow
+		or enumValue == Enum.DevTouchCameraMovementMode.Follow
+		or enumValue == Enum.DevComputerCameraMovementMode.Follow
+		or enumValue == Enum.ComputerCameraMovementMode.Follow
+	then
 		return Enum.ComputerCameraMovementMode.Follow
 	end
 
-	if enumValue == Enum.TouchCameraMovementMode.Orbital or
-		enumValue == Enum.DevTouchCameraMovementMode.Orbital or
-		enumValue == Enum.DevComputerCameraMovementMode.Orbital or
-		enumValue == Enum.ComputerCameraMovementMode.Orbital then
+	if
+		enumValue == Enum.TouchCameraMovementMode.Orbital
+		or enumValue == Enum.DevTouchCameraMovementMode.Orbital
+		or enumValue == Enum.DevComputerCameraMovementMode.Orbital
+		or enumValue == Enum.ComputerCameraMovementMode.Orbital
+	then
 		return Enum.ComputerCameraMovementMode.Orbital
 	end
 
-	if enumValue == Enum.ComputerCameraMovementMode.CameraToggle or
-		enumValue == Enum.DevComputerCameraMovementMode.CameraToggle then
+	if
+		enumValue == Enum.ComputerCameraMovementMode.CameraToggle
+		or enumValue == Enum.DevComputerCameraMovementMode.CameraToggle
+	then
 		return Enum.ComputerCameraMovementMode.CameraToggle
 	end
 
 	-- Note: Only the Dev versions of the Enums have UserChoice as an option
-	if enumValue == Enum.DevTouchCameraMovementMode.UserChoice or
-		enumValue == Enum.DevComputerCameraMovementMode.UserChoice then
+	if
+		enumValue == Enum.DevTouchCameraMovementMode.UserChoice
+		or enumValue == Enum.DevComputerCameraMovementMode.UserChoice
+	then
 		return Enum.DevComputerCameraMovementMode.UserChoice
 	end
 
@@ -306,4 +315,3 @@ function CameraUtils.restoreRotationType()
 end
 
 return CameraUtils
-

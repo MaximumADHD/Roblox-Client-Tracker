@@ -8,7 +8,6 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local useStyle = UIBlox.Core.Style.useStyle
 
 local AvatarPartViewport = require(script.Parent.AvatarPartViewport)
@@ -86,10 +85,7 @@ local function AvatarItemCard(props: Props)
 			Size = UDim2.new(1, 0, 0, 50),
 			TextColor3 = titleColor,
 			TextWrapped = true,
-			Font = if FFlagFoundationFontFaceMigration then nil else titleStyle.Font,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
-				else nil,
+			FontFace = normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font),
 			TextSize = titleStyle.RelativeSize * font.BaseSize,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 		}),

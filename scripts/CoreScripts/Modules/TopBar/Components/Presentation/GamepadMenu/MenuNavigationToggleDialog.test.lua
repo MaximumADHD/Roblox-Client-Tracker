@@ -31,9 +31,6 @@ local GamepadConnector = if ChromeEnabled and FFlagEnableConsoleExpControls
 	then require(Topbar.Components.GamepadConnector)
 	else nil :: never
 
-local FFlagLocalizeMenuNavigationToggleDialog =
-	require(CoreGui.RobloxGui.Modules.TopBar.Flags.FFlagLocalizeMenuNavigationToggleDialog)
-
 local MenuNavigationToggleDialog = require(script.Parent.MenuNavigationToggleDialog)
 
 local defaultStyle = {
@@ -106,16 +103,14 @@ it("should render the MenuNavigationToggleDialog", function()
 	local Icon = toggleDialog:FindFirstChild("Icon", true)
 	expect(Icon).toBeDefined()
 
-	if FFlagLocalizeMenuNavigationToggleDialog then
-		expect(LeftText.Text).toEqual("Some experiences require pressing")
-		expect(RightText.Text).toEqual("to toggle menu navigation")
+	expect(LeftText.Text).toEqual("Some experiences require pressing")
+	expect(RightText.Text).toEqual("to toggle menu navigation")
 
-		LocalizationService:SetRobloxLocaleId("es-es")
-		waitForEvents.act()
+	LocalizationService:SetRobloxLocaleId("es-es")
+	waitForEvents.act()
 
-		expect(LeftText.Text).toEqual("Algunas experiencias necesitan que presiones")
-		expect(RightText.Text).toEqual("para activar o desactivar el menú de navigación")
-	end
+	expect(LeftText.Text).toEqual("Algunas experiencias necesitan que presiones")
+	expect(RightText.Text).toEqual("para activar o desactivar el menú de navigación")
 
 	ReactRoblox.act(function()
 		root:render(nil)

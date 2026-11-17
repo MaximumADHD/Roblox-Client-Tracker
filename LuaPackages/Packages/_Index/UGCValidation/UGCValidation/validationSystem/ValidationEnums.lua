@@ -131,6 +131,7 @@ ValidationEnums.ValidationModule = {
 	ExtentsWithinParent = "ExtentsWithinParent",
 	IndividualMeshPartBoundsValid = "IndividualMeshPartBoundsValid",
 	MeshSizePropertyCorrect = "MeshSizePropertyCorrect",
+	NoMeshBelowFeet = "NoMeshBelowFeet",
 
 	-- Layered clothing exploits
 	LCDeformationWithinBounds = "LCDeformationWithinBounds",

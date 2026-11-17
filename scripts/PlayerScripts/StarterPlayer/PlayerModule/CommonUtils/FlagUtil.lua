@@ -6,7 +6,7 @@ export type FlagUtilType = {
 	getUserFlag: (string) -> boolean,
 }
 
-local FlagUtil: FlagUtilType = {} :: FlagUtilType;
+local FlagUtil: FlagUtilType = {} :: FlagUtilType
 
 function FlagUtil.getUserFlag(flagName)
 	local success, result = pcall(function()

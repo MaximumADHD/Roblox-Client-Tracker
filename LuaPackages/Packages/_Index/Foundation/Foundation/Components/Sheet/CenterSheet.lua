@@ -334,13 +334,10 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 								Position = UDim2.fromScale(0.5, 0.5),
 								tag = "col align-y-center anchor-center-center size-full padding-medium",
 								testId = `{props.testId}--center-sheet-container`,
-								onAbsoluteSizeChanged = if Flags.FoundationCenterSheetHeightFix
-										or (props.centerSheetHeight and setMaxAvailableHeight)
-									then function(rbx: GuiObject)
-										local padding = tokens.Margin.Medium * 2
-										setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
-									end
-									else nil,
+								onAbsoluteSizeChanged = function(rbx: GuiObject)
+									local padding = tokens.Margin.Medium * 2
+									setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
+								end,
 							}, nil),
 						})
 						else nil,
@@ -362,13 +359,10 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 									return value / animationOffset
 								end)
 								else nil,
-							onAbsoluteSizeChanged = if Flags.FoundationCenterSheetHeightFix
-									or (props.centerSheetHeight and setMaxAvailableHeight)
-								then function(rbx: GuiObject)
-									local padding = tokens.Margin.Medium * 2
-									setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
-								end
-								else nil,
+							onAbsoluteSizeChanged = function(rbx: GuiObject)
+								local padding = tokens.Margin.Medium * 2
+								setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
+							end,
 						}, nil),
 					Backdrop = if Flags.FoundationCenterSheetInternalBackdrop
 						then React.createElement(Backdrop, {

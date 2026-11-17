@@ -9,6 +9,8 @@ local getFFlagUGCValidateAQDynamicHeadMLHybridShadow =
 	require(root.flags.getFFlagUGCValidateAQDynamicHeadMLHybridShadow)
 local getFFlagUGCValidateAQDynamicHeadMLHybridNewFacsMessages =
 	require(root.flags.getFFlagUGCValidateAQDynamicHeadMLHybridNewFacsMessages)
+local getFFlagUGCValidateAQDynamicHeadMLHybridWarnings =
+	require(root.flags.getFFlagUGCValidateAQDynamicHeadMLHybridWarnings)
 local getFIntUGCValidationDynamicHeadMLEyesMinScorePerMillion =
 	require(root.flags.getFIntUGCValidationDynamicHeadMLEyesMinScorePerMillion)
 local getFIntUGCValidationDynamicHeadMLMouthMinScorePerMillion =
@@ -156,6 +158,25 @@ local function checkAnimationQuality(reporter: Types.ValidationReporter, meshSco
 	return true
 end
 
+-- Same warning, parameters and trigger (AQS score below 100) as Measure_Dynamic_Head, filled from step2b.
+-- step2b writes its metrics only when it ran, so there is nothing to report before that.
+local function warnExpressionQuality(reporter: Types.ValidationReporter, meshScores: { [string]: string })
+	if meshScores.step2b_status ~= STAGE_COMPLETED or meshScores.score == nil or tonumber(meshScores.score) == 100 then
+		return
+	end
+
+	local function formatMetric(field: string): string
+		return string.format("%.2f", tonumber(meshScores[field]) or 0)
+	end
+	reporter:warn(ErrorSourceStrings.Keys.AQSWarn_DynamicHead, {
+		left_eye_close = formatMetric("step2b_deformation_left_eye_close"),
+		right_eye_close = formatMetric("step2b_deformation_right_eye_close"),
+		mouth_open = formatMetric("step2b_deformation_mouth_open"),
+		is_happy = formatMetric("step2b_deformation_happy"),
+		is_sad = formatMetric("step2b_deformation_sad"),
+	})
+end
+
 local stageChecks = {
 	checkFacialFeatures,
 	checkCageLandmarks,
@@ -180,6 +201,10 @@ Measure_Dynamic_Head_ML_Hybrid.run = function(reporter: Types.ValidationReporter
 			if not checkStage(reporter, meshScores :: any) then
 				break
 			end
+		end
+
+		if getFFlagUGCValidateAQDynamicHeadMLHybridWarnings() then
+			warnExpressionQuality(reporter, meshScores :: any)
 		end
 	end
 

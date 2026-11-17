@@ -14,7 +14,6 @@ Measure_Cage_UV.categories = {
 	ValidationEnums.UploadCategory.LAYERED_CLOTHING,
 	ValidationEnums.UploadCategory.EYEBROW_EYELASH,
 }
-Measure_Cage_UV.fflag = require(root.flags.getFFlagUGCValidateAQCageQualityLC)
 
 local cageNames = {
 	"Handle_InnerCage",

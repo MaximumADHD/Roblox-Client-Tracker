@@ -9,8 +9,8 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserFixOrbitalCameraAzimuth = FlagUtil.getUserFlag("UserFixOrbitalCameraAzimuth")
 
 -- Local private variables and constants
-local UNIT_Z = Vector3.new(0,0,1)
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
+local UNIT_Z = Vector3.new(0, 0, 1)
+local ZERO_VECTOR3 = Vector3.new(0, 0, 0)
 local TAU = 2 * math.pi
 
 -- Do not edit these values, they are not the developer-set limits, they are limits
@@ -21,14 +21,15 @@ local MAX_ALLOWED_ELEVATION_DEG = 80
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 
---[[ Services ]]--
-local PlayersService = game:GetService('Players')
+--[[ Services ]]
+--
+local PlayersService = game:GetService("Players")
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
 local OrbitalCamera = setmetatable({}, BaseCamera)
 OrbitalCamera.__index = OrbitalCamera
-
 
 function OrbitalCamera.new()
 	local self = setmetatable(BaseCamera.new(), OrbitalCamera)
@@ -54,16 +55,16 @@ function OrbitalCamera.new()
 	self.lastUserPanCamera = tick()
 
 	self.externalProperties = {}
-	self.externalProperties["InitialDistance"] 	= 25
-	self.externalProperties["MinDistance"] 		= 10
-	self.externalProperties["MaxDistance"] 		= 100
-	self.externalProperties["InitialElevation"] 	= 35
-	self.externalProperties["MinElevation"] 		= 35
-	self.externalProperties["MaxElevation"] 		= 35
-	self.externalProperties["ReferenceAzimuth"] 	= -45	-- Angle around the Y axis where the camera starts. -45 offsets the camera in the -X and +Z directions equally
-	self.externalProperties["CWAzimuthTravel"] 	= 90	-- How many degrees the camera is allowed to rotate from the reference position, CW as seen from above
-	self.externalProperties["CCWAzimuthTravel"] 	= 90	-- How many degrees the camera is allowed to rotate from the reference position, CCW as seen from above
-	self.externalProperties["UseAzimuthLimits"] 	= false -- Full rotation around Y axis available by default
+	self.externalProperties["InitialDistance"] = 25
+	self.externalProperties["MinDistance"] = 10
+	self.externalProperties["MaxDistance"] = 100
+	self.externalProperties["InitialElevation"] = 35
+	self.externalProperties["MinElevation"] = 35
+	self.externalProperties["MaxElevation"] = 35
+	self.externalProperties["ReferenceAzimuth"] = -45 -- Angle around the Y axis where the camera starts. -45 offsets the camera in the -X and +Z directions equally
+	self.externalProperties["CWAzimuthTravel"] = 90 -- How many degrees the camera is allowed to rotate from the reference position, CW as seen from above
+	self.externalProperties["CCWAzimuthTravel"] = 90 -- How many degrees the camera is allowed to rotate from the reference position, CCW as seen from above
+	self.externalProperties["UseAzimuthLimits"] = false -- Full rotation around Y axis available by default
 	self:LoadNumberValueParameters()
 
 	return self
@@ -97,8 +98,10 @@ function OrbitalCamera:LoadOrCreateNumberValueParameter(name: string, valueType,
 end
 
 function OrbitalCamera:SetAndBoundsCheckAzimuthValues()
-	self.minAzimuthAbsoluteRad = math.rad(self.externalProperties["ReferenceAzimuth"]) - math.abs(math.rad(self.externalProperties["CWAzimuthTravel"]))
-	self.maxAzimuthAbsoluteRad = math.rad(self.externalProperties["ReferenceAzimuth"]) + math.abs(math.rad(self.externalProperties["CCWAzimuthTravel"]))
+	self.minAzimuthAbsoluteRad = math.rad(self.externalProperties["ReferenceAzimuth"])
+		- math.abs(math.rad(self.externalProperties["CWAzimuthTravel"]))
+	self.maxAzimuthAbsoluteRad = math.rad(self.externalProperties["ReferenceAzimuth"])
+		+ math.abs(math.rad(self.externalProperties["CCWAzimuthTravel"]))
 	self.useAzimuthLimits = self.externalProperties["UseAzimuthLimits"]
 	if self.useAzimuthLimits then
 		self.curAzimuthRad = math.max(self.curAzimuthRad, self.minAzimuthAbsoluteRad)
@@ -136,8 +139,13 @@ function OrbitalCamera:LoadNumberValueParameters()
 	self:LoadOrCreateNumberValueParameter("InitialDistance", "NumberValue", nil)
 
 	-- Note: ReferenceAzimuth is also used as an initial value, but needs a change listener because it is used in the calculation of the limits
-	self:LoadOrCreateNumberValueParameter("ReferenceAzimuth", "NumberValue",
-		if FFlagUserFixOrbitalCameraAzimuth then self.SetAndBoundsCheckAzimuthValues else self.SetAndBoundsCheckAzimuthValue)
+	self:LoadOrCreateNumberValueParameter(
+		"ReferenceAzimuth",
+		"NumberValue",
+		if FFlagUserFixOrbitalCameraAzimuth
+			then self.SetAndBoundsCheckAzimuthValues
+			else self.SetAndBoundsCheckAzimuthValue
+	)
 	self:LoadOrCreateNumberValueParameter("CWAzimuthTravel", "NumberValue", self.SetAndBoundsCheckAzimuthValues)
 	self:LoadOrCreateNumberValueParameter("CCWAzimuthTravel", "NumberValue", self.SetAndBoundsCheckAzimuthValues)
 	self:LoadOrCreateNumberValueParameter("MinElevation", "NumberValue", self.SetAndBoundsCheckElevationValues)
@@ -160,7 +168,8 @@ function OrbitalCamera:GetModuleName()
 	return "OrbitalCamera"
 end
 
---[[ Functions of BaseCamera that are overridden by OrbitalCamera ]]--
+--[[ Functions of BaseCamera that are overridden by OrbitalCamera ]]
+--
 function OrbitalCamera:GetCameraToSubjectDistance()
 	return self.curDistance
 end
@@ -181,10 +190,18 @@ end
 function OrbitalCamera:CalculateNewLookVector(suppliedLookVector: Vector3, xyRotateVector: Vector2): Vector3
 	local currLookVector: Vector3 = suppliedLookVector or self:GetCameraLookVector()
 	local currPitchAngle: number = math.asin(currLookVector.Y)
-	local yTheta: number = math.clamp(xyRotateVector.Y, currPitchAngle - math.rad(MAX_ALLOWED_ELEVATION_DEG), currPitchAngle - math.rad(MIN_ALLOWED_ELEVATION_DEG))
+	local yTheta: number = math.clamp(
+		xyRotateVector.Y,
+		currPitchAngle - math.rad(MAX_ALLOWED_ELEVATION_DEG),
+		currPitchAngle - math.rad(MIN_ALLOWED_ELEVATION_DEG)
+	)
 	local constrainedRotateInput: Vector2 = Vector2.new(xyRotateVector.X, yTheta)
 	local startCFrame: CFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
-	local newLookVector: Vector3 = (CFrame.Angles(0, -constrainedRotateInput.X, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.Y,0,0)).LookVector
+	local newLookVector: Vector3 = (CFrame.Angles(0, -constrainedRotateInput.X, 0) * startCFrame * CFrame.Angles(
+		-constrainedRotateInput.Y,
+		0,
+		0
+	)).LookVector
 	return newLookVector
 end
 
@@ -193,13 +210,13 @@ function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
 	local userPanningTheCamera = CameraInput.getRotation(dt) ~= Vector2.new()
-	local camera = 	workspace.CurrentCamera
+	local camera = workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
 	local player = PlayersService.LocalPlayer
 	local cameraSubject = camera and camera.CameraSubject
-	local isInVehicle = cameraSubject and cameraSubject:IsA('VehicleSeat')
-	local isOnASkateboard = cameraSubject and cameraSubject:IsA('SkateboardPlatform')
+	local isInVehicle = cameraSubject and cameraSubject:IsA("VehicleSeat")
+	local isOnASkateboard = cameraSubject and cameraSubject:IsA("SkateboardPlatform")
 
 	if self.lastUpdate == nil or timeDelta > 1 then
 		self.lastCameraTransform = nil
@@ -213,7 +230,6 @@ function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 	local subjectPosition = self:GetSubjectPosition()
 
 	if subjectPosition and player and camera then
-
 		-- Process any dollying being done by gamepad
 		-- TODO: Move this
 		if self.gamepadDollySpeedMultiplier ~= 1 then
@@ -230,19 +246,23 @@ function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 		if self.useAzimuthLimits then
 			self.curAzimuthRad = math.clamp(self.curAzimuthRad, self.minAzimuthAbsoluteRad, self.maxAzimuthAbsoluteRad)
 		else
-			self.curAzimuthRad = (self.curAzimuthRad ~= 0) and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU)) or 0
+			self.curAzimuthRad = (self.curAzimuthRad ~= 0)
+					and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU))
+				or 0
 		end
 
-		self.curElevationRad = math.clamp(self.curElevationRad + flaggedRotateInput.Y, self.minElevationRad, self.maxElevationRad)
+		self.curElevationRad =
+			math.clamp(self.curElevationRad + flaggedRotateInput.Y, self.minElevationRad, self.maxElevationRad)
 
-		local cameraPosVector = self.currentSubjectDistance * ( CFrame.fromEulerAnglesYXZ( -self.curElevationRad, self.curAzimuthRad, 0 ) * UNIT_Z )
+		local cameraPosVector = self.currentSubjectDistance
+			* (CFrame.fromEulerAnglesYXZ(-self.curElevationRad, self.curAzimuthRad, 0) * UNIT_Z)
 		local camPos = subjectPosition + cameraPosVector
 
 		newCameraCFrame = CFrame.new(camPos, subjectPosition)
 
 		self.lastCameraTransform = newCameraCFrame
 		self.lastCameraFocus = newCameraFocus
-		if (isInVehicle or isOnASkateboard) and cameraSubject:IsA('BasePart') then
+		if (isInVehicle or isOnASkateboard) and cameraSubject:IsA("BasePart") then
 			self.lastSubjectCFrame = cameraSubject.CFrame
 		else
 			self.lastSubjectCFrame = nil

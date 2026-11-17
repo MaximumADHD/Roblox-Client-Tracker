@@ -20,13 +20,15 @@ local function usePanel(props: {
 	depth: number?,
 	parentPopoverId: string?,
 	isFocusable: boolean?,
+	initialSize: Vector2?,
 	registerPanelAsync: (
 		anchorUri: StudioUri,
 		position: PanelPosition,
 		onClose: () -> (),
 		depth: number?,
 		parentPopoverId: string?,
-		isFocusable: boolean?
+		isFocusable: boolean?,
+		initialSize: Vector2?
 	) -> (PanelHandle, () -> ()),
 })
 	local closePanelRef = React.useRef(nil :: (() -> ())?)
@@ -36,6 +38,7 @@ local function usePanel(props: {
 		depth = props.depth,
 		parentPopoverId = props.parentPopoverId,
 		isFocusable = if Flags.FoundationPopoverPluginFocusable then props.isFocusable else nil :: never,
+		initialSize = if Flags.FoundationPopoverPluginPoolReclaim then props.initialSize else nil :: never,
 	})
 
 	-- These functions MUST be stable, otherwise the popover will be closed
@@ -48,70 +51,45 @@ local function usePanel(props: {
 	stableRegisterPanelAsync.current = props.registerPanelAsync
 
 	local panel
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		local forceClosed, setForceClosed = React.useState(false)
+	local forceClosed, setForceClosed = React.useState(false)
 
-		local handleExternalClose = React.useCallback(function()
-			setForceClosed(true)
-			stableOnClose.current()
-		end, {})
+	local handleExternalClose = React.useCallback(function()
+		setForceClosed(true)
+		stableOnClose.current()
+	end, {})
 
-		local registeredPanelAsyncState = ReactUtils.useAsync(function(): PanelHandle?
-			if props.isOpen and not forceClosed then
-				local panelHandler, onClose = stableRegisterPanelAsync.current(
-					registerPropsRef.current.anchorUri,
-					registerPropsRef.current.position,
-					handleExternalClose,
-					registerPropsRef.current.depth,
-					registerPropsRef.current.parentPopoverId,
-					if Flags.FoundationPopoverPluginFocusable then registerPropsRef.current.isFocusable else nil
-				)
-				closePanelRef.current = onClose
-				return panelHandler
-			end
+	local registeredPanelAsyncState = ReactUtils.useAsync(function(): PanelHandle?
+		if props.isOpen and not forceClosed then
+			local panelHandler, onClose = stableRegisterPanelAsync.current(
+				registerPropsRef.current.anchorUri,
+				registerPropsRef.current.position,
+				handleExternalClose,
+				registerPropsRef.current.depth,
+				registerPropsRef.current.parentPopoverId,
+				if Flags.FoundationPopoverPluginFocusable then registerPropsRef.current.isFocusable else nil,
+				if Flags.FoundationPopoverPluginPoolReclaim then registerPropsRef.current.initialSize else nil
+			)
+			closePanelRef.current = onClose
+			return panelHandler
+		end
 
-			if closePanelRef.current then
-				closePanelRef.current()
-				closePanelRef.current = nil
-			end
+		if closePanelRef.current then
+			closePanelRef.current()
+			closePanelRef.current = nil
+		end
 
-			return nil
-		end, { props.isOpen, registerPropsRef, forceClosed } :: { unknown })
+		return nil
+	end, { props.isOpen, registerPropsRef, forceClosed } :: { unknown })
 
-		panel = if not forceClosed and registeredPanelAsyncState.status == "ok"
-			then registeredPanelAsyncState.value
-			else nil
+	panel = if not forceClosed and registeredPanelAsyncState.status == "ok"
+		then registeredPanelAsyncState.value
+		else nil
 
-		React.useEffect(function()
-			if not props.isOpen then
-				setForceClosed(false)
-			end
-		end, { props.isOpen })
-	else
-		local registeredPanelAsyncState = ReactUtils.useAsync(function(): PanelHandle?
-			if props.isOpen then
-				local panelHandler, onClose = stableRegisterPanelAsync.current(
-					registerPropsRef.current.anchorUri,
-					registerPropsRef.current.position,
-					stableOnClose.current,
-					registerPropsRef.current.depth,
-					registerPropsRef.current.parentPopoverId,
-					if Flags.FoundationPopoverPluginFocusable then registerPropsRef.current.isFocusable else nil
-				)
-				closePanelRef.current = onClose
-				return panelHandler
-			end
-
-			if closePanelRef.current then
-				closePanelRef.current()
-				closePanelRef.current = nil
-			end
-
-			return nil
-		end, { props.isOpen, registerPropsRef } :: { unknown })
-
-		panel = if registeredPanelAsyncState.status == "ok" then registeredPanelAsyncState.value else nil
-	end
+	React.useEffect(function()
+		if not props.isOpen then
+			setForceClosed(false)
+		end
+	end, { props.isOpen })
 
 	ReactUtils.useAsync(function()
 		if not panel then

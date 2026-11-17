@@ -28,6 +28,7 @@ local ChromeUtils = require(script.Parent.ChromeUtils)
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableSideSheetWidgets = SharedFlags.FFlagEnableSideSheetWidgets
+local FFlagSideSheetUnifiedMenuOrder = SharedFlags.FFlagSideSheetUnifiedMenuOrder
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 
@@ -362,8 +363,14 @@ if isSideSheetEnabled then
 
 			local calls = registerSideSheetIntegrationsMock.mock.calls
 			local integrations = calls[#calls][1]
-			expect(integrations.aboveFoldIntegrations[1].id).toBe("above")
-			expect(integrations.belowFoldIntegrations[1].id).toBe("below")
+			if FFlagSideSheetUnifiedMenuOrder then
+				expect(integrations.aboveFoldIntegrations[1]).toBeNil()
+				expect(integrations.belowFoldIntegrations[1].id).toBe("above")
+				expect(integrations.belowFoldIntegrations[2].id).toBe("below")
+			else
+				expect(integrations.aboveFoldIntegrations[1].id).toBe("above")
+				expect(integrations.belowFoldIntegrations[1].id).toBe("below")
+			end
 		end)
 	end)
 end

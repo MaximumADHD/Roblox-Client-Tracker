@@ -1,7 +1,6 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
-local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
@@ -14,8 +13,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
@@ -81,7 +78,7 @@ function ConfirmationDialog:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Theme = {
 				Overlay = {
 					Color = tokens.Color.Common.Scrim.Color3,
@@ -105,24 +102,15 @@ function ConfirmationDialog:render()
 			},
 		}
 	end, function(style)
-		local bodyFont = style.Font.Body.Font
 		local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
 		local bodyText = props.bodyText
-		local textHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				bodyText,
-				bodyFontSize,
-				style.Tokens.Typography.BodyLarge.Font,
-				Vector2.new(335 - 20 - 20, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				bodyText,
-				bodyFontSize,
-				bodyFont,
-				-- 335 (width) - 20px padding on left and right
-				Vector2.new(335 - 20 - 20, math.huge)
-			).Y
+		local textHeight = GetTextSize(
+			bodyText,
+			bodyFontSize,
+			style.Tokens.Typography.BodyLarge.Font,
+			Vector2.new(335 - 20 - 20, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
 
 		-- 20px padding top, 20px padding bottom
 		-- Minimum height of two lines of text.

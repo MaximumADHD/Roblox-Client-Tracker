@@ -1,5 +1,10 @@
 --!nonstrict
 
+local CorePackages = game:GetService("CorePackages")
+
+local FFlagAXSpawnEffectSaveRoundTrip =
+	require(CorePackages.Workspace.Packages.AvatarExperienceFlags).FFlagAXSpawnEffectSaveRoundTrip
+
 local HumanoidDescriptionAssetProperties = {
 	"ClimbAnimation",
 	"Face",
@@ -41,7 +46,12 @@ return function(humanoidDescription)
 
 	local humanoidDescriptionChildren = humanoidDescription:GetChildren()
 	for _, child in humanoidDescriptionChildren do
-		if not child:IsA("MakeupDescription") then
+		if
+			not (
+				child:IsA("MakeupDescription")
+				or (FFlagAXSpawnEffectSaveRoundTrip and child:IsA("AvatarEffectDescription"))
+			)
+		then
 			continue
 		end
 

@@ -14,6 +14,7 @@
 local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
+local getFFlagUGCValidateAQSRequiresOnlySummary = require(root.flags.getFFlagUGCValidateAQSRequiresOnlySummary)
 
 local validationFolders = root.validationFolders
 local assetQualityFolders = root.assetQualityFolders
@@ -107,7 +108,10 @@ for testEnum, sourceFolder in testEnumToSourceFolder do
 	valModule.isAssetQualityModule = sourceFolder == assetQualityFolders
 
 	if valModule.isAssetQualityModule then
-		for _, dataEnum in requiredDatasForAllAQSCalls do
+		local aqsRequiredData = if getFFlagUGCValidateAQSRequiresOnlySummary()
+			then { ValidationEnums.SharedDataMember.aqsSummaryData }
+			else requiredDatasForAllAQSCalls
+		for _, dataEnum in aqsRequiredData do
 			if not table.find(valModule.requiredData, dataEnum) then
 				table.insert(valModule.requiredData, dataEnum)
 			end

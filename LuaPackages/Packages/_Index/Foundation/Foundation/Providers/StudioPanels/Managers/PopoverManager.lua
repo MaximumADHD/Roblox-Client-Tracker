@@ -33,6 +33,8 @@ type Popover = {
 	generation: number,
 	parentPopoverId: string?, -- nil for root popovers
 	onClose: (() -> ())?,
+	-- Thread running openAtAsync for this popover; nil once the open finishes.
+	openingThread: thread?,
 }
 
 local function isStrictDescendantOf(active: { [string]: Popover }, ancestor: Popover, descendant: Popover): boolean
@@ -79,6 +81,9 @@ function PopoverManager.new(plugin: Plugin, uriScope: string?)
 	self._active = {} :: { [string]: Popover }
 	self._pool = {} :: { [number]: { Popover } }
 	self._didPrewarm = false
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		self._destroyed = false
+	end
 
 	return self
 end
@@ -97,6 +102,7 @@ export type PopoverManager = typeof(PopoverManager.new(...))
 	@param depth -- Nesting depth for QWidget ZIndex ordering. Defaults to 0.
 	@param parentPopoverId -- Immediate parent panel id for tree-scoped child dismissal.
 	@param isFocusable -- Whether the QWidget should accept keyboard focus.
+	@param initialSize -- Optional widget size applied before enabling the panel. Defaults to zero.
 	@return PanelHandle for the opened popover.
 ]]
 function PopoverManager.openAtAsync(
@@ -105,7 +111,8 @@ function PopoverManager.openAtAsync(
 	onClose: (() -> ())?,
 	depth: number?,
 	parentPopoverId: string?,
-	isFocusable: boolean?
+	isFocusable: boolean?,
+	initialSize: Vector2?
 ): PanelHandle
 	local resolvedDepth = if depth == nil then 0 else depth
 	local resolvedIsFocusable = if Flags.FoundationPopoverPluginFocusable then isFocusable == true else false
@@ -120,13 +127,82 @@ function PopoverManager.openAtAsync(
 		SubjectAnchorPoint = config.subjectAnchorPoint,
 		Offset = config.offset,
 	})
-	self._panels:SetSizeAsync(popover.uri, Vector2.new(0, 0))
+	local initialPanelSize: Vector2? = nil
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		local requestedSize = initialSize or Vector2.new(0, 0)
+		initialPanelSize =
+			Vector2.new(math.ceil(math.min(MAX_SIZE, requestedSize.X)), math.ceil(math.min(MAX_SIZE, requestedSize.Y)))
+		self._panels:SetSizeAsync(popover.uri, initialPanelSize)
+	else
+		self._panels:SetSizeAsync(popover.uri, Vector2.new(0, 0))
+	end
 
 	popover.panel.Enabled = true
 	popover.open = true
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		popover.openingThread = nil
+	end
 
 	local handle: PanelHandle
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		local generation = popover.generation
+		local lastConfig = table.clone(config) :: (PanelPosition & { targetWidgetUri: StudioUri })?
+		local lastSize: Vector2? = initialPanelSize
+		local attachmentRevision = 0
+		local sizeRevision = 0
+		handle = {
+			container = popover.panel,
+			popoverId = popover.id,
+			setSizeAsync = function(newSize: Vector2)
+				if popover.generation ~= generation or not popover.open then
+					return
+				end
+				local clampedSize =
+					Vector2.new(math.ceil(math.min(MAX_SIZE, newSize.X)), math.ceil(math.min(MAX_SIZE, newSize.Y)))
+				if lastSize == clampedSize then
+					return
+				end
+				-- A canceled call can still reach Studio, so its cached value cannot be trusted.
+				lastSize = nil
+				sizeRevision += 1
+				local revision = sizeRevision
+				self._panels:SetSizeAsync(popover.uri, clampedSize)
+				if sizeRevision == revision then
+					lastSize = clampedSize
+				end
+			end,
+			updateAsync = function(newConfig: PanelPosition & { targetWidgetUri: StudioUri })
+				if popover.generation ~= generation or not popover.open then
+					return
+				end
+				if
+					lastConfig
+					and StudioUri.equals(lastConfig.targetWidgetUri, newConfig.targetWidgetUri)
+					and lastConfig.targetAnchorPoint == newConfig.targetAnchorPoint
+					and lastConfig.subjectAnchorPoint == newConfig.subjectAnchorPoint
+					and lastConfig.offset == newConfig.offset
+				then
+					return
+				end
+				local nextConfig = table.clone(newConfig)
+				lastConfig = nil
+				attachmentRevision += 1
+				local revision = attachmentRevision
+				self._panels:SetAttachmentAsync(popover.uri, {
+					TargetWidgetUri = nextConfig.targetWidgetUri,
+					TargetAnchorPoint = nextConfig.targetAnchorPoint,
+					SubjectAnchorPoint = nextConfig.subjectAnchorPoint,
+					Offset = nextConfig.offset,
+				})
+				if attachmentRevision == revision then
+					lastConfig = nextConfig
+				end
+			end,
+			close = function()
+				self:_closePopover(popover, true, generation)
+			end,
+		}
+	else
 		local generation = popover.generation
 		handle = {
 			container = popover.panel,
@@ -155,31 +231,6 @@ function PopoverManager.openAtAsync(
 				self:_closePopover(popover, true, generation)
 			end,
 		}
-	else
-		handle = {
-			container = popover.panel,
-			popoverId = popover.id,
-			setSizeAsync = function(size: Vector2)
-				local width = math.ceil(math.min(MAX_SIZE, size.X))
-				local height = math.ceil(math.min(MAX_SIZE, size.Y))
-				self._panels:SetSizeAsync(popover.uri, Vector2.new(width, height))
-			end,
-			updateAsync = function(newConfig: PanelPosition & { targetWidgetUri: StudioUri })
-				if not popover.uri then
-					return
-				end
-
-				self._panels:SetAttachmentAsync(popover.uri, {
-					TargetWidgetUri = newConfig.targetWidgetUri,
-					TargetAnchorPoint = newConfig.targetAnchorPoint,
-					SubjectAnchorPoint = newConfig.subjectAnchorPoint,
-					Offset = newConfig.offset,
-				})
-			end,
-			close = function()
-				self:_closePopover(popover, true)
-			end,
-		}
 	end
 
 	return handle
@@ -198,7 +249,10 @@ function PopoverManager._createPanelAsync(
 ): (PluginGui, StudioUri)
 	local panel = self._plugin:CreateQWidgetPluginGui(id, {
 		Id = id,
-		InitialEnabled = true,
+		-- Studio shows the widget as a QDialog, and Qt centers a QDialog that is
+		-- shown before it has a position. A widget that starts enabled flashes in
+		-- the center of the screen until the attachment moves it.
+		InitialEnabled = if Flags.FoundationPopoverPluginPoolReclaim then false else true,
 		Tooltip = true,
 		Focusable = if Flags.FoundationPopoverPluginFocusable then isFocusable else nil :: never,
 		Transparent = true,
@@ -226,6 +280,12 @@ function PopoverManager._createPopoverAsync(
 	isFocusable: boolean
 ): Popover
 	local panel, uri = self:_createPanelAsync(id, depth, isFocusable)
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		if self._destroyed then
+			panel:Destroy()
+			error("PopoverManager is destroyed")
+		end
+	end
 	local newPopover: Popover = {
 		id = id,
 		uri = uri,
@@ -239,11 +299,7 @@ function PopoverManager._createPopoverAsync(
 	}
 
 	bindToClose(panel, function()
-		if Flags.FoundationPopoverPluginOverlayMeasurement then
-			self:_closePopover(newPopover, false, newPopover.generation)
-		else
-			self:_closePopover(newPopover)
-		end
+		self:_closePopover(newPopover, false, newPopover.generation)
 	end)
 
 	-- WindowFocused does not fire for QWidgets created with Tooltip = true
@@ -263,19 +319,80 @@ function PopoverManager._createPopoverAsync(
 	return newPopover
 end
 
+function PopoverManager._createTrackedPopoverAsync(
+	self: PopoverManager,
+	id: string,
+	depth: number,
+	isFocusable: boolean
+): Popover
+	local openingThread = coroutine.running()
+	local completed = false
+	local waiting = false
+	local success = false
+	local result: any
+	-- Native creation must finish even if the caller is canceled so its widget can be reclaimed.
+	task.spawn(function()
+		success, result = pcall(self._createPopoverAsync, self, id, depth, isFocusable)
+		completed = true
+		if success then
+			local popover: Popover = result
+			popover.openingThread = openingThread
+			self._active[id] = popover
+			if coroutine.status(openingThread) == "dead" then
+				self:_closePopover(popover, true, popover.generation)
+			end
+		end
+		if waiting and coroutine.status(openingThread) == "suspended" then
+			task.spawn(openingThread)
+		end
+	end)
+	if not completed then
+		waiting = true
+		coroutine.yield()
+	end
+	if not success then
+		error(result)
+	end
+	self._active[id] = nil
+	result.openingThread = nil
+	return result
+end
+
 function PopoverManager._activatePopover(
 	self: PopoverManager,
 	popover: Popover,
 	onClose: (() -> ())?,
 	parentPopoverId: string?
 )
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		popover.generation += 1
-	end
+	popover.generation += 1
 	popover.onClose = onClose
 	popover.parentPopoverId = parentPopoverId
 	popover.open = false
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		popover.openingThread = coroutine.running()
+	end
 	self._active[popover.id] = popover
+end
+
+--[[
+	Returns popovers to the pool when the thread that was opening them died
+	before the open finished. usePanel runs openAtAsync in a thread that it
+	cancels when the popover is no longer wanted, and that can happen while
+	SetAttachmentAsync yields. The caller never receives a handle for such a
+	popover, so nothing else would close it, and every later open would have
+	to create a new QWidget.
+]]
+function PopoverManager._reclaimAbandonedPopovers(self: PopoverManager)
+	local abandoned = {}
+	for _, popover in self._active do
+		local thread = popover.openingThread
+		if thread and coroutine.status(thread) == "dead" then
+			table.insert(abandoned, popover)
+		end
+	end
+	for _, popover in abandoned do
+		self:_closePopover(popover, true, popover.generation)
+	end
 end
 
 --[[
@@ -323,13 +440,22 @@ function PopoverManager._acquirePanelAsync(
 	parentPopoverId: string?,
 	isFocusable: boolean
 ): Popover
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		if self._destroyed then
+			error("PopoverManager is destroyed")
+		end
+		self:_reclaimAbandonedPopovers()
+	end
+
 	local pooled = self:_tryAcquireFromPool(onClose, depth, parentPopoverId, isFocusable)
 	if pooled then
 		return pooled
 	end
 
 	local id = self:_makePopoverId()
-	local newPopover = self:_createPopoverAsync(id, depth, isFocusable)
+	local newPopover = if Flags.FoundationPopoverPluginPoolReclaim
+		then self:_createTrackedPopoverAsync(id, depth, isFocusable)
+		else self:_createPopoverAsync(id, depth, isFocusable)
 	self:_activatePopover(newPopover, onClose, parentPopoverId)
 	return newPopover
 end
@@ -339,6 +465,11 @@ end
 	Uses a guard to avoid creating extra widgets if called multiple times.
 ]]
 function PopoverManager.prewarmPoolAsync(self: PopoverManager, maxDepth: number)
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		if self._destroyed then
+			return
+		end
+	end
 	if self._didPrewarm then
 		return
 	end
@@ -352,7 +483,9 @@ function PopoverManager.prewarmPoolAsync(self: PopoverManager, maxDepth: number)
 		local depthPool = self._pool[depth] -- Guarnateed to exist
 		if #depthPool == 0 then
 			-- Focusable popovers are opt-in and created on demand to avoid doubling the prewarmed QWidgets.
-			local popover = self:_createPopoverAsync(self:_makePopoverId(), depth, false)
+			local popover = if Flags.FoundationPopoverPluginPoolReclaim
+				then self:_createTrackedPopoverAsync(self:_makePopoverId(), depth, false)
+				else self:_createPopoverAsync(self:_makePopoverId(), depth, false)
 			popover.panel.Enabled = false
 			table.insert(depthPool, popover)
 		end
@@ -397,10 +530,34 @@ function PopoverManager._closePopover(
 	silent: boolean?,
 	expectedGeneration: number?
 )
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		if expectedGeneration ~= nil and popover.generation ~= expectedGeneration then
+	if expectedGeneration ~= nil and popover.generation ~= expectedGeneration then
+		return
+	end
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		if self._active[popover.id] ~= popover then
 			return
 		end
+		local openingThread = popover.openingThread
+		if openingThread then
+			if coroutine.status(openingThread) == "suspended" then
+				task.cancel(openingThread)
+			end
+			popover.openingThread = nil
+		end
+		popover.open = false
+		popover.panel.Enabled = false
+		self._active[popover.id] = nil
+		local onClose = popover.onClose
+		popover.onClose = nil
+		local depth = popover.depth
+		if not self._pool[depth] then
+			self._pool[depth] = {}
+		end
+		table.insert(self._pool[depth], popover)
+		if not silent and onClose then
+			onClose()
+		end
+		return
 	end
 	if not popover.open then
 		return
@@ -440,6 +597,10 @@ end
 	pooled). The manager should not be used after this call.
 ]]
 function PopoverManager.destroy(self: PopoverManager)
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		self._destroyed = true
+		self:_reclaimAbandonedPopovers()
+	end
 	self:closeAll()
 
 	for _, depthPool in self._pool do

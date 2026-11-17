@@ -11,9 +11,9 @@
 	routes by passing a type and never looks a builder up itself.
 
 	Builder authoring helpers (avatarFloorPosition, frameCamera, cameraPath,
-	avatarBackground, avatarRig, createPlayhead, loadAsset) are not re-exported
-	either. Recipes require them from Builders/_Utils; a host never frames or
-	poses anything itself, so exporting them only invites it to.
+	avatarBackground, avatarRig, createPlayhead, loadAsset, applyDefaultClothing)
+	are not re-exported either. Recipes require them from Builders/_Utils; a host
+	never frames or poses anything itself, so exporting them only invites it to.
 
 	README.md carries the worked example for each host. Keeping it in one place
 	means the two cannot drift.

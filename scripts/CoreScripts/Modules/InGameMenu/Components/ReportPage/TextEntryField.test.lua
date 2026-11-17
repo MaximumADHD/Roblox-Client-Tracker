@@ -19,7 +19,6 @@ local InGameMenu = script.Parent.Parent.Parent
 local Localization = require(InGameMenu.Localization.Localization)
 local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 local reducer = require(InGameMenu.reducer)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local foundationTypography = Foundation.Utility.getTokens(Foundation.Enums.ColorMode.Dark).Typography
 local Style = require(CorePackages.Workspace.Packages.Style)
 local getTextSizeSpy = jest.spyOn(Style, "GetTextSize")
@@ -64,10 +63,7 @@ it("should create and destroy without errors", function()
 	})
 
 	local instance = Roact.mount(element)
-
-	if FFlagFoundationFontFaceMigration then
-		expectTextMeasurementsWithoutTemporaryPadding()
-	end
+	expectTextMeasurementsWithoutTemporaryPadding()
 
 	Roact.unmount(instance)
 end)
@@ -109,9 +105,7 @@ it("should call textChanged when the user enters text", function()
 	end)
 
 	expect(textChangedSpy).toHaveBeenCalled()
-	if FFlagFoundationFontFaceMigration then
-		expectTextMeasurementsWithoutTemporaryPadding()
-	end
+	expectTextMeasurementsWithoutTemporaryPadding()
 
 	Roact.unmount(instance)
 end)

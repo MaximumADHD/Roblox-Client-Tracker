@@ -77,7 +77,9 @@ local function TestProviders(props: any)
 			LayoutValuesProvider_DEPRECATED = Roact.createElement(LayoutValuesProvider, {
 				layoutValues = props.layoutValues or CreateLayoutValues(false),
 			}, {
-		ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, {
+		ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
+			style = props.style,
+		}, {
 			FoundationProvider = Roact.createElement(Foundation.FoundationProvider, {
 				colorMode = Foundation.Enums.ColorMode.Dark,
 			}, {

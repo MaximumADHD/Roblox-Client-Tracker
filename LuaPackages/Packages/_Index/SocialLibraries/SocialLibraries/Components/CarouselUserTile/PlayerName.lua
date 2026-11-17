@@ -8,11 +8,8 @@ local UIBlox = dependencies.UIBlox
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local Style = UIBlox.Style
 
-local getTextHeight = require(script.Parent.getTextHeight)
 local StyleTypes = require(script.Parent.StyleTypes)
 local Constants = require(script.Parent.Constants)
-
-local FFlagFoundationFontFaceMigration = dependencies.Foundation.Utility.Flags.FoundationFontFaceMigration
 
 export type Props = {
 	name: string,
@@ -31,9 +28,7 @@ local PlayerName = function(passedProps: Props)
 		local theme: StyleTypes.Theme = style.Theme
 		local font: StyleTypes.FontStyle = style.Font
 		local fontSize = font.BaseSize * font.CaptionHeader.RelativeSize
-		local textHeight = if FFlagFoundationFontFaceMigration
-			then fontSize
-			else getTextHeight(props.name, font.CaptionHeader.Font :: Enum.Font, fontSize)
+		local textHeight = fontSize
 
 		return Roact.createElement(StyledTextLabel, {
 			layoutOrder = props.layoutOrder,

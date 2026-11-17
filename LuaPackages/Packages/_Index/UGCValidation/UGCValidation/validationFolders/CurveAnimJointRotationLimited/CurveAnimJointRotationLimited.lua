@@ -18,8 +18,8 @@ CurveAnimJointRotationLimited.requiredData = {
 CurveAnimJointRotationLimited.expectedFailures = {}
 CurveAnimJointRotationLimited.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
-CurveAnimJointRotationLimited.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local computed = data.curveAnimComputedFrames
+local function validateCurveAnimClip(reporter: Types.ValidationReporter, computed: Types.CurveAnimClipComputedFrames)
+	local animationName = computed.animation and computed.animation:GetFullName()
 	local animLength = computed.animLength
 	local tracks = computed.tracks
 	local frameDelta = 1.0 / getFIntUGCValidateMaxAnimationFPS()
@@ -45,12 +45,20 @@ CurveAnimJointRotationLimited.run = function(reporter: Types.ValidationReporter,
 			local degrees = math.deg(math.abs(angle))
 
 			if degrees > maxRotation then
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_JointRotationExceeded, {
+				local failureParams: { [string]: any } = {
 					time = string.format("%.2f", time),
 					bodyPart = partName,
 					rotation = string.format("%.2f", degrees),
 					maxRotation = tostring(maxRotation),
-				})
+				}
+				if animationName then
+					failureParams.animationName = animationName
+				end
+				reporter:fail(
+					ErrorSourceStrings.Keys.CurveAnim_JointRotationExceeded,
+					failureParams,
+					computed.animation
+				)
 				return
 			end
 
@@ -63,15 +71,29 @@ CurveAnimJointRotationLimited.run = function(reporter: Types.ValidationReporter,
 			local degrees = math.deg(math.abs(angle))
 
 			if degrees > maxRotation then
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_JointRotationExceeded, {
+				local failureParams: { [string]: any } = {
 					time = string.format("%.2f", animLength),
 					bodyPart = partName,
 					rotation = string.format("%.2f", degrees),
 					maxRotation = tostring(maxRotation),
-				})
+				}
+				if animationName then
+					failureParams.animationName = animationName
+				end
+				reporter:fail(
+					ErrorSourceStrings.Keys.CurveAnim_JointRotationExceeded,
+					failureParams,
+					computed.animation
+				)
 				return
 			end
 		end
+	end
+end
+
+CurveAnimJointRotationLimited.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	for _, computed in data.curveAnimComputedFrames do
+		validateCurveAnimClip(reporter, computed)
 	end
 end
 

@@ -97,7 +97,7 @@ local subMenuListeners: { (string?) -> () } = {}
 
 local fakeChromeService = {
 	AvailabilitySignal = AvailabilitySignal,
-	isWindowOpen = jest.fn():mockReturnValue(false),
+	isWindowOpen = jest.fn().mockReturnValue(false),
 	withinCurrentSubmenu = function(_self, _integrationId: string)
 		return shopRowInOpenSubmenu
 	end,
@@ -352,7 +352,7 @@ local function loadShopEntrypoint(opts: LoadOpts?): any
 	submitFreeTrialTooltipsSpy:mockClear()
 	submitFreeTrialBlueDotSpy:mockClear()
 	fakeChromeService.isWindowOpen:mockClear()
-	fakeChromeService.isWindowOpen:mockReturnValue(false)
+	fakeChromeService.isWindowOpen.mockReturnValue(false)
 	fakeChromeService.toggleWindow:mockClear()
 	toggleInExperienceShopWindowSpy:mockClear()
 	commonIconSpy:mockClear()
@@ -445,7 +445,7 @@ describe("ShopEntrypoint", function()
 		mockSharedFlags.FFlagEnableMenuTrailingBadge = FFlagEnableMenuTrailingBadge
 		mockSharedFlags.FFlagShowOfferBadge = FFlagShowOfferBadge
 		if typeof(fakeChromeService.isWindowOpen) ~= "table" then
-			fakeChromeService.isWindowOpen = jest.fn():mockReturnValue(false)
+			fakeChromeService.isWindowOpen = jest.fn().mockReturnValue(false)
 		end
 	end)
 
@@ -699,7 +699,7 @@ describe("ShopEntrypoint", function()
 				end
 
 				expect(integration.availability:get()).toBe(AvailabilitySignal.Available)
-				fakeChromeService.isWindowOpen:mockReturnValue(false)
+				fakeChromeService.isWindowOpen.mockReturnValue(false)
 				fakeChromeService.toggleWindow:mockClear();
 				(capturedSetCoreGuiCallback :: any)(false)
 
@@ -769,12 +769,12 @@ describe("ShopEntrypoint", function()
 				(capturedPrefetchOnResult :: any)(true)
 				expect(integration.availability:get()).toBe(AvailabilitySignal.Available)
 
-				fakeChromeService.isWindowOpen:mockReturnValue(true);
+				fakeChromeService.isWindowOpen.mockReturnValue(true);
 				(capturedSetCoreGuiCallback :: any)(false)
 
 				expect(integration.availability:get()).toBe(AvailabilitySignal.Unavailable)
 				expect(fakeChromeService.toggleWindow).toHaveBeenCalledTimes(1)
-				fakeChromeService.isWindowOpen:mockReturnValue(false)
+				fakeChromeService.isWindowOpen.mockReturnValue(false)
 			end)
 		end
 	end)

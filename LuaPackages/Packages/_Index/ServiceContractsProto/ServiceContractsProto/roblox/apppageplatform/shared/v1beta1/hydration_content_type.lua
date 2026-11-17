@@ -52,6 +52,7 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_BUY_ROBUX_PENDING_TRANSFER"
 	| "HYDRATION_CONTENT_TYPE_BUY_ROBUX_BONUS_ITEM"
 	| "HYDRATION_CONTENT_TYPE_USER_LIBRARY_SAVED_STATE"
+	| "HYDRATION_CONTENT_TYPE_GAME_PASS_VOTE"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -134,6 +135,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_BUY_ROBUX_BONUS_ITEM"
 		elseif value == 38 then
 			return "HYDRATION_CONTENT_TYPE_USER_LIBRARY_SAVED_STATE"
+		elseif value == 39 then
+			return "HYDRATION_CONTENT_TYPE_GAME_PASS_VOTE"
 		else
 			return nil
 		end
@@ -218,6 +221,8 @@ messages.HydrationContentType = {
 			return 37
 		elseif self == "HYDRATION_CONTENT_TYPE_USER_LIBRARY_SAVED_STATE" then
 			return 38
+		elseif self == "HYDRATION_CONTENT_TYPE_GAME_PASS_VOTE" then
+			return 39
 		else
 			return self
 		end
@@ -302,6 +307,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_BUY_ROBUX_BONUS_ITEM"
 		elseif name == "HYDRATION_CONTENT_TYPE_USER_LIBRARY_SAVED_STATE" then
 			return "HYDRATION_CONTENT_TYPE_USER_LIBRARY_SAVED_STATE"
+		elseif name == "HYDRATION_CONTENT_TYPE_GAME_PASS_VOTE" then
+			return "HYDRATION_CONTENT_TYPE_GAME_PASS_VOTE"
 		else
 			return nil
 		end

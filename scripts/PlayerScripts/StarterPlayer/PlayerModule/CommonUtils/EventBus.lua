@@ -10,9 +10,12 @@ type EventBusClass = {
 	subscribe: (self: EventBus, string) -> RBXScriptSignal,
 }
 
-export type EventBus = typeof(setmetatable({} :: {
-	_events: { [string]: BindableEvent },
-}, {} :: EventBusClass))
+export type EventBus = typeof(setmetatable(
+	{} :: {
+		_events: { [string]: BindableEvent },
+	},
+	{} :: EventBusClass
+))
 
 local EventBus: EventBusClass = {} :: EventBusClass
 EventBus.__index = EventBus

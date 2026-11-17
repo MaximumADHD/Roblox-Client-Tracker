@@ -52,17 +52,14 @@ return function(isFirstPerson: boolean)
 			CameraUtils.restoreMouseBehavior()
 			CameraUtils.setRotationTypeOverride(Enum.RotationType.CameraRelative)
 		end
-
 	elseif Input.getTogglePan() then
 		CameraUtils.setMouseIconOverride(CROSS_MOUSE_ICON)
 		CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCenter)
 		CameraUtils.setRotationTypeOverride(Enum.RotationType.MovementRelative)
-
 	elseif Input.getHoldPan() then
 		CameraUtils.restoreMouseIcon()
 		CameraUtils.setMouseBehaviorOverride(Enum.MouseBehavior.LockCurrentPosition)
 		CameraUtils.setRotationTypeOverride(Enum.RotationType.MovementRelative)
-
 	else
 		CameraUtils.restoreMouseIcon()
 		CameraUtils.restoreMouseBehavior()

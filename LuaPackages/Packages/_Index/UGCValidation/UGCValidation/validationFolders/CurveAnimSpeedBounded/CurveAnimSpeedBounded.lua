@@ -17,8 +17,8 @@ CurveAnimSpeedBounded.requiredData = {
 CurveAnimSpeedBounded.expectedFailures = {}
 CurveAnimSpeedBounded.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
-CurveAnimSpeedBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local computed = data.curveAnimComputedFrames
+local function validateCurveAnimClip(reporter: Types.ValidationReporter, computed: Types.CurveAnimClipComputedFrames)
+	local animationName = computed.animation and computed.animation:GetFullName()
 	local animFrames = computed.animFrames
 	local frameDelta = 1.0 / getFIntUGCValidateMaxAnimationFPS()
 
@@ -41,17 +41,27 @@ CurveAnimSpeedBounded.run = function(reporter: Types.ValidationReporter, data: T
 				local frameTime = (frameNumberIdx - 1) * frameDelta
 				local studsPerSecondSpeed = (delta / maxMovementMultiplier) * (1.0 / defaultFrameTime)
 
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_SpeedTooFast, {
+				local failureParams: { [string]: any } = {
 					time = string.format("%.2f", frameTime),
 					bodyPart = bodyPartName :: string,
 					speed = string.format("%.2f", studsPerSecondSpeed),
 					maxSpeed = string.format("%.2f", maxStudsPerSecondSpeed),
-				})
+				}
+				if animationName then
+					failureParams.animationName = animationName
+				end
+				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_SpeedTooFast, failureParams, computed.animation)
 				return
 			end
 		end
 
 		prevFrame = frame
+	end
+end
+
+CurveAnimSpeedBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	for _, computed in data.curveAnimComputedFrames do
+		validateCurveAnimClip(reporter, computed)
 	end
 end
 

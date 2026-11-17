@@ -121,6 +121,8 @@ type _Messages =
 		ApplyChartsFilterAction_Params: _ApplyChartsFilterAction_ParamsMessage,
 		RefreshChartsSortDetailAction: _RefreshChartsSortDetailActionMessage,
 		RefreshChartsSortDetailAction_Params: _RefreshChartsSortDetailAction_ParamsMessage,
+		RefreshSearchResultsGuidedPillAction: _RefreshSearchResultsGuidedPillActionMessage,
+		RefreshSearchResultsGuidedPillAction_Params: _RefreshSearchResultsGuidedPillAction_ParamsMessage,
 		JoinCommunityAction: _JoinCommunityActionMessage,
 		JoinCommunityAction_Params: _JoinCommunityAction_ParamsMessage,
 		ViewCommunityAction: _ViewCommunityActionMessage,
@@ -272,6 +274,10 @@ type _Messages =
 		RunStreamNotificationItemAction_Params: _RunStreamNotificationItemAction_ParamsMessage,
 		ToggleStreamNotificationBundleAction: _ToggleStreamNotificationBundleActionMessage,
 		ToggleStreamNotificationBundleAction_Params: _ToggleStreamNotificationBundleAction_ParamsMessage,
+		OpenAccountSettingsAction: _OpenAccountSettingsActionMessage,
+		OpenAccountSettingsAction_Params: _OpenAccountSettingsAction_ParamsMessage,
+		ClaimEventItemAction: _ClaimEventItemActionMessage,
+		ClaimEventItemAction_Params: _ClaimEventItemAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -3515,6 +3521,64 @@ type _RefreshChartsSortDetailAction_ParamsMessage = proto.Message<
 	_RefreshChartsSortDetailAction_ParamsPartialFields
 >
 
+type _RefreshSearchResultsGuidedPillActionImpl = {
+	__index: _RefreshSearchResultsGuidedPillActionImpl,
+	new: (fields: _RefreshSearchResultsGuidedPillActionPartialFields?) -> RefreshSearchResultsGuidedPillAction,
+	encode: (self: RefreshSearchResultsGuidedPillAction) -> buffer,
+	decode: (input: buffer) -> RefreshSearchResultsGuidedPillAction,
+	jsonEncode: (self: RefreshSearchResultsGuidedPillAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshSearchResultsGuidedPillAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshSearchResultsGuidedPillActionFields = {
+	action_type: ActionType,
+	action_params: RefreshSearchResultsGuidedPillAction_Params?,
+}
+
+type _RefreshSearchResultsGuidedPillActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshSearchResultsGuidedPillAction_Params?,
+}
+
+export type RefreshSearchResultsGuidedPillAction = typeof(setmetatable(
+	{} :: _RefreshSearchResultsGuidedPillActionFields,
+	{} :: _RefreshSearchResultsGuidedPillActionImpl
+))
+type _RefreshSearchResultsGuidedPillActionMessage = proto.Message<
+	RefreshSearchResultsGuidedPillAction,
+	_RefreshSearchResultsGuidedPillActionPartialFields
+>
+
+type _RefreshSearchResultsGuidedPillAction_ParamsImpl = {
+	__index: _RefreshSearchResultsGuidedPillAction_ParamsImpl,
+	new: (
+		fields: _RefreshSearchResultsGuidedPillAction_ParamsPartialFields?
+	) -> RefreshSearchResultsGuidedPillAction_Params,
+	encode: (self: RefreshSearchResultsGuidedPillAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshSearchResultsGuidedPillAction_Params,
+	jsonEncode: (self: RefreshSearchResultsGuidedPillAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshSearchResultsGuidedPillAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshSearchResultsGuidedPillAction_ParamsFields = {
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RefreshSearchResultsGuidedPillAction_ParamsPartialFields = {
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RefreshSearchResultsGuidedPillAction_Params = typeof(setmetatable(
+	{} :: _RefreshSearchResultsGuidedPillAction_ParamsFields,
+	{} :: _RefreshSearchResultsGuidedPillAction_ParamsImpl
+))
+type _RefreshSearchResultsGuidedPillAction_ParamsMessage = proto.Message<
+	RefreshSearchResultsGuidedPillAction_Params,
+	_RefreshSearchResultsGuidedPillAction_ParamsPartialFields
+>
+
 type _JoinCommunityActionImpl = {
 	__index: _JoinCommunityActionImpl,
 	new: (fields: _JoinCommunityActionPartialFields?) -> JoinCommunityAction,
@@ -5449,12 +5513,14 @@ type _OpenSearchResultsWithQueryAction_ParamsFields = {
 	search_query: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	search_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	is_autocomplete_suggestion: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenSearchResultsWithQueryAction_ParamsPartialFields = {
 	search_query: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	search_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	is_autocomplete_suggestion: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenSearchResultsWithQueryAction_Params = typeof(setmetatable(
@@ -5896,12 +5962,14 @@ type _OpenProfileFramesEditorAction_ParamsFields = {
 	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_prompt_impression: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _OpenProfileFramesEditorAction_ParamsPartialFields = {
 	prompt_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	prompt_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_prompt_impression: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type OpenProfileFramesEditorAction_Params = typeof(setmetatable(
@@ -7989,6 +8057,129 @@ type _ToggleStreamNotificationBundleAction_ParamsMessage = proto.Message<
 	_ToggleStreamNotificationBundleAction_ParamsPartialFields
 >
 
+type _OpenAccountSettingsActionImpl = {
+	__index: _OpenAccountSettingsActionImpl,
+	new: (fields: _OpenAccountSettingsActionPartialFields?) -> OpenAccountSettingsAction,
+	encode: (self: OpenAccountSettingsAction) -> buffer,
+	decode: (input: buffer) -> OpenAccountSettingsAction,
+	jsonEncode: (self: OpenAccountSettingsAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAccountSettingsAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAccountSettingsActionFields = {
+	action_type: ActionType,
+	action_params: OpenAccountSettingsAction_Params?,
+}
+
+type _OpenAccountSettingsActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenAccountSettingsAction_Params?,
+}
+
+export type OpenAccountSettingsAction = typeof(setmetatable(
+	{} :: _OpenAccountSettingsActionFields,
+	{} :: _OpenAccountSettingsActionImpl
+))
+type _OpenAccountSettingsActionMessage = proto.Message<
+	OpenAccountSettingsAction,
+	_OpenAccountSettingsActionPartialFields
+>
+
+type _OpenAccountSettingsAction_ParamsImpl = {
+	__index: _OpenAccountSettingsAction_ParamsImpl,
+	new: (fields: _OpenAccountSettingsAction_ParamsPartialFields?) -> OpenAccountSettingsAction_Params,
+	encode: (self: OpenAccountSettingsAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenAccountSettingsAction_Params,
+	jsonEncode: (self: OpenAccountSettingsAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAccountSettingsAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAccountSettingsAction_ParamsFields = {
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenAccountSettingsAction_ParamsPartialFields = {
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenAccountSettingsAction_Params = typeof(setmetatable(
+	{} :: _OpenAccountSettingsAction_ParamsFields,
+	{} :: _OpenAccountSettingsAction_ParamsImpl
+))
+type _OpenAccountSettingsAction_ParamsMessage = proto.Message<
+	OpenAccountSettingsAction_Params,
+	_OpenAccountSettingsAction_ParamsPartialFields
+>
+
+type _ClaimEventItemActionImpl = {
+	__index: _ClaimEventItemActionImpl,
+	new: (fields: _ClaimEventItemActionPartialFields?) -> ClaimEventItemAction,
+	encode: (self: ClaimEventItemAction) -> buffer,
+	decode: (input: buffer) -> ClaimEventItemAction,
+	jsonEncode: (self: ClaimEventItemAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ClaimEventItemAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ClaimEventItemActionFields = {
+	action_type: ActionType,
+	action_params: ClaimEventItemAction_Params?,
+}
+
+type _ClaimEventItemActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ClaimEventItemAction_Params?,
+}
+
+export type ClaimEventItemAction = typeof(setmetatable(
+	{} :: _ClaimEventItemActionFields,
+	{} :: _ClaimEventItemActionImpl
+))
+type _ClaimEventItemActionMessage = proto.Message<ClaimEventItemAction, _ClaimEventItemActionPartialFields>
+
+type _ClaimEventItemAction_ParamsImpl = {
+	__index: _ClaimEventItemAction_ParamsImpl,
+	new: (fields: _ClaimEventItemAction_ParamsPartialFields?) -> ClaimEventItemAction_Params,
+	encode: (self: ClaimEventItemAction_Params) -> buffer,
+	decode: (input: buffer) -> ClaimEventItemAction_Params,
+	jsonEncode: (self: ClaimEventItemAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ClaimEventItemAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ClaimEventItemAction_ParamsFields = {
+	event_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subscription_product_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subscription_product_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	on_claimed: ActionProp?,
+	on_not_subscribed: ActionProp?,
+	on_failure: ActionProp?,
+	loading_page_scope_field: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ClaimEventItemAction_ParamsPartialFields = {
+	event_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subscription_product_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subscription_product_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	on_claimed: ActionProp?,
+	on_not_subscribed: ActionProp?,
+	on_failure: ActionProp?,
+	loading_page_scope_field: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ClaimEventItemAction_Params = typeof(setmetatable(
+	{} :: _ClaimEventItemAction_ParamsFields,
+	{} :: _ClaimEventItemAction_ParamsImpl
+))
+type _ClaimEventItemAction_ParamsMessage = proto.Message<
+	ClaimEventItemAction_Params,
+	_ClaimEventItemAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -8130,6 +8321,9 @@ type _ActionFields = {
 		| { type: "open_group_pane_action", value: OpenGroupPaneAction }
 		| { type: "toggle_game_pass_vote_action", value: ToggleGamePassVoteAction }
 		| { type: "remove_game_pass_from_inventory_action", value: RemoveGamePassFromInventoryAction }
+		| { type: "open_account_settings_action", value: OpenAccountSettingsAction }
+		| { type: "refresh_search_results_guided_pill_action", value: RefreshSearchResultsGuidedPillAction }
+		| { type: "claim_event_item_action", value: ClaimEventItemAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -8268,6 +8462,9 @@ type _ActionPartialFields = {
 		| { type: "open_group_pane_action", value: OpenGroupPaneAction }
 		| { type: "toggle_game_pass_vote_action", value: ToggleGamePassVoteAction }
 		| { type: "remove_game_pass_from_inventory_action", value: RemoveGamePassFromInventoryAction }
+		| { type: "open_account_settings_action", value: OpenAccountSettingsAction }
+		| { type: "refresh_search_results_guided_pill_action", value: RefreshSearchResultsGuidedPillAction }
+		| { type: "claim_event_item_action", value: ClaimEventItemAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -8660,6 +8857,9 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_GROUP_PANE"
 	| "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE"
 	| "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY"
+	| "ACTION_TYPE_OPEN_ACCOUNT_SETTINGS"
+	| "ACTION_TYPE_REFRESH_SEARCH_RESULTS_GUIDED_PILL"
+	| "ACTION_TYPE_CLAIM_EVENT_ITEM"
 	| number -- Unknown
 
 do
@@ -25474,6 +25674,269 @@ do
 end
 
 do
+	local _RefreshSearchResultsGuidedPillActionImpl = {}
+	_RefreshSearchResultsGuidedPillActionImpl.__index = _RefreshSearchResultsGuidedPillActionImpl
+
+	function _RefreshSearchResultsGuidedPillActionImpl.new(
+		data: _RefreshSearchResultsGuidedPillActionPartialFields?
+	): RefreshSearchResultsGuidedPillAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshSearchResultsGuidedPillActionImpl :: _RefreshSearchResultsGuidedPillActionImpl)
+	end
+
+	function _RefreshSearchResultsGuidedPillActionImpl.encode(self: RefreshSearchResultsGuidedPillAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshSearchResultsGuidedPillActionImpl.decode(input: buffer): RefreshSearchResultsGuidedPillAction
+		local self = _RefreshSearchResultsGuidedPillActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshSearchResultsGuidedPillAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshSearchResultsGuidedPillActionImpl.jsonEncode(self: RefreshSearchResultsGuidedPillAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshSearchResultsGuidedPillActionImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshSearchResultsGuidedPillAction
+		local self = _RefreshSearchResultsGuidedPillActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshSearchResultsGuidedPillAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshSearchResultsGuidedPillAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshSearchResultsGuidedPillActionImpl.descriptor = {
+		name = "RefreshSearchResultsGuidedPillAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshSearchResultsGuidedPillAction",
+	}
+
+	messages.RefreshSearchResultsGuidedPillAction = _RefreshSearchResultsGuidedPillActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshSearchResultsGuidedPillAction)
+end
+
+do
+	local _RefreshSearchResultsGuidedPillAction_ParamsImpl = {}
+	_RefreshSearchResultsGuidedPillAction_ParamsImpl.__index = _RefreshSearchResultsGuidedPillAction_ParamsImpl
+
+	function _RefreshSearchResultsGuidedPillAction_ParamsImpl.new(
+		data: _RefreshSearchResultsGuidedPillAction_ParamsPartialFields?
+	): RefreshSearchResultsGuidedPillAction_Params
+		return setmetatable({
+			selected_option = if data == nil or data.selected_option == nil then nil else data.selected_option,
+		}, _RefreshSearchResultsGuidedPillAction_ParamsImpl :: _RefreshSearchResultsGuidedPillAction_ParamsImpl)
+	end
+
+	function _RefreshSearchResultsGuidedPillAction_ParamsImpl.encode(
+		self: RefreshSearchResultsGuidedPillAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.selected_option ~= nil then
+			local encoded = self.selected_option:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshSearchResultsGuidedPillAction_ParamsImpl.decode(
+		input: buffer
+	): RefreshSearchResultsGuidedPillAction_Params
+		local self = _RefreshSearchResultsGuidedPillAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshSearchResultsGuidedPillAction_ParamsImpl.jsonEncode(
+		self: RefreshSearchResultsGuidedPillAction_Params
+	): any
+		local output = {}
+
+		if self.selected_option ~= nil then
+			output.selectedOption = self.selected_option:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshSearchResultsGuidedPillAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshSearchResultsGuidedPillAction_Params
+		local self = _RefreshSearchResultsGuidedPillAction_ParamsImpl.new()
+
+		if input.selected_option ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selected_option)
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selectedOption)
+		end
+
+		return self
+	end
+
+	_RefreshSearchResultsGuidedPillAction_ParamsImpl.descriptor = {
+		name = "RefreshSearchResultsGuidedPillAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshSearchResultsGuidedPillAction_Params = _RefreshSearchResultsGuidedPillAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshSearchResultsGuidedPillAction_Params)
+end
+
+do
 	local _JoinCommunityActionImpl = {}
 	_JoinCommunityActionImpl.__index = _JoinCommunityActionImpl
 
@@ -35505,6 +35968,7 @@ do
 			is_autocomplete_suggestion = if data == nil or data.is_autocomplete_suggestion == nil
 				then nil
 				else data.is_autocomplete_suggestion,
+			selected_option = if data == nil or data.selected_option == nil then nil else data.selected_option,
 		}, _OpenSearchResultsWithQueryAction_ParamsImpl :: _OpenSearchResultsWithQueryAction_ParamsImpl)
 	end
 
@@ -35527,6 +35991,12 @@ do
 		if self.is_autocomplete_suggestion ~= nil then
 			local encoded = self.is_autocomplete_suggestion:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selected_option ~= nil then
+			local encoded = self.selected_option:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -35564,6 +36034,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.is_autocomplete_suggestion =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -35604,6 +36079,10 @@ do
 			output.isAutocompleteSuggestion = self.is_autocomplete_suggestion:jsonEncode()
 		end
 
+		if self.selected_option ~= nil then
+			output.selectedOption = self.selected_option:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -35639,6 +36118,16 @@ do
 		if input.isAutocompleteSuggestion ~= nil then
 			self.is_autocomplete_suggestion =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isAutocompleteSuggestion)
+		end
+
+		if input.selected_option ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selected_option)
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selectedOption)
 		end
 
 		return self
@@ -37744,6 +38233,9 @@ do
 			prompt_id = if data == nil or data.prompt_id == nil then nil else data.prompt_id,
 			prompt_type = if data == nil or data.prompt_type == nil then nil else data.prompt_type,
 			source = if data == nil or data.source == nil then nil else data.source,
+			skip_prompt_impression = if data == nil or data.skip_prompt_impression == nil
+				then nil
+				else data.skip_prompt_impression,
 		}, _OpenProfileFramesEditorAction_ParamsImpl :: _OpenProfileFramesEditorAction_ParamsImpl)
 	end
 
@@ -37766,6 +38258,12 @@ do
 		if self.source ~= nil then
 			local encoded = self.source:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_prompt_impression ~= nil then
+			local encoded = self.skip_prompt_impression:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -37802,6 +38300,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_prompt_impression =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -37842,6 +38346,10 @@ do
 			output.source = self.source:jsonEncode()
 		end
 
+		if self.skip_prompt_impression ~= nil then
+			output.skipPromptImpression = self.skip_prompt_impression:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -37869,6 +38377,16 @@ do
 
 		if input.source ~= nil then
 			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		if input.skip_prompt_impression ~= nil then
+			self.skip_prompt_impression =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_prompt_impression)
+		end
+
+		if input.skipPromptImpression ~= nil then
+			self.skip_prompt_impression =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipPromptImpression)
 		end
 
 		return self
@@ -48161,6 +48679,692 @@ do
 end
 
 do
+	local _OpenAccountSettingsActionImpl = {}
+	_OpenAccountSettingsActionImpl.__index = _OpenAccountSettingsActionImpl
+
+	function _OpenAccountSettingsActionImpl.new(
+		data: _OpenAccountSettingsActionPartialFields?
+	): OpenAccountSettingsAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenAccountSettingsActionImpl :: _OpenAccountSettingsActionImpl)
+	end
+
+	function _OpenAccountSettingsActionImpl.encode(self: OpenAccountSettingsAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenAccountSettingsActionImpl.decode(input: buffer): OpenAccountSettingsAction
+		local self = _OpenAccountSettingsActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenAccountSettingsAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenAccountSettingsActionImpl.jsonEncode(self: OpenAccountSettingsAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenAccountSettingsActionImpl.jsonDecode(input: { [string]: any }): OpenAccountSettingsAction
+		local self = _OpenAccountSettingsActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenAccountSettingsAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenAccountSettingsAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenAccountSettingsActionImpl.descriptor = {
+		name = "OpenAccountSettingsAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenAccountSettingsAction",
+	}
+
+	messages.OpenAccountSettingsAction = _OpenAccountSettingsActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenAccountSettingsAction)
+end
+
+do
+	local _OpenAccountSettingsAction_ParamsImpl = {}
+	_OpenAccountSettingsAction_ParamsImpl.__index = _OpenAccountSettingsAction_ParamsImpl
+
+	function _OpenAccountSettingsAction_ParamsImpl.new(
+		data: _OpenAccountSettingsAction_ParamsPartialFields?
+	): OpenAccountSettingsAction_Params
+		return setmetatable({
+			surface_key = if data == nil or data.surface_key == nil then nil else data.surface_key,
+		}, _OpenAccountSettingsAction_ParamsImpl :: _OpenAccountSettingsAction_ParamsImpl)
+	end
+
+	function _OpenAccountSettingsAction_ParamsImpl.encode(self: OpenAccountSettingsAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.surface_key ~= nil then
+			local encoded = self.surface_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenAccountSettingsAction_ParamsImpl.decode(input: buffer): OpenAccountSettingsAction_Params
+		local self = _OpenAccountSettingsAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenAccountSettingsAction_ParamsImpl.jsonEncode(self: OpenAccountSettingsAction_Params): any
+		local output = {}
+
+		if self.surface_key ~= nil then
+			output.surfaceKey = self.surface_key:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenAccountSettingsAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenAccountSettingsAction_Params
+		local self = _OpenAccountSettingsAction_ParamsImpl.new()
+
+		if input.surface_key ~= nil then
+			self.surface_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surface_key)
+		end
+
+		if input.surfaceKey ~= nil then
+			self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surfaceKey)
+		end
+
+		return self
+	end
+
+	_OpenAccountSettingsAction_ParamsImpl.descriptor = {
+		name = "OpenAccountSettingsAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenAccountSettingsAction_Params = _OpenAccountSettingsAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenAccountSettingsAction_Params)
+end
+
+do
+	local _ClaimEventItemActionImpl = {}
+	_ClaimEventItemActionImpl.__index = _ClaimEventItemActionImpl
+
+	function _ClaimEventItemActionImpl.new(data: _ClaimEventItemActionPartialFields?): ClaimEventItemAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ClaimEventItemActionImpl :: _ClaimEventItemActionImpl)
+	end
+
+	function _ClaimEventItemActionImpl.encode(self: ClaimEventItemAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ClaimEventItemActionImpl.decode(input: buffer): ClaimEventItemAction
+		local self = _ClaimEventItemActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ClaimEventItemAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ClaimEventItemActionImpl.jsonEncode(self: ClaimEventItemAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ClaimEventItemActionImpl.jsonDecode(input: { [string]: any }): ClaimEventItemAction
+		local self = _ClaimEventItemActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ClaimEventItemAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ClaimEventItemAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ClaimEventItemActionImpl.descriptor = {
+		name = "ClaimEventItemAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ClaimEventItemAction",
+	}
+
+	messages.ClaimEventItemAction = _ClaimEventItemActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ClaimEventItemAction)
+end
+
+do
+	local _ClaimEventItemAction_ParamsImpl = {}
+	_ClaimEventItemAction_ParamsImpl.__index = _ClaimEventItemAction_ParamsImpl
+
+	function _ClaimEventItemAction_ParamsImpl.new(
+		data: _ClaimEventItemAction_ParamsPartialFields?
+	): ClaimEventItemAction_Params
+		return setmetatable({
+			event_type = if data == nil or data.event_type == nil then nil else data.event_type,
+			subscription_product_type = if data == nil or data.subscription_product_type == nil
+				then nil
+				else data.subscription_product_type,
+			subscription_product_id = if data == nil or data.subscription_product_id == nil
+				then nil
+				else data.subscription_product_id,
+			asset_id = if data == nil or data.asset_id == nil then nil else data.asset_id,
+			on_claimed = if data == nil or data.on_claimed == nil then nil else data.on_claimed,
+			on_not_subscribed = if data == nil or data.on_not_subscribed == nil then nil else data.on_not_subscribed,
+			on_failure = if data == nil or data.on_failure == nil then nil else data.on_failure,
+			loading_page_scope_field = if data == nil or data.loading_page_scope_field == nil
+				then nil
+				else data.loading_page_scope_field,
+		}, _ClaimEventItemAction_ParamsImpl :: _ClaimEventItemAction_ParamsImpl)
+	end
+
+	function _ClaimEventItemAction_ParamsImpl.encode(self: ClaimEventItemAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_type ~= nil then
+			local encoded = self.event_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subscription_product_type ~= nil then
+			local encoded = self.subscription_product_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subscription_product_id ~= nil then
+			local encoded = self.subscription_product_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.asset_id ~= nil then
+			local encoded = self.asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_claimed ~= nil then
+			local encoded = self.on_claimed:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_not_subscribed ~= nil then
+			local encoded = self.on_not_subscribed:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_failure ~= nil then
+			local encoded = self.on_failure:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.loading_page_scope_field ~= nil then
+			local encoded = self.loading_page_scope_field:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ClaimEventItemAction_ParamsImpl.decode(input: buffer): ClaimEventItemAction_Params
+		local self = _ClaimEventItemAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_product_type =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_product_id =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_claimed = messages.ActionProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_not_subscribed = messages.ActionProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_failure = messages.ActionProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.loading_page_scope_field =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ClaimEventItemAction_ParamsImpl.jsonEncode(self: ClaimEventItemAction_Params): any
+		local output = {}
+
+		if self.event_type ~= nil then
+			output.eventType = self.event_type:jsonEncode()
+		end
+
+		if self.subscription_product_type ~= nil then
+			output.subscriptionProductType = self.subscription_product_type:jsonEncode()
+		end
+
+		if self.subscription_product_id ~= nil then
+			output.subscriptionProductId = self.subscription_product_id:jsonEncode()
+		end
+
+		if self.asset_id ~= nil then
+			output.assetId = self.asset_id:jsonEncode()
+		end
+
+		if self.on_claimed ~= nil then
+			output.onClaimed = self.on_claimed:jsonEncode()
+		end
+
+		if self.on_not_subscribed ~= nil then
+			output.onNotSubscribed = self.on_not_subscribed:jsonEncode()
+		end
+
+		if self.on_failure ~= nil then
+			output.onFailure = self.on_failure:jsonEncode()
+		end
+
+		if self.loading_page_scope_field ~= nil then
+			output.loadingPageScopeField = self.loading_page_scope_field:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ClaimEventItemAction_ParamsImpl.jsonDecode(input: { [string]: any }): ClaimEventItemAction_Params
+		local self = _ClaimEventItemAction_ParamsImpl.new()
+
+		if input.event_type ~= nil then
+			self.event_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.event_type)
+		end
+
+		if input.eventType ~= nil then
+			self.event_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.eventType)
+		end
+
+		if input.subscription_product_type ~= nil then
+			self.subscription_product_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subscription_product_type)
+		end
+
+		if input.subscriptionProductType ~= nil then
+			self.subscription_product_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subscriptionProductType)
+		end
+
+		if input.subscription_product_id ~= nil then
+			self.subscription_product_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subscription_product_id)
+		end
+
+		if input.subscriptionProductId ~= nil then
+			self.subscription_product_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subscriptionProductId)
+		end
+
+		if input.asset_id ~= nil then
+			self.asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.asset_id)
+		end
+
+		if input.assetId ~= nil then
+			self.asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assetId)
+		end
+
+		if input.on_claimed ~= nil then
+			self.on_claimed = messages.ActionProp.jsonDecode(input.on_claimed)
+		end
+
+		if input.onClaimed ~= nil then
+			self.on_claimed = messages.ActionProp.jsonDecode(input.onClaimed)
+		end
+
+		if input.on_not_subscribed ~= nil then
+			self.on_not_subscribed = messages.ActionProp.jsonDecode(input.on_not_subscribed)
+		end
+
+		if input.onNotSubscribed ~= nil then
+			self.on_not_subscribed = messages.ActionProp.jsonDecode(input.onNotSubscribed)
+		end
+
+		if input.on_failure ~= nil then
+			self.on_failure = messages.ActionProp.jsonDecode(input.on_failure)
+		end
+
+		if input.onFailure ~= nil then
+			self.on_failure = messages.ActionProp.jsonDecode(input.onFailure)
+		end
+
+		if input.loading_page_scope_field ~= nil then
+			self.loading_page_scope_field =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.loading_page_scope_field)
+		end
+
+		if input.loadingPageScopeField ~= nil then
+			self.loading_page_scope_field =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.loadingPageScopeField)
+		end
+
+		return self
+	end
+
+	_ClaimEventItemAction_ParamsImpl.descriptor = {
+		name = "ClaimEventItemAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ClaimEventItemAction_Params = _ClaimEventItemAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ClaimEventItemAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -48686,6 +49890,18 @@ do
 			elseif self.kind.type == "remove_game_pass_from_inventory_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 126, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_account_settings_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 127, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_search_results_guided_pill_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 128, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "claim_event_item_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 130, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -49623,6 +50839,28 @@ do
 						value = messages.RemoveGamePassFromInventoryAction.decode(value),
 					}
 					continue
+				elseif field == 127 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_account_settings_action",
+						value = messages.OpenAccountSettingsAction.decode(value),
+					}
+					continue
+				elseif field == 128 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "refresh_search_results_guided_pill_action",
+						value = messages.RefreshSearchResultsGuidedPillAction.decode(value),
+					}
+					continue
+				elseif field == 130 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "claim_event_item_action", value = messages.ClaimEventItemAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -49924,6 +51162,12 @@ do
 				output.toggleGamePassVoteAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "remove_game_pass_from_inventory_action" then
 				output.removeGamePassFromInventoryAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_account_settings_action" then
+				output.openAccountSettingsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_search_results_guided_pill_action" then
+				output.refreshSearchResultsGuidedPillAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "claim_event_item_action" then
+				output.claimEventItemAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -51775,6 +53019,52 @@ do
 			}
 		end
 
+		if input.open_account_settings_action ~= nil then
+			self.kind = {
+				type = "open_account_settings_action",
+				value = messages.OpenAccountSettingsAction.jsonDecode(input.open_account_settings_action),
+			}
+		end
+
+		if input.openAccountSettingsAction ~= nil then
+			self.kind = {
+				type = "open_account_settings_action",
+				value = messages.OpenAccountSettingsAction.jsonDecode(input.openAccountSettingsAction),
+			}
+		end
+
+		if input.refresh_search_results_guided_pill_action ~= nil then
+			self.kind = {
+				type = "refresh_search_results_guided_pill_action",
+				value = messages.RefreshSearchResultsGuidedPillAction.jsonDecode(
+					input.refresh_search_results_guided_pill_action
+				),
+			}
+		end
+
+		if input.refreshSearchResultsGuidedPillAction ~= nil then
+			self.kind = {
+				type = "refresh_search_results_guided_pill_action",
+				value = messages.RefreshSearchResultsGuidedPillAction.jsonDecode(
+					input.refreshSearchResultsGuidedPillAction
+				),
+			}
+		end
+
+		if input.claim_event_item_action ~= nil then
+			self.kind = {
+				type = "claim_event_item_action",
+				value = messages.ClaimEventItemAction.jsonDecode(input.claim_event_item_action),
+			}
+		end
+
+		if input.claimEventItemAction ~= nil then
+			self.kind = {
+				type = "claim_event_item_action",
+				value = messages.ClaimEventItemAction.jsonDecode(input.claimEventItemAction),
+			}
+		end
+
 		if input.telemetry_handler ~= nil then
 			self.telemetry_handler =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetry_handler)
@@ -53261,6 +54551,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE"
 		elseif value == 126 then
 			return "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY"
+		elseif value == 127 then
+			return "ACTION_TYPE_OPEN_ACCOUNT_SETTINGS"
+		elseif value == 128 then
+			return "ACTION_TYPE_REFRESH_SEARCH_RESULTS_GUIDED_PILL"
+		elseif value == 130 then
+			return "ACTION_TYPE_CLAIM_EVENT_ITEM"
 		else
 			return nil
 		end
@@ -53521,6 +54817,12 @@ messages.ActionType = {
 			return 125
 		elseif self == "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY" then
 			return 126
+		elseif self == "ACTION_TYPE_OPEN_ACCOUNT_SETTINGS" then
+			return 127
+		elseif self == "ACTION_TYPE_REFRESH_SEARCH_RESULTS_GUIDED_PILL" then
+			return 128
+		elseif self == "ACTION_TYPE_CLAIM_EVENT_ITEM" then
+			return 130
 		else
 			return self
 		end
@@ -53781,6 +55083,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_TOGGLE_GAME_PASS_VOTE"
 		elseif name == "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY" then
 			return "ACTION_TYPE_REMOVE_GAME_PASS_FROM_INVENTORY"
+		elseif name == "ACTION_TYPE_OPEN_ACCOUNT_SETTINGS" then
+			return "ACTION_TYPE_OPEN_ACCOUNT_SETTINGS"
+		elseif name == "ACTION_TYPE_REFRESH_SEARCH_RESULTS_GUIDED_PILL" then
+			return "ACTION_TYPE_REFRESH_SEARCH_RESULTS_GUIDED_PILL"
+		elseif name == "ACTION_TYPE_CLAIM_EVENT_ITEM" then
+			return "ACTION_TYPE_CLAIM_EVENT_ITEM"
 		else
 			return nil
 		end
@@ -53901,6 +55209,8 @@ return {
 	ApplyChartsFilterAction_Params = messages.ApplyChartsFilterAction_Params,
 	RefreshChartsSortDetailAction = messages.RefreshChartsSortDetailAction,
 	RefreshChartsSortDetailAction_Params = messages.RefreshChartsSortDetailAction_Params,
+	RefreshSearchResultsGuidedPillAction = messages.RefreshSearchResultsGuidedPillAction,
+	RefreshSearchResultsGuidedPillAction_Params = messages.RefreshSearchResultsGuidedPillAction_Params,
 	JoinCommunityAction = messages.JoinCommunityAction,
 	JoinCommunityAction_Params = messages.JoinCommunityAction_Params,
 	ViewCommunityAction = messages.ViewCommunityAction,
@@ -54051,6 +55361,10 @@ return {
 	RunStreamNotificationItemAction_Params = messages.RunStreamNotificationItemAction_Params,
 	ToggleStreamNotificationBundleAction = messages.ToggleStreamNotificationBundleAction,
 	ToggleStreamNotificationBundleAction_Params = messages.ToggleStreamNotificationBundleAction_Params,
+	OpenAccountSettingsAction = messages.OpenAccountSettingsAction,
+	OpenAccountSettingsAction_Params = messages.OpenAccountSettingsAction_Params,
+	ClaimEventItemAction = messages.ClaimEventItemAction,
+	ClaimEventItemAction_Params = messages.ClaimEventItemAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

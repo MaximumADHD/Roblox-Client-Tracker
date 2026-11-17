@@ -1,7 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
-local Otter = require(Packages.Otter)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 local ReactRoblox = require(Packages.ReactRoblox)
@@ -11,25 +10,39 @@ local Backdrop = require(Foundation.Components.Backdrop)
 local Constants = require(Foundation.Constants)
 local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
 local ElevationOwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
+local InternalDrawerDismissSwipe = require(script.Parent.InternalDrawerDismissSwipe)
 local ScrollView = require(Foundation.Components.ScrollView)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local View = require(Foundation.Components.View)
+local drawerMotion = require(script.Parent.drawerMotion)
 local useInternalDrawerVariants = require(script.Parent.useInternalDrawerVariants)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
-local useScreenSize = require(Foundation.Components.Sheet.useScreenSize)
+local useSurfaceWidth = require(script.Parent.useSurfaceWidth)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InternalDrawerBackdrop = require(Foundation.Enums.InternalDrawerBackdrop)
+local InternalDrawerOpenPhase = require(Foundation.Enums.InternalDrawerOpenPhase)
 local InternalDrawerShadow = require(Foundation.Enums.InternalDrawerShadow)
 local InternalDrawerSide = require(Foundation.Enums.InternalDrawerSide)
 local InternalDrawerTypes = require(script.Parent.Types)
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason
 
-type InternalDrawerOverlayProps = InternalDrawerTypes.InternalDrawerProps & {
+export type InternalDrawerOverlayProps = InternalDrawerTypes.InternalDrawerProps & {
 	testId: string,
 	onExited: () -> (),
+	drag: React.Binding<number?>,
+	setDrag: drawerMotion.SetDrag,
+	openPhase: InternalDrawerOpenPhase.InternalDrawerOpenPhase,
 }
+
+local function assignForwardedRef(forwardedRef: React.Ref<GuiObject>?, instance: GuiObject?)
+	if typeof(forwardedRef) == "function" then
+		forwardedRef(instance)
+	elseif forwardedRef ~= nil then
+		forwardedRef.current = instance
+	end
+end
 
 local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: React.Ref<GuiObject>?)
 	local overlay = useOverlay()
@@ -38,13 +51,10 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 	local hasShadow = props.shadow == InternalDrawerShadow.Overlay300
 	local elevation = props.elevation
 	local reducedMotion = usePreferences().reducedMotion
-	local screenSize = useScreenSize()
 
 	local surface = variant.surface
-	local maxWidth = math.max(screenSize.X - tokens.Size.Size_1200 - surface.margin, 0)
-	local width = math.min(props.width, maxWidth)
-	local surfaceWidth = width
 	local outerBleed = props.outerBleed or 0
+	local surfaceWidth, travel = useSurfaceWidth(props.width, surface.margin, outerBleed)
 	local contentPadding = if outerBleed > 0
 		then if props.side == InternalDrawerSide.End
 			then { right = UDim.new(0, outerBleed) }
@@ -53,6 +63,14 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 
 	local isOpenRef = React.useRef(props.isOpen)
 	isOpenRef.current = props.isOpen
+	local panelRef = React.useRef(nil :: GuiObject?)
+	local backdropRef = React.useRef(nil :: GuiObject?)
+	local scrollingFrameRef = React.useRef(nil :: ScrollingFrame?)
+	local forwardedRef = ref
+	local surfaceRef = React.useCallback(function(instance: GuiObject?)
+		panelRef.current = instance
+		assignForwardedRef(forwardedRef, instance)
+	end, { forwardedRef })
 
 	local panelSettled = React.useRef(true)
 	local backdropSettled = React.useRef(true)
@@ -63,9 +81,20 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 	onExitedRef.current = props.onExited
 	local onOpenCompleteRef = React.useRef(props.onOpenComplete)
 	onOpenCompleteRef.current = props.onOpenComplete
+	local suppressExitRef = React.useRef(false)
+	local pressedClosed = props.openPhase == InternalDrawerOpenPhase.Pressed and not props.isOpen
+	local holdClosed = (
+		props.openPhase == InternalDrawerOpenPhase.Dragging or props.openPhase == InternalDrawerOpenPhase.Requested
+	) and not props.isOpen
+	suppressExitRef.current = holdClosed or pressedClosed
 
 	local function notifySettled()
-		if not isOpenRef.current and panelSettled.current and backdropSettled.current then
+		if
+			not isOpenRef.current
+			and not suppressExitRef.current
+			and panelSettled.current
+			and backdropSettled.current
+		then
 			onExitedRef.current()
 		elseif
 			awaitingOpen.current
@@ -82,69 +111,91 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 		end
 	end
 
-	local panelProgress, setPanelGoal = useAnimatedBinding(0, function(value: number)
+	local panelProgress, setPanelGoalBinding = useAnimatedBinding(0, function(value: number)
 		panelValue.current = value
 		panelSettled.current = true
 		notifySettled()
 	end)
-	local backdropTransparency, setBackdropGoal = useAnimatedBinding(1, function(value: number)
+	local backdropTransparency, setBackdropGoalBinding = useAnimatedBinding(1, function(value: number)
 		backdropValue.current = value
 		backdropSettled.current = true
 		notifySettled()
 	end)
+	local setPanelGoal: drawerMotion.SetGoal = setPanelGoalBinding
+	local setBackdropGoal: drawerMotion.SetGoal = setBackdropGoalBinding
+
+	local drag = props.drag
+	local setDrag = props.setDrag
+	local motion: drawerMotion.DrawerMotion = React.useMemo(function()
+		return {
+			panelProgress = panelProgress,
+			backdropTransparency = backdropTransparency,
+			setPanelGoal = setPanelGoal,
+			setBackdropGoal = setBackdropGoal,
+			drag = drag,
+			setDrag = setDrag,
+		}
+	end, { panelProgress, backdropTransparency, setPanelGoal, setBackdropGoal, drag, setDrag } :: { unknown })
+
+	local displayedPanel = React.useMemo(function()
+		return React.joinBindings({ animated = panelProgress, dragged = drag })
+			:map(function(values: { animated: number, dragged: number? }): number
+				return if values.dragged ~= nil then values.dragged else values.animated
+			end)
+	end, { panelProgress, drag } :: { unknown })
+	local displayedBackdrop = React.useMemo(function()
+		return React.joinBindings({ animated = backdropTransparency, dragged = drag })
+			:map(function(values: { animated: number, dragged: number? }): number
+				return if values.dragged ~= nil then 1 - values.dragged else values.animated
+			end)
+	end, { backdropTransparency, drag } :: { unknown })
 
 	-- lute-lint-ignore(exhaustiveDeps) tokens.Ease and tokens.Time are stable between colorModes
 	React.useEffect(function()
+		if holdClosed then
+			drawerMotion.hold(motion)
+			return
+		end
+		if pressedClosed then
+			-- Leave the resting closed motors alone so the press can stay mounted.
+			return
+		end
+
 		panelSettled.current = false
 		backdropSettled.current = false
 		awaitingOpen.current = props.isOpen and onOpenCompleteRef.current ~= nil
-		if reducedMotion then
-			setPanelGoal(Otter.instant(if props.isOpen then 1 else 0) :: Otter.Goal<any>)
-			setBackdropGoal(Otter.instant(if props.isOpen then 0 else 1) :: Otter.Goal<any>)
-		elseif props.isOpen then
-			setPanelGoal(Otter.ease(1, {
-				easingStyle = tokens.Ease.StandardOut,
-				duration = tokens.Time.Time_300,
-			}))
-			setBackdropGoal(Otter.ease(0, {
-				duration = tokens.Time.Time_100,
-			}))
-		else
-			setPanelGoal(Otter.ease(0, {
-				easingStyle = tokens.Ease.StandardIn,
-				duration = tokens.Time.Time_100,
-			}))
-			setBackdropGoal(Otter.ease(1, {
-				duration = tokens.Time.Time_100,
-			}))
-		end
-	end, { props.isOpen, reducedMotion } :: { unknown })
+		drawerMotion.animate(motion, props.isOpen, tokens, reducedMotion)
+	end, { props.isOpen, holdClosed, pressedClosed, reducedMotion } :: { unknown })
 
 	local onBackdropActivated = React.useCallback(function()
 		if props.backdrop == InternalDrawerBackdrop.Dismissible and isOpenRef.current then
-			props.onRequestClose(OnCloseCallbackReason.BackdropClick :: OnCloseCallbackReason)
+			props.onRequestClose(OnCloseCallbackReason.BackdropClick)
 		end
 	end, { props.backdrop, props.onRequestClose } :: { unknown })
 
 	local surfaceSize = UDim2.new(0, surfaceWidth + outerBleed, 1, -surface.margin * 2)
-	local surfacePosition = panelProgress:map(function(value: number)
-		local xOffset
-		-- Closed panels sit outerBleed past the overlay edge so they clear the hardware inset. Open leaves this at zero.
-		local hiddenBleed = (1 - value) * outerBleed
-		if props.side == InternalDrawerSide.End then
-			-- Top-left anchor, so the open width is the negative X offset.
-			xOffset = -value * (surfaceWidth + surface.margin) + hiddenBleed
-		else
-			local hiddenOffset = (1 - value) * surfaceWidth
-			xOffset = surface.openOffsetSign * surface.margin * value
-				+ surface.hiddenOffsetSign * (hiddenOffset + outerBleed + hiddenBleed)
-		end
-		return UDim2.new(surface.anchorScaleX, xOffset, 0, surface.margin)
-	end)
+	local side = props.side
+	local surfacePosition = React.useMemo(function()
+		return displayedPanel:map(function(value: number)
+			local xOffset
+			-- Closed panels sit outerBleed past the overlay edge so they clear the hardware inset. Open leaves this at zero.
+			local hiddenBleed = (1 - value) * outerBleed
+			if side == InternalDrawerSide.End then
+				-- Top-left anchor, so the open width is the negative X offset.
+				xOffset = -value * (surfaceWidth + surface.margin) + hiddenBleed
+			else
+				local hiddenOffset = (1 - value) * surfaceWidth
+				xOffset = surface.openOffsetSign * surface.margin * value
+					+ surface.hiddenOffsetSign * (hiddenOffset + outerBleed + hiddenBleed)
+			end
+			return UDim2.new(surface.anchorScaleX, xOffset, 0, surface.margin)
+		end)
+	end, { displayedPanel, side, surfaceWidth, outerBleed, surface } :: { unknown })
 
 	return overlay
 		and ReactRoblox.createPortal(
 			React.createElement(View, {
+				Visible = props.openPhase ~= InternalDrawerOpenPhase.Pressed,
 				ZIndex = elevation.zIndex,
 				tag = "size-full",
 				testId = `{props.testId}--container`,
@@ -162,7 +213,7 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 					selection = Constants.MODAL.DISABLE_SELECTION,
 					selectionGroup = Constants.MODAL.TRAP_FOCUS,
 					tag = `{surface.tag} {props.backgroundColor}`,
-					ref = ref,
+					ref = if props.swipeToDismiss ~= nil then surfaceRef else ref,
 					testId = props.testId,
 				}, {
 					Content = React.createElement(
@@ -195,6 +246,7 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 										scrollBarVisibility = props.scrollBarVisibility,
 									},
 									tag = "fill size-full-0",
+									scrollingFrameRef = if props.swipeToDismiss ~= nil then scrollingFrameRef else nil,
 									testId = `{props.testId}--body`,
 								}, {
 									Children = React.createElement(View, {
@@ -232,10 +284,26 @@ local function InternalDrawerOverlay(props: InternalDrawerOverlayProps, ref: Rea
 					else nil,
 				Backdrop = React.createElement(Backdrop, {
 					ZIndex = 1,
-					transparency = backdropTransparency,
+					transparency = displayedBackdrop,
 					onActivated = onBackdropActivated,
+					ref = if props.swipeToDismiss ~= nil then backdropRef else nil,
 					testId = `{props.testId}--backdrop`,
 				}),
+				-- Above the panel and the backdrop so the release does not activate either one.
+				Swipe = if props.swipeToDismiss ~= nil
+					then React.createElement(InternalDrawerDismissSwipe, {
+						config = props.swipeToDismiss,
+						panelRef = panelRef,
+						backdropRef = backdropRef,
+						scrollingFrameRef = scrollingFrameRef,
+						travel = travel,
+						side = props.side,
+						isOpen = props.isOpen,
+						motion = motion,
+						onRequestClose = props.onRequestClose,
+						testId = props.testId,
+					})
+					else nil,
 			}),
 			overlay
 		)

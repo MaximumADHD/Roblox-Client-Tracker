@@ -4,18 +4,12 @@ local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
-local getFFlagUGCValidateAnimationPackNoDuplicateIds =
-	require(root.flags.getFFlagUGCValidateAnimationPackNoDuplicateIds)
-
 local AnimationPackNoDuplicateIds = {}
 
 AnimationPackNoDuplicateIds.categories = { ValidationEnums.UploadCategory.ANIMATION_PACK }
 AnimationPackNoDuplicateIds.requiredData = {
 	ValidationEnums.SharedDataMember.contentIds,
 }
-AnimationPackNoDuplicateIds.fflag = function()
-	return getFFlagUGCValidateAnimationPackNoDuplicateIds()
-end
 AnimationPackNoDuplicateIds.expectedFailures = {}
 AnimationPackNoDuplicateIds.prereqTests = { ValidationEnums.ValidationModule.ExpectedRootSchema }
 

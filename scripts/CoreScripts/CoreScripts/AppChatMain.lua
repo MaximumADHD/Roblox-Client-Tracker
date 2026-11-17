@@ -28,8 +28,7 @@ local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
-local ChatChromeIntegration = if FFlagExpChatEnableFriendsTab and ChromeEnabled
+local ChatChromeIntegration = if ChromeEnabled
 	then require(RobloxGui.Modules.Chrome.Integrations.ExpChat.ChatChromeIntegration)
 	else nil
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)

@@ -3,11 +3,9 @@ local dependencies = require(SocialLibraries.dependencies)
 
 local Cryo = dependencies.Cryo
 local Roact = dependencies.Roact
-local Text = dependencies.Text
 
 local TestStyle = require(SocialLibraries.Components.Style.TestStyle)
 local CallbackInputBox = require(script.Parent.CallbackInputBox)
-local FFlagFoundationFontFaceMigration = dependencies.Foundation.Utility.Flags.FoundationFontFaceMigration
 local getTextBoundsAsync = dependencies.Foundation.Utility.getTextBoundsAsync
 local normalizeFontFace = dependencies.Foundation.Utility.normalizeFontFace
 
@@ -37,55 +35,47 @@ function InputBoxWithCharacterCounter:init()
 		})
 	end
 
-	if FFlagFoundationFontFaceMigration then
-		self.isMounted = false
-		self.measurementId = 0
+	self.isMounted = false
+	self.measurementId = 0
 
-		self.measureText = function()
-			local style = self.props.style
-			local text = #self.state.inputText .. "/" .. self.props.characterLimit
-			local font = style.Font.CaptionSubHeader.Font
-			local fontSize = style.Font.BaseSize * style.Font.CaptionSubHeader.RelativeSize
-			if self.measuredText == text and self.measuredFont == font and self.measuredFontSize == fontSize then
-				return
-			end
-
-			self.measuredText = text
-			self.measuredFont = font
-			self.measuredFontSize = fontSize
-			self.measurementId += 1
-			local measurementId = self.measurementId
-
-			task.spawn(function()
-				local bounds = getTextBoundsAsync(text, font, fontSize)
-				if self.isMounted and self.measurementId == measurementId then
-					self:setState({
-						textBounds = bounds,
-					})
-				end
-			end)
+	self.measureText = function()
+		local style = self.props.style
+		local text = #self.state.inputText .. "/" .. self.props.characterLimit
+		local font = style.Font.CaptionSubHeader.Font
+		local fontSize = style.Font.BaseSize * style.Font.CaptionSubHeader.RelativeSize
+		if self.measuredText == text and self.measuredFont == font and self.measuredFontSize == fontSize then
+			return
 		end
+
+		self.measuredText = text
+		self.measuredFont = font
+		self.measuredFontSize = fontSize
+		self.measurementId += 1
+		local measurementId = self.measurementId
+
+		task.spawn(function()
+			local bounds = getTextBoundsAsync(text, font, fontSize)
+			if self.isMounted and self.measurementId == measurementId then
+				self:setState({
+					textBounds = bounds,
+				})
+			end
+		end)
 	end
 end
 
 function InputBoxWithCharacterCounter:didMount()
-	if FFlagFoundationFontFaceMigration then
-		self.isMounted = true
-		self.measureText()
-	end
+	self.isMounted = true
+	self.measureText()
 end
 
 function InputBoxWithCharacterCounter:didUpdate()
-	if FFlagFoundationFontFaceMigration then
-		self.measureText()
-	end
+	self.measureText()
 end
 
 function InputBoxWithCharacterCounter:willUnmount()
-	if FFlagFoundationFontFaceMigration then
-		self.isMounted = false
-		self.measurementId += 1
-	end
+	self.isMounted = false
+	self.measurementId += 1
 end
 
 function InputBoxWithCharacterCounter:render()
@@ -98,16 +88,8 @@ function InputBoxWithCharacterCounter:render()
 	local counterTextColor
 	local counterTextTransparency
 
-	local textWidth
-	local textHeight
-	if FFlagFoundationFontFaceMigration then
-		local textBounds = self.state.textBounds or Vector2.new(0, counterTextSize)
-		textWidth = textBounds.X
-		textHeight = textBounds.Y
-	else
-		textWidth = Text.GetTextWidth(counterText, counterFont, counterTextSize)
-		textHeight = Text.GetTextHeight(counterText, counterFont, counterTextSize, textWidth)
-	end
+	local textBounds = self.state.textBounds or Vector2.new(0, counterTextSize)
+	local textHeight = textBounds.Y
 
 	if inputTextLength <= self.props.characterLimit then
 		counterTextColor = self.props.validInputTextColor3
@@ -172,10 +154,7 @@ function InputBoxWithCharacterCounter:render()
 				TextSize = counterTextSize,
 				TextXAlignment = Enum.TextXAlignment.Right,
 				TextYAlignment = Enum.TextYAlignment.Top,
-				Font = if FFlagFoundationFontFaceMigration then nil :: never else counterFont,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(counterFont)
-					else nil :: never,
+				FontFace = normalizeFontFace(counterFont),
 			})
 		}),
 	})

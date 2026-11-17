@@ -108,10 +108,18 @@ end)
 jest.mock(TopBar.Parent.Settings.SettingsHub, function()
 	return {}
 end)
+local FFlagEnableFreeTrialTopBarChip = jest.requireActual(Packages.InExperienceShop.FFlagEnableFreeTrialTopBarChip)
+local FFlagCenterInExperienceShopWindow =
+	jest.requireActual(Packages.InExperienceShop.FFlagCenterInExperienceShopWindow)
 jest.mock(Packages.InExperienceShop, function()
 	return {
 		FFlagEnableExperienceShopGlobalIcon = true,
 		FFlagExperienceShopNewIconography = true,
+		FFlagEnableFreeTrialTopBarChip = FFlagEnableFreeTrialTopBarChip,
+		FFlagCenterInExperienceShopWindow = FFlagCenterInExperienceShopWindow,
+		FreeTrialTopBarSlot = function()
+			return nil
+		end,
 		ShopGlobalIcon = control,
 		GetShopGlobalIconStore = function()
 			return mockShopStore

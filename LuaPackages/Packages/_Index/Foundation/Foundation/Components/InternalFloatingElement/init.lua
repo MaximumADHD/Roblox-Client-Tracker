@@ -1,0 +1,5 @@
+local InternalFloatingElement = require(script.InternalFloatingElement)
+
+export type InternalFloatingElementProps = InternalFloatingElement.InternalFloatingElementProps
+
+return InternalFloatingElement

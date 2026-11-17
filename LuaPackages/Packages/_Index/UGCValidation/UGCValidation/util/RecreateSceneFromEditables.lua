@@ -16,6 +16,13 @@ local getEngineFeatureEngineUGCValidateEmoteAnimationExport =
 
 local RecreateSceneFromEditables = {}
 
+RecreateSceneFromEditables.requiredData = {
+	ValidationEnums.SharedDataMember.renderMeshesData,
+	ValidationEnums.SharedDataMember.innerCagesData,
+	ValidationEnums.SharedDataMember.outerCagesData,
+	ValidationEnums.SharedDataMember.meshTextures,
+}
+
 local function createCagePart(
 	renderPart: MeshPart,
 	meshData: Types.EditableMeshData,

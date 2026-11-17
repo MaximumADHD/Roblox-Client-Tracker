@@ -192,25 +192,6 @@ local typographyVariantPaths: { [string]: { [Device]: () -> any } } = {
 	},
 }
 
-local legacyTypographyVariantPaths: typeof(typographyVariantPaths) = {
-	[FontName.BuilderSans] = {
-		Desktop = function()
-			return require(Foundation.Generated.StyleRules.Legacy.Typography.BuilderSans.DesktopAttribute)
-		end,
-		Console = function()
-			return require(Foundation.Generated.StyleRules.Legacy.Typography.BuilderSans.ConsoleAttribute)
-		end,
-	},
-	[FontName.Cartoon] = {
-		Desktop = function()
-			return require(Foundation.Generated.StyleRules.Legacy.Typography.Cartoon.DesktopAttribute)
-		end,
-		Console = function()
-			return require(Foundation.Generated.StyleRules.Legacy.Typography.Cartoon.ConsoleAttribute)
-		end,
-	},
-}
-
 local function getGeneratedRules(themeNameInput: ThemeName?, colorMode: ColorMode, device: Device): any
 	local themeName: ThemeName = themeNameInput or ThemeName.Default
 	local colorModeRules, sizeRules, commonRules
@@ -238,9 +219,7 @@ local function getGeneratedRules(themeNameInput: ThemeName?, colorMode: ColorMod
 		combinedRules[key] = value
 	end
 	local variant = TypographyVariants[themeName] or DEFAULT_TYPOGRAPHY_VARIANT
-	local variantPaths = if Flags.FoundationFontFaceMigration
-		then typographyVariantPaths[variant] or typographyVariantPaths[DEFAULT_TYPOGRAPHY_VARIANT]
-		else legacyTypographyVariantPaths[variant] or legacyTypographyVariantPaths[DEFAULT_TYPOGRAPHY_VARIANT]
+	local variantPaths = typographyVariantPaths[variant] or typographyVariantPaths[DEFAULT_TYPOGRAPHY_VARIANT]
 	local typographyDevice: Device = if device == Device.Console and not Flags.FoundationDisableTokenScaling
 		then Device.Console
 		else Device.Desktop

@@ -67,6 +67,7 @@ type _GamePassDataFields = {
 	total_up_votes: number?,
 	total_down_votes: number?,
 	user_vote: boolean?,
+	is_purchasable: boolean,
 }
 
 type _GamePassDataPartialFields = {
@@ -86,6 +87,7 @@ type _GamePassDataPartialFields = {
 	total_up_votes: number?,
 	total_down_votes: number?,
 	user_vote: boolean?,
+	is_purchasable: boolean?,
 }
 
 export type GamePassData = typeof(setmetatable({} :: _GamePassDataFields, {} :: _GamePassDataImpl))
@@ -260,6 +262,7 @@ do
 			total_up_votes = if data == nil or data.total_up_votes == nil then nil else data.total_up_votes,
 			total_down_votes = if data == nil or data.total_down_votes == nil then nil else data.total_down_votes,
 			user_vote = if data == nil or data.user_vote == nil then nil else data.user_vote,
+			is_purchasable = if data == nil or data.is_purchasable == nil then false else data.is_purchasable,
 		}, _GamePassDataImpl :: _GamePassDataImpl)
 	end
 
@@ -352,6 +355,11 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.user_vote then 1 else 0)
 		end
 
+		if self.is_purchasable then
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_purchasable then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -415,6 +423,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.user_vote = value ~= 0
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_purchasable = value ~= 0
 					continue
 				end
 
@@ -544,6 +557,10 @@ do
 
 		if self.user_vote ~= nil then
 			output.userVote = self.user_vote
+		end
+
+		if self.is_purchasable then
+			output.isPurchasable = self.is_purchasable
 		end
 
 		return output
@@ -680,6 +697,14 @@ do
 
 		if input.userVote ~= nil then
 			self.user_vote = input.userVote
+		end
+
+		if input.is_purchasable ~= nil then
+			self.is_purchasable = input.is_purchasable
+		end
+
+		if input.isPurchasable ~= nil then
+			self.is_purchasable = input.isPurchasable
 		end
 
 		return self

@@ -6,4 +6,5 @@ local SafeFlags = require(Packages.SafeFlags)
 
 return {
 	MomentScenesAvatarMomentUserId = SafeFlags.createGetFFlag("MomentScenesAvatarMomentUserId")(),
+	MomentScenesAvatarMomentDefaultClothing = SafeFlags.createGetFFlag("MomentScenesAvatarMomentDefaultClothing")(),
 }

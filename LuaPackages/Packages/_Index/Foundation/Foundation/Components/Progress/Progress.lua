@@ -16,7 +16,6 @@ type ProgressShape = ProgressShape.ProgressShape
 local ProgressSize = require(Foundation.Enums.ProgressSize)
 type ProgressSize = ProgressSize.ProgressSize
 
-local Flags = require(Foundation.Utility.Flags)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Tokens = require(Foundation.Providers.Style.Tokens)
@@ -31,21 +30,11 @@ local defaultProps = {
 local function Progress(progressProps: ProgressProps, ref: React.Ref<GuiObject>?): React.ReactElement
 	local props = withDefaults(progressProps, defaultProps)
 
-	if not Flags.FoundationProgressBarBetaUpdate then
-		(props :: any).ref = ref
-	end
-
 	if props.shape == ProgressShape.Circle then
-		return React.createElement(
-			ProgressCircle,
-			if Flags.FoundationProgressBarBetaUpdate then Dash.join(props, { ref = ref }) else props :: any
-		)
+		return React.createElement(ProgressCircle, Dash.join(props, { ref = ref }))
 	end
 
-	return React.createElement(
-		ProgressBar,
-		if Flags.FoundationProgressBarBetaUpdate then Dash.join(props, { ref = ref }) else props :: any
-	)
+	return React.createElement(ProgressBar, Dash.join(props, { ref = ref }))
 end
 
 return React.memo(React.forwardRef(Progress))

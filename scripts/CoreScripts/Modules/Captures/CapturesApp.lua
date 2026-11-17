@@ -7,6 +7,8 @@ local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 
 local CapturesInExperience = require(CorePackages.Workspace.Packages.CapturesInExperience)
 
+local openCapturesGallery = require(script.Parent.openCapturesGallery)
+
 local CapturesApp = CapturesInExperience.App.createApp()
 
 local CarouselScreenGui = Instance.new("ScreenGui")
@@ -41,7 +43,18 @@ MomentsCreationFlowScreenGui.Parent = CoreGui
 
 CapturesApp.mountCaptureManager(CaptureManagerScreenGui)
 CapturesApp.mountCarousel(CarouselScreenGui)
-CapturesApp.mountCoreUI(RobloxGui, ChromeEnabled())
+-- SettingsHub requires this module at load time, so it must be required lazily here.
+local function openGallery(): boolean
+	-- lute-lint-ignore(avoidAny): the type checker only allows the SettingsHub <-> CapturesApp cycle through an any cast.
+	local SettingsHub: openCapturesGallery.SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub) :: any
+	return openCapturesGallery(SettingsHub)
+end
+
+CapturesApp.mountCoreUI(
+	RobloxGui,
+	ChromeEnabled(),
+	if CapturesInExperience.Flags.FFlagCapturesControlsGalleryButton then openGallery else nil
+)
 CapturesApp.mountCaptureOverlay(OverlayScreenGui)
 CapturesApp.mountMomentsCreationFlow(MomentsCreationFlowScreenGui)
 

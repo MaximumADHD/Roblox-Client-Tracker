@@ -4,11 +4,11 @@
 
 	An outfit is two engine calls, because they answer different halves:
 	  Players:GetHumanoidDescriptionFromOutfitIdAsync  assets, body colors, scales
-	  AvatarEditorService:GetOutfitDetailsAsync        PlayerAvatarType, "R15"/"R6"
+	  AvatarEditorService:GetOutfitDetailsAsync        rig type + Gear asset
 
 	A user is the same split:
 	  Players:GetHumanoidDescriptionFromUserIdAsync    the user's current avatar
-	  Players:GetCharacterAppearanceInfoAsync          playerAvatarType, "R15"/"R6"
+	  Players:GetCharacterAppearanceInfoAsync          rig type + Gear asset
 
 	All of these are the Async spellings. The older non-Async names still work
 	and still yield identically, but they are deprecated and analyze fails on
@@ -22,16 +22,18 @@
 	The calls work from a client and from a server, and they yield: measured
 	around 0.15s each against a warm outfit.
 
-	Only appearance is consumed here. An outfit or a user can also carry
-	equipped emotes, and AvatarMoment ignores them on purpose — emote and
-	background are scene args so they compose against any subject without having
-	to mint a new outfit id for every combination.
+	Gear is the exception to HumanoidDescription-based appearance: it is a Tool,
+	so it is returned separately for the builder to insert and equip. Equipped
+	emotes are still ignored on purpose — emote and background are scene args so
+	they compose against any subject without having to mint a new outfit id for
+	every combination.
 ]]
 local Players = game:GetService("Players")
 
 export type AvatarSnapshot = {
 	rigType: Enum.HumanoidRigType,
 	humanoidDescription: HumanoidDescription,
+	gearAssetId: number?,
 }
 
 local DEFAULT_RIG_TYPE = Enum.HumanoidRigType.R15
@@ -64,6 +66,32 @@ local function rigTypeFromName(name: string?): Enum.HumanoidRigType
 	return DEFAULT_RIG_TYPE
 end
 
+-- GetOutfitDetailsAsync uses PascalCase keys while
+-- GetCharacterAppearanceInfoAsync uses camelCase keys.
+local function gearAssetIdFromAssets(assets: any): number?
+	if typeof(assets) ~= "table" then
+		return nil
+	end
+	for _, asset in assets do
+		if typeof(asset) == "table" then
+			local assetType = asset.AssetType or asset.assetType
+			local assetTypeId = if typeof(assetType) == "table" then assetType.Id or assetType.id else nil
+			if assetTypeId == Enum.AssetType.Gear.Value then
+				local assetId = asset.Id or asset.id
+				if typeof(assetId) == "number" and assetId > 0 then
+					return assetId
+				end
+			end
+		end
+	end
+	return nil
+end
+
+type AppearanceDetails = {
+	rigType: Enum.HumanoidRigType,
+	gearAssetId: number?,
+}
+
 --[[
 	Soft on purpose. An outfit whose appearance resolved is worth rendering even
 	when its details did not, and AvatarEditorService is not guaranteed to be
@@ -71,15 +99,21 @@ end
 	back with an R15 rig rather than no scene at all. The warning is so a host
 	silently rendering every R6 outfit as R15 is visible rather than inferred.
 ]]
-local function resolveRigType(outfitId: number): Enum.HumanoidRigType
+local function resolveDetails(outfitId: number): AppearanceDetails
 	local ok, details = pcall(function()
 		return game:GetService("AvatarEditorService"):GetOutfitDetailsAsync(outfitId)
 	end)
 	if not ok or typeof(details) ~= "table" then
 		warn(`resolveOutfit: outfit {outfitId} details unavailable, assuming R15 ({details})`)
-		return DEFAULT_RIG_TYPE
+		return {
+			rigType = DEFAULT_RIG_TYPE,
+			gearAssetId = nil,
+		}
 	end
-	return rigTypeFromName((details :: any).PlayerAvatarType)
+	return {
+		rigType = rigTypeFromName((details :: any).PlayerAvatarType),
+		gearAssetId = gearAssetIdFromAssets((details :: any).Assets),
+	}
 end
 
 --[[
@@ -94,9 +128,11 @@ local function resolve(outfitId: number): AvatarSnapshot
 		error(`resolveOutfit: outfit {outfitId} did not resolve ({description})`)
 	end
 
+	local details = resolveDetails(outfitId)
 	return {
-		rigType = resolveRigType(outfitId),
+		rigType = details.rigType,
 		humanoidDescription = description :: HumanoidDescription,
+		gearAssetId = details.gearAssetId,
 	}
 end
 
@@ -106,15 +142,21 @@ end
 	scene. A place-forced rig is not in this payload: the description was
 	fetched with the current placeId and can disagree.
 ]]
-local function resolveUserRigType(userId: number): Enum.HumanoidRigType
+local function resolveUserDetails(userId: number): AppearanceDetails
 	local ok, info = pcall(function()
 		return Players:GetCharacterAppearanceInfoAsync(userId)
 	end)
 	if not ok or typeof(info) ~= "table" then
 		warn(`resolveOutfit: user {userId} appearance info unavailable, assuming R15 ({info})`)
-		return DEFAULT_RIG_TYPE
+		return {
+			rigType = DEFAULT_RIG_TYPE,
+			gearAssetId = nil,
+		}
 	end
-	return rigTypeFromName((info :: any).playerAvatarType)
+	return {
+		rigType = rigTypeFromName((info :: any).playerAvatarType),
+		gearAssetId = gearAssetIdFromAssets((info :: any).assets),
+	}
 end
 
 --[[
@@ -129,9 +171,11 @@ local function resolveUser(userId: number): AvatarSnapshot
 		error(`resolveOutfit: user {userId} did not resolve ({description})`)
 	end
 
+	local details = resolveUserDetails(userId)
 	return {
-		rigType = resolveUserRigType(userId),
+		rigType = details.rigType,
 		humanoidDescription = description :: HumanoidDescription,
+		gearAssetId = details.gearAssetId,
 	}
 end
 
@@ -140,4 +184,5 @@ return {
 	resolveUser = resolveUser,
 	rigTypeFromName = rigTypeFromName,
 	isKnownAvatarType = isKnownAvatarType,
+	gearAssetIdFromAssets = gearAssetIdFromAssets,
 }

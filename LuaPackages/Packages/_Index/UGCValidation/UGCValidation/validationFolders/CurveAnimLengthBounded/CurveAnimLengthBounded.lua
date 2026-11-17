@@ -30,17 +30,27 @@ CurveAnimLengthBounded.requiredData = {
 CurveAnimLengthBounded.expectedFailures = {}
 CurveAnimLengthBounded.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
-CurveAnimLengthBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local computed = data.curveAnimComputedFrames
+local function validateCurveAnimClip(reporter: Types.ValidationReporter, computed: Types.CurveAnimClipComputedFrames)
+	local animationName = computed.animation and computed.animation:GetFullName()
 	local length = computed.animLength
 
 	local minLength = GetFStringUGCValidateCurveAnimationMinLength.asNumber()
 
 	if length <= minLength or length > GetFStringUGCValidationMaxAnimationLength.asNumber() then
-		reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidLength, {
+		local failureParams: { [string]: any } = {
 			minLength = tostring(minLength),
 			maxLength = GetFStringUGCValidationMaxAnimationLength.asString(),
-		})
+		}
+		if animationName then
+			failureParams.animationName = animationName
+		end
+		reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidLength, failureParams, computed.animation)
+	end
+end
+
+CurveAnimLengthBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	for _, computed in data.curveAnimComputedFrames do
+		validateCurveAnimClip(reporter, computed)
 	end
 end
 

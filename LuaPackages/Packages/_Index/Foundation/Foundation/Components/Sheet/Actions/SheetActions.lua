@@ -7,6 +7,7 @@ local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
 local SheetType = require(Sheet.SheetType)
 
+local Flags = require(Foundation.Utility.Flags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
@@ -41,6 +42,15 @@ local function SheetActions(props: SheetActionsProps, ref: React.Ref<GuiObject>?
 	)
 
 	local innerSurface = sheetContext.innerSurface
+
+	if Flags.FoundationBottomSheetClearsActionsHeight then
+		-- Sheet content reserves actionsHeight at its bottom, so a sheet that stops rendering actions must release it.
+		React.useLayoutEffect(function()
+			return function()
+				setActionsHeight(0)
+			end
+		end, { setActionsHeight })
+	end
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 

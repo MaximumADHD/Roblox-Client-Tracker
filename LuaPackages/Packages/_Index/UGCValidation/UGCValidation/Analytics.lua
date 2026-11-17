@@ -20,7 +20,6 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
-local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 
 local function joinTables(...)
 	local result = {}
@@ -74,18 +73,10 @@ Analytics.ErrorType = {
 	validateLimbsAndTorso_FolderInfoMismatch = "validateLimbsAndTorso_FolderInfoMismatch",
 	validateLimbsAndTorso_R6FolderHasChildren = "validateLimbsAndTorso_R6FolderHasChildren",
 	validateLimbsAndTorso_TopLevelFolders = "validateLimbsAndTorso_TopLevelFolders",
-	validateMeshBounds_FailedToExecute = "validateMeshBounds_FailedToExecute",
-	validateMeshBounds_FailedToLoadMesh = "validateMeshBounds_FailedToLoadMesh",
-	validateMeshBounds_TooLarge = "validateMeshBounds_TooLarge",
 	validateMeshPartAccessory_DoubleSided = "validateMeshPartAccessory_DoubleSided",
 	validateMeshPartAccessory_FailedToLoadMesh = "validateMeshPartAccessory_FailedToLoadMesh",
 	validateMeshPartAccessory_NoMeshId = "validateMeshPartAccessory_NoMeshId",
 	validateMeshPartBodyPart_ValidateWithSchema = "validateMeshPartBodyPart_ValidateWithSchema",
-	validateMeshTriangles_FailedToExecute = "validateMeshTriangles_FailedToExecute",
-	validateMeshTriangles_FailedToLoadMesh = "validateMeshTriangles_FailedToLoadMesh",
-	validateMeshTriangles_TooManyTriangles = "validateMeshTriangles_TooManyTriangles",
-	validateMeshVertexColors_FailedToLoadMesh = "validateMeshVertexColors_FailedToLoadMesh",
-	validateMeshVertexColors_NonNeutralVertexColors = "validateMeshVertexColors_NonNeutralVertexColors",
 	validatePackage_FailedToParse = "validatePackage_FailedToParse",
 	validateSingleInstance_MultipleInstances = "validateSingleInstance_MultipleInstances",
 	validateSingleInstance_ZeroInstances = "validateSingleInstance_ZeroInstances",
@@ -93,17 +84,11 @@ Analytics.ErrorType = {
 	validateTags = "validateTags",
 	validateThumbnailConfiguration_InvalidTarget = "validateThumbnailConfiguration_InvalidTarget",
 	validateThumbnailConfiguration_OutsideView = "validateThumbnailConfiguration_OutsideView",
-	validateVertexDensity_FailedToExecute = "validateVertexDensity_FailedToExecute",
-	validateVertexDensity_MaxDensityExceeded = "validateVertexDensity_MaxDensityExceeded",
 	validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls = "validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls",
 	validateRenderMeshInsideOuterCageMesh_FailedToExecute = "validateRenderMeshInsideOuterCageMesh_FailedToExecute",
 	validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded = "validateRenderMeshInsideOuterCageMesh_MaxOutsideCageMeshExceeded",
 	validateLayeredClothingAccessory_CageOriginOutOfBounds = "validateLayeredClothingAccessory_CageOriginOutOfBounds",
 	validateBodyPart_CageOriginOutOfBounds = "validateBodyPart_CageOriginOutOfBounds",
-	validateTotalSurfaceArea_FailedToExecute = "validateTotalSurfaceArea_FailedToExecute",
-	validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded = "validateTotalSurfaceArea_maxTotalSurfaceAreaExceeded",
-	validateCoplanarIntersection_FailedToExecute = "validateCoplanarIntersection_FailedToExecute",
-	validateCoplanarIntersection_CoplanarIntersection = "validateCoplanarIntersection_CoplanarIntersection",
 	validateExcludedModifiedCageUVs_FailedToExecute = "validateExcludedModifiedCageUVs_FailedToExecute",
 	validateExcludedModifiedCageUVs_UnexpectedUVValue = "validateExcludedModifiedCageUVs_UnexpectedUVValue",
 	validateMainModifiedCageUVs_FailedToExecute = "validateMainModifiedCageUVs_FailedToExecute",
@@ -121,17 +106,9 @@ Analytics.ErrorType = {
 	validateBodyAttPosRelativeToParent_ParentBelowPart = "validateBodyAttPosRelativeToParent_ParentBelowPart",
 	validateBodyBlockingTests_ZeroMeshSize = "validateBodyBlockingTests_ZeroMeshSize",
 	validateFullBody_ZeroMeshSize = "validateFullBody_ZeroMeshSize",
-	validateMeshBounds_Shifted = "validateMeshBounds_Shifted",
 	validateDeformedLayeredClothingInRenderBounds_FailedToExecute = "validateDeformedLayeredClothingInRenderBounds_FailedToExecute",
 	validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds = "validateDeformedLayeredClothingInRenderBounds_ClothingOutOfBounds",
 }
-
-if getFFlagUGCValidateTexturePack() then
-	Analytics.ErrorType.validateTexturePack_InvalidTexturePackURL = "validateTexturePack_InvalidTexturePackURL"
-	Analytics.ErrorType.validateTexturePack_FailedToDownloadTexturePack =
-		"validateTexturePack_FailedToDownloadTexturePack"
-	Analytics.ErrorType.validateTexturePack_TexturePackMismatch = "validateTexturePack_TexturePackMismatch"
-end
 
 Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"
 Analytics.ErrorType.validateMeshSizeProperty_Mismatch = "validateMeshSizeProperty_Mismatch"

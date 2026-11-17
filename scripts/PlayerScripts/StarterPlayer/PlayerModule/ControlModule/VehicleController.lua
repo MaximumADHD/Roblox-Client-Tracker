@@ -40,7 +40,7 @@ function VehicleController:Enable(enable: boolean, vehicleSeat: VehicleSeat)
 		if not vehicleSeat then
 			return
 		end
-		
+
 		self.vehicleSeat = vehicleSeat
 		vehicleContext.Enabled = true
 	else

@@ -14,7 +14,6 @@ local Measure_Mesh_Island_ML = {}
 Measure_Mesh_Island_ML.categories = {
 	ValidationEnums.UploadCategory.FULL_BODY,
 }
-Measure_Mesh_Island_ML.fflag = require(root.flags.getFFlagUGCValidateAQMeshIslandML)
 
 Measure_Mesh_Island_ML.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local summary = data.aqsSummaryData.Measure_Mesh_Island_ML

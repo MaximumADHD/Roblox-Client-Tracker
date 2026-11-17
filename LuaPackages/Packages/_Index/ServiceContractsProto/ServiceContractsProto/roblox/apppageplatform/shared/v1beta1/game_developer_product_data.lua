@@ -31,6 +31,7 @@ type _GameDeveloperProductDataFields = {
 	status_tooltip: string,
 	base_price_in_robux: number,
 	is_discounted: boolean,
+	is_purchasable: boolean,
 }
 
 type _GameDeveloperProductDataPartialFields = {
@@ -43,6 +44,7 @@ type _GameDeveloperProductDataPartialFields = {
 	status_tooltip: string?,
 	base_price_in_robux: number?,
 	is_discounted: boolean?,
+	is_purchasable: boolean?,
 }
 
 export type GameDeveloperProductData = typeof(setmetatable(
@@ -70,6 +72,7 @@ do
 				then 0
 				else data.base_price_in_robux,
 			is_discounted = if data == nil or data.is_discounted == nil then false else data.is_discounted,
+			is_purchasable = if data == nil or data.is_purchasable == nil then false else data.is_purchasable,
 		}, _GameDeveloperProductDataImpl :: _GameDeveloperProductDataImpl)
 	end
 
@@ -122,6 +125,11 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_discounted then 1 else 0)
 		end
 
+		if self.is_purchasable then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_purchasable then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -160,6 +168,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_discounted = value ~= 0
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_purchasable = value ~= 0
 					continue
 				end
 
@@ -249,6 +262,10 @@ do
 			output.isDiscounted = self.is_discounted
 		end
 
+		if self.is_purchasable then
+			output.isPurchasable = self.is_purchasable
+		end
+
 		return output
 	end
 
@@ -313,6 +330,14 @@ do
 
 		if input.isDiscounted ~= nil then
 			self.is_discounted = input.isDiscounted
+		end
+
+		if input.is_purchasable ~= nil then
+			self.is_purchasable = input.is_purchasable
+		end
+
+		if input.isPurchasable ~= nil then
+			self.is_purchasable = input.isPurchasable
 		end
 
 		return self

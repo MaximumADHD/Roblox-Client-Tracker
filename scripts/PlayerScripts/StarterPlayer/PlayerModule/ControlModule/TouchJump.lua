@@ -26,7 +26,8 @@ local JUMP_BUTTON_ZINDEX = 10
 -- remove with FFlagUserPlayerScriptsCCLIntegrationD
 local JUMP_BUTTON_IMAGES = {
 	"rbxasset://textures/ui/Input/JumpButtonRegular.png",
-	"rbxasset://textures/ui/Input/JumpButtonPressed.png"}
+	"rbxasset://textures/ui/Input/JumpButtonPressed.png",
+}
 local CONNECTIONS = {
 	HUMANOID_STATE_ENABLED_CHANGED = "HUMANOID_STATE_ENABLED_CHANGED",
 	HUMANOID_JUMP_POWER = "HUMANOID_JUMP_POWER",
@@ -46,15 +47,18 @@ type TouchJumpClass = {
 	_setupConfigurations: (self: TouchJump) -> (),
 }
 
-export type TouchJump = typeof(setmetatable({} :: {
-	-- holds any connections this module makes
-	_connectionUtil: any, -- ConnectionUtil.ConnectionUtil,
-	-- true if the jump is active including checks like humanoid state and if the module is active
-	_active: boolean
-}, {} :: TouchJumpClass))
+export type TouchJump = typeof(setmetatable(
+	{} :: {
+		-- holds any connections this module makes
+		_connectionUtil: any, -- ConnectionUtil.ConnectionUtil,
+		-- true if the jump is active including checks like humanoid state and if the module is active
+		_active: boolean,
+	},
+	{} :: TouchJumpClass
+))
 
-
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local ActionController = require(script.Parent:WaitForChild("ActionController"))
 local TouchJump = setmetatable({}, ActionController)
 TouchJump.__index = TouchJump
@@ -63,7 +67,7 @@ function TouchJump.new(data)
 	local self = setmetatable(ActionController.new() :: any, TouchJump)
 
 	self.data = data -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
-	data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
+	self._actionsReloadedConn = data.eventBus:subscribe(CONNECTIONS.ACTIONS_RELOADED):Connect(function()
 		self:Create()
 		if FFlagUserPlayerScriptsFixTouchJumpVisibility and self._active then
 			self._active = false
@@ -115,7 +119,12 @@ end
 
 function TouchJump:UpdateEnabled()
 	local humanoid = CharacterUtil.getChild("Humanoid", "Humanoid")
-	if humanoid and self.externallyEnabled and ((humanoid.UseJumpPower and humanoid.JumpPower > 0) or (not humanoid.UseJumpPower and humanoid.JumpHeight > 0)) and humanoid:GetStateEnabled(Enum.HumanoidStateType.Jumping) then
+	if
+		humanoid
+		and self.externallyEnabled
+		and ((humanoid.UseJumpPower and humanoid.JumpPower > 0) or (not humanoid.UseJumpPower and humanoid.JumpHeight > 0))
+		and humanoid:GetStateEnabled(Enum.HumanoidStateType.Jumping)
+	then
 		self:EnableButton(true)
 	else
 		self:EnableButton(false)
@@ -158,7 +167,9 @@ function TouchJump:Enable(enable, parentFrame)
 		self.parentUIFrame = parentFrame
 	end
 
-	if self.externallyEnabled == enable then return end
+	if self.externallyEnabled == enable then
+		return
+	end
 	self.externallyEnabled = enable
 	ActionController.Enable(self, enable)
 
@@ -169,6 +180,29 @@ function TouchJump:Enable(enable, parentFrame)
 	else
 		self._connectionUtil:disconnectAll()
 	end
+end
+
+function TouchJump:Destroy()
+	if self._actionsReloadedConn then
+		self._actionsReloadedConn:Disconnect()
+		self._actionsReloadedConn = nil
+	end
+	if self.jumpButton then
+		self.jumpButton:Destroy()
+		self.jumpButton = nil
+	end
+	if self.absoluteSizeChangedConn then
+		self.absoluteSizeChangedConn:Disconnect()
+		self.absoluteSizeChangedConn = nil
+	end
+	if self.avatarAbilitiesEnabledChangedConn then
+		self.avatarAbilitiesEnabledChangedConn:Disconnect()
+		self.avatarAbilitiesEnabledChangedConn = nil
+	end
+	self._connectionUtil:disconnectAll()
+	self.externallyEnabled = false
+	self._active = false
+	self.parentUIFrame = nil
 end
 
 function TouchJump:Create()
@@ -185,7 +219,7 @@ function TouchJump:Create()
 		self.absoluteSizeChangedConn:Disconnect()
 		self.absoluteSizeChangedConn = nil
 	end
-	
+
 	if not FFlagUserPlayerScriptsCCLIntegrationD then
 		if self.avatarAbilitiesEnabledChangedConn then
 			self.avatarAbilitiesEnabledChangedConn:Disconnect()
@@ -233,15 +267,17 @@ function TouchJump:Create()
 			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 			self.jumpButton.ImageRectSize = Vector2.new(144, 144)
 			self.jumpButton.Size = UDim2.new(0, jumpButtonSize, 0, jumpButtonSize)
-			self.jumpButton.Position = isSmallScreen and UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize - 20) or
-				UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize * 1.75)
+			self.jumpButton.Position = isSmallScreen
+					and UDim2.new(1, -(jumpButtonSize * 1.5 - 10), 1, -jumpButtonSize - 20)
+				or UDim2.new(1, -(jumpButtonSize * 1.5 - 10), 1, -jumpButtonSize * 1.75)
 		end
 	end
 
 	ResizeJumpButton()
 	self.absoluteSizeChangedConn = self.parentUIFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeJumpButton)
 	if not FFlagUserPlayerScriptsCCLIntegrationD then
-		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeJumpButton)
+		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal()
+			:Connect(ResizeJumpButton)
 	end
 
 	self.jumpButton.Parent = self.parentUIFrame
@@ -274,7 +310,6 @@ function TouchJump:Create()
 			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 		end
 	end)
-
 end
 
 return TouchJump

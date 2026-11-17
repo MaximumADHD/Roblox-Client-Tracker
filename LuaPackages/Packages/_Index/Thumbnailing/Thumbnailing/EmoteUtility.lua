@@ -19,6 +19,7 @@ local FFlagEmoteUtilityRetargetPoses = game:DefineFastFlag("EmoteUtilityRetarget
 local FStringEmoteUtilityCanonicalR15RigUri =
 	game:DefineFastString("EmoteUtilityCanonicalR15RigUri", "rbxasset://avatar/characterR15.rbxm")
 local FFlagEmoteUtilityCurveRotationOnlyJoints = game:DefineFastFlag("EmoteUtilityCurveRotationOnlyJoints", false)
+local FFlagEmoteUtilityMoodOverride = game:DefineFastFlag("EmoteUtilityMoodOverride", false)
 
 local module = {}
 
@@ -28,6 +29,9 @@ type AttachmentsByName = { [string]: Attachment }
 
 type AnimatableJoint = AnimationConstraint | Motor6D
 type SomeKindOfRotationCurve = EulerRotationCurve | RotationCurve
+
+-- A set of control names, e.g. FaceControls properties
+type ControlNames = { [string]: boolean }
 
 export type KeyframesForPose = {
 	-- The asset id passed in.  This is an explicit choice by the user: they picked this emote to pose.
@@ -39,6 +43,8 @@ export type KeyframesForPose = {
 	finalAnimationAssetIdOrUrl: AnimationAssetIdOrUrl?,
 	poseKeyframe: Keyframe?,
 	moodKeyframe: Keyframe?,
+	-- Face controls moodKeyframe doesn't set: an emote's, as in game its face channels override the mood's
+	moodSkippedControls: ControlNames?,
 	defaultToolKeyframe: Keyframe?,
 	suggestedKeyframeFromTool: Keyframe?,
 	-- The rig each keyframe above was authored on: the AnimationRigData published inside its clip, or for
@@ -253,6 +259,17 @@ local function getAnimationClipByAssetId(animationClipAssetId: string): Animatio
 	return animationClip
 end
 
+-- The names of the controls (NumberPoses in a Folder) keyframe keys
+local function getControlNames(keyframe: Keyframe): ControlNames
+	local names: ControlNames = {}
+	for _, descendant in keyframe:GetDescendants() do
+		if descendant:IsA("NumberPose") and descendant.Parent and descendant.Parent:IsA("Folder") then
+			names[descendant.Name] = true
+		end
+	end
+	return names
+end
+
 local function getThumbnailKeyframeFromAnimationOrUrl(
 	animationOrUrl: Animation | string,
 	rotationDegrees: number,
@@ -298,7 +315,12 @@ end
 
 -- Apply properties from NumberPoses to an Instance in the Character
 -- This is currently used for FaceControls but more similar controlers may be added in the future.
-local function applyControlsFolder(character: Model, parentPose: Instance?, folder: Folder)
+local function applyControlsFolder(
+	character: Model,
+	parentPose: Instance?,
+	folder: Folder,
+	skippedControls: ControlNames?
+)
 	if not parentPose then
 		return
 	end
@@ -315,7 +337,10 @@ local function applyControlsFolder(character: Model, parentPose: Instance?, fold
 	end
 
 	for _, subPose in folder:GetChildren() do
-		if subPose:IsA("NumberPose") then
+		if
+			subPose:IsA("NumberPose")
+			and not (FFlagEmoteUtilityMoodOverride and skippedControls and skippedControls[subPose.Name])
+		then
 			trySetProperty(controls, subPose.Name, subPose.Value)
 		end
 	end
@@ -328,10 +353,15 @@ end
 	we will not pose any joints that are already in the blacklist.
 ]]
 -- Applies only a keyframe's control folders (FaceControls), leaving its joint poses alone
-local function applyKeyframeControls(character: Model, keyframe: Keyframe?)
+local function applyKeyframeControls(character: Model, keyframe: Keyframe?, skippedControls: ControlNames?)
 	local function recurApplyControls(parentPose: Instance?, poseObject: Instance)
 		if poseObject:IsA("Folder") then
-			applyControlsFolder(character, parentPose, poseObject)
+			applyControlsFolder(
+				character,
+				parentPose,
+				poseObject,
+				if FFlagEmoteUtilityMoodOverride then skippedControls else nil
+			)
 		else
 			for _, subPose in poseObject:GetChildren() do
 				recurApplyControls(poseObject, subPose)
@@ -346,7 +376,7 @@ local function applyKeyframeControls(character: Model, keyframe: Keyframe?)
 	end
 end
 
-local function applyKeyframeInner(character: Model, poseKeyframe: Keyframe?)
+local function applyKeyframeInner(character: Model, poseKeyframe: Keyframe?, skippedControls: ControlNames?)
 	local function recurApplyPoses(parentPose: Instance?, poseObject: Instance)
 		if parentPose and poseObject:IsA("Pose") then
 			local part0 = character:FindFirstChild(parentPose.Name) :: Part
@@ -369,7 +399,12 @@ local function applyKeyframeInner(character: Model, poseKeyframe: Keyframe?)
 		-- of the Instance with the same name in the character
 		-- This is currently only used for FaceControls
 		if poseObject:IsA("Folder") then
-			applyControlsFolder(character, parentPose, poseObject)
+			applyControlsFolder(
+				character,
+				parentPose,
+				poseObject,
+				if FFlagEmoteUtilityMoodOverride then skippedControls else nil
+			)
 		else
 			for _, subPose in poseObject:GetChildren() do
 				recurApplyPoses(poseObject, subPose)
@@ -862,6 +897,7 @@ end
 	number value in the pose asset and use that to rotate the avatar.
 
 	Return the keyframe and a bool on whether or not this trumps tools suggestions.
+	Tool pose trumps given pose if and only if the animation asset is not an idle anim.
 	May return nil for keyframe.
 ]]
 local function getMainThumbnailKeyframe(
@@ -1589,7 +1625,14 @@ local function loadKeyframesForPoseR15(
 	-- * Otherwise we do care about the mood asset: load it.
 	local shouldApplyMood = false
 	if FFlagEmoteUtilityDefaultMoodFromCharacter or (moodAssetId and moodAssetId ~= 0) then
-		if animationAssetId == nil then
+		if FFlagEmoteUtilityMoodOverride then
+			-- As in game: the mood overrides an idle's face, and an emote's face channels override the mood's.
+			-- getMainThumbnailKeyframe sets givenPoseTrumpsToolPose for an emote but not an idle.
+			shouldApplyMood = true
+			keyframesForPose.moodSkippedControls = if givenPoseTrumpsToolPose and poseKeyframe
+				then getControlNames(poseKeyframe)
+				else nil
+		elseif animationAssetId == nil then
 			shouldApplyMood = true
 		else
 			if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
@@ -1771,9 +1814,9 @@ module.ApplyKeyframesForPose = function(character: Model, keyframesForPose: Keyf
 		if retargeted then
 			-- The Animator gave the body pose's face controls priority over the face pose's; give them back to the
 			-- face pose, as applyKeyframeInner does
-			applyKeyframeControls(character, keyframesForPose.moodKeyframe)
+			applyKeyframeControls(character, keyframesForPose.moodKeyframe, keyframesForPose.moodSkippedControls)
 		else
-			applyKeyframeInner(character, keyframesForPose.moodKeyframe)
+			applyKeyframeInner(character, keyframesForPose.moodKeyframe, keyframesForPose.moodSkippedControls)
 		end
 	end
 

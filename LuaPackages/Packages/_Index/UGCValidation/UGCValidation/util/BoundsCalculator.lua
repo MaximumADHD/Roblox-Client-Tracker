@@ -375,4 +375,18 @@ function BoundsCalculator.calculateIndividualAssetPartsDataFromData(
 	return BoundsCalculator.calculateIndividualAssetPartsData(inst, validationContext)
 end
 
+-- per-part version of calculateFullBodyBoundsFromData, measured in the same straightened pose
+function BoundsCalculator.calculateIndividualFullBodyPartsDataFromData(
+	fullBodyAssets: Types.AllBodyParts,
+	renderMeshesData: { [string]: any }
+): (boolean, { string }?, { [string]: any }?)
+	local firstPart = next(fullBodyAssets)
+	if not firstPart then
+		return false, { "No body parts provided" }
+	end
+	local rootForCache = (fullBodyAssets[firstPart] :: Instance).Parent :: Instance
+	local validationContext = buildValidationContextFromRenderMeshes(rootForCache, nil, renderMeshesData)
+	return BoundsCalculator.calculateIndividualFullBodyPartsData(fullBodyAssets, validationContext, nil, true)
+end
+
 return BoundsCalculator

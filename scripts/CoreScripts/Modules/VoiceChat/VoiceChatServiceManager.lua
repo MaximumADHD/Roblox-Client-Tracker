@@ -32,6 +32,7 @@ local createVoiceRestrictionController_DEPRECATED =
 local showLegacyVoiceRestriction = require(script.Parent.Helpers.showLegacyVoiceRestriction)
 local showUFRVoiceRestriction = require(script.Parent.Helpers.showUFRVoiceRestriction)
 local getActiveInterventionTimeoutEnd = require(script.Parent.Helpers.getActiveInterventionTimeoutEnd)
+local getServerNow = require(script.Parent.Helpers.getServerNow)
 local voiceInterventionReceivedSignal =
 	require(CorePackages.Workspace.Packages.InterventionShared).Signals.voiceInterventionReceivedSignal
 local InterventionConstants = require(CorePackages.Workspace.Packages.InterventionShared).Utils.Constants
@@ -106,6 +107,7 @@ local FFlagEnableRetryForLinkingProtocolFetch =
 local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV3", false)
 local FFlagEnableVoiceRewarmReArm = game:DefineFastFlag("EnableVoiceRewarmReArmV2", false)
 local FFlagVoiceRewarmGrafanaMetrics = require(script.Parent.Flags.FFlagVoiceRewarmGrafanaMetrics)
+local FFlagVoiceConnectDisconnectGrafanaMetrics = game:DefineFastFlag("VoiceConnectDisconnectGrafanaMetrics", false)
 local FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider =
 	require(RobloxGui.Modules.Settings.Flags.FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider)
 local FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast = 
@@ -410,6 +412,15 @@ local function bind(t, k)
 	end
 end
 
+local function getEnumName(enum: { [string]: number }, value: number?): string?
+	for name, enumValue in enum do
+		if enumValue == value then
+			return name
+		end
+	end
+	return nil
+end
+
 function VoiceChatServiceManager.new(
 	coreVoiceManager,
 	VoiceChatService,
@@ -473,6 +484,7 @@ function VoiceChatServiceManager.new(
 					onAcknowledgementSuccess = onAcknowledgementSuccess,
 				})
 			end,
+			getNow = if FFlagReactiveVoiceRestrictionsUFR then getServerNow else nil,
 		}))
 	end
 
@@ -560,6 +572,11 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnUserAndPlaceCanUseVoiceResolved", function(userSettings, universePlaceSettings)
 		self:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)
 	end)
+	if FFlagReactiveVoiceRestrictionsUFR then
+		self.coreVoiceManager:subscribe("OnJoinAgeVerificationOverlayFetched", function(overlay)
+			self:_onJoinAgeVerificationOverlayFetched(overlay)
+		end)
+	end
 	self.coreVoiceManager:subscribe("OnRequestMicPermissionResolved", function()
 		if GetFFlagEnableUniveralVoiceToasts() then
 			if FFlagVoiceVolumeControlsEnableNotAudibleVoiceChatVolumeToast and FFlagVoiceVolumeControlsEnableVoiceChatVolumeSlider
@@ -658,6 +675,11 @@ function VoiceChatServiceManager.new(
 			connectData.connectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.AUTO_CONNECT
 			self.pendingConnectionSource = nil
 			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+			if FFlagVoiceConnectDisconnectGrafanaMetrics then
+				self.Analytics:reportVoiceConnected(
+					getEnumName(VoiceConstants.VOICE_CONNECTION_SOURCE, connectData.connectionSource)
+				)
+			end
 			self.voiceConnectEventReportedForActiveSession = true
 			shouldSendConnectDisconnectAnalytics = false
 			attemptVoiceRejoinConnection:Disconnect()
@@ -667,6 +689,11 @@ function VoiceChatServiceManager.new(
 			local reasonData = self:GetConnectDisconnectAnalyticsData()
 			reasonData.disconnectReason = self.pendingDisconnectReason or VoiceConstants.VOICE_DISCONNECT_REASON.SYSTEM
 			self.Analytics:reportConnectDisconnectEvents("voiceDisconnectReasonEvent", reasonData)
+			if FFlagVoiceConnectDisconnectGrafanaMetrics then
+				self.Analytics:reportVoiceDisconnected(
+					getEnumName(VoiceConstants.VOICE_DISCONNECT_REASON, reasonData.disconnectReason)
+				)
+			end
 			self.pendingDisconnectReason = nil
 		end
 
@@ -808,6 +835,11 @@ function VoiceChatServiceManager.new(
 			connectData.connectionSource = self.pendingConnectionSource
 			self.pendingConnectionSource = nil
 			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+			if FFlagVoiceConnectDisconnectGrafanaMetrics then
+				self.Analytics:reportVoiceConnected(
+					getEnumName(VoiceConstants.VOICE_CONNECTION_SOURCE, connectData.connectionSource)
+				)
+			end
 			self.voiceConnectEventReportedForActiveSession = true
 			shouldSendConnectDisconnectAnalytics = false
 			attemptVoiceRejoinConnection:Disconnect()
@@ -1141,6 +1173,21 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 	end
 end
 
+-- Players who only need to acknowledge an ended restriction join voice unbanned, so the dialog comes from the overlay.
+function VoiceChatServiceManager:_onJoinAgeVerificationOverlayFetched(overlay)
+	local voiceSettings = if type(overlay) == "table" then overlay.voiceSettings else nil
+	if not voiceSettings or voiceSettings.isBanned or voiceSettings.banReason ~= BAN_REASON.UFR_UNACKNOWLEDGED_EXPIRED then
+		return
+	end
+	-- Exposure is logged before the experiment flag, so both arms count the same players.
+	if FFlagProactiveVoiceRestrictionsUFRIXPExposure then
+		IXPServiceWrapper:LogFlagLinkedUserLayerExposure(AppUserLayers.VoiceUserIDLayer)
+	end
+	if FFlagProactiveVoiceRestrictionsUFR then
+		self.voiceRestrictionController.showPendingAcknowledgement(voiceSettings)
+	end
+end
+
 function VoiceChatServiceManager:ChangeVoiceJoinProgress(state: VoiceConstants.VoiceJoinProgressType)
 	return self.coreVoiceManager:ChangeVoiceJoinProgress(state)
 end
@@ -1320,7 +1367,7 @@ function VoiceChatServiceManager:_onUFRInterventionReceived(interventionDetail)
 		return
 	end
 
-	local isActive, endTimestamp = getActiveInterventionTimeoutEnd(interventionDetail, DateTime.now().UnixTimestamp)
+	local isActive, endTimestamp = getActiveInterventionTimeoutEnd(interventionDetail, getServerNow())
 	if not isActive then
 		return
 	end
@@ -2327,6 +2374,11 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 			connectData.connectionSource = self.pendingConnectionSource
 			self.pendingConnectionSource = nil
 			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+			if FFlagVoiceConnectDisconnectGrafanaMetrics then
+				self.Analytics:reportVoiceConnected(
+					getEnumName(VoiceConstants.VOICE_CONNECTION_SOURCE, connectData.connectionSource)
+				)
+			end
 			self.voiceConnectEventReportedForActiveSession = true
 		else
 			if groupId and groupId ~= "" then
@@ -2339,6 +2391,11 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 					connectData.connectionSource = self.pendingConnectionSource
 					self.pendingConnectionSource = nil
 					self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+					if FFlagVoiceConnectDisconnectGrafanaMetrics then
+						self.Analytics:reportVoiceConnected(
+							getEnumName(VoiceConstants.VOICE_CONNECTION_SOURCE, connectData.connectionSource)
+						)
+					end
 					self.voiceConnectEventReportedForActiveSession = true
 				end
 			end

@@ -1,15 +1,25 @@
 local CorePackages = game:GetService("CorePackages")
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
+local afterEach = JestGlobals.afterEach
+local beforeEach = JestGlobals.beforeEach
 local describe = JestGlobals.describe
-local it = JestGlobals.it
 local expect = JestGlobals.expect
+local it = JestGlobals.it
+local jest = JestGlobals.jest
 
 local Roact = require(CorePackages.Packages.Roact)
+local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
+local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 local findFirstInstance = UnitTestHelpers.findFirstInstance
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+local act = ReactRoblox.act
+
+local FFlagDisablePublishPlatformContentWithoutName =
+	require(script.Parent.Parent.Flags.FFlagDisablePublishPlatformContentWithoutName)
 
 local PublishAssetPromptFolder = script.Parent.Parent
 local Reducer = require(PublishAssetPromptFolder.Reducer)
@@ -113,4 +123,177 @@ describe("PublishAssetPromptSingleStep", function()
 			end)
 		end
 	end)
+end)
+
+local SUBMIT_TEXT = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Submit")
+local CANCEL_TEXT = RobloxTranslator:FormatByKey("CoreScripts.PublishAssetPrompt.Cancel")
+
+type MountedPrompt = typeof(Roact.mount(Roact.createElement("Frame")))
+
+local mountedInstance: MountedPrompt? = nil
+local mountedContainer: Folder? = nil
+local mountedModel: Model? = nil
+
+local function cleanupMountedPrompt()
+	if mountedInstance ~= nil then
+		Roact.unmount(mountedInstance)
+		mountedInstance = nil
+	end
+	if mountedContainer ~= nil then
+		mountedContainer:Destroy()
+		mountedContainer = nil
+	end
+	if mountedModel ~= nil then
+		mountedModel:Destroy()
+		mountedModel = nil
+	end
+end
+
+local function mountPrompt(assetType: Enum.AssetType)
+	cleanupMountedPrompt()
+	local model = Instance.new("Model")
+	mountedModel = model
+	local instance, container = mountWithAsset(model, assetType)
+	mountedInstance = instance
+	mountedContainer = container
+	return container
+end
+
+local function buttonWithText(container: Instance, text: string): GuiButton
+	local label = findFirstInstance(container, {
+		ClassName = "TextLabel",
+		Text = text,
+	})
+	expect(label).never.toBeNil()
+	local button = (label :: Instance):FindFirstAncestorWhichIsA("GuiButton")
+	expect(button).never.toBeNil()
+	return button :: GuiButton
+end
+
+local function nameTextBox(container: Instance): TextBox
+	-- The description field is the multiline box inside the scrolling frame.
+	local matched: TextBox? = nil
+	for _, object in container:GetDescendants() do
+		if object:IsA("TextBox") and object:FindFirstAncestorWhichIsA("ScrollingFrame") == nil then
+			matched = object :: TextBox
+			break
+		end
+	end
+	expect(matched).never.toBeNil()
+	return matched :: TextBox
+end
+
+local function advance(millis: number)
+	act(function()
+		jest.advanceTimersByTime(millis)
+	end)
+end
+
+local function setName(container: Instance, name: string)
+	-- Fake timers plus the test scheduler flush the prompt on the next advance.
+	advance(0)
+	local textBox = nameTextBox(container)
+	act(function()
+		textBox.Text = name
+	end)
+	-- Deferred signal behavior runs Change.Text on a later resume.
+	waitForEvents.act()
+	advance(0)
+end
+
+describe("publish button requires a name", function()
+	beforeEach(function()
+		jest.useFakeTimers().setEngineFrameTime(1000 / 60)
+	end)
+
+	afterEach(function()
+		cleanupMountedPrompt()
+		jest.useRealTimers()
+	end)
+
+	if FFlagDisablePublishPlatformContentWithoutName then
+		it("disables publish when the name is empty", function()
+			local container = mountPrompt(Enum.AssetType.Package)
+			advance(0)
+
+			-- Selectable follows isDisabled. Active stays false during the submit
+			-- button's input delay even when the button is not disabled.
+			local submitButton = buttonWithText(container, SUBMIT_TEXT)
+			local cancelButton = buttonWithText(container, CANCEL_TEXT)
+			expect(submitButton.Selectable).toBe(false)
+			expect(cancelButton.Active).toBe(true)
+		end)
+
+		it("enables publish once a name is entered and leaves description optional", function()
+			local container = mountPrompt(Enum.AssetType.Package)
+			setName(container, "Cool Hat")
+			advance(0)
+
+			local submitButton = buttonWithText(container, SUBMIT_TEXT)
+			expect(nameTextBox(container).Text).toBe("Cool Hat")
+			expect(submitButton.Selectable).toBe(true)
+		end)
+
+		it("keeps publish disabled when the name is only spaces", function()
+			local container = mountPrompt(Enum.AssetType.Package)
+			setName(container, "   ")
+			advance(0)
+
+			expect(buttonWithText(container, SUBMIT_TEXT).Selectable).toBe(false)
+		end)
+
+		it("keeps the original placeholder after a valid name is cleared", function()
+			local container = mountPrompt(Enum.AssetType.Package)
+			advance(0)
+
+			local textBox = nameTextBox(container)
+			local originalPlaceholder = textBox.PlaceholderText
+			setName(container, "Cool Hat")
+			advance(0)
+			setName(container, "")
+			advance(0)
+
+			textBox = nameTextBox(container)
+			expect(textBox.Text).toBe("")
+			expect(textBox.PlaceholderText).toBe(originalPlaceholder)
+			expect(buttonWithText(container, SUBMIT_TEXT).Selectable).toBe(false)
+		end)
+
+		it("leaves publish enabled for a model default name", function()
+			local container = mountPrompt(Enum.AssetType.Model)
+			advance(0)
+
+			local textBox = nameTextBox(container)
+			expect(textBox.Text).never.toBe("")
+			expect(textBox.PlaceholderText).toBe(textBox.Text)
+			expect(buttonWithText(container, SUBMIT_TEXT).Selectable).toBe(true)
+
+			local originalPlaceholder = textBox.PlaceholderText
+			setName(container, "Other Name")
+			advance(0)
+			setName(container, "")
+			advance(0)
+
+			textBox = nameTextBox(container)
+			expect(textBox.PlaceholderText).toBe(originalPlaceholder)
+			expect(buttonWithText(container, SUBMIT_TEXT).Selectable).toBe(false)
+		end)
+	else
+		it("leaves publish enabled when the name is empty", function()
+			local container = mountPrompt(Enum.AssetType.Package)
+			advance(0)
+
+			local submitButton = buttonWithText(container, SUBMIT_TEXT)
+			expect(submitButton.Selectable).toBe(true)
+			-- The existing input delay still renders while the button is not disabled.
+			local delayOverlay = nil
+			for _, child in submitButton:GetDescendants() do
+				if child:IsA("ImageLabel") then
+					delayOverlay = child
+					break
+				end
+			end
+			expect(delayOverlay).never.toBeNil()
+		end)
+	end
 end)

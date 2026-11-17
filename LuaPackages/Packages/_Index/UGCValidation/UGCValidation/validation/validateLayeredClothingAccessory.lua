@@ -7,25 +7,16 @@ local Constants = require(root.Constants)
 
 local validateLCCageQuality = require(root.validation.validateLCCageQuality)
 local validateInstanceTree = require(root.validation.validateInstanceTree)
-local validateMeshTriangles = require(root.validation.validateMeshTriangles)
 local validateTags = require(root.validation.validateTags)
-local validateMeshBounds = require(root.validation.validateMeshBounds)
-local validateMeshVertColors = require(root.validation.validateMeshVertColors)
 local validateSingleInstance = require(root.validation.validateSingleInstance)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local validateDependencies = require(root.validation.validateDependencies)
 local validateSkinningTransfer = require(root.validation.validateSkinningTransfer)
 
-local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
-local validateCoplanarIntersection = require(root.validation.validateCoplanarIntersection)
-local validateMaxCubeDensity = require(root.validation.validateMaxCubeDensity)
-local ValidateTexturePack = require(root.validation.ValidateTexturePack)
-
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
 local createEyebrowEyelashSchema = require(root.util.createEyebrowEyelashSchema)
-local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
@@ -36,7 +27,6 @@ local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
-local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
 	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
 
@@ -211,10 +201,6 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		validationResult = false
 	end
 
-	local attachment = getAttachment(handle, assetInfo.attachmentNames)
-
-	local boundsInfo = assetInfo.bounds[attachment.Name]
-
 	local failedReason: any = {}
 
 	success, failedReason = validateTags(instance, validationContext)
@@ -244,54 +230,11 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	end
 
 	if hasMeshContent then
-		success, failedReason = validateTotalSurfaceArea(meshInfo, meshScale, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
 		success, failedReason = ValidateMeshSizeProperty.validateSingleMeshPart(handle, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
-
-		success, failedReason = validateMeshBounds(
-			handle,
-			attachment,
-			meshInfo,
-			meshScale,
-			boundsInfo,
-			assetTypeEnum.Name,
-			validationContext
-		)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		success, failedReason = validateMeshTriangles(meshInfo, nil, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-		success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-
-		success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
-	end
-
-	success, failedReason = validateMaxCubeDensity(meshInfo, validationContext, meshScale)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
 	end
 
 	success, failedReason = validateLCCageQuality(instance, meshInfo, validationContext)
@@ -300,14 +243,6 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			table.insert(reasons, issue)
 		end
 		validationResult = false
-	end
-
-	if getFFlagUGCValidateTexturePack() then
-		success, failedReason = ValidateTexturePack.validate(instance, false, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
-		end
 	end
 
 	if not getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning() then

@@ -10,11 +10,8 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local FFlagFontFaceAX = require(CorePackages.Workspace.Packages.SharedFlags).FFlagFontFaceAX
-	and FFlagFoundationFontFaceMigration
 local AvatarExperienceDeps = require(CorePackages.Packages.AvatarExperienceDeps)
-local Text = require(CorePackages.Workspace.Packages.AppCommonLib).Text
 
 local RoactFitComponents = AvatarExperienceDeps.RoactFitComponents
 local FitTextLabel = RoactFitComponents.FitTextLabel
@@ -45,8 +42,7 @@ function ListEntry:render()
 		local font = fontInfo.CaptionBody.Font
 		local fontSize = fontInfo.BaseSize * fontInfo.CaptionBody.RelativeSize
 
-		local bulletPointWidth = if FFlagFoundationFontFaceMigration then GetTextSize(BULLET_POINT_SYMBOL, fontSize, stylePalette.Tokens.Typography.BodySmall.Font, Vector2.new(10000, 10000)).X else Text.GetTextWidth(BULLET_POINT_SYMBOL, font, fontSize)
-
+		local bulletPointWidth = GetTextSize(BULLET_POINT_SYMBOL, fontSize, stylePalette.Tokens.Typography.BodySmall.Font, Vector2.new(10000, 10000)).X
 		local forwardRef = self.props.forwardRef
 
 		return Roact.createElement(RoactFitComponents.FitFrameVertical, {
@@ -70,10 +66,7 @@ function ListEntry:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.fromOffset(bulletPointWidth, fontSize),
 				Text = BULLET_POINT_SYMBOL,
-				Font = if FFlagFoundationFontFaceMigration then nil else font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(stylePalette.Tokens.Typography.BodySmall.Font)
-					else nil,
+				FontFace = normalizeFontFace(stylePalette.Tokens.Typography.BodySmall.Font),
 				TextSize = fontSize,
 				TextColor3 = theme.TextDefault.Color,
 				TextTransparency = theme.TextDefault.Transparency,

@@ -47,6 +47,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_NOTIFICATION_STREAM"
 	| "DISPLAY_LOCATION_USER_PROFILE_FRIEND_RECOMMENDATIONS"
 	| "DISPLAY_LOCATION_GAME_ITEM_DETAILS"
+	| "DISPLAY_LOCATION_CAMPAIGN"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -119,6 +120,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_USER_PROFILE_FRIEND_RECOMMENDATIONS"
 		elseif value == 33 then
 			return "DISPLAY_LOCATION_GAME_ITEM_DETAILS"
+		elseif value == 34 then
+			return "DISPLAY_LOCATION_CAMPAIGN"
 		else
 			return nil
 		end
@@ -193,6 +196,8 @@ messages.DisplayLocation = {
 			return 32
 		elseif self == "DISPLAY_LOCATION_GAME_ITEM_DETAILS" then
 			return 33
+		elseif self == "DISPLAY_LOCATION_CAMPAIGN" then
+			return 34
 		else
 			return self
 		end
@@ -267,6 +272,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_USER_PROFILE_FRIEND_RECOMMENDATIONS"
 		elseif name == "DISPLAY_LOCATION_GAME_ITEM_DETAILS" then
 			return "DISPLAY_LOCATION_GAME_ITEM_DETAILS"
+		elseif name == "DISPLAY_LOCATION_CAMPAIGN" then
+			return "DISPLAY_LOCATION_CAMPAIGN"
 		else
 			return nil
 		end

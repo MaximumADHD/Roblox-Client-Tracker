@@ -46,6 +46,7 @@ type _Messages = {
 	HydrationContent_BuyRobuxPendingTransferEntry: _HydrationContent_BuyRobuxPendingTransferEntryMessage,
 	HydrationContent_BuyRobuxBonusItemEntry: _HydrationContent_BuyRobuxBonusItemEntryMessage,
 	HydrationContent_UserLibrarySavedStateEntry: _HydrationContent_UserLibrarySavedStateEntryMessage,
+	HydrationContent_GamePassVoteEntry: _HydrationContent_GamePassVoteEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -98,6 +99,7 @@ local _roblox_apppageplatform_shared_v1beta1_collectible_item_data = require(scr
 local _roblox_apppageplatform_shared_v1beta1_leaderboard_stats_data = require(script.Parent.leaderboard_stats_data)
 local _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data =
 	require(script.Parent.user_library_saved_state_data)
+local _roblox_apppageplatform_shared_v1beta1_vote_data = require(script.Parent.vote_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -195,6 +197,7 @@ type _HydrationContentFields =
 		user_library_saved_state: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData,
 		},
+		game_pass_vote: { [string]: _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData },
 	}
 
 type _HydrationContentPartialFields =
@@ -283,6 +286,7 @@ type _HydrationContentPartialFields =
 		user_library_saved_state: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_user_library_saved_state_data.UserLibrarySavedStateData,
 		}?,
+		game_pass_vote: { [string]: _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData }?,
 	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -1420,6 +1424,35 @@ type _HydrationContent_UserLibrarySavedStateEntryMessage = proto.Message<
 	_HydrationContent_UserLibrarySavedStateEntryPartialFields
 >
 
+type _HydrationContent_GamePassVoteEntryImpl = {
+	__index: _HydrationContent_GamePassVoteEntryImpl,
+	new: (fields: _HydrationContent_GamePassVoteEntryPartialFields?) -> HydrationContent_GamePassVoteEntry,
+	encode: (self: HydrationContent_GamePassVoteEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_GamePassVoteEntry,
+	jsonEncode: (self: HydrationContent_GamePassVoteEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_GamePassVoteEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_GamePassVoteEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData?,
+}
+
+type _HydrationContent_GamePassVoteEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData?,
+}
+
+export type HydrationContent_GamePassVoteEntry = typeof(setmetatable(
+	{} :: _HydrationContent_GamePassVoteEntryFields,
+	{} :: _HydrationContent_GamePassVoteEntryImpl
+))
+type _HydrationContent_GamePassVoteEntryMessage = proto.Message<
+	HydrationContent_GamePassVoteEntry,
+	_HydrationContent_GamePassVoteEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -1497,6 +1530,7 @@ do
 			user_library_saved_state = if data == nil or data.user_library_saved_state == nil
 				then {}
 				else data.user_library_saved_state,
+			game_pass_vote = if data == nil or data.game_pass_vote == nil then {} else data.game_pass_vote,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -2039,6 +2073,20 @@ do
 			end
 		end
 
+		if self.game_pass_vote ~= nil and next(self.game_pass_vote) ~= nil then
+			for key, value in self.game_pass_vote do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 39, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -2540,6 +2588,18 @@ do
 					self.user_library_saved_state[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 39 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_GamePassVoteEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData.new()
+
+					self.game_pass_vote[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -2872,6 +2932,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.userLibrarySavedState = newOutput
+		end
+
+		if self.game_pass_vote ~= nil and next(self.game_pass_vote) ~= nil then
+			local newOutput = {}
+			for key, value in self.game_pass_vote do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.gamePassVote = newOutput
 		end
 
 		return output
@@ -3707,6 +3775,24 @@ do
 			end
 
 			self.user_library_saved_state = newOutput
+		end
+
+		if input.game_pass_vote ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData } = {}
+			for key, value in input.game_pass_vote do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData.jsonDecode(value)
+			end
+
+			self.game_pass_vote = newOutput
+		end
+
+		if input.gamePassVote ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData } = {}
+			for key, value in input.gamePassVote do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData.jsonDecode(value)
+			end
+
+			self.game_pass_vote = newOutput
 		end
 
 		return self
@@ -8551,6 +8637,127 @@ do
 	messages.HydrationContent_UserLibrarySavedStateEntry = _HydrationContent_UserLibrarySavedStateEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_UserLibrarySavedStateEntry)
+end
+
+do
+	local _HydrationContent_GamePassVoteEntryImpl = {}
+	_HydrationContent_GamePassVoteEntryImpl.__index = _HydrationContent_GamePassVoteEntryImpl
+
+	function _HydrationContent_GamePassVoteEntryImpl.new(
+		data: _HydrationContent_GamePassVoteEntryPartialFields?
+	): HydrationContent_GamePassVoteEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_GamePassVoteEntryImpl :: _HydrationContent_GamePassVoteEntryImpl)
+	end
+
+	function _HydrationContent_GamePassVoteEntryImpl.encode(self: HydrationContent_GamePassVoteEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_GamePassVoteEntryImpl.decode(input: buffer): HydrationContent_GamePassVoteEntry
+		local self = _HydrationContent_GamePassVoteEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_GamePassVoteEntryImpl.jsonEncode(self: HydrationContent_GamePassVoteEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_GamePassVoteEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_GamePassVoteEntry
+		local self = _HydrationContent_GamePassVoteEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_vote_data.VoteData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_GamePassVoteEntryImpl.descriptor = {
+		name = "HydrationContent_GamePassVoteEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GamePassVoteEntry",
+	}
+
+	messages.HydrationContent_GamePassVoteEntry = _HydrationContent_GamePassVoteEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_GamePassVoteEntry)
 end
 
 return {

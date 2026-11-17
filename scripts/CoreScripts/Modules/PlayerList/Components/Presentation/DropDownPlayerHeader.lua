@@ -23,7 +23,6 @@ local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableVerifiedBadgeStore = SharedFlags.FFlagEnableVerifiedBadgeStore
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
@@ -45,7 +44,7 @@ function DropDownPlayerHeader:render()
 	return WithLayoutValues(function(layoutValues)
 		return withFoundationOrUIBloxStyle(function(tokens)
 			return {
-				Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+				Tokens = tokens,
 				Theme = {
 					Divider = {
 						Color = tokens.Color.Stroke.Emphasis.Color3,
@@ -85,22 +84,14 @@ function DropDownPlayerHeader:render()
 			local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore
 				then self.props.showVerifiedBadge
 				else UserLib.Utils.isPlayerVerified(player)
-			local emojiFontStyle = if FFlagFoundationFontFaceMigration
-				then Cryo.Dictionary.join(style.Font.Header2, {
-					Font = style.Tokens.Typography.TitleLarge.Font,
-					-- EmojiTextLabel scales RelativeSize by UIBlox's BaseSize, but the Foundation mapper stores pixels in it.
-					RelativeSize = if FFlagPlayerListFixDropDownVerifiedBadgeSize
-							and FFlagCoreUiMigrateUIBloxToFoundation
-						then Cryo.None
-						else nil,
-				})
-				elseif FFlagCoreUiMigrateUIBloxToFoundation and style.Font.Header2.FontSize then {
-					Font = style.Font.Header2.Font,
-					FontSize = style.Font.Header2.FontSize,
-					LineHeight = style.Font.Header2.LineHeight,
-					LetterSpacing = style.Font.Header2.LetterSpacing,
-				}
-				else style.Font.Header2
+			local emojiFontStyle = Cryo.Dictionary.join(style.Font.Header2, {
+				Font = style.Tokens.Typography.TitleLarge.Font,
+				-- EmojiTextLabel scales RelativeSize by UIBlox's BaseSize, but the Foundation mapper stores pixels in it.
+				RelativeSize = if FFlagPlayerListFixDropDownVerifiedBadgeSize
+						and FFlagCoreUiMigrateUIBloxToFoundation
+					then Cryo.None
+					else nil,
+			})
 
 			return Roact.createElement("TextButton", {
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.
@@ -146,10 +137,7 @@ function DropDownPlayerHeader:render()
 							LayoutOrder = 1,
 							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 							Text = player.DisplayName,
-							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
-							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
-								else nil,
+							FontFace = normalizeFontFace(style.Tokens.Typography.TitleLarge.Font),
 							TextSize = style.Font.BaseSize * style.Font.Header2.RelativeSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextTransparency = style.Theme.TextEmphasis.Transparency,
@@ -168,10 +156,7 @@ function DropDownPlayerHeader:render()
 							LayoutOrder = 2,
 							Size = UDim2.new(1, 0, 0, TEXT_HEIGHT),
 							Text = "@" .. player.Name,
-							Font = if FFlagFoundationFontFaceMigration then nil else style.Font.CaptionHeader.Font,
-							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
-								else nil,
+							FontFace = normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font),
 							TextSize = style.Font.BaseSize * style.Font.CaptionHeader.RelativeSize,
 							TextColor3 = style.Theme.TextMuted.Color,
 							TextTransparency = style.Theme.TextMuted.Transparency,

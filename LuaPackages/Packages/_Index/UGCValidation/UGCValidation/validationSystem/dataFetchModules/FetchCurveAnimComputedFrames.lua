@@ -8,31 +8,42 @@ local root = script.Parent.Parent.Parent
 
 local Types = require(root.util.Types)
 local CurveAnimationFrameCalculator = require(root.util.CurveAnimationFrameCalculator)
+local getFFlagUGCValidateRunValidationsOnSecondaryCurveAnimations =
+	require(root.flags.getFFlagUGCValidateRunValidationsOnSecondaryCurveAnimations)
 
 local FetchCurveAnimComputedFrames = {}
 
 function FetchCurveAnimComputedFrames.getData(
-	curveAnimations: Types.CurveAnimationsData
+	curveAnimations: Types.CurveAnimationsData,
+	sourceAnimations: { Animation }?
 ): Types.CurveAnimComputedFramesData?
 	if #curveAnimations == 0 then
 		return nil
 	end
 
-	local curveAnim = curveAnimations[1]
-	local success, animFrames, animLength, positionMagnitudeFrames, tracks = pcall(function()
-		return CurveAnimationFrameCalculator.calculateAnimFramesAtOrigin(curveAnim)
-	end)
+	local computedFrames: Types.CurveAnimComputedFramesData = {}
+	local runOnSecondaryClips = getFFlagUGCValidateRunValidationsOnSecondaryCurveAnimations()
+	local clipCount = if runOnSecondaryClips then #curveAnimations else 1
+	for index = 1, clipCount do
+		local curveAnimation = curveAnimations[index]
+		local success, animFrames, animLength, positionMagnitudeFrames, tracks = pcall(function()
+			return CurveAnimationFrameCalculator.calculateAnimFramesAtOrigin(curveAnimation)
+		end)
 
-	if not success then
-		return nil
+		if not success then
+			return nil
+		end
+
+		table.insert(computedFrames, {
+			animation = if runOnSecondaryClips and sourceAnimations then sourceAnimations[index] else nil,
+			animFrames = animFrames,
+			animLength = animLength,
+			positionMagnitudeFrames = positionMagnitudeFrames,
+			tracks = tracks,
+		})
 	end
 
-	return {
-		animFrames = animFrames,
-		animLength = animLength,
-		positionMagnitudeFrames = positionMagnitudeFrames,
-		tracks = tracks,
-	}
+	return computedFrames
 end
 
 return FetchCurveAnimComputedFrames

@@ -7,7 +7,6 @@ local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 local InGameMenu = script.Parent.Parent
 local GlobalConfig = require(InGameMenu.GlobalConfig)
@@ -52,7 +51,7 @@ local function ThemedTextLabel(props)
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Theme = {
 				BackgroundDefault = {
 					Color = tokens.Color.Surface.Surface_0.Color3,
@@ -229,11 +228,9 @@ local function ThemedTextLabel(props)
 		local textFont = style.Font[props.fontKey or "Body"]
 
 		local fontFace = nil
-		if FFlagFoundationFontFaceMigration then
-			local typography = style.Tokens.Typography[FOUNDATION_TYPOGRAPHY_BY_FONT_KEY[props.fontKey or "Body"]]
-				or textFont
-			fontFace = normalizeFontFace(typography.Font)
-		end
+		local typography = style.Tokens.Typography[FOUNDATION_TYPOGRAPHY_BY_FONT_KEY[props.fontKey or "Body"]]
+			or textFont
+		fontFace = normalizeFontFace(typography.Font)
 
 		-- We want to allow you to override TextColor3 or TextTransparency if
 		-- desired, so those two props come first.
@@ -248,7 +245,7 @@ local function ThemedTextLabel(props)
 				themeKey = Cryo.None,
 
 				BackgroundTransparency = 1,
-				Font = if FFlagFoundationFontFaceMigration then Cryo.None else textFont.Font,
+				Font = Cryo.None,
 				FontFace = fontFace,
 				TextSize = textFont.RelativeSize * style.Font.BaseSize,
 			}

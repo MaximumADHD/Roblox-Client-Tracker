@@ -7,6 +7,7 @@ local it = JestGlobals.it
 
 local utility = require(script.Parent.Utility)
 local FFlagUIScaleEngineOptions = require(CorePackages.Workspace.Packages.SharedFlags).FFlagUIScaleEngineOptions
+local FFlagUIScaleSliderImprovements = require(script.Parent.Flags.FFlagUIScaleSliderImprovements)
 
 local STEP_COUNT = 7
 
@@ -55,11 +56,36 @@ if FFlagUIScaleEngineOptions then
 			expect(rightButton.Visible).toBe(false)
 		end)
 
+		it("dims a selected step that is disabled", function()
+			local slider = createSlider(1)
+			slider:SetEnabledSteps({ true, true, true, true, false, false, false })
+			slider:SetValue(7)
+			expect(slider.Steps[4].BackgroundTransparency).toBe(0)
+			expect(slider.Steps[6].BackgroundTransparency).toBeCloseTo(0.8)
+			expect(slider.Steps[7].BackgroundTransparency).toBeCloseTo(
+				if FFlagUIScaleSliderImprovements then 0.8 else 0
+			)
+		end)
+
 		it("keeps a programmatic value on a disabled step", function()
 			local slider = createSlider(1)
 			slider:SetEnabledSteps({ true, true, false, false, false, false, false })
 			slider:SetValue(3)
 			expect(slider:GetValue()).toBe(3)
 		end)
+
+		if FFlagUIScaleSliderImprovements then
+			-- Only a held step press waits for its release; programmatic updates still notify at once.
+			it("notifies a programmatic value at once", function()
+				local slider = createSlider(1)
+				slider:SetEnabledSteps({ true, true, true, true, true, true, true })
+				local notified = {}
+				slider.ValueChanged:connect(function(value)
+					table.insert(notified, value)
+				end)
+				slider:SetValue(5)
+				expect(notified).toEqual({ 5 })
+			end)
+		end
 	end)
 end

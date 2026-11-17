@@ -31,7 +31,6 @@ local UserRelationshipModals = require(CorePackages.Workspace.Packages.UserRelat
 
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 local FFlagRemoveHardCodedFriendLimitPrompt = require(CoreGuiModules.Flags.FFlagRemoveHardCodedFriendLimitPrompt)
-local FFlagFriendRequestModalRevamp = game:DefineFastFlag("FriendRequestModalRevampV4", false)
 local FFlagFriendRequestModalIxpEnabled = game:DefineFastFlag("FriendRequestModalIxpEnabled", false)
 local FStringFriendRequestModalIxpLayer = game:DefineFastString("FriendRequestModalIxpLayer", "")
 
@@ -99,126 +98,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 	if FFlagFriendRequestModalIxpEnabled then
 		IxpService:LogFlagLinkedUserLayerExposure(FStringFriendRequestModalIxpLayer)
 	end
-
-	if FFlagFriendRequestModalRevamp then
 		UserRelationshipModals.launchPromptFriendRequestModal(playerToFriend.UserId)
 		return
-	end
-
-	local thumbnailUrl = ""
-	local thumbnailUrlConsole = ""
-
-	local function promptCompletedCallback(clickedConfirm)
-		if clickedConfirm then
-			if not FFlagRemoveHardCodedFriendLimitPrompt and AtFriendLimit(LocalPlayer) then
-				while PromptCreator:IsCurrentlyPrompting() do
-					wait()
-				end
-
-				PromptCreator:CreatePrompt({
-					WindowTitle = "Friend Limit Reached",
-					MainText = "You can not send a friend request because you are at the max friend limit.",
-					ConfirmationText = "Okay",
-					CancelActive = false,
-					Image = thumbnailUrl,
-					ImageConsoleVR = thumbnailUrlConsole,
-					FetchImageFunction = createFetchImageFunction(
-						playerToFriend.UserId,
-						REGULAR_THUMBNAIL_IMAGE_SIZE,
-						REGULAR_THUMBNAIL_IMAGE_TYPE
-					),
-					FetchImageFunctionConsoleVR = createFetchImageFunction(
-						playerToFriend.UserId,
-						CONSOLE_THUMBNAIL_IMAGE_SIZE,
-						CONSOLE_THUMBNAIL_IMAGE_TYPE
-					),
-					StripeColor = Color3.fromRGB(183, 34, 54),
-				})
-			else
-				if not FFlagRemoveHardCodedFriendLimitPrompt and AtFriendLimit(playerToFriend) then
-					local mainText = string.format(
-						"You can not send a friend request to %s because they are at the max friend limit.",
-						playerToFriend.Name
-					)
-
-					PromptCreator:CreatePrompt({
-						WindowTitle = "Error Sending Friend Request",
-						MainText = mainText,
-						ConfirmationText = "Okay",
-						CancelActive = false,
-						Image = thumbnailUrl,
-						ImageConsoleVR = thumbnailUrlConsole,
-						FetchImageFunction = createFetchImageFunction(
-							playerToFriend.UserId,
-							REGULAR_THUMBNAIL_IMAGE_SIZE,
-							REGULAR_THUMBNAIL_IMAGE_TYPE
-						),
-						FetchImageFunctionConsoleVR = createFetchImageFunction(
-							playerToFriend.UserId,
-							CONSOLE_THUMBNAIL_IMAGE_SIZE,
-							CONSOLE_THUMBNAIL_IMAGE_TYPE
-						),
-						StripeColor = Color3.fromRGB(183, 34, 54),
-					})
-				else
-					local successfullySentFriendRequest = SendFriendRequest(playerToFriend)
-					if not successfullySentFriendRequest then
-						while PromptCreator:IsCurrentlyPrompting() do
-							wait()
-						end
-
-						local mainText = string.format(
-							"An error occurred while sending %s a friend request. Please try again later.",
-							playerToFriend.Name
-						)
-
-						PromptCreator:CreatePrompt({
-							WindowTitle = "Error Sending Friend Request",
-							MainText = mainText,
-							ConfirmationText = "Okay",
-							CancelActive = false,
-							Image = thumbnailUrl,
-							ImageConsoleVR = thumbnailUrlConsole,
-							FetchImageFunction = createFetchImageFunction(
-								playerToFriend.UserId,
-								REGULAR_THUMBNAIL_IMAGE_SIZE,
-								REGULAR_THUMBNAIL_IMAGE_TYPE
-							),
-							FetchImageFunctionConsoleVR = createFetchImageFunction(
-								playerToFriend.UserId,
-								CONSOLE_THUMBNAIL_IMAGE_SIZE,
-								CONSOLE_THUMBNAIL_IMAGE_TYPE
-							),
-							StripeColor = Color3.fromRGB(183, 34, 54),
-						})
-					end
-				end
-			end
-		end
-	end
-
-	local mainText = string.format("Would you like to send %s a Friend Request?", playerToFriend.Name)
-
-	PromptCreator:CreatePrompt({
-		WindowTitle = RobloxTranslator:FormatByKey("InGame.FriendPlayerPrompt.Title.SendFriendRequest"),
-		MainText = mainText,
-		ConfirmationText = "Send Request",
-		CancelText = "Cancel",
-		CancelActive = true,
-		Image = thumbnailUrl,
-		ImageConsoleVR = thumbnailUrlConsole,
-		FetchImageFunction = createFetchImageFunction(
-			playerToFriend.UserId,
-			REGULAR_THUMBNAIL_IMAGE_SIZE,
-			REGULAR_THUMBNAIL_IMAGE_TYPE
-		),
-		FetchImageFunctionConsoleVR = createFetchImageFunction(
-			playerToFriend.UserId,
-			CONSOLE_THUMBNAIL_IMAGE_SIZE,
-			CONSOLE_THUMBNAIL_IMAGE_TYPE
-		),
-		PromptCompletedCallback = promptCompletedCallback,
-	})
 end
 
 function PromptRequestFriendPlayer(player)

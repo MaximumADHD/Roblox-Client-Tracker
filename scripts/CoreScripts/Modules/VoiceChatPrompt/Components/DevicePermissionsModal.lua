@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local TextService = game:GetService("TextService")
 
 local React = require(CorePackages.Packages.React)
 local t = require(CorePackages.Packages.t)
@@ -7,9 +6,7 @@ local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local Foundation = require(CorePackages.Packages.Foundation)
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Images = UIBlox.App.ImageSet.Images
@@ -73,34 +70,19 @@ local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 
 	local titleFont = props.promptStyle.Font.Header1.Font
 	local titleFontSize = props.promptStyle.Font.Header1.RelativeSize * props.promptStyle.Font.BaseSize
-	local titleTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(props.titleText, titleFontSize, titleFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-		props.titleText,
-		titleFontSize,
-		titleFont,
-		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-	).Y
+	local titleTextHeight = GetTextSize(props.titleText, titleFontSize, titleFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 	local titleTextContainerHeight = PADDING + titleTextHeight
 
 	local bodyFont = props.promptStyle.Font.Body.Font
 	local bodyFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
-	local bodyTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(props.bodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-		props.bodyText,
-		bodyFontSize,
-		bodyFont,
-		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-	).Y
+	local bodyTextHeight = GetTextSize(props.bodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 	local bodyTextContainerHeight = PADDING + bodyTextHeight
 
 	local primingTextContainerHeight = 0
 	if primingText then
 		local primingFont = props.promptStyle.Font.CaptionHeader.Font
 		local primingFontSize = props.promptStyle.Font.CaptionHeader.RelativeSize * props.promptStyle.Font.BaseSize
-		local primingTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(primingText, primingFontSize, primingFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-			primingText,
-			primingFontSize,
-			primingFont,
-			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-		).Y
+		local primingTextHeight = GetTextSize(primingText, primingFontSize, primingFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 		primingTextContainerHeight = PRIMING_PADDING + primingTextHeight
 	end
 
@@ -108,12 +90,7 @@ local function DevicePermissionsModal(props: Props, ref: React.Ref<GuiObject>?)
 	if infoText then
 		local infoFont = props.promptStyle.Font.Body.Font
 		local infoFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
-		local infoTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(infoText, infoFontSize, infoFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-			infoText,
-			infoFontSize,
-			infoFont,
-			Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-		).Y
+		local infoTextHeight = GetTextSize(infoText, infoFontSize, infoFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 		local addedPadding = if primingText then PRIMING_PADDING else PADDING
 		infoTextContainerHeight = addedPadding + infoTextHeight
 	end

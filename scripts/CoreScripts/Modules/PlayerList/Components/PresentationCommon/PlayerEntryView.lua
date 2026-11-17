@@ -31,7 +31,6 @@ local ControlState = Foundation.Enums.ControlState
 local View = Foundation.View
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local useTokens = Foundation.Hooks.useTokens
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local EntryFrameView = PlayerListPackage.Presentation.EntryFrameView
 local StatEntryContainer = require(PlayerList.Components.Container.StatEntryContainer)
@@ -356,7 +355,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 	local chromeEnabled = ChromeEnabled()
 	local layoutValues = useLayoutValues()
 	local style = useStyle()
-	local tokens = if FFlagFoundationFontFaceMigration then useTokens() else nil
+	local tokens = useTokens()
 	local size = if props.size then props.size else UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY)
 
 	local isSmallTouchDevice = props.isSmallTouchDevice
@@ -534,14 +533,14 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			if isLocalPlayer then
 				return {
 					Font = style.Font.CaptionHeader.Font,
-					FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(tokens.Typography.CaptionMedium.Font) else nil,
+					FontFace = normalizeFontFace(tokens.Typography.CaptionMedium.Font),
 					Size = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
 					MinSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 				}
 			end
 			return {
 				Font = style.Font.CaptionBody.Font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(tokens.Typography.BodySmall.Font) else nil,
+				FontFace = normalizeFontFace(tokens.Typography.BodySmall.Font),
 				Size = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.CaptionBody.RelativeSize * style.Font.BaseSize,
 				MinSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.PlayerNameTextSize else style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 			}
@@ -551,14 +550,14 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			if props.titlePlayerEntry then
 				return {
 					Font = layoutValues.TitlePlayerEntryFont,
-					FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(layoutValues.TitlePlayerEntryFont) else nil,
+					FontFace = normalizeFontFace(layoutValues.TitlePlayerEntryFont),
 					Size = layoutValues.PlayerNameTextSize,
 					MinSize = layoutValues.PlayerNameTextSize,
 				}
 			end
 			return {
 				Font = layoutValues.PlayerEntryFont,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(layoutValues.PlayerEntryFont) else nil,
+				FontFace = normalizeFontFace(layoutValues.PlayerEntryFont),
 				Size = layoutValues.PlayerNameTextSize,
 				MinSize = layoutValues.PlayerNameTextSize,
 			}
@@ -567,7 +566,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 		if isLocalPlayer then
 			return {
 				Font = style.Font.CaptionHeader.Font,
-				FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(tokens.Typography.CaptionMedium.Font) else nil,
+				FontFace = normalizeFontFace(tokens.Typography.CaptionMedium.Font),
 				Size = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
 				MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 			}
@@ -575,7 +574,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 
 		return {
 			Font = style.Font.CaptionBody.Font,
-			FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(tokens.Typography.BodySmall.Font) else nil,
+			FontFace = normalizeFontFace(tokens.Typography.BodySmall.Font),
 			Size = style.Font.CaptionBody.RelativeSize * style.Font.BaseSize,
 			MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 		}

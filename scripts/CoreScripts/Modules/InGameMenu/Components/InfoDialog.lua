@@ -1,5 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 
@@ -11,8 +10,6 @@ local t = InGameMenuDependencies.t
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withFoundationOrUIBloxStyle = require(CorePackages.Workspace.Packages.CoreGuiCommon).withFoundationOrUIBloxStyle
 
 local InGameMenu = script.Parent.Parent
@@ -46,7 +43,7 @@ function InfoDialog:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Theme = {
 				Overlay = {
 					Color = tokens.Color.Common.Scrim.Color3,
@@ -66,23 +63,15 @@ function InfoDialog:render()
 			},
 		}
 	end, function(style)
-		local bodyFont = style.Font.Body.Font
 		local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
 		local bodyText = props.bodyText
-		local textHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				bodyText,
-				bodyFontSize,
-				style.Tokens.Typography.BodyLarge.Font,
-				Vector2.new(DIALOG_WIDTH - DIALOG_PADDING * 2, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				bodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(DIALOG_WIDTH - DIALOG_PADDING * 2, math.huge)
-			).Y
+		local textHeight = GetTextSize(
+			bodyText,
+			bodyFontSize,
+			style.Tokens.Typography.BodyLarge.Font,
+			Vector2.new(DIALOG_WIDTH - DIALOG_PADDING * 2, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
 
 		-- 24px padding top, 24px padding bottom
 		-- Minimum height of two lines of text.

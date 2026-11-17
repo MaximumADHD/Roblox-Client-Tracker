@@ -1,7 +1,6 @@
 --!nonstrict
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
-local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
@@ -26,9 +25,7 @@ local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
-local Foundation = require(CorePackages.Packages.Foundation)
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local MODAL_CONFIRM_ACTION = "InGameMenuModalConfirm"
 local BUTTONS_SELECTION_PARENT = "InGameMenuModalButtonsSelectionParent"
@@ -87,37 +84,22 @@ function InformationalDialog:render()
 	local props = self.props
 
 	return withStyle(function(style)
-		local bodyFont = style.Font.Body.Font
 		local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
 		local bodyText = props.bodyText
-		local textHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				bodyText,
-				bodyFontSize,
-				style.Tokens.Typography.BodyLarge.Font,
-				Vector2.new(TEXT_HEIGHT - 2 * BOTTOM_PADDING, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				bodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(TEXT_HEIGHT - 2 * BOTTOM_PADDING, math.huge)
-			).Y
-		local subTextHeight = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				props.subBodyText,
-				bodyFontSize,
-				style.Tokens.Typography.BodyLarge.Font,
-				Vector2.new(TEXT_HEIGHT - 2 * BOTTOM_PADDING, math.huge),
-				{ addTemporaryPadding = false }
-			).Y
-			else TextService:GetTextSize(
-				props.subBodyText,
-				bodyFontSize,
-				bodyFont,
-				Vector2.new(TEXT_HEIGHT - 2 * BOTTOM_PADDING, math.huge)
-			).Y
+		local textHeight = GetTextSize(
+			bodyText,
+			bodyFontSize,
+			style.Tokens.Typography.BodyLarge.Font,
+			Vector2.new(TEXT_HEIGHT - 2 * BOTTOM_PADDING, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
+		local subTextHeight = GetTextSize(
+			props.subBodyText,
+			bodyFontSize,
+			style.Tokens.Typography.BodyLarge.Font,
+			Vector2.new(TEXT_HEIGHT - 2 * BOTTOM_PADDING, math.huge),
+			{ addTemporaryPadding = false }
+		).Y
 
 		local bodyTextContainerHeight = BOTTOM_PADDING + math.max(textHeight, bodyFontSize * 2)
 		local subBodyTextContainerHeight = BOTTOM_PADDING + math.max(subTextHeight, bodyFontSize * 2)

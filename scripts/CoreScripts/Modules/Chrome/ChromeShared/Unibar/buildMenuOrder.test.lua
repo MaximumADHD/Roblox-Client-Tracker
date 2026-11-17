@@ -39,6 +39,7 @@ local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
+local FFlagSideSheetUnifiedMenuOrder = SharedFlags.FFlagSideSheetUnifiedMenuOrder
 
 -- The legacy Connect entrypoint is only removed once the Friends tab is actually
 -- shown (RemoveEntrypoints + CanShow). Because the reorg gate now
@@ -146,6 +147,65 @@ describe("buildMenuOrder", function()
 					end)
 				end
 			end)
+
+			if FFlagSideSheetUnifiedMenuOrder then
+				describe("unified menu order", function()
+					it("SHOULD order the available entries as the unified list", function()
+						local unifiedOrder = {
+							"people",
+							"connect_dropdown",
+							"invite_friends",
+							"settings",
+							"leaderboard",
+							"emotes",
+							"avatar_switcher",
+							"backpack",
+							IN_EXPERIENCE_SHOP_ID,
+							"gallery",
+							"camera_entrypoint",
+							"help",
+							"trust_and_safety",
+							"music_entrypoint",
+							"selfie_view",
+							"switch_server",
+							"traversal_history",
+							LEAVE_ACTION,
+							RESPAWN_ACTION,
+						}
+						local order = buildOrder()
+						local presentInOrder = {}
+						for _, id in order do
+							if table.find(unifiedOrder, id) then
+								table.insert(presentInOrder, id)
+							end
+						end
+						local expected = {}
+						for _, id in unifiedOrder do
+							if contains(order, id) then
+								table.insert(expected, id)
+							end
+						end
+
+						expect(presentInOrder).toEqual(expected)
+					end)
+
+					it("SHOULD end the list with Leave then Respawn", function()
+						local order = buildOrder()
+						expect(order[#order - 1]).toBe(LEAVE_ACTION)
+						expect(order[#order]).toBe(RESPAWN_ACTION)
+					end)
+
+					it("SHOULD move report below the leaderboard", function()
+						local order = buildOrder()
+						expect(table.find(order, "trust_and_safety")).toBeGreaterThan(table.find(order, "leaderboard"))
+					end)
+				end)
+			elseif not isPioneerLaunch() then
+				it("SHOULD keep report above the leaderboard", function()
+					local order = buildOrder()
+					expect(table.find(order, "trust_and_safety")).toBeLessThan(table.find(order, "leaderboard"))
+				end)
+			end
 		end)
 	else
 		describe("legacy nine-dot layout", function()

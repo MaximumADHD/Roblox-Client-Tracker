@@ -366,21 +366,49 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end
 	end, { snapPoints, springToSnapIndex, snapValueToPosition, closeSheet } :: { unknown })
 
+	-- A drag that ends at the top skips snapping, so nothing else records which snap point the sheet is at. A lower
+	-- snap point that a short overlay already holds at the top keeps its index, so the sheet returns to it when the
+	-- overlay grows again.
+	local recordTopSnapPoint = if Flags.FoundationBottomSheetKeepsSnapPoint
+		then React.useCallback(function()
+			local currentSnapPoint = snapPoints[currentSnapIndex.current]
+			if currentSnapPoint == nil or snapValueToPixels(currentSnapPoint) >= maxSheetHeight then
+				return
+			end
+			local topSnapIndex = 1
+			for index, snap in snapPoints do
+				if snapValueToPixels(snap) > snapValueToPixels(snapPoints[topSnapIndex]) then
+					topSnapIndex = index
+				end
+			end
+			currentSnapIndex.current = topSnapIndex
+			if onSnapPointChangedRef.current then
+				onSnapPointChangedRef.current(snapPoints[topSnapIndex], topSnapIndex)
+			end
+		end, { snapPoints, snapValueToPixels, maxSheetHeight } :: { unknown })
+		else nil :: never
+
 	React.useEffect(
 		function()
 			if overlay then
+				-- This also runs when the screen or overlay resizes, such as when the on-screen keyboard shows or
+				-- hides, and that should not move an open sheet off the snap point it is at.
+				local snapIndex = if Flags.FoundationBottomSheetKeepsSnapPoint
+						and snapPoints[currentSnapIndex.current] ~= nil
+					then currentSnapIndex.current
+					else props.defaultSnapPointIndex
 				if reducedMotion then
-					jumpToSnapIndex(props.defaultSnapPointIndex)
+					jumpToSnapIndex(snapIndex)
 					setBackdropTransparencyGoal(Otter.instant(0))
 				else
-					springToSnapIndex(props.defaultSnapPointIndex)
+					springToSnapIndex(snapIndex)
 					setBackdropTransparencyGoal(Otter.ease(0, {
 						duration = tokens.Time.Time_100,
 					}))
 				end
 
 				-- Enable inner scrolling if starting at max snap point
-				local isAtMaxSnapPoint = snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) >= maxSheetHeight
+				local isAtMaxSnapPoint = snapValueToPixels(snapPoints[snapIndex]) >= maxSheetHeight
 				setInnerScrollingEnabled(
 					if Flags.FoundationSheetReversedContent
 						then isAtMaxSnapPoint or isContentReversed.current
@@ -460,6 +488,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 				if shouldSkipSnapping then
 					setInnerScrollingEnabled(true)
+					if Flags.FoundationBottomSheetKeepsSnapPoint and not isClosing.current then
+						recordTopSnapPoint()
+					end
 					return
 				end
 
@@ -480,6 +511,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			stopSpringSimulation,
 			isOuterScrollAtMax,
 			setIsVerticalSheetGestureValue,
+			recordTopSnapPoint,
 		} :: { unknown }
 	)
 

@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local TextService = game:GetService("TextService")
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -12,7 +11,6 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local Checkbox = Foundation.Checkbox
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
@@ -72,32 +70,17 @@ local function VoiceChatConsentModal(props: Props, ref: React.Ref<GuiObject>?)
 
 	local titleFont = props.promptStyle.Font.Header1.Font
 	local titleFontSize = props.promptStyle.Font.Header1.RelativeSize * props.promptStyle.Font.BaseSize
-	local titleTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(props.titleText, titleFontSize, titleFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-		props.titleText,
-		titleFontSize,
-		titleFont,
-		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-	).Y
+	local titleTextHeight = GetTextSize(props.titleText, titleFontSize, titleFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 	local titleTextContainerHeight = PADDING + titleTextHeight
 
 	local bodyFont = props.promptStyle.Font.Body.Font
 	local bodyFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
-	local bodyTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(props.bodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-		props.bodyText,
-		bodyFontSize,
-		bodyFont,
-		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-	).Y
+	local bodyTextHeight = GetTextSize(props.bodyText, bodyFontSize, bodyFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 	local bodyTextContainerHeight = PADDING + bodyTextHeight
 
 	local infoFont = props.promptStyle.Font.CaptionHeader.Font
 	local infoFontSize = props.promptStyle.Font.CaptionHeader.RelativeSize * props.promptStyle.Font.BaseSize
-	local infoTextHeight = if FFlagFoundationFontFaceMigration then GetTextSize(turnOnDisclaimer, infoFontSize, infoFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y else TextService:GetTextSize(
-		turnOnDisclaimer,
-		infoFontSize,
-		infoFont,
-		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
-	).Y
+	local infoTextHeight = GetTextSize(turnOnDisclaimer, infoFontSize, infoFont, Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge), { addTemporaryPadding = false }).Y
 	local infoTextContainerHeight = PADDING + infoTextHeight
 
 	local selectionBehavior = if GetFFlagSupportGamepadNavInVoiceModals() then Enum.SelectionBehavior.Stop else nil

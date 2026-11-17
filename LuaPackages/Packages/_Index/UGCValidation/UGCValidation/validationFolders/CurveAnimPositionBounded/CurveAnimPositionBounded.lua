@@ -18,9 +18,8 @@ CurveAnimPositionBounded.requiredData = {
 CurveAnimPositionBounded.expectedFailures = {}
 CurveAnimPositionBounded.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
-CurveAnimPositionBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
-	local computed = data.curveAnimComputedFrames
-
+local function validateCurveAnimClip(reporter: Types.ValidationReporter, computed: Types.CurveAnimClipComputedFrames)
+	local animationName = computed.animation and computed.animation:GetFullName()
 	local maxMovementsCached = {}
 	for _, frame in computed.positionMagnitudeFrames do
 		for bodyPartName, magnitude in frame do
@@ -33,13 +32,23 @@ CurveAnimPositionBounded.run = function(reporter: Types.ValidationReporter, data
 					GetFStringUGCValidateMaxAnimationMovementPerPart.asNumber(bodyPartName :: string)
 			end
 			if (magnitude :: number) > maxMovementsCached[bodyPartName] then
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_PositionSeparation, {
+				local failureParams: { [string]: any } = {
 					bodyPart = bodyPartName :: string,
 					maxMovement = tostring(maxMovementsCached[bodyPartName]),
-				})
+				}
+				if animationName then
+					failureParams.animationName = animationName
+				end
+				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_PositionSeparation, failureParams, computed.animation)
 				return
 			end
 		end
+	end
+end
+
+CurveAnimPositionBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	for _, computed in data.curveAnimComputedFrames do
+		validateCurveAnimClip(reporter, computed)
 	end
 end
 

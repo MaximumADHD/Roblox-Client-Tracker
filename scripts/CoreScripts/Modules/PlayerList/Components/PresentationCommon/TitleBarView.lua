@@ -8,7 +8,6 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
 
@@ -99,10 +98,7 @@ local function TitleBarView(props: TitleBarViewProps)
 		BackgroundTransparency = 1,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Center,
-		Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Footer.Font,
-		FontFace = if FFlagFoundationFontFaceMigration
-			then normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font)
-			else nil,
+		FontFace = normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font),
 		TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TitleBarTextSize else style.Font.BaseSize * style.Font.Footer.RelativeSize,
 		TextTransparency = textTransparency,
 		TextColor3 = textColor,
@@ -132,10 +128,7 @@ local function TitleBarView(props: TitleBarViewProps)
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Center,
 				TextYAlignment = Enum.TextYAlignment.Center,
-				Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Footer.Font,
-				FontFace = if FFlagFoundationFontFaceMigration
-					then normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font)
-					else nil,
+				FontFace = normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font),
 				TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TitleBarTextSize else style.Font.BaseSize * style.Font.Footer.RelativeSize,
 				TextTransparency = textTransparency,
 				TextColor3 = textColor,
@@ -158,10 +151,7 @@ local function TitleBarView(props: TitleBarViewProps)
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					TextYAlignment = Enum.TextYAlignment.Center,
-					Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Footer.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font),
 					TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TitleBarTextSize else style.Font.BaseSize * style.Font.Footer.RelativeSize,
 					TextTransparency = textTransparency,
 					TextColor3 = textColor,

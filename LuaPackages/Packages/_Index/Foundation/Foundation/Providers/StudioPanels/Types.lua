@@ -39,7 +39,8 @@ export type PanelsContext = {
 		onClose: () -> (),
 		depth: number?,
 		parentPopoverId: string?,
-		isFocusable: boolean?
+		isFocusable: boolean?,
+		initialSize: Vector2?
 	) -> (PanelHandle, () -> ()),
 }
 

@@ -6,17 +6,18 @@
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
-local ZoomController =  require(script.Parent:WaitForChild("ZoomController"))
+local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local FFlagUserFixCameraFPError = FlagUtil.getUserFlag("UserFixCameraFPError")
 
-local TransformExtrapolator = {} do
+local TransformExtrapolator = {}
+do
 	TransformExtrapolator.__index = TransformExtrapolator
 
 	local CF_IDENTITY = CFrame.new()
 
 	local function cframeToAxis(cframe: CFrame): Vector3
 		local axis: Vector3, angle: number = cframe:ToAxisAngle()
-		return axis*angle
+		return axis * angle
 	end
 
 	local function axisToCFrame(axis: Vector3): CFrame
@@ -50,12 +51,12 @@ local TransformExtrapolator = {} do
 
 		-- Estimate velocities from the delta between now and the last frame
 		-- This estimation can be a little noisy.
-		local dp = (currentPos - lastPos)/dt
-		local dr = cframeToAxis(currentRot*lastRot:inverse())/dt
+		local dp = (currentPos - lastPos) / dt
+		local dr = cframeToAxis(currentRot * lastRot:inverse()) / dt
 
 		local function extrapolate(t)
-			local p = dp*t + currentPos
-			local r = axisToCFrame(dr*t)*currentRot
+			local p = dp * t + currentPos
+			local r = axisToCFrame(dr * t) * currentRot
 			return r + p
 		end
 
@@ -71,7 +72,8 @@ local TransformExtrapolator = {} do
 	end
 end
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local BaseOcclusion = require(script.Parent:WaitForChild("BaseOcclusion"))
 local Poppercam = setmetatable({}, BaseOcclusion)
 Poppercam.__index = Poppercam
@@ -90,38 +92,29 @@ function Poppercam:Enable(enable)
 	self.focusExtrapolator:Reset()
 end
 
-function Poppercam:Update(renderDt, desiredCameraCFrame, desiredCameraFocus, cameraController)
+function Poppercam:Update(renderDt, desiredCameraCFrame, desiredCameraFocus)
 	local rotatedFocus = nil
 	if FFlagUserFixCameraFPError then
-		rotatedFocus = CFrame.lookAlong(desiredCameraFocus.Position, -desiredCameraCFrame.LookVector)*CFrame.new(
-			0, 0, 0,
-			-1, 0, 0,
-			0, 1, 0,
-			0, 0, -1
-		)
+		rotatedFocus = CFrame.lookAlong(desiredCameraFocus.Position, -desiredCameraCFrame.LookVector)
+			* CFrame.new(0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, -1)
 	else
-		rotatedFocus = CFrame.new(desiredCameraFocus.Position, desiredCameraCFrame.Position)*CFrame.new(
-			0, 0, 0,
-			-1, 0, 0,
-			0, 1, 0,
-			0, 0, -1
-		)
+		rotatedFocus = CFrame.new(desiredCameraFocus.Position, desiredCameraCFrame.Position)
+			* CFrame.new(0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, -1)
 	end
 
 	local extrapolation = self.focusExtrapolator:Step(renderDt, rotatedFocus)
 	local zoom = ZoomController.Update(renderDt, rotatedFocus, extrapolation)
-	return rotatedFocus*CFrame.new(0, 0, zoom), desiredCameraFocus
+	return rotatedFocus * CFrame.new(0, 0, zoom), desiredCameraFocus
 end
 
+-- remove with FFlagUserPlayerModuleEngineAPI
 -- Called when character is added
-function Poppercam:CharacterAdded(character, player)
-end
+function Poppercam:CharacterAdded(character, player) end
 
+-- remove with FFlagUserPlayerModuleEngineAPI
 -- Called when character is about to be removed
-function Poppercam:CharacterRemoving(character, player)
-end
+function Poppercam:CharacterRemoving(character, player) end
 
-function Poppercam:OnCameraSubjectChanged(newSubject)
-end
+function Poppercam:OnCameraSubjectChanged(newSubject) end
 
 return Poppercam

@@ -66,14 +66,16 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 		end
 	end
 
+	local curveAnimationSources: { Animation }? = nil
 	if desiredData[DataEnums.curveAnimations] then
-		local result = FetchCurveAnimations.getData(rootInstance, sharedData.consumerConfig)
+		local result
+		result, curveAnimationSources = FetchCurveAnimations.getData(rootInstance, sharedData.consumerConfig)
 		sharedData.curveAnimations = result or FetchAllDesiredData.DATA_FETCH_FAILURE
 	end
 
 	if desiredData[DataEnums.curveAnimComputedFrames] then
 		if sharedData.curveAnimations and sharedData.curveAnimations ~= FetchAllDesiredData.DATA_FETCH_FAILURE then
-			local result = FetchCurveAnimComputedFrames.getData(sharedData.curveAnimations)
+			local result = FetchCurveAnimComputedFrames.getData(sharedData.curveAnimations, curveAnimationSources)
 			sharedData.curveAnimComputedFrames = result or (FetchAllDesiredData.DATA_FETCH_FAILURE :: any)
 		else
 			sharedData.curveAnimComputedFrames = FetchAllDesiredData.DATA_FETCH_FAILURE :: any

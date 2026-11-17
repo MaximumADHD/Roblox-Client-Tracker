@@ -4,21 +4,23 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
---[[ Constants ]]--
+--[[ Constants ]]
+--
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
-local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75,0,0)  
+local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75, 0, 0)
 
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local cameraContext = inputContexts:WaitForChild("CameraContext")
 local mouseLockSwitchAction = cameraContext:WaitForChild("MouseLockSwitchAction") :: InputAction
 
---[[ Services ]]--
+--[[ Services ]]
+--
 local PlayersService = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
-local Settings = UserSettings()	-- ignore warning
+local Settings = UserSettings() -- ignore warning
 local GameSettings = Settings.GameSettings
 
 --[[ Imports ]]
@@ -26,7 +28,8 @@ local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 
 local FFlagUserFixStuckShiftLock = FlagUtil.getUserFlag("UserFixStuckShiftLock")
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local MouseLockController = {}
 MouseLockController.__index = MouseLockController
 
@@ -83,18 +86,24 @@ end
 
 function MouseLockController:UpdateMouseLockAvailability()
 	local devAllowsMouseLock = PlayersService.LocalPlayer.DevEnableMouseLock
-	local devMovementModeIsScriptable = PlayersService.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.Scriptable
+	local devMovementModeIsScriptable = PlayersService.LocalPlayer.DevComputerMovementMode
+		== Enum.DevComputerMovementMode.Scriptable
 	local userHasMouseLockModeEnabled = GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch
-	local userHasClickToMoveEnabled =  GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove
+	local userHasClickToMoveEnabled = GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove
 	local userUsingKeyboardAndMouse = UserInputService.PreferredInput == Enum.PreferredInput.KeyboardAndMouse
-	local MouseLockAvailable = userUsingKeyboardAndMouse and devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
+	local MouseLockAvailable = userUsingKeyboardAndMouse
+		and devAllowsMouseLock
+		and userHasMouseLockModeEnabled
+		and not userHasClickToMoveEnabled
+		and not devMovementModeIsScriptable
 
-	if MouseLockAvailable~=self.enabled then
+	if MouseLockAvailable ~= self.enabled then
 		self:EnableMouseLock(MouseLockAvailable)
 	end
 end
 
---[[ Local Functions ]]--
+--[[ Local Functions ]]
+--
 function MouseLockController:OnMouseLockToggled()
 	self.isMouseLocked = not self.isMouseLocked
 

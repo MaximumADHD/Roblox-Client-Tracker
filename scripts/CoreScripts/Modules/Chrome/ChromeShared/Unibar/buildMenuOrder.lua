@@ -22,6 +22,7 @@ local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagEnableSideSheetRobuxWidget = require(Chrome.Flags.FFlagEnableSideSheetRobuxWidget)
+local FFlagSideSheetUnifiedMenuOrder = SharedFlags.FFlagSideSheetUnifiedMenuOrder
 
 local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
 	then require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
@@ -35,6 +36,16 @@ local function reorder(menuMap: { [string]: number? }, id: string, placement: nu
 	if menuMap[id] ~= nil then
 		menuMap[id] = placement
 	end
+end
+
+-- Must run before reorder(), which skips entries already removed here.
+local function removePioneerEntries(menuMap: { [string]: number? })
+	menuMap.connect_dropdown = nil
+	menuMap[Constants.AVATAR_SWITCHER_ID] = nil
+	menuMap.emotes = nil
+	menuMap.traversal_history = nil
+	menuMap.camera_entrypoint = nil
+	menuMap.gallery = nil
 end
 
 -- Build a map of menu items to their placement in the side sheet or nine-dot menu.
@@ -73,13 +84,33 @@ local function buildMenuOrder(): Array<string>
 		[SideSheet.Enums.ActionBinding.Respawn] = 190,
 	}
 
-	if isPioneerLaunch() then
-		menuMap.connect_dropdown = nil
-		menuMap[Constants.AVATAR_SWITCHER_ID] = nil
-		menuMap.emotes = nil
-		menuMap.traversal_history = nil
-		menuMap.camera_entrypoint = nil
-		menuMap.gallery = nil
+	if FFlagSideSheetUnifiedMenuOrder and isSideSheetEnabled then
+		if isPioneerLaunch() then
+			removePioneerEntries(menuMap)
+			reorder(menuMap, "AccountUpsell", 185)
+		end
+
+		reorder(menuMap, "people", 20)
+		reorder(menuMap, "connect_dropdown", 30)
+		reorder(menuMap, "invite_friends", 40)
+		reorder(menuMap, "settings", 50)
+		reorder(menuMap, "leaderboard", 60)
+		reorder(menuMap, "emotes", 70)
+		reorder(menuMap, Constants.AVATAR_SWITCHER_ID, 80)
+		reorder(menuMap, "backpack", 90)
+		reorder(menuMap, Constants.IN_EXPERIENCE_SHOP_ID, 100)
+		reorder(menuMap, "gallery", 110)
+		reorder(menuMap, "camera_entrypoint", 120)
+		reorder(menuMap, "help", 130)
+		reorder(menuMap, "trust_and_safety", 140)
+		reorder(menuMap, "music_entrypoint", 150)
+		reorder(menuMap, "selfie_view", 160)
+		reorder(menuMap, Constants.SWITCH_SERVER_ID, 170)
+		reorder(menuMap, "traversal_history", 180)
+		reorder(menuMap, SideSheet.Enums.ActionBinding.Leave, 190)
+		reorder(menuMap, SideSheet.Enums.ActionBinding.Respawn, 200)
+	elseif isPioneerLaunch() then
+		removePioneerEntries(menuMap)
 		reorder(menuMap, Constants.SWITCH_SERVER_ID, 200)
 	elseif not isSideSheetEnabled then
 		reorder(menuMap, "connect_dropdown", 10)

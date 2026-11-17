@@ -8,7 +8,6 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Cryo = require(CorePackages.Packages.Cryo)
 
 local useStyle = UIBlox.Core.Style.useStyle
@@ -73,10 +72,7 @@ local function LabeledTextBox(providedProps: Props)
 		}),
 		TextboxLabel = React.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 0, LABEL_HEIGHT),
-			Font = if FFlagFoundationFontFaceMigration then nil else labelStyle.Font,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font)
-				else nil,
+			FontFace = normalizeFontFace(style.Tokens.Typography.CaptionLarge.Font),
 			Text = props.labelText,
 			TextSize = baseSize * labelStyle.RelativeSize,
 			TextColor3 = labelColor,

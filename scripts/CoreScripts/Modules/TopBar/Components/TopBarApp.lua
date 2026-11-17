@@ -73,6 +73,7 @@ local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local PlaytestModeThemeProvider = require(Chrome.ChromeShared.Unibar.PlaytestModeThemeProvider)
 local FFlagEnablePlaytestModeUnibar = SharedFlags.FFlagEnablePlaytestModeUnibar
+local FFlagUseUIOverlayForCloudPlay = SharedFlags.FFlagUseUIOverlayForCloudPlay
 
 local FFlagEnableUISelector = CoreGuiCommon.Flags.FFlagEnableUISelector
 
@@ -95,7 +96,9 @@ local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperien
 	and FFlagEnableInExperienceShop
 local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
 local FFlagExperienceShopNewIconography = InExperienceShop.FFlagExperienceShopNewIconography
+local FFlagEnableFreeTrialTopBarChip = InExperienceShop.FFlagEnableFreeTrialTopBarChip
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
+local FreeTrialChipHost = require(Presentation.FreeTrialChipHost)
 local FFlagTopBarShopIconV2 = require(script.Parent.Parent.Flags.FFlagTopBarShopIconV2)
 local ShopIcon
 if FFlagTopBarShopIconV2 then
@@ -108,6 +111,9 @@ local FFlagExperienceAgeRatingBadge =
 	require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagExperienceAgeRatingBadge
 local useAgeRatingLayout = FFlagExperienceAgeRatingBadge and FFlagShowGameAgeRating
 local ExperienceAgeRatingBadge = require(CorePackages.Workspace.Packages.InExperienceTopBar.ExperienceAgeRatingBadge)
+local InExperienceCloudPlay = CorePackages.Workspace.Packages.InExperienceCloudPlay
+local FFlagEnableRestyleTopBar = require(InExperienceCloudPlay.FFlagEnableRestyleTopBar)
+local RestyleTimer = if FFlagEnableRestyleTopBar then require(Presentation.RestyleTimer) else nil :: never
 local ExperienceAgeRatingPolicy = require(script.Parent.Parent.ExperienceAgeRatingPolicy)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -377,6 +383,19 @@ function TopBarApp:init()
 		end
 	end
 
+	-- The chip is a ScreenGui sibling of the top bar, so it does not inherit those frames' Visible.
+	if FFlagEnableFreeTrialTopBarChip then
+		local showTopBar = if GamepadConnector then GamepadConnector:getShowTopBar():get() else true
+		self.freeTrialShowTopBar, self.setFreeTrialShowTopBar = React.createBinding(showTopBar)
+		local uiVisible = true
+		if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore then
+			if self.uiLessStore.getUILessModeEnabled(false) then
+				uiVisible = self.uiLessStore.getUIVisible(false)
+			end
+		end
+		self.freeTrialUiVisible, self.setFreeTrialUiVisible = React.createBinding(uiVisible)
+	end
+
 	self.onCloseBtnStateChange = function(_, newControlState)
 		self.setCloseButtonState(newControlState)
 	end
@@ -470,6 +489,23 @@ function TopBarApp:didMount()
 			self:setState({ ageRatingSpatial = isSpatial() })
 		end)
 	end
+	if FFlagEnableFreeTrialTopBarChip then
+		if GamepadConnector then
+			local showTopBar = GamepadConnector:getShowTopBar()
+			self.freeTrialShowTopBarConnection = showTopBar:connect(function()
+				self.setFreeTrialShowTopBar(showTopBar:get())
+			end, true)
+		end
+		if FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore then
+			self.freeTrialUiVisibleEffect = Signals.createEffect(function(scope)
+				if self.uiLessStore.getUILessModeEnabled(scope) then
+					self.setFreeTrialUiVisible(self.uiLessStore.getUIVisible(scope))
+				else
+					self.setFreeTrialUiVisible(true)
+				end
+			end)
+		end
+	end
 	if ChromeEnabled() then
 		local ChromeService = require(Chrome.Service)
 		self.orderAlignmentConnection = ChromeService:orderAlignment():connect(function()
@@ -510,6 +546,14 @@ function TopBarApp:willUnmount()
 	end
 	if self.ageRatingSpatialConnection then
 		self.ageRatingSpatialConnection:Disconnect()
+	end
+	if FFlagEnableFreeTrialTopBarChip then
+		if self.freeTrialShowTopBarConnection then
+			self.freeTrialShowTopBarConnection:disconnect()
+		end
+		if self.freeTrialUiVisibleEffect then
+			self.freeTrialUiVisibleEffect()
+		end
 	end
 	if ChromeEnabled() then
 		if self.orderAlignmentConnection then
@@ -721,6 +765,27 @@ function TopBarApp:renderWithStyle(style)
 			return not (values[0] or values[1])
 		end)
 		else not (self.props.menuOpen or self.props.inspectMenuOpen)
+	local freeTrialChipVisible = isTopBarVisible
+	if FFlagEnableFreeTrialTopBarChip then
+		local controlsVisible = Roact.joinBindings({
+			showTopBar = self.freeTrialShowTopBar,
+			uiVisible = self.freeTrialUiVisible,
+		}):map(function(values)
+			return values.showTopBar and values.uiVisible
+		end)
+		if FFlagTopBarSignalizeMenuOpen then
+			freeTrialChipVisible = Roact.joinBindings({
+				menu = isTopBarVisible,
+				controls = controlsVisible,
+			}):map(function(values)
+				return values.menu and values.controls
+			end)
+		else
+			freeTrialChipVisible = controlsVisible:map(function(controlsVisibleValue)
+				return isTopBarVisible and controlsVisibleValue
+			end)
+		end
+	end
 
 	local topBarFramePosition = UDim2.new(0, 0, 0, topBarTopMargin)
 	local topBarFrameHeight = topBarHeight - topBarTopMargin
@@ -1072,6 +1137,24 @@ function TopBarApp:renderWithStyle(style)
 										else self.props.setKeepOutArea,
 								}),
 								AgeRating = ageRating,
+								RestyleTimer = if FFlagEnableRestyleTopBar and FFlagUseUIOverlayForCloudPlay
+									then React.createElement(View, {
+										tag = "auto-xy",
+										LayoutOrder = 4,
+										padding = { left = UDim.new(0, topBarPadding) },
+									}, {
+										Timer = React.createElement(RestyleTimer, {
+											buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
+											followsUILessMode = true,
+											onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
+												then self.keepOutAreasStore.setKeepOutArea
+												else self.props.setKeepOutArea,
+											onAreaRemoved = if FFlagTopBarSignalizeKeepOutAreas
+												then self.keepOutAreasStore.removeKeepOutArea
+												else self.props.removeKeepOutArea,
+										}),
+									})
+									else nil,
 							})
 							else React.createElement(View, {
 								tag = "row gap-xsmall auto-xy",
@@ -1151,6 +1234,28 @@ function TopBarApp:renderWithStyle(style)
 
 					AgeRating = if not useV2ShopIcon then ageRating else nil,
 
+					RestyleTimer = if FFlagEnableRestyleTopBar
+							and FFlagUseUIOverlayForCloudPlay
+							and not useV2ShopIcon
+						then React.createElement(View, {
+							tag = "auto-xy",
+							LayoutOrder = 4,
+							padding = { left = UDim.new(0, topBarPadding) },
+						}, {
+							Timer = React.createElement(RestyleTimer, {
+								buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
+								followsUILessMode = true,
+								layoutOrder = 4,
+								onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
+									then self.keepOutAreasStore.setKeepOutArea
+									else self.props.setKeepOutArea,
+								onAreaRemoved = if FFlagTopBarSignalizeKeepOutAreas
+									then self.keepOutAreasStore.removeKeepOutArea
+									else self.props.removeKeepOutArea,
+							}),
+						})
+						else nil,
+
 					HealthBar = if UseUpdatedHealthBar
 						then nil
 						else Roact.createElement(HealthBar, {
@@ -1159,6 +1264,16 @@ function TopBarApp:renderWithStyle(style)
 				}),
 			}
 		) or nil,
+
+		-- UnibarLeftFrame is a ScreenGui sibling at ZIndex 1. Stay under GamepadMenu (10).
+		FreeTrialChipHost = if FFlagEnableFreeTrialTopBarChip
+			then React.createElement(FreeTrialChipHost, {
+				position = UDim2.new(1, -screenSideOffset, 0, topBarTopMargin),
+				size = UDim2.new(0.5, -screenSideOffset, 0, Constants.TopBarButtonHeight * self.state.UiScale),
+				zIndex = 2,
+				visible = freeTrialChipVisible,
+			})
+			else nil,
 
 		UnibarRightFrame = Unibar
 				and unibarAlignment == Enum.HorizontalAlignment.Right

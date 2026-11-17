@@ -3,7 +3,6 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local useStyle = UIBlox.Core.Style.useStyle
 
@@ -13,7 +12,6 @@ local TEXT_ENTRY_HEIGHT = 40
 
 local function ReportTextEntry(props: Props)
 	local style = useStyle()
-	local font = style.Font.Body.Font
 	local textSize = style.Tokens.FontSize.FontSize_400
 	local theme = style.Theme
 
@@ -39,10 +37,7 @@ local function ReportTextEntry(props: Props)
 			AnchorPoint = Vector2.new(0, 0),
 			BackgroundColor3 = theme.BackgroundUIDefault.Color,
 			PlaceholderText = props.placeholderText,
-			Font = if FFlagFoundationFontFaceMigration then nil else font,
-			FontFace = if FFlagFoundationFontFaceMigration
-				then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-				else nil,
+			FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 			Text = props.text,
 			TextSize = textSize,
 			TextColor3 = theme.TextDefault.Color,

@@ -2,10 +2,11 @@
 --[[
 	ServerAuthority - This ModuleScript exposes ServerAuthority related concepts
 	and hooks into character movement via ControlModule.
-]]--
+]]
+--
 
 local ServerAuthority = {}
-ServerAuthority.__index = ServerAuthority 
+ServerAuthority.__index = ServerAuthority
 
 local ControlModule = require(script.Parent:WaitForChild("ControlModule"))
 local Players = game:GetService("Players")
@@ -24,7 +25,7 @@ local CONNECTIONS = {
 local isServerAuthority = false
 
 function ServerAuthority.PredictLocalHumanoid()
-	local predictHumanoidRootPart = function(character:Model)
+	local predictHumanoidRootPart = function(character: Model)
 		local rootPart = character:WaitForChild("HumanoidRootPart")
 		RunService:SetPredictionMode(rootPart, Enum.PredictionMode.On)
 	end
@@ -46,12 +47,12 @@ function ServerAuthority.Initialize()
 		end
 	end
 	if not PlayerModuleEventBus.data.inputsSetupComplete then
-		if RunService:IsServer() then 
+		if RunService:IsServer() then
 			PlayerModuleEventBus:subscribe(CONNECTIONS.INPUTS_SETUP):Wait()
 		end
 	end
 	ControlModule:InitializeServerAuthority()
-	
+
 	isServerAuthority = true
 end
 

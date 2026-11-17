@@ -35,6 +35,7 @@ local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlag
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local isSideSheetEnabled = require(CorePackages.Workspace.Packages.InExperienceSideSheetUtils.isSideSheetEnabled)
 local FFlagEnableSideSheetWidgets = SharedFlags.FFlagEnableSideSheetWidgets
+local FFlagSideSheetUnifiedMenuOrder = SharedFlags.FFlagSideSheetUnifiedMenuOrder
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 local FFlagChromeNineDotActivityIndicator = require(Root.Flags).FFlagChromeNineDotActivityIndicator
 
@@ -838,10 +839,13 @@ if isSideSheetEnabled then
 
 			if integration.sideSheetPlacement == SideSheetPlacement.Unibar then
 				table.insert(unibar, self:createIconProps(id, order))
+			elseif
+				integration.sideSheetPlacement == SideSheetPlacement.BelowFold
+				or (FFlagSideSheetUnifiedMenuOrder and integration.sideSheetPlacement == SideSheetPlacement.AboveFold)
+			then
+				table.insert(belowFold, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.AboveFold then
 				table.insert(aboveFold, self:createIconProps(id, order))
-			elseif integration.sideSheetPlacement == SideSheetPlacement.BelowFold then
-				table.insert(belowFold, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.SessionAction then
 				table.insert(sessionAction, self:createIconProps(id, order))
 			elseif integration.sideSheetPlacement == SideSheetPlacement.ScrollableContentTop then

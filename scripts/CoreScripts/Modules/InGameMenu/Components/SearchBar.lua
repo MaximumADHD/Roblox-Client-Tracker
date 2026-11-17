@@ -18,7 +18,6 @@ local IconSize = Foundation.Enums.IconSize
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local InGameMenu = script.Parent.Parent
 local withLocalization = require(InGameMenu.Localization.withLocalization)
@@ -127,7 +126,7 @@ end
 function SearchBar:render()
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Theme = {
 				TextEmphasis = {
 					Color = tokens.Color.Content.Emphasis.Color3,
@@ -235,10 +234,7 @@ function SearchBar:render()
 								0,
 								SEARCH_TEXTBOX_HEIGHT
 							),
-							Font = if FFlagFoundationFontFaceMigration then nil else inputFontStyle.Font,
-							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-								else nil,
+							FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 							Text = self.props.text or "",
 							TextInputType = textInputType,
 							TextSize = inputTextSize,
@@ -260,10 +256,7 @@ function SearchBar:render()
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 					Size = UDim2.fromOffset(SEARCH_CANCEL_WIDTH, SEARCH_CANCEL_HEIGHT),
-					Font = if FFlagFoundationFontFaceMigration then nil else cancelFontStyle.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 					TextSize = cancelTextSize,
 					Text = localized.cancel,
 					TextColor3 = style.Theme.TextEmphasis.Color,

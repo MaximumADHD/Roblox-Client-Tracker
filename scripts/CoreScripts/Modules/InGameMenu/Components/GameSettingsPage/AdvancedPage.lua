@@ -17,7 +17,6 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local FFlagCoreUiMigrateUIBloxToFoundation =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -81,7 +80,7 @@ end
 function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Theme = {
 				TextEmphasis = {
 					Color = tokens.Color.Content.Emphasis.Color3,
@@ -151,10 +150,7 @@ function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 					Size = UDim2.new(1, 0, 0, 54),
 					Text = localized.text,
 					TextColor3 = style.Theme.TextEmphasis.Color,
-					Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.TitleLarge.Font),
 					TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 4,

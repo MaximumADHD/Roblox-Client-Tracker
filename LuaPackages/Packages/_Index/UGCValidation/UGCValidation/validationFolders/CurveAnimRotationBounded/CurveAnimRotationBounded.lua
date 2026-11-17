@@ -19,12 +19,12 @@ CurveAnimRotationBounded.requiredData = {
 CurveAnimRotationBounded.expectedFailures = {}
 CurveAnimRotationBounded.prereqTests = { ValidationEnums.ValidationModule.CurveAnimDataAvailable }
 
-CurveAnimRotationBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+local function validateCurveAnimClip(reporter: Types.ValidationReporter, computed: Types.CurveAnimClipComputedFrames)
+	local animationName = computed.animation and computed.animation:GetFullName()
 	if not getFFlagUGCValidateCurveAnimRotationSpeed() then
 		return
 	end
 
-	local computed = data.curveAnimComputedFrames
 	local animFrames = computed.animFrames
 	local frameDelta = 1.0 / getFIntUGCValidateMaxAnimationFPS()
 
@@ -44,17 +44,27 @@ CurveAnimRotationBounded.run = function(reporter: Types.ValidationReporter, data
 				local frameTime = (frameNumberIdx - 1) * frameDelta
 				local degreesPerSecondSpeed = delta * getFIntUGCValidateMaxAnimationFPS()
 
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_RotationTooFast, {
+				local failureParams: { [string]: any } = {
 					time = string.format("%.2f", frameTime),
 					bodyPart = bodyPartName :: string,
 					speed = string.format("%.2f", degreesPerSecondSpeed),
 					maxSpeed = tostring(maxDegreesPerSecondRotationSpeed),
-				})
+				}
+				if animationName then
+					failureParams.animationName = animationName
+				end
+				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_RotationTooFast, failureParams, computed.animation)
 				return
 			end
 		end
 
 		allCFramesPrevFrame = frame
+	end
+end
+
+CurveAnimRotationBounded.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
+	for _, computed in data.curveAnimComputedFrames do
+		validateCurveAnimClip(reporter, computed)
 	end
 end
 

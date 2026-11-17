@@ -6,8 +6,6 @@ validateBodyPartChildAttachmentBounds.lua performs calculations in the space of 
 
 clampAttachmentToBounds
     returns a CFrame for the attachment that is in bounds
-calculateAcceptableBoundsLocalSpace:
-    returns the box that the attachment must be inside in the local space of the MeshPart
 ]]
 
 local root = script.Parent.Parent
@@ -28,19 +26,6 @@ local function calculateLocalSpaceTransform(from: CFrame, to: CFrame): CFrame
 	local toInLocalPositionSpaceOfFrom = from.Rotation:Inverse() * (to.Position - from.Position)
 
 	return CFrame.new(toInLocalPositionSpaceOfFrom) * toInLocalRotationSpaceOfFrom
-end
-
--- returns the box that the attachment must be inside
-local function calculateAcceptableBoundsWorldSpace(
-	attBoundsMeshSpace: any,
-	meshDimensions: Vector3,
-	meshCenter: Vector3
-): (Vector3, Vector3)
-	local acceptableMin = toWorldSpace(attBoundsMeshSpace.min, meshDimensions)
-	local acceptableMax = toWorldSpace(attBoundsMeshSpace.max, meshDimensions)
-	local acceptableCenter = (acceptableMin + acceptableMax) * 0.5
-	local acceptableDimensions = acceptableMax - acceptableMin
-	return acceptableCenter + meshCenter, acceptableDimensions
 end
 
 -- the result is the attachment's CFrame
@@ -86,18 +71,6 @@ function MeshSpaceUtils.clampAttachmentToBounds(
 	local attachWorldClampedCFrame = attachWorldCFrame.Rotation + attachWorldClampedPos
 
 	return calculateLocalSpaceTransform(transformData.cframe, attachWorldClampedCFrame)
-end
-
--- returns the box that the attachment must be inside in the local space of the MeshPart
-function MeshSpaceUtils.calculateAcceptableBoundsLocalSpace(
-	attBoundsMeshSpace: any,
-	transformData: any,
-	meshDimensions: Vector3,
-	meshCenter: Vector3
-): (CFrame, Vector3)
-	local acceptableCenter, acceptableDimensions =
-		calculateAcceptableBoundsWorldSpace(attBoundsMeshSpace, meshDimensions, meshCenter)
-	return calculateLocalSpaceTransform(transformData.cframe, CFrame.new(acceptableCenter)), acceptableDimensions
 end
 
 return MeshSpaceUtils

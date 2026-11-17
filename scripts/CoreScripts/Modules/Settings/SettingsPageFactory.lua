@@ -30,7 +30,6 @@ local FFlagResponsiveUnitsDeprecateTenFoot = SharedFlags.FFlagResponsiveUnitsDep
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled() and not FFlagResponsiveUnitsDeprecateTenFoot
 
 local FFlagFixIGMTabTransitions = require(script.Parent.Flags.GetFFlagFixIGMTabTransitions)
-local FFlagIEMSettingsGroups = require(script.Parent.Flags.FFlagIEMSettingsGroups)
 local FFlagIEMFocusNavSupportNewButtons = require(script.Parent.Flags.FFlagIEMFocusNavSupportNewButtons)
 
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
@@ -284,21 +283,15 @@ local function Initialize()
 				GuiService.SelectedCoreObject = this.LastSelectedObject
 			else
 				if rows and #rows > 0 then
-					local valueChangerFrame
-					if FFlagIEMSettingsGroups then
-						local firstRowLayoutOrder = math.huge
-						local firstRow = rows[1].ValueChanger
-						for _, row in rows do
-							if row.SelectionFrame and row.SelectionFrame.LayoutOrder < firstRowLayoutOrder then
-								firstRowLayoutOrder = row.SelectionFrame.LayoutOrder
-								firstRow = row
-							end
+					local firstRowLayoutOrder = math.huge
+					local firstRow = rows[1].ValueChanger
+					for _, row in rows do
+						if row.SelectionFrame and row.SelectionFrame.LayoutOrder < firstRowLayoutOrder then
+							firstRowLayoutOrder = row.SelectionFrame.LayoutOrder
+							firstRow = row
 						end
-						valueChangerFrame = this:getValueChangerFrame(firstRow.ValueChanger)
-					else
-						valueChangerFrame = this:getValueChangerFrame(rows[1].ValueChanger)
 					end
-					GuiService.SelectedCoreObject = valueChangerFrame
+					GuiService.SelectedCoreObject = this:getValueChangerFrame(firstRow.ValueChanger)
 				elseif
 					this.PageNextSelectionDown
 					and (not FFlagIEMFocusNavSupportNewButtons or this.PageNextSelectionDown:IsDescendantOf(CoreGui))

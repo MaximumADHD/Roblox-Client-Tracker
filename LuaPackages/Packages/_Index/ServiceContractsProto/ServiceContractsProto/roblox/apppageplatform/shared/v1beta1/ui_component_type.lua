@@ -21,6 +21,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
 	| "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL"
 	| "UI_COMPONENT_TYPE_OPTION_SELECTOR_COLLECTION"
+	| "UI_COMPONENT_TYPE_COLLECTION_SLOTS_LAYOUT"
 	| "UI_COMPONENT_TYPE_TILE"
 	| "UI_COMPONENT_TYPE_GAME_TILE"
 	| "UI_COMPONENT_TYPE_SEE_ALL_TILE"
@@ -117,6 +118,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_BANNER"
 	| "UI_COMPONENT_TYPE_SHEET"
 	| "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM"
+	| "UI_COMPONENT_TYPE_STATUS_BADGE"
+	| "UI_COMPONENT_TYPE_MURAL_SECTION"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_EXPERIMENTAL"
@@ -161,6 +164,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL"
 		elseif value == 15 then
 			return "UI_COMPONENT_TYPE_OPTION_SELECTOR_COLLECTION"
+		elseif value == 17 then
+			return "UI_COMPONENT_TYPE_COLLECTION_SLOTS_LAYOUT"
 		elseif value == 100 then
 			return "UI_COMPONENT_TYPE_TILE"
 		elseif value == 101 then
@@ -353,6 +358,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SHEET"
 		elseif value == 284 then
 			return "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM"
+		elseif value == 285 then
+			return "UI_COMPONENT_TYPE_STATUS_BADGE"
+		elseif value == 286 then
+			return "UI_COMPONENT_TYPE_MURAL_SECTION"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -423,6 +432,8 @@ messages.UiComponentType = {
 			return 14
 		elseif self == "UI_COMPONENT_TYPE_OPTION_SELECTOR_COLLECTION" then
 			return 15
+		elseif self == "UI_COMPONENT_TYPE_COLLECTION_SLOTS_LAYOUT" then
+			return 17
 		elseif self == "UI_COMPONENT_TYPE_TILE" then
 			return 100
 		elseif self == "UI_COMPONENT_TYPE_GAME_TILE" then
@@ -615,6 +626,10 @@ messages.UiComponentType = {
 			return 283
 		elseif self == "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM" then
 			return 284
+		elseif self == "UI_COMPONENT_TYPE_STATUS_BADGE" then
+			return 285
+		elseif self == "UI_COMPONENT_TYPE_MURAL_SECTION" then
+			return 286
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -685,6 +700,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_OPTION_SELECTOR_COLLECTION" then
 			return "UI_COMPONENT_TYPE_OPTION_SELECTOR_COLLECTION"
+		elseif name == "UI_COMPONENT_TYPE_COLLECTION_SLOTS_LAYOUT" then
+			return "UI_COMPONENT_TYPE_COLLECTION_SLOTS_LAYOUT"
 		elseif name == "UI_COMPONENT_TYPE_TILE" then
 			return "UI_COMPONENT_TYPE_TILE"
 		elseif name == "UI_COMPONENT_TYPE_GAME_TILE" then
@@ -877,6 +894,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SHEET"
 		elseif name == "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM" then
 			return "UI_COMPONENT_TYPE_EXPANDABLE_LIST_ITEM"
+		elseif name == "UI_COMPONENT_TYPE_STATUS_BADGE" then
+			return "UI_COMPONENT_TYPE_STATUS_BADGE"
+		elseif name == "UI_COMPONENT_TYPE_MURAL_SECTION" then
+			return "UI_COMPONENT_TYPE_MURAL_SECTION"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

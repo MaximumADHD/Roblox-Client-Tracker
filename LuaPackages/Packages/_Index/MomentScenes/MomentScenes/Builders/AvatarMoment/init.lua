@@ -17,10 +17,11 @@
 	userId is ignored and outfitId stays required, so a host that already
 	integrated this package keeps the outfit path.
 
-	Only appearance and rig type come from that identity. An outfit or a user
-	can also carry equipped emotes, and those are deliberately ignored: emote,
-	background and camera stay scene args so they compose against any subject
-	without having to mint a new outfit id for every combination.
+	Appearance, rig type, and the first equipped Gear asset come from that
+	identity. Gear cannot be applied through a HumanoidDescription, so it is
+	inserted as a Tool separately. Equipped emotes are deliberately ignored:
+	emote, background and camera stay scene args so they compose against any
+	subject without having to mint a new outfit id for every combination.
 
 	The cost of taking an id is that it has to exist — there is no
 	bespoke-description path here. That is the accepted trade for args that are
@@ -34,6 +35,7 @@ local frameCamera = require(script.Parent._Utils.frameCamera)
 local cameraPath = require(script.Parent._Utils.cameraPath)
 local avatarBackground = require(script.Parent._Utils.avatarBackground)
 local avatarRig = require(script.Parent._Utils.avatarRig)
+local applyDefaultClothing = require(script.Parent._Utils.applyDefaultClothing)
 local createPlayhead = require(script.Parent._Utils.createPlayhead)
 local addKeyLight = require(script.addKeyLight)
 local addFallbackBackdrop = require(script.addFallbackBackdrop)
@@ -160,7 +162,13 @@ local function buildAvatarMoment(rawArgs: AvatarMomentArgs?): MomentScene
 		avatarBackground.pinToParent(backdrop, root)
 	end
 
-	local avatar = avatarRig.createAvatar(snapshot.humanoidDescription, snapshot.rigType)
+	-- Fetched descriptions have no modesty layer. Flag off keeps that description,
+	-- so CheckApplyDefaultClothingAsync does not run.
+	local humanoidDescription = snapshot.humanoidDescription
+	if Flags.MomentScenesAvatarMomentDefaultClothing then
+		humanoidDescription = applyDefaultClothing(humanoidDescription)
+	end
+	local avatar = avatarRig.createAvatar(humanoidDescription, snapshot.rigType)
 	avatar.Name = AVATAR_NAME
 	local humanoid = avatar:FindFirstChildOfClass("Humanoid")
 	if humanoid ~= nil then
@@ -170,6 +178,10 @@ local function buildAvatarMoment(rawArgs: AvatarMomentArgs?): MomentScene
 	end
 	avatarFloorPosition.positionOnFloor(avatar, 0, CFrame.new())
 	avatar.Parent = root
+
+	local gearTrack = if snapshot.gearAssetId ~= nil
+		then avatarRig.equipGear(avatar, snapshot.gearAssetId, snapshot.rigType)
+		else nil
 
 	local camera = Instance.new("Camera")
 	camera.Name = "SceneCamera"
@@ -192,16 +204,11 @@ local function buildAvatarMoment(rawArgs: AvatarMomentArgs?): MomentScene
 	camera.Focus = CFrame.new(lookAtPos)
 
 	local emoteId = resolveEmoteId(args, snapshot.rigType)
-	local track = avatarRig.playEmote(avatar, emoteId)
-	local tracks: { AnimationTrack } = if track ~= nil then { track } else {}
+	local emoteTrack = avatarRig.playEmote(avatar, emoteId)
+	local tracks: { AnimationTrack } = if emoteTrack ~= nil then { emoteTrack } else {}
 
 	local function duration(): number
-		local clip = 0
-		for _, t in tracks do
-			if t.Length > clip then
-				clip = t.Length
-			end
-		end
+		local clip = if emoteTrack ~= nil then emoteTrack.Length else 0
 		if clip <= 0 then
 			return 0
 		end
@@ -221,6 +228,15 @@ local function buildAvatarMoment(rawArgs: AvatarMomentArgs?): MomentScene
 		play = function(super)
 			if humanoid ~= nil then
 				humanoid.AutoRotate = false
+			end
+			super()
+		end,
+		dispose = function(super)
+			-- The equipped animation is a frozen pose, not part of playback.
+			-- It still owns an AnimationTrack that must be stopped explicitly.
+			if gearTrack ~= nil then
+				gearTrack:Stop(0)
+				gearTrack = nil
 			end
 			super()
 		end,

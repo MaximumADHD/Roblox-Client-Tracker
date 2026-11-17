@@ -9,6 +9,7 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
+local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local useTokens = Foundation.Hooks.useTokens
@@ -22,8 +23,9 @@ local StatEntryContainer = require(PlayerList.Components.Container.StatEntryCont
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
 local FFlagFontFacePlayerList = SharedFlags.FFlagFontFacePlayerList
-	and Foundation.Utility.Flags.FoundationFontFaceMigration
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagPlayerListContrastingTeamText = PlayerListPackage.Flags.FFlagPlayerListContrastingTeamText
+local getContrastingContentStyle = PlayerListPackage.Common.getContrastingContentStyle
 
 local CellExtender = require(Components.Presentation.CellExtender)
 
@@ -59,14 +61,16 @@ export type TeamEntryViewProps = {
 local function TeamEntryView(props: TeamEntryViewProps)
 	local layoutValues = useLayoutValues()
 	local style = useStyle()
-	local tokens = if FFlagFontFacePlayerList then useTokens() else nil :: never
+	local tokens = if FFlagFontFacePlayerList or FFlagPlayerListContrastingTeamText then useTokens() else nil :: never
 
 	local isSmallTouchDevice = props.isSmallTouchDevice or false
 	local isDirectionalPreferred = props.isDirectionalPreferred or false
 
 	-- Text styling
 	local textStyle = style.Theme.TextEmphasis
-	local textSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.TeamNameTextSize else style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
+	local textSize = if FFlagEnableMobilePlayerListOnConsole
+		then layoutValues.TeamNameTextSize
+		else style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize
 	local textFont = if FFlagFontFacePlayerList
 		then normalizeFontFace(tokens.Typography.CaptionLarge.Font)
 		else style.Font.CaptionHeader.Font
@@ -79,6 +83,29 @@ local function TeamEntryView(props: TeamEntryViewProps)
 			else layoutValues.TeamEntryFont
 	end
 
+	if FFlagPlayerListContrastingTeamText then
+		local settings = style.Settings
+		local teamTransparency = if isSmallTouchDevice
+			then 0.5
+			elseif isDirectionalPreferred then if layoutValues.BackgroundStyle
+				then layoutValues.BackgroundStyle.Default.Transparency
+				else 0
+			else layoutValues.TeamEntryBackgroundTransparency
+		local backdropColor = if ChromeEnabled()
+			then style.Theme.BackgroundUIContrast.Color
+			else style.Theme.BackgroundContrast.Color
+		local contentStyle = getContrastingContentStyle(props.teamColor, teamTransparency, {
+			Color3 = backdropColor,
+			Transparency = (layoutValues.OverrideBackgroundTransparency or 0) * settings.PreferredTransparency,
+		}, tokens.DarkMode.Content.Emphasis, tokens.LightMode.Content.Emphasis)
+		textStyle = {
+			Color = contentStyle.Color3,
+			Transparency = contentStyle.Transparency,
+			StrokeColor = textStyle.StrokeColor,
+			StrokeTransparency = textStyle.StrokeTransparency,
+		}
+	end
+
 	-- Background styling
 	-- TODO: Flatten props like backgroundStyle and use bindings for color (APPEXP-2920)
 	local backgroundStyle: ColorStyle = React.useMemo(function()
@@ -87,7 +114,7 @@ local function TeamEntryView(props: TeamEntryViewProps)
 			local settings = style.Settings
 			return {
 				Color = props.teamColor,
-				Transparency = settings.PreferredTransparency * 0.5,
+				Transparency = if FFlagPlayerListContrastingTeamText then 0.5 else settings.PreferredTransparency * 0.5,
 			}
 		end
 
@@ -102,8 +129,9 @@ local function TeamEntryView(props: TeamEntryViewProps)
 
 		return {
 			Color = props.teamColor,
-			Transparency = layoutValues.TeamEntryBackgroundTransparency
-				* style.Settings.PreferredTransparency,
+			Transparency = if FFlagPlayerListContrastingTeamText
+				then layoutValues.TeamEntryBackgroundTransparency
+				else layoutValues.TeamEntryBackgroundTransparency * style.Settings.PreferredTransparency,
 		}
 	end, { isSmallTouchDevice, isDirectionalPreferred, props.teamColor, style, layoutValues } :: { any })
 
@@ -115,7 +143,7 @@ local function TeamEntryView(props: TeamEntryViewProps)
 	-- Max leaderstats calculation
 	local maxLeaderstats = layoutValues.MaxLeaderstats
 
-	local gameStatsData = if FFlagPlayerListFixLeaderstatsStacking 
+	local gameStatsData = if FFlagPlayerListFixLeaderstatsStacking
 		then SignalsReact.useSignalState(props.gameStats.getAllData)
 		else nil :: never
 
@@ -165,7 +193,12 @@ local function TeamEntryView(props: TeamEntryViewProps)
 				})
 			end
 		else
-			if props.gameStatsCount and props.teamStatsCount and props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
+			if
+				props.gameStatsCount
+				and props.teamStatsCount
+				and props.gameStatsCount > 0
+				and props.teamStatsCount >= 0
+			then
 				props.gameStats.iterateData(function(gameStatName, value)
 					if value.order(false) > maxLeaderstats then
 						return
@@ -271,7 +304,12 @@ local function TeamEntryView(props: TeamEntryViewProps)
 				})
 			end
 		else
-			if props.gameStatsCount and props.teamStatsCount and props.gameStatsCount > 0 and props.teamStatsCount >= 0 then
+			if
+				props.gameStatsCount
+				and props.teamStatsCount
+				and props.gameStatsCount > 0
+				and props.teamStatsCount >= 0
+			then
 				props.gameStats.iterateData(function(gameStatName, value)
 					if value.order(false) > maxLeaderstats then
 						return

@@ -1,4 +1,5 @@
--- Shared avatar model creation + emote playback for scene builders.
+-- Shared avatar model creation, Gear equip, and animation playback for scene
+-- builders.
 -- Uses Players:CreateHumanoidModelFromDescriptionAsync only — no deprecated
 -- synchronous fallback, no test dummy fallback.
 --
@@ -14,6 +15,11 @@ local Workspace = game:GetService("Workspace")
 local loadAssetUtil = require(script.Parent.loadAsset)
 
 local STAGING_NAME = "MomentScenesStaging"
+local R15_EQUIPPED_ANIMATION_ID = 507768375
+local R6_EQUIPPED_ANIMATION_ID = 182393478
+-- Classic rigs use a different tool-weld basis than RightGripAttachment.CFrame.
+-- This is the R6 transform used by Avatar Experience's gear preview.
+local R6_RIGHT_GRIP_C0 = CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(-90), 0, 0)
 
 -- AnimationTrack.Length reads 0 until the clip loads, and scene duration and
 -- capabilities are derived from it, so settle it here rather than handing back a
@@ -144,7 +150,7 @@ local function emoteAnimationId(emoteId: number): string
 	return resolved
 end
 
-local function playEmote(avatar: Model, emoteId: number): AnimationTrack?
+local function playAnimation(avatar: Model, name: string, animationId: string): AnimationTrack?
 	local humanoid = avatar:FindFirstChildOfClass("Humanoid")
 	if humanoid == nil then
 		return nil
@@ -158,10 +164,8 @@ local function playEmote(avatar: Model, emoteId: number): AnimationTrack?
 		animator.Parent = humanoid
 	end
 	local animation = Instance.new("Animation")
-	animation.Name = "Live3DEmote"
-	-- Resolved before staging: this yields on a load, and the staging window
-	-- should hold the rig no longer than the clip settle below needs it.
-	animation.AnimationId = emoteAnimationId(emoteId)
+	animation.Name = name
+	animation.AnimationId = animationId
 	animation.Parent = avatar
 
 	local track: AnimationTrack? = nil
@@ -202,9 +206,97 @@ local function playEmote(avatar: Model, emoteId: number): AnimationTrack?
 	return track
 end
 
+local function playEmote(avatar: Model, emoteId: number): AnimationTrack?
+	if avatar:FindFirstChildOfClass("Humanoid") == nil then
+		return nil
+	end
+	return playAnimation(avatar, "Live3DEmote", emoteAnimationId(emoteId))
+end
+
+local function equippedAnimationId(rigType: Enum.HumanoidRigType): number
+	if rigType == Enum.HumanoidRigType.R6 then
+		return R6_EQUIPPED_ANIMATION_ID
+	end
+	return R15_EQUIPPED_ANIMATION_ID
+end
+
+local function applyGearGrip(avatar: Model, tool: Tool, handle: BasePart, rigType: Enum.HumanoidRigType)
+	local rightLimbName = if rigType == Enum.HumanoidRigType.R6 then "Right Arm" else "RightHand"
+	local rightLimb = avatar:FindFirstChild(rightLimbName)
+	if rightLimb == nil or not rightLimb:IsA("BasePart") then
+		return
+	end
+	local rightGrip = rightLimb:FindFirstChild("RightGrip")
+	if rightGrip == nil then
+		local attachment = rightLimb:FindFirstChild("RightGripAttachment")
+		if attachment == nil or not attachment:IsA("Attachment") then
+			return
+		end
+		local weld = Instance.new("Weld")
+		weld.Name = "RightGrip"
+		weld.Part0 = rightLimb
+		weld.C0 = if rigType == Enum.HumanoidRigType.R6 then R6_RIGHT_GRIP_C0 else attachment.CFrame
+		weld.Parent = rightLimb
+		rightGrip = weld
+	end
+	if rightGrip ~= nil and rightGrip:IsA("JointInstance") then
+		if rigType == Enum.HumanoidRigType.R6 then
+			rightGrip.C0 = R6_RIGHT_GRIP_C0
+		end
+		rightGrip.Part1 = handle
+		rightGrip.C1 = tool.Grip
+	end
+end
+
+--[[
+	Load the Gear asset, take its first Tool descendant, and parent that Tool to
+	the avatar. A Tool without a direct Handle BasePart cannot be equipped, so it
+	is discarded rather than leaving loose geometry in the scene.
+
+	Loaded code must not survive long enough to run when the Tool is mounted.
+	Every LuaSourceContainer subclass is destroyed while the Tool is still under
+	the InsertService wrapper. The Tool is then detached before the wrapper is
+	destroyed, which also drops any sibling content outside the target Tool.
+]]
+local function equipGear(avatar: Model, gearAssetId: number, rigType: Enum.HumanoidRigType): AnimationTrack?
+	local ok, loaded = pcall(loadAssetUtil.loadAsset, gearAssetId)
+	if not ok then
+		warn(`avatarRig.equipGear: Gear {gearAssetId} failed to load ({loaded})`)
+		return nil
+	end
+	if typeof(loaded) ~= "Instance" then
+		warn(`avatarRig.equipGear: Gear {gearAssetId} loaded a {typeof(loaded)}, expected an Instance`)
+		return nil
+	end
+	local wrapper = loaded :: Instance
+	local tool = wrapper:FindFirstChildWhichIsA("Tool", true)
+	if tool == nil then
+		wrapper:Destroy()
+		return nil
+	end
+	local handle = tool:FindFirstChild("Handle")
+	if handle == nil or not handle:IsA("BasePart") then
+		wrapper:Destroy()
+		return nil
+	end
+	for _, descendant in tool:GetDescendants() do
+		if descendant:IsA("LuaSourceContainer") then
+			descendant:Destroy()
+		end
+	end
+	tool.Parent = avatar
+	applyGearGrip(avatar, tool, handle, rigType)
+	wrapper:Destroy()
+
+	local animationId = equippedAnimationId(rigType)
+	return playAnimation(avatar, "Live3DGearEquipped", `rbxassetid://{animationId}`)
+end
+
 return {
 	createAvatar = createAvatar,
 	solveJoints = solveJoints,
 	playEmote = playEmote,
 	emoteAnimationId = emoteAnimationId,
+	equipGear = equipGear,
+	equippedAnimationId = equippedAnimationId,
 }

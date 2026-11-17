@@ -11,6 +11,9 @@ local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCV
 local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
 local getFFlagUGCValidateMakeupCategoryParity = require(root.flags.getFFlagUGCValidateMakeupCategoryParity)
 local getFFlagUGCValidateDisallowAeroMeshData = require(root.flags.getFFlagUGCValidateDisallowAeroMeshData)
+local getFFlagUGCValidateWrapLayerDeformationMapsEmpty =
+	require(root.flags.getFFlagUGCValidateWrapLayerDeformationMapsEmpty)
+local engineHasWrapLayerDeformationMaps = require(root.util.engineHasWrapLayerDeformationMaps)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -315,6 +318,11 @@ setmetatable(Constants.INCLUSION_METHODS, {
 	end,
 })
 
+-- The engine ignores WrapLayer deformation maps until ShapeFit ships, so reject them rather than
+-- publish data with no defined effect.
+local wrapLayerDeformationMapsMustBeEmpty = getFFlagUGCValidateWrapLayerDeformationMapsEmpty()
+	and engineHasWrapLayerDeformationMaps()
+
 Constants.PROPERTIES = {
 	Instance = {
 		Archivable = true,
@@ -459,6 +467,9 @@ Constants.PROPERTIES = {
 				[Constants.COMPARISON_METHODS.EXACT_EQ] = Vector3.new(0, 0, 0),
 			},
 		},
+
+		RotateScaleDeformationMap = if wrapLayerDeformationMapsMustBeEmpty then Content.none else nil,
+		ScaleOnlyDeformationMap = if wrapLayerDeformationMapsMustBeEmpty then Content.none else nil,
 	},
 
 	WrapTarget = {

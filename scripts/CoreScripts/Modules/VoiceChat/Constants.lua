@@ -24,7 +24,7 @@ local VOICE_STATE = {
 	HIDDEN = "Hidden",
 }
 
-local BAN_REASON = { NUDGE_V3 = 7, }
+local BAN_REASON = { NUDGE_V3 = 7, UFR_UNACKNOWLEDGED_EXPIRED = 10, }
 
 local VOICE_CONNECTION_SOURCE = {
 	AUTO_CONNECT = 1,

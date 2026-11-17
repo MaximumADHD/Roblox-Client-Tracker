@@ -15,7 +15,6 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local FFlagCoreUiMigrateUIBloxToFoundation =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreUiMigrateUIBloxToFoundation
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -146,7 +145,7 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 		Slider = Roact.createElement(Slider, sliderProps),
 		TextContainer = withFoundationOrUIBloxStyle(function(tokens)
 			return {
-				Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+				Tokens = tokens,
 				Theme = {
 					TextMuted = {
 						Color = tokens.Color.Content.Muted.Color3,
@@ -188,10 +187,7 @@ function SliderWithInput:renderWithSelectionCursor(getSelectionCursor)
 					Size = UDim2.new(1, 0, 1, 0),
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
-					Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Body.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 					TextScaled = true,
 					ClearTextOnFocus = false,
 					TextEditable = not props.disabled,

@@ -8,10 +8,15 @@ local ErrorSourceStrings = {}
         python3 PythonHelpers/syncTranslations.py --draft <KeyEnum> "<English message>"
     That registers a HIDDEN draft (isLive=false, isReadyForTranslation=false) in the Hub
     and appends the matching Keys + Values entry below. (You may instead create the draft
-    in the Hub UI and add the rows here by hand — CI only checks that the key exists in the
-    Hub, not the English text.) On your PR, CI blocks the merge until every added key is a
-    draft in the Hub; merging then flips those keys to live + ready for translation
+    in the Hub UI and add the rows here by hand; CI warns, without blocking, if the draft's
+    English differs from the Values row.) On your PR, CI blocks the merge until every added key
+    is a draft in the Hub; merging then flips those keys to live + ready for translation
     (.github/workflows/sync-translations.yml).
+
+    To change the English of an existing string, edit its Values row here. Don't re-run --draft
+    for it: that would take the live string offline. On merge, CI pushes the new English to the
+    Hub, keeping its live, ready and legally-sensitive flags, and the string goes out for
+    re-translation.
 ]]
 
 ErrorSourceStrings.Keys = {
@@ -144,12 +149,9 @@ ErrorSourceStrings.Keys = {
 	CurveAnim_NoJointManipulation = "Common.UGCValidation.ErrorLabel.CurveAnim_NoJointManipulation",
 	CurveAnim_InvalidNumericalData = "Common.UGCValidation.ErrorLabel.CurveAnim_InvalidNumericalData",
 	CurveAnim_PositionSeparation = "Common.UGCValidation.ErrorLabel.CurveAnim_PositionSeparation",
-	CurveAnim_BonePositionNotAllowed = "Common.UGCValidation.ErrorLabel.CurveAnim_BonePositionNotAllowed",
 	CurveAnim_BoneTranslationExceedsThreshold = "Common.UGCValidation.ErrorLabel.CurveAnim_BoneTranslationExceedsThreshold",
 	CurveAnim_BonesNotAllowed = "Common.UGCValidation.ErrorLabel.CurveAnim_BonesNotAllowed",
 	CurveAnim_InvalidBoneName = "Common.UGCValidation.ErrorLabel.CurveAnim_InvalidBoneName",
-	CurveAnim_BodyPartWithBoneHasPosition = "Common.UGCValidation.ErrorLabel.CurveAnim_BodyPartWithBoneHasPosition",
-	CurveAnim_BodyPartHasPosition = "Common.UGCValidation.ErrorLabel.CurveAnim_BodyPartHasPosition",
 	CurveAnim_BodyPartTranslationExceedsThreshold = "Common.UGCValidation.ErrorLabel.CurveAnim_BodyPartTranslationExceedsThreshold",
 	CurveAnim_InvalidBodyPartHierarchyDetail = "Common.UGCValidation.ErrorLabel.CurveAnim_InvalidBodyPartHierarchyDetail",
 	CurveAnim_BoneRequiresParent = "Common.UGCValidation.ErrorLabel.CurveAnim_BoneRequiresParent",
@@ -182,7 +184,7 @@ ErrorSourceStrings.Keys = {
 	DescendantIdsTooMany = "Common.UGCValidation.ErrorLabel.DescendantIdsTooMany",
 	DescendantIdMissing = "Common.UGCValidation.ErrorLabel.DescendantIdMissing",
 	DescendantIdMalformed = "Common.UGCValidation.ErrorLabel.DescendantIdMalformed",
-	DescendantIdVersionNotSupported = "Common.UGCValidation.ErrorLabel.DescendantIdVersionNotSupported",
+	DescendantIdVersionNotLatest = "Common.UGCValidation.ErrorLabel.DescendantIdVersionNotLatest",
 	DescendantIdAnimationVersionNotSupported = "Common.UGCValidation.ErrorLabel.DescendantIdAnimationVersionNotSupported",
 	ContentNotEditable = "Common.UGCValidation.ErrorLabel.ContentNotEditable",
 	AttachmentBoundsCalculationFailed = "Common.UGCValidation.ErrorLabel.AttachmentBoundsCalculationFailed",
@@ -197,7 +199,6 @@ ErrorSourceStrings.Keys = {
 	HSRMeshIdsMismatch = "Common.UGCValidation.ErrorLabel.HSRMeshIdsMismatch",
 	ThumbnailInvalidTarget = "Common.UGCValidation.ErrorLabel.ThumbnailInvalidTarget",
 	ThumbnailOutsideView = "Common.UGCValidation.ErrorLabel.ThumbnailOutsideView",
-	AttachmentOutOfBounds = "Common.UGCValidation.ErrorLabel.AttachmentOutOfBounds",
 	RigAttachmentOutOfBounds = "Common.UGCValidation.ErrorLabel.RigAttachmentOutOfBounds",
 	AccessoryAttachmentOutOfBounds = "Common.UGCValidation.ErrorLabel.AccessoryAttachmentOutOfBounds",
 	AttachmentOrientationRigRotated = "Common.UGCValidation.ErrorLabel.AttachmentOrientationRigRotated",
@@ -323,6 +324,12 @@ ErrorSourceStrings.Keys = {
 	FacsDeformation_MouthNotOpen = "Common.UGCValidation.ErrorLabel.FacsDeformation_MouthNotOpen",
 	FacsDeformation_HappyNotShown = "Common.UGCValidation.ErrorLabel.FacsDeformation_HappyNotShown",
 	FacsDeformation_SadNotShown = "Common.UGCValidation.ErrorLabel.FacsDeformation_SadNotShown",
+	NoMeshBelowFeet_PartBelowFeet = "Common.UGCValidation.ErrorLabel.NoMeshBelowFeet_PartBelowFeet",
+	ExperienceCreatorNotSupported = "Common.UGCValidation.ErrorLabel.ExperienceCreatorNotSupported",
+	UnsupportedCreatorType = "Common.UGCValidation.ErrorLabel.UnsupportedCreatorType",
+	MeshGeometry_ScaleBelowMinimum = "Common.UGCValidation.ErrorLabel.MeshGeometry_ScaleBelowMinimum",
+	MeshGeometry_ScaleNotPositive = "Common.UGCValidation.ErrorLabel.MeshGeometry_ScaleNotPositive",
+	MeshGeometry_ScaleAboveMaximum = "Common.UGCValidation.ErrorLabel.MeshGeometry_ScaleAboveMaximum",
 }
 
 ErrorSourceStrings.Values = {
@@ -354,7 +361,7 @@ ErrorSourceStrings.Values = {
 	AQSWarn_CageRelevancy = "{irrelevant_percent}% of the modified outer cage vertices do not cover the accessory. Please adjust the cage to better fit the accessory shape.",
 	AQSWarn_CageUV = "The {cage_name} has incorrect UV values. {incorrect_uv_count} incorrect UVs ({unreferenced_vertex_count} unreferenced, {non_template_uv_count} non-template, {duplicate_mapping_count} duplicate mappings), {unmatched_template_count} unmatched template vertices.",
 	AQSFail_CageUV = "The {cage_name} has incorrect UV values that do not match the template. {incorrect_uv_count} incorrect UVs ({unreferenced_vertex_count} unreferenced, {non_template_uv_count} non-template, {duplicate_mapping_count} duplicate mappings), {unmatched_template_count} unmatched template vertices. Please correct the cage UV to match the template.",
-	AQSWarn_DynamicHead = "Dynamic head has expression quality issues. Left eye close: {left_eye_close}, right eye close: {right_eye_close}, mouth open: {mouth_open}, happy: {is_happy}, sad: {is_sad}.",
+	AQSWarn_DynamicHead = "Dynamic head has expression quality issues. Left eye on the screen (red dots on the left side of the head in the Visualization Plugin) close: {left_eye_close}, right eye on the screen (blue dots on the right side of the head in the Visualization Plugin) close: {right_eye_close}, mouth open (green dots in the Visualization Plugin): {mouth_open}, happy: {is_happy}, sad: {is_sad}.",
 	AQSWarn_MeshOutsideOuterCage = "{mesh_outside_outer_cage_percent}% of mesh vertices are outside the outer cage. Please adjust the outer cage to fully contain the render mesh.",
 	AQSWarn_MeshIslandVolume = "{partName} has {num_small_volume_islands} small disconnected mesh islands out of {num_disconnected_components} total components. Please remove floating geometry.",
 	AQSFail_TooManyDisconnectedComponents = "{partName} has {num_disconnected_components} disconnected components, which exceeds the maximum of {max_disconnected_components}.",
@@ -440,26 +447,23 @@ ErrorSourceStrings.Values = {
 	EmoteAnimation_InvalidMaxPartTranslationAttribute = "The published animation is missing a valid maximum part translation value. Please republish the animation.",
 	EmoteAnimation_MaxPartTranslationCalcFailed = "The maximum part translation could not be calculated from the published animation data. Please republish the animation.",
 	EmoteAnimation_MaxPartTranslationMismatch = "The published animation specifies a maximum part translation of {taggedTranslation} studs, but its animation data calculates to {calculatedTranslation} studs. Please republish the animation.",
-	CurveAnim_InvalidLength = "CurveAnimation must be between {minLength} and {maxLength} seconds long. Please fix the animation.",
-	CurveAnim_PartTooLow = "In CurveAnimation at time {time} seconds, body part {bodyPart} is at height {height} studs from the HumanoidRootPart. Body parts cannot be lower than {minHeight} studs from the HumanoidRootPart. Please fix the animation.",
-	CurveAnim_PartTooFar = "In CurveAnimation at time {time} seconds, body part {bodyPart} is {distance} studs from the HumanoidRootPart. Body parts cannot be more than {maxDistance} studs from the HumanoidRootPart. Please fix the animation.",
+	CurveAnim_InvalidLength = "Curve Animation {animationName} must be between {minLength} and {maxLength} seconds long. Please fix the animation.",
+	CurveAnim_PartTooLow = "In Curve Animation {animationName} at time {time} seconds, body part {bodyPart} is at height {height} studs from the HumanoidRootPart. Body parts cannot be lower than {minHeight} studs from the HumanoidRootPart. Please fix the animation.",
+	CurveAnim_PartTooFar = "In Curve Animation {animationName} at time {time} seconds, body part {bodyPart} is {distance} studs from the HumanoidRootPart. Body parts cannot be more than {maxDistance} studs from the HumanoidRootPart. Please fix the animation.",
 	CurveAnim_BoundsExceeded = "Body parts in a CurveAnimation cannot be lower than {minHeight} studs or more than {maxDistance} studs from the HumanoidRootPart. Please fix the animation.",
-	CurveAnim_SpeedTooFast = "In CurveAnimation at time {time} seconds, body part {bodyPart} is moving at a speed of {speed} studs/second. {maxSpeed} is the maximum studs/second speed. Please fix the animation.",
+	CurveAnim_SpeedTooFast = "In Curve Animation {animationName} at time {time} seconds, body part {bodyPart} is moving at a speed of {speed} studs/second. {maxSpeed} is the maximum studs/second speed. Please fix the animation.",
 	CurveAnim_SpeedTooFastLegacy = "Body part {bodyPart} in CurveAnimation moves more than {maxMovement} studs between frames. Please fix the animation.",
-	CurveAnim_RotationTooFast = "In CurveAnimation at time {time} seconds, body part {bodyPart} is moving at a rotation speed of {speed} degrees/second. {maxSpeed} is the maximum degrees/second speed. Please fix the animation.",
-	CurveAnim_NoJointManipulation = "CurveAnimation does not contain any joint manipulation.",
-	CurveAnim_InvalidNumericalData = "CurveAnimation contains Curves with invalid numerical data. Please fix the animation.",
-	CurveAnim_PositionSeparation = "CurveAnimation contains positional separation of body parts. Only LowerTorso can change position. All other body parts can only change their orientation. {bodyPart} moves more than {maxMovement} studs from its parent. Please fix the animation.",
-	CurveAnim_BonePositionNotAllowed = "Bone {boneName} in CurveAnimation has a Position (translation) track. HRD/DRD bones may only be rotated; position tracks cause joint separation and are not allowed. Please remove the position animation from this bone.",
+	CurveAnim_RotationTooFast = "In Curve Animation {animationName} at time {time} seconds, body part {bodyPart} is moving at a rotation speed of {speed} degrees/second. {maxSpeed} is the maximum degrees/second speed. Please fix the animation.",
+	CurveAnim_NoJointManipulation = "Curve Animation {animationName} does not contain any joint manipulation.",
+	CurveAnim_InvalidNumericalData = "Curve Animation {animationName} contains Curves with invalid numerical data. Please fix the animation.",
+	CurveAnim_PositionSeparation = "Curve Animation {animationName} contains positional separation of body parts. Only LowerTorso can change position. All other body parts can only change their orientation. {bodyPart} moves more than {maxMovement} studs from its parent. Please fix the animation.",
 	CurveAnim_BoneTranslationExceedsThreshold = "Bone '{boneName}' in CurveAnimation moves {distance} studs from its start position. Maximum allowed translation is {maxDistance} studs. Please reduce the bone's positional movement.",
 	CurveAnim_BonesNotAllowed = "CurveAnimation contains HRD/DRD bone folders which are not yet supported. Please remove all bone sub-folders before uploading.",
 	CurveAnim_InvalidBoneName = "Folder '{boneName}' in CurveAnimation is not a recognized HRD/DRD bone name. Animation sub-folders must be either valid R15 body parts or recognized bone names (e.g. HeadBase, Spine, Chest, LeftClavicle, RightClavicle, LeftToeBase, RightToeBase, or finger bones such as LeftHandIndex1).",
-	CurveAnim_BodyPartWithBoneHasPosition = "CurveAnimation contains HRD/DRD bones and body part '{bodyPartName}' has a Position (translation) track. When any bones are present in the animation, no body parts may translate to prevent joint separation. Please remove all Position tracks from body parts.",
-	CurveAnim_BodyPartHasPosition = "Body part '{bodyPartName}' in CurveAnimation has a Position (translation) track. Animation body parts may only be rotated; position tracks are not allowed. Please remove the Position track from this body part.",
 	CurveAnim_BodyPartTranslationExceedsThreshold = "Body part '{bodyPartName}' in CurveAnimation moves {distance} studs from its start position. Maximum allowed translation is {maxDistance} studs. Please reduce the body part's positional movement.",
 	CurveAnim_InvalidBodyPartHierarchyDetail = "CurveAnimation contains body part Folder '{folderName}' which has an invalid hierarchy: {detail}",
 	CurveAnim_BoneRequiresParent = "Bone folder '{boneName}' requires '{parentBoneName}' to also be present in the animation.",
-	CurveAnim_JointRotationExceeded = "In CurveAnimation at time {time} seconds, joint {bodyPart} has a rotation angle of {rotation} degrees from rest pose. Maximum allowed is {maxRotation} degrees. Please fix the animation.",
+	CurveAnim_JointRotationExceeded = "In Curve Animation {animationName} at time {time} seconds, joint {bodyPart} has a rotation angle of {rotation} degrees from rest pose. Maximum allowed is {maxRotation} degrees. Please fix the animation.",
 	CurveAnim_LoopingNotEnabled = "CurveAnimation '{animationName}' does not have Loop enabled. Animations uploaded to the marketplace must loop. Please enable the Loop property.",
 	CurveAnim_StrictSchemaViolation = "CurveAnimation structure is invalid: {detail}. Please ensure the animation follows the expected schema.",
 	CurveAnim_DuplicateBodyPartFolder = "CurveAnimation contains duplicate body part folder '{bodyPartName}' at '{instancePath}'. Each body part may appear at most once in the animation hierarchy.",
@@ -488,7 +492,7 @@ ErrorSourceStrings.Values = {
 	DescendantIdsTooMany = "Upload of model has too many children assets (Meshes, Textures, etc.) and cannot be processed as is. You need to rearrange the model.",
 	DescendantIdMissing = "{InstanceFullName}.{FieldName} cannot be empty. Make sure a valid asset is assigned and try again.",
 	DescendantIdMalformed = "Could not parse ContentId in {InstanceFullName}.{FieldName}. Make sure you are using a valid URL with a valid ID and try again.",
-	DescendantIdVersionNotSupported = "{InstanceFullName}.{FieldName} uses version {Version} of asset {AssetId}, but only version 1 is supported right now. Use version 1 and try again.",
+	DescendantIdVersionNotLatest = "{InstanceFullName}.{FieldName} uses version {Version} of asset {AssetId}, but only its latest version, {LatestVersion}, can be used right now. Use version {LatestVersion} or remove '&version={Version}', and try again.",
 	DescendantIdAnimationVersionNotSupported = "{InstanceFullName}.{FieldName} pins animation {AssetId} to version {Version}, but animations can't be pinned to a version yet. Remove '&version={Version}' and try again.",
 	ContentNotEditable = "{InstanceFullName}.{FieldName} still holds unsaved editable content. Save it as an asset before publishing and try again.",
 	AttachmentBoundsCalculationFailed = "Could not compute bounds for attachment '{AttachmentName}' in '{PartName}'. The mesh data may be missing or malformed; please re-import the asset and try again.",
@@ -503,7 +507,6 @@ ErrorSourceStrings.Values = {
 	HSRMeshIdsMismatch = "Invalid HSR data detected for '{InstancePath}'. Please re-generate the asset using the Accessory Fitting Tool and try again.",
 	ThumbnailInvalidTarget = "Invalid target asset for thumbnail generation. Expected it to be '{ExpectedTarget}'.",
 	ThumbnailOutsideView = "Asset '{InstancePath}' is positioned outside the thumbnail camera view. Reposition the asset at the center of the camera view.",
-	AttachmentOutOfBounds = "Attachment '{AttachmentName}' in '{PartName}' is placed at position [{CurrentPosition}] outside the valid range. The closest valid position is [{ClosestValidPosition}]. (bounding box - Position: [{BoundsPosition}], Orientation: [{BoundsOrientation}], Size: [{BoundsSize}])",
 	RigAttachmentOutOfBounds = "Rig attachment '{AttachmentName}' in '{PartName}' must be placed near the joint boundary where this body part connects to an adjacent part. Current position [{CurrentPosition}] is too far from the connection plane. Move it closer to [{ClosestValidPosition}].",
 	AccessoryAttachmentOutOfBounds = "Accessory attachment '{AttachmentName}' in '{PartName}' must be placed close to the surface of the mesh. Current position [{CurrentPosition}] is outside the valid region. Move it closer to [{ClosestValidPosition}].",
 	AttachmentOrientationRigRotated = "Rig attachments cannot be rotated. Please set '{InstancePath}' orientation to (0,0,0).",
@@ -629,15 +632,21 @@ ErrorSourceStrings.Values = {
 	-- or the FacsDeformation_* keys below when FFlagUGCValidateAQDynamicHeadMLHybridNewFacsMessages is on.
 	FacialFeaturePresence_EyesMissing = "Base face is missing required eye features. Add eyes to the base face and try again.",
 	FacialFeaturePresence_MouthMissing = "Base face is missing a required mouth. Add a mouth to the base face and try again.",
-	DynamicHeadCageMisalignedLeftEye = "Dynamic Head cage left eye landmarks are misaligned with the mesh. Adjust the eye cage so the left eye mesh is within the projected cage area.",
-	DynamicHeadCageMisalignedRightEye = "Dynamic Head cage right eye landmarks are misaligned with the mesh. Adjust the eye cage so the right eye mesh is within the projected cage area.",
-	DynamicHeadCageMisalignedMouth = "Dynamic Head cage mouth landmarks are misaligned with the mesh. Adjust the mouth cage so the mouth mesh is within the projected cage area.",
+	DynamicHeadCageMisalignedLeftEye = "Left eye on the screen (red dots on the left side of the head in the Visualization Plugin) has cage landmarks misaligned with the mesh: some cage points are inside the head mesh (the mesh pokes through the cage) or too far outside it. Adjust the corresponding cage so it sits on or just outside the mesh around this eye.",
+	DynamicHeadCageMisalignedRightEye = "Right eye on the screen (blue dots on the right side of the head in the Visualization Plugin) has cage landmarks misaligned with the mesh: some cage points are inside the head mesh (the mesh pokes through the cage) or too far outside it. Adjust the corresponding cage so it sits on or just outside the mesh around this eye.",
+	DynamicHeadCageMisalignedMouth = "Mouth (green dots in the Visualization Plugin) has cage landmarks misaligned with the mesh: some cage points are inside the head mesh (the mesh pokes through the cage) or too far outside it. Adjust the mouth cage so it sits on or just outside the mesh around the mouth.",
 	RenderedAnimation_RequiredExpressionsMissing = "Rendered animation is missing one or more required facial expressions (eye close, mouth open, happy, sad).",
-	FacsDeformation_LeftEyeNotClose = "Cannot detect left eye close expression. Adjust the left eye cage or left eye-close FACS so the projected eye mesh deforms as expected.",
-	FacsDeformation_RightEyeNotClose = "Cannot detect right eye close expression. Adjust the right eye cage or right eye-close FACS so the projected eye mesh deforms as expected.",
+	FacsDeformation_LeftEyeNotClose = "Left eye on the screen (red dots on the left side of the head in the Visualization Plugin) doesn't close enough. Check the right eye FACS controls and the corresponding cage.",
+	FacsDeformation_RightEyeNotClose = "Right eye on the screen (blue dots on the right side of the head in the Visualization Plugin) doesn't close enough. Check the left eye FACS controls and the corresponding cage.",
 	FacsDeformation_MouthNotOpen = "Cannot detect mouth open expression. Adjust the mouth cage or mouth-open FACS so the projected mouth mesh deforms as expected.",
 	FacsDeformation_HappyNotShown = "Cannot detect happiness expression. Adjust the mouth cage or happy expression FACS so the projected mouth mesh deforms as expected.",
 	FacsDeformation_SadNotShown = "Cannot detect sadness expression. Adjust the mouth cage or sad expression FACS so the projected mouth mesh deforms as expected.",
+	NoMeshBelowFeet_PartBelowFeet = "{partName} extends {distance} studs below the bottom of the feet. Only the legs can reach the ground, and other body parts can go at most {maxDistance} studs below it. Shorten or raise {partName}.",
+	ExperienceCreatorNotSupported = "Experience creators cannot create avatar items. CreatorType: {CreatorType}, CreatorId: {CreatorId}.",
+	UnsupportedCreatorType = "Unsupported creator type. CreatorType: {CreatorType}, CreatorId: {CreatorId}.",
+	MeshGeometry_ScaleBelowMinimum = "{meshName} is scaled down to {scalePercent}% of its original mesh size. The minimum is {minScalePercent}%. Re-export or re-import the mesh at the size you need instead of scaling it down in Studio.",
+	MeshGeometry_ScaleNotPositive = "{meshName} has a zero or negative scale. Use positive scale values. To mirror a mesh, flip it in your 3D modeling software and re-export it.",
+	MeshGeometry_ScaleAboveMaximum = "{meshName} is scaled up to {scaleMultiple} times its original mesh size. The maximum is {maxScaleMultiple} times. Re-export or re-import the mesh at the size you need instead of scaling it up in Studio.",
 }
 
 return ErrorSourceStrings

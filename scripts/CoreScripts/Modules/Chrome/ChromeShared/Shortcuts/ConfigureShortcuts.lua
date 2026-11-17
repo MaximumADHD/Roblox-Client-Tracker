@@ -39,6 +39,8 @@ local FFlagRemoveRespawnShortcutFromRespawnConfirmation =
 
 local ChatSelector = if FFlagEnableConsoleExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
+local PioneerUtils = require(CorePackages.Workspace.Packages.PioneerUtils)
+local FFlagPioneerLeaveLogsOut = SharedFlags.FFlagPioneerLeaveLogsOut
 
 local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
 local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
@@ -60,7 +62,15 @@ local leaveActionProps = {
 
 		if SettingsHub:GetVisibility() then
 			if SettingsHub.Instance.Pages.CurrentPage == LeavePage then
-				if FFlagLeaveActionChromeShortcutTelemetry then
+				if FFlagPioneerLeaveLogsOut and PioneerUtils.isPioneerLaunch() then
+					leaveGame(false, {
+						leaveReason = PioneerUtils.PioneerLeaveReason.Logout,
+						inhibitAppRating = true,
+						telemetryFields = if FFlagLeaveActionChromeShortcutTelemetry
+							then { used_shortcut = true }
+							else nil,
+					})
+				elseif FFlagLeaveActionChromeShortcutTelemetry then
 					leaveGame(true, {
 						telemetryFields = {
 							used_shortcut = true,

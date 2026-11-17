@@ -11,11 +11,8 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 
-local getTextHeight = require(script.Parent.getTextHeight)
 local StyleTypes = require(script.Parent.StyleTypes)
 local Constants = require(script.Parent.Constants)
-
-local FFlagFoundationFontFaceMigration = dependencies.Foundation.Utility.Flags.FoundationFontFaceMigration
 
 export type Icon = {
 	path: string,
@@ -90,15 +87,7 @@ local CarouselUserContextualInfo = function(passedProps: Props)
 					layoutOrder = 2,
 					size = UDim2.fromOffset(
 						icon and props.lineWidth - (UIBloxIconSize.Small + PADDING) or props.lineWidth,
-						(
-							if FFlagFoundationFontFaceMigration
-								then font.BaseSize * labelFont.RelativeSize
-								else getTextHeight(
-									text,
-									labelFont.Font :: Enum.Font,
-									font.BaseSize * labelFont.RelativeSize
-								)
-						) * props.maxNumberOfLines
+						font.BaseSize * labelFont.RelativeSize * props.maxNumberOfLines
 					),
 					lineHeight = 1,
 					text = text,

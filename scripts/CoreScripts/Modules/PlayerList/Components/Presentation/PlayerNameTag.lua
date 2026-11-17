@@ -8,8 +8,6 @@ local t = require(CorePackages.Packages.t)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local Cryo = require(CorePackages.Packages.Cryo)
-local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local PlayerList = script.Parent.Parent.Parent
 local Connection = PlayerList.Components.Connection
@@ -72,7 +70,6 @@ function PlayerNameTag:render()
 			iconColor = layoutValues.IconSelectedColor
 		end
 
-		local playerNameFont = self.props.textFont.Font
 		local playerNameFontFace = self.props.textFont.FontFace
 		local textSize = self.props.textFont.Size
 
@@ -136,8 +133,7 @@ function PlayerNameTag:render()
 							AutomaticSize = Enum.AutomaticSize.X,
 							ClipsDescendants = false,
 							Size = UDim2.fromScale(0, 1),
-							Font = if FFlagFoundationFontFaceMigration then nil else playerNameFont,
-							FontFace = if FFlagFoundationFontFaceMigration then playerNameFontFace else nil,
+							FontFace = playerNameFontFace,
 							Text = self.props.name,
 							TextSize = textSize,
 							TextColor3 = self.props.textStyle.Color,
@@ -163,8 +159,7 @@ function PlayerNameTag:render()
 					PlayerName = React.createElement("TextLabel", {
 						AutomaticSize = Enum.AutomaticSize.X,
 						Size = UDim2.fromScale(0, 1),
-						Font = if FFlagFoundationFontFaceMigration then nil else playerNameFont,
-						FontFace = if FFlagFoundationFontFaceMigration then playerNameFontFace else nil,
+						FontFace = playerNameFontFace,
 						Text = self.props.name,
 						TextSize = textSize,
 						TextColor3 = self.props.textStyle.Color,

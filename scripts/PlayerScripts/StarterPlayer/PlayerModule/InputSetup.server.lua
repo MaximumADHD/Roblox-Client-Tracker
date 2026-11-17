@@ -1,7 +1,8 @@
 --!strict
 --[[
     InputSetup - This ServerScript performs instance modification and signals input setup is complete.
-]]--
+]]
+--
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local StarterPlayer = game:GetService("StarterPlayer")
@@ -36,10 +37,18 @@ if not FFlagUserPlayerScriptsPlayerControlState then
 
 		local function createAction(abilityName: string)
 			local inputContexts = player:FindFirstChild("InputContexts")
-			if not inputContexts then return end
+			if not inputContexts then
+				return
+			end
 			local characterContext = inputContexts:FindFirstChild("CharacterContext")
-			if not characterContext then return end
-			if FFlagUserPlayerScriptsTaskDeferSimulation and characterContext:FindFirstChild(abilityName .. "Action") then return end
+			if not characterContext then
+				return
+			end
+			if
+				FFlagUserPlayerScriptsTaskDeferSimulation and characterContext:FindFirstChild(abilityName .. "Action")
+			then
+				return
+			end
 
 			local action = Instance.new("InputAction")
 			action.Name = abilityName .. "Action"
@@ -133,7 +142,9 @@ if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
 			binding.KeyCode = Enum.KeyCode.ButtonCenter
 		end)
 	elseif inputContexts then
-		warn("PlayerModule: CharacterContext not found; skipping TV-remote keycode bindings (ButtonUp/Down/Center) for character controls")
+		warn(
+			"PlayerModule: CharacterContext not found; skipping TV-remote keycode bindings (ButtonUp/Down/Center) for character controls"
+		)
 	end
 
 	if cameraContext then
@@ -143,7 +154,9 @@ if FFlagUserPlayerScriptsSupportTVRemoteKeycodes then
 			binding.Left = Enum.KeyCode.ButtonLeft
 		end)
 	elseif inputContexts then
-		warn("PlayerModule: CameraContext not found; skipping TV-remote keycode bindings (ButtonLeft/Right) for camera rotation")
+		warn(
+			"PlayerModule: CameraContext not found; skipping TV-remote keycode bindings (ButtonLeft/Right) for camera rotation"
+		)
 	end
 end
 

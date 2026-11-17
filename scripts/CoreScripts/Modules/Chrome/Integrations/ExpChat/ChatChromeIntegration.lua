@@ -63,8 +63,8 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 local FFlagExpChatInitializeWindowFromGameSettings = SharedFlags.FFlagExpChatInitializeWindowFromGameSettings
 local FFlagRemoveFriendsChatUnibarEntrypoints = SharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints
-local FFlagExpChatEnableFriendsTab = SharedFlags.FFlagExpChatEnableFriendsTab
 local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
+local FFlagSideSheetHeaderChatIcon = SharedFlags.FFlagSideSheetHeaderChatIcon
 local FFlagExpChatHistoricalMessagesUnibarUnread = SharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread
 local FFlagExpChatContinuousListeningChatIconDot = SharedFlags.FFlagExpChatContinuousListeningChatIconDot
 local RedDot = if FFlagExpChatContinuousListeningChatIconDot then require(Chrome.Integrations.RedDot) else nil :: never
@@ -86,6 +86,8 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
 local ExpChatPerfTracker = ExpChat.ExpChatPerfTracker
+local ExpChatJoinIntent = require(CorePackages.Workspace.Packages.ExpChatJoinIntent)
+local FStringOpenChatOnJoinNotificationTypes = ExpChatJoinIntent.FStringOpenChatOnJoinNotificationTypes
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -127,11 +129,6 @@ local function updateUnreadNotification()
 	local historicalUnreadMessages = if FFlagExpChatHistoricalMessagesUnibarUnread
 		then getHistoricalUnreadCount()
 		else 0
-
-	if not FFlagExpChatEnableFriendsTab then
-		chatChromeIntegration.notification:fireCount(unreadMessages + historicalUnreadMessages)
-		return
-	end
 
 	local friendsChatUnreadMessages = GetFriendsChatIconUnreadStore(false).getUnreadCountToDisplay(false)
 	local unreadCount = unreadMessages + friendsChatUnreadMessages + historicalUnreadMessages
@@ -204,24 +201,16 @@ end, function()
 
 	chatVisibility = isVisible :: boolean
 	hasObservedChatVisibility = true
-	if FFlagExpChatEnableFriendsTab then
-		if isVisible then
-			unreadMessages = 0
-			if FFlagExpChatHistoricalMessagesUnibarUnread then
-				acknowledgeHistoricalMessages()
-			end
-			-- Opening the chat window clears the friends portion of the badge; it
-			-- only reappears when new messages arrive afterward.
-			GetFriendsChatIconUnreadStore(false).clearDisplayCount()
-		end
-		updateUnreadNotification()
-	elseif isVisible and unreadMessages and chatChromeIntegration.notification then
+	if isVisible then
 		unreadMessages = 0
 		if FFlagExpChatHistoricalMessagesUnibarUnread then
 			acknowledgeHistoricalMessages()
 		end
-		chatChromeIntegration.notification:clear()
+		-- Opening the chat window clears the friends portion of the badge; it
+		-- only reappears when new messages arrive afterward.
+		GetFriendsChatIconUnreadStore(false).clearDisplayCount()
 	end
+	updateUnreadNotification()
 end)
 
 local function hideAppChat()
@@ -273,10 +262,13 @@ end
 chatChromeIntegration = ChromeService:register({
 	id = "chat",
 	label = "CoreScripts.TopBar.Chat",
-	-- Hide ExpChat "Chat" button until Friends chat in experience is launched: https://roblox.atlassian.net/browse/EXPR-3846
-	sideSheetPlacement = if not (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab)
-		then SideSheetPlacement.None
-		else SideSheetPlacement.Unibar,
+	-- Friends chat moves this button into the header once that tab is shown
+	-- (https://roblox.atlassian.net/browse/EXPR-3846). The sidesheet header flag
+	-- puts the icon back even while the old menu entrypoints are still in place.
+	sideSheetPlacement = if FFlagSideSheetHeaderChatIcon
+			or (FFlagRemoveFriendsChatUnibarEntrypoints and FFlagExpChatCanShowFriendsTab)
+		then SideSheetPlacement.Unibar
+		else SideSheetPlacement.None,
 	activated = function(self)
 		if chatVisibility then
 			ChatSelector:SetVisible(false)
@@ -352,12 +344,10 @@ chatChromeIntegration = ChromeService:register({
 	},
 }) :: ChatIntegration
 
-chatChromeIntegration.chatOpenCapability = if FFlagExpChatEnableFriendsTab
-	then {
-		isAvailable = isChatOpenAvailable,
-		ensureOpenChat = ensureOpenChat,
-	}
-	else nil
+chatChromeIntegration.chatOpenCapability = {
+	isAvailable = isChatOpenAvailable,
+	ensureOpenChat = ensureOpenChat,
+}
 
 if FFlagExpChatUnibarAvailabilityRefactor then
 	-- We are using a detached effect here because we don't have a great
@@ -395,14 +385,11 @@ if FFlagEnableConsoleExpControls then
 		end
 	end)
 end
-
-if FFlagExpChatEnableFriendsTab then
-	-- Refresh the badge whenever the friends display count changes.
-	SignalsUtils.createDetachedEffect(function(scope)
-		GetFriendsChatIconUnreadStore(scope).getUnreadCountToDisplay(scope)
-		updateUnreadNotification()
-	end)
-end
+-- Refresh the badge whenever the friends display count changes.
+SignalsUtils.createDetachedEffect(function(scope)
+	GetFriendsChatIconUnreadStore(scope).getUnreadCountToDisplay(scope)
+	updateUnreadNotification()
+end)
 
 if FFlagExpChatHistoricalMessagesUnibarUnread then
 	SignalsUtils.createDetachedEffect(function(scope)
@@ -488,6 +475,54 @@ local function setChatVisibilityOnLoad()
 	ChatSelector:SetVisible(willEnableChat)
 end
 
+-- An in-experience toast can launch another game that should open chat once it loads. The
+-- listener lives as long as this experience, so it isn't disconnected.
+if FStringOpenChatOnJoinNotificationTypes ~= "" then
+	require(CorePackages.Workspace.Packages.NotificationsCommon).DeeplinkTapListeners.connect(
+		ExpChatJoinIntent.handleDeeplinkTap
+	)
+end
+
+-- Opens chat once when the player joined this place from a notification that asks for it. That
+-- includes small touch screens, where the load step keeps chat closed, because the notification
+-- brings the player back to chat. It decides once the game has loaded, because the experience's
+-- chat settings, such as a turned-off chat window, arrive with the game. GameSettings.ChatVisible
+-- is set too, because ExpChat re-applies it when it mounts.
+local function openChatForJoinIntent(canChat: boolean)
+	local read = ExpChatJoinIntent.read(game.PlaceId)
+	if read.result == "none" then
+		return
+	end
+
+	local result: string = read.result
+	if read.result == "accepted" then
+		if not game:IsLoaded() then
+			game.Loaded:Wait()
+		end
+		local chatWindowConfiguration = TextChatService:FindFirstChildOfClass("ChatWindowConfiguration")
+		result = if not canChat
+			then "cannotChat"
+			elseif chatVisibility then "alreadyOpen"
+			elseif not isChatOpenAvailable() then "chatUnavailable"
+			elseif chatWindowConfiguration and not chatWindowConfiguration.Enabled then "chatWindowDisabled"
+			else "opened"
+	end
+	if result == "opened" then
+		GameSettings.ChatVisible = true
+		chatVisibility = true
+		ChatSelector:SetVisible(true)
+	end
+
+	local intent = read.intent
+	ExpChatShared.Analytics.FireClientAnalyticsWithEventName("joinIntentChatOpen", {
+		result = result,
+		notificationType = if intent then intent.notificationType else "",
+		notificationId = if intent then intent.notificationId or "" else "",
+		chatTarget = if intent then intent.chatTarget or "" else "",
+		source = if intent then intent.source else "",
+	})
+end
+
 coroutine.wrap(function()
 	local LocalPlayer = Players.LocalPlayer
 	while not LocalPlayer do
@@ -519,6 +554,10 @@ coroutine.wrap(function()
 			chatVisibility = willEnableChat
 			ChatSelector:SetVisible(willEnableChat)
 		end
+	end
+
+	if FStringOpenChatOnJoinNotificationTypes ~= "" then
+		openChatForJoinIntent(canChat)
 	end
 end)()
 

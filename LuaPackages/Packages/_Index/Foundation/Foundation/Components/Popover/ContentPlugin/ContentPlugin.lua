@@ -28,7 +28,6 @@ local positioning = require(script.Parent.Parent.positioning)
 local useArrowPosition = require(script.Parent.useArrowPosition)
 local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local useFloating = require(Foundation.Components.Popover.useFloating)
-local usePanelSizing = require(script.Parent.usePanelSizing)
 local usePluginAnchor = require(script.Parent.usePluginAnchor)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -48,9 +47,7 @@ type SideConfig = useFloating.SideConfig
 type AlignConfig = useFloating.AlignConfig
 type StudioUri = StudioUri.StudioUri
 
-local SHADOW_SIZE = if Flags.FoundationPopoverPluginOverlayMeasurement and Flags.FoundationPluginShadowSize
-	then Constants.PLUGIN_SHADOW_SIZE
-	else Constants.SHADOW_SIZE
+local SHADOW_SIZE = if Flags.FoundationPluginShadowSize then Constants.PLUGIN_SHADOW_SIZE else Constants.SHADOW_SIZE
 local SHADOW_VERTICAL_OFFSET = 2
 
 local defaultProps = {
@@ -74,12 +71,8 @@ local function PopoverContentPlugin(
 	local props = withDefaults(contentProps, defaultProps)
 
 	local panelsContext = usePanelsContext()
-	local parentPluginPopoverInfo = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then React.useContext(PluginPopoverParentContext)
-		else nil :: never
-	local parentPluginPopoverId = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then parentPluginPopoverInfo.id
-		else React.useContext(PluginPopoverParentContext) :: never
+	local parentPluginPopoverInfo = React.useContext(PluginPopoverParentContext)
+	local parentPluginPopoverId = parentPluginPopoverInfo.id
 
 	local popoverContext = React.useContext(PopoverContext)
 	local styleSheet = useStyleSheet()
@@ -93,39 +86,32 @@ local function PopoverContentPlugin(
 		return contentInstance
 	end, { contentInstance })
 
-	local overlay = if Flags.FoundationPopoverPluginOverlayMeasurement then useOverlay() else nil :: never
+	local overlay = useOverlay()
 
 	-- We measure popover content in the normal overlay (unconstrained by QWidget)
 	-- and then reparent this stable container into the QWidget once sized. This
 	-- avoids AutomaticSize being capped by the QWidget starting at 0x0.
-	local stableContainer = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then React.useMemo(function()
-			local frame = Instance.new("Frame")
-			frame.Name = "PopoverPluginContainer"
-			frame.BackgroundTransparency = 1
-			frame.BorderSizePixel = 0
-			frame.ClipsDescendants = false
-			frame.Position = UDim2.fromOffset(-10000, -10000)
-			return frame
-		end, {})
-		else nil :: never
-
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		React.useEffect(function()
-			return function()
-				stableContainer:Destroy()
-			end
-		end, { stableContainer })
-	end
+	local stableContainer = React.useMemo(function()
+		local frame = Instance.new("Frame")
+		frame.Name = "PopoverPluginContainer"
+		frame.BackgroundTransparency = 1
+		frame.BorderSizePixel = 0
+		frame.ClipsDescendants = false
+		frame.Position = UDim2.fromOffset(-10000, -10000)
+		return frame
+	end, {})
+	React.useEffect(function()
+		return function()
+			stableContainer:Destroy()
+		end
+	end, { stableContainer })
 
 	local measuredPopoverSize, setMeasuredPopoverSize
 	local measuredContentSizeBinding, setMeasuredContentSizeBinding
 	local measuredContentSize, setMeasuredContentSize
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		measuredPopoverSize, setMeasuredPopoverSize = React.useBinding(UDim2.new())
-		measuredContentSizeBinding, setMeasuredContentSizeBinding = React.useBinding(UDim2.new())
-		measuredContentSize, setMeasuredContentSize = React.useState<<Vector2?>>(nil)
-	end
+	measuredPopoverSize, setMeasuredPopoverSize = React.useBinding(UDim2.new())
+	measuredContentSizeBinding, setMeasuredContentSizeBinding = React.useBinding(UDim2.new())
+	measuredContentSize, setMeasuredContentSize = React.useState<<Vector2?>>(nil)
 
 	local arrowSide = tokens.Size.Size_200
 	local arrowWidth = arrowSide * math.sqrt(2)
@@ -135,23 +121,14 @@ local function PopoverContentPlugin(
 	local alignConfig: AlignConfig
 	local sideOffset
 	local alignOffset
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		sideConfig = if props.side then props.side else PopoverSide.Bottom
-		alignConfig = if props.align then props.align else PopoverAlign.Center
-		sideOffset = if type(sideConfig) == "table" then sideConfig.offset else 0
-		alignOffset = if type(alignConfig) == "table" then alignConfig.offset else 0
-	end
+	sideConfig = if props.side then props.side else PopoverSide.Bottom
+	alignConfig = if props.align then props.align else PopoverAlign.Center
+	sideOffset = if type(sideConfig) == "table" then sideConfig.offset else 0
+	alignOffset = if type(alignConfig) == "table" then alignConfig.offset else 0
 	local sidePosition: PopoverSide
 	local alignPosition
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		sidePosition = if type(sideConfig) == "table" then sideConfig.position else sideConfig
-		alignPosition = if type(alignConfig) == "table" then alignConfig.position else alignConfig
-	else
-		sidePosition = if type(props.side) == "table" then props.side.position else props.side or PopoverSide.Bottom
-		alignPosition = if type(props.align) == "table"
-			then props.align.position
-			else props.align or PopoverAlign.Center
-	end
+	sidePosition = if type(sideConfig) == "table" then sideConfig.position else sideConfig
+	alignPosition = if type(alignConfig) == "table" then alignConfig.position else alignConfig
 
 	local alignValue = 0
 	if alignPosition == PopoverAlign.Center then
@@ -167,34 +144,30 @@ local function PopoverContentPlugin(
 	local isOpen
 	local shouldMeasure
 	local isMeasuring
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		isOpen = popoverContext.isOpen and pluginAnchor.isReady and parentPluginPopoverInfo.ready
-		shouldMeasure = isOpen and overlay ~= nil
-		isMeasuring = shouldMeasure and measuredContentSize == nil
+	isOpen = popoverContext.isOpen and pluginAnchor.isReady and parentPluginPopoverInfo.ready
+	shouldMeasure = isOpen and overlay ~= nil
+	isMeasuring = shouldMeasure and measuredContentSize == nil
 
-		React.useEffect(function()
-			if not isOpen then
-				setMeasuredContentSize(nil)
-			end
-		end, { isOpen })
-	end
+	React.useEffect(function()
+		if not isOpen then
+			setMeasuredContentSize(nil)
+		end
+	end, { isOpen })
 
-	local onContentSizeChanged = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then React.useCallback(function(frame: GuiObject)
-			if not Flags.FoundationPopoverRecomputeContentSize and not isMeasuring then
-				return
-			end
-			local size = frame.AbsoluteSize
-			if size.X > 0 and size.Y > 0 then
-				setMeasuredContentSize(size)
-			end
-		end, { if Flags.FoundationPopoverRecomputeContentSize then nil else isMeasuring })
-		else nil :: never
+	local onContentSizeChanged = React.useCallback(function(frame: GuiObject)
+		if not Flags.FoundationPopoverRecomputeContentSize and not isMeasuring then
+			return
+		end
+		local size = frame.AbsoluteSize
+		if size.X > 0 and size.Y > 0 then
+			setMeasuredContentSize(size)
+		end
+	end, { if Flags.FoundationPopoverRecomputeContentSize then nil else isMeasuring })
 
 	local position = React.useMemo(
 		function()
 			return getPanelPosition(
-				if Flags.FoundationPopoverPluginOverlayMeasurement then sideConfig else props.side or PopoverSide.Bottom,
+				sideConfig,
 				props.align or PopoverAlign.Start,
 				nil,
 				SHADOW_SIZE,
@@ -202,7 +175,7 @@ local function PopoverContentPlugin(
 			)
 		end,
 		{
-			if Flags.FoundationPopoverPluginOverlayMeasurement then sideConfig else props.side,
+			sideConfig,
 			props.align,
 			hasArrow,
 			arrowHeight,
@@ -216,7 +189,8 @@ local function PopoverContentPlugin(
 			onClose: () -> (),
 			panelDepth: number?,
 			parentId: string?,
-			isFocusable: boolean?
+			isFocusable: boolean?,
+			initialSize: Vector2?
 		)
 			return panelsContext.registerPopoverAsync(
 				anchorUri,
@@ -224,7 +198,8 @@ local function PopoverContentPlugin(
 				onClose,
 				panelDepth,
 				parentId,
-				if Flags.FoundationPopoverPluginFocusable then isFocusable else nil
+				if Flags.FoundationPopoverPluginFocusable then isFocusable else nil,
+				if Flags.FoundationPopoverPluginPoolReclaim then initialSize else nil
 			)
 		end,
 		{ panelsContext.registerPopoverAsync } :: { unknown }
@@ -256,10 +231,21 @@ local function PopoverContentPlugin(
 	end, { props.onPressedOutside, popoverContext.anchor } :: { any })
 
 	local panelDepth = if depth ~= nil then depth else 0
+	local initialWidgetSize: Vector2?
+	if Flags.FoundationPopoverPluginPoolReclaim then
+		if measuredContentSize then
+			initialWidgetSize = positioning.calculatePopoverBounds(
+				sidePosition,
+				sideOffset,
+				alignOffset,
+				if hasArrow then arrowHeight else 0,
+				measuredContentSize
+			) + Vector2.new(SHADOW_SIZE * 2, SHADOW_SIZE * 2)
+		end
+	end
 	local panel = usePanel({
-		isOpen = if Flags.FoundationPopoverPluginOverlayMeasurement
-			then isOpen
-			else popoverContext.isOpen and pluginAnchor.isReady,
+		-- Overlay layout must settle before Studio receives the first native size.
+		isOpen = if Flags.FoundationPopoverPluginPoolReclaim then isOpen and initialWidgetSize ~= nil else isOpen,
 		onClose = onPanelClose,
 		anchorUri = pluginAnchor.uri,
 		registerPanelAsync = registerPanelAsync,
@@ -267,16 +253,12 @@ local function PopoverContentPlugin(
 		depth = panelDepth,
 		parentPopoverId = parentPluginPopoverId,
 		isFocusable = if Flags.FoundationPopoverPluginFocusable then props.isFocusable else nil :: never,
+		initialSize = if Flags.FoundationPopoverPluginPoolReclaim then initialWidgetSize else nil :: never,
 	})
 
 	local popoverSize, contentSize
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		popoverSize = measuredPopoverSize
-		contentSize = measuredContentSizeBinding
-	else
-		popoverSize, contentSize =
-			usePanelSizing(props.side, props.align, contentInstance, if hasArrow then arrowHeight else 0, panel)
-	end
+	popoverSize = measuredPopoverSize
+	contentSize = measuredContentSizeBinding
 
 	-- Dismiss when clicking in the QWidget's shadow padding area (outside actual
 	-- content bounds). The QWidget extends SHADOW_SIZE beyond the content on all
@@ -307,23 +289,20 @@ local function PopoverContentPlugin(
 			connection:Disconnect()
 		end
 	end, { panel, contentInstance, props.onPressedOutside } :: { unknown })
+	React.useLayoutEffect(function()
+		if not isMeasuring or contentInstance == nil then
+			return
+		end
 
-	-- First measurement pass: read the overlay-mounted content size.
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		React.useLayoutEffect(function()
-			if not isMeasuring or contentInstance == nil then
-				return
-			end
+		local size = contentInstance.AbsoluteSize
+		if size.X > 0 and size.Y > 0 then
+			setMeasuredContentSize(size)
+		end
+	end, { isMeasuring, contentInstance })
 
-			local size = contentInstance.AbsoluteSize
-			if size.X > 0 and size.Y > 0 then
-				setMeasuredContentSize(size)
-			end
-		end, { isMeasuring, contentInstance })
-	end
-
-	local measuredWidgetSize = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then React.useMemo(function(): Vector2?
+	local measuredWidgetSize = if Flags.FoundationPopoverPluginPoolReclaim
+		then nil
+		else React.useMemo(function(): Vector2?
 			if not measuredContentSize then
 				return nil
 			end
@@ -337,37 +316,49 @@ local function PopoverContentPlugin(
 			)
 			return popoverBounds + Vector2.new(SHADOW_SIZE * 2, SHADOW_SIZE * 2)
 		end, { measuredContentSize, sidePosition, sideOffset, alignOffset, hasArrow, arrowHeight } :: { unknown })
-		else nil :: never
 
-	if Flags.FoundationPopoverPluginOverlayMeasurement then
-		-- Once measured, size the QWidget and update local bindings for layout.
-		React.useLayoutEffect(function()
-			if measuredContentSize == nil or measuredWidgetSize == nil then
+	-- Once measured, size the QWidget and update local bindings for layout.
+	React.useLayoutEffect(
+		function()
+			local widgetSize = if Flags.FoundationPopoverPluginPoolReclaim
+				then initialWidgetSize
+				else measuredWidgetSize
+			if measuredContentSize == nil or widgetSize == nil then
 				setMeasuredContentSizeBinding(UDim2.new())
 				setMeasuredPopoverSize(UDim2.new())
 				return
 			end
 
 			setMeasuredContentSizeBinding(UDim2.fromOffset(measuredContentSize.X, measuredContentSize.Y))
-			setMeasuredPopoverSize(UDim2.fromOffset(measuredWidgetSize.X, measuredWidgetSize.Y))
+			setMeasuredPopoverSize(UDim2.fromOffset(widgetSize.X, widgetSize.Y))
 
 			if panel then
-				panel.setSizeAsync(measuredWidgetSize)
+				panel.setSizeAsync(widgetSize)
 			end
-		end, { measuredContentSize, measuredWidgetSize, panel } :: { unknown })
+		end,
+		{
+			measuredContentSize,
+			if Flags.FoundationPopoverPluginPoolReclaim then initialWidgetSize else measuredWidgetSize,
+			panel,
+		} :: { unknown }
+	)
 
-		-- Keep the container in the overlay while measuring, then reparent into the QWidget.
-		React.useLayoutEffect(function()
+	-- Keep the container in the overlay while measuring, then reparent into the QWidget.
+	React.useLayoutEffect(
+		function()
 			if not shouldMeasure then
 				-- lute-lint-ignore(immutability) stableContainer is not immutable
 				stableContainer.Parent = nil
 				return
 			end
 
+			local widgetSize = if Flags.FoundationPopoverPluginPoolReclaim
+				then initialWidgetSize
+				else measuredWidgetSize
 			-- lute-lint-ignore(immutability) stableContainer is not immutable
-			if panel and measuredWidgetSize then
+			if panel and widgetSize then
 				stableContainer.AutomaticSize = Enum.AutomaticSize.None
-				stableContainer.Size = UDim2.fromOffset(measuredWidgetSize.X, measuredWidgetSize.Y)
+				stableContainer.Size = UDim2.fromOffset(widgetSize.X, widgetSize.Y)
 				stableContainer.Position = UDim2.new()
 				stableContainer.Parent = panel.container
 			else
@@ -376,8 +367,15 @@ local function PopoverContentPlugin(
 				stableContainer.Position = UDim2.fromOffset(-10000, -10000)
 				stableContainer.Parent = overlay
 			end
-		end, { shouldMeasure, overlay, panel, measuredWidgetSize, stableContainer } :: { unknown })
-	end
+		end,
+		{
+			shouldMeasure,
+			overlay,
+			panel,
+			if Flags.FoundationPopoverPluginPoolReclaim then initialWidgetSize else measuredWidgetSize,
+			stableContainer,
+		} :: { unknown }
+	)
 
 	local anchorInstance: GuiBase2d? = if pluginAnchor.isVirtual or typeof(popoverContext.anchor) ~= "Instance"
 		then nil
@@ -386,22 +384,17 @@ local function PopoverContentPlugin(
 	local arrowPosition =
 		useArrowPosition(contentSize, sidePosition, props.radius, alignValue, arrowHeight, anchorInstance)
 
-	local panelReady = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then panel ~= nil and measuredWidgetSize ~= nil
-		else true
-	local shouldRender = if Flags.FoundationPopoverPluginOverlayMeasurement then shouldMeasure else panel ~= nil
-	local renderTarget = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then stableContainer
-		else if panel then panel.container else nil
+	local panelReady = panel ~= nil
+		and (if Flags.FoundationPopoverPluginPoolReclaim then initialWidgetSize else measuredWidgetSize) ~= nil
+	local shouldRender = shouldMeasure
+	local renderTarget = stableContainer
 
-	local pluginPopoverParentContext = if Flags.FoundationPopoverPluginOverlayMeasurement
-		then React.useMemo(function()
-			return {
-				id = if panel then panel.popoverId else nil,
-				ready = panelReady,
-			}
-		end, { panel, panelReady } :: { unknown })
-		else nil :: never
+	local pluginPopoverParentContext = React.useMemo(function()
+		return {
+			id = if panel then panel.popoverId else nil,
+			ready = panelReady,
+		}
+	end, { panel, panelReady } :: { unknown })
 
 	local panelContent = if shouldRender and renderTarget
 		then ReactRoblox.createPortal(
@@ -411,11 +404,14 @@ local function PopoverContentPlugin(
 				}),
 
 				Container = React.createElement(View, {
-					AutomaticSize = if Flags.FoundationPopoverPluginOverlayMeasurement
-							and measuredWidgetSize == nil
+					AutomaticSize = if (
+							if Flags.FoundationPopoverPluginPoolReclaim then initialWidgetSize else measuredWidgetSize
+						) == nil
 						then Enum.AutomaticSize.XY
 						else nil,
-					Size = if Flags.FoundationPopoverPluginOverlayMeasurement and measuredWidgetSize == nil
+					Size = if (
+							if Flags.FoundationPopoverPluginPoolReclaim then initialWidgetSize else measuredWidgetSize
+						) == nil
 						then nil
 						else popoverSize,
 					testId = `{popoverContext.testId}--container`,
@@ -428,13 +424,7 @@ local function PopoverContentPlugin(
 						contentSize = contentSize,
 						position = UDim2.fromOffset(
 							SHADOW_SIZE / 2,
-							SHADOW_SIZE / 2
-								+ (
-									if Flags.FoundationPopoverPluginOverlayMeasurement
-											and Flags.FoundationPluginShadowSize
-										then 0
-										else SHADOW_VERTICAL_OFFSET
-								)
+							SHADOW_SIZE / 2 + (if Flags.FoundationPluginShadowSize then 0 else SHADOW_VERTICAL_OFFSET)
 						),
 						radiusTag = radiusToTag[props.radius],
 						ZIndex = 1,
@@ -455,17 +445,13 @@ local function PopoverContentPlugin(
 							tag = `auto-xy {radiusToTag[props.radius]}`,
 							Position = UDim2.fromOffset(SHADOW_SIZE, SHADOW_SIZE),
 							ref = setContentInstance,
-							onAbsoluteSizeChanged = if Flags.FoundationPopoverPluginOverlayMeasurement
-								then onContentSizeChanged
-								else nil,
+							onAbsoluteSizeChanged = onContentSizeChanged,
 							backgroundStyle = backgroundStyle,
 							ZIndex = 3,
 							testId = `{popoverContext.testId}--content`,
 						},
 						React.createElement(PluginPopoverParentContext.Provider, {
-							value = if Flags.FoundationPopoverPluginOverlayMeasurement
-								then pluginPopoverParentContext
-								else (panel :: any).popoverId,
+							value = pluginPopoverParentContext,
 						}, {
 							Nested = React.createElement(
 								ElevationOwnerScope,
@@ -476,7 +462,7 @@ local function PopoverContentPlugin(
 					),
 				}),
 			}),
-			if Flags.FoundationPopoverPluginOverlayMeasurement then renderTarget else (panel :: any).container
+			renderTarget
 		)
 		else nil
 

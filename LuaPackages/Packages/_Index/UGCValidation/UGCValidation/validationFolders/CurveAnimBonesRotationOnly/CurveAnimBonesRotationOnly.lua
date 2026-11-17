@@ -6,7 +6,6 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 local CurveAnimTranslationUtils = require(root.util.CurveAnimTranslationUtils)
 
-local getFFlagUGCValidateAnimTranslationThreshold = require(root.flags.getFFlagUGCValidateAnimTranslationThreshold)
 local FIntUGCValidateBoneTranslationMaxDistanceHundredths =
 	game:DefineFastInt("UGCValidateBoneTranslationMaxDistanceHundredths", 100)
 
@@ -28,21 +27,13 @@ CurveAnimBonesRotationOnly.run = function(reporter: Types.ValidationReporter, da
 		local curveAnim = inst :: CurveAnimation
 		for _, desc in curveAnim:GetDescendants() do
 			if desc:IsA("Folder") and CurveAnimBoneHierarchyUtils.isBoneFolderName(desc.Name) then
-				if getFFlagUGCValidateAnimTranslationThreshold() then
-					local exceeds, distance = CurveAnimTranslationUtils.translationExceedsThreshold(desc, maxDistance)
-					if exceeds then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BoneTranslationExceedsThreshold, {
-							boneName = desc.Name,
-							distance = string.format("%.3f", distance),
-							maxDistance = string.format("%.3f", maxDistance),
-						})
-					end
-				else
-					if CurveAnimTranslationUtils.positionHasKeyframes(desc) then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BonePositionNotAllowed, {
-							boneName = desc.Name,
-						})
-					end
+				local exceeds, distance = CurveAnimTranslationUtils.translationExceedsThreshold(desc, maxDistance)
+				if exceeds then
+					reporter:fail(ErrorSourceStrings.Keys.CurveAnim_BoneTranslationExceedsThreshold, {
+						boneName = desc.Name,
+						distance = string.format("%.3f", distance),
+						maxDistance = string.format("%.3f", maxDistance),
+					})
 				end
 			end
 		end

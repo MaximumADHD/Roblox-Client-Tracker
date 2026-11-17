@@ -1,5 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 
 local InGameMenuDependencies = require(CorePackages.Packages.InGameMenuDependencies)
@@ -15,7 +14,6 @@ local Images = UIBlox.App.ImageSet.Images
 local Foundation = require(CorePackages.Packages.Foundation)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
@@ -82,11 +80,9 @@ function TextEntryField:calculateNeedsRescroll(style, textFont)
 		local textBeforeCursor = prevProps.text:sub(1, prevState.cursorPosition - 1)
 		local fontHeight = textFont.RelativeSize * style.Font.BaseSize
 		local availableSpace = Vector2.new(prevProps.textBoxWidth, 10000)
-		local textSize = if FFlagFoundationFontFaceMigration
-			then GetTextSize(textBeforeCursor, fontHeight, style.Tokens.Typography.BodyLarge.Font, availableSpace, {
-				addTemporaryPadding = false,
-			})
-			else TextService:GetTextSize(textBeforeCursor, fontHeight, textFont.Font, availableSpace)
+		local textSize = GetTextSize(textBeforeCursor, fontHeight, style.Tokens.Typography.BodyLarge.Font, availableSpace, {
+			addTemporaryPadding = false,
+		})
 
 		if textSize.Y > prevState.scrollingFrameHeight + prevState.canvasPosition then
 			return {
@@ -104,7 +100,7 @@ end
 function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Theme = {
 				TextDefault = {
 					Color = tokens.Color.Content.Default.Color3,
@@ -127,20 +123,13 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 		local textTheme = style.Theme.TextDefault
 		local textFont = style.Font.Body
 
-		local textSize = if FFlagFoundationFontFaceMigration
-			then GetTextSize(
-				self.props.text,
-				textFont.RelativeSize * style.Font.BaseSize,
-				style.Tokens.Typography.BodyLarge.Font,
-				Vector2.new(self.state.textBoxWidth, 10000),
-				{ addTemporaryPadding = false }
-			)
-			else TextService:GetTextSize(
-				self.props.text,
-				textFont.RelativeSize * style.Font.BaseSize,
-				textFont.Font,
-				Vector2.new(self.state.textBoxWidth, 10000)
-			)
+		local textSize = GetTextSize(
+			self.props.text,
+			textFont.RelativeSize * style.Font.BaseSize,
+			style.Tokens.Typography.BodyLarge.Font,
+			Vector2.new(self.state.textBoxWidth, 10000),
+			{ addTemporaryPadding = false }
+		)
 
 		local imageSize = CIRCLE_BACKGROUND_ASSET.ImageRectSize
 		local imageOffset = CIRCLE_BACKGROUND_ASSET.ImageRectOffset
@@ -185,8 +174,7 @@ function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
-					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
-					FontFace = if FFlagFoundationFontFaceMigration then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font) else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = true,
 					SelectionImageObject = getSelectionCursor(CursorKind.InputFields),

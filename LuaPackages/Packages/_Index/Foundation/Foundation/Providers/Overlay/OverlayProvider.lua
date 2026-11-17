@@ -2,6 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 
 local getMainGui = require(Foundation.Utility.getMainGui)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -10,7 +11,9 @@ local Types = require(Foundation.Components.Types)
 type OverlayConfig = Types.OverlayConfig
 
 local OverlayContext = require(script.Parent.OverlayContext)
+local ViewportBreakpointContext = require(script.Parent.ViewportBreakpointContext)
 local useKeyboardAwareSize = require(script.Parent.useKeyboardAwareSize)
+local useSharedViewportBreakpoint = require(script.Parent.useSharedViewportBreakpoint)
 
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
@@ -42,6 +45,9 @@ local function OverlayProvider(overlayProps: Props)
 	local shouldRender = props.gui == nil and mainGui ~= nil and shouldMountOverlay
 	local overlayInstance = if props.gui ~= nil then props.gui else overlay
 	local screenInstance = if props.gui ~= nil then props.gui else screen
+	local viewportBreakpointValue = if Flags.FoundationSharedViewportBreakpoint
+		then useSharedViewportBreakpoint(screenInstance)
+		else nil
 
 	local contextValue = React.useMemo(function()
 		return {
@@ -79,7 +85,11 @@ local function OverlayProvider(overlayProps: Props)
 				mainGui :: Instance
 			)
 			else nil,
-		Children = React.createElement(React.Fragment, nil, props.children),
+		Children = if Flags.FoundationSharedViewportBreakpoint
+			then React.createElement(ViewportBreakpointContext.Provider, {
+				value = viewportBreakpointValue,
+			}, props.children)
+			else React.createElement(React.Fragment, nil, props.children),
 	})
 end
 

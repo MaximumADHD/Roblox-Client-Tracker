@@ -60,6 +60,7 @@ type _MarketplaceAssetDataFields =
 		variant_attributes: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute },
 		genres: { string },
 		licensing: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing?,
+		original_price: number?,
 	}
 
 type _MarketplaceAssetDataPartialFields =
@@ -97,6 +98,7 @@ type _MarketplaceAssetDataPartialFields =
 		variant_attributes: { _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogVariantAttribute }?,
 		genres: { string }?,
 		licensing: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing?,
+		original_price: number?,
 	}
 
 export type MarketplaceAssetData = typeof(setmetatable(
@@ -154,6 +156,7 @@ do
 			variant_attributes = if data == nil or data.variant_attributes == nil then {} else data.variant_attributes,
 			genres = if data == nil or data.genres == nil then {} else data.genres,
 			licensing = if data == nil or data.licensing == nil then nil else data.licensing,
+			original_price = if data == nil or data.original_price == nil then nil else data.original_price,
 		}, _MarketplaceAssetDataImpl :: _MarketplaceAssetDataImpl)
 	end
 
@@ -344,6 +347,11 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.original_price ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 36, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.original_price)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -422,6 +430,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_purchasable = value ~= 0
+					continue
+				elseif field == 36 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.original_price = value
 					continue
 				end
 
@@ -731,6 +744,10 @@ do
 
 		if self.licensing ~= nil then
 			output.licensing = self.licensing:jsonEncode()
+		end
+
+		if self.original_price ~= nil then
+			output.originalPrice = self.original_price
 		end
 
 		return output
@@ -1062,6 +1079,14 @@ do
 				_roblox_apppageplatform_shared_v1beta1_marketplace_catalog_item_common.MarketplaceCatalogItemLicensing.jsonDecode(
 					input.licensing
 				)
+		end
+
+		if input.original_price ~= nil then
+			self.original_price = input.original_price
+		end
+
+		if input.originalPrice ~= nil then
+			self.original_price = input.originalPrice
 		end
 
 		return self

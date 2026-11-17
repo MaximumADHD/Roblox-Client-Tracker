@@ -15,9 +15,14 @@ local FFlagExpChatCanShowFriendsTab = SharedFlags.FFlagExpChatCanShowFriendsTab
 local FFlagShowSwitchServerButton = SharedFlags.FFlagShowSwitchServerButton
 local isPioneerLaunch = require(CorePackages.Workspace.Packages.PioneerUtils).isPioneerLaunch
 local FFlagEnableSideSheetRobuxWidget = require(script.Parent.Flags.FFlagEnableSideSheetRobuxWidget)
+local FFlagSideSheetCloseOtherWindows = game:DefineFastFlag("SideSheetCloseOtherWindows", false)
 
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
+
+if FFlagSideSheetCloseOtherWindows then
+	require(script.closeShopAndAvatarSwitcherOnSideSheet)()
+end
 
 return {
 	OverflowMenu = require(script.OverflowMenu),

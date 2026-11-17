@@ -11,7 +11,6 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local withSelectionCursorProvider = if FFlagCoreUiMigrateUIBloxToFoundation
 	then Foundation.UNSTABLE.withCursorMigration
@@ -61,7 +60,7 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 	})(function(localized)
 		return withFoundationOrUIBloxStyle(function(tokens)
 			return {
-				Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+				Tokens = tokens,
 				Theme = {
 					TextEmphasis = {
 						Color = tokens.Color.Content.Emphasis.Color3,
@@ -196,10 +195,7 @@ function SearchBox:renderWithSelectionCursor(getSelectionCursor)
 
 					TextColor3 = textTheme.Color,
 					TextTransparency = textTheme.Transparency,
-					Font = if FFlagFoundationFontFaceMigration then nil else textFont.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.BodyLarge.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.BodyLarge.Font),
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = false,
 

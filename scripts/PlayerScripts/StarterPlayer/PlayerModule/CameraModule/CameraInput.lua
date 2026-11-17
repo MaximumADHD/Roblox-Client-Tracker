@@ -82,7 +82,7 @@ local function adjustTouchPitchSensitivity(delta: Vector2): Vector2
 	-- get the camera pitch in world space
 	local pitch = camera.CFrame:ToEulerAnglesYXZ()
 
-	if delta.Y*pitch >= 0 then
+	if delta.Y * pitch >= 0 then
 		-- do not reduce sensitivity when pitching towards the horizon
 		return delta
 	end
@@ -90,12 +90,12 @@ local function adjustTouchPitchSensitivity(delta: Vector2): Vector2
 	-- set up a line to fit:
 	-- 1 = f(0)
 	-- 0 = f(±pi/2)
-	local curveY = 1 - (2*math.abs(pitch)/math.pi)^0.75
+	local curveY = 1 - (2 * math.abs(pitch) / math.pi) ^ 0.75
 
 	-- remap curveY from [0, 1] -> [MIN_TOUCH_SENSITIVITY_FRACTION, 1]
-	local sensitivity = curveY*(1 - MIN_TOUCH_SENSITIVITY_FRACTION) + MIN_TOUCH_SENSITIVITY_FRACTION
+	local sensitivity = curveY * (1 - MIN_TOUCH_SENSITIVITY_FRACTION) + MIN_TOUCH_SENSITIVITY_FRACTION
 
-	return Vector2.new(1, sensitivity)*delta
+	return Vector2.new(1, sensitivity) * delta
 end
 
 local CameraInput = {}
@@ -119,7 +119,7 @@ do
 		return panInputCount > 0 or cameraRotationAction:GetState().Magnitude > 0
 	end
 
-    -- getPanActivated is only used for updating mouse lock behavior. Separating from getRotationActivated, which is used for vehicle camera auto reset.
+	-- getPanActivated is only used for updating mouse lock behavior. Separating from getRotationActivated, which is used for vehicle camera auto reset.
 	function CameraInput.getPanActivated(): boolean
 		return panInputCount > 0
 	end

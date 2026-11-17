@@ -13,7 +13,6 @@ local IconName = Foundation.Enums.IconName
 local IconVariant = Foundation.Enums.IconVariant
 local IconSize = Foundation.Enums.IconSize
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
@@ -281,10 +280,7 @@ function DropDownButton:render()
 						LayoutOrder = 2,
 						Size = UDim2.new(1, -textLabelSizeOffset, 1, 0),
 						Text = self.props.text,
-						Font = if FFlagFoundationFontFaceMigration then nil else style.Font.Header2.Font,
-						FontFace = if FFlagFoundationFontFaceMigration
-							then normalizeFontFace(style.Tokens.Typography.TitleLarge.Font)
-							else nil,
+						FontFace = normalizeFontFace(style.Tokens.Typography.TitleLarge.Font),
 						TextSize = if FFlagEnableMobilePlayerListOnConsole then layoutValues.DropDownButtonTextSize else style.Font.BaseSize * style.Font.Header2.RelativeSize,
 						TextColor3 = style.Theme.TextEmphasis.Color,
 						TextTransparency = style.Theme.TextEmphasis.Transparency,

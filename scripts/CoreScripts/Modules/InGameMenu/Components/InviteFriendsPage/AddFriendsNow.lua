@@ -1,5 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
@@ -29,7 +28,6 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Foundation = require(CorePackages.Packages.Foundation)
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local Image = Foundation.Image
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagCoreUiMigrateUIBloxToFoundation = SharedFlags.FFlagCoreUiMigrateUIBloxToFoundation
@@ -54,7 +52,7 @@ function AddFriendsNow:render()
 
 	return withFoundationOrUIBloxStyle(function(tokens)
 		return {
-			Tokens = if FFlagFoundationFontFaceMigration then tokens else nil,
+			Tokens = tokens,
 			Font = {
 				BaseSize = 1,
 				Body = {
@@ -68,22 +66,14 @@ function AddFriendsNow:render()
 			noFriendsText = "CoreScripts.InGameMenu.InviteFriends.NoFriends",
 			makeFriendsNow = "CoreScripts.InGameMenu.InviteFriends.MakeFriendsNow",
 		})(function(localized)
-			local bodyFont = style.Font.Body.Font
 			local bodyFontSize = style.Font.Body.RelativeSize * style.Font.BaseSize
-			local textHeight = if FFlagFoundationFontFaceMigration
-				then GetTextSize(
-					localized.noFriendsText,
-					bodyFontSize,
-					style.Tokens.Typography.BodyLarge.Font,
-					Vector2.new(CONTAINER_WIDTH, math.huge),
-					{ addTemporaryPadding = false }
-				).Y
-				else TextService:GetTextSize(
-					localized.noFriendsText,
-					bodyFontSize,
-					bodyFont,
-					Vector2.new(CONTAINER_WIDTH, math.huge)
-				).Y
+			local textHeight = GetTextSize(
+				localized.noFriendsText,
+				bodyFontSize,
+				style.Tokens.Typography.BodyLarge.Font,
+				Vector2.new(CONTAINER_WIDTH, math.huge),
+				{ addTemporaryPadding = false }
+			).Y
 
 			local totalTextPadding = TEXT_PADDING_TOP + TEXT_PADDING_BOTTOM
 

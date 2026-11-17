@@ -6,7 +6,6 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 
 local SocialContextToastPackage = require(CorePackages.Workspace.Packages.SocialContextToasts)
 local SocialContextToastContainer = SocialContextToastPackage.SocialContextToastContainer
-local GetFFlagSocialContextToastEventStream = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSocialContextToastEventStream
 local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
 local FFlagShowFriendJoinedYouToastForNonReferredJoins =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagShowFriendJoinedYouToastForNonReferredJoins
@@ -58,6 +57,5 @@ local services = {
 
 SocialContextToastContainer(
     services, 
-    if GetFFlagSocialContextToastEventStream() then tostring(game.GameId) else game.GameId, 
-    if GetFFlagSocialContextToastEventStream() then tostring(game.PlaceId) else game.PlaceId
-)
+tostring(game.GameId) , 
+tostring(game.PlaceId) )

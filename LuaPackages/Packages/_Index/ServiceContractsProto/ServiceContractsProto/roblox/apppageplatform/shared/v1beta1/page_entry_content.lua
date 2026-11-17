@@ -100,6 +100,7 @@ type _Messages =
 		UAMarketplaceCatalogItemCarouselInputData: _UAMarketplaceCatalogItemCarouselInputDataMessage,
 		WidgetStyleData: _WidgetStyleDataMessage,
 		UAMarketplaceCatalogHeroUnitInputData: _UAMarketplaceCatalogHeroUnitInputDataMessage,
+		UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaMessage,
 		UAMarketplaceCatalogFeedInputData: _UAMarketplaceCatalogFeedInputDataMessage,
 		UAMarketplaceCatalogFeedInputData_EntryMapEntry: _UAMarketplaceCatalogFeedInputData_EntryMapEntryMessage,
 		UAMarketplaceCatalogCategoryMenuInputData: _UAMarketplaceCatalogCategoryMenuInputDataMessage,
@@ -159,6 +160,8 @@ type _Messages =
 		GroupSidebarInputData: _GroupSidebarInputDataMessage,
 		GroupSidebarInputData_GroupItem: _GroupSidebarInputData_GroupItemMessage,
 		GroupOverviewPaneInputData: _GroupOverviewPaneInputDataMessage,
+		GroupOverviewPaneInputData_EntryMapEntry: _GroupOverviewPaneInputData_EntryMapEntryMessage,
+		GroupOverviewPaneInputData_EntryOrderMapEntry: _GroupOverviewPaneInputData_EntryOrderMapEntryMessage,
 		GroupSidebarSectionInputData: _GroupSidebarSectionInputDataMessage,
 		GroupSidebarSectionInputData_ForumCategory: _GroupSidebarSectionInputData_ForumCategoryMessage,
 		CommunityAnnouncementInputData: _CommunityAnnouncementInputDataMessage,
@@ -182,6 +185,7 @@ type _Messages =
 		BuyRobuxSubscriptionSectionInputData: _BuyRobuxSubscriptionSectionInputDataMessage,
 		BuyRobuxLimitedTimeBonusSectionInputData: _BuyRobuxLimitedTimeBonusSectionInputDataMessage,
 		BuyRobuxLimitedTimeBonusCardInputData: _BuyRobuxLimitedTimeBonusCardInputDataMessage,
+		GroupEventsInputData: _GroupEventsInputDataMessage,
 		GroupForumsDiscoveryInputData: _GroupForumsDiscoveryInputDataMessage,
 		GroupForumsDiscoveryInputData_PostPreview: _GroupForumsDiscoveryInputData_PostPreviewMessage,
 		UserLibraryTargetRow: _UserLibraryTargetRowMessage,
@@ -196,6 +200,10 @@ type _Messages =
 		StreamNotificationRowInputData_ClientEventsPayloadEntry: _StreamNotificationRowInputData_ClientEventsPayloadEntryMessage,
 		StreamNotificationFeedInputData: _StreamNotificationFeedInputDataMessage,
 		StreamNotificationFeedInputData_EntryMapEntry: _StreamNotificationFeedInputData_EntryMapEntryMessage,
+		CampaignDropsHeroInputData: _CampaignDropsHeroInputDataMessage,
+		CampaignDropsHeroInputData_Drop: _CampaignDropsHeroInputData_DropMessage,
+		CampaignDailyDropInputData: _CampaignDailyDropInputDataMessage,
+		CampaignDailyDropInputData_Claim: _CampaignDailyDropInputData_ClaimMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 		BuyRobuxSectionDisplayState: _BuyRobuxSectionDisplayStateMessage,
 		UserLibraryTargetType: _UserLibraryTargetTypeMessage,
@@ -407,6 +415,7 @@ type _PageEntryInputDataFields = {
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
 		| { type: "group_announcement", value: GroupAnnouncementInputData }
 		| { type: "group_forums_discovery", value: GroupForumsDiscoveryInputData }
+		| { type: "group_events", value: GroupEventsInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
 		| { type: "group_sidebar", value: GroupSidebarInputData }
@@ -419,6 +428,8 @@ type _PageEntryInputDataFields = {
 		| { type: "user_library_header", value: UserLibraryHeaderInputData }
 		| { type: "stream_notification_row", value: StreamNotificationRowInputData }
 		| { type: "stream_notification_feed", value: StreamNotificationFeedInputData }
+		| { type: "campaign_drops_hero", value: CampaignDropsHeroInputData }
+		| { type: "campaign_daily_drop", value: CampaignDailyDropInputData }
 	)?,
 }
 
@@ -509,6 +520,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "community_announcement", value: CommunityAnnouncementInputData }
 		| { type: "group_announcement", value: GroupAnnouncementInputData }
 		| { type: "group_forums_discovery", value: GroupForumsDiscoveryInputData }
+		| { type: "group_events", value: GroupEventsInputData }
 		| { type: "settings_row", value: SettingsRowInputData }
 		| { type: "settings_toggle", value: SettingsToggleInputData }
 		| { type: "group_sidebar", value: GroupSidebarInputData }
@@ -521,6 +533,8 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "user_library_header", value: UserLibraryHeaderInputData }
 		| { type: "stream_notification_row", value: StreamNotificationRowInputData }
 		| { type: "stream_notification_feed", value: StreamNotificationFeedInputData }
+		| { type: "campaign_drops_hero", value: CampaignDropsHeroInputData }
+		| { type: "campaign_daily_drop", value: CampaignDailyDropInputData }
 	)?,
 }
 
@@ -1650,6 +1664,9 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	thumbnail_list_id: string?,
 	sponsored_game_preview_video_eligible: boolean?,
 	footnote_text: string?,
+	connection_played_display_name: string?,
+	connection_played_num_others: number?,
+	connection_played_total_count: number?,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1683,6 +1700,9 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	thumbnail_list_id: string?,
 	sponsored_game_preview_video_eligible: boolean?,
 	footnote_text: string?,
+	connection_played_display_name: string?,
+	connection_played_num_others: number?,
+	connection_played_total_count: number?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1850,10 +1870,12 @@ type _EventsCarouselInputData_EventItemImpl = {
 
 type _EventsCarouselInputData_EventItemFields = {
 	event_id: string,
+	universe_id: string?,
 }
 
 type _EventsCarouselInputData_EventItemPartialFields = {
 	event_id: string?,
+	universe_id: string?,
 }
 
 export type EventsCarouselInputData_EventItem = typeof(setmetatable(
@@ -2354,6 +2376,7 @@ type _CardContainerInputDataFields = {
 	sort_id: string,
 	feed_item_key: string,
 	client_attributes: { type: "communities_client_attributes", value: CommunitiesCardClientAttributes }?,
+	cta_text: string?,
 }
 
 type _CardContainerInputDataPartialFields = {
@@ -2366,6 +2389,7 @@ type _CardContainerInputDataPartialFields = {
 	sort_id: string?,
 	feed_item_key: string?,
 	client_attributes: { type: "communities_client_attributes", value: CommunitiesCardClientAttributes }?,
+	cta_text: string?,
 }
 
 export type CardContainerInputData = typeof(setmetatable(
@@ -3253,12 +3277,16 @@ type _UAMarketplaceCatalogHeroUnitInputDataFields = {
 	id: string,
 	available_until: string,
 	widget_style: WidgetStyleData?,
+	background_image: string,
+	cta: UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta?,
 }
 
 type _UAMarketplaceCatalogHeroUnitInputDataPartialFields = {
 	id: string?,
 	available_until: string?,
 	widget_style: WidgetStyleData?,
+	background_image: string?,
+	cta: UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta?,
 }
 
 export type UAMarketplaceCatalogHeroUnitInputData = typeof(setmetatable(
@@ -3268,6 +3296,39 @@ export type UAMarketplaceCatalogHeroUnitInputData = typeof(setmetatable(
 type _UAMarketplaceCatalogHeroUnitInputDataMessage = proto.Message<
 	UAMarketplaceCatalogHeroUnitInputData,
 	_UAMarketplaceCatalogHeroUnitInputDataPartialFields
+>
+
+type _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl = {
+	__index: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl,
+	new: (
+		fields: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaPartialFields?
+	) -> UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta,
+	encode: (self: UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta,
+	jsonEncode: (self: UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaFields = {
+	text: string,
+	kind: string,
+	target: string,
+}
+
+type _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaPartialFields = {
+	text: string?,
+	kind: string?,
+	target: string?,
+}
+
+export type UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaFields,
+	{} :: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl
+))
+type _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaMessage = proto.Message<
+	UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta,
+	_UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaPartialFields
 >
 
 type _UAMarketplaceCatalogFeedInputDataImpl = {
@@ -4001,11 +4062,13 @@ type _UserListInputData_UserItemImpl = {
 type _UserListInputData_UserItemFields = {
 	user_id: string,
 	previous_usernames: { string },
+	is_previous_username_match: boolean,
 }
 
 type _UserListInputData_UserItemPartialFields = {
 	user_id: string?,
 	previous_usernames: { string }?,
+	is_previous_username_match: boolean?,
 }
 
 export type UserListInputData_UserItem = typeof(setmetatable(
@@ -4592,6 +4655,9 @@ type _HeroUnitInputDataFields = {
 	hero_unit_id: string?,
 	analytics_id: string?,
 	is_sponsored: boolean?,
+	advertiser_disclosure: string?,
+	payer_name: string?,
+	sponsored_user_cohort: string?,
 }
 
 type _HeroUnitInputDataPartialFields = {
@@ -4613,6 +4679,9 @@ type _HeroUnitInputDataPartialFields = {
 	hero_unit_id: string?,
 	analytics_id: string?,
 	is_sponsored: boolean?,
+	advertiser_disclosure: string?,
+	payer_name: string?,
+	sponsored_user_cohort: string?,
 }
 
 export type HeroUnitInputData = typeof(setmetatable({} :: _HeroUnitInputDataFields, {} :: _HeroUnitInputDataImpl))
@@ -5091,10 +5160,14 @@ type _GroupOverviewPaneInputDataImpl = {
 
 type _GroupOverviewPaneInputDataFields = {
 	group_id: string?,
+	entry_map: { [string]: FeedEntry },
+	entry_order_map: { [string]: EntryOrder },
 }
 
 type _GroupOverviewPaneInputDataPartialFields = {
 	group_id: string?,
+	entry_map: { [string]: FeedEntry }?,
+	entry_order_map: { [string]: EntryOrder }?,
 }
 
 export type GroupOverviewPaneInputData = typeof(setmetatable(
@@ -5104,6 +5177,66 @@ export type GroupOverviewPaneInputData = typeof(setmetatable(
 type _GroupOverviewPaneInputDataMessage = proto.Message<
 	GroupOverviewPaneInputData,
 	_GroupOverviewPaneInputDataPartialFields
+>
+
+type _GroupOverviewPaneInputData_EntryMapEntryImpl = {
+	__index: _GroupOverviewPaneInputData_EntryMapEntryImpl,
+	new: (fields: _GroupOverviewPaneInputData_EntryMapEntryPartialFields?) -> GroupOverviewPaneInputData_EntryMapEntry,
+	encode: (self: GroupOverviewPaneInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> GroupOverviewPaneInputData_EntryMapEntry,
+	jsonEncode: (self: GroupOverviewPaneInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupOverviewPaneInputData_EntryMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupOverviewPaneInputData_EntryMapEntryFields = {
+	key: string,
+	value: FeedEntry?,
+}
+
+type _GroupOverviewPaneInputData_EntryMapEntryPartialFields = {
+	key: string?,
+	value: FeedEntry?,
+}
+
+export type GroupOverviewPaneInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _GroupOverviewPaneInputData_EntryMapEntryFields,
+	{} :: _GroupOverviewPaneInputData_EntryMapEntryImpl
+))
+type _GroupOverviewPaneInputData_EntryMapEntryMessage = proto.Message<
+	GroupOverviewPaneInputData_EntryMapEntry,
+	_GroupOverviewPaneInputData_EntryMapEntryPartialFields
+>
+
+type _GroupOverviewPaneInputData_EntryOrderMapEntryImpl = {
+	__index: _GroupOverviewPaneInputData_EntryOrderMapEntryImpl,
+	new: (
+		fields: _GroupOverviewPaneInputData_EntryOrderMapEntryPartialFields?
+	) -> GroupOverviewPaneInputData_EntryOrderMapEntry,
+	encode: (self: GroupOverviewPaneInputData_EntryOrderMapEntry) -> buffer,
+	decode: (input: buffer) -> GroupOverviewPaneInputData_EntryOrderMapEntry,
+	jsonEncode: (self: GroupOverviewPaneInputData_EntryOrderMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupOverviewPaneInputData_EntryOrderMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupOverviewPaneInputData_EntryOrderMapEntryFields = {
+	key: string,
+	value: EntryOrder?,
+}
+
+type _GroupOverviewPaneInputData_EntryOrderMapEntryPartialFields = {
+	key: string?,
+	value: EntryOrder?,
+}
+
+export type GroupOverviewPaneInputData_EntryOrderMapEntry = typeof(setmetatable(
+	{} :: _GroupOverviewPaneInputData_EntryOrderMapEntryFields,
+	{} :: _GroupOverviewPaneInputData_EntryOrderMapEntryImpl
+))
+type _GroupOverviewPaneInputData_EntryOrderMapEntryMessage = proto.Message<
+	GroupOverviewPaneInputData_EntryOrderMapEntry,
+	_GroupOverviewPaneInputData_EntryOrderMapEntryPartialFields
 >
 
 type _GroupSidebarSectionInputDataImpl = {
@@ -5875,6 +6008,36 @@ type _BuyRobuxLimitedTimeBonusCardInputDataMessage = proto.Message<
 	_BuyRobuxLimitedTimeBonusCardInputDataPartialFields
 >
 
+type _GroupEventsInputDataImpl = {
+	__index: _GroupEventsInputDataImpl,
+	new: (fields: _GroupEventsInputDataPartialFields?) -> GroupEventsInputData,
+	encode: (self: GroupEventsInputData) -> buffer,
+	decode: (input: buffer) -> GroupEventsInputData,
+	jsonEncode: (self: GroupEventsInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> GroupEventsInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _GroupEventsInputDataFields = {
+	content: (
+		{ type: "featured_event", value: EventsCarouselInputData_EventItem }
+		| { type: "carousel", value: EventsCarouselInputData }
+	)?,
+}
+
+type _GroupEventsInputDataPartialFields = {
+	content: (
+		{ type: "featured_event", value: EventsCarouselInputData_EventItem }
+		| { type: "carousel", value: EventsCarouselInputData }
+	)?,
+}
+
+export type GroupEventsInputData = typeof(setmetatable(
+	{} :: _GroupEventsInputDataFields,
+	{} :: _GroupEventsInputDataImpl
+))
+type _GroupEventsInputDataMessage = proto.Message<GroupEventsInputData, _GroupEventsInputDataPartialFields>
+
 type _GroupForumsDiscoveryInputDataImpl = {
 	__index: _GroupForumsDiscoveryInputDataImpl,
 	new: (fields: _GroupForumsDiscoveryInputDataPartialFields?) -> GroupForumsDiscoveryInputData,
@@ -5931,6 +6094,7 @@ type _GroupForumsDiscoveryInputData_PostPreviewFields = {
 	creator_role_name: string?,
 	reply_count: number,
 	post_url: string,
+	created_time: _google_protobuf_timestamp.Timestamp?,
 }
 
 type _GroupForumsDiscoveryInputData_PostPreviewPartialFields = {
@@ -5946,6 +6110,7 @@ type _GroupForumsDiscoveryInputData_PostPreviewPartialFields = {
 	creator_role_name: string?,
 	reply_count: number?,
 	post_url: string?,
+	created_time: _google_protobuf_timestamp.Timestamp?,
 }
 
 export type GroupForumsDiscoveryInputData_PostPreview = typeof(setmetatable(
@@ -6430,6 +6595,178 @@ export type StreamNotificationFeedInputData_EntryMapEntry = typeof(setmetatable(
 type _StreamNotificationFeedInputData_EntryMapEntryMessage = proto.Message<
 	StreamNotificationFeedInputData_EntryMapEntry,
 	_StreamNotificationFeedInputData_EntryMapEntryPartialFields
+>
+
+type _CampaignDropsHeroInputDataImpl = {
+	__index: _CampaignDropsHeroInputDataImpl,
+	new: (fields: _CampaignDropsHeroInputDataPartialFields?) -> CampaignDropsHeroInputData,
+	encode: (self: CampaignDropsHeroInputData) -> buffer,
+	decode: (input: buffer) -> CampaignDropsHeroInputData,
+	jsonEncode: (self: CampaignDropsHeroInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CampaignDropsHeroInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _CampaignDropsHeroInputDataFields = {
+	title: string?,
+	description: string?,
+	event_ends_at: number?,
+	event_countdown_format: string?,
+	event_countdown_default: string?,
+	cta_text: string?,
+	background: HeroUnitInputData_VisualAsset?,
+	drops: { CampaignDropsHeroInputData_Drop },
+	sort_id: string?,
+	start_index: number?,
+}
+
+type _CampaignDropsHeroInputDataPartialFields = {
+	title: string?,
+	description: string?,
+	event_ends_at: number?,
+	event_countdown_format: string?,
+	event_countdown_default: string?,
+	cta_text: string?,
+	background: HeroUnitInputData_VisualAsset?,
+	drops: { CampaignDropsHeroInputData_Drop }?,
+	sort_id: string?,
+	start_index: number?,
+}
+
+export type CampaignDropsHeroInputData = typeof(setmetatable(
+	{} :: _CampaignDropsHeroInputDataFields,
+	{} :: _CampaignDropsHeroInputDataImpl
+))
+type _CampaignDropsHeroInputDataMessage = proto.Message<
+	CampaignDropsHeroInputData,
+	_CampaignDropsHeroInputDataPartialFields
+>
+
+type _CampaignDropsHeroInputData_DropImpl = {
+	__index: _CampaignDropsHeroInputData_DropImpl,
+	new: (fields: _CampaignDropsHeroInputData_DropPartialFields?) -> CampaignDropsHeroInputData_Drop,
+	encode: (self: CampaignDropsHeroInputData_Drop) -> buffer,
+	decode: (input: buffer) -> CampaignDropsHeroInputData_Drop,
+	jsonEncode: (self: CampaignDropsHeroInputData_Drop) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CampaignDropsHeroInputData_Drop,
+	descriptor: proto.Descriptor,
+}
+
+type _CampaignDropsHeroInputData_DropFields = {
+	roblox_component: string,
+	item_id: string,
+	item_type: string,
+	starts_at: number,
+	ends_at: number,
+	title: string?,
+	subtitle: string?,
+	countdown_format: string?,
+	countdown_default: string?,
+}
+
+type _CampaignDropsHeroInputData_DropPartialFields = {
+	roblox_component: string?,
+	item_id: string?,
+	item_type: string?,
+	starts_at: number?,
+	ends_at: number?,
+	title: string?,
+	subtitle: string?,
+	countdown_format: string?,
+	countdown_default: string?,
+}
+
+export type CampaignDropsHeroInputData_Drop = typeof(setmetatable(
+	{} :: _CampaignDropsHeroInputData_DropFields,
+	{} :: _CampaignDropsHeroInputData_DropImpl
+))
+type _CampaignDropsHeroInputData_DropMessage = proto.Message<
+	CampaignDropsHeroInputData_Drop,
+	_CampaignDropsHeroInputData_DropPartialFields
+>
+
+type _CampaignDailyDropInputDataImpl = {
+	__index: _CampaignDailyDropInputDataImpl,
+	new: (fields: _CampaignDailyDropInputDataPartialFields?) -> CampaignDailyDropInputData,
+	encode: (self: CampaignDailyDropInputData) -> buffer,
+	decode: (input: buffer) -> CampaignDailyDropInputData,
+	jsonEncode: (self: CampaignDailyDropInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CampaignDailyDropInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _CampaignDailyDropInputDataFields = {
+	item_id: string,
+	item_type: string,
+	title: string?,
+	subtitle: string?,
+	ends_at: number,
+	countdown_format: string?,
+	countdown_default: string?,
+	cta_text: string?,
+	background: HeroUnitInputData_VisualAsset?,
+	sort_id: string?,
+	claim: CampaignDailyDropInputData_Claim?,
+	claimed_cta_text: string?,
+}
+
+type _CampaignDailyDropInputDataPartialFields = {
+	item_id: string?,
+	item_type: string?,
+	title: string?,
+	subtitle: string?,
+	ends_at: number?,
+	countdown_format: string?,
+	countdown_default: string?,
+	cta_text: string?,
+	background: HeroUnitInputData_VisualAsset?,
+	sort_id: string?,
+	claim: CampaignDailyDropInputData_Claim?,
+	claimed_cta_text: string?,
+}
+
+export type CampaignDailyDropInputData = typeof(setmetatable(
+	{} :: _CampaignDailyDropInputDataFields,
+	{} :: _CampaignDailyDropInputDataImpl
+))
+type _CampaignDailyDropInputDataMessage = proto.Message<
+	CampaignDailyDropInputData,
+	_CampaignDailyDropInputDataPartialFields
+>
+
+type _CampaignDailyDropInputData_ClaimImpl = {
+	__index: _CampaignDailyDropInputData_ClaimImpl,
+	new: (fields: _CampaignDailyDropInputData_ClaimPartialFields?) -> CampaignDailyDropInputData_Claim,
+	encode: (self: CampaignDailyDropInputData_Claim) -> buffer,
+	decode: (input: buffer) -> CampaignDailyDropInputData_Claim,
+	jsonEncode: (self: CampaignDailyDropInputData_Claim) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> CampaignDailyDropInputData_Claim,
+	descriptor: proto.Descriptor,
+}
+
+type _CampaignDailyDropInputData_ClaimFields = {
+	event_type: string,
+	subscription_product_type: string,
+	subscription_product_id: string,
+	failure_message: string?,
+	success_message: string?,
+}
+
+type _CampaignDailyDropInputData_ClaimPartialFields = {
+	event_type: string?,
+	subscription_product_type: string?,
+	subscription_product_id: string?,
+	failure_message: string?,
+	success_message: string?,
+}
+
+export type CampaignDailyDropInputData_Claim = typeof(setmetatable(
+	{} :: _CampaignDailyDropInputData_ClaimFields,
+	{} :: _CampaignDailyDropInputData_ClaimImpl
+))
+type _CampaignDailyDropInputData_ClaimMessage = proto.Message<
+	CampaignDailyDropInputData_Claim,
+	_CampaignDailyDropInputData_ClaimPartialFields
 >
 
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
@@ -7351,6 +7688,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1402, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "group_events" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1403, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "settings_row" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1500, proto.wireTypes.lengthDelimited)
@@ -7398,6 +7739,14 @@ do
 			elseif self.kind.type == "stream_notification_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1901, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "campaign_drops_hero" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2000, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "campaign_daily_drop" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2001, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -7960,6 +8309,11 @@ do
 						value = messages.GroupForumsDiscoveryInputData.decode(value),
 					}
 					continue
+				elseif field == 1403 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "group_events", value = messages.GroupEventsInputData.decode(value) }
+					continue
 				elseif field == 1500 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -8029,6 +8383,18 @@ do
 						type = "stream_notification_feed",
 						value = messages.StreamNotificationFeedInputData.decode(value),
 					}
+					continue
+				elseif field == 2000 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "campaign_drops_hero", value = messages.CampaignDropsHeroInputData.decode(value) }
+					continue
+				elseif field == 2001 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "campaign_daily_drop", value = messages.CampaignDailyDropInputData.decode(value) }
 					continue
 				end
 
@@ -8222,6 +8588,8 @@ do
 				output.groupAnnouncement = self.kind.value:jsonEncode()
 			elseif self.kind.type == "group_forums_discovery" then
 				output.groupForumsDiscovery = self.kind.value:jsonEncode()
+			elseif self.kind.type == "group_events" then
+				output.groupEvents = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_row" then
 				output.settingsRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "settings_toggle" then
@@ -8246,6 +8614,10 @@ do
 				output.streamNotificationRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "stream_notification_feed" then
 				output.streamNotificationFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "campaign_drops_hero" then
+				output.campaignDropsHero = self.kind.value:jsonEncode()
+			elseif self.kind.type == "campaign_daily_drop" then
+				output.campaignDailyDrop = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -9285,6 +9657,14 @@ do
 			}
 		end
 
+		if input.group_events ~= nil then
+			self.kind = { type = "group_events", value = messages.GroupEventsInputData.jsonDecode(input.group_events) }
+		end
+
+		if input.groupEvents ~= nil then
+			self.kind = { type = "group_events", value = messages.GroupEventsInputData.jsonDecode(input.groupEvents) }
+		end
+
 		if input.settings_row ~= nil then
 			self.kind = { type = "settings_row", value = messages.SettingsRowInputData.jsonDecode(input.settings_row) }
 		end
@@ -9432,6 +9812,34 @@ do
 			self.kind = {
 				type = "stream_notification_feed",
 				value = messages.StreamNotificationFeedInputData.jsonDecode(input.streamNotificationFeed),
+			}
+		end
+
+		if input.campaign_drops_hero ~= nil then
+			self.kind = {
+				type = "campaign_drops_hero",
+				value = messages.CampaignDropsHeroInputData.jsonDecode(input.campaign_drops_hero),
+			}
+		end
+
+		if input.campaignDropsHero ~= nil then
+			self.kind = {
+				type = "campaign_drops_hero",
+				value = messages.CampaignDropsHeroInputData.jsonDecode(input.campaignDropsHero),
+			}
+		end
+
+		if input.campaign_daily_drop ~= nil then
+			self.kind = {
+				type = "campaign_daily_drop",
+				value = messages.CampaignDailyDropInputData.jsonDecode(input.campaign_daily_drop),
+			}
+		end
+
+		if input.campaignDailyDrop ~= nil then
+			self.kind = {
+				type = "campaign_daily_drop",
+				value = messages.CampaignDailyDropInputData.jsonDecode(input.campaignDailyDrop),
 			}
 		end
 
@@ -15298,6 +15706,15 @@ do
 				then nil
 				else data.sponsored_game_preview_video_eligible,
 			footnote_text = if data == nil or data.footnote_text == nil then nil else data.footnote_text,
+			connection_played_display_name = if data == nil or data.connection_played_display_name == nil
+				then nil
+				else data.connection_played_display_name,
+			connection_played_num_others = if data == nil or data.connection_played_num_others == nil
+				then nil
+				else data.connection_played_num_others,
+			connection_played_total_count = if data == nil or data.connection_played_total_count == nil
+				then nil
+				else data.connection_played_total_count,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -15465,6 +15882,21 @@ do
 			output, cursor = proto.writeString(output, cursor, self.footnote_text)
 		end
 
+		if self.connection_played_display_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.connection_played_display_name)
+		end
+
+		if self.connection_played_num_others ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.connection_played_num_others)
+		end
+
+		if self.connection_played_total_count ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.connection_played_total_count)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -15510,6 +15942,16 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.sponsored_game_preview_video_eligible = value ~= 0
+					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.connection_played_num_others = value
+					continue
+				elseif field == 34 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.connection_played_total_count = value
 					continue
 				end
 
@@ -15631,6 +16073,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.footnote_text = buffer.tostring(value)
+					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.connection_played_display_name = buffer.tostring(value)
 					continue
 				end
 
@@ -15792,6 +16239,18 @@ do
 
 		if self.footnote_text ~= nil then
 			output.footnoteText = self.footnote_text
+		end
+
+		if self.connection_played_display_name ~= nil then
+			output.connectionPlayedDisplayName = self.connection_played_display_name
+		end
+
+		if self.connection_played_num_others ~= nil then
+			output.connectionPlayedNumOthers = self.connection_played_num_others
+		end
+
+		if self.connection_played_total_count ~= nil then
+			output.connectionPlayedTotalCount = self.connection_played_total_count
 		end
 
 		return output
@@ -16054,6 +16513,30 @@ do
 
 		if input.footnoteText ~= nil then
 			self.footnote_text = input.footnoteText
+		end
+
+		if input.connection_played_display_name ~= nil then
+			self.connection_played_display_name = input.connection_played_display_name
+		end
+
+		if input.connectionPlayedDisplayName ~= nil then
+			self.connection_played_display_name = input.connectionPlayedDisplayName
+		end
+
+		if input.connection_played_num_others ~= nil then
+			self.connection_played_num_others = input.connection_played_num_others
+		end
+
+		if input.connectionPlayedNumOthers ~= nil then
+			self.connection_played_num_others = input.connectionPlayedNumOthers
+		end
+
+		if input.connection_played_total_count ~= nil then
+			self.connection_played_total_count = input.connection_played_total_count
+		end
+
+		if input.connectionPlayedTotalCount ~= nil then
+			self.connection_played_total_count = input.connectionPlayedTotalCount
 		end
 
 		return self
@@ -16979,6 +17462,7 @@ do
 	): EventsCarouselInputData_EventItem
 		return setmetatable({
 			event_id = if data == nil or data.event_id == nil then "" else data.event_id,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
 		}, _EventsCarouselInputData_EventItemImpl :: _EventsCarouselInputData_EventItemImpl)
 	end
 
@@ -16989,6 +17473,11 @@ do
 		if self.event_id ~= nil and self.event_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.event_id)
+		end
+
+		if self.universe_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -17014,6 +17503,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.event_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
 					continue
 				end
 
@@ -17046,6 +17540,10 @@ do
 			output.eventId = self.event_id
 		end
 
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id
+		end
+
 		return output
 	end
 
@@ -17060,6 +17558,14 @@ do
 
 		if input.eventId ~= nil then
 			self.event_id = input.eventId
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
 		end
 
 		return self
@@ -19556,6 +20062,7 @@ do
 			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
 			feed_item_key = if data == nil or data.feed_item_key == nil then "" else data.feed_item_key,
 			client_attributes = if data == nil or data.client_attributes == nil then nil else data.client_attributes,
+			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
 		}, _CardContainerInputDataImpl :: _CardContainerInputDataImpl)
 	end
 
@@ -19612,6 +20119,11 @@ do
 				output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.cta_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cta_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -19681,6 +20193,11 @@ do
 						value = messages.CommunitiesCardClientAttributes.decode(value),
 					}
 					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_text = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -19748,6 +20265,10 @@ do
 			if self.client_attributes.type == "communities_client_attributes" then
 				output.communitiesClientAttributes = self.client_attributes.value:jsonEncode()
 			end
+		end
+
+		if self.cta_text ~= nil then
+			output.ctaText = self.cta_text
 		end
 
 		return output
@@ -19829,6 +20350,14 @@ do
 				type = "communities_client_attributes",
 				value = messages.CommunitiesCardClientAttributes.jsonDecode(input.communitiesClientAttributes),
 			}
+		end
+
+		if input.cta_text ~= nil then
+			self.cta_text = input.cta_text
+		end
+
+		if input.ctaText ~= nil then
+			self.cta_text = input.ctaText
 		end
 
 		return self
@@ -24631,6 +25160,8 @@ do
 			id = if data == nil or data.id == nil then "" else data.id,
 			available_until = if data == nil or data.available_until == nil then "" else data.available_until,
 			widget_style = if data == nil or data.widget_style == nil then nil else data.widget_style,
+			background_image = if data == nil or data.background_image == nil then "" else data.background_image,
+			cta = if data == nil or data.cta == nil then nil else data.cta,
 		}, _UAMarketplaceCatalogHeroUnitInputDataImpl :: _UAMarketplaceCatalogHeroUnitInputDataImpl)
 	end
 
@@ -24651,6 +25182,17 @@ do
 		if self.widget_style ~= nil then
 			local encoded = self.widget_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_image ~= nil and self.background_image ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.background_image)
+		end
+
+		if self.cta ~= nil then
+			local encoded = self.cta:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -24687,6 +25229,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.widget_style = messages.WidgetStyleData.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_image = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta = messages.UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta.decode(value)
 					continue
 				end
 
@@ -24727,6 +25279,14 @@ do
 			output.widgetStyle = self.widget_style:jsonEncode()
 		end
 
+		if self.background_image ~= nil and self.background_image ~= "" then
+			output.backgroundImage = self.background_image
+		end
+
+		if self.cta ~= nil then
+			output.cta = self.cta:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -24755,6 +25315,18 @@ do
 			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widgetStyle)
 		end
 
+		if input.background_image ~= nil then
+			self.background_image = input.background_image
+		end
+
+		if input.backgroundImage ~= nil then
+			self.background_image = input.backgroundImage
+		end
+
+		if input.cta ~= nil then
+			self.cta = messages.UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta.jsonDecode(input.cta)
+		end
+
 		return self
 	end
 
@@ -24766,6 +25338,156 @@ do
 	messages.UAMarketplaceCatalogHeroUnitInputData = _UAMarketplaceCatalogHeroUnitInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.UAMarketplaceCatalogHeroUnitInputData)
+end
+
+do
+	local _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl = {}
+	_UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.__index =
+		_UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl
+
+	function _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.new(
+		data: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaPartialFields?
+	): UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta
+		return setmetatable(
+			{
+				text = if data == nil or data.text == nil then "" else data.text,
+				kind = if data == nil or data.kind == nil then "" else data.kind,
+				target = if data == nil or data.target == nil then "" else data.target,
+			},
+			_UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl :: _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl
+		)
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.encode(
+		self: UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.text ~= nil and self.text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.text)
+		end
+
+		if self.kind ~= nil and self.kind ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.kind)
+		end
+
+		if self.target ~= nil and self.target ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.target)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.decode(
+		input: buffer
+	): UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta
+		local self = _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.jsonEncode(
+		self: UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta
+	): any
+		local output = {}
+
+		if self.text ~= nil and self.text ~= "" then
+			output.text = self.text
+		end
+
+		if self.kind ~= nil and self.kind ~= "" then
+			output.kind = self.kind
+		end
+
+		if self.target ~= nil and self.target ~= "" then
+			output.target = self.target
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta
+		local self = _UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.new()
+
+		if input.text ~= nil then
+			self.text = input.text
+		end
+
+		if input.kind ~= nil then
+			self.kind = input.kind
+		end
+
+		if input.target ~= nil then
+			self.target = input.target
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl.descriptor = {
+		name = "UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta",
+		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceHeroCta",
+	}
+
+	messages.UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta =
+		_UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCtaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta)
 end
 
 do
@@ -28885,6 +29607,9 @@ do
 		return setmetatable({
 			user_id = if data == nil or data.user_id == nil then "" else data.user_id,
 			previous_usernames = if data == nil or data.previous_usernames == nil then {} else data.previous_usernames,
+			is_previous_username_match = if data == nil or data.is_previous_username_match == nil
+				then false
+				else data.is_previous_username_match,
 		}, _UserListInputData_UserItemImpl :: _UserListInputData_UserItemImpl)
 	end
 
@@ -28904,6 +29629,11 @@ do
 			end
 		end
 
+		if self.is_previous_username_match then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_previous_username_match then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -28918,7 +29648,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_previous_username_match = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -28972,6 +29707,10 @@ do
 			output.previousUsernames = newOutput
 		end
 
+		if self.is_previous_username_match then
+			output.isPreviousUsernameMatch = self.is_previous_username_match
+		end
+
 		return output
 	end
 
@@ -29002,6 +29741,14 @@ do
 			end
 
 			self.previous_usernames = newOutput
+		end
+
+		if input.is_previous_username_match ~= nil then
+			self.is_previous_username_match = input.is_previous_username_match
+		end
+
+		if input.isPreviousUsernameMatch ~= nil then
+			self.is_previous_username_match = input.isPreviousUsernameMatch
 		end
 
 		return self
@@ -32038,6 +32785,13 @@ do
 			hero_unit_id = if data == nil or data.hero_unit_id == nil then nil else data.hero_unit_id,
 			analytics_id = if data == nil or data.analytics_id == nil then nil else data.analytics_id,
 			is_sponsored = if data == nil or data.is_sponsored == nil then nil else data.is_sponsored,
+			advertiser_disclosure = if data == nil or data.advertiser_disclosure == nil
+				then nil
+				else data.advertiser_disclosure,
+			payer_name = if data == nil or data.payer_name == nil then nil else data.payer_name,
+			sponsored_user_cohort = if data == nil or data.sponsored_user_cohort == nil
+				then nil
+				else data.sponsored_user_cohort,
 		}, _HeroUnitInputDataImpl :: _HeroUnitInputDataImpl)
 	end
 
@@ -32137,6 +32891,21 @@ do
 		if self.is_sponsored ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_sponsored then 1 else 0)
+		end
+
+		if self.advertiser_disclosure ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.advertiser_disclosure)
+		end
+
+		if self.payer_name ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.payer_name)
+		end
+
+		if self.sponsored_user_cohort ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sponsored_user_cohort)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -32248,6 +33017,21 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.analytics_id = buffer.tostring(value)
 					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.advertiser_disclosure = buffer.tostring(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.payer_name = buffer.tostring(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sponsored_user_cohort = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -32345,6 +33129,18 @@ do
 
 		if self.is_sponsored ~= nil then
 			output.isSponsored = self.is_sponsored
+		end
+
+		if self.advertiser_disclosure ~= nil then
+			output.advertiserDisclosure = self.advertiser_disclosure
+		end
+
+		if self.payer_name ~= nil then
+			output.payerName = self.payer_name
+		end
+
+		if self.sponsored_user_cohort ~= nil then
+			output.sponsoredUserCohort = self.sponsored_user_cohort
 		end
 
 		return output
@@ -32475,6 +33271,30 @@ do
 
 		if input.isSponsored ~= nil then
 			self.is_sponsored = input.isSponsored
+		end
+
+		if input.advertiser_disclosure ~= nil then
+			self.advertiser_disclosure = input.advertiser_disclosure
+		end
+
+		if input.advertiserDisclosure ~= nil then
+			self.advertiser_disclosure = input.advertiserDisclosure
+		end
+
+		if input.payer_name ~= nil then
+			self.payer_name = input.payer_name
+		end
+
+		if input.payerName ~= nil then
+			self.payer_name = input.payerName
+		end
+
+		if input.sponsored_user_cohort ~= nil then
+			self.sponsored_user_cohort = input.sponsored_user_cohort
+		end
+
+		if input.sponsoredUserCohort ~= nil then
+			self.sponsored_user_cohort = input.sponsoredUserCohort
 		end
 
 		return self
@@ -35184,6 +36004,8 @@ do
 	): GroupOverviewPaneInputData
 		return setmetatable({
 			group_id = if data == nil or data.group_id == nil then nil else data.group_id,
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order_map = if data == nil or data.entry_order_map == nil then {} else data.entry_order_map,
 		}, _GroupOverviewPaneInputDataImpl :: _GroupOverviewPaneInputDataImpl)
 	end
 
@@ -35194,6 +36016,34 @@ do
 		if self.group_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.group_id)
+		end
+
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.entry_order_map ~= nil and next(self.entry_order_map) ~= nil then
+			for key, value in self.entry_order_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -35219,6 +36069,30 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.group_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GroupOverviewPaneInputData_EntryMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.FeedEntry.new()
+
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.GroupOverviewPaneInputData_EntryOrderMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.EntryOrder.new()
+
+					self.entry_order_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
 					continue
 				end
 
@@ -35251,6 +36125,22 @@ do
 			output.groupId = self.group_id
 		end
 
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryMap = newOutput
+		end
+
+		if self.entry_order_map ~= nil and next(self.entry_order_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_order_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryOrderMap = newOutput
+		end
+
 		return output
 	end
 
@@ -35265,6 +36155,42 @@ do
 			self.group_id = input.groupId
 		end
 
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
+			end
+
+			self.entry_map = newOutput
+		end
+
+		if input.entry_order_map ~= nil then
+			local newOutput: { [string]: EntryOrder } = {}
+			for key, value in input.entry_order_map do
+				newOutput[key] = messages.EntryOrder.jsonDecode(value)
+			end
+
+			self.entry_order_map = newOutput
+		end
+
+		if input.entryOrderMap ~= nil then
+			local newOutput: { [string]: EntryOrder } = {}
+			for key, value in input.entryOrderMap do
+				newOutput[key] = messages.EntryOrder.jsonDecode(value)
+			end
+
+			self.entry_order_map = newOutput
+		end
+
 		return self
 	end
 
@@ -35276,6 +36202,260 @@ do
 	messages.GroupOverviewPaneInputData = _GroupOverviewPaneInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.GroupOverviewPaneInputData)
+end
+
+do
+	local _GroupOverviewPaneInputData_EntryMapEntryImpl = {}
+	_GroupOverviewPaneInputData_EntryMapEntryImpl.__index = _GroupOverviewPaneInputData_EntryMapEntryImpl
+
+	function _GroupOverviewPaneInputData_EntryMapEntryImpl.new(
+		data: _GroupOverviewPaneInputData_EntryMapEntryPartialFields?
+	): GroupOverviewPaneInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _GroupOverviewPaneInputData_EntryMapEntryImpl :: _GroupOverviewPaneInputData_EntryMapEntryImpl)
+	end
+
+	function _GroupOverviewPaneInputData_EntryMapEntryImpl.encode(
+		self: GroupOverviewPaneInputData_EntryMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupOverviewPaneInputData_EntryMapEntryImpl.decode(
+		input: buffer
+	): GroupOverviewPaneInputData_EntryMapEntry
+		local self = _GroupOverviewPaneInputData_EntryMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.FeedEntry.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupOverviewPaneInputData_EntryMapEntryImpl.jsonEncode(
+		self: GroupOverviewPaneInputData_EntryMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _GroupOverviewPaneInputData_EntryMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GroupOverviewPaneInputData_EntryMapEntry
+		local self = _GroupOverviewPaneInputData_EntryMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.FeedEntry.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_GroupOverviewPaneInputData_EntryMapEntryImpl.descriptor = {
+		name = "GroupOverviewPaneInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
+	}
+
+	messages.GroupOverviewPaneInputData_EntryMapEntry = _GroupOverviewPaneInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupOverviewPaneInputData_EntryMapEntry)
+end
+
+do
+	local _GroupOverviewPaneInputData_EntryOrderMapEntryImpl = {}
+	_GroupOverviewPaneInputData_EntryOrderMapEntryImpl.__index = _GroupOverviewPaneInputData_EntryOrderMapEntryImpl
+
+	function _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.new(
+		data: _GroupOverviewPaneInputData_EntryOrderMapEntryPartialFields?
+	): GroupOverviewPaneInputData_EntryOrderMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _GroupOverviewPaneInputData_EntryOrderMapEntryImpl :: _GroupOverviewPaneInputData_EntryOrderMapEntryImpl)
+	end
+
+	function _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.encode(
+		self: GroupOverviewPaneInputData_EntryOrderMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.decode(
+		input: buffer
+	): GroupOverviewPaneInputData_EntryOrderMapEntry
+		local self = _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.EntryOrder.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.jsonEncode(
+		self: GroupOverviewPaneInputData_EntryOrderMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): GroupOverviewPaneInputData_EntryOrderMapEntry
+		local self = _GroupOverviewPaneInputData_EntryOrderMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.EntryOrder.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_GroupOverviewPaneInputData_EntryOrderMapEntryImpl.descriptor = {
+		name = "GroupOverviewPaneInputData_EntryOrderMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryOrderMapEntry",
+	}
+
+	messages.GroupOverviewPaneInputData_EntryOrderMapEntry = _GroupOverviewPaneInputData_EntryOrderMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupOverviewPaneInputData_EntryOrderMapEntry)
 end
 
 do
@@ -39675,6 +40855,134 @@ do
 end
 
 do
+	local _GroupEventsInputDataImpl = {}
+	_GroupEventsInputDataImpl.__index = _GroupEventsInputDataImpl
+
+	function _GroupEventsInputDataImpl.new(data: _GroupEventsInputDataPartialFields?): GroupEventsInputData
+		return setmetatable({
+			content = if data == nil or data.content == nil then nil else data.content,
+		}, _GroupEventsInputDataImpl :: _GroupEventsInputDataImpl)
+	end
+
+	function _GroupEventsInputDataImpl.encode(self: GroupEventsInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.content ~= nil then
+			if self.content.type == "featured_event" then
+				local encoded = self.content.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.content.type == "carousel" then
+				local encoded = self.content.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _GroupEventsInputDataImpl.decode(input: buffer): GroupEventsInputData
+		local self = _GroupEventsInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content =
+						{ type = "featured_event", value = messages.EventsCarouselInputData_EventItem.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content = { type = "carousel", value = messages.EventsCarouselInputData.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _GroupEventsInputDataImpl.jsonEncode(self: GroupEventsInputData): any
+		local output = {}
+
+		if self.content ~= nil then
+			if self.content.type == "featured_event" then
+				output.featuredEvent = self.content.value:jsonEncode()
+			elseif self.content.type == "carousel" then
+				output.carousel = self.content.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _GroupEventsInputDataImpl.jsonDecode(input: { [string]: any }): GroupEventsInputData
+		local self = _GroupEventsInputDataImpl.new()
+
+		if input.featured_event ~= nil then
+			self.content = {
+				type = "featured_event",
+				value = messages.EventsCarouselInputData_EventItem.jsonDecode(input.featured_event),
+			}
+		end
+
+		if input.featuredEvent ~= nil then
+			self.content = {
+				type = "featured_event",
+				value = messages.EventsCarouselInputData_EventItem.jsonDecode(input.featuredEvent),
+			}
+		end
+
+		if input.carousel ~= nil then
+			self.content = { type = "carousel", value = messages.EventsCarouselInputData.jsonDecode(input.carousel) }
+		end
+
+		return self
+	end
+
+	_GroupEventsInputDataImpl.descriptor = {
+		name = "GroupEventsInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GroupEventsInputData",
+	}
+
+	messages.GroupEventsInputData = _GroupEventsInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.GroupEventsInputData)
+end
+
+do
 	local _GroupForumsDiscoveryInputDataImpl = {}
 	_GroupForumsDiscoveryInputDataImpl.__index = _GroupForumsDiscoveryInputDataImpl
 
@@ -39851,6 +41159,7 @@ do
 			creator_role_name = if data == nil or data.creator_role_name == nil then nil else data.creator_role_name,
 			reply_count = if data == nil or data.reply_count == nil then 0 else data.reply_count,
 			post_url = if data == nil or data.post_url == nil then "" else data.post_url,
+			created_time = if data == nil or data.created_time == nil then nil else data.created_time,
 		}, _GroupForumsDiscoveryInputData_PostPreviewImpl :: _GroupForumsDiscoveryInputData_PostPreviewImpl)
 	end
 
@@ -39918,6 +41227,12 @@ do
 		if self.post_url ~= nil and self.post_url ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.post_url)
+		end
+
+		if self.created_time ~= nil then
+			local encoded = self.created_time:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -40001,6 +41316,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.post_url = buffer.tostring(value)
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.created_time = _google_protobuf_timestamp.Timestamp.decode(value)
+					continue
 				end
 
 				local length
@@ -40076,6 +41396,10 @@ do
 
 		if self.post_url ~= nil and self.post_url ~= "" then
 			output.postUrl = self.post_url
+		end
+
+		if self.created_time ~= nil then
+			output.createdTime = self.created_time:jsonEncode()
 		end
 
 		return output
@@ -40172,6 +41496,14 @@ do
 
 		if input.postUrl ~= nil then
 			self.post_url = input.postUrl
+		end
+
+		if input.created_time ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.created_time)
+		end
+
+		if input.createdTime ~= nil then
+			self.created_time = _google_protobuf_timestamp.Timestamp.jsonDecode(input.createdTime)
 		end
 
 		return self
@@ -43437,6 +44769,1139 @@ do
 	typeRegistry.default:register(messages.StreamNotificationFeedInputData_EntryMapEntry)
 end
 
+do
+	local _CampaignDropsHeroInputDataImpl = {}
+	_CampaignDropsHeroInputDataImpl.__index = _CampaignDropsHeroInputDataImpl
+
+	function _CampaignDropsHeroInputDataImpl.new(
+		data: _CampaignDropsHeroInputDataPartialFields?
+	): CampaignDropsHeroInputData
+		return setmetatable({
+			title = if data == nil or data.title == nil then nil else data.title,
+			description = if data == nil or data.description == nil then nil else data.description,
+			event_ends_at = if data == nil or data.event_ends_at == nil then nil else data.event_ends_at,
+			event_countdown_format = if data == nil or data.event_countdown_format == nil
+				then nil
+				else data.event_countdown_format,
+			event_countdown_default = if data == nil or data.event_countdown_default == nil
+				then nil
+				else data.event_countdown_default,
+			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
+			background = if data == nil or data.background == nil then nil else data.background,
+			drops = if data == nil or data.drops == nil then {} else data.drops,
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+			start_index = if data == nil or data.start_index == nil then nil else data.start_index,
+		}, _CampaignDropsHeroInputDataImpl :: _CampaignDropsHeroInputDataImpl)
+	end
+
+	function _CampaignDropsHeroInputDataImpl.encode(self: CampaignDropsHeroInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.description ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.description)
+		end
+
+		if self.event_ends_at ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.event_ends_at)
+		end
+
+		if self.event_countdown_format ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_countdown_format)
+		end
+
+		if self.event_countdown_default ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_countdown_default)
+		end
+
+		if self.cta_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cta_text)
+		end
+
+		if self.background ~= nil then
+			local encoded = self.background:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.drops ~= nil and #self.drops > 0 then
+			for _, value in self.drops do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.start_index ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.start_index)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CampaignDropsHeroInputDataImpl.decode(input: buffer): CampaignDropsHeroInputData
+		local self = _CampaignDropsHeroInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.event_ends_at = value
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.start_index = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_countdown_format = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_countdown_default = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_text = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background = messages.HeroUnitInputData_VisualAsset.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.drops, messages.CampaignDropsHeroInputData_Drop.decode(value))
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CampaignDropsHeroInputDataImpl.jsonEncode(self: CampaignDropsHeroInputData): any
+		local output = {}
+
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
+		if self.description ~= nil then
+			output.description = self.description
+		end
+
+		if self.event_ends_at ~= nil then
+			output.eventEndsAt = self.event_ends_at
+		end
+
+		if self.event_countdown_format ~= nil then
+			output.eventCountdownFormat = self.event_countdown_format
+		end
+
+		if self.event_countdown_default ~= nil then
+			output.eventCountdownDefault = self.event_countdown_default
+		end
+
+		if self.cta_text ~= nil then
+			output.ctaText = self.cta_text
+		end
+
+		if self.background ~= nil then
+			output.background = self.background:jsonEncode()
+		end
+
+		if self.drops ~= nil and #self.drops > 0 then
+			local newOutput = {}
+			for _, value in self.drops do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.drops = newOutput
+		end
+
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id
+		end
+
+		if self.start_index ~= nil then
+			output.startIndex = self.start_index
+		end
+
+		return output
+	end
+
+	function _CampaignDropsHeroInputDataImpl.jsonDecode(input: { [string]: any }): CampaignDropsHeroInputData
+		local self = _CampaignDropsHeroInputDataImpl.new()
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.description ~= nil then
+			self.description = input.description
+		end
+
+		if input.event_ends_at ~= nil then
+			self.event_ends_at = input.event_ends_at
+		end
+
+		if input.eventEndsAt ~= nil then
+			self.event_ends_at = input.eventEndsAt
+		end
+
+		if input.event_countdown_format ~= nil then
+			self.event_countdown_format = input.event_countdown_format
+		end
+
+		if input.eventCountdownFormat ~= nil then
+			self.event_countdown_format = input.eventCountdownFormat
+		end
+
+		if input.event_countdown_default ~= nil then
+			self.event_countdown_default = input.event_countdown_default
+		end
+
+		if input.eventCountdownDefault ~= nil then
+			self.event_countdown_default = input.eventCountdownDefault
+		end
+
+		if input.cta_text ~= nil then
+			self.cta_text = input.cta_text
+		end
+
+		if input.ctaText ~= nil then
+			self.cta_text = input.ctaText
+		end
+
+		if input.background ~= nil then
+			self.background = messages.HeroUnitInputData_VisualAsset.jsonDecode(input.background)
+		end
+
+		if input.drops ~= nil then
+			local newOutput: { CampaignDropsHeroInputData_Drop } = {}
+			for _, value in input.drops do
+				table.insert(newOutput, messages.CampaignDropsHeroInputData_Drop.jsonDecode(value))
+			end
+
+			self.drops = newOutput
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.start_index ~= nil then
+			self.start_index = input.start_index
+		end
+
+		if input.startIndex ~= nil then
+			self.start_index = input.startIndex
+		end
+
+		return self
+	end
+
+	_CampaignDropsHeroInputDataImpl.descriptor = {
+		name = "CampaignDropsHeroInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CampaignDropsHeroInputData",
+	}
+
+	messages.CampaignDropsHeroInputData = _CampaignDropsHeroInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CampaignDropsHeroInputData)
+end
+
+do
+	local _CampaignDropsHeroInputData_DropImpl = {}
+	_CampaignDropsHeroInputData_DropImpl.__index = _CampaignDropsHeroInputData_DropImpl
+
+	function _CampaignDropsHeroInputData_DropImpl.new(
+		data: _CampaignDropsHeroInputData_DropPartialFields?
+	): CampaignDropsHeroInputData_Drop
+		return setmetatable({
+			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
+			starts_at = if data == nil or data.starts_at == nil then 0 else data.starts_at,
+			ends_at = if data == nil or data.ends_at == nil then 0 else data.ends_at,
+			title = if data == nil or data.title == nil then nil else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			countdown_format = if data == nil or data.countdown_format == nil then nil else data.countdown_format,
+			countdown_default = if data == nil or data.countdown_default == nil then nil else data.countdown_default,
+		}, _CampaignDropsHeroInputData_DropImpl :: _CampaignDropsHeroInputData_DropImpl)
+	end
+
+	function _CampaignDropsHeroInputData_DropImpl.encode(self: CampaignDropsHeroInputData_Drop): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_type)
+		end
+
+		if self.starts_at ~= nil and self.starts_at ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.starts_at)
+		end
+
+		if self.ends_at ~= nil and self.ends_at ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.ends_at)
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.subtitle ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.countdown_format ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.countdown_format)
+		end
+
+		if self.countdown_default ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.countdown_default)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CampaignDropsHeroInputData_DropImpl.decode(input: buffer): CampaignDropsHeroInputData_Drop
+		local self = _CampaignDropsHeroInputData_DropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.starts_at = value
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.ends_at = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_type = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.countdown_format = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.countdown_default = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CampaignDropsHeroInputData_DropImpl.jsonEncode(self: CampaignDropsHeroInputData_Drop): any
+		local output = {}
+
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
+		end
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output.itemType = self.item_type
+		end
+
+		if self.starts_at ~= nil and self.starts_at ~= 0 then
+			output.startsAt = self.starts_at
+		end
+
+		if self.ends_at ~= nil and self.ends_at ~= 0 then
+			output.endsAt = self.ends_at
+		end
+
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle
+		end
+
+		if self.countdown_format ~= nil then
+			output.countdownFormat = self.countdown_format
+		end
+
+		if self.countdown_default ~= nil then
+			output.countdownDefault = self.countdown_default
+		end
+
+		return output
+	end
+
+	function _CampaignDropsHeroInputData_DropImpl.jsonDecode(input: { [string]: any }): CampaignDropsHeroInputData_Drop
+		local self = _CampaignDropsHeroInputData_DropImpl.new()
+
+		if input.roblox_component ~= nil then
+			self.roblox_component = input.roblox_component
+		end
+
+		if input.robloxComponent ~= nil then
+			self.roblox_component = input.robloxComponent
+		end
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.item_type ~= nil then
+			self.item_type = input.item_type
+		end
+
+		if input.itemType ~= nil then
+			self.item_type = input.itemType
+		end
+
+		if input.starts_at ~= nil then
+			self.starts_at = input.starts_at
+		end
+
+		if input.startsAt ~= nil then
+			self.starts_at = input.startsAt
+		end
+
+		if input.ends_at ~= nil then
+			self.ends_at = input.ends_at
+		end
+
+		if input.endsAt ~= nil then
+			self.ends_at = input.endsAt
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.countdown_format ~= nil then
+			self.countdown_format = input.countdown_format
+		end
+
+		if input.countdownFormat ~= nil then
+			self.countdown_format = input.countdownFormat
+		end
+
+		if input.countdown_default ~= nil then
+			self.countdown_default = input.countdown_default
+		end
+
+		if input.countdownDefault ~= nil then
+			self.countdown_default = input.countdownDefault
+		end
+
+		return self
+	end
+
+	_CampaignDropsHeroInputData_DropImpl.descriptor = {
+		name = "CampaignDropsHeroInputData_Drop",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Drop",
+	}
+
+	messages.CampaignDropsHeroInputData_Drop = _CampaignDropsHeroInputData_DropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CampaignDropsHeroInputData_Drop)
+end
+
+do
+	local _CampaignDailyDropInputDataImpl = {}
+	_CampaignDailyDropInputDataImpl.__index = _CampaignDailyDropInputDataImpl
+
+	function _CampaignDailyDropInputDataImpl.new(
+		data: _CampaignDailyDropInputDataPartialFields?
+	): CampaignDailyDropInputData
+		return setmetatable({
+			item_id = if data == nil or data.item_id == nil then "" else data.item_id,
+			item_type = if data == nil or data.item_type == nil then "" else data.item_type,
+			title = if data == nil or data.title == nil then nil else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			ends_at = if data == nil or data.ends_at == nil then 0 else data.ends_at,
+			countdown_format = if data == nil or data.countdown_format == nil then nil else data.countdown_format,
+			countdown_default = if data == nil or data.countdown_default == nil then nil else data.countdown_default,
+			cta_text = if data == nil or data.cta_text == nil then nil else data.cta_text,
+			background = if data == nil or data.background == nil then nil else data.background,
+			sort_id = if data == nil or data.sort_id == nil then nil else data.sort_id,
+			claim = if data == nil or data.claim == nil then nil else data.claim,
+			claimed_cta_text = if data == nil or data.claimed_cta_text == nil then nil else data.claimed_cta_text,
+		}, _CampaignDailyDropInputDataImpl :: _CampaignDailyDropInputDataImpl)
+	end
+
+	function _CampaignDailyDropInputDataImpl.encode(self: CampaignDailyDropInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_id)
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.item_type)
+		end
+
+		if self.title ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.subtitle ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.ends_at ~= nil and self.ends_at ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.ends_at)
+		end
+
+		if self.countdown_format ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.countdown_format)
+		end
+
+		if self.countdown_default ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.countdown_default)
+		end
+
+		if self.cta_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.cta_text)
+		end
+
+		if self.background ~= nil then
+			local encoded = self.background:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.claim ~= nil then
+			local encoded = self.claim:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.claimed_cta_text ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.claimed_cta_text)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CampaignDailyDropInputDataImpl.decode(input: buffer): CampaignDailyDropInputData
+		local self = _CampaignDailyDropInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 5 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.ends_at = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.countdown_format = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.countdown_default = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cta_text = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background = messages.HeroUnitInputData_VisualAsset.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.claim = messages.CampaignDailyDropInputData_Claim.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.claimed_cta_text = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CampaignDailyDropInputDataImpl.jsonEncode(self: CampaignDailyDropInputData): any
+		local output = {}
+
+		if self.item_id ~= nil and self.item_id ~= "" then
+			output.itemId = self.item_id
+		end
+
+		if self.item_type ~= nil and self.item_type ~= "" then
+			output.itemType = self.item_type
+		end
+
+		if self.title ~= nil then
+			output.title = self.title
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle
+		end
+
+		if self.ends_at ~= nil and self.ends_at ~= 0 then
+			output.endsAt = self.ends_at
+		end
+
+		if self.countdown_format ~= nil then
+			output.countdownFormat = self.countdown_format
+		end
+
+		if self.countdown_default ~= nil then
+			output.countdownDefault = self.countdown_default
+		end
+
+		if self.cta_text ~= nil then
+			output.ctaText = self.cta_text
+		end
+
+		if self.background ~= nil then
+			output.background = self.background:jsonEncode()
+		end
+
+		if self.sort_id ~= nil then
+			output.sortId = self.sort_id
+		end
+
+		if self.claim ~= nil then
+			output.claim = self.claim:jsonEncode()
+		end
+
+		if self.claimed_cta_text ~= nil then
+			output.claimedCtaText = self.claimed_cta_text
+		end
+
+		return output
+	end
+
+	function _CampaignDailyDropInputDataImpl.jsonDecode(input: { [string]: any }): CampaignDailyDropInputData
+		local self = _CampaignDailyDropInputDataImpl.new()
+
+		if input.item_id ~= nil then
+			self.item_id = input.item_id
+		end
+
+		if input.itemId ~= nil then
+			self.item_id = input.itemId
+		end
+
+		if input.item_type ~= nil then
+			self.item_type = input.item_type
+		end
+
+		if input.itemType ~= nil then
+			self.item_type = input.itemType
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.ends_at ~= nil then
+			self.ends_at = input.ends_at
+		end
+
+		if input.endsAt ~= nil then
+			self.ends_at = input.endsAt
+		end
+
+		if input.countdown_format ~= nil then
+			self.countdown_format = input.countdown_format
+		end
+
+		if input.countdownFormat ~= nil then
+			self.countdown_format = input.countdownFormat
+		end
+
+		if input.countdown_default ~= nil then
+			self.countdown_default = input.countdown_default
+		end
+
+		if input.countdownDefault ~= nil then
+			self.countdown_default = input.countdownDefault
+		end
+
+		if input.cta_text ~= nil then
+			self.cta_text = input.cta_text
+		end
+
+		if input.ctaText ~= nil then
+			self.cta_text = input.ctaText
+		end
+
+		if input.background ~= nil then
+			self.background = messages.HeroUnitInputData_VisualAsset.jsonDecode(input.background)
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.claim ~= nil then
+			self.claim = messages.CampaignDailyDropInputData_Claim.jsonDecode(input.claim)
+		end
+
+		if input.claimed_cta_text ~= nil then
+			self.claimed_cta_text = input.claimed_cta_text
+		end
+
+		if input.claimedCtaText ~= nil then
+			self.claimed_cta_text = input.claimedCtaText
+		end
+
+		return self
+	end
+
+	_CampaignDailyDropInputDataImpl.descriptor = {
+		name = "CampaignDailyDropInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CampaignDailyDropInputData",
+	}
+
+	messages.CampaignDailyDropInputData = _CampaignDailyDropInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CampaignDailyDropInputData)
+end
+
+do
+	local _CampaignDailyDropInputData_ClaimImpl = {}
+	_CampaignDailyDropInputData_ClaimImpl.__index = _CampaignDailyDropInputData_ClaimImpl
+
+	function _CampaignDailyDropInputData_ClaimImpl.new(
+		data: _CampaignDailyDropInputData_ClaimPartialFields?
+	): CampaignDailyDropInputData_Claim
+		return setmetatable({
+			event_type = if data == nil or data.event_type == nil then "" else data.event_type,
+			subscription_product_type = if data == nil or data.subscription_product_type == nil
+				then ""
+				else data.subscription_product_type,
+			subscription_product_id = if data == nil or data.subscription_product_id == nil
+				then ""
+				else data.subscription_product_id,
+			failure_message = if data == nil or data.failure_message == nil then nil else data.failure_message,
+			success_message = if data == nil or data.success_message == nil then nil else data.success_message,
+		}, _CampaignDailyDropInputData_ClaimImpl :: _CampaignDailyDropInputData_ClaimImpl)
+	end
+
+	function _CampaignDailyDropInputData_ClaimImpl.encode(self: CampaignDailyDropInputData_Claim): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_type ~= nil and self.event_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_type)
+		end
+
+		if self.subscription_product_type ~= nil and self.subscription_product_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subscription_product_type)
+		end
+
+		if self.subscription_product_id ~= nil and self.subscription_product_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subscription_product_id)
+		end
+
+		if self.failure_message ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.failure_message)
+		end
+
+		if self.success_message ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.success_message)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _CampaignDailyDropInputData_ClaimImpl.decode(input: buffer): CampaignDailyDropInputData_Claim
+		local self = _CampaignDailyDropInputData_ClaimImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_type = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_product_type = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_product_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.failure_message = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.success_message = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _CampaignDailyDropInputData_ClaimImpl.jsonEncode(self: CampaignDailyDropInputData_Claim): any
+		local output = {}
+
+		if self.event_type ~= nil and self.event_type ~= "" then
+			output.eventType = self.event_type
+		end
+
+		if self.subscription_product_type ~= nil and self.subscription_product_type ~= "" then
+			output.subscriptionProductType = self.subscription_product_type
+		end
+
+		if self.subscription_product_id ~= nil and self.subscription_product_id ~= "" then
+			output.subscriptionProductId = self.subscription_product_id
+		end
+
+		if self.failure_message ~= nil then
+			output.failureMessage = self.failure_message
+		end
+
+		if self.success_message ~= nil then
+			output.successMessage = self.success_message
+		end
+
+		return output
+	end
+
+	function _CampaignDailyDropInputData_ClaimImpl.jsonDecode(
+		input: { [string]: any }
+	): CampaignDailyDropInputData_Claim
+		local self = _CampaignDailyDropInputData_ClaimImpl.new()
+
+		if input.event_type ~= nil then
+			self.event_type = input.event_type
+		end
+
+		if input.eventType ~= nil then
+			self.event_type = input.eventType
+		end
+
+		if input.subscription_product_type ~= nil then
+			self.subscription_product_type = input.subscription_product_type
+		end
+
+		if input.subscriptionProductType ~= nil then
+			self.subscription_product_type = input.subscriptionProductType
+		end
+
+		if input.subscription_product_id ~= nil then
+			self.subscription_product_id = input.subscription_product_id
+		end
+
+		if input.subscriptionProductId ~= nil then
+			self.subscription_product_id = input.subscriptionProductId
+		end
+
+		if input.failure_message ~= nil then
+			self.failure_message = input.failure_message
+		end
+
+		if input.failureMessage ~= nil then
+			self.failure_message = input.failureMessage
+		end
+
+		if input.success_message ~= nil then
+			self.success_message = input.success_message
+		end
+
+		if input.successMessage ~= nil then
+			self.success_message = input.successMessage
+		end
+
+		return self
+	end
+
+	_CampaignDailyDropInputData_ClaimImpl.descriptor = {
+		name = "CampaignDailyDropInputData_Claim",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Claim",
+	}
+
+	messages.CampaignDailyDropInputData_Claim = _CampaignDailyDropInputData_ClaimImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.CampaignDailyDropInputData_Claim)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -43701,6 +46166,7 @@ return {
 	UAMarketplaceCatalogItemCarouselInputData = messages.UAMarketplaceCatalogItemCarouselInputData,
 	WidgetStyleData = messages.WidgetStyleData,
 	UAMarketplaceCatalogHeroUnitInputData = messages.UAMarketplaceCatalogHeroUnitInputData,
+	UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta = messages.UAMarketplaceCatalogHeroUnitInputData_MarketplaceHeroCta,
 	UAMarketplaceCatalogFeedInputData = messages.UAMarketplaceCatalogFeedInputData,
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
@@ -43776,6 +46242,7 @@ return {
 	BuyRobuxSubscriptionSectionInputData = messages.BuyRobuxSubscriptionSectionInputData,
 	BuyRobuxLimitedTimeBonusSectionInputData = messages.BuyRobuxLimitedTimeBonusSectionInputData,
 	BuyRobuxLimitedTimeBonusCardInputData = messages.BuyRobuxLimitedTimeBonusCardInputData,
+	GroupEventsInputData = messages.GroupEventsInputData,
 	GroupForumsDiscoveryInputData = messages.GroupForumsDiscoveryInputData,
 	GroupForumsDiscoveryInputData_PostPreview = messages.GroupForumsDiscoveryInputData_PostPreview,
 	UserLibraryTargetRow = messages.UserLibraryTargetRow,
@@ -43787,6 +46254,10 @@ return {
 	StreamNotificationRowInputData_RowAction = messages.StreamNotificationRowInputData_RowAction,
 	StreamNotificationRowInputData_InteractiveItem = messages.StreamNotificationRowInputData_InteractiveItem,
 	StreamNotificationFeedInputData = messages.StreamNotificationFeedInputData,
+	CampaignDropsHeroInputData = messages.CampaignDropsHeroInputData,
+	CampaignDropsHeroInputData_Drop = messages.CampaignDropsHeroInputData_Drop,
+	CampaignDailyDropInputData = messages.CampaignDailyDropInputData,
+	CampaignDailyDropInputData_Claim = messages.CampaignDailyDropInputData_Claim,
 	PageEntryFormat = messages.PageEntryFormat,
 	BuyRobuxSectionDisplayState = messages.BuyRobuxSectionDisplayState,
 	UserLibraryTargetType = messages.UserLibraryTargetType,

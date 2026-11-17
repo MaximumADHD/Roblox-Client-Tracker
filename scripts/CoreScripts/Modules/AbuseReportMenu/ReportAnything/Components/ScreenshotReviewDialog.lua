@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local React = require(CorePackages.Packages.React)
 
 local ButtonStack = UIBlox.App.Button.ButtonStack
@@ -330,10 +329,7 @@ local function ScreenshotReviewDialog(props: Props)
 						}),
 						Description = React.createElement("TextLabel", {
 							Text = RobloxTranslator:FormatByKey("Feature.ReportAbuse.Message.ProblemNotInScene"),
-							Font = if FFlagFoundationFontFaceMigration then nil else font.Header1.Font,
-							FontFace = if FFlagFoundationFontFaceMigration
-								then normalizeFontFace(stylePalette.Tokens.Typography.HeadingSmall.Font)
-								else nil,
+							FontFace = normalizeFontFace(stylePalette.Tokens.Typography.HeadingSmall.Font),
 							LayoutOrder = 2,
 							TextColor3 = theme.TextEmphasis.Color,
 							TextTransparency = theme.TextEmphasis.Transparency,

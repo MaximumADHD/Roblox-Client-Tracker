@@ -30,6 +30,8 @@ local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFStringUGCValidationReferenceMeshIdWhitelistForIEC =
 	require(root.flags.getFStringUGCValidationReferenceMeshIdWhitelistForIEC)
+local getFFlagUGCValidateRejectUnsupportedCreatorTypes =
+	require(root.flags.getFFlagUGCValidateRejectUnsupportedCreatorTypes)
 
 local function getWhitelistIds()
 	local whitelistIds = {}
@@ -87,16 +89,38 @@ local function validateAssetCreator(
 	local token = validationContext.token
 	local universeId = validationContext.universeId
 
+	if getFFlagUGCValidateRejectUnsupportedCreatorTypes() then
+		for _, creator in restrictedUserIds do
+			if creator.creatorType == "Experience" then
+				return false,
+					{
+						`Experience creators are not supported. CreatorType: Experience, CreatorId: {tostring(
+							creator.id
+						)}.`,
+					}
+			end
+			if creator.creatorType ~= "User" and creator.creatorType ~= "Group" then
+				return false,
+					{
+						`Unsupported creator type. CreatorType: {tostring(creator.creatorType)}, CreatorId: {tostring(
+							creator.id
+						)}.`,
+					}
+			end
+		end
+	else
+		-- Unused, but indexing it throws for creator types other than User and Group, as before the flag.
+		local idsHashTable = { User = {}, Group = {} }
+		for _, restrictedUserId in ipairs(restrictedUserIds) do
+			idsHashTable[restrictedUserId.creatorType][tonumber(restrictedUserId.id)] = true
+		end
+	end
+
 	local canPublishUrl = API_URL .. if isServer then SERVER_URL else CLIENT_URL
-	local idsHashTable = { User = {}, Group = {} }
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 	local assetIdTable = {}
 	local promises = {}
 	local count = 0
-
-	for _, restrictedUserId in ipairs(restrictedUserIds) do
-		idsHashTable[restrictedUserId.creatorType][tonumber(restrictedUserId.id)] = true
-	end
 
 	-- deduplicate the assetIds
 	for assetId, _ in contentIdMap do

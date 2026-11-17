@@ -23,7 +23,6 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Foundation = require(CorePackages.Packages.Foundation)
 local normalizeFontFace = Foundation.Utility.normalizeFontFace
-local FFlagFoundationFontFaceMigration = Foundation.Utility.Flags.FoundationFontFaceMigration
 local withStyle = UIBlox.Style.withStyle
 local FullPageModal = UIBlox.App.Dialog.Modal.FullPageModal
 local Overlay = UIBlox.App.Dialog.Overlay
@@ -319,10 +318,7 @@ function BasePublishPrompt:renderMiddle(localized)
 				Disclaimer = Roact.createElement("TextLabel", {
 					Size = UDim2.fromScale(1, 1),
 					Text = localized[DISCLAIMER_TEXT],
-					Font = if FFlagFoundationFontFaceMigration then nil else disclaimerStyle.Font,
-					FontFace = if FFlagFoundationFontFaceMigration
-						then normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font)
-						else nil,
+					FontFace = normalizeFontFace(style.Tokens.Typography.CaptionSmall.Font),
 					TextSize = baseSize * disclaimerStyle.RelativeSize,
 					TextColor3 = disclaimerColor,
 					BackgroundTransparency = 1,

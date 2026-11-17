@@ -13,32 +13,36 @@ export type ActionControllerType = {
 	enabled: boolean,
 }
 
-local ActionController = {} :: ActionControllerType
+local ActionController = {} :: ActionControllerType;
 (ActionController :: any).__index = ActionController
 
 function ActionController.new()
 	local self = setmetatable({}, ActionController)
 
 	self.enabled = true
-
 	return self
 end
 
 function ActionController.initializeActions(data)
-	data.connectionUtil:trackConnection(CONNECTIONS.SERVER_AUTHORITY_CHANGED,
+	data.connectionUtil:trackConnection(
+		CONNECTIONS.SERVER_AUTHORITY_CHANGED,
 		data.eventBus:subscribe(CONNECTIONS.SERVER_AUTHORITY_CHANGED):Connect(function()
 			data.controlModule.actions = {}
 		end)
 	)
 
-	if data.controlModule.actions.MoveAction and data.controlModule.actions.JumpAction then return end
-	if not data.player then return end
+	if data.controlModule.actions.MoveAction and data.controlModule.actions.JumpAction then
+		return
+	end
+	if not data.engineInterface.player then
+		return
+	end
 
 	-- may fail because the player's InputContexts may not be immediately available when the player is added
 	pcall(function()
 		local contextFolder = script.Parent.Parent.InputContexts
 		if data.isServerAuthority then
-			contextFolder = data.player.InputContexts
+			contextFolder = data.engineInterface.player.InputContexts
 		end
 		local characterContext = contextFolder.CharacterContext
 

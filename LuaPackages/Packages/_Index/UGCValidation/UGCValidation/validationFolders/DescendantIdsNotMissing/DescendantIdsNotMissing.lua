@@ -6,8 +6,10 @@ local Constants = require(root.Constants)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
+local UnpublishedDependencies = require(root.util.UnpublishedDependencies)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 
+local getFFlagUGCValidateAllowAnimationVersionPins = require(root.flags.getFFlagUGCValidateAllowAnimationVersionPins)
 local getFFlagUGCValidateCheckDescendantIdsLoadable = require(root.flags.getFFlagUGCValidateCheckDescendantIdsLoadable)
 local getFFlagUGCValidateVersionedContentIds = require(root.flags.getFFlagUGCValidateVersionedContentIds)
 
@@ -131,27 +133,46 @@ DescendantIdsNotMissing.run = function(reporter: Types.ValidationReporter, data:
 		end
 	end
 
-	-- Pins are limited until validation is ready for versions. Meshes and images can only pin version 1, because metadata
-	-- reads, like DescendantIdsAllowed's moderation check, still see an asset's latest version rather than the pinned one.
-	-- Animations can't pin at all, because playback ignores the pin and plays the latest version, so validation would
-	-- check a different clip than players see.
-	if getFFlagUGCValidateVersionedContentIds() then
+	-- Pins are limited until validation is ready for versions. A pin must name the asset's latest version: metadata reads,
+	-- like DescendantIdsAllowed's moderation check, still see the latest version rather than the pinned one, and a newer
+	-- version doesn't exist yet. Only validation on RCC can read the latest version, and every upload validates there, so
+	-- validation elsewhere leaves pins to it. Animations can't pin at all until FFlagUGCValidateAllowAnimationVersionPins
+	-- is on, because playback ignores the pin and plays the latest version, so validation would check a different clip
+	-- than players see.
+	local isBackend = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
+	if getFFlagUGCValidateVersionedContentIds() and isBackend then
+		local latestVersionNumbers: { [string]: number } = {}
 		for assetId, entries in data.contentIds do
 			for _, entry in entries do
-				if entry.version == nil then
+				local version = entry.version
+				if version == nil then
 					continue
 				end
 
-				local params = {
+				local params: { [string]: string } = {
 					InstanceFullName = entry.instance:GetFullName(),
 					FieldName = entry.fieldName,
-					Version = tostring(entry.version),
+					Version = tostring(version),
 					AssetId = assetId,
 				}
-				if entry.fieldName == "AnimationId" then
+				if entry.fieldName == "AnimationId" and not getFFlagUGCValidateAllowAnimationVersionPins() then
 					reporter:fail(ErrorSourceStrings.Keys.DescendantIdAnimationVersionNotSupported, params)
-				elseif entry.version ~= 1 then
-					reporter:fail(ErrorSourceStrings.Keys.DescendantIdVersionNotSupported, params)
+					continue
+				end
+
+				local latestVersionNumber = latestVersionNumbers[assetId]
+				if latestVersionNumber == nil then
+					local success, result = pcall(UnpublishedDependencies.getLatestVersionNumber, assetId)
+					if not success then
+						reporter:fetchError(`Failed to read asset {assetId}: {result}`)
+					end
+					latestVersionNumber = result
+					latestVersionNumbers[assetId] = result
+				end
+
+				if version ~= latestVersionNumber then
+					params.LatestVersion = tostring(latestVersionNumber)
+					reporter:fail(ErrorSourceStrings.Keys.DescendantIdVersionNotLatest, params)
 				end
 			end
 		end
@@ -160,7 +181,6 @@ DescendantIdsNotMissing.run = function(reporter: Types.ValidationReporter, data:
 	-- Every referenced asset must be loadable. The data layer already deduped by asset id.
 	-- This check is a bit redundant and maybe doesnt belong here
 	-- This is carried over for legacy parity during migration, and can be audited later.
-	local isBackend = data.consumerConfig.validationEnv == ValidationEnums.ValidationEnv.Backend
 	if isBackend or getFFlagUGCValidateCheckDescendantIdsLoadable() then
 		if getFFlagUGCValidateVersionedContentIds() then
 			-- One check per distinct (asset id, version) reference, so a pinned version is checked at that version.

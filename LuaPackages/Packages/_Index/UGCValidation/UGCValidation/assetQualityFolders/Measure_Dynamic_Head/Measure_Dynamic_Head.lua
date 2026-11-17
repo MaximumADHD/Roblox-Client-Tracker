@@ -6,11 +6,20 @@ local getFIntUGCValidationDynamicHeadMinimumQualityPercent =
 	require(root.flags.getFIntUGCValidationDynamicHeadMinimumQualityPercent)
 
 local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidateAQScoreWarnings)
+local getFFlagUGCValidateAQDisableLegacyDynamicHead = require(root.flags.getFFlagUGCValidateAQDisableLegacyDynamicHead)
+local getFFlagUGCValidationShadowIsDynamicHead = require(root.flags.getFFlagUGCValidationShadowIsDynamicHead)
 
 local Measure_Dynamic_Head = {}
 
 Measure_Dynamic_Head.categories = { ValidationEnums.UploadCategory.DYNAMIC_HEAD }
-Measure_Dynamic_Head.shadowFlag = require(root.flags.getFFlagUGCValidationShadowIsDynamicHead)
+-- FFlagUGCValidateAQDisableLegacyDynamicHead turns this check off completely, overriding the shadow flag,
+-- so it can be retired once Measure_Dynamic_Head_ML_Hybrid replaces it.
+Measure_Dynamic_Head.fflag = function()
+	return not getFFlagUGCValidateAQDisableLegacyDynamicHead()
+end
+Measure_Dynamic_Head.shadowFlag = function()
+	return getFFlagUGCValidationShadowIsDynamicHead() and not getFFlagUGCValidateAQDisableLegacyDynamicHead()
+end
 
 Measure_Dynamic_Head.knownAqsUserErrors = {
 	INVALID_LANDMARKS = ErrorSourceStrings.Keys.DynamicHeadCageMisaligned,

@@ -3,8 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-
 export type PluginPopoverParentInfo = {
 	id: string?,
 	ready: boolean,
@@ -20,8 +18,7 @@ local DEFAULT: PluginPopoverParentInfo = {
 	plus a readiness flag so nested popovers can wait until the parent panel has
 	been fully reparented into its QWidget.
 ]]
-local PluginPopoverParentContext =
-	React.createContext(if Flags.FoundationPopoverPluginOverlayMeasurement then DEFAULT else nil :: never)
+local PluginPopoverParentContext = React.createContext(DEFAULT)
 PluginPopoverParentContext.displayName = "PluginPopoverParentContext"
 
 return PluginPopoverParentContext

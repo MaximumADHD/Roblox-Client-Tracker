@@ -1,13 +1,15 @@
 --!nonstrict
--- Covers the `FFlagExpChatEnableFriendsTab` host wiring in
--- `ChatChromeIntegration.lua`: whether the chat-open capability is published on
--- the registered integration, that `activated` behaves identically in both flag
--- states, and how `ensureOpenChat` sequences the handoff.
+-- Covers the Friends-tab host wiring in `ChatChromeIntegration.lua`: the
+-- chat-open capability published on the registered integration, that
+-- `activated` does not reserve the chat session, and how `ensureOpenChat`
+-- sequences the handoff.
 --
 -- Also covers the `sideSheetPlacement` entrypoint-reorg gate, which moves with the
--- Friends-tab *visibility* flag (`FFlagExpChatCanShowFriendsTab`), not `F`: the
--- chat button is only relocated to the Unibar once the tab is actually shown, so
--- the holdout (F on, CanShow off) keeps the legacy hidden-button (`None`) layout.
+-- Friends-tab *visibility* flag (`FFlagExpChatCanShowFriendsTab`): the chat button
+-- is only relocated to the Unibar once the tab is actually shown, so the holdout
+-- (CanShow off) keeps the legacy hidden-button (`None`) layout.
+-- `FFlagSideSheetHeaderChatIcon` places the button in the header on its own and is
+-- driven through the mocked `SharedFlags` table, same as the reorg gate.
 --
 -- Strategy mirrors `ShopEntrypoint.test.lua`: the integration does all of its
 -- work at require time, so each scenario re-requires it under
@@ -15,11 +17,12 @@
 -- the top level so they survive isolation and so the props captured by the
 -- fake `ChromeService:register` stay reachable from the assertions.
 --
--- `FFlagExpChatEnableFriendsTab` is read from the mocked `SharedFlags` table
+-- `FFlagSideSheetHeaderChatIcon` is read from the mocked `SharedFlags` table
 -- rather than the real flag, so these tests drive both branches explicitly and
--- do not need an `if FFlagX` sweep guard. Flags the module still reads for
--- real (`ExpChatUnibarAvailabilityRefactor`, `ChatIntegrationFixShortcut`) are
--- swept by the runner, so every collaborator they reach is mocked to a no-op.
+-- do not need an `if FFlagX` sweep guard.
+-- Flags the module still reads for real (`ExpChatUnibarAvailabilityRefactor`,
+-- `ChatIntegrationFixShortcut`) are swept by the runner, so every collaborator
+-- they reach is mocked to a no-op.
 
 local Chrome = script:FindFirstAncestor("Chrome")
 
@@ -34,6 +37,7 @@ local expect = JestGlobals.expect
 local jest = JestGlobals.jest
 local beforeEach = JestGlobals.beforeEach
 local afterEach = JestGlobals.afterEach
+local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 local GameSettings = UserSettings().GameSettings
 local originalChatVisible = GameSettings.ChatVisible
@@ -76,8 +80,11 @@ local AvailabilitySignal = {
 	Unavailable = "Unavailable",
 }
 
+-- The availability a newly registered integration starts with.
+local mockInitialAvailability = AvailabilitySignal.Available
+
 local function createFakeAvailability()
-	local state = AvailabilitySignal.Available
+	local state = mockInitialAvailability
 	return {
 		available = function(_self)
 			state = AvailabilitySignal.Available
@@ -205,10 +212,11 @@ jest.mock(Chrome.ChromeShared.Utility.FocusSelectExpChat, function()
 	return focusChatSpy
 end)
 
+local mockIsSmallTouchScreen = false
 jest.mock(Chrome.ChromeShared.Service.ViewportUtil, function()
 	return {
 		isSmallTouchScreen = function()
-			return false
+			return mockIsSmallTouchScreen
 		end,
 	}
 end)
@@ -350,13 +358,17 @@ jest.mock(CorePackages.Workspace.Packages.ExpChat, function()
 	}
 end)
 
+local mockFriendsUnreadCount = 0
+local clearFriendsDisplayCountSpy = jest.fn(function()
+	mockFriendsUnreadCount = 0
+end)
 jest.mock(CorePackages.Workspace.Packages.FriendsChat.GetFriendsChatIconUnreadStore, function()
 	return function()
 		return {
 			getUnreadCountToDisplay = function()
-				return 0
+				return mockFriendsUnreadCount
 			end,
-			clearDisplayCount = function() end,
+			clearDisplayCount = clearFriendsDisplayCountSpy,
 		}
 	end
 end)
@@ -374,6 +386,7 @@ end)
 -- inline instead of via shouldRenderTextChannelInDefaultWindow, revisit this mock.
 local mockUniverseChatTabsEnabled = false
 local mockShouldRenderInDefaultWindow = true
+local fireClientAnalyticsSpy = jest.fn()
 jest.mock(CorePackages.Workspace.Packages.ExpChatShared, function()
 	return {
 		Flags = {
@@ -387,6 +400,39 @@ jest.mock(CorePackages.Workspace.Packages.ExpChatShared, function()
 		shouldRenderTextChannelInDefaultWindow = function(): boolean
 			return mockShouldRenderInDefaultWindow
 		end,
+		Analytics = {
+			FireClientAnalyticsWithEventName = function(eventName: string, args: { [string]: string })
+				fireClientAnalyticsSpy(eventName, args)
+			end,
+		},
+	}
+end)
+
+local mockJoinIntentRead: { result: string, intent: { [string]: unknown }? } = { result = "none" }
+local readJoinIntentSpy = jest.fn(function(_placeId: number)
+	return mockJoinIntentRead
+end)
+local function handleDeeplinkTapStub() end
+local mockExpChatJoinIntent = {
+	FStringOpenChatOnJoinNotificationTypes = "",
+	read = function(placeId: number)
+		return readJoinIntentSpy(placeId)
+	end,
+	handleDeeplinkTap = handleDeeplinkTapStub,
+}
+jest.mock(CorePackages.Workspace.Packages.ExpChatJoinIntent, function()
+	return mockExpChatJoinIntent
+end)
+
+local connectDeeplinkTapListenerSpy = jest.fn()
+jest.mock(CorePackages.Workspace.Packages.NotificationsCommon, function()
+	return {
+		DeeplinkTapListeners = {
+			connect = function(listener)
+				connectDeeplinkTapListenerSpy(listener)
+				return function() end
+			end,
+		},
 	}
 end)
 
@@ -431,8 +477,8 @@ local mockSharedFlags = {
 	FFlagExpChatInitializeWindowFromGameSettings = false,
 	FFlagChromeActivatedMappedSignal = false,
 	FFlagRemoveFriendsChatUnibarEntrypoints = false,
-	FFlagExpChatEnableFriendsTab = false,
 	FFlagExpChatCanShowFriendsTab = false,
+	FFlagSideSheetHeaderChatIcon = false,
 	FFlagExpChatPerfTracking = false,
 	FFlagExpChatHistoricalMessagesUnibarUnread = false,
 	FFlagExpChatContinuousListeningChatIconDot = false,
@@ -441,11 +487,8 @@ jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
 	return mockSharedFlags
 end)
 
--- Re-requires the integration with the Friends-tab flag in the given state and
--- returns the module's exported integration.
-local function loadIntegration(friendsTabEnabled: boolean): any
-	mockSharedFlags.FFlagExpChatEnableFriendsTab = friendsTabEnabled
-
+-- Re-requires the integration and returns the module's exported integration.
+local function loadIntegration(): any
 	local integration
 	jest.isolateModules(function()
 		integration = require(script.Parent.ChatChromeIntegration)
@@ -524,7 +567,6 @@ end
 -- Loads the integration under the game override so the badge handler binds to
 -- the fake TextChatService. Mirrors `loadIntegration`'s post-load priming.
 local function loadIntegrationForBadge(skipVisibilityObservation: boolean?): any
-	mockSharedFlags.FFlagExpChatEnableFriendsTab = false
 	table.clear(messageReceivedHandlers)
 	table.clear(universeMessageReceivedHandlers)
 	table.clear(detachedEffects)
@@ -570,8 +612,8 @@ describe("ChatChromeIntegration chat-open capability", function()
 		mockExperiments.isInExperienceUIVREnabled = false
 		mockSharedFlags.FFlagEnableConsoleExpControls = false
 		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = false
-		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
 		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
+		mockSharedFlags.FFlagSideSheetHeaderChatIcon = false
 		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
 		initialMappedVisibility = nil
 		chatSelectorVisibilitySetBeforeRegister = nil
@@ -587,7 +629,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 			GameSettings.ChatVisible = false
 			chatWindowVisible = true
 
-			loadIntegration(false)
+			loadIntegration()
 
 			expect(initialMappedVisibility).toBe(false)
 			expect(chatSelectorVisibilitySetBeforeRegister).toBe(false)
@@ -597,7 +639,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 			GameSettings.ChatVisible = false
 			chatWindowVisible = true
 
-			loadIntegration(false)
+			loadIntegration()
 
 			expect(initialMappedVisibility).toBe(true)
 			expect(chatSelectorVisibilitySetBeforeRegister).toBeNil()
@@ -605,8 +647,8 @@ describe("ChatChromeIntegration chat-open capability", function()
 	end)
 
 	describe("wiring", function()
-		it("SHOULD publish the chat-open capability WHEN the Friends tab is enabled", function()
-			local integration = loadIntegration(true)
+		it("SHOULD publish the chat-open capability", function()
+			local integration = loadIntegration()
 
 			expect(integration.chatOpenCapability).never.toBeNil()
 			expect(integration.chatOpenCapability.isAvailable()).toBe(true)
@@ -615,35 +657,17 @@ describe("ChatChromeIntegration chat-open capability", function()
 		-- `ensureOpenChat` no longer prechecks availability, so this is the only
 		-- signal the caller has before starting a handoff.
 		it("SHOULD report the capability unavailable WHEN chat availability is lost", function()
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			integration.availability:unavailable()
 
 			expect(integration.chatOpenCapability.isAvailable()).toBe(false)
 		end)
 
-		it("SHOULD NOT publish the capability WHEN the Friends tab is disabled", function()
-			local integration = loadIntegration(false)
-
-			expect(integration.chatOpenCapability).toBeNil()
-		end)
-
-		-- The unibar keeps its pre-capability behavior in both flag states, so
-		-- enabling the Friends tab cannot change how the chat button behaves.
-		it("SHOULD reveal chat without reserving the session WHEN the Friends tab is enabled", function()
+		-- Only the Friends Chat handoff reserves the session; the unibar button
+		-- keeps its pre-capability behavior.
+		it("SHOULD reveal chat without reserving the session WHEN the chat button is activated", function()
 			mockSharedFlags.FFlagEnableConsoleExpControls = true
-			local integration = loadIntegration(true)
-			appChatModalVisible = true
-
-			lastRegisterProps.activated(integration)
-			closeRobloxMenu()
-
-			expect(reserveSpy).never.toHaveBeenCalled()
-			expect(callOrder).toEqual({ "hideAppChat", "showChat", "focusChat" })
-		end)
-
-		it("SHOULD reveal chat without reserving the session WHEN the Friends tab is disabled", function()
-			mockSharedFlags.FFlagEnableConsoleExpControls = true
-			local integration = loadIntegration(false)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 
 			lastRegisterProps.activated(integration)
@@ -664,7 +688,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 		it("SHOULD hide AppChat without toggling or focusing WHEN chat is already visible", function()
 			mockSharedFlags.FFlagEnableConsoleExpControls = true
 			chatWindowVisible = true
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 
 			integration.chatOpenCapability.ensureOpenChat(alwaysCurrent)
@@ -674,7 +698,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 
 		it("SHOULD hide AppChat before revealing and focusing chat", function()
 			mockSharedFlags.FFlagEnableConsoleExpControls = true
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 
 			integration.chatOpenCapability.ensureOpenChat(alwaysCurrent)
@@ -686,7 +710,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 		it("SHOULD reveal chat WHEN the Roblox menu is already closed", function()
 			mockSharedFlags.FFlagEnableConsoleExpControls = true
 			dismissMenuImmediately = true
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 
 			integration.chatOpenCapability.ensureOpenChat(alwaysCurrent)
@@ -697,7 +721,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 		it("SHOULD bypass menu dismissal for the spatial direct-open path", function()
 			mockExperiments.isInExperienceUIVREnabled = true
 			isSpatialValue = true
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 
 			integration.chatOpenCapability.ensureOpenChat(alwaysCurrent)
@@ -707,7 +731,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 		end)
 
 		it("SHOULD skip revealing WHEN availability is lost during menu dismissal", function()
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 
 			integration.chatOpenCapability.ensureOpenChat(alwaysCurrent)
@@ -721,7 +745,7 @@ describe("ChatChromeIntegration chat-open capability", function()
 		-- then would surface the earlier conversation instead of the one the
 		-- user last asked for.
 		it("SHOULD skip revealing WHEN the request is superseded during menu dismissal", function()
-			local integration = loadIntegration(true)
+			local integration = loadIntegration()
 			appChatModalVisible = true
 			local isCurrent = true
 
@@ -736,22 +760,51 @@ describe("ChatChromeIntegration chat-open capability", function()
 	end)
 
 	describe("side sheet placement", function()
-		-- The reorg gate follows CanShow, not F: the chat button is only relocated
-		-- to the Unibar once the Friends tab is actually shown. RemoveEntrypoints is
-		-- the arm-constant precondition; CanShow is what flips placement,
-		-- so the holdout (F on, CanShow off) keeps the legacy hidden-button layout.
+		-- The chat button is only relocated to the Unibar once the Friends tab is
+		-- actually shown. RemoveEntrypoints is the arm-constant precondition; CanShow
+		-- is what flips placement, so the holdout (CanShow off) keeps the legacy
+		-- hidden-button layout. The header flag places the button in the header on its own.
 		it("SHOULD keep the chat button hidden (None) for the holdout WHEN CanShow is off", function()
+			mockSharedFlags.FFlagSideSheetHeaderChatIcon = false
 			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
 			mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
-			loadIntegration(true)
+			loadIntegration()
 
 			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.None)
 		end)
 
+		it("SHOULD keep the chat button out of the header WHEN friends chat entrypoints stay in the menu", function()
+			mockSharedFlags.FFlagSideSheetHeaderChatIcon = false
+			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
+			mockSharedFlags.FFlagExpChatCanShowFriendsTab = true
+			loadIntegration()
+
+			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.None)
+		end)
+
+		it("SHOULD place the chat button in the header for the holdout WHEN the header flag is on", function()
+			mockSharedFlags.FFlagSideSheetHeaderChatIcon = true
+			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
+			mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
+			loadIntegration()
+
+			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.Unibar)
+		end)
+
+		it("SHOULD place the chat button in the header WHEN friends chat entrypoints stay in the menu", function()
+			mockSharedFlags.FFlagSideSheetHeaderChatIcon = true
+			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
+			mockSharedFlags.FFlagExpChatCanShowFriendsTab = true
+			loadIntegration()
+
+			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.Unibar)
+		end)
+
 		it("SHOULD relocate the chat button to the Unibar WHEN CanShow is on", function()
+			mockSharedFlags.FFlagSideSheetHeaderChatIcon = false
 			mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = true
 			mockSharedFlags.FFlagExpChatCanShowFriendsTab = true
-			loadIntegration(true)
+			loadIntegration()
 
 			expect(lastRegisterProps.sideSheetPlacement).toBe(SideSheetPlacement.Unibar)
 		end)
@@ -774,8 +827,9 @@ describe("ChatChromeIntegration unibar badge gating", function()
 		table.clear(universeMessageReceivedHandlers)
 		notificationFireCountSpy:mockClear()
 		notificationClearSpy:mockClear()
+		mockFriendsUnreadCount = 0
+		clearFriendsDisplayCountSpy:mockClear()
 		mockSharedFlags.FFlagEnableConsoleExpControls = false
-		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
 		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
 		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
 	end)
@@ -828,6 +882,32 @@ describe("ChatChromeIntegration unibar badge gating", function()
 
 		expect(notificationFireCountSpy).toHaveBeenCalledWith(1)
 	end)
+
+	it("SHOULD add Friends Chat unread to the badge count", function()
+		mockFriendsUnreadCount = 2
+		loadIntegrationForBadge()
+
+		flushDetachedEffects()
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(2)
+
+		fireMessageReceived(A_CHANNEL)
+		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(3)
+	end)
+
+	it("SHOULD clear the badge and the Friends Chat display count WHEN the window is opened", function()
+		mockFriendsUnreadCount = 2
+		loadIntegrationForBadge()
+		fireMessageReceived(A_CHANNEL)
+		notificationFireCountSpy:mockClear()
+
+		assert(updateChatVisibility ~= nil, "expected the integration to observe chat visibility")
+		chatWindowVisible = true
+		updateChatVisibility(true)
+
+		expect(clearFriendsDisplayCountSpy).toHaveBeenCalledTimes(1)
+		expect(notificationClearSpy).toHaveBeenCalled()
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+	end)
 end)
 
 describe("ChatChromeIntegration historical unread badge", function()
@@ -842,13 +922,13 @@ describe("ChatChromeIntegration historical unread badge", function()
 		mockShouldSkipHistorical = false
 		mockHistoricalWindowMessageCount = 0
 		mockHistoricalCountSignalExists = true
+		mockFriendsUnreadCount = 0
 		table.clear(messageReceivedHandlers)
 		table.clear(universeMessageReceivedHandlers)
 		table.clear(detachedEffects)
 		notificationFireCountSpy:mockClear()
 		notificationClearSpy:mockClear()
 		mockSharedFlags.FFlagEnableConsoleExpControls = false
-		mockSharedFlags.FFlagExpChatEnableFriendsTab = false
 		mockSharedFlags.FFlagExpChatCanShowFriendsTab = false
 		mockSharedFlags.FFlagRemoveFriendsChatUnibarEntrypoints = false
 		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = false
@@ -891,9 +971,11 @@ describe("ChatChromeIntegration historical unread badge", function()
 		chatWindowVisible = true
 		updateChatVisibility(true)
 		notificationFireCountSpy:mockClear()
+		notificationClearSpy:mockClear()
 		flushDetachedEffects()
 
-		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(0)
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+		expect(notificationClearSpy).toHaveBeenCalled()
 	end)
 
 	it("SHOULD badge history that arrives after eviction dropped acknowledged history", function()
@@ -924,10 +1006,14 @@ describe("ChatChromeIntegration historical unread badge", function()
 		mockHistoricalWindowMessageCount = 3
 		flushDetachedEffects()
 
-		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(0)
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+		expect(notificationClearSpy).toHaveBeenCalled()
 	end)
 
-	it("SHOULD badge replayed history WHEN only the startup preference says the window is open", function()
+	-- The badge stays clear while the window is visible, but history is not
+	-- acknowledged until visibility is actually observed; the next test proves
+	-- it resurfaces once the window reports itself closed.
+	it("SHOULD keep the badge clear WHEN only the startup preference says the window is open", function()
 		mockSharedFlags.FFlagExpChatHistoricalMessagesUnibarUnread = true
 		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = true
 		GameSettings.ChatVisible = true
@@ -937,7 +1023,8 @@ describe("ChatChromeIntegration historical unread badge", function()
 		mockHistoricalWindowMessageCount = 3
 		flushDetachedEffects()
 
-		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(3)
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+		expect(notificationClearSpy).toHaveBeenCalled()
 	end)
 
 	it("SHOULD badge replayed history WHEN the window reports itself closed after replay", function()
@@ -979,7 +1066,8 @@ describe("ChatChromeIntegration historical unread badge", function()
 
 		flushDetachedEffects()
 
-		expect(notificationFireCountSpy).toHaveBeenLastCalledWith(0)
+		expect(notificationFireCountSpy).never.toHaveBeenCalled()
+		expect(notificationClearSpy).toHaveBeenCalled()
 	end)
 
 	it("SHOULD NOT read the stored historical count WHEN the flag is off", function()
@@ -1031,7 +1119,7 @@ describe("ChatChromeIntegration chat icon listening dot", function()
 	end)
 
 	it("SHOULD render only the chat icon WHEN the flag is off, even while listening", function()
-		loadIntegration(false)
+		loadIntegration()
 		setMockIsListening(true)
 
 		local result = renderChatIcon()
@@ -1043,7 +1131,7 @@ describe("ChatChromeIntegration chat icon listening dot", function()
 
 	it("SHOULD show the dot only while listening WHEN the flag is on", function()
 		mockSharedFlags.FFlagExpChatContinuousListeningChatIconDot = true
-		loadIntegration(false)
+		loadIntegration()
 
 		local result = renderChatIcon()
 		expect(findByName(result, "ChatIcon")).never.toBeNil()
@@ -1061,5 +1149,268 @@ describe("ChatChromeIntegration chat icon listening dot", function()
 		end)
 		expect(findByName(result, "ListeningDot").Visible).toBe(false)
 		result.unmount()
+	end)
+end)
+
+describe("ChatChromeIntegration chat-open after a notification join", function()
+	local JOIN_PLACE_ID = 123
+	local INTENT = {
+		version = 1,
+		source = "stream",
+		notificationType = "ReengageChatters",
+		notificationId = "notification-1",
+		chatTarget = "RBXGeneral",
+		placeId = JOIN_PLACE_ID,
+		createdAt = 1000,
+	}
+	local mockCanChat = true
+	local mockIsLoaded = true
+	local mockChatWindowConfiguration: { Enabled: boolean }? = nil
+	local loadedEvent = Instance.new("BindableEvent")
+
+	-- Startup reads the local player, whether they can chat, the place ID, whether the game has
+	-- loaded and the chat window configuration through `game`, so the module loads with those
+	-- faked. The startup coroutine then runs to completion during the load, unless the game
+	-- hasn't loaded yet.
+	local fakeServices = {
+		Players = {
+			LocalPlayer = { UserId = 1 },
+		},
+		RunService = {
+			IsStudio = function()
+				return false
+			end,
+		},
+		Chat = {
+			CanUserChatAsync = function()
+				return mockCanChat
+			end,
+		},
+		TextChatService = {
+			MessageReceived = captureSignal({}),
+			UniverseChatMessageReceived = captureSignal({}),
+			FindFirstChildOfClass = function(_self, className: string)
+				return if className == "ChatWindowConfiguration" then mockChatWindowConfiguration else nil
+			end,
+		},
+	}
+	local joinGame = setmetatable({
+		PlaceId = JOIN_PLACE_ID,
+		Loaded = loadedEvent.Event,
+		IsLoaded = function(_self)
+			return mockIsLoaded
+		end,
+		GetService = function(_self, serviceName: string)
+			return fakeServices[serviceName] or rawGame:GetService(serviceName)
+		end,
+	}, {
+		__index = function(_, key)
+			local value = rawGame[key]
+			if type(value) == "function" then
+				return function(_, ...)
+					return value(rawGame, ...)
+				end
+			end
+			return value
+		end,
+	})
+
+	local function loadIntegrationAfterJoin()
+		local moduleFunction = debug["loadmodule"](script.Parent.ChatChromeIntegration)
+		local environment = setmetatable({
+			require = require,
+			game = joinGame,
+		}, {
+			__index = getfenv(moduleFunction),
+		})
+		-- As in loadIntegrationForBadge: setfenv's type doesn't accept a table with a metatable.
+		setfenv(moduleFunction, environment :: any)
+		return moduleFunction()
+	end
+
+	beforeEach(function()
+		lastRegisterProps = nil
+		lastIntegration = nil
+		chatWindowVisible = false
+		mockCanChat = true
+		mockIsLoaded = true
+		mockChatWindowConfiguration = { Enabled = true }
+		mockIsSmallTouchScreen = false
+		mockInitialAvailability = AvailabilitySignal.Available
+		mockJoinIntentRead = { result = "accepted", intent = INTENT }
+		mockExpChatJoinIntent.FStringOpenChatOnJoinNotificationTypes = "ReengageChatters"
+		mockSharedFlags.FFlagExpChatInitializeWindowFromGameSettings = false
+		GameSettings.ChatVisible = false
+		setVisibleSpy:mockClear()
+		readJoinIntentSpy:mockClear()
+		connectDeeplinkTapListenerSpy:mockClear()
+		fireClientAnalyticsSpy:mockClear()
+	end)
+
+	afterEach(function()
+		mockExpChatJoinIntent.FStringOpenChatOnJoinNotificationTypes = ""
+		mockInitialAvailability = AvailabilitySignal.Available
+		mockIsSmallTouchScreen = false
+		GameSettings.ChatVisible = originalChatVisible
+	end)
+
+	it("SHOULD open chat and keep it open through ExpChat's mount WHEN the intent is for this place", function()
+		loadIntegrationAfterJoin()
+
+		expect(readJoinIntentSpy).toHaveBeenCalledWith(JOIN_PLACE_ID)
+		expect(setVisibleSpy).toHaveBeenLastCalledWith(true)
+		expect(GameSettings.ChatVisible).toBe(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith("joinIntentChatOpen", {
+			result = "opened",
+			notificationType = "ReengageChatters",
+			notificationId = "notification-1",
+			chatTarget = "RBXGeneral",
+			source = "stream",
+		})
+	end)
+
+	it("SHOULD connect chat's listener to notification deeplink taps", function()
+		loadIntegrationAfterJoin()
+
+		expect(connectDeeplinkTapListenerSpy).toHaveBeenCalledWith(handleDeeplinkTapStub)
+	end)
+
+	it("SHOULD NOT open chat WHEN the player can't chat", function()
+		mockCanChat = false
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "cannotChat" })
+		)
+	end)
+
+	it("SHOULD NOT toggle chat WHEN it is already open", function()
+		GameSettings.ChatVisible = true
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).toHaveBeenCalledTimes(1)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "alreadyOpen" })
+		)
+	end)
+
+	it("SHOULD NOT open chat WHEN chat is unavailable", function()
+		mockInitialAvailability = AvailabilitySignal.Unavailable
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "chatUnavailable" })
+		)
+	end)
+
+	it("SHOULD NOT open chat WHEN the experience turns off the chat window", function()
+		mockChatWindowConfiguration = { Enabled = false }
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(GameSettings.ChatVisible).toBe(false)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledTimes(1)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "chatWindowDisabled" })
+		)
+	end)
+
+	it("SHOULD open chat WHEN the experience has no chat window configuration", function()
+		mockChatWindowConfiguration = nil
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).toHaveBeenLastCalledWith(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "opened" })
+		)
+	end)
+
+	it("SHOULD open chat on a small touch screen, where the load step closes it", function()
+		mockIsSmallTouchScreen = true
+		GameSettings.ChatVisible = true
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).toHaveBeenCalledWith(false)
+		expect(setVisibleSpy).toHaveBeenLastCalledWith(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "opened" })
+		)
+	end)
+
+	it("SHOULD wait for the game to load before deciding", function()
+		mockIsLoaded = false
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(fireClientAnalyticsSpy).never.toHaveBeenCalled()
+
+		mockIsLoaded = true
+		loadedEvent:Fire()
+		waitForEvents()
+
+		expect(setVisibleSpy).toHaveBeenLastCalledWith(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "opened" })
+		)
+	end)
+
+	it("SHOULD report a rejected intent without waiting for the game to load", function()
+		mockIsLoaded = false
+		mockJoinIntentRead = { result = "expired", intent = INTENT }
+
+		loadIntegrationAfterJoin()
+
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "expired" })
+		)
+	end)
+
+	it("SHOULD only report a rejected intent", function()
+		mockJoinIntentRead = { result = "expired", intent = INTENT }
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(fireClientAnalyticsSpy).toHaveBeenCalledWith(
+			"joinIntentChatOpen",
+			expect.objectContaining({ result = "expired", notificationType = "ReengageChatters" })
+		)
+	end)
+
+	it("SHOULD do nothing WHEN there's no intent", function()
+		mockJoinIntentRead = { result = "none" }
+
+		loadIntegrationAfterJoin()
+
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(fireClientAnalyticsSpy).never.toHaveBeenCalled()
+	end)
+
+	it("SHOULD neither read an intent nor connect a listener WHEN the FString is empty", function()
+		mockExpChatJoinIntent.FStringOpenChatOnJoinNotificationTypes = ""
+
+		loadIntegrationAfterJoin()
+
+		expect(readJoinIntentSpy).never.toHaveBeenCalled()
+		expect(connectDeeplinkTapListenerSpy).never.toHaveBeenCalled()
+		expect(setVisibleSpy).never.toHaveBeenCalledWith(true)
+		expect(fireClientAnalyticsSpy).never.toHaveBeenCalled()
 	end)
 end)

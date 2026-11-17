@@ -10,7 +10,7 @@ export type ControlModule = {
 	Enabled: boolean,
 }
 
-local PlayerModuleAPI : PlayerModule = {
+local PlayerModuleAPI: PlayerModule = {
 	ControlModule = {
 		Enabled = true,
 	},

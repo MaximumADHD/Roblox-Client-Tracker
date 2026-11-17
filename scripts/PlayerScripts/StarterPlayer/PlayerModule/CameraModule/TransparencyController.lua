@@ -17,12 +17,13 @@ local HIDE_IN_FIRST_PERSON_CLASSES = {
 	"Fire",
 	"Smoke",
 	"Sparkles",
-	"Explosion"
+	"Explosion",
 }
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
 
---[[ The Module ]]--
+--[[ The Module ]]
+--
 local TransparencyController = {}
 TransparencyController.__index = TransparencyController
 
@@ -41,11 +42,12 @@ function TransparencyController.new()
 	return self
 end
 
-
 function TransparencyController:HasToolAncestor(object: Instance)
-	if object.Parent == nil then return false end
+	if object.Parent == nil then
+		return false
+	end
 	assert(object.Parent, "")
-	return object.Parent:IsA('Tool') or self:HasToolAncestor(object.Parent)
+	return object.Parent:IsA("Tool") or self:HasToolAncestor(object.Parent)
 end
 
 function TransparencyController:IsValidPartToModify(part: BasePart)
@@ -56,7 +58,6 @@ function TransparencyController:IsValidPartToModify(part: BasePart)
 	end
 	return false
 end
-
 
 function TransparencyController:CachePartsRecursive(object)
 	if object then
@@ -99,23 +100,29 @@ end
 function TransparencyController:SetupTransparency(character)
 	self:TeardownTransparency()
 
-	if self.descendantAddedConn then self.descendantAddedConn:disconnect() end
+	if self.descendantAddedConn then
+		self.descendantAddedConn:disconnect()
+	end
 	self.descendantAddedConn = character.DescendantAdded:Connect(function(object)
 		-- This is a part we want to invisify
 		if self:IsValidPartToModify(object) then
 			self.cachedParts[object] = true
 			self.transparencyDirty = true
 		-- There is now a tool under the character
-		elseif object:IsA('Tool') then
-			if self.toolDescendantAddedConns[object] then self.toolDescendantAddedConns[object]:Disconnect() end
+		elseif object:IsA("Tool") then
+			if self.toolDescendantAddedConns[object] then
+				self.toolDescendantAddedConns[object]:Disconnect()
+			end
 			self.toolDescendantAddedConns[object] = object.DescendantAdded:Connect(function(toolChild)
 				self.cachedParts[toolChild] = nil
-				if toolChild:IsA('BasePart') or toolChild:IsA('Decal') then
+				if toolChild:IsA("BasePart") or toolChild:IsA("Decal") then
 					-- Reset the transparency
 					toolChild.LocalTransparencyModifier = 0
 				end
 			end)
-			if self.toolDescendantRemovingConns[object] then self.toolDescendantRemovingConns[object]:disconnect() end
+			if self.toolDescendantRemovingConns[object] then
+				self.toolDescendantRemovingConns[object]:disconnect()
+			end
 			self.toolDescendantRemovingConns[object] = object.DescendantRemoving:Connect(function(formerToolChild)
 				wait() -- wait for new parent
 				if character and formerToolChild and formerToolChild:IsDescendantOf(character) then
@@ -127,7 +134,9 @@ function TransparencyController:SetupTransparency(character)
 			end)
 		end
 	end)
-	if self.descendantRemovingConn then self.descendantRemovingConn:disconnect() end
+	if self.descendantRemovingConn then
+		self.descendantRemovingConn:disconnect()
+	end
 	self.descendantRemovingConn = character.DescendantRemoving:connect(function(object)
 		if self.cachedParts[object] then
 			self.cachedParts[object] = nil
@@ -137,7 +146,6 @@ function TransparencyController:SetupTransparency(character)
 	end)
 	self:CachePartsRecursive(character)
 end
-
 
 function TransparencyController:Enable(enable: boolean)
 	if self.enabled ~= enable then
@@ -166,7 +174,7 @@ function TransparencyController:Update(dt)
 	if currentCamera and self.enabled then
 		-- calculate goal transparency based on distance
 		local distance = (currentCamera.Focus.Position - currentCamera.CoordinateFrame.Position).magnitude
-		local transparency = (distance<2) and (1.0-(distance-0.5)/1.5) or 0 -- (7 - distance) / 5
+		local transparency = (distance < 2) and (1.0 - (distance - 0.5) / 1.5) or 0 -- (7 - distance) / 5
 		if transparency < 0.5 then -- too far, don't control transparency
 			transparency = 0
 		end
@@ -189,13 +197,16 @@ function TransparencyController:Update(dt)
 				if VRService.VREnabled and VRService.AvatarGestures then
 					-- keep the arms visible in VR
 					local hiddenAccessories = {
-						    [Enum.AccessoryType.Hat] = true,
-    						[Enum.AccessoryType.Hair] = true,
-    						[Enum.AccessoryType.Face] = true,
-    						[Enum.AccessoryType.Eyebrow] = true,
- 						   [Enum.AccessoryType.Eyelash] = true,
+						[Enum.AccessoryType.Hat] = true,
+						[Enum.AccessoryType.Hair] = true,
+						[Enum.AccessoryType.Face] = true,
+						[Enum.AccessoryType.Eyebrow] = true,
+						[Enum.AccessoryType.Eyelash] = true,
 					}
-					if (child.Parent:IsA("Accessory") and hiddenAccessories[child.Parent.AccessoryType]) or child.Name == "Head" then
+					if
+						(child.Parent:IsA("Accessory") and hiddenAccessories[child.Parent.AccessoryType])
+						or child.Name == "Head"
+					then
 						child.LocalTransparencyModifier = transparency
 					else
 						-- body should always be visible in VR
