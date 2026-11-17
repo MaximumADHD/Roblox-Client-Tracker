@@ -1,6 +1,6 @@
 [package]
 name = "Promise"
-version = "3.5.1"
+version = "3.5.2"
 readme = "README.md"
 content_root = "lib"
 files = [

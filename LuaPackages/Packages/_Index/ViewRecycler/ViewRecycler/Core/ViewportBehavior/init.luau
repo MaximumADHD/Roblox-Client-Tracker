@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact08
 
 local AutoScroll = require(script.AutoScroll)
@@ -13,7 +14,11 @@ return {
 	PaginationEdges = PaginationEdges,
 	ReachedThreshold = ReachedThreshold,
 
-	AutoScroll = if FFlagViewRecyclerReact08 then nil else AutoScroll,
-	createInitialScrollPosition = if FFlagViewRecyclerReact08 then nil else createInitialScrollPosition,
-	createScrollPolicy = if FFlagViewRecyclerReact08 then nil else createScrollPolicy,
+	AutoScroll = if FFlagViewRecyclerReact084 then nil else if FFlagViewRecyclerReact08 then nil else AutoScroll,
+	createInitialScrollPosition = if FFlagViewRecyclerReact084
+		then nil
+		else if FFlagViewRecyclerReact08 then nil else createInitialScrollPosition,
+	createScrollPolicy = if FFlagViewRecyclerReact084
+		then nil
+		else if FFlagViewRecyclerReact08 then nil else createScrollPolicy,
 }

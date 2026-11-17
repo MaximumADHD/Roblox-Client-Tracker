@@ -1,6 +1,7 @@
 -- Binds keyed Slots to retained Assignments and views. One `apply` departs
 -- keys, enters new keys, and rebinds existing keys through a single
 -- Recycling scope exchange, then reports what changed.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact08
 local Src = script:FindFirstAncestor("ViewRecycler")
 
@@ -72,8 +73,13 @@ local function createSlotBinder<View, T, ViewType>(options: Options<View, T, Vie
 	local prepare = options.prepareDesiredAssignment
 
 	local name
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		name = options.name or "SlotBinder"
+	else
+		name = nil
+		if FFlagViewRecyclerReact08 then
+			name = options.name or "SlotBinder"
+		end
 	end
 	local bindings: { [string]: Binding<View, T, ViewType> } = {}
 	local requestByViewType: { [ViewType]: createRecyclingScope.Request<ViewType> } = {}
@@ -84,7 +90,7 @@ local function createSlotBinder<View, T, ViewType>(options: Options<View, T, Vie
 	local reused: { [View]: boolean } = {}
 
 	local makeAssignment
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		function makeAssignment(slot: Slot<T, ViewType>): Assignment<T>
 			if prepare ~= nil then
 				local prepared = prepare(slot)
@@ -93,12 +99,23 @@ local function createSlotBinder<View, T, ViewType>(options: Options<View, T, Vie
 			return table.freeze({ key = slot.key, value = slot.value })
 		end
 	else
-		function makeAssignment(key: string, value: T): Assignment<T>
-			if prepare ~= nil then
-				local prepared = prepare({ key = key, value = value })
-				return table.freeze({ key = prepared.key, value = prepared.value })
+		makeAssignment = nil
+		if FFlagViewRecyclerReact08 then
+			function makeAssignment(slot: Slot<T, ViewType>): Assignment<T>
+				if prepare ~= nil then
+					local prepared = prepare(slot)
+					return table.freeze({ key = prepared.key, value = prepared.value })
+				end
+				return table.freeze({ key = slot.key, value = slot.value })
 			end
-			return table.freeze({ key = key, value = value })
+		else
+			function makeAssignment(key: string, value: T): Assignment<T>
+				if prepare ~= nil then
+					local prepared = prepare({ key = key, value = value })
+					return table.freeze({ key = prepared.key, value = prepared.value })
+				end
+				return table.freeze({ key = key, value = value })
+			end
 		end
 	end
 
@@ -136,9 +153,11 @@ local function createSlotBinder<View, T, ViewType>(options: Options<View, T, Vie
 					table.clear(departing)
 					error(
 						(
-							if FFlagViewRecyclerReact08
+							if FFlagViewRecyclerReact084
 								then `{name}: duplicate key "{key}"`
-								else `Virtualizer: duplicate key "{key}"`
+								else (if FFlagViewRecyclerReact08
+									then `{name}: duplicate key "{key}"`
+									else `Virtualizer: duplicate key "{key}"`)
 						),
 						0
 					)
@@ -192,10 +211,14 @@ local function createSlotBinder<View, T, ViewType>(options: Options<View, T, Vie
 			local binding = slot :: any
 			binding.view = view
 
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				binding.assignment = makeAssignment(slot)
 			else
-				binding.assignment = makeAssignment(slot.key, slot.value)
+				if FFlagViewRecyclerReact08 then
+					binding.assignment = makeAssignment(slot)
+				else
+					binding.assignment = makeAssignment(slot.key, slot.value)
+				end
 			end
 			bindings[slot.key] = binding
 			if trackReuse then
@@ -210,10 +233,14 @@ local function createSlotBinder<View, T, ViewType>(options: Options<View, T, Vie
 				local binding = bindings[slot.key] :: Binding<View, T, ViewType>
 				binding.value = slot.value
 
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					binding.assignment = makeAssignment(slot)
 				else
-					binding.assignment = makeAssignment(slot.key, slot.value)
+					if FFlagViewRecyclerReact08 then
+						binding.assignment = makeAssignment(slot)
+					else
+						binding.assignment = makeAssignment(slot.key, slot.value)
+					end
 				end
 				updated[position] = binding
 			end

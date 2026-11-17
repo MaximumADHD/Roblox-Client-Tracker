@@ -8,6 +8,8 @@
 -- upward from it and the rest stack downward, so a length that changes
 -- during the engine's layout moves only Items on the far side of the
 -- anchor, the same way Anchor correction moves them once it is measured.
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
 
@@ -33,8 +35,10 @@ export type StackPlacement = {
 		phase: HostPresentationPhase.HostPresentationPhase
 	) -> boolean,
 	-- Releases a Host's index and restores the LayoutOrder it arrived with.
+	-- The Host may stay, hidden, in its stack frame.
 	remove: (host: GuiObject) -> (),
 	isStacked: (host: GuiObject) -> boolean,
+	isStackFrame: (instance: Instance) -> boolean,
 	-- Stacked Hosts whose window membership or frame changed since they were
 	-- placed, which callers place again.
 	getStaleHosts: () -> { GuiObject },
@@ -43,6 +47,8 @@ export type StackPlacement = {
 	takeChanged: () -> boolean,
 	-- Places or releases the placeholders changed since the last commit.
 	commit: () -> (),
+	-- Destroys the stack frames, first moving every removed Host still in
+	-- them to the stack's parent.
 	destroy: () -> (),
 }
 
@@ -101,6 +107,11 @@ function StackPlacement.new(parent: Instance, axis: Core.Axis, spacing: number, 
 	local edges: { [number]: number } = {}
 	local originOffset = 0
 	local occupants: { [GuiObject]: Occupant } = {}
+
+	local removed: { [GuiObject]: true }
+	if FFlagViewRecyclerReact084 then
+		removed = setmetatable({}, { __mode = "k" }) :: any
+	end
 	local occupantCount: { [number]: number } = {}
 	local placeholders: { [number]: Frame } = {}
 	local placeholderPool: { Frame } = {}
@@ -258,6 +269,10 @@ function StackPlacement.new(parent: Instance, axis: Core.Axis, spacing: number, 
 					restoreLayoutOrder = host.LayoutOrder,
 				}
 				occupants[host] = occupant
+
+				if FFlagViewRecyclerReact084 then
+					removed[host] = nil
+				end
 			end
 			-- A Pending Host's content may not match its Item, so its length
 			-- would shift every later Item; a placeholder holds its space.
@@ -288,6 +303,10 @@ function StackPlacement.new(parent: Instance, axis: Core.Axis, spacing: number, 
 				return
 			end
 			occupants[host] = nil
+
+			if FFlagViewRecyclerReact084 then
+				removed[host] = true
+			end
 			setOccupying(nil, if occupant.visible then occupant.index else nil)
 			host.LayoutOrder = occupant.restoreLayoutOrder
 			changed = true
@@ -295,6 +314,11 @@ function StackPlacement.new(parent: Instance, axis: Core.Axis, spacing: number, 
 		isStacked = function(host)
 			return occupants[host] ~= nil
 		end,
+		isStackFrame = (if FFlagViewRecyclerReact084
+			then function(instance)
+				return instance == leadFrame or instance == frame
+			end
+			else nil),
 		getStaleHosts = function()
 			local stale = {}
 			for host, occupant in occupants do
@@ -333,6 +357,15 @@ function StackPlacement.new(parent: Instance, axis: Core.Axis, spacing: number, 
 		destroy = function()
 			for host, occupant in occupants do
 				host.LayoutOrder = occupant.restoreLayoutOrder
+			end
+
+			if FFlagViewRecyclerReact084 then
+				for host in removed do
+					if host.Parent == leadFrame or host.Parent == frame then
+						host.Parent = parent
+					end
+				end
+				table.clear(removed)
 			end
 			table.clear(occupants)
 			table.clear(occupantCount)

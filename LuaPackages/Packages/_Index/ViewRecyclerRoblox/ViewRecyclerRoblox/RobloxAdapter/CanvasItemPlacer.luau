@@ -1,3 +1,5 @@
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
 
@@ -148,43 +150,74 @@ function CanvasItemPlacer.hide(host: GuiObject, state: State)
 	end
 end
 
-function CanvasItemPlacer.detach(host: GuiObject, state: State): number
-	local propertyWrites = 0
-	if state.unpinnedZIndex ~= nil then
-		if host.ZIndex ~= state.unpinnedZIndex then
-			host.ZIndex = state.unpinnedZIndex
+if FFlagViewRecyclerReact084 then
+	-- Hides `host` and forgets its placement while leaving it parented.
+	function CanvasItemPlacer.release(host: GuiObject, state: State): number
+		local propertyWrites = 0
+		if state.unpinnedZIndex ~= nil then
+			if host.ZIndex ~= state.unpinnedZIndex then
+				host.ZIndex = state.unpinnedZIndex
+				propertyWrites += 1
+			end
+			state.unpinnedZIndex = nil
+		end
+		if host.Visible then
+			host.Visible = false
 			propertyWrites += 1
 		end
-		state.unpinnedZIndex = nil
+		state.parent = nil
+		resetAppliedState(state)
+		return propertyWrites
 	end
-	if host.Visible then
-		host.Visible = false
-		propertyWrites += 1
+end
+
+function CanvasItemPlacer.detach(host: GuiObject, state: State): number
+	local propertyWrites
+	if FFlagViewRecyclerReact084 then
+		propertyWrites = CanvasItemPlacer.release(host, state)
+	else
+		propertyWrites = 0
+		if state.unpinnedZIndex ~= nil then
+			if host.ZIndex ~= state.unpinnedZIndex then
+				host.ZIndex = state.unpinnedZIndex
+				propertyWrites += 1
+			end
+			state.unpinnedZIndex = nil
+		end
+		if host.Visible then
+			host.Visible = false
+			propertyWrites += 1
+		end
 	end
 	if host.Parent ~= nil then
 		host.Parent = nil
 		propertyWrites += 1
 	end
-	state.parent = nil
-	resetAppliedState(state)
+
+	if not FFlagViewRecyclerReact084 then
+		state.parent = nil
+		resetAppliedState(state)
+	end
 	return propertyWrites
 end
 
-function CanvasItemPlacer.detachForTransfer(host: GuiObject, state: State): number
-	local propertyWrites = CanvasItemPlacer.detach(host, state)
-	if host.Position ~= UDim2.new() then
-		host.Position = UDim2.new()
-		propertyWrites += 1
+if not FFlagViewRecyclerReact084 then
+	function CanvasItemPlacer.detachForTransfer(host: GuiObject, state: State): number
+		local propertyWrites = CanvasItemPlacer.detach(host, state)
+		if host.Position ~= UDim2.new() then
+			host.Position = UDim2.new()
+			propertyWrites += 1
+		end
+		if host.Size ~= UDim2.new() then
+			host.Size = UDim2.new()
+			propertyWrites += 1
+		end
+		if host.AutomaticSize ~= Enum.AutomaticSize.None then
+			host.AutomaticSize = Enum.AutomaticSize.None
+			propertyWrites += 1
+		end
+		return propertyWrites
 	end
-	if host.Size ~= UDim2.new() then
-		host.Size = UDim2.new()
-		propertyWrites += 1
-	end
-	if host.AutomaticSize ~= Enum.AutomaticSize.None then
-		host.AutomaticSize = Enum.AutomaticSize.None
-		propertyWrites += 1
-	end
-	return propertyWrites
 end
 
 return CanvasItemPlacer

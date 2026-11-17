@@ -2,7 +2,6 @@ local Root = script:FindFirstAncestor("ViewRecyclerReact")
 
 local Core = require(Root.Parent.ViewRecycler)
 local Axis = Core.Axis
-local Layout = Core.Layout
 local ItemHooks = require(Root.ReactAdapter.ItemHooks)
 local React = require(Root.Parent.React)
 local RecyclableViewReadiness = require(Root.ReactAdapter.RecyclableViewReadiness)
@@ -40,7 +39,7 @@ export type MultipleDefinition<T> = {
 export type Definition<T> = SingleDefinition<T> | MultipleDefinition<T>
 
 type SharedProps<T> = VirtualList.BaseVirtualListProps<T> & {
-	layout: Layout.Runtime,
+	layout: Core.LayoutRuntime,
 	axis: Core.Axis?,
 }
 

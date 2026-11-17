@@ -5,6 +5,7 @@
 -- correction that restores an item target or the viewport position; `settle`
 -- moves the viewport to a held edge, the initial edge, or Start for a
 -- replacement, at most once per transaction.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact08
 local Src = script:FindFirstAncestor("ViewRecycler")
 
@@ -12,7 +13,6 @@ local AutoScrollPolicy = require(Src.Core.Enums.AutoScrollPolicy)
 local DataSourceChangeType = require(Src.Core.Enums.DataSourceChangeType)
 local Diagnostics = require(Src.Core.Diagnostics)
 local ItemSequence = require(Src.Core.Virtualizer.ItemSequence)
-
 local ReachedThreshold = require(Src.Core.ViewportBehavior.ReachedThreshold)
 local ScrollAlignment = require(Src.Core.Enums.ScrollAlignment)
 local Types = require(Src.Core.Types)
@@ -83,6 +83,11 @@ export type ScrollAnchor = {
 	-- A Programmatic scroll states where the list should be, so it replaces a
 	-- pending initial alignment. A scroll to an edge also pins that edge.
 	scrolledProgrammatically: (pinnedEdge: Edge?) -> (),
+	-- An Animated scroll moves through positions the reader has not chosen,
+	-- so until it ends the anchor keeps the viewport position, holds no edge,
+	-- and enters no Edge follow. It takes the command's target on landing.
+	beginMotion: () -> (),
+	endMotion: () -> (),
 	restore: (snapshot: Snapshot, offset: number) -> (),
 	snapshotOffset: (snapshot: Snapshot) -> number,
 	preserve: (change: Change, mutate: () -> ()) -> Correction?,
@@ -123,7 +128,7 @@ type Evidence = {
 }
 
 local DEFAULT_FOLLOW_THRESHOLD, followedEdge, validate
-if FFlagViewRecyclerReact08 then
+if FFlagViewRecyclerReact084 then
 	DEFAULT_FOLLOW_THRESHOLD = 1
 
 	function followedEdge(policy: AutoScrollPolicy.AutoScrollPolicy?): Edge?
@@ -149,6 +154,37 @@ if FFlagViewRecyclerReact08 then
 		)
 		if config.autoScrollThreshold ~= nil then
 			ReachedThreshold.validate(config.autoScrollThreshold, "Virtualizer: autoScrollThreshold")
+		end
+	end
+else
+	DEFAULT_FOLLOW_THRESHOLD, followedEdge, validate = nil, nil, nil
+	if FFlagViewRecyclerReact08 then
+		DEFAULT_FOLLOW_THRESHOLD = 1
+
+		function followedEdge(policy: AutoScrollPolicy.AutoScrollPolicy?): Edge?
+			if policy == AutoScrollPolicy.WhenAtStart then
+				return ScrollAlignment.Start
+			elseif policy == AutoScrollPolicy.WhenAtEnd then
+				return ScrollAlignment.End
+			end
+			return nil
+		end
+
+		function validate(config: Config)
+			local initialScrollAlignment = config.initialScrollAlignment
+			assert(
+				initialScrollAlignment == nil
+					or initialScrollAlignment == ScrollAlignment.Start
+					or initialScrollAlignment == ScrollAlignment.End,
+				"Virtualizer: initialScrollAlignment must be ScrollAlignment.Start or ScrollAlignment.End"
+			)
+			assert(
+				config.autoScrollOnChange == nil or followedEdge(config.autoScrollOnChange) ~= nil,
+				"Virtualizer: autoScrollOnChange must be AutoScrollPolicy.WhenAtStart or AutoScrollPolicy.WhenAtEnd"
+			)
+			if config.autoScrollThreshold ~= nil then
+				ReachedThreshold.validate(config.autoScrollThreshold, "Virtualizer: autoScrollThreshold")
+			end
 		end
 	end
 end
@@ -184,15 +220,22 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 	local viewport = options.viewport
 
 	local isLaidOut, config
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		isLaidOut = options.isLaidOut
 		config = options.config
 		validate(config)
+	else
+		isLaidOut, config = nil, nil
+		if FFlagViewRecyclerReact08 then
+			isLaidOut = options.isLaidOut
+			config = options.config
+			validate(config)
+		end
 	end
 	local anchor: Anchor? = nil
 
-	local heldEdge: Edge?, pinned, initialPending, hasItems, distanceFrom, edgeOffset, followThreshold, hold, holdsItemTarget, edgeHolds, opensAtInitialEdge, observe
-	if FFlagViewRecyclerReact08 then -- The edge the viewport stays at while Content settles. A pinned edge
+	local heldEdge: Edge?, pinned, initialPending, moving, hasItems, distanceFrom, edgeOffset, followThreshold, hold, holdsItemTarget, edgeHolds, opensAtInitialEdge, observe
+	if FFlagViewRecyclerReact084 then -- The edge the viewport stays at while Content settles. A pinned edge
 		-- comes from app intent and survives data changes the follow policy
 		-- declines.
 		heldEdge = nil
@@ -200,6 +243,7 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 		-- One initial alignment per DataSource lifecycle, applied to the first
 		-- laid-out Items unless the app scrolls first.
 		initialPending = true
+		moving = false
 
 		function hasItems(): boolean
 			return options.getItemSequence().getItemCount() > 0
@@ -250,6 +294,73 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 			end
 			local followed = followedEdge(config.autoScrollOnChange)
 			hold(if followed ~= nil and distanceFrom(followed) <= threshold then followed else nil)
+		end
+	else
+		heldEdge, pinned, initialPending, hasItems, distanceFrom, edgeOffset, followThreshold, hold, holdsItemTarget, edgeHolds, opensAtInitialEdge, observe =
+			nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+		if FFlagViewRecyclerReact08 then -- The edge the viewport stays at while Content settles. A pinned edge
+			-- comes from app intent and survives data changes the follow policy
+			-- declines.
+			heldEdge = nil
+			pinned = false
+			-- One initial alignment per DataSource lifecycle, applied to the first
+			-- laid-out Items unless the app scrolls first.
+			initialPending = true
+
+			function hasItems(): boolean
+				return options.getItemSequence().getItemCount() > 0
+			end
+
+			function distanceFrom(edge: Edge): number
+				local offset = viewport.getScrollOffset()
+				if edge == ScrollAlignment.Start then
+					return offset
+				end
+				return math.max(0, viewport.getContentLength() - viewport.getLength() - offset)
+			end
+
+			function edgeOffset(edge: Edge): number
+				return if edge == ScrollAlignment.Start
+					then 0
+					else math.max(0, viewport.getContentLength() - viewport.getLength())
+			end
+
+			function followThreshold(): number
+				return ReachedThreshold.resolve(
+					config.autoScrollThreshold,
+					viewport.getLength(),
+					DEFAULT_FOLLOW_THRESHOLD
+				)
+			end
+
+			function hold(edge: Edge?)
+				pinned = pinned and edge == heldEdge
+				heldEdge = edge
+			end
+
+			function holdsItemTarget(): boolean
+				return anchor ~= nil and (anchor :: Anchor).kind == "itemTarget"
+			end
+
+			function edgeHolds(): boolean
+				return heldEdge ~= nil and not holdsItemTarget()
+			end
+
+			-- The initial alignment takes precedence over following an edge: a list
+			-- without Items reads as being at both.
+			function opensAtInitialEdge(): boolean
+				return initialPending and config.initialScrollAlignment ~= nil and hasItems() and isLaidOut()
+			end
+
+			function observe()
+				local threshold = followThreshold()
+				local edge = heldEdge
+				if edge ~= nil and distanceFrom(edge) <= threshold then
+					return
+				end
+				local followed = followedEdge(config.autoScrollOnChange)
+				hold(if followed ~= nil and distanceFrom(followed) <= threshold then followed else nil)
+			end
 		end
 	end
 
@@ -384,9 +495,11 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 			delta = viewport.offsetForItem(index, current.alignment) - offset
 		elseif
 			not (
-				if FFlagViewRecyclerReact08
+				if FFlagViewRecyclerReact084
 					then config.preserveScrollPositionOnChange
-					else (options.shouldPreserveUserPosition :: () -> boolean)()
+					else (if FFlagViewRecyclerReact08
+						then config.preserveScrollPositionOnChange
+						else (options.shouldPreserveUserPosition :: () -> boolean)())
 			)
 		then
 			anchor = captureViewport(offset, nil)
@@ -437,12 +550,17 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 	end
 
 	return {
-		configure = (if FFlagViewRecyclerReact08
+		configure = (if FFlagViewRecyclerReact084
 			then function(nextConfig)
 				validate(nextConfig)
 				config = nextConfig
 			end
-			else nil),
+			else (if FFlagViewRecyclerReact08
+				then function(nextConfig)
+					validate(nextConfig)
+					config = nextConfig
+				end
+				else nil)),
 		setItemTarget = function(index, alignment)
 			local sequence = options.getItemSequence()
 			local itemCount = sequence.getItemCount()
@@ -461,20 +579,46 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 		setViewport = setViewport,
 		observeHost = function(offset)
 			if
-				if FFlagViewRecyclerReact08
+				if FFlagViewRecyclerReact084
 					then not holdsItemTarget()
-					else anchor == nil or (anchor :: Anchor).kind == "viewport"
+					else if FFlagViewRecyclerReact08
+						then not holdsItemTarget()
+						else anchor == nil or (anchor :: Anchor).kind == "viewport"
 			then
 				setViewport(offset)
 			end
 		end,
-		scrolledProgrammatically = (if FFlagViewRecyclerReact08
+		scrolledProgrammatically = (if FFlagViewRecyclerReact084
 			then function(pinnedEdge)
 				initialPending = false
 				if pinnedEdge ~= nil then
 					heldEdge = pinnedEdge
 					pinned = true
 				end
+			end
+			else (if FFlagViewRecyclerReact08
+				then function(pinnedEdge)
+					initialPending = false
+					if pinnedEdge ~= nil then
+						heldEdge = pinnedEdge
+						pinned = true
+					end
+				end
+				else nil)),
+		beginMotion = (if FFlagViewRecyclerReact084
+			then function()
+				initialPending = false
+				heldEdge = nil
+				pinned = false
+				moving = true
+				if holdsItemTarget() then
+					anchor = captureViewport(viewport.getScrollOffset(), nil)
+				end
+			end
+			else nil),
+		endMotion = (if FFlagViewRecyclerReact084
+			then function()
+				moving = false
 			end
 			else nil),
 		restore = function(snapshot, offset)
@@ -494,24 +638,45 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 		end,
 		preserve = function(change, mutate)
 			local dataChange, followed, followsChange
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				dataChange = change.dataSourceChange
 				followed = followedEdge(config.autoScrollOnChange)
 				-- Following an edge reads where the viewport was before the change.
 				followsChange = dataChange ~= nil
+					and not moving
 					and followed ~= nil
 					and distanceFrom(followed :: Edge) <= followThreshold()
+			else
+				dataChange, followed, followsChange = nil, nil, nil
+				if FFlagViewRecyclerReact08 then
+					dataChange = change.dataSourceChange
+					followed = followedEdge(config.autoScrollOnChange)
+					-- Following an edge reads where the viewport was before the change.
+					followsChange = dataChange ~= nil
+						and followed ~= nil
+						and distanceFrom(followed :: Edge) <= followThreshold()
+				end
 			end
-			if (if FFlagViewRecyclerReact08 then dataChange else change.dataSourceChange) ~= nil then
+			if
+				(
+					if FFlagViewRecyclerReact084
+						then dataChange
+						else (if FFlagViewRecyclerReact08 then dataChange else change.dataSourceChange)
+				) ~= nil
+			then
 				prepareDataChange(
-					(if FFlagViewRecyclerReact08 then dataChange else change.dataSourceChange),
+					(
+						if FFlagViewRecyclerReact084
+							then dataChange
+							else (if FFlagViewRecyclerReact08 then dataChange else change.dataSourceChange)
+					),
 					captureEvidence()
 				)
 			end
 			mutate()
 
 			local correction
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				if dataChange ~= nil and not holdsItemTarget() and not opensAtInitialEdge() then
 					if followsChange then
 						hold(followed)
@@ -528,11 +693,30 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 				end
 				return correction
 			else
-				return resolve(change)
+				correction = nil
+				if FFlagViewRecyclerReact08 then
+					if dataChange ~= nil and not holdsItemTarget() and not opensAtInitialEdge() then
+						if followsChange then
+							hold(followed)
+						elseif not pinned then
+							hold(nil)
+						end
+					end
+					correction = resolve(change)
+					if correction ~= nil and (edgeHolds() or opensAtInitialEdge()) then
+						-- `settle` moves to the edge instead; the viewport position
+						-- stays where it was until then.
+						setViewport(viewport.getScrollOffset())
+						return nil
+					end
+					return correction
+				else
+					return resolve(change)
+				end
 			end
 		end,
 		settle = (
-			if FFlagViewRecyclerReact08
+			if FFlagViewRecyclerReact084
 				then function(facts, move)
 					if initialPending and hasItems() and isLaidOut() then
 						initialPending = false
@@ -571,49 +755,142 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 					if target ~= nil then
 						move(target)
 					end
-					if laidOut and (facts.replaced or facts.viewportChanged or facts.scrollMoved) then
+					if laidOut and not moving and (facts.replaced or facts.viewportChanged or facts.scrollMoved) then
 						observe()
 					end
 				end
-				else nil
+				else (
+					if FFlagViewRecyclerReact08
+						then function(facts, move)
+							if initialPending and hasItems() and isLaidOut() then
+								initialPending = false
+								-- The initial edge holds like any followed edge, so the Items it
+								-- opens on can measure without leaving it.
+								local edge = config.initialScrollAlignment
+								if edge ~= nil then
+									hold(edge)
+									move(edgeOffset(edge))
+									return
+								end
+							end
+							local edge = heldEdge
+							if facts.dataChange ~= nil then
+								if edge ~= nil and edgeHolds() then
+									move(edgeOffset(edge))
+								end
+								return
+							end
+							local laidOut = isLaidOut()
+							local target: number? = nil
+							if facts.contentLengthChanged and edge ~= nil and edgeHolds() then
+								target = edgeOffset(edge)
+							end
+							if facts.replaced then
+								target = 0
+							end
+							if facts.viewportChanged then
+								local keptDistanceFromEnd = facts.keptDistanceFromEnd
+								if laidOut and edge ~= nil and edgeHolds() then
+									target = edgeOffset(edge)
+								elseif keptDistanceFromEnd ~= nil and not holdsItemTarget() then
+									target = viewport.getContentLength() - viewport.getLength() - keptDistanceFromEnd
+								end
+							end
+							if target ~= nil then
+								move(target)
+							end
+							if laidOut and (facts.replaced or facts.viewportChanged or facts.scrollMoved) then
+								observe()
+							end
+						end
+						else nil
+				)
 		),
 		getAnchoredItem = function()
 			local current = anchor
 			-- The index hint follows data changes without reading keys, which
 			-- is close enough for placement until the anchor next resolves.
 			if
-				if FFlagViewRecyclerReact08
+				if FFlagViewRecyclerReact084
 					then current ~= nil and current.kind == "itemTarget"
-					else current == nil or (current.kind == "viewport" and not (
-						options.shouldPreserveUserPosition :: () -> boolean
-					)())
+					else if FFlagViewRecyclerReact08
+						then current ~= nil and current.kind == "itemTarget"
+						else current == nil or (current.kind == "viewport" and not (
+							options.shouldPreserveUserPosition :: () -> boolean
+						)())
 			then
 				local index
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					index = current.indexHint
+				else
+					index = nil
+					if FFlagViewRecyclerReact08 then
+						index = current.indexHint
+					end
 				end
 				return (
-					if FFlagViewRecyclerReact08
+					if FFlagViewRecyclerReact084
 						then if index == nil
 							then nil
 							else table.freeze({ index = index, alignment = current.alignment })
-						else nil
+						else (if FFlagViewRecyclerReact08
+							then if index == nil
+								then nil
+								else table.freeze({ index = index, alignment = current.alignment })
+							else nil)
 				)
 			end
 
 			local edge
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				edge = heldEdge
-				-- Content that fits the viewport stays at its aligned edge, whichever
-				-- edge is held.
-				if viewport.getContentLength() <= viewport.getLength() then
-					local contentAlignment = viewport.getContentAlignment()
+			else
+				edge = nil
+			end
+			-- Content that fits the viewport stays at its aligned edge, whichever
+			-- edge is held.
+			if
+				if FFlagViewRecyclerReact084
+					then viewport.getContentLength() <= viewport.getLength()
+					else FFlagViewRecyclerReact08
+			then
+				local contentAlignment
+				if FFlagViewRecyclerReact084 then
+					contentAlignment = viewport.getContentAlignment()
 					if contentAlignment == ScrollAlignment.Start then
 						edge = ScrollAlignment.Start
 					elseif contentAlignment == ScrollAlignment.End then
 						edge = ScrollAlignment.End
 					end
+				else
+					edge = heldEdge
+					-- Content that fits the viewport stays at its aligned edge, whichever
+					-- edge is held.
+					if viewport.getContentLength() <= viewport.getLength() then
+						contentAlignment = viewport.getContentAlignment()
+						if contentAlignment == ScrollAlignment.Start then
+							edge = ScrollAlignment.Start
+						elseif contentAlignment == ScrollAlignment.End then
+							edge = ScrollAlignment.End
+						end
+					end
+					if edge ~= nil then
+						local itemCount = options.getItemSequence().getItemCount()
+						if itemCount == 0 then
+							return nil
+						end
+						return table.freeze({
+							index = if edge == ScrollAlignment.Start then 1 else itemCount,
+							alignment = edge,
+						})
+					end
+					if current == nil or not config.preserveScrollPositionOnChange then
+						return nil
+					end
 				end
+			end
+
+			if FFlagViewRecyclerReact084 then
 				if edge ~= nil then
 					local itemCount = options.getItemSequence().getItemCount()
 					if itemCount == 0 then
@@ -630,35 +907,50 @@ local function createScrollAnchor(options: Options): ScrollAnchor
 			end
 			local index = current.indexHint
 
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				return if index == nil then nil else table.freeze({ index = index, alignment = ScrollAlignment.Start })
 			else
-				if index == nil then
-					return nil
+				if FFlagViewRecyclerReact08 then
+					return if index == nil
+						then nil
+						else table.freeze({ index = index, alignment = ScrollAlignment.Start })
+				else
+					if index == nil then
+						return nil
+					end
+					return table.freeze({
+						index = index,
+						alignment = if current.kind == "itemTarget" then current.alignment else ScrollAlignment.Start,
+					})
 				end
-				return table.freeze({
-					index = index,
-					alignment = if current.kind == "itemTarget" then current.alignment else ScrollAlignment.Start,
-				})
 			end
 		end,
-		dataSourceReplaced = (if FFlagViewRecyclerReact08
+		dataSourceReplaced = (if FFlagViewRecyclerReact084
 			then function()
 				anchor = nil
 				heldEdge = nil
 				pinned = false
 				initialPending = true
 			end
-			else nil),
+			else (if FFlagViewRecyclerReact08
+				then function()
+					anchor = nil
+					heldEdge = nil
+					pinned = false
+					initialPending = true
+				end
+				else nil)),
 		reset = function()
 			anchor = nil
 		end,
 
-		allowsPolicyOffset = if FFlagViewRecyclerReact08
+		allowsPolicyOffset = if FFlagViewRecyclerReact084
 			then nil
-			else function()
-				return anchor == nil or (anchor :: Anchor).kind == "viewport"
-			end,
+			else if FFlagViewRecyclerReact08
+				then nil
+				else function()
+					return anchor == nil or (anchor :: Anchor).kind == "viewport"
+				end,
 	}
 end
 

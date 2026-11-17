@@ -1,5 +1,7 @@
 -- Reports once per data set that every Item in the Visible range is
 -- Presented. Rearms when the DataSource is replaced or has no Items.
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
@@ -63,17 +65,25 @@ function VisibleItemsPresentation.new<ItemView, T>(
 			presenting = true
 
 			local succeeded, failure
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				succeeded, failure = pcall(presentChanges)
 			else
-				presentChanges()
+				succeeded, failure = nil, nil
+				if FFlagViewRecyclerReact08 then
+					succeeded, failure = pcall(presentChanges)
+				else
+					presentChanges()
+				end
 			end
 			presenting = false
 			record = nextRecord
-
-			if FFlagViewRecyclerReact08 then
-				if not succeeded then
+			if if FFlagViewRecyclerReact084 then not succeeded else FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					error(failure, 0)
+				else
+					if not succeeded then
+						error(failure, 0)
+					end
 				end
 			end
 			if itemCount == 0 then

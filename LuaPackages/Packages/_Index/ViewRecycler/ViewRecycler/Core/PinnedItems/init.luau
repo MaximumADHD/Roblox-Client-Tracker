@@ -2,6 +2,7 @@ export type PinnedItem<T, ItemViewType> = {
 	key: string,
 	value: T,
 	itemViewType: ItemViewType,
+	estimatedLength: number?,
 }
 
 export type Options<T, ItemViewType> = {

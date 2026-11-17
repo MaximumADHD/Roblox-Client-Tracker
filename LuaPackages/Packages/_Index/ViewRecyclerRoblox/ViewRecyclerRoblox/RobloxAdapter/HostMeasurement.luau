@@ -29,12 +29,15 @@
 --    AutomaticSize wraps to infinity in a 0-wide container, producing absurd
 --    main-axis sizes. A zero main-axis size of rendered content is a valid
 --    settled measurement and must replace the estimate.
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
 
 local MeasurementBatcher = require(Root.RobloxAdapter.MeasurementBatcher)
 local Measurer = require(Root.RobloxAdapter.Measurer)
+
 local axisMap = require(Root.RobloxAdapter.axisMap)
 
 export type Options<ItemView, T> = {
@@ -101,7 +104,7 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 	local readCount = 0
 
 	local undelivered: { Core.ItemViewMeasurement<ItemView, T> }?, deliver, queue, reportedState, publish, measureNow, scheduleRead, disconnect, batcher
-	if FFlagViewRecyclerReact08 then -- Lengths not yet delivered. Heartbeat reads are delivered together on
+	if FFlagViewRecyclerReact084 then -- Lengths not yet delivered. Heartbeat reads are delivered together on
 		-- task.defer, so one Core update covers every Host read that Heartbeat.
 		undelivered = nil
 
@@ -186,7 +189,95 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 			table.clear(record.pendingReads)
 		end
 	else
-		batcher = MeasurementBatcher.new(options.onItemMeasurements)
+		undelivered, deliver, queue, reportedState, publish, measureNow, scheduleRead, disconnect, batcher =
+			nil, nil, nil, nil, nil, nil, nil, nil, nil
+		if FFlagViewRecyclerReact08 then -- Lengths not yet delivered. Heartbeat reads are delivered together on
+			-- task.defer, so one Core update covers every Host read that Heartbeat.
+			undelivered = nil
+
+			function deliver(): { Core.ItemViewMeasurement<ItemView, T> }?
+				local batch = undelivered
+				if destroyed or batch == nil then
+					return nil
+				end
+				undelivered = nil
+				options.onItemMeasurements(batch)
+				return batch
+			end
+
+			function queue(measurement: Core.ItemViewMeasurement<ItemView, T>)
+				local batch = undelivered
+				if batch == nil then
+					batch = {}
+					undelivered = batch
+					task.defer(function()
+						if undelivered == batch then
+							deliver()
+						end
+					end)
+				end
+				table.insert(batch, measurement)
+			end
+
+			function reportedState(record: Record<ItemView, T>): Core.ViewState<T>?
+				return if records[record.itemView] == record and not record.paused then record.state else nil
+			end
+
+			-- Returns false when the content has not rendered and the read must wait.
+			function publish(record: Record<ItemView, T>, state: Core.ViewState<T>): boolean
+				if state.assignment ~= record.renderedAssignment then
+					return false
+				end
+				local host = record.host
+				if axisMap.crossOf(host.AbsoluteSize, axis) <= 0 then
+					return true
+				end
+				-- AutomaticSize can finish propagating between property reads in one
+				-- callback. Re-read immediately before publication so a committed
+				-- React host does not report the previous occupant's main-axis length.
+				local length = axisMap.mainOf(host.AbsoluteSize, axis)
+				if record.lastPublishedState ~= state or record.lastPublishedLength ~= length then
+					record.lastPublishedState = state
+					record.lastPublishedLength = length
+					queue({
+						itemView = record.itemView,
+						state = state,
+						length = length,
+					})
+				end
+				return true
+			end
+
+			function measureNow(record: Record<ItemView, T>)
+				local state = reportedState(record)
+				if state ~= nil then
+					publish(record, state)
+				end
+			end
+
+			function scheduleRead(record: Record<ItemView, T>)
+				local scheduledState = reportedState(record)
+				if scheduledState == nil or record.pendingReads[scheduledState] ~= nil then
+					return
+				end
+				record.pendingReads[scheduledState] = RunService.Heartbeat:Once(function()
+					record.pendingReads[scheduledState] = nil
+					if reportedState(record) == scheduledState and not publish(record, scheduledState) then
+						scheduleRead(record)
+					end
+				end)
+			end
+
+			function disconnect(record: Record<ItemView, T>)
+				record.sizeConnection:Disconnect()
+				for _, pending in record.pendingReads do
+					pending:Disconnect()
+				end
+				table.clear(record.pendingReads)
+			end
+		else
+			batcher = MeasurementBatcher.new(options.onItemMeasurements)
+		end
 	end
 
 	local function measureRounds()
@@ -202,15 +293,21 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 			for _, record in records do
 				readCount += 1
 
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					measureNow(record)
 				else
-					record.measurer.measureNow()
+					if FFlagViewRecyclerReact08 then
+						measureNow(record)
+					else
+						record.measurer.measureNow()
+					end
 				end
 			end
 			-- Only a changed Layout length can mount Items or move the anchor;
 			-- restated lengths end the pass.
-			local delivered = (if FFlagViewRecyclerReact08 then deliver else batcher.flush)()
+			local delivered = (if FFlagViewRecyclerReact084
+				then deliver
+				else (if FFlagViewRecyclerReact08 then deliver else batcher.flush))()
 			local layoutChanged = false
 			for _, measurement in delivered or {} do
 				if measurement.length ~= measurement.state.itemLayout.length then
@@ -257,10 +354,14 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 			records[itemView] = nil
 			recordCount -= 1
 
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				disconnect(record)
 			else
-				record.measurer.disconnect()
+				if FFlagViewRecyclerReact08 then
+					disconnect(record)
+				else
+					record.measurer.disconnect()
+				end
 			end
 			syncConnection()
 		end
@@ -269,10 +370,14 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 	local function setState(record: Record<ItemView, T>, state: Core.ViewState<T>)
 		record.state = state
 
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			scheduleRead(record)
 		else
-			(record.measurer :: Measurer.Measurer).scheduleSettle()
+			if FFlagViewRecyclerReact08 then
+				scheduleRead(record)
+			else
+				(record.measurer :: Measurer.Measurer).scheduleSettle()
+			end
 		end
 	end
 
@@ -299,51 +404,69 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 			return
 		end
 		local created: Record<ItemView, T> = {
-			itemView = (if FFlagViewRecyclerReact08 then itemView else nil),
+			itemView = (if FFlagViewRecyclerReact084
+				then itemView
+				else (if FFlagViewRecyclerReact08 then itemView else nil)),
 			host = host,
 			state = state,
 			paused = false,
 			renderedAssignment = nil,
-			sizeConnection = (if FFlagViewRecyclerReact08 then nil :: any else nil),
-			pendingReads = (if FFlagViewRecyclerReact08 then {} else nil),
-			lastPublishedState = (if FFlagViewRecyclerReact08 then nil else nil),
-			lastPublishedLength = (if FFlagViewRecyclerReact08 then nil else nil),
+			sizeConnection = (if FFlagViewRecyclerReact084
+				then nil
+				else (if FFlagViewRecyclerReact08 then nil :: any else nil)) :: any,
+			pendingReads = (if FFlagViewRecyclerReact084 then {} else (if FFlagViewRecyclerReact08 then {} else nil)),
+			lastPublishedState = (if FFlagViewRecyclerReact084
+				then nil
+				else (if FFlagViewRecyclerReact08 then nil else nil)),
+			lastPublishedLength = (if FFlagViewRecyclerReact084
+				then nil
+				else (if FFlagViewRecyclerReact08 then nil else nil)),
 
-			measurer = nil,
+			measurer = if FFlagViewRecyclerReact084 then nil else nil,
 		}
 
-		if FFlagViewRecyclerReact08 then -- Collapses transient mid-layout sizes into one settled read.
+		if FFlagViewRecyclerReact084 then -- Collapses transient mid-layout sizes into one settled read.
 			created.sizeConnection = host:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
 				scheduleRead(created)
 			end)
 		else
-			created.measurer = Measurer.attach({
-				instance = host,
-				axis = axis,
-				getState = function()
-					return if records[itemView] == created and not created.paused then created.state else nil
-				end,
-				isRendered = function()
-					return created.state.assignment == created.renderedAssignment
-				end,
-				onItemMeasured = function(currentState, length)
-					batcher.add({
-						itemView = itemView,
-						state = currentState,
-						length = length,
-					})
-				end,
-			})
+			if FFlagViewRecyclerReact08 then -- Collapses transient mid-layout sizes into one settled read.
+				created.sizeConnection = host:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+					scheduleRead(created)
+				end)
+			else
+				created.measurer = Measurer.attach({
+					instance = host,
+					axis = axis,
+					getState = function()
+						return if records[itemView] == created and not created.paused then created.state else nil
+					end,
+					isRendered = function()
+						return created.state.assignment == created.renderedAssignment
+					end,
+					onItemMeasured = function(currentState, length)
+						batcher.add({
+							itemView = itemView,
+							state = currentState,
+							length = length,
+						})
+					end,
+				})
+			end
 		end
 		records[itemView] = created
 		recordCount += 1
 		dirty = true
 		syncConnection()
 
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			scheduleRead(created)
 		else
-			(created.measurer :: Measurer.Measurer).scheduleSettle()
+			if FFlagViewRecyclerReact08 then
+				scheduleRead(created)
+			else
+				(created.measurer :: Measurer.Measurer).scheduleSettle()
+			end
 		end
 	end
 
@@ -371,10 +494,14 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 			end
 		end,
 		cancelPending = function()
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				undelivered = nil
 			else
-				batcher.cancelPending()
+				if FFlagViewRecyclerReact08 then
+					undelivered = nil
+				else
+					batcher.cancelPending()
+				end
 			end
 		end,
 		isPassConnected = function()
@@ -383,7 +510,7 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 		getPassReadCount = function()
 			return readCount
 		end,
-		getPendingReadCount = (if FFlagViewRecyclerReact08
+		getPendingReadCount = (if FFlagViewRecyclerReact084
 			then function()
 				local count = 0
 				for _, record in records do
@@ -393,23 +520,41 @@ function HostMeasurement.new<ItemView, T>(options: Options<ItemView, T>): HostMe
 				end
 				return count
 			end
-			else nil),
+			else (if FFlagViewRecyclerReact08
+				then function()
+					local count = 0
+					for _, record in records do
+						for _ in record.pendingReads do
+							count += 1
+						end
+					end
+					return count
+				end
+				else nil)),
 		destroy = function()
 			if destroyed then
 				return
 			end
 			destroyed = true
 
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				undelivered = nil
 			else
-				batcher.destroy()
+				if FFlagViewRecyclerReact08 then
+					undelivered = nil
+				else
+					batcher.destroy()
+				end
 			end
 			for _, record in records do
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					disconnect(record)
 				else
-					record.measurer.disconnect()
+					if FFlagViewRecyclerReact08 then
+						disconnect(record)
+					else
+						record.measurer.disconnect()
+					end
 				end
 			end
 			table.clear(records)

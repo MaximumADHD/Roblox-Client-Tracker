@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 
 local React = require(Root.Parent.React)
@@ -14,6 +15,7 @@ export type RecyclableViewAssignment<T> = {
 
 type RecyclingState<S> = {
 	token: {},
+	values: { unknown },
 	value: S,
 }
 
@@ -25,6 +27,9 @@ type RecyclingTokenState = {
 type RecyclingSignalState<S> = {
 	getter: Signals.getter<S>,
 	setter: Signals.setter<S>,
+	values: { unknown },
+	unmounted: boolean,
+
 	committedToken: {}?,
 }
 
@@ -64,53 +69,75 @@ local function sameValues(before: { unknown }, after: { unknown }): boolean
 	return true
 end
 
-local function useRecyclingToken(additionalDependencies: { RecyclingDependency }?): {}
-	local identity = useRecyclableViewContext().itemKeySignal
-	local dependencies = table.create(1 + #(additionalDependencies or {}))
-	dependencies[1] = identity
-	if additionalDependencies ~= nil then
-		for _, dependency in additionalDependencies do
-			table.insert(dependencies, dependency)
-		end
-	end
-
-	local values = table.create(#dependencies)
-	for index, dependency in dependencies do
-		values[index] = dependency(false)
-	end
-	local tokenState, setTokenState = React.useState(function(): RecyclingTokenState
-		return {
-			token = {},
-			values = values,
-		}
-	end)
-	if not sameValues(tokenState.values, values) then
-		tokenState = {
-			token = {},
-			values = values,
-		}
-		setTokenState(tokenState)
-	end
-
-	React.useLayoutEffect(function()
-		return Signals.createEffect(function(scope)
-			local effectValues = table.create(#dependencies)
-			for index, dependency in dependencies do
-				effectValues[index] = dependency(scope)
+local useRecyclingDependencies, readValues, useRecyclingToken
+if FFlagViewRecyclerReact084 then
+	function useRecyclingDependencies(additionalDependencies: { RecyclingDependency }?): { RecyclingDependency }
+		local dependencies = table.create(1 + #(additionalDependencies or {}))
+		dependencies[1] = useRecyclableViewContext().itemKeySignal
+		if additionalDependencies ~= nil then
+			for _, dependency in additionalDependencies do
+				table.insert(dependencies, dependency)
 			end
-			setTokenState(function(current)
-				if sameValues(current.values, effectValues) then
-					return current
-				end
-				return {
-					token = {},
-					values = effectValues,
-				}
-			end)
-		end)
-	end, dependencies :: { unknown })
+		end
+		return dependencies
+	end
 
-	return tokenState.token
+	function readValues(dependencies: { RecyclingDependency }, scope: Signals.scope | false): { unknown }
+		local values = table.create(#dependencies)
+		for index, dependency in dependencies do
+			values[index] = dependency(scope)
+		end
+		return values
+	end
+else
+	function useRecyclingToken(additionalDependencies: { RecyclingDependency }?): {}
+		local identity = useRecyclableViewContext().itemKeySignal
+		local dependencies = table.create(1 + #(additionalDependencies or {}))
+		dependencies[1] = identity
+		if additionalDependencies ~= nil then
+			for _, dependency in additionalDependencies do
+				table.insert(dependencies, dependency)
+			end
+		end
+
+		local values = table.create(#dependencies)
+		for index, dependency in dependencies do
+			values[index] = dependency(false)
+		end
+		local tokenState, setTokenState = React.useState(function(): RecyclingTokenState
+			return {
+				token = {},
+				values = values,
+			}
+		end)
+		if not sameValues(tokenState.values, values) then
+			tokenState = {
+				token = {},
+				values = values,
+			}
+			setTokenState(tokenState)
+		end
+
+		React.useLayoutEffect(function()
+			return Signals.createEffect(function(scope)
+				local effectValues = table.create(#dependencies)
+				for index, dependency in dependencies do
+					effectValues[index] = dependency(scope)
+				end
+				setTokenState(function(current)
+					if sameValues(current.values, effectValues) then
+						return current
+					end
+					return {
+						token = {},
+						values = effectValues,
+					}
+				end)
+			end)
+		end, dependencies :: { unknown })
+
+		return tokenState.token
+	end
 end
 
 function ItemHooks.useRecyclingState<S>(
@@ -118,49 +145,107 @@ function ItemHooks.useRecyclingState<S>(
 	additionalDependencies: { RecyclingDependency }?,
 	resetCallback: (() -> ())?
 ): (S, (action: SetStateAction<S>) -> ())
-	local token = useRecyclingToken(additionalDependencies)
+	local dependencies, values, token
+	if FFlagViewRecyclerReact084 then
+		dependencies = useRecyclingDependencies(additionalDependencies)
+		values = readValues(dependencies, false)
+	else
+		token = useRecyclingToken(additionalDependencies)
+	end
 	local recyclingState, setRecyclingState = React.useState(function(): RecyclingState<S>
 		return {
-			token = token,
+			token = (if FFlagViewRecyclerReact084 then {} else token),
+			values = (if FFlagViewRecyclerReact084 then values else nil),
 			value = initialize(initialState),
 		}
 	end)
-	if recyclingState.token ~= token then
+	if
+		if FFlagViewRecyclerReact084
+			then not sameValues(recyclingState.values, values)
+			else recyclingState.token ~= token
+	then
 		recyclingState = {
-			token = token,
+			token = (if FFlagViewRecyclerReact084 then {} else token),
+			values = (if FFlagViewRecyclerReact084 then values else nil),
 			value = initialize(initialState),
 		}
 		setRecyclingState(recyclingState)
 	end
+
+	local latestRef
+	if FFlagViewRecyclerReact084 then
+		latestRef = React.useRef({ initialState = initialState, resetCallback = resetCallback })
+		React.useLayoutEffect(function()
+			latestRef.current = { initialState = initialState, resetCallback = resetCallback }
+		end)
+		React.useLayoutEffect(function()
+			return Signals.createEffect(function(scope)
+				local effectValues = readValues(dependencies, scope)
+				setRecyclingState(function(current)
+					if sameValues(current.values, effectValues) then
+						return current
+					end
+					return {
+						token = {},
+						values = effectValues,
+						value = initialize(latestRef.current.initialState),
+					}
+				end)
+			end)
+		end, dependencies :: { unknown })
+
+		token = recyclingState.token
+	end
 	local didMountRef = React.useRef(false)
-	local resetCallbackRef = React.useRef(resetCallback)
+
+	local resetCallbackRef
+	if not FFlagViewRecyclerReact084 then
+		resetCallbackRef = React.useRef(resetCallback)
+	end
 	React.useLayoutEffect(function()
-		resetCallbackRef.current = resetCallback
-	end, { resetCallback } :: { unknown })
-	React.useLayoutEffect(function()
-		if didMountRef.current then
-			local callback = resetCallbackRef.current
-			if callback ~= nil then
-				callback()
+		if FFlagViewRecyclerReact084 then
+			if didMountRef.current then
+				local callback = latestRef.current.resetCallback
+				if callback ~= nil then
+					callback()
+				end
+			else
+				didMountRef.current = true
 			end
 		else
-			didMountRef.current = true
+			resetCallbackRef.current = resetCallback
 		end
-	end, { token } :: { unknown })
+	end, { (if FFlagViewRecyclerReact084 then token else resetCallback) } :: { unknown })
 
-	local capturedToken = token
+	local capturedToken
+	if not FFlagViewRecyclerReact084 then
+		React.useLayoutEffect(function()
+			if didMountRef.current then
+				local callback = resetCallbackRef.current
+				if callback ~= nil then
+					callback()
+				end
+			else
+				didMountRef.current = true
+			end
+		end, { token } :: { unknown })
+
+		capturedToken = token
+	end
+
 	local setState = React.useCallback(function(action: SetStateAction<S>)
 		setRecyclingState(function(current)
-			if current.token ~= capturedToken then
+			if current.token ~= (if FFlagViewRecyclerReact084 then token else capturedToken) then
 				return current
 			end
 			local value = if type(action) == "function" then (action :: (S) -> S)(current.value) else action
 			return {
 				token = current.token,
+				values = (if FFlagViewRecyclerReact084 then current.values else nil),
 				value = value,
 			}
 		end)
-	end, { capturedToken } :: { unknown })
+	end, { (if FFlagViewRecyclerReact084 then token else capturedToken) } :: { unknown })
 	return recyclingState.value, setState
 end
 
@@ -169,35 +254,76 @@ function ItemHooks.useRecyclingSignal<S>(
 	additionalDependencies: { RecyclingDependency }?,
 	resetCallback: (() -> ())?
 ): (Signals.getter<S>, Signals.setter<S>)
-	local token = useRecyclingToken(additionalDependencies)
+	local dependencies, token
+	if FFlagViewRecyclerReact084 then
+		dependencies = useRecyclingDependencies(additionalDependencies)
+	else
+		token = useRecyclingToken(additionalDependencies)
+	end
 	local signalState = React.useState(function(): RecyclingSignalState<S>
 		local getter, setter = Signals.createSignal(initialize(initialState))
 		return {
 			getter = getter,
 			setter = setter,
-			committedToken = token,
+			values = (if FFlagViewRecyclerReact084 then readValues(dependencies, false) else nil),
+			unmounted = (if FFlagViewRecyclerReact084 then false else nil),
+
+			committedToken = if FFlagViewRecyclerReact084 then nil else token,
 		}
 	end)
 
-	local didMountRef = React.useRef(false)
-	React.useLayoutEffect(function()
-		if didMountRef.current then
-			signalState.committedToken = token
-			signalState.setter(initialize(initialState))
-			if resetCallback ~= nil then
-				resetCallback()
+	local latestRef, didMountRef, capturedToken
+	if FFlagViewRecyclerReact084 then
+		latestRef = React.useRef({ initialState = initialState, resetCallback = resetCallback })
+		React.useLayoutEffect(function()
+			latestRef.current = { initialState = initialState, resetCallback = resetCallback }
+		end)
+		React.useLayoutEffect(function()
+			signalState.unmounted = false
+			return function()
+				signalState.unmounted = true
 			end
-		else
-			didMountRef.current = true
-		end
-	end, { token } :: { unknown })
+		end, { signalState })
+		React.useLayoutEffect(function()
+			return Signals.createEffect(function(scope)
+				local values = readValues(dependencies, scope)
+				if sameValues(signalState.values, values) then
+					return
+				end
+				signalState.values = values
+				signalState.setter(initialize(latestRef.current.initialState))
+				local callback = latestRef.current.resetCallback
+				if callback ~= nil then
+					callback()
+				end
+			end)
+		end, dependencies :: { unknown })
+	else
+		didMountRef = React.useRef(false)
+		React.useLayoutEffect(function()
+			if didMountRef.current then
+				signalState.committedToken = token
+				signalState.setter(initialize(initialState))
+				if resetCallback ~= nil then
+					resetCallback()
+				end
+			else
+				didMountRef.current = true
+			end
+		end, { token } :: { unknown })
 
-	local capturedToken = token
+		capturedToken = token
+	end
+
+	-- Not guarded by key: a component that does not render on reassignment
+	-- holds only setters created under earlier keys.
 	local setSignal = React.useCallback(function(value: S)
-		if signalState.committedToken == capturedToken then
+		if
+			if FFlagViewRecyclerReact084 then not signalState.unmounted else signalState.committedToken == capturedToken
+		then
 			signalState.setter(value)
 		end
-	end, { capturedToken, signalState } :: { unknown })
+	end, (if FFlagViewRecyclerReact084 then { signalState } else { capturedToken, signalState }))
 	return signalState.getter, setSignal
 end
 

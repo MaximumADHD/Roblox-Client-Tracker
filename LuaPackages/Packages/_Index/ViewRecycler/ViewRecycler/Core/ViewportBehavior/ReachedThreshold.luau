@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 export type ViewportFraction = {
 	viewportFraction: number,
 }
@@ -19,6 +20,19 @@ function ReachedThreshold.validate(value: ReachedThreshold, name: string?)
 	assert(type(value) == "table", `{label} must be a number or viewport-fraction table`)
 	assert(type(value.viewportFraction) == "number", `{label}.viewportFraction must be a number`)
 	validateNumber(value.viewportFraction, `{label}.viewportFraction`)
+end
+
+if FFlagViewRecyclerReact084 then
+	-- Adapters receive a new viewport-fraction table on every render, so a
+	-- threshold is the same when its value is.
+	function ReachedThreshold.equal(left: ReachedThreshold?, right: ReachedThreshold?): boolean
+		if left == right then
+			return true
+		end
+		return type(left) == "table"
+			and type(right) == "table"
+			and (left :: ViewportFraction).viewportFraction == (right :: ViewportFraction).viewportFraction
+	end
 end
 
 -- Callers validate a threshold when it is set; resolving runs every scroll.

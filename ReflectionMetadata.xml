@@ -1506,14 +1506,6 @@
         <string name="Name">EditableMesh</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
-      <Item class="ReflectionMetadataFunctions">
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">Clear</string>
-            <string name="FFlag">SimEditableMeshClearMethod</string>
-          </Properties>
-        </Item>
-      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -5862,6 +5854,14 @@
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">GetExtents</string>
+            <string name="FFlag">SimControllerPartSensorGetExtents</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -7694,6 +7694,14 @@
           </Properties>
         </Item>
       </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">SessionStorage</string>
+        <string name="ExplorerOrder">1000</string>
+        <string name="ExplorerImageIndex">77</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">

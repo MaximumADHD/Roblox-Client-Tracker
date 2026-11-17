@@ -1,5 +1,6 @@
 -- Each kind of Destination a Recyclable view's Frame can occupy, and how the
 -- view attaches, presents, and detaches its Frame there.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 
 local Core = require(Root.Parent.ViewRecycler)
@@ -22,11 +23,19 @@ export type ListDestination<T> = {
 	state: Core.ViewState<T>,
 	sink: Roblox.HostPlacementSink<any, T>,
 }
+-- The Recycling scope's place for Vacant Hosts.
+type VacantHosts = {
+	leave: (host: GuiObject) -> (),
+	reclaim: (host: GuiObject) -> (),
+	hold: (hosts: { GuiObject }) -> (),
+}
+
 export type CompositionDestination = {
 	kind: typeof(Kind.Composition),
 	placementId: number,
 	placeholder: Frame,
 	automaticSize: Enum.AutomaticSize,
+	vacantHosts: VacantHosts,
 }
 -- `rectPlacement` is the owning placement's identity. Geometry is not part of
 -- the Destination; the Rect placement writes it.
@@ -34,6 +43,7 @@ export type RectDestination = {
 	kind: typeof(Kind.Rect),
 	rectPlacement: any,
 	container: GuiObject,
+	vacantHosts: VacantHosts,
 }
 export type Destination<T> = ListDestination<T> | CompositionDestination | RectDestination
 
@@ -49,14 +59,23 @@ export type Behavior = {
 	readItem: (value: any, scope: Signals.scope) -> any,
 }
 
-local function resetReparented(_view: any, frame: Frame, _destination: any)
-	ReparentableHost.detach(frame)
-	frame.AnchorPoint = Vector2.zero
-	frame.Position = UDim2.new()
-	frame.Size = UDim2.new()
-	frame.AutomaticSize = Enum.AutomaticSize.None
-	-- List placement reads the host's ZIndex as its unpinned base.
-	frame.ZIndex = 1
+local resetReparented
+if FFlagViewRecyclerReact084 then
+	function resetReparented(frame: Frame)
+		frame.AnchorPoint = Vector2.zero
+		-- List placement reads the host's ZIndex as its unpinned base.
+		frame.ZIndex = 1
+	end
+else
+	function resetReparented(_view: any, frame: Frame, _destination: any)
+		ReparentableHost.detach(frame)
+		frame.AnchorPoint = Vector2.zero
+		frame.Position = UDim2.new()
+		frame.Size = UDim2.new()
+		frame.AutomaticSize = Enum.AutomaticSize.None
+		-- List placement reads the host's ZIndex as its unpinned base.
+		frame.ZIndex = 1
+	end
 end
 
 local function attachNowhere(_frame: Frame, _destination: any) end
@@ -65,61 +84,127 @@ local function readValue(value: any, _scope: Signals.scope): any
 	return value
 end
 
-local behaviors: { [Kind]: Behavior } = table.freeze({
-	[Kind.List] = table.freeze({
-		sameOwner = function(previous, next)
-			return previous.sink == next.sink
-		end,
-		attach = attachNowhere,
-		present = function(view, frame, destination: ListDestination<any>, phase)
-			destination.sink.apply(view, {
-				host = frame,
-				phase = phase,
-				state = destination.state,
-			})
-		end,
-		detach = function(view, _frame, destination: ListDestination<any>)
-			destination.sink.apply(view, nil)
-		end,
-		readItem = readValue,
-	}),
-	[Kind.Composition] = table.freeze({
-		sameOwner = function(previous, next)
-			return previous.placementId == next.placementId
-		end,
-		attach = attachNowhere,
-		present = function(_view, frame, destination: CompositionDestination, phase)
-			if frame.Parent ~= destination.placeholder or frame.AutomaticSize ~= destination.automaticSize then
-				ReparentableHost.place(frame, destination)
-			end
-			frame.Visible = phase ~= HostPresentationPhase.Hidden
-		end,
-		detach = resetReparented,
-		-- A composed view keeps one Assignment while its parent's item
-		-- changes, so the Assignment carries the parent's item getter.
-		readItem = function(value, scope)
-			return value(scope)
-		end,
-	}),
-	[Kind.Rect] = table.freeze({
-		sameOwner = function(previous, next)
-			return previous.rectPlacement == next.rectPlacement
-		end,
-		-- Parented synchronously, so a Rect placement's sync returns with
-		-- every view in its container even inside an outer batch.
-		attach = function(frame, destination: RectDestination)
-			if frame.Parent ~= destination.container then
-				frame.AutomaticSize = Enum.AutomaticSize.None
-				frame.Parent = destination.container
-			end
-		end,
-		present = function(_view, frame, _destination, phase)
-			frame.Visible = phase ~= HostPresentationPhase.Hidden
-		end,
-		detach = resetReparented,
-		readItem = readValue,
-	}),
-}) :: any
+local behaviors: { [Kind]: Behavior } = table.freeze((if FFlagViewRecyclerReact084
+	then {
+		[Kind.List] = table.freeze({
+			sameOwner = function(previous, next)
+				return previous.sink == next.sink
+			end,
+			attach = attachNowhere,
+			present = function(view, frame, destination: ListDestination<any>, phase)
+				destination.sink.apply(view, {
+					host = frame,
+					phase = phase,
+					state = destination.state,
+				})
+			end,
+			detach = function(view, _frame, destination: ListDestination<any>)
+				destination.sink.apply(view, nil)
+			end,
+			readItem = readValue,
+		}),
+		[Kind.Composition] = table.freeze({
+			sameOwner = function(previous, next)
+				return previous.placementId == next.placementId
+			end,
+			attach = attachNowhere,
+			present = function(_view, frame, destination: CompositionDestination, phase)
+				if frame.Parent ~= destination.placeholder or frame.AutomaticSize ~= destination.automaticSize then
+					destination.vacantHosts.reclaim(frame)
+					ReparentableHost.place(frame, destination)
+				end
+				frame.Visible = phase ~= HostPresentationPhase.Hidden
+			end,
+			detach = function(_view, frame, destination: CompositionDestination)
+				resetReparented(frame)
+				-- The placeholder belongs to the composing content, which can
+				-- unmount right after its composed views are released.
+				destination.vacantHosts.hold({ frame })
+			end,
+			-- A composed view keeps one Assignment while its parent's item
+			-- changes, so the Assignment carries the parent's item getter.
+			readItem = function(value, scope)
+				return value(scope)
+			end,
+		}),
+		[Kind.Rect] = table.freeze({
+			sameOwner = function(previous, next)
+				return previous.rectPlacement == next.rectPlacement
+			end,
+			-- Parented synchronously, so a Rect placement's sync returns with
+			-- every view in its container even inside an outer batch.
+			attach = function(frame, destination: RectDestination)
+				destination.vacantHosts.reclaim(frame)
+				if frame.Parent ~= destination.container then
+					frame.AutomaticSize = Enum.AutomaticSize.None
+					frame.Parent = destination.container
+				end
+			end,
+			present = function(_view, frame, _destination, phase)
+				frame.Visible = phase ~= HostPresentationPhase.Hidden
+			end,
+			detach = function(_view, frame, destination: RectDestination)
+				resetReparented(frame)
+				destination.vacantHosts.leave(frame)
+			end,
+			readItem = readValue,
+		}),
+	}
+	else {
+		[Kind.List] = table.freeze({
+			sameOwner = function(previous, next)
+				return previous.sink == next.sink
+			end,
+			attach = attachNowhere,
+			present = function(view, frame, destination: ListDestination<any>, phase)
+				destination.sink.apply(view, {
+					host = frame,
+					phase = phase,
+					state = destination.state,
+				})
+			end,
+			detach = function(view, _frame, destination: ListDestination<any>)
+				destination.sink.apply(view, nil)
+			end,
+			readItem = readValue,
+		}),
+		[Kind.Composition] = table.freeze({
+			sameOwner = function(previous, next)
+				return previous.placementId == next.placementId
+			end,
+			attach = attachNowhere,
+			present = function(_view, frame, destination: CompositionDestination, phase)
+				if frame.Parent ~= destination.placeholder or frame.AutomaticSize ~= destination.automaticSize then
+					ReparentableHost.place(frame, destination)
+				end
+				frame.Visible = phase ~= HostPresentationPhase.Hidden
+			end,
+			detach = resetReparented,
+			-- A composed view keeps one Assignment while its parent's item
+			-- changes, so the Assignment carries the parent's item getter.
+			readItem = function(value, scope)
+				return value(scope)
+			end,
+		}),
+		[Kind.Rect] = table.freeze({
+			sameOwner = function(previous, next)
+				return previous.rectPlacement == next.rectPlacement
+			end,
+			-- Parented synchronously, so a Rect placement's sync returns with
+			-- every view in its container even inside an outer batch.
+			attach = function(frame, destination: RectDestination)
+				if frame.Parent ~= destination.container then
+					frame.AutomaticSize = Enum.AutomaticSize.None
+					frame.Parent = destination.container
+				end
+			end,
+			present = function(_view, frame, _destination, phase)
+				frame.Visible = phase ~= HostPresentationPhase.Hidden
+			end,
+			detach = resetReparented,
+			readItem = readValue,
+		}),
+	})) :: any
 
 return table.freeze({
 	Kind = Kind,

@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local Src = script:FindFirstAncestor("ViewRecycler")
 
 local ItemSequence = require(Src.Core.Virtualizer.ItemSequence)
@@ -12,6 +13,7 @@ local PINNED_ITEM_KEYS = table.freeze({ "key" })
 
 export type PinnedItem = {
 	key: string,
+	estimatedLength: number?,
 }
 
 export type Options = {
@@ -37,7 +39,7 @@ export type Planner = {
 		key: string,
 		revision: number,
 		length: number
-	) -> Placement.ContentInsets?,
+	) -> (Placement.ContentInsets?, boolean),
 	setOptions: (options: Options) -> boolean,
 	setItemSequence: (itemSequence: ItemSequence.ItemSequence) -> (),
 	destroy: () -> (),
@@ -46,41 +48,84 @@ export type Planner = {
 type State = {
 	item: PinnedItem?,
 	revision: number,
-	length: number,
+	-- nil until the current key is measured.
+	measuredLength: number?,
+
+	length: number?,
 }
 
 local function sameItem(left: PinnedItem?, right: PinnedItem?): boolean
 	return left == right or (left ~= nil and right ~= nil and ShallowTable.containsEqual(left, right, PINNED_ITEM_KEYS))
 end
 
+local estimatedLength, lengthOf
+if FFlagViewRecyclerReact084 then
+	function estimatedLength(item: PinnedItem?): number
+		local estimate = if item ~= nil then item.estimatedLength else nil
+		if estimate == nil then
+			return 0
+		end
+		assert(estimate >= 0 and estimate < math.huge, "PinnedItems: estimated length must be finite and non-negative")
+		return estimate
+	end
+
+	function lengthOf(state: State): number
+		if state.item == nil then
+			return 0
+		end
+		return state.measuredLength or estimatedLength(state.item)
+	end
+end
+
 local function createPinnedItemPlanner(initialItemSequence: ItemSequence.ItemSequence, initialOptions: Options): Planner
 	local options = initialOptions
 	local resolver = createStickyIndexResolver(initialItemSequence, options.isItemStickyKey)
+
+	if FFlagViewRecyclerReact084 then
+		estimatedLength(options.pinnedStartItem)
+		estimatedLength(options.pinnedEndItem)
+	end
 	local startState: State = {
 		item = options.pinnedStartItem,
 		revision = 1,
-		length = 0,
+		measuredLength = (if FFlagViewRecyclerReact084 then nil else nil),
+		length = if FFlagViewRecyclerReact084 then nil else 0,
 	}
 	local endState: State = {
 		item = options.pinnedEndItem,
 		revision = 1,
-		length = 0,
+		measuredLength = (if FFlagViewRecyclerReact084 then nil else nil),
+		length = if FFlagViewRecyclerReact084 then nil else 0,
 	}
 
 	local function setItem(state: State, item: PinnedItem?): boolean
 		if sameItem(state.item, item) then
-			return false
+			local previousLength
+			if FFlagViewRecyclerReact084 then
+				previousLength = lengthOf(state)
+				state.item = item
+			end
+			return (if FFlagViewRecyclerReact084 then lengthOf(state) ~= previousLength else false)
 		end
 		state.item = item
 		state.revision += 1
-		state.length = 0
+
+		if FFlagViewRecyclerReact084 then
+			state.measuredLength = nil
+		else
+			state.length = 0
+		end
 		return true
 	end
 
 	local function getContentInsets(): Placement.ContentInsets
 		return {
-			start = if startState.item == nil then 0 else startState.length,
-			finish = if endState.item == nil then 0 else endState.length,
+			start = (if FFlagViewRecyclerReact084
+				then lengthOf(startState)
+				else if startState.item == nil then 0 else startState.length),
+			finish = (if FFlagViewRecyclerReact084
+				then lengthOf(endState)
+				else if endState.item == nil then 0 else endState.length),
 		}
 	end
 
@@ -92,7 +137,7 @@ local function createPinnedItemPlanner(initialItemSequence: ItemSequence.ItemSeq
 		return {
 			key = item.key,
 			revision = state.revision,
-			length = state.length,
+			length = (if FFlagViewRecyclerReact084 then lengthOf(state) else state.length),
 			position = position,
 		}
 	end
@@ -101,7 +146,13 @@ local function createPinnedItemPlanner(initialItemSequence: ItemSequence.ItemSeq
 		getContentInsets = getContentInsets,
 		update = function(context)
 			resolver.setItemSequence(context.itemSequence)
-			local startLength = if startState.item == nil then 0 else startState.length
+
+			local startLength
+			if FFlagViewRecyclerReact084 then
+				startLength = lengthOf(startState)
+			else
+				startLength = if startState.item == nil then 0 else startState.length
+			end
 			local activeStickyIndex, nextStickyIndex = resolver.resolveActive(function(index)
 				return context.layout.getItemLayout(index).startOffset
 						+ context.contentStartOffset
@@ -127,13 +178,38 @@ local function createPinnedItemPlanner(initialItemSequence: ItemSequence.ItemSeq
 			assert(length >= 0 and length < math.huge, "PinnedItems: measured length must be finite and non-negative")
 			local state = if position == Placement.PinnedPosition.Start then startState else endState
 			local item = state.item
-			if item == nil or item.key ~= key or state.revision ~= revision or state.length == length then
-				return nil
+			if
+				(if FFlagViewRecyclerReact084 then item == nil else item == nil or item.key ~= key)
+				or (if FFlagViewRecyclerReact084 then item.key else state.revision) ~= (if FFlagViewRecyclerReact084
+					then key
+					else revision)
+				or (if FFlagViewRecyclerReact084 then state.revision ~= revision else state.length == length)
+			then
+				if FFlagViewRecyclerReact084 then
+					return nil, false
+				else
+					return nil
+				end
 			end
-			state.length = length
-			return getContentInsets()
+
+			local previousLength
+			if FFlagViewRecyclerReact084 then
+				previousLength = lengthOf(state)
+				state.measuredLength = length
+				if length == previousLength then
+					return nil, true
+				end
+				return getContentInsets(), true
+			else
+				state.length = length
+				return getContentInsets()
+			end
 		end,
 		setOptions = function(nextOptions)
+			if FFlagViewRecyclerReact084 then -- Validates both estimates before any state changes.
+				estimatedLength(nextOptions.pinnedStartItem)
+				estimatedLength(nextOptions.pinnedEndItem)
+			end
 			options = nextOptions
 			local changed = resolver.setPredicate(nextOptions.isItemStickyKey)
 			changed = setItem(startState, nextOptions.pinnedStartItem) or changed

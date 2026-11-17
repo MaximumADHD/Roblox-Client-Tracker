@@ -1,3 +1,5 @@
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
@@ -8,6 +10,8 @@ local HostMeasurement = require(Root.RobloxAdapter.HostMeasurement)
 local HostPresentationPhase = require(Root.RobloxAdapter.HostPresentationPhase)
 local ReparentableHost = require(Root.RobloxAdapter.ReparentableHost)
 local StackPlacement = require(Root.RobloxAdapter.StackPlacement)
+
+local VacantHosts = require(Root.RobloxAdapter.VacantHosts)
 export type Configuration = {
 	container: Instance?,
 	viewportContainer: Instance?,
@@ -32,6 +36,10 @@ export type Options<ItemView, T> = {
 	onItemViewPresentationChanged: ((itemView: ItemView, assignment: Core.Assignment<T>?) -> ())?,
 	-- The Canvas origin that Canvas-relative placements are offset by.
 	getCanvasOriginOffset: (() -> number)?,
+	-- The Recycling scope's. A Host this placement stops placing is left
+	-- there, hidden, and evacuated when its container is replaced or the
+	-- placement is destroyed.
+	vacantHosts: VacantHosts.VacantHosts,
 }
 export type HostPlacement<ItemView, T> = {
 	apply: (itemView: ItemView, state: PhysicalState<T>?) -> (),
@@ -83,6 +91,11 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 	local trackedItemViewCount = 0
 	local destroyed = false
 	local getCanvasOriginOffset = options.getCanvasOriginOffset or zero
+
+	local vacantHosts
+	if FFlagViewRecyclerReact084 then
+		vacantHosts = options.vacantHosts
+	end
 	local absolute = AbsolutePlacement.new(configuration.axis, configuration.selfSizing, getCanvasOriginOffset)
 
 	local function commitStack()
@@ -123,18 +136,41 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 		end
 	end
 
-	local function detachHost(itemView: ItemView, entry: Entry<T>)
-		local host = entry.host
-		if host ~= nil then
-			if stack ~= nil then
-				stack.remove(host)
+	local leaveHost, isContainer, detachHost
+	if FFlagViewRecyclerReact084 then
+		function leaveHost(itemView: ItemView, entry: Entry<T>)
+			local host = entry.host
+			if host ~= nil then
+				if stack ~= nil then
+					stack.remove(host)
+				end
+				CanvasItemPlacer.release(host, entry.placerState)
+				absolute.remove(host)
+				vacantHosts.leave(host)
+				entry.host = nil
 			end
-			ReparentableHost.clearSelection(host)
-			CanvasItemPlacer.detachForTransfer(host, entry.placerState)
-			absolute.remove(host)
-			entry.host = nil
+			stopMeasuring(itemView, entry)
 		end
-		stopMeasuring(itemView, entry)
+
+		function isContainer(parent: Instance): boolean
+			return parent == configuration.container
+				or parent == configuration.viewportContainer
+				or (stack ~= nil and stack.isStackFrame(parent))
+		end
+	else
+		function detachHost(itemView: ItemView, entry: Entry<T>)
+			local host = entry.host
+			if host ~= nil then
+				if stack ~= nil then
+					stack.remove(host)
+				end
+				ReparentableHost.clearSelection(host)
+				CanvasItemPlacer.detachForTransfer(host, entry.placerState)
+				absolute.remove(host)
+				entry.host = nil
+			end
+			stopMeasuring(itemView, entry)
+		end
 	end
 
 	local function getEntry(itemView: ItemView): Entry<T>
@@ -168,25 +204,43 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 	local function applyPhysical(itemView: ItemView, entry: Entry<T>)
 		local physical = entry.physicalState
 		if physical == nil then
-			detachHost(itemView, entry)
+			if FFlagViewRecyclerReact084 then
+				leaveHost(itemView, entry)
+			else
+				detachHost(itemView, entry)
+			end
 			reportPresentation(itemView, entry, nil)
 			return
 		end
 		local state = physical.state
 		local host = physical.host
 		if entry.host ~= nil and entry.host ~= host then
-			detachHost(itemView, entry)
+			if FFlagViewRecyclerReact084 then
+				leaveHost(itemView, entry)
+			else
+				detachHost(itemView, entry)
+			end
 		end
 		local useViewportContainer = (
-			if FFlagViewRecyclerReact08
+			if FFlagViewRecyclerReact084
 				then state.viewportPlacement ~= nil
-				else state.viewportPlacement ~= nil and configuration.viewportContainer ~= nil
+				else (if FFlagViewRecyclerReact08
+					then state.viewportPlacement ~= nil
+					else state.viewportPlacement ~= nil and configuration.viewportContainer ~= nil)
 		)
 		local container = if useViewportContainer then configuration.viewportContainer else configuration.container
 		if container == nil then
-			detachHost(itemView, entry)
+			if FFlagViewRecyclerReact084 then
+				leaveHost(itemView, entry)
+			else
+				detachHost(itemView, entry)
+			end
 			reportPresentation(itemView, entry, nil)
 			return
+		end
+
+		if FFlagViewRecyclerReact084 then
+			vacantHosts.reclaim(host)
 		end
 		local currentStack = stack
 		local visible
@@ -233,7 +287,11 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 		if current ~= nil then
 			for itemView, entry in entries do
 				if entry.host ~= nil and current.isStacked(entry.host) then
-					detachHost(itemView, entry)
+					if FFlagViewRecyclerReact084 then
+						leaveHost(itemView, entry)
+					else
+						detachHost(itemView, entry)
+					end
 				end
 			end
 			current.destroy()
@@ -273,6 +331,14 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 		end,
 		setConfiguration = function(nextConfiguration)
 			if not destroyed then
+				if FFlagViewRecyclerReact084 then
+					if
+						nextConfiguration.container ~= configuration.container
+						or nextConfiguration.viewportContainer ~= configuration.viewportContainer
+					then
+						vacantHosts.evacuate(isContainer)
+					end
+				end
 				configuration = nextConfiguration
 				measurement.setAxis(configuration.axis)
 				absolute.setConfiguration(configuration.axis, configuration.selfSizing)
@@ -328,9 +394,9 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 			measurement.cancelPending()
 		end,
 		hasDestroyedHost = (
-			if FFlagViewRecyclerReact08
+			if FFlagViewRecyclerReact084
 				then function()
-					-- Placing a Host parents it and only `detachHost` unparents it, so a
+					-- Placing a Host parents it and nothing here unparents it, so a
 					-- placed Host without a Parent was destroyed with its container.
 					for _, entry in entries do
 						if entry.host ~= nil and entry.host.Parent == nil then
@@ -339,7 +405,20 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 					end
 					return false
 				end
-				else nil
+				else (
+					if FFlagViewRecyclerReact08
+						then function()
+							-- Placing a Host parents it and only `detachHost` unparents it, so a
+							-- placed Host without a Parent was destroyed with its container.
+							for _, entry in entries do
+								if entry.host ~= nil and entry.host.Parent == nil then
+									return true
+								end
+							end
+							return false
+						end
+						else nil
+				)
 		),
 		getTrackedItemViewCount = function()
 			return trackedItemViewCount
@@ -357,7 +436,15 @@ function HostPlacement.new<ItemView, T>(options: Options<ItemView, T>): HostPlac
 			destroyed = true
 			measurement.destroy()
 			for itemView, entry in entries do
-				detachHost(itemView, entry)
+				if FFlagViewRecyclerReact084 then
+					leaveHost(itemView, entry)
+				else
+					detachHost(itemView, entry)
+				end
+			end
+
+			if FFlagViewRecyclerReact084 then
+				vacantHosts.evacuate(isContainer)
 			end
 			absolute.destroy()
 			if stack ~= nil then

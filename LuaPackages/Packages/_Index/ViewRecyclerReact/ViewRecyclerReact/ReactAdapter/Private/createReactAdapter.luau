@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 
@@ -13,7 +14,6 @@ local createPinnedItem = require(Root.ReactAdapter.createPinnedItem)
 local createRecyclableComponent = require(Root.ReactAdapter.createRecyclableComponent)
 local createRecyclableView = require(Root.ReactAdapter.createRecyclableView)
 local createVirtualList = require(Root.ReactAdapter.createVirtualList)
-
 local useRectPlacement = require(Root.ReactAdapter.useRectPlacement)
 
 local function createReactAdapter(options: VirtualList.AdapterOptions)
@@ -38,7 +38,9 @@ local function createReactAdapter(options: VirtualList.AdapterOptions)
 		useRecyclingIndex = ItemHooks.useRecyclingIndex,
 		useMeasuredLayout = LayoutHooks.useMeasuredLayout,
 		useUniformLayout = LayoutHooks.useUniformLayout,
-		useRectPlacement = (if FFlagViewRecyclerReact08 then useRectPlacement else nil),
+		useRectPlacement = (if FFlagViewRecyclerReact084
+			then useRectPlacement
+			else (if FFlagViewRecyclerReact08 then useRectPlacement else nil)),
 		RecyclableViewReadiness = RecyclableViewReadiness,
 
 		DataSource = Core.DataSource,

@@ -22,7 +22,9 @@ To start, lets create a fake validation that ensures all layered clothing Access
 
    This registers a **hidden draft** (`isLive=false`, `isReadyForTranslation=false`) in namespace `Common.UGCValidation` under key `ErrorLabel.YourCoolAnything`, associates it with the `Studio` and `RobloxInGameContent` consumers, and appends the key + English fallback to `src/validationSystem/ErrorSourceStrings.lua`. Commit that file change alongside your module.
 
-   The **Translations Hub is the source of truth**; `ErrorSourceStrings.lua` is a generated mirror + runtime fallback. `--draft` is the easy path, but authoring is open: you can instead create the draft in the Hub UI and hand-add the matching `Keys` + `Values` rows to the file — CI's `verify` only checks that each key the PR added is under `Common.UGCValidation` and **already exists** in the Hub (not the English text). That `verify` check blocks the merge until every added string has been pushed as a draft; **merging then flips those keys to live + ready for translation** (see `.github/workflows/sync-translations.yml`). For a mock/throwaway validation, just don't merge it — nothing reaches translators until merge.
+   The **Translations Hub is the source of truth**; `ErrorSourceStrings.lua` is a generated mirror + runtime fallback. `--draft` is the easy path, but authoring is open: you can instead create the draft in the Hub UI and hand-add the matching `Keys` + `Values` rows to the file. Write each `Values` row as one quoted string on one line, which is what `--draft` writes. CI's `verify` checks that each key the PR adds or edits is under `Common.UGCValidation`, has a `Values` row it can read, and **already exists** in the Hub with both consumers. That check blocks the merge until every added string has been pushed as a draft; it also reports, without blocking, any English that differs between the Hub and the file. **Merging then flips added keys to live + ready for translation** (see `.github/workflows/sync-translations.yml`). For a mock/throwaway validation, just don't merge it — nothing reaches translators until merge.
+
+   **To reword an existing string, edit its `Values` row and merge.** On merge, CI pushes the new English to the Hub, keeps the string live, and sends it for re-translation. Don't re-run `--draft` for it: a draft would take the live string offline, so `--draft` refuses.
 4. Now lets write the test! Here is a basic template
 
 ```lua
@@ -119,7 +121,7 @@ This repository includes the `rotriever-package-release` skill for both Codex an
 ### Updating UGC Validation in StudioPlugins
 
 1. From the StudioPlugins repo run `python3 scripts/rotriever/update.py set UGCValidation "<version>"`.
-2. If new translation strings landed in this release, run `python3 scripts/translations/download_artifacts.py --download-source --namespaces Studio.Toolbox Common.UGCValidation Studio.AvatarCompatibilityPreviewer` ([translations hub](https://translations-hub.simulprod.com/translatable-content?namespace=Common.UGCValidation)).
+2. **Always** run `python3 scripts/translations/download_artifacts.py --download-source --namespaces Studio.Toolbox Common.UGCValidation Studio.AvatarCompatibilityPreviewer` ([translations hub](https://translations-hub.simulprod.com/translatable-content?namespace=Common.UGCValidation)), and commit any CSV changes. Studio shows error messages from these CSVs, not from the Hub, so new strings and edited English (pushed to the Hub when it merges here) only reach Studio through this step. The script writes keys in sorted order, so when nothing changed there is nothing to commit. This refreshes only the English; translated CSVs come from a separate run of the same script without `--download-source`.
 3. Open a PR. Diff should be limited to `rotriever.toml`, `rotriever.lock`, and any CSV updates.
 
 

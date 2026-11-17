@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 local Roblox = require(Root.Parent.ViewRecyclerRoblox)
@@ -48,10 +49,13 @@ local function RecyclableViewHost<T>(props: Props<T>)
 
 	React.useLayoutEffect(function()
 		local detachFromPlaceholder
-		if not FFlagViewRecyclerReact08 then
-			function detachFromPlaceholder(placeholder: Frame)
-				if portalFrame.Parent == placeholder then
-					ReparentableHost.detach(portalFrame)
+		if not FFlagViewRecyclerReact084 then
+			detachFromPlaceholder = nil
+			if not FFlagViewRecyclerReact08 then
+				function detachFromPlaceholder(placeholder: Frame)
+					if portalFrame.Parent == placeholder then
+						ReparentableHost.detach(portalFrame)
+					end
 				end
 			end
 		end
@@ -60,7 +64,9 @@ local function RecyclableViewHost<T>(props: Props<T>)
 				ReparentableHost.clearSelection(portalFrame)
 			end,
 
-			detachFromPlaceholder = if FFlagViewRecyclerReact08 then nil else detachFromPlaceholder,
+			detachFromPlaceholder = if FFlagViewRecyclerReact084
+				then nil
+				else if FFlagViewRecyclerReact08 then nil else detachFromPlaceholder,
 		})
 		return function()
 			ReparentableHost.detach(portalFrame)

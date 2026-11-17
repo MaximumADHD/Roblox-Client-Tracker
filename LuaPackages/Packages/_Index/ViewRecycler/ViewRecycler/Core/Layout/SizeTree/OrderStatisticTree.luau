@@ -1,5 +1,6 @@
 -- One-node-per-item size tree. Insert, update, and prefix walks assume every
 -- node has itemCount = 1 and do not pay run-splitting costs.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local ISizeTree = require(script.Parent.ISizeTree)
 local Weighted = require(script.Parent.WeightedOrderStatisticTree)
 
@@ -17,10 +18,14 @@ local function prefixSumUpTo(node: Weighted.Node?, rank: number, estimatedItemLe
 		return prefixSumUpTo(node.left, rank, estimatedItemLength)
 	elseif rank > leftCount then
 		return Weighted.nodeEffectiveSum(node.left, estimatedItemLength)
-			+ (node.measuredSize or estimatedItemLength)
+			+ ((if FFlagViewRecyclerReact084 then node.measuredSize or node.estimatedSize else node.measuredSize) or estimatedItemLength)
 			+ prefixSumUpTo(node.right, rank - leftCount, estimatedItemLength)
 	end
-	return Weighted.nodeEffectiveSum(node.left, estimatedItemLength) + (node.measuredSize or estimatedItemLength)
+	return Weighted.nodeEffectiveSum(node.left, estimatedItemLength)
+		+ (
+			(if FFlagViewRecyclerReact084 then node.measuredSize or node.estimatedSize else node.measuredSize)
+			or estimatedItemLength
+		)
 end
 
 local function rankAtPrefixSum(node: Weighted.Node?, offset: number, estimatedItemLength: number): number
@@ -34,7 +39,11 @@ local function rankAtPrefixSum(node: Weighted.Node?, offset: number, estimatedIt
 	end
 
 	local leftCount = Weighted.nodeItemCount(node.left)
-	local ownSize = node.measuredSize or estimatedItemLength
+	local ownSize = (
+		if FFlagViewRecyclerReact084
+			then (node.measuredSize or node.estimatedSize or estimatedItemLength)
+			else node.measuredSize or estimatedItemLength
+	)
 	if offset < leftSum + ownSize then
 		return leftCount + 1
 	end
@@ -61,7 +70,11 @@ local function entryAtPrefixSum(
 	end
 
 	local leftCount = Weighted.nodeItemCount(node.left)
-	local ownSize = node.measuredSize or estimatedItemLength
+	local ownSize = (
+		if FFlagViewRecyclerReact084
+			then (node.measuredSize or node.estimatedSize or estimatedItemLength)
+			else node.measuredSize or estimatedItemLength
+	)
 	if offset < leftSum + ownSize then
 		return leftCount + 1, leftSum, ownSize
 	end
@@ -103,7 +116,11 @@ function OrderStatisticTree.new(initialEstimatedItemLength: number?): OrderStati
 		if itemCount == 0 then
 			return 1, 0, 0
 		elseif offset <= 0 then
-			return 1, 0, Weighted.measuredAt(root, 1) or estimatedItemLength
+			if FFlagViewRecyclerReact084 then
+				return 1, 0, Weighted.unitSizeAt(root, 1, estimatedItemLength)
+			else
+				return 1, 0, Weighted.measuredAt(root, 1) or estimatedItemLength
+			end
 		end
 		local total = Weighted.nodeEffectiveSum(root, estimatedItemLength)
 		if offset >= total then
@@ -116,7 +133,12 @@ function OrderStatisticTree.new(initialEstimatedItemLength: number?): OrderStati
 		if index < 1 or index > length() then
 			return 0
 		end
-		return Weighted.measuredAt(root, index) or estimatedItemLength
+
+		if FFlagViewRecyclerReact084 then
+			return Weighted.unitSizeAt(root, index, estimatedItemLength)
+		else
+			return Weighted.measuredAt(root, index) or estimatedItemLength
+		end
 	end
 
 	local function fillRange(firstIndex: number, lastIndex: number, output: { { startOffset: number, length: number } })
@@ -130,8 +152,15 @@ function OrderStatisticTree.new(initialEstimatedItemLength: number?): OrderStati
 		Weighted.updateUnitAt(root, index, measuredSize)
 	end
 
-	local function insert(index: number, measuredSize: number?)
-		root = Weighted.insertUnitAt(root, index, measuredSize)
+	local insert
+	if FFlagViewRecyclerReact084 then
+		function insert(index: number, measuredSize: number?, estimatedSize: number?)
+			root = Weighted.insertUnitAt(root, index, measuredSize, estimatedSize)
+		end
+	else
+		function insert(index: number, measuredSize: number?)
+			root = Weighted.insertUnitAt(root, index, measuredSize)
+		end
 	end
 
 	local function remove(index: number)
@@ -146,12 +175,42 @@ function OrderStatisticTree.new(initialEstimatedItemLength: number?): OrderStati
 		root = Weighted.buildBalanced(specs, 1, #specs)
 	end
 
-	local function buildFromMeasurements(itemCount: number, getMeasuredSize: (index: number) -> number?)
-		local specs = table.create(itemCount)
-		for index = 1, itemCount do
-			specs[index] = { itemCount = 1, measuredSize = getMeasuredSize(index) }
+	local setItemEstimate, buildFromMeasurements
+	if FFlagViewRecyclerReact084 then
+		function setItemEstimate(index: number, estimatedSize: number?): boolean
+			if index < 1 or index > length() or Weighted.estimatedAt(root, index) == estimatedSize then
+				return false
+			end
+			local measuredSize = Weighted.measuredAt(root, index)
+			local previousSize = getSize(index)
+			root = Weighted.removeUnitAt(root, index)
+			root = Weighted.insertUnitAt(root, index, measuredSize, estimatedSize)
+			return getSize(index) ~= previousSize
 		end
-		root = Weighted.buildBalanced(specs, 1, itemCount)
+
+		function buildFromMeasurements(
+			itemCount: number,
+			getMeasuredSize: (index: number) -> number?,
+			getEstimatedSize: ((index: number) -> number?)?
+		)
+			local specs = table.create(itemCount)
+			for index = 1, itemCount do
+				specs[index] = {
+					itemCount = 1,
+					measuredSize = getMeasuredSize(index),
+					estimatedSize = if getEstimatedSize == nil then nil else getEstimatedSize(index),
+				}
+			end
+			root = Weighted.buildBalanced(specs, 1, itemCount)
+		end
+	else
+		function buildFromMeasurements(itemCount: number, getMeasuredSize: (index: number) -> number?)
+			local specs = table.create(itemCount)
+			for index = 1, itemCount do
+				specs[index] = { itemCount = 1, measuredSize = getMeasuredSize(index) }
+			end
+			root = Weighted.buildBalanced(specs, 1, itemCount)
+		end
 	end
 
 	return {
@@ -163,6 +222,7 @@ function OrderStatisticTree.new(initialEstimatedItemLength: number?): OrderStati
 		update = update,
 		insert = insert,
 		remove = remove,
+		setItemEstimate = (if FFlagViewRecyclerReact084 then setItemEstimate else nil),
 		buildFromArray = buildFromArray,
 		buildFromMeasurements = buildFromMeasurements,
 		toArray = function()
@@ -172,7 +232,10 @@ function OrderStatisticTree.new(initialEstimatedItemLength: number?): OrderStati
 		end,
 		setEstimatedItemLength = function(nextEstimatedItemLength: number): boolean
 			local geometryChanged = estimatedItemLength ~= nextEstimatedItemLength
-				and Weighted.nodeMeasuredCount(root) < length()
+				and (if FFlagViewRecyclerReact084 then Weighted.nodeFixedCount else Weighted.nodeMeasuredCount)(
+						root
+					)
+					< length()
 			estimatedItemLength = nextEstimatedItemLength
 			return geometryChanged
 		end,

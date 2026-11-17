@@ -1,6 +1,7 @@
 -- Measured layout: items size themselves; the host records rendered
--- measurements. Until an item is measured it occupies an
--- estimated length (a running average seeded by estimatedItemLength).
+-- measurements. Until an item is measured it occupies its own estimate from
+-- getEstimatedItemLength, or else the global estimate (a running average
+-- seeded by estimatedItemLength).
 --
 -- Viewport tracking and scroll correction live in the Virtualizer's
 -- ScrollAnchor, which reads the anchor item's offset before and after a
@@ -14,6 +15,7 @@
 -- Stale-measurement defense: a measurement whose key no longer sits at the given
 -- index (the data changed between render and measurement settling) is
 -- dropped instead of corrupting a neighbor's size.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local Src = script:FindFirstAncestor("ViewRecycler")
 
 local AveragePropagation = require(Src.Core.Layout.Policies.AveragePropagation)
@@ -37,6 +39,7 @@ export type MeasuredOptions = {
 	estimatedItemLength: number?,
 	estimationPolicy: EstimationPolicy?,
 	detachedMeasurementCapacity: DetachedMeasurementCache.Capacity?,
+	getEstimatedItemLength: ((item: any, index: number) -> number?)?,
 }
 
 local DEFAULT_ESTIMATED_ITEM_LENGTH = 50
@@ -48,6 +51,11 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 		or AveragePropagation.new({ initialAverage = seed })
 	local detachedMeasurements = DetachedMeasurementCache.new(opts.detachedMeasurementCapacity)
 
+	local getEstimatedItemLength
+	if FFlagViewRecyclerReact084 then
+		getEstimatedItemLength = opts.getEstimatedItemLength
+	end
+
 	local tree = CollapsedEstimatedTree.new(seed)
 	local activeMeasurements: { [string]: number } = {}
 	local activeKeys: { [string]: boolean } = {}
@@ -57,6 +65,22 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 	local cachedIntersectionIndex: number? = nil
 	local cachedIntersectionStart = 0
 	local cachedIntersectionLength = 0
+
+	local itemEstimates: { [string]: number }, pendingEstimateKeys: { string }, pendingEstimateIndices: { number }, queueEstimate
+	if FFlagViewRecyclerReact084 then -- Own estimates by active key, and the keys whose estimate the next
+		-- resolveItemEstimates reads, each with the index it last had (0 when
+		-- unknown). Unused without getEstimatedItemLength.
+		itemEstimates = {}
+		pendingEstimateKeys = {}
+		pendingEstimateIndices = {}
+
+		function queueEstimate(itemKey: string, index: number)
+			if getEstimatedItemLength ~= nil then
+				table.insert(pendingEstimateKeys, itemKey)
+				table.insert(pendingEstimateIndices, index)
+			end
+		end
+	end
 
 	local function average(): number
 		return if measuredCount > 0 then sum / measuredCount else seed
@@ -199,9 +223,24 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 
 	local function rebuildFromKeys(newIndexToKey: { string })
 		indexToKey = newIndexToKey
-		tree.buildFromMeasurements(#newIndexToKey, function(index)
-			return activeMeasurements[newIndexToKey[index]]
-		end)
+
+		if FFlagViewRecyclerReact084 then
+			tree.buildFromMeasurements(
+				#newIndexToKey,
+				function(index)
+					return activeMeasurements[newIndexToKey[index]]
+				end,
+				if getEstimatedItemLength == nil
+					then nil
+					else function(index)
+						return itemEstimates[newIndexToKey[index]]
+					end
+			)
+		else
+			tree.buildFromMeasurements(#newIndexToKey, function(index)
+				return activeMeasurements[newIndexToKey[index]]
+			end)
+		end
 	end
 
 	local function applyReset(keys: { string })
@@ -227,9 +266,19 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 		for _, key in indexToKey do
 			if newActiveKeys[key] == nil then
 				detachActiveMeasurement(key)
+
+				if FFlagViewRecyclerReact084 then
+					itemEstimates[key] = nil
+				end
 			end
 		end
 		activeKeys = newActiveKeys
+
+		if FFlagViewRecyclerReact084 then
+			for index, key in newIndexToKey do
+				queueEstimate(key, index)
+			end
+		end
 		rebuildFromKeys(newIndexToKey)
 	end
 
@@ -243,9 +292,18 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 			end
 			seen[key] = true
 		end
-		for _, key in insertedKeys do
-			restoreActiveMeasurement(key)
-			activeKeys[key] = true
+
+		if FFlagViewRecyclerReact084 then
+			for offset, key in insertedKeys do
+				restoreActiveMeasurement(key)
+				activeKeys[key] = true
+				queueEstimate(key, index + offset - 1)
+			end
+		else
+			for _, key in insertedKeys do
+				restoreActiveMeasurement(key)
+				activeKeys[key] = true
+			end
 		end
 
 		if tree.prefersIncremental(insertCount) then
@@ -276,6 +334,10 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 			assert(key == removedKeys[i - index + 1], "Layout.measured: remove keys do not match current order")
 			activeKeys[key] = nil
 			detachActiveMeasurement(key)
+
+			if FFlagViewRecyclerReact084 then
+				itemEstimates[key] = nil
+			end
 		end
 
 		if tree.prefersIncremental(removeCount) then
@@ -298,7 +360,12 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 		table.remove(indexToKey, fromIndex)
 		tree.remove(fromIndex)
 		table.insert(indexToKey, toIndex, key)
-		tree.insert(toIndex, activeMeasurements[key])
+
+		if FFlagViewRecyclerReact084 then
+			tree.insert(toIndex, activeMeasurements[key], itemEstimates[key])
+		else
+			tree.insert(toIndex, activeMeasurements[key])
+		end
 	end
 
 	local function applyReorder(keys: { string })
@@ -327,6 +394,12 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 			applyRemove(removeChange.index, removeChange.keys)
 		elseif change.type == DataSourceChangeType.Update then
 			geometryChanged = false
+
+			if FFlagViewRecyclerReact084 then
+				for _, key in (change :: Types.UpdateDataSourceChange).keys do
+					queueEstimate(key, 0)
+				end
+			end
 		elseif change.type == DataSourceChangeType.Move then
 			local moveChange = change :: Types.MoveDataSourceChange
 			applyMove(moveChange.fromIndex, moveChange.toIndex, moveChange.key)
@@ -334,6 +407,70 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 			applyReorder((change :: Types.ReorderDataSourceChange).keys)
 		end
 		return geometryChanged
+	end
+
+	local readEstimate, resolveItemEstimates
+	if FFlagViewRecyclerReact084 then
+		function readEstimate(item: any, index: number): number?
+			local estimate = (getEstimatedItemLength :: (any, number) -> number?)(item, index)
+			if estimate ~= nil then
+				assert(
+					type(estimate) == "number" and estimate >= 0 and estimate < math.huge,
+					"Layout.measured: getEstimatedItemLength must return nil or a finite, non-negative number"
+				)
+			end
+			return estimate
+		end
+
+		-- Called after a change batch, once indexToKey matches the DataSource.
+		function resolveItemEstimates(getItem: (index: number) -> any): boolean
+			local pendingCount = #pendingEstimateKeys
+			if pendingCount == 0 then
+				return false
+			end
+			cachedIntersectionIndex = nil
+
+			local unresolved: { [string]: number }? = nil
+			for i = 1, pendingCount do
+				local key = pendingEstimateKeys[i]
+				if activeKeys[key] ~= nil and indexToKey[pendingEstimateIndices[i]] ~= key then
+					unresolved = unresolved or {};
+					(unresolved :: { [string]: number })[key] = 0
+				end
+			end
+			if unresolved ~= nil then
+				for index, key in indexToKey do
+					if unresolved[key] ~= nil then
+						unresolved[key] = index
+					end
+				end
+			end
+
+			local rebuild = not tree.prefersIncremental(pendingCount)
+			local geometryChanged = false
+			for i = 1, pendingCount do
+				local key = pendingEstimateKeys[i]
+				if activeKeys[key] ~= nil then
+					local index = if unresolved ~= nil and unresolved[key] ~= nil
+						then unresolved[key]
+						else pendingEstimateIndices[i]
+					local estimate = readEstimate(getItem(index), index)
+					if rebuild then
+						geometryChanged = geometryChanged
+							or (itemEstimates[key] ~= estimate and activeMeasurements[key] == nil)
+					else
+						geometryChanged = tree.setItemEstimate(index, estimate) or geometryChanged
+					end
+					itemEstimates[key] = estimate
+				end
+			end
+			table.clear(pendingEstimateKeys)
+			table.clear(pendingEstimateIndices)
+			if rebuild then
+				rebuildFromKeys(indexToKey)
+			end
+			return geometryChanged
+		end
 	end
 
 	return {
@@ -352,6 +489,9 @@ local function measured(options: MeasuredOptions?): LayoutRuntime.Runtime
 			return itemKey ~= nil and activeMeasurements[itemKey] ~= nil
 		end,
 		applyDataSourceChange = applyDataSourceChange,
+		resolveItemEstimates = (if FFlagViewRecyclerReact084
+			then if getEstimatedItemLength == nil then nil else resolveItemEstimates
+			else nil),
 		setViewportCrossAxisLength = staticParts.geometryUnchanged,
 		stackedSpacing = function()
 			return 0

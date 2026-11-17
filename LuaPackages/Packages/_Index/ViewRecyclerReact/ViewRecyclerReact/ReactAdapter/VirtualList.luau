@@ -8,24 +8,23 @@
 --
 -- Prop stability contract: `layout` swaps the runtime's layout when its
 -- identity changes, so memoize it (React.useMemo).
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 local Core = require(Root.Parent.ViewRecycler)
-
 local Roblox = require(Root.Parent.ViewRecyclerRoblox)
 
-local Axis = Core.Axis
-local Layout = Core.Layout
 local React = require(Root.Parent.React)
 local RecyclableViewRegistry = require(Root.ReactAdapter.Private.RecyclableViewRegistry)
 
 local RecyclingScopeContext = require(Root.ReactAdapter.Private.RecyclingScopeContext)
 local RecyclingScopeFactory = require(Root.ReactAdapter.RecyclingScope)
-local createPinnedItem = require(Root.ReactAdapter.createPinnedItem)
-local ScrollAlignment = Core.ScrollAlignment
+
 local Signals = require(Root.Parent.Signals)
-local DataSource = Core.DataSource
+
 local VirtualListShell = require(Root.ReactAdapter.Private.VirtualListShell)
+
+local createPinnedItem = require(Root.ReactAdapter.createPinnedItem)
 local useReconciledDataSource = require(Root.ReactAdapter.Private.useReconciledDataSource)
 local useVirtualList = require(Root.ReactAdapter.Private.useVirtualList)
 
@@ -44,13 +43,16 @@ export type BaseVirtualListProps<T> = {
 	-- Linear layouts use items; grids use rows. nil defaults to 1.
 	overscan: number?,
 	dataPrefetch: Core.DataPrefetchOptions?,
-	contentAlignment: ScrollAlignment.ScrollAlignment?,
+	contentAlignment: Core.ScrollAlignment?,
 	isItemStickyHeader: ((key: string) -> boolean)?,
 	maxPoolSize: number?,
 	preserveScrollPositionOnChange: boolean?,
 	initialScrollAlignment: Core.InitialScrollAlignment?,
 	autoScrollOnChange: Core.AutoScrollPolicy?,
 	autoScrollThreshold: Core.ReachedThreshold?,
+	-- The motion of every Animated scroll, field by field, unless a scroll
+	-- command sets the field itself.
+	animatedScroll: Core.AnimatedScrollOptions?,
 	onStartReached: (() -> ())?,
 	onEndReached: (() -> ())?,
 	startReachedThreshold: Core.ReachedThreshold?,
@@ -87,8 +89,8 @@ export type CommonVirtualListProps<T> = BaseVirtualListProps<T> & {
 }
 
 type SharedVirtualListProps<T> = CommonVirtualListProps<T> & {
-	layout: Layout.Runtime,
-	axis: Axis.Axis,
+	layout: Core.LayoutRuntime,
+	axis: Core.Axis,
 
 	-- A registered Recyclable view type for homogeneous lists, or a selector
 	-- returning one for heterogeneous lists.
@@ -97,7 +99,7 @@ type SharedVirtualListProps<T> = CommonVirtualListProps<T> & {
 
 export type DeclarativeData<T> = {
 	items: { T },
-	getItemKey: DataSource.GetItemKey<T>,
+	getItemKey: Core.GetItemKey<T>,
 }
 
 export type DeclarativeVirtualListProps<T> = SharedVirtualListProps<T> & {
@@ -105,22 +107,28 @@ export type DeclarativeVirtualListProps<T> = SharedVirtualListProps<T> & {
 }
 
 export type DataSourceVirtualListProps<T> = SharedVirtualListProps<T> & {
-	data: DataSource.DataSource<T>,
+	data: Core.DataSource<T>,
 }
 
 export type VirtualListProps<T> = DeclarativeVirtualListProps<T> | DataSourceVirtualListProps<T>
 
 type ResolvedVirtualListProps<T> = SharedVirtualListProps<T> & {
-	dataSource: DataSource.DataSource<T>,
+	dataSource: Core.DataSource<T>,
 }
 
 export type VirtualListHandle = {
-	scrollToIndex: (itemIndex: number, options: { alignment: ScrollAlignment.ScrollAlignment? }?) -> (),
-	scrollToOffset: (offset: number) -> number,
+	-- With `animated = true`, each scroll command moves over frames and
+	-- lands as the instant command would.
+	scrollToIndex: (
+		itemIndex: number,
+		options: (Core.ScrollOptions & { alignment: Core.ScrollAlignment? })?
+	) -> (),
+	-- Returns the offset the list lands at.
+	scrollToOffset: (offset: number, options: Core.ScrollOptions?) -> number,
 	-- Moves to the edge and keeps it there while Content settles, until the
 	-- reader scrolls away.
-	scrollToStart: () -> (),
-	scrollToEnd: () -> (),
+	scrollToStart: (options: Core.ScrollOptions?) -> (),
+	scrollToEnd: (options: Core.ScrollOptions?) -> (),
 	scrollBy: (delta: number) -> number,
 	getScrollState: () -> Core.ScrollState,
 	captureScrollAnchorSnapshot: () -> Core.ScrollAnchorSnapshot,
@@ -142,25 +150,43 @@ local function createVirtualList(adapterOptions: AdapterOptions?): VirtualListCo
 		return e(VirtualListShell, shellProps)
 	end
 
-	local function DeclarativeVirtualList<T>(props: DeclarativeVirtualListProps<T>)
-		local dataSource = useReconciledDataSource(props.data.items, props.data.getItemKey)
-		local resolvedProps = table.clone(props) :: any
-		resolvedProps.data = nil
-		resolvedProps.dataSource = dataSource
-		return e(VirtualListRenderer, resolvedProps)
-	end
+	local VirtualListBody, DeclarativeVirtualList, DataSourceVirtualList
+	if FFlagViewRecyclerReact084 then
+		-- Shallow comparison on purpose: callbacks reach the Virtualizer only when
+		-- this body renders, so skipping a render for a changed prop would keep a
+		-- stale one.
+		VirtualListBody = React.memo(function<T>(props: ResolvedVirtualListProps<T>)
+			return e(RecyclingScope, {
+				maxPoolSize = props.maxPoolSize,
+				diagnostics = props.diagnostics,
+			}, {
+				List = e(VirtualListRenderer, props),
+			})
+		end)
+	else
+		function DeclarativeVirtualList<T>(props: DeclarativeVirtualListProps<T>)
+			local dataSource = useReconciledDataSource(props.data.items, props.data.getItemKey)
+			local resolvedProps = table.clone(props) :: any
+			resolvedProps.data = nil
+			resolvedProps.dataSource = dataSource
+			return e(VirtualListRenderer, resolvedProps)
+		end
 
-	local function DataSourceVirtualList<T>(props: DataSourceVirtualListProps<T>)
-		local resolvedProps = table.clone(props) :: any
-		resolvedProps.dataSource = props.data
-		resolvedProps.data = nil
-		return e(VirtualListRenderer, resolvedProps)
+		function DataSourceVirtualList<T>(props: DataSourceVirtualListProps<T>)
+			local resolvedProps = table.clone(props) :: any
+			resolvedProps.dataSource = props.data
+			resolvedProps.data = nil
+			return e(VirtualListRenderer, resolvedProps)
+		end
 	end
 
 	local function VirtualList<T>(props: VirtualListProps<T>)
 		local recyclingScope
-		if not FFlagViewRecyclerReact08 then
-			recyclingScope = React.useContext(RecyclingScopeContext)
+		if not FFlagViewRecyclerReact084 then
+			recyclingScope = nil
+			if not FFlagViewRecyclerReact08 then
+				recyclingScope = React.useContext(RecyclingScopeContext)
+			end
 		end
 		local publicProps = props :: any
 		local data = publicProps.data
@@ -183,36 +209,64 @@ local function createVirtualList(adapterOptions: AdapterOptions?): VirtualListCo
 			end
 		end
 
-		local content
-		if
-			type(data) == "table"
-			and type(data.getItemCount) == "function"
-			and type(data.getItem) == "function"
-			and type(data.getItemKey) == "function"
-			and type(data.subscribe) == "function"
-		then
-			content = e(DataSourceVirtualList, publicProps)
+		local isDataSource, content
+		if FFlagViewRecyclerReact084 then
+			isDataSource = type(data) == "table"
+				and type(data.getItemCount) == "function"
+				and type(data.getItem) == "function"
+				and type(data.getItemKey) == "function"
+				and type(data.subscribe) == "function"
 		else
-			assert(
-				type(data) == "table" and type(data.items) == "table" and type(data.getItemKey) == "function",
-				"VirtualList: `data` must be a DataSource or { items, getItemKey }"
-			)
-			content = e(DeclarativeVirtualList, publicProps)
+			content = nil
+			if
+				type(data) == "table"
+				and type(data.getItemCount) == "function"
+				and type(data.getItem) == "function"
+				and type(data.getItemKey) == "function"
+				and type(data.subscribe) == "function"
+			then
+				content = e(DataSourceVirtualList, publicProps)
+			else
+				assert(
+					type(data) == "table" and type(data.items) == "table" and type(data.getItemKey) == "function",
+					"VirtualList: `data` must be a DataSource or { items, getItemKey }"
+				)
+				content = e(DeclarativeVirtualList, publicProps)
+			end
 		end
-
-		if not FFlagViewRecyclerReact08 then
-			if recyclingScope ~= nil then
-				assert(publicProps.maxPoolSize == nil, "VirtualList: configure maxPoolSize on RecyclingScope")
-				return content
+		if not (if FFlagViewRecyclerReact084 then isDataSource else FFlagViewRecyclerReact08) then
+			if FFlagViewRecyclerReact084 then
+				assert(
+					type(data) == "table" and type(data.items) == "table" and type(data.getItemKey) == "function",
+					"VirtualList: `data` must be a DataSource or { items, getItemKey }"
+				)
+			else
+				if recyclingScope ~= nil then
+					assert(publicProps.maxPoolSize == nil, "VirtualList: configure maxPoolSize on RecyclingScope")
+					return content
+				end
 			end
 		end
 
-		return e(RecyclingScope, {
-			maxPoolSize = publicProps.maxPoolSize,
-			diagnostics = publicProps.diagnostics,
-		}, {
-			List = content,
-		})
+		local reconciled, resolvedProps
+		if FFlagViewRecyclerReact084 then
+			reconciled = useReconciledDataSource(
+				if isDataSource then nil else data.items,
+				if isDataSource then nil else data.getItemKey
+			)
+
+			resolvedProps = table.clone(publicProps)
+			resolvedProps.data = nil
+			resolvedProps.dataSource = if isDataSource then data else reconciled
+			return e(VirtualListBody, resolvedProps)
+		else
+			return e(RecyclingScope, {
+				maxPoolSize = publicProps.maxPoolSize,
+				diagnostics = publicProps.diagnostics,
+			}, {
+				List = content,
+			})
+		end
 	end
 
 	return VirtualList :: VirtualListComponent

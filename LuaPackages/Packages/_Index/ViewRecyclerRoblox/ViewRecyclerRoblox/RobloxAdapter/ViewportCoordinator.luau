@@ -1,12 +1,11 @@
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
 
-local Axis = Core.Axis
 local SignalsExperimental = require(Root.Parent.SignalsExperimental)
 local axisMap = require(Root.RobloxAdapter.axisMap)
 local RunService = game:GetService("RunService")
 
-type AxisValue = Axis.Axis
+type AxisValue = Core.Axis
 type SetActive = (active: boolean) -> ()
 
 type TargetRecord = {

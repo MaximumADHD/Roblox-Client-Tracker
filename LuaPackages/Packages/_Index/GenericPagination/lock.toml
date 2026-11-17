@@ -3,6 +3,6 @@ name = "GenericPagination"
 version = "0.1.1"
 source = "registry"
 dependencies = [
-    "Promise Promise 3.5.1 registry",
+    "Promise Promise 3.5.2 registry",
     "t t 1.2.6 registry",
 ]

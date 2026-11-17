@@ -11,7 +11,6 @@ local createReactAdapter = require(script.ReactAdapter.Private.createReactAdapte
 local createRecyclableComponent = require(script.ReactAdapter.createRecyclableComponent)
 local createRecyclableView = require(script.ReactAdapter.createRecyclableView)
 local createVirtualList = require(script.ReactAdapter.createVirtualList)
-
 local useRectPlacement = require(script.ReactAdapter.useRectPlacement)
 
 export type DataSource<T> = Core.DataSource<T>
@@ -31,6 +30,9 @@ export type DataPrefetchRequest = Core.DataPrefetchRequest
 export type DataPrefetchEdge = Core.DataPrefetchEdge
 export type ScrollState = Core.ScrollState
 export type ScrollAnchorSnapshot = Core.ScrollAnchorSnapshot
+export type ScrollOptions = Core.ScrollOptions
+export type AnimatedScrollOptions = Core.AnimatedScrollOptions
+
 export type ScrollObservationKind = Core.ScrollObservationKind
 export type PinnedItem<T> = createPinnedItem.PinnedItem<T>
 export type ItemPlacement = Core.ItemPlacement
@@ -47,7 +49,6 @@ export type Axis = Core.Axis
 export type AutoScrollPolicy = Core.AutoScrollPolicy
 export type ScrollAlignment = Core.ScrollAlignment
 export type InitialScrollAlignment = Core.InitialScrollAlignment
-
 export type PinnedPosition = Core.PinnedPosition
 export type IdentityKind = Core.IdentityKind
 export type DataSourceChangeType = Core.DataSourceChangeType

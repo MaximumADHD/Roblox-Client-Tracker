@@ -699,6 +699,30 @@ type AnimatedImageFrameEntry = {
     Duration: number
 }
 
+type FilePickerOptions = {
+    Source: "Files" | "Library" | "Camera" | "Microphone",
+    MediaTypes: { "Image" | "Video" | "Audio" }?, -- Library, Camera, and Microphone only; empty allows every type the source supports; Camera requires exactly one; Microphone allows only "Audio"
+    CameraFacing: ("Default" | "Front" | "Back")?, -- Camera only; a preference; default "Default"
+    MimeTypes: { string }?, -- Files only; wildcards like "image/*" allowed
+    Extensions: { string }?, -- Files only; lowercase, without the leading dot
+    MaxCount: number?, -- Files and Library only; default 1; 0 is unlimited
+}
+
+type PickFilesResult = {
+    Status: "Success" | "Cancelled" | "PermissionDenied" | "Unavailable" | "PlatformError",
+    Files: { PickedFile }, -- empty unless Success
+    Truncated: boolean, -- true if more than MaxCount were picked; Files only holds MaxCount of them
+}
+
+type PickedFileLoadOptions = {
+    MaxSizeBytes: number?, -- files larger than this return Status "TooLarge" and are not kept on the device; default unlimited
+}
+
+type PickedFileLoadResult = {
+    Status: "Success" | "Unavailable" | "InsufficientStorage" | "PlatformError" | "Cancelled" | "TooLarge",
+    File: Blob?, -- Success only
+}
+
 type PlayerDeviceTrustMeasures = {
     IsPlatformVersionSecure: boolean,
     IsPlatformBootSecure: boolean,

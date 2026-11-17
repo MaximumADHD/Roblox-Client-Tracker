@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact08
 local Src = script:FindFirstAncestor("ViewRecycler")
 local Diagnostics = require(Src.Core.Diagnostics)
@@ -193,6 +194,52 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 		}
 	end
 
+	local evictDestroyedVacancies
+	if FFlagViewRecyclerReact084 then
+		-- A Vacant view's Host can be destroyed with the container it was left
+		-- in, so a pool about to be acquired from first drops destroyed views.
+		function evictDestroyedVacancies(requests: { Request<ViewType> })
+			local isDestroyed = adapter.isDestroyed
+			if isDestroyed == nil or #requests == 0 then
+				return
+			end
+			local evicted: { View } = {}
+			local changes: { any }? = if options.onPoolChanged == nil then nil else {}
+			local swept: { [ViewType]: boolean } = {}
+			for _, request in requests do
+				local pool = pools[request.viewType]
+				if pool == nil or swept[request.viewType] then
+					continue
+				end
+				swept[request.viewType] = true
+				local kept = pool.first
+				for index = pool.first, pool.last do
+					local view = pool.items[index]
+					pool.items[index] = nil
+					if isDestroyed(view) then
+						forget(view)
+						table.insert(evicted, view)
+						if changes ~= nil then
+							appendChange(changes, Diagnostics.PoolAction.Evict, pool.viewType, 0, -1, -1)
+						end
+					else
+						pool.items[kept] = view
+						kept += 1
+					end
+				end
+				pool.last = kept - 1
+			end
+			if #evicted > 0 then
+				submitting = true
+				local finalized, failure = finalize(changes, evicted, nil)
+				submitting = false
+				if not finalized then
+					error(failure, 0)
+				end
+			end
+		end
+	end
+
 	local releaseSeen: { [View]: boolean } = {}
 	local availableByType: { [ViewType]: number } = {}
 
@@ -279,7 +326,7 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 		local requests = submission.requests
 
 		local destroyedReleases: { [View]: boolean }?, direct
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			destroyedReleases = nil
 			if adapter.isDestroyed ~= nil then
 				for _, view in releases do
@@ -292,7 +339,22 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 			end
 			direct = if destroyedReleases == nil then uniformDirectReuse(releases, requests) else nil
 		else
-			direct = uniformDirectReuse(releases, requests)
+			destroyedReleases, direct = nil, nil
+			if FFlagViewRecyclerReact08 then
+				destroyedReleases = nil
+				if adapter.isDestroyed ~= nil then
+					for _, view in releases do
+						if adapter.isDestroyed(view) then
+							local destroyedSet = destroyedReleases or {}
+							destroyedSet[view] = true
+							destroyedReleases = destroyedSet
+						end
+					end
+				end
+				direct = if destroyedReleases == nil then uniformDirectReuse(releases, requests) else nil
+			else
+				direct = uniformDirectReuse(releases, requests)
+			end
 		end
 		if direct ~= nil then
 			local capacity = submission.capacity
@@ -313,13 +375,24 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 			end
 			return direct
 		end
+
+		if FFlagViewRecyclerReact084 then
+			evictDestroyedVacancies(requests)
+		end
 		local quickChanges: { any }? = if options.onPoolChanged == nil then nil else {}
 
 		local quick
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			quick = if destroyedReleases == nil then exchangeWithoutCreation(releases, requests, quickChanges) else nil
 		else
-			quick = exchangeWithoutCreation(releases, requests, quickChanges)
+			quick = nil
+			if FFlagViewRecyclerReact08 then
+				quick = if destroyedReleases == nil
+					then exchangeWithoutCreation(releases, requests, quickChanges)
+					else nil
+			else
+				quick = exchangeWithoutCreation(releases, requests, quickChanges)
+			end
 		end
 		if quick ~= nil then
 			local evicted: { View } = EMPTY :: any
@@ -352,10 +425,17 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 				error("RecyclingScope: cannot release one view more than once", 2)
 			end
 			releaseSeen[view] = true
-
-			if FFlagViewRecyclerReact08 then
-				if destroyedReleases ~= nil and destroyedReleases[view] then
+			if
+				if FFlagViewRecyclerReact084
+					then destroyedReleases ~= nil and destroyedReleases[view]
+					else FFlagViewRecyclerReact08
+			then
+				if FFlagViewRecyclerReact084 then
 					continue
+				else
+					if destroyedReleases ~= nil and destroyedReleases[view] then
+						continue
+					end
 				end
 			end
 			local typed = releasedByType[state.viewType]
@@ -418,7 +498,7 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 		local evicted: { View } = {}
 
 		for _, view in releases do
-			if FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				if destroyedReleases ~= nil and destroyedReleases[view] then
 					local state = states[view] :: State<View, ViewType>
 					forget(view)
@@ -438,15 +518,36 @@ local function createRecyclingScope<View, ViewType>(options: Options<View, ViewT
 					end
 				end
 			else
-				if not directlyReused[view] then
-					local state = states[view] :: State<View, ViewType>
-					state.active = false
-					local pool = state.pool
-					pool.last += 1
-					pool.items[pool.last] = view
-					result.releasedCount += 1
-					if changes ~= nil then
-						appendChange(changes, Diagnostics.PoolAction.Release, state.viewType, -1, 1, 0)
+				if FFlagViewRecyclerReact08 then
+					if destroyedReleases ~= nil and destroyedReleases[view] then
+						local state = states[view] :: State<View, ViewType>
+						forget(view)
+						table.insert(evicted, view)
+						if changes ~= nil then
+							appendChange(changes, Diagnostics.PoolAction.Evict, state.viewType, -1, 0, -1)
+						end
+					elseif not directlyReused[view] then
+						local state = states[view] :: State<View, ViewType>
+						state.active = false
+						local pool = state.pool
+						pool.last += 1
+						pool.items[pool.last] = view
+						result.releasedCount += 1
+						if changes ~= nil then
+							appendChange(changes, Diagnostics.PoolAction.Release, state.viewType, -1, 1, 0)
+						end
+					end
+				else
+					if not directlyReused[view] then
+						local state = states[view] :: State<View, ViewType>
+						state.active = false
+						local pool = state.pool
+						pool.last += 1
+						pool.items[pool.last] = view
+						result.releasedCount += 1
+						if changes ~= nil then
+							appendChange(changes, Diagnostics.PoolAction.Release, state.viewType, -1, 1, 0)
+						end
 					end
 				end
 			end

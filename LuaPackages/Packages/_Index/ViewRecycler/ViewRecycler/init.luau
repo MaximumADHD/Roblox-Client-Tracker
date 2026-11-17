@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script.Flags).FFlagViewRecyclerReact084
 local AutoScrollPolicy = require(script.Core.Enums.AutoScrollPolicy)
 local Axis = require(script.Core.Enums.Axis)
 local ChatPreset = require(script.Core.ViewportBehavior.ChatPreset)
@@ -12,6 +13,8 @@ local PinnedPosition = require(script.Core.Enums.PinnedPosition)
 local ReachedThreshold = require(script.Core.ViewportBehavior.ReachedThreshold)
 local Recycling = require(script.Core.Recycling)
 local ScrollAlignment = require(script.Core.Enums.ScrollAlignment)
+
+local ScrollMotion = require(script.Core.Virtualizer.ScrollMotion)
 local ScrollObservationKind = require(script.Core.Enums.ScrollObservationKind)
 local ShallowTable = require(script.Internal.ShallowTable)
 local Types = require(script.Core.Types)
@@ -25,6 +28,8 @@ export type GetItemKey<T> = DataSource.GetItemKey<T>
 export type DataSourceChangeBatch = DataSource.ChangeBatch
 export type IndexRange = Types.IndexRange
 export type ItemLayout = Types.ItemLayout
+export type LayoutRuntime = Layout.Runtime
+
 export type ItemMeasurement = Types.ItemMeasurement
 export type DataSourceChange = Types.DataSourceChange
 export type DiagnosticEvent = Diagnostics.Event
@@ -36,6 +41,9 @@ export type ScrollState = createVirtualizer.ScrollState
 export type ScrollAnchorSnapshot = createVirtualizer.ScrollAnchorSnapshot
 export type ScrollAnchorItem = createVirtualizer.ScrollAnchorItem
 export type ScrollObservation = createVirtualizer.ScrollObservation
+export type ScrollOptions = createVirtualizer.ScrollOptions
+export type AnimatedScrollOptions = createVirtualizer.AnimatedScrollOptions
+
 export type ScrollObservationKind = ScrollObservationKind.ScrollObservationKind
 export type PinnedItem<T, ItemViewType> = PinnedItems.PinnedItem<T, ItemViewType>
 export type ItemPlacement = createVirtualizer.ItemPlacement
@@ -65,7 +73,6 @@ export type Axis = Axis.Axis
 export type AutoScrollPolicy = AutoScrollPolicy.AutoScrollPolicy
 export type ScrollAlignment = ScrollAlignment.ScrollAlignment
 export type InitialScrollAlignment = ScrollAlignment.InitialScrollAlignment
-
 export type PinnedPosition = PinnedPosition.PinnedPosition
 export type IdentityKind = IdentityKind.IdentityKind
 export type DataSourceChangeType = DataSourceChangeType.DataSourceChangeType
@@ -75,7 +82,9 @@ local Adapter = table.freeze({
 	createVirtualizer = createVirtualizer,
 	createSlotBinder = createSlotBinder,
 	_Private = table.freeze({
+		ReachedThreshold = (if FFlagViewRecyclerReact084 then ReachedThreshold else nil),
 		ShallowTable = ShallowTable,
+		ScrollMotion = (if FFlagViewRecyclerReact084 then ScrollMotion else nil),
 	}),
 })
 

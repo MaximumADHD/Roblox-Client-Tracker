@@ -6,7 +6,9 @@ category: Layout
 
 A `HeaderBar` provides a persistent, top-level navigation container that organizes leading actions, central content, and trailing actions into a responsive horizontal layout. It adapts its internal spacing across breakpoints to maintain visual consistency at any viewport width.
 
-The HeaderBar uses a slot-based composition model. Each slot (`Leading`, `Content`, `Trailing`) occupies a fixed position in the layout, with `Content` growing to fill available space while the side slots shrink to fit their children.
+The HeaderBar uses a slot-based composition model. Each slot (`Leading`, `Content`, `Trailing`) occupies a fixed position in the layout. `Leading` and `Trailing` anchor their children to opposite edges and size to them. `Content` spans the space between the side slots and shrinks first when space is tight.
+
+Children of `Content` are centered on the bar when they fit. A child too wide to stay centered moves toward the narrower side only as far as it must, and a child that asks for the full width — for example a `SearchInput` with `width = UDim.new(1, 0)`, or a `Text` with `size-full-0` and a truncation tag — fills the whole space between the side slots. Content that exceeds the available width is clipped before it can overlap either side.
 
 ## Responsive Behavior
 
@@ -17,6 +19,19 @@ The HeaderBar automatically adjusts its internal sizing based on the current bre
 - **XLarge / XXLarge**: Expanded sizing (1800-scale)
 
 No manual breakpoint handling is required. The component measures its own container and applies the appropriate size tokens.
+
+### Reserving space for the bar
+
+Use `Foundation.Hooks.useHeaderBarHeight()` when a layout needs to offset its content by the bar's height, such as a panel that sits below a HeaderBar. The hook returns the height in pixels that the bar renders at the current viewport breakpoint.
+
+```lua
+local headerBarHeight = Foundation.Hooks.useHeaderBarHeight()
+
+return React.createElement(View, {
+	Position = UDim2.fromOffset(0, headerBarHeight),
+	Size = UDim2.new(1, 0, 1, -headerBarHeight),
+}, children)
+```
 
 ## HeaderBar.Actions Behavior
 

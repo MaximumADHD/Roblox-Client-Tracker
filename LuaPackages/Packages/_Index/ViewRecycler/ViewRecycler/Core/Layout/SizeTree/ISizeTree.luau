@@ -30,19 +30,30 @@ export type ISizeTree = {
 	-- index. nil restores the global estimate.
 	update: (index: number, measuredSize: number?) -> (),
 
-	-- O(log r), worst-case O(log n): insert a new item at logical index
-	insert: (index: number, measuredSize: number?) -> (),
+	-- O(log r), worst-case O(log n): insert a new item at logical index.
+	-- estimatedSize is the item's own estimate while it is unmeasured; nil
+	-- uses the global estimate.
+	insert: (index: number, measuredSize: number?, estimatedSize: number?) -> (),
+
+	-- O(log r), worst-case O(log n): replace the item's own estimate. nil
+	-- uses the global estimate. Returns whether effective geometry changed.
+	setItemEstimate: (index: number, estimatedSize: number?) -> boolean,
 
 	-- O(log r), worst-case O(log n): remove item at logical index
 	remove: (index: number) -> (),
 
 	-- O(n): rebuild the entire tree from a flat sizes array
 	buildFromArray: (sizes: { number }) -> (),
-	buildFromMeasurements: (itemCount: number, getMeasuredSize: (index: number) -> number?) -> (),
+	buildFromMeasurements: (
+		itemCount: number,
+		getMeasuredSize: (index: number) -> number?,
+		getEstimatedSize: ((index: number) -> number?)?
+	) -> (),
 	-- O(n): return sizes in logical-index order.
 	toArray: () -> { number },
 
-	-- O(1): update the size used by every unmeasured item. Returns whether
+	-- O(1): update the size used by every unmeasured item without its own
+	-- estimate. Returns whether
 	-- existing effective geometry changed.
 	setEstimatedItemLength: (estimatedItemLength: number) -> boolean,
 	getEstimatedItemLength: () -> number,

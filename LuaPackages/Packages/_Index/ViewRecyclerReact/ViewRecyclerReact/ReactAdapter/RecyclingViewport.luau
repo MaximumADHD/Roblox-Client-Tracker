@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 local Core = require(Root.Parent.ViewRecycler)
@@ -41,8 +42,11 @@ local function createRecyclingViewport(adapterOptions: RecyclingScope.AdapterOpt
 
 	local function RecyclingViewport(props: Props)
 		local recyclingScope
-		if not FFlagViewRecyclerReact08 then
-			recyclingScope = React.useContext(RecyclingScopeContext)
+		if not FFlagViewRecyclerReact084 then
+			recyclingScope = nil
+			if not FFlagViewRecyclerReact08 then
+				recyclingScope = React.useContext(RecyclingScopeContext)
+			end
 		end
 		local initialConfiguration = React.useState(function()
 			return {
@@ -96,13 +100,15 @@ local function createRecyclingViewport(adapterOptions: RecyclingScope.AdapterOpt
 			Viewport = e("ScrollingFrame", frameProps, props.children),
 		})
 
-		if not FFlagViewRecyclerReact08 then
-			if recyclingScope ~= nil then
-				assert(
-					props.maxPoolSize == nil and props.diagnostics == nil,
-					"RecyclingViewport: configure recycling options on the ancestor RecyclingScope"
-				)
-				return viewport
+		if not FFlagViewRecyclerReact084 then
+			if not FFlagViewRecyclerReact08 then
+				if recyclingScope ~= nil then
+					assert(
+						props.maxPoolSize == nil and props.diagnostics == nil,
+						"RecyclingViewport: configure recycling options on the ancestor RecyclingScope"
+					)
+					return viewport
+				end
 			end
 		end
 		return e(ConfiguredRecyclingScope, {

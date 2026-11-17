@@ -1,5 +1,6 @@
 -- VirtualList props name Virtualizer configuration keys directly, and
 -- `createVirtualizer` keeps only those keys, so props pass through whole.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 local Roblox = require(Root.Parent.ViewRecyclerRoblox)
 
@@ -16,6 +17,7 @@ local function toCorePinnedItem(item)
 		key = item.key,
 		value = item.value,
 		itemViewType = item.itemType,
+		estimatedLength = (if FFlagViewRecyclerReact084 then item.estimatedLength else nil),
 	}
 end
 

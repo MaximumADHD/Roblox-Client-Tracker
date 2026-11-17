@@ -1,5 +1,6 @@
 -- Scroll-axis geometry of one list: scroll offset, viewport size, Content
 -- metrics, and the visible and mounted ranges they select from the Layout.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact08
 local Src = script:FindFirstAncestor("ViewRecycler")
 
@@ -272,12 +273,14 @@ local function createViewport(options: Options): Viewport
 			})
 		end,
 
-		scrollBy = if FFlagViewRecyclerReact08
+		scrollBy = if FFlagViewRecyclerReact084
 			then nil
-			else function(delta)
-				assert(math.abs(delta) < math.huge, "Virtualizer: scroll delta must be finite")
-				return scrollTo(scrollOffset + delta)
-			end,
+			else if FFlagViewRecyclerReact08
+				then nil
+				else function(delta)
+					assert(math.abs(delta) < math.huge, "Virtualizer: scroll delta must be finite")
+					return scrollTo(scrollOffset + delta)
+				end,
 	}
 end
 

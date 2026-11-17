@@ -1,3 +1,5 @@
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 
 local SlotGeometry = require(Root.RobloxAdapter.SlotGeometry)
@@ -29,6 +31,10 @@ end
 
 function ReparentableHost.place(host: Frame, destination: Destination)
 	host.AutomaticSize = destination.automaticSize
+
+	if FFlagViewRecyclerReact084 then
+		host.Position = UDim2.new()
+	end
 	host.Size = SlotGeometry.getHostSize(destination.automaticSize)
 	host.Parent = destination.placeholder
 end

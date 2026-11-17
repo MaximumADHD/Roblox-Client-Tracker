@@ -7,7 +7,7 @@ dependencies = [
     "Mock mock 1.1.0 registry",
     "Otter Otter 0.1.4 registry",
     "PolicyProvider LuaRoactPolicyProvider 0.1.5 registry",
-    "Promise Promise 3.5.1 registry",
+    "Promise Promise 3.5.2 registry",
     "Roact RoactCompat 17.3.13 registry",
     "RoactRodux RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",

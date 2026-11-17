@@ -24,7 +24,8 @@ local function useRectPlacement(container: RectPlacement.ContainerRef): RectPlac
 	end)
 
 	-- A layout cleanup runs before ReactRoblox destroys the container, so
-	-- pooled Frames are detached rather than destroyed with it.
+	-- Vacant Frames move under the Recycling scope rather than being
+	-- destroyed with it.
 	React.useLayoutEffect(function()
 		return placement.internal.releaseAll
 	end, { placement })

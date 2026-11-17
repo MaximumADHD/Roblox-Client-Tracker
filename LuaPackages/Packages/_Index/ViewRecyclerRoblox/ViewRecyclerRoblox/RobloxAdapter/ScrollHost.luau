@@ -1,6 +1,8 @@
 -- Owns one ScrollingFrame's Canvas: its size, its position, and the Canvas
 -- origin that absorbs scroll corrections while the host is scrolling. It
 -- attributes every observed offset to User scrolling or a Programmatic write.
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
@@ -28,6 +30,8 @@ export type Options<ItemView, T, ItemViewType> = {
 	observeScrollOffset: (Core.ScrollObservation) -> Core.VirtualizerRecord<ItemView, T>,
 	setViewportSize: (number, number) -> Core.VirtualizerRecord<ItemView, T>,
 	getCurrent: () -> Core.VirtualizerRecord<ItemView, T>,
+	stepAnimatedScroll: (deltaTime: number) -> Core.VirtualizerRecord<ItemView, T>,
+	stopAnimatedScroll: () -> Core.VirtualizerRecord<ItemView, T>,
 	getInstance: () -> ScrollingFrame?,
 	getConfiguration: () -> Configuration<T>,
 	-- Placed Hosts must move to the current Canvas origin.
@@ -68,14 +72,25 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 	local connectedHost: ScrollingFrame? = nil
 
 	local connectedHostCanvasSize: UDim2?
-	if FFlagViewRecyclerReact08 then -- The connected ScrollingFrame's CanvasSize before the list wrote it, put
+	if FFlagViewRecyclerReact084 then -- The connected ScrollingFrame's CanvasSize before the list wrote it, put
 		-- back when the list lets go of that ScrollingFrame.
 		connectedHostCanvasSize = nil
+	else
+		connectedHostCanvasSize = nil
+		if FFlagViewRecyclerReact08 then -- The connected ScrollingFrame's CanvasSize before the list wrote it, put
+			-- back when the list lets go of that ScrollingFrame.
+			connectedHostCanvasSize = nil
+		end
 	end
 	local hostConnections: { RBXScriptConnection } = {}
 	local hostMutationDepth = 0
 	local expectedHostWriteOffset: number? = nil
 	local lastObservedLogicalOffset: number? = nil
+
+	local lastSynchronizedHostOffset: number?
+	if FFlagViewRecyclerReact084 then -- The host offset the list last synchronized, before the Canvas origin.
+		lastSynchronizedHostOffset = nil
+	end
 	local lastNotifiedLogicalOffset: number? = nil
 	local canvasOriginOffset = 0
 	local idleHeartbeatCount = 0
@@ -87,6 +102,13 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 	local publishedCanvasHost: ScrollingFrame? = nil
 	local publishedCanvasAxis: Core.Axis? = nil
 	local publishedCanvasLength: number? = nil
+
+	local publishedViewportLength: number?, animationConnection: RBXScriptConnection?
+	if FFlagViewRecyclerReact084 then
+		publishedViewportLength = nil
+		-- Steps Core's Animated scroll while a record reports one running.
+		animationConnection = nil
+	end
 
 	local function sampleConfiguration(): Configuration<T>
 		configuration = options.getConfiguration()
@@ -164,6 +186,11 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 		-- a clamped write is attributed without reconstructing host bounds.
 		expectedHostWriteOffset = state.scrollOffset
 		lastObservedLogicalOffset = logicalOffset
+
+		if FFlagViewRecyclerReact084 then
+			lastSynchronizedHostOffset = state.scrollOffset
+			notifyLogicalScrollOffset(logicalOffset)
+		end
 	end
 
 	local function publishCanvas()
@@ -210,6 +237,14 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 		return contentLength
 	end
 
+	local publishViewportSize
+	if FFlagViewRecyclerReact084 then
+		function publishViewportSize(state: HostViewportState)
+			publishedViewportLength = state.viewportLength
+			options.setViewportSize(state.viewportLength, state.crossAxisLength)
+		end
+	end
+
 	local function applyProgrammaticScrollOffset(offset: number)
 		if lifecyclePhase ~= ScrollHostLifecyclePhase.Synchronized then
 			return
@@ -240,6 +275,33 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 		if recentHostScrollConnection ~= nil then
 			recentHostScrollConnection:Disconnect()
 			recentHostScrollConnection = nil
+		end
+	end
+
+	local stopAnimationClock, syncAnimationClock, stopAnimation
+	if FFlagViewRecyclerReact084 then
+		function stopAnimationClock()
+			if animationConnection ~= nil then
+				animationConnection:Disconnect()
+				animationConnection = nil
+			end
+		end
+
+		function syncAnimationClock(record: Core.VirtualizerRecord<any, any>)
+			if record.animatedScrollTarget == nil or lifecyclePhase ~= ScrollHostLifecyclePhase.Synchronized then
+				stopAnimationClock()
+			elseif animationConnection == nil then
+				animationConnection = RunService.Heartbeat:Connect(function(deltaTime)
+					options.stepAnimatedScroll(deltaTime)
+				end)
+			end
+		end
+
+		-- The reader taking hold of the host ends an Animated scroll where it is.
+		function stopAnimation()
+			if animationConnection ~= nil then
+				options.stopAnimatedScroll()
+			end
 		end
 	end
 
@@ -323,6 +385,11 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 	end
 
 	local function disconnectHost()
+		if FFlagViewRecyclerReact084 then -- Without its clock, a motion would hold the Scroll anchor off its
+			-- edges until the next scroll command. Its stopped record stops the
+			-- clock.
+			stopAnimation()
+		end
 		stopIdleObservation()
 		stopRecentHostScroll()
 		for _, connection in hostConnections do
@@ -332,20 +399,42 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 		table.clear(activePointerInputs)
 
 		local host, canvasSize
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			host = connectedHost
 			canvasSize = connectedHostCanvasSize
-			if host ~= nil and canvasSize ~= nil then
+		else
+			host, canvasSize = nil, nil
+		end
+		if if FFlagViewRecyclerReact084 then host ~= nil and canvasSize ~= nil else FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				host.CanvasSize = canvasSize
+			else
+				host = connectedHost
+				canvasSize = connectedHostCanvasSize
+				if host ~= nil and canvasSize ~= nil then
+					host.CanvasSize = canvasSize
+				end
+				connectedHostCanvasSize = nil
 			end
+		end
+
+		if FFlagViewRecyclerReact084 then
 			connectedHostCanvasSize = nil
 		end
 		connectedHost = nil
 		publishedCanvasHost = nil
 		publishedCanvasAxis = nil
 		publishedCanvasLength = nil
+
+		if FFlagViewRecyclerReact084 then
+			publishedViewportLength = nil
+		end
 		expectedHostWriteOffset = nil
 		lastObservedLogicalOffset = nil
+
+		if FFlagViewRecyclerReact084 then
+			lastSynchronizedHostOffset = nil
+		end
 		lastNotifiedLogicalOffset = nil
 		setCanvasOriginOffset(0)
 	end
@@ -358,28 +447,42 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 		if state == nil then
 			return
 		end
-		options.setViewportSize(state.viewportLength, state.crossAxisLength)
 
 		local refreshedState
-		if not FFlagViewRecyclerReact08 then
-			refreshedState = getViewportState(instance)
+		if FFlagViewRecyclerReact084 then
+			publishViewportSize(state)
+		else
+			options.setViewportSize(state.viewportLength, state.crossAxisLength)
+
+			refreshedState = nil
+			if not FFlagViewRecyclerReact08 then
+				refreshedState = getViewportState(instance)
+			end
+			-- With Immediate signals, a host write can flush layout before its
+			-- CanvasPosition lands, so this sample may predate the write. The write
+			-- reports its own result.
+			if if FFlagViewRecyclerReact08 then hostMutationDepth == 0 else refreshedState ~= nil then
+				if FFlagViewRecyclerReact08 then
+					refreshedState = getViewportState(instance)
+					if refreshedState ~= nil then
+						state = refreshedState
+					end
+					reportHostWrite(state)
+				else
+					state = refreshedState
+				end
+			end
 		end
 		-- With Immediate signals, a host write can flush layout before its
 		-- CanvasPosition lands, so this sample may predate the write. The write
 		-- reports its own result.
-		if if FFlagViewRecyclerReact08 then hostMutationDepth == 0 else refreshedState ~= nil then
-			if FFlagViewRecyclerReact08 then
+		if if FFlagViewRecyclerReact084 then hostMutationDepth == 0 else not FFlagViewRecyclerReact08 then
+			if FFlagViewRecyclerReact084 then
 				refreshedState = getViewportState(instance)
 				if refreshedState ~= nil then
 					state = refreshedState
 				end
-				reportHostWrite(state)
-			else
-				state = refreshedState
 			end
-		end
-
-		if not FFlagViewRecyclerReact08 then
 			reportHostWrite(state)
 		end
 		local callback = configuration.onViewportChanged
@@ -397,6 +500,10 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 			return
 		end
 		local logicalOffset = getLogicalScrollOffset(state)
+
+		if FFlagViewRecyclerReact084 then
+			lastSynchronizedHostOffset = state.scrollOffset
+		end
 		local isUserScroll = hostMutationDepth == 0
 		if isUserScroll and expectedHostWriteOffset ~= nil then
 			local expectedOffset = expectedHostWriteOffset :: number
@@ -404,6 +511,38 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 				isUserScroll = false
 			else
 				expectedHostWriteOffset = nil
+			end
+		end
+
+		local previousViewportLength
+		if FFlagViewRecyclerReact084 then
+			previousViewportLength = publishedViewportLength
+			if isUserScroll and previousViewportLength ~= nil and state.viewportLength ~= previousViewportLength then
+				-- A resize can move CanvasPosition before AbsoluteWindowSize
+				-- notifies, so Core gets the new viewport before the offset. A
+				-- growing window clamps the offset to the new maximum; that clamp
+				-- belongs to the resize, and any other offset is still User scroll.
+				local maximumOffset =
+					math.max(0, axisMap.mainOf(instance.AbsoluteCanvasSize, configuration.axis) - state.viewportLength)
+				local clampedByGrowth = state.viewportLength > previousViewportLength
+					and math.abs(state.scrollOffset - maximumOffset) < SCROLL_BOUNDARY_EPSILON
+				local userLogicalOffset = state.scrollOffset - canvasOriginOffset
+				publishViewportSize(state)
+				state = getViewportState(instance) or state
+				if clampedByGrowth then
+					reportHostWrite(state)
+					isUserScroll = false
+				elseif state.scrollOffset ~= userLogicalOffset + canvasOriginOffset then
+					-- Core resized against its last offset, before this User
+					-- scroll, and its record may have written CanvasPosition and
+					-- settled the Canvas origin.
+					hostMutationDepth += 1
+					setHostScrollOffset(userLogicalOffset + canvasOriginOffset)
+					hostMutationDepth -= 1
+					state = getViewportState(instance) or state
+					expectedHostWriteOffset = state.scrollOffset
+				end
+				logicalOffset = getLogicalScrollOffset(state)
 			end
 		end
 		if isUserScroll and observedFromHost == true then
@@ -438,8 +577,12 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 			return
 		end
 
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			connectedHostCanvasSize = instance.CanvasSize
+		else
+			if FFlagViewRecyclerReact08 then
+				connectedHostCanvasSize = instance.CanvasSize
+			end
 		end
 		table.insert(
 			hostConnections,
@@ -456,14 +599,54 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 				synchronizeScrollOffset(instance, true)
 			end)
 		)
+		-- Trackpad scrolling writes CanvasPosition after the bound render
+		-- steps and delivers its change signal only after PreRender, so rows
+		-- would trail the painted Canvas by a frame. RenderStepped connections
+		-- see the write and run before every PreRender connection, including
+		-- the Host measurement pass.
 		table.insert(
 			hostConnections,
-			instance.InputBegan:Connect(function(input)
-				if isPointerInput(input) then
-					activePointerInputs[input] = true
-				end
-			end)
+			(if FFlagViewRecyclerReact084 then RunService.RenderStepped else instance.InputBegan):Connect(
+				(
+					if FFlagViewRecyclerReact084
+						then function()
+							if
+								lifecyclePhase == ScrollHostLifecyclePhase.Synchronized
+								and axisMap.mainOf(instance.CanvasPosition, configuration.axis)
+									~= lastSynchronizedHostOffset
+							then
+								sampleConfiguration()
+								synchronizeScrollOffset(instance, true)
+							end
+						end
+						else function(input)
+							if isPointerInput(input) then
+								activePointerInputs[input] = true
+							end
+						end
+				)
+			)
 		)
+
+		if FFlagViewRecyclerReact084 then
+			table.insert(
+				hostConnections,
+				instance.InputBegan:Connect(function(input)
+					if isPointerInput(input) then
+						activePointerInputs[input] = true
+						stopAnimation()
+					end
+				end)
+			)
+			table.insert(
+				hostConnections,
+				instance.InputChanged:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseWheel then
+						stopAnimation()
+					end
+				end)
+			)
+		end
 		table.insert(
 			hostConnections,
 			instance.InputEnded:Connect(function(input)
@@ -542,6 +725,9 @@ function ScrollHost.new<ItemView, T, ItemViewType>(options: Options<ItemView, T,
 	end
 
 	local function applyRecord(record: Core.VirtualizerRecord<any, any>, present: () -> ())
+		if FFlagViewRecyclerReact084 then
+			syncAnimationClock(record)
+		end
 		if lifecyclePhase == ScrollHostLifecyclePhase.Disconnected then
 			present()
 			return

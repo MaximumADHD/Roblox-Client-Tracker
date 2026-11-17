@@ -1,3 +1,4 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local EventKind = table.freeze({
 	RangeChanged = "rangeChanged" :: "rangeChanged",
 	PoolChanged = "poolChanged" :: "poolChanged",
@@ -23,6 +24,7 @@ local ScrollCorrectionSource = table.freeze({
 	Data = "data" :: "data",
 	Measurement = "measurement" :: "measurement",
 	ProgrammaticScroll = "programmaticScroll" :: "programmaticScroll",
+	Policy = (if FFlagViewRecyclerReact084 then "policy" :: "policy" else nil),
 })
 
 export type RangeKind = typeof(RangeKind.Visible) | typeof(RangeKind.Rendered)
@@ -35,6 +37,7 @@ export type ScrollCorrectionSource =
 	typeof(ScrollCorrectionSource.Data)
 	| typeof(ScrollCorrectionSource.Measurement)
 	| typeof(ScrollCorrectionSource.ProgrammaticScroll)
+	| typeof(ScrollCorrectionSource.Policy)
 
 export type RangeChangedEvent = {
 	kind: typeof(EventKind.RangeChanged),

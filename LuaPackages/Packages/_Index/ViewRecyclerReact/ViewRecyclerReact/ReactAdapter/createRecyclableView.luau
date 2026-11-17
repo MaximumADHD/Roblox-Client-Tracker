@@ -1,7 +1,9 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 
 local ComposedRecyclableView = require(Root.ReactAdapter.Private.ComposedRecyclableView)
+
 local CompositionPlacement = require(Root.ReactAdapter.Private.CompositionPlacement)
 local CompositionPlacementSuspended = require(Root.ReactAdapter.Private.CompositionPlacementSuspended)
 local React = require(Root.Parent.React)
@@ -35,152 +37,156 @@ type InternalProps = {
 }
 
 local ACTIVE_SIGNAL, INACTIVE_SIGNAL, EMPTY_ASSIGNMENT_SIGNAL, EMPTY_INDEX_SIGNAL, EMPTY_PLACEMENT_SIGNAL, InlineRecyclableView, InlineActiveRecyclableView, MemoizedInlineActiveRecyclableView, RecyclableViewComponent
-if not FFlagViewRecyclerReact08 then
-	ACTIVE_SIGNAL = Signals.createSignal(true)
-	INACTIVE_SIGNAL = Signals.createSignal(false)
-	EMPTY_ASSIGNMENT_SIGNAL = Signals.createSignal(nil)
-	EMPTY_INDEX_SIGNAL = Signals.createSignal(nil)
-	EMPTY_PLACEMENT_SIGNAL = Signals.createSignal(nil)
+if not FFlagViewRecyclerReact084 then
+	ACTIVE_SIGNAL, INACTIVE_SIGNAL, EMPTY_ASSIGNMENT_SIGNAL, EMPTY_INDEX_SIGNAL, EMPTY_PLACEMENT_SIGNAL, InlineRecyclableView, InlineActiveRecyclableView, MemoizedInlineActiveRecyclableView, RecyclableViewComponent =
+		nil, nil, nil, nil, nil, nil, nil, nil, nil
+	if not FFlagViewRecyclerReact08 then
+		ACTIVE_SIGNAL = Signals.createSignal(true)
+		INACTIVE_SIGNAL = Signals.createSignal(false)
+		EMPTY_ASSIGNMENT_SIGNAL = Signals.createSignal(nil)
+		EMPTY_INDEX_SIGNAL = Signals.createSignal(nil)
+		EMPTY_PLACEMENT_SIGNAL = Signals.createSignal(nil)
 
-	function InlineRecyclableView(props: InternalProps): React.Node
-		local sourceState = React.useState(function()
-			local sourceSignal, setSource = Signals.createSignal({ get = props.itemSignal })
-			local function itemSignal(scope: Signals.scope)
-				return sourceSignal(scope).get(scope)
-			end
-			local identity = Signals.createSignal({})
-			return {
-				context = {
-					placement = EMPTY_PLACEMENT_SIGNAL,
-					assignmentSignal = EMPTY_ASSIGNMENT_SIGNAL,
-					indexSignal = EMPTY_INDEX_SIGNAL,
-					itemSignal = itemSignal,
-					itemKeySignal = identity,
-				},
-				set = setSource,
-				source = props.itemSignal,
-			}
-		end)
-		if sourceState.source ~= props.itemSignal then
-			sourceState.source = props.itemSignal
-			sourceState.set({ get = props.itemSignal })
-		end
-		local pendingState = React.useState(function()
-			local pending = React.createBinding(false)
-			return { binding = pending }
-		end)
-		local metadata = RecyclableViewRegistry.getMetadata(props.viewType)
-		assert(metadata ~= nil, "createRecyclableView: unknown Recyclable view type")
-		return React.createElement(RecyclableViewContext.Provider, {
-			value = sourceState.context,
-		}, {
-			Content = React.createElement(metadata.signalComponent, {
-				itemSignal = sourceState.context.itemSignal,
-				pending = pendingState.binding,
-			}),
-		})
-	end
-
-	function InlineActiveRecyclableView(props: InternalProps): React.Node
-		local active = SignalsReact.useSignalState(props.active)
-		if not active then
-			return nil
-		end
-		return React.createElement(InlineRecyclableView, props)
-	end
-
-	MemoizedInlineActiveRecyclableView = React.memo(InlineActiveRecyclableView)
-
-	function RecyclableViewComponent(props: InternalProps): React.Node
-		local contextValue = React.useContext(RecyclableViewContext)
-		local rendersInline = contextValue == false
-		local context = if rendersInline or contextValue == CompositionPlacementSuspended then nil else contextValue
-		local placementSignal = if context == nil then EMPTY_PLACEMENT_SIGNAL else context.placement
-		local placementToken = React.useState(function()
-			return {}
-		end)
-		local placeholderRef = React.useRef(nil :: Frame?)
-		local handleRef = React.useRef(nil :: PlacementHandle?)
-		local itemSignalRef = React.useRef(props.itemSignal)
-		itemSignalRef.current = props.itemSignal
-		local activeRef = React.useRef(props.active)
-		activeRef.current = props.active
-		local viewType = props.viewType
-
-		React.useLayoutEffect(function()
-			local currentPlacement = nil
-			local disposePlacementEffect = Signals.createEffect(function(scope)
-				local placement = placementSignal(scope)
-				if placement == currentPlacement then
-					return
+		function InlineRecyclableView(props: InternalProps): React.Node
+			local sourceState = React.useState(function()
+				local sourceSignal, setSource = Signals.createSignal({ get = props.itemSignal })
+				local function itemSignal(scope: Signals.scope)
+					return sourceSignal(scope).get(scope)
 				end
-				currentPlacement = placement
-				local previousHandle = handleRef.current
-				if previousHandle ~= nil then
-					handleRef.current = nil
-					previousHandle.unregister()
-				end
-				if context ~= nil and placement ~= nil then
-					handleRef.current = placement.register(
-						viewType,
-						placementToken,
-						context.assignmentSignal,
-						itemSignalRef.current,
-						placeholderRef.current,
-						activeRef.current
-					)
-				end
+				local identity = Signals.createSignal({})
+				return {
+					context = {
+						placement = EMPTY_PLACEMENT_SIGNAL,
+						assignmentSignal = EMPTY_ASSIGNMENT_SIGNAL,
+						indexSignal = EMPTY_INDEX_SIGNAL,
+						itemSignal = itemSignal,
+						itemKeySignal = identity,
+					},
+					set = setSource,
+					source = props.itemSignal,
+				}
 			end)
-			return function()
-				disposePlacementEffect()
-				local handle = handleRef.current
-				if handle ~= nil then
-					handleRef.current = nil
-					handle.unregister()
-				end
+			if sourceState.source ~= props.itemSignal then
+				sourceState.source = props.itemSignal
+				sourceState.set({ get = props.itemSignal })
 			end
-		end, { context, placementSignal, placementToken, viewType } :: { unknown })
-
-		local itemSignal = props.itemSignal
-		React.useLayoutEffect(function()
-			local handle = handleRef.current
-			if handle ~= nil then
-				handle.setItemSignal(itemSignal)
-			end
-		end, { itemSignal } :: { unknown })
-
-		local active = props.active
-		React.useLayoutEffect(function()
-			local handle = handleRef.current
-			if handle ~= nil then
-				handle.setActive(active)
-			end
-		end, { active } :: { unknown })
-
-		local setPlaceholderRef = React.useCallback(function(instance: Frame?)
-			placeholderRef.current = instance
-			local handle = handleRef.current
-			if handle ~= nil then
-				handle.setPlaceholder(instance)
-			end
-		end, {})
-
-		if rendersInline then
-			return React.createElement(MemoizedInlineActiveRecyclableView, {
-				active = active,
-				itemSignal = itemSignal,
-				viewType = viewType,
+			local pendingState = React.useState(function()
+				local pending = React.createBinding(false)
+				return { binding = pending }
+			end)
+			local metadata = RecyclableViewRegistry.getMetadata(props.viewType)
+			assert(metadata ~= nil, "createRecyclableView: unknown Recyclable view type")
+			return React.createElement(RecyclableViewContext.Provider, {
+				value = sourceState.context,
+			}, {
+				Content = React.createElement(metadata.signalComponent, {
+					itemSignal = sourceState.context.itemSignal,
+					pending = pendingState.binding,
+				}),
 			})
 		end
 
-		return React.createElement("Frame", {
-			Name = "RecyclableView",
-			AutomaticSize = Enum.AutomaticSize.XY,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(),
-			ref = setPlaceholderRef,
-		})
+		function InlineActiveRecyclableView(props: InternalProps): React.Node
+			local active = SignalsReact.useSignalState(props.active)
+			if not active then
+				return nil
+			end
+			return React.createElement(InlineRecyclableView, props)
+		end
+
+		MemoizedInlineActiveRecyclableView = React.memo(InlineActiveRecyclableView)
+
+		function RecyclableViewComponent(props: InternalProps): React.Node
+			local contextValue = React.useContext(RecyclableViewContext)
+			local rendersInline = contextValue == false
+			local context = if rendersInline or contextValue == CompositionPlacementSuspended then nil else contextValue
+			local placementSignal = if context == nil then EMPTY_PLACEMENT_SIGNAL else context.placement
+			local placementToken = React.useState(function()
+				return {}
+			end)
+			local placeholderRef = React.useRef(nil :: Frame?)
+			local handleRef = React.useRef(nil :: PlacementHandle?)
+			local itemSignalRef = React.useRef(props.itemSignal)
+			itemSignalRef.current = props.itemSignal
+			local activeRef = React.useRef(props.active)
+			activeRef.current = props.active
+			local viewType = props.viewType
+
+			React.useLayoutEffect(function()
+				local currentPlacement = nil
+				local disposePlacementEffect = Signals.createEffect(function(scope)
+					local placement = placementSignal(scope)
+					if placement == currentPlacement then
+						return
+					end
+					currentPlacement = placement
+					local previousHandle = handleRef.current
+					if previousHandle ~= nil then
+						handleRef.current = nil
+						previousHandle.unregister()
+					end
+					if context ~= nil and placement ~= nil then
+						handleRef.current = placement.register(
+							viewType,
+							placementToken,
+							context.assignmentSignal,
+							itemSignalRef.current,
+							placeholderRef.current,
+							activeRef.current
+						)
+					end
+				end)
+				return function()
+					disposePlacementEffect()
+					local handle = handleRef.current
+					if handle ~= nil then
+						handleRef.current = nil
+						handle.unregister()
+					end
+				end
+			end, { context, placementSignal, placementToken, viewType } :: { unknown })
+
+			local itemSignal = props.itemSignal
+			React.useLayoutEffect(function()
+				local handle = handleRef.current
+				if handle ~= nil then
+					handle.setItemSignal(itemSignal)
+				end
+			end, { itemSignal } :: { unknown })
+
+			local active = props.active
+			React.useLayoutEffect(function()
+				local handle = handleRef.current
+				if handle ~= nil then
+					handle.setActive(active)
+				end
+			end, { active } :: { unknown })
+
+			local setPlaceholderRef = React.useCallback(function(instance: Frame?)
+				placeholderRef.current = instance
+				local handle = handleRef.current
+				if handle ~= nil then
+					handle.setPlaceholder(instance)
+				end
+			end, {})
+
+			if rendersInline then
+				return React.createElement(MemoizedInlineActiveRecyclableView, {
+					active = active,
+					itemSignal = itemSignal,
+					viewType = viewType,
+				})
+			end
+
+			return React.createElement("Frame", {
+				Name = "RecyclableView",
+				AutomaticSize = Enum.AutomaticSize.XY,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(),
+				ref = setPlaceholderRef,
+			})
+		end
 	end
 end
 
@@ -195,12 +201,19 @@ local function createRecyclableView<T>(
 		"createRecyclableView: readiness must be ReadyOnAssignment or ReadyOnCommit"
 	)
 
-	-- The facade must capture an upvalue so each factory call yields a unique
-	-- closure. Native Luau may reuse an upvalue-free nested closure, which would
-	-- collapse distinct view types.
 	local ownViewType: (active: boolean) -> RecyclableViewType<T>?, definitionIdentity
-	if not FFlagViewRecyclerReact08 then
-		definitionIdentity = {}
+	if FFlagViewRecyclerReact084 then -- The facade must capture an upvalue so each factory call yields a unique
+		-- closure. Native Luau may reuse an upvalue-free nested closure, which would
+		-- collapse distinct view types.
+		ownViewType = nil
+	else
+		-- The facade must capture an upvalue so each factory call yields a unique
+		-- closure. Native Luau may reuse an upvalue-free nested closure, which would
+		-- collapse distinct view types.
+		ownViewType, definitionIdentity = nil, nil
+		if not FFlagViewRecyclerReact08 then
+			definitionIdentity = {}
+		end
 	end
 
 	-- A factory-created component is intentional here: its closure is the
@@ -210,31 +223,54 @@ local function createRecyclableView<T>(
 		local active = props.active
 
 		local viewType, activeSignal
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			viewType = React.useMemo(function()
 				return selectViewType(if active == nil then true else active, ownViewType)
 			end, { active } :: { unknown })
 		else
-			activeSignal = if type(active) == "function"
-				then active
-				elseif active == false then INACTIVE_SIGNAL
-				else ACTIVE_SIGNAL
+			viewType, activeSignal = nil, nil
+			if FFlagViewRecyclerReact08 then
+				viewType = React.useMemo(function()
+					return selectViewType(if active == nil then true else active, ownViewType)
+				end, { active } :: { unknown })
+			else
+				activeSignal = if type(active) == "function"
+					then active
+					elseif active == false then INACTIVE_SIGNAL
+					else ACTIVE_SIGNAL
+			end
 		end
 		return React.createElement(
-			(if FFlagViewRecyclerReact08 then ComposedRecyclableView else RecyclableViewComponent),
+			(
+				if FFlagViewRecyclerReact084
+					then ComposedRecyclableView
+					else (if FFlagViewRecyclerReact08 then ComposedRecyclableView else RecyclableViewComponent)
+			),
 			{
-				viewType = (if FFlagViewRecyclerReact08 then viewType else RecyclableViewFacade),
+				viewType = (if FFlagViewRecyclerReact084
+					then viewType
+					else (if FFlagViewRecyclerReact08 then viewType else RecyclableViewFacade)),
 				itemSignal = props.itemSignal,
 
-				_definitionIdentity = if FFlagViewRecyclerReact08 then nil else definitionIdentity,
-				active = if FFlagViewRecyclerReact08 then nil else activeSignal,
+				_definitionIdentity = if FFlagViewRecyclerReact084
+					then nil
+					else if FFlagViewRecyclerReact08 then nil else definitionIdentity,
+				active = if FFlagViewRecyclerReact084
+					then nil
+					else if FFlagViewRecyclerReact08 then nil else activeSignal,
 			}
 		)
 	end
 
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		ownViewType = function(active)
 			return if active then RecyclableViewFacade else nil
+		end
+	else
+		if FFlagViewRecyclerReact08 then
+			ownViewType = function(active)
+				return if active then RecyclableViewFacade else nil
+			end
 		end
 	end
 

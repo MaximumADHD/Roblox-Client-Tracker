@@ -1,8 +1,10 @@
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact08
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 local Roblox = require(Root.Parent.ViewRecyclerRoblox)
 
 local Destination = require(script.Parent.Destination)
+
 local PlacementKind = require(script.Parent.PlacementKind)
 local React = require(Root.Parent.React)
 local RecyclableViewRegistry = require(script.Parent.RecyclableViewRegistry)
@@ -16,6 +18,8 @@ local useCompositionPlacement = require(script.Parent.useCompositionPlacement)
 local useRecyclingScope = require(script.Parent.useRecyclingScope)
 local virtualizerConfiguration = require(script.Parent.virtualizerConfiguration)
 
+local useRefAssignmentEffect = if FFlagViewRecyclerReact084 then React.useLayoutEffect else React.useEffect
+
 local function assignRef<T>(ref: any, value: T?)
 	if ref == nil then
 		return
@@ -28,47 +32,50 @@ local function assignRef<T>(ref: any, value: T?)
 end
 
 local toCorePinnedItem, configuration
-if not FFlagViewRecyclerReact08 then
-	function toCorePinnedItem(item)
-		if item == nil then
-			return nil
+if not FFlagViewRecyclerReact084 then
+	toCorePinnedItem, configuration = nil, nil
+	if not FFlagViewRecyclerReact08 then
+		function toCorePinnedItem(item)
+			if item == nil then
+				return nil
+			end
+			return {
+				key = item.key,
+				value = item.value,
+				itemViewType = item.itemType,
+			}
 		end
-		return {
-			key = item.key,
-			value = item.value,
-			itemViewType = item.itemType,
-		}
-	end
 
-	function configuration(props, target): Roblox.VirtualizerConfiguration<any, any>
-		return {
-			scrollingFrame = target.scrollingFrame,
-			viewportOverlay = target.viewportOverlay,
-			axis = props.axis,
-			dataSource = props.dataSource,
-			layout = props.layout,
-			onStartReached = props.onStartReached,
-			onEndReached = props.onEndReached,
-			onViewportChanged = props.onViewportChanged,
-			onScrollOffsetChanged = props.onScrollOffsetChanged,
-			onContentLengthChanged = props.onContentLengthChanged,
-			onVisibleRangeChanged = props.onVisibleRangeChanged,
-			onMountedRangeChanged = props.onMountedRangeChanged,
-			onVisibleItemsPresented = props.onVisibleItemsPresented,
-			onDataPrefetchRequested = props.onDataPrefetchRequested,
-			overscan = props.overscan,
-			dataPrefetch = props.dataPrefetch,
-			contentAlignment = props.contentAlignment,
-			endReachedThreshold = props.endReachedThreshold,
-			initialScrollAlignment = props.initialScrollAlignment,
-			autoScrollOnChange = props.autoScrollOnChange,
-			autoScrollThreshold = props.autoScrollThreshold,
-			startReachedThreshold = props.startReachedThreshold,
-			isItemStickyHeader = props.isItemStickyHeader,
-			pinnedStartItem = toCorePinnedItem(props.pinnedStartItem),
-			pinnedEndItem = toCorePinnedItem(props.pinnedEndItem),
-			preserveScrollPositionOnChange = props.preserveScrollPositionOnChange,
-		}
+		function configuration(props, target): Roblox.VirtualizerConfiguration<any, any>
+			return {
+				scrollingFrame = target.scrollingFrame,
+				viewportOverlay = target.viewportOverlay,
+				axis = props.axis,
+				dataSource = props.dataSource,
+				layout = props.layout,
+				onStartReached = props.onStartReached,
+				onEndReached = props.onEndReached,
+				onViewportChanged = props.onViewportChanged,
+				onScrollOffsetChanged = props.onScrollOffsetChanged,
+				onContentLengthChanged = props.onContentLengthChanged,
+				onVisibleRangeChanged = props.onVisibleRangeChanged,
+				onMountedRangeChanged = props.onMountedRangeChanged,
+				onVisibleItemsPresented = props.onVisibleItemsPresented,
+				onDataPrefetchRequested = props.onDataPrefetchRequested,
+				overscan = props.overscan,
+				dataPrefetch = props.dataPrefetch,
+				contentAlignment = props.contentAlignment,
+				endReachedThreshold = props.endReachedThreshold,
+				initialScrollAlignment = props.initialScrollAlignment,
+				autoScrollOnChange = props.autoScrollOnChange,
+				autoScrollThreshold = props.autoScrollThreshold,
+				startReachedThreshold = props.startReachedThreshold,
+				isItemStickyHeader = props.isItemStickyHeader,
+				pinnedStartItem = toCorePinnedItem(props.pinnedStartItem),
+				pinnedEndItem = toCorePinnedItem(props.pinnedEndItem),
+				preserveScrollPositionOnChange = props.preserveScrollPositionOnChange,
+			}
+		end
 	end
 end
 
@@ -104,11 +111,16 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 	end
 
 	local sharedRecyclingScope, recyclingScope
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		sharedRecyclingScope = useRecyclingScope("VirtualList")
 	else
-		recyclingScope = React.useContext(RecyclingScopeContext)
-		assert(recyclingScope ~= nil, "VirtualListRenderer requires a RecyclingScope")
+		sharedRecyclingScope, recyclingScope = nil, nil
+		if FFlagViewRecyclerReact08 then
+			sharedRecyclingScope = useRecyclingScope("VirtualList")
+		else
+			recyclingScope = React.useContext(RecyclingScopeContext)
+			assert(recyclingScope ~= nil, "VirtualListRenderer requires a RecyclingScope")
+		end
 	end
 	local viewportScope = React.useContext(RecyclingViewportContext)
 	local activeState = React.useState(function()
@@ -123,24 +135,27 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 	local viewportOverlayRef = React.useRef(nil :: Frame?)
 
 	local compositionPlacement
-	if not FFlagViewRecyclerReact08 then
-		sharedRecyclingScope = React.useState(function()
-			return recyclingScope.root.getScope(recyclingScope.listOptions)
-		end)
-		React.useEffect(function()
-			sharedRecyclingScope.bind({
-				releases = {},
-				requests = {},
-				capacity = recyclingScope.listOptions.maxPoolSize,
-				updateCapacity = true,
-			})
-		end, { sharedRecyclingScope, recyclingScope.listOptions.maxPoolSize })
+	if not FFlagViewRecyclerReact084 then
+		compositionPlacement = nil
+		if not FFlagViewRecyclerReact08 then
+			sharedRecyclingScope = React.useState(function()
+				return recyclingScope.root.getScope(recyclingScope.listOptions)
+			end)
+			React.useEffect(function()
+				sharedRecyclingScope.bind({
+					releases = {},
+					requests = {},
+					capacity = recyclingScope.listOptions.maxPoolSize,
+					updateCapacity = true,
+				})
+			end, { sharedRecyclingScope, recyclingScope.listOptions.maxPoolSize })
 
-		compositionPlacement = useCompositionPlacement(
-			recyclingScope.root,
-			recyclingScope.listOptions.maxPoolSize,
-			recyclingScope.listOptions.diagnostics
-		)
+			compositionPlacement = useCompositionPlacement(
+				recyclingScope.root,
+				recyclingScope.listOptions.maxPoolSize,
+				recyclingScope.listOptions.diagnostics
+			)
+		end
 	end
 
 	local runtimeRef = React.useRef(nil :: Roblox.Virtualizer<T>?)
@@ -153,7 +168,9 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 				local runtime = runtimeRef.current
 				if runtime ~= nil then
 					runtime.update(
-						(if FFlagViewRecyclerReact08 then virtualizerConfiguration else configuration)(
+						(if FFlagViewRecyclerReact084
+							then virtualizerConfiguration
+							else (if FFlagViewRecyclerReact08 then virtualizerConfiguration else configuration))(
 							nextCommittedProps,
 							hostTarget(internalRef, viewportOverlayRef)
 						)
@@ -164,7 +181,9 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 				local runtime = runtimeRef.current
 				if runtime ~= nil then
 					runtime.update(
-						(if FFlagViewRecyclerReact08 then virtualizerConfiguration else configuration)(
+						(if FFlagViewRecyclerReact084
+							then virtualizerConfiguration
+							else (if FFlagViewRecyclerReact08 then virtualizerConfiguration else configuration))(
 							lastCommittedProps,
 							hostTarget(internalRef, viewportOverlayRef)
 						)
@@ -194,14 +213,17 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 	)
 
 	local needsOverlay, attachedOverlayRef
-	if not FFlagViewRecyclerReact08 then
-		-- Must run before the runtime's effect so the runtime starts on the
-		-- attached ScrollingFrame and its overlay. A replaced overlay is destroyed
-		-- only after the runtime has moved its Hosts to the new one.
-		-- Only sticky and pinned Items use the overlay, so a list without them adds
-		-- nothing to the application's parent.
-		needsOverlay = props.isItemStickyHeader ~= nil or props.pinnedStartItem ~= nil or props.pinnedEndItem ~= nil
-		attachedOverlayRef = React.useRef(nil :: AttachedViewportOverlay?)
+	if not FFlagViewRecyclerReact084 then
+		needsOverlay, attachedOverlayRef = nil, nil
+		if not FFlagViewRecyclerReact08 then
+			-- Must run before the runtime's effect so the runtime starts on the
+			-- attached ScrollingFrame and its overlay. A replaced overlay is destroyed
+			-- only after the runtime has moved its Hosts to the new one.
+			-- Only sticky and pinned Items use the overlay, so a list without them adds
+			-- nothing to the application's parent.
+			needsOverlay = props.isItemStickyHeader ~= nil or props.pinnedStartItem ~= nil or props.pinnedEndItem ~= nil
+			attachedOverlayRef = React.useRef(nil :: AttachedViewportOverlay?)
+		end
 	end
 
 	-- Must run before the runtime's effect so the runtime starts on the
@@ -214,30 +236,39 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 			end
 
 			local previousOverlay, attachedOverlay
-			if not FFlagViewRecyclerReact08 then
-				previousOverlay = attachedOverlayRef.current
-				attachedOverlay = if needsOverlay
-					then Roblox.Internal.AttachedViewportOverlay.new(props.scrollingFrame, props.axis)
-					else nil
-				attachedOverlayRef.current = attachedOverlay
+			if not FFlagViewRecyclerReact084 then
+				previousOverlay, attachedOverlay = nil, nil
+				if not FFlagViewRecyclerReact08 then
+					previousOverlay = attachedOverlayRef.current
+					attachedOverlay = if needsOverlay
+						then Roblox.Internal.AttachedViewportOverlay.new(props.scrollingFrame, props.axis)
+						else nil
+					attachedOverlayRef.current = attachedOverlay
+				end
 			end
 			internalRef.current = props.scrollingFrame
 
-			if not FFlagViewRecyclerReact08 then
-				viewportOverlayRef.current = if attachedOverlay ~= nil then attachedOverlay.overlay else nil
+			if not FFlagViewRecyclerReact084 then
+				if not FFlagViewRecyclerReact08 then
+					viewportOverlayRef.current = if attachedOverlay ~= nil then attachedOverlay.overlay else nil
+				end
 			end
 			onScrollingFrameChanged(props.scrollingFrame)
 
-			if not FFlagViewRecyclerReact08 then
-				if previousOverlay ~= nil then
-					previousOverlay.destroy()
+			if not FFlagViewRecyclerReact084 then
+				if not FFlagViewRecyclerReact08 then
+					if previousOverlay ~= nil then
+						previousOverlay.destroy()
+					end
 				end
 			end
 		end,
 		(
-				if FFlagViewRecyclerReact08
+				if FFlagViewRecyclerReact084
 					then { attached, props.scrollingFrame, onScrollingFrameChanged }
-					else { attached, props.scrollingFrame, props.axis, needsOverlay, onScrollingFrameChanged }
+					else (if FFlagViewRecyclerReact08
+						then { attached, props.scrollingFrame, onScrollingFrameChanged }
+						else { attached, props.scrollingFrame, props.axis, needsOverlay, onScrollingFrameChanged })
 			) :: { unknown }
 	)
 
@@ -251,22 +282,27 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 		end
 
 		local sinkByItemView: { [any]: any }, listSink
-		if not FFlagViewRecyclerReact08 then
-			sinkByItemView = setmetatable({}, { __mode = "k" }) :: any
-			function listSink(itemView, sink: Roblox.HostPlacementSink<any, T>)
-				local listSink = sinkByItemView[itemView]
-				if listSink == nil then
-					listSink = table.freeze({
-						apply = function(state)
-							sink.apply(itemView, state)
-						end,
-					})
-					sinkByItemView[itemView] = listSink
+		if not FFlagViewRecyclerReact084 then
+			sinkByItemView, listSink = nil, nil
+			if not FFlagViewRecyclerReact08 then
+				sinkByItemView = setmetatable({}, { __mode = "k" }) :: any
+				function listSink(itemView, sink: Roblox.HostPlacementSink<any, T>)
+					local listSink = sinkByItemView[itemView]
+					if listSink == nil then
+						listSink = table.freeze({
+							apply = function(state)
+								sink.apply(itemView, state)
+							end,
+						})
+						sinkByItemView[itemView] = listSink
+					end
+					return listSink
 				end
-				return listSink
 			end
 		end
-		local options: any = (if FFlagViewRecyclerReact08 then virtualizerConfiguration else configuration)(
+		local options: any = (if FFlagViewRecyclerReact084
+			then virtualizerConfiguration
+			else (if FFlagViewRecyclerReact08 then virtualizerConfiguration else configuration))(
 			props,
 			hostTarget(internalRef, viewportOverlayRef)
 		)
@@ -289,6 +325,12 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 		end
 		options.diagnostics = props.diagnostics
 		options.active = if viewportScope == nil then nil else activeState.active(false)
+
+		if FFlagViewRecyclerReact084 then
+			options.isReadyOnAssignment = function(itemView)
+				return itemView.isReadyOnAssignment()
+			end
+		end
 		options.presentItemView = function(itemView, state, assignmentChanged, sink)
 			itemView.transition(if state == nil
 				then nil
@@ -296,11 +338,17 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 					assignment = state.assignment,
 					index = state.index,
 					destination = table.freeze({
-						kind = (if FFlagViewRecyclerReact08 then Destination.Kind else PlacementKind).List,
+						kind = (if FFlagViewRecyclerReact084
+							then Destination.Kind
+							else (if FFlagViewRecyclerReact08 then Destination.Kind else PlacementKind)).List,
 						state = state,
-						sink = (if FFlagViewRecyclerReact08 then sink else listSink(itemView, sink)),
+						sink = (if FFlagViewRecyclerReact084
+							then sink
+							else (if FFlagViewRecyclerReact08 then sink else listSink(itemView, sink))),
 
-						compositionPlacement = if FFlagViewRecyclerReact08 then nil else compositionPlacement,
+						compositionPlacement = if FFlagViewRecyclerReact084
+							then nil
+							else if FFlagViewRecyclerReact08 then nil else compositionPlacement,
 					}),
 				}))
 			local hooks = instrumentation()
@@ -336,22 +384,24 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 		end
 	end, { synchronization } :: { unknown })
 
-	if not FFlagViewRecyclerReact08 then
-		-- Must clean up after the runtime's effect, whose destroy detaches the
-		-- Hosts the attached overlay holds.
-		React.useLayoutEffect(function()
-			return function()
-				local attachedOverlay = attachedOverlayRef.current
-				if attachedOverlay ~= nil then
-					attachedOverlayRef.current = nil
-					attachedOverlay.destroy()
+	if not FFlagViewRecyclerReact084 then
+		if not FFlagViewRecyclerReact08 then
+			-- Must clean up after the runtime's effect, whose destroy detaches the
+			-- Hosts the attached overlay holds.
+			React.useLayoutEffect(function()
+				return function()
+					local attachedOverlay = attachedOverlayRef.current
+					if attachedOverlay ~= nil then
+						attachedOverlayRef.current = nil
+						attachedOverlay.destroy()
+					end
 				end
-			end
-		end, {})
+			end, {})
 
-		React.useEffect(function()
-			return recyclingScope.registerConsumer()
-		end, { recyclingScope })
+			React.useEffect(function()
+				return recyclingScope.registerConsumer()
+			end, { recyclingScope })
+		end
 	end
 
 	React.useEffect(function()
@@ -375,7 +425,9 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 		end
 	end, { props.itemType } :: { unknown })
 
-	React.useEffect(function()
+	-- Refs resolve during layout, after the runtime exists, so an enclosing
+	-- component's layout effects can scroll the list before the first paint.
+	useRefAssignmentEffect(function()
 		local function runtime(): Roblox.Virtualizer<T>
 			return assert(runtimeRef.current, "VirtualList: list handle used after unmount")
 		end
@@ -383,15 +435,27 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 			scrollToIndex = function(index, options)
 				runtime().scrollToIndex(index, options)
 			end,
-			scrollToOffset = function(offset)
-				return runtime().scrollToOffset(offset)
-			end,
-			scrollToStart = function()
-				runtime().scrollToStart()
-			end,
-			scrollToEnd = function()
-				runtime().scrollToEnd()
-			end,
+			scrollToOffset = (if FFlagViewRecyclerReact084
+				then function(offset, options)
+					return runtime().scrollToOffset(offset, options)
+				end
+				else function(offset)
+					return runtime().scrollToOffset(offset)
+				end),
+			scrollToStart = (if FFlagViewRecyclerReact084
+				then function(options)
+					runtime().scrollToStart(options)
+				end
+				else function()
+					runtime().scrollToStart()
+				end),
+			scrollToEnd = (if FFlagViewRecyclerReact084
+				then function(options)
+					runtime().scrollToEnd(options)
+				end
+				else function()
+					runtime().scrollToEnd()
+				end),
 			scrollBy = function(delta)
 				return runtime().scrollBy(delta)
 			end,
@@ -411,7 +475,7 @@ local function useVirtualList<T>(props: any): VirtualListShell.Props
 		end
 	end, { props.listRef } :: { unknown })
 
-	React.useEffect(function()
+	useRefAssignmentEffect(function()
 		assignRef(props.scrollingFrameRef, internalRef.current)
 		return function()
 			assignRef(props.scrollingFrameRef, nil)

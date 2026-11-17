@@ -23,6 +23,10 @@ export type Runtime = {
 	-- length is final.
 	isItemMeasured: ((index: number) -> boolean)?,
 	applyDataSourceChange: (change: Types.DataSourceChange) -> boolean,
+	-- Present only when the layout reads estimates from item values. The core
+	-- calls it after applying each change batch, when the layout's order
+	-- matches the DataSource. Returns whether geometry changed.
+	resolveItemEstimates: ((getItem: (index: number) -> any) -> boolean)?,
 	setViewportCrossAxisLength: (crossAxisLength: number) -> boolean,
 	-- Present only on Stacked layouts: Items occupy consecutive main-axis
 	-- spans in index order across the full cross axis, the first at its

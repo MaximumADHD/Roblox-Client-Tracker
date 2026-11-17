@@ -1,11 +1,17 @@
 -- Places keyed Recyclable views at explicit rectangles in one container. Each
 -- `sync` is declarative and is at most one Slot binder exchange.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecyclerReact").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerReact")
 local Core = require(Root.Parent.ViewRecycler)
 local Destination = require(script.Parent.Destination)
 local Placement = require(script.Parent.Placement)
 local RecyclableView = require(script.Parent.RecyclableView)
 local RecyclableViewRegistry = require(script.Parent.RecyclableViewRegistry)
+
+local VacantHosts
+if FFlagViewRecyclerReact084 then
+	VacantHosts = require(Root.Parent.ViewRecyclerRoblox).Internal.VacantHosts
+end
 
 type RecyclableViewType = RecyclableViewRegistry.RecyclableViewType<any>
 type View = RecyclableView.RecyclableView<any, RecyclableViewType>
@@ -47,6 +53,22 @@ function RectPlacement.new(scope: RecyclingScope, getContainerRef: () -> Contain
 	local identity = {}
 	local destination: Destination.RectDestination? = nil
 
+	local vacantHosts, evacuate
+	if FFlagViewRecyclerReact084 then
+		vacantHosts = VacantHosts.forScope(scope)
+
+		-- Released Hosts stay hidden in their container until it is replaced or
+		-- the placement unmounts.
+		function evacuate()
+			local current = destination
+			if current ~= nil then
+				vacantHosts.evacuate(function(parent)
+					return parent == current.container
+				end)
+			end
+		end
+	end
+
 	return {
 		sync = function(slots)
 			local container = getContainerRef().current
@@ -57,10 +79,15 @@ function RectPlacement.new(scope: RecyclingScope, getContainerRef: () -> Contain
 				if destination ~= nil and placement.hasDestroyedView() then
 					placement.releaseAll()
 				end
+
+				if FFlagViewRecyclerReact084 then
+					evacuate()
+				end
 				destination = table.freeze({
 					kind = Destination.Kind.Rect,
 					rectPlacement = identity,
 					container = container,
+					vacantHosts = (if FFlagViewRecyclerReact084 then vacantHosts else nil),
 				})
 			end
 			local placedSlots = table.create(#slots)
@@ -81,7 +108,12 @@ function RectPlacement.new(scope: RecyclingScope, getContainerRef: () -> Contain
 			end
 			placement.sync(placedSlots)
 		end,
-		releaseAll = placement.releaseAll,
+		releaseAll = (if FFlagViewRecyclerReact084
+			then function()
+				placement.releaseAll()
+				evacuate()
+			end
+			else placement.releaseAll),
 	}
 end
 

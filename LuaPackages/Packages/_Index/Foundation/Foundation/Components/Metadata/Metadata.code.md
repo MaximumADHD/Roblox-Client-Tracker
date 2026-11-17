@@ -73,7 +73,7 @@ React.createElement(Metadata, {
 
 ### Truncation
 
-Metadata hugs its content, and truncates with an ellipsis when its parent is narrower than the content. In a row next to other elements, wrap it in a `View` tagged `shrink auto-xy` so it gives up space to its siblings instead of pushing them out. For a list, set `truncateIndex` to choose which item truncates; it defaults to the last item. Point it at the least important item so key metadata stays visible.
+Metadata hugs its content, and truncates with an ellipsis when its parent is narrower than the content. In a row next to other elements, wrap it in a `View` tagged `shrink auto-xy` so it gives up space to its siblings instead of pushing them out. For a list, set `truncateIndex` to choose which item truncates; it defaults to the last item. Point it at the least important item so key metadata stays visible. If that item is down to `…` and the list still doesn't fit, the other items truncate next, one at a time in reading order.
 
 ```luau
 React.createElement(Metadata, {

@@ -17,6 +17,7 @@ MomentScenes repo (this package)
 │   │   ├── avatarBackground
 │   │   ├── backgroundCatalog  (preview/test display names, not published)
 │   │   ├── avatarRig
+│   │   ├── applyDefaultClothing
 │   │   ├── createPlayhead
 │   │   └── loadAsset
 │   └── AvatarMoment/ — recipe plus its own presentation helpers
@@ -91,13 +92,19 @@ That rule is what keeps hosts out of the resolution business, so it is a convent
 | Layer | Input → output | Job |
 |---|---|---|
 | Unpacker | asset Instance → `args` | Structural only. `parseSceneAsset` is the default; a builder may ship its own. |
-| Builder | `args` → `MomentScene` | All resolution, using engine APIs (`Players:GetHumanoidDescriptionFromOutfitIdAsync`, `Players:GetHumanoidDescriptionFromUserIdAsync`, `AvatarEditorService:GetOutfitDetailsAsync`, `Players:GetCharacterAppearanceInfoAsync`, `InsertService:LoadAsset`, `Players:CreateHumanoidModelFromDescriptionAsync`, `Animator:LoadAnimation`). |
+| Builder | `args` → `MomentScene` | All resolution, using engine APIs (`Players:GetHumanoidDescriptionFromOutfitIdAsync`, `Players:GetHumanoidDescriptionFromUserIdAsync`, `AvatarEditorService:GetOutfitDetailsAsync`, `Players:GetCharacterAppearanceInfoAsync`, `AvatarEditorService:CheckApplyDefaultClothingAsync`, `InsertService:LoadAsset`, `Players:CreateHumanoidModelFromDescriptionAsync`, `Animator:LoadAnimation`). |
 
 **Hosts do no per-type work.** They unpack and dispatch. A host never learns what `AvatarMoment` wants, never branches on `type` to prepare arguments, and picks up a new scene type without changing. If a host ever needs bespoke per-type logic before calling a builder, something above has gone wrong.
 
 **`args` are serializable — primitives only.** No `Instance` references, no Enums, no `HumanoidDescription`. This is not style: args arrive two ways, unpacked from an asset *or* handed over directly, and the second path has no asset to unpack. Unit tests, pre-publish flows, and an RCC job receiving args over the wire all take it. If a builder required a `HumanoidDescription`, every caller on that path would have to construct one first — exactly the per-caller resolution the design exists to remove. So an avatar crosses as an outfit ID or a user ID, a background as an asset ID, an emote as an asset ID.
 
 The cost of taking an id is that it has to exist: `AvatarMoment` cannot render a bespoke, unsaved appearance. That is accepted. An outfit id and a user id each have an engine API that resolves straight to a `HumanoidDescription`, so taking one keeps every arg a plain value and deletes the parsing layer a serialized appearance would need. Looks do not have that property. Supply one of `outfitId` or `userId`; `0` is absent, and both set is an error. `userId` is behind `MomentScenesAvatarMomentUserId` (default off). While that flag is off, a `userId` is ignored and `outfitId` stays required.
+
+The fetched description has no modesty layer. `AvatarMoment` applies it with `AvatarEditorService:CheckApplyDefaultClothingAsync` while `MomentScenesAvatarMomentDefaultClothing` is on (default off). While that flag is off, the rig is built from the fetched description. `ConformToAvatarRulesAsync` is not used for this: it also clamps accessory adjustments.
+
+The default shirt and pants are chosen from the local player's user id modulo the default list. A host with no local player, including an RCC thumbnail job, always gets pair 0. The creator's composer and each feed viewer use their own user id, so the thumbnail can show a different pair from either of them. The engine call takes no timeout. The builder stops waiting after 8 seconds and renders the fetched description.
+
+Gear is resolved from the same outfit details or user appearance-info call used to determine rig type. Since `HumanoidDescription` cannot apply Gear, the builder inserts the first Gear asset separately, takes its first `Tool` descendant only when it has a direct `Handle` `BasePart`, destroys all `LuaSourceContainer` descendants, and parents that Tool to the avatar. The equipped pose is held outside playback using animation `507768375` on R15 or `182393478` on R6. A missing `RightGrip` is created as a `Weld` on the R15 `RightHand` or R6 `Right Arm`, and its `C1` is set to the Tool's `Grip`. R15 takes `C0` from `RightGripAttachment`; R6 uses the classic tool basis `CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(-90), 0, 0)`.
 
 **Why not have builders take the asset directly?** Because the asset is one source of args, not the only one. A builder that demanded an asset could not be called from a test or a pre-publish flow.
 

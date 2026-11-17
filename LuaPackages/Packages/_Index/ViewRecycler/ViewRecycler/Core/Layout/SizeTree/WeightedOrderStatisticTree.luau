@@ -3,23 +3,32 @@
 -- Logical rank is the sum of each node's itemCount. AVL balance uses node
 -- height. This module is not ISizeTree: adapters own estimate policy, run
 -- collapsing, and the public query surface.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local WeightedOrderStatisticTree = {}
 
 export type NodeSpec = {
 	itemCount: number,
 	measuredSize: number?,
+	estimatedSize: number?,
 }
 
 export type Node = {
 	itemCount: number,
 	measuredSize: number?,
+	-- An unmeasured node's own per-item estimate. nil uses the global estimate.
+	-- A measured node keeps it for when its measurement is cleared.
+	estimatedSize: number?,
 	subtreeItemCount: number,
 	subtreeMeasuredCount: number,
-	subtreeMeasuredSum: number,
+	-- Items whose length is their own: measured, or with their own estimate.
+	subtreeFixedCount: number,
+	subtreeFixedSum: number,
 	subtreeNodeCount: number,
 	height: number,
 	left: Node?,
 	right: Node?,
+
+	subtreeMeasuredSum: number?,
 }
 
 local function nodeHeight(node: Node?): number
@@ -34,8 +43,15 @@ local function nodeMeasuredCount(node: Node?): number
 	return if node == nil then 0 else node.subtreeMeasuredCount
 end
 
-local function nodeMeasuredSum(node: Node?): number
-	return if node == nil then 0 else node.subtreeMeasuredSum
+local nodeFixedCount, nodeMeasuredSum
+if FFlagViewRecyclerReact084 then
+	function nodeFixedCount(node: Node?): number
+		return if node == nil then 0 else node.subtreeFixedCount
+	end
+else
+	function nodeMeasuredSum(node: Node?): number
+		return if node == nil then 0 else node.subtreeMeasuredSum
+	end
 end
 
 local function nodeCount(node: Node?): number
@@ -46,42 +62,150 @@ local function nodeEffectiveSum(node: Node?, estimatedItemLength: number): numbe
 	if node == nil then
 		return 0
 	end
-	return node.subtreeMeasuredSum + (node.subtreeItemCount - node.subtreeMeasuredCount) * estimatedItemLength
+	return (if FFlagViewRecyclerReact084 then node.subtreeFixedSum else node.subtreeMeasuredSum)
+		+ (
+				node.subtreeItemCount
+				- (if FFlagViewRecyclerReact084 then node.subtreeFixedCount else node.subtreeMeasuredCount)
+			)
+			* estimatedItemLength
+end
+
+local unitSize
+if FFlagViewRecyclerReact084 then
+	-- The length of each item the node represents.
+	function unitSize(node: Node, estimatedItemLength: number): number
+		return node.measuredSize or node.estimatedSize or estimatedItemLength
+	end
 end
 
 local function ownEffectiveSum(node: Node, estimatedItemLength: number): number
-	return if node.measuredSize == nil then node.itemCount * estimatedItemLength else node.measuredSize
+	return if node.measuredSize == nil
+		then node.itemCount * (if FFlagViewRecyclerReact084
+			then (node.estimatedSize or estimatedItemLength)
+			else estimatedItemLength)
+		else node.measuredSize
 end
 
 local function refresh(node: Node)
-	assert(node.itemCount >= 1, "WeightedOrderStatisticTree: node itemCount must be positive")
+	local itemCount, measuredSize
+	if FFlagViewRecyclerReact084 then
+		itemCount = node.itemCount
+		measuredSize = node.measuredSize
+	end
 	assert(
-		node.measuredSize == nil or node.itemCount == 1,
+		(if FFlagViewRecyclerReact084 then itemCount else node.itemCount) >= 1,
+		"WeightedOrderStatisticTree: node itemCount must be positive"
+	)
+	assert(
+		(if FFlagViewRecyclerReact084 then measuredSize else node.measuredSize) == nil
+			or (if FFlagViewRecyclerReact084 then itemCount else node.itemCount) == 1,
 		"WeightedOrderStatisticTree: measured nodes must represent exactly one item"
 	)
-	node.subtreeItemCount = nodeItemCount(node.left) + node.itemCount + nodeItemCount(node.right)
-	node.subtreeMeasuredCount = nodeMeasuredCount(node.left)
-		+ (if node.measuredSize == nil then 0 else 1)
-		+ nodeMeasuredCount(node.right)
-	node.subtreeMeasuredSum = nodeMeasuredSum(node.left) + (node.measuredSize or 0) + nodeMeasuredSum(node.right)
-	node.subtreeNodeCount = nodeCount(node.left) + 1 + nodeCount(node.right)
-	node.height = 1 + math.max(nodeHeight(node.left), nodeHeight(node.right))
+
+	local subtreeItemCount, subtreeMeasuredCount, subtreeFixedCount, subtreeFixedSum, subtreeNodeCount, leftHeight, rightHeight, left, right
+	if FFlagViewRecyclerReact084 then
+		subtreeItemCount = itemCount
+		subtreeMeasuredCount = 0
+		subtreeFixedCount = 0
+		subtreeFixedSum = 0
+		subtreeNodeCount = 1
+		leftHeight = 0
+		rightHeight = 0
+		if measuredSize ~= nil then
+			subtreeMeasuredCount = 1
+			subtreeFixedCount = 1
+			subtreeFixedSum = measuredSize
+		else
+			local estimatedSize = node.estimatedSize
+			if estimatedSize ~= nil then
+				subtreeFixedCount = itemCount
+				subtreeFixedSum = itemCount * estimatedSize
+			end
+		end
+		left = node.left
+		if left ~= nil then
+			subtreeItemCount += left.subtreeItemCount
+			subtreeMeasuredCount += left.subtreeMeasuredCount
+			subtreeFixedCount += left.subtreeFixedCount
+			subtreeFixedSum += left.subtreeFixedSum
+			subtreeNodeCount += left.subtreeNodeCount
+			leftHeight = left.height
+		end
+		right = node.right
+		if right ~= nil then
+			subtreeItemCount += right.subtreeItemCount
+			subtreeMeasuredCount += right.subtreeMeasuredCount
+			subtreeFixedCount += right.subtreeFixedCount
+			subtreeFixedSum += right.subtreeFixedSum
+			subtreeNodeCount += right.subtreeNodeCount
+			rightHeight = right.height
+		end
+	end
+	node.subtreeItemCount = (
+		if FFlagViewRecyclerReact084
+			then subtreeItemCount
+			else nodeItemCount(node.left) + node.itemCount + nodeItemCount(node.right)
+	)
+	node.subtreeMeasuredCount = (
+		if FFlagViewRecyclerReact084
+			then subtreeMeasuredCount
+			else nodeMeasuredCount(node.left) + (if node.measuredSize == nil then 0 else 1) + nodeMeasuredCount(
+				node.right
+			)
+	)
+
+	if FFlagViewRecyclerReact084 then
+		node.subtreeFixedCount = subtreeFixedCount
+		node.subtreeFixedSum = subtreeFixedSum
+	else
+		node.subtreeMeasuredSum = nodeMeasuredSum(node.left) + (node.measuredSize or 0) + nodeMeasuredSum(node.right)
+	end
+	node.subtreeNodeCount = (
+		if FFlagViewRecyclerReact084 then subtreeNodeCount else nodeCount(node.left) + 1 + nodeCount(node.right)
+	)
+	node.height = 1
+		+ (
+			if FFlagViewRecyclerReact084
+				then (if leftHeight > rightHeight then leftHeight else rightHeight)
+				else math.max(nodeHeight(node.left), nodeHeight(node.right))
+		)
 end
 
-local function newNode(itemCount: number, measuredSize: number?): Node
-	local node: Node = {
-		itemCount = itemCount,
-		measuredSize = measuredSize,
-		subtreeItemCount = itemCount,
-		subtreeMeasuredCount = if measuredSize == nil then 0 else 1,
-		subtreeMeasuredSum = measuredSize or 0,
-		subtreeNodeCount = 1,
-		height = 1,
-		left = nil,
-		right = nil,
-	}
-	refresh(node)
-	return node
+local newNode
+if FFlagViewRecyclerReact084 then
+	function newNode(itemCount: number, measuredSize: number?, estimatedSize: number?): Node
+		local node: Node = {
+			itemCount = itemCount,
+			measuredSize = measuredSize,
+			estimatedSize = estimatedSize,
+			subtreeItemCount = itemCount,
+			subtreeMeasuredCount = 0,
+			subtreeFixedCount = 0,
+			subtreeFixedSum = 0,
+			subtreeNodeCount = 1,
+			height = 1,
+			left = nil,
+			right = nil,
+		}
+		refresh(node)
+		return node
+	end
+else
+	function newNode(itemCount: number, measuredSize: number?): Node
+		local node: Node = {
+			itemCount = itemCount,
+			measuredSize = measuredSize,
+			subtreeItemCount = itemCount,
+			subtreeMeasuredCount = if measuredSize == nil then 0 else 1,
+			subtreeMeasuredSum = measuredSize or 0,
+			subtreeNodeCount = 1,
+			height = 1,
+			left = nil,
+			right = nil,
+		}
+		refresh(node)
+		return node
+	end
 end
 
 local function rotateRight(root: Node): Node
@@ -208,21 +332,48 @@ local function splitByItems(root: Node?, leftItemCount: number): (Node?, Node?)
 	assert(root.measuredSize == nil, "WeightedOrderStatisticTree: cannot split a measured node")
 	local ownLeftCount = leftItemCount - leftCount
 	local ownRightCount = root.itemCount - ownLeftCount
-	return concatenate(root.left, newNode(ownLeftCount, nil)), concatenate(newNode(ownRightCount, nil), root.right)
+	return (if FFlagViewRecyclerReact084
+		then concatenate(root.left, newNode(ownLeftCount, nil, root.estimatedSize))
+		else concatenate(root.left, newNode(ownLeftCount, nil))),
+		concatenate(
+			(
+				if FFlagViewRecyclerReact084
+					then newNode(ownRightCount, nil, root.estimatedSize)
+					else newNode(ownRightCount, nil)
+			),
+			root.right
+		)
 end
 
-local function insertUnitAt(node: Node?, rank: number, measuredSize: number?): Node
-	if node == nil then
-		return newNode(1, measuredSize)
-	end
+local insertUnitAt
+if FFlagViewRecyclerReact084 then
+	function insertUnitAt(node: Node?, rank: number, measuredSize: number?, estimatedSize: number?): Node
+		if node == nil then
+			return newNode(1, measuredSize, estimatedSize)
+		end
 
-	local leftCount = nodeItemCount(node.left) + 1
-	if rank <= leftCount then
-		node.left = insertUnitAt(node.left, rank, measuredSize)
-	else
-		node.right = insertUnitAt(node.right, rank - leftCount, measuredSize)
+		local leftCount = nodeItemCount(node.left) + 1
+		if rank <= leftCount then
+			node.left = insertUnitAt(node.left, rank, measuredSize, estimatedSize)
+		else
+			node.right = insertUnitAt(node.right, rank - leftCount, measuredSize, estimatedSize)
+		end
+		return balance(node)
 	end
-	return balance(node)
+else
+	function insertUnitAt(node: Node?, rank: number, measuredSize: number?): Node
+		if node == nil then
+			return newNode(1, measuredSize)
+		end
+
+		local leftCount = nodeItemCount(node.left) + 1
+		if rank <= leftCount then
+			node.left = insertUnitAt(node.left, rank, measuredSize)
+		else
+			node.right = insertUnitAt(node.right, rank - leftCount, measuredSize)
+		end
+		return balance(node)
+	end
 end
 
 local function findMin(node: Node): Node
@@ -246,6 +397,10 @@ local function removeUnitAt(node: Node?, rank: number): Node?
 	else
 		local successor = findMin(node.right :: Node)
 		node.measuredSize = successor.measuredSize
+
+		if FFlagViewRecyclerReact084 then
+			node.estimatedSize = successor.estimatedSize
+		end
 		node.itemCount = successor.itemCount
 		node.right = removeUnitAt(node.right, 1)
 	end
@@ -298,6 +453,35 @@ local function measuredAt(root: Node?, index: number): number?
 	return root.measuredSize
 end
 
+local unitSizeAt, estimatedAt
+if FFlagViewRecyclerReact084 then
+	function unitSizeAt(root: Node?, index: number, estimatedItemLength: number): number
+		if root == nil then
+			return estimatedItemLength
+		end
+		local leftCount = nodeItemCount(root.left)
+		if index <= leftCount then
+			return unitSizeAt(root.left, index, estimatedItemLength)
+		elseif index > leftCount + root.itemCount then
+			return unitSizeAt(root.right, index - leftCount - root.itemCount, estimatedItemLength)
+		end
+		return unitSize(root, estimatedItemLength)
+	end
+
+	function estimatedAt(root: Node?, index: number): number?
+		if root == nil then
+			return nil
+		end
+		local leftCount = nodeItemCount(root.left)
+		if index <= leftCount then
+			return estimatedAt(root.left, index)
+		elseif index > leftCount + root.itemCount then
+			return estimatedAt(root.right, index - leftCount - root.itemCount)
+		end
+		return root.estimatedSize
+	end
+end
+
 local function prefixSumUpTo(root: Node?, itemCount: number, estimatedItemLength: number): number
 	if root == nil or itemCount <= 0 then
 		return 0
@@ -308,7 +492,11 @@ local function prefixSumUpTo(root: Node?, itemCount: number, estimatedItemLength
 	end
 
 	local includedOwnItems = math.min(root.itemCount, itemCount - leftCount)
-	local ownSum = if root.measuredSize == nil then includedOwnItems * estimatedItemLength else root.measuredSize
+	local ownSum = if root.measuredSize == nil
+		then includedOwnItems * (if FFlagViewRecyclerReact084
+			then (root.estimatedSize or estimatedItemLength)
+			else estimatedItemLength)
+		else root.measuredSize
 	local sum = nodeEffectiveSum(root.left, estimatedItemLength) + ownSum
 	if itemCount <= leftCount + root.itemCount then
 		return sum
@@ -331,8 +519,16 @@ local function entryAtPrefixSum(root: Node?, offset: number, estimatedItemLength
 		if root.measuredSize ~= nil then
 			return leftCount + 1, leftSum, root.measuredSize
 		end
-		local itemOffset = math.floor((offset - leftSum) / estimatedItemLength)
-		return leftCount + itemOffset + 1, leftSum + itemOffset * estimatedItemLength, estimatedItemLength
+
+		local itemLength
+		if FFlagViewRecyclerReact084 then
+			itemLength = root.estimatedSize or estimatedItemLength
+		end
+		local itemOffset =
+			math.floor((offset - leftSum) / (if FFlagViewRecyclerReact084 then itemLength else estimatedItemLength))
+		return leftCount + itemOffset + 1,
+			leftSum + itemOffset * (if FFlagViewRecyclerReact084 then itemLength else estimatedItemLength),
+			(if FFlagViewRecyclerReact084 then itemLength else estimatedItemLength)
 	end
 
 	local rightIndex, rightStart, rightSize =
@@ -367,7 +563,12 @@ local function fillRangeFromNode(
 	local intersectionFirst = math.max(firstIndex, nodeFirstIndex)
 	local intersectionLast = math.min(lastIndex, nodeLastIndex)
 	if intersectionFirst <= intersectionLast then
-		local itemLength = root.measuredSize or estimatedItemLength
+		local itemLength
+		if FFlagViewRecyclerReact084 then
+			itemLength = unitSize(root, estimatedItemLength)
+		else
+			itemLength = root.measuredSize or estimatedItemLength
+		end
 		for itemIndex = intersectionFirst, intersectionLast do
 			local outputIndex = itemIndex - firstIndex + 1
 			local itemLayout = output[outputIndex]
@@ -399,7 +600,13 @@ local function buildBalanced(specs: { NodeSpec }, first: number, last: number): 
 	end
 	local middle = (first + last) // 2
 	local spec = specs[middle]
-	local root = newNode(spec.itemCount, spec.measuredSize)
+
+	local root
+	if FFlagViewRecyclerReact084 then
+		root = newNode(spec.itemCount, spec.measuredSize, spec.estimatedSize)
+	else
+		root = newNode(spec.itemCount, spec.measuredSize)
+	end
 	root.left = buildBalanced(specs, first, middle - 1)
 	root.right = buildBalanced(specs, middle + 1, last)
 	refresh(root)
@@ -411,7 +618,13 @@ local function appendToArray(root: Node?, sizes: { number }, estimatedItemLength
 		return
 	end
 	appendToArray(root.left, sizes, estimatedItemLength)
-	local size = root.measuredSize or estimatedItemLength
+
+	local size
+	if FFlagViewRecyclerReact084 then
+		size = unitSize(root, estimatedItemLength)
+	else
+		size = root.measuredSize or estimatedItemLength
+	end
 	for _ = 1, root.itemCount do
 		table.insert(sizes, size)
 	end
@@ -431,6 +644,12 @@ WeightedOrderStatisticTree.removeUnitAt = removeUnitAt
 WeightedOrderStatisticTree.updateUnitAt = updateUnitAt
 WeightedOrderStatisticTree.updateAt = updateAt
 WeightedOrderStatisticTree.measuredAt = measuredAt
+
+if FFlagViewRecyclerReact084 then
+	WeightedOrderStatisticTree.estimatedAt = estimatedAt
+	WeightedOrderStatisticTree.unitSize = unitSize
+	WeightedOrderStatisticTree.unitSizeAt = unitSizeAt
+end
 WeightedOrderStatisticTree.prefixSumUpTo = prefixSumUpTo
 WeightedOrderStatisticTree.entryAtPrefixSum = entryAtPrefixSum
 WeightedOrderStatisticTree.fillRangeFromNode = fillRangeFromNode
@@ -438,6 +657,10 @@ WeightedOrderStatisticTree.buildBalanced = buildBalanced
 WeightedOrderStatisticTree.appendToArray = appendToArray
 WeightedOrderStatisticTree.nodeItemCount = nodeItemCount
 WeightedOrderStatisticTree.nodeMeasuredCount = nodeMeasuredCount
+
+if FFlagViewRecyclerReact084 then
+	WeightedOrderStatisticTree.nodeFixedCount = nodeFixedCount
+end
 WeightedOrderStatisticTree.nodeCount = nodeCount
 WeightedOrderStatisticTree.nodeEffectiveSum = nodeEffectiveSum
 

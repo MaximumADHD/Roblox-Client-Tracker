@@ -1,11 +1,14 @@
 -- One list's Virtualizer. Every command mutates state, then settles once:
 -- scroll position, ranges, sticky and pinned placement, mounted rows, and Data
 -- prefetch, in that order. Each settle publishes one immutable record.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local FFlagViewRecyclerReact08 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact08
 local Src = script:FindFirstAncestor("ViewRecycler")
 
 local AutoScroll = require(Src.Core.ViewportBehavior.AutoScroll)
+
 local AutoScrollPolicy = require(Src.Core.Enums.AutoScrollPolicy)
+
 local AutoScrollTarget = require(Src.Core.Enums.AutoScrollTarget)
 local DataPrefetch = require(Src.Core.DataPrefetch)
 local DataSource = require(Src.Core.DataSource)
@@ -17,6 +20,8 @@ local PinnedItems = require(Src.Core.PinnedItems)
 local Placement = require(Src.Core.Placement.PlacementTypes)
 local ReachedThreshold = require(Src.Core.ViewportBehavior.ReachedThreshold)
 local ScrollAlignmentEnum = require(Src.Core.Enums.ScrollAlignment)
+
+local ScrollMotion = require(Src.Core.Virtualizer.ScrollMotion)
 local ScrollObservationKind = require(Src.Core.Enums.ScrollObservationKind)
 local Types = require(Src.Core.Types)
 local createDataPrefetchController = require(Src.Core.Virtualizer.DataPrefetchController)
@@ -47,6 +52,21 @@ export type ScrollObservation = {
 	offset: number,
 }
 export type ItemPlacement = Placement.ItemPlacement
+-- An animated command moves over the steps the adapter drives with
+-- `stepAnimatedScroll` instead of landing in the record it returns. It
+-- scrolls the whole distance unless the target is more than `jumpDistance`
+-- viewport lengths away, when it approaches, jumps close, and lands. The other
+-- fields tune that motion; see ScrollMotion.Profile.
+export type AnimatedScrollOptions = ScrollMotion.Options
+export type ScrollOptions = {
+	animated: boolean?,
+	jumpDistance: number?,
+	frequency: number?,
+	cruiseSpeed: number?,
+	approachDistance: number?,
+	landingDistance: number?,
+}
+
 export type Policy<T, ItemViewType> = {
 	overscan: number?,
 	dataPrefetch: DataPrefetch.Options?,
@@ -79,6 +99,9 @@ export type Record<ItemView, T> = {
 	scrollPositionFollowsCorrection: boolean,
 	-- The Item whose edge Anchor correction keeps still, if any.
 	scrollAnchor: ScrollAnchorItem?,
+	-- The offset a running Animated scroll is moving toward, resolved this
+	-- transaction; nil once it lands or is cancelled.
+	animatedScrollTarget: number?,
 	contentLengthChanged: boolean,
 	startReached: boolean,
 	endReached: boolean,
@@ -109,17 +132,26 @@ export type Options<ItemView, T, ItemViewType> = {
 	preserveScrollPositionOnChange: boolean?,
 	diagnostics: Diagnostics.Callback?,
 	onTransaction: ((previous: Record<ItemView, T>, current: Record<ItemView, T>) -> ())?,
+	-- Whether an ItemView would present a new Assignment in the frame it
+	-- receives it. Rows on screen or ahead of the motion trade a view that
+	-- would not for one behind the motion that would. Omitted, every
+	-- ItemView does.
+	isReadyOnAssignment: ((itemView: ItemView) -> boolean)?,
 }
 
 export type Virtualizer<ItemView, T, ItemViewType> = {
 	activate: () -> Record<ItemView, T>,
 	setActive: (active: boolean) -> Record<ItemView, T>,
 	observeScrollOffset: (observation: ScrollObservation) -> Record<ItemView, T>,
-	scrollToIndex: (index: number, alignment: ScrollAlignment?) -> Record<ItemView, T>,
-	scrollToOffset: (offset: number) -> Record<ItemView, T>,
-	scrollToStart: () -> Record<ItemView, T>,
-	scrollToEnd: () -> Record<ItemView, T>,
+	scrollToIndex: (index: number, alignment: ScrollAlignment?, options: ScrollOptions?) -> Record<ItemView, T>,
+	scrollToOffset: (offset: number, options: ScrollOptions?) -> Record<ItemView, T>,
+	scrollToStart: (options: ScrollOptions?) -> Record<ItemView, T>,
+	scrollToEnd: (options: ScrollOptions?) -> Record<ItemView, T>,
 	scrollBy: (delta: number) -> Record<ItemView, T>,
+	-- Advances a running Animated scroll by `deltaTime` seconds.
+	stepAnimatedScroll: (deltaTime: number) -> Record<ItemView, T>,
+	-- Leaves a running Animated scroll where it is.
+	stopAnimatedScroll: () -> Record<ItemView, T>,
 	restoreScrollAnchorSnapshot: (snapshot: ScrollAnchorSnapshot) -> Record<ItemView, T>,
 	setViewportSize: (scrollAxisLength: number, crossAxisLength: number) -> Record<ItemView, T>,
 	setPolicy: (policy: Policy<T, ItemViewType>) -> Record<ItemView, T>,
@@ -151,6 +183,7 @@ type Transaction = {
 	scrollCorrection: number,
 	scrollPositionChanged: boolean,
 	scrollPositionFollowsCorrection: boolean,
+	animatedScrollTarget: number?,
 	contentLengthChanged: boolean,
 	startReached: boolean,
 	endReached: boolean,
@@ -164,8 +197,23 @@ type Transaction = {
 	before: Types.ScrollState?,
 }
 
-local anchorConfig, paginationConfig, policyConfig
-if FFlagViewRecyclerReact08 then
+-- Where an Animated scroll lands, resolved every step so it follows the
+-- Item, the edge, or the clamp as geometry changes.
+type MotionTarget = {
+	kind: "index",
+	key: string,
+	indexHint: number,
+	alignment: ScrollAlignment?,
+} | {
+	kind: "edge",
+	edge: createScrollAnchor.Edge,
+} | {
+	kind: "offset",
+	offset: number,
+}
+
+local anchorConfig, paginationConfig, plannerItem, policyConfig, keyOnly
+if FFlagViewRecyclerReact084 then
 	function anchorConfig(source: any): createScrollAnchor.Config
 		return {
 			preserveScrollPositionOnChange = source.preserveScrollPositionOnChange ~= false,
@@ -182,21 +230,45 @@ if FFlagViewRecyclerReact08 then
 			endReachedEnabled = source.endReachedEnabled == true,
 		}
 	end
-else
-	function policyConfig(source: any): createScrollPolicy.Config
-		return {
-			initialScrollAlignment = source.initialScrollAlignment,
-			autoScrollOnChange = source.autoScrollOnChange,
-			autoScrollThreshold = source.autoScrollThreshold,
-			startReachedThreshold = source.startReachedThreshold,
-			startReachedEnabled = source.startReachedEnabled == true,
-			endReachedEnabled = source.endReachedEnabled == true,
-		}
-	end
-end
 
-local function keyOnly(item: { key: string }?): { key: string }?
-	return if item == nil then nil else { key = item.key }
+	function plannerItem(item: PinnedItems.PinnedItem<any, any>?): createPinnedItemPlanner.PinnedItem?
+		return if item == nil then nil else { key = item.key, estimatedLength = item.estimatedLength }
+	end
+else
+	anchorConfig, paginationConfig, policyConfig = nil, nil, nil
+	if FFlagViewRecyclerReact08 then
+		function anchorConfig(source: any): createScrollAnchor.Config
+			return {
+				preserveScrollPositionOnChange = source.preserveScrollPositionOnChange ~= false,
+				initialScrollAlignment = source.initialScrollAlignment,
+				autoScrollOnChange = source.autoScrollOnChange,
+				autoScrollThreshold = source.autoScrollThreshold,
+			}
+		end
+
+		function paginationConfig(source: any): PaginationEdges.Config
+			return {
+				startReachedThreshold = source.startReachedThreshold,
+				startReachedEnabled = source.startReachedEnabled == true,
+				endReachedEnabled = source.endReachedEnabled == true,
+			}
+		end
+	else
+		function policyConfig(source: any): createScrollPolicy.Config
+			return {
+				initialScrollAlignment = source.initialScrollAlignment,
+				autoScrollOnChange = source.autoScrollOnChange,
+				autoScrollThreshold = source.autoScrollThreshold,
+				startReachedThreshold = source.startReachedThreshold,
+				startReachedEnabled = source.startReachedEnabled == true,
+				endReachedEnabled = source.endReachedEnabled == true,
+			}
+		end
+	end
+
+	function keyOnly(item: { key: string }?): { key: string }?
+		return if item == nil then nil else { key = item.key }
+	end
 end
 
 local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<ItemView, T, ItemViewType>): Virtualizer<ItemView, T, ItemViewType>
@@ -207,8 +279,11 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	local pinnedEndItem = options.pinnedEndItem
 
 	local preservePosition
-	if not FFlagViewRecyclerReact08 then
-		preservePosition = options.preserveScrollPositionOnChange ~= false
+	if not FFlagViewRecyclerReact084 then
+		preservePosition = nil
+		if not FFlagViewRecyclerReact08 then
+			preservePosition = options.preserveScrollPositionOnChange ~= false
+		end
 	end
 	local prefetchOptions = options.dataPrefetch
 	local hasPlacements = stickyPredicate ~= nil or pinnedStartItem ~= nil or pinnedEndItem ~= nil
@@ -221,7 +296,7 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	})
 
 	local activated, isLaidOut
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		activated = false
 
 		-- Before activation, or while Layout has no Content for its Items, the
@@ -231,56 +306,98 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 				and viewport.getLength() > 0
 				and (dataSource.getItemCount() == 0 or viewport.getContentLength() > 0)
 		end
+	else
+		activated, isLaidOut = nil, nil
+		if FFlagViewRecyclerReact08 then
+			activated = false
+
+			-- Before activation, or while Layout has no Content for its Items, the
+			-- list has no geometry and every edge reads as reached.
+			function isLaidOut(): boolean
+				return activated
+					and viewport.getLength() > 0
+					and (dataSource.getItemCount() == 0 or viewport.getContentLength() > 0)
+			end
+		end
 	end
 
 	local planner = createPinnedItemPlanner(dataSource, {
 		isItemStickyKey = stickyPredicate,
-		pinnedStartItem = keyOnly(pinnedStartItem),
-		pinnedEndItem = keyOnly(pinnedEndItem),
+		pinnedStartItem = (if FFlagViewRecyclerReact084 then plannerItem else keyOnly)(pinnedStartItem),
+		pinnedEndItem = (if FFlagViewRecyclerReact084 then plannerItem else keyOnly)(pinnedEndItem),
 	})
+
+	local initialInsets
+	if FFlagViewRecyclerReact084 then
+		initialInsets = planner.getContentInsets()
+		viewport.setInsets(initialInsets.start, initialInsets.finish)
+	end
 	local prefetch = createDataPrefetchController(prefetchOptions)
 	local anchor = createScrollAnchor({
 		viewport = viewport,
 		getItemSequence = function()
 			return dataSource
 		end,
-		isLaidOut = (if FFlagViewRecyclerReact08 then isLaidOut else nil),
-		config = (if FFlagViewRecyclerReact08 then anchorConfig(options) else nil),
+		isLaidOut = (if FFlagViewRecyclerReact084
+			then isLaidOut
+			else (if FFlagViewRecyclerReact08 then isLaidOut else nil)),
+		config = (if FFlagViewRecyclerReact084
+			then anchorConfig(options)
+			else (if FFlagViewRecyclerReact08 then anchorConfig(options) else nil)),
 
-		shouldPreserveUserPosition = if FFlagViewRecyclerReact08
+		shouldPreserveUserPosition = if FFlagViewRecyclerReact084
 			then nil
-			else function()
-				return preservePosition
-			end,
+			else if FFlagViewRecyclerReact08
+				then nil
+				else function()
+					return preservePosition
+				end,
 	})
 
 	local edges, prepareDesiredAssignment, policy
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		edges = PaginationEdges.create(paginationConfig(options))
 		prepareDesiredAssignment = options.prepareDesiredAssignment
 	else
-		policy = createScrollPolicy(policyConfig(options))
+		edges, prepareDesiredAssignment, policy = nil, nil, nil
+		if FFlagViewRecyclerReact08 then
+			edges = PaginationEdges.create(paginationConfig(options))
+			prepareDesiredAssignment = options.prepareDesiredAssignment
+		else
+			policy = createScrollPolicy(policyConfig(options))
+		end
 	end
 	local rows = createListRows({
 		slotBinder = createSlotBinder({
 			recyclingScope = options.recyclingScope,
-			name = (if FFlagViewRecyclerReact08 then "Virtualizer" else nil),
-			prepareDesiredAssignment = (if FFlagViewRecyclerReact08
+			name = (if FFlagViewRecyclerReact084
+				then "Virtualizer"
+				else (if FFlagViewRecyclerReact08 then "Virtualizer" else nil)),
+			prepareDesiredAssignment = (if FFlagViewRecyclerReact084
 				then if prepareDesiredAssignment == nil
 					then nil
 					else function(slot)
 						return prepareDesiredAssignment({ key = slot.key, value = slot.value })
 					end
-				else options.prepareDesiredAssignment),
+				else (if FFlagViewRecyclerReact08
+					then if prepareDesiredAssignment == nil
+						then nil
+						else function(slot)
+							return prepareDesiredAssignment({ key = slot.key, value = slot.value })
+						end
+					else options.prepareDesiredAssignment)),
 		}),
 		getItemViewType = options.getItemViewType,
+		isReadyOnAssignment = (if FFlagViewRecyclerReact084 then options.isReadyOnAssignment else nil),
 		getPinnedItem = function(position)
 			return if position == Placement.PinnedPosition.Start then pinnedStartItem else pinnedEndItem
 		end,
 	})
 
-	if not FFlagViewRecyclerReact08 then
-		activated = false
+	if not FFlagViewRecyclerReact084 then
+		if not FFlagViewRecyclerReact08 then
+			activated = false
+		end
 	end
 
 	local rowsActive = true
@@ -288,6 +405,50 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	local mutating = false
 	local disconnectDataSource: (() -> ())? = nil
 	local currentRecord: Record<ItemView, T>
+
+	local motion: ScrollMotion.ScrollMotion?, motionTarget: MotionTarget?, findMotionIndex, resolveMotionTarget, stopMotion
+	if FFlagViewRecyclerReact084 then
+		motion = nil
+		motionTarget = nil
+
+		function findMotionIndex(target: { key: string, indexHint: number }): number?
+			local hint = target.indexHint
+			if hint <= dataSource.getItemCount() and dataSource.getItemKey(hint) == target.key then
+				return hint
+			end
+			for index = 1, dataSource.getItemCount() do
+				if dataSource.getItemKey(index) == target.key then
+					target.indexHint = index
+					return index
+				end
+			end
+			return nil
+		end
+
+		-- Nil once an Item target's key is gone.
+		function resolveMotionTarget(): number?
+			local target = motionTarget
+			if target == nil then
+				return nil
+			elseif target.kind == "index" then
+				local index = findMotionIndex(target)
+				return if index == nil then nil else viewport.offsetForItem(index, target.alignment)
+			elseif target.kind == "edge" then
+				return if target.edge == ScrollAlignmentEnum.Start
+					then 0
+					else viewport.clamp(viewport.getContentLength() - viewport.getLength())
+			end
+			return viewport.clamp(target.offset)
+		end
+
+		function stopMotion()
+			if motion ~= nil then
+				motion = nil
+				motionTarget = nil
+				anchor.endMotion()
+			end
+		end
+	end
 
 	local function addDiagnostic(tx: Transaction, event: Diagnostics.Event)
 		if table.isfrozen(tx.diagnostics) then
@@ -321,7 +482,7 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	end
 
 	local moveTo, applyPolicyTarget
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		-- The only writer of a target scroll offset; corrections go through
 		-- `applyCorrection`.
 		function moveTo(tx: Transaction, offset: number)
@@ -333,13 +494,27 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			end
 		end
 	else
-		function applyPolicyTarget(tx: Transaction, target: number?)
-			if target == nil or not anchor.allowsPolicyOffset() then
-				return
+		moveTo, applyPolicyTarget = nil, nil
+		if FFlagViewRecyclerReact08 then
+			-- The only writer of a target scroll offset; corrections go through
+			-- `applyCorrection`.
+			function moveTo(tx: Transaction, offset: number)
+				local previous = viewport.getScrollOffset()
+				local actual = viewport.scrollTo(offset)
+				anchor.setViewport(actual)
+				if actual ~= previous then
+					moveScrollPosition(tx)
+				end
 			end
-			local previous = viewport.getScrollOffset()
-			if viewport.scrollTo(target) ~= previous then
-				moveScrollPosition(tx)
+		else
+			function applyPolicyTarget(tx: Transaction, target: number?)
+				if target == nil or not anchor.allowsPolicyOffset() then
+					return
+				end
+				local previous = viewport.getScrollOffset()
+				if viewport.scrollTo(target) ~= previous then
+					moveScrollPosition(tx)
+				end
 			end
 		end
 	end
@@ -353,8 +528,20 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		return keys
 	end
 
+	local resolveItemEstimates
+	if FFlagViewRecyclerReact084 then
+		function resolveItemEstimates(): boolean
+			local resolve = layout.resolveItemEstimates
+			return resolve ~= nil and resolve(dataSource.getItem)
+		end
+	end
+
 	local function resetLayout(keys: { string })
 		layout.applyDataSourceChange({ type = DataSourceChangeType.Reset, keys = keys })
+
+		if FFlagViewRecyclerReact084 then
+			resolveItemEstimates()
+		end
 		viewport.refresh()
 	end
 
@@ -373,27 +560,41 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	local function beginTransaction(): Transaction
 		local tx = transaction
 
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			tx.settlesScroll = true
 		else
-			tx.policyEligible = true
+			if FFlagViewRecyclerReact08 then
+				tx.settlesScroll = true
+			else
+				tx.policyEligible = true
+			end
 		end
 		tx.dataChange = nil
 
-		if not FFlagViewRecyclerReact08 then
-			tx.before = nil
+		if not FFlagViewRecyclerReact084 then
+			if not FFlagViewRecyclerReact08 then
+				tx.before = nil
+			end
 		end
 		tx.replaced = false
 		tx.viewportChanged = false
 		tx.scrollMoved = false
 
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			tx.keptDistanceFromEnd = nil
+		else
+			if FFlagViewRecyclerReact08 then
+				tx.keptDistanceFromEnd = nil
+			end
 		end
 		tx.contentLengthBefore = viewport.getContentLength()
 		tx.scrollCorrection = 0
 		tx.scrollPositionChanged = false
 		tx.scrollPositionFollowsCorrection = false
+
+		if FFlagViewRecyclerReact084 then
+			tx.animatedScrollTarget = nil
+		end
 		tx.contentLengthChanged = false
 		tx.startReached = false
 		tx.endReached = false
@@ -407,20 +608,28 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 
 	local function checkEdges(tx: Transaction, rearm: boolean)
 		local startReached, endReached
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			if not edges.isEnabled() or not isLaidOut() then
 				return
 			end
 			startReached, endReached = edges.check(viewport.scrollState(), rearm)
 		else
-			startReached, endReached = policy.checkEdges(viewport.scrollState(), dataSource.getItemCount(), rearm)
+			startReached, endReached = nil, nil
+			if FFlagViewRecyclerReact08 then
+				if not edges.isEnabled() or not isLaidOut() then
+					return
+				end
+				startReached, endReached = edges.check(viewport.scrollState(), rearm)
+			else
+				startReached, endReached = policy.checkEdges(viewport.scrollState(), dataSource.getItemCount(), rearm)
+			end
 		end
 		tx.startReached = tx.startReached or startReached
 		tx.endReached = tx.endReached or endReached
 	end
 
 	local moveSettled, settleScroll, policyContext, settlePolicy
-	if FFlagViewRecyclerReact08 then
+	if FFlagViewRecyclerReact084 then
 		function moveSettled(offset: number)
 			moveTo(transaction, offset)
 		end
@@ -432,37 +641,51 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			checkEdges(tx, dataChange ~= nil and PaginationEdges.hasStructuralChange(dataChange))
 		end
 	else
-		function policyContext(): createScrollPolicy.Context
-			return {
-				itemCount = dataSource.getItemCount(),
-				scrollState = viewport.scrollState(),
-				getScrollOffsetForItem = viewport.offsetForItem,
-			}
-		end
+		moveSettled, settleScroll, policyContext, settlePolicy = nil, nil, nil, nil
+		if FFlagViewRecyclerReact08 then
+			function moveSettled(offset: number)
+				moveTo(transaction, offset)
+			end
 
-		function settlePolicy(tx: Transaction)
-			if viewport.getContentLength() ~= tx.contentLengthBefore then
-				tx.contentLengthChanged = true
-				applyPolicyTarget(tx, policy.contentLengthChanged(viewport.scrollState()))
+			function settleScroll(tx: Transaction)
+				tx.contentLengthChanged = viewport.getContentLength() ~= tx.contentLengthBefore
+				anchor.settle(tx, moveSettled)
+				local dataChange = tx.dataChange
+				checkEdges(tx, dataChange ~= nil and PaginationEdges.hasStructuralChange(dataChange))
 			end
-			local dataChange = tx.dataChange
-			if dataChange ~= nil then
-				applyPolicyTarget(tx, policy.dataChanged(policyContext(), tx.before :: Types.ScrollState))
-				checkEdges(tx, PaginationEdges.hasStructuralChange(dataChange))
-				return
+		else
+			function policyContext(): createScrollPolicy.Context
+				return {
+					itemCount = dataSource.getItemCount(),
+					scrollState = viewport.scrollState(),
+					getScrollOffsetForItem = viewport.offsetForItem,
+				}
 			end
-			if tx.replaced then
-				applyPolicyTarget(tx, policy.dataReplaced(policyContext()))
-				policy.observe(viewport.scrollState())
-			end
-			if tx.viewportChanged then
-				applyPolicyTarget(tx, policy.viewportChanged(policyContext()))
-				policy.observe(viewport.scrollState())
-			elseif tx.scrollMoved then
-				policy.observe(viewport.scrollState())
-			end
-			if policy.reachesEdges() then
-				checkEdges(tx, false)
+
+			function settlePolicy(tx: Transaction)
+				if viewport.getContentLength() ~= tx.contentLengthBefore then
+					tx.contentLengthChanged = true
+					applyPolicyTarget(tx, policy.contentLengthChanged(viewport.scrollState()))
+				end
+				local dataChange = tx.dataChange
+				if dataChange ~= nil then
+					applyPolicyTarget(tx, policy.dataChanged(policyContext(), tx.before :: Types.ScrollState))
+					checkEdges(tx, PaginationEdges.hasStructuralChange(dataChange))
+					return
+				end
+				if tx.replaced then
+					applyPolicyTarget(tx, policy.dataReplaced(policyContext()))
+					policy.observe(viewport.scrollState())
+				end
+				if tx.viewportChanged then
+					applyPolicyTarget(tx, policy.viewportChanged(policyContext()))
+					policy.observe(viewport.scrollState())
+				elseif tx.scrollMoved then
+					policy.observe(viewport.scrollState())
+				end
+				if policy.reachesEdges() then
+					checkEdges(tx, false)
+				end
 			end
 		end
 	end
@@ -473,11 +696,19 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 
 	local function settle(tx: Transaction)
 		viewport.refresh()
-		if if FFlagViewRecyclerReact08 then tx.settlesScroll else tx.policyEligible then
-			if FFlagViewRecyclerReact08 then
+		if
+			if FFlagViewRecyclerReact084
+				then tx.settlesScroll
+				else if FFlagViewRecyclerReact08 then tx.settlesScroll else tx.policyEligible
+		then
+			if FFlagViewRecyclerReact084 then
 				settleScroll(tx)
 			else
-				settlePolicy(tx)
+				if FFlagViewRecyclerReact08 then
+					settleScroll(tx)
+				else
+					settlePolicy(tx)
+				end
 			end
 		end
 
@@ -512,6 +743,10 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			frame.dataSource = dataSource
 			frame.layout = layout
 			frame.mountedRange = viewport.getMountedRange()
+
+			if FFlagViewRecyclerReact084 then
+				frame.visibleRange = viewport.getVisibleRange()
+			end
 			frame.scrollOffset = scrollOffset
 			frame.contentStartOffset = contentStartOffset
 			frame.plan = if hasPlacements
@@ -564,6 +799,7 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			scrollPositionChanged = tx.scrollPositionChanged,
 			scrollPositionFollowsCorrection = tx.scrollPositionFollowsCorrection,
 			scrollAnchor = anchor.getAnchoredItem(),
+			animatedScrollTarget = (if FFlagViewRecyclerReact084 then tx.animatedScrollTarget else nil),
 			contentLengthChanged = tx.contentLengthChanged,
 			startReached = tx.startReached,
 			endReached = tx.endReached,
@@ -572,39 +808,80 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		}) :: any
 	end
 
-	local function mutateAndSettle(mutate: (Transaction, any, any) -> (), tx: Transaction, a: any, b: any)
-		mutate(tx, a, b)
-		settle(tx)
-	end
-
-	-- Mutations take their arguments so hot calls allocate no closure.
-	local function transact(mutate: (Transaction, any, any) -> (), a: any?, b: any?): Record<ItemView, T>
-		assert(not mutating, "Virtualizer: cannot mutate during a transaction")
-		assert(not destroyed, "Virtualizer: cannot dispatch after destruction")
-		mutating = true
-		local tx = beginTransaction()
-		local ok, failure = pcall(mutateAndSettle, mutate, tx, a, b)
-		mutating = false
-		if not ok then
-			error(failure, 0)
-		end
-		local previous = currentRecord
-		local record = makeRecord(tx)
-		currentRecord = record
-		if options.diagnostics ~= nil then
-			for _, event in record.diagnostics do
-				options.diagnostics(event)
+	local mutateAndSettle, transact
+	if FFlagViewRecyclerReact084 then
+		function mutateAndSettle(mutate: (Transaction, any, any, any) -> (), tx: Transaction, a: any, b: any, c: any)
+			mutate(tx, a, b, c)
+			if motion ~= nil and resolveMotionTarget() == nil then
+				stopMotion()
+			end
+			settle(tx)
+			if motion ~= nil then
+				tx.animatedScrollTarget = resolveMotionTarget()
 			end
 		end
-		if options.onTransaction ~= nil then
-			options.onTransaction(previous, record)
+
+		-- Mutations take their arguments so hot calls allocate no closure.
+		function transact(mutate: (Transaction, any, any, any) -> (), a: any?, b: any?, c: any?): Record<ItemView, T>
+			assert(not mutating, "Virtualizer: cannot mutate during a transaction")
+			assert(not destroyed, "Virtualizer: cannot dispatch after destruction")
+			mutating = true
+			local tx = beginTransaction()
+			local ok, failure = pcall(mutateAndSettle, mutate, tx, a, b, c)
+			mutating = false
+			if not ok then
+				error(failure, 0)
+			end
+			local previous = currentRecord
+			local record = makeRecord(tx)
+			currentRecord = record
+			if options.diagnostics ~= nil then
+				for _, event in record.diagnostics do
+					options.diagnostics(event)
+				end
+			end
+			if options.onTransaction ~= nil then
+				options.onTransaction(previous, record)
+			end
+			return record
 		end
-		return record
+	else
+		function mutateAndSettle(mutate: (Transaction, any, any) -> (), tx: Transaction, a: any, b: any)
+			mutate(tx, a, b)
+			settle(tx)
+		end
+
+		-- Mutations take their arguments so hot calls allocate no closure.
+		function transact(mutate: (Transaction, any, any) -> (), a: any?, b: any?): Record<ItemView, T>
+			assert(not mutating, "Virtualizer: cannot mutate during a transaction")
+			assert(not destroyed, "Virtualizer: cannot dispatch after destruction")
+			mutating = true
+			local tx = beginTransaction()
+			local ok, failure = pcall(mutateAndSettle, mutate, tx, a, b)
+			mutating = false
+			if not ok then
+				error(failure, 0)
+			end
+			local previous = currentRecord
+			local record = makeRecord(tx)
+			currentRecord = record
+			if options.diagnostics ~= nil then
+				for _, event in record.diagnostics do
+					options.diagnostics(event)
+				end
+			end
+			if options.onTransaction ~= nil then
+				options.onTransaction(previous, record)
+			end
+			return record
+		end
 	end
 
 	local function applyDataChange(tx: Transaction, changeBatch: Types.DataSourceChangeBatch)
-		if not FFlagViewRecyclerReact08 then
-			tx.before = viewport.scrollState()
+		if not FFlagViewRecyclerReact084 then
+			if not FFlagViewRecyclerReact08 then
+				tx.before = viewport.scrollState()
+			end
 		end
 		tx.dataChange = changeBatch
 		rows.noteDataChange(changeBatch)
@@ -617,6 +894,10 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			}, function()
 				for _, change in changeBatch.changes do
 					geometryChanged = layout.applyDataSourceChange(change) or geometryChanged
+				end
+
+				if FFlagViewRecyclerReact084 then
+					geometryChanged = resolveItemEstimates() or geometryChanged
 				end
 				planner.applyDataSourceChange(changeBatch)
 				viewport.refresh()
@@ -656,10 +937,14 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	end
 
 	local function resetData()
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			anchor.dataSourceReplaced()
 		else
-			anchor.reset()
+			if FFlagViewRecyclerReact08 then
+				anchor.dataSourceReplaced()
+			else
+				anchor.reset()
+			end
 		end
 		resetLayout(readKeys())
 		rows.invalidateKeys()
@@ -703,17 +988,41 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 						end
 						layoutChanged = layoutChanged or measured.geometryChanged
 					elseif measurement.pinnedPosition ~= nil then
-						local insets = planner.updatePinnedMeasurement(
-							measurement.pinnedPosition,
-							measurement.key,
-							measurement.pinnedRevision :: number,
-							measurement.length
-						)
-						if insets == nil then
-							dropped += 1
+						local insets, pinnedAccepted
+						if FFlagViewRecyclerReact084 then
+							insets, pinnedAccepted = planner.updatePinnedMeasurement(
+								measurement.pinnedPosition,
+								measurement.key,
+								measurement.pinnedRevision :: number,
+								measurement.length
+							)
 						else
-							acceptedCount += 1
-							nextInsets = insets
+							insets = planner.updatePinnedMeasurement(
+								measurement.pinnedPosition,
+								measurement.key,
+								measurement.pinnedRevision :: number,
+								measurement.length
+							)
+						end
+						if if FFlagViewRecyclerReact084 then pinnedAccepted else insets == nil then
+							if FFlagViewRecyclerReact084 then
+								acceptedCount += 1
+							else
+								dropped += 1
+							end
+						else
+							if FFlagViewRecyclerReact084 then
+								dropped += 1
+							else
+								acceptedCount += 1
+								nextInsets = insets
+							end
+						end
+
+						if FFlagViewRecyclerReact084 then
+							if insets ~= nil then
+								nextInsets = insets
+							end
 						end
 					else
 						dropped += 1
@@ -742,45 +1051,88 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		end
 	end
 
-	local function setPolicy(nextPolicy: Policy<T, ItemViewType>)
-		DataPrefetch.resolve(nextPolicy.dataPrefetch)
-		local pinnedItems = nextPolicy.pinnedItems
-		viewport.setOverscan(nextPolicy.overscan)
-		viewport.setContentAlignment(nextPolicy.contentAlignment)
-		viewport.setEndThreshold(nextPolicy.endThreshold)
-
-		if not FFlagViewRecyclerReact08 then
-			preservePosition = nextPolicy.preserveScrollPositionOnChange ~= false
-		end
-		prefetchOptions = nextPolicy.dataPrefetch
-		stickyPredicate = pinnedItems.isItemStickyHeader
-		pinnedStartItem = pinnedItems.pinnedStartItem
-		pinnedEndItem = pinnedItems.pinnedEndItem
-		if
-			planner.setOptions({
-				isItemStickyKey = stickyPredicate,
-				pinnedStartItem = keyOnly(pinnedStartItem),
-				pinnedEndItem = keyOnly(pinnedEndItem),
-			})
-		then
-			local insets = planner.getContentInsets()
-			viewport.setInsets(insets.start, insets.finish)
-		end
-		hasPlacements = stickyPredicate ~= nil or pinnedStartItem ~= nil or pinnedEndItem ~= nil
-
-		if FFlagViewRecyclerReact08 then
+	local setPolicy
+	if FFlagViewRecyclerReact084 then
+		function setPolicy(tx: Transaction, nextPolicy: Policy<T, ItemViewType>)
+			DataPrefetch.resolve(nextPolicy.dataPrefetch)
+			local pinnedItems = nextPolicy.pinnedItems
+			viewport.setOverscan(nextPolicy.overscan)
+			viewport.setContentAlignment(nextPolicy.contentAlignment)
+			viewport.setEndThreshold(nextPolicy.endThreshold)
+			prefetchOptions = nextPolicy.dataPrefetch
 			anchor.configure(anchorConfig(nextPolicy))
 			edges.configure(paginationConfig(nextPolicy))
-		else
-			policy.configure(policyConfig(nextPolicy))
+			local previousInsets = planner.getContentInsets()
+			-- Last to validate: the planner rejects an invalid estimate before the
+			-- pinned items or the scroll position change.
+			planner.setOptions({
+				isItemStickyKey = pinnedItems.isItemStickyHeader,
+				pinnedStartItem = plannerItem(pinnedItems.pinnedStartItem),
+				pinnedEndItem = plannerItem(pinnedItems.pinnedEndItem),
+			})
+			stickyPredicate = pinnedItems.isItemStickyHeader
+			pinnedStartItem = pinnedItems.pinnedStartItem
+			pinnedEndItem = pinnedItems.pinnedEndItem
+			hasPlacements = stickyPredicate ~= nil or pinnedStartItem ~= nil or pinnedEndItem ~= nil
+			local insets = planner.getContentInsets()
+			if insets.start ~= previousInsets.start or insets.finish ~= previousInsets.finish then
+				applyCorrection(
+					tx,
+					anchor.preserve({
+						source = Diagnostics.ScrollCorrectionSource.Policy,
+						preserveStartAnchor = true,
+						startInsetDelta = insets.start - previousInsets.start,
+					}, function()
+						viewport.setInsets(insets.start, insets.finish)
+					end)
+				)
+			end
+		end
+	else
+		function setPolicy(nextPolicy: Policy<T, ItemViewType>)
+			DataPrefetch.resolve(nextPolicy.dataPrefetch)
+			local pinnedItems = nextPolicy.pinnedItems
+			viewport.setOverscan(nextPolicy.overscan)
+			viewport.setContentAlignment(nextPolicy.contentAlignment)
+			viewport.setEndThreshold(nextPolicy.endThreshold)
+
+			if not FFlagViewRecyclerReact08 then
+				preservePosition = nextPolicy.preserveScrollPositionOnChange ~= false
+			end
+			prefetchOptions = nextPolicy.dataPrefetch
+			stickyPredicate = pinnedItems.isItemStickyHeader
+			pinnedStartItem = pinnedItems.pinnedStartItem
+			pinnedEndItem = pinnedItems.pinnedEndItem
+			if
+				planner.setOptions({
+					isItemStickyKey = stickyPredicate,
+					pinnedStartItem = keyOnly(pinnedStartItem),
+					pinnedEndItem = keyOnly(pinnedEndItem),
+				})
+			then
+				local insets = planner.getContentInsets()
+				viewport.setInsets(insets.start, insets.finish)
+			end
+			hasPlacements = stickyPredicate ~= nil or pinnedStartItem ~= nil or pinnedEndItem ~= nil
+
+			if FFlagViewRecyclerReact08 then
+				anchor.configure(anchorConfig(nextPolicy))
+				edges.configure(paginationConfig(nextPolicy))
+			else
+				policy.configure(policyConfig(nextPolicy))
+			end
 		end
 	end
 
 	local function setActiveMutation(tx: Transaction, active: boolean)
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			tx.settlesScroll = false
 		else
-			tx.policyEligible = false
+			if FFlagViewRecyclerReact08 then
+				tx.settlesScroll = false
+			else
+				tx.policyEligible = false
+			end
 		end
 		if active and not rowsActive then
 			rows.invalidatePayloads()
@@ -789,15 +1141,23 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 	end
 
 	local setScrollOffsetMutation
-	if not FFlagViewRecyclerReact08 then
-		function setScrollOffsetMutation(_tx: Transaction, offset: number)
-			if viewport.setScrollOffset(offset) then
-				anchor.setViewport(offset)
+	if not FFlagViewRecyclerReact084 then
+		setScrollOffsetMutation = nil
+		if not FFlagViewRecyclerReact08 then
+			function setScrollOffsetMutation(_tx: Transaction, offset: number)
+				if viewport.setScrollOffset(offset) then
+					anchor.setViewport(offset)
+				end
 			end
 		end
 	end
 
 	local function observeScrollOffsetMutation(tx: Transaction, observation: ScrollObservation)
+		if FFlagViewRecyclerReact084 then
+			if observation.kind == ScrollObservationKind.User then
+				stopMotion()
+			end
+		end
 		local changed = viewport.setScrollOffset(observation.offset)
 		if observation.kind == ScrollObservationKind.Programmatic then
 			anchor.observeHost(observation.offset)
@@ -809,8 +1169,8 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		end
 	end
 
-	local finishProgrammaticScroll
-	if FFlagViewRecyclerReact08 then
+	local finishProgrammaticScroll, animate, scrollToIndexMutation, scrollToOffsetMutation
+	if FFlagViewRecyclerReact084 then
 		-- Finishes every Programmatic scroll command once the viewport and anchor
 		-- hold the new position. A scroll to an edge stays pinned while Content
 		-- settles, until the reader scrolls away; the anchor observes any other.
@@ -821,59 +1181,195 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 				tx.scrollMoved = true
 			end
 		end
-	end
 
-	local function scrollToIndexMutation(tx: Transaction, index: number, alignment: ScrollAlignment?)
-		if FFlagViewRecyclerReact08 then
+		-- Starts an Animated scroll, continuing the velocity of one it replaces.
+		-- Returns false when the command should land at once instead: the list
+		-- has no geometry, or the target is already within the resting limits.
+		function animate(scrollOptions: ScrollOptions?, target: MotionTarget): boolean
+			if scrollOptions == nil or scrollOptions.animated ~= true then
+				return false
+			end
+			ScrollMotion.validate(scrollOptions, "Virtualizer")
+			local velocity = if motion == nil then 0 else motion.velocity
+			stopMotion()
+			if not isLaidOut() then
+				return false
+			end
+			motionTarget = target
+			local offset = resolveMotionTarget()
+			local position = viewport.getScrollOffset()
+			if offset == nil or ScrollMotion.isAtRest(position, offset, velocity) then
+				motionTarget = nil
+				return false
+			end
+			motion = ScrollMotion.start(
+				position,
+				offset,
+				viewport.getLength(),
+				velocity,
+				ScrollMotion.resolve(scrollOptions)
+			)
+			anchor.beginMotion()
+			return true
+		end
+
+		function scrollToIndexMutation(
+			tx: Transaction,
+			index: number,
+			alignment: ScrollAlignment?,
+			scrollOptions: ScrollOptions?
+		)
+			local itemCount = dataSource.getItemCount()
+			if itemCount > 0 then
+				local target = math.clamp(index, 1, itemCount)
+				local itemTarget: MotionTarget =
+					{ kind = "index", key = dataSource.getItemKey(target), indexHint = target, alignment = alignment }
+				if animate(scrollOptions, itemTarget) then
+					return
+				end
+			end
+			stopMotion()
 			moveTo(tx, viewport.offsetForItem(index, alignment))
-		end
-		anchor.setItemTarget(index, alignment)
-
-		if FFlagViewRecyclerReact08 then
+			anchor.setItemTarget(index, alignment)
 			finishProgrammaticScroll(tx, nil)
-		else
-			viewport.scrollTo(viewport.offsetForItem(index, alignment))
-			moveScrollPosition(tx)
-			tx.scrollMoved = true
 		end
-	end
 
-	local function scrollToOffsetMutation(tx: Transaction, offset: number)
-		if FFlagViewRecyclerReact08 then
+		function scrollToOffsetMutation(tx: Transaction, offset: number, scrollOptions: ScrollOptions?)
+			if animate(scrollOptions, { kind = "offset", offset = offset }) then
+				return
+			end
+			stopMotion()
 			moveTo(tx, offset)
 			finishProgrammaticScroll(tx, nil)
-		else
-			anchor.setViewport(viewport.scrollTo(offset))
-			moveScrollPosition(tx)
-			tx.scrollMoved = true
+		end
+	else
+		finishProgrammaticScroll = nil
+		if FFlagViewRecyclerReact08 then
+			-- Finishes every Programmatic scroll command once the viewport and anchor
+			-- hold the new position. A scroll to an edge stays pinned while Content
+			-- settles, until the reader scrolls away; the anchor observes any other.
+			function finishProgrammaticScroll(tx: Transaction, pinnedEdge: createScrollAnchor.Edge?)
+				anchor.scrolledProgrammatically(pinnedEdge)
+				moveScrollPosition(tx)
+				if pinnedEdge == nil then
+					tx.scrollMoved = true
+				end
+			end
+		end
+
+		function scrollToIndexMutation(tx: Transaction, index: number, alignment: ScrollAlignment?)
+			if FFlagViewRecyclerReact08 then
+				moveTo(tx, viewport.offsetForItem(index, alignment))
+			end
+			anchor.setItemTarget(index, alignment)
+
+			if FFlagViewRecyclerReact08 then
+				finishProgrammaticScroll(tx, nil)
+			else
+				viewport.scrollTo(viewport.offsetForItem(index, alignment))
+				moveScrollPosition(tx)
+				tx.scrollMoved = true
+			end
+		end
+
+		function scrollToOffsetMutation(tx: Transaction, offset: number)
+			if FFlagViewRecyclerReact08 then
+				moveTo(tx, offset)
+				finishProgrammaticScroll(tx, nil)
+			else
+				anchor.setViewport(viewport.scrollTo(offset))
+				moveScrollPosition(tx)
+				tx.scrollMoved = true
+			end
 		end
 	end
 
 	local function scrollByMutation(tx: Transaction, delta: number)
-		if FFlagViewRecyclerReact08 then
+		if FFlagViewRecyclerReact084 then
 			assert(math.abs(delta) < math.huge, "Virtualizer: scroll delta must be finite")
+			stopMotion()
 			moveTo(tx, viewport.getScrollOffset() + delta)
 			finishProgrammaticScroll(tx, nil)
 		else
-			anchor.setViewport(viewport.scrollBy(delta))
-			moveScrollPosition(tx)
-			tx.scrollMoved = true
+			if FFlagViewRecyclerReact08 then
+				assert(math.abs(delta) < math.huge, "Virtualizer: scroll delta must be finite")
+				moveTo(tx, viewport.getScrollOffset() + delta)
+				finishProgrammaticScroll(tx, nil)
+			else
+				anchor.setViewport(viewport.scrollBy(delta))
+				moveScrollPosition(tx)
+				tx.scrollMoved = true
+			end
 		end
 	end
 
-	local function scrollToEdgeMutation(tx: Transaction, edge: createScrollAnchor.Edge)
-		if FFlagViewRecyclerReact08 then
+	local scrollToEdgeMutation, landMotion, stepAnimatedScrollMutation
+	if FFlagViewRecyclerReact084 then
+		function scrollToEdgeMutation(tx: Transaction, edge: createScrollAnchor.Edge, scrollOptions: ScrollOptions?)
+			if animate(scrollOptions, { kind = "edge", edge = edge }) then
+				return
+			end
+			stopMotion()
 			moveTo(
 				tx,
 				if edge == ScrollAlignmentEnum.Start then 0 else viewport.getContentLength() - viewport.getLength()
 			)
 			finishProgrammaticScroll(tx, edge)
-		else
-			anchor.setViewport(
-				viewport.scrollTo(AutoScroll.getTargetOffset(edge, viewport.getContentLength(), viewport.getLength()))
-			)
-			policy.pin(edge)
-			moveScrollPosition(tx)
+		end
+
+		-- Lands exactly as the instant command would, so the target holds while
+		-- Content settles.
+		function landMotion(tx: Transaction)
+			local target = motionTarget :: MotionTarget
+			stopMotion()
+			if target.kind == "index" then
+				local index = findMotionIndex(target)
+				if index ~= nil then
+					scrollToIndexMutation(tx, index, target.alignment, nil)
+				end
+			elseif target.kind == "edge" then
+				scrollToEdgeMutation(tx, target.edge, nil)
+			else
+				scrollToOffsetMutation(tx, target.offset, nil)
+			end
+		end
+
+		function stepAnimatedScrollMutation(tx: Transaction, deltaTime: number)
+			local current = motion :: ScrollMotion.ScrollMotion
+			local target = resolveMotionTarget()
+			if target == nil then
+				stopMotion()
+				return
+			end
+			if not isLaidOut() then
+				landMotion(tx)
+				return
+			end
+			local position, landed =
+				ScrollMotion.step(current, viewport.getScrollOffset(), target, viewport.getLength(), deltaTime)
+			if landed then
+				landMotion(tx)
+			else
+				moveTo(tx, position)
+			end
+		end
+	else
+		function scrollToEdgeMutation(tx: Transaction, edge: createScrollAnchor.Edge)
+			if FFlagViewRecyclerReact08 then
+				moveTo(
+					tx,
+					if edge == ScrollAlignmentEnum.Start then 0 else viewport.getContentLength() - viewport.getLength()
+				)
+				finishProgrammaticScroll(tx, edge)
+			else
+				anchor.setViewport(
+					viewport.scrollTo(
+						AutoScroll.getTargetOffset(edge, viewport.getContentLength(), viewport.getLength())
+					)
+				)
+				policy.pin(edge)
+				moveScrollPosition(tx)
+			end
 		end
 	end
 
@@ -886,30 +1382,42 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			end
 			if
 				(
-					if FFlagViewRecyclerReact08
+					if FFlagViewRecyclerReact084
 						then previousLength > 0
-						else previousLength > 0 and scrollAxisLength ~= previousLength
+						else (if FFlagViewRecyclerReact08
+							then previousLength > 0
+							else previousLength > 0 and scrollAxisLength ~= previousLength)
 				)
-				and (if FFlagViewRecyclerReact08
+				and (if FFlagViewRecyclerReact084
 					then scrollAxisLength ~= previousLength
-					else viewport.getContentAlignment() == ScrollAlignmentEnum.End)
+					else (if FFlagViewRecyclerReact08
+						then scrollAxisLength ~= previousLength
+						else viewport.getContentAlignment() == ScrollAlignmentEnum.End))
 				and (
-					if FFlagViewRecyclerReact08
+					if FFlagViewRecyclerReact084
 						then viewport.getContentAlignment() == ScrollAlignmentEnum.End
-						else anchor.allowsPolicyOffset()
+						else (if FFlagViewRecyclerReact08
+							then viewport.getContentAlignment() == ScrollAlignmentEnum.End
+							else anchor.allowsPolicyOffset())
 				)
 			then
 				local offset, nextOffset
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					tx.keptDistanceFromEnd = math.max(0, distanceFromEnd)
 				else
-					viewport.refresh()
-					offset = viewport.getScrollOffset()
-					nextOffset =
-						viewport.scrollTo(viewport.getContentLength() - scrollAxisLength - math.max(0, distanceFromEnd))
-					if nextOffset ~= offset then
-						anchor.setViewport(nextOffset)
-						moveScrollPosition(tx)
+					offset, nextOffset = nil, nil
+					if FFlagViewRecyclerReact08 then
+						tx.keptDistanceFromEnd = math.max(0, distanceFromEnd)
+					else
+						viewport.refresh()
+						offset = viewport.getScrollOffset()
+						nextOffset = viewport.scrollTo(
+							viewport.getContentLength() - scrollAxisLength - math.max(0, distanceFromEnd)
+						)
+						if nextOffset ~= offset then
+							anchor.setViewport(nextOffset)
+							moveScrollPosition(tx)
+						end
 					end
 				end
 			end
@@ -943,37 +1451,78 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		observeScrollOffset = function(observation)
 			return transact(observeScrollOffsetMutation, observation)
 		end,
-		scrollToIndex = function(index, alignment)
-			return transact(scrollToIndexMutation, index, alignment)
-		end,
-		scrollToOffset = function(offset)
-			return transact(scrollToOffsetMutation, offset)
-		end,
-		scrollToStart = function()
-			return transact(
-				scrollToEdgeMutation,
-				(if FFlagViewRecyclerReact08 then ScrollAlignmentEnum else AutoScrollTarget).Start
-			)
-		end,
-		scrollToEnd = function()
-			return transact(
-				scrollToEdgeMutation,
-				(if FFlagViewRecyclerReact08 then ScrollAlignmentEnum else AutoScrollTarget).End
-			)
-		end,
+		scrollToIndex = (if FFlagViewRecyclerReact084
+			then function(index, alignment, scrollOptions)
+				return transact(scrollToIndexMutation, index, alignment, scrollOptions)
+			end
+			else function(index, alignment)
+				return transact(scrollToIndexMutation, index, alignment)
+			end),
+		scrollToOffset = (if FFlagViewRecyclerReact084
+			then function(offset, scrollOptions)
+				return transact(scrollToOffsetMutation, offset, scrollOptions)
+			end
+			else function(offset)
+				return transact(scrollToOffsetMutation, offset)
+			end),
+		scrollToStart = (if FFlagViewRecyclerReact084
+			then function(scrollOptions)
+				return transact(scrollToEdgeMutation, ScrollAlignmentEnum.Start, scrollOptions)
+			end
+			else function()
+				return transact(
+					scrollToEdgeMutation,
+					(if FFlagViewRecyclerReact08 then ScrollAlignmentEnum else AutoScrollTarget).Start
+				)
+			end),
+		scrollToEnd = (if FFlagViewRecyclerReact084
+			then function(scrollOptions)
+				return transact(scrollToEdgeMutation, ScrollAlignmentEnum.End, scrollOptions)
+			end
+			else function()
+				return transact(
+					scrollToEdgeMutation,
+					(if FFlagViewRecyclerReact08 then ScrollAlignmentEnum else AutoScrollTarget).End
+				)
+			end),
 		scrollBy = function(delta)
 			return transact(scrollByMutation, delta)
 		end,
+		stepAnimatedScroll = (if FFlagViewRecyclerReact084
+			then function(deltaTime)
+				if motion == nil then
+					return currentRecord
+				end
+				return transact(stepAnimatedScrollMutation, deltaTime)
+			end
+			else nil),
+		stopAnimatedScroll = (if FFlagViewRecyclerReact084
+			then function()
+				if motion == nil then
+					return currentRecord
+				end
+				return transact(function()
+					stopMotion()
+				end)
+			end
+			else nil),
 		restoreScrollAnchorSnapshot = function(snapshot)
 			return transact(function(tx)
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
+					stopMotion()
 					moveTo(tx, anchor.snapshotOffset(snapshot))
 					anchor.restore(snapshot, viewport.getScrollOffset())
 					finishProgrammaticScroll(tx, nil)
 				else
-					anchor.restore(snapshot, viewport.scrollTo(anchor.snapshotOffset(snapshot)))
-					moveScrollPosition(tx)
-					tx.scrollMoved = true
+					if FFlagViewRecyclerReact08 then
+						moveTo(tx, anchor.snapshotOffset(snapshot))
+						anchor.restore(snapshot, viewport.getScrollOffset())
+						finishProgrammaticScroll(tx, nil)
+					else
+						anchor.restore(snapshot, viewport.scrollTo(anchor.snapshotOffset(snapshot)))
+						moveScrollPosition(tx)
+						tx.scrollMoved = true
+					end
 				end
 			end)
 		end,
@@ -981,12 +1530,19 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			return transact(setViewportSizeMutation, scrollAxisLength, crossAxisLength)
 		end,
 		setPolicy = function(nextPolicy)
-			return transact(function()
-				setPolicy(nextPolicy)
-			end)
+			if FFlagViewRecyclerReact084 then
+				return transact(setPolicy, nextPolicy)
+			else
+				return transact(function()
+					setPolicy(nextPolicy)
+				end)
+			end
 		end,
 		setDataSource = function(nextDataSource)
 			return transact(function(tx)
+				if FFlagViewRecyclerReact084 then
+					stopMotion()
+				end
 				replaceDataSource(nextDataSource)
 				resetData()
 				tx.replaced = true
@@ -994,6 +1550,9 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		end,
 		setLayout = function(nextLayout)
 			return transact(function()
+				if FFlagViewRecyclerReact084 then
+					stopMotion()
+				end
 				replaceLayout(nextLayout)
 				anchor.reset()
 				resetLayout(readKeys())
@@ -1001,6 +1560,9 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 		end,
 		setDataSourceAndLayout = function(nextDataSource, nextLayout)
 			return transact(function(tx)
+				if FFlagViewRecyclerReact084 then
+					stopMotion()
+				end
 				replaceDataSource(nextDataSource)
 				replaceLayout(nextLayout)
 				resetData()
@@ -1052,10 +1614,15 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 				return
 			end
 			transact(function(tx)
-				if FFlagViewRecyclerReact08 then
+				if FFlagViewRecyclerReact084 then
 					tx.settlesScroll = false
+					stopMotion()
 				else
-					tx.policyEligible = false
+					if FFlagViewRecyclerReact08 then
+						tx.settlesScroll = false
+					else
+						tx.policyEligible = false
+					end
 				end
 				unsubscribe()
 				tx.departed = rows.release()
@@ -1066,11 +1633,13 @@ local function createVirtualizer<ItemView, T, ItemViewType>(options: Options<Ite
 			end)
 		end,
 
-		setScrollOffset = if FFlagViewRecyclerReact08
+		setScrollOffset = if FFlagViewRecyclerReact084
 			then nil
-			else function(offset)
-				return transact(setScrollOffsetMutation, offset)
-			end,
+			else if FFlagViewRecyclerReact08
+				then nil
+				else function(offset)
+					return transact(setScrollOffsetMutation, offset)
+				end,
 	}
 end
 

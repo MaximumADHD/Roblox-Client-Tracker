@@ -3,6 +3,8 @@
 -- their placements. A Canvas-relative Host is offset by the Canvas origin and
 -- follows it. A Host whose placement has a main-axis end limit sits in an
 -- EndLimitFrame, so the engine pushes it off from its painted length.
+local FFlagViewRecyclerReact084 =
+	require(script:FindFirstAncestor("ViewRecyclerRoblox").Flags).FFlagViewRecyclerReact084
 local Root = script:FindFirstAncestor("ViewRecyclerRoblox")
 local Core = require(Root.Parent.ViewRecycler)
 
@@ -21,7 +23,8 @@ export type AbsolutePlacement = {
 		canvasRelative: boolean,
 		phase: HostPresentationPhase.HostPresentationPhase
 	) -> boolean,
-	-- Forgets a Host once it is placed elsewhere or detached.
+	-- Forgets a Host once it is placed elsewhere or released. A released Host
+	-- in an end-limit Frame moves to that Frame's parent first.
 	remove: (host: GuiObject) -> (),
 	setConfiguration: (axis: Core.Axis, selfSizing: boolean) -> (),
 	-- Moves placed Canvas-relative Hosts to the Canvas origin.
@@ -130,6 +133,14 @@ function AbsolutePlacement.new(axis: Core.Axis, selfSizing: boolean, getOriginOf
 			local record = placed[host]
 			if record ~= nil then
 				placed[host] = nil
+
+				local frame
+				if FFlagViewRecyclerReact084 then
+					frame = record.endLimitFrame
+					if frame ~= nil and host.Parent == frame.instance then
+						host.Parent = frame.instance.Parent
+					end
+				end
 				releaseEndLimitFrame(record)
 			end
 		end,

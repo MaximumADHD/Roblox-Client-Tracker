@@ -2,6 +2,7 @@
 -- rows retained outside the range, then pinned rows. Each row is its own
 -- Slot binding and keeps one immutable View state. Rows track their own staleness,
 -- so an apply reads only the keys, payloads, and layouts that may have moved.
+local FFlagViewRecyclerReact084 = require(script:FindFirstAncestor("ViewRecycler").Flags).FFlagViewRecyclerReact084
 local Src = script:FindFirstAncestor("ViewRecycler")
 
 local DataSource = require(Src.Core.DataSource)
@@ -72,6 +73,10 @@ export type Frame<T> = {
 	dataSource: DataSource.DataSource<T>,
 	layout: Layout.Runtime,
 	mountedRange: Types.IndexRange,
+	-- Rows nearer this range take reused views first, so a view the scope
+	-- must create goes to the row farthest from it. Rows in it keep views
+	-- that are ready on assignment when the list can tell.
+	visibleRange: Types.IndexRange?,
 	scrollOffset: number,
 	contentStartOffset: number,
 	plan: Placement.Plan?,
@@ -87,6 +92,9 @@ export type Options<ItemView, T, ItemViewType> = {
 	slotBinder: createSlotBinder.SlotBinder<ItemView, T, ItemViewType>,
 	getItemViewType: (item: T, index: number) -> ItemViewType,
 	getPinnedItem: (position: Placement.PinnedPosition) -> PinnedItem<T, ItemViewType>?,
+	-- Whether an ItemView would present a new Assignment in the frame it
+	-- receives it. Omitted, every ItemView does.
+	isReadyOnAssignment: ((itemView: ItemView) -> boolean)?,
 }
 
 export type ListRows<ItemView, T, ItemViewType> = {
@@ -199,8 +207,81 @@ local function resolvePlacement(
 	return canvasPlacement, viewportPlacement
 end
 
+local distanceFrom, sortByIndex, prioritizeSlots
+if FFlagViewRecyclerReact084 then
+	function distanceFrom(range: Types.IndexRange, slot: any): number
+		local index = slot.index
+		if index == nil or slot.side then
+			return 0
+		elseif index < range.firstIndex then
+			return range.firstIndex - index
+		end
+		return math.max(0, index - range.lastIndex)
+	end
+
+	-- Linear when Slots arrive in index order, as range rows enter.
+	function sortByIndex(slots: { any })
+		for position = 2, #slots do
+			local slot = slots[position]
+			local hole = position
+			while hole > 1 and slots[hole - 1].index > slot.index do
+				slots[hole] = slots[hole - 1]
+				hole -= 1
+			end
+			slots[hole] = slot
+		end
+	end
+
+	-- Orders Slots by distance from the range, keeping their order on ties.
+	-- `above` and `below` are empty scratch lists, left empty.
+	function prioritizeSlots(slots: { any }, range: Types.IndexRange, above: { any }, below: { any })
+		local firstIndex = range.firstIndex
+		local lastIndex = range.lastIndex
+		local nearCount = 0
+		for _, slot in slots do
+			local index = slot.index
+			if index == nil or slot.side or (index >= firstIndex and index <= lastIndex) then
+				nearCount += 1
+				slots[nearCount] = slot
+			elseif index < firstIndex then
+				table.insert(above, slot)
+			else
+				table.insert(below, slot)
+			end
+		end
+		sortByIndex(above)
+		sortByIndex(below)
+		local nextAbove = #above
+		local nextBelow = 1
+		for position = nearCount + 1, #slots do
+			local slot
+			if
+				nextAbove >= 1
+				and (
+					below[nextBelow] == nil
+					or firstIndex - above[nextAbove].index <= below[nextBelow].index - lastIndex
+				)
+			then
+				slot = above[nextAbove]
+				nextAbove -= 1
+			else
+				slot = below[nextBelow]
+				nextBelow += 1
+			end
+			slots[position] = slot
+		end
+		table.clear(above)
+		table.clear(below)
+	end
+end
+
 local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemView, T, ItemViewType>): ListRows<ItemView, T, ItemViewType>
 	local binder = options.slotBinder
+
+	local isReadyOnAssignment
+	if FFlagViewRecyclerReact084 then
+		isReadyOnAssignment = options.isReadyOnAssignment
+	end
 	local destroyed = false
 	-- Range rows cover `appliedRange` exactly while `contiguous` holds.
 	local rows: { Row<ItemView, T, ItemViewType> } = {}
@@ -210,6 +291,11 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 	local rowsByView: { [ItemView]: Row<ItemView, T, ItemViewType> } = {}
 	local applied = false
 	local appliedRange: Types.IndexRange = EMPTY_RANGE
+
+	local appliedScrollOffset: number?
+	if FFlagViewRecyclerReact084 then
+		appliedScrollOffset = nil
+	end
 	local appliedContentStartOffset = 0
 	local appliedLayout: Layout.Runtime? = nil
 	local appliedPlan: Placement.Plan = EMPTY_PLAN
@@ -328,6 +414,12 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 	local slots: { createSlotBinder.Slot<T, ItemViewType> } = {}
 	local departs: { string } = {}
 	local enteredCount = 0
+
+	local slotsAbove: { any }, slotsBelow: { any }
+	if FFlagViewRecyclerReact084 then
+		slotsAbove = {}
+		slotsBelow = {}
+	end
 	local entered: { MountedView<ItemView, T> } = EMPTY_LIST :: any
 	local updated: { MountedView<ItemView, T> } = EMPTY_LIST :: any
 	local layoutRange: { Types.ItemLayout }? = nil
@@ -428,6 +520,67 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 			else
 				updated = if table.isfrozen(updated) then {} else updated
 				table.insert(updated, row.record)
+			end
+		end
+	end
+
+	local keepReadyViewsAhead
+	if FFlagViewRecyclerReact084 then
+		-- A row on screen or ahead of the motion whose view would show a new
+		-- Assignment late trades views with the farthest row behind the motion
+		-- whose view shows one at once. While still, it trades only with a row
+		-- farther from the Visible range. The waiting view then mounts its
+		-- Content off-screen.
+		function keepReadyViewsAhead(
+			candidates: { Row<ItemView, T, ItemViewType> },
+			visible: Types.IndexRange,
+			direction: number
+		)
+			local isReady = isReadyOnAssignment :: (ItemView) -> boolean
+			local waiting = {}
+			local donors = {}
+			for _, row in candidates do
+				local index = row.index :: number
+				local behind = (direction > 0 and index < visible.firstIndex)
+					or (direction < 0 and index > visible.lastIndex)
+				local outside = index < visible.firstIndex or index > visible.lastIndex
+				if isReady(row.view) then
+					if behind or (direction == 0 and outside) then
+						table.insert(donors, { row = row, distance = distanceFrom(visible, row) })
+					end
+				elseif not behind then
+					table.insert(waiting, { row = row, distance = distanceFrom(visible, row) })
+				end
+			end
+			if #waiting == 0 or #donors == 0 then
+				return
+			end
+			table.sort(waiting, function(a, b)
+				return a.distance < b.distance
+			end)
+			table.sort(donors, function(a, b)
+				return a.distance > b.distance
+			end)
+			local used: { [number]: boolean } = {}
+			for _, entry in waiting do
+				local row = entry.row
+				for position, donor in donors do
+					if not used[position] and donor.row.viewType == row.viewType then
+						if direction == 0 and donor.distance <= entry.distance then
+							break
+						end
+						used[position] = true
+						local donorRow = donor.row
+						local view = row.view
+						row.view = donorRow.view
+						donorRow.view = view
+						rowsByView[row.view] = row
+						rowsByView[donorRow.view] = donorRow
+						row.entered = true
+						donorRow.entered = true
+						break
+					end
+				end
 			end
 		end
 	end
@@ -609,6 +762,13 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 			end
 		end
 
+		local visible
+		if FFlagViewRecyclerReact084 then
+			visible = frame.visibleRange
+			if visible ~= nil and isReadyOnAssignment ~= nil and enteredCount > 1 then
+				prioritizeSlots(slots, visible, slotsAbove, slotsBelow)
+			end
+		end
 		local changes = binder.apply(departs, slots)
 
 		for _, key in departs do
@@ -623,6 +783,15 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 		end
 		for _, binding in changes.updated do
 			(binding :: any).changed = true
+		end
+
+		if FFlagViewRecyclerReact084 then
+			if visible ~= nil and isReadyOnAssignment ~= nil then
+				local motionDirection = if appliedScrollOffset == nil
+					then 0
+					else math.sign(scrollOffset - appliedScrollOffset)
+				keepReadyViewsAhead(nextRows, visible, motionDirection)
+			end
 		end
 		local reassigned = #departs - #changes.departed
 
@@ -691,6 +860,10 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 		contiguous = count == math.max(0, range.lastIndex - range.firstIndex + 1)
 		applied = true
 		appliedRange = range
+
+		if FFlagViewRecyclerReact084 then
+			appliedScrollOffset = scrollOffset
+		end
 		appliedContentStartOffset = contentStartOffset
 		appliedLayout = layout
 		appliedPlan = plan
@@ -756,6 +929,10 @@ local function createListRows<ItemView, T, ItemViewType>(options: Options<ItemVi
 		rowsByView = {}
 		applied = false
 		appliedRange = EMPTY_RANGE
+
+		if FFlagViewRecyclerReact084 then
+			appliedScrollOffset = nil
+		end
 		appliedPlan = EMPTY_PLAN
 		appliedLayout = nil
 		mountedViews = EMPTY_LIST :: any
