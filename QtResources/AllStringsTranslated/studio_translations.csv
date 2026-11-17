@@ -6559,6 +6559,7 @@ Studio.GameSettings.Monetization.RewardedAdsLostEligibilitySubtext,,,This settin
 Studio.GameSettings.Monetization.RewardedAdsLostEligibilitySubtextLink,,,Review requirements here.,Review requirements here.
 Studio.GameSettings.Monetization.RewardedAdsSuspendedSubtext,,,This setting is disabled because your experience got moderated.,This setting is disabled because your experience got moderated.
 Studio.GameSettings.Monetization.RewardedAdsTitle,,,Enable Rewarded Video Ads,Enable Rewarded Video Ads
+Studio.GameSettings.General.CategoryCollaboration,,,Collaboration,Collaboration
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8428,6 +8429,7 @@ Studio.Toolbox.HomeView.gameplay_templates,,,Gameplay Templates,Gameplay Templat
 Studio.Toolbox.Subcategory.Genres,,,Genres,Genres
 Studio.Toolbox.Subcategory.Sfx,,,SFX,SFX
 Studio.Toolbox.Subcategory.DiscoverNewAudioToolostHits,,,New Too Lost Music,New Too Lost Music
+Studio.Toolbox.AssetConfig.AvatarItemDependencyCheckInProgress,,,Checking assets...,Checking assets...
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -8524,6 +8526,9 @@ Studio.Common.Input.NumberErrorBelow,,,Please enter a number up to {maxRange:int
 Studio.Common.Input.NumberErrorAbove,,,Please enter a number that is at least {minRange:int}.,Please enter a number that is at least {minRange:int}.
 Studio.Common.Action.AvatarSettings,,,Avatar Settings,Avatar Settings
 Studio.Common.Action.DynamicHeadQA,,,Dynamic Head QA,Dynamic Head QA
+Studio.Common.Action.ManageSettings,,,Manage settings,Manage settings
+Studio.Common.Action.ViewDetails,,,View details,View details
+Studio.Common.ViewDocs,,,View docs,View docs
 Studio.TerrainToolsV2.Action.Apply,,,Apply,Apply
 Studio.TerrainToolsV2.Action.Back,,,Back,Back
 Studio.TerrainToolsV2.Action.Cancel,,,Cancel,Cancel
@@ -11545,6 +11550,9 @@ Studio.DeviceEmulator.Shortcut.SimulatorEnableMultitouchPanningDescription,,,Hol
 Studio.DeviceEmulator.Tooltip.SimulatorOnlyEnabledIn3D,,,Device Simulator (Only enabled in 3D viewport),Device Simulator (Only enabled in 3D viewport)
 Studio.DeviceEmulator.MultiTouchPane.SimulatorMultiTouchPaneLabel,,,Multi-Touch Simulation,Multi-Touch Simulation
 Studio.DeviceEmulator.ManageSimulationDeviceDialog.SimulationDeviceManager,,,Simulation Device Manager,Simulation Device Manager
+Studio.DeviceEmulator.Shortcut.ShowSimulationBar,,,Show simulation bar,Show simulation bar
+Studio.DeviceEmulator.PerformanceControl.PlayQuality,,,Play quality,Play quality
+Studio.DeviceEmulator.PerformanceControl.EditQuality,,,Edit quality,Edit quality
 Studio.R15Migrator.Plugin.Name,,,R6 to R15 Conversion Tool,R6 to R15 Conversion Tool
 Studio.R15Migrator.Plugin.Toolbar,,,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Button,,,Migrate Avatars,Migrate Avatars
@@ -11790,6 +11798,10 @@ Studio.Auth.Try.Again,,,Try Again,Try Again
 Studio.Auth.Studio.Login,,,Login via Studio,Login via Studio
 Studio.Auth.Original.Studio.Not.Found,,,An error occurred while logging into Studio. Please do not close Studio during login.,An error occurred while logging into Studio. Please do not close Studio during login.
 Studio.Auth.AuthDialog.InvalidWebView2Fmt1,,,WebView2 installation required to load login page. Click <a href='%1'>here</a> for installation details. Please login on the website.,WebView2 installation required to load login page. Click <a href='%1'>here</a> for installation details. Please login on the website.
+Studio.Auth.AuthDialog.InvalidWebView2,,,WebView2 installation required to load login page. Please login on the website.,WebView2 installation required to load login page. Please login on the website.
+Studio.Auth.Logout.LoggingOutTitle,,,Logging out,Logging out
+Studio.Auth.Logout.ClosingOtherWindowsDescription,,,"Closing your other Studio windows. If a window asks to save changes, respond there to continue.","Closing your other Studio windows. If a window asks to save changes, respond there to continue."
+Studio.Auth.AuthDialog.ViewSetupGuide,,,View setup guide,View setup guide
 Studio.NestedPackagePublisher.Plugin.Name,,,NestedPackagePublisher,NestedPackagePublisher
 Studio.NestedPackagePublisher.Plugin.Toolbar,,,NestedPackagePublisher,NestedPackagePublisher
 Studio.NestedPackagePublisher.Plugin.Button,,,Toggle,Toggle
@@ -12221,6 +12233,7 @@ Studio.RobloxPropertiesWidget.Category.Skin,,,Skin,Skin
 Studio.RobloxPropertiesWidget.SelectCurrent,,,Select current,Select current
 Studio.RobloxPropertiesWidget.SelectIncoming,,,Select incoming,Select incoming
 Studio.RobloxPropertiesWidget.Category.RewardedVideo,,,Rewarded Video,Rewarded Video
+Studio.RobloxPropertiesWidget.LoadStringEnabledWarning,,,Activating the LoadStringEnabled property might make your game vulnerable to exploits. Are you sure you want to enable this?,Activating the LoadStringEnabled property might make your game vulnerable to exploits. Are you sure you want to enable this?
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -14015,6 +14028,14 @@ Studio.Ribbon.Plugin.Setting_TestingMode_ServerOnly,,,Server Only,Server Only
 Studio.Ribbon.Plugin.TeamTestRuntimeSeconds,,,{seconds}s,{seconds}s
 Studio.Ribbon.Plugin.TeamTestRuntimeHours,,,{hours}h {minutes}m,{hours}h {minutes}m
 Studio.Ribbon.Plugin.TeamTestRuntimeMinutes,,,{minutes}m,{minutes}m
+Studio.Ribbon.Plugin.TeamTestDefaultName,,,{name}'s Team Test,{name}'s Team Test
+Studio.Ribbon.Plugin.RenameTeamTest,,,Rename...,Rename...
+Studio.Ribbon.Plugin.RenameTeamTest_Title,,,Rename Team Test,Rename Team Test
+Studio.Ribbon.Plugin.RenameTeamTest_Placeholder,,,Team Test name,Team Test name
+Studio.Ribbon.Plugin.RenameTeamTest_Failed,,,Couldn't rename this Team Test. Try again.,Couldn't rename this Team Test. Try again.
+Studio.Ribbon.Plugin.TeamTestParticipants,,,Participants,Participants
+Studio.Ribbon.Plugin.TeamTestOccupancy,,,{players}/{capacity},{players}/{capacity}
+Studio.Ribbon.Plugin.TeamTestDetail,,,{occupancy} · {runtime},{occupancy} · {runtime}
 Studio.VisualizationModes.Plugin.Name,,,Visualization Modes,Visualization Modes
 Studio.VisualizationModes.Plugin.Text,,,Hello World,Hello World
 Studio.VisualizationModes.Plugin.Button,,,Visualization Modes,Visualization Modes
@@ -14153,6 +14174,14 @@ Studio.VisualizationModes.PhysicsSimulationSection.ShowTouchableParts,,,Show non
 Studio.VisualizationModes.PhysicsSimulationSection.ShowTouchablePartsToolTip,,,"When disabled, hides all parts with CanTouch = false","When disabled, hides all parts with CanTouch = false"
 Studio.VisualizationModes.StudioModes.ShapecastsToolTip,,,Draw the swept volume and hit result of shapecast queries,Draw the swept volume and hit result of shapecast queries
 Studio.VisualizationModes.StudioModes.Shapecasts,,,Shapecasts,Shapecasts
+Studio.VisualizationModes.VisualizationModeCategories.DeviceSimulation,,,Device simulation,Device simulation
+Studio.VisualizationModes.StudioModes.EnableSimulation,,,Enable simulation,Enable simulation
+Studio.VisualizationModes.StudioModes.ShowSimulationBar,,,Show simulation bar,Show simulation bar
+Studio.VisualizationModes.StudioModes.ShowSimulationBarTooltip,,,Hide the bar without stopping the simulation,Hide the bar without stopping the simulation
+Studio.VisualizationModes.StudioModes.SimulationSummary,,,Simulating: {summary},Simulating: {summary}
+Studio.VisualizationModes.StudioModes.SimulationSummaryCurrentDevice,,,Current Device,Current Device
+Studio.VisualizationModes.StudioModes.AutoPlayAnimatedImages,,,Auto-play AnimatedImages,Auto-play AnimatedImages
+Studio.VisualizationModes.StudioModes.AutoPlayAnimatedImagesToolTip,,,Auto-play AnimatedImage clips,Auto-play AnimatedImage clips
 Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...
 Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.
@@ -14916,6 +14945,8 @@ Studio.StartPage.Plugin.GroupSelector.You,,,You,You
 Studio.StartPage.Plugin.SortOptions.RecentlyUsed,,,Recently Used,Recently Used
 Studio.StartPage.Plugin.GroupSelector.Sort.Priority,,,Priority,Priority
 Studio.StartPage.Plugin.CreateGroup,,,Create Group,Create Group
+Studio.StartPage.ChannelSwitcher.Label,,,Channel:,Channel:
+Studio.StartPage.ChannelSwitcher.Default,,,Default ({channel}),Default ({channel})
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -15881,6 +15912,8 @@ Studio.Assistant.McpSettings.StatusTitleConnected,,,MCP · {count:int},MCP · {c
 Studio.Assistant.McpSettings.StatusTooltipConnected,,,{count:int} client(s) connected.,{count:int} client(s) connected.
 Studio.Assistant.McpSettings.StatusTitleError,,,MCP Error,MCP Error
 Studio.Assistant.McpSettings.StatusTooltipError,,,Unable to connect. Try restarting MCP,Unable to connect. Try restarting MCP
+Studio.Assistant.Permissions.FilterPlaceholder,,,Filter,Filter
+Studio.Assistant.Permissions.FilterNoResults,,,"No permissions match ""{query}""","No permissions match ""{query}"""
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -16232,6 +16265,7 @@ Studio.AvatarSettings.MovementSettings.HitTouchUsePartsDesc,,,Use avatar part ge
 Studio.AvatarSettings.General.InputOutOfRange,,,Must be {min}-{max},Must be {min}-{max}
 Studio.AvatarSettings.Publish.SaveChangesOutOfRangeTooltip,,,Fix out-of-range Custom Build settings to save,Fix out-of-range Custom Build settings to save
 Studio.AvatarSettings.AccessoriesSettings.AccessoryBehaviorsSectionSpawnEffects,,,Enable Spawn Effects,Enable Spawn Effects
+Studio.AvatarSettings.MovementSettings.ConsistentGameplayOffWarning,,,"Consistent Gameplay recent updates are temporarily turned off, so this setting is saved but not applied in play.","Consistent Gameplay recent updates are temporarily turned off, so this setting is saved but not applied in play."
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -16669,8 +16703,6 @@ Studio.BetaFeatures.AnimationGraphStateMachineTitle,,,Animation Graph State Mach
 Studio.BetaFeatures.AnimationGraphStateMachineDescription,,,Create state machines and use Luau expressions in animation graphs.,Create state machines and use Luau expressions in animation graphs.
 Studio.BetaFeatures.PluginKeyboardNavigationTitle,,,Keyboard Navigation,Keyboard Navigation
 Studio.BetaFeatures.PluginKeyboardNavigationDescription,,,"Enables studio ui keyboard navigation with Tab and Shift + Tab. This is a breaking change for plugins, as Tab is now sunk within widgets.","Enables studio ui keyboard navigation with Tab and Shift + Tab. This is a breaking change for plugins, as Tab is now sunk within widgets."
-Studio.BetaFeatures.PrimalSolverTitle,,,Primal Physics Solver,Primal Physics Solver
-Studio.BetaFeatures.PrimalSolverDescription,,,A new physics solver (Primal) offering improved constraint stability and convergence.,A new physics solver (Primal) offering improved constraint stability and convergence.
 Studio.BetaFeatures.AvatarCreationTitle,,,Prompt-to-Avatar,Prompt-to-Avatar
 Studio.BetaFeatures.AvatarCreationDescription,,,Generates an avatar from a text prompt.,Generates an avatar from a text prompt.
 Studio.BetaFeatures.NextGenerationPhysicsSolverDescription,,,A new physics solver offering improved constraint stability and convergence.,A new physics solver offering improved constraint stability and convergence.
@@ -16779,6 +16811,12 @@ Studio.LiveSync.WarningIgnoredChildren,,,%1 has children that are incompatible i
 Studio.LiveSync.WarningUnsupportedProperties,,,%1 has unsupported properties which will not be synced,%1 has unsupported properties which will not be synced
 Studio.LiveSync.WarningIgnoredDescendants,,,%1 has descendants that are incompatible instances which will not be synced,%1 has descendants that are incompatible instances which will not be synced
 Studio.LiveSync.WarningUnsupportedPropertiesDescendants,,,%1 has descendants with unsupported properties which will not be synced,%1 has descendants with unsupported properties which will not be synced
+Studio.LiveSync.CannotFindFileLocationTitle,,,Can't find the file location,Can't find the file location
+Studio.LiveSync.CannotFindFileLocationDescription,,,The folder might have been deleted or renamed. Cancel sync and start again to select a new location.,The folder might have been deleted or renamed. Cancel sync and start again to select a new location.
+Studio.LiveSync.SyncDisabledFilesKeptTitle,,,Syncing has been disabled for the selected scripts,Syncing has been disabled for the selected scripts
+Studio.LiveSync.SyncDisabledFilesKeptDescription,,,"You can now delete the local files. To stop seeing this dialog, adjust the 'Keep local files after sync' setting in Studio Settings.","You can now delete the local files. To stop seeing this dialog, adjust the 'Keep local files after sync' setting in Studio Settings."
+Studio.LiveSync.UpsellDescription,,,"To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting Script Sync > Sync with directory in the right-click menu.","To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting Script Sync > Sync with directory in the right-click menu."
+Studio.LiveSync.StartSyncNamingErrorTitle,,,Naming error,Naming error
 Studio.ScriptEditor.TypeColor,,,Type Color,Type Color
 Studio.ScriptEditor.NoDeclarationFoundTooltip,,,No declaration found,No declaration found
 Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,,,No declaration found for '%1',No declaration found for '%1'
@@ -17556,6 +17594,11 @@ Studio.ReactDevTools.StartPage.RunContextRemote,,,Remote,Remote
 Studio.ReactDevTools.WebView.Retry,,,Retry,Retry
 Studio.ReactDevTools.WebView.LoadFailed,,,Failed to load DevTools,Failed to load DevTools
 Studio.PlaceManagement.Action.DontSave,,,Don't Save,Don't Save
+Studio.PlaceManagement.OpenPlaceFailedTitle,,,Couldn't open place,Couldn't open place
+Studio.PlaceManagement.OpenPlaceFailurePlaceId,,,Place ID: %1,Place ID: %1
+Studio.PlaceManagement.OpenPlaceFailurePlaceName,,,Place name: %1,Place name: %1
+Studio.PlaceManagement.OpenPlaceFailureReportToForum,,,"If you continue to encounter this error, please report it on the Developer Forum.","If you continue to encounter this error, please report it on the Developer Forum."
+Studio.PlaceManagement.ReportOnForum,,,Report on forum,Report on forum
 Studio.AdaptiveAnimationSupport.Animation.Run,,,Run,Run
 Studio.AdaptiveAnimationSupport.Animation.Walk,,,Walk,Walk
 Studio.AdaptiveAnimationSupport.Animation.Wave,,,Wave,Wave
@@ -17799,6 +17842,15 @@ Studio.DialogPlugin.BuildSealedDialog.Body,,,"Editing in Studio will remove your
 Studio.DialogPlugin.DialogButton.LearnMore,,,Learn more,Learn more
 Studio.DialogPlugin.BuildSealedDialog.Body.Second,,,Take the content questionnaire first to keep your game playable.,Take the content questionnaire first to keep your game playable.
 Studio.DialogPlugin.DialogSuppression.DontShowAgain,,,Don't show this again,Don't show this again
+Studio.DialogPlugin.Dependencies.PlaceIssuesTitle,,,Fix issues in {count:int} asset(s),Fix issues in {count:int} asset(s)
+Studio.DialogPlugin.Dependencies.PlaceIssuesDescription,,,Your game won't load these assets until you fix the issues.,Your game won't load these assets until you fix the issues.
+Studio.DialogPlugin.Dependencies.Name,,,Name,Name
+Studio.DialogPlugin.Dependencies.AssetId,,,Asset ID,Asset ID
+Studio.DialogPlugin.Dependencies.AssetType,,,Asset type,Asset type
+Studio.DialogPlugin.Dependencies.Unknown,,,Unknown,Unknown
+Studio.DialogPlugin.Dependencies.CopyAssetIds,,,Copy asset IDs,Copy asset IDs
+Studio.DialogPlugin.Dependencies.PlaceIssuesTip,,,"Tip: Copy the IDs, then ask Assistant to find each asset in Explorer.","Tip: Copy the IDs, then ask Assistant to find each asset in Explorer."
+Studio.DialogPlugin.Dependencies.PlaceIssuesPartialDescription,,,Your game won't load these assets until you fix the issues. More assets than could be shown are broken. Start by fixing these and re-publishing.,Your game won't load these assets until you fix the issues. More assets than could be shown are broken. Start by fixing these and re-publishing.
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
 Studio.Platform.YouHaveBeenKicked1,,,"You have been kicked by this experience or its moderators. Moderation message: 
 
@@ -18100,6 +18152,7 @@ Studio.AnimatedImageImporter.FileDialog.AsepriteTitle,,,Aseprite,Aseprite
 Studio.AnimatedImageImporter.FileDialog.AsepriteDescription,,,Upload an Aseprite file to automatically create an AnimatedImage Instance.,Upload an Aseprite file to automatically create an AnimatedImage Instance.
 Studio.AnimatedImageImporter.FileDialog.SpritesheetOrImageSequenceDescription,,,Browse your local files for one or more images to use the Clip Creator.,Browse your local files for one or more images to use the Clip Creator.
 Studio.AnimatedImageImporter.Importer.ClipFPS,,,Clip FPS,Clip FPS
+Studio.AnimatedImageImporter.Importer.ClipName,,,Clip name,Clip name
 Studio.MoveDragger.Plugin.Description,,,Move an Object,Move an Object
 Studio.RotateDragger.Plugin.Description,,,Rotate an Object,Rotate an Object
 Studio.ScaleDragger.Plugin.Description,,,Scale an Object,Scale an Object
@@ -18597,6 +18650,22 @@ Studio.Permissions.Scope.UserInventoryRead,,,Read items in a user's inventory.,R
 Studio.Permissions.Scope.UserRestrictionRead,,,Read user restrictions (bans) and restriction logs for a universe or place.,Read user restrictions (bans) and restriction logs for a universe or place.
 Studio.Permissions.Scope.UserRestrictionWrite,,,Create and update user restrictions (bans) for a universe or place.,Create and update user restrictions (bans) for a universe or place.
 Studio.Permissions.Scope.UserSocialRead,,,Read a user's social profile information.,Read a user's social profile information.
+Studio.Permissions.Category.OtherName,,,Other,Other
+Studio.Permissions.Scope.LegacyUniverseBadgeManageAndSpendRobux,,,"Create badges, spending Robux when required, using legacy badge APIs.","Create badges, spending Robux when required, using legacy badge APIs."
+Studio.Permissions.Scope.LegacyUniverseFollowingRead,,,Read which experiences a user follows.,Read which experiences a user follows.
+Studio.Permissions.Category.AnalyticsName,,,Analytics,Analytics
+Studio.Permissions.Category.AnalyticsDescription,,,"View analytics, metrics, and reports about your game.","View analytics, metrics, and reports about your game."
+Studio.Permissions.Category.OtherDescription,,,Permissions that do not belong to any other category.,Permissions that do not belong to any other category.
+Studio.Permissions.Scope.LegacyAssetManage,,,"Upload, configure, and manage assets using legacy asset APIs.","Upload, configure, and manage assets using legacy asset APIs."
+Studio.Permissions.Scope.LegacyBadgeManage,,,Manage badges and their configuration using legacy badge APIs.,Manage badges and their configuration using legacy badge APIs.
+Studio.Permissions.Scope.LegacyDevProductManage,,,"Create, update, and configure developer products using legacy APIs.","Create, update, and configure developer products using legacy APIs."
+Studio.Permissions.Scope.LegacyGamePassManage,,,"Create, update, and configure game passes using legacy APIs.","Create, update, and configure game passes using legacy APIs."
+Studio.Permissions.Scope.LegacyGroupManage,,,"Manage group settings, roles, members, and content using legacy group APIs.","Manage group settings, roles, members, and content using legacy group APIs."
+Studio.Permissions.Scope.LegacyTeamCollaborationManage,,,"Add, remove, and change the access of Team Create collaborators.","Add, remove, and change the access of Team Create collaborators."
+Studio.Permissions.Scope.LegacyUniverseBadgeWrite,,,Update badge details and icons using legacy badge APIs.,Update badge details and icons using legacy badge APIs.
+Studio.Permissions.Scope.LegacyUniverseFollowingWrite,,,Follow and unfollow experiences on a user's behalf.,Follow and unfollow experiences on a user's behalf.
+Studio.Permissions.Scope.LegacyUniverseManage,,,"Manage experience settings, places, and configuration using legacy universe APIs.","Manage experience settings, places, and configuration using legacy universe APIs."
+Studio.Permissions.Scope.LegacyUserManage,,,Manage a user's account and profile settings using legacy user APIs.,Manage a user's account and profile settings using legacy user APIs.
 Studio.Output.Sources.ClientNumber,,,Client %1,Client %1
 Studio.Output.Sources.Heading,,,Participants,Participants
 Studio.Output.Sources.ThisStudio,,,This Studio,This Studio
@@ -18622,3 +18691,4 @@ Studio.ConnectionIndicator.Popup.PlaceUploadFailingTitle,,,Place upload is faili
 Studio.ConnectionIndicator.Popup.PlaceUploadFailingMessage,,,Auto recovery backup has started.,Auto recovery backup has started.
 Studio.ConnectionIndicator.Popup.PlaceUploadFailingTip,,,Check console for auto-recovery details.,Check console for auto-recovery details.
 Studio.ConnectionIndicator.Popup.LearnMore,,,Learn More,Learn More
+Studio.AnimationParametersItem.RejectedParameter,,,"The loaded animation asset does not accept this parameter or its value, so it will not be applied. Delete the parameter, or set a value the asset accepts.","The loaded animation asset does not accept this parameter or its value, so it will not be applied. Delete the parameter, or set a value the asset accepts."
