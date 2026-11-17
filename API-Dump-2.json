@@ -968,7 +968,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"FallbackImageContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -1508,6 +1508,40 @@
                     ]
                 },
                 {
+                    "name": "CompleteRewardedVideoGrant",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "userId"
+                            },
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "productId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Monetization"
+                    ]
+                },
+                {
                     "name": "CreateAdRewardFromDevProductId",
                     "isUserFacing": true,
                     "memberType": "Function",
@@ -1886,6 +1920,117 @@
                     },
                     "isAsync": false,
                     "security": "RobloxScript",
+                    "capabilities": [
+                        "Monetization"
+                    ]
+                },
+                {
+                    "name": "OnRewardedVideoAdResult",
+                    "isUserFacing": false,
+                    "memberType": "Callback",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "player"
+                            },
+                            {
+                                "type": "ShowAdResult",
+                                "isEnum": true,
+                                "identifier": "result"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "encryptedAdTrackingData"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "encryptionMetadata"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isAsync": false,
+                    "security": "RobloxScript",
+                    "capabilities": [
+                        "Monetization"
+                    ]
+                },
+                {
+                    "name": "OnShowRewardedVideoAd",
+                    "isUserFacing": false,
+                    "memberType": "Callback",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "player"
+                            },
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false,
+                                "identifier": "request"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Tuple",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isAsync": true,
+                    "security": "RobloxScript",
+                    "capabilities": [
+                        "Monetization"
+                    ]
+                },
+                {
+                    "name": "PlayRewardedVideoAdOnClient",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "player"
+                            },
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false,
+                                "identifier": "rewardDetails"
+                            },
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "placementId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
                     "capabilities": [
                         "Monetization"
                     ]
@@ -4257,163 +4402,7 @@
             "isPublic": true,
             "isScriptCreatable": false,
             "security": "RobloxScript",
-            "members": [
-                {
-                    "name": "AddAnimatedImageClipAsync",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Content",
-                                "isEnum": false,
-                                "identifier": "content"
-                            },
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "clipName"
-                            },
-                            {
-                                "type": "Array",
-                                "isEnum": false,
-                                "identifier": "frames"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "null",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetAnimatedImageClipFramesAsync",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Content",
-                                "isEnum": false,
-                                "identifier": "content"
-                            },
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "clipName"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Array",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetAnimatedImageClipsAsync",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Content",
-                                "isEnum": false,
-                                "identifier": "content"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "Array",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetAnimatedImageClipsChangedSignal",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Content",
-                                "isEnum": false,
-                                "identifier": "content"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "EventInstance",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": false,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                },
-                {
-                    "name": "GetAnimatedImageFrameIndexAtTimeAsync",
-                    "isUserFacing": false,
-                    "memberType": "Function",
-                    "type": {
-                        "name": "function",
-                        "arguments": [
-                            {
-                                "type": "Content",
-                                "isEnum": false,
-                                "identifier": "content"
-                            },
-                            {
-                                "type": "string",
-                                "isEnum": false,
-                                "identifier": "clipName"
-                            },
-                            {
-                                "type": "double",
-                                "isEnum": false,
-                                "identifier": "timePosition"
-                            }
-                        ],
-                        "results": [
-                            {
-                                "type": "int",
-                                "isEnum": false
-                            }
-                        ]
-                    },
-                    "isYieldable": true,
-                    "isCustom": false,
-                    "security": "RobloxScript",
-                    "threadSafety": "Unsafe",
-                    "simulationAccess": false
-                }
-            ]
+            "members": []
         },
         {
             "name": "Animation",
@@ -4433,7 +4422,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"AnimationContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -4601,6 +4590,176 @@
                 "Animation"
             ],
             "members": [
+                {
+                    "name": "AddAnimatedImageClipAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Content",
+                                "isEnum": false,
+                                "identifier": "content"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "clipName"
+                            },
+                            {
+                                "type": "Array",
+                                "isEnum": false,
+                                "identifier": "frames"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Animation"
+                    ]
+                },
+                {
+                    "name": "GetAnimatedImageClipFramesAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Content",
+                                "isEnum": false,
+                                "identifier": "content"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "clipName"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Animation"
+                    ]
+                },
+                {
+                    "name": "GetAnimatedImageClipsAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Content",
+                                "isEnum": false,
+                                "identifier": "content"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Animation"
+                    ]
+                },
+                {
+                    "name": "GetAnimatedImageClipsChangedSignal",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Content",
+                                "isEnum": false,
+                                "identifier": "content"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "EventInstance",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Animation"
+                    ]
+                },
+                {
+                    "name": "GetAnimatedImageFrameIndexAtTimeAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Content",
+                                "isEnum": false,
+                                "identifier": "content"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "clipName"
+                            },
+                            {
+                                "type": "double",
+                                "isEnum": false,
+                                "identifier": "timePosition"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "int",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Animation"
+                    ]
+                },
                 {
                     "name": "GetAnimationClip",
                     "isUserFacing": true,
@@ -6450,6 +6609,30 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "Animation"
+                    ]
+                },
+                {
+                    "name": "Inspect",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Animation",
+                        "PluginOrOpenCloud"
                     ]
                 },
                 {
@@ -12518,6 +12701,12 @@
                                 "isEnum": false,
                                 "identifier": "assetId",
                                 "defaultValue": "0"
+                            },
+                            {
+                                "type": "Function?",
+                                "isEnum": false,
+                                "identifier": "progressCallback",
+                                "defaultValue": "nil"
                             }
                         ],
                         "results": [
@@ -20904,7 +21093,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"AudioContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -28785,6 +28974,34 @@
                     "security": "RobloxEngine"
                 },
                 {
+                    "name": "PlayerClientFeaturesResolved",
+                    "isUserFacing": false,
+                    "memberType": "Event",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "player"
+                            },
+                            {
+                                "type": "int",
+                                "isEnum": false,
+                                "identifier": "features"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isPublic": true,
+                    "security": "RobloxScript"
+                },
+                {
                     "name": "PollClientFeatures",
                     "isUserFacing": false,
                     "memberType": "Function",
@@ -33763,7 +33980,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -38045,7 +38262,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -38868,6 +39085,107 @@
                     },
                     "isAsync": true,
                     "security": "None"
+                }
+            ]
+        },
+        {
+            "name": "Blob",
+            "isUserFacing": false,
+            "baseClass": "Object",
+            "isPublic": true,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": [
+                {
+                    "name": "Destroy",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetMimeType",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetSizeBytes",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "int64",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "ReadBytesAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64?",
+                                "isEnum": false,
+                                "identifier": "start"
+                            },
+                            {
+                                "type": "int64?",
+                                "isEnum": false,
+                                "identifier": "length"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "buffer",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
                 }
             ]
         },
@@ -40352,16 +40670,16 @@
             "members": [
                 {
                     "name": "DoubleSided",
-                    "isUserFacing": false,
+                    "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "bool",
                         "isEnum": false,
                         "defaultValue": "false"
                     },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -44039,6 +44357,41 @@
                     ]
                 },
                 {
+                    "name": "CloneForSnapshot",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false,
+                                "identifier": "instances"
+                            },
+                            {
+                                "type": "bool",
+                                "isEnum": false,
+                                "identifier": "includeNonArchivable",
+                                "defaultValue": "false"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Object",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Capture"
+                    ]
+                },
+                {
                     "name": "CreatePostAsync",
                     "isUserFacing": false,
                     "memberType": "Function",
@@ -46678,7 +47031,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"BaseTextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -46741,7 +47094,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MeshContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -46783,7 +47136,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"OverlayTextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -48719,7 +49072,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"CursorIconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -49643,6 +49996,37 @@
                                 "type": "string",
                                 "isEnum": false,
                                 "identifier": "reservationToken"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "ReportOfferDecision",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "reservationToken"
+                            },
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "decision"
                             }
                         ],
                         "results": [
@@ -51027,6 +51411,48 @@
                     ]
                 },
                 {
+                    "name": "ColorLutContent",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Content",
+                        "isEnum": false,
+                        "defaultValue": "<Content name=\"ColorLutContent\">\n\t<null></null>\n</Content>"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Environment"
+                    ]
+                },
+                {
+                    "name": "ColorLutIntensity",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValue": "1"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Environment"
+                    ]
+                },
+                {
                     "name": "Contrast",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -51715,16 +52141,16 @@
             "members": [
                 {
                     "name": "DoubleSided",
-                    "isUserFacing": false,
+                    "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "bool",
                         "isEnum": false,
                         "defaultValue": "false"
                     },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -54941,6 +55367,33 @@
             ],
             "members": [
                 {
+                    "name": "GetExtents",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Vector3",
+                                "isEnum": false
+                            },
+                            {
+                                "type": "Vector3",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": true,
+                    "capabilities": [
+                        "Basic"
+                    ]
+                },
+                {
                     "name": "HitFrame",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -56156,16 +56609,16 @@
                 },
                 {
                     "name": "DoubleSided",
-                    "isUserFacing": false,
+                    "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "bool",
                         "isEnum": false,
                         "defaultValue": "false"
                     },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -59993,7 +60446,7 @@
                     "type": {
                         "type": "string",
                         "isEnum": false,
-                        "defaultValue": "0.747.0.7471481"
+                        "defaultValue": "0.748.0.7481526"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -62233,7 +62686,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MetalnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -62282,7 +62735,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"NormalMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -62373,7 +62826,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"RoughnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -62462,7 +62915,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -62504,7 +62957,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TexturePackContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "RobloxEngine",
@@ -65297,7 +65750,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ActivatedCursorIconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -67060,12 +67513,14 @@
                             {
                                 "type": "float",
                                 "isEnum": false,
-                                "identifier": "transparency"
+                                "identifier": "transparency",
+                                "defaultValue": "0"
                             },
                             {
                                 "type": "ImageCombineType",
                                 "isEnum": true,
-                                "identifier": "combineType"
+                                "identifier": "combineType",
+                                "defaultValue": "Overwrite"
                             },
                             {
                                 "type": "AntiAliasing",
@@ -67116,7 +67571,8 @@
                             {
                                 "type": "ImageCombineType",
                                 "isEnum": true,
-                                "identifier": "combineType"
+                                "identifier": "combineType",
+                                "defaultValue": "AlphaBlend"
                             },
                             {
                                 "type": "ImageAlphaType",
@@ -67254,12 +67710,14 @@
                             {
                                 "type": "float",
                                 "isEnum": false,
-                                "identifier": "transparency"
+                                "identifier": "transparency",
+                                "defaultValue": "0"
                             },
                             {
                                 "type": "ImageCombineType",
                                 "isEnum": true,
-                                "identifier": "combineType"
+                                "identifier": "combineType",
+                                "defaultValue": "Overwrite"
                             },
                             {
                                 "type": "AntiAliasing",
@@ -67315,12 +67773,14 @@
                             {
                                 "type": "float",
                                 "isEnum": false,
-                                "identifier": "transparency"
+                                "identifier": "transparency",
+                                "defaultValue": "0"
                             },
                             {
                                 "type": "ImageCombineType",
                                 "isEnum": true,
-                                "identifier": "combineType"
+                                "identifier": "combineType",
+                                "defaultValue": "Overwrite"
                             },
                             {
                                 "type": "ImageAlphaType",
@@ -71853,6 +72313,46 @@
                     "simulationAccess": false
                 },
                 {
+                    "name": "GetConnectedServerInfo",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetConnectedServerProbeSnapshot",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Array",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
                     "name": "GetFollowUserId",
                     "isUserFacing": false,
                     "memberType": "Function",
@@ -72238,6 +72738,32 @@
                         "results": [
                             {
                                 "type": "Connection",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "SetConnectedServerProbingActive",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "bool",
+                                "isEnum": false,
+                                "identifier": "active"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "bool",
                                 "isEnum": false
                             }
                         ]
@@ -76659,7 +77185,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MeshContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -76704,7 +77230,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -76741,6 +77267,68 @@
                     "capabilities": [
                         "Basic"
                     ]
+                }
+            ]
+        },
+        {
+            "name": "FilePickerService",
+            "isUserFacing": false,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": [
+                {
+                    "name": "IsSupported",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false,
+                                "identifier": "options"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "bool",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "PickFilesAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false,
+                                "identifier": "options"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
                 }
             ]
         },
@@ -92507,6 +93095,40 @@
                     ]
                 },
                 {
+                    "name": "GetCanCollideOnDeath",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "part"
+                            },
+                            {
+                                "type": "bool",
+                                "isEnum": false,
+                                "identifier": "fallback"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "bool",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Safe",
+                    "simulationAccess": true,
+                    "capabilities": [
+                        "AvatarBehavior"
+                    ]
+                },
+                {
                     "name": "GetLimb",
                     "isUserFacing": true,
                     "memberType": "Function",
@@ -93540,7 +94162,9 @@
                     "isReplicated": true,
                     "isSerialized": false,
                     "threadSafety": "ReadSafe",
-                    "simulationAccess": false
+                    "simulationAccess": false,
+                    "deprecated": true,
+                    "replacedWith": "UsesAvatarCollider"
                 },
                 {
                     "name": "PlatformStand",
@@ -93591,6 +94215,32 @@
                     "capabilities": [
                         "AvatarBehavior"
                     ]
+                },
+                {
+                    "name": "PlayAvatarEffectAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "int64",
+                                "isEnum": false,
+                                "identifier": "assetId"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
                 },
                 {
                     "name": "PlayEmote",
@@ -94531,6 +95181,27 @@
                         "AvatarBehavior"
                     ],
                     "writeCapabilities": [
+                        "AvatarBehavior"
+                    ]
+                },
+                {
+                    "name": "UsesAvatarCollider",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "false"
+                    },
+                    "isPublic": false,
+                    "readSecurity": "None",
+                    "writeSecurity": "NotAccessible",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": true,
+                    "capabilities": [
                         "AvatarBehavior"
                     ]
                 },
@@ -99988,7 +100659,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"HoverImageContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -100051,7 +100722,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ImageContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -100196,7 +100867,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"PressedImageContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -100360,16 +101031,16 @@
             "members": [
                 {
                     "name": "DoubleSided",
-                    "isUserFacing": false,
+                    "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "bool",
                         "isEnum": false,
                         "defaultValue": "false"
                     },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -100412,7 +101083,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ImageContent\">\n\t<uri>rbxasset://textures/SurfacesDefault.png</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -100534,7 +101205,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ImageContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -107227,6 +107898,30 @@
                     ]
                 },
                 {
+                    "name": "LightAttenuationMode",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "LightAttenuationMode",
+                        "isEnum": true,
+                        "defaultValue": "Legacy"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Environment"
+                    ],
+                    "writeCapabilities": [
+                        "PluginOrOpenCloud"
+                    ]
+                },
+                {
                     "name": "LightingChanged",
                     "isUserFacing": true,
                     "memberType": "Event",
@@ -107422,7 +108117,7 @@
                     "type": {
                         "type": "Technology",
                         "isEnum": true,
-                        "defaultValue": "Compatibility"
+                        "defaultValue": "Future"
                     },
                     "isPublic": true,
                     "readSecurity": "RobloxScript",
@@ -118630,7 +119325,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ColorMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -118786,7 +119481,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MetalnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -118828,7 +119523,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"NormalMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -118870,7 +119565,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"RoughnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -118936,7 +119631,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TexturePackContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": false,
                     "readSecurity": "None",
@@ -120617,7 +121312,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MeshContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -120768,7 +121463,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -124013,7 +124708,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"IconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -124852,7 +125547,7 @@
                     "type": {
                         "type": "int",
                         "isEnum": false,
-                        "defaultValue": "239999"
+                        "defaultValue": "109999"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -124873,7 +125568,7 @@
                     "type": {
                         "type": "float",
                         "isEnum": false,
-                        "defaultValue": "203472.156"
+                        "defaultValue": "90310.9141"
                     },
                     "isPublic": false,
                     "readSecurity": "Plugin",
@@ -127202,7 +127897,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"PackageContentSerialize\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": false,
                     "readSecurity": "None",
@@ -128103,7 +128798,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"PantsTemplateContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -128467,7 +129162,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"Content\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": false,
                     "readSecurity": "RobloxEngine",
@@ -128913,6 +129608,41 @@
                                 "isEnum": false,
                                 "identifier": "enter",
                                 "defaultValue": "false"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "None",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "InternalTest"
+                    ]
+                },
+                {
+                    "name": "InvokePluginCommand",
+                    "isUserFacing": true,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "string",
+                                "isEnum": false,
+                                "identifier": "command"
+                            },
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false,
+                                "identifier": "args",
+                                "defaultValue": "{}"
                             }
                         ],
                         "results": [
@@ -129871,7 +130601,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<uri>rbxasset://textures/particles/sparkles_main.dds</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -134714,6 +135444,123 @@
             ]
         },
         {
+            "name": "PickedFile",
+            "isUserFacing": false,
+            "baseClass": "Object",
+            "isPublic": true,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": [
+                {
+                    "name": "Destroy",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "null",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetExtension",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetMimeType",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetName",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "LoadAsync",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false,
+                                "identifier": "options",
+                                "defaultValue": "{}"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Dictionary",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": true,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                }
+            ]
+        },
+        {
             "name": "PinShortcutService",
             "isUserFacing": false,
             "baseClass": "Instance",
@@ -137264,6 +138111,29 @@
                     ]
                 },
                 {
+                    "name": "HasSpawnEffectPlayed",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "bool",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Players"
+                    ]
+                },
+                {
                     "name": "HasVerifiedBadge",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -137426,6 +138296,27 @@
                     "isPublic": false,
                     "readSecurity": "None",
                     "writeSecurity": "None",
+                    "isScriptable": false,
+                    "isReplicated": true,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Players"
+                    ]
+                },
+                {
+                    "name": "InternalSpawnEffectPlayed",
+                    "isUserFacing": false,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "false"
+                    },
+                    "isPublic": false,
+                    "readSecurity": "RobloxEngine",
+                    "writeSecurity": "RobloxEngine",
                     "isScriptable": false,
                     "isReplicated": true,
                     "isSerialized": false,
@@ -147114,8 +148005,7 @@
                     "memberType": "Property",
                     "type": {
                         "type": "Content",
-                        "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "isEnum": false
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -148169,22 +149059,12 @@
                     "security": "RobloxEngine"
                 },
                 {
-                    "name": "ContentMapMutationResult",
+                    "name": "ContentMapOutcomesAcknowledged",
                     "isUserFacing": false,
                     "memberType": "Event",
                     "type": {
                         "name": "function",
                         "arguments": [
-                            {
-                                "type": "int64",
-                                "isEnum": false,
-                                "identifier": "operationId"
-                            },
-                            {
-                                "type": "int",
-                                "isEnum": false,
-                                "identifier": "result"
-                            },
                             {
                                 "type": "int64",
                                 "isEnum": false,
@@ -150092,16 +150972,16 @@
             "members": [
                 {
                     "name": "DoubleSided",
-                    "isUserFacing": false,
+                    "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "bool",
                         "isEnum": false,
                         "defaultValue": "false"
                     },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -157431,7 +158311,7 @@
                     "type": {
                         "type": "string",
                         "isEnum": false,
-                        "defaultValue": "babe3fc99182467fa75b02b63f8ce029058c0b7b"
+                        "defaultValue": "4f2269162bf128d4daf17a76b0b24165ea6c1df8"
                     },
                     "isPublic": true,
                     "readSecurity": "RobloxScript",
@@ -159152,6 +160032,62 @@
             ]
         },
         {
+            "name": "SceneSnapshot",
+            "isUserFacing": false,
+            "baseClass": "Object",
+            "isPublic": true,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": [
+                {
+                    "name": "GetRoots",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [],
+                        "results": [
+                            {
+                                "type": "Instances",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetSourceGuid",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "instance"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "string",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                }
+            ]
+        },
+        {
             "name": "ScreenGui",
             "isUserFacing": true,
             "baseClass": "LayerCollector",
@@ -159365,7 +160301,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"CameraButtonIconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -162965,7 +163901,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"BottomImageContent\">\n\t<uri>rbxasset://textures/ui/Scroll/scroll-bottom.png</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -163220,7 +164156,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MidImageContent\">\n\t<uri>rbxasset://textures/ui/Scroll/scroll-middle.png</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -163476,7 +164412,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TopImageContent\">\n\t<uri>rbxasset://textures/ui/Scroll/scroll-top.png</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -165575,6 +166511,15 @@
             ]
         },
         {
+            "name": "SessionStorage",
+            "isUserFacing": false,
+            "baseClass": "Instance",
+            "isPublic": true,
+            "isScriptCreatable": false,
+            "security": "RobloxScript",
+            "members": []
+        },
+        {
             "name": "SharedTableRegistry",
             "isUserFacing": true,
             "baseClass": "Instance",
@@ -165689,7 +166634,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ShirtTemplateContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -165768,7 +166713,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166321,7 +167266,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MoonTextureContent\">\n\t<uri>rbxasset://sky/moon.jpg</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166363,7 +167308,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SkyboxBackContent\">\n\t<uri>rbxasset://textures/sky/sky512_bk.tex</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166426,7 +167371,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SkyboxDownContent\">\n\t<uri>rbxasset://textures/sky/sky512_dn.tex</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166447,7 +167392,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SkyboxFrontContent\">\n\t<uri>rbxasset://textures/sky/sky512_ft.tex</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166489,7 +167434,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SkyboxLeftContent\">\n\t<uri>rbxasset://textures/sky/sky512_lf.tex</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166552,7 +167497,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SkyboxRightContent\">\n\t<uri>rbxasset://textures/sky/sky512_rt.tex</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166615,7 +167560,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SkyboxUpContent\">\n\t<uri>rbxasset://textures/sky/sky512_up.tex</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -166678,7 +167623,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"SunTextureContent\">\n\t<uri>rbxasset://sky/sun.jpg</uri>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -169016,7 +169961,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"AudioContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -172082,16 +173027,16 @@
             "members": [
                 {
                     "name": "DoubleSided",
-                    "isUserFacing": false,
+                    "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "bool",
                         "isEnum": false,
                         "defaultValue": "false"
                     },
-                    "isPublic": false,
-                    "readSecurity": "RobloxScript",
-                    "writeSecurity": "RobloxScript",
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -176040,6 +176985,24 @@
                     "simulationAccess": false
                 },
                 {
+                    "name": "AutoPlayAnimatedImages",
+                    "isUserFacing": false,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": false,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
                     "name": "AutoResumeSyncOnPlaceOpen",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -176220,6 +177183,24 @@
                     "simulationAccess": false
                 },
                 {
+                    "name": "Camera Orbit Speed",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
                     "name": "Camera Pan Speed",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -176328,6 +177309,24 @@
                     "simulationAccess": false
                 },
                 {
+                    "name": "CameraFocusFillPercent",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
                     "name": "CameraKeyMoveSmoothing",
                     "isUserFacing": true,
                     "memberType": "Property",
@@ -176369,6 +177368,42 @@
                     "memberType": "Property",
                     "type": {
                         "type": "CameraNavigationModel",
+                        "isEnum": true,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "CameraNavigationModelLocked",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValueMissingReason": "api_dump_class_not_creatable"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "CameraRotateCursorLock",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "CameraRotateCursorLock",
                         "isEnum": true,
                         "defaultValueMissingReason": "api_dump_class_not_creatable"
                     },
@@ -180464,6 +181499,24 @@
                     },
                     "isPublic": true,
                     "security": "RobloxScript"
+                },
+                {
+                    "name": "GraspDistance",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "float",
+                        "isEnum": false,
+                        "defaultValue": "50"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "RobloxScript",
+                    "writeSecurity": "RobloxScript",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false
                 },
                 {
                     "name": "InFocusMode",
@@ -185200,7 +186253,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ColorMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -185305,7 +186358,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MetalnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -185347,7 +186400,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"NormalMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -185410,7 +186463,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"RoughnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -185473,7 +186526,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TexturePackContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "RobloxScript",
@@ -187068,6 +188121,30 @@
                 "Teleport"
             ],
             "members": [
+                {
+                    "name": "ForcePublicServer",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "false"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Teleport"
+                    ],
+                    "writeCapabilities": [
+                        "Teleport"
+                    ]
+                },
                 {
                     "name": "GetTeleportData",
                     "isUserFacing": true,
@@ -191121,7 +192198,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ColorMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -191274,7 +192351,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MetalnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -191316,7 +192393,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"NormalMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -191358,7 +192435,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"RoughnessMapContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "Plugin",
@@ -191424,7 +192501,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TexturePackContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": false,
                     "readSecurity": "None",
@@ -203448,7 +204525,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TextureContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -205173,6 +206250,47 @@
                         "results": [
                             {
                                 "type": "Map",
+                                "isEnum": false
+                            }
+                        ]
+                    },
+                    "isYieldable": false,
+                    "isCustom": false,
+                    "security": "RobloxScript",
+                    "threadSafety": "Unsafe",
+                    "simulationAccess": false
+                },
+                {
+                    "name": "GetCurveAnimationRenderedFrames",
+                    "isUserFacing": false,
+                    "memberType": "Function",
+                    "type": {
+                        "name": "function",
+                        "arguments": [
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "curveAnimation"
+                            },
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "templateRig"
+                            },
+                            {
+                                "type": "Instance",
+                                "isEnum": false,
+                                "identifier": "classicTemplateRig"
+                            },
+                            {
+                                "type": "float",
+                                "isEnum": false,
+                                "identifier": "maxDuration"
+                            }
+                        ],
+                        "results": [
+                            {
+                                "type": "Dictionary",
                                 "isEnum": false
                             }
                         ]
@@ -207049,7 +208167,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ActivatedCursorIconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -207167,7 +208285,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"CursorIconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -213226,7 +214344,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"MouseIconContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -215106,6 +216224,26 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": false,
+                    "isSerialized": false,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "Input"
+                    ]
+                },
+                {
+                    "name": "VRSessionActive",
+                    "isUserFacing": false,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "bool",
+                        "isEnum": false,
+                        "defaultValue": "false"
+                    },
+                    "isPublic": false,
+                    "readSecurity": "RobloxScript",
                     "isScriptable": true,
                     "isReplicated": false,
                     "isSerialized": false,
@@ -217743,7 +218881,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"VideoContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -229447,6 +230585,30 @@
                     ]
                 },
                 {
+                    "name": "NonUniformScaleContent",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Content",
+                        "isEnum": false,
+                        "defaultValue": "<Content name=\"NonUniformScaleContent\">\n\t<null></null>\n</Content>"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
+                        "AvatarAppearance"
+                    ]
+                },
+                {
                     "name": "Offset",
                     "isUserFacing": false,
                     "memberType": "Property",
@@ -229517,7 +230679,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"ReferenceMeshContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
@@ -229603,17 +230765,17 @@
                     ]
                 },
                 {
-                    "name": "RotateScaleDeformationMap",
+                    "name": "RotateUniformScaleContent",
                     "isUserFacing": true,
                     "memberType": "Property",
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValue": "<Content name=\"RotateScaleDeformationMap\">\n\t<null></null>\n</Content>"
+                        "defaultValue": "<Content name=\"RotateUniformScaleContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
@@ -229621,26 +230783,8 @@
                     "simulationAccess": false,
                     "capabilities": [
                         "AvatarAppearance"
-                    ]
-                },
-                {
-                    "name": "ScaleOnlyDeformationMap",
-                    "isUserFacing": true,
-                    "memberType": "Property",
-                    "type": {
-                        "type": "Content",
-                        "isEnum": false,
-                        "defaultValue": "<Content name=\"ScaleOnlyDeformationMap\">\n\t<null></null>\n</Content>"
-                    },
-                    "isPublic": true,
-                    "readSecurity": "None",
-                    "writeSecurity": "Plugin",
-                    "isScriptable": true,
-                    "isReplicated": true,
-                    "isSerialized": true,
-                    "threadSafety": "ReadSafe",
-                    "simulationAccess": false,
-                    "capabilities": [
+                    ],
+                    "writeCapabilities": [
                         "AvatarAppearance"
                     ]
                 },
@@ -229677,13 +230821,16 @@
                     },
                     "isPublic": true,
                     "readSecurity": "None",
-                    "writeSecurity": "Plugin",
+                    "writeSecurity": "None",
                     "isScriptable": true,
                     "isReplicated": true,
                     "isSerialized": true,
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false,
                     "capabilities": [
+                        "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
                         "AvatarAppearance"
                     ]
                 },
@@ -229715,7 +230862,7 @@
                     "type": {
                         "type": "Content",
                         "isEnum": false,
-                        "defaultValueMissingReason": "api_dump_not_serializable"
+                        "defaultValue": "<Content name=\"TemporaryReferenceMeshContent\">\n\t<null></null>\n</Content>"
                     },
                     "isPublic": false,
                     "readSecurity": "RobloxEngine",
@@ -229726,6 +230873,30 @@
                     "threadSafety": "ReadSafe",
                     "simulationAccess": false,
                     "capabilities": [
+                        "AvatarAppearance"
+                    ]
+                },
+                {
+                    "name": "UniformScaleContent",
+                    "isUserFacing": true,
+                    "memberType": "Property",
+                    "type": {
+                        "type": "Content",
+                        "isEnum": false,
+                        "defaultValue": "<Content name=\"UniformScaleContent\">\n\t<null></null>\n</Content>"
+                    },
+                    "isPublic": true,
+                    "readSecurity": "None",
+                    "writeSecurity": "None",
+                    "isScriptable": true,
+                    "isReplicated": true,
+                    "isSerialized": true,
+                    "threadSafety": "ReadSafe",
+                    "simulationAccess": false,
+                    "capabilities": [
+                        "AvatarAppearance"
+                    ],
+                    "writeCapabilities": [
                         "AvatarAppearance"
                     ]
                 }
@@ -231304,6 +232475,15 @@
             }
         },
         {
+            "name": "CameraRotateCursorLock",
+            "isUserFacing": true,
+            "items": {
+                "Never": 0,
+                "FpsOnly": 1,
+                "BothModes": 2
+            }
+        },
+        {
             "name": "CameraSpeedAdjustBinding",
             "isUserFacing": true,
             "items": {
@@ -232297,8 +233477,15 @@
             "isUserFacing": false,
             "items": {
                 "EXPERIENCE": 1,
-                "OAUTH": 3
-            }
+                "Experience": 1,
+                "Group": 2,
+                "OAUTH": 3,
+                "OAuth": 3
+            },
+            "deprecatedItems": [
+                "EXPERIENCE",
+                "OAUTH"
+            ]
         },
         {
             "name": "DominantAxis",
@@ -232447,7 +233634,8 @@
             "items": {
                 "Screenshots": 0,
                 "Videos": 1,
-                "Logs": 2
+                "Logs": 2,
+                "ClientSettings": 3
             }
         },
         {
@@ -234032,6 +235220,14 @@
                 "Star": 16,
                 "DoubleStar": 17,
                 "ReservedSpecial": 18
+            }
+        },
+        {
+            "name": "LightAttenuationMode",
+            "isUserFacing": true,
+            "items": {
+                "Legacy": 0,
+                "Realistic": 1
             }
         },
         {
