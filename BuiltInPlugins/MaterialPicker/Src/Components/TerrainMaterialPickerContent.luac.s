@@ -1,0 +1,224 @@
+PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onCatalogChanged"]
+        3 CALL                             R0 0 0
+        4 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["record"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["onSlotSelected"]
+        8 MOVE                             R2 R0
+        9 CALL                             R1 1 0
+       10 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 GETUPVAL                         R0 1
+        5 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnUndo"]
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R0 R0 K1 ["Connect"]
+        6 CALL                             R0 2 1
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K2 ["OnRedo"]
+       10 GETUPVAL                         R3 1
+       11 NAMECALL                         R1 R1 K1 ["Connect"]
+       13 CALL                             R1 2 1
+       14 NEWCLOSURE                       R2 P0
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          VAL R1
+       17 RETURN                           R2 1
+
+PROTO_4:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["SetWaypoint"]
+        4 CALL                             R1 2 0
+        5 RETURN                           R0 0
+
+PROTO_5:
+        0 NEWTABLE                         R1 0 0
+        2 GETUPVAL                         R2 0
+        3 LOADNIL                          R3
+        4 LOADNIL                          R4
+        5 FORGPREP                         R2
+        6 DUPTABLE                         R9 K2 [{"name", "slotIndex"}]
+        7 GETTABLEKS                       R10 R6 K3 ["displayName"]
+        9 SETTABLEKS                       R10 R9 K0 ["name"]
+       11 GETTABLEKS                       R10 R6 K1 ["slotIndex"]
+       13 SETTABLEKS                       R10 R9 K1 ["slotIndex"]
+       15 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       17 MOVE                             R8 R1
+       18 GETIMPORT                        R7 K6 [table.insert]
+       20 CALL                             R7 2 0
+       21 FORGLOOP                         R2 2 ; [-16]
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K7 ["TerrainSlotMutations"]
+       26 GETTABLEKS                       R3 R3 K8 ["createSlot"]
+       28 DUPTABLE                         R4 K13 [{"entries", "historyService", "onCatalogChanged", "terrain"}]
+       29 SETTABLEKS                       R1 R4 K9 ["entries"]
+       31 DUPTABLE                         R5 K15 [{"setWaypoint"}]
+       32 DUPCLOSURE                       R6 K16 [PROTO_4]
+       33 CAPTURE                          UPVAL U2
+       34 SETTABLEKS                       R6 R5 K14 ["setWaypoint"]
+       36 SETTABLEKS                       R5 R4 K10 ["historyService"]
+       38 GETUPVAL                         R5 3
+       39 GETTABLEKS                       R5 R5 K11 ["onCatalogChanged"]
+       41 SETTABLEKS                       R5 R4 K11 ["onCatalogChanged"]
+       43 GETIMPORT                        R5 K18 [workspace]
+       45 GETTABLEKS                       R5 R5 K19 ["Terrain"]
+       47 SETTABLEKS                       R5 R4 K12 ["terrain"]
+       49 MOVE                             R5 R0
+       50 FASTPCALL                        pcall 3 ; [+2]
+       51 GETIMPORT                        R2 K21 [pcall]
+       53 CALL                             R2 3 2
+       54 JUMPIF                           R2 ; [+3]
+       55 LOADNIL                          R4
+       56 LOADK                            R5 K22 ["mutationFailed"]
+       57 RETURN                           R4 2
+       58 JUMPIFNOTEQKNIL                  R3 ; [+4]
+       60 LOADNIL                          R4
+       61 LOADK                            R5 K23 ["catalogFull"]
+       62 RETURN                           R4 2
+       63 GETUPVAL                         R4 4
+       64 GETTABLEKS                       R4 R4 K24 ["record"]
+       66 MOVE                             R5 R3
+       67 CALL                             R4 1 0
+       68 GETUPVAL                         R4 3
+       69 GETTABLEKS                       R4 R4 K25 ["onSlotCreated"]
+       71 MOVE                             R5 R3
+       72 CALL                             R4 1 0
+       73 RETURN                           R3 1
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["initialCatalog"]
+        3 GETTABLEKS                       R3 R0 K1 ["refreshKey"]
+        5 GETTABLEKS                       R4 R0 K2 ["hostService"]
+        7 GETTABLEKS                       R5 R0 K3 ["onCatalogRead"]
+        9 GETTABLEKS                       R6 R0 K4 ["onCatalogReadFailed"]
+       11 CALL                             R1 5 1
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K5 ["read"]
+       15 CALL                             R2 0 1
+       16 GETUPVAL                         R3 2
+       17 NEWCLOSURE                       R4 P0
+       18 CAPTURE                          VAL R0
+       19 CALL                             R3 1 1
+       20 GETUPVAL                         R4 2
+       21 NEWCLOSURE                       R5 P1
+       22 CAPTURE                          UPVAL U1
+       23 CAPTURE                          VAL R0
+       24 CALL                             R4 1 1
+       25 GETUPVAL                         R5 3
+       26 GETTABLEKS                       R5 R5 K6 ["useEffect"]
+       28 NEWCLOSURE                       R6 P2
+       29 CAPTURE                          UPVAL U4
+       30 CAPTURE                          VAL R3
+       31 NEWTABLE                         R7 0 1
+       33 MOVE                             R8 R3
+       34 SETLIST                          R7 R8 1 [1]
+       36 CALL                             R5 2 0
+       37 GETUPVAL                         R5 2
+       38 NEWCLOSURE                       R6 P3
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          UPVAL U5
+       41 CAPTURE                          UPVAL U4
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U1
+       44 CALL                             R5 1 1
+       45 GETUPVAL                         R6 3
+       46 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       48 GETUPVAL                         R7 6
+       49 DUPTABLE                         R8 K23 [{"catalog", "onCreateSlot", "onEditSlot", "onInvalidSourceChanged", "onQuickAddOpened", "onQuickAddResult", "onSlotSelected", "onSearchNoResults", "onSearchUsed", "onSortTypeChanged", "onViewTypeChanged", "recentlyUsedSlots", "request", "sortType", "viewType"}]
+       50 SETTABLEKS                       R1 R8 K8 ["catalog"]
+       52 SETTABLEKS                       R5 R8 K9 ["onCreateSlot"]
+       54 GETTABLEKS                       R9 R0 K10 ["onEditSlot"]
+       56 SETTABLEKS                       R9 R8 K10 ["onEditSlot"]
+       58 GETTABLEKS                       R9 R0 K11 ["onInvalidSourceChanged"]
+       60 SETTABLEKS                       R9 R8 K11 ["onInvalidSourceChanged"]
+       62 GETTABLEKS                       R9 R0 K12 ["onQuickAddOpened"]
+       64 SETTABLEKS                       R9 R8 K12 ["onQuickAddOpened"]
+       66 GETTABLEKS                       R9 R0 K13 ["onQuickAddResult"]
+       68 SETTABLEKS                       R9 R8 K13 ["onQuickAddResult"]
+       70 SETTABLEKS                       R4 R8 K14 ["onSlotSelected"]
+       72 GETTABLEKS                       R9 R0 K15 ["onSearchNoResults"]
+       74 SETTABLEKS                       R9 R8 K15 ["onSearchNoResults"]
+       76 GETTABLEKS                       R9 R0 K16 ["onSearchUsed"]
+       78 SETTABLEKS                       R9 R8 K16 ["onSearchUsed"]
+       80 GETTABLEKS                       R9 R0 K17 ["onSortTypeChanged"]
+       82 SETTABLEKS                       R9 R8 K17 ["onSortTypeChanged"]
+       84 GETTABLEKS                       R9 R0 K18 ["onViewTypeChanged"]
+       86 SETTABLEKS                       R9 R8 K18 ["onViewTypeChanged"]
+       88 SETTABLEKS                       R2 R8 K19 ["recentlyUsedSlots"]
+       90 GETTABLEKS                       R9 R0 K20 ["request"]
+       92 SETTABLEKS                       R9 R8 K20 ["request"]
+       94 GETTABLEKS                       R9 R0 K21 ["sortType"]
+       96 SETTABLEKS                       R9 R8 K21 ["sortType"]
+       98 GETTABLEKS                       R9 R0 K22 ["viewType"]
+      100 SETTABLEKS                       R9 R8 K22 ["viewType"]
+      102 CALL                             R6 2 -1
+      103 RETURN                           R6 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["MaterialPicker"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["TerrainPalette"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K10 ["Src"]
+       32 GETTABLEKS                       R5 R5 K11 ["Components"]
+       34 GETTABLEKS                       R5 R5 K12 ["TerrainMaterialPickerView"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K10 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Hooks"]
+       43 GETTABLEKS                       R6 R6 K14 ["useTerrainMaterialCatalog"]
+       45 CALL                             R5 1 1
+       46 GETIMPORT                        R6 K5 [require]
+       48 GETTABLEKS                       R7 R0 K10 ["Src"]
+       50 GETTABLEKS                       R7 R7 K15 ["Types"]
+       52 CALL                             R6 1 1
+       53 GETIMPORT                        R7 K5 [require]
+       55 GETTABLEKS                       R8 R0 K10 ["Src"]
+       57 GETTABLEKS                       R8 R8 K16 ["Util"]
+       59 GETTABLEKS                       R8 R8 K17 ["RecentTerrainMaterialSlots"]
+       61 CALL                             R7 1 1
+       62 GETTABLEKS                       R8 R2 K18 ["useEventCallback"]
+       64 GETIMPORT                        R9 K20 [game]
+       66 LOADK                            R11 K21 ["ChangeHistoryService"]
+       67 NAMECALL                         R9 R9 K22 ["GetService"]
+       69 CALL                             R9 2 1
+       70 DUPCLOSURE                       R10 K23 [PROTO_6]
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          VAL R9
+       76 CAPTURE                          VAL R3
+       77 CAPTURE                          VAL R4
+       78 RETURN                           R10 1

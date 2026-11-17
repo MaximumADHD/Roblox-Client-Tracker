@@ -1,0 +1,87 @@
+PROTO_0:
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 JUMPIFNOT                        R1 ; [+3]
+        3 GETTABLEKS                       R2 R1 K1 ["placeId"]
+        5 RETURN                           R2 1
+        6 LOADNIL                          R2
+        7 RETURN                           R2 1
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R2 K0 ["Failed to create place: %*"]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K1 ["pretty"]
+        5 MOVE                             R5 R0
+        6 CALL                             R4 1 1
+        7 NAMECALL                         R2 R2 K2 ["format"]
+        9 CALL                             R2 2 1
+       10 CALL                             R1 1 0
+       11 GETUPVAL                         R1 2
+       12 GETTABLEKS                       R1 R1 K3 ["reject"]
+       14 MOVE                             R2 R0
+       15 CALL                             R1 1 -1
+       16 RETURN                           R1 -1
+
+PROTO_2:
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 -1
+        2 FASTCALL                         TONUMBER ; [+2]
+        3 GETIMPORT                        R2 K2 [tonumber]
+        5 CALL                             R2 -1 1
+        6 ORK                              R1 R2 K0 [0]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K3 ["CreatePlaceRequest"]
+       10 MOVE                             R3 R0
+       11 MOVE                             R4 R1
+       12 CALL                             R2 2 1
+       13 NAMECALL                         R2 R2 K4 ["makeRequest"]
+       15 CALL                             R2 1 1
+       16 DUPCLOSURE                       R4 K5 [PROTO_0]
+       17 DUPCLOSURE                       R5 K6 [PROTO_1]
+       18 CAPTURE                          UPVAL U2
+       19 CAPTURE                          UPVAL U3
+       20 CAPTURE                          UPVAL U4
+       21 NAMECALL                         R2 R2 K7 ["andThen"]
+       23 CALL                             R2 3 -1
+       24 RETURN                           R2 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetManagement"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["Dash"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R0 K8 ["Networking"]
+       18 GETTABLEKS                       R4 R4 K9 ["Types"]
+       20 CALL                             R3 1 1
+       21 GETIMPORT                        R4 K6 [require]
+       23 GETTABLEKS                       R5 R0 K8 ["Networking"]
+       25 GETTABLEKS                       R5 R5 K10 ["Shared"]
+       27 CALL                             R4 1 1
+       28 GETIMPORT                        R5 K6 [require]
+       30 GETTABLEKS                       R6 R0 K9 ["Types"]
+       32 CALL                             R5 1 1
+       33 GETIMPORT                        R6 K6 [require]
+       35 GETTABLEKS                       R7 R0 K8 ["Networking"]
+       37 GETTABLEKS                       R7 R7 K11 ["Urls"]
+       39 CALL                             R6 1 1
+       40 GETIMPORT                        R7 K6 [require]
+       42 GETTABLEKS                       R8 R0 K12 ["Flags"]
+       44 GETTABLEKS                       R8 R8 K13 ["getFStringStudioDefaultNewTemplatePlaceId"]
+       46 CALL                             R7 1 1
+       47 GETIMPORT                        R8 K6 [require]
+       49 GETTABLEKS                       R9 R0 K14 ["Utils"]
+       51 GETTABLEKS                       R9 R9 K15 ["logIfDebug"]
+       53 CALL                             R8 1 1
+       54 DUPCLOSURE                       R9 K16 [PROTO_2]
+       55 CAPTURE                          VAL R7
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R8
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R4
+       60 RETURN                           R9 1

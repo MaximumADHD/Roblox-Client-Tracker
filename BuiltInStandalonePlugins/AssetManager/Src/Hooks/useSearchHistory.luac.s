@@ -1,0 +1,58 @@
+PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnSearchHistoryChanged"]
+        3 GETUPVAL                         R2 1
+        4 NAMECALL                         R0 R0 K1 ["Connect"]
+        6 CALL                             R0 2 1
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          VAL R0
+        9 RETURN                           R1 1
+
+PROTO_2:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["use"]
+        3 CALL                             R0 0 1
+        4 GETUPVAL                         R1 1
+        5 NAMECALL                         R2 R0 K1 ["getSearchHistory"]
+        7 CALL                             R2 1 -1
+        8 CALL                             R1 -1 2
+        9 GETUPVAL                         R3 2
+       10 NEWCLOSURE                       R4 P0
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          VAL R2
+       13 NEWTABLE                         R5 0 0
+       15 CALL                             R3 2 0
+       16 RETURN                           R1 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetManager"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Types"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K9 ["React"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K10 ["useState"]
+       23 GETTABLEKS                       R4 R2 K11 ["useEffect"]
+       25 GETIMPORT                        R5 K5 [require]
+       27 GETTABLEKS                       R6 R0 K6 ["Src"]
+       29 GETTABLEKS                       R6 R6 K12 ["Controllers"]
+       31 GETTABLEKS                       R6 R6 K13 ["SearchController"]
+       33 CALL                             R5 1 1
+       34 DUPCLOSURE                       R6 K14 [PROTO_2]
+       35 CAPTURE                          VAL R5
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R4
+       38 RETURN                           R6 1

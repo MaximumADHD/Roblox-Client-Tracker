@@ -1,0 +1,63 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 LOADK                            R1 K2 ["../../OpenApi"]
+        4 CALL                             R0 1 1
+        5 GETTABLEKS                       R1 R0 K3 ["Models"]
+        7 GETIMPORT                        R2 K1 [require]
+        9 LOADK                            R3 K4 ["./NetworkDataReport"]
+       10 CALL                             R2 1 1
+       11 GETIMPORT                        R3 K1 [require]
+       13 LOADK                            R4 K5 ["./PopUdpProbeReport"]
+       14 CALL                             R3 1 1
+       15 GETTABLEKS                       R4 R1 K6 ["object"]
+       17 DUPTABLE                         R5 K26 [{"isoContext", "gameIdToExclude", "gameIdsToExclude", "eventId", "networkDatareport", "forcedPop", "gameJoinAttemptId", "placeId", "gamerTag", "isPlayTogetherGame", "browserTrackerId", "isTeleport", "teleportToken", "isQueueAllowedOverride", "isImmersiveAdsTeleport", "joinOrigin", "partyId", "popUdpProbeReport", "dataModelRecording"}]
+       18 GETTABLEKS                       R6 R1 K27 ["String"]
+       20 SETTABLEKS                       R6 R5 K7 ["isoContext"]
+       22 GETTABLEKS                       R6 R1 K28 ["constrain"]
+       24 GETTABLEKS                       R7 R1 K27 ["String"]
+       26 DUPTABLE                         R8 K31 [{["format"] = "uuid"}]
+       27 CALL                             R6 2 1
+       28 SETTABLEKS                       R6 R5 K8 ["gameIdToExclude"]
+       30 GETTABLEKS                       R6 R1 K32 ["arrayOf"]
+       32 GETTABLEKS                       R7 R1 K27 ["String"]
+       34 CALL                             R6 1 1
+       35 SETTABLEKS                       R6 R5 K9 ["gameIdsToExclude"]
+       37 GETTABLEKS                       R6 R1 K27 ["String"]
+       39 SETTABLEKS                       R6 R5 K10 ["eventId"]
+       41 SETTABLEKS                       R2 R5 K11 ["networkDatareport"]
+       43 GETTABLEKS                       R6 R1 K27 ["String"]
+       45 SETTABLEKS                       R6 R5 K12 ["forcedPop"]
+       47 GETTABLEKS                       R6 R1 K28 ["constrain"]
+       49 GETTABLEKS                       R7 R1 K27 ["String"]
+       51 DUPTABLE                         R8 K31 [{["format"] = "uuid"}]
+       52 CALL                             R6 2 1
+       53 SETTABLEKS                       R6 R5 K13 ["gameJoinAttemptId"]
+       55 GETTABLEKS                       R6 R1 K33 ["Integer"]
+       57 SETTABLEKS                       R6 R5 K14 ["placeId"]
+       59 GETTABLEKS                       R6 R1 K27 ["String"]
+       61 SETTABLEKS                       R6 R5 K15 ["gamerTag"]
+       63 GETTABLEKS                       R6 R1 K34 ["Boolean"]
+       65 SETTABLEKS                       R6 R5 K16 ["isPlayTogetherGame"]
+       67 GETTABLEKS                       R6 R1 K33 ["Integer"]
+       69 SETTABLEKS                       R6 R5 K17 ["browserTrackerId"]
+       71 GETTABLEKS                       R6 R1 K34 ["Boolean"]
+       73 SETTABLEKS                       R6 R5 K18 ["isTeleport"]
+       75 GETTABLEKS                       R6 R1 K27 ["String"]
+       77 SETTABLEKS                       R6 R5 K19 ["teleportToken"]
+       79 GETTABLEKS                       R6 R1 K34 ["Boolean"]
+       81 SETTABLEKS                       R6 R5 K20 ["isQueueAllowedOverride"]
+       83 GETTABLEKS                       R6 R1 K34 ["Boolean"]
+       85 SETTABLEKS                       R6 R5 K21 ["isImmersiveAdsTeleport"]
+       87 GETTABLEKS                       R6 R1 K27 ["String"]
+       89 SETTABLEKS                       R6 R5 K22 ["joinOrigin"]
+       91 GETTABLEKS                       R6 R1 K28 ["constrain"]
+       93 GETTABLEKS                       R7 R1 K27 ["String"]
+       95 DUPTABLE                         R8 K31 [{["format"] = "uuid"}]
+       96 CALL                             R6 2 1
+       97 SETTABLEKS                       R6 R5 K23 ["partyId"]
+       99 SETTABLEKS                       R3 R5 K24 ["popUdpProbeReport"]
+      101 GETTABLEKS                       R6 R1 K34 ["Boolean"]
+      103 SETTABLEKS                       R6 R5 K25 ["dataModelRecording"]
+      105 CALL                             R4 1 -1
+      106 RETURN                           R4 -1

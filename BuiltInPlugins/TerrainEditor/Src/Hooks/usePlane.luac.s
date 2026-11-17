@@ -1,0 +1,279 @@
+PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Selection"]
+        3 GETTABLEKS                       R0 R0 K1 ["new"]
+        5 GETUPVAL                         R3 1
+        6 GETUPVAL                         R4 2
+        7 GETTABLEKS                       R4 R4 K2 ["BrushSettings"]
+        9 GETTABLE                         R2 R3 R4
+       10 GETUPVAL                         R3 3
+       11 GETTABLEKS                       R3 R3 K3 ["PlaneTransform"]
+       13 GETTABLE                         R1 R2 R3
+       14 CALL                             R0 1 -1
+       15 RETURN                           R0 -1
+
+PROTO_1:
+        0 NEWTABLE                         R1 1 0
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["BrushSettings"]
+        5 NEWTABLE                         R3 1 0
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R4 R4 K1 ["PlaneTransform"]
+       10 SETTABLE                         R0 R3 R4
+       11 SETTABLE                         R3 R1 R2
+       12 GETUPVAL                         R2 2
+       13 MOVE                             R3 R1
+       14 CALL                             R2 1 0
+       15 GETUPVAL                         R2 3
+       16 MOVE                             R3 R0
+       17 CALL                             R2 1 0
+       18 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["SetTransform"]
+        4 CALL                             R1 2 0
+        5 GETUPVAL                         R1 1
+        6 MOVE                             R2 R0
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
+
+PROTO_3:
+        0 LOADB                            R0 1
+        1 RETURN                           R0 1
+
+PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["isMocking"]
+        3 CALL                             R0 1 1
+        4 JUMPIFNOT                        R0 ; [+6]
+        5 DUPTABLE                         R0 K4 [{["DraggerContext"], ["Mock"] = True}]
+        6 NEWTABLE                         R1 0 0
+        8 SETTABLEKS                       R1 R0 K1 ["DraggerContext"]
+       10 RETURN                           R0 1
+       11 GETUPVAL                         R0 1
+       12 GETTABLEKS                       R0 R0 K5 ["new"]
+       14 GETUPVAL                         R1 2
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       17 GETIMPORT                        R2 K8 [game]
+       19 GETIMPORT                        R3 K10 [settings]
+       21 CALL                             R3 0 1
+       22 GETUPVAL                         R4 3
+       23 CALL                             R0 4 1
+       24 GETUPVAL                         R1 4
+       25 SETTABLEKS                       R1 R0 K11 ["updatePlane"]
+       27 LOADB                            R1 0
+       28 SETTABLEKS                       R1 R0 K2 ["Mock"]
+       30 DUPCLOSURE                       R1 K12 [PROTO_3]
+       31 SETTABLEKS                       R1 R0 K13 ["shouldExtendSelection"]
+       33 DUPTABLE                         R1 K17 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+       34 GETUPVAL                         R2 5
+       35 NAMECALL                         R2 R2 K18 ["getMouse"]
+       37 CALL                             R2 1 1
+       38 SETTABLEKS                       R2 R1 K14 ["Mouse"]
+       40 SETTABLEKS                       R0 R1 K1 ["DraggerContext"]
+       42 GETUPVAL                         R2 6
+       43 SETTABLEKS                       R2 R1 K15 ["DraggerSchema"]
+       45 DUPTABLE                         R2 K26 [{["AnalyticsName"] = "AdjustablePlaneLock", ["AllowDragSelect"] = True, ["AllowFreeformDrag"] = True, ["ShowLocalSpaceIndicator"] = True, ["ShowPivotIndicator"] = True, ["HandlesList"]}]
+       46 NEWTABLE                         R3 0 2
+       48 GETUPVAL                         R4 7
+       49 GETTABLEKS                       R4 R4 K5 ["new"]
+       51 MOVE                             R5 R0
+       52 DUPTABLE                         R6 K32 [{["ShowBoundingBox"] = False, ["Summonable"] = False, ["Outset"] = 1}]
+       53 GETUPVAL                         R7 6
+       54 GETTABLEKS                       R7 R7 K33 ["TransformHandlesImplementation"]
+       56 GETTABLEKS                       R7 R7 K5 ["new"]
+       58 MOVE                             R8 R0
+       59 CALL                             R7 1 -1
+       60 CALL                             R4 -1 1
+       61 GETUPVAL                         R5 8
+       62 GETTABLEKS                       R5 R5 K5 ["new"]
+       64 MOVE                             R6 R0
+       65 DUPTABLE                         R7 K32 [{["ShowBoundingBox"] = False, ["Summonable"] = False, ["Outset"] = 1}]
+       66 GETUPVAL                         R8 6
+       67 GETTABLEKS                       R8 R8 K33 ["TransformHandlesImplementation"]
+       69 GETTABLEKS                       R8 R8 K5 ["new"]
+       71 MOVE                             R9 R0
+       72 CALL                             R8 1 -1
+       73 CALL                             R5 -1 -1
+       74 SETLIST                          R3 R4 -1 [1]
+       76 SETTABLEKS                       R3 R2 K25 ["HandlesList"]
+       78 SETTABLEKS                       R2 R1 K16 ["DraggerSettings"]
+       80 RETURN                           R1 1
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["DraggerContext"]
+        3 GETUPVAL                         R1 1
+        4 SETTABLEKS                       R1 R0 K1 ["updatePlane"]
+        6 RETURN                           R0 0
+
+PROTO_6:
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["BrushSettings"]
+        4 GETTABLE                         R1 R2 R3
+        5 GETUPVAL                         R2 2
+        6 GETTABLEKS                       R2 R2 K1 ["PlaneTransform"]
+        8 GETTABLE                         R0 R1 R2
+        9 GETUPVAL                         R1 3
+       10 JUMPIF                           R1 ; [+8]
+       11 GETUPVAL                         R1 4
+       12 MOVE                             R3 R0
+       13 NAMECALL                         R1 R1 K2 ["SetTransformSignal"]
+       15 CALL                             R1 2 0
+       16 GETUPVAL                         R1 5
+       17 MOVE                             R2 R0
+       18 CALL                             R1 1 0
+       19 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R4 0
+        1 NAMECALL                         R4 R4 K0 ["use"]
+        3 CALL                             R4 1 1
+        4 GETUPVAL                         R5 1
+        5 NAMECALL                         R5 R5 K0 ["use"]
+        7 CALL                             R5 1 1
+        8 GETUPVAL                         R6 2
+        9 NEWCLOSURE                       R7 P0
+       10 CAPTURE                          UPVAL U3
+       11 CAPTURE                          VAL R1
+       12 CAPTURE                          UPVAL U4
+       13 CAPTURE                          UPVAL U5
+       14 NEWTABLE                         R8 0 1
+       16 MOVE                             R9 R0
+       17 SETLIST                          R8 R9 1 [1]
+       19 CALL                             R6 2 1
+       20 GETUPVAL                         R7 6
+       21 GETUPVAL                         R10 4
+       22 GETTABLEKS                       R10 R10 K1 ["BrushSettings"]
+       24 GETTABLE                         R9 R1 R10
+       25 GETUPVAL                         R10 5
+       26 GETTABLEKS                       R10 R10 K2 ["PlaneTransform"]
+       28 GETTABLE                         R8 R9 R10
+       29 CALL                             R7 1 2
+       30 GETUPVAL                         R9 7
+       31 NEWCLOSURE                       R10 P1
+       32 CAPTURE                          UPVAL U4
+       33 CAPTURE                          UPVAL U5
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R8
+       36 NEWTABLE                         R11 0 1
+       38 MOVE                             R12 R1
+       39 SETLIST                          R11 R12 1 [1]
+       41 CALL                             R9 2 1
+       42 GETUPVAL                         R10 7
+       43 NEWCLOSURE                       R11 P2
+       44 CAPTURE                          VAL R6
+       45 CAPTURE                          VAL R9
+       46 NEWTABLE                         R12 0 2
+       48 MOVE                             R13 R6
+       49 MOVE                             R14 R9
+       50 SETLIST                          R12 R13 2 [1]
+       52 CALL                             R10 2 1
+       53 GETUPVAL                         R11 2
+       54 NEWCLOSURE                       R12 P3
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          UPVAL U8
+       57 CAPTURE                          UPVAL U9
+       58 CAPTURE                          VAL R6
+       59 CAPTURE                          VAL R10
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          UPVAL U3
+       62 CAPTURE                          UPVAL U10
+       63 CAPTURE                          UPVAL U11
+       64 NEWTABLE                         R13 0 1
+       66 MOVE                             R14 R0
+       67 SETLIST                          R13 R14 1 [1]
+       69 CALL                             R11 2 1
+       70 GETUPVAL                         R12 12
+       71 NEWCLOSURE                       R13 P4
+       72 CAPTURE                          VAL R11
+       73 CAPTURE                          VAL R10
+       74 NEWTABLE                         R14 0 1
+       76 MOVE                             R15 R10
+       77 SETLIST                          R14 R15 1 [1]
+       79 CALL                             R12 2 0
+       80 GETUPVAL                         R12 12
+       81 NEWCLOSURE                       R13 P5
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          UPVAL U4
+       84 CAPTURE                          UPVAL U5
+       85 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R6
+       87 CAPTURE                          VAL R8
+       88 NEWTABLE                         R14 0 2
+       90 MOVE                             R15 R0
+       91 GETUPVAL                         R18 4
+       92 GETTABLEKS                       R18 R18 K1 ["BrushSettings"]
+       94 GETTABLE                         R17 R1 R18
+       95 GETUPVAL                         R18 5
+       96 GETTABLEKS                       R18 R18 K2 ["PlaneTransform"]
+       98 GETTABLE                         R16 R17 R18
+       99 SETLIST                          R14 R15 2 [1]
+      101 CALL                             R12 2 0
+      102 MOVE                             R12 R11
+      103 MOVE                             R13 R7
+      104 RETURN                           R12 2
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["useCallback"]
+       23 GETTABLEKS                       R4 R2 K10 ["useEffect"]
+       25 GETTABLEKS                       R5 R2 K11 ["useMemo"]
+       27 GETTABLEKS                       R6 R2 K12 ["useState"]
+       29 GETIMPORT                        R7 K5 [require]
+       31 GETTABLEKS                       R8 R0 K13 ["Src"]
+       33 GETTABLEKS                       R8 R8 K14 ["Controllers"]
+       35 GETTABLEKS                       R8 R8 K15 ["PluginController"]
+       37 CALL                             R7 1 1
+       38 GETIMPORT                        R8 K5 [require]
+       40 GETTABLEKS                       R9 R0 K13 ["Src"]
+       42 GETTABLEKS                       R9 R9 K14 ["Controllers"]
+       44 GETTABLEKS                       R9 R9 K16 ["ShortcutController"]
+       46 CALL                             R8 1 1
+       47 GETIMPORT                        R9 K5 [require]
+       49 GETTABLEKS                       R10 R0 K13 ["Src"]
+       51 GETTABLEKS                       R10 R10 K17 ["Schemas"]
+       53 GETTABLEKS                       R10 R10 K18 ["Plane"]
+       55 CALL                             R9 1 1
+       56 GETTABLEKS                       R10 R1 K19 ["Implementation"]
+       58 GETTABLEKS                       R10 R10 K20 ["DraggerContext_PluginImpl"]
+       60 GETTABLEKS                       R11 R1 K21 ["Handles"]
+       62 GETTABLEKS                       R11 R11 K22 ["MoveHandles"]
+       64 GETTABLEKS                       R12 R1 K21 ["Handles"]
+       66 GETTABLEKS                       R12 R12 K23 ["RotateHandles"]
+       68 GETIMPORT                        R13 K5 [require]
+       70 GETTABLEKS                       R14 R0 K13 ["Src"]
+       72 GETTABLEKS                       R14 R14 K24 ["Types"]
+       74 CALL                             R13 1 1
+       75 GETTABLEKS                       R14 R13 K25 ["BrushSettings"]
+       77 GETTABLEKS                       R15 R13 K26 ["Category"]
+       79 DUPCLOSURE                       R16 K27 [PROTO_7]
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R9
+       84 CAPTURE                          VAL R15
+       85 CAPTURE                          VAL R14
+       86 CAPTURE                          VAL R6
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          VAL R0
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R4
+       93 RETURN                           R16 1

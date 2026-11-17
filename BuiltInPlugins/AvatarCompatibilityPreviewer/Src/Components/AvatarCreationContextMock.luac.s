@@ -1,0 +1,373 @@
+PROTO_0:
+        0 GETIMPORT                        R0 K2 [Instance.new]
+        2 LOADK                            R1 K3 ["HumanoidDescription"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
+
+PROTO_1:
+        0 GETIMPORT                        R0 K2 [Instance.new]
+        2 LOADK                            R1 K3 ["Model"]
+        3 CALL                             R0 1 1
+        4 GETIMPORT                        R1 K2 [Instance.new]
+        6 LOADK                            R2 K4 ["Part"]
+        7 CALL                             R1 1 1
+        8 LOADK                            R2 K5 ["HumanoidRootPart"]
+        9 SETTABLEKS                       R2 R1 K6 ["Name"]
+       11 SETTABLEKS                       R0 R1 K7 ["Parent"]
+       13 SETTABLEKS                       R1 R0 K8 ["PrimaryPart"]
+       15 RETURN                           R0 1
+
+PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["onGenerate2D"]
+        3 JUMPIFEQKNIL                     R2 ; [+6]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["onGenerate2D"]
+        8 MOVE                             R3 R0
+        9 CALL                             R2 1 0
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K1 ["previewSignal"]
+       13 JUMPIFEQKNIL                     R2 ; [+7]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K1 ["previewSignal"]
+       18 NAMECALL                         R2 R2 K2 ["Wait"]
+       20 CALL                             R2 1 0
+       21 LOADK                            R2 K3 ["preview-1"]
+       22 RETURN                           R2 1
+
+PROTO_3:
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["CreateEditableImage"]
+        3 CALL                             R1 1 -1
+        4 RETURN                           R1 -1
+
+PROTO_4:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["progressSignal"]
+        3 JUMPIFEQKNIL                     R3 ; [+9]
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K0 ["progressSignal"]
+        8 MOVE                             R4 R1
+        9 NAMECALL                         R2 R2 K1 ["Connect"]
+       11 CALL                             R2 2 1
+       12 JUMP                             ; [+1]
+       13 LOADNIL                          R2
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K2 ["signal"]
+       17 JUMPIFEQKNIL                     R3 ; [+7]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K2 ["signal"]
+       22 NAMECALL                         R3 R3 K3 ["Wait"]
+       24 CALL                             R3 1 0
+       25 JUMPIFEQKNIL                     R2 ; [+4]
+       27 NAMECALL                         R3 R2 K4 ["Disconnect"]
+       29 CALL                             R3 1 0
+       30 LOADK                            R3 K5 ["generation-1"]
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R5 R5 K6 ["jobId"]
+       34 JUMPIFEQKNIL                     R5 ; [+5]
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K6 ["jobId"]
+       39 RETURN                           R3 2
+       40 LOADK                            R4 K7 ["job-1"]
+       41 RETURN                           R3 2
+
+PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 -1
+        2 RETURN                           R1 -1
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["result"]
+        3 JUMPIF                           R1 ; [+15]
+        4 GETIMPORT                        R1 K3 [Instance.new]
+        6 LOADK                            R2 K4 ["Model"]
+        7 CALL                             R1 1 1
+        8 GETIMPORT                        R2 K3 [Instance.new]
+       10 LOADK                            R3 K5 ["Part"]
+       11 CALL                             R2 1 1
+       12 LOADK                            R3 K6 ["HumanoidRootPart"]
+       13 SETTABLEKS                       R3 R2 K7 ["Name"]
+       15 SETTABLEKS                       R1 R2 K8 ["Parent"]
+       17 SETTABLEKS                       R2 R1 K9 ["PrimaryPart"]
+       19 RETURN                           R1 1
+
+PROTO_7:
+        0 DUPTABLE                         R1 K5 [{"generate2DPreviewAsync", "load2DPreviewAsync", "generate3DAvatarAsync", "load3DAvatarAsync", "createGeneratedAvatarModelAsync"}]
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 SETTABLEKS                       R2 R1 K0 ["generate2DPreviewAsync"]
+        5 DUPCLOSURE                       R2 K6 [PROTO_3]
+        6 CAPTURE                          UPVAL U0
+        7 SETTABLEKS                       R2 R1 K1 ["load2DPreviewAsync"]
+        9 NEWCLOSURE                       R2 P2
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R2 R1 K2 ["generate3DAvatarAsync"]
+       13 DUPCLOSURE                       R2 K7 [PROTO_5]
+       14 CAPTURE                          UPVAL U1
+       15 SETTABLEKS                       R2 R1 K3 ["load3DAvatarAsync"]
+       17 NEWCLOSURE                       R2 P4
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R2 R1 K4 ["createGeneratedAvatarModelAsync"]
+       21 RETURN                           R1 1
+
+PROTO_8:
+        0 GETUPVAL                         R1 0
+        1 NEWTABLE                         R2 0 0
+        3 CALL                             R1 1 1
+        4 DUPTABLE                         R2 K5 [{"generate2DPreviewAsync", "load2DPreviewAsync", "generate3DAvatarAsync", "load3DAvatarAsync", "createGeneratedAvatarModelAsync"}]
+        5 GETTABLEKS                       R3 R0 K0 ["generate2DPreviewAsync"]
+        7 JUMPIF                           R3 ; [+2]
+        8 GETTABLEKS                       R3 R1 K0 ["generate2DPreviewAsync"]
+       10 SETTABLEKS                       R3 R2 K0 ["generate2DPreviewAsync"]
+       12 GETTABLEKS                       R3 R0 K1 ["load2DPreviewAsync"]
+       14 JUMPIF                           R3 ; [+2]
+       15 GETTABLEKS                       R3 R1 K1 ["load2DPreviewAsync"]
+       17 SETTABLEKS                       R3 R2 K1 ["load2DPreviewAsync"]
+       19 GETTABLEKS                       R3 R0 K2 ["generate3DAvatarAsync"]
+       21 JUMPIF                           R3 ; [+2]
+       22 GETTABLEKS                       R3 R1 K2 ["generate3DAvatarAsync"]
+       24 SETTABLEKS                       R3 R2 K2 ["generate3DAvatarAsync"]
+       26 GETTABLEKS                       R3 R0 K3 ["load3DAvatarAsync"]
+       28 JUMPIF                           R3 ; [+2]
+       29 GETTABLEKS                       R3 R1 K3 ["load3DAvatarAsync"]
+       31 SETTABLEKS                       R3 R2 K3 ["load3DAvatarAsync"]
+       33 GETTABLEKS                       R3 R0 K4 ["createGeneratedAvatarModelAsync"]
+       35 JUMPIF                           R3 ; [+2]
+       36 GETTABLEKS                       R3 R1 K4 ["createGeneratedAvatarModelAsync"]
+       38 SETTABLEKS                       R3 R2 K4 ["createGeneratedAvatarModelAsync"]
+       40 RETURN                           R2 1
+
+PROTO_9:
+        0 GETUPVAL                         R0 0
+        1 DUPTABLE                         R1 K6 [{"signal", "previewSignal", "progressSignal", "result", "jobId", "onGenerate2D"}]
+        2 GETUPVAL                         R2 1
+        3 GETTABLEKS                       R2 R2 K0 ["signal"]
+        5 SETTABLEKS                       R2 R1 K0 ["signal"]
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K1 ["previewSignal"]
+       10 SETTABLEKS                       R2 R1 K1 ["previewSignal"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K2 ["progressSignal"]
+       15 SETTABLEKS                       R2 R1 K2 ["progressSignal"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K3 ["result"]
+       20 SETTABLEKS                       R2 R1 K3 ["result"]
+       22 GETUPVAL                         R2 1
+       23 GETTABLEKS                       R2 R2 K4 ["jobId"]
+       25 SETTABLEKS                       R2 R1 K4 ["jobId"]
+       27 GETUPVAL                         R2 1
+       28 GETTABLEKS                       R2 R2 K5 ["onGenerate2D"]
+       30 SETTABLEKS                       R2 R1 K5 ["onGenerate2D"]
+       32 CALL                             R0 1 1
+       33 RETURN                           R0 1
+
+PROTO_10:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R0
+        6 NEWTABLE                         R3 0 6
+        8 GETTABLEKS                       R4 R0 K1 ["signal"]
+       10 GETTABLEKS                       R5 R0 K2 ["previewSignal"]
+       12 GETTABLEKS                       R6 R0 K3 ["progressSignal"]
+       14 GETTABLEKS                       R7 R0 K4 ["result"]
+       16 GETTABLEKS                       R8 R0 K5 ["jobId"]
+       18 GETTABLEKS                       R9 R0 K6 ["onGenerate2D"]
+       20 SETLIST                          R3 R4 6 [1]
+       22 CALL                             R1 2 1
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K7 ["createElement"]
+       26 GETUPVAL                         R3 2
+       27 GETTABLEKS                       R3 R3 K8 ["Provider"]
+       29 DUPTABLE                         R4 K10 [{"value"}]
+       30 SETTABLEKS                       R1 R4 K9 ["value"]
+       32 GETTABLEKS                       R5 R0 K11 ["children"]
+       34 CALL                             R2 3 -1
+       35 RETURN                           R2 -1
+
+PROTO_11:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["onGenerate2D"]
+        3 CALL                             R2 0 0
+        4 LOADK                            R2 K1 ["preview-1"]
+        5 RETURN                           R2 1
+
+PROTO_12:
+        0 GETUPVAL                         R0 0
+        1 DUPTABLE                         R1 K1 [{"generate2DPreviewAsync"}]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U1
+        4 SETTABLEKS                       R2 R1 K0 ["generate2DPreviewAsync"]
+        6 CALL                             R0 1 1
+        7 RETURN                           R0 1
+
+PROTO_13:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R0
+        6 NEWTABLE                         R3 0 1
+        8 GETTABLEKS                       R4 R0 K1 ["onGenerate2D"]
+       10 SETLIST                          R3 R4 1 [1]
+       12 CALL                             R1 2 1
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K2 ["createElement"]
+       16 GETUPVAL                         R3 2
+       17 GETTABLEKS                       R3 R3 K3 ["Provider"]
+       19 DUPTABLE                         R4 K5 [{"value"}]
+       20 SETTABLEKS                       R1 R4 K4 ["value"]
+       22 GETTABLEKS                       R5 R0 K6 ["children"]
+       24 CALL                             R2 3 -1
+       25 RETURN                           R2 -1
+
+PROTO_14:
+        0 GETIMPORT                        R0 K1 [error]
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 2D generation error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
+
+PROTO_15:
+        0 GETIMPORT                        R0 K1 [error]
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 2D preview load error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
+
+PROTO_16:
+        0 GETIMPORT                        R0 K1 [error]
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 3D generation error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
+
+PROTO_17:
+        0 GETIMPORT                        R0 K1 [error]
+        2 GETUPVAL                         R2 0
+        3 ORK                              R1 R2 K2 ["Mock 3D load error"]
+        4 LOADN                            R2 0
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
+
+PROTO_18:
+        0 JUMPIFNOTEQKS                    R0 K0 ["generate2D"] ; [+7]
+        2 DUPTABLE                         R2 K2 [{"generate2DPreviewAsync"}]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          VAL R1
+        5 SETTABLEKS                       R3 R2 K1 ["generate2DPreviewAsync"]
+        7 RETURN                           R2 1
+        8 JUMPIFNOTEQKS                    R0 K3 ["load2D"] ; [+7]
+       10 DUPTABLE                         R2 K5 [{"load2DPreviewAsync"}]
+       11 NEWCLOSURE                       R3 P1
+       12 CAPTURE                          VAL R1
+       13 SETTABLEKS                       R3 R2 K4 ["load2DPreviewAsync"]
+       15 RETURN                           R2 1
+       16 JUMPIFNOTEQKS                    R0 K6 ["generate3D"] ; [+7]
+       18 DUPTABLE                         R2 K8 [{"generate3DAvatarAsync"}]
+       19 NEWCLOSURE                       R3 P2
+       20 CAPTURE                          VAL R1
+       21 SETTABLEKS                       R3 R2 K7 ["generate3DAvatarAsync"]
+       23 RETURN                           R2 1
+       24 JUMPIFNOTEQKS                    R0 K9 ["load3D"] ; [+7]
+       26 DUPTABLE                         R2 K11 [{"load3DAvatarAsync"}]
+       27 NEWCLOSURE                       R3 P3
+       28 CAPTURE                          VAL R1
+       29 SETTABLEKS                       R3 R2 K10 ["load3DAvatarAsync"]
+       31 RETURN                           R2 1
+       32 GETIMPORT                        R2 K13 [error]
+       34 LOADK                            R3 K14 ["Unhandled failure stage: %*"]
+       35 MOVE                             R5 R0
+       36 NAMECALL                         R3 R3 K15 ["format"]
+       38 CALL                             R3 2 1
+       39 CALL                             R2 1 0
+       40 RETURN                           R0 0
+
+PROTO_19:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 GETTABLEKS                       R2 R2 K0 ["stage"]
+        5 GETUPVAL                         R3 2
+        6 GETTABLEKS                       R3 R3 K1 ["errorValue"]
+        8 CALL                             R1 2 -1
+        9 CALL                             R0 -1 1
+       10 RETURN                           R0 1
+
+PROTO_20:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          VAL R0
+        7 NEWTABLE                         R3 0 2
+        9 GETTABLEKS                       R4 R0 K1 ["stage"]
+       11 GETTABLEKS                       R5 R0 K2 ["errorValue"]
+       13 SETLIST                          R3 R4 2 [1]
+       15 CALL                             R1 2 1
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K3 ["createElement"]
+       19 GETUPVAL                         R3 3
+       20 GETTABLEKS                       R3 R3 K4 ["Provider"]
+       22 DUPTABLE                         R4 K6 [{"value"}]
+       23 SETTABLEKS                       R1 R4 K5 ["value"]
+       25 GETTABLEKS                       R5 R0 K7 ["children"]
+       27 CALL                             R2 3 -1
+       28 RETURN                           R2 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["AssetService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [script]
+        9 LOADK                            R3 K6 ["AvatarCompatibilityPreviewer"]
+       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Components"]
+       19 GETTABLEKS                       R3 R3 K12 ["AvatarCreationContext"]
+       21 CALL                             R2 1 1
+       22 GETIMPORT                        R3 K9 [require]
+       24 GETTABLEKS                       R4 R1 K13 ["Packages"]
+       26 GETTABLEKS                       R4 R4 K14 ["React"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K9 [require]
+       31 GETTABLEKS                       R5 R1 K10 ["Src"]
+       33 GETTABLEKS                       R5 R5 K15 ["Types"]
+       35 CALL                             R4 1 1
+       36 DUPCLOSURE                       R5 K16 [PROTO_0]
+       37 DUPCLOSURE                       R6 K17 [PROTO_1]
+       38 DUPCLOSURE                       R7 K18 [PROTO_7]
+       39 CAPTURE                          VAL R0
+       40 CAPTURE                          VAL R5
+       41 DUPCLOSURE                       R8 K19 [PROTO_8]
+       42 CAPTURE                          VAL R7
+       43 DUPCLOSURE                       R9 K20 [PROTO_10]
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R7
+       46 CAPTURE                          VAL R2
+       47 DUPCLOSURE                       R10 K21 [PROTO_13]
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R8
+       50 CAPTURE                          VAL R2
+       51 DUPCLOSURE                       R11 K22 [PROTO_18]
+       52 DUPCLOSURE                       R12 K23 [PROTO_20]
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R8
+       55 CAPTURE                          VAL R11
+       56 CAPTURE                          VAL R2
+       57 DUPTABLE                         R13 K27 [{"Success", "Trackable", "Fails"}]
+       58 SETTABLEKS                       R9 R13 K24 ["Success"]
+       60 SETTABLEKS                       R10 R13 K25 ["Trackable"]
+       62 SETTABLEKS                       R12 R13 K26 ["Fails"]
+       64 RETURN                           R13 1

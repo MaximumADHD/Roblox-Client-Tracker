@@ -1,0 +1,84 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [plugin]
+        3 JUMPIF                           R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETIMPORT                        R0 K3 [script]
+        7 LOADK                            R2 K4 ["ReimportPlugin"]
+        8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
+       10 CALL                             R0 2 1
+       11 GETIMPORT                        R1 K7 [require]
+       13 GETTABLEKS                       R2 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R2 R1 K10 ["isCli"]
+       20 CALL                             R2 0 1
+       21 JUMPIFNOT                        R2 ; [+1]
+       22 RETURN                           R0 0
+       23 GETIMPORT                        R2 K7 [require]
+       25 GETTABLEKS                       R3 R0 K11 ["Flags"]
+       27 GETTABLEKS                       R3 R3 K12 ["GetFFlagEnableReimport"]
+       29 CALL                             R2 1 1
+       30 MOVE                             R3 R2
+       31 CALL                             R3 0 1
+       32 JUMPIF                           R3 ; [+1]
+       33 RETURN                           R0 0
+       34 GETIMPORT                        R3 K14 [game]
+       36 LOADK                            R5 K15 ["RunService"]
+       37 NAMECALL                         R3 R3 K16 ["GetService"]
+       39 CALL                             R3 2 1
+       40 NAMECALL                         R3 R3 K17 ["IsEdit"]
+       42 CALL                             R3 1 1
+       43 JUMPIF                           R3 ; [+1]
+       44 RETURN                           R0 0
+       45 GETIMPORT                        R3 K1 [plugin]
+       47 GETTABLEKS                       R4 R0 K18 ["Name"]
+       49 SETTABLEKS                       R4 R3 K18 ["Name"]
+       51 GETIMPORT                        R3 K7 [require]
+       53 GETTABLEKS                       R4 R0 K19 ["Bin"]
+       55 GETTABLEKS                       R4 R4 K20 ["Common"]
+       57 GETTABLEKS                       R4 R4 K21 ["Events"]
+       59 CALL                             R3 1 1
+       60 GETTABLEKS                       R4 R3 K22 ["registerActions"]
+       62 CALL                             R4 0 0
+       63 GETIMPORT                        R4 K7 [require]
+       65 GETTABLEKS                       R5 R0 K11 ["Flags"]
+       67 GETTABLEKS                       R5 R5 K23 ["GetFFlagReimportSendReimportConfigOnUpload"]
+       69 CALL                             R4 1 1
+       70 MOVE                             R5 R4
+       71 CALL                             R5 0 1
+       72 JUMPIFNOT                        R5 ; [+3]
+       73 GETTABLEKS                       R5 R3 K24 ["registerCrossPluginListeners"]
+       75 CALL                             R5 0 0
+       76 GETIMPORT                        R5 K7 [require]
+       78 GETTABLEKS                       R6 R0 K25 ["Lib"]
+       80 GETTABLEKS                       R6 R6 K26 ["Reimport"]
+       82 GETTABLEKS                       R6 R6 K27 ["ReimportConfigs"]
+       84 CALL                             R5 1 1
+       85 GETTABLEKS                       R6 R5 K28 ["init"]
+       87 CALL                             R6 0 0
+       88 GETIMPORT                        R6 K7 [require]
+       90 GETTABLEKS                       R7 R0 K11 ["Flags"]
+       92 GETTABLEKS                       R7 R7 K29 ["GetFFlagReimportFileWatcher"]
+       94 CALL                             R6 1 1
+       95 MOVE                             R7 R6
+       96 CALL                             R7 0 1
+       97 JUMPIFNOT                        R7 ; [+12]
+       98 GETIMPORT                        R7 K7 [require]
+      100 GETTABLEKS                       R8 R0 K25 ["Lib"]
+      102 GETTABLEKS                       R8 R8 K30 ["FileWatch"]
+      104 CALL                             R7 1 1
+      105 GETTABLEKS                       R8 R7 K28 ["init"]
+      107 GETIMPORT                        R9 K1 [plugin]
+      109 CALL                             R8 1 0
+      110 GETIMPORT                        R7 K7 [require]
+      112 GETTABLEKS                       R8 R0 K19 ["Bin"]
+      114 GETTABLEKS                       R8 R8 K20 ["Common"]
+      116 GETTABLEKS                       R8 R8 K31 ["Debug"]
+      118 CALL                             R7 1 1
+      119 GETTABLEKS                       R8 R7 K32 ["debugEnabled"]
+      121 CALL                             R8 0 1
+      122 JUMPIFNOT                        R8 ; [+3]
+      123 GETTABLEKS                       R8 R7 K33 ["showDebugUi"]
+      125 CALL                             R8 0 0
+      126 RETURN                           R0 0

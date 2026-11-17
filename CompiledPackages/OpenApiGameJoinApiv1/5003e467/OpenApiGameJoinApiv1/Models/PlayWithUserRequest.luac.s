@@ -1,0 +1,46 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 LOADK                            R1 K2 ["../../OpenApi"]
+        4 CALL                             R0 1 1
+        5 GETTABLEKS                       R1 R0 K3 ["Models"]
+        7 GETIMPORT                        R2 K1 [require]
+        9 LOADK                            R3 K4 ["./PopUdpProbeReport"]
+       10 CALL                             R2 1 1
+       11 GETTABLEKS                       R3 R1 K5 ["object"]
+       13 DUPTABLE                         R4 K20 [{"userIdToFollow", "gameJoinAttemptId", "placeId", "gamerTag", "isPlayTogetherGame", "browserTrackerId", "isTeleport", "teleportToken", "isQueueAllowedOverride", "isImmersiveAdsTeleport", "joinOrigin", "partyId", "popUdpProbeReport", "dataModelRecording"}]
+       14 GETTABLEKS                       R5 R1 K21 ["Integer"]
+       16 SETTABLEKS                       R5 R4 K6 ["userIdToFollow"]
+       18 GETTABLEKS                       R5 R1 K22 ["constrain"]
+       20 GETTABLEKS                       R6 R1 K23 ["String"]
+       22 DUPTABLE                         R7 K26 [{["format"] = "uuid"}]
+       23 CALL                             R5 2 1
+       24 SETTABLEKS                       R5 R4 K7 ["gameJoinAttemptId"]
+       26 GETTABLEKS                       R5 R1 K21 ["Integer"]
+       28 SETTABLEKS                       R5 R4 K8 ["placeId"]
+       30 GETTABLEKS                       R5 R1 K23 ["String"]
+       32 SETTABLEKS                       R5 R4 K9 ["gamerTag"]
+       34 GETTABLEKS                       R5 R1 K27 ["Boolean"]
+       36 SETTABLEKS                       R5 R4 K10 ["isPlayTogetherGame"]
+       38 GETTABLEKS                       R5 R1 K21 ["Integer"]
+       40 SETTABLEKS                       R5 R4 K11 ["browserTrackerId"]
+       42 GETTABLEKS                       R5 R1 K27 ["Boolean"]
+       44 SETTABLEKS                       R5 R4 K12 ["isTeleport"]
+       46 GETTABLEKS                       R5 R1 K23 ["String"]
+       48 SETTABLEKS                       R5 R4 K13 ["teleportToken"]
+       50 GETTABLEKS                       R5 R1 K27 ["Boolean"]
+       52 SETTABLEKS                       R5 R4 K14 ["isQueueAllowedOverride"]
+       54 GETTABLEKS                       R5 R1 K27 ["Boolean"]
+       56 SETTABLEKS                       R5 R4 K15 ["isImmersiveAdsTeleport"]
+       58 GETTABLEKS                       R5 R1 K23 ["String"]
+       60 SETTABLEKS                       R5 R4 K16 ["joinOrigin"]
+       62 GETTABLEKS                       R5 R1 K22 ["constrain"]
+       64 GETTABLEKS                       R6 R1 K23 ["String"]
+       66 DUPTABLE                         R7 K26 [{["format"] = "uuid"}]
+       67 CALL                             R5 2 1
+       68 SETTABLEKS                       R5 R4 K17 ["partyId"]
+       70 SETTABLEKS                       R2 R4 K18 ["popUdpProbeReport"]
+       72 GETTABLEKS                       R5 R1 K27 ["Boolean"]
+       74 SETTABLEKS                       R5 R4 K19 ["dataModelRecording"]
+       76 CALL                             R3 1 -1
+       77 RETURN                           R3 -1

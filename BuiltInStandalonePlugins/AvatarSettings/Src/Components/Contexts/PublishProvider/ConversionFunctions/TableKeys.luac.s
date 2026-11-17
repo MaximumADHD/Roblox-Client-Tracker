@@ -1,0 +1,206 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Components"]
+       13 GETTABLEKS                       R2 R2 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R2 K9 ["PublishProvider"]
+       17 GETTABLEKS                       R2 R2 K10 ["PublishedSettingsTypes"]
+       19 CALL                             R1 1 1
+       20 GETIMPORT                        R2 K5 [require]
+       22 GETTABLEKS                       R3 R0 K6 ["Src"]
+       24 GETTABLEKS                       R3 R3 K11 ["Flags"]
+       26 GETTABLEKS                       R3 R3 K12 ["getEngineFeatureAvatarSettingsBodyPartsCollidableOnDeath"]
+       28 CALL                             R2 1 1
+       29 GETIMPORT                        R3 K5 [require]
+       31 GETTABLEKS                       R4 R0 K6 ["Src"]
+       33 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       35 GETTABLEKS                       R4 R4 K13 ["getEngineFeatureAvatarSettingsHitbox"]
+       37 CALL                             R3 1 1
+       38 GETIMPORT                        R4 K5 [require]
+       40 GETTABLEKS                       R5 R0 K6 ["Src"]
+       42 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       44 GETTABLEKS                       R5 R5 K14 ["getEngineFeatureAvatarSettingsSpawnEffects"]
+       46 CALL                             R4 1 1
+       47 GETIMPORT                        R5 K5 [require]
+       49 GETTABLEKS                       R6 R0 K6 ["Src"]
+       51 GETTABLEKS                       R6 R6 K11 ["Flags"]
+       53 GETTABLEKS                       R6 R6 K15 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
+       55 CALL                             R5 1 1
+       56 GETIMPORT                        R6 K5 [require]
+       58 GETTABLEKS                       R7 R0 K6 ["Src"]
+       60 GETTABLEKS                       R7 R7 K11 ["Flags"]
+       62 GETTABLEKS                       R7 R7 K16 ["getFFlagAvatarSettingsReachHold"]
+       64 CALL                             R6 1 1
+       65 GETIMPORT                        R7 K5 [require]
+       67 GETTABLEKS                       R8 R0 K6 ["Src"]
+       69 GETTABLEKS                       R8 R8 K11 ["Flags"]
+       71 GETTABLEKS                       R8 R8 K17 ["getFFlagAvatarSettingsTurning"]
+       73 CALL                             R7 1 1
+       74 DUPTABLE                         R8 K27 [{"bodySettingKeys", "bodySettingAssetIdKeys", "movementSettingKeys", "animationSettingKeys", "animationSettingAssetIdKeys", "accessoriesSettingKeys", "accessoriesSettingAssetIdKeys", "clothingSettingKeys", "clothingSettingAssetIdKeys"}]
+       75 NEWTABLE                         R9 0 9
+       77 LOADK                            R10 K28 ["bodyScaleSetting"]
+       78 LOADK                            R11 K29 ["bodyScaleCustomHeight"]
+       79 LOADK                            R12 K30 ["bodyAppearanceSetting"]
+       80 LOADK                            R13 K31 ["bodyBuildSetting"]
+       81 LOADK                            R14 K32 ["bodyBuildCustomHeight"]
+       82 LOADK                            R15 K33 ["bodyBuildCustomWidth"]
+       83 LOADK                            R16 K34 ["bodyBuildCustomHead"]
+       84 LOADK                            R17 K35 ["bodyBuildCustomBodyType"]
+       85 LOADK                            R18 K36 ["bodyBuildCustomProportions"]
+       86 SETLIST                          R9 R10 9 [1]
+       88 SETTABLEKS                       R9 R8 K18 ["bodySettingKeys"]
+       90 NEWTABLE                         R9 0 10
+       92 LOADK                            R10 K37 ["bodyAppearanceCustomPartsFace"]
+       93 LOADK                            R11 K38 ["bodyAppearanceCustomPartsHead"]
+       94 LOADK                            R12 K39 ["bodyAppearanceCustomPartsMood"]
+       95 LOADK                            R13 K40 ["bodyAppearanceCustomPartsEyebrow"]
+       96 LOADK                            R14 K41 ["bodyAppearanceCustomPartsEyelash"]
+       97 LOADK                            R15 K42 ["bodyAppearanceCustomPartsTorso"]
+       98 LOADK                            R16 K43 ["bodyAppearanceCustomPartsLeftArm"]
+       99 LOADK                            R17 K44 ["bodyAppearanceCustomPartsRightArm"]
+      100 LOADK                            R18 K45 ["bodyAppearanceCustomPartsLeftLeg"]
+      101 LOADK                            R19 K46 ["bodyAppearanceCustomPartsRightLeg"]
+      102 SETLIST                          R9 R10 10 [1]
+      104 SETTABLEKS                       R9 R8 K19 ["bodySettingAssetIdKeys"]
+      106 NEWTABLE                         R9 0 12
+      108 LOADK                            R10 K47 ["collisionSetting"]
+      109 LOADK                            R11 K48 ["collisionHitAndTouchDetectionSetting"]
+      110 LOADK                            R12 K49 ["collisionMethodSetting"]
+      111 LOADK                            R13 K50 ["collisionSizeSetting"]
+      112 LOADK                            R14 K51 ["characterControllerModeSetting"]
+      113 LOADK                            R15 K52 ["defaultAbilitiesEnableRunningSetting"]
+      114 LOADK                            R16 K53 ["defaultAbilitiesEnableJumpingSetting"]
+      115 LOADK                            R17 K54 ["defaultAbilitiesEnableSittingSetting"]
+      116 LOADK                            R18 K55 ["defaultAbilitiesEnableFallingDownSetting"]
+      117 LOADK                            R19 K56 ["defaultAbilitiesEnableGettingUpSetting"]
+      118 LOADK                            R20 K57 ["defaultAbilitiesEnableClimbingSetting"]
+      119 LOADK                            R21 K58 ["defaultAbilitiesEnableSwimmingSetting"]
+      120 SETLIST                          R9 R10 12 [1]
+      122 SETTABLEKS                       R9 R8 K20 ["movementSettingKeys"]
+      124 NEWTABLE                         R9 0 2
+      126 LOADK                            R10 K59 ["animationPacksSetting"]
+      127 LOADK                            R11 K60 ["animationClipsSetting"]
+      128 SETLIST                          R9 R10 2 [1]
+      130 SETTABLEKS                       R9 R8 K21 ["animationSettingKeys"]
+      132 NEWTABLE                         R9 0 10
+      134 LOADK                            R10 K61 ["animationClipsRunSetting"]
+      135 LOADK                            R11 K62 ["animationClipsWalkSetting"]
+      136 LOADK                            R12 K63 ["animationClipsFallSetting"]
+      137 LOADK                            R13 K64 ["animationClipsJumpSetting"]
+      138 LOADK                            R14 K65 ["animationClipsIdleSetting"]
+      139 LOADK                            R15 K66 ["animationClipsIdleAlt1Setting"]
+      140 LOADK                            R16 K67 ["animationClipsIdleAlt2Setting"]
+      141 LOADK                            R17 K68 ["animationClipsSwimSetting"]
+      142 LOADK                            R18 K69 ["animationClipsSwimIdleSetting"]
+      143 LOADK                            R19 K70 ["animationClipsClimbSetting"]
+      144 SETLIST                          R9 R10 10 [1]
+      146 SETTABLEKS                       R9 R8 K22 ["animationSettingAssetIdKeys"]
+      148 NEWTABLE                         R9 0 7
+      150 LOADK                            R10 K71 ["accessoryScaleSetting"]
+      151 LOADK                            R11 K72 ["accessoryScaleLimitMethodSetting"]
+      152 LOADK                            R12 K73 ["accessoryScaleLimitBoundsSetting"]
+      153 LOADK                            R13 K74 ["customAccessoriesSetting"]
+      154 LOADK                            R14 K75 ["accessoryBehaviorEnableSoundSetting"]
+      155 LOADK                            R15 K76 ["accessoryBehaviorEnableVFXSetting"]
+      156 LOADK                            R16 K77 ["accessoryBehaviorEnableEmissivesSetting"]
+      157 SETLIST                          R9 R10 7 [1]
+      159 SETTABLEKS                       R9 R8 K23 ["accessoriesSettingKeys"]
+      161 NEWTABLE                         R9 0 8
+      163 LOADK                            R10 K78 ["customAccessoriesHairSetting"]
+      164 LOADK                            R11 K79 ["customAccessoriesHeadSetting"]
+      165 LOADK                            R12 K80 ["customAccessoriesFaceSetting"]
+      166 LOADK                            R13 K81 ["customAccessoriesNeckSetting"]
+      167 LOADK                            R14 K82 ["customAccessoriesShoulderSetting"]
+      168 LOADK                            R15 K83 ["customAccessoriesFrontSetting"]
+      169 LOADK                            R16 K84 ["customAccessoriesBackSetting"]
+      170 LOADK                            R17 K85 ["customAccessoriesWaistSetting"]
+      171 SETLIST                          R9 R10 8 [1]
+      173 SETTABLEKS                       R9 R8 K24 ["accessoriesSettingAssetIdKeys"]
+      175 NEWTABLE                         R9 0 3
+      177 LOADK                            R10 K86 ["clothingScaleSetting"]
+      178 LOADK                            R11 K87 ["clothingScaleLimitBoundsSetting"]
+      179 LOADK                            R12 K88 ["customClothingSetting"]
+      180 SETLIST                          R9 R10 3 [1]
+      182 SETTABLEKS                       R9 R8 K25 ["clothingSettingKeys"]
+      184 NEWTABLE                         R9 0 15
+      186 LOADK                            R10 K89 ["customClothingTopsSetting"]
+      187 LOADK                            R11 K90 ["customClothingTShirtSetting"]
+      188 LOADK                            R12 K91 ["customClothingShirtSetting"]
+      189 LOADK                            R13 K92 ["customClothingOuterwearSetting"]
+      190 LOADK                            R14 K93 ["customClothingJacketSetting"]
+      191 LOADK                            R15 K94 ["customClothingSweaterSetting"]
+      192 LOADK                            R16 K95 ["customClothingBottomsSetting"]
+      193 LOADK                            R17 K96 ["customClothingPantsSetting"]
+      194 LOADK                            R18 K97 ["customClothingShortsSetting"]
+      195 LOADK                            R19 K98 ["customClothingDressSkirtSetting"]
+      196 LOADK                            R20 K99 ["customClothingLeftShoesSetting"]
+      197 LOADK                            R21 K100 ["customClothingRightShoesSetting"]
+      198 LOADK                            R22 K101 ["customClothingClassicShirtsSetting"]
+      199 LOADK                            R23 K102 ["customClothingClassicTShirtsSetting"]
+      200 LOADK                            R24 K103 ["customClothingClassicPantsSetting"]
+      201 SETLIST                          R9 R10 15 [1]
+      203 SETTABLEKS                       R9 R8 K26 ["clothingSettingAssetIdKeys"]
+      205 MOVE                             R9 R2
+      206 CALL                             R9 0 1
+      207 JUMPIFNOT                        R9 ; [+8]
+      208 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      210 FASTCALL2K                       TABLE_INSERT R10 K104 ; [+4]
+      212 LOADK                            R11 K104 ["collisionBodyPartsCollidableOnDeathSetting"]
+      213 GETIMPORT                        R9 K107 [table.insert]
+      215 CALL                             R9 2 0
+      216 MOVE                             R9 R3
+      217 CALL                             R9 0 1
+      218 JUMPIFNOT                        R9 ; [+8]
+      219 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      221 FASTCALL2K                       TABLE_INSERT R10 K108 ; [+4]
+      223 LOADK                            R11 K108 ["collisionHitboxSizeSetting"]
+      224 GETIMPORT                        R9 K107 [table.insert]
+      226 CALL                             R9 2 0
+      227 MOVE                             R9 R4
+      228 CALL                             R9 0 1
+      229 JUMPIFNOT                        R9 ; [+8]
+      230 GETTABLEKS                       R10 R8 K23 ["accessoriesSettingKeys"]
+      232 FASTCALL2K                       TABLE_INSERT R10 K109 ; [+4]
+      234 LOADK                            R11 K109 ["accessoryBehaviorEnableSpawnEffectsSetting"]
+      235 GETIMPORT                        R9 K107 [table.insert]
+      237 CALL                             R9 2 0
+      238 MOVE                             R9 R5
+      239 CALL                             R9 0 1
+      240 JUMPIFNOT                        R9 ; [+16]
+      241 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      243 FASTCALL2K                       TABLE_INSERT R10 K110 ; [+4]
+      245 LOADK                            R11 K110 ["defaultAbilitiesEnableCrouchingSetting"]
+      246 GETIMPORT                        R9 K107 [table.insert]
+      248 CALL                             R9 2 0
+      249 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      251 FASTCALL2K                       TABLE_INSERT R10 K111 ; [+4]
+      253 LOADK                            R11 K111 ["defaultAbilitiesEnableSprintingSetting"]
+      254 GETIMPORT                        R9 K107 [table.insert]
+      256 CALL                             R9 2 0
+      257 MOVE                             R9 R7
+      258 CALL                             R9 0 1
+      259 JUMPIFNOT                        R9 ; [+8]
+      260 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      262 FASTCALL2K                       TABLE_INSERT R10 K112 ; [+4]
+      264 LOADK                            R11 K112 ["defaultAbilitiesEnableTurningSetting"]
+      265 GETIMPORT                        R9 K107 [table.insert]
+      267 CALL                             R9 2 0
+      268 MOVE                             R9 R6
+      269 CALL                             R9 0 1
+      270 JUMPIFNOT                        R9 ; [+16]
+      271 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      273 FASTCALL2K                       TABLE_INSERT R10 K113 ; [+4]
+      275 LOADK                            R11 K113 ["defaultAbilitiesEnableHoldingSetting"]
+      276 GETIMPORT                        R9 K107 [table.insert]
+      278 CALL                             R9 2 0
+      279 GETTABLEKS                       R10 R8 K20 ["movementSettingKeys"]
+      281 FASTCALL2K                       TABLE_INSERT R10 K114 ; [+4]
+      283 LOADK                            R11 K114 ["defaultAbilitiesEnableReachingSetting"]
+      284 GETIMPORT                        R9 K107 [table.insert]
+      286 CALL                             R9 2 0
+      287 RETURN                           R8 1

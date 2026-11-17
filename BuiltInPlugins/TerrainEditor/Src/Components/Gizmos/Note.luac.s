@@ -1,0 +1,210 @@
+PROTO_0:
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R2 1
+        5 LOADK                            R4 K1 ["Note"]
+        6 NAMECALL                         R2 R2 K0 ["use"]
+        8 CALL                             R2 2 1
+        9 GETTABLEKS                       R3 R0 K2 ["Key"]
+       11 GETUPVAL                         R5 2
+       12 JUMPIFNOT                        R5 ; [+4]
+       13 GETUPVAL                         R4 3
+       14 LOADN                            R5 1
+       15 CALL                             R4 1 1
+       16 JUMP                             ; [+1]
+       17 LOADNIL                          R4
+       18 GETUPVAL                         R6 2
+       19 CALL                             R6 0 1
+       20 JUMPIFNOT                        R6 ; [+7]
+       21 GETTABLEKS                       R5 R4 K3 ["Typography"]
+       23 GETTABLEKS                       R5 R5 K4 ["TitleSmall"]
+       25 GETTABLEKS                       R5 R5 K5 ["FontSize"]
+       27 JUMP                             ; [+1]
+       28 LOADNIL                          R5
+       29 GETUPVAL                         R6 4
+       30 GETTABLEKS                       R6 R6 K6 ["createPortal"]
+       32 DUPTABLE                         R7 K7 [{"Note"}]
+       33 GETUPVAL                         R8 5
+       34 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       36 LOADK                            R9 K9 ["ScreenGui"]
+       37 NEWTABLE                         R10 0 0
+       39 DUPTABLE                         R11 K11 [{"Frame"}]
+       40 GETUPVAL                         R12 5
+       41 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       43 GETUPVAL                         R13 6
+       44 DUPTABLE                         R14 K20 [{"AnchorPoint", "AutomaticSize", "BackgroundColor", "Layout", "Spacing", "Padding", "Position", "Size"}]
+       45 GETIMPORT                        R15 K23 [Vector2.new]
+       47 LOADK                            R16 K24 [0.5]
+       48 LOADN                            R17 0
+       49 CALL                             R15 2 1
+       50 SETTABLEKS                       R15 R14 K12 ["AnchorPoint"]
+       52 GETIMPORT                        R15 K27 [Enum.AutomaticSize.X]
+       54 SETTABLEKS                       R15 R14 K13 ["AutomaticSize"]
+       56 GETTABLEKS                       R15 R2 K28 ["Background"]
+       58 SETTABLEKS                       R15 R14 K14 ["BackgroundColor"]
+       60 GETIMPORT                        R15 K31 [Enum.FillDirection.Horizontal]
+       62 SETTABLEKS                       R15 R14 K15 ["Layout"]
+       64 GETTABLEKS                       R15 R2 K32 ["FramePadding"]
+       66 SETTABLEKS                       R15 R14 K16 ["Spacing"]
+       68 GETTABLEKS                       R15 R2 K32 ["FramePadding"]
+       70 SETTABLEKS                       R15 R14 K17 ["Padding"]
+       72 GETIMPORT                        R15 K34 [UDim2.new]
+       74 LOADK                            R16 K24 [0.5]
+       75 LOADN                            R17 0
+       76 LOADN                            R18 0
+       77 GETTABLEKS                       R19 R2 K35 ["EdgePadding"]
+       79 CALL                             R15 4 1
+       80 SETTABLEKS                       R15 R14 K18 ["Position"]
+       82 GETIMPORT                        R15 K37 [UDim2.fromOffset]
+       84 LOADN                            R16 0
+       85 LOADN                            R17 25
+       86 CALL                             R15 2 1
+       87 SETTABLEKS                       R15 R14 K19 ["Size"]
+       89 DUPTABLE                         R15 K39 [{"Key", "Apply"}]
+       90 GETUPVAL                         R16 5
+       91 GETTABLEKS                       R16 R16 K8 ["createElement"]
+       93 GETUPVAL                         R17 6
+       94 DUPTABLE                         R18 K42 [{["AutomaticSize"], ["BackgroundColor"], ["Padding"], ["LayoutOrder"] = 1}]
+       95 GETIMPORT                        R19 K44 [Enum.AutomaticSize.XY]
+       97 SETTABLEKS                       R19 R18 K13 ["AutomaticSize"]
+       99 GETTABLEKS                       R19 R2 K45 ["KeyBackground"]
+      101 SETTABLEKS                       R19 R18 K14 ["BackgroundColor"]
+      103 GETTABLEKS                       R19 R2 K46 ["TextMargin"]
+      105 SETTABLEKS                       R19 R18 K17 ["Padding"]
+      107 DUPTABLE                         R19 K49 [{"Corner", "Text"}]
+      108 GETUPVAL                         R20 5
+      109 GETTABLEKS                       R20 R20 K8 ["createElement"]
+      111 LOADK                            R21 K50 ["UICorner"]
+      112 DUPTABLE                         R22 K52 [{"CornerRadius"}]
+      113 GETIMPORT                        R23 K54 [UDim.new]
+      115 LOADN                            R24 0
+      116 LOADN                            R25 4
+      117 CALL                             R23 2 1
+      118 SETTABLEKS                       R23 R22 K51 ["CornerRadius"]
+      120 CALL                             R20 2 1
+      121 SETTABLEKS                       R20 R19 K47 ["Corner"]
+      123 GETUPVAL                         R20 5
+      124 GETTABLEKS                       R20 R20 K8 ["createElement"]
+      126 GETUPVAL                         R21 7
+      127 DUPTABLE                         R22 K57 [{"Text", "Font", "TextSize"}]
+      128 LOADK                            R25 K1 ["Note"]
+      129 LOADK                            R26 K58 ["%*Title"]
+      130 MOVE                             R28 R3
+      131 NAMECALL                         R26 R26 K59 ["format"]
+      133 CALL                             R26 2 1
+      134 NAMECALL                         R23 R1 K60 ["getText"]
+      136 CALL                             R23 3 1
+      137 SETTABLEKS                       R23 R22 K48 ["Text"]
+      139 GETUPVAL                         R24 2
+      140 CALL                             R24 0 1
+      141 JUMPIFNOT                        R24 ; [+3]
+      142 GETIMPORT                        R23 K62 [Enum.Font.BuilderSans]
+      144 JUMP                             ; [+1]
+      145 LOADNIL                          R23
+      146 SETTABLEKS                       R23 R22 K55 ["Font"]
+      148 GETUPVAL                         R24 2
+      149 CALL                             R24 0 1
+      150 JUMPIFNOT                        R24 ; [+2]
+      151 MOVE                             R23 R5
+      152 JUMP                             ; [+1]
+      153 LOADNIL                          R23
+      154 SETTABLEKS                       R23 R22 K56 ["TextSize"]
+      156 CALL                             R20 2 1
+      157 SETTABLEKS                       R20 R19 K48 ["Text"]
+      159 CALL                             R16 3 1
+      160 SETTABLEKS                       R16 R15 K2 ["Key"]
+      162 GETUPVAL                         R16 5
+      163 GETTABLEKS                       R16 R16 K8 ["createElement"]
+      165 GETUPVAL                         R17 6
+      166 DUPTABLE                         R18 K64 [{["AutomaticSize"], ["Padding"], ["LayoutOrder"] = 2}]
+      167 GETIMPORT                        R19 K44 [Enum.AutomaticSize.XY]
+      169 SETTABLEKS                       R19 R18 K13 ["AutomaticSize"]
+      171 GETTABLEKS                       R19 R2 K46 ["TextMargin"]
+      173 SETTABLEKS                       R19 R18 K17 ["Padding"]
+      175 DUPTABLE                         R19 K65 [{"Text"}]
+      176 GETUPVAL                         R20 5
+      177 GETTABLEKS                       R20 R20 K8 ["createElement"]
+      179 GETUPVAL                         R21 7
+      180 DUPTABLE                         R22 K57 [{"Text", "Font", "TextSize"}]
+      181 LOADK                            R25 K1 ["Note"]
+      182 LOADK                            R26 K66 ["%*Description"]
+      183 MOVE                             R28 R3
+      184 NAMECALL                         R26 R26 K59 ["format"]
+      186 CALL                             R26 2 1
+      187 NAMECALL                         R23 R1 K60 ["getText"]
+      189 CALL                             R23 3 1
+      190 SETTABLEKS                       R23 R22 K48 ["Text"]
+      192 GETUPVAL                         R24 2
+      193 CALL                             R24 0 1
+      194 JUMPIFNOT                        R24 ; [+3]
+      195 GETIMPORT                        R23 K62 [Enum.Font.BuilderSans]
+      197 JUMP                             ; [+1]
+      198 LOADNIL                          R23
+      199 SETTABLEKS                       R23 R22 K55 ["Font"]
+      201 GETUPVAL                         R24 2
+      202 CALL                             R24 0 1
+      203 JUMPIFNOT                        R24 ; [+2]
+      204 MOVE                             R23 R5
+      205 JUMP                             ; [+1]
+      206 LOADNIL                          R23
+      207 SETTABLEKS                       R23 R22 K56 ["TextSize"]
+      209 CALL                             R20 2 1
+      210 SETTABLEKS                       R20 R19 K48 ["Text"]
+      212 CALL                             R16 3 1
+      213 SETTABLEKS                       R16 R15 K38 ["Apply"]
+      215 CALL                             R12 3 1
+      216 SETTABLEKS                       R12 R11 K10 ["Frame"]
+      218 CALL                             R8 3 1
+      219 SETTABLEKS                       R8 R7 K1 ["Note"]
+      221 GETUPVAL                         R8 8
+      222 CALL                             R6 2 -1
+      223 RETURN                           R6 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactRoblox"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R1 K10 ["Style"]
+       30 GETTABLEKS                       R4 R4 K11 ["Themes"]
+       32 GETTABLEKS                       R4 R4 K12 ["FoundationDark"]
+       34 GETIMPORT                        R5 K5 [require]
+       36 GETTABLEKS                       R6 R0 K13 ["Src"]
+       38 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       40 GETTABLEKS                       R6 R6 K15 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+       42 CALL                             R5 1 1
+       43 GETTABLEKS                       R6 R1 K16 ["ContextServices"]
+       45 GETTABLEKS                       R7 R6 K17 ["Localization"]
+       47 GETTABLEKS                       R8 R6 K18 ["Stylizer"]
+       49 GETTABLEKS                       R9 R1 K19 ["UI"]
+       51 GETTABLEKS                       R10 R9 K20 ["Pane"]
+       53 GETTABLEKS                       R11 R9 K21 ["TextLabel"]
+       55 GETIMPORT                        R12 K23 [game]
+       57 LOADK                            R14 K24 ["CoreGui"]
+       58 NAMECALL                         R12 R12 K25 ["GetService"]
+       60 CALL                             R12 2 1
+       61 DUPCLOSURE                       R13 K26 [PROTO_0]
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R5
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R10
+       69 CAPTURE                          VAL R11
+       70 CAPTURE                          VAL R12
+       71 RETURN                           R13 1

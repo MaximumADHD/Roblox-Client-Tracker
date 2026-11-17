@@ -1,0 +1,110 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["DraggerSchemaCore"]
+       13 CALL                             R1 1 1
+       14 DUPTABLE                         R2 K25 [{"Selection", "TransformHandlesImplementation", "getSelectionBoxComponent", "HoverEscapeDetector", "getMouseTarget", "setHover", "setActivePoint", "isExclusiveSelectable", "dispatchWorldClick", "getNextSelectables", "getSelectableWithCache", "beginBoxSelect", "endBoxSelect", "BoundsChangedTracker", "SelectionInfo", "addUndoWaypoint", "getSummonTarget"}]
+       15 GETIMPORT                        R3 K5 [require]
+       17 GETIMPORT                        R4 K1 [script]
+       19 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       21 GETTABLEKS                       R4 R4 K8 ["Selection"]
+       23 CALL                             R3 1 1
+       24 SETTABLEKS                       R3 R2 K8 ["Selection"]
+       26 GETIMPORT                        R3 K5 [require]
+       28 GETIMPORT                        R4 K1 [script]
+       30 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       32 GETTABLEKS                       R4 R4 K9 ["TransformHandlesImplementation"]
+       34 CALL                             R3 1 1
+       35 SETTABLEKS                       R3 R2 K9 ["TransformHandlesImplementation"]
+       37 GETIMPORT                        R3 K5 [require]
+       39 GETIMPORT                        R4 K1 [script]
+       41 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       43 GETTABLEKS                       R4 R4 K10 ["getSelectionBoxComponent"]
+       45 CALL                             R3 1 1
+       46 SETTABLEKS                       R3 R2 K10 ["getSelectionBoxComponent"]
+       48 GETIMPORT                        R3 K5 [require]
+       50 GETIMPORT                        R4 K1 [script]
+       52 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       54 GETTABLEKS                       R4 R4 K11 ["HoverEscapeDetector"]
+       56 CALL                             R3 1 1
+       57 SETTABLEKS                       R3 R2 K11 ["HoverEscapeDetector"]
+       59 GETIMPORT                        R3 K5 [require]
+       61 GETIMPORT                        R4 K1 [script]
+       63 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       65 GETTABLEKS                       R4 R4 K12 ["getMouseTarget"]
+       67 CALL                             R3 1 1
+       68 SETTABLEKS                       R3 R2 K12 ["getMouseTarget"]
+       70 GETIMPORT                        R3 K5 [require]
+       72 GETIMPORT                        R4 K1 [script]
+       74 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       76 GETTABLEKS                       R4 R4 K13 ["setHover"]
+       78 CALL                             R3 1 1
+       79 SETTABLEKS                       R3 R2 K13 ["setHover"]
+       81 GETIMPORT                        R3 K5 [require]
+       83 GETIMPORT                        R4 K1 [script]
+       85 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       87 GETTABLEKS                       R4 R4 K14 ["setActivePoint"]
+       89 CALL                             R3 1 1
+       90 SETTABLEKS                       R3 R2 K14 ["setActivePoint"]
+       92 GETIMPORT                        R3 K5 [require]
+       94 GETIMPORT                        R4 K1 [script]
+       96 GETTABLEKS                       R4 R4 K26 ["Parent"]
+       98 GETTABLEKS                       R4 R4 K15 ["isExclusiveSelectable"]
+      100 CALL                             R3 1 1
+      101 SETTABLEKS                       R3 R2 K15 ["isExclusiveSelectable"]
+      103 GETIMPORT                        R3 K5 [require]
+      105 GETIMPORT                        R4 K1 [script]
+      107 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      109 GETTABLEKS                       R4 R4 K16 ["dispatchWorldClick"]
+      111 CALL                             R3 1 1
+      112 SETTABLEKS                       R3 R2 K16 ["dispatchWorldClick"]
+      114 GETIMPORT                        R3 K5 [require]
+      116 GETIMPORT                        R4 K1 [script]
+      118 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      120 GETTABLEKS                       R4 R4 K17 ["getNextSelectables"]
+      122 CALL                             R3 1 1
+      123 SETTABLEKS                       R3 R2 K17 ["getNextSelectables"]
+      125 GETIMPORT                        R3 K5 [require]
+      127 GETIMPORT                        R4 K1 [script]
+      129 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      131 GETTABLEKS                       R4 R4 K18 ["getSelectableWithCache"]
+      133 CALL                             R3 1 1
+      134 SETTABLEKS                       R3 R2 K18 ["getSelectableWithCache"]
+      136 GETIMPORT                        R3 K5 [require]
+      138 GETIMPORT                        R4 K1 [script]
+      140 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      142 GETTABLEKS                       R4 R4 K19 ["beginBoxSelect"]
+      144 CALL                             R3 1 1
+      145 SETTABLEKS                       R3 R2 K19 ["beginBoxSelect"]
+      147 GETIMPORT                        R3 K5 [require]
+      149 GETIMPORT                        R4 K1 [script]
+      151 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      153 GETTABLEKS                       R4 R4 K20 ["endBoxSelect"]
+      155 CALL                             R3 1 1
+      156 SETTABLEKS                       R3 R2 K20 ["endBoxSelect"]
+      158 GETIMPORT                        R3 K5 [require]
+      160 GETIMPORT                        R4 K1 [script]
+      162 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      164 GETTABLEKS                       R4 R4 K21 ["BoundsChangedTracker"]
+      166 CALL                             R3 1 1
+      167 SETTABLEKS                       R3 R2 K21 ["BoundsChangedTracker"]
+      169 GETIMPORT                        R3 K5 [require]
+      171 GETIMPORT                        R4 K1 [script]
+      173 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      175 GETTABLEKS                       R4 R4 K22 ["SelectionInfo"]
+      177 CALL                             R3 1 1
+      178 SETTABLEKS                       R3 R2 K22 ["SelectionInfo"]
+      180 GETIMPORT                        R3 K5 [require]
+      182 GETIMPORT                        R4 K1 [script]
+      184 GETTABLEKS                       R4 R4 K26 ["Parent"]
+      186 GETTABLEKS                       R4 R4 K23 ["addUndoWaypoint"]
+      188 CALL                             R3 1 1
+      189 SETTABLEKS                       R3 R2 K23 ["addUndoWaypoint"]
+      191 GETTABLEKS                       R3 R1 K24 ["getSummonTarget"]
+      193 SETTABLEKS                       R3 R2 K24 ["getSummonTarget"]
+      195 RETURN                           R2 1

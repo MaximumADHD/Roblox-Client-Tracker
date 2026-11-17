@@ -1,0 +1,51 @@
+PROTO_0:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["omit"]
+        3 MOVE                             R2 R0
+        4 NEWTABLE                         R3 0 2
+        6 LOADK                            R4 K1 ["id"]
+        7 LOADK                            R5 K2 ["TextStyle"]
+        8 SETLIST                          R3 R4 2 [1]
+       10 CALL                             R1 2 -1
+       11 RETURN                           R1 -1
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["new"]
+        3 GETUPVAL                         R2 1
+        4 MOVE                             R3 R0
+        5 GETGLOBAL                        R4 K1 ["mapProps"]
+        7 CALL                             R1 3 -1
+        8 RETURN                           R1 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["UI"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R0 R0 K4 ["Parent"]
+        9 GETIMPORT                        R1 K6 [require]
+       11 GETTABLEKS                       R2 R0 K4 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["Dash"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K6 [require]
+       18 GETTABLEKS                       R3 R0 K2 ["UI"]
+       20 GETTABLEKS                       R3 R3 K8 ["Components"]
+       22 GETTABLEKS                       R3 R3 K9 ["InlineLayout"]
+       24 GETTABLEKS                       R3 R3 K10 ["BaseTextElement"]
+       26 CALL                             R2 1 1
+       27 GETIMPORT                        R3 K6 [require]
+       29 GETTABLEKS                       R4 R0 K2 ["UI"]
+       31 GETTABLEKS                       R4 R4 K8 ["Components"]
+       33 GETTABLEKS                       R4 R4 K11 ["TextLabel"]
+       35 CALL                             R3 1 1
+       36 NEWTABLE                         R4 1 0
+       38 DUPCLOSURE                       R5 K12 [PROTO_0]
+       39 CAPTURE                          VAL R1
+       40 SETGLOBAL                        R5 K13 ["mapProps"]
+       42 DUPCLOSURE                       R5 K14 [PROTO_1]
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R3
+       45 SETTABLEKS                       R5 R4 K15 ["new"]
+       47 RETURN                           R4 1

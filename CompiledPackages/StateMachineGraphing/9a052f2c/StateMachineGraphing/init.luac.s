@@ -1,0 +1,111 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R1 K3 [script]
+        5 GETTABLEKS                       R1 R1 K4 ["Data"]
+        7 GETTABLEKS                       R1 R1 K5 ["StateMachineData"]
+        9 CALL                             R0 1 1
+       10 GETIMPORT                        R1 K1 [require]
+       12 GETIMPORT                        R2 K3 [script]
+       14 GETTABLEKS                       R2 R2 K4 ["Data"]
+       16 GETTABLEKS                       R2 R2 K6 ["StateMachineTypes"]
+       18 CALL                             R1 1 1
+       19 GETIMPORT                        R2 K1 [require]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Data"]
+       25 GETTABLEKS                       R3 R3 K7 ["isStateMachineBinding"]
+       27 CALL                             R2 1 1
+       28 GETIMPORT                        R3 K1 [require]
+       30 GETIMPORT                        R4 K3 [script]
+       32 GETTABLEKS                       R4 R4 K8 ["Contexts"]
+       34 GETTABLEKS                       R4 R4 K9 ["StateMachineConnectContext"]
+       36 CALL                             R3 1 1
+       37 GETIMPORT                        R4 K1 [require]
+       39 GETIMPORT                        R5 K3 [script]
+       41 GETTABLEKS                       R5 R5 K8 ["Contexts"]
+       43 GETTABLEKS                       R5 R5 K10 ["StateMachineDataContext"]
+       45 CALL                             R4 1 1
+       46 GETIMPORT                        R5 K1 [require]
+       48 GETIMPORT                        R6 K3 [script]
+       50 GETTABLEKS                       R6 R6 K8 ["Contexts"]
+       52 GETTABLEKS                       R6 R6 K11 ["StateMachineGeometryContext"]
+       54 CALL                             R5 1 1
+       55 GETIMPORT                        R6 K1 [require]
+       57 GETIMPORT                        R7 K3 [script]
+       59 GETTABLEKS                       R7 R7 K8 ["Contexts"]
+       61 GETTABLEKS                       R7 R7 K12 ["StateMachineGraphContext"]
+       63 CALL                             R6 1 1
+       64 GETIMPORT                        R7 K1 [require]
+       66 GETIMPORT                        R8 K3 [script]
+       68 GETTABLEKS                       R8 R8 K8 ["Contexts"]
+       70 GETTABLEKS                       R8 R8 K13 ["StateMachineNavContext"]
+       72 CALL                             R7 1 1
+       73 GETIMPORT                        R8 K1 [require]
+       75 GETIMPORT                        R9 K3 [script]
+       77 GETTABLEKS                       R9 R9 K8 ["Contexts"]
+       79 GETTABLEKS                       R9 R9 K14 ["StateMachineNodeLibrary"]
+       81 CALL                             R8 1 1
+       82 GETIMPORT                        R9 K1 [require]
+       84 GETIMPORT                        R10 K3 [script]
+       86 GETTABLEKS                       R10 R10 K8 ["Contexts"]
+       88 GETTABLEKS                       R10 R10 K15 ["StateMachinePreviewContext"]
+       90 CALL                             R9 1 1
+       91 GETIMPORT                        R10 K1 [require]
+       93 GETIMPORT                        R11 K3 [script]
+       95 GETTABLEKS                       R11 R11 K8 ["Contexts"]
+       97 GETTABLEKS                       R11 R11 K16 ["StateMachineSelectionContext"]
+       99 CALL                             R10 1 1
+      100 GETIMPORT                        R11 K1 [require]
+      102 GETIMPORT                        R12 K3 [script]
+      104 GETTABLEKS                       R12 R12 K17 ["Components"]
+      106 GETTABLEKS                       R12 R12 K18 ["StateMachineChevron"]
+      108 CALL                             R11 1 1
+      109 GETIMPORT                        R12 K1 [require]
+      111 GETIMPORT                        R13 K3 [script]
+      113 GETTABLEKS                       R13 R13 K17 ["Components"]
+      115 GETTABLEKS                       R13 R13 K19 ["StateMachineContextMenu"]
+      117 CALL                             R12 1 1
+      118 GETIMPORT                        R13 K1 [require]
+      120 GETIMPORT                        R14 K3 [script]
+      122 GETTABLEKS                       R14 R14 K17 ["Components"]
+      124 GETTABLEKS                       R14 R14 K20 ["StateMachineEdges"]
+      126 CALL                             R13 1 1
+      127 GETIMPORT                        R14 K1 [require]
+      129 GETIMPORT                        R15 K3 [script]
+      131 GETTABLEKS                       R15 R15 K17 ["Components"]
+      133 GETTABLEKS                       R15 R15 K21 ["StateNodeShape"]
+      135 CALL                             R14 1 1
+      136 GETIMPORT                        R15 K1 [require]
+      138 GETIMPORT                        R16 K3 [script]
+      140 GETTABLEKS                       R16 R16 K17 ["Components"]
+      142 GETTABLEKS                       R16 R16 K22 ["TransitionLine"]
+      144 CALL                             R15 1 1
+      145 GETIMPORT                        R16 K1 [require]
+      147 GETIMPORT                        R17 K3 [script]
+      149 GETTABLEKS                       R17 R17 K17 ["Components"]
+      151 GETTABLEKS                       R17 R17 K23 ["TransitionPopup"]
+      153 CALL                             R16 1 1
+      154 GETIMPORT                        R17 K1 [require]
+      156 GETIMPORT                        R18 K3 [script]
+      158 GETTABLEKS                       R18 R18 K24 ["Editor"]
+      160 GETTABLEKS                       R18 R18 K25 ["StateMachineEditorView"]
+      162 CALL                             R17 1 1
+      163 DUPTABLE                         R18 K35 [{"Data", "isStateMachineBinding", "ConnectContext", "DataContext", "GeometryContext", "GraphProvider", "NavContext", "NodeLibrary", "PreviewContext", "SelectionContext", "StateMachineChevron", "StateMachineContextMenu", "StateMachineEdges", "StateNodeShape", "TransitionLine", "TransitionPopup", "EditorView"}]
+      164 SETTABLEKS                       R0 R18 K4 ["Data"]
+      166 SETTABLEKS                       R2 R18 K7 ["isStateMachineBinding"]
+      168 SETTABLEKS                       R3 R18 K26 ["ConnectContext"]
+      170 SETTABLEKS                       R4 R18 K27 ["DataContext"]
+      172 SETTABLEKS                       R5 R18 K28 ["GeometryContext"]
+      174 SETTABLEKS                       R6 R18 K29 ["GraphProvider"]
+      176 SETTABLEKS                       R7 R18 K30 ["NavContext"]
+      178 SETTABLEKS                       R8 R18 K31 ["NodeLibrary"]
+      180 SETTABLEKS                       R9 R18 K32 ["PreviewContext"]
+      182 SETTABLEKS                       R10 R18 K33 ["SelectionContext"]
+      184 SETTABLEKS                       R11 R18 K18 ["StateMachineChevron"]
+      186 SETTABLEKS                       R12 R18 K19 ["StateMachineContextMenu"]
+      188 SETTABLEKS                       R13 R18 K20 ["StateMachineEdges"]
+      190 SETTABLEKS                       R14 R18 K21 ["StateNodeShape"]
+      192 SETTABLEKS                       R15 R18 K22 ["TransitionLine"]
+      194 SETTABLEKS                       R16 R18 K23 ["TransitionPopup"]
+      196 SETTABLEKS                       R17 R18 K34 ["EditorView"]
+      198 RETURN                           R18 1

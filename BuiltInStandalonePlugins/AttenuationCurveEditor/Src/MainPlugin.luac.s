@@ -1,0 +1,360 @@
+PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["state"]
+        3 GETTABLEKS                       R0 R0 K1 ["closeDMConnection"]
+        5 JUMPIFNOT                        R0 ; [+8]
+        6 GETUPVAL                         R0 0
+        7 GETTABLEKS                       R0 R0 K0 ["state"]
+        9 GETTABLEKS                       R0 R0 K1 ["closeDMConnection"]
+       11 NAMECALL                         R0 R0 K2 ["Disconnect"]
+       13 CALL                             R0 1 0
+       14 GETUPVAL                         R0 1
+       15 GETTABLEKS                       R0 R0 K3 ["Plugin"]
+       17 LOADK                            R2 K4 ["OnStopEditing"]
+       18 NAMECALL                         R0 R0 K5 ["Invoke"]
+       20 CALL                             R0 2 0
+       21 GETUPVAL                         R0 0
+       22 DUPTABLE                         R2 K14 [{["enabled"] = False, ["initialCurveData"], ["instanceId"] = -1, ["instanceName"] = "", ["closeDMConnection"] = }]
+       23 NEWTABLE                         R3 0 0
+       25 SETTABLEKS                       R3 R2 K8 ["initialCurveData"]
+       27 NAMECALL                         R0 R0 K15 ["setState"]
+       29 CALL                             R0 2 0
+       30 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Plugin"]
+        3 LOADK                            R3 K1 ["OnEdit"]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K2 ["stringifyCurveTable"]
+        7 MOVE                             R5 R0
+        8 CALL                             R4 1 -1
+        9 NAMECALL                         R1 R1 K3 ["Invoke"]
+       11 CALL                             R1 -1 0
+       12 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["setDisabled"]
+        3 CALL                             R1 0 0
+        4 GETUPVAL                         R1 0
+        5 DUPTABLE                         R3 K2 [{"forceRerender"}]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R5 R5 K3 ["state"]
+        9 GETTABLEKS                       R5 R5 K1 ["forceRerender"]
+       11 NOT                              R4 R5
+       12 SETTABLEKS                       R4 R3 K1 ["forceRerender"]
+       14 NAMECALL                         R1 R1 K4 ["setState"]
+       16 CALL                             R1 2 0
+       17 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["setDisabled"]
+        3 CALL                             R0 0 0
+        4 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Plugin"]
+        3 GETTABLEKS                       R0 R0 K1 ["MultipleDocumentInterfaceInstance"]
+        5 GETTABLEKS                       R1 R0 K2 ["FocusedDataModelSession"]
+        7 JUMPIFNOT                        R1 ; [+14]
+        8 GETTABLEKS                       R2 R1 K3 ["CurrentDataModelTypeAboutToChange"]
+       10 NEWCLOSURE                       R4 P0
+       11 CAPTURE                          UPVAL U1
+       12 NAMECALL                         R2 R2 K4 ["Connect"]
+       14 CALL                             R2 2 1
+       15 GETUPVAL                         R3 1
+       16 DUPTABLE                         R5 K6 [{"closeDMConnection"}]
+       17 SETTABLEKS                       R2 R5 K5 ["closeDMConnection"]
+       19 NAMECALL                         R3 R3 K7 ["setState"]
+       21 CALL                             R3 2 0
+       22 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["closeOnDMChange"]
+        3 CALL                             R2 0 0
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R2 R2 K1 ["destringifyCurveTable"]
+        7 MOVE                             R3 R0
+        8 CALL                             R2 1 1
+        9 GETUPVAL                         R3 0
+       10 DUPTABLE                         R5 K7 [{["enabled"] = True, ["instanceId"], ["instanceName"], ["initialCurveData"]}]
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R7 R7 K9 ["state"]
+       14 GETTABLEKS                       R7 R7 K4 ["instanceId"]
+       16 ADDK                             R6 R7 K8 [1]
+       17 SETTABLEKS                       R6 R5 K4 ["instanceId"]
+       19 SETTABLEKS                       R1 R5 K5 ["instanceName"]
+       21 SETTABLEKS                       R2 R5 K6 ["initialCurveData"]
+       23 NAMECALL                         R3 R3 K10 ["setState"]
+       25 CALL                             R3 2 0
+       26 RETURN                           R0 0
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 DUPTABLE                         R3 K1 [{"initialCurveData"}]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K2 ["destringifyCurveTable"]
+        5 MOVE                             R5 R0
+        6 CALL                             R4 1 1
+        7 SETTABLEKS                       R4 R3 K0 ["initialCurveData"]
+        9 NAMECALL                         R1 R1 K3 ["setState"]
+       11 CALL                             R1 2 0
+       12 RETURN                           R0 0
+
+PROTO_7:
+        0 NEWTABLE                         R0 0 0
+        2 RETURN                           R0 1
+
+PROTO_8:
+        0 DUPTABLE                         R2 K10 [{[1] = False, ["instanceId"] = -1, ["instanceName"] = "", ["initialCurveData"], ["closeDMConnection"] = , ["forceRerender"] = False}]
+        1 NEWTABLE                         R3 0 0
+        3 SETTABLEKS                       R3 R2 K6 ["initialCurveData"]
+        5 SETTABLEKS                       R2 R0 K11 ["state"]
+        7 NEWCLOSURE                       R2 P0
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          VAL R1
+       10 SETTABLEKS                       R2 R0 K12 ["setDisabled"]
+       12 NEWCLOSURE                       R2 P1
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          UPVAL U0
+       15 SETTABLEKS                       R2 R0 K13 ["onChanged"]
+       17 NEWCLOSURE                       R2 P2
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R2 R0 K14 ["onWidgetEnabledChanged"]
+       21 NEWCLOSURE                       R2 P3
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R2 R0 K15 ["closeOnDMChange"]
+       26 GETTABLEKS                       R2 R1 K16 ["Plugin"]
+       28 LOADK                            R4 K17 ["OnOpen"]
+       29 NEWCLOSURE                       R5 P4
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          UPVAL U0
+       32 NAMECALL                         R2 R2 K18 ["OnInvoke"]
+       34 CALL                             R2 3 0
+       35 GETTABLEKS                       R2 R1 K16 ["Plugin"]
+       37 LOADK                            R4 K19 ["OnInstanceChanged"]
+       38 NEWCLOSURE                       R5 P5
+       39 CAPTURE                          VAL R0
+       40 CAPTURE                          UPVAL U0
+       41 NAMECALL                         R2 R2 K18 ["OnInvoke"]
+       43 CALL                             R2 3 0
+       44 GETUPVAL                         R2 1
+       45 GETTABLEKS                       R2 R2 K20 ["Localization"]
+       47 GETTABLEKS                       R2 R2 K21 ["new"]
+       49 DUPTABLE                         R3 K26 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AttenuationCurveEditor"}]
+       50 GETUPVAL                         R4 2
+       51 SETTABLEKS                       R4 R3 K22 ["stringResourceTable"]
+       53 GETUPVAL                         R4 3
+       54 SETTABLEKS                       R4 R3 K23 ["translationResourceTable"]
+       56 CALL                             R2 1 1
+       57 SETTABLEKS                       R2 R0 K27 ["localization"]
+       59 GETUPVAL                         R2 1
+       60 GETTABLEKS                       R2 R2 K28 ["Analytics"]
+       62 GETTABLEKS                       R2 R2 K21 ["new"]
+       64 DUPCLOSURE                       R3 K29 [PROTO_7]
+       65 NEWTABLE                         R4 0 0
+       67 CALL                             R2 2 1
+       68 SETTABLEKS                       R2 R0 K30 ["analytics"]
+       70 GETUPVAL                         R2 4
+       71 GETTABLEKS                       R2 R2 K21 ["new"]
+       73 CALL                             R2 0 1
+       74 SETTABLEKS                       R2 R0 K31 ["DEPRECATED_stylizer"]
+       76 GETUPVAL                         R2 5
+       77 GETTABLEKS                       R3 R1 K16 ["Plugin"]
+       79 CALL                             R2 1 1
+       80 SETTABLEKS                       R2 R0 K32 ["design"]
+       82 RETURN                           R0 0
+
+PROTO_9:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R0 K1 ["state"]
+        4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
+        6 GETTABLEKS                       R4 R2 K3 ["enabled"]
+        8 NEWTABLE                         R5 0 0
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R6 R6 K4 ["createElement"]
+       13 GETUPVAL                         R7 1
+       14 DUPTABLE                         R8 K9 [{"CurveData", "Enabled", "InstanceId", "OnChanged"}]
+       15 GETTABLEKS                       R9 R2 K10 ["initialCurveData"]
+       17 SETTABLEKS                       R9 R8 K5 ["CurveData"]
+       19 SETTABLEKS                       R4 R8 K6 ["Enabled"]
+       21 GETTABLEKS                       R9 R2 K11 ["instanceId"]
+       23 SETTABLEKS                       R9 R8 K7 ["InstanceId"]
+       25 GETTABLEKS                       R9 R0 K12 ["onChanged"]
+       27 SETTABLEKS                       R9 R8 K8 ["OnChanged"]
+       29 CALL                             R6 2 1
+       30 SETTABLEKS                       R6 R5 K13 ["AttenuationCurveEditor"]
+       32 GETUPVAL                         R6 2
+       33 GETTABLEKS                       R6 R6 K14 ["provide"]
+       35 NEWTABLE                         R7 0 5
+       37 GETUPVAL                         R8 3
+       38 GETTABLEKS                       R8 R8 K15 ["new"]
+       40 MOVE                             R9 R3
+       41 CALL                             R8 1 1
+       42 GETUPVAL                         R9 4
+       43 GETTABLEKS                       R9 R9 K15 ["new"]
+       45 NAMECALL                         R10 R3 K16 ["getMouse"]
+       47 CALL                             R10 1 -1
+       48 CALL                             R9 -1 1
+       49 GETTABLEKS                       R10 R0 K17 ["DEPRECATED_stylizer"]
+       51 GETTABLEKS                       R11 R0 K18 ["localization"]
+       53 GETTABLEKS                       R12 R0 K19 ["analytics"]
+       55 SETLIST                          R7 R8 5 [1]
+       57 DUPTABLE                         R8 K21 [{"MainWidget"}]
+       58 GETUPVAL                         R9 0
+       59 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       61 GETUPVAL                         R10 5
+       62 NEWTABLE                         R11 16 0
+       64 LOADK                            R12 K13 ["AttenuationCurveEditor"]
+       65 SETTABLEKS                       R12 R11 K22 ["Id"]
+       67 SETTABLEKS                       R4 R11 K6 ["Enabled"]
+       69 GETTABLEKS                       R13 R0 K18 ["localization"]
+       71 LOADK                            R15 K2 ["Plugin"]
+       72 LOADK                            R16 K23 ["Name"]
+       73 NAMECALL                         R13 R13 K24 ["getText"]
+       75 CALL                             R13 3 1
+       76 LOADK                            R14 K25 [" - "]
+       77 GETTABLEKS                       R15 R2 K26 ["instanceName"]
+       79 CONCAT                           R12 R13 R15
+       80 SETTABLEKS                       R12 R11 K27 ["Title"]
+       82 GETIMPORT                        R12 K31 [Enum.ZIndexBehavior.Sibling]
+       84 SETTABLEKS                       R12 R11 K29 ["ZIndexBehavior"]
+       86 GETIMPORT                        R12 K34 [Enum.InitialDockState.Float]
+       88 SETTABLEKS                       R12 R11 K32 ["InitialDockState"]
+       90 GETIMPORT                        R12 K36 [Vector2.new]
+       92 LOADN                            R13 640
+       93 LOADN                            R14 480
+       94 CALL                             R12 2 1
+       95 SETTABLEKS                       R12 R11 K37 ["Size"]
+       97 GETIMPORT                        R12 K36 [Vector2.new]
+       99 LOADN                            R13 540
+      100 LOADN                            R14 300
+      101 CALL                             R12 2 1
+      102 SETTABLEKS                       R12 R11 K38 ["MinSize"]
+      104 GETTABLEKS                       R12 R0 K39 ["setDisabled"]
+      106 SETTABLEKS                       R12 R11 K40 ["OnClose"]
+      108 GETTABLEKS                       R12 R1 K41 ["PluginLoaderContext"]
+      110 GETTABLEKS                       R12 R12 K42 ["mainDockWidget"]
+      112 SETTABLEKS                       R12 R11 K43 ["Widget"]
+      114 GETTABLEKS                       R12 R0 K44 ["onDockWidgetCreated"]
+      116 SETTABLEKS                       R12 R11 K45 ["OnWidgetCreated"]
+      118 LOADB                            R12 0
+      119 SETTABLEKS                       R12 R11 K46 ["ShouldRestore"]
+      121 GETUPVAL                         R12 0
+      122 GETTABLEKS                       R12 R12 K47 ["Change"]
+      124 GETTABLEKS                       R12 R12 K6 ["Enabled"]
+      126 GETTABLEKS                       R13 R0 K48 ["onWidgetEnabledChanged"]
+      128 SETTABLE                         R13 R11 R12
+      129 GETUPVAL                         R13 6
+      130 JUMPIFNOT                        R13 ; [+3]
+      131 GETTABLEKS                       R12 R0 K49 ["design"]
+      133 JUMP                             ; [+1]
+      134 LOADNIL                          R12
+      135 SETTABLEKS                       R12 R11 K50 ["PluginDesign"]
+      137 DUPTABLE                         R12 K53 [{"Wrapper", "StyleLink"}]
+      138 GETUPVAL                         R13 0
+      139 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      141 GETUPVAL                         R14 7
+      142 NEWTABLE                         R15 1 0
+      144 GETUPVAL                         R16 0
+      145 GETTABLEKS                       R16 R16 K54 ["Tag"]
+      147 LOADK                            R17 K55 ["X-Fill X-Column"]
+      148 SETTABLE                         R17 R15 R16
+      149 MOVE                             R16 R5
+      150 CALL                             R13 3 1
+      151 SETTABLEKS                       R13 R12 K51 ["Wrapper"]
+      153 GETUPVAL                         R14 6
+      154 JUMPIF                           R14 ; [+11]
+      155 GETUPVAL                         R13 0
+      156 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      158 LOADK                            R14 K52 ["StyleLink"]
+      159 DUPTABLE                         R15 K57 [{"StyleSheet"}]
+      160 GETTABLEKS                       R16 R0 K49 ["design"]
+      162 SETTABLEKS                       R16 R15 K56 ["StyleSheet"]
+      164 CALL                             R13 2 1
+      165 JUMP                             ; [+1]
+      166 LOADNIL                          R13
+      167 SETTABLEKS                       R13 R12 K52 ["StyleLink"]
+      169 CALL                             R9 3 1
+      170 SETTABLEKS                       R9 R8 K20 ["MainWidget"]
+      172 CALL                             R6 2 -1
+      173 RETURN                           R6 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AttenuationCurveEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["SharedFlags"]
+       23 GETTABLEKS                       R3 R3 K10 ["getFFlagDevFrameworkUsePluginDesign"]
+       25 CALL                             R3 0 1
+       26 GETTABLEKS                       R4 R2 K11 ["UI"]
+       28 GETTABLEKS                       R5 R4 K12 ["DockWidget"]
+       30 GETTABLEKS                       R6 R4 K13 ["Pane"]
+       32 GETTABLEKS                       R7 R2 K14 ["ContextServices"]
+       34 GETTABLEKS                       R8 R7 K15 ["Plugin"]
+       36 GETTABLEKS                       R9 R7 K16 ["Mouse"]
+       38 GETIMPORT                        R10 K5 [require]
+       40 GETTABLEKS                       R11 R0 K17 ["Src"]
+       42 GETTABLEKS                       R11 R11 K18 ["Types"]
+       44 CALL                             R10 1 1
+       45 GETIMPORT                        R11 K5 [require]
+       47 GETTABLEKS                       R12 R0 K17 ["Src"]
+       49 GETTABLEKS                       R12 R12 K19 ["Util"]
+       51 GETTABLEKS                       R12 R12 K20 ["AttenuationUtil"]
+       53 CALL                             R11 1 1
+       54 GETTABLEKS                       R12 R2 K21 ["Style"]
+       56 GETTABLEKS                       R12 R12 K22 ["Themes"]
+       58 GETTABLEKS                       R12 R12 K23 ["StudioTheme"]
+       60 GETTABLEKS                       R13 R2 K24 ["Styling"]
+       62 GETTABLEKS                       R13 R13 K25 ["registerPluginStyles"]
+       64 GETTABLEKS                       R14 R0 K17 ["Src"]
+       66 GETTABLEKS                       R14 R14 K26 ["Resources"]
+       68 GETTABLEKS                       R14 R14 K27 ["Localization"]
+       70 GETTABLEKS                       R14 R14 K28 ["SourceStrings"]
+       72 GETTABLEKS                       R15 R0 K17 ["Src"]
+       74 GETTABLEKS                       R15 R15 K26 ["Resources"]
+       76 GETTABLEKS                       R15 R15 K27 ["Localization"]
+       78 GETTABLEKS                       R15 R15 K29 ["LocalizedStrings"]
+       80 GETTABLEKS                       R16 R0 K17 ["Src"]
+       82 GETTABLEKS                       R16 R16 K30 ["Components"]
+       84 GETIMPORT                        R17 K5 [require]
+       86 GETTABLEKS                       R18 R16 K31 ["AttenuationCurveRenderer"]
+       88 CALL                             R17 1 1
+       89 GETTABLEKS                       R18 R1 K32 ["PureComponent"]
+       91 LOADK                            R20 K33 ["MainPlugin"]
+       92 NAMECALL                         R18 R18 K34 ["extend"]
+       94 CALL                             R18 2 1
+       95 DUPCLOSURE                       R19 K35 [PROTO_8]
+       96 CAPTURE                          VAL R11
+       97 CAPTURE                          VAL R7
+       98 CAPTURE                          VAL R14
+       99 CAPTURE                          VAL R15
+      100 CAPTURE                          VAL R12
+      101 CAPTURE                          VAL R13
+      102 SETTABLEKS                       R19 R18 K36 ["init"]
+      104 DUPCLOSURE                       R19 K37 [PROTO_9]
+      105 CAPTURE                          VAL R1
+      106 CAPTURE                          VAL R17
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R6
+      113 SETTABLEKS                       R19 R18 K38 ["render"]
+      115 RETURN                           R18 1

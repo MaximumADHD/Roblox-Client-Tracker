@@ -1,0 +1,82 @@
+PROTO_0:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["SimCreateAnimationConstraint"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 1
+        6 SETUPVAL                         R0 0
+        7 RETURN                           R0 0
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 LOADB                            R0 0
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          REF R0
+        4 FASTPCALL                        pcall 1 ; [+2]
+        5 GETIMPORT                        R1 K1 [pcall]
+        7 CALL                             R1 1 0
+        8 NEWTABLE                         R1 32 0
+       10 DUPTABLE                         R2 K4 [{["Attachments"] = 1}]
+       11 SETTABLEKS                       R2 R1 K5 ["Attachment"]
+       13 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       14 SETTABLEKS                       R2 R1 K8 ["WeldConstraint"]
+       16 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       17 SETTABLEKS                       R2 R1 K9 ["HingeConstraint"]
+       19 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       20 SETTABLEKS                       R2 R1 K10 ["BallSocketConstraint"]
+       22 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       23 SETTABLEKS                       R2 R1 K11 ["RigidConstraint"]
+       25 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       26 SETTABLEKS                       R2 R1 K12 ["PrismaticConstraint"]
+       28 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       29 SETTABLEKS                       R2 R1 K13 ["CylindricalConstraint"]
+       31 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       32 SETTABLEKS                       R2 R1 K14 ["UniversalConstraint"]
+       34 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       35 SETTABLEKS                       R2 R1 K15 ["PlaneConstraint"]
+       37 DUPTABLE                         R2 K18 [{["Attachments"] = 2, ["IgnoreSamePartCheck"] = True}]
+       38 SETTABLEKS                       R2 R1 K19 ["RopeConstraint"]
+       40 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       41 SETTABLEKS                       R2 R1 K20 ["RodConstraint"]
+       43 DUPTABLE                         R2 K22 [{["Attachments"] = 2, ["Properties"], ["IgnoreSamePartCheck"] = True}]
+       44 DUPTABLE                         R3 K26 [{["Stiffness"] = 1000, ["Damping"] = 2}]
+       45 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       47 SETTABLEKS                       R2 R1 K27 ["SpringConstraint"]
+       49 DUPTABLE                         R2 K28 [{["Attachments"] = 2, ["Properties"]}]
+       50 DUPTABLE                         R3 K26 [{["Stiffness"] = 1000, ["Damping"] = 2}]
+       51 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       53 SETTABLEKS                       R2 R1 K29 ["TorsionSpringConstraint"]
+       55 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       56 SETTABLEKS                       R2 R1 K30 ["NoCollisionConstraint"]
+       58 DUPTABLE                         R2 K28 [{["Attachments"] = 2, ["Properties"]}]
+       59 DUPTABLE                         R3 K33 [{["MaxTorque"] = 20000}]
+       60 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       62 SETTABLEKS                       R2 R1 K34 ["AlignOrientation"]
+       64 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       65 SETTABLEKS                       R2 R1 K35 ["AlignPosition"]
+       67 JUMPIFNOT                        R0 ; [+2]
+       68 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       69 JUMP                             ; [+1]
+       70 LOADNIL                          R2
+       71 SETTABLEKS                       R2 R1 K36 ["AnimationConstraint"]
+       73 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       74 SETTABLEKS                       R2 R1 K37 ["LineForce"]
+       76 DUPTABLE                         R2 K4 [{["Attachments"] = 1}]
+       77 SETTABLEKS                       R2 R1 K38 ["VectorForce"]
+       79 DUPTABLE                         R2 K39 [{["Attachments"] = 1, ["Properties"]}]
+       80 DUPTABLE                         R3 K42 [{["Torque"] = {2000, 0, 0}}]
+       81 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       83 SETTABLEKS                       R2 R1 K40 ["Torque"]
+       85 DUPTABLE                         R2 K39 [{["Attachments"] = 1, ["Properties"]}]
+       86 DUPTABLE                         R3 K45 [{["AngularVelocity"] = {0, 1, 0}, ["MaxTorque"] = 20000}]
+       87 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       89 SETTABLEKS                       R2 R1 K43 ["AngularVelocity"]
+       91 DUPTABLE                         R2 K39 [{["Attachments"] = 1, ["Properties"]}]
+       92 DUPTABLE                         R3 K49 [{["MaxForce"] = 10000, ["VectorVelocity"] = {0, 1, 0}}]
+       93 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       95 SETTABLEKS                       R2 R1 K50 ["LinearVelocity"]
+       97 DUPTABLE                         R2 K4 [{["Attachments"] = 1}]
+       98 SETTABLEKS                       R2 R1 K51 ["Bone"]
+      100 SETGLOBAL                        R1 K52 ["ConstraintTypes"]
+      102 GETGLOBAL                        R1 K52 ["ConstraintTypes"]
+      104 CLOSEUPVALS                      R0
+      105 RETURN                           R1 1

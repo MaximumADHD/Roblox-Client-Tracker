@@ -1,0 +1,630 @@
+PROTO_0:
+        0 JUMPIFNOT                        R1 ; [+24]
+        1 LOADB                            R3 0
+        2 SETTABLEKS                       R3 R1 K0 ["Enabled"]
+        4 GETTABLEKS                       R4 R0 K1 ["Actions"]
+        6 FASTCALL2                        TABLE_INSERT R4 R1 ; [+4]
+        8 MOVE                             R5 R1
+        9 GETIMPORT                        R3 K4 [table.insert]
+       11 CALL                             R3 2 0
+       12 GETTABLEKS                       R4 R0 K5 ["Connections"]
+       14 GETTABLEKS                       R5 R1 K6 ["Triggered"]
+       16 MOVE                             R7 R2
+       17 NAMECALL                         R5 R5 K7 ["Connect"]
+       19 CALL                             R5 2 -1
+       20 FASTCALL                         TABLE_INSERT ; [+2]
+       21 GETIMPORT                        R3 K4 [table.insert]
+       23 CALL                             R3 -1 0
+       24 RETURN                           R1 1
+       25 LOADNIL                          R3
+       26 RETURN                           R3 1
+
+PROTO_1:
+        0 JUMPIFNOT                        R1 ; [+10]
+        1 GETIMPORT                        R2 K1 [ipairs]
+        3 MOVE                             R3 R1
+        4 CALL                             R2 1 3
+        5 FORGPREP_INEXT                   R2
+        6 LOADB                            R7 1
+        7 SETTABLEKS                       R7 R6 K2 ["Enabled"]
+        9 FORGLOOP                         R2 2 [inext] ; [-4]
+       11 RETURN                           R0 0
+
+PROTO_2:
+        0 JUMPIFNOT                        R1 ; [+10]
+        1 GETIMPORT                        R2 K1 [ipairs]
+        3 MOVE                             R3 R1
+        4 CALL                             R2 1 3
+        5 FORGPREP_INEXT                   R2
+        6 LOADB                            R7 0
+        7 SETTABLEKS                       R7 R6 K2 ["Enabled"]
+        9 FORGLOOP                         R2 2 [inext] ; [-4]
+       11 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Path2DToolMode"]
+        5 JUMPIFNOTEQKS                    R0 K2 ["AddTangent"] ; [+32]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K0 ["props"]
+       10 GETTABLEKS                       R0 R0 K3 ["SelectedControlPointIndex"]
+       12 JUMPIFEQKN                       R0 K4 [0] ; [+31]
+       14 GETUPVAL                         R0 0
+       15 GETTABLEKS                       R0 R0 K0 ["props"]
+       17 GETTABLEKS                       R0 R0 K5 ["SelectedTangentSide"]
+       19 JUMPIFEQKNIL                     R0 ; [+24]
+       21 GETUPVAL                         R0 0
+       22 GETTABLEKS                       R0 R0 K0 ["props"]
+       24 GETTABLEKS                       R0 R0 K6 ["dispatchClearControlPointTangent"]
+       26 GETUPVAL                         R1 0
+       27 GETTABLEKS                       R1 R1 K0 ["props"]
+       29 GETTABLEKS                       R1 R1 K3 ["SelectedControlPointIndex"]
+       31 GETUPVAL                         R2 0
+       32 GETTABLEKS                       R2 R2 K0 ["props"]
+       34 GETTABLEKS                       R2 R2 K5 ["SelectedTangentSide"]
+       36 CALL                             R0 2 0
+       37 RETURN                           R0 0
+       38 GETUPVAL                         R0 0
+       39 GETTABLEKS                       R0 R0 K0 ["props"]
+       41 GETTABLEKS                       R0 R0 K7 ["dispatchRemoveControlPoint"]
+       43 CALL                             R0 0 0
+       44 RETURN                           R0 0
+
+PROTO_4:
+        0 JUMPIFEQKS                       R0 K0 ["AbsolutePosition"] ; [+3]
+        2 JUMPIFNOTEQKS                    R0 K1 ["AbsoluteSize"] ; [+6]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R1 R1 K2 ["dispatchPathChanged"]
+        7 LOADK                            R2 K3 ["Position"]
+        8 CALL                             R1 1 0
+        9 RETURN                           R0 0
+
+PROTO_5:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["LogUsageReport"]
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["dispatchSelectPathCleared"]
+        7 CALL                             R0 0 0
+        8 GETUPVAL                         R0 1
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K2 ["Actions"]
+       12 NAMECALL                         R0 R0 K3 ["disableActions"]
+       14 CALL                             R0 2 0
+       15 GETUPVAL                         R0 1
+       16 GETTABLEKS                       R0 R0 K4 ["state"]
+       18 GETTABLEKS                       R0 R0 K5 ["selectedObjectChangedConn"]
+       20 JUMPIFEQKNIL                     R0 ; [+9]
+       22 GETUPVAL                         R0 1
+       23 GETTABLEKS                       R0 R0 K4 ["state"]
+       25 GETTABLEKS                       R0 R0 K5 ["selectedObjectChangedConn"]
+       27 NAMECALL                         R0 R0 K6 ["Disconnect"]
+       29 CALL                             R0 1 0
+       30 GETUPVAL                         R0 1
+       31 GETTABLEKS                       R0 R0 K4 ["state"]
+       33 GETTABLEKS                       R0 R0 K7 ["selectedObjectParentChangedConn"]
+       35 JUMPIFEQKNIL                     R0 ; [+9]
+       37 GETUPVAL                         R0 1
+       38 GETTABLEKS                       R0 R0 K4 ["state"]
+       40 GETTABLEKS                       R0 R0 K7 ["selectedObjectParentChangedConn"]
+       42 NAMECALL                         R0 R0 K6 ["Disconnect"]
+       44 CALL                             R0 1 0
+       45 GETUPVAL                         R0 1
+       46 LOADNIL                          R1
+       47 SETTABLEKS                       R1 R0 K8 ["selectedObject"]
+       49 RETURN                           R0 0
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["selectedObject"]
+        3 JUMPIFNOTEQKNIL                  R1 ; [+2]
+        5 RETURN                           R0 0
+        6 JUMPIFEQKS                       R0 K1 ["Parent"] ; [+7]
+        8 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K2 ["dispatchPathChanged"]
+       11 MOVE                             R2 R0
+       12 CALL                             R1 1 0
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R1 0
+       15 GETTABLEKS                       R1 R1 K3 ["state"]
+       17 GETTABLEKS                       R1 R1 K4 ["selectedObjectParentChangedConn"]
+       19 JUMPIFEQKNIL                     R1 ; [+9]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K3 ["state"]
+       24 GETTABLEKS                       R1 R1 K4 ["selectedObjectParentChangedConn"]
+       26 NAMECALL                         R1 R1 K5 ["Disconnect"]
+       28 CALL                             R1 1 0
+       29 GETUPVAL                         R1 0
+       30 DUPTABLE                         R3 K6 [{"selectedObjectParentChangedConn"}]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K0 ["selectedObject"]
+       34 GETTABLEKS                       R4 R4 K1 ["Parent"]
+       36 GETTABLEKS                       R4 R4 K7 ["Changed"]
+       38 GETUPVAL                         R6 2
+       39 NAMECALL                         R4 R4 K8 ["Connect"]
+       41 CALL                             R4 2 1
+       42 SETTABLEKS                       R4 R3 K4 ["selectedObjectParentChangedConn"]
+       44 NAMECALL                         R1 R1 K9 ["setState"]
+       46 CALL                             R1 2 0
+       47 GETUPVAL                         R1 3
+       48 GETUPVAL                         R2 0
+       49 GETTABLEKS                       R2 R2 K0 ["selectedObject"]
+       51 CALL                             R1 1 1
+       52 GETUPVAL                         R2 0
+       53 GETTABLEKS                       R2 R2 K10 ["props"]
+       55 GETTABLEKS                       R2 R2 K11 ["SelectedObject"]
+       57 JUMPIFEQKNIL                     R2 ; [+11]
+       59 JUMPIF                           R1 ; [+9]
+       60 GETUPVAL                         R2 1
+       61 GETTABLEKS                       R2 R2 K12 ["dispatchSelectPathCleared"]
+       63 CALL                             R2 0 0
+       64 GETUPVAL                         R2 0
+       65 NAMECALL                         R2 R2 K13 ["disableActions"]
+       67 CALL                             R2 1 0
+       68 RETURN                           R0 0
+       69 GETUPVAL                         R2 0
+       70 GETTABLEKS                       R2 R2 K10 ["props"]
+       72 GETTABLEKS                       R2 R2 K11 ["SelectedObject"]
+       74 JUMPIFNOTEQKNIL                  R2 ; [+17]
+       76 JUMPIFNOT                        R1 ; [+15]
+       77 GETUPVAL                         R2 1
+       78 GETTABLEKS                       R2 R2 K14 ["dispatchSelectPath"]
+       80 GETUPVAL                         R3 0
+       81 GETTABLEKS                       R3 R3 K0 ["selectedObject"]
+       83 CALL                             R2 1 0
+       84 GETUPVAL                         R2 0
+       85 GETUPVAL                         R4 0
+       86 GETTABLEKS                       R4 R4 K15 ["UniversalActions"]
+       88 NAMECALL                         R2 R2 K16 ["enableActions"]
+       90 CALL                             R2 2 0
+       91 RETURN                           R0 0
+       92 GETUPVAL                         R2 1
+       93 GETTABLEKS                       R2 R2 K2 ["dispatchPathChanged"]
+       95 MOVE                             R3 R0
+       96 CALL                             R2 1 0
+       97 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Get"]
+        3 CALL                             R0 1 1
+        4 LENGTH                           R1 R0
+        5 JUMPIFNOTEQKN                    R1 K1 [1] ; [+63]
+        7 GETIMPORT                        R1 K3 [pairs]
+        9 MOVE                             R2 R0
+       10 CALL                             R1 1 3
+       11 FORGPREP_NEXT                    R1
+       12 LOADK                            R8 K4 ["Path2D"]
+       13 NAMECALL                         R6 R5 K5 ["IsA"]
+       15 CALL                             R6 2 1
+       16 JUMPIFNOT                        R6 ; [+47]
+       17 GETTABLEKS                       R6 R5 K6 ["Parent"]
+       19 JUMPIFEQKNIL                     R6 ; [+44]
+       21 GETUPVAL                         R6 1
+       22 MOVE                             R7 R5
+       23 CALL                             R6 1 1
+       24 JUMPIFNOT                        R6 ; [+12]
+       25 GETUPVAL                         R7 2
+       26 GETTABLEKS                       R7 R7 K7 ["dispatchSelectPath"]
+       28 MOVE                             R8 R5
+       29 CALL                             R7 1 0
+       30 GETUPVAL                         R7 3
+       31 GETUPVAL                         R9 3
+       32 GETTABLEKS                       R9 R9 K8 ["UniversalActions"]
+       34 NAMECALL                         R7 R7 K9 ["enableActions"]
+       36 CALL                             R7 2 0
+       37 GETUPVAL                         R7 3
+       38 SETTABLEKS                       R5 R7 K10 ["selectedObject"]
+       40 GETUPVAL                         R7 3
+       41 DUPTABLE                         R9 K13 [{"selectedObjectChangedConn", "selectedObjectParentChangedConn"}]
+       42 GETTABLEKS                       R10 R5 K14 ["Changed"]
+       44 GETUPVAL                         R12 4
+       45 NAMECALL                         R10 R10 K15 ["Connect"]
+       47 CALL                             R10 2 1
+       48 SETTABLEKS                       R10 R9 K11 ["selectedObjectChangedConn"]
+       50 GETTABLEKS                       R10 R5 K6 ["Parent"]
+       52 GETTABLEKS                       R10 R10 K14 ["Changed"]
+       54 GETUPVAL                         R12 5
+       55 NAMECALL                         R10 R10 K15 ["Connect"]
+       57 CALL                             R10 2 1
+       58 SETTABLEKS                       R10 R9 K12 ["selectedObjectParentChangedConn"]
+       60 NAMECALL                         R7 R7 K16 ["setState"]
+       62 CALL                             R7 2 0
+       63 JUMP                             ; [+2]
+       64 GETUPVAL                         R6 6
+       65 CALL                             R6 0 0
+       66 FORGLOOP                         R1 2 ; [-55]
+       68 RETURN                           R0 0
+       69 GETUPVAL                         R1 6
+       70 CALL                             R1 0 0
+       71 RETURN                           R0 0
+
+PROTO_8:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          VAL R0
+        4 SETTABLEKS                       R2 R0 K1 ["delete"]
+        6 NEWCLOSURE                       R2 P1
+        7 CAPTURE                          VAL R1
+        8 NEWCLOSURE                       R3 P2
+        9 CAPTURE                          VAL R1
+       10 CAPTURE                          VAL R0
+       11 NEWCLOSURE                       R4 P3
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          VAL R2
+       15 CAPTURE                          UPVAL U0
+       16 GETUPVAL                         R5 1
+       17 GETTABLEKS                       R5 R5 K2 ["SelectionChanged"]
+       19 NEWCLOSURE                       R7 P4
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          UPVAL U0
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R4
+       25 CAPTURE                          VAL R2
+       26 CAPTURE                          VAL R3
+       27 NAMECALL                         R5 R5 K3 ["Connect"]
+       29 CALL                             R5 2 1
+       30 DUPTABLE                         R8 K5 [{"selectionChangedConn"}]
+       31 SETTABLEKS                       R5 R8 K4 ["selectionChangedConn"]
+       33 NAMECALL                         R6 R0 K6 ["setState"]
+       35 CALL                             R6 2 0
+       36 RETURN                           R0 0
+
+PROTO_9:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R1 K1 ["PluginActions"]
+        4 NEWTABLE                         R2 0 0
+        6 SETTABLEKS                       R2 R0 K2 ["Connections"]
+        8 NEWTABLE                         R2 0 0
+       10 SETTABLEKS                       R2 R0 K3 ["Actions"]
+       12 NEWTABLE                         R2 0 0
+       14 SETTABLEKS                       R2 R0 K4 ["EditingActions"]
+       16 NEWTABLE                         R2 0 0
+       18 SETTABLEKS                       R2 R0 K5 ["UniversalActions"]
+       20 GETTABLEKS                       R3 R0 K4 ["EditingActions"]
+       22 LOADK                            R8 K6 ["DoneEditing"]
+       23 NAMECALL                         R6 R1 K7 ["get"]
+       25 CALL                             R6 2 1
+       26 GETTABLEKS                       R7 R0 K0 ["props"]
+       28 GETTABLEKS                       R7 R7 K8 ["dispatchToggleDone"]
+       30 NAMECALL                         R4 R0 K9 ["addAction"]
+       32 CALL                             R4 3 -1
+       33 FASTCALL                         TABLE_INSERT ; [+2]
+       34 GETIMPORT                        R2 K12 [table.insert]
+       36 CALL                             R2 -1 0
+       37 GETTABLEKS                       R3 R0 K5 ["UniversalActions"]
+       39 LOADK                            R8 K13 ["MoveTool"]
+       40 NAMECALL                         R6 R1 K7 ["get"]
+       42 CALL                             R6 2 1
+       43 GETTABLEKS                       R7 R0 K0 ["props"]
+       45 GETTABLEKS                       R7 R7 K14 ["dispatchToggleMoveTool"]
+       47 NAMECALL                         R4 R0 K9 ["addAction"]
+       49 CALL                             R4 3 -1
+       50 FASTCALL                         TABLE_INSERT ; [+2]
+       51 GETIMPORT                        R2 K12 [table.insert]
+       53 CALL                             R2 -1 0
+       54 GETTABLEKS                       R3 R0 K5 ["UniversalActions"]
+       56 LOADK                            R8 K15 ["AddPointMode"]
+       57 NAMECALL                         R6 R1 K7 ["get"]
+       59 CALL                             R6 2 1
+       60 GETTABLEKS                       R7 R0 K0 ["props"]
+       62 GETTABLEKS                       R7 R7 K16 ["dispatchToggleAddPointTool"]
+       64 NAMECALL                         R4 R0 K9 ["addAction"]
+       66 CALL                             R4 3 -1
+       67 FASTCALL                         TABLE_INSERT ; [+2]
+       68 GETIMPORT                        R2 K12 [table.insert]
+       70 CALL                             R2 -1 0
+       71 GETTABLEKS                       R3 R0 K5 ["UniversalActions"]
+       73 LOADK                            R8 K17 ["AddTangentMode"]
+       74 NAMECALL                         R6 R1 K7 ["get"]
+       76 CALL                             R6 2 1
+       77 GETTABLEKS                       R7 R0 K0 ["props"]
+       79 GETTABLEKS                       R7 R7 K18 ["dispatchToggleAddTangentTool"]
+       81 NAMECALL                         R4 R0 K9 ["addAction"]
+       83 CALL                             R4 3 -1
+       84 FASTCALL                         TABLE_INSERT ; [+2]
+       85 GETIMPORT                        R2 K12 [table.insert]
+       87 CALL                             R2 -1 0
+       88 RETURN                           R0 0
+
+PROTO_10:
+        0 GETTABLEKS                       R1 R0 K0 ["state"]
+        2 GETTABLEKS                       R1 R1 K1 ["selectionChangedConn"]
+        4 JUMPIFEQKNIL                     R1 ; [+8]
+        6 GETTABLEKS                       R1 R0 K0 ["state"]
+        8 GETTABLEKS                       R1 R1 K1 ["selectionChangedConn"]
+       10 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       12 CALL                             R1 1 0
+       13 GETTABLEKS                       R1 R0 K0 ["state"]
+       15 GETTABLEKS                       R1 R1 K3 ["selectedObjectChangedConn"]
+       17 JUMPIFEQKNIL                     R1 ; [+8]
+       19 GETTABLEKS                       R1 R0 K0 ["state"]
+       21 GETTABLEKS                       R1 R1 K3 ["selectedObjectChangedConn"]
+       23 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       25 CALL                             R1 1 0
+       26 GETTABLEKS                       R1 R0 K0 ["state"]
+       28 GETTABLEKS                       R1 R1 K4 ["selectedObjectParentChangedConn"]
+       30 JUMPIFEQKNIL                     R1 ; [+8]
+       32 GETTABLEKS                       R1 R0 K0 ["state"]
+       34 GETTABLEKS                       R1 R1 K4 ["selectedObjectParentChangedConn"]
+       36 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       38 CALL                             R1 1 0
+       39 GETTABLEKS                       R1 R0 K5 ["Connections"]
+       41 JUMPIFNOT                        R1 ; [+15]
+       42 GETIMPORT                        R1 K7 [ipairs]
+       44 GETTABLEKS                       R2 R0 K5 ["Connections"]
+       46 CALL                             R1 1 3
+       47 FORGPREP_INEXT                   R1
+       48 NAMECALL                         R6 R5 K2 ["Disconnect"]
+       50 CALL                             R6 1 0
+       51 FORGLOOP                         R1 2 [inext] ; [-4]
+       53 NEWTABLE                         R1 0 0
+       55 SETTABLEKS                       R1 R0 K5 ["Connections"]
+       57 GETTABLEKS                       R1 R0 K8 ["Actions"]
+       59 JUMPIFNOT                        R1 ; [+11]
+       60 GETIMPORT                        R1 K7 [ipairs]
+       62 GETTABLEKS                       R2 R0 K8 ["Actions"]
+       64 CALL                             R1 1 3
+       65 FORGPREP_INEXT                   R1
+       66 LOADB                            R6 0
+       67 SETTABLEKS                       R6 R5 K9 ["Enabled"]
+       69 FORGLOOP                         R1 2 [inext] ; [-4]
+       71 RETURN                           R0 0
+
+PROTO_11:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R0 K1 ["lastToolingMode"]
+        4 GETTABLEKS                       R3 R1 K2 ["Path2DToolMode"]
+        6 JUMPIFEQ                         R2 R3 ; [+20]
+        8 GETTABLEKS                       R2 R1 K2 ["Path2DToolMode"]
+       10 SETTABLEKS                       R2 R0 K1 ["lastToolingMode"]
+       12 GETTABLEKS                       R2 R0 K1 ["lastToolingMode"]
+       14 JUMPIFNOTEQKS                    R2 K3 ["DoneEditing"] ; [+7]
+       16 GETTABLEKS                       R4 R0 K4 ["EditingActions"]
+       18 NAMECALL                         R2 R0 K5 ["disableActions"]
+       20 CALL                             R2 2 0
+       21 JUMP                             ; [+5]
+       22 GETTABLEKS                       R4 R0 K4 ["EditingActions"]
+       24 NAMECALL                         R2 R0 K6 ["enableActions"]
+       26 CALL                             R2 2 0
+       27 LOADNIL                          R2
+       28 RETURN                           R2 1
+
+PROTO_12:
+        0 DUPTABLE                         R2 K4 [{"SelectedObject", "SelectedControlPointIndex", "SelectedTangentSide", "Path2DToolMode"}]
+        1 GETTABLEKS                       R3 R0 K5 ["PathReducer"]
+        3 GETTABLEKS                       R3 R3 K0 ["SelectedObject"]
+        5 SETTABLEKS                       R3 R2 K0 ["SelectedObject"]
+        7 GETTABLEKS                       R3 R0 K5 ["PathReducer"]
+        9 GETTABLEKS                       R3 R3 K1 ["SelectedControlPointIndex"]
+       11 SETTABLEKS                       R3 R2 K1 ["SelectedControlPointIndex"]
+       13 GETTABLEKS                       R3 R0 K5 ["PathReducer"]
+       15 GETTABLEKS                       R3 R3 K2 ["SelectedTangentSide"]
+       17 SETTABLEKS                       R3 R2 K2 ["SelectedTangentSide"]
+       19 GETTABLEKS                       R3 R0 K5 ["PathReducer"]
+       21 GETTABLEKS                       R3 R3 K3 ["Path2DToolMode"]
+       23 SETTABLEKS                       R3 R2 K3 ["Path2DToolMode"]
+       25 RETURN                           R2 1
+
+PROTO_13:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R1 0 -1
+        3 CALL                             R0 -1 0
+        4 RETURN                           R0 0
+
+PROTO_14:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R1 R0 K0 ["addPointModeCount"]
+        3 ADDK                             R1 R1 K1 [1]
+        4 SETTABLEKS                       R1 R0 K0 ["addPointModeCount"]
+        6 GETUPVAL                         R0 1
+        7 GETUPVAL                         R1 2
+        8 CALL                             R1 0 -1
+        9 CALL                             R0 -1 0
+       10 RETURN                           R0 0
+
+PROTO_15:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R1 R0 K0 ["addTangentModeCount"]
+        3 ADDK                             R1 R1 K1 [1]
+        4 SETTABLEKS                       R1 R0 K0 ["addTangentModeCount"]
+        6 GETUPVAL                         R0 1
+        7 GETUPVAL                         R1 2
+        8 CALL                             R1 0 -1
+        9 CALL                             R0 -1 0
+       10 RETURN                           R0 0
+
+PROTO_16:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R1 R0 K0 ["selectModeCount"]
+        3 ADDK                             R1 R1 K1 [1]
+        4 SETTABLEKS                       R1 R0 K0 ["selectModeCount"]
+        6 GETUPVAL                         R0 1
+        7 GETUPVAL                         R1 2
+        8 CALL                             R1 0 -1
+        9 CALL                             R0 -1 0
+       10 RETURN                           R0 0
+
+PROTO_17:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
+
+PROTO_18:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
+
+PROTO_19:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R1 0 -1
+        3 CALL                             R0 -1 0
+        4 RETURN                           R0 0
+
+PROTO_20:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R1 0 -1
+        3 CALL                             R0 -1 0
+        4 RETURN                           R0 0
+
+PROTO_21:
+        0 DUPTABLE                         R1 K8 [{"dispatchToggleDone", "dispatchToggleAddPointTool", "dispatchToggleAddTangentTool", "dispatchToggleMoveTool", "dispatchPathChanged", "dispatchSelectPath", "dispatchSelectPathCleared", "dispatchRemoveControlPoint"}]
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U0
+        4 SETTABLEKS                       R2 R1 K0 ["dispatchToggleDone"]
+        6 NEWCLOSURE                       R2 P1
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U2
+       10 SETTABLEKS                       R2 R1 K1 ["dispatchToggleAddPointTool"]
+       12 NEWCLOSURE                       R2 P2
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          UPVAL U3
+       16 SETTABLEKS                       R2 R1 K2 ["dispatchToggleAddTangentTool"]
+       18 NEWCLOSURE                       R2 P3
+       19 CAPTURE                          UPVAL U1
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U4
+       22 SETTABLEKS                       R2 R1 K3 ["dispatchToggleMoveTool"]
+       24 NEWCLOSURE                       R2 P4
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U5
+       27 SETTABLEKS                       R2 R1 K4 ["dispatchPathChanged"]
+       29 NEWCLOSURE                       R2 P5
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          UPVAL U6
+       32 SETTABLEKS                       R2 R1 K5 ["dispatchSelectPath"]
+       34 NEWCLOSURE                       R2 P6
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          UPVAL U7
+       37 SETTABLEKS                       R2 R1 K6 ["dispatchSelectPathCleared"]
+       39 NEWCLOSURE                       R2 P7
+       40 CAPTURE                          VAL R0
+       41 CAPTURE                          UPVAL U8
+       42 SETTABLEKS                       R2 R1 K7 ["dispatchRemoveControlPoint"]
+       44 RETURN                           R1 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Types"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K8 ["React"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K4 [require]
+       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K12 [game]
+       39 LOADK                            R7 K13 ["Selection"]
+       40 NAMECALL                         R5 R5 K14 ["GetService"]
+       42 CALL                             R5 2 1
+       43 GETTABLEKS                       R6 R4 K15 ["ContextServices"]
+       45 GETTABLEKS                       R7 R6 K16 ["withContext"]
+       47 GETTABLEKS                       R8 R0 K5 ["Src"]
+       49 GETTABLEKS                       R8 R8 K17 ["Actions"]
+       51 GETIMPORT                        R9 K4 [require]
+       53 GETTABLEKS                       R10 R8 K18 ["SelectPath"]
+       55 CALL                             R9 1 1
+       56 GETIMPORT                        R10 K4 [require]
+       58 GETTABLEKS                       R11 R8 K19 ["ClearPathSelection"]
+       60 CALL                             R10 1 1
+       61 GETIMPORT                        R11 K4 [require]
+       63 GETTABLEKS                       R12 R8 K20 ["PathChanged"]
+       65 CALL                             R11 1 1
+       66 GETIMPORT                        R12 K4 [require]
+       68 GETTABLEKS                       R13 R8 K21 ["ToggleAddPointTool"]
+       70 CALL                             R12 1 1
+       71 GETIMPORT                        R13 K4 [require]
+       73 GETTABLEKS                       R14 R8 K22 ["ToggleMoveTool"]
+       75 CALL                             R13 1 1
+       76 GETIMPORT                        R14 K4 [require]
+       78 GETTABLEKS                       R15 R8 K23 ["ToggleAddTangentTool"]
+       80 CALL                             R14 1 1
+       81 GETIMPORT                        R15 K4 [require]
+       83 GETTABLEKS                       R16 R8 K24 ["ToggleDone"]
+       85 CALL                             R15 1 1
+       86 GETTABLEKS                       R16 R0 K5 ["Src"]
+       88 GETTABLEKS                       R16 R16 K25 ["Thunks"]
+       90 GETIMPORT                        R17 K4 [require]
+       92 GETTABLEKS                       R18 R16 K26 ["RemoveControlPoint"]
+       94 CALL                             R17 1 1
+       95 GETTABLEKS                       R18 R0 K5 ["Src"]
+       97 GETTABLEKS                       R18 R18 K27 ["Util"]
+       99 GETIMPORT                        R19 K4 [require]
+      101 GETTABLEKS                       R20 R18 K28 ["TelemetryGlobals"]
+      103 CALL                             R19 1 1
+      104 GETIMPORT                        R20 K4 [require]
+      106 GETTABLEKS                       R21 R18 K29 ["isHierarchyValidForPath2D"]
+      108 CALL                             R20 1 1
+      109 GETTABLEKS                       R21 R2 K30 ["PureComponent"]
+      111 LOADK                            R23 K31 ["SelectionListener"]
+      112 NAMECALL                         R21 R21 K32 ["extend"]
+      114 CALL                             R21 2 1
+      115 DUPCLOSURE                       R22 K33 [PROTO_0]
+      116 SETTABLEKS                       R22 R21 K34 ["addAction"]
+      118 DUPCLOSURE                       R22 K35 [PROTO_1]
+      119 SETTABLEKS                       R22 R21 K36 ["enableActions"]
+      121 DUPCLOSURE                       R22 K37 [PROTO_2]
+      122 SETTABLEKS                       R22 R21 K38 ["disableActions"]
+      124 DUPCLOSURE                       R22 K39 [PROTO_8]
+      125 CAPTURE                          VAL R20
+      126 CAPTURE                          VAL R5
+      127 SETTABLEKS                       R22 R21 K40 ["init"]
+      129 DUPCLOSURE                       R22 K41 [PROTO_9]
+      130 SETTABLEKS                       R22 R21 K42 ["didMount"]
+      132 DUPCLOSURE                       R22 K43 [PROTO_10]
+      133 SETTABLEKS                       R22 R21 K44 ["willUnmount"]
+      135 DUPCLOSURE                       R22 K45 [PROTO_11]
+      136 SETTABLEKS                       R22 R21 K46 ["render"]
+      138 MOVE                             R22 R7
+      139 DUPTABLE                         R23 K49 [{"PluginActions", "Mouse"}]
+      140 GETTABLEKS                       R24 R6 K47 ["PluginActions"]
+      142 SETTABLEKS                       R24 R23 K47 ["PluginActions"]
+      144 GETTABLEKS                       R24 R6 K48 ["Mouse"]
+      146 SETTABLEKS                       R24 R23 K48 ["Mouse"]
+      148 CALL                             R22 1 1
+      149 MOVE                             R23 R21
+      150 CALL                             R22 1 1
+      151 MOVE                             R21 R22
+      152 GETTABLEKS                       R22 R3 K50 ["connect"]
+      154 DUPCLOSURE                       R23 K51 [PROTO_12]
+      155 DUPCLOSURE                       R24 K52 [PROTO_21]
+      156 CAPTURE                          VAL R15
+      157 CAPTURE                          VAL R19
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R14
+      160 CAPTURE                          VAL R13
+      161 CAPTURE                          VAL R11
+      162 CAPTURE                          VAL R9
+      163 CAPTURE                          VAL R10
+      164 CAPTURE                          VAL R17
+      165 CALL                             R22 2 1
+      166 MOVE                             R23 R21
+      167 CALL                             R22 1 -1
+      168 RETURN                           R22 -1

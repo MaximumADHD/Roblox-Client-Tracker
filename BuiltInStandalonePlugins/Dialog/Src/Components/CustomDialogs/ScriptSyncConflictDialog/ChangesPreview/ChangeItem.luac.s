@@ -1,0 +1,229 @@
+PROTO_0:
+        0 GETIMPORT                        R3 K2 [string.split]
+        2 MOVE                             R4 R0
+        3 LOADK                            R5 K3 ["/"]
+        4 CALL                             R3 2 1
+        5 SETTABLEKS                       R0 R2 K4 ["Text"]
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R5 R5 K5 ["GetTextBoundsAsync"]
+       10 GETUPVAL                         R6 0
+       11 MOVE                             R7 R2
+       12 FASTPCALL                        pcall 3 ; [+2]
+       13 GETIMPORT                        R4 K7 [pcall]
+       15 CALL                             R4 3 2
+       16 JUMPIFNOT                        R4 ; [+4]
+       17 GETTABLEKS                       R6 R5 K8 ["X"]
+       19 JUMPIFNOTLE                      R6 R1 ; [+2]
+       21 RETURN                           R0 1
+       22 LOADN                            R8 2
+       23 LENGTH                           R6 R3
+       24 LOADN                            R7 1
+       25 FORNPREP                         R6
+       26 LOADK                            R10 K9 [".../"]
+       27 GETIMPORT                        R11 K12 [table.concat]
+       29 MOVE                             R12 R3
+       30 LOADK                            R13 K3 ["/"]
+       31 MOVE                             R14 R8
+       32 CALL                             R11 3 1
+       33 CONCAT                           R9 R10 R11
+       34 SETTABLEKS                       R9 R2 K4 ["Text"]
+       36 GETUPVAL                         R11 0
+       37 GETTABLEKS                       R11 R11 K5 ["GetTextBoundsAsync"]
+       39 GETUPVAL                         R12 0
+       40 MOVE                             R13 R2
+       41 FASTPCALL                        pcall 3 ; [+2]
+       42 GETIMPORT                        R10 K7 [pcall]
+       44 CALL                             R10 3 2
+       45 JUMPIFNOT                        R10 ; [+5]
+       46 GETTABLEKS                       R12 R11 K8 ["X"]
+       48 JUMPIFNOTLE                      R12 R1 ; [+2]
+       50 RETURN                           R9 1
+       51 FORNLOOP                         R6
+       52 LENGTH                           R7 R3
+       53 GETTABLE                         R6 R3 R7
+       54 LOADN                            R9 1
+       55 LENGTH                           R7 R6
+       56 LOADN                            R8 1
+       57 FORNPREP                         R7
+       58 LOADK                            R11 K13 ["..."]
+       59 MOVE                             R14 R9
+       60 NAMECALL                         R12 R6 K14 ["sub"]
+       62 CALL                             R12 2 1
+       63 CONCAT                           R10 R11 R12
+       64 SETTABLEKS                       R10 R2 K4 ["Text"]
+       66 GETUPVAL                         R12 0
+       67 GETTABLEKS                       R12 R12 K5 ["GetTextBoundsAsync"]
+       69 GETUPVAL                         R13 0
+       70 MOVE                             R14 R2
+       71 FASTPCALL                        pcall 3 ; [+2]
+       72 GETIMPORT                        R11 K7 [pcall]
+       74 CALL                             R11 3 2
+       75 JUMPIFNOT                        R11 ; [+5]
+       76 GETTABLEKS                       R13 R12 K8 ["X"]
+       78 JUMPIFNOTLE                      R13 R1 ; [+2]
+       80 RETURN                           R10 1
+       81 FORNLOOP                         R7
+       82 LOADK                            R7 K13 ["..."]
+       83 RETURN                           R7 1
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["AbsoluteSize"]
+        3 GETTABLEKS                       R2 R2 K1 ["X"]
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
+
+PROTO_2:
+        0 GETIMPORT                        R0 K2 [Instance.new]
+        2 LOADK                            R1 K3 ["GetTextBoundsParams"]
+        3 CALL                             R0 1 1
+        4 GETUPVAL                         R1 0
+        5 SETTABLEKS                       R1 R0 K4 ["Font"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K5 ["FontSize"]
+       10 SETTABLEKS                       R1 R0 K6 ["Size"]
+       12 LOADK                            R1 K7 [Infinity]
+       13 SETTABLEKS                       R1 R0 K8 ["Width"]
+       15 GETUPVAL                         R1 2
+       16 GETUPVAL                         R2 3
+       17 GETTABLEKS                       R2 R2 K9 ["change"]
+       19 GETUPVAL                         R3 4
+       20 MOVE                             R4 R0
+       21 CALL                             R1 3 1
+       22 NAMECALL                         R2 R0 K10 ["Destroy"]
+       24 CALL                             R2 1 0
+       25 GETUPVAL                         R2 5
+       26 JUMPIF                           R2 ; [+3]
+       27 GETUPVAL                         R2 6
+       28 MOVE                             R3 R1
+       29 CALL                             R2 1 0
+       30 RETURN                           R0 0
+
+PROTO_3:
+        0 LOADB                            R0 1
+        1 SETUPVAL                         R0 0
+        2 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 LOADN                            R1 0
+        2 JUMPIFNOTLE                      R0 R1 ; [+2]
+        4 RETURN                           R0 0
+        5 LOADB                            R0 0
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K0 ["Font"]
+        9 FASTCALL1                        TYPEOF R3 ; [+2]
+       10 GETIMPORT                        R2 K2 [typeof]
+       12 CALL                             R2 1 1
+       13 JUMPIFNOTEQKS                    R2 K3 ["EnumItem"] ; [+8]
+       15 GETIMPORT                        R1 K5 [Font.fromEnum]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K0 ["Font"]
+       20 CALL                             R1 1 1
+       21 JUMP                             ; [+3]
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K0 ["Font"]
+       25 GETIMPORT                        R2 K8 [task.spawn]
+       27 NEWCLOSURE                       R3 P0
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          UPVAL U1
+       30 CAPTURE                          UPVAL U2
+       31 CAPTURE                          UPVAL U3
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          REF R0
+       34 CAPTURE                          UPVAL U4
+       35 CALL                             R2 1 0
+       36 NEWCLOSURE                       R2 P1
+       37 CAPTURE                          REF R0
+       38 CLOSEUPVALS                      R0
+       39 RETURN                           R2 1
+
+PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["Hooks"]
+        3 GETTABLEKS                       R1 R1 K1 ["useTokens"]
+        5 CALL                             R1 0 1
+        6 GETTABLEKS                       R2 R1 K2 ["Typography"]
+        8 GETTABLEKS                       R2 R2 K3 ["BodyMedium"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K4 ["useState"]
+       13 LOADN                            R4 0
+       14 CALL                             R3 1 2
+       15 GETUPVAL                         R5 1
+       16 GETTABLEKS                       R5 R5 K4 ["useState"]
+       18 GETTABLEKS                       R6 R0 K5 ["change"]
+       20 CALL                             R5 1 2
+       21 GETUPVAL                         R7 1
+       22 GETTABLEKS                       R7 R7 K6 ["useCallback"]
+       24 NEWCLOSURE                       R8 P0
+       25 CAPTURE                          VAL R4
+       26 NEWTABLE                         R9 0 0
+       28 CALL                             R7 2 1
+       29 GETUPVAL                         R8 1
+       30 GETTABLEKS                       R8 R8 K7 ["useEffect"]
+       32 NEWCLOSURE                       R9 P1
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          UPVAL U2
+       36 CAPTURE                          VAL R0
+       37 CAPTURE                          VAL R6
+       38 NEWTABLE                         R10 0 3
+       40 GETTABLEKS                       R11 R0 K5 ["change"]
+       42 MOVE                             R12 R3
+       43 MOVE                             R13 R2
+       44 SETLIST                          R10 R11 3 [1]
+       46 CALL                             R8 2 0
+       47 GETUPVAL                         R8 3
+       48 GETUPVAL                         R9 0
+       49 GETTABLEKS                       R9 R9 K8 ["View"]
+       51 DUPTABLE                         R10 K11 [{["tag"] = "row align-x-left align-y-center gap-small size-full-500 padding-left-xsmall"}]
+       52 DUPTABLE                         R11 K14 [{"Icon", "Text"}]
+       53 GETUPVAL                         R12 3
+       54 GETUPVAL                         R13 0
+       55 GETTABLEKS                       R13 R13 K15 ["Image"]
+       57 DUPTABLE                         R14 K17 [{["Image"], ["tag"] = "size-400-400"}]
+       58 GETTABLEKS                       R15 R0 K18 ["icon"]
+       60 SETTABLEKS                       R15 R14 K15 ["Image"]
+       62 CALL                             R12 2 1
+       63 SETTABLEKS                       R12 R11 K12 ["Icon"]
+       65 GETUPVAL                         R12 3
+       66 GETUPVAL                         R13 0
+       67 GETTABLEKS                       R13 R13 K13 ["Text"]
+       69 DUPTABLE                         R14 K21 [{["tag"] = "fill auto-xy text-body-medium text-no-wrap text-align-x-left", ["Text"], ["onAbsoluteSizeChanged"]}]
+       70 SETTABLEKS                       R5 R14 K13 ["Text"]
+       72 SETTABLEKS                       R7 R14 K20 ["onAbsoluteSizeChanged"]
+       74 CALL                             R12 2 1
+       75 SETTABLEKS                       R12 R11 K13 ["Text"]
+       77 CALL                             R8 3 -1
+       78 RETURN                           R8 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Dialog"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["Foundation"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K10 [game]
+       23 LOADK                            R5 K11 ["TextService"]
+       24 NAMECALL                         R3 R3 K12 ["GetService"]
+       26 CALL                             R3 2 1
+       27 GETTABLEKS                       R4 R2 K13 ["createElement"]
+       29 DUPCLOSURE                       R5 K14 [PROTO_0]
+       30 CAPTURE                          VAL R3
+       31 DUPCLOSURE                       R6 K15 [PROTO_5]
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          VAL R2
+       34 CAPTURE                          VAL R5
+       35 CAPTURE                          VAL R4
+       36 GETTABLEKS                       R7 R2 K16 ["memo"]
+       38 MOVE                             R8 R6
+       39 CALL                             R7 1 -1
+       40 RETURN                           R7 -1

@@ -1,0 +1,407 @@
+PROTO_0:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEN                        R5 R0 1
+        2 GETTABLEN                        R6 R0 2
+        3 GETTABLEN                        R7 R0 3
+        4 GETTABLEN                        R8 R0 4
+        5 GETTABLEN                        R9 R0 5
+        6 GETTABLEN                        R10 R0 6
+        7 GETTABLEN                        R11 R0 7
+        8 GETTABLEN                        R12 R0 8
+        9 MOVE                             R15 R2
+       10 MOVE                             R13 R3
+       11 LOADN                            R14 64
+       12 FORNPREP                         R13
+       13 MOVE                             R16 R15
+       14 LOADN                            R19 1
+       15 LOADN                            R17 16
+       16 LOADN                            R18 1
+       17 FORNPREP                         R17
+       18 ADDK                             R23 R16 K0 [3]
+       19 FASTCALL3                        STRING_BYTE R1 R16 R23
+       21 MOVE                             R21 R1
+       22 MOVE                             R22 R16
+       23 GETIMPORT                        R20 K3 [string.byte]
+       25 CALL                             R20 3 4
+       26 FASTCALL2K                       BIT32_LSHIFT R20 K4 ; [+5]
+       28 MOVE                             R26 R20
+       29 LOADK                            R27 K4 [24]
+       30 GETIMPORT                        R25 K7 [bit32.lshift]
+       32 CALL                             R25 2 1
+       33 FASTCALL2K                       BIT32_LSHIFT R21 K8 ; [+5]
+       35 MOVE                             R27 R21
+       36 LOADK                            R28 K8 [16]
+       37 GETIMPORT                        R26 K7 [bit32.lshift]
+       39 CALL                             R26 2 1
+       40 FASTCALL2K                       BIT32_LSHIFT R22 K9 ; [+5]
+       42 MOVE                             R28 R22
+       43 LOADK                            R29 K9 [8]
+       44 GETIMPORT                        R27 K7 [bit32.lshift]
+       46 CALL                             R27 2 1
+       47 MOVE                             R28 R23
+       48 FASTCALL                         BIT32_BOR ; [+2]
+       49 GETIMPORT                        R24 K11 [bit32.bor]
+       51 CALL                             R24 4 1
+       52 SETTABLE                         R24 R4 R19
+       53 ADDK                             R16 R16 K12 [4]
+       54 FORNLOOP                         R17
+       55 LOADN                            R19 17
+       56 LOADN                            R17 64
+       57 LOADN                            R18 1
+       58 FORNPREP                         R17
+       59 SUBK                             R21 R19 K13 [2]
+       60 GETTABLE                         R20 R4 R21
+       61 SUBK                             R22 R19 K14 [15]
+       62 GETTABLE                         R21 R4 R22
+       63 FASTCALL2K                       BIT32_RROTATE R20 K15 ; [+5]
+       65 MOVE                             R27 R20
+       66 LOADK                            R28 K15 [17]
+       67 GETIMPORT                        R26 K17 [bit32.rrotate]
+       69 CALL                             R26 2 1
+       70 FASTCALL2K                       BIT32_RROTATE R20 K18 ; [+5]
+       72 MOVE                             R28 R20
+       73 LOADK                            R29 K18 [19]
+       74 GETIMPORT                        R27 K17 [bit32.rrotate]
+       76 CALL                             R27 2 1
+       77 FASTCALL2K                       BIT32_RSHIFT R20 K19 ; [+5]
+       79 MOVE                             R29 R20
+       80 LOADK                            R30 K19 [10]
+       81 GETIMPORT                        R28 K21 [bit32.rshift]
+       83 CALL                             R28 2 1
+       84 FASTCALL                         BIT32_BXOR ; [+2]
+       85 GETIMPORT                        R25 K23 [bit32.bxor]
+       87 CALL                             R25 3 1
+       88 SUBK                             R27 R19 K24 [7]
+       89 GETTABLE                         R26 R4 R27
+       90 ADD                              R24 R25 R26
+       91 FASTCALL2K                       BIT32_RROTATE R21 K24 ; [+5]
+       93 MOVE                             R27 R21
+       94 LOADK                            R28 K24 [7]
+       95 GETIMPORT                        R26 K17 [bit32.rrotate]
+       97 CALL                             R26 2 1
+       98 FASTCALL2K                       BIT32_RROTATE R21 K25 ; [+5]
+      100 MOVE                             R28 R21
+      101 LOADK                            R29 K25 [18]
+      102 GETIMPORT                        R27 K17 [bit32.rrotate]
+      104 CALL                             R27 2 1
+      105 FASTCALL2K                       BIT32_RSHIFT R21 K0 ; [+5]
+      107 MOVE                             R29 R21
+      108 LOADK                            R30 K0 [3]
+      109 GETIMPORT                        R28 K21 [bit32.rshift]
+      111 CALL                             R28 2 1
+      112 FASTCALL                         BIT32_BXOR ; [+2]
+      113 GETIMPORT                        R25 K23 [bit32.bxor]
+      115 CALL                             R25 3 1
+      116 ADD                              R23 R24 R25
+      117 SUBK                             R25 R19 K8 [16]
+      118 GETTABLE                         R24 R4 R25
+      119 ADD                              R22 R23 R24
+      120 SETTABLE                         R22 R4 R19
+      121 FORNLOOP                         R17
+      122 MOVE                             R17 R5
+      123 MOVE                             R18 R6
+      124 MOVE                             R19 R7
+      125 MOVE                             R20 R8
+      126 MOVE                             R21 R9
+      127 MOVE                             R22 R10
+      128 MOVE                             R23 R11
+      129 MOVE                             R24 R12
+      130 LOADNIL                          R25
+      131 LOADNIL                          R26
+      132 LOADN                            R29 1
+      133 LOADN                            R27 64
+      134 LOADN                            R28 1
+      135 FORNPREP                         R27
+      136 FASTCALL2K                       BIT32_RROTATE R21 K26 ; [+5]
+      138 MOVE                             R36 R21
+      139 LOADK                            R37 K26 [6]
+      140 GETIMPORT                        R35 K17 [bit32.rrotate]
+      142 CALL                             R35 2 1
+      143 FASTCALL2K                       BIT32_RROTATE R21 K27 ; [+5]
+      145 MOVE                             R37 R21
+      146 LOADK                            R38 K27 [11]
+      147 GETIMPORT                        R36 K17 [bit32.rrotate]
+      149 CALL                             R36 2 1
+      150 FASTCALL2K                       BIT32_RROTATE R21 K28 ; [+5]
+      152 MOVE                             R38 R21
+      153 LOADK                            R39 K28 [25]
+      154 GETIMPORT                        R37 K17 [bit32.rrotate]
+      156 CALL                             R37 2 1
+      157 FASTCALL                         BIT32_BXOR ; [+2]
+      158 GETIMPORT                        R34 K23 [bit32.bxor]
+      160 CALL                             R34 3 1
+      161 ADD                              R33 R24 R34
+      162 FASTCALL2                        BIT32_BAND R21 R22 ; [+5]
+      164 MOVE                             R35 R21
+      165 MOVE                             R36 R22
+      166 GETIMPORT                        R34 K30 [bit32.band]
+      168 CALL                             R34 2 1
+      169 ADD                              R32 R33 R34
+      170 FASTCALL1                        BIT32_BNOT R21 ; [+3]
+      171 MOVE                             R35 R21
+      172 GETIMPORT                        R34 K32 [bit32.bnot]
+      174 CALL                             R34 1 1
+      175 FASTCALL2                        BIT32_BAND R34 R23 ; [+4]
+      177 MOVE                             R35 R23
+      178 GETIMPORT                        R33 K30 [bit32.band]
+      180 CALL                             R33 2 1
+      181 ADD                              R31 R32 R33
+      182 GETUPVAL                         R33 1
+      183 GETTABLE                         R32 R33 R29
+      184 ADD                              R30 R31 R32
+      185 GETTABLE                         R31 R4 R29
+      186 ADD                              R25 R30 R31
+      187 FASTCALL2                        BIT32_BAND R19 R18 ; [+5]
+      189 MOVE                             R32 R19
+      190 MOVE                             R33 R18
+      191 GETIMPORT                        R31 K30 [bit32.band]
+      193 CALL                             R31 2 1
+      194 FASTCALL2                        BIT32_BXOR R19 R18 ; [+5]
+      196 MOVE                             R35 R19
+      197 MOVE                             R36 R18
+      198 GETIMPORT                        R34 K23 [bit32.bxor]
+      200 CALL                             R34 2 1
+      201 FASTCALL2                        BIT32_BAND R17 R34 ; [+4]
+      203 MOVE                             R33 R17
+      204 GETIMPORT                        R32 K30 [bit32.band]
+      206 CALL                             R32 2 1
+      207 ADD                              R30 R31 R32
+      208 FASTCALL2K                       BIT32_RROTATE R17 K13 ; [+5]
+      210 MOVE                             R33 R17
+      211 LOADK                            R34 K13 [2]
+      212 GETIMPORT                        R32 K17 [bit32.rrotate]
+      214 CALL                             R32 2 1
+      215 FASTCALL2K                       BIT32_RROTATE R17 K33 ; [+5]
+      217 MOVE                             R34 R17
+      218 LOADK                            R35 K33 [13]
+      219 GETIMPORT                        R33 K17 [bit32.rrotate]
+      221 CALL                             R33 2 1
+      222 FASTCALL2K                       BIT32_RROTATE R17 K34 ; [+5]
+      224 MOVE                             R35 R17
+      225 LOADK                            R36 K34 [22]
+      226 GETIMPORT                        R34 K17 [bit32.rrotate]
+      228 CALL                             R34 2 1
+      229 FASTCALL                         BIT32_BXOR ; [+2]
+      230 GETIMPORT                        R31 K23 [bit32.bxor]
+      232 CALL                             R31 3 1
+      233 ADD                              R26 R30 R31
+      234 MOVE                             R24 R23
+      235 MOVE                             R23 R22
+      236 MOVE                             R22 R21
+      237 ADD                              R21 R20 R25
+      238 MOVE                             R20 R19
+      239 MOVE                             R19 R18
+      240 MOVE                             R18 R17
+      241 ADD                              R17 R25 R26
+      242 FORNLOOP                         R27
+      243 ADD                              R28 R17 R5
+      244 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      246 LOADK                            R29 K35 [0]
+      247 GETIMPORT                        R27 K11 [bit32.bor]
+      249 CALL                             R27 2 1
+      250 MOVE                             R5 R27
+      251 ADD                              R28 R18 R6
+      252 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      254 LOADK                            R29 K35 [0]
+      255 GETIMPORT                        R27 K11 [bit32.bor]
+      257 CALL                             R27 2 1
+      258 MOVE                             R6 R27
+      259 ADD                              R28 R19 R7
+      260 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      262 LOADK                            R29 K35 [0]
+      263 GETIMPORT                        R27 K11 [bit32.bor]
+      265 CALL                             R27 2 1
+      266 MOVE                             R7 R27
+      267 ADD                              R28 R20 R8
+      268 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      270 LOADK                            R29 K35 [0]
+      271 GETIMPORT                        R27 K11 [bit32.bor]
+      273 CALL                             R27 2 1
+      274 MOVE                             R8 R27
+      275 ADD                              R28 R21 R9
+      276 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      278 LOADK                            R29 K35 [0]
+      279 GETIMPORT                        R27 K11 [bit32.bor]
+      281 CALL                             R27 2 1
+      282 MOVE                             R9 R27
+      283 ADD                              R28 R22 R10
+      284 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      286 LOADK                            R29 K35 [0]
+      287 GETIMPORT                        R27 K11 [bit32.bor]
+      289 CALL                             R27 2 1
+      290 MOVE                             R10 R27
+      291 ADD                              R28 R23 R11
+      292 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      294 LOADK                            R29 K35 [0]
+      295 GETIMPORT                        R27 K11 [bit32.bor]
+      297 CALL                             R27 2 1
+      298 MOVE                             R11 R27
+      299 ADD                              R28 R24 R12
+      300 FASTCALL2K                       BIT32_BOR R28 K35 ; [+4]
+      302 LOADK                            R29 K35 [0]
+      303 GETIMPORT                        R27 K11 [bit32.bor]
+      305 CALL                             R27 2 1
+      306 MOVE                             R12 R27
+      307 FORNLOOP                         R13
+      308 SETTABLEN                        R5 R0 1
+      309 SETTABLEN                        R6 R0 2
+      310 SETTABLEN                        R7 R0 3
+      311 SETTABLEN                        R8 R0 4
+      312 SETTABLEN                        R9 R0 5
+      313 SETTABLEN                        R10 R0 6
+      314 SETTABLEN                        R11 R0 7
+      315 SETTABLEN                        R12 R0 8
+      316 RETURN                           R0 0
+
+PROTO_1:
+        0 NEWTABLE                         R1 0 8
+        2 LOADK                            R2 K0 [1779033703]
+        3 LOADK                            R3 K1 [3144134277]
+        4 LOADK                            R4 K2 [1013904242]
+        5 LOADK                            R5 K3 [2773480762]
+        6 LOADK                            R6 K4 [1359893119]
+        7 LOADK                            R7 K5 [2600822924]
+        8 LOADK                            R8 K6 [528734635]
+        9 LOADK                            R9 K7 [1541459225]
+       10 SETLIST                          R1 R2 8 [1]
+       12 LENGTH                           R2 R0
+       13 MODK                             R3 R2 K8 [64]
+       14 LOADN                            R4 64
+       15 JUMPIFNOTLE                      R4 R2 ; [+7]
+       17 GETUPVAL                         R4 0
+       18 MOVE                             R5 R1
+       19 MOVE                             R6 R0
+       20 LOADN                            R7 1
+       21 SUB                              R8 R2 R3
+       22 CALL                             R4 4 0
+       23 ADDK                             R5 R3 K9 [32]
+       24 FASTCALL2K                       BIT32_BAND R5 K10 ; [+4]
+       26 LOADK                            R6 K10 [4294967232]
+       27 GETIMPORT                        R4 K13 [bit32.band]
+       29 CALL                             R4 2 1
+       30 NEWTABLE                         R5 0 4
+       32 JUMPIFEQKN                       R3 K14 [0] ; [+9]
+       34 MINUS                            R8 R3
+       35 FASTCALL2                        STRING_SUB R0 R8 ; [+4]
+       37 MOVE                             R7 R0
+       38 GETIMPORT                        R6 K17 [string.sub]
+       40 CALL                             R6 2 1
+       41 JUMP                             ; [+1]
+       42 LOADK                            R6 K18 [""]
+       43 LOADK                            R7 K19 ["�"]
+       44 GETIMPORT                        R8 K21 [string.rep]
+       46 LOADK                            R9 K22 ["\0"]
+       47 SUB                              R12 R4 R3
+       48 SUBK                             R11 R12 K23 [9]
+       49 MODK                             R10 R11 K8 [64]
+       50 CALL                             R8 2 1
+       51 GETIMPORT                        R9 K25 [string.pack]
+       53 LOADK                            R10 K26 [">L"]
+       54 MULK                             R11 R2 K27 [8]
+       55 CALL                             R9 2 -1
+       56 SETLIST                          R5 R6 -1 [1]
+       58 GETIMPORT                        R6 K30 [table.concat]
+       60 MOVE                             R7 R5
+       61 CALL                             R6 1 1
+       62 GETUPVAL                         R7 0
+       63 MOVE                             R8 R1
+       64 MOVE                             R9 R6
+       65 LOADN                            R10 1
+       66 LENGTH                           R11 R6
+       67 CALL                             R7 4 0
+       68 GETIMPORT                        R7 K32 [string.format]
+       70 LOADK                            R8 K33 ["%08x%08x%08x%08x%08x%08x%08x%08x"]
+       71 GETTABLEN                        R9 R1 1
+       72 GETTABLEN                        R10 R1 2
+       73 GETTABLEN                        R11 R1 3
+       74 GETTABLEN                        R12 R1 4
+       75 GETTABLEN                        R13 R1 5
+       76 GETTABLEN                        R14 R1 6
+       77 GETTABLEN                        R15 R1 7
+       78 GETTABLEN                        R16 R1 8
+       79 CALL                             R7 9 1
+       80 GETIMPORT                        R8 K35 [table.freeze]
+       82 MOVE                             R9 R1
+       83 CALL                             R8 1 -1
+       84 RETURN                           R7 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 NEWTABLE                         R0 0 64
+        3 LOADK                            R1 K0 [1116352408]
+        4 LOADK                            R2 K1 [1899447441]
+        5 LOADK                            R3 K2 [3049323471]
+        6 LOADK                            R4 K3 [3921009573]
+        7 LOADK                            R5 K4 [961987163]
+        8 LOADK                            R6 K5 [1508970993]
+        9 LOADK                            R7 K6 [2453635748]
+       10 LOADK                            R8 K7 [2870763221]
+       11 LOADK                            R9 K8 [3624381080]
+       12 LOADK                            R10 K9 [310598401]
+       13 LOADK                            R11 K10 [607225278]
+       14 LOADK                            R12 K11 [1426881987]
+       15 LOADK                            R13 K12 [1925078388]
+       16 LOADK                            R14 K13 [2162078206]
+       17 LOADK                            R15 K14 [2614888103]
+       18 LOADK                            R16 K15 [3248222580]
+       19 SETLIST                          R0 R1 16 [1]
+       21 LOADK                            R1 K16 [3835390401]
+       22 LOADK                            R2 K17 [4022224774]
+       23 LOADK                            R3 K18 [264347078]
+       24 LOADK                            R4 K19 [604807628]
+       25 LOADK                            R5 K20 [770255983]
+       26 LOADK                            R6 K21 [1249150122]
+       27 LOADK                            R7 K22 [1555081692]
+       28 LOADK                            R8 K23 [1996064986]
+       29 LOADK                            R9 K24 [2554220882]
+       30 LOADK                            R10 K25 [2821834349]
+       31 LOADK                            R11 K26 [2952996808]
+       32 LOADK                            R12 K27 [3210313671]
+       33 LOADK                            R13 K28 [3336571891]
+       34 LOADK                            R14 K29 [3584528711]
+       35 LOADK                            R15 K30 [113926993]
+       36 LOADK                            R16 K31 [338241895]
+       37 SETLIST                          R0 R1 16 [17]
+       39 LOADK                            R1 K32 [666307205]
+       40 LOADK                            R2 K33 [773529912]
+       41 LOADK                            R3 K34 [1294757372]
+       42 LOADK                            R4 K35 [1396182291]
+       43 LOADK                            R5 K36 [1695183700]
+       44 LOADK                            R6 K37 [1986661051]
+       45 LOADK                            R7 K38 [2177026350]
+       46 LOADK                            R8 K39 [2456956037]
+       47 LOADK                            R9 K40 [2730485921]
+       48 LOADK                            R10 K41 [2820302411]
+       49 LOADK                            R11 K42 [3259730800]
+       50 LOADK                            R12 K43 [3345764771]
+       51 LOADK                            R13 K44 [3516065817]
+       52 LOADK                            R14 K45 [3600352804]
+       53 LOADK                            R15 K46 [4094571909]
+       54 LOADK                            R16 K47 [275423344]
+       55 SETLIST                          R0 R1 16 [33]
+       57 LOADK                            R1 K48 [430227734]
+       58 LOADK                            R2 K49 [506948616]
+       59 LOADK                            R3 K50 [659060556]
+       60 LOADK                            R4 K51 [883997877]
+       61 LOADK                            R5 K52 [958139571]
+       62 LOADK                            R6 K53 [1322822218]
+       63 LOADK                            R7 K54 [1537002063]
+       64 LOADK                            R8 K55 [1747873779]
+       65 LOADK                            R9 K56 [1955562222]
+       66 LOADK                            R10 K57 [2024104815]
+       67 LOADK                            R11 K58 [2227730452]
+       68 LOADK                            R12 K59 [2361852424]
+       69 LOADK                            R13 K60 [2428436474]
+       70 LOADK                            R14 K61 [2756734187]
+       71 LOADK                            R15 K62 [3204031479]
+       72 LOADK                            R16 K63 [3329325298]
+       73 SETLIST                          R0 R1 16 [49]
+       75 GETIMPORT                        R1 K66 [table.create]
+       77 LOADN                            R2 64
+       78 CALL                             R1 1 1
+       79 DUPCLOSURE                       R2 K67 [PROTO_0]
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R0
+       82 DUPCLOSURE                       R3 K68 [PROTO_1]
+       83 CAPTURE                          VAL R2
+       84 RETURN                           R3 1
