@@ -1,4 +1,4 @@
-	Ú°
+Ú°
 Table {
   "Head": Table {
     Vector3(1017, 1018, 0): true,
@@ -1263,4 +1263,4 @@ Table {
     Vector3(99, 641, 0): true,
   },
 }
-2should create a segmentation map from the lizard 1    A   5          ö        ÿÿ           ô    
+2should create a segmentation map from the lizard 1 F   A   5          ö        ÿÿ           ô     
